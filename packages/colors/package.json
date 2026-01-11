@@ -2,6 +2,20 @@
   "name": "@xaui/colors",
   "version": "0.1.2",
   "description": "A TypeScript colors list utility inspired by Tailwind CSS color palette with 20+ color families and 11 shades each",
+  "keywords": [
+    "colors",
+    "color-palette",
+    "tailwind",
+    "tailwindcss",
+    "typescript",
+    "design-system",
+    "ui",
+    "react-native",
+    "xaui",
+    "theming",
+    "color-scheme",
+    "design-tokens"
+  ],
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -16,6 +30,11 @@
     "dist",
     "package.json"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rygrams/xaui.git",
+    "directory": "packages/colors"
+  },
   "scripts": {
     "build": "tsup src/index.ts --format cjs,esm --dts",
     "dev": "tsup src/index.ts --format cjs,esm --dts --watch",
