@@ -73,7 +73,7 @@ jobs:
         run: pnpm install
 
       - name: Build packages
-        run: pnpm run build --filter=@xui/*
+        run: pnpm run build --filter=@xaui/*
 
       - name: Create Release Pull Request or Publish
         uses: changesets/action@v1

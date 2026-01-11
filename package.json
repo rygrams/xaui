@@ -1,5 +1,5 @@
 {
-  "name": "xui",
+  "name": "xaui",
   "version": "0.0.0",
   "private": true,
   "type": "module",
@@ -16,7 +16,7 @@
     "changeset": "changeset",
     "version-packages": "changeset version",
     "type-check": "turbo run type-check",
-    "release": "turbo run build --filter=@xui/* && changeset publish"
+    "release": "turbo run build --filter=@xaui/* && changeset publish"
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.8",

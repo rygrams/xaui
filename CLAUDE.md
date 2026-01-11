@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-XUI is a modern React Native UI library inspired by Flutter, built as a Turborepo monorepo. The library focuses on Flutter-like APIs, smooth animations using React Native Reanimated, and a complete design system with a Tailwind-inspired color palette.
+XAUI is a modern React Native UI library inspired by Flutter, built as a Turborepo monorepo. The library focuses on Flutter-like APIs, smooth animations using React Native Reanimated, and a complete design system with a Tailwind-inspired color palette.
 
 ## Monorepo Architecture
 
@@ -33,7 +33,7 @@ pnpm format           # Format code with Prettier
 
 ```bash
 pnpm --filter <workspace-name> <command>   # Run command in specific workspace
-pnpm --filter @xui/core dev                # Example: dev mode for core package
+pnpm --filter @xaui/core dev                # Example: dev mode for core package
 pnpm --filter docs test                    # Example: test docs app
 ```
 
@@ -47,7 +47,7 @@ pnpm version-packages       # Update versions based on changesets
 pnpm release                # Build and publish packages to npm
 ```
 
-The release process builds only scoped `@xui/*` packages before publishing.
+The release process builds only scoped `@xaui/*` packages before publishing.
 
 ## Code Style
 

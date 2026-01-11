@@ -1,11 +1,11 @@
-# @xui/colors
+# @xaui/colors
 
-A comprehensive color palette for XUI Library, inspired by Tailwind CSS. Includes 20+ color families with 11 shades each (50-950), utility functions, and full TypeScript support.
+A comprehensive color palette for XAUI Library, inspired by Tailwind CSS. Includes 20+ color families with 11 shades each (50-950), utility functions, and full TypeScript support.
 
 ## Installation
 
 ```bash
-pnpm add @xui/colors
+pnpm add @xaui/colors
 ```
 
 ## Usage
@@ -13,7 +13,7 @@ pnpm add @xui/colors
 ### Basic Import
 
 ```typescript
-import { colors } from '@xui/colors'
+import { colors } from '@xaui/colors'
 
 // Access colors directly
 const primaryColor = colors.blue[500]  // '#3b82f6'
@@ -23,7 +23,7 @@ const textColor = colors.slate[700]     // '#334155'
 ### Using Utility Functions
 
 ```typescript
-import { getColor, withOpacity } from '@xui/colors'
+import { getColor, withOpacity } from '@xaui/colors'
 
 // Get a color with default shade (500)
 const blue = getColor('blue')           // '#3b82f6'
@@ -38,7 +38,7 @@ const blueWithOpacity = withOpacity(colors.blue[500], 0.5)  // '#3b82f680'
 ### TypeScript Support
 
 ```typescript
-import type { ColorName, ColorShade, ColorValue } from '@xui/colors'
+import type { ColorName, ColorShade, ColorValue } from '@xaui/colors'
 
 // ColorName: 'slate' | 'gray' | 'blue' | 'red' | ...
 // ColorShade: 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | 950

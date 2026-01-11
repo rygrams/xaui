@@ -1,4 +1,9 @@
-# XUI Library
+# XAUI Library
+
+> [!WARNING]
+> **🚧 VERSION ALPHA - EN DÉVELOPPEMENT ACTIF 🚧**
+>
+> Cette bibliothèque est actuellement en version alpha et n'est pas encore prête pour la production. L'API peut changer de manière significative entre les versions.
 
 A modern and performant React Native UI library, heavily inspired by Flutter, with smooth animations and a Turborepo architecture.
 
