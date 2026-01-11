@@ -1,5 +1,5 @@
 ---
-"@xaui/core": major
+"@xaui/core": patch
 ---
 
 Add @xaui/core package with theme system and simplified useTheme hook API
@@ -10,5 +10,3 @@ Add @xaui/core package with theme system and simplified useTheme hook API
 - Add useXUITheme hook for full theme object access
 - Support both light and dark theme variants
 - Integrate with @xaui/colors package for design tokens
-
-BREAKING CHANGE: Initial release with opinionated API - theme colors use valueOf()/toString() for automatic string conversion
