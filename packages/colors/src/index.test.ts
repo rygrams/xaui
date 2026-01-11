@@ -45,7 +45,7 @@ describe('getColor', () => {
   })
 
   it('should fallback to 500 shade for invalid shade', () => {
-    expect(getColor('blue', 999 as any)).toBe('#3b82f6')
+    expect(getColor('blue', 999 as never)).toBe('#3b82f6')
   })
 })
 

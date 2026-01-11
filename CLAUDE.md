@@ -67,9 +67,10 @@ Run `pnpm format` to auto-format code.
 - **React Native**: Mobile UI framework
 - **React Native Reanimated**: Native animations
 - **Next.js**: Documentation site
-- **Jest + React Native Testing Library**: Testing framework
+- **Vitest**: Testing framework
 - **Turborepo**: Build system and task runner
 - **Changesets**: Version management and publishing
+- **tsup**: Package bundler for library packages
 
 ## Architecture Guidelines
 
@@ -83,6 +84,51 @@ Run `pnpm format` to auto-format code.
 
 - Node.js >= 20
 - pnpm 10.28.0+
+
+## Workspace Structure
+
+**Current workspaces:**
+
+- `@xaui/colors` - Tailwind-inspired color palette package with 20+ colors × 11 shades
+- `demo` - Expo React Native demo application
+- `docs` - Next.js documentation site
+
+**Package configurations:**
+
+- Library packages (`@xaui/*`) use **tsup** for building with dual CJS/ESM output
+- All packages have individual test configurations with Vitest
+- Apps without tests should use `passWithNoTests: true` in vitest.config.ts to prevent CI failures
+
+## Testing
+
+**Run tests:**
+
+```bash
+pnpm test                          # Run all tests in monorepo
+pnpm --filter @xaui/colors test    # Run tests for specific package
+pnpm --filter @xaui/colors test:ui # Run tests with Vitest UI
+pnpm --filter @xaui/colors test:coverage # Run tests with coverage
+```
+
+**Test configuration:**
+
+- Vitest is installed at root level and inherited by workspaces
+- Packages with tests use standard Vitest config (e.g., `packages/colors/vitest.config.ts`)
+- Apps without tests must include `passWithNoTests: true` to avoid CI failures (e.g., `apps/docs/vitest.config.ts`)
+
+**Important:** Turborepo runs `test` tasks with `dependsOn: ["build"]`, so builds happen automatically before tests run.
+
+## CI/CD
+
+The project uses GitHub Actions with the following workflow:
+
+1. **CI Pipeline** (on push/PR to main/dev):
+   - Lint → Type check → Test → Build
+   - Node.js 22 with pnpm 10
+
+2. **Publish Pipeline** (on push to main):
+   - Uses Changesets action to create release PRs or publish to npm
+   - Only builds `@xaui/*` scoped packages before publishing
 
 ## Pull Request Guidelines
 
