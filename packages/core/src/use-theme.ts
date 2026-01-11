@@ -1,5 +1,5 @@
 import { useContext, useCallback } from 'react'
-import { XUIThemeContext, XUIThemeDispatchContext } from './theme'
+import { XAUIThemeContext, XAUIThemeDispatchContext } from './theme'
 
 interface ColorAccessor {
   setColor: (color: string) => void
@@ -41,11 +41,11 @@ interface UseThemeReturn {
 }
 
 export function useTheme(): UseThemeReturn {
-  const theme = useContext(XUIThemeContext)
-  const dispatch = useContext(XUIThemeDispatchContext)
+  const theme = useContext(XAUIThemeContext)
+  const dispatch = useContext(XAUIThemeDispatchContext)
 
   if (!theme || !dispatch) {
-    throw new Error('useTheme must be used within XUIProvider')
+    throw new Error('useTheme must be used within XAUIProvider')
   }
 
   const createAccessor = useCallback(

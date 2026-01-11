@@ -105,7 +105,7 @@ export interface ThemeShadows {
   }
 }
 
-export interface XUITheme {
+export interface XAUITheme {
   colors: ThemeColors
   spacing: ThemeSpacing
   borderRadius: ThemeBorderRadius
@@ -114,7 +114,7 @@ export interface XUITheme {
   shadows: ThemeShadows
 }
 
-export const theme: XUITheme = {
+export const theme: XAUITheme = {
   colors: themeColors,
   spacing: {
     xs: 4,
@@ -185,7 +185,7 @@ export const theme: XUITheme = {
   },
 }
 
-export const darkTheme: XUITheme = {
+export const darkTheme: XAUITheme = {
   colors: darkThemeColors,
   spacing: {
     xs: 4,
@@ -258,15 +258,15 @@ export const darkTheme: XUITheme = {
 
 const defaultTheme = theme
 
-export const XUIThemeContext = createContext<XUITheme | null>(null)
-export const XUIThemeDispatchContext = createContext<Dispatch<ThemeAction> | null>(null)
+export const XAUIThemeContext = createContext<XAUITheme | null>(null)
+export const XAUIThemeDispatchContext = createContext<Dispatch<ThemeAction> | null>(null)
 
-export interface XUIProviderProps {
+export interface XAUIProviderProps {
   children: ReactNode
-  theme?: Partial<XUITheme>
+  theme?: Partial<XAUITheme>
 }
 
-export function XUIProvider({ children, theme: customTheme }: XUIProviderProps) {
+export function XAUIProvider({ children, theme: customTheme }: XAUIProviderProps) {
   const initialTheme = React.useMemo(
     () => ({
       ...defaultTheme,
@@ -278,18 +278,18 @@ export function XUIProvider({ children, theme: customTheme }: XUIProviderProps) 
   const [theme, dispatch] = useReducer(themeReducer, initialTheme)
 
   return (
-    <XUIThemeContext.Provider value={theme}>
-      <XUIThemeDispatchContext.Provider value={dispatch}>
+    <XAUIThemeContext.Provider value={theme}>
+      <XAUIThemeDispatchContext.Provider value={dispatch}>
         {children}
-      </XUIThemeDispatchContext.Provider>
-    </XUIThemeContext.Provider>
+      </XAUIThemeDispatchContext.Provider>
+    </XAUIThemeContext.Provider>
   )
 }
 
-export function useXUITheme(): XUITheme {
-  const context = useContext(XUIThemeContext)
+export function useXauiTheme(): XAUITheme {
+  const context = useContext(XAUIThemeContext)
   if (!context) {
-    throw new Error('useXUITheme must be used within XUIProvider')
+    throw new Error('useXauiTheme must be used within XAUIProvider')
   }
   return context
 }

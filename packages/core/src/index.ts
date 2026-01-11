@@ -1,8 +1,8 @@
 // Theme exports
-export { XUIProvider, useXUITheme, colors, getColor, theme, darkTheme } from './theme'
+export { XAUIProvider, useXauiTheme, colors, getColor, theme, darkTheme } from './theme'
 
 export type {
-  XUITheme,
+  XAUITheme,
   ThemeColors,
   ThemeSpacing,
   ThemeBorderRadius,
@@ -11,7 +11,7 @@ export type {
   ThemeShadows,
   ColorName,
   ColorShade,
-  XUIProviderProps,
+  XAUIProviderProps,
 } from './theme'
 
 // Theme colors exports
