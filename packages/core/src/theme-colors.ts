@@ -1,5 +1,4 @@
 import { colors } from '@xaui/colors'
-import type { ThemeColors } from './theme'
 
 export const themeColors: ThemeColors = {
   primary: colors.blue[600],
@@ -59,4 +58,34 @@ export const darkThemeColors: ThemeColors = {
     secondary: colors.gray[700],
     focus: colors.blue[500],
   },
+}
+
+export interface ThemeColors {
+  primary: string
+  secondary: string
+  success: string
+  warning: string
+  error: string
+  info: string
+
+  text: {
+    primary: string
+    secondary: string
+    tertiary: string
+    disabled: string
+    inverse: string
+  }
+
+  background: {
+    primary: string
+    secondary: string
+    tertiary: string
+    inverse: string
+  }
+
+  border: {
+    primary: string
+    secondary: string
+    focus: string
+  }
 }

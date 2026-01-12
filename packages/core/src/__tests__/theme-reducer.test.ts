@@ -1,9 +1,9 @@
 import { describe, it, expect } from 'vitest'
 import { themeReducer, ThemeAction } from '../theme-reducer'
-import { XAUITheme } from '../theme'
+import { XUITheme } from '../theme'
 import { themeColors } from '../theme-colors'
 
-const mockTheme: XAUITheme = {
+const mockTheme: XUITheme = {
   colors: themeColors,
   spacing: {
     xs: 4,

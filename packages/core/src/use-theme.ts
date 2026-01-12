@@ -1,5 +1,5 @@
 import { useContext, useCallback } from 'react'
-import { XAUIThemeContext, XAUIThemeDispatchContext } from './theme'
+import { XUIThemeContext, XUIThemeDispatchContext } from './theme'
 
 interface ColorAccessor {
   setColor: (color: string) => void
@@ -40,9 +40,9 @@ interface UseThemeReturn {
   border: BorderColorAccessor
 }
 
-export function useTheme(): UseThemeReturn {
-  const theme = useContext(XAUIThemeContext)
-  const dispatch = useContext(XAUIThemeDispatchContext)
+export function useXUITheme(): UseThemeReturn {
+  const theme = useContext(XUIThemeContext)
+  const dispatch = useContext(XUIThemeDispatchContext)
 
   if (!theme || !dispatch) {
     throw new Error('useTheme must be used within XAUIProvider')

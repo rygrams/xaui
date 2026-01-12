@@ -1,37 +1,7 @@
 import React, { createContext, useContext, useReducer, ReactNode, Dispatch } from 'react'
 import { colors, ColorName, ColorShade, getColor } from '@xaui/colors'
-import { themeColors, darkThemeColors } from './theme-colors'
+import { themeColors, darkThemeColors, ThemeColors } from './theme-colors'
 import { ThemeAction, themeReducer } from './theme-reducer'
-
-export interface ThemeColors {
-  primary: string
-  secondary: string
-  success: string
-  warning: string
-  error: string
-  info: string
-
-  text: {
-    primary: string
-    secondary: string
-    tertiary: string
-    disabled: string
-    inverse: string
-  }
-
-  background: {
-    primary: string
-    secondary: string
-    tertiary: string
-    inverse: string
-  }
-
-  border: {
-    primary: string
-    secondary: string
-    focus: string
-  }
-}
 
 export interface ThemeSpacing {
   xs: number
@@ -105,7 +75,7 @@ export interface ThemeShadows {
   }
 }
 
-export interface XAUITheme {
+export interface XUITheme {
   colors: ThemeColors
   spacing: ThemeSpacing
   borderRadius: ThemeBorderRadius
@@ -114,7 +84,7 @@ export interface XAUITheme {
   shadows: ThemeShadows
 }
 
-export const theme: XAUITheme = {
+export const theme: XUITheme = {
   colors: themeColors,
   spacing: {
     xs: 4,
@@ -185,7 +155,7 @@ export const theme: XAUITheme = {
   },
 }
 
-export const darkTheme: XAUITheme = {
+export const darkTheme: XUITheme = {
   colors: darkThemeColors,
   spacing: {
     xs: 4,
@@ -258,15 +228,15 @@ export const darkTheme: XAUITheme = {
 
 const defaultTheme = theme
 
-export const XAUIThemeContext = createContext<XAUITheme | null>(null)
-export const XAUIThemeDispatchContext = createContext<Dispatch<ThemeAction> | null>(null)
+export const XUIThemeContext = createContext<XUITheme | null>(null)
+export const XUIThemeDispatchContext = createContext<Dispatch<ThemeAction> | null>(null)
 
-export interface XAUIProviderProps {
+export interface XUIProviderProps {
   children: ReactNode
-  theme?: Partial<XAUITheme>
+  theme?: Partial<XUITheme>
 }
 
-export function XAUIProvider({ children, theme: customTheme }: XAUIProviderProps) {
+export function XUIProvider({ children, theme: customTheme }: XUIProviderProps) {
   const initialTheme = React.useMemo(
     () => ({
       ...defaultTheme,
@@ -278,18 +248,18 @@ export function XAUIProvider({ children, theme: customTheme }: XAUIProviderProps
   const [theme, dispatch] = useReducer(themeReducer, initialTheme)
 
   return (
-    <XAUIThemeContext.Provider value={theme}>
-      <XAUIThemeDispatchContext.Provider value={dispatch}>
+    <XUIThemeContext.Provider value={theme}>
+      <XUIThemeDispatchContext.Provider value={dispatch}>
         {children}
-      </XAUIThemeDispatchContext.Provider>
-    </XAUIThemeContext.Provider>
+      </XUIThemeDispatchContext.Provider>
+    </XUIThemeContext.Provider>
   )
 }
 
-export function useXauiTheme(): XAUITheme {
-  const context = useContext(XAUIThemeContext)
+export function useXUITheme(): XUITheme {
+  const context = useContext(XUIThemeContext)
   if (!context) {
-    throw new Error('useXauiTheme must be used within XAUIProvider')
+    throw new Error('useXUITheme must be used within XUIProvider')
   }
   return context
 }

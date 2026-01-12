@@ -1,4 +1,4 @@
-import { XAUITheme } from './theme'
+import { XUITheme } from './theme'
 
 export type ThemeAction =
   | { type: 'SET_PRIMARY'; color: string }
@@ -20,7 +20,7 @@ export type ThemeAction =
   | { type: 'SET_BORDER_SECONDARY'; color: string }
   | { type: 'SET_BORDER_FOCUS'; color: string }
 
-export function themeReducer(state: XAUITheme, action: ThemeAction): XAUITheme {
+export function themeReducer(state: XUITheme, action: ThemeAction): XUITheme {
   switch (action.type) {
     case 'SET_PRIMARY':
       return { ...state, colors: { ...state.colors, primary: action.color } }
