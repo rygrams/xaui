@@ -246,4 +246,38 @@ describe('themeReducer', () => {
       expect(result).toBe(mockTheme)
     })
   })
+
+  describe('no-op updates', () => {
+    it('should return the same state reference when setting the same primary color', () => {
+      const currentColor = mockTheme.colors.primary
+      const action: ThemeAction = { type: 'SET_PRIMARY', color: currentColor }
+      const result = themeReducer(mockTheme, action)
+
+      expect(result).toBe(mockTheme)
+    })
+
+    it('should return the same state reference when setting the same text color', () => {
+      const currentColor = mockTheme.colors.text.primary
+      const action: ThemeAction = { type: 'SET_TEXT_PRIMARY', color: currentColor }
+      const result = themeReducer(mockTheme, action)
+
+      expect(result).toBe(mockTheme)
+    })
+
+    it('should return the same state reference when setting the same background color', () => {
+      const currentColor = mockTheme.colors.background.primary
+      const action: ThemeAction = { type: 'SET_BACKGROUND_PRIMARY', color: currentColor }
+      const result = themeReducer(mockTheme, action)
+
+      expect(result).toBe(mockTheme)
+    })
+
+    it('should return the same state reference when setting the same border color', () => {
+      const currentColor = mockTheme.colors.border.focus
+      const action: ThemeAction = { type: 'SET_BORDER_FOCUS', color: currentColor }
+      const result = themeReducer(mockTheme, action)
+
+      expect(result).toBe(mockTheme)
+    })
+  })
 })

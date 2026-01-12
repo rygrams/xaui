@@ -1,4 +1,4 @@
-import { useContext, useCallback } from 'react'
+import { useContext, useCallback, useMemo } from 'react'
 import { XUIThemeContext, XUIThemeDispatchContext } from './theme'
 
 interface ColorAccessor {
@@ -59,7 +59,7 @@ export function useXUITheme(): UseXUIThemeReturn {
     []
   )
 
-  return {
+  return useMemo(() => ({
     primary: createAccessor(
       () => theme.colors.primary,
       color => dispatch({ type: 'SET_PRIMARY', color })
@@ -138,5 +138,5 @@ export function useXUITheme(): UseXUIThemeReturn {
         color => dispatch({ type: 'SET_BORDER_FOCUS', color })
       ),
     },
-  }
+  }), [theme, dispatch, createAccessor])
 }
