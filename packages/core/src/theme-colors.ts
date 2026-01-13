@@ -1,97 +1,93 @@
 import { colors } from '@xaui/colors'
 
-export const themeColors: ThemeColors = {
-  primary: colors.blue[600],
-  onPrimary: colors.white,
-  primarySurface: colors.blue[100],
-
-  secondary: colors.purple[600],
-  onSecondary: colors.white,
-  secondarySurface: colors.purple[100],
-
-  neutral: colors.gray[600],
-  onNeutral: colors.white,
-  neutralSurface: colors.gray[100],
-
-  danger: colors.red[600],
-  onDanger: colors.white,
-  dangerSurface: colors.red[100],
-
-  warning: colors.amber[600],
-  onWarning: colors.gray[900],
-  warningSurface: colors.amber[100],
-
-  success: colors.green[600],
-  onSuccess: colors.white,
-  successSurface: colors.green[100],
-
-  inverse: colors.gray[900],
-  onInverse: colors.white,
-  inverseSurface: colors.gray[800],
-
-  default: colors.gray[700],
-}
-
-export const darkThemeColors: ThemeColors = {
-  primary: colors.blue[500],
-  onPrimary: colors.gray[900],
-  primarySurface: colors.blue[900],
-
-  secondary: colors.purple[500],
-  onSecondary: colors.gray[900],
-  secondarySurface: colors.purple[900],
-
-  neutral: colors.gray[500],
-  onNeutral: colors.gray[900],
-  neutralSurface: colors.gray[800],
-
-  danger: colors.red[500],
-  onDanger: colors.gray[900],
-  dangerSurface: colors.red[900],
-
-  warning: colors.amber[500],
-  onWarning: colors.gray[900],
-  warningSurface: colors.amber[900],
-
-  success: colors.green[500],
-  onSuccess: colors.gray[900],
-  successSurface: colors.green[900],
-
-  inverse: colors.white,
-  onInverse: colors.gray[900],
-  inverseSurface: colors.gray[100],
-
-  default: colors.gray[200],
+export type ColorRole = {
+  main: string
+  foreground: string
+  surface: string
 }
 
 export type ThemeColors = {
-  primary: string
-  onPrimary: string
-  primarySurface: string
+  primary: ColorRole
+  secondary: ColorRole
+  danger: ColorRole
+  warning: ColorRole
+  success: ColorRole
+  default: ColorRole
+  [key: string]: ColorRole
+}
 
-  secondary: string
-  onSecondary: string
-  secondarySurface: string
+export const themeColors: ThemeColors = {
+  primary: {
+    main: colors.blue[600],
+    foreground: colors.white,
+    surface: colors.blue[100],
+  },
 
-  neutral: string
-  onNeutral: string
-  neutralSurface: string
+  secondary: {
+    main: colors.purple[600],
+    foreground: colors.white,
+    surface: colors.purple[100],
+  },
 
-  danger: string
-  onDanger: string
-  dangerSurface: string
+  danger: {
+    main: colors.red[600],
+    foreground: colors.white,
+    surface: colors.red[100],
+  },
 
-  warning: string
-  onWarning: string
-  warningSurface: string
+  warning: {
+    main: colors.amber[600],
+    foreground: colors.gray[900],
+    surface: colors.amber[100],
+  },
 
-  success: string
-  onSuccess: string
-  successSurface: string
+  success: {
+    main: colors.green[600],
+    foreground: colors.white,
+    surface: colors.green[100],
+  },
 
-  inverse: string
-  onInverse: string
-  inverseSurface: string
+  default: {
+    main: colors.white,
+    foreground: colors.gray[900],
+    surface: colors.gray[100],
+  },
+}
 
-  default: string
+export const darkThemeColors: ThemeColors = {
+  primary: {
+    main: colors.blue[500],
+    foreground: colors.gray[900],
+    surface: colors.blue[900],
+  },
+
+  secondary: {
+    main: colors.purple[500],
+    foreground: colors.gray[900],
+    surface: colors.purple[900],
+  },
+
+  danger: {
+    main: colors.red[500],
+    foreground: colors.gray[900],
+    surface: colors.red[900],
+  },
+
+  warning: {
+    main: colors.amber[500],
+    foreground: colors.gray[900],
+    surface: colors.amber[900],
+  },
+
+  success: {
+    main: colors.green[500],
+    foreground: colors.gray[900],
+    surface: colors.green[900],
+  },
+
+  default: {
+    main: colors.gray[200],
+    foreground: colors.gray[900],
+    surface: colors.gray[700],
+  },
 }

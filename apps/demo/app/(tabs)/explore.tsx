@@ -9,14 +9,9 @@ import { ThemedView } from '@/components/themed-view'
 import { IconSymbol } from '@/components/ui/icon-symbol'
 import { Fonts } from '@/constants/theme'
 import { useXUITheme } from '@xaui/core'
-import { useLayoutEffect } from 'react'
 
 export default function TabTwoScreen() {
-  const xuiTheme = useXUITheme()
-
-  useLayoutEffect(() => {
-    xuiTheme.primary.setColor('#333666')
-  }, [xuiTheme.primary])
+  const { colors, borderRadius } = useXUITheme()
 
   return (
     <ParallaxScrollView
@@ -32,11 +27,11 @@ export default function TabTwoScreen() {
     >
       <View
         style={{
-          backgroundColor: xuiTheme.onPrimary.color,
-          borderColor: xuiTheme.onSecondary.color,
-          borderWidth: xuiTheme.spacing.xs,
-          borderRadius: xuiTheme.borderRadius.xl,
-          width: 100,
+          backgroundColor: colors.primary.surface,
+          borderColor: colors.primary.main,
+          borderWidth: 1,
+          borderRadius: borderRadius.full,
+          width: 300,
           height: 100,
         }}
       ></View>
