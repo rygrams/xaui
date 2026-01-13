@@ -1,4 +1,8 @@
-export { XUIProvider, colors, getColor, theme, darkTheme } from './theme'
+export { XUIProvider, colors, getColor } from './theme'
+
+export type { ColorName, ColorShade, XUIProviderProps } from './theme'
+
+export { theme, darkTheme } from './theme-config'
 
 export type {
   XUITheme,
@@ -8,10 +12,7 @@ export type {
   ThemeFontWeights,
   ThemeFontFamilies,
   ThemeShadows,
-  ColorName,
-  ColorShade,
-  XUIProviderProps,
-} from './theme'
+} from './theme-config'
 
 export { themeColors, darkThemeColors } from './theme-colors'
 export type { ThemeColors } from './theme-colors'

@@ -1,4 +1,4 @@
-import { XUITheme } from './theme'
+import { XUITheme } from './theme-config'
 
 export type ThemeAction =
   | { type: 'SET_PRIMARY'; color: string }

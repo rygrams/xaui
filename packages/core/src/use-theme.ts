@@ -1,14 +1,14 @@
 import { useContext, useCallback, useMemo } from 'react'
-import {
-  XUIThemeContext,
-  XUIThemeDispatchContext,
+import { XUIThemeContext, XUIThemeDispatchContext } from './theme'
+
+import type {
   ThemeSpacing,
   ThemeBorderRadius,
   ThemeFontSizes,
   ThemeFontWeights,
   ThemeFontFamilies,
   ThemeShadows,
-} from './theme'
+} from './theme-config'
 
 interface ColorAccessor {
   color: string
@@ -74,90 +74,93 @@ export function useXUITheme(): UseXUIThemeReturn {
     []
   )
 
-  return useMemo(() => ({
-    primary: createAccessor(
-      () => theme.colors.primary,
-      color => dispatch({ type: 'SET_PRIMARY', color })
-    ),
-    secondary: createAccessor(
-      () => theme.colors.secondary,
-      color => dispatch({ type: 'SET_SECONDARY', color })
-    ),
-    success: createAccessor(
-      () => theme.colors.success,
-      color => dispatch({ type: 'SET_SUCCESS', color })
-    ),
-    warning: createAccessor(
-      () => theme.colors.warning,
-      color => dispatch({ type: 'SET_WARNING', color })
-    ),
-    error: createAccessor(
-      () => theme.colors.error,
-      color => dispatch({ type: 'SET_ERROR', color })
-    ),
-    info: createAccessor(
-      () => theme.colors.info,
-      color => dispatch({ type: 'SET_INFO', color })
-    ),
-    text: {
+  return useMemo(
+    () => ({
       primary: createAccessor(
-        () => theme.colors.text.primary,
-        color => dispatch({ type: 'SET_TEXT_PRIMARY', color })
+        () => theme.colors.primary,
+        color => dispatch({ type: 'SET_PRIMARY', color })
       ),
       secondary: createAccessor(
-        () => theme.colors.text.secondary,
-        color => dispatch({ type: 'SET_TEXT_SECONDARY', color })
+        () => theme.colors.secondary,
+        color => dispatch({ type: 'SET_SECONDARY', color })
       ),
-      tertiary: createAccessor(
-        () => theme.colors.text.tertiary,
-        color => dispatch({ type: 'SET_TEXT_TERTIARY', color })
+      success: createAccessor(
+        () => theme.colors.success,
+        color => dispatch({ type: 'SET_SUCCESS', color })
       ),
-      disabled: createAccessor(
-        () => theme.colors.text.disabled,
-        color => dispatch({ type: 'SET_TEXT_DISABLED', color })
+      warning: createAccessor(
+        () => theme.colors.warning,
+        color => dispatch({ type: 'SET_WARNING', color })
       ),
-      inverse: createAccessor(
-        () => theme.colors.text.inverse,
-        color => dispatch({ type: 'SET_TEXT_INVERSE', color })
+      error: createAccessor(
+        () => theme.colors.error,
+        color => dispatch({ type: 'SET_ERROR', color })
       ),
-    },
-    background: {
-      primary: createAccessor(
-        () => theme.colors.background.primary,
-        color => dispatch({ type: 'SET_BACKGROUND_PRIMARY', color })
+      info: createAccessor(
+        () => theme.colors.info,
+        color => dispatch({ type: 'SET_INFO', color })
       ),
-      secondary: createAccessor(
-        () => theme.colors.background.secondary,
-        color => dispatch({ type: 'SET_BACKGROUND_SECONDARY', color })
-      ),
-      tertiary: createAccessor(
-        () => theme.colors.background.tertiary,
-        color => dispatch({ type: 'SET_BACKGROUND_TERTIARY', color })
-      ),
-      inverse: createAccessor(
-        () => theme.colors.background.inverse,
-        color => dispatch({ type: 'SET_BACKGROUND_INVERSE', color })
-      ),
-    },
-    border: {
-      primary: createAccessor(
-        () => theme.colors.border.primary,
-        color => dispatch({ type: 'SET_BORDER_PRIMARY', color })
-      ),
-      secondary: createAccessor(
-        () => theme.colors.border.secondary,
-        color => dispatch({ type: 'SET_BORDER_SECONDARY', color })
-      ),
-      focus: createAccessor(
-        () => theme.colors.border.focus,
-        color => dispatch({ type: 'SET_BORDER_FOCUS', color })
-      ),
-    },
-    spacing: theme.spacing,
-    borderRadius: theme.borderRadius,
-    fontSizes: theme.fontSizes,
-    fontWeights: theme.fontWeights,
-    fontFamilies: theme.fontFamilies,
-    shadows: theme.shadows,
-  }), [theme, dispatch, createAccessor])
+      text: {
+        primary: createAccessor(
+          () => theme.colors.text.primary,
+          color => dispatch({ type: 'SET_TEXT_PRIMARY', color })
+        ),
+        secondary: createAccessor(
+          () => theme.colors.text.secondary,
+          color => dispatch({ type: 'SET_TEXT_SECONDARY', color })
+        ),
+        tertiary: createAccessor(
+          () => theme.colors.text.tertiary,
+          color => dispatch({ type: 'SET_TEXT_TERTIARY', color })
+        ),
+        disabled: createAccessor(
+          () => theme.colors.text.disabled,
+          color => dispatch({ type: 'SET_TEXT_DISABLED', color })
+        ),
+        inverse: createAccessor(
+          () => theme.colors.text.inverse,
+          color => dispatch({ type: 'SET_TEXT_INVERSE', color })
+        ),
+      },
+      background: {
+        primary: createAccessor(
+          () => theme.colors.background.primary,
+          color => dispatch({ type: 'SET_BACKGROUND_PRIMARY', color })
+        ),
+        secondary: createAccessor(
+          () => theme.colors.background.secondary,
+          color => dispatch({ type: 'SET_BACKGROUND_SECONDARY', color })
+        ),
+        tertiary: createAccessor(
+          () => theme.colors.background.tertiary,
+          color => dispatch({ type: 'SET_BACKGROUND_TERTIARY', color })
+        ),
+        inverse: createAccessor(
+          () => theme.colors.background.inverse,
+          color => dispatch({ type: 'SET_BACKGROUND_INVERSE', color })
+        ),
+      },
+      border: {
+        primary: createAccessor(
+          () => theme.colors.border.primary,
+          color => dispatch({ type: 'SET_BORDER_PRIMARY', color })
+        ),
+        secondary: createAccessor(
+          () => theme.colors.border.secondary,
+          color => dispatch({ type: 'SET_BORDER_SECONDARY', color })
+        ),
+        focus: createAccessor(
+          () => theme.colors.border.focus,
+          color => dispatch({ type: 'SET_BORDER_FOCUS', color })
+        ),
+      },
+      spacing: theme.spacing,
+      borderRadius: theme.borderRadius,
+      fontSizes: theme.fontSizes,
+      fontWeights: theme.fontWeights,
+      fontFamilies: theme.fontFamilies,
+      shadows: theme.shadows,
+    }),
+    [theme, dispatch, createAccessor]
+  )
 }
