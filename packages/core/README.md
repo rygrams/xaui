@@ -1,6 +1,6 @@
 # @xaui/core
 
-A modern React Native UI library with Flutter-inspired API, smooth animations powered by React Native Reanimated, and a comprehensive design system.
+A modern React Native component library strongly inspired by Flutter. Provides ready-to-use UI components with Flutter-like API, smooth animations powered by React Native Reanimated, and a comprehensive design system.
 
 ## Installation
 
@@ -10,7 +10,7 @@ pnpm add @xaui/core
 
 ## Features
 
-- **Flutter-inspired API**: Intuitive component props like `padding`, `margin`, `borderRadius`
+- **Flutter-inspired Components**: Ready-to-use UI components with Flutter-like API and intuitive props (`padding`, `margin`, `borderRadius`)
 - **Powerful Theme System**: Dynamic theming with deep customization support
 - **Smooth Animations**: Built on React Native Reanimated for native performance
 - **Design System**: Integrated with @xaui/colors for consistent theming
@@ -49,6 +49,11 @@ const customTheme = {
     text: {
       primary: '#2C3E50',
     },
+  },
+  fontFamilies: {
+    body: 'Inter',
+    heading: 'Poppins',
+    monospace: 'Courier New',
   },
 }
 
@@ -223,6 +228,7 @@ import type {
   ThemeBorderRadius,
   ThemeFontSizes,
   ThemeFontWeights,
+  ThemeFontFamilies,
   ThemeShadows,
 } from '@xaui/core'
 ```
@@ -236,6 +242,7 @@ The default theme includes:
 - **Border Radius**: none, sm, md, lg, xl, 2xl, 3xl, full
 - **Font Sizes**: xs to 4xl (12px to 36px)
 - **Font Weights**: light, normal, medium, semibold, bold, extrabold
+- **Font Families**: body, heading, monospace (defaults to 'System' and 'monospace')
 - **Shadows**: sm, md, lg, xl with React Native shadow properties
 
 ## License
