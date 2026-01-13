@@ -1,10 +1,9 @@
-import React, { createContext, useContext, useReducer, ReactNode, Dispatch } from 'react'
+import React, { createContext, ReactNode } from 'react'
 import { colors, ColorName, ColorShade, getColor } from '@xaui/colors'
-import { ThemeAction, themeReducer } from './theme-reducer'
 import { defaultTheme, XUITheme } from './theme-config'
+import { useColorScheme } from 'react-native'
 
 export const XUIThemeContext = createContext<XUITheme | null>(null)
-export const XUIThemeDispatchContext = createContext<Dispatch<ThemeAction> | null>(null)
 
 type DeepPartial<T> = {
   [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P]
@@ -13,47 +12,41 @@ type DeepPartial<T> = {
 export interface XUIProviderProps {
   children: ReactNode
   theme?: DeepPartial<XUITheme>
+  darkTheme?: DeepPartial<XUITheme>
 }
 
-export function XUIProvider({ children, theme: customTheme }: XUIProviderProps) {
-  const initialTheme = React.useMemo(() => {
-    if (!customTheme) return defaultTheme
+export function XUIProvider({
+  children,
+  theme: lightTheme,
+  darkTheme,
+}: XUIProviderProps) {
+  const colorScheme = useColorScheme()
+
+  const theme = React.useMemo(() => {
+    if (!darkTheme && !lightTheme) return defaultTheme
+
+    const activeTheme = colorScheme === 'dark' && darkTheme ? darkTheme : lightTheme
+    if (!activeTheme) return defaultTheme
 
     return {
       ...defaultTheme,
-      ...customTheme,
+      ...activeTheme,
       colors: {
         ...defaultTheme.colors,
-        ...customTheme.colors,
+        ...activeTheme.colors,
       },
       fontFamilies: {
         ...defaultTheme.fontFamilies,
-        ...customTheme.fontFamilies,
+        ...activeTheme.fontFamilies,
       },
       fontSizes: {
         ...defaultTheme.fontSizes,
-        ...customTheme.fontSizes,
+        ...activeTheme.fontSizes,
       },
     } as XUITheme
-  }, [customTheme])
+  }, [lightTheme, darkTheme, colorScheme])
 
-  const [theme, dispatch] = useReducer(themeReducer, initialTheme)
-
-  return (
-    <XUIThemeContext.Provider value={theme}>
-      <XUIThemeDispatchContext.Provider value={dispatch}>
-        {children}
-      </XUIThemeDispatchContext.Provider>
-    </XUIThemeContext.Provider>
-  )
-}
-
-export function useXUITheme(): XUITheme {
-  const context = useContext(XUIThemeContext)
-  if (!context) {
-    throw new Error('useXUITheme must be used within XUIProvider')
-  }
-  return context
+  return <XUIThemeContext.Provider value={theme}>{children}</XUIThemeContext.Provider>
 }
 
 export { colors, getColor }
