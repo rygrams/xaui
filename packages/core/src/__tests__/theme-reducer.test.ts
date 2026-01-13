@@ -42,6 +42,11 @@ const mockTheme: XUITheme = {
     bold: '700',
     extrabold: '800',
   },
+  fontFamilies: {
+    body: 'System',
+    heading: 'System',
+    monospace: 'monospace',
+  },
   shadows: {
     sm: {
       shadowColor: '#000',
