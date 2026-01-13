@@ -42,6 +42,10 @@ export function XUIProvider({ children, theme: customTheme }: XUIProviderProps) 
         ...defaultTheme.fontFamilies,
         ...customTheme.fontFamilies,
       },
+      fontSizes: {
+        ...defaultTheme.fontSizes,
+        ...customTheme.fontSizes,
+      },
     } as XUITheme
   }, [customTheme])
 

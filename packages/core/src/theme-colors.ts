@@ -3,6 +3,7 @@ import { colors } from '@xaui/colors'
 export const themeColors: ThemeColors = {
   primary: colors.blue[600],
   secondary: colors.purple[600],
+  tertiary: colors.gray[600],
   success: colors.green[600],
   warning: colors.amber[600],
   error: colors.red[600],
@@ -26,6 +27,7 @@ export const themeColors: ThemeColors = {
   border: {
     primary: colors.gray[300],
     secondary: colors.gray[200],
+    tertiary: colors.gray[100],
     focus: colors.blue[600],
   },
 }
@@ -33,6 +35,7 @@ export const themeColors: ThemeColors = {
 export const darkThemeColors: ThemeColors = {
   primary: colors.blue[500],
   secondary: colors.purple[500],
+  tertiary: colors.gray[500],
   success: colors.green[500],
   warning: colors.amber[500],
   error: colors.red[500],
@@ -56,6 +59,7 @@ export const darkThemeColors: ThemeColors = {
   border: {
     primary: colors.gray[600],
     secondary: colors.gray[700],
+    tertiary: colors.gray[800],
     focus: colors.blue[500],
   },
 }
@@ -63,6 +67,7 @@ export const darkThemeColors: ThemeColors = {
 export interface ThemeColors {
   primary: string
   secondary: string
+  tertiary: string
   success: string
   warning: string
   error: string
@@ -86,6 +91,7 @@ export interface ThemeColors {
   border: {
     primary: string
     secondary: string
+    tertiary: string
     focus: string
   }
 }
