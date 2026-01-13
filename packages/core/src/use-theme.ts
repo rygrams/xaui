@@ -1,5 +1,13 @@
 import { useContext, useCallback, useMemo } from 'react'
-import { XUIThemeContext, XUIThemeDispatchContext } from './theme'
+import {
+  XUIThemeContext,
+  XUIThemeDispatchContext,
+  ThemeSpacing,
+  ThemeBorderRadius,
+  ThemeFontSizes,
+  ThemeFontWeights,
+  ThemeShadows,
+} from './theme'
 
 interface ColorAccessor {
   color: string
@@ -38,6 +46,11 @@ interface UseXUIThemeReturn {
   text: TextColorAccessor
   background: BackgroundColorAccessor
   border: BorderColorAccessor
+  spacing: ThemeSpacing
+  borderRadius: ThemeBorderRadius
+  fontSizes: ThemeFontSizes
+  fontWeights: ThemeFontWeights
+  shadows: ThemeShadows
 }
 
 export function useXUITheme(): UseXUIThemeReturn {
@@ -138,5 +151,10 @@ export function useXUITheme(): UseXUIThemeReturn {
         color => dispatch({ type: 'SET_BORDER_FOCUS', color })
       ),
     },
+    spacing: theme.spacing,
+    borderRadius: theme.borderRadius,
+    fontSizes: theme.fontSizes,
+    fontWeights: theme.fontWeights,
+    shadows: theme.shadows,
   }), [theme, dispatch, createAccessor])
 }

@@ -321,4 +321,61 @@ describe('useXUITheme', () => {
       expect(result.current.secondary.color).toBe('#CUSTOM2')
     })
   })
+
+  describe('theme properties access', () => {
+    it('should expose spacing property', () => {
+      const { result } = renderHook(() => useXUITheme(), {
+        wrapper: ({ children }) => <XUIProvider>{children}</XUIProvider>,
+      })
+
+      expect(result.current.spacing).toBeDefined()
+      expect(result.current.spacing.xs).toBe(4)
+      expect(result.current.spacing.sm).toBe(8)
+      expect(result.current.spacing.md).toBe(16)
+    })
+
+    it('should expose borderRadius property', () => {
+      const { result } = renderHook(() => useXUITheme(), {
+        wrapper: ({ children }) => <XUIProvider>{children}</XUIProvider>,
+      })
+
+      expect(result.current.borderRadius).toBeDefined()
+      expect(result.current.borderRadius.sm).toBe(4)
+      expect(result.current.borderRadius.md).toBe(8)
+      expect(result.current.borderRadius.full).toBe(9999)
+    })
+
+    it('should expose fontSizes property', () => {
+      const { result } = renderHook(() => useXUITheme(), {
+        wrapper: ({ children }) => <XUIProvider>{children}</XUIProvider>,
+      })
+
+      expect(result.current.fontSizes).toBeDefined()
+      expect(result.current.fontSizes.xs).toBe(12)
+      expect(result.current.fontSizes.sm).toBe(14)
+      expect(result.current.fontSizes.md).toBe(16)
+    })
+
+    it('should expose fontWeights property', () => {
+      const { result } = renderHook(() => useXUITheme(), {
+        wrapper: ({ children }) => <XUIProvider>{children}</XUIProvider>,
+      })
+
+      expect(result.current.fontWeights).toBeDefined()
+      expect(result.current.fontWeights.light).toBe('300')
+      expect(result.current.fontWeights.normal).toBe('400')
+      expect(result.current.fontWeights.bold).toBe('700')
+    })
+
+    it('should expose shadows property', () => {
+      const { result } = renderHook(() => useXUITheme(), {
+        wrapper: ({ children }) => <XUIProvider>{children}</XUIProvider>,
+      })
+
+      expect(result.current.shadows).toBeDefined()
+      expect(result.current.shadows.sm).toBeDefined()
+      expect(result.current.shadows.sm.elevation).toBe(1)
+      expect(result.current.shadows.md.elevation).toBe(4)
+    })
+  })
 })
