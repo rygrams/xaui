@@ -25,18 +25,6 @@ export function XUIProvider({ children, theme: customTheme }: XUIProviderProps) 
       colors: {
         ...defaultTheme.colors,
         ...customTheme.colors,
-        text: {
-          ...defaultTheme.colors.text,
-          ...customTheme.colors?.text,
-        },
-        background: {
-          ...defaultTheme.colors.background,
-          ...customTheme.colors?.background,
-        },
-        border: {
-          ...defaultTheme.colors.border,
-          ...customTheme.colors?.border,
-        },
       },
       fontFamilies: {
         ...defaultTheme.fontFamilies,

@@ -32,8 +32,8 @@ export default function TabTwoScreen() {
     >
       <View
         style={{
-          backgroundColor: xuiTheme.primary.color,
-          borderColor: xuiTheme.secondary.color,
+          backgroundColor: xuiTheme.onPrimary.color,
+          borderColor: xuiTheme.onSecondary.color,
           borderWidth: xuiTheme.spacing.xs,
           borderRadius: xuiTheme.borderRadius.xl,
           width: 100,

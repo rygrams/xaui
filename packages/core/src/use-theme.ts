@@ -16,37 +16,29 @@ interface ColorAccessor {
   toString(): string
 }
 
-interface TextColorAccessor {
-  primary: ColorAccessor
-  secondary: ColorAccessor
-  tertiary: ColorAccessor
-  disabled: ColorAccessor
-  inverse: ColorAccessor
-}
-
-interface BackgroundColorAccessor {
-  primary: ColorAccessor
-  secondary: ColorAccessor
-  tertiary: ColorAccessor
-  inverse: ColorAccessor
-}
-
-interface BorderColorAccessor {
-  primary: ColorAccessor
-  secondary: ColorAccessor
-  focus: ColorAccessor
-}
-
 interface UseXUIThemeReturn {
   primary: ColorAccessor
+  onPrimary: ColorAccessor
+  primarySurface: ColorAccessor
   secondary: ColorAccessor
-  success: ColorAccessor
+  onSecondary: ColorAccessor
+  secondarySurface: ColorAccessor
+  neutral: ColorAccessor
+  onNeutral: ColorAccessor
+  neutralSurface: ColorAccessor
+  danger: ColorAccessor
+  onDanger: ColorAccessor
+  dangerSurface: ColorAccessor
   warning: ColorAccessor
-  error: ColorAccessor
-  info: ColorAccessor
-  text: TextColorAccessor
-  background: BackgroundColorAccessor
-  border: BorderColorAccessor
+  onWarning: ColorAccessor
+  warningSurface: ColorAccessor
+  success: ColorAccessor
+  onSuccess: ColorAccessor
+  successSurface: ColorAccessor
+  inverse: ColorAccessor
+  onInverse: ColorAccessor
+  inverseSurface: ColorAccessor
+  default: ColorAccessor
   spacing: ThemeSpacing
   borderRadius: ThemeBorderRadius
   fontSizes: ThemeFontSizes
@@ -80,80 +72,90 @@ export function useXUITheme(): UseXUIThemeReturn {
         () => theme.colors.primary,
         color => dispatch({ type: 'SET_PRIMARY', color })
       ),
+      onPrimary: createAccessor(
+        () => theme.colors.onPrimary,
+        color => dispatch({ type: 'SET_ON_PRIMARY', color })
+      ),
+      primarySurface: createAccessor(
+        () => theme.colors.primarySurface,
+        color => dispatch({ type: 'SET_PRIMARY_SURFACE', color })
+      ),
       secondary: createAccessor(
         () => theme.colors.secondary,
         color => dispatch({ type: 'SET_SECONDARY', color })
       ),
-      success: createAccessor(
-        () => theme.colors.success,
-        color => dispatch({ type: 'SET_SUCCESS', color })
+      onSecondary: createAccessor(
+        () => theme.colors.onSecondary,
+        color => dispatch({ type: 'SET_ON_SECONDARY', color })
+      ),
+      secondarySurface: createAccessor(
+        () => theme.colors.secondarySurface,
+        color => dispatch({ type: 'SET_SECONDARY_SURFACE', color })
+      ),
+      neutral: createAccessor(
+        () => theme.colors.neutral,
+        color => dispatch({ type: 'SET_NEUTRAL', color })
+      ),
+      onNeutral: createAccessor(
+        () => theme.colors.onNeutral,
+        color => dispatch({ type: 'SET_ON_NEUTRAL', color })
+      ),
+      neutralSurface: createAccessor(
+        () => theme.colors.neutralSurface,
+        color => dispatch({ type: 'SET_NEUTRAL_SURFACE', color })
+      ),
+      danger: createAccessor(
+        () => theme.colors.danger,
+        color => dispatch({ type: 'SET_DANGER', color })
+      ),
+      onDanger: createAccessor(
+        () => theme.colors.onDanger,
+        color => dispatch({ type: 'SET_ON_DANGER', color })
+      ),
+      dangerSurface: createAccessor(
+        () => theme.colors.dangerSurface,
+        color => dispatch({ type: 'SET_DANGER_SURFACE', color })
       ),
       warning: createAccessor(
         () => theme.colors.warning,
         color => dispatch({ type: 'SET_WARNING', color })
       ),
-      error: createAccessor(
-        () => theme.colors.error,
-        color => dispatch({ type: 'SET_ERROR', color })
+      onWarning: createAccessor(
+        () => theme.colors.onWarning,
+        color => dispatch({ type: 'SET_ON_WARNING', color })
       ),
-      info: createAccessor(
-        () => theme.colors.info,
-        color => dispatch({ type: 'SET_INFO', color })
+      warningSurface: createAccessor(
+        () => theme.colors.warningSurface,
+        color => dispatch({ type: 'SET_WARNING_SURFACE', color })
       ),
-      text: {
-        primary: createAccessor(
-          () => theme.colors.text.primary,
-          color => dispatch({ type: 'SET_TEXT_PRIMARY', color })
-        ),
-        secondary: createAccessor(
-          () => theme.colors.text.secondary,
-          color => dispatch({ type: 'SET_TEXT_SECONDARY', color })
-        ),
-        tertiary: createAccessor(
-          () => theme.colors.text.tertiary,
-          color => dispatch({ type: 'SET_TEXT_TERTIARY', color })
-        ),
-        disabled: createAccessor(
-          () => theme.colors.text.disabled,
-          color => dispatch({ type: 'SET_TEXT_DISABLED', color })
-        ),
-        inverse: createAccessor(
-          () => theme.colors.text.inverse,
-          color => dispatch({ type: 'SET_TEXT_INVERSE', color })
-        ),
-      },
-      background: {
-        primary: createAccessor(
-          () => theme.colors.background.primary,
-          color => dispatch({ type: 'SET_BACKGROUND_PRIMARY', color })
-        ),
-        secondary: createAccessor(
-          () => theme.colors.background.secondary,
-          color => dispatch({ type: 'SET_BACKGROUND_SECONDARY', color })
-        ),
-        tertiary: createAccessor(
-          () => theme.colors.background.tertiary,
-          color => dispatch({ type: 'SET_BACKGROUND_TERTIARY', color })
-        ),
-        inverse: createAccessor(
-          () => theme.colors.background.inverse,
-          color => dispatch({ type: 'SET_BACKGROUND_INVERSE', color })
-        ),
-      },
-      border: {
-        primary: createAccessor(
-          () => theme.colors.border.primary,
-          color => dispatch({ type: 'SET_BORDER_PRIMARY', color })
-        ),
-        secondary: createAccessor(
-          () => theme.colors.border.secondary,
-          color => dispatch({ type: 'SET_BORDER_SECONDARY', color })
-        ),
-        focus: createAccessor(
-          () => theme.colors.border.focus,
-          color => dispatch({ type: 'SET_BORDER_FOCUS', color })
-        ),
-      },
+      success: createAccessor(
+        () => theme.colors.success,
+        color => dispatch({ type: 'SET_SUCCESS', color })
+      ),
+      onSuccess: createAccessor(
+        () => theme.colors.onSuccess,
+        color => dispatch({ type: 'SET_ON_SUCCESS', color })
+      ),
+      successSurface: createAccessor(
+        () => theme.colors.successSurface,
+        color => dispatch({ type: 'SET_SUCCESS_SURFACE', color })
+      ),
+      inverse: createAccessor(
+        () => theme.colors.inverse,
+        color => dispatch({ type: 'SET_INVERSE', color })
+      ),
+      onInverse: createAccessor(
+        () => theme.colors.onInverse,
+        color => dispatch({ type: 'SET_ON_INVERSE', color })
+      ),
+      inverseSurface: createAccessor(
+        () => theme.colors.inverseSurface,
+        color => dispatch({ type: 'SET_INVERSE_SURFACE', color })
+      ),
+      default: createAccessor(
+        () => theme.colors.default,
+        color => dispatch({ type: 'SET_DEFAULT', color })
+      ),
       spacing: theme.spacing,
       borderRadius: theme.borderRadius,
       fontSizes: theme.fontSizes,

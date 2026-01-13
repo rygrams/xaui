@@ -13,8 +13,8 @@ describe('useXUITheme', () => {
     })
   })
 
-  describe('color accessors', () => {
-    it('should return color accessor for primary color', () => {
+  describe('primary color accessors', () => {
+    it('should return primary color accessor', () => {
       const { result } = renderHook(() => useXUITheme(), {
         wrapper: ({ children }) => <XUIProvider>{children}</XUIProvider>,
       })
@@ -25,17 +25,56 @@ describe('useXUITheme', () => {
       expect(typeof result.current.primary.setColor).toBe('function')
     })
 
-    it('should return color accessor for secondary color', () => {
+    it('should return onPrimary color accessor', () => {
+      const { result } = renderHook(() => useXUITheme(), {
+        wrapper: ({ children }) => <XUIProvider>{children}</XUIProvider>,
+      })
+
+      expect(result.current.onPrimary).toBeDefined()
+      expect(typeof result.current.onPrimary.color).toBe('string')
+    })
+
+    it('should return primarySurface color accessor', () => {
+      const { result } = renderHook(() => useXUITheme(), {
+        wrapper: ({ children }) => <XUIProvider>{children}</XUIProvider>,
+      })
+
+      expect(result.current.primarySurface).toBeDefined()
+      expect(typeof result.current.primarySurface.color).toBe('string')
+    })
+  })
+
+  describe('secondary color accessors', () => {
+    it('should return secondary color accessor', () => {
       const { result } = renderHook(() => useXUITheme(), {
         wrapper: ({ children }) => <XUIProvider>{children}</XUIProvider>,
       })
 
       expect(result.current.secondary).toBeDefined()
       expect(typeof result.current.secondary.color).toBe('string')
-      expect(typeof result.current.secondary.toString()).toBe('string')
     })
 
-    it('should return color accessor for success color', () => {
+    it('should return onSecondary color accessor', () => {
+      const { result } = renderHook(() => useXUITheme(), {
+        wrapper: ({ children }) => <XUIProvider>{children}</XUIProvider>,
+      })
+
+      expect(result.current.onSecondary).toBeDefined()
+      expect(typeof result.current.onSecondary.color).toBe('string')
+    })
+
+    it('should return secondarySurface color accessor', () => {
+      const { result } = renderHook(() => useXUITheme(), {
+        wrapper: ({ children }) => <XUIProvider>{children}</XUIProvider>,
+      })
+
+      expect(result.current.secondarySurface).toBeDefined()
+      expect(typeof result.current.secondarySurface.color).toBe('string')
+    })
+  })
+
+  describe('semantic color accessors', () => {
+    it('should return success color accessor', () => {
       const { result } = renderHook(() => useXUITheme(), {
         wrapper: ({ children }) => <XUIProvider>{children}</XUIProvider>,
       })
@@ -44,7 +83,7 @@ describe('useXUITheme', () => {
       expect(typeof result.current.success.color).toBe('string')
     })
 
-    it('should return color accessor for warning color', () => {
+    it('should return warning color accessor', () => {
       const { result } = renderHook(() => useXUITheme(), {
         wrapper: ({ children }) => <XUIProvider>{children}</XUIProvider>,
       })
@@ -53,97 +92,40 @@ describe('useXUITheme', () => {
       expect(typeof result.current.warning.color).toBe('string')
     })
 
-    it('should return color accessor for error color', () => {
+    it('should return danger color accessor', () => {
       const { result } = renderHook(() => useXUITheme(), {
         wrapper: ({ children }) => <XUIProvider>{children}</XUIProvider>,
       })
 
-      expect(result.current.error).toBeDefined()
-      expect(typeof result.current.error.color).toBe('string')
+      expect(result.current.danger).toBeDefined()
+      expect(typeof result.current.danger.color).toBe('string')
     })
 
-    it('should return color accessor for info color', () => {
+    it('should return neutral color accessor', () => {
       const { result } = renderHook(() => useXUITheme(), {
         wrapper: ({ children }) => <XUIProvider>{children}</XUIProvider>,
       })
 
-      expect(result.current.info).toBeDefined()
-      expect(typeof result.current.info.color).toBe('string')
-    })
-  })
-
-  describe('text color accessors', () => {
-    it('should return text color accessors', () => {
-      const { result } = renderHook(() => useXUITheme(), {
-        wrapper: ({ children }) => <XUIProvider>{children}</XUIProvider>,
-      })
-
-      expect(result.current.text).toBeDefined()
-      expect(result.current.text.primary).toBeDefined()
-      expect(result.current.text.secondary).toBeDefined()
-      expect(result.current.text.tertiary).toBeDefined()
-      expect(result.current.text.disabled).toBeDefined()
-      expect(result.current.text.inverse).toBeDefined()
+      expect(result.current.neutral).toBeDefined()
+      expect(typeof result.current.neutral.color).toBe('string')
     })
 
-    it('should return correct values for text colors', () => {
+    it('should return inverse color accessor', () => {
       const { result } = renderHook(() => useXUITheme(), {
         wrapper: ({ children }) => <XUIProvider>{children}</XUIProvider>,
       })
 
-      expect(typeof result.current.text.primary.color).toBe('string')
-      expect(typeof result.current.text.secondary.color).toBe('string')
-      expect(typeof result.current.text.tertiary.color).toBe('string')
-      expect(typeof result.current.text.disabled.color).toBe('string')
-      expect(typeof result.current.text.inverse.color).toBe('string')
-    })
-  })
-
-  describe('background color accessors', () => {
-    it('should return background color accessors', () => {
-      const { result } = renderHook(() => useXUITheme(), {
-        wrapper: ({ children }) => <XUIProvider>{children}</XUIProvider>,
-      })
-
-      expect(result.current.background).toBeDefined()
-      expect(result.current.background.primary).toBeDefined()
-      expect(result.current.background.secondary).toBeDefined()
-      expect(result.current.background.tertiary).toBeDefined()
-      expect(result.current.background.inverse).toBeDefined()
+      expect(result.current.inverse).toBeDefined()
+      expect(typeof result.current.inverse.color).toBe('string')
     })
 
-    it('should return correct values for background colors', () => {
+    it('should return default color accessor', () => {
       const { result } = renderHook(() => useXUITheme(), {
         wrapper: ({ children }) => <XUIProvider>{children}</XUIProvider>,
       })
 
-      expect(typeof result.current.background.primary.color).toBe('string')
-      expect(typeof result.current.background.secondary.color).toBe('string')
-      expect(typeof result.current.background.tertiary.color).toBe('string')
-      expect(typeof result.current.background.inverse.color).toBe('string')
-    })
-  })
-
-  describe('border color accessors', () => {
-    it('should return border color accessors', () => {
-      const { result } = renderHook(() => useXUITheme(), {
-        wrapper: ({ children }) => <XUIProvider>{children}</XUIProvider>,
-      })
-
-      expect(result.current.border).toBeDefined()
-      expect(result.current.border.primary).toBeDefined()
-      expect(result.current.border.secondary).toBeDefined()
-      expect(result.current.border.focus).toBeDefined()
-    })
-
-    it('should return correct values for border colors', () => {
-      const { result } = renderHook(() => useXUITheme(), {
-        wrapper: ({ children }) => <XUIProvider>{children}</XUIProvider>,
-      })
-
-      expect(typeof result.current.border.primary.color).toBe('string')
-      expect(typeof result.current.border.secondary.color).toBe('string')
-      expect(typeof result.current.border.focus.color).toBe('string')
+      expect(result.current.default).toBeDefined()
+      expect(typeof result.current.default.color).toBe('string')
     })
   })
 
@@ -163,6 +145,18 @@ describe('useXUITheme', () => {
       expect(result.current.primary.color).not.toBe(originalColor)
     })
 
+    it('should update onPrimary color', () => {
+      const { result } = renderHook(() => useXUITheme(), {
+        wrapper: ({ children }) => <XUIProvider>{children}</XUIProvider>,
+      })
+
+      act(() => {
+        result.current.onPrimary.setColor('#FFFFFF')
+      })
+
+      expect(result.current.onPrimary.color).toBe('#FFFFFF')
+    })
+
     it('should update secondary color', () => {
       const { result } = renderHook(() => useXUITheme(), {
         wrapper: ({ children }) => <XUIProvider>{children}</XUIProvider>,
@@ -175,40 +169,28 @@ describe('useXUITheme', () => {
       expect(result.current.secondary.color).toBe('#00FF00')
     })
 
-    it('should update text primary color', () => {
+    it('should update danger color', () => {
       const { result } = renderHook(() => useXUITheme(), {
         wrapper: ({ children }) => <XUIProvider>{children}</XUIProvider>,
       })
 
       act(() => {
-        result.current.text.primary.setColor('#111111')
+        result.current.danger.setColor('#FF0000')
       })
 
-      expect(result.current.text.primary.color).toBe('#111111')
+      expect(result.current.danger.color).toBe('#FF0000')
     })
 
-    it('should update background primary color', () => {
+    it('should update default color', () => {
       const { result } = renderHook(() => useXUITheme(), {
         wrapper: ({ children }) => <XUIProvider>{children}</XUIProvider>,
       })
 
       act(() => {
-        result.current.background.primary.setColor('#FAFAFA')
+        result.current.default.setColor('#CCCCCC')
       })
 
-      expect(result.current.background.primary.color).toBe('#FAFAFA')
-    })
-
-    it('should update border focus color', () => {
-      const { result } = renderHook(() => useXUITheme(), {
-        wrapper: ({ children }) => <XUIProvider>{children}</XUIProvider>,
-      })
-
-      act(() => {
-        result.current.border.focus.setColor('#0066CC')
-      })
-
-      expect(result.current.border.focus.color).toBe('#0066CC')
+      expect(result.current.default.color).toBe('#CCCCCC')
     })
   })
 
@@ -219,15 +201,9 @@ describe('useXUITheme', () => {
       })
 
       expect(result.current.primary.toString()).toBe(result.current.primary.color)
-      expect(result.current.text.primary.toString()).toBe(
-        result.current.text.primary.color
-      )
-      expect(result.current.background.primary.toString()).toBe(
-        result.current.background.primary.color
-      )
-      expect(result.current.border.primary.toString()).toBe(
-        result.current.border.primary.color
-      )
+      expect(result.current.onPrimary.toString()).toBe(result.current.onPrimary.color)
+      expect(result.current.success.toString()).toBe(result.current.success.color)
+      expect(result.current.default.toString()).toBe(result.current.default.color)
     })
   })
 
@@ -248,20 +224,20 @@ describe('useXUITheme', () => {
       expect(result.current.success.color).toBe(originalSuccess)
     })
 
-    it('should not affect other text colors when updating one text color', () => {
+    it('should not affect surface colors when updating base color', () => {
       const { result } = renderHook(() => useXUITheme(), {
         wrapper: ({ children }) => <XUIProvider>{children}</XUIProvider>,
       })
 
-      const originalSecondary = result.current.text.secondary.color
-      const originalTertiary = result.current.text.tertiary.color
+      const originalPrimarySurface = result.current.primarySurface.color
+      const originalOnPrimary = result.current.onPrimary.color
 
       act(() => {
-        result.current.text.primary.setColor('#111111')
+        result.current.primary.setColor('#FF0000')
       })
 
-      expect(result.current.text.secondary.color).toBe(originalSecondary)
-      expect(result.current.text.tertiary.color).toBe(originalTertiary)
+      expect(result.current.primarySurface.color).toBe(originalPrimarySurface)
+      expect(result.current.onPrimary.color).toBe(originalOnPrimary)
     })
   })
 
@@ -314,7 +290,9 @@ describe('useXUITheme', () => {
       }
 
       const { result } = renderHook(() => useXUITheme(), {
-        wrapper: ({ children }) => <XUIProvider theme={customTheme}>{children}</XUIProvider>,
+        wrapper: ({ children }) => (
+          <XUIProvider theme={customTheme}>{children}</XUIProvider>
+        ),
       })
 
       expect(result.current.primary.color).toBe('#CUSTOM1')
@@ -326,17 +304,19 @@ describe('useXUITheme', () => {
         fontFamilies: {
           body: 'Roboto',
           heading: 'Montserrat',
-          monospace: 'Fira Code',
+          default: 'Fira Code',
         },
       }
 
       const { result } = renderHook(() => useXUITheme(), {
-        wrapper: ({ children }) => <XUIProvider theme={customTheme}>{children}</XUIProvider>,
+        wrapper: ({ children }) => (
+          <XUIProvider theme={customTheme}>{children}</XUIProvider>
+        ),
       })
 
       expect(result.current.fontFamilies.body).toBe('Roboto')
       expect(result.current.fontFamilies.heading).toBe('Montserrat')
-      expect(result.current.fontFamilies.monospace).toBe('Fira Code')
+      expect(result.current.fontFamilies.default).toBe('Fira Code')
     })
 
     it('should partially override font families', () => {
@@ -347,12 +327,14 @@ describe('useXUITheme', () => {
       }
 
       const { result } = renderHook(() => useXUITheme(), {
-        wrapper: ({ children }) => <XUIProvider theme={customTheme}>{children}</XUIProvider>,
+        wrapper: ({ children }) => (
+          <XUIProvider theme={customTheme}>{children}</XUIProvider>
+        ),
       })
 
       expect(result.current.fontFamilies.heading).toBe('Playfair Display')
       expect(result.current.fontFamilies.body).toBe('System')
-      expect(result.current.fontFamilies.monospace).toBe('monospace')
+      expect(result.current.fontFamilies.default).toBe('monospace')
     })
   })
 
@@ -409,7 +391,7 @@ describe('useXUITheme', () => {
       expect(result.current.fontFamilies).toBeDefined()
       expect(result.current.fontFamilies.body).toBe('System')
       expect(result.current.fontFamilies.heading).toBe('System')
-      expect(result.current.fontFamilies.monospace).toBe('monospace')
+      expect(result.current.fontFamilies.default).toBe('monospace')
     })
 
     it('should expose shadows property', () => {

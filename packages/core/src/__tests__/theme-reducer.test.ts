@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { themeReducer, ThemeAction } from '../theme-reducer'
-import { XUITheme } from '../theme'
 import { themeColors } from '../theme-colors'
+import { XUITheme } from '../theme-config'
 
 const mockTheme: XUITheme = {
   colors: themeColors,
@@ -45,7 +45,7 @@ const mockTheme: XUITheme = {
   fontFamilies: {
     body: 'System',
     heading: 'System',
-    monospace: 'monospace',
+    default: 'monospace',
   },
   shadows: {
     sm: {
@@ -80,7 +80,7 @@ const mockTheme: XUITheme = {
 }
 
 describe('themeReducer', () => {
-  describe('semantic colors', () => {
+  describe('primary colors', () => {
     it('should update primary color', () => {
       const action: ThemeAction = { type: 'SET_PRIMARY', color: '#FF0000' }
       const result = themeReducer(mockTheme, action)
@@ -89,6 +89,22 @@ describe('themeReducer', () => {
       expect(result).not.toBe(mockTheme)
     })
 
+    it('should update onPrimary color', () => {
+      const action: ThemeAction = { type: 'SET_ON_PRIMARY', color: '#FFFFFF' }
+      const result = themeReducer(mockTheme, action)
+
+      expect(result.colors.onPrimary).toBe('#FFFFFF')
+    })
+
+    it('should update primarySurface color', () => {
+      const action: ThemeAction = { type: 'SET_PRIMARY_SURFACE', color: '#FFE5E5' }
+      const result = themeReducer(mockTheme, action)
+
+      expect(result.colors.primarySurface).toBe('#FFE5E5')
+    })
+  })
+
+  describe('secondary colors', () => {
     it('should update secondary color', () => {
       const action: ThemeAction = { type: 'SET_SECONDARY', color: '#00FF00' }
       const result = themeReducer(mockTheme, action)
@@ -96,6 +112,22 @@ describe('themeReducer', () => {
       expect(result.colors.secondary).toBe('#00FF00')
     })
 
+    it('should update onSecondary color', () => {
+      const action: ThemeAction = { type: 'SET_ON_SECONDARY', color: '#FFFFFF' }
+      const result = themeReducer(mockTheme, action)
+
+      expect(result.colors.onSecondary).toBe('#FFFFFF')
+    })
+
+    it('should update secondarySurface color', () => {
+      const action: ThemeAction = { type: 'SET_SECONDARY_SURFACE', color: '#E5FFE5' }
+      const result = themeReducer(mockTheme, action)
+
+      expect(result.colors.secondarySurface).toBe('#E5FFE5')
+    })
+  })
+
+  describe('semantic colors', () => {
     it('should update success color', () => {
       const action: ThemeAction = { type: 'SET_SUCCESS', color: '#0000FF' }
       const result = themeReducer(mockTheme, action)
@@ -110,113 +142,32 @@ describe('themeReducer', () => {
       expect(result.colors.warning).toBe('#FFFF00')
     })
 
-    it('should update error color', () => {
-      const action: ThemeAction = { type: 'SET_ERROR', color: '#FF00FF' }
+    it('should update danger color', () => {
+      const action: ThemeAction = { type: 'SET_DANGER', color: '#FF00FF' }
       const result = themeReducer(mockTheme, action)
 
-      expect(result.colors.error).toBe('#FF00FF')
+      expect(result.colors.danger).toBe('#FF00FF')
     })
 
-    it('should update info color', () => {
-      const action: ThemeAction = { type: 'SET_INFO', color: '#00FFFF' }
+    it('should update neutral color', () => {
+      const action: ThemeAction = { type: 'SET_NEUTRAL', color: '#888888' }
       const result = themeReducer(mockTheme, action)
 
-      expect(result.colors.info).toBe('#00FFFF')
-    })
-  })
-
-  describe('text colors', () => {
-    it('should update text primary color', () => {
-      const action: ThemeAction = { type: 'SET_TEXT_PRIMARY', color: '#111111' }
-      const result = themeReducer(mockTheme, action)
-
-      expect(result.colors.text.primary).toBe('#111111')
-      expect(result.colors.text.secondary).toBe(mockTheme.colors.text.secondary)
+      expect(result.colors.neutral).toBe('#888888')
     })
 
-    it('should update text secondary color', () => {
-      const action: ThemeAction = { type: 'SET_TEXT_SECONDARY', color: '#222222' }
+    it('should update inverse color', () => {
+      const action: ThemeAction = { type: 'SET_INVERSE', color: '#000000' }
       const result = themeReducer(mockTheme, action)
 
-      expect(result.colors.text.secondary).toBe('#222222')
+      expect(result.colors.inverse).toBe('#000000')
     })
 
-    it('should update text tertiary color', () => {
-      const action: ThemeAction = { type: 'SET_TEXT_TERTIARY', color: '#333333' }
+    it('should update default color', () => {
+      const action: ThemeAction = { type: 'SET_DEFAULT', color: '#CCCCCC' }
       const result = themeReducer(mockTheme, action)
 
-      expect(result.colors.text.tertiary).toBe('#333333')
-    })
-
-    it('should update text disabled color', () => {
-      const action: ThemeAction = { type: 'SET_TEXT_DISABLED', color: '#444444' }
-      const result = themeReducer(mockTheme, action)
-
-      expect(result.colors.text.disabled).toBe('#444444')
-    })
-
-    it('should update text inverse color', () => {
-      const action: ThemeAction = { type: 'SET_TEXT_INVERSE', color: '#FFFFFF' }
-      const result = themeReducer(mockTheme, action)
-
-      expect(result.colors.text.inverse).toBe('#FFFFFF')
-    })
-  })
-
-  describe('background colors', () => {
-    it('should update background primary color', () => {
-      const action: ThemeAction = { type: 'SET_BACKGROUND_PRIMARY', color: '#FAFAFA' }
-      const result = themeReducer(mockTheme, action)
-
-      expect(result.colors.background.primary).toBe('#FAFAFA')
-      expect(result.colors.background.secondary).toBe(
-        mockTheme.colors.background.secondary
-      )
-    })
-
-    it('should update background secondary color', () => {
-      const action: ThemeAction = { type: 'SET_BACKGROUND_SECONDARY', color: '#F5F5F5' }
-      const result = themeReducer(mockTheme, action)
-
-      expect(result.colors.background.secondary).toBe('#F5F5F5')
-    })
-
-    it('should update background tertiary color', () => {
-      const action: ThemeAction = { type: 'SET_BACKGROUND_TERTIARY', color: '#F0F0F0' }
-      const result = themeReducer(mockTheme, action)
-
-      expect(result.colors.background.tertiary).toBe('#F0F0F0')
-    })
-
-    it('should update background inverse color', () => {
-      const action: ThemeAction = { type: 'SET_BACKGROUND_INVERSE', color: '#000000' }
-      const result = themeReducer(mockTheme, action)
-
-      expect(result.colors.background.inverse).toBe('#000000')
-    })
-  })
-
-  describe('border colors', () => {
-    it('should update border primary color', () => {
-      const action: ThemeAction = { type: 'SET_BORDER_PRIMARY', color: '#CCCCCC' }
-      const result = themeReducer(mockTheme, action)
-
-      expect(result.colors.border.primary).toBe('#CCCCCC')
-      expect(result.colors.border.secondary).toBe(mockTheme.colors.border.secondary)
-    })
-
-    it('should update border secondary color', () => {
-      const action: ThemeAction = { type: 'SET_BORDER_SECONDARY', color: '#DDDDDD' }
-      const result = themeReducer(mockTheme, action)
-
-      expect(result.colors.border.secondary).toBe('#DDDDDD')
-    })
-
-    it('should update border focus color', () => {
-      const action: ThemeAction = { type: 'SET_BORDER_FOCUS', color: '#0066CC' }
-      const result = themeReducer(mockTheme, action)
-
-      expect(result.colors.border.focus).toBe('#0066CC')
+      expect(result.colors.default).toBe('#CCCCCC')
     })
   })
 
@@ -261,25 +212,25 @@ describe('themeReducer', () => {
       expect(result).toBe(mockTheme)
     })
 
-    it('should return the same state reference when setting the same text color', () => {
-      const currentColor = mockTheme.colors.text.primary
-      const action: ThemeAction = { type: 'SET_TEXT_PRIMARY', color: currentColor }
+    it('should return the same state reference when setting the same onPrimary color', () => {
+      const currentColor = mockTheme.colors.onPrimary
+      const action: ThemeAction = { type: 'SET_ON_PRIMARY', color: currentColor }
       const result = themeReducer(mockTheme, action)
 
       expect(result).toBe(mockTheme)
     })
 
-    it('should return the same state reference when setting the same background color', () => {
-      const currentColor = mockTheme.colors.background.primary
-      const action: ThemeAction = { type: 'SET_BACKGROUND_PRIMARY', color: currentColor }
+    it('should return the same state reference when setting the same success color', () => {
+      const currentColor = mockTheme.colors.success
+      const action: ThemeAction = { type: 'SET_SUCCESS', color: currentColor }
       const result = themeReducer(mockTheme, action)
 
       expect(result).toBe(mockTheme)
     })
 
-    it('should return the same state reference when setting the same border color', () => {
-      const currentColor = mockTheme.colors.border.focus
-      const action: ThemeAction = { type: 'SET_BORDER_FOCUS', color: currentColor }
+    it('should return the same state reference when setting the same default color', () => {
+      const currentColor = mockTheme.colors.default
+      const action: ThemeAction = { type: 'SET_DEFAULT', color: currentColor }
       const result = themeReducer(mockTheme, action)
 
       expect(result).toBe(mockTheme)

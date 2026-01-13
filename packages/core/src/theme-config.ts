@@ -44,7 +44,7 @@ export interface ThemeFontWeights {
 export interface ThemeFontFamilies {
   body: string
   heading: string
-  monospace: string
+  default: string
 }
 
 export interface ThemeShadows {
@@ -129,7 +129,7 @@ const baseTheme = {
   fontFamilies: {
     body: 'System',
     heading: 'System',
-    monospace: 'monospace',
+    default: 'monospace',
   },
   shadows: {
     sm: {
