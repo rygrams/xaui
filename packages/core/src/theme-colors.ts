@@ -56,31 +56,26 @@ export const darkThemeColors: ThemeColors = {
     foreground: colors.gray[900],
     surface: colors.blue[900],
   },
-
   secondary: {
     main: colors.purple[500],
     foreground: colors.gray[900],
     surface: colors.purple[900],
   },
-
   danger: {
     main: colors.red[500],
     foreground: colors.gray[900],
     surface: colors.red[900],
   },
-
   warning: {
     main: colors.amber[500],
     foreground: colors.gray[900],
     surface: colors.amber[900],
   },
-
   success: {
     main: colors.green[500],
     foreground: colors.gray[900],
     surface: colors.green[900],
   },
-
   default: {
     main: colors.gray[200],
     foreground: colors.gray[900],
