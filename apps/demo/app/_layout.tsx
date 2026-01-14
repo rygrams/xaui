@@ -2,7 +2,7 @@ import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native
 import { Stack } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 import 'react-native-reanimated'
-import { XUIProvider } from '@xaui/core'
+import { XUIProvider } from '../../../packages/cor/core/dist'
 
 import { useColorScheme } from '@/hooks/use-color-scheme'
 
