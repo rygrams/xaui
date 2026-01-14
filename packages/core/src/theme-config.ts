@@ -1,4 +1,3 @@
-import colors from '@xaui/colors'
 import { darkThemeColors, themeColors, ThemeColors } from './theme-colors'
 
 export interface ThemeSpacing {
@@ -20,6 +19,15 @@ export interface ThemeBorderRadius {
   '2xl': number
   '3xl': number
   full: number
+}
+
+export interface ThemeBorderWidth {
+  none: number
+  xs: number
+  sm: number
+  md: number
+  lg: number
+  xl: number
 }
 
 export interface ThemeFontSizes {
@@ -83,11 +91,11 @@ export interface XUITheme {
   colors: ThemeColors
   spacing: ThemeSpacing
   borderRadius: ThemeBorderRadius
+  borderWidth: ThemeBorderWidth
   fontSizes: ThemeFontSizes
   fontWeights: ThemeFontWeights
   fontFamilies: ThemeFontFamilies
   shadows: ThemeShadows
-  background: string
 }
 
 const baseTheme = {
@@ -109,6 +117,14 @@ const baseTheme = {
     '2xl': 24,
     '3xl': 32,
     full: 9999,
+  },
+  borderWidth: {
+    none: 0,
+    xs: 0.5,
+    sm: 1,
+    md: 2,
+    lg: 3,
+    xl: 4,
   },
   fontSizes: {
     xs: 12,
@@ -167,13 +183,11 @@ const baseTheme = {
 
 export const theme: XUITheme = {
   colors: themeColors,
-  background: colors.white,
   ...baseTheme,
 }
 
 export const darkTheme: XUITheme = {
   colors: darkThemeColors,
-  background: colors.gray[900],
   ...baseTheme,
 }
 

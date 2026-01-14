@@ -8,6 +8,7 @@ export type {
   XUITheme,
   ThemeSpacing,
   ThemeBorderRadius,
+  ThemeBorderWidth,
   ThemeFontSizes,
   ThemeFontWeights,
   ThemeFontFamilies,
