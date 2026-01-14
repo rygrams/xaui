@@ -1,6 +1,6 @@
 # @xaui/colors
 
-A comprehensive color palette for XAUI Library, inspired by Tailwind CSS. Includes 20+ color families with 11 shades each (50-950), utility functions, and full TypeScript support.
+A comprehensive color palette for XAUI, a React Native component library strongly inspired by Flutter. This package provides a Tailwind CSS-inspired color system with 20+ color families, 11 shades each (50-950), utility functions, and full TypeScript support.
 
 ## Installation
 
