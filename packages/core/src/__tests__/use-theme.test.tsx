@@ -14,15 +14,15 @@ describe('useXUITheme', () => {
   })
 
   describe('color roles direct access', () => {
-    it('should return primary color role with main, foreground, and surface', () => {
+    it('should return primary color role with base, on, and surface', () => {
       const { result } = renderHook(() => useXUITheme(), {
         wrapper: ({ children }) => <XUIProvider>{children}</XUIProvider>,
       })
 
       expect(result.current.colors.primary).toBeDefined()
-      expect(typeof result.current.colors.primary.main).toBe('string')
-      expect(typeof result.current.colors.primary.foreground).toBe('string')
-      expect(typeof result.current.colors.primary.surface).toBe('string')
+      expect(typeof result.current.colors.primary).toBe('string')
+      expect(typeof result.current.colors.onPrimary).toBe('string')
+      expect(typeof result.current.colors.primarySurface).toBe('string')
     })
 
     it('should return secondary color role', () => {
@@ -31,9 +31,9 @@ describe('useXUITheme', () => {
       })
 
       expect(result.current.colors.secondary).toBeDefined()
-      expect(typeof result.current.colors.secondary.main).toBe('string')
-      expect(typeof result.current.colors.secondary.foreground).toBe('string')
-      expect(typeof result.current.colors.secondary.surface).toBe('string')
+      expect(typeof result.current.colors.secondary).toBe('string')
+      expect(typeof result.current.colors.onSecondary).toBe('string')
+      expect(typeof result.current.colors.secondarySurface).toBe('string')
     })
 
     it('should return semantic color roles', () => {
@@ -46,10 +46,10 @@ describe('useXUITheme', () => {
       expect(result.current.colors.danger).toBeDefined()
       expect(result.current.colors.default).toBeDefined()
 
-      expect(typeof result.current.colors.success.main).toBe('string')
-      expect(typeof result.current.colors.warning.main).toBe('string')
-      expect(typeof result.current.colors.danger.main).toBe('string')
-      expect(typeof result.current.colors.default.main).toBe('string')
+      expect(typeof result.current.colors.success).toBe('string')
+      expect(typeof result.current.colors.warning).toBe('string')
+      expect(typeof result.current.colors.danger).toBe('string')
+      expect(typeof result.current.colors.default).toBe('string')
     })
   })
 
@@ -57,16 +57,12 @@ describe('useXUITheme', () => {
     it('should use custom theme colors when provided', () => {
       const customTheme = {
         colors: {
-          primary: {
-            main: '#CUSTOM1',
-            foreground: '#FFFFFF',
-            surface: '#CUSTOM1_SURFACE',
-          },
-          secondary: {
-            main: '#CUSTOM2',
-            foreground: '#FFFFFF',
-            surface: '#CUSTOM2_SURFACE',
-          },
+          primary: '#CUSTOM1',
+          onPrimary: '#FFFFFF',
+          primarySurface: '#CUSTOM1_SURFACE',
+          secondary: '#CUSTOM2',
+          onSecondary: '#FFFFFF',
+          secondarySurface: '#CUSTOM2_SURFACE',
         },
       }
 
@@ -74,8 +70,8 @@ describe('useXUITheme', () => {
         wrapper: ({ children }) => <XUIProvider theme={customTheme}>{children}</XUIProvider>,
       })
 
-      expect(result.current.colors.primary.main).toBe('#CUSTOM1')
-      expect(result.current.colors.secondary.main).toBe('#CUSTOM2')
+      expect(result.current.colors.primary).toBe('#CUSTOM1')
+      expect(result.current.colors.secondary).toBe('#CUSTOM2')
     })
 
     it('should use custom font families when provided', () => {

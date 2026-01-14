@@ -16,6 +16,6 @@ export type {
 } from './theme-config'
 
 export { themeColors, darkThemeColors } from './theme-colors'
-export type { ThemeColors, ColorRole } from './theme-colors'
+export type { ThemeColors } from './theme-colors'
 
 export { useXUITheme } from './use-theme'
