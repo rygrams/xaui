@@ -1,15 +1,15 @@
 import { View, Text, StyleSheet } from 'react-native'
-import { CircularProgressIndicator, CupertinoActivityIndicator } from '@xaui/progress'
+import { CircularActivityIndicator } from '@xaui/progress'
 import { colors } from '@xaui/colors'
 
 export default function ExploreScreen() {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>roundedCap Property Demonstration</Text>
+      <Text style={styles.title}>Progress Indicators</Text>
 
-      <CircularProgressIndicator strokeCap={'square'} themeColor="warning" size={40} />
-      <CupertinoActivityIndicator size={20} color={colors.white} />
-      <Text style={styles.note}>Flat line caps (butt)</Text>
+      <CircularActivityIndicator variant="spinner" themeColor="primary" />
+      <CircularActivityIndicator variant="ticks" themeColor="secondary" />
+      <CircularActivityIndicator variant="bullets" themeColor="tertiary" />
     </View>
   )
 }

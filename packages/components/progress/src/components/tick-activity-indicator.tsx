@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useMemo } from 'react'
 import { Animated, Easing, Platform, StyleSheet, View } from 'react-native'
 import { useXUITheme } from '@xaui/core'
-import type { CupertinoActivityIndicatorProps } from './progress-types'
+import type { ActivityIndicatorProps } from '../progress-types'
 
 const TICK_COUNT = 8
 const DURATION = 1000
@@ -12,8 +12,8 @@ const getOpacityForDistance = (distance: number): number => {
   return 0.2 + ((TICK_COUNT - distance) / TICK_COUNT) * 0.2
 }
 
-export const CupertinoActivityIndicator: React.FC<CupertinoActivityIndicatorProps> = ({
-  size = 20,
+export const TickActivityIndicator: React.FC<ActivityIndicatorProps> = ({
+  size = 40,
   themeColor = 'primary',
   color,
   disableAnimation = false,

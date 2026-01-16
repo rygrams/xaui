@@ -30,11 +30,11 @@ export const StyleSheet = {
 
 export const View = ({
   children,
-  _accessible,
+  accessible: _accessible,
   accessibilityRole,
   accessibilityLabel,
   accessibilityValue,
-  _collapsable,
+  collapsable: _collapsable,
   ...props
 }: ViewProps) => {
   const htmlProps: Record<string, unknown> = { ...props, 'data-testid': 'view' }
@@ -75,6 +75,8 @@ export const Platform = {
 export const Easing = {
   linear: vi.fn(),
   bezier: vi.fn(() => vi.fn()),
+  ease: vi.fn(),
+  inOut: vi.fn((_easing: unknown) => vi.fn()),
 }
 
 class MockAnimatedValue {
@@ -82,16 +84,17 @@ class MockAnimatedValue {
   setValue = vi.fn((value: number) => {
     this.value = value
   })
+  stopAnimation = vi.fn()
   interpolate = vi.fn(() => new MockAnimatedValue(0))
 }
 
 const AnimatedView = ({
   children,
-  _accessible,
+  accessible: _accessible,
   accessibilityRole,
   accessibilityLabel,
   accessibilityValue,
-  _collapsable,
+  collapsable: _collapsable,
   ...props
 }: ViewProps) => {
   const htmlProps: Record<string, unknown> = { ...props, 'data-testid': 'animated-view' }
@@ -121,6 +124,14 @@ export const Animated = {
     stop: vi.fn(),
   })),
   loop: vi.fn((_animation: AnimationConfig): AnimationConfig => ({
+    start: vi.fn(),
+    stop: vi.fn(),
+  })),
+  sequence: vi.fn((_animations: AnimationConfig[]): AnimationConfig => ({
+    start: vi.fn(),
+    stop: vi.fn(),
+  })),
+  delay: vi.fn((_duration: number): AnimationConfig => ({
     start: vi.fn(),
     stop: vi.fn(),
   })),

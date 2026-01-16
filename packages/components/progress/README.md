@@ -1,6 +1,6 @@
 # @xaui/progress
 
-Progress and activity indicator components for XAUI - A modern React Native UI library with Flutter-inspired API, smooth animations, and comprehensive design system.
+Activity indicator components for XAUI - A modern React Native UI library with Flutter-inspired API, smooth animations, and comprehensive design system.
 
 ## Installation
 
@@ -10,33 +10,22 @@ pnpm add @xaui/progress
 
 ## Components
 
-- **CircularProgressIndicator**: A circular progress indicator with determinate and indeterminate modes
-- **CupertinoActivityIndicator**: iOS-style spinning activity indicator
+- **CircularActivityIndicator**: A versatile activity indicator with three variants (ticks, bullets, spinner)
 
-## Features
+## CircularActivityIndicator
 
-- **Flutter-inspired API**: Progress components with intuitive Flutter-like props
-- **Theme Integration**: Seamlessly integrates with @xaui/core theme system
-- **Smooth Animations**: Native animations using React Native Animated API
-- **TypeScript First**: Fully typed for excellent developer experience
-- **Customizable**: Extensive customization options with theme colors and custom colors
-- **Multiple States**: Support for determinate and indeterminate progress states
-- **StrokeCap Options**: Configure line cap styles (round, butt, square)
-
-## CircularProgressIndicator
-
-A versatile circular progress indicator that supports both determinate (with a specific value) and indeterminate (loading) modes.
+A flexible activity indicator component that supports three different visual styles through the `variant` prop.
 
 ### Basic Usage
 
 ```typescript
-import { CircularProgressIndicator } from '@xaui/progress'
+import { CircularActivityIndicator } from '@xaui/progress'
 import { XUIProvider } from '@xaui/core'
 
 function MyComponent() {
   return (
     <XUIProvider>
-      <CircularProgressIndicator value={0.75} />
+      <CircularActivityIndicator />
     </XUIProvider>
   )
 }
@@ -46,187 +35,170 @@ function MyComponent() {
 
 | Prop | Type | Default | Description |
 |------|------|---------|-------------|
-| `size` | `number` | `40` | Diameter of the circular indicator in pixels |
+| `variant` | `'ticks' \| 'bullets' \| 'spinner'` | `'spinner'` | Visual style of the activity indicator |
+| `size` | `number` | `40` (spinner/bullets) / `20` (ticks) | Diameter of the indicator in pixels |
 | `themeColor` | `'primary' \| 'secondary' \| 'tertiary' \| 'danger' \| 'warning' \| 'success' \| 'default'` | `'primary'` | Theme color to use |
-| `value` | `number \| null \| undefined` | `undefined` | Progress value (0-1). If undefined/null, shows indeterminate mode |
 | `color` | `string` | - | Custom color (overrides themeColor) |
-| `backgroundColor` | `string` | - | Custom background track color |
-| `strokeWidth` | `number` | `4` | Width of the progress stroke |
-| `strokeCap` | `'round' \| 'butt' \| 'square'` | `'butt'` (determinate) / `'square'` (indeterminate) | Style of the stroke line caps |
 | `disableAnimation` | `boolean` | `false` | Disable animations |
 
-### Examples
+### Variants
 
-#### Determinate Progress
+#### Spinner (default)
 
-```typescript
-// 75% complete
-<CircularProgressIndicator value={0.75} />
-
-// With custom size and color
-<CircularProgressIndicator
-  value={0.5}
-  size={60}
-  themeColor="success"
-  strokeWidth={6}
-/>
-
-// With rounded caps
-<CircularProgressIndicator
-  value={0.8}
-  strokeCap="round"
-/>
-```
-
-#### Indeterminate (Loading) State
+A Material Design-inspired circular spinner with smooth animation.
 
 ```typescript
-// Default spinning loader
-<CircularProgressIndicator />
+<CircularActivityIndicator variant="spinner" />
 
 // With custom styling
-<CircularProgressIndicator
+<CircularActivityIndicator
+  variant="spinner"
   size={50}
   themeColor="primary"
-  strokeWidth={5}
 />
 
 // With custom color
-<CircularProgressIndicator
+<CircularActivityIndicator
+  variant="spinner"
+  color="#007AFF"
+  size={60}
+/>
+```
+
+**Design Details:**
+- Material Design-inspired spinning animation
+- Smooth acceleration/deceleration with bezier easing
+- Lightweight and efficient
+- Default size: 40px
+
+#### Ticks
+
+A tick-based spinning indicator with opacity-based animation.
+
+```typescript
+<CircularActivityIndicator variant="ticks" />
+
+// With custom styling
+<CircularActivityIndicator
+  variant="ticks"
+  size={30}
+  themeColor="success"
+/>
+
+// With custom color
+<CircularActivityIndicator
+  variant="ticks"
   color="#FF5733"
-  backgroundColor="#EEEEEE"
 />
 ```
 
-#### Different Theme Colors
+**Design Details:**
+- 8 tick marks arranged radially
+- Active tick at 100% opacity, adjacent at 80%, others fade from 20-40%
+- Creates rotation illusion through sequential opacity changes
+- No physical rotation for optimal performance
+- Default size: 20px
+
+#### Bullets
+
+A bullet-based orbital activity indicator with smooth ease-in-out animation.
 
 ```typescript
-<CircularProgressIndicator value={0.3} themeColor="primary" />
-<CircularProgressIndicator value={0.5} themeColor="secondary" />
-<CircularProgressIndicator value={0.7} themeColor="success" />
-<CircularProgressIndicator value={0.8} themeColor="warning" />
-<CircularProgressIndicator value={0.9} themeColor="danger" />
-```
+<CircularActivityIndicator variant="bullets" />
 
-#### StrokeCap Variants
+// With custom styling
+<CircularActivityIndicator
+  variant="bullets"
+  size={60}
+  themeColor="warning"
+/>
 
-```typescript
-// Rounded ends
-<CircularProgressIndicator value={0.6} strokeCap="round" />
-
-// Flat ends (default for determinate)
-<CircularProgressIndicator value={0.6} strokeCap="butt" />
-
-// Square ends extending beyond the arc
-<CircularProgressIndicator value={0.6} strokeCap="square" />
-```
-
-#### Without Animation
-
-```typescript
-<CircularProgressIndicator
-  value={0.5}
-  disableAnimation={true}
+// With custom color
+<CircularActivityIndicator
+  variant="bullets"
+  color="#FF00FF"
+  size={50}
 />
 ```
 
-## CupertinoActivityIndicator
-
-An iOS-style spinning activity indicator with opacity-based animation that creates the illusion of rotation.
-
-### Basic Usage
-
-```typescript
-import { CupertinoActivityIndicator } from '@xaui/progress'
-import { XUIProvider } from '@xaui/core'
-
-function MyComponent() {
-  return (
-    <XUIProvider>
-      <CupertinoActivityIndicator />
-    </XUIProvider>
-  )
-}
-```
-
-### Props
-
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `size` | `number` | `20` | Diameter of the indicator in pixels |
-| `themeColor` | `'primary' \| 'secondary' \| 'tertiary' \| 'danger' \| 'warning' \| 'success' \| 'default'` | `'primary'` | Theme color to use |
-| `color` | `string` | - | Custom color (overrides themeColor) |
-| `disableAnimation` | `boolean` | `false` | Disable spinning animation |
+**Design Details:**
+- 6 circular bullets orbiting around an invisible center
+- Continuous 360-degree rotation
+- Evenly spaced at 60° intervals
+- Smooth ease-in-out animation for natural movement
+- Transform-based rotation for smooth circular motion
+- Default size: 40px
 
 ### Examples
 
-#### Basic Spinner
-
-```typescript
-<CupertinoActivityIndicator />
-```
-
-#### Custom Size and Color
-
-```typescript
-<CupertinoActivityIndicator
-  size={40}
-  themeColor="primary"
-/>
-```
-
 #### Different Theme Colors
 
 ```typescript
-<CupertinoActivityIndicator themeColor="primary" />
-<CupertinoActivityIndicator themeColor="secondary" />
-<CupertinoActivityIndicator themeColor="success" />
-<CupertinoActivityIndicator themeColor="warning" />
-<CupertinoActivityIndicator themeColor="danger" />
+<CircularActivityIndicator variant="spinner" themeColor="primary" />
+<CircularActivityIndicator variant="ticks" themeColor="secondary" />
+<CircularActivityIndicator variant="bullets" themeColor="success" />
+<CircularActivityIndicator variant="spinner" themeColor="warning" />
+<CircularActivityIndicator variant="ticks" themeColor="danger" />
 ```
 
-#### Custom Color
+#### Custom Sizes
 
 ```typescript
-<CupertinoActivityIndicator
-  color="#007AFF"
-  size={30}
-/>
+// Small spinner
+<CircularActivityIndicator variant="spinner" size={24} />
+
+// Medium ticks
+<CircularActivityIndicator variant="ticks" size={32} />
+
+// Large bullets
+<CircularActivityIndicator variant="bullets" size={80} />
+```
+
+#### Custom Colors
+
+```typescript
+<CircularActivityIndicator variant="spinner" color="#007AFF" />
+<CircularActivityIndicator variant="ticks" color="#34C759" />
+<CircularActivityIndicator variant="bullets" color="#FF3B30" />
 ```
 
 #### Without Animation
 
 ```typescript
-<CupertinoActivityIndicator
-  disableAnimation={true}
+<CircularActivityIndicator variant="spinner" disableAnimation={true} />
+<CircularActivityIndicator variant="ticks" disableAnimation={true} />
+<CircularActivityIndicator variant="bullets" disableAnimation={true} />
+```
+
+#### Combining Props
+
+```typescript
+<CircularActivityIndicator
+  variant="bullets"
+  size={70}
+  themeColor="primary"
+  disableAnimation={false}
+/>
+
+<CircularActivityIndicator
+  variant="ticks"
+  size={28}
+  color="#FF9500"
+/>
+
+<CircularActivityIndicator
+  variant="spinner"
+  size={48}
+  themeColor="success"
 />
 ```
 
-## Design Details
-
-### CircularProgressIndicator
-
-- **Indeterminate Mode**: Material Design-inspired spinning animation with smooth acceleration/deceleration
-- **Determinate Mode**: SVG-based arc rendering with smooth animated progress updates
-- **StrokeCap Behavior**:
-  - `butt`: Default for determinate mode, straight line ends
-  - `round`: Rounded line ends, popular for modern UI
-  - `square`: Extends slightly beyond the arc endpoints
-
-### CupertinoActivityIndicator
-
-- **8 Tick Design**: Follows iOS native activity indicator pattern
-- **Opacity Animation**: Active tick at 100% opacity, adjacent tick at 80%, remaining ticks fade from 20-40%
-- **No Physical Rotation**: Creates rotation illusion through sequential opacity changes
-- **Lightweight**: Efficient animation without transform rotations
-
 ## Accessibility
 
-Both components include proper accessibility attributes:
+All components include proper accessibility attributes:
 
 - `accessibilityRole="progressbar"`
 - `accessibilityLabel` for screen readers
-- `accessibilityValue` with min/max/now values (CircularProgressIndicator in determinate mode)
 
 ## TypeScript Support
 
@@ -234,15 +206,14 @@ All components are fully typed with comprehensive TypeScript definitions:
 
 ```typescript
 import type {
-  CircularProgressIndicatorProps,
-  CupertinoActivityIndicatorProps,
-  StrokeCap,
+  CircularActivityIndicatorProps,
+  ActivityIndicatorProps,
 } from '@xaui/progress'
 ```
 
 ## Theme Integration
 
-Both components integrate with the XAUI theme system through `@xaui/core`:
+All components integrate with the XAUI theme system through `@xaui/core`:
 
 ```typescript
 import { XUIProvider } from '@xaui/core'
@@ -260,8 +231,9 @@ function App() {
         },
       }}
     >
-      <CircularProgressIndicator themeColor="primary" value={0.5} />
-      <CupertinoActivityIndicator themeColor="primary" />
+      <CircularActivityIndicator variant="spinner" themeColor="primary" />
+      <CircularActivityIndicator variant="ticks" themeColor="primary" />
+      <CircularActivityIndicator variant="bullets" themeColor="primary" />
     </XUIProvider>
   )
 }
@@ -277,11 +249,12 @@ function App() {
 
 The package includes comprehensive test coverage:
 
-- 59 unit tests covering all component variants
+- 100+ unit tests covering all component variants
 - Props validation and type checking
 - Animation behavior testing
 - Theme integration testing
 - Accessibility testing
+- Variant switching tests
 
 ## License
 

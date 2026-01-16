@@ -2,7 +2,7 @@ import React, { useEffect, useRef } from 'react'
 import { Animated, Easing, Platform, StyleSheet, View } from 'react-native'
 import Svg, { Circle } from 'react-native-svg'
 import { useXUITheme } from '@xaui/core'
-import type { CircularProgressIndicatorProps } from './progress-types'
+import type { CircularProgressIndicatorProps } from '../progress-types'
 
 const MIN_VALUE = 0
 const MAX_VALUE = 1

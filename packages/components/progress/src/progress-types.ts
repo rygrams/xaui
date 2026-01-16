@@ -21,7 +21,7 @@ export type CircularProgressIndicatorProps = ProgressBaseProps & {
   strokeWidth?: number
 }
 
-export type CupertinoActivityIndicatorProps = {
+export type ActivityIndicatorProps = {
   size?: number
   themeColor?:
     | 'primary'
@@ -33,4 +33,8 @@ export type CupertinoActivityIndicatorProps = {
     | 'default'
   color?: string
   disableAnimation?: boolean
+}
+
+export type CircularActivityIndicatorProps = ActivityIndicatorProps & {
+  variant?: 'ticks' | 'bullets' | 'spinner'
 }

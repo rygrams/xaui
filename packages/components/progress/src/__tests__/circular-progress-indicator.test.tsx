@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render } from '@testing-library/react'
 import React from 'react'
-import { CircularProgressIndicator } from '../circular-progress-indicator'
+import { CircularProgressIndicator } from '../components/circular-progress-indicator'
 import { XUIProvider } from '@xaui/core'
 
 const renderWithProvider = (component: React.ReactElement) => {
@@ -207,17 +207,13 @@ describe('CircularProgressIndicator', () => {
 
   describe('accessibility', () => {
     it('should have progressbar role', () => {
-      const { container } = renderWithProvider(
-        <CircularProgressIndicator value={0.5} />
-      )
+      const { container } = renderWithProvider(<CircularProgressIndicator value={0.5} />)
       const progressbar = container.querySelector('[role="progressbar"]')
       expect(progressbar).toBeTruthy()
     })
 
     it('should have correct accessibility value in determinate mode', () => {
-      const { container } = renderWithProvider(
-        <CircularProgressIndicator value={0.75} />
-      )
+      const { container } = renderWithProvider(<CircularProgressIndicator value={0.75} />)
       const progressbar = container.querySelector('[role="progressbar"]')
       expect(progressbar).toBeTruthy()
     })
