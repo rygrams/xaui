@@ -6,15 +6,17 @@ import { Select, SelectItem } from '@xaui/select'
 export default function ExploreScreen() {
   const [singleSelectKeys, setSingleSelectKeys] = useState(['fr'])
   const [multiSelectKeys, setMultiSelectKeys] = useState(['design', 'mobile'])
-  const [variantFlatKeys, setVariantFlatKeys] = useState(['option1'])
   const [variantOutlinedKeys, setVariantOutlinedKeys] = useState(['option2'])
+  const [variantFlatKeys, setVariantFlatKeys] = useState(['option1'])
+  const [variantLightKeys, setVariantLightKeys] = useState(['option3'])
   const [variantFadedKeys, setVariantFadedKeys] = useState(['option1'])
-  const [variantUnderlinedKeys, setVariantUnderlinedKeys] = useState(['option3'])
-  const [colorPrimaryKeys, setColorPrimaryKeys] = useState(['item1'])
-  const [colorSecondaryKeys, setColorSecondaryKeys] = useState(['item2'])
-  const [colorSuccessKeys, setColorSuccessKeys] = useState(['item1'])
-  const [colorWarningKeys, setColorWarningKeys] = useState(['item3'])
-  const [colorDangerKeys, setColorDangerKeys] = useState(['item2'])
+  const [variantUnderlinedKeys, setVariantUnderlinedKeys] = useState(['option2'])
+  const [colorDefaultKeys, setColorDefaultKeys] = useState(['item1'])
+  const [colorPrimaryKeys, setColorPrimaryKeys] = useState(['item2'])
+  const [colorSecondaryKeys, setColorSecondaryKeys] = useState(['item1'])
+  const [colorSuccessKeys, setColorSuccessKeys] = useState(['item3'])
+  const [colorWarningKeys, setColorWarningKeys] = useState(['item2'])
+  const [colorDangerKeys, setColorDangerKeys] = useState(['item1'])
   const [sizeSmallKeys, setSizeSmallKeys] = useState(['small1'])
   const [sizeMediumKeys, setSizeMediumKeys] = useState(['medium2'])
   const [sizeLargeKeys, setSizeLargeKeys] = useState(['large1'])
@@ -74,6 +76,20 @@ export default function ExploreScreen() {
       <View style={styles.section}>
         <Text style={styles.label}>Variants</Text>
         <Select
+          label="Outlined Variant"
+          placeholder="Select option"
+          selectionMode="single"
+          selectedKeys={variantOutlinedKeys}
+          onSelectionChange={setVariantOutlinedKeys}
+          variant="outlined"
+          size="md"
+          radius="md"
+        >
+          <SelectItem key="option1" title="Option 1" />
+          <SelectItem key="option2" title="Option 2" />
+          <SelectItem key="option3" title="Option 3" />
+        </Select>
+        <Select
           label="Flat Variant"
           placeholder="Select option"
           selectionMode="single"
@@ -88,12 +104,12 @@ export default function ExploreScreen() {
           <SelectItem key="option3" title="Option 3" />
         </Select>
         <Select
-          label="Outlined Variant"
+          label="Light Variant"
           placeholder="Select option"
           selectionMode="single"
-          selectedKeys={variantOutlinedKeys}
-          onSelectionChange={setVariantOutlinedKeys}
-          variant="outlined"
+          selectedKeys={variantLightKeys}
+          onSelectionChange={setVariantLightKeys}
+          variant="light"
           size="md"
           radius="md"
         >
@@ -134,12 +150,27 @@ export default function ExploreScreen() {
       <View style={styles.section}>
         <Text style={styles.label}>Colors</Text>
         <Select
+          label="Default (Gray)"
+          placeholder="Select option"
+          selectionMode="single"
+          selectedKeys={colorDefaultKeys}
+          onSelectionChange={setColorDefaultKeys}
+          variant="outlined"
+          themeColor="default"
+          size="md"
+          radius="md"
+        >
+          <SelectItem key="item1" title="Item 1" />
+          <SelectItem key="item2" title="Item 2" />
+          <SelectItem key="item3" title="Item 3" />
+        </Select>
+        <Select
           label="Primary"
           placeholder="Select option"
           selectionMode="single"
           selectedKeys={colorPrimaryKeys}
           onSelectionChange={setColorPrimaryKeys}
-          variant="faded"
+          variant="outlined"
           themeColor="primary"
           size="md"
           radius="md"
@@ -154,7 +185,7 @@ export default function ExploreScreen() {
           selectionMode="single"
           selectedKeys={colorSecondaryKeys}
           onSelectionChange={setColorSecondaryKeys}
-          variant="faded"
+          variant="outlined"
           themeColor="secondary"
           size="md"
           radius="md"
@@ -169,7 +200,7 @@ export default function ExploreScreen() {
           selectionMode="single"
           selectedKeys={colorSuccessKeys}
           onSelectionChange={setColorSuccessKeys}
-          variant="faded"
+          variant="outlined"
           themeColor="success"
           size="md"
           radius="md"
@@ -184,7 +215,7 @@ export default function ExploreScreen() {
           selectionMode="single"
           selectedKeys={colorWarningKeys}
           onSelectionChange={setColorWarningKeys}
-          variant="faded"
+          variant="outlined"
           themeColor="warning"
           size="md"
           radius="md"
@@ -199,7 +230,7 @@ export default function ExploreScreen() {
           selectionMode="single"
           selectedKeys={colorDangerKeys}
           onSelectionChange={setColorDangerKeys}
-          variant="faded"
+          variant="outlined"
           themeColor="danger"
           size="md"
           radius="md"

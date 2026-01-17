@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react'
+import React, { useCallback, useMemo, useState, useRef } from 'react'
 import {
   Modal,
   Pressable,
@@ -7,6 +7,7 @@ import {
   View,
   StyleSheet,
   type LayoutChangeEvent,
+  Dimensions,
 } from 'react-native'
 import { useXUITheme } from '@xaui/core'
 import { colors } from '@xaui/colors'
@@ -45,17 +46,25 @@ export const Select: React.FC<SelectProps> = ({
   isOpened,
   isDisabled = false,
   isInvalid = false,
+  mainStyle,
+  textStyle,
   onClose,
   onOpenChange,
   onSelectionChange,
   onClear,
 }) => {
   const theme = useXUITheme()
+  const triggerRef = useRef<View>(null)
   const [internalSelectedKeys, setInternalSelectedKeys] = useState(
     defaultSelectedKeys ?? [],
   )
   const [internalOpen, setInternalOpen] = useState(false)
   const [triggerWidth, setTriggerWidth] = useState<number | null>(null)
+  const [triggerPosition, setTriggerPosition] = useState<{
+    x: number
+    y: number
+    height: number
+  } | null>(null)
 
   const isControlledSelection = selectedKeys !== undefined
   const currentSelectedKeys = isControlledSelection
@@ -111,6 +120,12 @@ export const Select: React.FC<SelectProps> = ({
     (nextOpen: boolean) => {
       if (nextOpen && isDisabled) {
         return
+      }
+
+      if (nextOpen && triggerRef.current) {
+        triggerRef.current.measure((x, y, width, height, pageX, pageY) => {
+          setTriggerPosition({ x: pageX, y: pageY, height })
+        })
       }
 
       if (isOpened === undefined) {
@@ -231,42 +246,39 @@ export const Select: React.FC<SelectProps> = ({
   const colorScheme = theme.colors[themeColor]
 
   const variantStyles = useMemo(() => {
-    if (variant === 'outlined') {
-      return {
-        backgroundColor: colors.transparent,
-        borderWidth: theme.borderWidth.sm,
-        borderColor: isInvalid ? theme.colors.danger.main : colorScheme.main,
-      }
+    let borderColor = isInvalid ? theme.colors.danger.main : colorScheme.main
+
+    if ((variant === 'outlined' || variant === 'faded') && themeColor === 'default') {
+      borderColor = colors.gray[300]
     }
 
-    if (variant === 'faded') {
-      return {
+    const styles = {
+      outlined: {
+        backgroundColor: colors.transparent,
+        borderWidth: theme.borderWidth.md,
+        borderColor,
+      },
+      flat: {
         backgroundColor: colorScheme.background,
-        borderWidth: theme.borderWidth.sm,
-        borderColor: isInvalid ? theme.colors.danger.main : colorScheme.main,
-      }
-    }
-
-    if (variant === 'underlined') {
-      return {
-        backgroundColor: colors.transparent,
-        borderBottomWidth: theme.borderWidth.sm,
-        borderColor: isInvalid ? theme.colors.danger.main : colorScheme.main,
-      }
-    }
-
-    if (variant === 'light') {
-      return {
+        borderWidth: 0,
+      },
+      light: {
         backgroundColor: colors.transparent,
         borderWidth: 0,
-      }
+      },
+      faded: {
+        backgroundColor: `${colorScheme.background}90`,
+        borderWidth: theme.borderWidth.md,
+        borderColor,
+      },
+      underlined: {
+        backgroundColor: colors.transparent,
+        borderBottomWidth: theme.borderWidth.md,
+        borderColor,
+      },
     }
-
-    return {
-      backgroundColor: colorScheme.background,
-      borderWidth: 0,
-    }
-  }, [variant, theme, colorScheme, isInvalid])
+    return styles[variant]
+  }, [variant, theme, colorScheme, isInvalid, themeColor])
 
   const labelStyle = useMemo(() => {
     const baseColor = isInvalid ? theme.colors.danger.main : theme.colors.foreground
@@ -297,7 +309,29 @@ export const Select: React.FC<SelectProps> = ({
   const shouldShowHelper = Boolean(hint || errorMessage)
   const helperContent = isInvalid && errorMessage ? errorMessage : hint
 
-  const listboxWidth = fullWidth ? triggerWidth ?? '100%' : 280
+  const listboxWidth = fullWidth ? triggerWidth ?? 200 : 280
+
+  const screenHeight = Dimensions.get('window').height
+  const shouldShowAbove = useMemo(() => {
+    if (!triggerPosition) return false
+    const spaceBelow = screenHeight - (triggerPosition.y + triggerPosition.height)
+    return spaceBelow < maxListboxHeight && triggerPosition.y > maxListboxHeight
+  }, [triggerPosition, screenHeight, maxListboxHeight])
+
+  const listboxPosition = useMemo(() => {
+    if (!triggerPosition) {
+      return { top: 0, left: 0 }
+    }
+
+    const left = triggerPosition.x
+    let top = triggerPosition.y + triggerPosition.height + 4
+
+    if (shouldShowAbove) {
+      top = triggerPosition.y - maxListboxHeight - 4
+    }
+
+    return { top, left }
+  }, [triggerPosition, shouldShowAbove, maxListboxHeight])
 
   const listItems = items.map((item) => {
     const itemProps = item.element.props
@@ -326,27 +360,29 @@ export const Select: React.FC<SelectProps> = ({
   const isLabelOutside = labelPlacement === 'outside' || labelPlacement === 'outside-top'
 
   const triggerContent = (
-    <Pressable
-      onPress={() => setOpen(!isOpen)}
-      disabled={isDisabled}
-      onLayout={handleTriggerLayout}
-      style={[
-        styles.trigger,
-        radiusStyles,
-        variantStyles,
-        {
-          minHeight: sizeStyles.minHeight,
-          paddingHorizontal: sizeStyles.paddingHorizontal,
-          paddingVertical: sizeStyles.paddingVertical,
-        },
-        isDisabled && styles.disabled,
-      ]}
-    >
+    <View ref={triggerRef} collapsable={false}>
+      <Pressable
+        onPress={() => setOpen(!isOpen)}
+        disabled={isDisabled}
+        onLayout={handleTriggerLayout}
+        style={[
+          styles.trigger,
+          radiusStyles,
+          variantStyles,
+          {
+            minHeight: sizeStyles.minHeight,
+            paddingHorizontal: sizeStyles.paddingHorizontal,
+            paddingVertical: sizeStyles.paddingVertical,
+          },
+          isDisabled && styles.disabled,
+          mainStyle,
+        ]}
+      >
       <View style={[styles.triggerContent, isLabelInside && styles.triggerContentColumn]}>
         {startContent}
         <View style={styles.valueWrapper}>
           {isLabelInside && renderLabel}
-          <Text style={[styles.valueText, { fontSize: sizeStyles.fontSize, color: valueColor }]}>
+          <Text style={[styles.valueText, { fontSize: sizeStyles.fontSize, color: valueColor }, textStyle]}>
             {displayValue}
           </Text>
         </View>
@@ -361,6 +397,7 @@ export const Select: React.FC<SelectProps> = ({
         {renderSelectorIcon}
       </View>
     </Pressable>
+    </View>
   )
 
   const labelBlock = isLabelOutside || isLabelInside ? renderLabel : null
@@ -389,18 +426,25 @@ export const Select: React.FC<SelectProps> = ({
 
       <Modal visible={isOpen} transparent animationType="fade" onRequestClose={handleOverlayPress}>
         <Pressable style={styles.overlay} onPress={handleOverlayPress}>
-          <Pressable
+          <View
             style={[
               styles.listbox,
               radiusStyles,
-              { width: listboxWidth, maxHeight: maxListboxHeight },
+              {
+                width: listboxWidth,
+                maxHeight: maxListboxHeight,
+                position: 'absolute',
+                top: listboxPosition.top,
+                left: listboxPosition.left,
+              },
             ]}
-            onPress={(event) => event.stopPropagation()}
           >
-            <SelectContext.Provider value={{ size, themeColor, isDisabled }}>
-              <ScrollView>{listItems}</ScrollView>
-            </SelectContext.Provider>
-          </Pressable>
+            <Pressable onPress={(event) => event.stopPropagation()} style={{ flex: 1 }}>
+              <SelectContext.Provider value={{ size, themeColor, isDisabled }}>
+                <ScrollView>{listItems}</ScrollView>
+              </SelectContext.Provider>
+            </Pressable>
+          </View>
         </Pressable>
       </Modal>
     </View>
@@ -465,13 +509,15 @@ const styles = StyleSheet.create({
   overlay: {
     flex: 1,
     backgroundColor: 'rgba(0, 0, 0, 0.25)',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 16,
   },
   listbox: {
     backgroundColor: colors.white,
     overflow: 'hidden',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.15,
+    shadowRadius: 8,
+    elevation: 8,
   },
   outsideLeftRow: {
     flexDirection: 'row',

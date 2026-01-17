@@ -17,6 +17,8 @@ export const SelectItem: React.FC<SelectItemProps> = ({
   isDisabled = false,
   isSelected = false,
   isReadOnly = false,
+  mainStyle,
+  textStyle,
   onSelected,
 }) => {
   const theme = useXUITheme()
@@ -61,12 +63,15 @@ export const SelectItem: React.FC<SelectItemProps> = ({
   }, [isSelected, colorScheme])
 
   const textColor = useMemo(() => {
-    if (isSelected) {
-      return colorScheme.main
-    }
-
     return theme.colors.foreground
-  }, [isSelected, colorScheme, theme])
+  }, [theme])
+
+  const checkmarkColor = useMemo(() => {
+    if (themeColor === 'default') {
+      return theme.colors.primary.main
+    }
+    return colorScheme.main
+  }, [themeColor, colorScheme, theme])
 
   const handlePress = () => {
     if (isItemDisabled || isReadOnly) {
@@ -88,11 +93,12 @@ export const SelectItem: React.FC<SelectItemProps> = ({
           backgroundColor,
         },
         isItemDisabled && styles.disabled,
+        mainStyle,
       ]}
     >
       {startContent}
       <View style={styles.content}>
-        <Text style={[styles.title, { fontSize: sizeStyles.titleSize, color: textColor }]}>
+        <Text style={[styles.title, { fontSize: sizeStyles.titleSize, color: textColor }, textStyle]}>
           {title}
         </Text>
         {description && (
@@ -106,7 +112,7 @@ export const SelectItem: React.FC<SelectItemProps> = ({
           </Text>
         )}
       </View>
-      {isSelected && (selectedIcon || <CheckmarkIcon color={colorScheme.main} size={16} />)}
+      {isSelected && (selectedIcon || <CheckmarkIcon color={checkmarkColor} size={16} />)}
       {endContent}
     </Pressable>
   )

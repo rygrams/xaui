@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import type { ViewStyle, TextStyle } from 'react-native'
 
 export type SelectThemeColor =
   | 'primary'
@@ -9,7 +10,7 @@ export type SelectThemeColor =
   | 'success'
   | 'default'
 
-export type SelectVariant = 'flat' | 'outlined' | 'faded' | 'underlined' | 'light'
+export type SelectVariant = 'outlined' | 'flat' | 'light' | 'faded' | 'underlined'
 
 export type SelectSize = 'sm' | 'md' | 'lg'
 
@@ -42,6 +43,8 @@ export type SelectProps = {
   isOpened?: boolean
   isDisabled?: boolean
   isInvalid?: boolean
+  mainStyle?: ViewStyle
+  textStyle?: TextStyle
 } & SelectEvents
 
 export type SelectEvents = {
@@ -60,5 +63,7 @@ export type SelectItemProps = {
   isDisabled?: boolean
   isSelected?: boolean
   isReadOnly?: boolean
+  mainStyle?: ViewStyle
+  textStyle?: TextStyle
   onSelected?: () => void
 }
