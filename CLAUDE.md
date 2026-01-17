@@ -135,3 +135,13 @@ The project uses GitHub Actions with the following workflow:
 - Use `pnpm changeset` to create a new changeset
 - Before generate changeset message, run `pnpm changeset version` to update versions based on changesets
 - For pull request add What, Why, How with details for better review
+
+## Code Best Practices
+
+- Dont add any console.log or console.error
+- Dont add any debugger statements
+- Dont add any comments that are not needed
+- Avoid deep code nesting like if (condition) { if (condition) { if (condition) { } } } or for (let i = 0; i < 10; i++) { if (condition) { if (condition) { if (condition) { } } } }
+- Use early returns to avoid deep code nesting
+- Use early returns to avoid deep code nesting
+- Avoid any type as much as possible

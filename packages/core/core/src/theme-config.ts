@@ -1,4 +1,5 @@
-import { darkThemeColors, themeColors, ThemeColors } from './theme-colors'
+import { darkThemeColors, themeColors } from './theme-colors'
+import type { ThemeColors } from './theme-colors'
 
 export interface ThemeSpacing {
   xs: number

@@ -17,3 +17,29 @@ A modern and performant React Native UI library, heavily inspired by Flutter, wi
 - **TypeScript First**: Fully typed for better DX
 - **Integrated Tests**: Jest configuration with React Native Testing Library
 - **CI/CD Ready**: GitHub Actions configured with Changesets for versioning
+
+## 📦 Components
+
+### Available Components
+
+#### Buttons
+- 🔘 [**Button**](./packages/components/buttons#button) - Versatile button component with 6 variants, loading states, and ripple effects
+- 🎯 [**IconButton**](./packages/components/buttons#iconbutton) - Icon-only button optimized for actions with transparent default
+
+#### Progress Indicators
+- 🔄 [**CircularActivityIndicator**](./packages/components/progress) - Animated activity indicators with 3 variants (spinner, ticks, bullets)
+
+#### Theme & Core
+- 🎨 [**XUIProvider**](./packages/core/core) - Theme provider with light/dark mode support
+- 🌈 [**Colors**](./packages/core/colors) - Tailwind-inspired color palette (20+ colors × 11 shades)
+
+### Coming Soon
+
+- ☐ **Checkbox** - Customizable checkbox component
+- ☐ **Radio** - Radio button component
+- ☐ **Switch** - Toggle switch component
+- ☐ **Input** - Text input with validation
+- ☐ **Card** - Container component with variants
+- ☐ **Modal** - Dialog and modal system
+- ☐ **Toast** - Notification system
+- ☐ **Dropdown** - Dropdown menu component

@@ -14,7 +14,7 @@ describe('useXUITheme', () => {
   })
 
   describe('color roles direct access', () => {
-    it('should return primary color role with main, foreground, and surface', () => {
+    it('should return primary color role with main, foreground, and background', () => {
       const { result } = renderHook(() => useXUITheme(), {
         wrapper: ({ children }) => <XUIProvider>{children}</XUIProvider>,
       })
@@ -22,7 +22,7 @@ describe('useXUITheme', () => {
       expect(result.current.colors.primary).toBeDefined()
       expect(typeof result.current.colors.primary.main).toBe('string')
       expect(typeof result.current.colors.primary.foreground).toBe('string')
-      expect(typeof result.current.colors.primary.surface).toBe('string')
+      expect(typeof result.current.colors.primary.background).toBe('string')
     })
 
     it('should return secondary color role', () => {
@@ -33,7 +33,7 @@ describe('useXUITheme', () => {
       expect(result.current.colors.secondary).toBeDefined()
       expect(typeof result.current.colors.secondary.main).toBe('string')
       expect(typeof result.current.colors.secondary.foreground).toBe('string')
-      expect(typeof result.current.colors.secondary.surface).toBe('string')
+      expect(typeof result.current.colors.secondary.background).toBe('string')
     })
 
     it('should return semantic color roles', () => {
@@ -60,12 +60,12 @@ describe('useXUITheme', () => {
           primary: {
             main: '#CUSTOM1',
             foreground: '#FFFFFF',
-            surface: '#CUSTOM1_SURFACE',
+            background: '#CUSTOM1_SURFACE',
           },
           secondary: {
             main: '#CUSTOM2',
             foreground: '#FFFFFF',
-            surface: '#CUSTOM2_SURFACE',
+            background: '#CUSTOM2_SURFACE',
           },
         },
       }

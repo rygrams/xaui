@@ -1,134 +1,291 @@
-import { Image } from 'expo-image'
-import { Platform, StyleSheet, View } from 'react-native'
+import { View, Text, StyleSheet, ScrollView } from 'react-native'
+import { CircularActivityIndicator } from '@xaui/progress'
+import { colors } from '@xaui/colors'
+import { Button, IconButton } from '@xaui/buttons'
+import Svg, { Path } from 'react-native-svg'
 
-import { Collapsible } from '@/components/ui/collapsible'
-import { ExternalLink } from '@/components/external-link'
-import ParallaxScrollView from '@/components/parallax-scroll-view'
-import { ThemedText } from '@/components/themed-text'
-import { ThemedView } from '@/components/themed-view'
-import { IconSymbol } from '@/components/ui/icon-symbol'
-import { Fonts } from '@/constants/theme'
-import { useXUITheme } from '@xaui/core'
+const HeartIcon = ({ width = 24, height = 24, color = '#000' }) => (
+  <Svg width={width} height={height} viewBox="0 0 24 24" fill="none">
+    <Path
+      d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"
+      stroke={color}
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+)
 
-export default function TabTwoScreen() {
-  const { colors, borderRadius } = useXUITheme()
+const SearchIcon = ({ width = 24, height = 24, color = '#000' }) => (
+  <Svg width={width} height={height} viewBox="0 0 24 24" fill="none">
+    <Path
+      d="M11 19a8 8 0 1 0 0-16 8 8 0 0 0 0 16zM21 21l-4.35-4.35"
+      stroke={color}
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+)
 
+const PlusIcon = ({ width = 24, height = 24, color = '#000' }) => (
+  <Svg width={width} height={height} viewBox="0 0 24 24" fill="none">
+    <Path
+      d="M12 5v14M5 12h14"
+      stroke={color}
+      strokeWidth={2}
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    />
+  </Svg>
+)
+
+export default function ExploreScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
-      headerImage={
-        <IconSymbol
-          size={310}
-          color="#808080"
-          name="chevron.left.forwardslash.chevron.right"
-          style={styles.headerImage}
-        />
-      }
-    >
-      <View
-        style={{
-          backgroundColor: colors.primary.surface,
-          borderColor: colors.primary.main,
-          borderWidth: 1,
-          borderRadius: borderRadius.full,
-          width: 300,
-          height: 100,
-        }}
-      ></View>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText
-          type="title"
-          style={{
-            fontFamily: Fonts.rounded,
-          }}
+    <ScrollView style={styles.scrollView} contentContainerStyle={styles.container}>
+      <Text style={styles.title}>Button Components</Text>
+
+      <View style={styles.section}>
+        <Text style={styles.label}>Variants</Text>
+        <Button themeColor="primary" variant="solid" onPress={() => {}}>
+          Solid
+        </Button>
+        <Button themeColor="primary" variant="outlined" onPress={() => {}}>
+          Outlined
+        </Button>
+        <Button themeColor="primary" variant="flat" onPress={() => {}}>
+          Flat
+        </Button>
+        <Button themeColor="primary" variant="light" onPress={() => {}}>
+          Light
+        </Button>
+        <Button themeColor="primary" variant="elevated" onPress={() => {}}>
+          Elevated
+        </Button>
+        <Button themeColor="primary" variant="faded" onPress={() => {}}>
+          Faded
+        </Button>
+      </View>
+
+      <View style={styles.section}>
+        <Text style={styles.label}>Colors</Text>
+        <Button themeColor="primary" onPress={() => {}}>
+          Primary
+        </Button>
+        <Button themeColor="secondary" onPress={() => {}}>
+          Secondary
+        </Button>
+        <Button themeColor="success" onPress={() => {}}>
+          Success
+        </Button>
+        <Button themeColor="warning" onPress={() => {}}>
+          Warning
+        </Button>
+        <Button themeColor="danger" onPress={() => {}}>
+          Danger
+        </Button>
+      </View>
+
+      <View style={styles.section}>
+        <Text style={styles.label}>Sizes</Text>
+        <Button themeColor="primary" size="xs" onPress={() => {}}>
+          Extra Small
+        </Button>
+        <Button themeColor="primary" size="sm" onPress={() => {}}>
+          Small
+        </Button>
+        <Button themeColor="primary" size="md" onPress={() => {}}>
+          Medium
+        </Button>
+        <Button themeColor="primary" size="lg" onPress={() => {}}>
+          Large
+        </Button>
+      </View>
+
+      <View style={styles.section}>
+        <Text style={styles.label}>Loading States</Text>
+        <Button
+          themeColor="primary"
+          isLoading
+          spinnerType="ticks"
+          spinnerPlacement="start"
+          onPress={() => {}}
         >
-          Explore
-        </ThemedText>
-      </ThemedView>
-      <ThemedText>This app includes example code to help you get started.</ThemedText>
-      <Collapsible title="File-based routing">
-        <ThemedText>
-          This app has two screens:{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/explore.tsx</ThemedText>
-        </ThemedText>
-        <ThemedText>
-          The layout file in{' '}
-          <ThemedText type="defaultSemiBold">app/(tabs)/_layout.tsx</ThemedText> sets up
-          the tab navigator.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/router/introduction">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Android, iOS, and web support">
-        <ThemedText>
-          You can open this project on Android, iOS, and the web. To open the web version,
-          press <ThemedText type="defaultSemiBold">w</ThemedText> in the terminal running
-          this project.
-        </ThemedText>
-      </Collapsible>
-      <Collapsible title="Images">
-        <ThemedText>
-          For static images, you can use the{' '}
-          <ThemedText type="defaultSemiBold">@2x</ThemedText> and{' '}
-          <ThemedText type="defaultSemiBold">@3x</ThemedText> suffixes to provide files
-          for different screen densities
-        </ThemedText>
-        <Image
-          source={require('@/assets/images/react-logo.png')}
-          style={{ width: 100, height: 100, alignSelf: 'center' }}
-        />
-        <ExternalLink href="https://reactnative.dev/docs/images">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Light and dark mode components">
-        <ThemedText>
-          This template has light and dark mode support. The{' '}
-          <ThemedText type="defaultSemiBold">useColorScheme()</ThemedText> hook lets you
-          inspect what the user&apos;s current color scheme is, and so you can adjust UI
-          colors accordingly.
-        </ThemedText>
-        <ExternalLink href="https://docs.expo.dev/develop/user-interface/color-themes/">
-          <ThemedText type="link">Learn more</ThemedText>
-        </ExternalLink>
-      </Collapsible>
-      <Collapsible title="Animations">
-        <ThemedText>
-          This template includes an example of an animated component. The{' '}
-          <ThemedText type="defaultSemiBold">components/HelloWave.tsx</ThemedText>{' '}
-          component uses the powerful{' '}
-          <ThemedText type="defaultSemiBold" style={{ fontFamily: Fonts.mono }}>
-            react-native-reanimated
-          </ThemedText>{' '}
-          library to create a waving hand animation.
-        </ThemedText>
-        {Platform.select({
-          ios: (
-            <ThemedText>
-              The{' '}
-              <ThemedText type="defaultSemiBold">
-                components/ParallaxScrollView.tsx
-              </ThemedText>{' '}
-              component provides a parallax effect for the header image.
-            </ThemedText>
-          ),
-        })}
-      </Collapsible>
-    </ParallaxScrollView>
+          Loading Start
+        </Button>
+        <Button themeColor="primary" isLoading spinnerPlacement="end" onPress={() => {}}>
+          Loading End
+        </Button>
+        <Button
+          themeColor="secondary"
+          variant="outlined"
+          radius="full"
+          isLoading
+          spinnerType="bullets"
+          onPress={() => {}}
+        >
+          Dots Spinner
+        </Button>
+      </View>
+
+      <View style={styles.section}>
+        <Text style={styles.label}>States</Text>
+        <Button themeColor="primary" isDisabled onPress={() => {}}>
+          Disabled
+        </Button>
+        <Button themeColor="primary" fullWidth onPress={() => {}}>
+          Full Width
+        </Button>
+      </View>
+
+      <View style={styles.section}>
+        <Text style={styles.label}>Ripple Effect</Text>
+        <Button themeColor="primary" variant="solid" enableRipple onPress={() => {}}>
+          Solid with Ripple
+        </Button>
+        <Button themeColor="secondary" variant="outlined" enableRipple onPress={() => {}}>
+          Outlined with Ripple
+        </Button>
+        <Button themeColor="success" variant="flat" enableRipple onPress={() => {}}>
+          Flat with Ripple
+        </Button>
+      </View>
+
+      <Text style={[styles.title, { marginTop: 32 }]}>Icon Buttons</Text>
+
+      <View style={styles.section}>
+        <Text style={styles.label}>Icon Button Variants</Text>
+        <View style={styles.iconRow}>
+          <IconButton
+            icon={<HeartIcon color={colors.red[500]} />}
+            themeColor="danger"
+            variant="light"
+            onPress={() => {}}
+          />
+          <IconButton
+            icon={<SearchIcon color={colors.blue[500]} />}
+            themeColor="primary"
+            variant="light"
+            onPress={() => {}}
+          />
+          <IconButton
+            icon={<PlusIcon color={colors.green[500]} />}
+            themeColor="success"
+            variant="light"
+            onPress={() => {}}
+          />
+        </View>
+      </View>
+
+      <View style={styles.section}>
+        <Text style={styles.label}>Icon Button Sizes</Text>
+        <View style={styles.iconRow}>
+          <IconButton
+            icon={<HeartIcon />}
+            themeColor="danger"
+            variant="solid"
+            size="xs"
+            onPress={() => {}}
+          />
+          <IconButton
+            icon={<HeartIcon />}
+            themeColor="danger"
+            variant="solid"
+            size="sm"
+            onPress={() => {}}
+          />
+          <IconButton
+            icon={<HeartIcon />}
+            themeColor="danger"
+            variant="solid"
+            size="md"
+            onPress={() => {}}
+          />
+          <IconButton
+            icon={<HeartIcon />}
+            themeColor="danger"
+            variant="solid"
+            size="lg"
+            onPress={() => {}}
+          />
+        </View>
+      </View>
+
+      <View style={styles.section}>
+        <Text style={styles.label}>Icon Button with Ripple</Text>
+        <View style={styles.iconRow}>
+          <IconButton
+            icon={<HeartIcon />}
+            themeColor="danger"
+            variant="solid"
+            radius="full"
+            enableRipple
+            onPress={() => {}}
+          />
+          <IconButton
+            icon={<SearchIcon />}
+            themeColor="primary"
+            variant="outlined"
+            radius="full"
+            enableRipple
+            onPress={() => {}}
+          />
+          <IconButton
+            icon={<PlusIcon />}
+            themeColor="success"
+            variant="flat"
+            radius="full"
+            enableRipple
+            onPress={() => {}}
+          />
+        </View>
+      </View>
+
+      <Text style={[styles.title, { marginTop: 32 }]}>Progress Indicators</Text>
+      <View style={styles.section}>
+        <CircularActivityIndicator variant="spinner" themeColor="primary" />
+        <CircularActivityIndicator variant="ticks" themeColor="secondary" />
+        <CircularActivityIndicator variant="bullets" themeColor="tertiary" />
+      </View>
+    </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
-  headerImage: {
-    color: '#808080',
-    bottom: -90,
-    left: -35,
-    position: 'absolute',
+  scrollView: {
+    flex: 1,
+    backgroundColor: colors.slate[950],
   },
-  titleContainer: {
+  container: {
+    padding: 20,
+    gap: 24,
+  },
+  title: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    color: colors.white,
+    textAlign: 'center',
+    marginBottom: 10,
+  },
+  section: {
+    alignItems: 'center',
+    padding: 16,
+    backgroundColor: colors.white,
+    borderRadius: 12,
+    gap: 12,
+  },
+  label: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: colors.white,
+  },
+  note: {
+    fontSize: 12,
+    color: colors.slate[400],
+  },
+  iconRow: {
     flexDirection: 'row',
-    gap: 8,
+    gap: 12,
+    alignItems: 'center',
   },
 })
