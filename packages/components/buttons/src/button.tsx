@@ -114,7 +114,7 @@ export const Button: React.FC<ButtonProps> = ({
         ...theme.shadows.md,
       },
       faded: {
-        backgroundColor: `${colorScheme.background}90`,
+        backgroundColor: colorScheme.background,
         borderWidth: theme.borderWidth.md,
         borderColor: colorScheme.main,
       },
