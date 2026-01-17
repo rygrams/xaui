@@ -41,7 +41,8 @@
     "@xaui/colors": "workspace:*",
     "@xaui/progress": "workspace:*",
     "@xaui/buttons": "workspace:*",
-    "@xaui/checkboxes": "workspace:*"
+    "@xaui/checkboxes": "workspace:*",
+    "@xaui/switches": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "~19.1.0",

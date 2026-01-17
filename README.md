@@ -117,11 +117,13 @@ export default function App() {
 #### Progress Indicators
 - 🔄 [**CircularActivityIndicator**](./packages/components/progress) - Animated activity indicators with 3 variants (spinner, ticks, bullets)
 
+#### Form Controls
+- ☑️ [**Checkbox**](./packages/components/checkboxes) - Customizable checkbox component with filled and light variants
+- 🔘 [**Switch**](./packages/components/switches) - Toggle switch component with inside and overlap variants
+
 ### Coming Soon
 
-- ☐ **Checkbox** - Customizable checkbox component
 - ☐ **Radio** - Radio button component
-- ☐ **Switch** - Toggle switch component
 - ☐ **Input** - Text input with validation
 - ☐ **Card** - Container component with variants
 - ☐ **Modal** - Dialog and modal system
