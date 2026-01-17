@@ -1,0 +1,66 @@
+{
+  "name": "@xaui/switches",
+  "version": "0.1.0",
+  "description": "Switch components for XAUI - A modern React Native UI library with Flutter-inspired API",
+  "keywords": [
+    "react-native",
+    "ui",
+    "components",
+    "switch",
+    "toggle",
+    "flutter",
+    "design-system",
+    "typescript",
+    "xaui",
+    "animation"
+  ],
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "package.json"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rygrams/xaui.git",
+    "directory": "packages/components/switches"
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format cjs,esm --dts --external react --external react-native",
+    "dev": "tsup src/index.ts --format cjs,esm --dts --external react --external react-native --watch",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage",
+    "lint": "eslint src/",
+    "type-check": "tsc --noEmit"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-native": ">=0.70.0"
+  },
+  "dependencies": {
+    "@xaui/colors": "workspace:*",
+    "@xaui/core": "workspace:*"
+  },
+  "devDependencies": {
+    "@testing-library/react-native": "^13.3.3",
+    "@types/react": "^19.1.0",
+    "@types/react-native": "^0.73.0",
+    "react": "19.1.0",
+    "react-native": "^0.81.5",
+    "react-test-renderer": "19.1.0",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
