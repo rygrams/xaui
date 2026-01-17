@@ -1,5 +1,7 @@
-import React, { useCallback, useMemo, useState, useRef } from 'react'
+import React, { useCallback, useEffect, useMemo, useState, useRef } from 'react'
 import {
+  Animated,
+  Dimensions,
   Modal,
   Pressable,
   ScrollView,
@@ -7,7 +9,6 @@ import {
   View,
   StyleSheet,
   type LayoutChangeEvent,
-  Dimensions,
 } from 'react-native'
 import { useXUITheme } from '@xaui/core'
 import { colors } from '@xaui/colors'
@@ -64,7 +65,10 @@ export const Select: React.FC<SelectProps> = ({
     x: number
     y: number
     height: number
+    width: number
   } | null>(null)
+  const animationOpacity = useRef(new Animated.Value(0)).current
+  const animationScale = useRef(new Animated.Value(0.98)).current
 
   const isControlledSelection = selectedKeys !== undefined
   const currentSelectedKeys = isControlledSelection
@@ -120,12 +124,6 @@ export const Select: React.FC<SelectProps> = ({
     (nextOpen: boolean) => {
       if (nextOpen && isDisabled) {
         return
-      }
-
-      if (nextOpen && triggerRef.current) {
-        triggerRef.current.measure((x, y, width, height, pageX, pageY) => {
-          setTriggerPosition({ x: pageX, y: pageY, height })
-        })
       }
 
       if (isOpened === undefined) {
@@ -243,6 +241,17 @@ export const Select: React.FC<SelectProps> = ({
     return { borderRadius: radii[radius] }
   }, [radius, theme])
 
+  const listboxRadius = useMemo(() => {
+    const radii = {
+      none: theme.borderRadius.none,
+      sm: theme.borderRadius.sm,
+      md: theme.borderRadius.md,
+      lg: theme.borderRadius.lg,
+      full: theme.borderRadius.full,
+    }
+    return Math.min(radii[radius], theme.borderRadius.lg)
+  }, [radius, theme])
+
   const colorScheme = theme.colors[themeColor]
 
   const variantStyles = useMemo(() => {
@@ -309,29 +318,57 @@ export const Select: React.FC<SelectProps> = ({
   const shouldShowHelper = Boolean(hint || errorMessage)
   const helperContent = isInvalid && errorMessage ? errorMessage : hint
 
-  const listboxWidth = fullWidth ? triggerWidth ?? 200 : 280
+  const listboxWidth = fullWidth
+    ? triggerWidth ?? triggerPosition?.width ?? 200
+    : 280
 
+  useEffect(() => {
+    if (!isOpen) {
+      return
+    }
+
+    const measureTrigger = () => {
+      triggerRef.current?.measureInWindow((x, y, width, height) => {
+        setTriggerPosition({ x, y, width, height })
+      })
+    }
+
+    const frameId = requestAnimationFrame(measureTrigger)
+
+    animationOpacity.setValue(0)
+    animationScale.setValue(0.98)
+    Animated.parallel([
+      Animated.timing(animationOpacity, {
+        toValue: 1,
+        duration: 180,
+        useNativeDriver: true,
+      }),
+      Animated.timing(animationScale, {
+        toValue: 1,
+        duration: 180,
+        useNativeDriver: true,
+      }),
+    ]).start()
+    return () => cancelAnimationFrame(frameId)
+  }, [isOpen, animationOpacity, animationScale])
+
+  const screenWidth = Dimensions.get('window').width
   const screenHeight = Dimensions.get('window').height
-  const shouldShowAbove = useMemo(() => {
-    if (!triggerPosition) return false
-    const spaceBelow = screenHeight - (triggerPosition.y + triggerPosition.height)
-    return spaceBelow < maxListboxHeight && triggerPosition.y > maxListboxHeight
-  }, [triggerPosition, screenHeight, maxListboxHeight])
-
   const listboxPosition = useMemo(() => {
     if (!triggerPosition) {
       return { top: 0, left: 0 }
     }
 
-    const left = triggerPosition.x
-    let top = triggerPosition.y + triggerPosition.height + 4
-
-    if (shouldShowAbove) {
-      top = triggerPosition.y - maxListboxHeight - 4
-    }
+    const listWidth = listboxWidth || 0
+    const centeredLeft = triggerPosition.x + triggerPosition.width / 2 - listWidth / 2
+    const left = Math.max(12, Math.min(centeredLeft, screenWidth - listWidth - 12))
+    const top = Math.min(
+      triggerPosition.y + triggerPosition.height + 8,
+      screenHeight - maxListboxHeight - 12,
+    )
 
     return { top, left }
-  }, [triggerPosition, shouldShowAbove, maxListboxHeight])
+  }, [triggerPosition, listboxWidth, screenWidth, screenHeight, maxListboxHeight])
 
   const listItems = items.map((item) => {
     const itemProps = item.element.props
@@ -426,16 +463,18 @@ export const Select: React.FC<SelectProps> = ({
 
       <Modal visible={isOpen} transparent animationType="fade" onRequestClose={handleOverlayPress}>
         <Pressable style={styles.overlay} onPress={handleOverlayPress}>
-          <View
+          <Animated.View
             style={[
               styles.listbox,
-              radiusStyles,
               {
                 width: listboxWidth,
                 maxHeight: maxListboxHeight,
                 position: 'absolute',
                 top: listboxPosition.top,
                 left: listboxPosition.left,
+                borderRadius: listboxRadius,
+                opacity: animationOpacity,
+                transform: [{ scale: animationScale }],
               },
             ]}
           >
@@ -444,7 +483,7 @@ export const Select: React.FC<SelectProps> = ({
                 <ScrollView>{listItems}</ScrollView>
               </SelectContext.Provider>
             </Pressable>
-          </View>
+          </Animated.View>
         </Pressable>
       </Modal>
     </View>
