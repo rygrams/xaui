@@ -1,6 +1,6 @@
 {
   "name": "@xaui/select",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Select components for XAUI - A modern React Native UI library with Flutter-inspired API",
   "keywords": [
     "react-native",

@@ -1,6 +1,6 @@
 {
   "name": "@xaui/switches",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Switch components for XAUI - A modern React Native UI library with Flutter-inspired API",
   "keywords": [
     "react-native",

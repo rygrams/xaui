@@ -1,5 +1,19 @@
 # demo
 
+## 1.0.5
+
+### Patch Changes
+
+- Updated dependencies [2fd4e38]
+- Updated dependencies [2fd4e38]
+  - @xaui/select@0.1.1
+  - @xaui/colors@0.1.5
+  - @xaui/buttons@0.1.2
+  - @xaui/checkboxes@0.1.2
+  - @xaui/switches@0.1.2
+  - @xaui/core@0.1.3
+  - @xaui/progress@0.1.2
+
 ## 1.0.4
 
 ### Patch Changes

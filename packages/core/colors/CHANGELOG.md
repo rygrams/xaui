@@ -1,5 +1,11 @@
 # @xaui/colors
 
+## 0.1.5
+
+### Patch Changes
+
+- 2fd4e38: docs: update colors documentation
+
 ## 0.1.4
 
 ### Patch Changes

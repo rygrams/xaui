@@ -1,5 +1,12 @@
 # @xaui/core
 
+## 0.1.3
+
+### Patch Changes
+
+- Updated dependencies [2fd4e38]
+  - @xaui/colors@0.1.5
+
 ## 0.1.2
 
 ### Patch Changes

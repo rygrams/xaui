@@ -1,5 +1,11 @@
 # @xaui/progress
 
+## 0.1.2
+
+### Patch Changes
+
+- @xaui/core@0.1.3
+
 ## 0.1.1
 
 ### Patch Changes
