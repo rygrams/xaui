@@ -120,6 +120,7 @@ export default function App() {
 #### Form Controls
 - ☑️ [**Checkbox**](./packages/components/checkboxes) - Customizable checkbox component with filled and light variants
 - 🔘 [**Switch**](./packages/components/switches) - Toggle switch component with inside and overlap variants
+- 🧭 [**Select**](./packages/components/select) - Select component with single/multiple selection and variants
 
 ### Coming Soon
 

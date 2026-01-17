@@ -50,8 +50,8 @@ export const themeColors: ThemeColors = {
     background: colors.green[100],
   },
   default: {
-    main: colors.white,
-    foreground: colors.gray[900],
+    main: colors.gray[500],
+    foreground: colors.white,
     background: colors.gray[100],
   },
   background: colors.white,

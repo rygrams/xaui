@@ -89,6 +89,9 @@ importers:
       '@xaui/progress':
         specifier: workspace:*
         version: link:../../packages/components/progress
+      '@xaui/select':
+        specifier: workspace:*
+        version: link:../../packages/components/select
       '@xaui/switches':
         specifier: workspace:*
         version: link:../../packages/components/switches
@@ -310,6 +313,43 @@ importers:
       react-native-svg:
         specifier: ^15.8.0
         version: 15.15.1(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
+      tsup:
+        specifier: ^8.5.1
+        version: 8.5.1(jiti@2.6.1)(postcss@8.5.6)(typescript@5.9.3)(yaml@2.8.2)
+      typescript:
+        specifier: ^5.9.3
+        version: 5.9.3
+
+  packages/components/select:
+    dependencies:
+      '@xaui/colors':
+        specifier: workspace:*
+        version: link:../../core/colors
+      '@xaui/core':
+        specifier: workspace:*
+        version: link:../../core/core
+    devDependencies:
+      '@testing-library/react-native':
+        specifier: ^13.3.3
+        version: 13.3.3(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react-test-renderer@19.1.0(react@19.1.0))(react@19.1.0)
+      '@types/react':
+        specifier: ^19.1.0
+        version: 19.1.17
+      '@types/react-native':
+        specifier: ^0.73.0
+        version: 0.73.0(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0)
+      react:
+        specifier: 19.1.0
+        version: 19.1.0
+      react-native:
+        specifier: ^0.81.5
+        version: 0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0)
+      react-native-svg:
+        specifier: ^15.8.0
+        version: 15.15.1(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
+      react-test-renderer:
+        specifier: 19.1.0
+        version: 19.1.0(react@19.1.0)
       tsup:
         specifier: ^8.5.1
         version: 8.5.1(jiti@2.6.1)(postcss@8.5.6)(typescript@5.9.3)(yaml@2.8.2)

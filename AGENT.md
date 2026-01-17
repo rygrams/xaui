@@ -166,3 +166,4 @@ The project uses GitHub Actions with the following workflow:
 - We are in alpha mode so keep all change to patch
 - if multiple package updated apply changesets for each
 - verify last commit on branch for pull request global implementation description
+- Add test for each component you code or update
