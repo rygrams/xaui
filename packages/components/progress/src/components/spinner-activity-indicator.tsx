@@ -9,6 +9,7 @@ export const SpinnerActivityIndicator: React.FC<ActivityIndicatorProps> = ({
   size = 40,
   themeColor = 'primary',
   color,
+  backgroundColor,
   disableAnimation = false,
 }) => {
   const theme = useXUITheme()
@@ -42,6 +43,7 @@ export const SpinnerActivityIndicator: React.FC<ActivityIndicatorProps> = ({
 
   const colorScheme = theme.colors[themeColor]
   const mainColor = color || colorScheme.main
+  const trackColor = backgroundColor || 'transparent'
 
   const strokeWidth = size * 0.1
   const frames = (60 * DURATION) / 1000
@@ -66,7 +68,7 @@ export const SpinnerActivityIndicator: React.FC<ActivityIndicatorProps> = ({
           height: size,
           borderRadius: size / 2,
           borderWidth: strokeWidth,
-          borderColor: 'transparent',
+          borderColor: trackColor,
         }}
       />
 

@@ -47,7 +47,9 @@
     "react-native": ">=0.70.0"
   },
   "dependencies": {
-    "@xaui/core": "workspace:*"
+    "@xaui/core": "workspace:*",
+    "@xaui/progress": "workspace:*",
+    "@xaui/colors": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "^19.1.0",

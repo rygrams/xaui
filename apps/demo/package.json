@@ -39,7 +39,8 @@
     "react-native-web": "~0.21.0",
     "@xaui/core": "workspace:*",
     "@xaui/colors": "workspace:*",
-    "@xaui/progress": "workspace:*"
+    "@xaui/progress": "workspace:*",
+    "@xaui/buttons": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "~19.1.0",

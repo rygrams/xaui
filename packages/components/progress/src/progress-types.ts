@@ -33,6 +33,7 @@ export type ActivityIndicatorProps = {
     | 'default'
   color?: string
   disableAnimation?: boolean
+  backgroundColor?: string //applicable only for spinner variant
 }
 
 export type CircularActivityIndicatorProps = ActivityIndicatorProps & {

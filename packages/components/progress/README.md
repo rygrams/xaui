@@ -39,6 +39,7 @@ function MyComponent() {
 | `size` | `number` | `40` (spinner/bullets) / `20` (ticks) | Diameter of the indicator in pixels |
 | `themeColor` | `'primary' \| 'secondary' \| 'tertiary' \| 'danger' \| 'warning' \| 'success' \| 'default'` | `'primary'` | Theme color to use |
 | `color` | `string` | - | Custom color (overrides themeColor) |
+| `backgroundColor` | `string` | `'transparent'` | Background track color (only applies to spinner variant) |
 | `disableAnimation` | `boolean` | `false` | Disable animations |
 
 ### Variants
@@ -63,11 +64,19 @@ A Material Design-inspired circular spinner with smooth animation.
   color="#007AFF"
   size={60}
 />
+
+// With background color
+<CircularActivityIndicator
+  variant="spinner"
+  color="#007AFF"
+  backgroundColor="#E5E5EA"
+/>
 ```
 
 **Design Details:**
 - Material Design-inspired spinning animation
 - Smooth acceleration/deceleration with bezier easing
+- Optional background track color for better visibility
 - Lightweight and efficient
 - Default size: 40px
 
@@ -160,6 +169,13 @@ A bullet-based orbital activity indicator with smooth ease-in-out animation.
 <CircularActivityIndicator variant="spinner" color="#007AFF" />
 <CircularActivityIndicator variant="ticks" color="#34C759" />
 <CircularActivityIndicator variant="bullets" color="#FF3B30" />
+
+// Spinner with background track
+<CircularActivityIndicator
+  variant="spinner"
+  color="#007AFF"
+  backgroundColor="#E5F0FF"
+/>
 ```
 
 #### Without Animation

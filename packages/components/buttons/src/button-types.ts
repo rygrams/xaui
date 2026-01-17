@@ -1,9 +1,9 @@
 import { ReactNode } from 'react'
-import type { TextStyle, ViewStyle } from 'react-native'
+import type { TextStyle, ViewStyle, GestureResponderEvent } from 'react-native'
 
 export type ButtonProps = {
   children: ReactNode
-  color?:
+  themeColor?:
     | 'primary'
     | 'secondary'
     | 'tertiary'
@@ -16,7 +16,7 @@ export type ButtonProps = {
   radius?: 'none' | 'sm' | 'md' | 'lg' | 'full'
   startContent?: ReactNode
   endContent?: ReactNode
-  spinnerType?: 'dots' | 'circular' | 'activity'
+  spinnerType?: 'ticks' | 'bullets' | 'spinner'
   spinnerPlacement?: 'start' | 'end'
   fullWidth?: boolean
   isDisabled?: boolean
@@ -27,8 +27,8 @@ export type ButtonProps = {
 } & ButtonEvents
 
 export type ButtonEvents = {
-  onPress?: () => void
-  onLongPress?: () => void
-  onPressIn?: () => void
-  onPressOut?: () => void
+  onPress?: (event: GestureResponderEvent) => void
+  onLongPress?: (event: GestureResponderEvent) => void
+  onPressIn?: (event: GestureResponderEvent) => void
+  onPressOut?: (event: GestureResponderEvent) => void
 }

@@ -160,6 +160,33 @@ describe('CircularActivityIndicator', () => {
     })
   })
 
+  describe('background color', () => {
+    it('should accept custom backgroundColor for spinner variant', () => {
+      const { container } = renderWithProvider(
+        <CircularActivityIndicator variant="spinner" backgroundColor="#EEEEEE" />
+      )
+      expect(container.firstChild).toBeTruthy()
+    })
+
+    it('should render with backgroundColor and custom color together', () => {
+      const { container } = renderWithProvider(
+        <CircularActivityIndicator
+          variant="spinner"
+          color="#007AFF"
+          backgroundColor="#E5E5EA"
+        />
+      )
+      expect(container.firstChild).toBeTruthy()
+    })
+
+    it('should default to transparent when no backgroundColor provided', () => {
+      const { container } = renderWithProvider(
+        <CircularActivityIndicator variant="spinner" />
+      )
+      expect(container.firstChild).toBeTruthy()
+    })
+  })
+
   describe('animation', () => {
     it('should animate by default', () => {
       renderWithProvider(<CircularActivityIndicator />)
