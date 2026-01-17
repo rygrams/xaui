@@ -1,6 +1,6 @@
 {
   "name": "@xaui/colors",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "description": "A TypeScript colors list utility inspired by Tailwind CSS color palette with 20+ color families and 11 shades each",
   "keywords": [
     "colors",
