@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React, { useCallback, useEffect, useMemo, useState, useRef } from 'react'
 import {
   Animated,
@@ -57,7 +58,7 @@ export const Select: React.FC<SelectProps> = ({
   const theme = useXUITheme()
   const triggerRef = useRef<View>(null)
   const [internalSelectedKeys, setInternalSelectedKeys] = useState(
-    defaultSelectedKeys ?? [],
+    defaultSelectedKeys ?? []
   )
   const [internalOpen, setInternalOpen] = useState(false)
   const [triggerWidth, setTriggerWidth] = useState<number | null>(null)
@@ -72,7 +73,7 @@ export const Select: React.FC<SelectProps> = ({
 
   const isControlledSelection = selectedKeys !== undefined
   const currentSelectedKeys = isControlledSelection
-    ? selectedKeys ?? []
+    ? (selectedKeys ?? [])
     : internalSelectedKeys
 
   const isOpen = isOpened ?? internalOpen
@@ -110,9 +111,9 @@ export const Select: React.FC<SelectProps> = ({
   }, [children])
 
   const selectedLabels = useMemo(() => {
-    const labelMap = new Map(items.map((item) => [item.key, item.titleText]))
+    const labelMap = new Map(items.map(item => [item.key, item.titleText]))
     return currentSelectedKeys
-      .map((key) => labelMap.get(key))
+      .map(key => labelMap.get(key))
       .filter((value): value is string => Boolean(value))
   }, [currentSelectedKeys, items])
 
@@ -136,7 +137,7 @@ export const Select: React.FC<SelectProps> = ({
         onClose?.()
       }
     },
-    [isDisabled, isOpened, onOpenChange, onClose],
+    [isDisabled, isOpened, onOpenChange, onClose]
   )
 
   const updateSelection = useCallback(
@@ -151,7 +152,7 @@ export const Select: React.FC<SelectProps> = ({
         onClear?.()
       }
     },
-    [isControlledSelection, onSelectionChange, onClear],
+    [isControlledSelection, onSelectionChange, onClear]
   )
 
   const handleItemSelection = useCallback(
@@ -164,7 +165,7 @@ export const Select: React.FC<SelectProps> = ({
 
       if (selectionMode === 'multiple') {
         const nextKeys = isAlreadySelected
-          ? currentSelectedKeys.filter((existingKey) => existingKey !== key)
+          ? currentSelectedKeys.filter(existingKey => existingKey !== key)
           : [...currentSelectedKeys, key]
 
         updateSelection(nextKeys)
@@ -177,13 +178,7 @@ export const Select: React.FC<SelectProps> = ({
 
       setOpen(false)
     },
-    [
-      currentSelectedKeys,
-      isDisabled,
-      selectionMode,
-      setOpen,
-      updateSelection,
-    ],
+    [currentSelectedKeys, isDisabled, selectionMode, setOpen, updateSelection]
   )
 
   const handleClear = () => {
@@ -290,12 +285,19 @@ export const Select: React.FC<SelectProps> = ({
   }, [variant, theme, colorScheme, isInvalid, themeColor])
 
   const labelStyle = useMemo(() => {
-    const baseColor = isInvalid ? theme.colors.danger.main : theme.colors.foreground
+    let baseColor = theme.colors.foreground
+
+    if (isInvalid) {
+      baseColor = theme.colors.danger.main
+    } else if (themeColor !== 'default') {
+      baseColor = colorScheme.main
+    }
+
     return {
       fontSize: sizeStyles.labelSize,
       color: baseColor,
     }
-  }, [isInvalid, sizeStyles.labelSize, theme])
+  }, [isInvalid, sizeStyles.labelSize, theme, themeColor, colorScheme])
 
   const valueColor = useMemo(() => {
     if (isInvalid) {
@@ -309,7 +311,9 @@ export const Select: React.FC<SelectProps> = ({
     return theme.colors.foreground
   }, [isInvalid, shouldShowPlaceholder, theme])
 
-  const renderLabel = label ? <Text style={[styles.label, labelStyle]}>{label}</Text> : null
+  const renderLabel = label ? (
+    <Text style={[styles.label, labelStyle]}>{label}</Text>
+  ) : null
 
   const renderSelectorIcon = selectorIcon ?? (
     <ChevronDownIcon color={colors.gray[700]} size={16} isOpen={isOpen} />
@@ -318,9 +322,7 @@ export const Select: React.FC<SelectProps> = ({
   const shouldShowHelper = Boolean(hint || errorMessage)
   const helperContent = isInvalid && errorMessage ? errorMessage : hint
 
-  const listboxWidth = fullWidth
-    ? triggerWidth ?? triggerPosition?.width ?? 200
-    : 280
+  const listboxWidth = fullWidth ? (triggerWidth ?? triggerPosition?.width ?? 200) : 280
 
   useEffect(() => {
     if (!isOpen) {
@@ -364,15 +366,16 @@ export const Select: React.FC<SelectProps> = ({
     const left = Math.max(12, Math.min(centeredLeft, screenWidth - listWidth - 12))
     const top = Math.min(
       triggerPosition.y + triggerPosition.height + 8,
-      screenHeight - maxListboxHeight - 12,
+      screenHeight - maxListboxHeight - 12
     )
 
     return { top, left }
   }, [triggerPosition, listboxWidth, screenWidth, screenHeight, maxListboxHeight])
 
-  const listItems = items.map((item) => {
+  const listItems = items.map(item => {
     const itemProps = item.element.props
-    const itemDisabled = isDisabled || itemProps.isDisabled || disabledKeySet.has(item.key)
+    const itemDisabled =
+      isDisabled || itemProps.isDisabled || disabledKeySet.has(item.key)
     const itemSelected = itemProps.isSelected ?? currentSelectedKeys.includes(item.key)
 
     const handleItemSelected = () => {
@@ -408,32 +411,41 @@ export const Select: React.FC<SelectProps> = ({
           variantStyles,
           {
             minHeight: sizeStyles.minHeight,
-            paddingHorizontal: sizeStyles.paddingHorizontal,
+            paddingHorizontal:
+              variant === 'underlined' ? 2 : sizeStyles.paddingHorizontal,
             paddingVertical: sizeStyles.paddingVertical,
           },
           isDisabled && styles.disabled,
           mainStyle,
         ]}
       >
-      <View style={[styles.triggerContent, isLabelInside && styles.triggerContentColumn]}>
-        {startContent}
-        <View style={styles.valueWrapper}>
-          {isLabelInside && renderLabel}
-          <Text style={[styles.valueText, { fontSize: sizeStyles.fontSize, color: valueColor }, textStyle]}>
-            {displayValue}
-          </Text>
+        <View
+          style={[styles.triggerContent, isLabelInside && styles.triggerContentColumn]}
+        >
+          {startContent}
+          <View style={styles.valueWrapper}>
+            {isLabelInside && renderLabel}
+            <Text
+              style={[
+                styles.valueText,
+                { fontSize: sizeStyles.fontSize, color: valueColor },
+                textStyle,
+              ]}
+            >
+              {displayValue}
+            </Text>
+          </View>
+          {endContent}
         </View>
-        {endContent}
-      </View>
-      <View style={styles.endSlot}>
-        {onClear && currentSelectedKeys.length > 0 && (
-          <Pressable onPress={handleClear} style={styles.clearButton}>
-            <Text style={styles.clearText}>x</Text>
-          </Pressable>
-        )}
-        {renderSelectorIcon}
-      </View>
-    </Pressable>
+        <View style={styles.endSlot}>
+          {onClear && currentSelectedKeys.length > 0 && (
+            <Pressable onPress={handleClear} style={styles.clearButton}>
+              <Text style={styles.clearText}>x</Text>
+            </Pressable>
+          )}
+          {renderSelectorIcon}
+        </View>
+      </Pressable>
     </View>
   )
 
@@ -461,7 +473,12 @@ export const Select: React.FC<SelectProps> = ({
         </Text>
       )}
 
-      <Modal visible={isOpen} transparent animationType="fade" onRequestClose={handleOverlayPress}>
+      <Modal
+        visible={isOpen}
+        transparent
+        animationType="fade"
+        onRequestClose={handleOverlayPress}
+      >
         <Pressable style={styles.overlay} onPress={handleOverlayPress}>
           <Animated.View
             style={[
@@ -478,7 +495,7 @@ export const Select: React.FC<SelectProps> = ({
               },
             ]}
           >
-            <Pressable onPress={(event) => event.stopPropagation()} style={{ flex: 1 }}>
+            <Pressable onPress={event => event.stopPropagation()} style={{ flex: 1 }}>
               <SelectContext.Provider value={{ size, themeColor, isDisabled }}>
                 <ScrollView>{listItems}</ScrollView>
               </SelectContext.Provider>

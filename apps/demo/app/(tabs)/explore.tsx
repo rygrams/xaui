@@ -82,6 +82,7 @@ export default function ExploreScreen() {
           selectedKeys={variantOutlinedKeys}
           onSelectionChange={setVariantOutlinedKeys}
           variant="outlined"
+          themeColor="primary"
           size="md"
           radius="md"
         >
