@@ -1,7 +1,7 @@
 {
   "name": "demo",
   "main": "expo-router/entry",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "scripts": {
     "dev": "expo start",
     "reset-project": "node ./scripts/reset-project.js",
@@ -40,7 +40,8 @@
     "@xaui/core": "workspace:*",
     "@xaui/colors": "workspace:*",
     "@xaui/progress": "workspace:*",
-    "@xaui/buttons": "workspace:*"
+    "@xaui/buttons": "workspace:*",
+    "@xaui/checkboxes": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "~19.1.0",
