@@ -1,7 +1,9 @@
 import { View, Text, StyleSheet, ScrollView } from 'react-native'
+import { useState } from 'react'
 import { CircularActivityIndicator } from '@xaui/progress'
 import { colors } from '@xaui/colors'
 import { Button, IconButton } from '@xaui/buttons'
+import { Checkbox } from '@xaui/checkboxes'
 import Svg, { Path } from 'react-native-svg'
 
 const HeartIcon = ({ width = 24, height = 24, color = '#000' }) => (
@@ -41,6 +43,29 @@ const PlusIcon = ({ width = 24, height = 24, color = '#000' }) => (
 )
 
 export default function ExploreScreen() {
+  const [checkboxStates, setCheckboxStates] = useState({
+    filledPrimary: false,
+    lightPrimary: false,
+    primary: true,
+    secondary: false,
+    success: false,
+    warning: false,
+    danger: false,
+    small: false,
+    medium: true,
+    large: false,
+    checked: true,
+    unchecked: false,
+    alignRight: false,
+    alignLeft: false,
+    justifyLeft: false,
+    justifyRight: false,
+  })
+
+  const handleCheckboxChange = (key: string) => (value: boolean) => {
+    setCheckboxStates(prev => ({ ...prev, [key]: value }))
+  }
+
   return (
     <ScrollView style={styles.scrollView} contentContainerStyle={styles.container}>
       <Text style={styles.title}>Button Components</Text>
@@ -247,6 +272,137 @@ export default function ExploreScreen() {
         <CircularActivityIndicator variant="ticks" themeColor="secondary" />
         <CircularActivityIndicator variant="bullets" themeColor="tertiary" />
       </View>
+
+      <Text style={[styles.title, { marginTop: 32 }]}>Checkbox Components</Text>
+
+      <View style={styles.section}>
+        <Text style={styles.label}>Variants</Text>
+        <Checkbox
+          variant="filled"
+          label="Filled Checkbox"
+          themeColor="primary"
+          isChecked={checkboxStates.filledPrimary}
+          onValueChange={handleCheckboxChange('filledPrimary')}
+        />
+        <Checkbox
+          variant="light"
+          label="Light Checkbox"
+          themeColor="primary"
+          isChecked={checkboxStates.lightPrimary}
+          onValueChange={handleCheckboxChange('lightPrimary')}
+        />
+      </View>
+
+      <View style={styles.section}>
+        <Text style={styles.label}>Colors</Text>
+        <Checkbox
+          label="Primary"
+          themeColor="primary"
+          isChecked={checkboxStates.primary}
+          onValueChange={handleCheckboxChange('primary')}
+        />
+        <Checkbox
+          label="Secondary"
+          themeColor="secondary"
+          isChecked={checkboxStates.secondary}
+          onValueChange={handleCheckboxChange('secondary')}
+        />
+        <Checkbox
+          label="Success"
+          themeColor="success"
+          isChecked={checkboxStates.success}
+          onValueChange={handleCheckboxChange('success')}
+        />
+        <Checkbox
+          label="Warning"
+          themeColor="warning"
+          isChecked={checkboxStates.warning}
+          onValueChange={handleCheckboxChange('warning')}
+        />
+        <Checkbox
+          label="Danger"
+          themeColor="danger"
+          isChecked={checkboxStates.danger}
+          onValueChange={handleCheckboxChange('danger')}
+        />
+      </View>
+
+      <View style={styles.section}>
+        <Text style={styles.label}>Sizes</Text>
+        <Checkbox
+          label="Small"
+          themeColor="primary"
+          size="sm"
+          isChecked={checkboxStates.small}
+          onValueChange={handleCheckboxChange('small')}
+        />
+        <Checkbox
+          label="Medium"
+          themeColor="primary"
+          size="md"
+          isChecked={checkboxStates.medium}
+          onValueChange={handleCheckboxChange('medium')}
+        />
+        <Checkbox
+          label="Large"
+          themeColor="primary"
+          size="lg"
+          isChecked={checkboxStates.large}
+          onValueChange={handleCheckboxChange('large')}
+        />
+      </View>
+
+      <View style={styles.section}>
+        <Text style={styles.label}>States</Text>
+        <Checkbox
+          label="Checked"
+          themeColor="primary"
+          isChecked={checkboxStates.checked}
+          onValueChange={handleCheckboxChange('checked')}
+        />
+        <Checkbox
+          label="Unchecked"
+          themeColor="primary"
+          isChecked={checkboxStates.unchecked}
+          onValueChange={handleCheckboxChange('unchecked')}
+        />
+        <Checkbox label="Disabled" themeColor="primary" isDisabled isChecked={false} />
+        <Checkbox label="Disabled & Checked" themeColor="primary" isDisabled isChecked />
+      </View>
+
+      <View style={styles.section}>
+        <Text style={styles.label}>Label Alignment</Text>
+        <Checkbox
+          label="Label on Right (default)"
+          labelAlignment="right"
+          themeColor="primary"
+          isChecked={checkboxStates.alignRight}
+          onValueChange={handleCheckboxChange('alignRight')}
+        />
+        <Checkbox
+          label="Label on Left"
+          labelAlignment="left"
+          themeColor="primary"
+          isChecked={checkboxStates.alignLeft}
+          onValueChange={handleCheckboxChange('alignLeft')}
+        />
+        <Checkbox
+          label="Settings"
+          labelAlignment="justify-left"
+          fullWidth
+          themeColor="primary"
+          isChecked={checkboxStates.justifyLeft}
+          onValueChange={handleCheckboxChange('justifyLeft')}
+        />
+        <Checkbox
+          label="Notifications"
+          labelAlignment="justify-right"
+          fullWidth
+          themeColor="primary"
+          isChecked={checkboxStates.justifyRight}
+          onValueChange={handleCheckboxChange('justifyRight')}
+        />
+      </View>
     </ScrollView>
   )
 }
@@ -268,7 +424,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   section: {
-    alignItems: 'center',
     padding: 16,
     backgroundColor: colors.white,
     borderRadius: 12,

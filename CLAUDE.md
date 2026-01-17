@@ -145,3 +145,9 @@ The project uses GitHub Actions with the following workflow:
 - Use early returns to avoid deep code nesting
 - Use early returns to avoid deep code nesting
 - Avoid any type as much as possible
+
+## Package Dependencies
+
+- Use pnpm for package management
+- Use workspace: \* for dependencies
+- Dont use react-native-reanimated, use built-in Reanimated from react-native
