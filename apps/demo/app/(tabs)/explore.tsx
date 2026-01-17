@@ -1,258 +1,405 @@
 import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import { useState } from 'react'
 import { colors } from '@xaui/colors'
-import { Switch } from '@xaui/switches'
+import { Select, SelectItem } from '@xaui/select'
 
 export default function ExploreScreen() {
-  const [switchStates, setSwitchStates] = useState({
-    insideVariant: false,
-    overlapVariant: false,
-    primary: true,
-    secondary: false,
-    success: false,
-    warning: false,
-    danger: false,
-    small: false,
-    medium: true,
-    large: false,
-    selected: true,
-    unselected: false,
-    alignRight: false,
-    alignLeft: false,
-    justifyLeft: true,
-    justifyRight: false,
-  })
-
-  const handleSwitchChange = (key: string) => (value: boolean) => {
-    setSwitchStates(prev => ({ ...prev, [key]: value }))
-  }
+  const [singleSelectKeys, setSingleSelectKeys] = useState(['fr'])
+  const [multiSelectKeys, setMultiSelectKeys] = useState(['design', 'mobile'])
+  const [variantFlatKeys, setVariantFlatKeys] = useState(['option1'])
+  const [variantOutlinedKeys, setVariantOutlinedKeys] = useState(['option2'])
+  const [variantFadedKeys, setVariantFadedKeys] = useState(['option1'])
+  const [variantUnderlinedKeys, setVariantUnderlinedKeys] = useState(['option3'])
+  const [colorPrimaryKeys, setColorPrimaryKeys] = useState(['item1'])
+  const [colorSecondaryKeys, setColorSecondaryKeys] = useState(['item2'])
+  const [colorSuccessKeys, setColorSuccessKeys] = useState(['item1'])
+  const [colorWarningKeys, setColorWarningKeys] = useState(['item3'])
+  const [colorDangerKeys, setColorDangerKeys] = useState(['item2'])
+  const [sizeSmallKeys, setSizeSmallKeys] = useState(['small1'])
+  const [sizeMediumKeys, setSizeMediumKeys] = useState(['medium2'])
+  const [sizeLargeKeys, setSizeLargeKeys] = useState(['large1'])
+  const [radiusNoneKeys, setRadiusNoneKeys] = useState(['r1'])
+  const [radiusSmKeys, setRadiusSmKeys] = useState(['r2'])
+  const [radiusMdKeys, setRadiusMdKeys] = useState(['r1'])
+  const [radiusLgKeys, setRadiusLgKeys] = useState(['r3'])
+  const [radiusFullKeys, setRadiusFullKeys] = useState(['r2'])
+  const [labelOutsideKeys, setLabelOutsideKeys] = useState(['lo1'])
+  const [labelInsideKeys, setLabelInsideKeys] = useState(['li2'])
+  const [labelOutsideLeftKeys, setLabelOutsideLeftKeys] = useState(['lol1'])
 
   return (
     <ScrollView style={styles.scrollView} contentContainerStyle={styles.container}>
-      <Text style={styles.title}>Switch Components</Text>
+      <Text style={styles.title}>Select Components</Text>
+
+      <View style={styles.section}>
+        <Text style={styles.label}>Single Select</Text>
+        <Select
+          label="Country"
+          placeholder="Pick a country"
+          selectionMode="single"
+          selectedKeys={singleSelectKeys}
+          onSelectionChange={setSingleSelectKeys}
+          hint="Choose your primary location"
+          variant="outlined"
+          size="md"
+          radius="md"
+        >
+          <SelectItem key="fr" title="France" description="Paris" />
+          <SelectItem key="es" title="Spain" description="Madrid" />
+          <SelectItem key="jp" title="Japan" description="Tokyo" />
+          <SelectItem key="us" title="United States" description="Washington, D.C." />
+        </Select>
+      </View>
+
+      <View style={styles.section}>
+        <Text style={styles.label}>Multiple Select</Text>
+        <Select
+          label="Interests"
+          placeholder="Pick interests"
+          selectionMode="multiple"
+          selectedKeys={multiSelectKeys}
+          onSelectionChange={setMultiSelectKeys}
+          hint="Select multiple options"
+          variant="faded"
+          size="md"
+          radius="lg"
+        >
+          <SelectItem key="design" title="Design" />
+          <SelectItem key="mobile" title="Mobile" />
+          <SelectItem key="web" title="Web" />
+          <SelectItem key="ai" title="AI" />
+        </Select>
+      </View>
 
       <View style={styles.section}>
         <Text style={styles.label}>Variants</Text>
-        <Switch
-          size="sm"
-          variant="inside"
-          label="Inside Switch"
-          themeColor="primary"
-          isSelected={switchStates.insideVariant}
-          onValueChange={handleSwitchChange('insideVariant')}
-        />
-        <Switch
-          variant="overlap"
-          size="sm"
-          label="Overlap Switch"
-          themeColor="primary"
-          isSelected={switchStates.overlapVariant}
-          onValueChange={handleSwitchChange('overlapVariant')}
-        />
+        <Select
+          label="Flat Variant"
+          placeholder="Select option"
+          selectionMode="single"
+          selectedKeys={variantFlatKeys}
+          onSelectionChange={setVariantFlatKeys}
+          variant="flat"
+          size="md"
+          radius="md"
+        >
+          <SelectItem key="option1" title="Option 1" />
+          <SelectItem key="option2" title="Option 2" />
+          <SelectItem key="option3" title="Option 3" />
+        </Select>
+        <Select
+          label="Outlined Variant"
+          placeholder="Select option"
+          selectionMode="single"
+          selectedKeys={variantOutlinedKeys}
+          onSelectionChange={setVariantOutlinedKeys}
+          variant="outlined"
+          size="md"
+          radius="md"
+        >
+          <SelectItem key="option1" title="Option 1" />
+          <SelectItem key="option2" title="Option 2" />
+          <SelectItem key="option3" title="Option 3" />
+        </Select>
+        <Select
+          label="Faded Variant"
+          placeholder="Select option"
+          selectionMode="single"
+          selectedKeys={variantFadedKeys}
+          onSelectionChange={setVariantFadedKeys}
+          variant="faded"
+          size="md"
+          radius="md"
+        >
+          <SelectItem key="option1" title="Option 1" />
+          <SelectItem key="option2" title="Option 2" />
+          <SelectItem key="option3" title="Option 3" />
+        </Select>
+        <Select
+          label="Underlined Variant"
+          placeholder="Select option"
+          selectionMode="single"
+          selectedKeys={variantUnderlinedKeys}
+          onSelectionChange={setVariantUnderlinedKeys}
+          variant="underlined"
+          size="md"
+          radius="md"
+        >
+          <SelectItem key="option1" title="Option 1" />
+          <SelectItem key="option2" title="Option 2" />
+          <SelectItem key="option3" title="Option 3" />
+        </Select>
       </View>
 
       <View style={styles.section}>
-        <Text style={styles.label}>Colors - Inside Variant</Text>
-        <Switch
-          variant="inside"
+        <Text style={styles.label}>Colors</Text>
+        <Select
           label="Primary"
+          placeholder="Select option"
+          selectionMode="single"
+          selectedKeys={colorPrimaryKeys}
+          onSelectionChange={setColorPrimaryKeys}
+          variant="faded"
           themeColor="primary"
-          isSelected={switchStates.primary}
-          onValueChange={handleSwitchChange('primary')}
-        />
-        <Switch
-          variant="inside"
+          size="md"
+          radius="md"
+        >
+          <SelectItem key="item1" title="Item 1" />
+          <SelectItem key="item2" title="Item 2" />
+          <SelectItem key="item3" title="Item 3" />
+        </Select>
+        <Select
           label="Secondary"
+          placeholder="Select option"
+          selectionMode="single"
+          selectedKeys={colorSecondaryKeys}
+          onSelectionChange={setColorSecondaryKeys}
+          variant="faded"
           themeColor="secondary"
-          isSelected={switchStates.secondary}
-          onValueChange={handleSwitchChange('secondary')}
-        />
-        <Switch
-          variant="inside"
+          size="md"
+          radius="md"
+        >
+          <SelectItem key="item1" title="Item 1" />
+          <SelectItem key="item2" title="Item 2" />
+          <SelectItem key="item3" title="Item 3" />
+        </Select>
+        <Select
           label="Success"
+          placeholder="Select option"
+          selectionMode="single"
+          selectedKeys={colorSuccessKeys}
+          onSelectionChange={setColorSuccessKeys}
+          variant="faded"
           themeColor="success"
-          isSelected={switchStates.success}
-          onValueChange={handleSwitchChange('success')}
-        />
-        <Switch
-          variant="inside"
+          size="md"
+          radius="md"
+        >
+          <SelectItem key="item1" title="Item 1" />
+          <SelectItem key="item2" title="Item 2" />
+          <SelectItem key="item3" title="Item 3" />
+        </Select>
+        <Select
           label="Warning"
+          placeholder="Select option"
+          selectionMode="single"
+          selectedKeys={colorWarningKeys}
+          onSelectionChange={setColorWarningKeys}
+          variant="faded"
           themeColor="warning"
-          isSelected={switchStates.warning}
-          onValueChange={handleSwitchChange('warning')}
-        />
-        <Switch
-          variant="inside"
+          size="md"
+          radius="md"
+        >
+          <SelectItem key="item1" title="Item 1" />
+          <SelectItem key="item2" title="Item 2" />
+          <SelectItem key="item3" title="Item 3" />
+        </Select>
+        <Select
           label="Danger"
+          placeholder="Select option"
+          selectionMode="single"
+          selectedKeys={colorDangerKeys}
+          onSelectionChange={setColorDangerKeys}
+          variant="faded"
           themeColor="danger"
-          isSelected={switchStates.danger}
-          onValueChange={handleSwitchChange('danger')}
-        />
+          size="md"
+          radius="md"
+        >
+          <SelectItem key="item1" title="Item 1" />
+          <SelectItem key="item2" title="Item 2" />
+          <SelectItem key="item3" title="Item 3" />
+        </Select>
       </View>
 
       <View style={styles.section}>
-        <Text style={styles.label}>Sizes - Inside Variant</Text>
-        <Switch
-          variant="inside"
+        <Text style={styles.label}>Sizes</Text>
+        <Select
           label="Small"
-          themeColor="primary"
+          placeholder="Select option"
+          selectionMode="single"
+          selectedKeys={sizeSmallKeys}
+          onSelectionChange={setSizeSmallKeys}
+          variant="outlined"
           size="sm"
-          isSelected={switchStates.small}
-          onValueChange={handleSwitchChange('small')}
-        />
-        <Switch
-          variant="inside"
+          radius="md"
+        >
+          <SelectItem key="small1" title="Small Option 1" />
+          <SelectItem key="small2" title="Small Option 2" />
+        </Select>
+        <Select
           label="Medium"
-          themeColor="primary"
+          placeholder="Select option"
+          selectionMode="single"
+          selectedKeys={sizeMediumKeys}
+          onSelectionChange={setSizeMediumKeys}
+          variant="outlined"
           size="md"
-          isSelected={switchStates.medium}
-          onValueChange={handleSwitchChange('medium')}
-        />
-        <Switch
-          variant="inside"
+          radius="md"
+        >
+          <SelectItem key="medium1" title="Medium Option 1" />
+          <SelectItem key="medium2" title="Medium Option 2" />
+        </Select>
+        <Select
           label="Large"
-          themeColor="primary"
+          placeholder="Select option"
+          selectionMode="single"
+          selectedKeys={sizeLargeKeys}
+          onSelectionChange={setSizeLargeKeys}
+          variant="outlined"
           size="lg"
-          isSelected={switchStates.large}
-          onValueChange={handleSwitchChange('large')}
-        />
+          radius="md"
+        >
+          <SelectItem key="large1" title="Large Option 1" />
+          <SelectItem key="large2" title="Large Option 2" />
+        </Select>
       </View>
 
       <View style={styles.section}>
-        <Text style={styles.label}>Sizes - Overlap Variant</Text>
-        <Switch
-          variant="overlap"
-          label="Small"
-          themeColor="primary"
-          size="sm"
-          isSelected={switchStates.small}
-          onValueChange={handleSwitchChange('small')}
-        />
-        <Switch
-          variant="overlap"
-          label="Medium"
-          themeColor="primary"
+        <Text style={styles.label}>Radius</Text>
+        <Select
+          label="None"
+          placeholder="Select option"
+          selectionMode="single"
+          selectedKeys={radiusNoneKeys}
+          onSelectionChange={setRadiusNoneKeys}
+          variant="outlined"
           size="md"
-          isSelected={switchStates.medium}
-          onValueChange={handleSwitchChange('medium')}
-        />
-        <Switch
-          variant="overlap"
+          radius="none"
+        >
+          <SelectItem key="r1" title="Radius None" />
+          <SelectItem key="r2" title="Option 2" />
+        </Select>
+        <Select
+          label="Small"
+          placeholder="Select option"
+          selectionMode="single"
+          selectedKeys={radiusSmKeys}
+          onSelectionChange={setRadiusSmKeys}
+          variant="outlined"
+          size="md"
+          radius="sm"
+        >
+          <SelectItem key="r1" title="Radius Small" />
+          <SelectItem key="r2" title="Option 2" />
+        </Select>
+        <Select
+          label="Medium"
+          placeholder="Select option"
+          selectionMode="single"
+          selectedKeys={radiusMdKeys}
+          onSelectionChange={setRadiusMdKeys}
+          variant="outlined"
+          size="md"
+          radius="md"
+        >
+          <SelectItem key="r1" title="Radius Medium" />
+          <SelectItem key="r2" title="Option 2" />
+        </Select>
+        <Select
           label="Large"
-          themeColor="primary"
-          size="lg"
-          isSelected={switchStates.large}
-          onValueChange={handleSwitchChange('large')}
-        />
+          placeholder="Select option"
+          selectionMode="single"
+          selectedKeys={radiusLgKeys}
+          onSelectionChange={setRadiusLgKeys}
+          variant="outlined"
+          size="md"
+          radius="lg"
+        >
+          <SelectItem key="r1" title="Radius Large" />
+          <SelectItem key="r2" title="Option 2" />
+          <SelectItem key="r3" title="Option 3" />
+        </Select>
+        <Select
+          label="Full"
+          placeholder="Select option"
+          selectionMode="single"
+          selectedKeys={radiusFullKeys}
+          onSelectionChange={setRadiusFullKeys}
+          variant="outlined"
+          size="md"
+          radius="full"
+        >
+          <SelectItem key="r1" title="Radius Full" />
+          <SelectItem key="r2" title="Option 2" />
+        </Select>
+      </View>
+
+      <View style={styles.section}>
+        <Text style={styles.label}>Label Placements</Text>
+        <Select
+          label="Outside Label"
+          placeholder="Select option"
+          selectionMode="single"
+          selectedKeys={labelOutsideKeys}
+          onSelectionChange={setLabelOutsideKeys}
+          variant="outlined"
+          labelPlacement="outside"
+          size="md"
+          radius="md"
+        >
+          <SelectItem key="lo1" title="Option 1" />
+          <SelectItem key="lo2" title="Option 2" />
+        </Select>
+        <Select
+          label="Inside Label"
+          placeholder="Select option"
+          selectionMode="single"
+          selectedKeys={labelInsideKeys}
+          onSelectionChange={setLabelInsideKeys}
+          variant="outlined"
+          labelPlacement="inside"
+          size="md"
+          radius="md"
+        >
+          <SelectItem key="li1" title="Option 1" />
+          <SelectItem key="li2" title="Option 2" />
+        </Select>
+        <Select
+          label="Outside Left"
+          placeholder="Select option"
+          selectionMode="single"
+          selectedKeys={labelOutsideLeftKeys}
+          onSelectionChange={setLabelOutsideLeftKeys}
+          variant="outlined"
+          labelPlacement="outside-left"
+          size="md"
+          radius="md"
+        >
+          <SelectItem key="lol1" title="Option 1" />
+          <SelectItem key="lol2" title="Option 2" />
+        </Select>
       </View>
 
       <View style={styles.section}>
         <Text style={styles.label}>States</Text>
-        <Switch
-          variant="inside"
-          label="Selected"
-          themeColor="primary"
-          isSelected={switchStates.selected}
-          onValueChange={handleSwitchChange('selected')}
-        />
-        <Switch
-          variant="inside"
-          label="Unselected"
-          themeColor="primary"
-          isSelected={switchStates.unselected}
-          onValueChange={handleSwitchChange('unselected')}
-        />
-        <Switch
-          variant="inside"
+        <Select
           label="Disabled"
-          themeColor="primary"
+          placeholder="Select option"
+          selectionMode="single"
+          selectedKeys={[]}
+          onSelectionChange={() => {}}
+          variant="outlined"
+          size="md"
+          radius="md"
           isDisabled
-          isSelected={false}
-        />
-        <Switch
-          variant="inside"
-          label="Disabled & Selected"
-          themeColor="primary"
-          isDisabled
-          isSelected
-        />
-      </View>
-
-      <View style={styles.section}>
-        <Text style={styles.label}>Label Alignment</Text>
-        <Switch
-          variant="inside"
-          label="Label on Right (default)"
-          labelAlignment="right"
-          themeColor="primary"
-          isSelected={switchStates.alignRight}
-          onValueChange={handleSwitchChange('alignRight')}
-        />
-        <Switch
-          variant="inside"
-          label="Label on Left"
-          labelAlignment="left"
-          themeColor="primary"
-          isSelected={switchStates.alignLeft}
-          onValueChange={handleSwitchChange('alignLeft')}
-        />
-        <Switch
-          variant="inside"
-          label="Enable notifications"
-          labelAlignment="justify-left"
-          fullWidth
-          themeColor="primary"
-          isSelected={switchStates.justifyLeft}
-          onValueChange={handleSwitchChange('justifyLeft')}
-        />
-        <Switch
-          variant="inside"
-          label="Dark mode"
-          labelAlignment="justify-right"
-          fullWidth
-          themeColor="primary"
-          isSelected={switchStates.justifyRight}
-          onValueChange={handleSwitchChange('justifyRight')}
-        />
-      </View>
-
-      <View style={styles.section}>
-        <Text style={styles.label}>Overlap Variant Colors</Text>
-        <Switch
-          variant="overlap"
-          label="Primary"
-          themeColor="primary"
-          isSelected={switchStates.primary}
-          onValueChange={handleSwitchChange('primary')}
-        />
-        <Switch
-          variant="overlap"
-          label="Secondary"
-          themeColor="secondary"
-          isSelected={switchStates.secondary}
-          onValueChange={handleSwitchChange('secondary')}
-        />
-        <Switch
-          variant="overlap"
-          label="Success"
-          themeColor="success"
-          isSelected={switchStates.success}
-          onValueChange={handleSwitchChange('success')}
-        />
-        <Switch
-          variant="overlap"
-          label="Warning"
-          themeColor="warning"
-          isSelected={switchStates.warning}
-          onValueChange={handleSwitchChange('warning')}
-        />
-        <Switch
-          variant="overlap"
-          label="Danger"
-          themeColor="danger"
-          isSelected={switchStates.danger}
-          onValueChange={handleSwitchChange('danger')}
-        />
+        >
+          <SelectItem key="d1" title="Option 1" />
+          <SelectItem key="d2" title="Option 2" />
+        </Select>
+        <Select
+          label="Invalid"
+          placeholder="Select option"
+          selectionMode="single"
+          selectedKeys={[]}
+          onSelectionChange={() => {}}
+          variant="outlined"
+          size="md"
+          radius="md"
+          isInvalid
+          errorMessage="This field is required"
+        >
+          <SelectItem key="i1" title="Option 1" />
+          <SelectItem key="i2" title="Option 2" />
+        </Select>
       </View>
     </ScrollView>
   )
