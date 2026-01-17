@@ -1,6 +1,6 @@
 {
   "name": "@xaui/checkboxes",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Checkbox components for XAUI - A modern React Native UI library with Flutter-inspired API",
   "keywords": [
     "react-native",
