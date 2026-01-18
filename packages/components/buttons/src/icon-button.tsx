@@ -9,7 +9,7 @@ import {
 import { useXUITheme } from '@xaui/core'
 import { CircularActivityIndicator } from '@xaui/progress'
 import { colors } from '@xaui/colors'
-import type { IconButtonProps } from './icon-button-types'
+import { IconButtonVariant, type IconButtonProps } from './icon-button-types'
 import { RippleEffect } from './ripple-effect'
 
 type Ripple = {
@@ -22,7 +22,7 @@ type Ripple = {
 export const IconButton: React.FC<IconButtonProps> = ({
   icon,
   themeColor = 'default',
-  variant = 'light',
+  variant = IconButtonVariant.Light,
   size = 'md',
   radius = 'md',
   fullWidth = false,
@@ -108,14 +108,14 @@ export const IconButton: React.FC<IconButtonProps> = ({
   }, [variant, colorScheme, theme])
 
   const iconColor = useMemo(() => {
-    if (variant === 'solid') {
+    if (variant === IconButtonVariant.Solid) {
       return colorScheme.foreground
     }
     return colorScheme.main
   }, [variant, colorScheme])
 
   const rippleColor = useMemo(() => {
-    if (variant === 'solid') {
+    if (variant === IconButtonVariant.Solid) {
       return '#ffffff'
     }
     return colorScheme.main
@@ -189,8 +189,8 @@ export const IconButton: React.FC<IconButtonProps> = ({
         {isLoading ? (
           <CircularActivityIndicator
             variant="spinner"
-            themeColor={variant === 'solid' ? undefined : themeColor}
-            color={variant === 'solid' ? iconColor : undefined}
+            themeColor={variant === IconButtonVariant.Solid ? undefined : themeColor}
+            color={variant === IconButtonVariant.Solid ? iconColor : undefined}
             size={sizeStyles.iconSize}
           />
         ) : (

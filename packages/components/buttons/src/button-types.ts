@@ -1,6 +1,15 @@
 import { ReactNode } from 'react'
 import type { TextStyle, ViewStyle, GestureResponderEvent } from 'react-native'
 
+export enum ButtonVariant {
+  Solid = 'solid',
+  Outlined = 'outlined',
+  Flat = 'flat',
+  Light = 'light',
+  Elevated = 'elevated',
+  Faded = 'faded',
+}
+
 export type ButtonProps = {
   children: ReactNode
   themeColor?:
@@ -11,7 +20,7 @@ export type ButtonProps = {
     | 'warning'
     | 'success'
     | 'default'
-  variant?: 'solid' | 'outlined' | 'flat' | 'light' | 'elevated' | 'faded'
+  variant?: ButtonVariant
   size?: 'xs' | 'sm' | 'md' | 'lg'
   radius?: 'none' | 'sm' | 'md' | 'lg' | 'full'
   startContent?: ReactNode

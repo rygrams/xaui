@@ -10,7 +10,7 @@ import {
 import { useXUITheme } from '@xaui/core'
 import { CircularActivityIndicator } from '@xaui/progress'
 import { colors } from '@xaui/colors'
-import type { ButtonProps } from './button-types'
+import { ButtonVariant, type ButtonProps } from './button-types'
 import { RippleEffect } from './ripple-effect'
 
 type Ripple = {
@@ -23,7 +23,7 @@ type Ripple = {
 export const Button: React.FC<ButtonProps> = ({
   children,
   themeColor = 'default',
-  variant = 'solid',
+  variant = ButtonVariant.Solid,
   size = 'md',
   radius = 'md',
   startContent,
@@ -123,14 +123,14 @@ export const Button: React.FC<ButtonProps> = ({
   }, [variant, colorScheme, theme])
 
   const textColor = useMemo(() => {
-    if (variant === 'solid' || variant === 'elevated') {
+    if (variant === ButtonVariant.Solid || variant === ButtonVariant.Elevated) {
       return colorScheme.foreground
     }
     return colorScheme.main
   }, [variant, colorScheme])
 
   const rippleColor = useMemo(() => {
-    if (variant === 'solid' || variant === 'elevated') {
+    if (variant === ButtonVariant.Solid || variant === ButtonVariant.Elevated) {
       return '#ffffff'
     }
     return colorScheme.main
@@ -179,8 +179,16 @@ export const Button: React.FC<ButtonProps> = ({
   const spinner = (
     <CircularActivityIndicator
       variant={spinnerType}
-      themeColor={variant === 'solid' || variant === 'elevated' ? undefined : themeColor}
-      color={variant === 'solid' || variant === 'elevated' ? textColor : undefined}
+      themeColor={
+        variant === ButtonVariant.Solid || variant === ButtonVariant.Elevated
+          ? undefined
+          : themeColor
+      }
+      color={
+        variant === ButtonVariant.Solid || variant === ButtonVariant.Elevated
+          ? textColor
+          : undefined
+      }
       size={spinnerSize}
     />
   )

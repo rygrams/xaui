@@ -2,13 +2,13 @@ import React, { useMemo, useEffect, useRef } from 'react'
 import { Pressable, Text, View, StyleSheet, Animated } from 'react-native'
 import { useXUITheme } from '@xaui/core'
 import { colors } from '@xaui/colors'
-import type { SwitchProps } from './switch-types'
+import { SwitchVariant, type SwitchProps } from './switch-types'
 
 export const Switch: React.FC<SwitchProps> = ({
   label,
   labelAlignment = 'right',
   themeColor = 'primary',
-  variant = 'inside',
+  variant = SwitchVariant.Inside,
   size = 'md',
   radius = 'full',
   fullWidth = false,
@@ -26,7 +26,7 @@ export const Switch: React.FC<SwitchProps> = ({
   const colorScheme = theme.colors[themeColor]
 
   const sizeStyles = useMemo(() => {
-    if (variant === 'overlap') {
+    if (variant === SwitchVariant.Overlap) {
       const sizes = {
         sm: {
           trackWidth: 40,
@@ -103,7 +103,7 @@ export const Switch: React.FC<SwitchProps> = ({
 
   const trackStyles = useMemo(() => {
     const baseTrackColor = isSelected
-      ? variant === 'overlap'
+      ? variant === SwitchVariant.Overlap
         ? colorScheme.background
         : colorScheme.main
       : colors.gray[300]
@@ -119,7 +119,7 @@ export const Switch: React.FC<SwitchProps> = ({
 
   const thumbStyles = useMemo(() => {
     const maxTranslateX =
-      variant === 'overlap'
+      variant === SwitchVariant.Overlap
         ? sizeStyles.trackWidth - sizeStyles.thumbSize
         : sizeStyles.trackWidth - sizeStyles.thumbSize - sizeStyles.padding * 2
 
@@ -133,9 +133,9 @@ export const Switch: React.FC<SwitchProps> = ({
       height: sizeStyles.thumbSize,
       borderRadius: thumbRadius,
       backgroundColor:
-        variant === 'overlap' && isSelected ? colorScheme.main : colors.white,
+        variant === SwitchVariant.Overlap && isSelected ? colorScheme.main : colors.white,
       transform: [{ translateX }, { scale: thumbScale }],
-      ...(variant === 'overlap' && {
+      ...(variant === SwitchVariant.Overlap && {
         shadowColor: '#000',
         shadowOffset: {
           width: 0,
@@ -193,7 +193,7 @@ export const Switch: React.FC<SwitchProps> = ({
         useNativeDriver: true,
       }),
       Animated.spring(thumbScale, {
-        toValue: variant === 'overlap' ? 1.1 : 1.2,
+        toValue: variant === SwitchVariant.Overlap ? 1.1 : 1.2,
         useNativeDriver: true,
       }),
     ]).start()

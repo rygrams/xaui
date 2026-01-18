@@ -1,5 +1,10 @@
 import type { TextStyle, ViewStyle } from 'react-native'
 
+export enum SwitchVariant {
+  Inside = 'inside',
+  Overlap = 'overlap',
+}
+
 export type SwitchProps = {
   label?: string
   labelAlignment?: 'left' | 'right' | 'justify-left' | 'justify-right'
@@ -11,7 +16,7 @@ export type SwitchProps = {
     | 'warning'
     | 'success'
     | 'default'
-  variant?: 'inside' | 'overlap'
+  variant?: SwitchVariant
   size?: 'sm' | 'md' | 'lg'
   radius?: 'none' | 'sm' | 'md' | 'lg' | 'full'
   fullWidth?: boolean

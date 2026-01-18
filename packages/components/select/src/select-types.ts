@@ -10,7 +10,13 @@ export type SelectThemeColor =
   | 'success'
   | 'default'
 
-export type SelectVariant = 'outlined' | 'flat' | 'light' | 'faded' | 'underlined'
+export enum SelectVariant {
+  Outlined = 'outlined',
+  Flat = 'flat',
+  Light = 'light',
+  Faded = 'faded',
+  Underlined = 'underlined',
+}
 
 export type SelectSize = 'sm' | 'md' | 'lg'
 

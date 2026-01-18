@@ -14,7 +14,7 @@ import {
 import { useXUITheme } from '@xaui/core'
 import { colors } from '@xaui/colors'
 import { SelectContext } from './select-context'
-import type { SelectItemProps, SelectProps } from './select-types'
+import { SelectVariant, type SelectItemProps, type SelectProps } from './select-types'
 import { ChevronDownIcon } from './chevron-down-icon'
 
 const defaultPlaceholder = 'Select an option'
@@ -31,7 +31,7 @@ export const Select: React.FC<SelectProps> = ({
   selectedKeys,
   disabledKeys,
   defaultSelectedKeys,
-  variant = 'flat',
+  variant = SelectVariant.Flat,
   themeColor = 'default',
   size = 'md',
   radius = 'md',
@@ -252,7 +252,10 @@ export const Select: React.FC<SelectProps> = ({
   const variantStyles = useMemo(() => {
     let borderColor = isInvalid ? theme.colors.danger.main : colorScheme.main
 
-    if ((variant === 'outlined' || variant === 'faded') && themeColor === 'default') {
+    if (
+      (variant === SelectVariant.Outlined || variant === SelectVariant.Faded) &&
+      themeColor === 'default'
+    ) {
       borderColor = colors.gray[300]
     }
 
@@ -412,7 +415,7 @@ export const Select: React.FC<SelectProps> = ({
           {
             minHeight: sizeStyles.minHeight,
             paddingHorizontal:
-              variant === 'underlined' ? 2 : sizeStyles.paddingHorizontal,
+              variant === SelectVariant.Underlined ? 2 : sizeStyles.paddingHorizontal,
             paddingVertical: sizeStyles.paddingVertical,
           },
           isDisabled && styles.disabled,

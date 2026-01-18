@@ -1,6 +1,14 @@
 import { ReactElement } from 'react'
 import type { ViewStyle, GestureResponderEvent } from 'react-native'
 
+export enum IconButtonVariant {
+  Solid = 'solid',
+  Outlined = 'outlined',
+  Flat = 'flat',
+  Light = 'light',
+  Faded = 'faded',
+}
+
 export type IconButtonProps = {
   icon: ReactElement
   themeColor?:
@@ -11,7 +19,7 @@ export type IconButtonProps = {
     | 'warning'
     | 'success'
     | 'default'
-  variant?: 'solid' | 'outlined' | 'flat' | 'light' | 'faded'
+  variant?: IconButtonVariant
   size?: 'xs' | 'sm' | 'md' | 'lg'
   radius?: 'none' | 'sm' | 'md' | 'lg' | 'full'
   fullWidth?: boolean
