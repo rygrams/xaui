@@ -1,5 +1,11 @@
 # @xaui/checkboxes
 
+## 0.1.4
+
+### Patch Changes
+
+- Update README documentation to use @xaui/checkbox instead of @xaui/checkboxes
+
 ## 0.1.3
 
 ### Patch Changes

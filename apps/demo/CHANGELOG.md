@@ -1,5 +1,16 @@
 # demo
 
+## 1.0.6
+
+### Patch Changes
+
+- Updated dependencies
+- Updated dependencies
+- Updated dependencies
+  - @xaui/button@0.1.4
+  - @xaui/checkbox@0.1.4
+  - @xaui/switch@0.1.4
+
 ## 1.0.5
 
 ### Patch Changes

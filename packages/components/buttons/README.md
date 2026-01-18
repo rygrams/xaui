@@ -1,11 +1,11 @@
-# @xaui/buttons
+# @xaui/button
 
 Button components for XAUI - A modern React Native UI library with Flutter-inspired API.
 
 ## Installation
 
 ```bash
-pnpm add @xaui/buttons @xaui/core @xaui/progress
+pnpm add @xaui/button @xaui/core @xaui/progress
 ```
 
 ## Components
@@ -20,7 +20,7 @@ A comprehensive button component with support for multiple variants, sizes, load
 ### Basic Usage
 
 ```tsx
-import { Button } from '@xaui/buttons'
+import { Button } from '@xaui/button'
 
 function App() {
   return (
@@ -191,7 +191,7 @@ A specialized button component designed for icon-only actions. Default variant i
 ### Basic Usage
 
 ```tsx
-import { IconButton } from '@xaui/buttons'
+import { IconButton } from '@xaui/button'
 import { HeartIcon } from 'your-icon-library'
 
 function App() {
@@ -378,7 +378,7 @@ Both Button and IconButton integrate seamlessly with the XAUI theme system via `
 
 ```tsx
 import { XUIProvider } from '@xaui/core'
-import { Button } from '@xaui/buttons'
+import { Button } from '@xaui/button'
 
 function App() {
   return (
@@ -417,7 +417,7 @@ Both components support standard React Native accessibility props:
 Full TypeScript support with comprehensive type definitions:
 
 ```tsx
-import type { ButtonProps, IconButtonProps } from '@xaui/buttons'
+import type { ButtonProps, IconButtonProps } from '@xaui/button'
 ```
 
 ## Testing
