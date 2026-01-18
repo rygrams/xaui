@@ -1,5 +1,11 @@
 # @xaui/buttons
 
+## 0.1.4
+
+### Patch Changes
+
+- Update README documentation to use @xaui/button instead of @xaui/buttons
+
 ## 0.1.3
 
 ### Patch Changes

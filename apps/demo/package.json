@@ -1,7 +1,7 @@
 {
   "name": "demo",
   "main": "expo-router/entry",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "scripts": {
     "dev": "expo start",
     "reset-project": "node ./scripts/reset-project.js",
@@ -40,9 +40,9 @@
     "@xaui/core": "workspace:*",
     "@xaui/colors": "workspace:*",
     "@xaui/progress": "workspace:*",
-    "@xaui/buttons": "workspace:*",
-    "@xaui/checkboxes": "workspace:*",
-    "@xaui/switches": "workspace:*",
+    "@xaui/button": "workspace:*",
+    "@xaui/checkbox": "workspace:*",
+    "@xaui/switch": "workspace:*",
     "@xaui/select": "workspace:*"
   },
   "devDependencies": {

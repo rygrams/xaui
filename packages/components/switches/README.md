@@ -1,11 +1,11 @@
-# @xaui/switches
+# @xaui/switch
 
 Switch components for XAUI - A modern React Native UI library with Flutter-inspired API.
 
 ## Installation
 
 ```bash
-pnpm add @xaui/switches @xaui/core
+pnpm add @xaui/switch @xaui/core
 ```
 
 ## Components
@@ -19,7 +19,7 @@ A comprehensive switch component with support for two distinct variants, multipl
 ### Basic Usage
 
 ```tsx
-import { Switch } from '@xaui/switches'
+import { Switch } from '@xaui/switch'
 
 function App() {
   const [enabled, setEnabled] = React.useState(false)
@@ -358,7 +358,7 @@ Switch integrates seamlessly with the XAUI theme system via `@xaui/core`:
 
 ```tsx
 import { XUIProvider } from '@xaui/core'
-import { Switch } from '@xaui/switches'
+import { Switch } from '@xaui/switch'
 
 function App() {
   const [enabled, setEnabled] = React.useState(false)
@@ -396,7 +396,7 @@ The component supports standard React Native accessibility props:
 Full TypeScript support with comprehensive type definitions:
 
 ```tsx
-import type { SwitchProps, SwitchEvents } from '@xaui/switches'
+import type { SwitchProps, SwitchEvents } from '@xaui/switch'
 ```
 
 ## Testing
@@ -420,4 +420,4 @@ MIT
 
 - [@xaui/core](../core) - Core theme system and provider
 - [@xaui/colors](../colors) - Color palette system
-- [@xaui/checkboxes](../checkboxes) - Checkbox components
+- [@xaui/checkbox](../checkboxes) - Checkbox components

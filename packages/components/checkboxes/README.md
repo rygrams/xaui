@@ -1,11 +1,11 @@
-# @xaui/checkboxes
+# @xaui/checkbox
 
 Checkbox components for XAUI - A modern React Native UI library with Flutter-inspired API.
 
 ## Installation
 
 ```bash
-pnpm add @xaui/checkboxes @xaui/core
+pnpm add @xaui/checkbox @xaui/core
 ```
 
 ## Components
@@ -19,7 +19,7 @@ A comprehensive checkbox component with support for multiple variants, sizes, an
 ### Basic Usage
 
 ```tsx
-import { Checkbox } from '@xaui/checkboxes'
+import { Checkbox } from '@xaui/checkbox'
 
 function App() {
   const [checked, setChecked] = React.useState(false)
@@ -324,7 +324,7 @@ Checkbox integrates seamlessly with the XAUI theme system via `@xaui/core`:
 
 ```tsx
 import { XUIProvider } from '@xaui/core'
-import { Checkbox } from '@xaui/checkboxes'
+import { Checkbox } from '@xaui/checkbox'
 
 function App() {
   const [checked, setChecked] = React.useState(false)
@@ -362,7 +362,7 @@ The component supports standard React Native accessibility props:
 Full TypeScript support with comprehensive type definitions:
 
 ```tsx
-import type { CheckboxProps, CheckboxEvents } from '@xaui/checkboxes'
+import type { CheckboxProps, CheckboxEvents } from '@xaui/checkbox'
 ```
 
 ## Testing
