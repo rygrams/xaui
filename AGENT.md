@@ -130,12 +130,6 @@ The project uses GitHub Actions with the following workflow:
    - Uses Changesets action to create release PRs or publish to npm
    - Only builds `@xaui/*` scoped packages before publishing
 
-## Pull Request Guidelines
-
-- Use `pnpm changeset` to create a new changeset
-- Before generate changeset message, run `pnpm changeset version` to update versions based on changesets
-- For pull request add What, Why, How with details for better review
-
 ## Code Best Practices
 
 - Dont add any console.log or console.error
@@ -146,11 +140,12 @@ The project uses GitHub Actions with the following workflow:
 - Use early returns to avoid deep code nesting
 - Avoid any type as much as possible
 
-## Package Dependencies
+## Package Guidelines
 
 - Use pnpm for package management
 - Use workspace: \* for dependencies
 - Dont use react-native-reanimated, use built-in Reanimated from react-native
+- Package name should be in singular form
 
 ## Commit Message Guidelines
 

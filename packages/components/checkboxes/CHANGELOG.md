@@ -1,5 +1,11 @@
 # @xaui/checkboxes
 
+## 0.1.3
+
+### Patch Changes
+
+- Rename package from @xaui/checkboxes to @xaui/checkbox to follow singular naming convention
+
 ## 0.1.2
 
 ### Patch Changes
