@@ -1,9 +1,7 @@
 import { Link } from 'expo-router'
-import { Pressable, ScrollView, StyleSheet, View } from 'react-native'
+import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
 
-import { ThemedText } from '@/components/themed-text'
 import { IconSymbol } from '@/components/ui/icon-symbol'
-import { useThemeColor } from '@/hooks/use-theme-color'
 
 const demos = [
   {
@@ -39,41 +37,25 @@ const demos = [
 ]
 
 export default function HomeScreen() {
-  const cardBackground = useThemeColor(
-    { light: '#F6F7FB', dark: '#1D2126' },
-    'background'
-  )
-  const cardBorder = useThemeColor({ light: '#E2E6EA', dark: '#2B3138' }, 'background')
-  const descriptionText = useThemeColor({ light: '#374151', dark: '#9AA3AD' }, 'text')
-  const iconColor = useThemeColor({}, 'icon')
-
   return (
     <ScrollView contentContainerStyle={styles.container}>
       <View style={styles.header}>
-        <ThemedText type="title">Component demos</ThemedText>
-        <ThemedText style={[styles.subtitle, { color: descriptionText }]}>
-          Tap a component to open its live demo.
-        </ThemedText>
+        <Text style={styles.title}>Component demos</Text>
+        <Text style={styles.subtitle}>Tap a component to open its live demo.</Text>
       </View>
 
       <View style={styles.list}>
-        {demos.map((demo) => (
+        {demos.map(demo => (
           <Link key={demo.href} href={demo.href} asChild>
             <Pressable
-              style={({ pressed }) => [
-                styles.card,
-                { backgroundColor: cardBackground, borderColor: cardBorder },
-                pressed && styles.cardPressed,
-              ]}
+              style={({ pressed }) => [styles.card, pressed && styles.cardPressed]}
             >
               <View style={styles.cardContent}>
                 <View style={styles.cardText}>
-                  <ThemedText type="subtitle">{demo.title}</ThemedText>
-                  <ThemedText style={[styles.cardDescription, { color: descriptionText }]}>
-                    {demo.description}
-                  </ThemedText>
+                  <Text style={styles.cardTitle}>{demo.title}</Text>
+                  <Text style={styles.cardDescription}>{demo.description}</Text>
                 </View>
-                <IconSymbol name="chevron.right" color={iconColor} size={22} />
+                <IconSymbol name="chevron.right" color="#4B5563" size={22} />
               </View>
             </Pressable>
           </Link>
@@ -90,9 +72,16 @@ const styles = StyleSheet.create({
   },
   header: {
     gap: 8,
+    marginTop: 30,
+  },
+  title: {
+    fontSize: 28,
+    fontWeight: '700',
+    color: '#111827',
   },
   subtitle: {
     fontSize: 16,
+    color: '#4B5563',
   },
   list: {
     gap: 12,
@@ -102,6 +91,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     paddingHorizontal: 16,
     paddingVertical: 14,
+    backgroundColor: '#F6F7FB',
+    borderColor: '#E2E6EA',
   },
   cardPressed: {
     opacity: 0.9,
@@ -117,7 +108,13 @@ const styles = StyleSheet.create({
     flex: 1,
     gap: 4,
   },
+  cardTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#111827',
+  },
   cardDescription: {
     fontSize: 14,
+    color: '#4B5563',
   },
 })

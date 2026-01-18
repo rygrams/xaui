@@ -1,31 +1,18 @@
-import { ScrollView, StyleSheet, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import { Button, IconButton } from '@xaui/buttons'
-import { useXUITheme } from '@xaui/core'
 
-import { ThemedText } from '@/components/themed-text'
 import { IconSymbol } from '@/components/ui/icon-symbol'
-import { useThemeColor } from '@/hooks/use-theme-color'
 
 export default function ButtonsDemoScreen() {
-  const theme = useXUITheme()
-  const cardBackground = useThemeColor(
-    { light: '#F6F7FB', dark: '#1D2126' },
-    'background'
-  )
-  const cardBorder = useThemeColor({ light: '#E2E6EA', dark: '#2B3138' }, 'background')
-  const descriptionText = useThemeColor({ light: '#374151', dark: '#9AA3AD' }, 'text')
-
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <ThemedText type="title">Buttons</ThemedText>
-      <ThemedText style={[styles.description, { color: descriptionText }]}>
+      <Text style={styles.title}>Buttons</Text>
+      <Text style={styles.description}>
         Primary actions, variants, and icon-only controls.
-      </ThemedText>
+      </Text>
 
-      <View
-        style={[styles.section, { backgroundColor: cardBackground, borderColor: cardBorder }]}
-      >
-        <ThemedText type="subtitle">Variants</ThemedText>
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Variants</Text>
         <View style={styles.row}>
           <Button themeColor="primary">Solid</Button>
           <Button themeColor="primary" variant="outlined">
@@ -40,10 +27,8 @@ export default function ButtonsDemoScreen() {
         </View>
       </View>
 
-      <View
-        style={[styles.section, { backgroundColor: cardBackground, borderColor: cardBorder }]}
-      >
-        <ThemedText type="subtitle">Sizes</ThemedText>
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Sizes</Text>
         <View style={styles.row}>
           <Button themeColor="secondary" size="sm">
             Small
@@ -57,25 +42,38 @@ export default function ButtonsDemoScreen() {
         </View>
       </View>
 
-      <View
-        style={[styles.section, { backgroundColor: cardBackground, borderColor: cardBorder }]}
-      >
-        <ThemedText type="subtitle">Icon Buttons</ThemedText>
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Icon Buttons</Text>
         <View style={styles.row}>
           <IconButton
             themeColor="primary"
-            icon={<IconSymbol name="chevron.right" color={theme.colors.primary.main} />}
+            icon={<IconSymbol name="chevron.right" color="#2563EB" />}
           />
           <IconButton
             themeColor="success"
             variant="outlined"
-            icon={<IconSymbol name="chevron.right" color={theme.colors.success.main} />}
+            icon={<IconSymbol name="chevron.right" color="#16A34A" />}
           />
           <IconButton
             themeColor="danger"
             variant="solid"
-            icon={<IconSymbol name="chevron.right" color={theme.colors.danger.foreground} />}
+            icon={<IconSymbol name="chevron.right" color="#FFFFFF" />}
           />
+        </View>
+      </View>
+
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>States</Text>
+        <View style={styles.row}>
+          <Button themeColor="primary" isLoading>
+            Loading
+          </Button>
+          <Button themeColor="secondary" isDisabled>
+            Disabled
+          </Button>
+          <Button themeColor="success" variant="outlined" isDisabled>
+            Outlined
+          </Button>
         </View>
       </View>
     </ScrollView>
@@ -87,15 +85,28 @@ const styles = StyleSheet.create({
     padding: 20,
     gap: 20,
   },
+  title: {
+    fontSize: 28,
+    fontWeight: '700',
+    color: '#111827',
+  },
   description: {
     fontSize: 16,
     lineHeight: 24,
+    color: '#4B5563',
   },
   section: {
     padding: 16,
     borderRadius: 16,
     borderWidth: 1,
     gap: 12,
+    backgroundColor: '#F6F7FB',
+    borderColor: '#E2E6EA',
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#111827',
   },
   row: {
     flexDirection: 'row',

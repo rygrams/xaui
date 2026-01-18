@@ -1,28 +1,16 @@
-import { ScrollView, StyleSheet, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import { CircularActivityIndicator } from '@xaui/progress'
 
-import { ThemedText } from '@/components/themed-text'
-import { useThemeColor } from '@/hooks/use-theme-color'
-
 export default function ProgressDemoScreen() {
-  const cardBackground = useThemeColor(
-    { light: '#F6F7FB', dark: '#1D2126' },
-    'background'
-  )
-  const cardBorder = useThemeColor({ light: '#E2E6EA', dark: '#2B3138' }, 'background')
-  const descriptionText = useThemeColor({ light: '#374151', dark: '#9AA3AD' }, 'text')
-
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <ThemedText type="title">Progress</ThemedText>
-      <ThemedText style={[styles.description, { color: descriptionText }]}>
+      <Text style={styles.title}>Progress</Text>
+      <Text style={styles.description}>
         Activity indicators in different styles and sizes.
-      </ThemedText>
+      </Text>
 
-      <View
-        style={[styles.section, { backgroundColor: cardBackground, borderColor: cardBorder }]}
-      >
-        <ThemedText type="subtitle">Variants</ThemedText>
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Variants</Text>
         <View style={styles.row}>
           <CircularActivityIndicator variant="spinner" themeColor="primary" />
           <CircularActivityIndicator variant="ticks" themeColor="success" />
@@ -30,14 +18,21 @@ export default function ProgressDemoScreen() {
         </View>
       </View>
 
-      <View
-        style={[styles.section, { backgroundColor: cardBackground, borderColor: cardBorder }]}
-      >
-        <ThemedText type="subtitle">Sizes</ThemedText>
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Sizes</Text>
         <View style={styles.row}>
           <CircularActivityIndicator variant="spinner" size={24} themeColor="secondary" />
           <CircularActivityIndicator variant="spinner" size={40} themeColor="secondary" />
           <CircularActivityIndicator variant="spinner" size={56} themeColor="secondary" />
+        </View>
+      </View>
+
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Color Overrides</Text>
+        <View style={styles.row}>
+          <CircularActivityIndicator variant="spinner" color="#111827" />
+          <CircularActivityIndicator variant="ticks" color="#2563EB" />
+          <CircularActivityIndicator variant="bullets" color="#DC2626" />
         </View>
       </View>
     </ScrollView>
@@ -49,15 +44,28 @@ const styles = StyleSheet.create({
     padding: 20,
     gap: 20,
   },
+  title: {
+    fontSize: 28,
+    fontWeight: '700',
+    color: '#111827',
+  },
   description: {
     fontSize: 16,
     lineHeight: 24,
+    color: '#4B5563',
   },
   section: {
     padding: 16,
     borderRadius: 16,
     borderWidth: 1,
     gap: 12,
+    backgroundColor: '#F6F7FB',
+    borderColor: '#E2E6EA',
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#111827',
   },
   row: {
     flexDirection: 'row',

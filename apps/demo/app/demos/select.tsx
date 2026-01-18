@@ -1,6 +1,5 @@
 import { View, Text, StyleSheet, ScrollView } from 'react-native'
 import { useState } from 'react'
-import { colors } from '@xaui/colors'
 import { Select, SelectItem } from '@xaui/select'
 
 export default function SelectDemoScreen() {
@@ -28,10 +27,12 @@ export default function SelectDemoScreen() {
   const [labelOutsideKeys, setLabelOutsideKeys] = useState(['lo1'])
   const [labelInsideKeys, setLabelInsideKeys] = useState(['li2'])
   const [labelOutsideLeftKeys, setLabelOutsideLeftKeys] = useState(['lol1'])
+  const [longLabelKeys, setLongLabelKeys] = useState(['long2'])
 
   return (
     <ScrollView style={styles.scrollView} contentContainerStyle={styles.container}>
       <Text style={styles.title}>Select Components</Text>
+      <Text style={styles.subtitle}>Pick single or multiple options with labels.</Text>
 
       <View style={styles.section}>
         <Text style={styles.label}>Single Select</Text>
@@ -433,6 +434,37 @@ export default function SelectDemoScreen() {
           <SelectItem key="i2" title="Option 2" />
         </Select>
       </View>
+
+      <View style={styles.section}>
+        <Text style={styles.label}>Long Labels</Text>
+        <Select
+          label="Project labels"
+          placeholder="Pick a label"
+          selectionMode="single"
+          selectedKeys={longLabelKeys}
+          onSelectionChange={setLongLabelKeys}
+          variant="outlined"
+          size="md"
+          radius="md"
+          hint="Shows wrapping and descriptions"
+        >
+          <SelectItem
+            key="long1"
+            title="Brand refresh - visual design exploration"
+            description="Design system and guidelines"
+          />
+          <SelectItem
+            key="long2"
+            title="Mobile onboarding improvements"
+            description="Reduce friction on first launch"
+          />
+          <SelectItem
+            key="long3"
+            title="Analytics pipeline migrations"
+            description="Data warehouse sync"
+          />
+        </Select>
+      </View>
     </ScrollView>
   )
 }
@@ -440,28 +472,32 @@ export default function SelectDemoScreen() {
 const styles = StyleSheet.create({
   scrollView: {
     flex: 1,
-    backgroundColor: colors.slate[950],
+    backgroundColor: '#FFFFFF',
   },
   container: {
     padding: 20,
     gap: 24,
   },
   title: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    color: colors.white,
-    textAlign: 'center',
-    marginBottom: 10,
+    fontSize: 28,
+    fontWeight: '700',
+    color: '#111827',
+  },
+  subtitle: {
+    fontSize: 16,
+    color: '#4B5563',
   },
   section: {
     padding: 16,
-    backgroundColor: colors.white,
-    borderRadius: 12,
+    backgroundColor: '#F6F7FB',
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: '#E2E6EA',
     gap: 12,
   },
   label: {
     fontSize: 14,
     fontWeight: '600',
-    color: colors.gray[900],
+    color: '#111827',
   },
 })

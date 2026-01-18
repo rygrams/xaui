@@ -2,35 +2,22 @@ import { useState } from 'react'
 import { ScrollView, StyleSheet, View, Text } from 'react-native'
 import { Sidebar } from '@xaui/sidebar'
 import { Button } from '@xaui/buttons'
-import { useXUITheme } from '@xaui/core'
-
-import { ThemedText } from '@/components/themed-text'
-import { useThemeColor } from '@/hooks/use-theme-color'
 
 export default function SidebarDemoScreen() {
-  const theme = useXUITheme()
   const [leftOpen, setLeftOpen] = useState(false)
   const [rightOpen, setRightOpen] = useState(false)
   const [primaryOpen, setPrimaryOpen] = useState(false)
-
-  const cardBackground = useThemeColor(
-    { light: '#F6F7FB', dark: '#1D2126' },
-    'background'
-  )
-  const cardBorder = useThemeColor({ light: '#E2E6EA', dark: '#2B3138' }, 'background')
-  const descriptionText = useThemeColor({ light: '#374151', dark: '#9AA3AD' }, 'text')
+  const [wideOpen, setWideOpen] = useState(false)
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <ThemedText type="title">Sidebar</ThemedText>
-      <ThemedText style={[styles.description, { color: descriptionText }]}>
+      <Text style={styles.title}>Sidebar</Text>
+      <Text style={styles.description}>
         Slide-in navigation drawers from left or right edges.
-      </ThemedText>
+      </Text>
 
-      <View
-        style={[styles.section, { backgroundColor: cardBackground, borderColor: cardBorder }]}
-      >
-        <ThemedText type="subtitle">Position</ThemedText>
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Position</Text>
         <View style={styles.row}>
           <Button themeColor="primary" onPress={() => setLeftOpen(true)}>
             Left Sidebar
@@ -41,13 +28,20 @@ export default function SidebarDemoScreen() {
         </View>
       </View>
 
-      <View
-        style={[styles.section, { backgroundColor: cardBackground, borderColor: cardBorder }]}
-      >
-        <ThemedText type="subtitle">Theme Colors</ThemedText>
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Theme Colors</Text>
         <View style={styles.row}>
           <Button themeColor="primary" onPress={() => setPrimaryOpen(true)}>
             Open Menu
+          </Button>
+        </View>
+      </View>
+
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Sizing</Text>
+        <View style={styles.row}>
+          <Button themeColor="secondary" onPress={() => setWideOpen(true)}>
+            Wide Sidebar
           </Button>
         </View>
       </View>
@@ -57,25 +51,15 @@ export default function SidebarDemoScreen() {
         position="left"
         isOpen={leftOpen}
         onClose={() => setLeftOpen(false)}
-        style={{ backgroundColor: theme.colors.background }}
+        style={{ backgroundColor: '#FFFFFF' }}
       >
         <View style={styles.sidebarContent}>
-          <ThemedText type="title" style={styles.sidebarTitle}>
-            Menu
-          </ThemedText>
+          <Text style={styles.sidebarTitle}>Menu</Text>
           <View style={styles.menuItems}>
-            <Text style={[styles.menuItem, { color: theme.colors.foreground }]}>
-              Home
-            </Text>
-            <Text style={[styles.menuItem, { color: theme.colors.foreground }]}>
-              Settings
-            </Text>
-            <Text style={[styles.menuItem, { color: theme.colors.foreground }]}>
-              Profile
-            </Text>
-            <Text style={[styles.menuItem, { color: theme.colors.foreground }]}>
-              About
-            </Text>
+            <Text style={styles.menuItem}>Home</Text>
+            <Text style={styles.menuItem}>Settings</Text>
+            <Text style={styles.menuItem}>Profile</Text>
+            <Text style={styles.menuItem}>About</Text>
           </View>
           <Button
             themeColor="primary"
@@ -93,25 +77,15 @@ export default function SidebarDemoScreen() {
         isOpen={rightOpen}
         onClose={() => setRightOpen(false)}
         width={320}
-        style={{ backgroundColor: theme.colors.background }}
+        style={{ backgroundColor: '#FFFFFF' }}
       >
         <View style={styles.sidebarContent}>
-          <ThemedText type="title" style={styles.sidebarTitle}>
-            Settings
-          </ThemedText>
+          <Text style={styles.sidebarTitle}>Settings</Text>
           <View style={styles.menuItems}>
-            <Text style={[styles.menuItem, { color: theme.colors.foreground }]}>
-              Account
-            </Text>
-            <Text style={[styles.menuItem, { color: theme.colors.foreground }]}>
-              Privacy
-            </Text>
-            <Text style={[styles.menuItem, { color: theme.colors.foreground }]}>
-              Notifications
-            </Text>
-            <Text style={[styles.menuItem, { color: theme.colors.foreground }]}>
-              Appearance
-            </Text>
+            <Text style={styles.menuItem}>Account</Text>
+            <Text style={styles.menuItem}>Privacy</Text>
+            <Text style={styles.menuItem}>Notifications</Text>
+            <Text style={styles.menuItem}>Appearance</Text>
           </View>
           <Button
             themeColor="secondary"
@@ -132,26 +106,45 @@ export default function SidebarDemoScreen() {
         overlayOpacity={0.7}
       >
         <View style={styles.sidebarContent}>
-          <ThemedText type="title" style={styles.sidebarTitle}>
+          <Text style={[styles.sidebarTitle, styles.sidebarTitleLight]}>
             Navigation
-          </ThemedText>
+          </Text>
           <View style={styles.menuItems}>
-            <Text style={[styles.menuItem, { color: theme.colors.foreground }]}>
-              Dashboard
-            </Text>
-            <Text style={[styles.menuItem, { color: theme.colors.foreground }]}>
-              Projects
-            </Text>
-            <Text style={[styles.menuItem, { color: theme.colors.foreground }]}>
-              Tasks
-            </Text>
-            <Text style={[styles.menuItem, { color: theme.colors.foreground }]}>
-              Calendar
-            </Text>
+            <Text style={[styles.menuItem, styles.menuItemLight]}>Dashboard</Text>
+            <Text style={[styles.menuItem, styles.menuItemLight]}>Projects</Text>
+            <Text style={[styles.menuItem, styles.menuItemLight]}>Tasks</Text>
+            <Text style={[styles.menuItem, styles.menuItemLight]}>Calendar</Text>
           </View>
           <Button
             themeColor="primary"
             onPress={() => setPrimaryOpen(false)}
+            style={styles.closeButton}
+          >
+            Close
+          </Button>
+        </View>
+      </Sidebar>
+
+      {/* Wide Sidebar */}
+      <Sidebar
+        position="left"
+        isOpen={wideOpen}
+        onClose={() => setWideOpen(false)}
+        width={360}
+        overlayOpacity={0.6}
+        style={{ backgroundColor: '#FFFFFF' }}
+      >
+        <View style={styles.sidebarContent}>
+          <Text style={styles.sidebarTitle}>Workspace</Text>
+          <View style={styles.menuItems}>
+            <Text style={styles.menuItem}>Overview</Text>
+            <Text style={styles.menuItem}>Analytics</Text>
+            <Text style={styles.menuItem}>Integrations</Text>
+            <Text style={styles.menuItem}>Support</Text>
+          </View>
+          <Button
+            themeColor="secondary"
+            onPress={() => setWideOpen(false)}
             style={styles.closeButton}
           >
             Close
@@ -167,15 +160,28 @@ const styles = StyleSheet.create({
     padding: 20,
     gap: 20,
   },
+  title: {
+    fontSize: 28,
+    fontWeight: '700',
+    color: '#111827',
+  },
   description: {
     fontSize: 16,
     lineHeight: 24,
+    color: '#4B5563',
   },
   section: {
     padding: 16,
     borderRadius: 16,
     borderWidth: 1,
     gap: 12,
+    backgroundColor: '#F6F7FB',
+    borderColor: '#E2E6EA',
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#111827',
   },
   row: {
     flexDirection: 'row',
@@ -189,6 +195,12 @@ const styles = StyleSheet.create({
   },
   sidebarTitle: {
     marginBottom: 24,
+    fontSize: 24,
+    fontWeight: '700',
+    color: '#111827',
+  },
+  sidebarTitleLight: {
+    color: '#FFFFFF',
   },
   menuItems: {
     flex: 1,
@@ -200,6 +212,12 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 16,
     borderRadius: 8,
+    color: '#111827',
+    backgroundColor: '#F9FAFB',
+  },
+  menuItemLight: {
+    color: '#FFFFFF',
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
   },
   closeButton: {
     marginTop: 24,

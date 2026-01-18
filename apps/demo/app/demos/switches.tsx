@@ -1,32 +1,26 @@
-import { ScrollView, StyleSheet, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import { useState } from 'react'
 import { Switch } from '@xaui/switches'
-
-import { ThemedText } from '@/components/themed-text'
-import { useThemeColor } from '@/hooks/use-theme-color'
 
 export default function SwitchesDemoScreen() {
   const [insideEnabled, setInsideEnabled] = useState(true)
   const [overlapEnabled, setOverlapEnabled] = useState(false)
   const [quietMode, setQuietMode] = useState(true)
-  const cardBackground = useThemeColor(
-    { light: '#F6F7FB', dark: '#1D2126' },
-    'background'
-  )
-  const cardBorder = useThemeColor({ light: '#E2E6EA', dark: '#2B3138' }, 'background')
-  const descriptionText = useThemeColor({ light: '#374151', dark: '#9AA3AD' }, 'text')
+  const [sizeStates, setSizeStates] = useState({
+    sm: true,
+    md: false,
+    lg: true,
+  })
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <ThemedText type="title">Switches</ThemedText>
-      <ThemedText style={[styles.description, { color: descriptionText }]}>
+      <Text style={styles.title}>Switches</Text>
+      <Text style={styles.description}>
         Toggle quick settings with inside or overlap styles.
-      </ThemedText>
+      </Text>
 
-      <View
-        style={[styles.section, { backgroundColor: cardBackground, borderColor: cardBorder }]}
-      >
-        <ThemedText type="subtitle">Variants</ThemedText>
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Variants</Text>
         <View style={styles.column}>
           <Switch
             label="Inside (default)"
@@ -44,10 +38,8 @@ export default function SwitchesDemoScreen() {
         </View>
       </View>
 
-      <View
-        style={[styles.section, { backgroundColor: cardBackground, borderColor: cardBorder }]}
-      >
-        <ThemedText type="subtitle">Label Alignment</ThemedText>
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Label Alignment</Text>
         <View style={styles.column}>
           <Switch
             label="Quiet mode"
@@ -65,6 +57,40 @@ export default function SwitchesDemoScreen() {
           />
         </View>
       </View>
+
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Sizes</Text>
+        <View style={styles.column}>
+          <Switch
+            label="Small"
+            size="sm"
+            isSelected={sizeStates.sm}
+            onValueChange={(value) =>
+              setSizeStates((prev) => ({ ...prev, sm: value }))
+            }
+            themeColor="primary"
+          />
+          <Switch
+            label="Medium"
+            size="md"
+            isSelected={sizeStates.md}
+            onValueChange={(value) =>
+              setSizeStates((prev) => ({ ...prev, md: value }))
+            }
+            themeColor="secondary"
+          />
+          <Switch
+            label="Large"
+            size="lg"
+            isSelected={sizeStates.lg}
+            onValueChange={(value) =>
+              setSizeStates((prev) => ({ ...prev, lg: value }))
+            }
+            themeColor="danger"
+          />
+          <Switch label="Disabled" isSelected={false} isDisabled />
+        </View>
+      </View>
     </ScrollView>
   )
 }
@@ -74,15 +100,28 @@ const styles = StyleSheet.create({
     padding: 20,
     gap: 20,
   },
+  title: {
+    fontSize: 28,
+    fontWeight: '700',
+    color: '#111827',
+  },
   description: {
     fontSize: 16,
     lineHeight: 24,
+    color: '#4B5563',
   },
   section: {
     padding: 16,
     borderRadius: 16,
     borderWidth: 1,
     gap: 12,
+    backgroundColor: '#F6F7FB',
+    borderColor: '#E2E6EA',
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#111827',
   },
   column: {
     gap: 12,

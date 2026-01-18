@@ -92,6 +92,9 @@ importers:
       '@xaui/select':
         specifier: workspace:*
         version: link:../../packages/components/select
+      '@xaui/sidebar':
+        specifier: workspace:*
+        version: link:../../packages/components/sidebar
       '@xaui/switches':
         specifier: workspace:*
         version: link:../../packages/components/switches

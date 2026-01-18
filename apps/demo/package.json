@@ -43,7 +43,8 @@
     "@xaui/buttons": "workspace:*",
     "@xaui/checkboxes": "workspace:*",
     "@xaui/switches": "workspace:*",
-    "@xaui/select": "workspace:*"
+    "@xaui/select": "workspace:*",
+    "@xaui/sidebar": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "~19.1.0",

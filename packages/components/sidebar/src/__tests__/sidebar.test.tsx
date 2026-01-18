@@ -1,4 +1,8 @@
-import { describe, it, expect } from 'vitest'
+import React from 'react'
+import { describe, it, expect, vi } from 'vitest'
+import renderer, { act } from 'react-test-renderer'
+import { Animated, Text } from 'react-native'
+import { Sidebar } from '../sidebar'
 import type { SidebarProps } from '../sidebar-types'
 
 describe('Sidebar Types', () => {
@@ -225,5 +229,45 @@ describe('Sidebar Types', () => {
     }
 
     expect(props.position).toBe('right')
+  })
+})
+
+describe('Sidebar Animations', () => {
+  it('starts animations when isOpen changes', () => {
+    const parallelSpy = vi.spyOn(Animated, 'parallel')
+    const springSpy = vi.spyOn(Animated, 'spring')
+    const timingSpy = vi.spyOn(Animated, 'timing')
+
+    const tree = renderer.create(
+      <Sidebar isOpen={false}>
+        <Text>Content</Text>
+      </Sidebar>
+    )
+
+    const initialParallelCalls = parallelSpy.mock.calls.length
+
+    act(() => {
+      tree.update(
+        <Sidebar isOpen>
+          <Text>Content</Text>
+        </Sidebar>
+      )
+    })
+
+    expect(parallelSpy.mock.calls.length).toBe(initialParallelCalls + 1)
+    expect(springSpy).toHaveBeenCalled()
+    expect(timingSpy).toHaveBeenCalled()
+
+    const afterOpenCalls = parallelSpy.mock.calls.length
+
+    act(() => {
+      tree.update(
+        <Sidebar isOpen={false}>
+          <Text>Content</Text>
+        </Sidebar>
+      )
+    })
+
+    expect(parallelSpy.mock.calls.length).toBe(afterOpenCalls + 1)
   })
 })

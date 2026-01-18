@@ -1,9 +1,6 @@
-import { ScrollView, StyleSheet, View } from 'react-native'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import { useState } from 'react'
 import { Checkbox } from '@xaui/checkboxes'
-
-import { ThemedText } from '@/components/themed-text'
-import { useThemeColor } from '@/hooks/use-theme-color'
 
 export default function CheckboxesDemoScreen() {
   const [checked, setChecked] = useState({
@@ -12,24 +9,17 @@ export default function CheckboxesDemoScreen() {
     terms: false,
   })
   const [alignmentChecked, setAlignmentChecked] = useState(true)
-  const cardBackground = useThemeColor(
-    { light: '#F6F7FB', dark: '#1D2126' },
-    'background'
-  )
-  const cardBorder = useThemeColor({ light: '#E2E6EA', dark: '#2B3138' }, 'background')
-  const descriptionText = useThemeColor({ light: '#374151', dark: '#9AA3AD' }, 'text')
+  const [variantChecked, setVariantChecked] = useState(true)
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      <ThemedText type="title">Checkboxes</ThemedText>
-      <ThemedText style={[styles.description, { color: descriptionText }]}>
+      <Text style={styles.title}>Checkboxes</Text>
+      <Text style={styles.description}>
         Pick multiple options and align labels as needed.
-      </ThemedText>
+      </Text>
 
-      <View
-        style={[styles.section, { backgroundColor: cardBackground, borderColor: cardBorder }]}
-      >
-        <ThemedText type="subtitle">Selections</ThemedText>
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Selections</Text>
         <View style={styles.column}>
           <Checkbox
             label="Product updates"
@@ -51,10 +41,8 @@ export default function CheckboxesDemoScreen() {
         </View>
       </View>
 
-      <View
-        style={[styles.section, { backgroundColor: cardBackground, borderColor: cardBorder }]}
-      >
-        <ThemedText type="subtitle">Alignment</ThemedText>
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Alignment</Text>
         <View style={styles.column}>
           <Checkbox
             label="Label on the left"
@@ -71,6 +59,27 @@ export default function CheckboxesDemoScreen() {
           />
         </View>
       </View>
+
+      <View style={styles.section}>
+        <Text style={styles.sectionTitle}>Variants</Text>
+        <View style={styles.column}>
+          <Checkbox
+            label="Filled (primary)"
+            variant="filled"
+            themeColor="primary"
+            isChecked={variantChecked}
+            onValueChange={setVariantChecked}
+          />
+          <Checkbox
+            label="Light (warning)"
+            variant="light"
+            themeColor="warning"
+            isChecked={!variantChecked}
+            onValueChange={(value) => setVariantChecked(!value)}
+          />
+          <Checkbox label="Disabled" isChecked={false} isDisabled />
+        </View>
+      </View>
     </ScrollView>
   )
 }
@@ -80,15 +89,28 @@ const styles = StyleSheet.create({
     padding: 20,
     gap: 20,
   },
+  title: {
+    fontSize: 28,
+    fontWeight: '700',
+    color: '#111827',
+  },
   description: {
     fontSize: 16,
     lineHeight: 24,
+    color: '#4B5563',
   },
   section: {
     padding: 16,
     borderRadius: 16,
     borderWidth: 1,
     gap: 12,
+    backgroundColor: '#F6F7FB',
+    borderColor: '#E2E6EA',
+  },
+  sectionTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#111827',
   },
   column: {
     gap: 12,

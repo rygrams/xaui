@@ -1,11 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import {
-  Animated,
-  Modal,
-  Pressable,
-  View,
-  StyleSheet,
-} from 'react-native'
+import { Animated, Modal, Pressable, View, StyleSheet } from 'react-native'
 import { useXUITheme } from '@xaui/core'
 import type { SidebarProps } from './sidebar-types'
 
@@ -31,6 +25,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   const colorScheme = theme.colors[themeColor]
   const isControlled = isOpen !== undefined
   const currentOpen = isControlled ? isOpen : internalOpen
+  const [isVisible, setIsVisible] = useState(currentOpen)
 
   const setOpenState = useCallback(
     (nextOpen: boolean) => {
@@ -61,6 +56,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
 
   useEffect(() => {
     if (currentOpen) {
+      if (!isVisible) {
+        setIsVisible(true)
+        return
+      }
+
+      slideAnimation.setValue(0)
+      overlayAnimation.setValue(0)
       Animated.parallel([
         Animated.spring(slideAnimation, {
           toValue: 1,
@@ -74,22 +76,30 @@ export const Sidebar: React.FC<SidebarProps> = ({
           useNativeDriver: true,
         }),
       ]).start()
-    } else {
-      Animated.parallel([
-        Animated.spring(slideAnimation, {
-          toValue: 0,
-          useNativeDriver: true,
-          damping: 20,
-          stiffness: 150,
-        }),
-        Animated.timing(overlayAnimation, {
-          toValue: 0,
-          duration: 200,
-          useNativeDriver: true,
-        }),
-      ]).start()
+      return
     }
-  }, [currentOpen, slideAnimation, overlayAnimation])
+
+    if (!isVisible) {
+      return
+    }
+
+    Animated.parallel([
+      Animated.timing(slideAnimation, {
+        toValue: 0,
+        duration: 250,
+        useNativeDriver: true,
+      }),
+      Animated.timing(overlayAnimation, {
+        toValue: 0,
+        duration: 240,
+        useNativeDriver: true,
+      }),
+    ]).start(({ finished }) => {
+      if (finished) {
+        setIsVisible(false)
+      }
+    })
+  }, [currentOpen, isVisible, slideAnimation, overlayAnimation])
 
   const sidebarStyles = useMemo(() => {
     const translateX = slideAnimation.interpolate({
@@ -123,19 +133,14 @@ export const Sidebar: React.FC<SidebarProps> = ({
       {triggerElement}
 
       <Modal
-        visible={currentOpen}
+        visible={isVisible}
         transparent
         animationType="none"
         onRequestClose={handleClose}
       >
-        <View style={styles.container}>
-          <Pressable
-            style={StyleSheet.absoluteFill}
-            onPress={handleOverlayPress}
-          >
-            <Animated.View
-              style={[styles.overlay, overlayStyles, overlayStyle]}
-            />
+        <View style={styles.container} pointerEvents={currentOpen ? 'auto' : 'none'}>
+          <Pressable style={StyleSheet.absoluteFill} onPress={handleOverlayPress}>
+            <Animated.View style={[styles.overlay, overlayStyles, overlayStyle]} />
           </Pressable>
 
           <Animated.View style={[styles.sidebar, sidebarStyles, style]}>
