@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { render } from '@testing-library/react'
 import React from 'react'
-import { CircularProgressIndicator } from '../components/circular-progress-indicator'
+import { CircularProgressIndicator } from '../circular-progress-indicator'
 import { XUIProvider } from '@xaui/core'
 
 const renderWithProvider = (component: React.ReactElement) => {

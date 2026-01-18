@@ -1,6 +1,6 @@
 export type StrokeCap = 'round' | 'butt' | 'square'
 
-export type ProgressBaseProps = {
+export type ProgressIndicatorProps = {
   size?: number
   themeColor?:
     | 'primary'
@@ -12,13 +12,16 @@ export type ProgressBaseProps = {
     | 'default'
   color?: string
   backgroundColor?: string
-  strokeCap?: StrokeCap
-  value?: number
+  value: number
   disableAnimation?: boolean
 }
 
-export type CircularProgressIndicatorProps = ProgressBaseProps & {
-  strokeWidth?: number
+export type CircularProgressIndicatorProps = ProgressIndicatorProps & {
+  strokeCap?: StrokeCap
+}
+
+export type LinearProgressIndicatorProps = ProgressIndicatorProps & {
+  borderRadius?: number
 }
 
 export type ActivityIndicatorProps = {
@@ -33,7 +36,7 @@ export type ActivityIndicatorProps = {
     | 'default'
   color?: string
   disableAnimation?: boolean
-  backgroundColor?: string //applicable only for spinner variant
+  backgroundColor?: string
 }
 
 export type CircularActivityIndicatorProps = ActivityIndicatorProps & {
