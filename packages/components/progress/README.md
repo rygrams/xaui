@@ -11,6 +11,8 @@ pnpm add @xaui/progress
 ## Components
 
 - **CircularActivityIndicator**: A versatile activity indicator with three variants (ticks, bullets, spinner)
+- **LinearProgressIndicator**: A determinate linear progress bar
+- **LinearActivityIndicator**: An indeterminate linear activity indicator
 
 ## CircularActivityIndicator
 
@@ -33,14 +35,14 @@ function MyComponent() {
 
 ### Props
 
-| Prop | Type | Default | Description |
-|------|------|---------|-------------|
-| `variant` | `'ticks' \| 'bullets' \| 'spinner'` | `'spinner'` | Visual style of the activity indicator |
-| `size` | `number` | `40` (spinner/bullets) / `20` (ticks) | Diameter of the indicator in pixels |
-| `themeColor` | `'primary' \| 'secondary' \| 'tertiary' \| 'danger' \| 'warning' \| 'success' \| 'default'` | `'primary'` | Theme color to use |
-| `color` | `string` | - | Custom color (overrides themeColor) |
-| `backgroundColor` | `string` | `'transparent'` | Background track color (only applies to spinner variant) |
-| `disableAnimation` | `boolean` | `false` | Disable animations |
+| Prop               | Type                                                                                        | Default                               | Description                                              |
+| ------------------ | ------------------------------------------------------------------------------------------- | ------------------------------------- | -------------------------------------------------------- |
+| `variant`          | `'ticks' \| 'bullets' \| 'spinner'`                                                         | `'spinner'`                           | Visual style of the activity indicator                   |
+| `size`             | `number`                                                                                    | `40` (spinner/bullets) / `20` (ticks) | Diameter of the indicator in pixels                      |
+| `themeColor`       | `'primary' \| 'secondary' \| 'tertiary' \| 'danger' \| 'warning' \| 'success' \| 'default'` | `'primary'`                           | Theme color to use                                       |
+| `color`            | `string`                                                                                    | -                                     | Custom color (overrides themeColor)                      |
+| `backgroundColor`  | `string`                                                                                    | `'transparent'`                       | Background track color (only applies to spinner variant) |
+| `disableAnimation` | `boolean`                                                                                   | `false`                               | Disable animations                                       |
 
 ### Variants
 
@@ -74,6 +76,7 @@ A Material Design-inspired circular spinner with smooth animation.
 ```
 
 **Design Details:**
+
 - Material Design-inspired spinning animation
 - Smooth acceleration/deceleration with bezier easing
 - Optional background track color for better visibility
@@ -102,6 +105,7 @@ A tick-based spinning indicator with opacity-based animation.
 ```
 
 **Design Details:**
+
 - 8 tick marks arranged radially
 - Active tick at 100% opacity, adjacent at 80%, others fade from 20-40%
 - Creates rotation illusion through sequential opacity changes
@@ -131,6 +135,7 @@ A bullet-based orbital activity indicator with smooth ease-in-out animation.
 ```
 
 **Design Details:**
+
 - 6 circular bullets orbiting around an invisible center
 - Continuous 360-degree rotation
 - Evenly spaced at 60° intervals
@@ -271,6 +276,67 @@ The package includes comprehensive test coverage:
 - Theme integration testing
 - Accessibility testing
 - Variant switching tests
+
+## LinearProgressIndicator
+
+A determinate linear progress bar component.
+
+```typescript
+import { LinearProgressIndicator } from '@xaui/progress'
+
+// Basic usage
+<LinearProgressIndicator value={0.5} />
+
+// With custom color
+<LinearProgressIndicator value={0.7} color="#007AFF" />
+
+// With custom height and roundness
+<LinearProgressIndicator
+  value={0.3}
+  size={8}
+  borderRadius={4}
+/>
+```
+
+### Props
+
+| Prop               | Type      | Default     | Description                         |
+| ------------------ | --------- | ----------- | ----------------------------------- |
+| `value`            | `number`  | Required    | Progress value between 0 and 1      |
+| `size`             | `number`  | `4`         | Height of the progress bar          |
+| `themeColor`       | `string`  | `'primary'` | Theme color to use                  |
+| `color`            | `string`  | -           | Custom color (overrides themeColor) |
+| `backgroundColor`  | `string`  | -           | Background track color              |
+| `borderRadius`     | `number`  | `size / 2`  | Border radius of the bar            |
+| `disableAnimation` | `boolean` | `false`     | Disable animations                  |
+
+## LinearActivityIndicator
+
+An indeterminate linear activity indicator component.
+
+```typescript
+import { LinearActivityIndicator } from '@xaui/progress'
+
+// Basic usage
+<LinearActivityIndicator />
+
+// With theme color
+<LinearActivityIndicator themeColor="success" />
+
+// Custom size
+<LinearActivityIndicator size={6} />
+```
+
+### Props
+
+| Prop               | Type      | Default     | Description                         |
+| ------------------ | --------- | ----------- | ----------------------------------- |
+| `size`             | `number`  | `4`         | Height of the progress bar          |
+| `themeColor`       | `string`  | `'primary'` | Theme color to use                  |
+| `color`            | `string`  | -           | Custom color (overrides themeColor) |
+| `backgroundColor`  | `string`  | -           | Background track color              |
+| `borderRadius`     | `number`  | `size / 2`  | Border radius of the bar            |
+| `disableAnimation` | `boolean` | `false`     | Disable animations                  |
 
 ## License
 

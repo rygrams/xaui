@@ -42,3 +42,7 @@ export type ActivityIndicatorProps = {
 export type CircularActivityIndicatorProps = ActivityIndicatorProps & {
   variant?: 'ticks' | 'bullets' | 'spinner'
 }
+
+export type LinearActivityIndicatorProps = ActivityIndicatorProps & {
+  borderRadius?: number
+}
