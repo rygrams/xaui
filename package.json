@@ -19,7 +19,9 @@
     "version-packages": "changeset version",
     "version": "changeset version",
     "type-check": "turbo run type-check",
-    "release": "turbo run build --filter=@xaui/* && changeset publish"
+    "release": "turbo run build --filter=@xaui/* && changeset publish",
+    "android": "expo run:android",
+    "ios": "expo run:ios"
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.8",
@@ -43,5 +45,10 @@
   "packageManager": "pnpm@10.28.0",
   "engines": {
     "node": ">=18"
+  },
+  "dependencies": {
+    "expo": "~54.0.31",
+    "react": "19.1.0",
+    "react-native": "0.81.5"
   }
 }

@@ -34,8 +34,8 @@
     "directory": "packages/buttons"
   },
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts --external react --external react-native",
-    "dev": "tsup src/index.ts --format cjs,esm --dts --external react --external react-native --watch",
+    "build": "tsup src/index.ts --format cjs,esm --dts --external react --external react-native --external react-native-reanimated",
+    "dev": "tsup src/index.ts --format cjs,esm --dts --external react --external react-native --external react-native-reanimated --watch",
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",
@@ -44,7 +44,8 @@
   },
   "peerDependencies": {
     "react": "^18.0.0 || ^19.0.0",
-    "react-native": ">=0.70.0"
+    "react-native": ">=0.70.0",
+    "react-native-reanimated": ">4.0.0"
   },
   "dependencies": {
     "@xaui/colors": "workspace:*",
@@ -57,6 +58,7 @@
     "@types/react-native": "^0.73.0",
     "react": "19.1.0",
     "react-native": "^0.81.5",
+    "react-native-reanimated": "^4.0.0",
     "react-test-renderer": "19.1.0",
     "tsup": "^8.5.1",
     "typescript": "^5.9.3"

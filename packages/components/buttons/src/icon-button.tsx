@@ -17,6 +17,7 @@ type Ripple = {
   x: number
   y: number
   size: number
+  timestamp: number
 }
 
 export const IconButton: React.FC<IconButtonProps> = ({
@@ -136,9 +137,10 @@ export const IconButton: React.FC<IconButtonProps> = ({
         x: locationX,
         y: locationY,
         size: rippleSize,
+        timestamp: Date.now(),
       }
 
-      setRipples((prev) => [...prev, newRipple])
+      setRipples([newRipple])
     }
     onPressIn?.(event)
   }
@@ -180,6 +182,7 @@ export const IconButton: React.FC<IconButtonProps> = ({
                 y={ripple.y}
                 size={ripple.size}
                 color={rippleColor}
+                timestamp={ripple.timestamp}
                 onAnimationComplete={() => handleRippleComplete(ripple.id)}
               />
             ))}
