@@ -65,7 +65,6 @@ export const colors = {
     950: '#0c0a09',
   },
 
-  // Brand colors
   red: {
     50: '#fef2f2',
     100: '#fee2e2',
@@ -296,39 +295,3 @@ export const colors = {
 export type ColorName = keyof typeof colors
 export type ColorShade = 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | 950
 export type ColorValue = string
-
-/**
- * Get a color value from the palette
- * @param color - Color name (e.g., 'blue', 'red')
- * @param shade - Color shade (50-950)
- * @returns Color hex value
- */
-export function getColor(color: ColorName, shade?: ColorShade): ColorValue {
-  const colorObj = colors[color]
-
-  if (typeof colorObj === 'string') {
-    return colorObj
-  }
-
-  if (shade && typeof colorObj === 'object') {
-    return colorObj[shade] || colorObj[500]
-  }
-
-  return typeof colorObj === 'object' ? colorObj[500] : colorObj
-}
-
-/**
- * Create opacity variants for a color
- * @param color - Base color hex
- * @param opacity - Opacity value (0-1)
- * @returns Color with opacity
- */
-export function withOpacity(color: string, opacity: number): string {
-  const clampedOpacity = Math.max(0, Math.min(1, opacity))
-  const alpha = Math.round(clampedOpacity * 255)
-    .toString(16)
-    .padStart(2, '0')
-  return `${color}${alpha}`
-}
-
-export default colors

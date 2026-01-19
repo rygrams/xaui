@@ -1,4 +1,4 @@
-import { colors } from '@xaui/colors'
+import { colors } from '../tokens'
 
 export type ColorScheme = {
   main: string

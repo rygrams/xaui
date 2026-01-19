@@ -1,8 +1,8 @@
 import { describe, it, expect } from 'vitest'
 import { renderHook } from '@testing-library/react'
 import React from 'react'
-import { useXUITheme } from '../use-theme'
-import { XUIProvider } from '../theme'
+import { useXUITheme } from '../../theme/use-theme'
+import { XUIProvider } from '../../theme/theme-provider'
 
 describe('useXUITheme', () => {
   describe('error handling', () => {

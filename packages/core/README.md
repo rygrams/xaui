@@ -331,7 +331,7 @@ The default theme includes:
 
 - **Colors**: Material Design-inspired color system with a flat structure. Each role has three related properties:
   - Base color (e.g., `primary`) - The primary color for this role
-  - On color (e.g., `onPrimary`) - Color for text/content on the base color
+  - On color (e.g., `onPrimary`) - Text color for content on the base color
   - Surface color (e.g., `primarySurface`) - Color for surfaces/containers using this role
 - **Spacing**: xs, sm, md, lg, xl, 2xl, 3xl (4px to 64px)
 - **Border Radius**: none, sm, md, lg, xl, 2xl, 3xl, full (0px to 9999px)
