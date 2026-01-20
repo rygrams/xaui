@@ -192,6 +192,7 @@ Example of component structure:
 - run test and lint after each component code change
 - export component as @xaui/mobile/button , @xaui/web/button so improve tsup.config.ts based on component development
 - each component should be exports in package.json as independent export
+- for react-native use as possible stylesheets and always apply theme in component
 
 example :
 
