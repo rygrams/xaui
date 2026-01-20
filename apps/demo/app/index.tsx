@@ -13,12 +13,12 @@ export default function HomeScreen() {
           backgroundColor: colors.primary.background,
           borderRadius: theme.borderRadius.md,
           padding: theme.spacing.md,
-          width: 100,
+          width: 300,
           height: 100,
         }}
       >
-        <Text style={{ color: colors.primary.foreground }}>{mode}</Text>
-        <Text style={{ color: colors.primary.foreground }}>{mode}</Text>
+        <Text style={{ color: colors.foreground }}>{mode}</Text>
+        <Text style={{ color: colors.foreground }}>{mode}</Text>
       </View>
     </View>
   )

@@ -165,3 +165,39 @@ The project uses GitHub Actions with the following workflow:
 - Dont use react-native-reanimated, use built-in Reanimated from react-native
 - Add test for each component you code or update
 - Package name should be in singular form
+
+## Component Structure
+
+- components packages is under packages/mobile et packages/web respectively for react native and web
+
+Example of component structure:
+
+- packages/
+  - mobile|web\
+  - hooks\ -- all shared hooks
+  - types\ -- all shared types
+  - utils\ -- components utils
+  - components\
+    - button\
+    - \_\_tests\_\_\
+      - button.test.tsx --button tests
+      - button.hook.test.ts --button tests
+    - button.type.ts --button types
+    - button.hook.ts --button hooks
+    - button.style.ts --button styles
+    - button.tsx --button component
+    - index.ts --button exports
+
+- run test and lint after each component code change
+- export component as @xaui/mobile/button , @xaui/web/button so improve tsup.config.ts based on component development
+- each component should be exports in package.json as independent export
+
+example :
+
+exports : {
+"./button" : {
+"types" : "./button/index.tsx"
+"import" : "./button/index.tsx",
+"require" : "./button/index.tsx",
+}
+}

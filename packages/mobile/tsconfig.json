@@ -1,0 +1,10 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "./dist",
+    "rootDir": "./src",
+    "jsx": "react-native"
+  },
+  "include": ["src", "components/button"],
+  "exclude": ["node_modules", "dist"]
+}
