@@ -14,7 +14,7 @@ export const LinearProgressIndicator: React.FC<LinearProgressIndicatorProps> = (
   disableAnimation,
 }) => {
   const progressAnim = useProgressAnimation(value, disableAnimation)
-  const radius = borderRadius ?? size / 2
+  const radius = Math.max(0, Math.min(size / 2, borderRadius ?? 0))
 
   const animatedStyle = useAnimatedStyle(() => ({
     width: `${progressAnim.value * 100}%`,
