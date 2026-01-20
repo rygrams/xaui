@@ -43,8 +43,8 @@
     "directory": "packages/core"
   },
   "scripts": {
-    "build": "tsup src/index.ts --format cjs,esm --dts --external react --external react-native",
-    "dev": "tsup src/index.ts --format cjs,esm --dts --external react --external react-native --watch",
+    "build": "tsup --config tsup.config.ts",
+    "dev": "tsup --config tsup.config.ts --watch",
     "test": "vitest",
     "test:ui": "vitest --ui",
     "test:coverage": "vitest --coverage",

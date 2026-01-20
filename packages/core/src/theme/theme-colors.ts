@@ -60,40 +60,40 @@ export const themeColors: ThemeColors = {
 
 export const darkThemeColors: ThemeColors = {
   primary: {
-    main: colors.blue[500],
-    foreground: colors.gray[900],
+    main: colors.blue[400],
+    foreground: colors.gray[50],
     background: colors.blue[900],
   },
   secondary: {
-    main: colors.purple[500],
-    foreground: colors.gray[900],
+    main: colors.purple[400],
+    foreground: colors.gray[50],
     background: colors.purple[900],
   },
   tertiary: {
-    main: colors.orange[500],
-    foreground: colors.gray[900],
+    main: colors.orange[400],
+    foreground: colors.gray[50],
     background: colors.orange[900],
   },
   danger: {
-    main: colors.red[500],
-    foreground: colors.gray[900],
+    main: colors.red[400],
+    foreground: colors.gray[50],
     background: colors.red[900],
   },
   warning: {
-    main: colors.amber[500],
-    foreground: colors.gray[900],
+    main: colors.amber[400],
+    foreground: colors.gray[50],
     background: colors.amber[900],
   },
   success: {
-    main: colors.green[500],
-    foreground: colors.gray[900],
+    main: colors.green[400],
+    foreground: colors.gray[50],
     background: colors.green[900],
   },
   default: {
-    main: colors.gray[200],
-    foreground: colors.gray[900],
-    background: colors.gray[700],
+    main: colors.gray[400],
+    foreground: colors.gray[50],
+    background: colors.gray[800],
   },
-  background: colors.gray[900],
-  foreground: colors.white,
+  background: colors.gray[950],
+  foreground: colors.gray[50],
 }

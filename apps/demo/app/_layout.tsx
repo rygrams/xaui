@@ -3,6 +3,7 @@ import { Stack } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 import 'react-native-reanimated'
 import { useColorScheme } from '@/hooks/use-color-scheme'
+import { defaultDarkTheme, defaultTheme, XUIProvider } from '@xaui/core/theme'
 
 export const unstable_settings = {
   anchor: '(tabs)',
@@ -13,10 +14,16 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === 'light' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-      </Stack>
+      <XUIProvider theme={defaultTheme} darkTheme={defaultDarkTheme}>
+        <Stack>
+          <Stack.Screen name="index" options={{ headerShown: false }} />
+          <Stack.Screen
+            name="modal"
+            options={{ presentation: 'modal', title: 'Modal' }}
+          />
+        </Stack>
+      </XUIProvider>
+
       <StatusBar style="auto" />
     </ThemeProvider>
   )

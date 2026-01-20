@@ -193,3 +193,4 @@ export const darkTheme: XUITheme = {
 }
 
 export const defaultTheme = theme
+export const defaultDarkTheme = darkTheme
