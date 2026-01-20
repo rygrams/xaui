@@ -24,7 +24,7 @@ export function XUIProvider({
   const theme = React.useMemo(() => {
     if (!darkTheme && !lightTheme) return defaultTheme
 
-    const activeTheme = colorScheme === 'light' && darkTheme ? darkTheme : lightTheme
+    const activeTheme = colorScheme === 'dark' && darkTheme ? darkTheme : lightTheme
     if (!activeTheme) return defaultTheme
 
     return {

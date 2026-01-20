@@ -44,15 +44,23 @@ import { XUIProvider } from '@xaui/core/theme'
 
 const customTheme = {
   colors: {
-    primary: '#FF6B6B',
-    onPrimary: '#FFFFFF',
-    primarySurface: '#FFE5E5',
-    secondary: '#4ECDC4',
-    onSecondary: '#FFFFFF',
-    secondarySurface: '#E0F7F6',
-    default: '#2C3E50',
-    onDefault: '#FFFFFF',
-    defaultSurface: '#ECF0F1',
+    primary: {
+      main: '#FF6B6B',
+      foreground: '#FFFFFF',
+      background: '#FFE5E5',
+    },
+    secondary: {
+      main: '#4ECDC4',
+      foreground: '#FFFFFF',
+      background: '#E0F7F6',
+    },
+    default: {
+      main: '#2C3E50',
+      foreground: '#FFFFFF',
+      background: '#ECF0F1',
+    },
+    background: '#FFFFFF',
+    foreground: '#111827',
   },
   fontFamilies: {
     body: 'Inter',
@@ -95,21 +103,25 @@ import { XUIProvider } from '@xaui/core/theme'
 
 const customLightTheme = {
   colors: {
-    primary: '#3B82F6',
-    onPrimary: '#FFFFFF',
-    primarySurface: '#DBEAFE',
+    primary: {
+      main: '#3B82F6',
+      foreground: '#FFFFFF',
+      background: '#DBEAFE',
+    },
     background: '#FFFFFF',
-    onBackground: '#000000',
+    foreground: '#000000',
   },
 }
 
 const customDarkTheme = {
   colors: {
-    primary: '#60A5FA',
-    onPrimary: '#1F2937',
-    primarySurface: '#1E3A8A',
+    primary: {
+      main: '#60A5FA',
+      foreground: '#1F2937',
+      background: '#1E3A8A',
+    },
     background: '#000000',
-    onBackground: '#FFFFFF',
+    foreground: '#FFFFFF',
   },
 }
 
@@ -152,8 +164,8 @@ function MyComponent() {
   const theme = useXUITheme()
 
   return (
-    <View style={{ backgroundColor: theme.colors.primarySurface }}>
-      <Text style={{ color: theme.colors.default }}>
+    <View style={{ backgroundColor: theme.colors.primary.background }}>
+      <Text style={{ color: theme.colors.primary.foreground }}>
         Hello World
       </Text>
     </View>
@@ -169,9 +181,11 @@ The theme object provides access to all design tokens:
 const theme = useXUITheme()
 
 // Access colors
-const primary = theme.colors.primary
-const onPrimary = theme.colors.onPrimary
-const primarySurface = theme.colors.primarySurface
+const primaryMain = theme.colors.primary.main
+const primaryForeground = theme.colors.primary.foreground
+const primaryBackground = theme.colors.primary.background
+const appBackground = theme.colors.background
+const appForeground = theme.colors.foreground
 
 // Access spacing
 const padding = theme.spacing.md
@@ -190,40 +204,49 @@ const fontFamily = theme.fontFamilies.body
 ### Available Color Roles
 
 The theme uses a Material Design-inspired color system with a flat structure. Each color role has three related properties:
-- Base color (e.g., `primary`) - The primary color for this role (string)
-- On color (e.g., `onPrimary`) - Color for text/content displayed on the base color (string)
-- Surface color (e.g., `primarySurface`) - Color for surfaces/containers using this role (string)
+
+- Main color (e.g., `primary.main`) - The primary color for this role (string)
+- Foreground color (e.g., `primary.foreground`) - Text/content on the main color (string)
+- Background color (e.g., `primary.background`) - Surfaces/containers for this role (string)
 
 #### Brand Colors
-- `theme.colors.primary` - Main primary brand color
-- `theme.colors.onPrimary` - Text color on primary backgrounds
-- `theme.colors.primarySurface` - Primary surface/container color
 
-- `theme.colors.secondary` - Main secondary brand color
-- `theme.colors.onSecondary` - Text color on secondary backgrounds
-- `theme.colors.secondarySurface` - Secondary surface/container color
+- `theme.colors.primary.main` - Main primary brand color
+- `theme.colors.primary.foreground` - Text color on primary backgrounds
+- `theme.colors.primary.background` - Primary surface/container color
+
+- `theme.colors.secondary.main` - Main secondary brand color
+- `theme.colors.secondary.foreground` - Text color on secondary backgrounds
+- `theme.colors.secondary.background` - Secondary surface/container color
+
+- `theme.colors.tertiary.main` - Main tertiary brand color
+- `theme.colors.tertiary.foreground` - Text color on tertiary backgrounds
+- `theme.colors.tertiary.background` - Tertiary surface/container color
 
 #### Semantic Colors
-- `theme.colors.danger` - Main danger/error color
-- `theme.colors.onDanger` - Text color on danger backgrounds
-- `theme.colors.dangerSurface` - Danger surface/container color
 
-- `theme.colors.warning` - Main warning/caution color
-- `theme.colors.onWarning` - Text color on warning backgrounds
-- `theme.colors.warningSurface` - Warning surface/container color
+- `theme.colors.danger.main` - Main danger/error color
+- `theme.colors.danger.foreground` - Text color on danger backgrounds
+- `theme.colors.danger.background` - Danger surface/container color
 
-- `theme.colors.success` - Main success/positive color
-- `theme.colors.onSuccess` - Text color on success backgrounds
-- `theme.colors.successSurface` - Success surface/container color
+- `theme.colors.warning.main` - Main warning/caution color
+- `theme.colors.warning.foreground` - Text color on warning backgrounds
+- `theme.colors.warning.background` - Warning surface/container color
+
+- `theme.colors.success.main` - Main success/positive color
+- `theme.colors.success.foreground` - Text color on success backgrounds
+- `theme.colors.success.background` - Success surface/container color
 
 #### Utility Colors
-- `theme.colors.default` - Default text/content color
-- `theme.colors.onDefault` - Text color on default backgrounds
-- `theme.colors.defaultSurface` - Default surface/container color
+
+- `theme.colors.default.main` - Default text/content color
+- `theme.colors.default.foreground` - Text color on default backgrounds
+- `theme.colors.default.background` - Default surface/container color
 
 #### Background
+
 - `theme.colors.background` - Main background color
-- `theme.colors.onBackground` - Text color on background
+- `theme.colors.foreground` - Text color on background
 
 ## useColorMode Hook
 
@@ -259,9 +282,9 @@ import type { XUITheme } from '@xaui/core/theme'
 The default theme includes:
 
 - **Colors**: Material Design-inspired color system with a flat structure. Each role has three related properties:
-  - Base color (e.g., `primary`) - The primary color for this role
-  - On color (e.g., `onPrimary`) - Text color for content on the base color
-  - Surface color (e.g., `primarySurface`) - Color for surfaces/containers using this role
+  - Main color (e.g., `primary.main`) - The primary color for this role
+  - Foreground color (e.g., `primary.foreground`) - Text color for content on the main color
+  - Background color (e.g., `primary.background`) - Color for surfaces/containers using this role
 - **Spacing**: xs, sm, md, lg, xl, 2xl, 3xl (4px to 64px)
 - **Border Radius**: none, sm, md, lg, xl, 2xl, 3xl, full (0px to 9999px)
 - **Border Width**: none, xs, sm, md, lg, xl (0px to 4px)

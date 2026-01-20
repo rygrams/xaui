@@ -70,3 +70,9 @@ export function useXUITheme(): XUITheme {
 
   return theme
 }
+
+export function useXUIColors(): XUITheme['colors'] {
+  const theme = useXUITheme()
+
+  return theme.colors
+}
