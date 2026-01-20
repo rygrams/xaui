@@ -3,19 +3,9 @@ import { View } from 'react-native'
 import Animated, { useAnimatedStyle } from 'react-native-reanimated'
 import { useProgressAnimation } from './progress.hook'
 import { styles } from './progress.style'
+import type { ProgressIndicatorProps as LinearProgressIndicatorProps } from './progress.type'
 
-type LinearProgressIndicatorProps = {
-  size?: number
-  color: string
-  backgroundColor: string
-  value: number
-  borderRadius?: number
-  disableAnimation?: boolean
-}
-
-export const LinearProgressIndicator: React.FC<
-  LinearProgressIndicatorProps
-> = ({
+export const LinearProgressIndicator: React.FC<LinearProgressIndicatorProps> = ({
   size = 4,
   color,
   backgroundColor,

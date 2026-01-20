@@ -3,7 +3,8 @@
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "./src",
-    "jsx": "react-native"
+    "jsx": "react-native",
+    "lib": ["ES2020", "DOM"]
   },
   "include": ["src", "components/button"],
   "exclude": ["node_modules", "dist"]

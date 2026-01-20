@@ -4,15 +4,7 @@ import Animated, { useAnimatedProps } from 'react-native-reanimated'
 import Svg, { Circle } from 'react-native-svg'
 import { useProgressAnimation } from './progress.hook'
 import { styles } from './progress.style'
-
-type CircularProgressIndicatorProps = {
-  size?: number
-  color: string
-  backgroundColor: string
-  value: number
-  borderRadius?: number
-  disableAnimation?: boolean
-}
+import type { ProgressIndicatorProps as CircularProgressIndicatorProps } from './progress.type'
 
 const AnimatedCircle = Animated.createAnimatedComponent(Circle)
 

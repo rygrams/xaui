@@ -5,9 +5,9 @@ import { CircularProgressIndicator } from './circular-progress-indicator'
 import { LinearProgressIndicator } from './linear-progress-indicator'
 import { clampProgress } from './progress.hook'
 import { styles } from './progress.style'
-import type { ProgressProps } from './progress.type'
+import type { ProgressIndicatorProps } from './progress.type'
 
-export const Progress: React.FC<ProgressProps> = props => {
+export const Progress: React.FC<ProgressIndicatorProps> = props => {
   const {
     variant = 'linear',
     themeColor = 'primary',

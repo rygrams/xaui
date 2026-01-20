@@ -36,7 +36,7 @@
   "scripts": {
     "build": "tsup --config tsup.config.ts",
     "dev": "tsup --config tsup.config.ts --watch",
-    "test": "jest",
+    "test": "vitest",
     "lint": "eslint src/",
     "type-check": "tsc --noEmit"
   },

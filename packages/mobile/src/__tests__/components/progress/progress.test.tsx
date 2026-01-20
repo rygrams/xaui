@@ -18,136 +18,83 @@ vi.mock('@xaui/core/theme', () => ({
 }))
 
 describe('Progress', () => {
-  it('renders linear progress by default', () => {
-    const { container } = render(<Progress value={0.5} />)
-    expect(container).toBeTruthy()
+  describe('Variant', () => {
+    it('should render linear progress by default', () => {
+      const { container } = render(<Progress value={0.5} />)
+      const svg = (container as HTMLElement).querySelector('svg')
+      expect(svg).toBeNull()
+    })
+
+    it('should render circular progress when variant is circular', () => {
+      const { container } = render(<Progress variant="circular" value={0.5} />)
+      const svg = (container as HTMLElement).querySelector('svg')
+      const circles = (container as HTMLElement).querySelectorAll('circle')
+      expect(svg).toBeTruthy()
+      expect(circles).toHaveLength(2)
+    })
   })
 
-  it('renders circular progress when variant is circular', () => {
-    const { container } = render(<Progress variant="circular" value={0.5} />)
-    expect(container).toBeTruthy()
+  describe('Theme colors', () => {
+    it('should apply secondary theme color for circular variant', () => {
+      const { container } = render(<Progress variant="circular" themeColor="secondary" value={0.5} />)
+      const circles = (container as HTMLElement).querySelectorAll('circle')
+      const progressCircle = circles[1]
+      expect(progressCircle.getAttribute('stroke')).toBe('#9c27b0')
+    })
+
+    it('should apply success theme color for circular variant', () => {
+      const { container } = render(<Progress variant="circular" themeColor="success" value={0.5} />)
+      const circles = (container as HTMLElement).querySelectorAll('circle')
+      const progressCircle = circles[1]
+      expect(progressCircle.getAttribute('stroke')).toBe('#388e3c')
+    })
   })
 
-  it('applies primary theme color by default', () => {
-    const { container } = render(<Progress value={0.5} />)
-    expect(container).toBeTruthy()
+  describe('Custom colors', () => {
+    it('should apply custom color for circular variant', () => {
+      const { container } = render(<Progress variant="circular" value={0.5} color="#ff0000" />)
+      const circles = (container as HTMLElement).querySelectorAll('circle')
+      const progressCircle = circles[1]
+      expect(progressCircle.getAttribute('stroke')).toBe('#ff0000')
+    })
+
+    it('should apply custom backgroundColor for circular variant', () => {
+      const { container } = render(<Progress variant="circular" value={0.5} backgroundColor="#00ff00" />)
+      const circles = (container as HTMLElement).querySelectorAll('circle')
+      const trackCircle = circles[0]
+      expect(trackCircle.getAttribute('stroke')).toBe('#00ff00')
+    })
   })
 
-  it('applies secondary theme color when specified', () => {
-    const { container } = render(<Progress value={0.5} themeColor="secondary" />)
-    expect(container).toBeTruthy()
+  describe('Size', () => {
+    it('should apply custom size for circular progress', () => {
+      const { container } = render(<Progress variant="circular" value={0.5} size={60} />)
+      const svg = (container as HTMLElement).querySelector('svg')
+      expect(svg?.getAttribute('width')).toBe('60')
+      expect(svg?.getAttribute('height')).toBe('60')
+    })
   })
 
-  it('applies tertiary theme color when specified', () => {
-    const { container } = render(<Progress value={0.5} themeColor="tertiary" />)
-    expect(container).toBeTruthy()
+  describe('Border radius', () => {
+    it('should apply rounded stroke cap when borderRadius is provided for circular', () => {
+      const { container } = render(<Progress variant="circular" value={0.5} borderRadius={5} />)
+      const circles = (container as HTMLElement).querySelectorAll('circle')
+      const progressCircle = circles[1]
+      expect(progressCircle.getAttribute('stroke-linecap')).toBe('round')
+    })
+
+    it('should apply butt stroke cap when no borderRadius for circular', () => {
+      const { container } = render(<Progress variant="circular" value={0.5} />)
+      const circles = (container as HTMLElement).querySelectorAll('circle')
+      const progressCircle = circles[1]
+      expect(progressCircle.getAttribute('stroke-linecap')).toBe('butt')
+    })
   })
 
-  it('applies danger theme color when specified', () => {
-    const { container } = render(<Progress value={0.5} themeColor="danger" />)
-    expect(container).toBeTruthy()
-  })
-
-  it('applies warning theme color when specified', () => {
-    const { container } = render(<Progress value={0.5} themeColor="warning" />)
-    expect(container).toBeTruthy()
-  })
-
-  it('applies success theme color when specified', () => {
-    const { container } = render(<Progress value={0.5} themeColor="success" />)
-    expect(container).toBeTruthy()
-  })
-
-  it('applies default theme color when specified', () => {
-    const { container } = render(<Progress value={0.5} themeColor="default" />)
-    expect(container).toBeTruthy()
-  })
-
-  it('applies custom color when provided', () => {
-    const { container } = render(<Progress value={0.5} color="#ff0000" />)
-    expect(container).toBeTruthy()
-  })
-
-  it('applies custom backgroundColor when provided', () => {
-    const { container } = render(<Progress value={0.5} backgroundColor="#00ff00" />)
-    expect(container).toBeTruthy()
-  })
-
-  it('applies custom size for linear progress', () => {
-    const { container } = render(<Progress value={0.5} size={8} />)
-    expect(container).toBeTruthy()
-  })
-
-  it('applies custom size for circular progress', () => {
-    const { container } = render(<Progress variant="circular" value={0.5} size={60} />)
-    expect(container).toBeTruthy()
-  })
-
-  it('applies custom borderRadius for linear progress', () => {
-    const { container } = render(<Progress value={0.5} borderRadius={8} />)
-    expect(container).toBeTruthy()
-  })
-
-  it('applies custom borderRadius for circular progress', () => {
-    const { container } = render(
-      <Progress variant="circular" value={0.5} borderRadius={5} />
-    )
-    expect(container).toBeTruthy()
-  })
-
-  it('respects disableAnimation prop', () => {
-    const { container } = render(<Progress value={0.5} disableAnimation />)
-    expect(container).toBeTruthy()
-  })
-
-  it('renders with value 0', () => {
-    const { container } = render(<Progress value={0} />)
-    expect(container).toBeTruthy()
-  })
-
-  it('renders with value 1', () => {
-    const { container } = render(<Progress value={1} />)
-    expect(container).toBeTruthy()
-  })
-
-  it('handles value below 0', () => {
-    const { container } = render(<Progress value={-0.5} />)
-    expect(container).toBeTruthy()
-  })
-
-  it('handles value above 1', () => {
-    const { container } = render(<Progress value={1.5} />)
-    expect(container).toBeTruthy()
-  })
-
-  it('renders with all props combined for linear', () => {
-    const { container } = render(
-      <Progress
-        value={0.75}
-        themeColor="success"
-        color="#00ff00"
-        backgroundColor="#000000"
-        size={10}
-        borderRadius={5}
-        disableAnimation
-      />
-    )
-    expect(container).toBeTruthy()
-  })
-
-  it('renders with all props combined for circular', () => {
-    const { container } = render(
-      <Progress
-        variant="circular"
-        value={0.75}
-        themeColor="success"
-        color="#00ff00"
-        backgroundColor="#000000"
-        size={50}
-        borderRadius={10}
-        disableAnimation
-      />
-    )
-    expect(container).toBeTruthy()
+  describe('Edge cases', () => {
+    it('should render without errors', () => {
+      const { container } = render(<Progress value={0.5} />)
+      expect(container).toBeTruthy()
+    })
   })
 })
