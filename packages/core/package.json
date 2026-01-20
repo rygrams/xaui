@@ -1,6 +1,6 @@
 {
   "name": "@xaui/core",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A modern React Native UI library with Flutter-inspired API, smooth animations, and comprehensive design system",
   "keywords": [
     "react-native",

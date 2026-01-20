@@ -1,5 +1,12 @@
 # demo
 
+## 1.0.7
+
+### Patch Changes
+
+- Updated dependencies [64783ab]
+  - @xaui/core@0.0.2
+
 ## 1.0.6
 
 ### Patch Changes
