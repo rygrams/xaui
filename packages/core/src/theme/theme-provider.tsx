@@ -1,7 +1,6 @@
 import React, { createContext, ReactNode } from 'react'
-import { colors, ColorName, ColorShade, getColor } from '@xaui/colors'
 import { defaultTheme, XUITheme } from './theme-config'
-import { useColorScheme } from 'react-native'
+import { useColorMode } from './theme-hook'
 
 export const XUIThemeContext = createContext<XUITheme | null>(null)
 
@@ -20,12 +19,12 @@ export function XUIProvider({
   theme: lightTheme,
   darkTheme,
 }: XUIProviderProps) {
-  const colorScheme = useColorScheme()
+  const colorScheme = useColorMode()
 
   const theme = React.useMemo(() => {
     if (!darkTheme && !lightTheme) return defaultTheme
 
-    const activeTheme = colorScheme === 'dark' && darkTheme ? darkTheme : lightTheme
+    const activeTheme = colorScheme === 'light' && darkTheme ? darkTheme : lightTheme
     if (!activeTheme) return defaultTheme
 
     return {
@@ -48,6 +47,3 @@ export function XUIProvider({
 
   return <XUIThemeContext.Provider value={theme}>{children}</XUIThemeContext.Provider>
 }
-
-export { colors, getColor }
-export type { ColorName, ColorShade }

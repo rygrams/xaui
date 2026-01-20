@@ -154,6 +154,9 @@ The project uses GitHub Actions with the following workflow:
 - Use early returns to avoid deep code nesting
 - Use early returns to avoid deep code nesting
 - Avoid any type as much as possible
+- create a test file for each component in `/__tests__` with same path as component
+  example: `packages/core/src/components/button/index.tsx` -> `packages/core/src/__tests__/components/button/index.test.tsx`
+- run test and lint after each component code change
 
 ## Package Guidelines
 

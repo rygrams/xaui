@@ -1,8 +1,108 @@
-import { describe, it, expect } from 'vitest'
-import { renderHook } from '@testing-library/react'
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
+import { renderHook, act } from '@testing-library/react'
 import React from 'react'
-import { useXUITheme } from '../../theme/use-theme'
+import { useColorMode, useXUITheme } from '../../theme/theme-hook'
 import { XUIProvider } from '../../theme/theme-provider'
+
+const mockUseColorScheme = vi.fn<() => 'light' | 'dark' | null | undefined>()
+
+vi.mock('react-native', () => ({
+  useColorScheme: () => mockUseColorScheme(),
+}))
+
+type MatchMediaListener = () => void
+type MediaQueryListLike = {
+  matches: boolean
+  addEventListener?: (type: 'change', listener: MatchMediaListener) => void
+  removeEventListener?: (type: 'change', listener: MatchMediaListener) => void
+  addListener?: (listener: MatchMediaListener) => void
+  removeListener?: (listener: MatchMediaListener) => void
+}
+
+const setMatchMedia = (media: MediaQueryListLike | undefined) => {
+  const globalScope = globalThis as typeof globalThis & {
+    matchMedia?: (query: string) => MediaQueryListLike
+  }
+
+  if (!media) {
+    delete globalScope.matchMedia
+    return
+  }
+
+  globalScope.matchMedia = vi.fn().mockReturnValue(media)
+}
+
+beforeEach(() => {
+  mockUseColorScheme.mockReset()
+  setMatchMedia(undefined)
+})
+
+afterEach(() => {
+  setMatchMedia(undefined)
+})
+
+describe('useColorMode', () => {
+  it('returns native color scheme when available', () => {
+    mockUseColorScheme.mockReturnValue('dark')
+    setMatchMedia({
+      matches: false,
+      addEventListener: () => undefined,
+      removeEventListener: () => undefined,
+    })
+
+    const { result } = renderHook(() => useColorMode())
+
+    expect(result.current).toBe('dark')
+  })
+
+  it('defaults to light without native scheme or matchMedia', () => {
+    mockUseColorScheme.mockReturnValue(null)
+    setMatchMedia(undefined)
+
+    const { result } = renderHook(() => useColorMode())
+
+    expect(result.current).toBe('light')
+  })
+
+  it('uses matchMedia when native scheme is unavailable', () => {
+    mockUseColorScheme.mockReturnValue(null)
+    setMatchMedia({
+      matches: true,
+      addEventListener: () => undefined,
+      removeEventListener: () => undefined,
+    })
+
+    const { result } = renderHook(() => useColorMode())
+
+    expect(result.current).toBe('dark')
+  })
+
+  it('updates when matchMedia changes', () => {
+    mockUseColorScheme.mockReturnValue(null)
+
+    let listener: MatchMediaListener | undefined
+    const media: MediaQueryListLike = {
+      matches: false,
+      addEventListener: (_type, nextListener) => {
+        listener = nextListener
+      },
+      removeEventListener: () => undefined,
+    }
+
+    setMatchMedia(media)
+
+    const { result } = renderHook(() => useColorMode())
+
+    expect(result.current).toBe('light')
+
+    act(() => {
+      media.matches = true
+      listener?.()
+    })
+
+    expect(result.current).toBe('dark')
+  })
+})
 
 describe('useXUITheme', () => {
   describe('error handling', () => {
@@ -71,7 +171,9 @@ describe('useXUITheme', () => {
       }
 
       const { result } = renderHook(() => useXUITheme(), {
-        wrapper: ({ children }) => <XUIProvider theme={customTheme}>{children}</XUIProvider>,
+        wrapper: ({ children }) => (
+          <XUIProvider theme={customTheme}>{children}</XUIProvider>
+        ),
       })
 
       expect(result.current.colors.primary.main).toBe('#CUSTOM1')
@@ -88,7 +190,9 @@ describe('useXUITheme', () => {
       }
 
       const { result } = renderHook(() => useXUITheme(), {
-        wrapper: ({ children }) => <XUIProvider theme={customTheme}>{children}</XUIProvider>,
+        wrapper: ({ children }) => (
+          <XUIProvider theme={customTheme}>{children}</XUIProvider>
+        ),
       })
 
       expect(result.current.fontFamilies.body).toBe('Roboto')
@@ -104,7 +208,9 @@ describe('useXUITheme', () => {
       }
 
       const { result } = renderHook(() => useXUITheme(), {
-        wrapper: ({ children }) => <XUIProvider theme={customTheme}>{children}</XUIProvider>,
+        wrapper: ({ children }) => (
+          <XUIProvider theme={customTheme}>{children}</XUIProvider>
+        ),
       })
 
       expect(result.current.fontFamilies.heading).toBe('Playfair Display')
