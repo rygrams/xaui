@@ -13,7 +13,7 @@ pnpm add @xaui/core
 - **Flutter-inspired Components**: Ready-to-use UI components with Flutter-like API and intuitive props (`padding`, `margin`, `borderRadius`)
 - **Powerful Theme System**: Dynamic theming with deep customization support
 - **Smooth Animations**: Built on React Native Reanimated for native performance
-- **Design System**: Integrated with @xaui/colors for consistent theming
+- **Design System**: Integrated with @xaui/core/palette for consistent theming
 - **TypeScript First**: Fully typed for excellent developer experience
 - **Performance**: Optimized for mobile with native animations
 
