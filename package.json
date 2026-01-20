@@ -6,8 +6,7 @@
   "repository": "https://github.com/rygrams/xaui.git",
   "workspaces": [
     "apps/*",
-    "packages/components/*",
-    "packages/core/*"
+    "packages/*"
   ],
   "scripts": {
     "dev": "turbo run dev",
