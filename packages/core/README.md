@@ -24,7 +24,7 @@ pnpm add @xaui/core
 Wrap your app with `XUIProvider` to enable theming throughout your application.
 
 ```typescript
-import { XUIProvider } from '@xaui/core'
+import { XUIProvider } from '@xaui/core/theme'
 
 export default function App() {
   return (
@@ -40,7 +40,7 @@ export default function App() {
 You can provide a custom theme with partial overrides:
 
 ```typescript
-import { XUIProvider } from '@xaui/core'
+import { XUIProvider } from '@xaui/core/theme'
 
 const customTheme = {
   colors: {
@@ -75,7 +75,7 @@ export default function App() {
 The `XUIProvider` automatically switches between light and dark themes based on the system's color scheme:
 
 ```typescript
-import { XUIProvider, theme, darkTheme } from '@xaui/core'
+import { XUIProvider, theme, darkTheme } from '@xaui/core/theme'
 
 export default function App() {
   return (
@@ -91,7 +91,7 @@ export default function App() {
 You can provide custom themes for both light and dark modes:
 
 ```typescript
-import { XUIProvider } from '@xaui/core'
+import { XUIProvider } from '@xaui/core/theme'
 
 const customLightTheme = {
   colors: {
@@ -127,7 +127,7 @@ export default function App() {
 To use only dark theme without automatic switching:
 
 ```typescript
-import { XUIProvider, darkTheme } from '@xaui/core'
+import { XUIProvider, darkTheme } from '@xaui/core/theme'
 
 export default function App() {
   return (
@@ -145,7 +145,7 @@ Access theme values in your components using the `useXUITheme` hook.
 ### Basic Usage
 
 ```typescript
-import { useXUITheme } from '@xaui/core'
+import { useXUITheme } from '@xaui/core/theme'
 import { View, Text } from 'react-native'
 
 function MyComponent() {
@@ -225,85 +225,25 @@ The theme uses a Material Design-inspired color system with a flat structure. Ea
 - `theme.colors.background` - Main background color
 - `theme.colors.onBackground` - Text color on background
 
-## Color Utilities
+## useColorMode Hook
 
-### colors
-
-Access the full Tailwind-inspired color palette from @xaui/colors:
+Access the current color scheme with a hook that works on both native and web:
 
 ```typescript
-import { colors } from '@xaui/core'
+import { useColorMode } from '@xaui/core/theme'
+
+const mode = useColorMode() // 'light' | 'dark'
+```
+
+## Color Tokens
+
+Access the full Tailwind-inspired color palette:
+
+```typescript
+import { colors } from '@xaui/core/colors'
 
 const blue500 = colors.blue[500]
 const red600 = colors.red[600]
-```
-
-### getColor
-
-Helper function to get colors by name and shade:
-
-```typescript
-import { getColor } from '@xaui/core'
-
-const primaryBlue = getColor('blue', 500)
-const errorRed = getColor('red', 600)
-```
-
-### themeColors & darkThemeColors
-
-Pre-configured theme color objects with a flat structure. These are the default color palettes used by the built-in themes:
-
-```typescript
-import { themeColors, darkThemeColors } from '@xaui/core'
-
-// Light theme colors (themeColors)
-console.log(themeColors.primary)           // '#2563EB' (blue-600)
-console.log(themeColors.onPrimary)         // '#FFFFFF' (white)
-console.log(themeColors.primarySurface)    // '#DBEAFE' (blue-100)
-
-console.log(themeColors.secondary)         // '#9333EA' (purple-600)
-console.log(themeColors.danger)            // '#DC2626' (red-600)
-console.log(themeColors.warning)           // '#D97706' (amber-600)
-console.log(themeColors.success)           // '#16A34A' (green-600)
-console.log(themeColors.default)           // '#FFFFFF' (white)
-console.log(themeColors.background)        // '#FFFFFF' (white)
-console.log(themeColors.onBackground)      // '#111827' (gray-900)
-
-// Dark theme colors (darkThemeColors)
-console.log(darkThemeColors.primary)       // '#3B82F6' (blue-500)
-console.log(darkThemeColors.onPrimary)     // '#111827' (gray-900)
-console.log(darkThemeColors.primarySurface)    // '#1E3A8A' (blue-900)
-
-console.log(darkThemeColors.secondary)     // '#A855F7' (purple-500)
-console.log(darkThemeColors.danger)        // '#EF4444' (red-500)
-console.log(darkThemeColors.warning)       // '#F59E0B' (amber-500)
-console.log(darkThemeColors.success)       // '#22C55E' (green-500)
-console.log(darkThemeColors.default)       // '#E5E7EB' (gray-200)
-console.log(darkThemeColors.background)    // '#111827' (gray-900)
-console.log(darkThemeColors.onBackground)  // '#FFFFFF' (white)
-```
-
-You can use these directly in your custom theme configurations:
-
-```typescript
-import { XUIProvider, themeColors } from '@xaui/core'
-
-const customTheme = {
-  colors: {
-    ...themeColors,
-    primary: '#FF0000',
-    onPrimary: '#FFFFFF',
-    primarySurface: '#FFE5E5',
-  },
-}
-
-export default function App() {
-  return (
-    <XUIProvider theme={customTheme}>
-      {/* Your app */}
-    </XUIProvider>
-  )
-}
 ```
 
 ## TypeScript Support
@@ -311,18 +251,7 @@ export default function App() {
 All exports are fully typed for excellent IntelliSense support:
 
 ```typescript
-import type {
-  XUITheme,
-  XUIProviderProps,
-  ThemeColors,
-  ThemeSpacing,
-  ThemeBorderRadius,
-  ThemeBorderWidth,
-  ThemeFontSizes,
-  ThemeFontWeights,
-  ThemeFontFamilies,
-  ThemeShadows,
-} from '@xaui/core'
+import type { XUITheme } from '@xaui/core/theme'
 ```
 
 ## Theme Structure
