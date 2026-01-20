@@ -74,27 +74,9 @@ importers:
       '@react-navigation/native':
         specifier: ^7.1.8
         version: 7.1.26(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
-      '@xaui/button':
-        specifier: workspace:*
-        version: link:../../packages/components/buttons
-      '@xaui/checkbox':
-        specifier: workspace:*
-        version: link:../../packages/components/checkboxes
-      '@xaui/colors':
-        specifier: workspace:*
-        version: link:../../packages/core/colors
       '@xaui/core':
         specifier: workspace:*
-        version: link:../../packages/core/core
-      '@xaui/progress':
-        specifier: workspace:*
-        version: link:../../packages/components/progress
-      '@xaui/select':
-        specifier: workspace:*
-        version: link:../../packages/components/select
-      '@xaui/switch':
-        specifier: workspace:*
-        version: link:../../packages/components/switches
+        version: link:../../packages/core
       expo:
         specifier: ~54.0.31
         version: 54.0.31(@babel/core@7.28.5)(@expo/metro-runtime@6.1.2)(expo-router@6.0.21)(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
@@ -177,12 +159,6 @@ importers:
 
   apps/docs:
     dependencies:
-      '@xaui/colors':
-        specifier: workspace:*
-        version: link:../../packages/core/colors
-      '@xaui/core':
-        specifier: workspace:*
-        version: link:../../packages/core/core
       next:
         specifier: 16.1.1
         version: 16.1.1(@babel/core@7.28.5)(babel-plugin-react-compiler@1.0.0)(react-dom@19.2.3(react@19.2.3))(react@19.2.3)
@@ -218,196 +194,7 @@ importers:
         specifier: ^5
         version: 5.9.3
 
-  packages/components/buttons:
-    dependencies:
-      '@xaui/colors':
-        specifier: workspace:*
-        version: link:../../core/colors
-      '@xaui/core':
-        specifier: workspace:*
-        version: link:../../core/core
-      '@xaui/progress':
-        specifier: workspace:*
-        version: link:../progress
-    devDependencies:
-      '@testing-library/react-native':
-        specifier: ^13.3.3
-        version: 13.3.3(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react-test-renderer@19.1.0(react@19.1.0))(react@19.1.0)
-      '@types/react':
-        specifier: ^19.1.0
-        version: 19.1.17
-      '@types/react-native':
-        specifier: ^0.73.0
-        version: 0.73.0(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0)
-      react:
-        specifier: 19.1.0
-        version: 19.1.0
-      react-native:
-        specifier: ^0.81.5
-        version: 0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0)
-      react-test-renderer:
-        specifier: 19.1.0
-        version: 19.1.0(react@19.1.0)
-      tsup:
-        specifier: ^8.5.1
-        version: 8.5.1(jiti@2.6.1)(postcss@8.5.6)(typescript@5.9.3)(yaml@2.8.2)
-      typescript:
-        specifier: ^5.9.3
-        version: 5.9.3
-
-  packages/components/checkboxes:
-    dependencies:
-      '@xaui/colors':
-        specifier: workspace:*
-        version: link:../../core/colors
-      '@xaui/core':
-        specifier: workspace:*
-        version: link:../../core/core
-      react-native-svg:
-        specifier: ^15.8.0
-        version: 15.15.1(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
-    devDependencies:
-      '@testing-library/react-native':
-        specifier: ^13.3.3
-        version: 13.3.3(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react-test-renderer@19.1.0(react@19.1.0))(react@19.1.0)
-      '@types/react':
-        specifier: ^19.1.0
-        version: 19.1.17
-      '@types/react-native':
-        specifier: ^0.73.0
-        version: 0.73.0(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0)
-      react:
-        specifier: 19.1.0
-        version: 19.1.0
-      react-native:
-        specifier: ^0.81.5
-        version: 0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0)
-      react-test-renderer:
-        specifier: 19.1.0
-        version: 19.1.0(react@19.1.0)
-      tsup:
-        specifier: ^8.5.1
-        version: 8.5.1(jiti@2.6.1)(postcss@8.5.6)(typescript@5.9.3)(yaml@2.8.2)
-      typescript:
-        specifier: ^5.9.3
-        version: 5.9.3
-
-  packages/components/progress:
-    dependencies:
-      '@xaui/core':
-        specifier: workspace:*
-        version: link:../../core/core
-    devDependencies:
-      '@types/react':
-        specifier: ^19.1.0
-        version: 19.1.17
-      '@types/react-native':
-        specifier: ^0.73.0
-        version: 0.73.0(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0)
-      react:
-        specifier: 19.1.0
-        version: 19.1.0
-      react-native:
-        specifier: ^0.81.5
-        version: 0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0)
-      react-native-svg:
-        specifier: ^15.8.0
-        version: 15.15.1(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
-      tsup:
-        specifier: ^8.5.1
-        version: 8.5.1(jiti@2.6.1)(postcss@8.5.6)(typescript@5.9.3)(yaml@2.8.2)
-      typescript:
-        specifier: ^5.9.3
-        version: 5.9.3
-
-  packages/components/select:
-    dependencies:
-      '@xaui/colors':
-        specifier: workspace:*
-        version: link:../../core/colors
-      '@xaui/core':
-        specifier: workspace:*
-        version: link:../../core/core
-    devDependencies:
-      '@testing-library/react-native':
-        specifier: ^13.3.3
-        version: 13.3.3(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react-test-renderer@19.1.0(react@19.1.0))(react@19.1.0)
-      '@types/react':
-        specifier: ^19.1.0
-        version: 19.1.17
-      '@types/react-native':
-        specifier: ^0.73.0
-        version: 0.73.0(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0)
-      react:
-        specifier: 19.1.0
-        version: 19.1.0
-      react-native:
-        specifier: ^0.81.5
-        version: 0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0)
-      react-native-svg:
-        specifier: ^15.8.0
-        version: 15.15.1(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
-      react-test-renderer:
-        specifier: 19.1.0
-        version: 19.1.0(react@19.1.0)
-      tsup:
-        specifier: ^8.5.1
-        version: 8.5.1(jiti@2.6.1)(postcss@8.5.6)(typescript@5.9.3)(yaml@2.8.2)
-      typescript:
-        specifier: ^5.9.3
-        version: 5.9.3
-
-  packages/components/switches:
-    dependencies:
-      '@xaui/colors':
-        specifier: workspace:*
-        version: link:../../core/colors
-      '@xaui/core':
-        specifier: workspace:*
-        version: link:../../core/core
-    devDependencies:
-      '@testing-library/react-native':
-        specifier: ^13.3.3
-        version: 13.3.3(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react-test-renderer@19.1.0(react@19.1.0))(react@19.1.0)
-      '@types/react':
-        specifier: ^19.1.0
-        version: 19.1.17
-      '@types/react-native':
-        specifier: ^0.73.0
-        version: 0.73.0(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0)
-      react:
-        specifier: 19.1.0
-        version: 19.1.0
-      react-native:
-        specifier: ^0.81.5
-        version: 0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0)
-      react-test-renderer:
-        specifier: 19.1.0
-        version: 19.1.0(react@19.1.0)
-      tsup:
-        specifier: ^8.5.1
-        version: 8.5.1(jiti@2.6.1)(postcss@8.5.6)(typescript@5.9.3)(yaml@2.8.2)
-      typescript:
-        specifier: ^5.9.3
-        version: 5.9.3
-
-  packages/core/colors:
-    devDependencies:
-      '@types/node':
-        specifier: ^20.11.17
-        version: 20.19.28
-      tsup:
-        specifier: ^8.5.1
-        version: 8.5.1(jiti@2.6.1)(postcss@8.5.6)(typescript@5.9.3)(yaml@2.8.2)
-      typescript:
-        specifier: ^5.9.3
-        version: 5.9.3
-
-  packages/core/core:
-    dependencies:
-      '@xaui/colors':
-        specifier: workspace:*
-        version: link:../colors
+  packages/core:
     devDependencies:
       '@types/react':
         specifier: ^19.1.0
@@ -5086,11 +4873,6 @@ packages:
       '@types/react':
         optional: true
 
-  react-test-renderer@19.1.0:
-    resolution: {integrity: sha512-jXkSl3CpvPYEF+p/eGDLB4sPoDX8pKkYvRl9+rR8HxLY0X04vW7hCm1/0zHoUSjPZ3bDa+wXWNTDVIw/R8aDVw==}
-    peerDependencies:
-      react: ^19.1.0
-
   react-test-renderer@19.2.3:
     resolution: {integrity: sha512-TMR1LnSFiWZMJkCgNf5ATSvAheTT2NvKIwiVwdBPHxjBI7n/JbWd4gaZ16DVd9foAXdvDz+sB5yxZTwMjPRxpw==}
     peerDependencies:
@@ -7499,7 +7281,8 @@ snapshots:
     dependencies:
       '@jest/types': 29.6.3
 
-  '@jest/diff-sequences@30.0.1': {}
+  '@jest/diff-sequences@30.0.1':
+    optional: true
 
   '@jest/environment@29.7.0':
     dependencies:
@@ -7517,7 +7300,8 @@ snapshots:
       jest-mock: 29.7.0
       jest-util: 29.7.0
 
-  '@jest/get-type@30.1.0': {}
+  '@jest/get-type@30.1.0':
+    optional: true
 
   '@jest/schemas@29.6.3':
     dependencies:
@@ -7526,6 +7310,7 @@ snapshots:
   '@jest/schemas@30.0.5':
     dependencies:
       '@sinclair/typebox': 0.34.47
+    optional: true
 
   '@jest/transform@29.7.0':
     dependencies:
@@ -8113,7 +7898,8 @@ snapshots:
 
   '@sinclair/typebox@0.27.8': {}
 
-  '@sinclair/typebox@0.34.47': {}
+  '@sinclair/typebox@0.34.47':
+    optional: true
 
   '@sinonjs/commons@3.0.1':
     dependencies:
@@ -8217,16 +8003,6 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.1.17
       react-dom: 19.1.0(react@19.1.0)
-
-  '@testing-library/react-native@13.3.3(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react-test-renderer@19.1.0(react@19.1.0))(react@19.1.0)':
-    dependencies:
-      jest-matcher-utils: 30.2.0
-      picocolors: 1.1.1
-      pretty-format: 30.2.0
-      react: 19.1.0
-      react-native: 0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0)
-      react-test-renderer: 19.1.0(react@19.1.0)
-      redent: 3.0.0
 
   '@testing-library/react-native@13.3.3(react-native@0.81.5(@babel/core@7.28.5)(@types/react@19.1.17)(react@19.1.0))(react-test-renderer@19.2.3(react@19.1.0))(react@19.1.0)':
     dependencies:
@@ -9449,9 +9225,9 @@ snapshots:
       '@typescript-eslint/eslint-plugin': 8.52.0(@typescript-eslint/parser@8.52.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
       '@typescript-eslint/parser': 8.52.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
       eslint: 9.39.2(jiti@2.6.1)
-      eslint-import-resolver-typescript: 3.10.1(eslint-plugin-import@2.32.0)(eslint@9.39.2(jiti@2.6.1))
+      eslint-import-resolver-typescript: 3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.52.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1)))(eslint@9.39.2(jiti@2.6.1))
       eslint-plugin-expo: 1.0.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.52.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.2(jiti@2.6.1))
+      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.52.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.52.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1)))(eslint@9.39.2(jiti@2.6.1)))(eslint@9.39.2(jiti@2.6.1))
       eslint-plugin-react: 7.37.5(eslint@9.39.2(jiti@2.6.1))
       eslint-plugin-react-hooks: 5.2.0(eslint@9.39.2(jiti@2.6.1))
       globals: 16.5.0
@@ -9466,8 +9242,8 @@ snapshots:
       '@next/eslint-plugin-next': 16.1.1
       eslint: 9.39.2(jiti@2.6.1)
       eslint-import-resolver-node: 0.3.9
-      eslint-import-resolver-typescript: 3.10.1(eslint-plugin-import@2.32.0)(eslint@9.39.2(jiti@2.6.1))
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.52.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.2(jiti@2.6.1))
+      eslint-import-resolver-typescript: 3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.52.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1)))(eslint@9.39.2(jiti@2.6.1))
+      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.52.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.52.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1)))(eslint@9.39.2(jiti@2.6.1)))(eslint@9.39.2(jiti@2.6.1))
       eslint-plugin-jsx-a11y: 6.10.2(eslint@9.39.2(jiti@2.6.1))
       eslint-plugin-react: 7.37.5(eslint@9.39.2(jiti@2.6.1))
       eslint-plugin-react-hooks: 7.0.1(eslint@9.39.2(jiti@2.6.1))
@@ -9493,7 +9269,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0)(eslint@9.39.2(jiti@2.6.1)):
+  eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.52.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1)))(eslint@9.39.2(jiti@2.6.1)):
     dependencies:
       '@nolyfill/is-core-module': 1.0.39
       debug: 4.4.3
@@ -9504,18 +9280,18 @@ snapshots:
       tinyglobby: 0.2.15
       unrs-resolver: 1.11.1
     optionalDependencies:
-      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.52.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.2(jiti@2.6.1))
+      eslint-plugin-import: 2.32.0(@typescript-eslint/parser@8.52.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.52.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1)))(eslint@9.39.2(jiti@2.6.1)))(eslint@9.39.2(jiti@2.6.1))
     transitivePeerDependencies:
       - supports-color
 
-  eslint-module-utils@2.12.1(@typescript-eslint/parser@8.52.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.2(jiti@2.6.1)):
+  eslint-module-utils@2.12.1(@typescript-eslint/parser@8.52.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.52.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1)))(eslint@9.39.2(jiti@2.6.1)))(eslint@9.39.2(jiti@2.6.1)):
     dependencies:
       debug: 3.2.7
     optionalDependencies:
       '@typescript-eslint/parser': 8.52.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3)
       eslint: 9.39.2(jiti@2.6.1)
       eslint-import-resolver-node: 0.3.9
-      eslint-import-resolver-typescript: 3.10.1(eslint-plugin-import@2.32.0)(eslint@9.39.2(jiti@2.6.1))
+      eslint-import-resolver-typescript: 3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.52.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1)))(eslint@9.39.2(jiti@2.6.1))
     transitivePeerDependencies:
       - supports-color
 
@@ -9528,7 +9304,7 @@ snapshots:
       - supports-color
       - typescript
 
-  eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.52.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.2(jiti@2.6.1)):
+  eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.52.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.52.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1)))(eslint@9.39.2(jiti@2.6.1)))(eslint@9.39.2(jiti@2.6.1)):
     dependencies:
       '@rtsao/scc': 1.1.0
       array-includes: 3.1.9
@@ -9539,7 +9315,7 @@ snapshots:
       doctrine: 2.1.0
       eslint: 9.39.2(jiti@2.6.1)
       eslint-import-resolver-node: 0.3.9
-      eslint-module-utils: 2.12.1(@typescript-eslint/parser@8.52.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.10.1)(eslint@9.39.2(jiti@2.6.1))
+      eslint-module-utils: 2.12.1(@typescript-eslint/parser@8.52.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint-import-resolver-node@0.3.9)(eslint-import-resolver-typescript@3.10.1(eslint-plugin-import@2.32.0(@typescript-eslint/parser@8.52.0(eslint@9.39.2(jiti@2.6.1))(typescript@5.9.3))(eslint@9.39.2(jiti@2.6.1)))(eslint@9.39.2(jiti@2.6.1)))(eslint@9.39.2(jiti@2.6.1))
       hasown: 2.0.2
       is-core-module: 2.16.1
       is-glob: 4.0.3
@@ -10218,7 +9994,8 @@ snapshots:
 
   imurmurhash@0.1.4: {}
 
-  indent-string@4.0.0: {}
+  indent-string@4.0.0:
+    optional: true
 
   inflight@1.0.6:
     dependencies:
@@ -10404,6 +10181,7 @@ snapshots:
       '@jest/get-type': 30.1.0
       chalk: 4.1.2
       pretty-format: 30.2.0
+    optional: true
 
   jest-environment-node@29.7.0:
     dependencies:
@@ -10438,6 +10216,7 @@ snapshots:
       chalk: 4.1.2
       jest-diff: 30.2.0
       pretty-format: 30.2.0
+    optional: true
 
   jest-message-util@29.7.0:
     dependencies:
@@ -10889,7 +10668,8 @@ snapshots:
 
   mimic-fn@1.2.0: {}
 
-  min-indent@1.0.1: {}
+  min-indent@1.0.1:
+    optional: true
 
   minimatch@10.1.1:
     dependencies:
@@ -11245,6 +11025,7 @@ snapshots:
       '@jest/schemas': 30.0.5
       ansi-styles: 5.2.0
       react-is: 18.3.1
+    optional: true
 
   proc-log@4.2.0: {}
 
@@ -11487,12 +11268,6 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.1.17
 
-  react-test-renderer@19.1.0(react@19.1.0):
-    dependencies:
-      react: 19.1.0
-      react-is: 19.2.3
-      scheduler: 0.26.0
-
   react-test-renderer@19.2.3(react@19.1.0):
     dependencies:
       react: 19.1.0
@@ -11517,6 +11292,7 @@ snapshots:
     dependencies:
       indent-string: 4.0.0
       strip-indent: 3.0.0
+    optional: true
 
   reflect.getprototypeof@1.0.10:
     dependencies:
@@ -11965,6 +11741,7 @@ snapshots:
   strip-indent@3.0.0:
     dependencies:
       min-indent: 1.0.1
+    optional: true
 
   strip-json-comments@2.0.1: {}
 
