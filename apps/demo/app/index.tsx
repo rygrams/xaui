@@ -12,8 +12,8 @@ export default function HomeScreen() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setValue(prevValue => prevValue + 0.05)
-    }, 100)
+      setValue(prevValue => prevValue + 0.01)
+    }, 1000)
     return () => clearInterval(interval)
   }, [])
 
@@ -31,16 +31,46 @@ export default function HomeScreen() {
         style={{
           backgroundColor: colors.primary.background,
           borderRadius: theme.borderRadius.md,
+          padding: theme.spacing.md,
           gap: theme.spacing.md,
-          width: 300,
+          width: '100%',
           height: 100,
         }}
       >
         <Text style={{ color: colors.foreground }}>{mode}</Text>
         <Text style={{ color: colors.foreground }}>{value}</Text>
       </View>
-      <Progress value={value} size={6} />
-      <Progress variant="circular" value={value} size={50} />
+      <Progress
+        themeColor="danger"
+        value={value}
+        size={6}
+        borderRadius={theme.borderRadius.md}
+      />
+      <Progress themeColor="default" value={value} size={6} />
+      <Progress themeColor="primary" value={value} size={6} />
+      <Progress themeColor="secondary" value={value} size={6} />
+      <Progress themeColor="success" value={value} size={6} />
+      <Progress themeColor="tertiary" value={value} size={6} />
+
+      <View
+        style={{
+          flexDirection: 'row',
+          gap: theme.spacing.sm,
+        }}
+      >
+        <Progress
+          themeColor="danger"
+          variant="circular"
+          value={value}
+          size={50}
+          borderRadius={theme.borderRadius.md}
+        />
+        <Progress themeColor="default" variant="circular" value={value} size={50} />
+        <Progress themeColor="primary" variant="circular" value={value} size={25} />
+        <Progress themeColor="secondary" variant="circular" value={value} size={50} />
+        <Progress themeColor="success" variant="circular" value={value} size={50} />
+        <Progress themeColor="tertiary" variant="circular" value={value} size={50} />
+      </View>
     </View>
   )
 }
