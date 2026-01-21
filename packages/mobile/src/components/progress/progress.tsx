@@ -17,6 +17,7 @@ export const Progress: React.FC<ProgressIndicatorProps> = props => {
     size,
     disableAnimation = false,
   } = props
+
   const theme = useXUITheme()
 
   const colorScheme = theme.colors[themeColor]
