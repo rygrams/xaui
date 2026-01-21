@@ -1,10 +1,17 @@
+import { ThemeColor } from '../../types'
+
 export type ProgressVariant = 'linear' | 'circular'
 
-export interface ProgressProps {
+export interface ProgressIndicatorProps {
   /**
    * The current value of the progress bar (0 to 1).
    */
   value: number
+  /**
+   * The theme color of the progress indicator.
+   * @default 'primary'
+   */
+  themeColor?: ThemeColor
   /**
    * The variant of the progress indicator.
    * @default 'linear'

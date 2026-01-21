@@ -50,8 +50,13 @@ export function useColorMode(): ColorMode {
       return () => media.removeEventListener?.('change', handleChange)
     }
 
-    media.addListener?.(handleChange)
-    return () => media.removeListener?.(handleChange)
+    const legacyMedia = media as {
+      addListener?: (listener: () => void) => void
+      removeListener?: (listener: () => void) => void
+    }
+
+    legacyMedia.addListener?.(handleChange)
+    return () => legacyMedia.removeListener?.(handleChange)
   }, [])
 
   return webScheme

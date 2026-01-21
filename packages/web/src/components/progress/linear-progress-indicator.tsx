@@ -1,9 +1,9 @@
 import React from 'react'
 import { motion } from 'framer-motion'
 import { progressStyles } from './progress.style'
-import type { ProgressProps } from './progress.type'
+import type { ProgressIndicatorProps } from './progress.type'
 
-export const LinearProgressIndicator: React.FC<ProgressProps> = ({
+export const LinearProgressIndicator: React.FC<ProgressIndicatorProps> = ({
   value,
   size = 4,
   color,
