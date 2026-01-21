@@ -3,7 +3,7 @@ import { render } from '@testing-library/react'
 import { describe, expect, it, vi } from 'vitest'
 import { Progress } from '../../../components/progress'
 
-vi.mock('@xaui/core/theme', () => ({
+vi.mock('../../../core', () => ({
   useXUITheme: () => ({
     colors: {
       primary: { main: '#1976d2', background: '#e3f2fd' },
@@ -36,14 +36,18 @@ describe('Progress', () => {
 
   describe('Theme colors', () => {
     it('should apply secondary theme color for circular variant', () => {
-      const { container } = render(<Progress variant="circular" themeColor="secondary" value={0.5} />)
+      const { container } = render(
+        <Progress variant="circular" themeColor="secondary" value={0.5} />
+      )
       const circles = (container as HTMLElement).querySelectorAll('circle')
       const progressCircle = circles[1]
       expect(progressCircle.getAttribute('stroke')).toBe('#9c27b0')
     })
 
     it('should apply success theme color for circular variant', () => {
-      const { container } = render(<Progress variant="circular" themeColor="success" value={0.5} />)
+      const { container } = render(
+        <Progress variant="circular" themeColor="success" value={0.5} />
+      )
       const circles = (container as HTMLElement).querySelectorAll('circle')
       const progressCircle = circles[1]
       expect(progressCircle.getAttribute('stroke')).toBe('#388e3c')
@@ -52,14 +56,18 @@ describe('Progress', () => {
 
   describe('Custom colors', () => {
     it('should apply custom color for circular variant', () => {
-      const { container } = render(<Progress variant="circular" value={0.5} color="#ff0000" />)
+      const { container } = render(
+        <Progress variant="circular" value={0.5} color="#ff0000" />
+      )
       const circles = (container as HTMLElement).querySelectorAll('circle')
       const progressCircle = circles[1]
       expect(progressCircle.getAttribute('stroke')).toBe('#ff0000')
     })
 
     it('should apply custom backgroundColor for circular variant', () => {
-      const { container } = render(<Progress variant="circular" value={0.5} backgroundColor="#00ff00" />)
+      const { container } = render(
+        <Progress variant="circular" value={0.5} backgroundColor="#00ff00" />
+      )
       const circles = (container as HTMLElement).querySelectorAll('circle')
       const trackCircle = circles[0]
       expect(trackCircle.getAttribute('stroke')).toBe('#00ff00')
@@ -77,7 +85,9 @@ describe('Progress', () => {
 
   describe('Border radius', () => {
     it('should apply rounded stroke cap when borderRadius is provided for circular', () => {
-      const { container } = render(<Progress variant="circular" value={0.5} borderRadius={5} />)
+      const { container } = render(
+        <Progress variant="circular" value={0.5} borderRadius={5} />
+      )
       const circles = (container as HTMLElement).querySelectorAll('circle')
       const progressCircle = circles[1]
       expect(progressCircle.getAttribute('stroke-linecap')).toBe('round')

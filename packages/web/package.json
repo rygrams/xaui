@@ -17,6 +17,11 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.js",
       "require": "./dist/index.js"
+    },
+    "./core": {
+      "types": "./dist/core/index.d.ts",
+      "import": "./dist/core/index.js",
+      "require": "./dist/core/index.js"
     }
   },
   "files": [
@@ -38,12 +43,15 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@xaui/core": "workspace:*",
+    "clsx": "^2.1.1",
+    "tailwind-merge": "^3.4.0",
     "tailwind-variants": "^0.3.1"
   },
   "peerDependencies": {
+    "framer-motion": "^11.0.0",
     "react": "^18.0.0 || ^19.0.0",
     "react-dom": "^18.0.0 || ^19.0.0",
-    "framer-motion": "^11.0.0",
     "tailwindcss": "^4.0.0"
   },
   "devDependencies": {

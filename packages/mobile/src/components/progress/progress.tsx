@@ -1,6 +1,6 @@
 import React from 'react'
 import { View } from 'react-native'
-import { useXUITheme } from '@xaui/core/theme'
+import { useXUITheme } from '../../core'
 import { CircularProgressIndicator } from './circular-progress-indicator'
 import { LinearProgressIndicator } from './linear-progress-indicator'
 import { clampProgress } from './progress.hook'

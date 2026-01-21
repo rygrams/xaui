@@ -1,7 +1,8 @@
+'use client'
+
 import { useContext, useEffect, useState } from 'react'
-import { useColorScheme } from 'react-native'
-import { XUIThemeContext } from './theme-provider'
-import type { XUITheme } from './theme-config'
+import { XUIThemeContext } from './theme-context'
+import type { XUITheme } from '@xaui/core'
 
 type ColorMode = 'light' | 'dark'
 
@@ -29,11 +30,9 @@ const getWebColorMode = (): ColorMode => {
 }
 
 export function useColorMode(): ColorMode {
-  const nativeScheme = useColorScheme()
   const [webScheme, setWebScheme] = useState<ColorMode>(() => getWebColorMode())
 
   useEffect(() => {
-    if (nativeScheme) return
     if (typeof globalThis === 'undefined') return
     const globalScope = globalThis as GlobalThisLike
     if (!globalScope.matchMedia) return
@@ -53,10 +52,7 @@ export function useColorMode(): ColorMode {
 
     media.addListener?.(handleChange)
     return () => media.removeListener?.(handleChange)
-  }, [nativeScheme])
-
-  if (nativeScheme === 'dark') return 'dark'
-  if (nativeScheme === 'light') return 'light'
+  }, [])
 
   return webScheme
 }

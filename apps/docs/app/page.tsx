@@ -1,6 +1,6 @@
 'use client'
 
-import { XUIProvider } from '@xaui/core/theme'
+import { XUIProvider } from '@xaui/web/core'
 import { Progress } from '@xaui/web'
 
 export default function Home() {
