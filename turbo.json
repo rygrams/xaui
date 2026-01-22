@@ -11,7 +11,6 @@
       "persistent": true
     },
     "test": {
-      "dependsOn": ["lint"],
       "outputs": ["coverage/**"]
     },
     "lint": {

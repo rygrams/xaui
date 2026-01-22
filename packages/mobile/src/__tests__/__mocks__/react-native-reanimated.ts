@@ -2,7 +2,8 @@ import React from 'react'
 
 type AnimatedStyle = Record<string, unknown>
 type AnimatedStyleFactory<T extends AnimatedStyle = AnimatedStyle> = () => T
-type AnimatedPropsFactory<T extends Record<string, unknown> = Record<string, unknown>> = () => T
+type AnimatedPropsFactory<T extends Record<string, unknown> = Record<string, unknown>> =
+  () => T
 
 type ViewProps = {
   [key: string]: unknown
@@ -12,7 +13,18 @@ const AnimatedView: React.FC<ViewProps> = props => React.createElement('div', pr
 
 const Animated = {
   View: AnimatedView,
-  createAnimatedComponent: <T,>(Component: React.ComponentType<T>) => Component,
+  createAnimatedComponent: <T extends Record<string, unknown>>(
+    Component: React.ComponentType<T>
+  ) => {
+    return (props: T & { animatedProps?: Record<string, unknown> }) => {
+      const { animatedProps, ...rest } = props
+      const finalProps = {
+        ...(rest as T),
+        ...(animatedProps || {}),
+      } as T
+      return React.createElement(Component, finalProps)
+    }
+  },
 }
 
 export const useAnimatedStyle = <T extends AnimatedStyle>(

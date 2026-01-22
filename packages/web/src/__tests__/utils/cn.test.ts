@@ -9,7 +9,7 @@ describe('cn utility', () => {
   it('should handle conditional classes', () => {
     const isBlock = true
     const isHidden = false
-    expect(cn('flex', isBlock && 'block', isHidden && 'hidden')).toBe('flex block')
+    expect(cn('flex', isBlock && 'p-4', isHidden && 'hidden')).toBe('flex p-4')
   })
 
   it('should merge tailwind classes and resolve conflicts', () => {
@@ -18,8 +18,8 @@ describe('cn utility', () => {
   })
 
   it('should handle arrays and objects', () => {
-    expect(cn(['flex', 'block'], { hidden: false, 'items-center': true })).toBe(
-      'flex block items-center'
+    expect(cn(['flex', 'p-4'], { hidden: false, 'items-center': true })).toBe(
+      'flex p-4 items-center'
     )
   })
 })

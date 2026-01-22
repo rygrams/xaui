@@ -16,9 +16,28 @@ export const View: React.FC<ViewProps> = ({ style, ...props }) => {
     ? Object.assign({}, ...style.filter(Boolean))
     : style
 
+  const {
+    accessible: _accessible,
+    accessibilityRole,
+    accessibilityValue,
+    accessibilityLabel,
+    accessibilityHint: _accessibilityHint,
+    accessibilityState: _accessibilityState,
+    ...domProps
+  } = props
+
+  const accValue = accessibilityValue as
+    | { now?: number; min?: number; max?: number }
+    | undefined
+
   return React.createElement('div', {
-    ...props,
+    ...domProps,
     style: normalizedStyle as React.CSSProperties,
+    role: accessibilityRole as React.AriaRole,
+    'aria-valuenow': accValue?.now,
+    'aria-valuemin': accValue?.min,
+    'aria-valuemax': accValue?.max,
+    'aria-label': accessibilityLabel as string,
   })
 }
 
