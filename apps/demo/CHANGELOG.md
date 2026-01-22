@@ -1,5 +1,12 @@
 # demo
 
+## 1.0.10
+
+### Patch Changes
+
+- Updated dependencies [ef03ddd]
+  - @xaui/mobile@0.0.2
+
 ## 1.0.9
 
 ### Patch Changes
