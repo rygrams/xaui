@@ -37,7 +37,8 @@
     "react-native-screens": "~4.16.0",
     "react-native-svg": "^15.8.0",
     "react-native-web": "~0.21.0",
-    "@xaui/core": "workspace:*"
+    "@xaui/core": "workspace:*",
+    "@xaui/mobile": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "~19.1.0",

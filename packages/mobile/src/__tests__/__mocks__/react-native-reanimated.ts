@@ -1,0 +1,46 @@
+import React from 'react'
+
+type AnimatedStyle = Record<string, unknown>
+type AnimatedStyleFactory<T extends AnimatedStyle = AnimatedStyle> = () => T
+type AnimatedPropsFactory<T extends Record<string, unknown> = Record<string, unknown>> =
+  () => T
+
+type ViewProps = {
+  [key: string]: unknown
+}
+
+const AnimatedView: React.FC<ViewProps> = props => React.createElement('div', props)
+
+const Animated = {
+  View: AnimatedView,
+  createAnimatedComponent: <T extends Record<string, unknown>>(
+    Component: React.ComponentType<T>
+  ) => {
+    return (props: T & { animatedProps?: Record<string, unknown> }) => {
+      const { animatedProps, ...rest } = props
+      const finalProps = {
+        ...(rest as T),
+        ...(animatedProps || {}),
+      } as T
+      return React.createElement(Component, finalProps)
+    }
+  },
+}
+
+export const useAnimatedStyle = <T extends AnimatedStyle>(
+  factory: AnimatedStyleFactory<T>
+): T => factory()
+
+export const useAnimatedProps = <T extends Record<string, unknown>>(
+  factory: AnimatedPropsFactory<T>
+): T => factory()
+
+export const useSharedValue = <T>(value: T) => ({ value })
+
+export const withTiming = <T>(value: T) => value
+
+export const Easing = {
+  bezier: () => () => 0,
+}
+
+export default Animated

@@ -1,10 +1,10 @@
 import React, { createContext, ReactNode } from 'react'
-import { defaultTheme, XUITheme } from './theme-config'
-import { useColorMode } from './theme-hook'
+import { useColorScheme } from 'react-native'
+import { defaultTheme, XUITheme } from '@xaui/core/theme'
 
 export const XUIThemeContext = createContext<XUITheme | null>(null)
 
-type DeepPartial<T> = {
+export type DeepPartial<T> = {
   [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P]
 }
 
@@ -19,7 +19,7 @@ export function XUIProvider({
   theme: lightTheme,
   darkTheme,
 }: XUIProviderProps) {
-  const colorScheme = useColorMode()
+  const colorScheme = useColorScheme() ?? 'light'
 
   const theme = React.useMemo(() => {
     if (!darkTheme && !lightTheme) return defaultTheme

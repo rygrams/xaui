@@ -3,7 +3,8 @@ import { Stack } from 'expo-router'
 import { StatusBar } from 'expo-status-bar'
 import 'react-native-reanimated'
 import { useColorScheme } from '@/hooks/use-color-scheme'
-import { defaultDarkTheme, defaultTheme, XUIProvider } from '@xaui/core/theme'
+import { defaultDarkTheme, defaultTheme } from '@xaui/core/theme'
+import { XUIProvider } from '@xaui/mobile/core'
 
 export const unstable_settings = {
   anchor: '(tabs)',
