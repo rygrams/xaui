@@ -4,7 +4,7 @@ export default defineConfig({
   entry: {
     index: 'src/index.ts',
     'core/index': 'src/core/index.ts',
-    progress: 'src/components/progress/index.ts',
+    'progress/index': 'src/components/progress/index.ts',
   },
   format: ['cjs', 'esm'],
   dts: true,

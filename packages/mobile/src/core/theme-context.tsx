@@ -1,6 +1,6 @@
 import React, { createContext, ReactNode } from 'react'
 import { useColorScheme } from 'react-native'
-import { defaultTheme, XUITheme } from '@xaui/core'
+import { defaultTheme, XUITheme } from '@xaui/core/theme'
 
 export const XUIThemeContext = createContext<XUITheme | null>(null)
 

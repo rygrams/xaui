@@ -22,6 +22,11 @@
       "types": "./dist/core/index.d.ts",
       "import": "./dist/core/index.js",
       "require": "./dist/core/index.js"
+    },
+    "./progress": {
+      "types": "./dist/progress/index.d.ts",
+      "import": "./dist/progress/index.js",
+      "require": "./dist/progress/index.js"
     }
   },
   "files": [
@@ -49,6 +54,7 @@
     "tailwind-variants": "^0.3.1"
   },
   "peerDependencies": {
+    "framer-motion": "^11.0.0",
     "react": "^18.0.0 || ^19.0.0",
     "react-dom": "^18.0.0 || ^19.0.0",
     "tailwindcss": "^4.0.0"

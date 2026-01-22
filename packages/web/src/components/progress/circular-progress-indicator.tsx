@@ -1,5 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
+import { useProgressAnimation } from './progress.hook'
 import { progressStyles } from './progress.style'
 import type { ProgressIndicatorProps } from './progress.type'
 
@@ -14,7 +15,7 @@ export const CircularProgressIndicator: React.FC<ProgressIndicatorProps> = ({
 }) => {
   const { base, track, indicator } = progressStyles({ variant: 'circular' })
 
-  const clampedValue = Math.max(0, Math.min(1, value))
+  const progressValue = useProgressAnimation(value, disableAnimation)
   const strokeWidth = size * 0.1
   const radius = (size - strokeWidth) / 2
   const circumference = 2 * Math.PI * radius
@@ -47,7 +48,7 @@ export const CircularProgressIndicator: React.FC<ProgressIndicatorProps> = ({
           strokeLinecap={strokeCap}
           strokeDasharray={circumference}
           initial={disableAnimation ? false : { strokeDashoffset: circumference }}
-          animate={{ strokeDashoffset: circumference * (1 - clampedValue) }}
+          animate={{ strokeDashoffset: circumference * (1 - progressValue) }}
           transition={
             disableAnimation ? { duration: 0 } : { duration: 0.5, ease: [0, 0, 0.2, 1] }
           }

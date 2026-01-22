@@ -1,4 +1,4 @@
-import { useColorMode, useXUIColors, useXUITheme } from '@xaui/core/theme'
+import { useColorMode, useXUIColors, useXUITheme } from '@xaui/mobile/core'
 import { StyleSheet, Text, View } from 'react-native'
 import { Progress } from '@xaui/mobile/progress'
 import { useState, useEffect } from 'react'

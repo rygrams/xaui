@@ -1,8 +1,8 @@
 'use client'
 
 import React, { createContext, ReactNode } from 'react'
-import { defaultTheme, XUITheme } from '@xaui/core'
 import { useColorMode } from './theme-hooks'
+import { defaultTheme, XUITheme } from '@xaui/core/theme'
 
 export const XUIThemeContext = createContext<XUITheme | null>(null)
 

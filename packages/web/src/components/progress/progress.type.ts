@@ -2,16 +2,7 @@ import { ThemeColor } from '../../types'
 
 export type ProgressVariant = 'linear' | 'circular'
 
-export interface ProgressIndicatorProps {
-  /**
-   * The current value of the progress bar (0 to 1).
-   */
-  value: number
-  /**
-   * The theme color of the progress indicator.
-   * @default 'primary'
-   */
-  themeColor?: ThemeColor
+export type ProgressIndicatorProps = {
   /**
    * The variant of the progress indicator.
    * @default 'linear'
@@ -23,14 +14,23 @@ export interface ProgressIndicatorProps {
    */
   size?: number
   /**
-   * The color of the progress indicator.
-   * Supports tailwind colors or hex.
+   * The theme color of the progress indicator.
+   * @default 'primary'
+   */
+  themeColor?: ThemeColor
+  /**
+   * The custom color of the progress indicator.
+   * Overrides themeColor.
    */
   color?: string
   /**
    * The background color of the track.
    */
   backgroundColor?: string
+  /**
+   * The current value of the progress bar (0 to 1).
+   */
+  value: number
   /**
    * Whether to disable the animation.
    * @default false

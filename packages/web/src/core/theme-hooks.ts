@@ -2,7 +2,7 @@
 
 import { useContext, useEffect, useState } from 'react'
 import { XUIThemeContext } from './theme-context'
-import type { XUITheme } from '@xaui/core'
+import { XUITheme } from '@xaui/core/theme'
 
 type ColorMode = 'light' | 'dark'
 

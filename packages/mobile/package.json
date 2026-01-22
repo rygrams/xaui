@@ -24,9 +24,9 @@
       "require": "./dist/core/index.js"
     },
     "./progress": {
-      "types": "./dist/progress.d.ts",
-      "import": "./dist/progress.js",
-      "require": "./dist/progress.js"
+      "types": "./dist/progress/index.d.ts",
+      "import": "./dist/progress/index.js",
+      "require": "./dist/progress/index.js"
     }
   },
   "files": [
