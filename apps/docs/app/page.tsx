@@ -17,9 +17,9 @@ export default function Home() {
   return (
     <XUIProvider>
       <div className="p-20 space-y-10">
-        <Progress value={value} themeColor="danger" />
+        <Progress value={value} themeColor="danger" size={10} />
 
-        <Progress value={value} themeColor="primary" variant="circular" />
+        <Progress value={value} size={100} themeColor="primary" variant="circular" />
       </div>
     </XUIProvider>
   )

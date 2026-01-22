@@ -3,20 +3,20 @@ import { tv } from 'tailwind-variants'
 export const progressStyles = tv({
   slots: {
     base: 'relative flex items-center justify-center overflow-hidden',
-    track: 'w-full overflow-hidden',
-    indicator: 'h-full transition-all bg-blue-400',
+    track: 'overflow-hidden',
+    indicator: '',
   },
   variants: {
     variant: {
       linear: {
         base: 'w-full',
-        track: 'h-full',
-        indicator: 'h-full',
+        track: 'w-full h-full',
+        indicator: 'h-full bg-blue-400 transition-all',
       },
       circular: {
-        base: 'inline-flex',
-        track: 'fill-none',
-        indicator: 'fill-none',
+        base: 'inline-flex shrink-0',
+        track: 'fill-none w-auto h-auto',
+        indicator: 'fill-none w-auto h-auto',
       },
     },
   },

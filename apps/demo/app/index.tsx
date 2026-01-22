@@ -12,7 +12,7 @@ export default function HomeScreen() {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setValue(prevValue => prevValue + 0.01)
+      setValue(prevValue => prevValue + 0.06)
     }, 1000)
     return () => clearInterval(interval)
   }, [])

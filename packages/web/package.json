@@ -27,7 +27,8 @@
       "types": "./dist/progress/index.d.ts",
       "import": "./dist/progress/index.js",
       "require": "./dist/progress/index.js"
-    }
+    },
+    "./dist/index.css": "./dist/index.css"
   },
   "files": [
     "dist",
@@ -62,6 +63,7 @@
   "devDependencies": {
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.0",
+    "esbuild-sass-plugin": "^3.6.0",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "tsup": "^8.5.1",
