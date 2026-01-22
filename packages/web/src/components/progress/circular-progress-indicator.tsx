@@ -1,5 +1,6 @@
 import React from 'react'
 import { motion } from 'framer-motion'
+import { useXUITheme } from '../../core'
 import { useProgressAnimation } from './progress.hook'
 import { progressStyles } from './progress.style'
 import type { ProgressIndicatorProps } from './progress.type'
@@ -7,6 +8,7 @@ import type { ProgressIndicatorProps } from './progress.type'
 export const CircularProgressIndicator: React.FC<ProgressIndicatorProps> = ({
   value,
   size = 40,
+  themeColor = 'primary',
   color,
   backgroundColor,
   borderRadius,
@@ -14,6 +16,10 @@ export const CircularProgressIndicator: React.FC<ProgressIndicatorProps> = ({
   className,
 }) => {
   const { base, track, indicator } = progressStyles({ variant: 'circular' })
+  const theme = useXUITheme()
+  const colorScheme = theme.colors[themeColor]
+  const resolvedColor = color ?? colorScheme.main
+  const resolvedBackground = backgroundColor ?? colorScheme.background
 
   const progressValue = useProgressAnimation(value, disableAnimation)
   const strokeWidth = size * 0.1
@@ -35,7 +41,7 @@ export const CircularProgressIndicator: React.FC<ProgressIndicatorProps> = ({
           cy={center}
           r={radius}
           className={track()}
-          stroke={backgroundColor}
+          stroke={resolvedBackground}
           strokeWidth={strokeWidth}
         />
         <motion.circle
@@ -43,7 +49,7 @@ export const CircularProgressIndicator: React.FC<ProgressIndicatorProps> = ({
           cy={center}
           r={radius}
           className={indicator()}
-          stroke={color}
+          stroke={resolvedColor}
           strokeWidth={strokeWidth}
           strokeLinecap={strokeCap}
           strokeDasharray={circumference}

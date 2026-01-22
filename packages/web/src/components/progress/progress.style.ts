@@ -3,8 +3,8 @@ import { tv } from 'tailwind-variants'
 export const progressStyles = tv({
   slots: {
     base: 'relative flex items-center justify-center overflow-hidden',
-    track: 'w-full bg-slate-200 dark:bg-slate-700 overflow-hidden',
-    indicator: 'h-full bg-blue-600 transition-all',
+    track: 'w-full overflow-hidden',
+    indicator: 'h-full transition-all bg-blue-400',
   },
   variants: {
     variant: {
@@ -15,8 +15,8 @@ export const progressStyles = tv({
       },
       circular: {
         base: 'inline-flex',
-        track: 'fill-none stroke-slate-200 dark:stroke-slate-700',
-        indicator: 'fill-none stroke-blue-600',
+        track: 'fill-none',
+        indicator: 'fill-none',
       },
     },
   },

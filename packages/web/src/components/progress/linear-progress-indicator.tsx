@@ -16,7 +16,7 @@ export const LinearProgressIndicator: React.FC<ProgressIndicatorProps> = ({
   const { track, indicator } = progressStyles({ variant: 'linear' })
 
   const progressValue = useProgressAnimation(value, disableAnimation)
-  const radius = borderRadius ?? size / 2
+  const radius = Math.max(0, Math.min(size / 2, borderRadius ?? 0))
 
   return (
     <div
@@ -37,6 +37,7 @@ export const LinearProgressIndicator: React.FC<ProgressIndicatorProps> = ({
         style={{
           backgroundColor: color,
           borderRadius: radius,
+          height: size,
         }}
       />
     </div>
