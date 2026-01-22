@@ -1,5 +1,11 @@
 # @xaui/mobile
 
+## 0.0.2
+
+### Patch Changes
+
+- ef03ddd: feat(indicator): add activity indicator
+
 ## 0.0.1
 
 ### Patch Changes
