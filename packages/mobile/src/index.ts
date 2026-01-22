@@ -1,1 +1,1 @@
-export {}
+export { ActivityIndicator } from './components/indicator'

@@ -5,6 +5,7 @@ export default defineConfig({
     index: 'src/index.ts',
     'core/index': 'src/core/index.ts',
     'progress/index': 'src/components/progress/index.ts',
+    'indicator/index': 'src/components/indicator/index.ts',
   },
   format: ['cjs', 'esm'],
   dts: true,

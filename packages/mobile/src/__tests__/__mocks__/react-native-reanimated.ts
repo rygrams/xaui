@@ -9,7 +9,18 @@ type ViewProps = {
   [key: string]: unknown
 }
 
-const AnimatedView: React.FC<ViewProps> = props => React.createElement('div', props)
+const flattenStyle = (style: unknown): Record<string, unknown> | undefined => {
+  if (Array.isArray(style)) {
+    return Object.assign({}, ...style.map(flattenStyle))
+  }
+  return style as Record<string, unknown>
+}
+
+const AnimatedView: React.FC<ViewProps> = props => {
+  const { style, ...rest } = props
+  const flattenedStyle = flattenStyle(style)
+  return React.createElement('div', { ...rest, style: flattenedStyle })
+}
 
 const Animated = {
   View: AnimatedView,
@@ -17,9 +28,10 @@ const Animated = {
     Component: React.ComponentType<T>
   ) => {
     return (props: T & { animatedProps?: Record<string, unknown> }) => {
-      const { animatedProps, ...rest } = props
+      const { animatedProps, style, ...rest } = props as any
       const finalProps = {
-        ...(rest as T),
+        ...rest,
+        style: flattenStyle(style),
         ...(animatedProps || {}),
       } as T
       return React.createElement(Component, finalProps)
@@ -39,8 +51,15 @@ export const useSharedValue = <T>(value: T) => ({ value })
 
 export const withTiming = <T>(value: T) => value
 
+export const withSequence = <T>(...args: T[]) => args[args.length - 1]
+
+export const withRepeat = <T>(value: T) => value
+
+export const cancelAnimation = () => {}
+
 export const Easing = {
   bezier: () => () => 0,
+  linear: () => 0,
 }
 
 export default Animated
