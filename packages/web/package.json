@@ -28,6 +28,11 @@
       "import": "./dist/progress/index.js",
       "require": "./dist/progress/index.js"
     },
+    "./indicator": {
+      "types": "./dist/indicator/index.d.ts",
+      "import": "./dist/indicator/index.js",
+      "require": "./dist/indicator/index.js"
+    },
     "./dist/index.css": "./dist/index.css"
   },
   "files": [
