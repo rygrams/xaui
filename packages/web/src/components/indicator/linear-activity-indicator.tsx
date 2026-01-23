@@ -24,7 +24,6 @@ const buildTimes = (durations: number[]) => {
   return times
 }
 
-// Primary Animation Constants
 const primaryTranslateKeyframes = [0, 0, 0.836714, 2.00611].map(value =>
   toPercent(value, PRIMARY_TRANSLATE_OFFSET)
 )
