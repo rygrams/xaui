@@ -19,7 +19,7 @@ export default function Home() {
     <XUIProvider>
       <div className="p-20 space-y-3">
         <ActivityIndicator />
-        <ActivityIndicator variant="linear" className="w-20 h-2" />
+        <ActivityIndicator variant="linear" size={5} />
       </div>
     </XUIProvider>
   )
