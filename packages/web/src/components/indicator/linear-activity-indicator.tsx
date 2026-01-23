@@ -32,10 +32,10 @@ const primaryTranslateEase = [
   [0.302435, 0.381352, 0.55, 0.956352],
 ] as const
 
-const primaryScaleKeyframes = [0.08, 0.661479, 0.08]
-const primaryScaleTimes = buildTimes([650, 617])
+const primaryScaleKeyframes = [0.661479, 0.661479, 0.01]
+const primaryScaleTimes = buildTimes([733, 534])
 const primaryScaleEase = [
-  [0.334731, 0.12482, 0.785844, 1],
+  [0, 0, 1, 1],
   [0.06, 0.11, 0.6, 1],
 ] as const
 
