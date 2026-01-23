@@ -18,8 +18,14 @@ export default function Home() {
   return (
     <XUIProvider>
       <div className="p-20 space-y-3">
-        <ActivityIndicator />
-        <ActivityIndicator variant="linear" size={5} />
+        <ActivityIndicator showTrack themeColor="secondary" />
+        <ActivityIndicator
+          variant="linear"
+          themeColor="primary"
+          showTrack
+          size={2}
+          className="w-96"
+        />
       </div>
     </XUIProvider>
   )

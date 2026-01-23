@@ -4,7 +4,7 @@ import { useXUITheme } from '../../core'
 import { indicatorStyles } from './indicator.style'
 import type { ActivityIndicatorProps } from './indicator.type'
 
-const DURATION = 1.8
+const DURATION = 1.5
 const EASING = [0.4, 0, 0.7, 1] as const
 
 const bezierEasing = (t: number): number => {
@@ -47,13 +47,15 @@ export const CircularActivityIndicator: React.FC<ActivityIndicatorProps> = ({
   color,
   backgroundColor,
   disableAnimation = false,
+  showTrack = true,
   className,
 }) => {
   const { base } = indicatorStyles({ variant: 'circular' })
   const theme = useXUITheme()
   const colorScheme = theme.colors[themeColor]
   const resolvedColor = color ?? colorScheme.main
-  const resolvedBackground = backgroundColor ?? 'transparent'
+  const resolvedBackground =
+    backgroundColor ?? (showTrack ? colorScheme.background : 'transparent')
 
   const strokeWidth = size * 0.1
 
@@ -121,6 +123,7 @@ export const CircularActivityIndicator: React.FC<ActivityIndicatorProps> = ({
                         ease: 'linear',
                         repeat: Infinity,
                         repeatType: 'loop',
+                        repeatDelay: 0,
                       }
                 }
               >
@@ -148,7 +151,7 @@ export const CircularActivityIndicator: React.FC<ActivityIndicatorProps> = ({
                         ? { y: index ? -size / 2 : 0, rotate: keyframes[0] }
                         : { y: index ? -size / 2 : 0, rotate: keyframes }
                     }
-                    transition={
+                   transition={
                       disableAnimation
                         ? { duration: 0 }
                         : {
@@ -157,9 +160,10 @@ export const CircularActivityIndicator: React.FC<ActivityIndicatorProps> = ({
                             ease: 'linear',
                             repeat: Infinity,
                             repeatType: 'loop',
+                            repeatDelay: 0,
                             times,
                           }
-                    }
+                        }
                   >
                     <div
                       style={{
