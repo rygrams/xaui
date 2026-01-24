@@ -1,5 +1,11 @@
 # @xaui/mobile
 
+## 0.0.3
+
+### Patch Changes
+
+- 52b0278: fix: Standardize activity indicator track color logic to correctly apply `backgroundColor` when `showTrack` is enabled
+
 ## 0.0.2
 
 ### Patch Changes
