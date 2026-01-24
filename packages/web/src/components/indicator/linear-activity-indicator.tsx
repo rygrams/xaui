@@ -75,8 +75,9 @@ export const LinearActivityIndicator: React.FC<ActivityIndicatorProps> = ({
   const colorScheme = theme.colors[safeThemeColor]
 
   const mainColor = color ?? colorScheme.main
-  const trackColor =
-    backgroundColor ?? (showTrack ? colorScheme.background : 'transparent')
+  const trackColor = showTrack
+    ? (backgroundColor ?? colorScheme.background)
+    : 'transparent'
 
   const radius = Math.max(0, borderRadius)
 
