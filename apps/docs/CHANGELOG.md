@@ -1,5 +1,12 @@
 # docs
 
+## 0.1.6
+
+### Patch Changes
+
+- Updated dependencies
+  - @xaui/web@0.0.3
+
 ## 0.1.5
 
 ### Patch Changes

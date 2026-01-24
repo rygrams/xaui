@@ -18,9 +18,22 @@ export default function Home() {
   return (
     <XUIProvider>
       <div className="p-20 space-y-3">
-        <ActivityIndicator variant="circular" size={8} showTrack themeColor="secondary" />
+        <ActivityIndicator variant="circular" size={8} showTrack={false} color="white" />
 
-        <Button themeColor="primary" isLoading className="w-100">
+        <Button
+          themeColor="primary"
+          startContent={
+            <ActivityIndicator
+              variant="circular"
+              size={8}
+              showTrack={false}
+              color="white"
+            />
+          }
+        >
+          Button
+        </Button>
+        <Button themeColor="primary" startContent={'A'}>
           Button
         </Button>
       </div>

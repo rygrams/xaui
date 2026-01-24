@@ -8,7 +8,7 @@ export const ActivityIndicator: React.FC<ActivityIndicatorProps> = props => {
 
   if (variant === 'circular') {
     return (
-      <div role="progressbar" aria-label="Loading">
+      <div role="progressbar" aria-label="Loading" className="inline-flex">
         <CircularActivityIndicator {...rest} />
       </div>
     )

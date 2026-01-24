@@ -3,7 +3,6 @@ import { tv } from 'tailwind-variants'
 export const buttonStyles = tv({
   slots: {
     base: [
-      'inline-flex',
       'items-center',
       'justify-center',
       'gap-2',
@@ -16,14 +15,17 @@ export const buttonStyles = tv({
       'transition-all',
     ],
     contentContainer: ['flex', 'items-center', 'justify-center', 'gap-2'],
-    startContent: ['inline-flex', 'mr-1'],
-    endContent: ['inline-flex', 'ml-1'],
-    spinner: ['inline-flex', 'mx-1'],
+    startContent: ['flex', 'items-center', 'shrink-0'],
+    endContent: ['flex', 'items-center', 'shrink-0'],
+    spinner: ['flex', 'items-center', 'shrink-0'],
   },
   variants: {
     fullWidth: {
       true: {
-        base: 'w-full',
+        base: 'flex w-full',
+      },
+      false: {
+        base: 'inline-flex',
       },
     },
     isDisabled: {
@@ -31,5 +33,8 @@ export const buttonStyles = tv({
         base: 'opacity-50 cursor-not-allowed',
       },
     },
+  },
+  defaultVariants: {
+    fullWidth: false,
   },
 })

@@ -1,5 +1,11 @@
 # @xaui/web
 
+## 0.0.3
+
+### Patch Changes
+
+- Fix startContent and endContent layout in Button web component by using flexbox and removing redundant margins.
+
 ## 0.0.2
 
 ### Patch Changes
