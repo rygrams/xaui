@@ -26,8 +26,9 @@ export default function HomeScreen() {
         },
       ]}
     >
-      <ActivityIndicator variant="linear" size={4} showTrack themeColor="secondary" />
+      <ActivityIndicator variant="linear" size={2} showTrack themeColor="secondary" />
       <ActivityIndicator variant="circular" size={40} themeColor="danger" />
+      <ActivityIndicator variant="linear" size={3} themeColor="danger" />
     </View>
   )
 }

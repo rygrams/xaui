@@ -1,1 +1,1 @@
-export { withOpacity } from './utils/colors-utils'
+export { withOpacity, getSafeThemeColor } from './utils/colors-utils'

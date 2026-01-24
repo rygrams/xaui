@@ -3,6 +3,7 @@ import { Animated, Easing, Platform, View } from 'react-native'
 import { useXUITheme } from '../../core'
 import { styles } from './indicator.style'
 import type { ActivityIndicatorProps } from './indicator.type'
+import { getSafeThemeColor } from '@xaui/core'
 
 const DURATION = 1800
 
@@ -12,6 +13,7 @@ export const CircularActivityIndicator: React.FC<ActivityIndicatorProps> = ({
   color,
   backgroundColor,
   disableAnimation = false,
+  showTrack = true,
 }) => {
   const theme = useXUITheme()
   const { current: timer } = useRef<Animated.Value>(new Animated.Value(0))
@@ -42,9 +44,12 @@ export const CircularActivityIndicator: React.FC<ActivityIndicatorProps> = ({
     else stopRotation()
   }, [disableAnimation, startRotation, timer])
 
-  const colorScheme = theme.colors[themeColor]
+  const safeThemeColor = getSafeThemeColor(themeColor)
+  const colorScheme = theme.colors[safeThemeColor]
   const mainColor = color || colorScheme.main
-  const trackColor = backgroundColor || 'transparent'
+  const trackColor = showTrack
+    ? (backgroundColor ?? colorScheme.background)
+    : 'transparent'
 
   const strokeWidth = size * 0.1
   const frames = (60 * DURATION) / 1000

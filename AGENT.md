@@ -150,6 +150,7 @@ The project uses GitHub Actions with the following workflow:
 - Use workspace: \* for dependencies
 - Dont use react-native-reanimated, use built-in Reanimated from react-native
 - Package name should be in singular form
+- dont use css file for styling use tailwind for styling or framer-motion for animations
 
 ## Commit Message Guidelines
 

@@ -1,6 +1,8 @@
-# CLAUDE.md
+---
+trigger: always_on
+---
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Agent when working with code in this repository.
 
 ## Project Overview
 
@@ -130,6 +132,28 @@ The project uses GitHub Actions with the following workflow:
    - Uses Changesets action to create release PRs or publish to npm
    - Only builds `@xaui/*` scoped packages before publishing
 
+## Code Best Practices
+
+- Dont add any console.log or console.error
+- Dont add any debugger statements
+- Dont add any comments that are not needed
+- Avoid deep code nesting like if (condition) { if (condition) { if (condition) { } } } or for (let i = 0; i < 10; i++) { if (condition) { if (condition) { if (condition) { } } } }
+- Use early returns to avoid deep code nesting
+- Use early returns to avoid deep code nesting
+- Avoid any type as much as possible
+- For each component create a test file and run test after each component update
+- create a test file for each component in `/__tests__` with same path as component
+  example: `packages/core/src/components/button/index.tsx` -> `packages/core/src/__tests__/components/button/index.test.tsx`
+- run test and lint after each component code change
+
+## Package Guidelines
+
+- Use pnpm for package management
+- Use workspace: \* for dependencies
+- Dont use react-native-reanimated, use built-in Reanimated from react-native
+- Package name should be in singular form
+- dont use css file for styling use tailwind for styling or framer-motion for animations
+
 ## Commit Message Guidelines
 
 - generate a commit message with commitizen specification
@@ -144,28 +168,7 @@ The project uses GitHub Actions with the following workflow:
 - We are in alpha mode so keep all change to patch
 - if multiple package updated apply changesets for each
 - verify last commit on branch for pull request global implementation description
-
-## Code Best Practices
-
-- Dont add any console.log or console.error
-- Dont add any debugger statements
-- Dont add any comments that are not needed
-- Avoid deep code nesting like if (condition) { if (condition) { if (condition) { } } } or for (let i = 0; i < 10; i++) { if (condition) { if (condition) { if (condition) { } } } }
-- Use early returns to avoid deep code nesting
-- Use early returns to avoid deep code nesting
-- Avoid any type as much as possible
-- create a test file for each component in `/__tests__` with same path as component
-  example: `packages/core/src/components/button/index.tsx` -> `packages/core/src/__tests__/components/button/index.test.tsx`
-- run test and lint after each component code change
-
-## Package Guidelines
-
-- Use pnpm for package management
-- Use workspace: \* for dependencies
-- Dont use react-native-reanimated, use built-in Reanimated from react-native
 - Add test for each component you code or update
-- Package name should be in singular form
-- dont use css file for styling use tailwind for styling or framer-motion for animations
 
 ## Component Structure
 
@@ -192,6 +195,7 @@ Example of component structure:
 - run test and lint after each component code change
 - export component as @xaui/mobile/button , @xaui/web/button so improve tsup.config.ts based on component development
 - each component should be exports in package.json as independent export
+- for react-native use as possible stylesheets and always apply theme in component
 
 example :
 
