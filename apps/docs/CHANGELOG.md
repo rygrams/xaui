@@ -1,5 +1,12 @@
 # docs
 
+## 0.1.5
+
+### Patch Changes
+
+- Updated dependencies [d910b08]
+  - @xaui/web@0.0.2
+
 ## 0.1.4
 
 ### Patch Changes
