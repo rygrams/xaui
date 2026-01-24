@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { useXUITheme } from '../../core'
 import { indicatorStyles } from './indicator.style'
 import type { ActivityIndicatorProps } from './indicator.type'
+import { getSafeThemeColor } from '@xaui/core'
 
 const DURATION_SECONDS = 2
 const PRIMARY_TRANSLATE_OFFSET = 1.45167
@@ -13,15 +14,13 @@ const toPercent = (value: number, offset: number) => `${(value - offset) * 100}%
 const buildTimes = (durations: number[]) => {
   const total = durations.reduce((sum, duration) => sum + duration, 0)
   let acc = 0
-  const times = [0]
 
-  for (let i = 0; i < durations.length - 1; i += 1) {
-    acc += durations[i]
-    times.push(acc / total)
-  }
+  const intermediateTimes = durations.slice(0, -1).map(duration => {
+    acc += duration
+    return acc / total
+  })
 
-  times.push(1)
-  return times
+  return [0, ...intermediateTimes, 1]
 }
 
 const primaryTranslateKeyframes = [0, 0, 0.836714, 2.00611].map(value =>
@@ -72,7 +71,9 @@ export const LinearActivityIndicator: React.FC<ActivityIndicatorProps> = ({
 }) => {
   const { base, track } = indicatorStyles({ variant: 'linear' })
   const theme = useXUITheme()
-  const colorScheme = theme.colors[themeColor]
+  const safeThemeColor = getSafeThemeColor(themeColor)
+  const colorScheme = theme.colors[safeThemeColor]
+
   const mainColor = color ?? colorScheme.main
   const trackColor =
     backgroundColor ?? (showTrack ? colorScheme.background : 'transparent')

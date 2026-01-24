@@ -3,6 +3,7 @@ import { motion } from 'framer-motion'
 import { useXUITheme } from '../../core'
 import { indicatorStyles } from './indicator.style'
 import type { ActivityIndicatorProps } from './indicator.type'
+import { getSafeThemeColor } from '@xaui/core'
 
 const DURATION = 1.5
 const EASING = [0.4, 0, 0.7, 1] as const
@@ -51,8 +52,11 @@ export const CircularActivityIndicator: React.FC<ActivityIndicatorProps> = ({
   className,
 }) => {
   const { base } = indicatorStyles({ variant: 'circular' })
+
   const theme = useXUITheme()
-  const colorScheme = theme.colors[themeColor]
+  const safeThemeColor = getSafeThemeColor(themeColor)
+  const colorScheme = theme.colors[safeThemeColor]
+
   const resolvedColor = color ?? colorScheme.main
   const resolvedBackground =
     backgroundColor ?? (showTrack ? colorScheme.background : 'transparent')
@@ -151,7 +155,7 @@ export const CircularActivityIndicator: React.FC<ActivityIndicatorProps> = ({
                         ? { y: index ? -size / 2 : 0, rotate: keyframes[0] }
                         : { y: index ? -size / 2 : 0, rotate: keyframes }
                     }
-                   transition={
+                    transition={
                       disableAnimation
                         ? { duration: 0 }
                         : {
@@ -163,7 +167,7 @@ export const CircularActivityIndicator: React.FC<ActivityIndicatorProps> = ({
                             repeatDelay: 0,
                             times,
                           }
-                        }
+                    }
                   >
                     <div
                       style={{

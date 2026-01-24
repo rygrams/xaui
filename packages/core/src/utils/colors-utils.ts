@@ -11,3 +11,21 @@ export function withOpacity(color: string, opacity: number): string {
     .padStart(2, '0')
   return `${color}${alpha}`
 }
+
+const validThemeColors = [
+  'primary',
+  'secondary',
+  'tertiary',
+  'danger',
+  'warning',
+  'success',
+  'default',
+] as const
+
+export function getSafeThemeColor(themeColor: string): ValidThemeColor {
+  return validThemeColors.includes(themeColor as ValidThemeColor)
+    ? (themeColor as ValidThemeColor)
+    : 'primary'
+}
+
+export type ValidThemeColor = (typeof validThemeColors)[number]
