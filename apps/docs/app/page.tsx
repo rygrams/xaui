@@ -1,9 +1,9 @@
 'use client'
 
 import { XUIProvider } from '@xaui/web/core'
-import { Progress } from '@xaui/web/progress'
-import { ActivityIndicator } from '@xaui/web/indicator'
 import { useState, useEffect } from 'react'
+import { Button } from '@xaui/web/button'
+import { ActivityIndicator } from '@xaui/web/indicator'
 
 export default function Home() {
   const [value, setValue] = useState(0.1)
@@ -18,14 +18,11 @@ export default function Home() {
   return (
     <XUIProvider>
       <div className="p-20 space-y-3">
-        <ActivityIndicator showTrack themeColor="secondary" />
-        <ActivityIndicator
-          variant="linear"
-          themeColor="primary"
-          showTrack
-          size={2}
-          className="w-96"
-        />
+        <ActivityIndicator variant="circular" size={8} showTrack themeColor="secondary" />
+
+        <Button themeColor="primary" isLoading className="w-100">
+          Button
+        </Button>
       </div>
     </XUIProvider>
   )

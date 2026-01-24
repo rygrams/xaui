@@ -23,6 +23,11 @@
       "import": "./dist/core/index.js",
       "require": "./dist/core/index.js"
     },
+    "./button": {
+      "types": "./dist/button/index.d.ts",
+      "import": "./dist/button/index.js",
+      "require": "./dist/button/index.js"
+    },
     "./progress": {
       "types": "./dist/progress/index.d.ts",
       "import": "./dist/progress/index.js",

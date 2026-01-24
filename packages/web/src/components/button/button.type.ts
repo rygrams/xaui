@@ -1,5 +1,4 @@
-import { ReactNode } from 'react'
-import type { TextStyle, ViewStyle, GestureResponderEvent } from 'react-native'
+import type { ReactNode, ButtonHTMLAttributes } from 'react'
 import type { ThemeColor } from '../../types'
 
 export type ButtonVariant = 'solid' | 'outlined' | 'flat' | 'light' | 'elevated' | 'faded'
@@ -7,7 +6,10 @@ export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg'
 export type ButtonRadius = 'none' | 'sm' | 'md' | 'lg' | 'full'
 export type SpinnerPlacement = 'start' | 'end'
 
-export type ButtonProps = {
+export type ButtonProps = Omit<
+  ButtonHTMLAttributes<HTMLButtonElement>,
+  'disabled' | 'children' | 'onAnimationStart' | 'onDragStart' | 'onDragEnd' | 'onDrag'
+> & {
   /**
    * The content to display in the button.
    */
@@ -60,28 +62,4 @@ export type ButtonProps = {
    * @default false
    */
   isLoading?: boolean
-  /**
-   * Custom text style for the button label.
-   */
-  textStyle?: TextStyle
-  /**
-   * Custom style for the button container.
-   */
-  style?: ViewStyle
-  /**
-   * Callback fired when the button is pressed.
-   */
-  onPress?: (event: GestureResponderEvent) => void
-  /**
-   * Callback fired when the button is long pressed.
-   */
-  onLongPress?: (event: GestureResponderEvent) => void
-  /**
-   * Callback fired when the button press starts.
-   */
-  onPressIn?: (event: GestureResponderEvent) => void
-  /**
-   * Callback fired when the button press ends.
-   */
-  onPressOut?: (event: GestureResponderEvent) => void
 }

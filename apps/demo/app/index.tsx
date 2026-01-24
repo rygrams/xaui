@@ -1,6 +1,6 @@
 import { useXUIColors, useXUITheme } from '@xaui/mobile/core'
 import { StyleSheet, View } from 'react-native'
-import { ActivityIndicator } from '@xaui/mobile/indicator'
+import { Button } from '@xaui/mobile/button'
 import { useState, useEffect } from 'react'
 
 export default function HomeScreen() {
@@ -26,9 +26,9 @@ export default function HomeScreen() {
         },
       ]}
     >
-      <ActivityIndicator variant="linear" size={2} showTrack themeColor="secondary" />
-      <ActivityIndicator variant="circular" size={40} themeColor="danger" />
-      <ActivityIndicator variant="linear" size={3} themeColor="danger" />
+      <Button themeColor="primary" fullWidth>
+        Azure limpide
+      </Button>
     </View>
   )
 }
