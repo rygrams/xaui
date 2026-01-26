@@ -1,5 +1,12 @@
 # @xaui/mobile
 
+## 0.0.2
+
+### Patch Changes
+
+- Fix TypeScript errors in button hook tests and resolve linting issues
+- Add safe theme color access in button hook to prevent runtime errors with missing color schemes
+
 ## 0.0.1
 
 ### Patch Changes

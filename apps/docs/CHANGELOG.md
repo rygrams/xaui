@@ -1,5 +1,13 @@
 # docs
 
+## 0.1.8
+
+### Patch Changes
+
+- Fix TypeScript errors in button hook tests and resolve linting issues
+- Updated dependencies
+  - @xaui/hybrid@0.0.2
+
 ## 0.1.7
 
 ### Patch Changes
