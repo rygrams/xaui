@@ -28,12 +28,15 @@ const Animated = {
     Component: React.ComponentType<T>
   ) => {
     return (props: T & { animatedProps?: Record<string, unknown> }) => {
-      const { animatedProps, style, ...rest } = props as any
+      const { animatedProps, style, ...rest } = props as T & {
+        animatedProps?: Record<string, unknown>
+        style?: unknown
+      }
       const finalProps = {
         ...rest,
         style: flattenStyle(style),
         ...(animatedProps || {}),
-      } as T
+      } as unknown as T
       return React.createElement(Component, finalProps)
     }
   },

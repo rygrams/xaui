@@ -1,18 +1,9 @@
 'use client'
 
 import { XUIProvider } from '@xaui/hybrid/core'
-import { useState, useEffect } from 'react'
 import { Button } from '@xaui/hybrid/button'
 
 export default function Home() {
-  const [value, setValue] = useState(0.1)
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setValue(prevValue => (prevValue >= 1 ? 0 : prevValue + 0.05))
-    }, 1000)
-    return () => clearInterval(interval)
-  }, [])
 
   return (
     <XUIProvider>
