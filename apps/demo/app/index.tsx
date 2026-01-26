@@ -1,6 +1,6 @@
-import { useXUIColors, useXUITheme } from '@xaui/mobile/core'
+import { useXUIColors, useXUITheme } from '@xaui/native/core'
 import { StyleSheet, View } from 'react-native'
-import { Button } from '@xaui/mobile/button'
+import { Button } from '@xaui/native/button'
 import { useState, useEffect } from 'react'
 
 export default function HomeScreen() {

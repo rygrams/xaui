@@ -1,9 +1,8 @@
 'use client'
 
-import { XUIProvider } from '@xaui/web/core'
+import { XUIProvider } from '@xaui/hybrid/core'
 import { useState, useEffect } from 'react'
-import { Button } from '@xaui/web/button'
-import { ActivityIndicator } from '@xaui/web/indicator'
+import { Button } from '@xaui/hybrid/button'
 
 export default function Home() {
   const [value, setValue] = useState(0.1)

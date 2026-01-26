@@ -1,11 +1,11 @@
-# @xaui/mobile
+# @xaui/native
 
 Mobile UI components and utilities for XUI.
 
 ## Installation
 
 ```bash
-pnpm add @xaui/mobile
+pnpm add @xaui/native
 ```
 
 ## Peer Dependencies

@@ -1,11 +1,11 @@
-# @xaui/web
+# @xaui/hybrid
 
-Web UI components and utilities for XUI.
+Hybrid UI components and utilities for XUI.
 
 ## Installation
 
 ```bash
-pnpm add @xaui/web
+pnpm add @xaui/hybrid
 ```
 
 ## Peer Dependencies
