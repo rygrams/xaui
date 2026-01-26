@@ -1,6 +1,8 @@
-import { useXUIColors, useXUITheme } from '@xaui/mobile/core'
-import { StyleSheet, View } from 'react-native'
-import { ActivityIndicator } from '@xaui/mobile/indicator'
+import { useXUIColors, useXUITheme } from '@xaui/native/core'
+import { StyleSheet, View, Text } from 'react-native'
+import { Button } from '@xaui/native/button'
+import { Progress } from '@xaui/native/progress'
+import { ActivityIndicator } from '@xaui/native/indicator'
 import { useState, useEffect } from 'react'
 
 export default function HomeScreen() {
@@ -26,9 +28,54 @@ export default function HomeScreen() {
         },
       ]}
     >
-      <ActivityIndicator variant="linear" size={2} showTrack themeColor="secondary" />
-      <ActivityIndicator variant="circular" size={40} themeColor="danger" />
-      <ActivityIndicator variant="linear" size={3} themeColor="danger" />
+      <Button
+        variant="solid"
+        size="xs"
+        spinnerPlacement="end"
+        isLoading
+        themeColor="primary"
+        startContent={<Text>🚀</Text>}
+        fullWidth
+      >
+        Azure limpide
+      </Button>
+      <Button
+        variant="solid"
+        size="sm"
+        spinnerPlacement="end"
+        isLoading
+        themeColor="secondary"
+        startContent={<Text>🚀</Text>}
+        fullWidth
+      >
+        Azure limpide
+      </Button>
+      <Button
+        variant="solid"
+        size="md"
+        spinnerPlacement="end"
+        isLoading
+        themeColor="success"
+        startContent={<Text>🚀</Text>}
+        fullWidth
+      >
+        Azure limpide
+      </Button>
+      <Button
+        variant="solid"
+        size="lg"
+        spinnerPlacement="end"
+        isLoading
+        themeColor="warning"
+        startContent={<Text>🚀</Text>}
+        fullWidth
+      >
+        Azure limpide
+      </Button>
+      <Progress value={0.5} />
+      <Progress value={0.5} variant="circular" />
+      <ActivityIndicator variant="linear" showTrack />
+      <ActivityIndicator showTrack />
     </View>
   )
 }

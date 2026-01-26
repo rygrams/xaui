@@ -1,132 +1,65 @@
 # XAUI Library
 
 > [!WARNING]
-> **🚧 VERSION ALPHA - EN DÉVELOPPEMENT ACTIF 🚧**
+> **🚧 ALPHA VERSION — ACTIVE DEVELOPMENT 🚧**
 >
-> Cette bibliothèque est actuellement en version alpha et n'est pas encore prête pour la production. L'API peut changer de manière significative entre les versions.
+> This library is evolving rapidly. Public APIs may change without notice as the project matures.
 
-A modern and performant React Native UI library, heavily inspired by Flutter, with smooth animations and a Turborepo architecture.
+XAUI is a Flutter-inspired component system targeting React Native, hybrid web/native experiences, and interactive documentation within a Turborepo monorepo. The thematic core (`@xaui/core`) centralises tokens, dynamic theming, and motion primitives. Platform-specific packages build on that foundation to deliver native-ready, hybrid, and documentation-focused tooling.
 
-## 📦 Installation
+## Monorepo architecture
 
-### For Expo Projects
+- **Package manager & task runner**: `pnpm` (v10+) for installations and `turbo` for orchestrating builds, linting, and tests.
+- **Build graph**: `turbo run build` compiles every workspace and emits outputs under `dist/**` or `.next/**` depending on the target.
+- **Quality pipeline**: `vitest` for tests, `eslint`/`@typescript-eslint` for linting, `prettier` for formatting, and `changesets` for release automation.
 
-Install the core package:
+## Key workspaces
 
-```bash
-npx expo install @xaui/core
-```
+### Packages
+- `@xaui/core` — shared theme tokens (colors, spacing, typography, shadows) plus hooks like `useXUITheme` and `useColorMode`. It is the source of truth for all downstream packages.
+- `@xaui/native` — React Native components (animated buttons, circular/linear indicators, hooks, `XUIProvider`) that leverage `@xaui/core` while exposing mobile-first helpers (variants, spinner, lightweight animation states powered by Reanimated).
+- `@xaui/hybrid` — hybrid React/ReactDOM package layered with `framer-motion` and `tailwindcss` for web-first experiences. In-depth documentation is still pending (`packages/hybrid/README.md`).
 
-If you want to use the color utilities separately:
+### Applications
+- `apps/demo` — Expo-based sandbox (with `app` router + `app.json`) showcasing mobile usage patterns.
+- `apps/docs` — Next.js-powered documentation site (`app/` directory, `next/font`, content in `apps/docs/contents`).
+- `apps/mcp` — placeholder (only `.gitkeep`) reserved for future tooling or internal console.
 
-```bash
-npx expo install @xaui/colors
-```
+## Getting started
 
-### For React Native CLI Projects
+1. Install dependencies from the root: `pnpm install`.
+2. Run `pnpm dev` to start `turbo run dev` (each workspace watches files).
+3. Target a specific workspace with `pnpm --filter=<workspace> dev` (e.g., `pnpm --filter=apps/demo dev`).
 
-```bash
-npm install @xaui/core
-# or
-yarn add @xaui/core
-# or
-pnpm add @xaui/core
-```
+### Useful scripts
 
-## 🎨 Quick Start
+- `pnpm build` → `turbo run build` (compile everything).
+- `pnpm test` → `turbo run test` (depends on `build`; runs all Vitest suites).
+- `pnpm lint` → `turbo run lint`.
+- `pnpm format` → `prettier --write "**/*.{ts,tsx,md}"`.
+- `pnpm type-check` → `turbo run type-check`.
 
-### Setup XUIProvider
+App-level instructions (Expo, Next.js) remain in `apps/demo/README.md` and `apps/docs/README.md` respectively.
 
-Wrap your app with `XUIProvider` to enable theming:
+## Testing & validation
 
-```typescript
-import { XUIProvider } from '@xaui/core'
+- Unit tests run with `vitest` (config in `vitest.config.ts` at the root).
+- Each package keeps its own `__tests__` folder under `packages/*/__tests__`.
+- `turbo` ensures `test`, `lint`, and `type-check` run after a fresh `build` pass.
 
-export default function App() {
-  return (
-    <XUIProvider>
-      {/* Your app content */}
-    </XUIProvider>
-  )
-}
-```
+## Release workflow
 
-### Custom Theme
+Release automation relies on `@changesets/cli`:
 
-Provide a custom theme with partial overrides:
+- `pnpm changeset` creates change files describing API/dep updates.
+- `pnpm version-packages` (alias `pnpm version`) adjusts versions and regenerates CHANGELOGs.
+- `pnpm release` builds all `@xaui/*` packages (`turbo run build --filter=@xaui/*`) and runs `changeset publish`.
 
-```typescript
-import { XUIProvider } from '@xaui/core'
+## Resources
 
-const customTheme = {
-  colors: {
-    primary: '#FF6B6B',
-    onPrimary: '#FFFFFF',
-    primarySurface: '#FFE5E5',
-  },
-}
+- `packages/core/README.md` details the theme system and shared APIs.
+- `packages/native/README.md` explains mobile components, hooks, and providers.
+- `packages/hybrid/README.md` currently states “no doc yet” but lists installation/dependency info.
+- `apps/docs/README.md` and `apps/demo/README.md` cover Next.js and Expo workflows.
 
-export default function App() {
-  return (
-    <XUIProvider theme={customTheme}>
-      {/* Your app content */}
-    </XUIProvider>
-  )
-}
-```
-
-### Light/Dark Mode
-
-Enable automatic theme switching based on system preferences:
-
-```typescript
-import { XUIProvider, theme, darkTheme } from '@xaui/core'
-
-export default function App() {
-  return (
-    <XUIProvider theme={theme} darkTheme={darkTheme}>
-      {/* Automatically switches between light and dark themes */}
-    </XUIProvider>
-  )
-}
-```
-
-## 🚀 Features
-
-- **Turborepo Architecture**: Optimized monorepo for rapid development
-- **Flutter-like API**: Intuitive style props inspired by Flutter
-- **Complete Design System**: Tailwind-inspired color palette (20+ colors × 11 shades)
-- **Powerful Theme System**: Dynamic theming with light/dark mode support
-- **Next.js Documentation**: Interactive documentation with live examples
-- **TypeScript First**: Fully typed for better DX
-- **Integrated Tests**: Vitest configuration with comprehensive coverage
-- **CI/CD Ready**: GitHub Actions configured with Changesets for versioning
-
-## 📦 Components
-
-### Available Components
-
-#### Theme & Core
-- 🎨 [**XUIProvider**](./packages/core/core) - Theme provider with light/dark mode support
-- 🌈 [**Colors**](./packages/core/colors) - Tailwind-inspired color palette (20+ colors × 11 shades)
-
-#### Buttons
-- 🔘 [**Button**](./packages/components/buttons#button) - Versatile button component with 6 variants, loading states, and ripple effects
-- 🎯 [**IconButton**](./packages/components/buttons#iconbutton) - Icon-only button optimized for actions with transparent default
-
-#### Progress Indicators
-- 🔄 [**CircularActivityIndicator**](./packages/components/progress) - Animated activity indicators with 3 variants (spinner, ticks, bullets)
-
-#### Form Controls
-- ☑️ [**Checkbox**](./packages/components/checkboxes) - Customizable checkbox component with filled and light variants
-- 🔘 [**Switch**](./packages/components/switches) - Toggle switch component with inside and overlap variants
-- 🧭 [**Select**](./packages/components/select) - Select component with single/multiple selection and variants
-
-### Coming Soon
-
-- ☐ **Radio** - Radio button component
-- ☐ **Input** - Text input with validation
-- ☐ **Card** - Container component with variants
-- ☐ **Modal** - Dialog and modal system
-- ☐ **Toast** - Notification system
-- ☐ **Dropdown** - Dropdown menu component
+For questions, open an issue or follow the future MCP guidelines when the cockpit app is defined.

@@ -169,12 +169,12 @@ The project uses GitHub Actions with the following workflow:
 
 ## Component Structure
 
-- components packages is under packages/mobile et packages/web respectively for react native and web
+- components packages is under packages/native et packages/hybrid respectively for react native and mobile webview
 
 Example of component structure:
 
 - packages/
-  - mobile|web\
+  - native|hy\
   - hooks\ -- all shared hooks
   - types\ -- all shared types
   - utils\ -- components utils
@@ -190,7 +190,7 @@ Example of component structure:
     - index.ts --button exports
 
 - run test and lint after each component code change
-- export component as @xaui/mobile/button , @xaui/web/button so improve tsup.config.ts based on component development
+- export component as @xaui/native/button , @xaui/hybrid/button so improve tsup.config.ts based on component development
 - each component should be exports in package.json as independent export
 
 example :

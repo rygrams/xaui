@@ -1,7 +1,7 @@
 {
   "name": "demo",
   "main": "expo-router/entry",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "scripts": {
     "dev": "expo start",
     "reset-project": "node ./scripts/reset-project.js",
@@ -38,7 +38,7 @@
     "react-native-svg": "^15.8.0",
     "react-native-web": "~0.21.0",
     "@xaui/core": "workspace:*",
-    "@xaui/mobile": "workspace:*"
+    "@xaui/native": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "~19.1.0",
