@@ -3,6 +3,7 @@ import { tv } from 'tailwind-variants'
 export const buttonStyles = tv({
   slots: {
     base: [
+      'inline-flex',
       'items-center',
       'justify-center',
       'gap-2',
@@ -13,16 +14,15 @@ export const buttonStyles = tv({
       'cursor-pointer',
       'select-none',
       'transition-all',
+      'subpixel-antialiased',
+      'tap-highlight-transparent',
+      'transform-gpu',
     ],
-    contentContainer: ['flex', 'items-center', 'justify-center', 'gap-2'],
-    startContent: ['flex', 'items-center', 'shrink-0'],
-    endContent: ['flex', 'items-center', 'shrink-0'],
-    spinner: ['flex', 'items-center', 'shrink-0'],
   },
   variants: {
     fullWidth: {
       true: {
-        base: 'flex w-full',
+        base: 'w-full',
       },
       false: {
         base: 'inline-flex',

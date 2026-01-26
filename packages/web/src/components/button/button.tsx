@@ -26,13 +26,7 @@ export const Button: React.FC<ButtonProps> = ({
 }) => {
   const [isPressed, setIsPressed] = useState(false)
 
-  const {
-    base,
-    contentContainer,
-    startContent: startContentClass,
-    endContent: endContentClass,
-    spinner,
-  } = buttonStyles({ fullWidth, isDisabled })
+  const { base } = buttonStyles({ fullWidth, isDisabled })
 
   const { sizeStyles, radiusStyles, variantStyles, textColor, spinnerSize } =
     useButtonStyles(themeColor, variant, size, radius)
@@ -92,25 +86,11 @@ export const Button: React.FC<ButtonProps> = ({
         ease: 'easeInOut',
       }}
     >
-      <div className={contentContainer()}>
-        {startContent && !isLoading && (
-          <div className={startContentClass()}>{startContent}</div>
-        )}
-
-        {isLoading && spinnerPlacement === 'start' && (
-          <div className={spinner()}>{spinnerElement}</div>
-        )}
-
-        <span>{children}</span>
-
-        {isLoading && spinnerPlacement === 'end' && (
-          <div className={spinner()}>{spinnerElement}</div>
-        )}
-
-        {endContent && !isLoading && (
-          <div className={endContentClass()}>{endContent}</div>
-        )}
-      </div>
+      {startContent}
+      {isLoading && spinnerPlacement === 'start' && spinnerElement}
+      {children}
+      {isLoading && spinnerPlacement === 'end' && spinnerElement}
+      {endContent}
     </motion.button>
   )
 }

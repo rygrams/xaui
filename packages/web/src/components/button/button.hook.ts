@@ -21,6 +21,7 @@ export const useButtonStyles = (
         paddingBottom: `${theme.spacing.xs}px`,
         minHeight: '28px',
         fontSize: `${theme.fontSizes.xs}px`,
+        lineHeight: '1',
       },
       sm: {
         paddingLeft: `${theme.spacing.md}px`,
@@ -29,6 +30,7 @@ export const useButtonStyles = (
         paddingBottom: `${theme.spacing.xs}px`,
         minHeight: '32px',
         fontSize: `${theme.fontSizes.sm}px`,
+        lineHeight: '1',
       },
       md: {
         paddingLeft: `${theme.spacing.md}px`,
@@ -37,6 +39,7 @@ export const useButtonStyles = (
         paddingBottom: `${theme.spacing.sm}px`,
         minHeight: '40px',
         fontSize: `${theme.fontSizes.md}px`,
+        lineHeight: '1',
       },
       lg: {
         paddingLeft: `${theme.spacing.lg}px`,
@@ -45,6 +48,7 @@ export const useButtonStyles = (
         paddingBottom: `${theme.spacing.md}px`,
         minHeight: '48px',
         fontSize: `${theme.fontSizes.lg}px`,
+        lineHeight: '1',
       },
     }
     return sizes[size]
