@@ -1,6 +1,8 @@
 import { useXUIColors, useXUITheme } from '@xaui/native/core'
 import { StyleSheet, View, Text } from 'react-native'
 import { Button } from '@xaui/native/button'
+import { Progress } from '@xaui/native/progress'
+import { ActivityIndicator } from '@xaui/native/indicator'
 import { useState, useEffect } from 'react'
 
 export default function HomeScreen() {
@@ -70,6 +72,10 @@ export default function HomeScreen() {
       >
         Azure limpide
       </Button>
+      <Progress value={0.5} />
+      <Progress value={0.5} variant="circular" />
+      <ActivityIndicator variant="linear" showTrack />
+      <ActivityIndicator showTrack />
     </View>
   )
 }
