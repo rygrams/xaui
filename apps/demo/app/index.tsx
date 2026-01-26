@@ -1,5 +1,5 @@
 import { useXUIColors, useXUITheme } from '@xaui/native/core'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, Text } from 'react-native'
 import { Button } from '@xaui/native/button'
 import { useState, useEffect } from 'react'
 
@@ -26,7 +26,48 @@ export default function HomeScreen() {
         },
       ]}
     >
-      <Button themeColor="primary" fullWidth>
+      <Button
+        variant="solid"
+        size="xs"
+        spinnerPlacement="end"
+        isLoading
+        themeColor="primary"
+        startContent={<Text>🚀</Text>}
+        fullWidth
+      >
+        Azure limpide
+      </Button>
+      <Button
+        variant="solid"
+        size="sm"
+        spinnerPlacement="end"
+        isLoading
+        themeColor="secondary"
+        startContent={<Text>🚀</Text>}
+        fullWidth
+      >
+        Azure limpide
+      </Button>
+      <Button
+        variant="solid"
+        size="md"
+        spinnerPlacement="end"
+        isLoading
+        themeColor="success"
+        startContent={<Text>🚀</Text>}
+        fullWidth
+      >
+        Azure limpide
+      </Button>
+      <Button
+        variant="solid"
+        size="lg"
+        spinnerPlacement="end"
+        isLoading
+        themeColor="warning"
+        startContent={<Text>🚀</Text>}
+        fullWidth
+      >
         Azure limpide
       </Button>
     </View>

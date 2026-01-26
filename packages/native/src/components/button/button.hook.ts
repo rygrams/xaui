@@ -17,25 +17,25 @@ export const useButtonStyles = (
       xs: {
         paddingHorizontal: theme.spacing.sm,
         paddingVertical: theme.spacing.xs,
-        minHeight: 28,
+        minHeight: 34,
         fontSize: theme.fontSizes.xs,
       },
       sm: {
         paddingHorizontal: theme.spacing.md,
         paddingVertical: theme.spacing.xs,
-        minHeight: 32,
+        minHeight: 38,
         fontSize: theme.fontSizes.sm,
       },
       md: {
         paddingHorizontal: theme.spacing.md,
         paddingVertical: theme.spacing.sm,
-        minHeight: 40,
+        minHeight: 42,
         fontSize: theme.fontSizes.md,
       },
       lg: {
         paddingHorizontal: theme.spacing.lg,
         paddingVertical: theme.spacing.md,
-        minHeight: 48,
+        minHeight: 50,
         fontSize: theme.fontSizes.lg,
       },
     }
