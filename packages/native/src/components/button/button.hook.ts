@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import { useXUITheme } from '../../core'
 import type { ButtonVariant, ButtonSize, ButtonRadius } from './button.type'
 import type { ThemeColor } from '../../types'
+import { getSafeThemeColor } from '@xaui/core'
 
 export const useButtonStyles = (
   themeColor: ThemeColor,
@@ -10,7 +11,10 @@ export const useButtonStyles = (
   radius: ButtonRadius
 ) => {
   const theme = useXUITheme()
-  const colorScheme = theme.colors[themeColor]
+
+  //access themeColor safely returns default color if themeColor is not found
+  const safeThemeColor = getSafeThemeColor(themeColor)
+  const colorScheme = theme.colors[safeThemeColor]
 
   const sizeStyles = useMemo(() => {
     const sizes = {
