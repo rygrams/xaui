@@ -1,5 +1,13 @@
 # demo
 
+## 1.0.12
+
+### Patch Changes
+
+- Update demo app to showcase Button, Progress, and ActivityIndicator components with diverse configurations
+- Updated dependencies
+  - @xaui/native@0.0.1
+
 ## 1.0.11
 
 ### Patch Changes

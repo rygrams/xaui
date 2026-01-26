@@ -1,5 +1,13 @@
 # docs
 
+## 0.1.7
+
+### Patch Changes
+
+- Rewrite documentation to detail monorepo architecture and expand package usage instructions
+- Updated dependencies
+  - @xaui/hybrid@0.0.1
+
 ## 0.1.6
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @xaui/web
 
+## 0.0.1
+
+### Patch Changes
+
+- Introduce hybrid package with Button component featuring full TypeScript support, comprehensive tests, custom hooks, and Framer Motion animations
+
 ## 0.0.3
 
 ### Patch Changes

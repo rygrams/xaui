@@ -1,5 +1,11 @@
 # @xaui/mobile
 
+## 0.0.1
+
+### Patch Changes
+
+- Introduce native package with Button, Progress, and ActivityIndicator components featuring full TypeScript support, comprehensive tests, and React Native Reanimated animations
+
 ## 0.0.3
 
 ### Patch Changes
