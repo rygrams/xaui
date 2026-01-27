@@ -8,6 +8,7 @@ export default defineConfig({
     'checkbox/index': 'src/components/checkbox/index.ts',
     'progress/index': 'src/components/progress/index.ts',
     'indicator/index': 'src/components/indicator/index.ts',
+    'switch/index': 'src/components/switch/index.ts',
   },
   format: ['cjs', 'esm'],
   dts: true,
