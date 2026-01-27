@@ -5,8 +5,9 @@ export const styles = StyleSheet.create({
     gap: 6,
   },
   fullWidth: {
-    flexGrow: 1,
-    minWidth: 0,
+    flexShrink: 1,
+    flexBasis: 'auto',
+    width: '100%',
   },
   minWidth: {
     minWidth: 170,

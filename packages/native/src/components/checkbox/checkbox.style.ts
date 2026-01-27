@@ -7,8 +7,9 @@ export const styles = StyleSheet.create({
     gap: 10,
   },
   fullWidth: {
-    flexGrow: 1,
-    minWidth: 0,
+    flexShrink: 1,
+    flexBasis: 'auto',
+    width: '100%',
   },
   checkbox: {
     alignItems: 'center',

@@ -34,7 +34,7 @@ export const Button: React.FC<ButtonProps> = ({
     if (!isDisabled && !isLoading) {
       Animated.parallel([
         Animated.spring(animatedScale, {
-          toValue: 0.98,
+          toValue: 0.975,
           useNativeDriver: true,
           speed: 50,
           bounciness: 0,

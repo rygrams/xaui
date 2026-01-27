@@ -27,8 +27,9 @@ export const styles = StyleSheet.create({
     marginHorizontal: 4,
   },
   fullWidth: {
-    flexGrow: 1,
-    minWidth: 0,
+    flexShrink: 1,
+    flexBasis: 'auto',
+    width: '100%',
   },
   disabled: {
     opacity: 0.5,
