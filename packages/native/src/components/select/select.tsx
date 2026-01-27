@@ -206,15 +206,13 @@ export const Select: React.FC<SelectProps> = ({
     setOpen(false)
   }
 
-  const renderLabel = label
-    ? typeof label === 'string' || typeof label === 'number'
-      ? (
-          <Text style={[styles.label, labelStyle]}>{label}</Text>
-        )
-      : (
-          <View>{label}</View>
-        )
-    : null
+  const renderLabel = label ? (
+    typeof label === 'string' || typeof label === 'number' ? (
+      <Text style={[styles.label, labelStyle]}>{label}</Text>
+    ) : (
+      <View>{label}</View>
+    )
+  ) : null
   const dialogTitle =
     typeof label === 'string' || typeof label === 'number' ? String(label) : undefined
 
@@ -225,9 +223,7 @@ export const Select: React.FC<SelectProps> = ({
   const shouldShowHelper = Boolean(hint || errorMessage)
   const helperContent = isInvalid && errorMessage ? errorMessage : hint
 
-  const listboxWidth = fullWidth
-    ? (triggerWidth ?? triggerPosition?.width ?? 200)
-    : 280
+  const listboxWidth = fullWidth ? (triggerWidth ?? triggerPosition?.width ?? 200) : 280
 
   useEffect(() => {
     if (!isOpen) {
@@ -317,7 +313,8 @@ export const Select: React.FC<SelectProps> = ({
           variantStyles,
           {
             minHeight: sizeStyles.minHeight,
-            paddingHorizontal: variant === 'underlined' ? 2 : sizeStyles.paddingHorizontal,
+            paddingHorizontal:
+              variant === 'underlined' ? 2 : sizeStyles.paddingHorizontal,
             paddingVertical: sizeStyles.paddingVertical,
           },
           isDisabled && styles.disabled,
@@ -367,17 +364,13 @@ export const Select: React.FC<SelectProps> = ({
       ) : (
         triggerContent
       )}
-      {shouldShowHelper && helperContent
-        ? typeof helperContent === 'string' || typeof helperContent === 'number'
-          ? (
-              <Text style={[styles.helperText, { color: helperColor }]}>
-                {helperContent}
-              </Text>
-            )
-          : (
-              <View>{helperContent}</View>
-            )
-        : null}
+      {shouldShowHelper && helperContent ? (
+        typeof helperContent === 'string' || typeof helperContent === 'number' ? (
+          <Text style={[styles.helperText, { color: helperColor }]}>{helperContent}</Text>
+        ) : (
+          <View>{helperContent}</View>
+        )
+      ) : null}
 
       <Modal
         visible={isOpen}
@@ -408,10 +401,7 @@ export const Select: React.FC<SelectProps> = ({
                 <View style={styles.listboxContent}>
                   {dialogTitle ? (
                     <Text
-                      style={[
-                        styles.dialogTitle,
-                        { color: theme.colors.foreground },
-                      ]}
+                      style={[styles.dialogTitle, { color: theme.colors.foreground }]}
                     >
                       {dialogTitle}
                     </Text>

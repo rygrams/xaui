@@ -28,8 +28,6 @@ export const styles = StyleSheet.create({
   },
   fullWidth: {
     flexGrow: 1,
-    flexShrink: 1,
-    flexBasis: 0,
     minWidth: 0,
   },
   disabled: {

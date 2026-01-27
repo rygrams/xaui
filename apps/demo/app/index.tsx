@@ -45,20 +45,28 @@ export default function HomeScreen() {
         <SelectItem label="Guinea" value="option3" />
       </Select>
       <View
-        style={{ gap: theme.spacing.xs, flexDirection: 'row', alignItems: 'flex-start' }}
+        style={{
+          flexDirection: 'row',
+          alignItems: 'flex-end',
+          gap: theme.spacing.xs,
+        }}
       >
-        <Select placeholder="Select an option" size="md" label="les pays d'Afrique">
+        <Select
+          placeholder="Select"
+          size="md"
+          label="les pays d'Afrique"
+          labelPlacement="outside"
+        >
           <SelectItem label="Mali" value="option1" />
           <SelectItem label="Burkina Faso" value="option2" />
           <SelectItem label="Guinea" value="option3" />
         </Select>
         <Button
+          fullWidth
           variant="solid"
           size="md"
-          fullWidth
           spinnerPlacement="end"
           themeColor="primary"
-          startContent={<Text>🚀</Text>}
         >
           Azure
         </Button>

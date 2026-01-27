@@ -5,11 +5,11 @@ export const styles = StyleSheet.create({
     gap: 6,
   },
   fullWidth: {
-    width: '100%',
-    alignSelf: 'stretch',
+    flexGrow: 1,
+    minWidth: 0,
   },
   minWidth: {
-    minWidth: 200,
+    minWidth: 170,
   },
   label: {
     fontWeight: '500',
