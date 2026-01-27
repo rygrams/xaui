@@ -39,15 +39,48 @@ pnpm --filter docs test                    # Example: test docs app
 
 ## Release Process
 
-This project uses **Changesets** for versioning and publishing:
+This project uses **Changesets** for versioning and publishing with an automated CI/CD workflow:
+
+### Creating a Changeset (Required for Every PR)
+
+When you make changes to a package, create a changeset to document the changes:
 
 ```bash
 pnpm changeset              # Create a new changeset
-pnpm version-packages       # Update versions based on changesets
-pnpm release                # Build and publish packages to npm
 ```
 
-The release process builds only scoped `@xaui/*` packages before publishing.
+Follow the prompts:
+1. Select which packages changed (space to select, enter to confirm)
+2. Choose bump type: major, minor, or **patch** (we're in alpha, always use patch)
+3. Write a summary of the changes
+
+This creates a `.changeset/*.md` file. **Commit this file with your changes.**
+
+```bash
+git add .changeset/*.md
+git commit -m "chore: add changeset for feature X"
+```
+
+### IMPORTANT: Do NOT Run These Commands Locally
+
+❌ **NEVER** run `pnpm changeset version` locally
+❌ **NEVER** run `pnpm version-packages` locally
+❌ **NEVER** run `pnpm release` locally
+
+These commands are handled automatically by the CI/CD pipeline.
+
+### Automated Release Workflow
+
+1. **Commit changeset files** (`.changeset/*.md`) to your branch
+2. **Merge PR to main** - CI runs tests and builds
+3. **Changesets Action automatically:**
+   - Creates a "Version Packages" PR with updated versions and CHANGELOGs
+   - Or adds to existing "Version Packages" PR if one exists
+4. **When "Version Packages" PR is merged:**
+   - Packages are built with `pnpm run build --filter=@xaui/*`
+   - Published to npm with `pnpm changeset publish`
+
+The entire process is automated - you only need to create and commit changeset files.
 
 ## Code Style
 
@@ -159,14 +192,25 @@ The project uses GitHub Actions with the following workflow:
 
 ## Pull Request Guidelines
 
-- Use `pnpm changeset` to create a new changeset
-- Before generate changeset message, run `pnpm changeset version` to update versions based on changesets
-- For pull request add What, Why, How with details for better review
-- Use gh to create the pull request
-- We are in alpha mode so keep all change to patch
-- if multiple package updated apply changesets for each
-- verify last commit on branch for pull request global implementation description
-- Add test for each component you code or update
+**Before creating a PR:**
+1. Create changeset(s) with `pnpm changeset`
+   - Select all affected packages
+   - Always use **patch** version bump (we're in alpha)
+   - Write clear, concise summaries
+   - If multiple packages updated, create a changeset for each
+2. **Commit the `.changeset/*.md` files** with your changes
+3. ❌ **DO NOT** run `pnpm changeset version` - the CI handles this
+4. Run `pnpm lint`, `pnpm type-check`, and `pnpm test` to verify all checks pass
+
+**Creating the PR:**
+- Use `gh pr create` to create the pull request
+- Include What, Why, How sections with implementation details
+- Reference the last commit for global implementation description
+- Ensure all CI checks pass before requesting review
+
+**After PR is merged to main:**
+- Changesets Action will automatically create/update a "Version Packages" PR
+- When that PR is merged, packages are published to npm automatically
 
 ## Component Structure
 
