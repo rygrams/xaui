@@ -79,24 +79,37 @@ export const useCheckboxStyles = (
     }
   }, [variant, isActive, colorScheme, sizeStyles, radiusStyles, theme])
 
-  const checkmarkColor = useMemo(() => {
+  const checkmarkColors = useMemo(() => {
     if (variant === 'filled') {
-      return colorScheme.foreground
+      return {
+        checked: colorScheme.foreground,
+        unchecked: undefined,
+      }
     }
 
     if (isActive) {
-      return colorScheme.main
+      return {
+        checked: colorScheme.main,
+        unchecked: undefined,
+      }
     }
 
     if (themeColor !== 'default') {
-      return colorScheme.background
+      return {
+        checked: colorScheme.foreground,
+        unchecked: colorScheme.background,
+      }
     }
 
-    return theme.colors.foreground
+    return {
+      checked: theme.colors.foreground,
+      unchecked: theme.colors.background,
+    }
   }, [variant, colorScheme, isActive, themeColor, theme.colors.foreground])
 
   const containerStyles = useMemo(() => {
-    const isJustified = labelAlignment === 'justify-left' || labelAlignment === 'justify-right'
+    const isJustified =
+      labelAlignment === 'justify-left' || labelAlignment === 'justify-right'
 
     return {
       flexDirection:
@@ -112,7 +125,7 @@ export const useCheckboxStyles = (
     sizeStyles,
     radiusStyles,
     checkboxStyles,
-    checkmarkColor,
+    checkmarkColors,
     containerStyles,
   }
 }

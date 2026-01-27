@@ -35,16 +35,9 @@ export const Checkbox: React.FC<CheckboxProps> = ({
     sizeStyles,
     radiusStyles,
     checkboxStyles,
-    checkmarkColor,
+    checkmarkColors,
     containerStyles,
-  } = useCheckboxStyles(
-    themeColor,
-    variant,
-    size,
-    radius,
-    labelAlignment,
-    isActive
-  )
+  } = useCheckboxStyles(themeColor, variant, size, radius, labelAlignment, isActive)
 
   useEffect(() => {
     if (variant !== 'filled') return
@@ -155,8 +148,10 @@ export const Checkbox: React.FC<CheckboxProps> = ({
           <CheckboxIcon
             isChecked={isActive}
             isIndeterminate={isIndeterminate}
-            color={checkmarkColor}
+            color={checkmarkColors.checked}
             size={sizeStyles.iconSize}
+            placeholderColor={checkmarkColors.unchecked}
+            variant={variant}
           />
         </View>
       </Animated.View>

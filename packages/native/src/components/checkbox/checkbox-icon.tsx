@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react'
 import { Animated } from 'react-native'
-import Svg, { Polyline, Line } from 'react-native-svg'
+import Svg, { Polyline, Line, Path } from 'react-native-svg'
 
 const AnimatedSvg = Animated.createAnimatedComponent(Svg)
 const AnimatedPolyline = Animated.createAnimatedComponent(Polyline)
@@ -10,9 +10,15 @@ type CheckboxIconProps = {
   isIndeterminate?: boolean
   color: string
   size: number
+  placeholderColor?: string
+  variant?: 'filled' | 'light'
 }
 
-function CheckIcon({ isChecked, color, size }: Omit<CheckboxIconProps, 'isIndeterminate'>) {
+function CheckIcon({
+  isChecked,
+  color,
+  size,
+}: Omit<CheckboxIconProps, 'isIndeterminate'>) {
   const opacity = useRef(new Animated.Value(0)).current
   const strokeDashoffset = useRef(new Animated.Value(66)).current
 
@@ -47,7 +53,13 @@ function CheckIcon({ isChecked, color, size }: Omit<CheckboxIconProps, 'isIndete
   }, [isChecked, opacity, strokeDashoffset])
 
   return (
-    <AnimatedSvg width={size} height={size} viewBox="0 0 17 18" fill="none" opacity={opacity}>
+    <AnimatedSvg
+      width={size}
+      height={size}
+      viewBox="0 0 17 18"
+      fill="none"
+      opacity={opacity}
+    >
       <AnimatedPolyline
         points="1 9 7 14 15 4"
         stroke={color}
@@ -58,6 +70,21 @@ function CheckIcon({ isChecked, color, size }: Omit<CheckboxIconProps, 'isIndete
         strokeDashoffset={strokeDashoffset}
       />
     </AnimatedSvg>
+  )
+}
+
+function PlaceholderIcon({ color, size }: { color: string; size: number }) {
+  return (
+    <Svg width={size} height={size} viewBox="0 0 17 18">
+      <Path
+        d="M 1 9 L 7 14 L 15 4"
+        stroke={color}
+        strokeWidth={2}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="none"
+      />
+    </Svg>
   )
 }
 
@@ -72,8 +99,12 @@ function IndeterminateIcon({
   )
 }
 
-export function CheckboxIcon({ isIndeterminate, ...props }: CheckboxIconProps) {
+export function CheckboxIcon({ isIndeterminate, variant, ...props }: CheckboxIconProps) {
   const BaseIcon = isIndeterminate ? IndeterminateIcon : CheckIcon
+
+  if (variant === 'light' && !props.isChecked && !isIndeterminate) {
+    return <PlaceholderIcon size={props.size} color={props.placeholderColor ?? ''} />
+  }
 
   return <BaseIcon {...props} />
 }
