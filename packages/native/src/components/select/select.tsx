@@ -48,7 +48,7 @@ export const Select: React.FC<SelectProps> = ({
   endContent,
   selectorIcon,
   maxListboxHeight = 280,
-  fullWidth = true,
+  fullWidth = false,
   isOpened,
   isDisabled = false,
   isInvalid = false,

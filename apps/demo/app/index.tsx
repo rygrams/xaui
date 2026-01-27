@@ -33,19 +33,19 @@ export default function HomeScreen() {
       <Progress value={0.5} variant="circular" />
       <ActivityIndicator variant="linear" showTrack />
       <ActivityIndicator showTrack />
-      <Checkbox
+      {/* <Checkbox
         label="Accept Terms and Conditions"
         themeColor="secondary"
         variant="light"
         fullWidth
-      />
+      /> */}
       <Select placeholder="Select an option" size="md" label="les pays d'Afrique">
         <SelectItem label="Mali" value="option1" />
         <SelectItem label="Burkina Faso" value="option2" />
         <SelectItem label="Guinea" value="option3" />
       </Select>
       <View
-        style={{ gap: theme.spacing.xs, flexDirection: 'row', alignItems: 'flex-end' }}
+        style={{ gap: theme.spacing.xs, flexDirection: 'row', alignItems: 'flex-start' }}
       >
         <Select placeholder="Select an option" size="md" label="les pays d'Afrique">
           <SelectItem label="Mali" value="option1" />
@@ -55,11 +55,12 @@ export default function HomeScreen() {
         <Button
           variant="solid"
           size="md"
+          fullWidth
           spinnerPlacement="end"
           themeColor="primary"
           startContent={<Text>🚀</Text>}
         >
-          Azure limpide
+          Azure
         </Button>
       </View>
     </View>

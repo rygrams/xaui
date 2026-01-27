@@ -6,6 +6,7 @@ export const styles = StyleSheet.create({
   },
   fullWidth: {
     width: '100%',
+    alignSelf: 'stretch',
   },
   minWidth: {
     minWidth: 200,

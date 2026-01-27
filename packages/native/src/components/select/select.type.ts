@@ -90,7 +90,7 @@ export type SelectProps = {
   maxListboxHeight?: number
   /**
    * Full width select.
-   * @default true
+   * @default false
    */
   fullWidth?: boolean
   /**
