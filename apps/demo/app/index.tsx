@@ -80,7 +80,8 @@ export default function HomeScreen() {
         label="Accept Terms and Conditions"
         themeColor="secondary"
         variant="light"
-        labelAlignment="justify-right"
+        fullWidth
+        labelAlignment="justify-left"
       />
       <Checkbox
         fullWidth
