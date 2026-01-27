@@ -6,6 +6,7 @@ export default defineConfig({
     'core/index': 'src/core/index.ts',
     'button/index': 'src/components/button/index.ts',
     'checkbox/index': 'src/components/checkbox/index.ts',
+    'accordion/index': 'src/components/accordion/index.ts',
     'progress/index': 'src/components/progress/index.ts',
     'indicator/index': 'src/components/indicator/index.ts',
   },
