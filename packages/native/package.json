@@ -37,6 +37,11 @@
       "import": "./dist/checkbox/index.js",
       "require": "./dist/checkbox/index.js"
     },
+    "./accordion": {
+      "types": "./dist/accordion/index.d.ts",
+      "import": "./dist/accordion/index.js",
+      "require": "./dist/accordion/index.js"
+    },
     "./progress": {
       "types": "./dist/progress/index.d.ts",
       "import": "./dist/progress/index.js",
