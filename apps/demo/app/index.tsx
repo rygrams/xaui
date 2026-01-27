@@ -4,6 +4,7 @@ import { Button } from '@xaui/native/button'
 import { Progress } from '@xaui/native/progress'
 import { ActivityIndicator } from '@xaui/native/indicator'
 import { Checkbox } from '@xaui/native/checkbox'
+import { Switch } from '@xaui/native/switch'
 import { useState, useEffect } from 'react'
 
 export default function HomeScreen() {
@@ -88,6 +89,14 @@ export default function HomeScreen() {
         labelAlignment="justify-left"
         themeColor="success"
       />
+      <Switch
+        themeColor="primary"
+        variant="overlap"
+        label="hello"
+        labelAlignment="justify-left"
+      />
+      <Switch themeColor="secondary" />
+      <Switch themeColor="success" />
       <Checkbox label="Accept Terms and Conditions" themeColor="warning" />
     </View>
   )
