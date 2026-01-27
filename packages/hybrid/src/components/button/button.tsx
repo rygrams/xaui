@@ -78,7 +78,7 @@ export const Button: React.FC<ButtonProps> = ({
         ...userStyle,
       }}
       animate={{
-        scale: isPressed ? 0.95 : 1,
+        scale: isPressed ? 0.99 : 1,
         opacity: isPressed ? 0.8 : 1,
       }}
       transition={{
@@ -86,11 +86,15 @@ export const Button: React.FC<ButtonProps> = ({
         ease: 'easeInOut',
       }}
     >
-      {startContent}
+      {startContent && (
+        <span className="inline-flex items-center shrink-0">{startContent}</span>
+      )}
       {isLoading && spinnerPlacement === 'start' && spinnerElement}
       {children}
       {isLoading && spinnerPlacement === 'end' && spinnerElement}
-      {endContent}
+      {endContent && (
+        <span className="inline-flex items-center shrink-0">{endContent}</span>
+      )}
     </motion.button>
   )
 }
