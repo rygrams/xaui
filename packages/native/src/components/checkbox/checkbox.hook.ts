@@ -105,7 +105,7 @@ export const useCheckboxStyles = (
       checked: theme.colors.foreground,
       unchecked: theme.colors.background,
     }
-  }, [variant, colorScheme, isActive, themeColor, theme.colors.foreground])
+  }, [variant, colorScheme, isActive, themeColor, theme.colors.foreground, theme.colors.background])
 
   const containerStyles = useMemo(() => {
     const isJustified =
