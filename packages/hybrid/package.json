@@ -1,12 +1,17 @@
 {
   "name": "@xaui/hybrid",
   "version": "0.0.2",
-  "description": "Web UI components for XUI",
+  "description": "Flutter-inspired React UI components for web and mobile webview applications with Framer Motion animations and Tailwind CSS styling",
   "keywords": [
     "react",
     "web",
+    "webview",
+    "hybrid",
     "ui",
     "components",
+    "flutter",
+    "framer-motion",
+    "tailwindcss",
     "xaui"
   ],
   "type": "module",
@@ -47,7 +52,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rygrams/xaui.git",
-    "directory": "packages/web"
+    "directory": "packages/hybrid"
   },
   "scripts": {
     "build": "tsup --config tsup.config.ts",

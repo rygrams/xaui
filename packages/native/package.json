@@ -1,12 +1,16 @@
 {
   "name": "@xaui/native",
   "version": "0.0.2",
-  "description": "Mobile UI components for XUI",
+  "description": "Flutter-inspired React Native UI components with native animations powered by React Native Reanimated",
   "keywords": [
     "react-native",
     "mobile",
+    "native",
     "ui",
     "components",
+    "flutter",
+    "reanimated",
+    "animations",
     "xaui"
   ],
   "type": "module",
@@ -46,7 +50,7 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rygrams/xaui.git",
-    "directory": "packages/mobile"
+    "directory": "packages/native"
   },
   "scripts": {
     "build": "tsup --config tsup.config.ts",
