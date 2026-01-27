@@ -8,6 +8,41 @@ import type {
   CheckboxRadius,
   CheckboxLabelAlignment,
 } from './checkbox.type'
+import { XUITheme } from '@xaui/core/theme'
+
+const useSizeStyles = (size: CheckboxSize, theme: XUITheme, variant: CheckboxVariant) => {
+  const sizes = {
+    sm: {
+      checkboxSize: 18,
+      fontSize: theme.fontSizes.sm,
+      iconSize: variant === 'light' ? 14 : 12,
+    },
+    md: {
+      checkboxSize: 22,
+      fontSize: theme.fontSizes.md,
+      iconSize: variant === 'light' ? 18 : 14,
+    },
+    lg: {
+      checkboxSize: 26,
+      fontSize: theme.fontSizes.lg,
+      iconSize: variant === 'light' ? 22 : 16,
+    },
+  }
+
+  return sizes[size]
+}
+
+const useRadiusStyles = (radius: CheckboxRadius, theme: XUITheme) => {
+  const radii = {
+    none: theme.borderRadius.none,
+    sm: theme.borderRadius.sm,
+    md: theme.borderRadius.md,
+    lg: theme.borderRadius.lg,
+    full: theme.borderRadius.full,
+  }
+
+  return { borderRadius: radii[radius] }
+}
 
 export const useCheckboxStyles = (
   themeColor: ThemeColor,
@@ -21,40 +56,8 @@ export const useCheckboxStyles = (
   const safeThemeColor = getSafeThemeColor(themeColor)
   const colorScheme = theme.colors[safeThemeColor]
 
-  const sizeStyles = useMemo(() => {
-    const sizes = {
-      sm: {
-        checkboxSize: 18,
-        fontSize: theme.fontSizes.sm,
-        iconSize: variant === 'light' ? 14 : 12,
-      },
-      md: {
-        checkboxSize: 22,
-        fontSize: theme.fontSizes.md,
-        iconSize: variant === 'light' ? 18 : 14,
-      },
-      lg: {
-        checkboxSize: 26,
-        fontSize: theme.fontSizes.lg,
-        iconSize: variant === 'light' ? 22 : 16,
-      },
-    }
-
-    return sizes[size]
-  }, [size, theme, variant])
-
-  const radiusStyles = useMemo(() => {
-    const radii = {
-      none: theme.borderRadius.none,
-      sm: theme.borderRadius.sm,
-      md: theme.borderRadius.md,
-      lg: theme.borderRadius.lg,
-      full: theme.borderRadius.full,
-    }
-
-    return { borderRadius: radii[radius] }
-  }, [radius, theme])
-
+  const sizeStyles = useSizeStyles(size, theme, variant)
+  const radiusStyles = useRadiusStyles(radius, theme)
   const checkboxStyles = useMemo(() => {
     const baseStyle = {
       width: sizeStyles.checkboxSize,
@@ -105,7 +108,7 @@ export const useCheckboxStyles = (
       checked: theme.colors.foreground,
       unchecked: theme.colors.background,
     }
-  }, [variant, colorScheme, isActive, themeColor, theme.colors.foreground, theme.colors.background])
+  }, [variant, colorScheme, isActive, themeColor, theme.colors])
 
   const containerStyles = useMemo(() => {
     const isJustified =
