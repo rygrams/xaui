@@ -46,6 +46,11 @@
       "types": "./dist/indicator/index.d.ts",
       "import": "./dist/indicator/index.js",
       "require": "./dist/indicator/index.js"
+    },
+    "./select": {
+      "types": "./dist/select/index.d.ts",
+      "import": "./dist/select/index.js",
+      "require": "./dist/select/index.js"
     }
   },
   "files": [
