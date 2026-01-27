@@ -15,7 +15,7 @@ export default function RootLayout() {
 
   return (
     <ThemeProvider value={colorScheme === 'light' ? DarkTheme : DefaultTheme}>
-      <XUIProvider theme={defaultTheme}>
+      <XUIProvider theme={defaultTheme} darkTheme={defaultDarkTheme}>
         <Stack>
           <Stack.Screen name="index" options={{ headerShown: false }} />
           <Stack.Screen
