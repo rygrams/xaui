@@ -7,6 +7,8 @@ export const styles = StyleSheet.create({
     gap: 10,
   },
   fullWidth: {
+    flexShrink: 1,
+    flexBasis: 'auto',
     width: '100%',
   },
   checkbox: {
