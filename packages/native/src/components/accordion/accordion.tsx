@@ -22,8 +22,10 @@ export const Accordion: React.FC<AccordionProps> = ({
   itemStyle,
   onSelectionChange,
 }) => {
-  const { containerStyles, dividerColor, dividerOpacity } =
-    useAccordionStyles(variant, fullWidth)
+  const { containerStyles, dividerColor, dividerOpacity } = useAccordionStyles(
+    variant,
+    fullWidth
+  )
 
   const { currentExpandedKeys, toggleItem } = useAccordionSelection(
     selectionMode,

@@ -17,7 +17,7 @@ describe('Accordion Types', () => {
 
   it('accepts all variants', () => {
     const variants: Array<AccordionProps['variant']> = ['light', 'bordered', 'splitted']
-    variants.forEach((variant) => {
+    variants.forEach(variant => {
       const props: AccordionProps = {
         children: null,
         variant,
@@ -28,7 +28,7 @@ describe('Accordion Types', () => {
 
   it('accepts all selection modes', () => {
     const modes: Array<AccordionProps['selectionMode']> = ['toggle', 'multiple']
-    modes.forEach((selectionMode) => {
+    modes.forEach(selectionMode => {
       const props: AccordionProps = {
         children: null,
         selectionMode,
