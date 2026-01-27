@@ -3,6 +3,7 @@ import { StyleSheet, View, Text } from 'react-native'
 import { Button } from '@xaui/native/button'
 import { Progress } from '@xaui/native/progress'
 import { ActivityIndicator } from '@xaui/native/indicator'
+import { Checkbox } from '@xaui/native/checkbox'
 import { useState, useEffect } from 'react'
 
 export default function HomeScreen() {
@@ -32,7 +33,6 @@ export default function HomeScreen() {
         variant="solid"
         size="xs"
         spinnerPlacement="end"
-        isLoading
         themeColor="primary"
         startContent={<Text>🚀</Text>}
         fullWidth
@@ -65,7 +65,6 @@ export default function HomeScreen() {
         variant="solid"
         size="lg"
         spinnerPlacement="end"
-        isLoading
         themeColor="warning"
         startContent={<Text>🚀</Text>}
         fullWidth
@@ -76,6 +75,20 @@ export default function HomeScreen() {
       <Progress value={0.5} variant="circular" />
       <ActivityIndicator variant="linear" showTrack />
       <ActivityIndicator showTrack />
+      <Checkbox label="Accept Terms and Conditions" themeColor="primary" />
+      <Checkbox
+        label="Accept Terms and Conditions"
+        themeColor="secondary"
+        variant="light"
+        labelAlignment="justify-right"
+      />
+      <Checkbox
+        fullWidth
+        label="Accept Terms and Conditions"
+        labelAlignment="justify-left"
+        themeColor="success"
+      />
+      <Checkbox label="Accept Terms and Conditions" themeColor="warning" />
     </View>
   )
 }

@@ -32,6 +32,11 @@
       "import": "./dist/button/index.js",
       "require": "./dist/button/index.js"
     },
+    "./checkbox": {
+      "types": "./dist/checkbox/index.d.ts",
+      "import": "./dist/checkbox/index.js",
+      "require": "./dist/checkbox/index.js"
+    },
     "./progress": {
       "types": "./dist/progress/index.d.ts",
       "import": "./dist/progress/index.js",
