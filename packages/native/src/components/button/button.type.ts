@@ -1,9 +1,8 @@
 import { ReactNode } from 'react'
 import type { TextStyle, ViewStyle, GestureResponderEvent } from 'react-native'
-import type { ThemeColor } from '../../types'
+import type { Size, ThemeColor } from '../../types'
 
 export type ButtonVariant = 'solid' | 'outlined' | 'flat' | 'light' | 'elevated' | 'faded'
-export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg'
 export type ButtonRadius = 'none' | 'sm' | 'md' | 'lg' | 'full'
 export type SpinnerPlacement = 'start' | 'end'
 
@@ -26,7 +25,7 @@ export type ButtonProps = {
    * The size of the button.
    * @default 'md'
    */
-  size?: ButtonSize
+  size?: Size
   /**
    * The border radius of the button.
    * @default 'md'
