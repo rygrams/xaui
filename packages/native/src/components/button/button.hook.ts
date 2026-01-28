@@ -1,23 +1,42 @@
 import { useMemo } from 'react'
 import { useXUITheme } from '../../core'
-import type { ButtonVariant, ButtonSize, ButtonRadius } from './button.type'
-import type { ThemeColor } from '../../types'
+import type { ButtonVariant } from './button.type'
+import type { Size, ThemeColor } from '../../types'
 import { getSafeThemeColor } from '@xaui/core'
 
-export const useButtonStyles = (
-  themeColor: ThemeColor,
-  variant: ButtonVariant,
-  size: ButtonSize,
-  radius: ButtonRadius
-) => {
+type ButtonSizeStyles = {
+  paddingHorizontal: number
+  paddingVertical: number
+  minHeight: number
+  fontSize: number
+}
+
+export const useTextStyles = (themeColor: ThemeColor, variant: ButtonVariant) => {
   const theme = useXUITheme()
 
-  //access themeColor safely returns default color if themeColor is not found
   const safeThemeColor = getSafeThemeColor(themeColor)
   const colorScheme = theme.colors[safeThemeColor]
 
+  const textColor = useMemo(() => {
+    if (variant === 'solid' || variant === 'elevated') {
+      return colorScheme.foreground
+    }
+    return colorScheme.accent
+  }, [variant, colorScheme])
+
+  return {
+    textColor,
+  }
+}
+
+export function useSizesStyles(size: Size): {
+  sizeStyles: ButtonSizeStyles
+  spinnerSize: number
+} {
+  const theme = useXUITheme()
+
   const sizeStyles = useMemo(() => {
-    const sizes = {
+    const sizes: Record<Size, ButtonSizeStyles> = {
       xs: {
         paddingHorizontal: theme.spacing.sm,
         paddingVertical: theme.spacing.xs,
@@ -46,16 +65,23 @@ export const useButtonStyles = (
     return sizes[size]
   }, [size, theme])
 
-  const radiusStyles = useMemo(() => {
-    const radii = {
-      none: theme.borderRadius.none,
-      sm: theme.borderRadius.sm,
-      md: theme.borderRadius.md,
-      lg: theme.borderRadius.lg,
-      full: theme.borderRadius.full,
+  const spinnerSize = useMemo(() => {
+    const sizes = {
+      xs: 14,
+      sm: 16,
+      md: 18,
+      lg: 20,
     }
-    return { borderRadius: radii[radius] }
-  }, [radius, theme])
+    return sizes[size] as number
+  }, [size])
+
+  return { sizeStyles, spinnerSize }
+}
+
+export function useVariantSizesStyles(themeColor: ThemeColor, variant: ButtonVariant) {
+  const theme = useXUITheme()
+  const safeThemeColor = getSafeThemeColor(themeColor)
+  const colorScheme = theme.colors[safeThemeColor]
 
   const variantStyles = useMemo(() => {
     const styles = {
@@ -90,28 +116,5 @@ export const useButtonStyles = (
     return styles[variant]
   }, [variant, colorScheme, theme])
 
-  const textColor = useMemo(() => {
-    if (variant === 'solid' || variant === 'elevated') {
-      return colorScheme.foreground
-    }
-    return colorScheme.main
-  }, [variant, colorScheme])
-
-  const spinnerSize = useMemo(() => {
-    const sizes = {
-      xs: 14,
-      sm: 16,
-      md: 18,
-      lg: 20,
-    }
-    return sizes[size]
-  }, [size])
-
-  return {
-    sizeStyles,
-    radiusStyles,
-    variantStyles,
-    textColor,
-    spinnerSize,
-  }
+  return variantStyles
 }

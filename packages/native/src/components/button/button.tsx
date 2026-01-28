@@ -2,8 +2,10 @@ import React from 'react'
 import { Pressable, Text, View, Animated } from 'react-native'
 import { ActivityIndicator } from '../indicator'
 import { styles } from './button.style'
-import { useButtonStyles } from './button.hook'
+import { useSizesStyles, useTextStyles, useVariantSizesStyles } from './button.hook'
 import type { ButtonProps } from './button.type'
+import { useBorderRadiusStyles } from '../../core/theme-hooks'
+import { runPressInAnimation, runPressOutAnimation } from './button.animation'
 
 export const Button: React.FC<ButtonProps> = ({
   children,
@@ -27,24 +29,14 @@ export const Button: React.FC<ButtonProps> = ({
   const animatedScale = React.useRef(new Animated.Value(1)).current
   const animatedOpacity = React.useRef(new Animated.Value(1)).current
 
-  const { sizeStyles, radiusStyles, variantStyles, textColor, spinnerSize } =
-    useButtonStyles(themeColor, variant, size, radius)
+  const { sizeStyles, spinnerSize } = useSizesStyles(size)
+  const radiusStyles = useBorderRadiusStyles(radius)
+  const variantStyles = useVariantSizesStyles(themeColor, variant)
+  const { textColor } = useTextStyles(themeColor, variant)
 
   const handlePressIn = (event: Parameters<NonNullable<ButtonProps['onPressIn']>>[0]) => {
     if (!isDisabled && !isLoading) {
-      Animated.parallel([
-        Animated.spring(animatedScale, {
-          toValue: 0.98,
-          useNativeDriver: true,
-          speed: 50,
-          bounciness: 0,
-        }),
-        Animated.timing(animatedOpacity, {
-          toValue: 0.9,
-          duration: 100,
-          useNativeDriver: true,
-        }),
-      ]).start()
+      runPressInAnimation(animatedScale, animatedOpacity)
     }
     onPressIn?.(event)
   }
@@ -53,19 +45,7 @@ export const Button: React.FC<ButtonProps> = ({
     event: Parameters<NonNullable<ButtonProps['onPressOut']>>[0]
   ) => {
     if (!isDisabled && !isLoading) {
-      Animated.parallel([
-        Animated.spring(animatedScale, {
-          toValue: 1,
-          useNativeDriver: true,
-          speed: 50,
-          bounciness: 0,
-        }),
-        Animated.timing(animatedOpacity, {
-          toValue: 1,
-          duration: 100,
-          useNativeDriver: true,
-        }),
-      ]).start()
+      runPressOutAnimation(animatedScale, animatedOpacity)
     }
     onPressOut?.(event)
   }
@@ -104,7 +84,7 @@ export const Button: React.FC<ButtonProps> = ({
           ]}
         >
           <View style={styles.contentContainer}>
-            {startContent && !isLoading && (
+            {startContent && !isLoading && spinnerPlacement !== 'start' && (
               <View style={styles.startContent}>{startContent}</View>
             )}
 
@@ -127,7 +107,7 @@ export const Button: React.FC<ButtonProps> = ({
               <View style={styles.spinner}>{spinner}</View>
             )}
 
-            {endContent && !isLoading && (
+            {endContent && !isLoading && spinnerPlacement !== 'end' && (
               <View style={styles.endContent}>{endContent}</View>
             )}
           </View>
