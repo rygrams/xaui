@@ -21,7 +21,7 @@ export const useTextStyles = (themeColor: ThemeColor, variant: ButtonVariant) =>
     if (variant === 'solid' || variant === 'elevated') {
       return colorScheme.foreground
     }
-    return colorScheme.accent
+    return colorScheme.main
   }, [variant, colorScheme])
 
   return {

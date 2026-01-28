@@ -1,9 +1,6 @@
 import { useXUIColors, useXUITheme } from '@xaui/native/core'
 import { StyleSheet, View, Text } from 'react-native'
 import { Button } from '@xaui/native/button'
-import { Progress } from '@xaui/native/progress'
-import { ActivityIndicator } from '@xaui/native/indicator'
-import { Checkbox } from '@xaui/native/checkbox'
 import { useState, useEffect } from 'react'
 
 export default function HomeScreen() {
@@ -29,9 +26,30 @@ export default function HomeScreen() {
         },
       ]}
     >
+      <View style={{ flexDirection: 'row', gap: theme.spacing.xs }}>
+        <Button
+          variant="solid"
+          size="md"
+          spinnerPlacement="end"
+          themeColor="tertiary"
+          startContent={<Text>🚀</Text>}
+        >
+          Azure limpide
+        </Button>
+        <Button
+          variant="elevated"
+          size="md"
+          spinnerPlacement="end"
+          themeColor="default"
+          startContent={<Text>🚀</Text>}
+        >
+          Azure limpide
+        </Button>
+      </View>
+
       <Button
-        variant="solid"
-        size="xs"
+        variant="outlined"
+        size="md"
         spinnerPlacement="end"
         themeColor="primary"
         startContent={<Text>🚀</Text>}
@@ -40,55 +58,35 @@ export default function HomeScreen() {
         Azure limpide
       </Button>
       <Button
-        variant="solid"
-        size="sm"
-        spinnerPlacement="end"
-        isLoading
-        themeColor="secondary"
-        startContent={<Text>🚀</Text>}
-        fullWidth
-      >
-        Azure limpide
-      </Button>
-      <Button
-        variant="solid"
+        variant="flat"
         size="md"
         spinnerPlacement="end"
-        isLoading
-        themeColor="success"
+        themeColor="primary"
         startContent={<Text>🚀</Text>}
         fullWidth
       >
         Azure limpide
       </Button>
       <Button
-        variant="solid"
-        size="lg"
+        variant="faded"
+        size="md"
         spinnerPlacement="end"
-        themeColor="warning"
+        themeColor="primary"
         startContent={<Text>🚀</Text>}
         fullWidth
       >
         Azure limpide
       </Button>
-      <Progress value={0.5} />
-      <Progress value={0.5} variant="circular" />
-      <ActivityIndicator variant="linear" showTrack />
-      <ActivityIndicator showTrack />
-      <Checkbox label="Accept Terms and Conditions" themeColor="primary" />
-      <Checkbox
-        label="Accept Terms and Conditions"
-        themeColor="secondary"
+      <Button
         variant="light"
-        labelAlignment="justify-right"
-      />
-      <Checkbox
+        size="md"
+        spinnerPlacement="end"
+        themeColor="primary"
+        startContent={<Text>🚀</Text>}
         fullWidth
-        label="Accept Terms and Conditions"
-        labelAlignment="justify-left"
-        themeColor="success"
-      />
-      <Checkbox label="Accept Terms and Conditions" themeColor="warning" />
+      >
+        Azure limpide
+      </Button>
     </View>
   )
 }
