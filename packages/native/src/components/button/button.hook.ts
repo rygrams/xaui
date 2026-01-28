@@ -108,9 +108,9 @@ export function useVariantSizesStyles(themeColor: ThemeColor, variant: ButtonVar
         ...theme.shadows.md,
       },
       faded: {
-        backgroundColor: `${colorScheme.background}90`,
+        backgroundColor: `${colorScheme.background}95`,
         borderWidth: theme.borderWidth.md,
-        borderColor: colorScheme.main,
+        borderColor: `${colorScheme.main}90`,
       },
     }
     return styles[variant]
