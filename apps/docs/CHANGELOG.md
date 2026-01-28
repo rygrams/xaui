@@ -1,5 +1,13 @@
 # docs
 
+## 0.1.9
+
+### Patch Changes
+
+- Updated dependencies [c09ae37]
+  - @xaui/core@0.1.6
+  - @xaui/hybrid@0.0.3
+
 ## 0.1.8
 
 ### Patch Changes
