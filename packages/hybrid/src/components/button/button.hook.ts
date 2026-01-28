@@ -3,17 +3,31 @@ import { useXUITheme } from '../../core'
 import type { ButtonVariant, ButtonSize, ButtonRadius } from './button.type'
 import type { ThemeColor } from '../../types'
 
-export const useButtonStyles = (
+type ButtonSizeStyles = {
+  paddingLeft: string
+  paddingRight: string
+  paddingTop: string
+  paddingBottom: string
+  minHeight: string
+  fontSize: string
+  lineHeight: string
+}
+
+export const useVariantSizesStyles = (
   themeColor: ThemeColor,
   variant: ButtonVariant,
-  size: ButtonSize,
-  radius: ButtonRadius
-) => {
+  size: ButtonSize
+): {
+  sizeStyles: ButtonSizeStyles
+  variantStyles: Record<string, string>
+  textColor: string
+  spinnerSize: number
+} => {
   const theme = useXUITheme()
   const colorScheme = theme.colors[themeColor]
 
   const sizeStyles = useMemo(() => {
-    const sizes = {
+    const sizes: Record<ButtonSize, ButtonSizeStyles> = {
       xs: {
         paddingLeft: `${theme.spacing.sm}px`,
         paddingRight: `${theme.spacing.sm}px`,
@@ -53,17 +67,6 @@ export const useButtonStyles = (
     }
     return sizes[size]
   }, [size, theme])
-
-  const radiusStyles = useMemo(() => {
-    const radii = {
-      none: theme.borderRadius.none,
-      sm: theme.borderRadius.sm,
-      md: theme.borderRadius.md,
-      lg: theme.borderRadius.lg,
-      full: theme.borderRadius.full,
-    }
-    return { borderRadius: `${radii[radius]}px` }
-  }, [radius, theme])
 
   const variantStyles = useMemo(() => {
     const styles = {
@@ -125,6 +128,39 @@ export const useButtonStyles = (
     }
     return sizes[size]
   }, [size])
+
+  return {
+    sizeStyles,
+    variantStyles,
+    textColor,
+    spinnerSize,
+  }
+}
+
+export const useButtonStyles = (
+  themeColor: ThemeColor,
+  variant: ButtonVariant,
+  size: ButtonSize,
+  radius: ButtonRadius
+) => {
+  const theme = useXUITheme()
+
+  const { sizeStyles, variantStyles, textColor, spinnerSize } = useVariantSizesStyles(
+    themeColor,
+    variant,
+    size
+  )
+
+  const radiusStyles = useMemo(() => {
+    const radii = {
+      none: theme.borderRadius.none,
+      sm: theme.borderRadius.sm,
+      md: theme.borderRadius.md,
+      lg: theme.borderRadius.lg,
+      full: theme.borderRadius.full,
+    }
+    return { borderRadius: `${radii[radius]}px` }
+  }, [radius, theme])
 
   return {
     sizeStyles,
