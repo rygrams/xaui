@@ -1,3 +1,4 @@
+import React from 'react'
 import { describe, it, expect, vi } from 'vitest'
 import { renderHook } from '@testing-library/react'
 import {
@@ -6,6 +7,8 @@ import {
   useVariantSizesStyles,
 } from '../../../components/button/button.hook'
 import { useBorderRadiusStyles } from '../../../core/theme-hooks'
+import { XUIThemeContext } from '../../../core/theme-context'
+import { defaultTheme } from '@xaui/core/theme'
 
 vi.mock('../../../core', () => ({
   useXUITheme: () => ({
@@ -87,6 +90,7 @@ vi.mock('../../../core', () => ({
   }),
 }))
 
+
 describe('button hook styles', () => {
   it('returns correct size styles for md size', () => {
     const { result } = renderHook(() => useSizesStyles('md'))
@@ -132,7 +136,13 @@ describe('button hook styles', () => {
   })
 
   it('returns correct radius styles', () => {
-    const { result } = renderHook(() => useBorderRadiusStyles('lg'))
+    const { result } = renderHook(() => useBorderRadiusStyles('lg'), {
+      wrapper: ({ children }) => (
+        <XUIThemeContext.Provider value={defaultTheme}>
+          {children}
+        </XUIThemeContext.Provider>
+      ),
+    })
 
     expect(result.current.borderRadius).toBe(12)
   })
