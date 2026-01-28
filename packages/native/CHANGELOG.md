@@ -1,5 +1,13 @@
 # @xaui/mobile
 
+## 0.0.3
+
+### Patch Changes
+
+- c09ae37: Enhance button component with new animations, size options, and text styles. Update theme colors with improved color definitions.
+- Updated dependencies [c09ae37]
+  - @xaui/core@0.1.6
+
 ## 0.0.2
 
 ### Patch Changes

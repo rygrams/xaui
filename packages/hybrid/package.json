@@ -1,6 +1,6 @@
 {
   "name": "@xaui/hybrid",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Flutter-inspired React UI components for web and mobile webview applications with Framer Motion animations and Tailwind CSS styling",
   "keywords": [
     "react",
