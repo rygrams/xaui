@@ -75,7 +75,7 @@ export const Accordion: React.FC<AccordionProps> = ({
               )
 
           return (
-            <View key={index} style={itemStyle}>
+            <View key={resolvedChildKey} style={itemStyle}>
               {isAccordionItem(child)
                 ? React.cloneElement(child, { itemKey: resolvedChildKey })
                 : child}
