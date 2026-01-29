@@ -21,7 +21,7 @@ export const Accordion: React.FC<AccordionProps> = ({
   containerStyle,
   itemStyle,
   onSelectionChange,
-}) => {
+} : AccordionProps) => {
   const { containerStyles, dividerColor, dividerOpacity } = useAccordionStyles(
     variant,
     fullWidth

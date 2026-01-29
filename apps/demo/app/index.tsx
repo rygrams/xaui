@@ -2,6 +2,7 @@ import { useXUIColors, useXUITheme } from '@xaui/native/core'
 import { StyleSheet, View, Text } from 'react-native'
 import { Accordion, AccordionItem } from '@xaui/native/accordion'
 import { useState, useEffect } from 'react'
+import { Button } from '@xaui/native/button'
 
 export default function HomeScreen() {
   const colors = useXUIColors()
@@ -33,7 +34,7 @@ export default function HomeScreen() {
         defaultExpandedKeys={['section-1']}
         disabledKeys={['section-2']}
       >
-        <AccordionItem key="section-1" title="Section 1" subtitle="This is section 1">
+        <AccordionItem key="section-1" title="Section 1">
           <Text style={{ color: colors.primary.main }}>Content for section 1</Text>
         </AccordionItem>
         <AccordionItem key="section-2" title="Section 2" subtitle="This is section 2">
@@ -43,10 +44,12 @@ export default function HomeScreen() {
 
       <Accordion variant="bordered" selectionMode="multiple">
         <AccordionItem key="section-1" title="Section 1" subtitle="This is section 1">
-          <Text style={{ color: colors.primary.main }}>
-            Content for section Content for section 1 Content for section 1 Content for
-            section 1 Content for section 1 Content for section 1
-          </Text>
+          <Button variant="solid" themeColor="primary" onPress={() => {}}>
+            Press me
+          </Button>
+          <Button variant="solid" themeColor="tertiary" onPress={() => {}}>
+            Press me
+          </Button>
         </AccordionItem>
         <AccordionItem key="section-2" title="Section 2" subtitle="This is section 2">
           <Text style={{ color: colors.primary.main }}>
