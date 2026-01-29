@@ -27,6 +27,7 @@ export default function HomeScreen() {
       ]}
     >
       <Accordion
+        isCompact
         variant="splitted"
         selectionMode="multiple"
         defaultSelectedKeys={['section-1']}
