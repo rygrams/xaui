@@ -31,6 +31,7 @@ export default function HomeScreen() {
         variant="splitted"
         selectionMode="multiple"
         defaultExpandedKeys={['section-1']}
+        disabledKeys={['section-2']}
       >
         <AccordionItem key="section-1" title="Section 1" subtitle="This is section 1">
           <Text style={{ color: colors.primary.main }}>Content for section 1</Text>

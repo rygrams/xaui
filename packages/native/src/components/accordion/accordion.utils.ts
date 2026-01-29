@@ -10,7 +10,7 @@ export const getItemKey = (value: unknown, fallback: number) => {
 
 export const normalizeElementKey = (value: unknown) => {
   if (typeof value !== 'string') return value
-  return value.startsWith('.') ? value.slice(1) : value
+  return value.startsWith('.$') ? value.slice(2) : value.startsWith('.') ? value.slice(1) : value
 }
 
 export const isAccordionItem = (
