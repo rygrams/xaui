@@ -1,5 +1,11 @@
 # @xaui/mobile
 
+## 0.0.4
+
+### Patch Changes
+
+- 876281e: Enhanced Checkbox component with placeholder icon for light variant and improved checkmark color handling for better visual feedback
+
 ## 0.0.3
 
 ### Patch Changes
