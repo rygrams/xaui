@@ -1,5 +1,11 @@
 # @xaui/core
 
+## 0.1.6
+
+### Patch Changes
+
+- c09ae37: Enhance button component with new animations, size options, and text styles. Update theme colors with improved color definitions.
+
 ## 0.1.5
 
 ### Patch Changes
