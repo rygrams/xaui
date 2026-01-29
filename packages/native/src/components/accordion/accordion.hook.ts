@@ -55,7 +55,7 @@ export const useAccordionSelection = (
             ? []
             : [key]
           : isExpanded
-            ? currentExpandedKeys.filter((k) => k !== key)
+            ? currentExpandedKeys.filter(k => k !== key)
             : [...currentExpandedKeys, key]
 
       if (!isControlled) {
