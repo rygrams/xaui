@@ -2,9 +2,22 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Animated, Pressable, Text, View } from 'react-native'
 import type { CheckboxProps } from './checkbox.type'
 import { CheckboxIcon } from './checkbox-icon'
-import { useCheckboxStyles } from './checkbox.hook'
+import {
+  useSizeStyles,
+  useRadiusStyles,
+  useCheckmarkColors,
+  useVariantStyles,
+  useContainerStyles,
+} from './checkbox.hook'
 import { styles } from './checkbox.style'
+import {
+  runBackgroundInAnimation,
+  runBackgroundOutAnimation,
+  runPressInAnimation,
+  runPressOutAnimation,
+} from './checkbox.animation'
 import { useXUITheme } from '../../core'
+import { getSafeThemeColor } from '@xaui/core'
 
 export const Checkbox: React.FC<CheckboxProps> = ({
   label,
@@ -20,8 +33,9 @@ export const Checkbox: React.FC<CheckboxProps> = ({
   labelStyle,
   style,
   onValueChange,
-}) => {
+}: CheckboxProps)  => {
   const theme = useXUITheme()
+  const colorScheme = theme.colors[getSafeThemeColor(themeColor)]
   const isControlled = typeof isCheckedProp === 'boolean'
   const [internalChecked, setInternalChecked] = useState(isCheckedProp ?? false)
   const isChecked = isControlled ? isCheckedProp : internalChecked
@@ -30,44 +44,19 @@ export const Checkbox: React.FC<CheckboxProps> = ({
   const backgroundOpacity = useRef(new Animated.Value(0)).current
   const isActive = isChecked || isIndeterminate
 
-  const {
-    colorScheme,
-    sizeStyles,
-    radiusStyles,
-    checkboxStyles,
-    checkmarkColors,
-    containerStyles,
-  } = useCheckboxStyles(themeColor, variant, size, radius, labelAlignment, isActive)
+  const sizeStyles = useSizeStyles(size, variant)
+  const radiusStyles = useRadiusStyles(radius)
+  const checkmarkColors = useCheckmarkColors(themeColor, variant, isActive)
+  const variantStyles = useVariantStyles(themeColor, variant, isActive)
+  const containerStyles = useContainerStyles(labelAlignment)
 
   useEffect(() => {
     if (variant !== 'filled') return
 
     if (isActive) {
-      Animated.parallel([
-        Animated.timing(backgroundScale, {
-          toValue: 1,
-          duration: 200,
-          useNativeDriver: true,
-        }),
-        Animated.timing(backgroundOpacity, {
-          toValue: 1,
-          duration: 200,
-          useNativeDriver: true,
-        }),
-      ]).start()
+      runBackgroundInAnimation(backgroundScale, backgroundOpacity)
     } else {
-      Animated.parallel([
-        Animated.timing(backgroundScale, {
-          toValue: 0.5,
-          duration: 200,
-          useNativeDriver: true,
-        }),
-        Animated.timing(backgroundOpacity, {
-          toValue: 0,
-          duration: 200,
-          useNativeDriver: true,
-        }),
-      ]).start()
+      runBackgroundOutAnimation(backgroundScale, backgroundOpacity)
     }
   }, [isActive, variant, backgroundScale, backgroundOpacity])
 
@@ -83,19 +72,13 @@ export const Checkbox: React.FC<CheckboxProps> = ({
 
   const handlePressIn = () => {
     if (!isDisabled) {
-      Animated.spring(scale, {
-        toValue: 0.95,
-        useNativeDriver: true,
-      }).start()
+      runPressInAnimation(scale)
     }
   }
 
   const handlePressOut = () => {
     if (!isDisabled) {
-      Animated.spring(scale, {
-        toValue: 1,
-        useNativeDriver: true,
-      }).start()
+      runPressOutAnimation(scale)
     }
   }
 
@@ -125,7 +108,12 @@ export const Checkbox: React.FC<CheckboxProps> = ({
       <Animated.View
         style={[
           styles.checkbox,
-          checkboxStyles,
+          {
+            width: sizeStyles.checkboxSize,
+            height: sizeStyles.checkboxSize,
+            ...radiusStyles,
+            ...variantStyles,
+          },
           {
             transform: [{ scale }],
           },

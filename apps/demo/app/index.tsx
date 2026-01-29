@@ -1,6 +1,7 @@
 import { useXUIColors, useXUITheme } from '@xaui/native/core'
 import { StyleSheet, View, Text } from 'react-native'
 import { Button } from '@xaui/native/button'
+import { Checkbox } from '@xaui/native/checkbox'
 import { useState, useEffect } from 'react'
 
 export default function HomeScreen() {
@@ -26,67 +27,24 @@ export default function HomeScreen() {
         },
       ]}
     >
-      <View style={{ flexDirection: 'row', gap: theme.spacing.xs }}>
-        <Button
-          variant="solid"
-          size="md"
-          spinnerPlacement="end"
-          themeColor="tertiary"
-          startContent={<Text>🚀</Text>}
-        >
-          Azure limpide
-        </Button>
-        <Button
-          variant="elevated"
-          size="md"
-          spinnerPlacement="end"
-          themeColor="default"
-          startContent={<Text>🚀</Text>}
-        >
-          Azure limpide
-        </Button>
-      </View>
-
-      <Button
-        variant="outlined"
-        size="md"
-        spinnerPlacement="end"
+      <Checkbox
+        label="Demo Checkbox"
+        variant="filled"
         themeColor="primary"
-        startContent={<Text>🚀</Text>}
+        labelAlignment="justify-left"
         fullWidth
-      >
-        Azure limpide
-      </Button>
-      <Button
-        variant="flat"
-        size="md"
-        spinnerPlacement="end"
-        themeColor="primary"
-        startContent={<Text>🚀</Text>}
-        fullWidth
-      >
-        Azure limpide
-      </Button>
-      <Button
-        variant="faded"
-        size="md"
-        spinnerPlacement="end"
-        themeColor="primary"
-        startContent={<Text>🚀</Text>}
-        fullWidth
-      >
-        Azure limpide
-      </Button>
-      <Button
+      />
+      <Checkbox
+        label="Demo Checkbox"
         variant="light"
-        size="md"
-        spinnerPlacement="end"
-        themeColor="primary"
-        startContent={<Text>🚀</Text>}
+        themeColor="danger"
+        labelAlignment="justify-left"
         fullWidth
-      >
-        Azure limpide
+      />
+      <Button onPress={() => {}} themeColor="primary" variant="solid">
+        Demo Button
       </Button>
+      <Text style={{ color: colors.foreground }}>Hello, XUI!</Text>
     </View>
   )
 }

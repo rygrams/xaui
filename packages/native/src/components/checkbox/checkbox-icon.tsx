@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import { Animated } from 'react-native'
 import Svg, { Polyline, Line, Path } from 'react-native-svg'
+import { runCheckAnimation, runUncheckAnimation } from './checkbox.animation'
 
 const AnimatedSvg = Animated.createAnimatedComponent(Svg)
 const AnimatedPolyline = Animated.createAnimatedComponent(Polyline)
@@ -24,31 +25,9 @@ function CheckIcon({
 
   useEffect(() => {
     if (isChecked) {
-      Animated.parallel([
-        Animated.timing(opacity, {
-          toValue: 1,
-          duration: 200,
-          useNativeDriver: false,
-        }),
-        Animated.timing(strokeDashoffset, {
-          toValue: 44,
-          duration: 250,
-          useNativeDriver: false,
-        }),
-      ]).start()
+      runCheckAnimation(opacity, strokeDashoffset)
     } else {
-      Animated.parallel([
-        Animated.timing(opacity, {
-          toValue: 0,
-          duration: 200,
-          useNativeDriver: false,
-        }),
-        Animated.timing(strokeDashoffset, {
-          toValue: 66,
-          duration: 250,
-          useNativeDriver: false,
-        }),
-      ]).start()
+      runUncheckAnimation(opacity, strokeDashoffset)
     }
   }, [isChecked, opacity, strokeDashoffset])
 
@@ -73,7 +52,7 @@ function CheckIcon({
   )
 }
 
-function PlaceholderIcon({ color, size }: { color: string; size: number }) {
+function PlaceholderCheckIcon({ color, size }: { color: string; size: number }) {
   return (
     <Svg width={size} height={size} viewBox="0 0 17 18">
       <Path
@@ -88,7 +67,7 @@ function PlaceholderIcon({ color, size }: { color: string; size: number }) {
   )
 }
 
-function IndeterminateIcon({
+function IndeterminateCheckIcon({
   color,
   size,
 }: Omit<CheckboxIconProps, 'isChecked' | 'isIndeterminate'>) {
@@ -100,10 +79,10 @@ function IndeterminateIcon({
 }
 
 export function CheckboxIcon({ isIndeterminate, variant, ...props }: CheckboxIconProps) {
-  const BaseIcon = isIndeterminate ? IndeterminateIcon : CheckIcon
+  const BaseIcon = isIndeterminate ? IndeterminateCheckIcon : CheckIcon
 
   if (variant === 'light' && !props.isChecked && !isIndeterminate) {
-    return <PlaceholderIcon size={props.size} color={props.placeholderColor ?? ''} />
+    return <PlaceholderCheckIcon size={props.size} color={props.placeholderColor ?? ''} />
   }
 
   return <BaseIcon {...props} />
