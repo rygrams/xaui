@@ -7,13 +7,18 @@ import {
   type ViewStyle,
 } from 'react-native'
 import { useXUITheme } from '../../core'
+import { colors as palette } from '@xaui/core/palette'
 import { useAccordionContext } from './accordion-context'
 
 export const useAccordionItemState = (itemKey?: string) => {
   const context = useAccordionContext()
   const resolvedItemKey = itemKey ?? ''
-  const isExpanded = resolvedItemKey ? context.expandedKeys.includes(resolvedItemKey) : false
-  const isDisabled = resolvedItemKey ? context.disabledKeys.includes(resolvedItemKey) : false
+  const isExpanded = resolvedItemKey
+    ? context.expandedKeys.includes(resolvedItemKey)
+    : false
+  const isDisabled = resolvedItemKey
+    ? context.disabledKeys.includes(resolvedItemKey)
+    : false
 
   const handlePress = useCallback(() => {
     if (isDisabled || !resolvedItemKey) return
@@ -96,11 +101,7 @@ export const useAccordionItemAnimation = (
   }
 }
 
-export const useAccordionItemStyles = (
-  variant: string,
-  isCompact: boolean,
-  isDisabled: boolean
-) => {
+export const useBaseStyles = (variant: string, isDisabled: boolean) => {
   const theme = useXUITheme()
 
   const baseStyles = useMemo<ViewStyle>(() => {
@@ -122,6 +123,12 @@ export const useAccordionItemStyles = (
     return base
   }, [variant, isDisabled, theme])
 
+  return baseStyles
+}
+
+export const useTriggerStyles = (variant: string, isCompact: boolean) => {
+  const theme = useXUITheme()
+
   const triggerStyles = useMemo<ViewStyle>(() => {
     const trigger: ViewStyle = {
       flexDirection: 'row',
@@ -137,6 +144,12 @@ export const useAccordionItemStyles = (
     return trigger
   }, [variant, isCompact, theme])
 
+  return triggerStyles
+}
+
+export const useTitleTextStyle = (isCompact: boolean) => {
+  const theme = useXUITheme()
+
   const titleTextStyle = useMemo<TextStyle>(
     () => ({
       fontSize: isCompact ? theme.fontSizes.md : theme.fontSizes.lg,
@@ -146,14 +159,26 @@ export const useAccordionItemStyles = (
     [isCompact, theme]
   )
 
+  return titleTextStyle
+}
+
+export const useSubtitleTextStyle = () => {
+  const theme = useXUITheme()
+
   const subtitleTextStyle = useMemo<TextStyle>(
     () => ({
       fontSize: theme.fontSizes.sm,
-      color: theme.colors.default.main,
+      color: palette.gray[500],
       marginTop: theme.spacing.xs,
     }),
     [theme]
   )
+
+  return subtitleTextStyle
+}
+
+export const useContentContainerStyle = (isCompact: boolean, variant: string) => {
+  const theme = useXUITheme()
 
   const contentContainerStyle = useMemo<ViewStyle>(
     () => ({
@@ -163,12 +188,10 @@ export const useAccordionItemStyles = (
     [isCompact, variant, theme]
   )
 
-  return {
-    baseStyles,
-    triggerStyles,
-    titleTextStyle,
-    subtitleTextStyle,
-    contentContainerStyle,
-    foregroundColor: theme.colors.foreground,
-  }
+  return contentContainerStyle
+}
+
+export const useForegroundColor = () => {
+  const theme = useXUITheme()
+  return theme.colors.foreground
 }

@@ -4,7 +4,12 @@ import { styles } from './accordion-item.style'
 import {
   useAccordionItemState,
   useAccordionItemAnimation,
-  useAccordionItemStyles,
+  useBaseStyles,
+  useTriggerStyles,
+  useTitleTextStyle,
+  useSubtitleTextStyle,
+  useContentContainerStyle,
+  useForegroundColor,
 } from './accordion-item.hook'
 import { ChevronRightIcon } from './chevron-right-icon'
 import type { AccordionItemProps } from './accordion-item.type'
@@ -44,14 +49,12 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
   const { onContentLayout, heightInterpolation, rotationInterpolation } =
     useAccordionItemAnimation(isExpanded, disableAnimation)
 
-  const {
-    baseStyles,
-    triggerStyles,
-    titleTextStyle,
-    subtitleTextStyle,
-    contentContainerStyle,
-    foregroundColor,
-  } = useAccordionItemStyles(variant, isCompact, isDisabled)
+  const baseStyles = useBaseStyles(variant, isDisabled)
+  const triggerStyles = useTriggerStyles(variant, isCompact)
+  const titleTextStyle = useTitleTextStyle(isCompact)
+  const subtitleTextStyle = useSubtitleTextStyle()
+  const contentContainerStyle = useContentContainerStyle(isCompact, variant)
+  const foregroundColor = useForegroundColor()
 
   return (
     <View style={[baseStyles, baseStyle]}>
