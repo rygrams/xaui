@@ -4,7 +4,32 @@ import { useXUITheme } from '../../core'
 import { colors as palette } from '@xaui/core/palette'
 import type { AccordionVariant, AccordionSelectionMode } from './accordion.type'
 
-export const useAccordionStyles = (variant: AccordionVariant, fullWidth: boolean) => {
+interface AccordionStylesConfig {
+  variant: AccordionVariant
+  fullWidth: boolean
+}
+
+interface AccordionSelectionConfig {
+  selectionMode: AccordionSelectionMode
+  expandedKeys?: string[]
+  defaultExpandedKeys: string[]
+  onSelectionChange?: (expandedKeys: string[]) => void
+}
+
+interface AccordionContextConfig {
+  variant: AccordionVariant
+  hideIndicator: boolean
+  disableAnimation: boolean
+  isCompact: boolean
+  showDivider: boolean
+  expandedKeys?: string[]
+  defaultExpandedKeys: string[]
+  disabledKeys: string[]
+  selectionMode: AccordionSelectionMode
+  onSelectionChange?: (expandedKeys: string[]) => void
+}
+
+export const useAccordionStyles = ({ variant, fullWidth }: AccordionStylesConfig) => {
   const theme = useXUITheme()
 
   const containerStyles = useMemo<ViewStyle>(() => {
@@ -34,12 +59,12 @@ export const useAccordionStyles = (variant: AccordionVariant, fullWidth: boolean
   return { containerStyles, dividerColor, dividerOpacity }
 }
 
-export const useAccordionSelection = (
-  selectionMode: AccordionSelectionMode,
-  expandedKeys: string[] | undefined,
-  defaultExpandedKeys: string[],
-  onSelectionChange?: (expandedKeys: string[]) => void
-) => {
+export const useAccordionSelection = ({
+  selectionMode,
+  expandedKeys,
+  defaultExpandedKeys,
+  onSelectionChange,
+}: AccordionSelectionConfig) => {
   const [internalExpandedKeys, setInternalExpandedKeys] =
     useState<string[]>(defaultExpandedKeys)
 
@@ -68,4 +93,36 @@ export const useAccordionSelection = (
   )
 
   return { currentExpandedKeys, toggleItem }
+}
+
+export const useAccordionContextValue = (config: AccordionContextConfig) => {
+  const { currentExpandedKeys, toggleItem } = useAccordionSelection({
+    selectionMode: config.selectionMode,
+    expandedKeys: config.expandedKeys,
+    defaultExpandedKeys: config.defaultExpandedKeys,
+    onSelectionChange: config.onSelectionChange,
+  })
+
+  return useMemo(
+    () => ({
+      variant: config.variant,
+      hideIndicator: config.hideIndicator,
+      disableAnimation: config.disableAnimation,
+      isCompact: config.isCompact,
+      showDivider: config.showDivider,
+      expandedKeys: currentExpandedKeys,
+      disabledKeys: config.disabledKeys,
+      toggleItem,
+    }),
+    [
+      config.variant,
+      config.hideIndicator,
+      config.disableAnimation,
+      config.isCompact,
+      config.showDivider,
+      currentExpandedKeys,
+      config.disabledKeys,
+      toggleItem,
+    ]
+  )
 }

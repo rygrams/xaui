@@ -44,12 +44,14 @@ export default function HomeScreen() {
 
       <Accordion variant="bordered" selectionMode="multiple">
         <AccordionItem key="section-1" title="Section 1" subtitle="This is section 1">
-          <Button variant="solid" themeColor="primary" onPress={() => {}}>
-            Press me
-          </Button>
-          <Button variant="solid" themeColor="tertiary" onPress={() => {}}>
-            Press me
-          </Button>
+          <View style={{ flexDirection: 'row', gap: 8 }}>
+            <Button variant="solid" themeColor="primary" onPress={() => {}}>
+              Press me
+            </Button>
+            <Button variant="solid" themeColor="tertiary" onPress={() => {}}>
+              Press me
+            </Button>
+          </View>
         </AccordionItem>
         <AccordionItem key="section-2" title="Section 2" subtitle="This is section 2">
           <Text style={{ color: colors.primary.main }}>

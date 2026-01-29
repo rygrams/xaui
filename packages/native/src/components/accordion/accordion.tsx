@@ -1,61 +1,33 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import { View } from 'react-native'
 import { AccordionContext } from './accordion-context'
 import { styles } from './accordion.style'
-import { useAccordionStyles, useAccordionSelection } from './accordion.hook'
-import { getItemKey, isAccordionItem, normalizeElementKey } from './accordion.utils'
+import { useAccordionStyles, useAccordionContextValue } from './accordion.hook'
+import {
+  buildAccordionContextParams,
+  getItemKey,
+  isAccordionItem,
+  normalizeElementKey,
+} from './accordion.utils'
 import type { AccordionProps } from './accordion.type'
 
-export const Accordion: React.FC<AccordionProps> = ({
-  children,
-  variant = 'light',
-  selectionMode = 'toggle',
-  showDivider = false,
-  hideIndicator = false,
-  fullWidth = true,
-  expandedKeys,
-  defaultExpandedKeys = [],
-  disabledKeys = [],
-  disableAnimation = false,
-  isCompact = false,
-  containerStyle,
-  itemStyle,
-  onSelectionChange,
-} : AccordionProps) => {
-  const { containerStyles, dividerColor, dividerOpacity } = useAccordionStyles(
+export const Accordion: React.FC<AccordionProps> = (props: AccordionProps) => {
+  const {
+    children,
+    variant = 'light',
+    showDivider = false,
+    fullWidth = true,
+    containerStyle,
+    itemStyle,
+  } = props
+
+  const { containerStyles, dividerColor, dividerOpacity } = useAccordionStyles({
     variant,
-    fullWidth
-  )
+    fullWidth,
+  })
 
-  const { currentExpandedKeys, toggleItem } = useAccordionSelection(
-    selectionMode,
-    expandedKeys,
-    defaultExpandedKeys,
-    onSelectionChange
-  )
-
-  const contextValue = useMemo(
-    () => ({
-      variant,
-      hideIndicator,
-      disableAnimation,
-      isCompact,
-      showDivider,
-      expandedKeys: currentExpandedKeys,
-      disabledKeys,
-      toggleItem,
-    }),
-    [
-      variant,
-      hideIndicator,
-      disableAnimation,
-      isCompact,
-      showDivider,
-      currentExpandedKeys,
-      disabledKeys,
-      toggleItem,
-    ]
-  )
+  const contextParams = buildAccordionContextParams(props)
+  const contextValue = useAccordionContextValue(contextParams)
 
   const childrenArray = React.Children.toArray(children)
 
