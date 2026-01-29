@@ -37,20 +37,20 @@ describe('Accordion Types', () => {
     })
   })
 
-  it('accepts selectedKeys array', () => {
+  it('accepts expandedKeys array', () => {
     const props: AccordionProps = {
       children: null,
-      selectedKeys: ['item1', 'item2'],
+      expandedKeys: ['item1', 'item2'],
     }
-    expect(props.selectedKeys).toEqual(['item1', 'item2'])
+    expect(props.expandedKeys).toEqual(['item1', 'item2'])
   })
 
-  it('accepts defaultSelectedKeys array', () => {
+  it('accepts defaultExpandedKeys array', () => {
     const props: AccordionProps = {
       children: null,
-      defaultSelectedKeys: ['item1'],
+      defaultExpandedKeys: ['item1'],
     }
-    expect(props.defaultSelectedKeys).toEqual(['item1'])
+    expect(props.defaultExpandedKeys).toEqual(['item1'])
   })
 
   it('accepts disabledKeys array', () => {

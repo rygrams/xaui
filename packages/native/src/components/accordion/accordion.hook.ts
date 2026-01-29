@@ -36,36 +36,36 @@ export const useAccordionStyles = (variant: AccordionVariant, fullWidth: boolean
 
 export const useAccordionSelection = (
   selectionMode: AccordionSelectionMode,
-  selectedKeys: string[] | undefined,
-  defaultSelectedKeys: string[],
-  onSelectionChange?: (selectedKeys: string[]) => void
+  expandedKeys: string[] | undefined,
+  defaultExpandedKeys: string[],
+  onSelectionChange?: (expandedKeys: string[]) => void
 ) => {
-  const [internalSelectedKeys, setInternalSelectedKeys] =
-    useState<string[]>(defaultSelectedKeys)
+  const [internalExpandedKeys, setInternalExpandedKeys] =
+    useState<string[]>(defaultExpandedKeys)
 
-  const isControlled = selectedKeys !== undefined
-  const currentSelectedKeys = isControlled ? selectedKeys : internalSelectedKeys
+  const isControlled = expandedKeys !== undefined
+  const currentExpandedKeys = isControlled ? expandedKeys : internalExpandedKeys
 
   const toggleItem = useCallback(
     (key: string) => {
-      const isSelected = currentSelectedKeys.includes(key)
-      const newSelectedKeys =
+      const isExpanded = currentExpandedKeys.includes(key)
+      const newExpandedKeys =
         selectionMode === 'toggle'
-          ? isSelected
+          ? isExpanded
             ? []
             : [key]
-          : isSelected
-            ? currentSelectedKeys.filter((k) => k !== key)
-            : [...currentSelectedKeys, key]
+          : isExpanded
+            ? currentExpandedKeys.filter((k) => k !== key)
+            : [...currentExpandedKeys, key]
 
       if (!isControlled) {
-        setInternalSelectedKeys(newSelectedKeys)
+        setInternalExpandedKeys(newExpandedKeys)
       }
 
-      onSelectionChange?.(newSelectedKeys)
+      onSelectionChange?.(newExpandedKeys)
     },
-    [selectionMode, currentSelectedKeys, isControlled, onSelectionChange]
+    [selectionMode, currentExpandedKeys, isControlled, onSelectionChange]
   )
 
-  return { currentSelectedKeys, toggleItem }
+  return { currentExpandedKeys, toggleItem }
 }

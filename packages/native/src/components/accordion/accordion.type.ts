@@ -47,14 +47,15 @@ export type AccordionProps = {
   fullWidth?: boolean
 
   /**
-   * Controlled selected keys
+   * Controlled expanded keys
    */
-  selectedKeys?: string[]
+  expandedKeys?: string[]
 
   /**
-   * Default selected keys for uncontrolled mode
+   * Default expanded keys for uncontrolled mode
+   * Items with these keys will be expanded by default
    */
-  defaultSelectedKeys?: string[]
+  defaultExpandedKeys?: string[]
 
   /**
    * Keys of disabled accordion items

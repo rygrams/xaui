@@ -13,8 +13,8 @@ export const Accordion: React.FC<AccordionProps> = ({
   showDivider = false,
   hideIndicator = false,
   fullWidth = true,
-  selectedKeys,
-  defaultSelectedKeys = [],
+  expandedKeys,
+  defaultExpandedKeys = [],
   disabledKeys = [],
   disableAnimation = false,
   isCompact = false,
@@ -25,10 +25,10 @@ export const Accordion: React.FC<AccordionProps> = ({
   const { containerStyles, dividerColor, dividerOpacity } =
     useAccordionStyles(variant, fullWidth)
 
-  const { currentSelectedKeys, toggleItem } = useAccordionSelection(
+  const { currentExpandedKeys, toggleItem } = useAccordionSelection(
     selectionMode,
-    selectedKeys,
-    defaultSelectedKeys,
+    expandedKeys,
+    defaultExpandedKeys,
     onSelectionChange
   )
 
@@ -39,7 +39,7 @@ export const Accordion: React.FC<AccordionProps> = ({
       disableAnimation,
       isCompact,
       showDivider,
-      expandedKeys: currentSelectedKeys,
+      expandedKeys: currentExpandedKeys,
       disabledKeys,
       toggleItem,
     }),
@@ -49,7 +49,7 @@ export const Accordion: React.FC<AccordionProps> = ({
       disableAnimation,
       isCompact,
       showDivider,
-      currentSelectedKeys,
+      currentExpandedKeys,
       disabledKeys,
       toggleItem,
     ]
