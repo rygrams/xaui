@@ -1,9 +1,7 @@
 import type { TextStyle, ViewStyle } from 'react-native'
-import type { ThemeColor } from '../../types'
+import type { Radius, Size, ThemeColor } from '../../types'
 
 export type CheckboxVariant = 'filled' | 'light'
-export type CheckboxSize = 'sm' | 'md' | 'lg'
-export type CheckboxRadius = 'none' | 'sm' | 'md' | 'lg' | 'full'
 export type CheckboxLabelAlignment = 'left' | 'right' | 'justify-left' | 'justify-right'
 
 export type CheckboxProps = {
@@ -30,12 +28,12 @@ export type CheckboxProps = {
    * The size of the checkbox.
    * @default 'md'
    */
-  size?: CheckboxSize
+  size?: Size
   /**
    * The border radius of the checkbox.
    * @default 'sm'
    */
-  radius?: CheckboxRadius
+  radius?: Radius
   /**
    * Whether the checkbox should take the full width of its container.
    * @default false
