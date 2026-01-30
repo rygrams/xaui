@@ -27,6 +27,12 @@ export function useXUIColors(): XUITheme['colors'] {
   return theme.colors
 }
 
+export function useXUIPalette(): XUITheme['palette'] {
+  const theme = useXUITheme()
+
+  return useMemo(() => theme.palette, [theme])
+}
+
 export function useBorderRadiusStyles(radius: Radius): { borderRadius: number } {
   const theme = useXUITheme()
   const borderRadius = useMemo(() => {

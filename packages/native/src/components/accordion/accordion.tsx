@@ -1,7 +1,6 @@
 import React from 'react'
 import { View } from 'react-native'
 import { AccordionContext } from './accordion-context'
-import { styles } from './accordion.style'
 import { useAccordionStyles, useAccordionContextValue } from './accordion.hook'
 import {
   buildAccordionContextParams,
@@ -10,6 +9,7 @@ import {
   normalizeElementKey,
 } from './accordion.utils'
 import type { AccordionProps } from './accordion.type'
+import { Divider } from '../divider'
 
 export const Accordion: React.FC<AccordionProps> = (props: AccordionProps) => {
   const {
@@ -21,7 +21,7 @@ export const Accordion: React.FC<AccordionProps> = (props: AccordionProps) => {
     itemStyle,
   } = props
 
-  const { containerStyles, dividerColor, dividerOpacity } = useAccordionStyles({
+  const { containerStyles, dividerColor } = useAccordionStyles({
     variant,
     fullWidth,
   })
@@ -51,17 +51,7 @@ export const Accordion: React.FC<AccordionProps> = (props: AccordionProps) => {
               {isAccordionItem(child)
                 ? React.cloneElement(child, { itemKey: resolvedChildKey })
                 : child}
-              {showBottomDivider && (
-                <View
-                  style={[
-                    styles.divider,
-                    {
-                      backgroundColor: dividerColor,
-                      opacity: dividerOpacity,
-                    },
-                  ]}
-                />
-              )}
+              {showBottomDivider && <Divider color={dividerColor} size={2} />}
             </View>
           )
         })}
