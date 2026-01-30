@@ -1,5 +1,5 @@
-import type { ReactElement } from 'react'
-import type { FlatListProps, StyleProp, ViewStyle } from 'react-native'
+import type { ComponentType, ReactElement } from 'react'
+import type { StyleProp, ViewStyle } from 'react-native'
 
 export type GridBuilderRenderItem<T> = (info: {
   item: T
@@ -58,14 +58,30 @@ export type GridBuilderProps<T> = {
    */
   itemStyle?: StyleProp<ViewStyle>
   /**
-   * Additional props forwarded to the FlatList.
-   */
-  listProps?: Omit<
-    FlatListProps<T>,
-    'data' | 'renderItem' | 'numColumns' | 'keyExtractor'
-  >
-  /**
    * Enable or disable scrolling.
    */
   scrollEnabled?: boolean
+  /**
+   * Called when the scroll reaches the end.
+   */
+  onEndReached?: () => void
+  /**
+   * Distance from end (as a fraction of the viewport height).
+   * @default 0.1
+   */
+  onEndReachedThreshold?: number
+  /**
+   * Content container style for the list.
+   */
+  contentContainerStyle?: StyleProp<ViewStyle>
+  /**
+   * Optional header element.
+   */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  header?: ReactElement | ComponentType<any> | null
+  /**
+   * Optional footer element.
+   */
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  footer?: ReactElement | ComponentType<any> | null
 }

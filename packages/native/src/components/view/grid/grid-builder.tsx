@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react'
 import {
   FlatList,
+  StyleSheet,
   View,
   type ListRenderItemInfo,
   type StyleProp,
@@ -34,8 +35,12 @@ export const GridBuilder = <T,>({
   columnSpacing,
   style,
   itemStyle,
-  listProps,
   scrollEnabled,
+  onEndReached,
+  onEndReachedThreshold = 0.1,
+  contentContainerStyle,
+  header,
+  footer,
 }: GridBuilderProps<T>) => {
   const safeColumns = getSafeColumns(columns)
   const resolvedRowSpacing = rowSpacing ?? spacing ?? 0
@@ -84,15 +89,43 @@ export const GridBuilder = <T,>({
     return <View style={wrapperStyle}>{element}</View>
   }
 
+  const flattenedStyle = StyleSheet.flatten(style) ?? {}
+  const {
+    alignItems,
+    justifyContent,
+    alignContent,
+    gap,
+    rowGap,
+    columnGap,
+    ...restStyle
+  } = flattenedStyle
+
+  const layoutStyle: ViewStyle = {
+    ...(alignItems !== undefined ? { alignItems } : {}),
+    ...(justifyContent !== undefined ? { justifyContent } : {}),
+    ...(alignContent !== undefined ? { alignContent } : {}),
+    ...(gap !== undefined ? { gap } : {}),
+    ...(rowGap !== undefined ? { rowGap } : {}),
+    ...(columnGap !== undefined ? { columnGap } : {}),
+  }
+
+  const hasLayoutStyle = Object.keys(layoutStyle).length > 0
+
   return (
     <FlatList
       data={resolvedData}
       renderItem={renderGridItem}
       keyExtractor={resolvedKeyExtractor}
       numColumns={safeColumns}
-      scrollEnabled={scrollEnabled ?? listProps?.scrollEnabled}
-      {...listProps}
-      style={[style, listProps?.style]}
+      scrollEnabled={scrollEnabled}
+      onEndReached={onEndReached}
+      onEndReachedThreshold={onEndReachedThreshold}
+      contentContainerStyle={
+        hasLayoutStyle ? [contentContainerStyle, layoutStyle] : contentContainerStyle
+      }
+      ListHeaderComponent={header}
+      ListFooterComponent={footer}
+      style={Object.keys(restStyle).length > 0 ? restStyle : undefined}
     />
   )
 }

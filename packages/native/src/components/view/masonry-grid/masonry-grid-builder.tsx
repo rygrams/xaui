@@ -32,9 +32,13 @@ export const MasonryGridBuilder = <T,>({
   onEndReached,
   onEndReachedThreshold = 0.1,
   header,
-  ListFooterComponent,
-  scrollViewProps,
+  footer,
   scrollEnabled,
+  contentContainerStyle,
+  showsVerticalScrollIndicator,
+  showsHorizontalScrollIndicator,
+  bounces,
+  onScroll,
 }: MasonryGridBuilderProps<T>) => {
   const resolvedData = useMemo(
     () => resolveMasonryData(data, itemCount),
@@ -61,7 +65,7 @@ export const MasonryGridBuilder = <T,>({
   const handleScroll = (
     event: NativeSyntheticEvent<NativeScrollEvent>
   ) => {
-    scrollViewProps?.onScroll?.(event)
+    onScroll?.(event)
     if (!onEndReached) return
 
     const { layoutMeasurement, contentOffset, contentSize } =
@@ -84,8 +88,11 @@ export const MasonryGridBuilder = <T,>({
   return (
     <ScrollView
       scrollEventThrottle={16}
-      {...scrollViewProps}
-      scrollEnabled={scrollEnabled ?? scrollViewProps?.scrollEnabled}
+      scrollEnabled={scrollEnabled}
+      contentContainerStyle={contentContainerStyle}
+      showsVerticalScrollIndicator={showsVerticalScrollIndicator}
+      showsHorizontalScrollIndicator={showsHorizontalScrollIndicator}
+      bounces={bounces}
       onScroll={handleScroll}
     >
       {header}
@@ -103,7 +110,7 @@ export const MasonryGridBuilder = <T,>({
           </MasonryGridItem>
         ))}
       </MasonryGrid>
-      {ListFooterComponent}
+      {footer}
     </ScrollView>
   )
 }

@@ -73,13 +73,29 @@ export type MasonryGridBuilderProps<T> = {
   /**
    * Optional footer element.
    */
-  ListFooterComponent?: ReactNode
+  footer?: ReactNode
   /**
-   * Additional props forwarded to the ScrollView.
+   * Content container style for the ScrollView.
    */
-  scrollViewProps?: ScrollViewProps
+  contentContainerStyle?: StyleProp<ViewStyle>
   /**
    * Enable or disable scrolling.
    */
   scrollEnabled?: boolean
+  /**
+   * Show the vertical scroll indicator.
+   */
+  showsVerticalScrollIndicator?: boolean
+  /**
+   * Show the horizontal scroll indicator.
+   */
+  showsHorizontalScrollIndicator?: boolean
+  /**
+   * Enable or disable bouncing.
+   */
+  bounces?: boolean
+  /**
+   * Scroll handler called alongside internal infinite-scroll logic.
+   */
+  onScroll?: ScrollViewProps['onScroll']
 }
