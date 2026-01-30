@@ -66,6 +66,11 @@
       "types": "./dist/divider/index.d.ts",
       "import": "./dist/divider/index.js",
       "require": "./dist/divider/index.js"
+    },
+    "./avatar": {
+      "types": "./dist/avatar/index.d.ts",
+      "import": "./dist/avatar/index.js",
+      "require": "./dist/avatar/index.js"
     }
   },
   "files": [
