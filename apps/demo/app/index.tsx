@@ -63,7 +63,7 @@ export default function HomeScreen() {
             styles.tile,
             {
               backgroundColor: palette[index % palette.length],
-              height: 100,
+              height: 150 + (index % 3) * 50,
             },
           ]}
         />
