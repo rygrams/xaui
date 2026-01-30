@@ -1,7 +1,19 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { Animated, Pressable, Text, View } from 'react-native'
 import type { SwitchProps } from './switch.type'
-import { useSwitchStyles } from './switch.hook'
+import {
+  useSwitchColorScheme,
+  useSwitchContainerStyles,
+  useSwitchRadiusStyles,
+  useSwitchSizeStyles,
+  useSwitchThumbStyles,
+  useSwitchTrackStyles,
+} from './switch.hook'
+import {
+  runSwitchPressInAnimation,
+  runSwitchPressOutAnimation,
+  runThumbPositionAnimation,
+} from './switch.animation'
 import { styles } from './switch.style'
 import { useXUITheme } from '../../core'
 
@@ -27,23 +39,31 @@ export const Switch: React.FC<SwitchProps> = ({
   const thumbPosition = useRef(new Animated.Value(isSelected ? 1 : 0)).current
   const thumbScale = useRef(new Animated.Value(1)).current
 
-  const { sizeStyles, trackStyles, thumbStyles, containerStyles } = useSwitchStyles(
-    themeColor,
+  const colorScheme = useSwitchColorScheme(themeColor)
+  const sizeStyles = useSwitchSizeStyles(variant, size)
+  const { radiusStyles, thumbRadius } = useSwitchRadiusStyles(radius)
+  const trackStyles = useSwitchTrackStyles({
+    colorScheme,
+    isSelected,
     variant,
-    size,
-    radius,
-    labelAlignment,
-    isSelected
-  )
+    sizeStyles,
+    radiusStyles,
+  })
+  const thumbStyles = useSwitchThumbStyles({
+    colorScheme,
+    isSelected,
+    variant,
+    sizeStyles,
+    thumbRadius,
+  })
+  const containerStyles = useSwitchContainerStyles(labelAlignment)
 
   const maxTranslateX = useMemo(() => {
     if (variant === 'overlap') {
       return sizeStyles.trackWidth - sizeStyles.thumbSize
     }
 
-    return (
-      sizeStyles.trackWidth - sizeStyles.thumbSize - sizeStyles.padding * 2
-    )
+    return sizeStyles.trackWidth - sizeStyles.thumbSize - sizeStyles.padding * 2
   }, [sizeStyles, variant])
 
   const translateX = useMemo(
@@ -56,12 +76,7 @@ export const Switch: React.FC<SwitchProps> = ({
   )
 
   useEffect(() => {
-    Animated.spring(thumbPosition, {
-      toValue: isSelected ? 1 : 0,
-      useNativeDriver: true,
-      damping: 15,
-      stiffness: 150,
-    }).start()
+    runThumbPositionAnimation(thumbPosition, isSelected)
   }, [isSelected, thumbPosition])
 
   const handlePress = () => {
@@ -77,31 +92,13 @@ export const Switch: React.FC<SwitchProps> = ({
   const handlePressIn = () => {
     if (isDisabled) return
 
-    Animated.parallel([
-      Animated.spring(scale, {
-        toValue: 0.95,
-        useNativeDriver: true,
-      }),
-      Animated.spring(thumbScale, {
-        toValue: variant === 'overlap' ? 1.1 : 1.2,
-        useNativeDriver: true,
-      }),
-    ]).start()
+    runSwitchPressInAnimation(scale, thumbScale, variant === 'overlap')
   }
 
   const handlePressOut = () => {
     if (isDisabled) return
 
-    Animated.parallel([
-      Animated.spring(scale, {
-        toValue: 1,
-        useNativeDriver: true,
-      }),
-      Animated.spring(thumbScale, {
-        toValue: 1,
-        useNativeDriver: true,
-      }),
-    ]).start()
+    runSwitchPressOutAnimation(scale, thumbScale)
   }
 
   return (

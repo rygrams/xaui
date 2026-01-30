@@ -9,21 +9,26 @@ import type {
   SwitchVariant,
 } from './switch.type'
 
-export const useSwitchStyles = (
-  themeColor: ThemeColor,
-  variant: SwitchVariant,
-  size: SwitchSize,
-  radius: SwitchRadius,
-  labelAlignment: SwitchLabelAlignment,
-  isSelected: boolean
-) => {
+type SwitchSizeStyles = {
+  trackWidth: number
+  trackHeight: number
+  thumbSize: number
+  fontSize: number
+  padding: number
+}
+
+export const useSwitchColorScheme = (themeColor: ThemeColor) => {
   const theme = useXUITheme()
   const safeThemeColor = getSafeThemeColor(themeColor)
-  const colorScheme = theme.colors[safeThemeColor]
+  return theme.colors[safeThemeColor]
+}
+
+export const useSwitchSizeStyles = (variant: SwitchVariant, size: SwitchSize) => {
+  const theme = useXUITheme()
 
   const sizeStyles = useMemo(() => {
     if (variant === 'overlap') {
-      const sizes = {
+      const sizes: Record<SwitchSize, SwitchSizeStyles> = {
         sm: {
           trackWidth: 40,
           trackHeight: 16,
@@ -49,7 +54,7 @@ export const useSwitchStyles = (
       return sizes[size]
     }
 
-    const sizes = {
+    const sizes: Record<SwitchSize, SwitchSizeStyles> = {
       sm: {
         trackWidth: 40,
         trackHeight: 24,
@@ -75,6 +80,12 @@ export const useSwitchStyles = (
     return sizes[size]
   }, [size, theme, variant])
 
+  return sizeStyles
+}
+
+export const useSwitchRadiusStyles = (radius: SwitchRadius) => {
+  const theme = useXUITheme()
+
   const radiusStyles = useMemo(() => {
     const radii = {
       none: theme.borderRadius.none,
@@ -97,6 +108,26 @@ export const useSwitchStyles = (
     return radii[radius]
   }, [radius, theme])
 
+  return { radiusStyles, thumbRadius }
+}
+
+type SwitchTrackStylesParams = {
+  colorScheme: ReturnType<typeof useSwitchColorScheme>
+  isSelected: boolean
+  variant: SwitchVariant
+  sizeStyles: SwitchSizeStyles
+  radiusStyles: { borderRadius: number }
+}
+
+export const useSwitchTrackStyles = ({
+  colorScheme,
+  isSelected,
+  variant,
+  sizeStyles,
+  radiusStyles,
+}: SwitchTrackStylesParams) => {
+  const theme = useXUITheme()
+
   const trackStyles = useMemo(() => {
     const backgroundColor = isSelected
       ? variant === 'overlap'
@@ -112,6 +143,26 @@ export const useSwitchStyles = (
       ...radiusStyles,
     }
   }, [colorScheme, isSelected, radiusStyles, sizeStyles, theme, variant])
+
+  return trackStyles
+}
+
+type SwitchThumbStylesParams = {
+  colorScheme: ReturnType<typeof useSwitchColorScheme>
+  isSelected: boolean
+  variant: SwitchVariant
+  sizeStyles: SwitchSizeStyles
+  thumbRadius: number
+}
+
+export const useSwitchThumbStyles = ({
+  colorScheme,
+  isSelected,
+  variant,
+  sizeStyles,
+  thumbRadius,
+}: SwitchThumbStylesParams) => {
+  const theme = useXUITheme()
 
   const thumbStyles = useMemo(() => {
     const baseStyle = {
@@ -130,6 +181,10 @@ export const useSwitchStyles = (
     }
   }, [colorScheme, isSelected, sizeStyles, theme, thumbRadius, variant])
 
+  return thumbStyles
+}
+
+export const useSwitchContainerStyles = (labelAlignment: SwitchLabelAlignment) => {
   const containerStyles = useMemo(() => {
     const isJustified =
       labelAlignment === 'justify-left' || labelAlignment === 'justify-right'
@@ -143,13 +198,5 @@ export const useSwitchStyles = (
     }
   }, [labelAlignment])
 
-  return {
-    colorScheme,
-    sizeStyles,
-    radiusStyles,
-    thumbRadius,
-    trackStyles,
-    thumbStyles,
-    containerStyles,
-  }
+  return containerStyles
 }
