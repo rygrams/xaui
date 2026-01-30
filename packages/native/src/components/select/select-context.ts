@@ -1,9 +1,8 @@
 import { createContext } from 'react'
-import type { SelectSize } from './select.type'
-import type { ThemeColor } from '../../types'
+import type { Size, ThemeColor } from '../../types'
 
 export type SelectContextValue = {
-  size: SelectSize
+  size: Size
   themeColor: ThemeColor
   isDisabled: boolean
 }

@@ -2,26 +2,33 @@ import { useMemo } from 'react'
 import { getSafeThemeColor } from '@xaui/core'
 import { colors } from '@xaui/core/palette'
 import { useXUITheme } from '../../core'
-import type { ThemeColor } from '../../types'
-import type { SelectRadius, SelectSize, SelectVariant } from './select.type'
+import type { Radius, Size, ThemeColor } from '../../types'
+import type { SelectVariant } from './select.type'
 
-export const useSelectStyles = (
-  themeColor: ThemeColor,
-  variant: SelectVariant,
-  size: SelectSize,
-  radius: SelectRadius,
-  isInvalid: boolean,
-  shouldShowPlaceholder: boolean
-) => {
+type SelectSizeStyles = {
+  minHeight: number
+  paddingHorizontal: number
+  paddingVertical: number
+  fontSize: number
+  labelSize: number
+}
+
+const useSelectColorScheme = (themeColor: ThemeColor) => {
   const theme = useXUITheme()
   const safeThemeColor = getSafeThemeColor(themeColor)
   const colorScheme = theme.colors[safeThemeColor]
 
-  const sizeStyles = useMemo(() => {
+  return { theme, colorScheme }
+}
+
+export const useSelectSizeStyles = (size: Size): SelectSizeStyles => {
+  const theme = useXUITheme()
+
+  return useMemo(() => {
     const sizes = {
       xs: {
         minHeight: 34,
-        paddingHorizontal: theme.spacing.md,
+        paddingHorizontal: theme.spacing.sm,
         paddingVertical: theme.spacing.xs,
         fontSize: theme.fontSizes.xs,
         labelSize: theme.fontSizes.xs,
@@ -29,7 +36,7 @@ export const useSelectStyles = (
       sm: {
         minHeight: 38,
         paddingHorizontal: theme.spacing.md,
-        paddingVertical: theme.spacing.sm,
+        paddingVertical: theme.spacing.xs,
         fontSize: theme.fontSizes.sm,
         labelSize: theme.fontSizes.xs,
       },
@@ -41,7 +48,7 @@ export const useSelectStyles = (
         labelSize: theme.fontSizes.sm,
       },
       lg: {
-        minHeight: 46,
+        minHeight: 50,
         paddingHorizontal: theme.spacing.lg,
         paddingVertical: theme.spacing.md,
         fontSize: theme.fontSizes.lg,
@@ -51,6 +58,10 @@ export const useSelectStyles = (
 
     return sizes[size]
   }, [size, theme])
+}
+
+export const useSelectRadiusStyles = (radius: Radius) => {
+  const theme = useXUITheme()
 
   const radiusStyles = useMemo(() => {
     const radii = {
@@ -76,7 +87,17 @@ export const useSelectStyles = (
     return Math.min(radii[radius], theme.borderRadius.lg)
   }, [radius, theme])
 
-  const variantStyles = useMemo(() => {
+  return { radiusStyles, listboxRadius }
+}
+
+export const useSelectVariantStyles = (
+  themeColor: ThemeColor,
+  variant: SelectVariant,
+  isInvalid: boolean
+) => {
+  const { theme, colorScheme } = useSelectColorScheme(themeColor)
+
+  return useMemo(() => {
     let borderColor = isInvalid ? theme.colors.danger.main : colorScheme.main
 
     if ((variant === 'outlined' || variant === 'faded') && themeColor === 'default') {
@@ -111,8 +132,16 @@ export const useSelectStyles = (
 
     return styles[variant]
   }, [variant, theme, colorScheme, isInvalid, themeColor])
+}
 
-  const labelStyle = useMemo(() => {
+export const useSelectLabelStyle = (
+  themeColor: ThemeColor,
+  isInvalid: boolean,
+  labelSize: number
+) => {
+  const { theme, colorScheme } = useSelectColorScheme(themeColor)
+
+  return useMemo(() => {
     let baseColor = theme.colors.foreground
 
     if (isInvalid) {
@@ -122,12 +151,19 @@ export const useSelectStyles = (
     }
 
     return {
-      fontSize: sizeStyles.labelSize,
+      fontSize: labelSize,
       color: baseColor,
     }
-  }, [isInvalid, sizeStyles.labelSize, theme, themeColor, colorScheme])
+  }, [isInvalid, labelSize, theme, themeColor, colorScheme])
+}
 
-  const valueColor = useMemo(() => {
+export const useSelectValueColor = (
+  isInvalid: boolean,
+  shouldShowPlaceholder: boolean
+) => {
+  const theme = useXUITheme()
+
+  return useMemo(() => {
     if (isInvalid) {
       return theme.colors.danger.main
     }
@@ -138,16 +174,27 @@ export const useSelectStyles = (
 
     return theme.colors.foreground
   }, [isInvalid, shouldShowPlaceholder, theme])
+}
 
-  const helperColor = useMemo(() => {
+export const useSelectHelperColor = (isInvalid: boolean) => {
+  const theme = useXUITheme()
+
+  return useMemo(() => {
     if (isInvalid) {
       return theme.colors.danger.main
     }
 
     return colors.gray[600]
   }, [isInvalid, theme])
+}
 
-  const selectorColor = useMemo(() => {
+export const useSelectSelectorColor = (
+  isInvalid: boolean,
+  shouldShowPlaceholder: boolean
+) => {
+  const theme = useXUITheme()
+
+  return useMemo(() => {
     if (isInvalid) {
       return theme.colors.danger.main
     }
@@ -158,17 +205,4 @@ export const useSelectStyles = (
 
     return theme.colors.foreground
   }, [isInvalid, shouldShowPlaceholder, theme])
-
-  return {
-    theme,
-    colorScheme,
-    sizeStyles,
-    radiusStyles,
-    listboxRadius,
-    variantStyles,
-    labelStyle,
-    valueColor,
-    helperColor,
-    selectorColor,
-  }
 }

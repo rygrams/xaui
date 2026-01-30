@@ -1,20 +1,26 @@
 import { useMemo } from 'react'
 import { getSafeThemeColor } from '@xaui/core'
 import { useXUITheme } from '../../core'
-import type { ThemeColor } from '../../types'
-import type { SelectSize } from './select.type'
+import type { Size, ThemeColor } from '../../types'
 
-export const useSelectItemStyles = (
-  size: SelectSize,
-  themeColor: ThemeColor,
-  isSelected: boolean
-) => {
+type SelectItemSizeStyles = {
+  paddingVertical: number
+  paddingHorizontal: number
+  titleSize: number
+  descriptionSize: number
+}
+
+export const useSelectItemSizeStyles = (size: Size): SelectItemSizeStyles => {
   const theme = useXUITheme()
-  const safeThemeColor = getSafeThemeColor(themeColor)
-  const colorScheme = theme.colors[safeThemeColor]
 
-  const sizeStyles = useMemo(() => {
+  return useMemo(() => {
     const sizes = {
+      xs: {
+        paddingVertical: theme.spacing.xs,
+        paddingHorizontal: theme.spacing.xs,
+        titleSize: theme.fontSizes.xs,
+        descriptionSize: theme.fontSizes.xs,
+      },
       sm: {
         paddingVertical: theme.spacing.sm,
         paddingHorizontal: theme.spacing.md,
@@ -24,8 +30,8 @@ export const useSelectItemStyles = (
       md: {
         paddingVertical: theme.spacing.md,
         paddingHorizontal: theme.spacing.md,
-        titleSize: theme.fontSizes.md,
-        descriptionSize: theme.fontSizes.sm,
+        titleSize: theme.fontSizes.sm,
+        descriptionSize: theme.fontSizes.xs,
       },
       lg: {
         paddingVertical: theme.spacing.lg,
@@ -37,28 +43,46 @@ export const useSelectItemStyles = (
 
     return sizes[size]
   }, [size, theme])
+}
 
-  const backgroundColor = useMemo(() => {
+export const useSelectItemBackgroundColor = (
+  themeColor: ThemeColor,
+  isSelected: boolean
+) => {
+  const theme = useXUITheme()
+  const safeThemeColor = getSafeThemeColor(themeColor)
+  const colorScheme = theme.colors[safeThemeColor]
+
+  return useMemo(() => {
     if (isSelected) {
       return colorScheme.background
     }
 
     return 'transparent'
   }, [isSelected, colorScheme])
+}
 
-  const checkmarkColor = useMemo(() => {
+export const useSelectItemTextColors = () => {
+  const theme = useXUITheme()
+
+  return useMemo(() => {
+    return {
+      textColor: theme.colors.foreground,
+      descriptionColor: theme.colors.foreground,
+    }
+  }, [theme])
+}
+
+export const useSelectItemCheckmarkColor = (themeColor: ThemeColor) => {
+  const theme = useXUITheme()
+  const safeThemeColor = getSafeThemeColor(themeColor)
+  const colorScheme = theme.colors[safeThemeColor]
+
+  return useMemo(() => {
     if (themeColor === 'default') {
       return theme.colors.primary.main
     }
 
     return colorScheme.main
   }, [themeColor, colorScheme, theme])
-
-  return {
-    sizeStyles,
-    backgroundColor,
-    textColor: theme.colors.foreground,
-    descriptionColor: theme.colors.foreground,
-    checkmarkColor,
-  }
 }

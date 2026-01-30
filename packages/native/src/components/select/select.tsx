@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useMemo } from 'react'
 import {
   Animated,
   Dimensions,
@@ -7,13 +7,28 @@ import {
   ScrollView,
   Text,
   View,
-  type LayoutChangeEvent,
 } from 'react-native'
 import { SelectContext } from './select-context'
 import type { SelectItemProps, SelectProps } from './select.type'
-import { ChevronDownIcon } from './chevron-down-icon'
-import { useSelectStyles } from './select.hook'
+import {
+  useSelectHelperColor,
+  useSelectLabelStyle,
+  useSelectRadiusStyles,
+  useSelectSelectorColor,
+  useSelectSizeStyles,
+  useSelectValueColor,
+  useSelectVariantStyles,
+} from './select.hook'
 import { styles } from './select.style'
+import { useXUITheme } from '../../core'
+import { SelectTrigger } from './select-trigger'
+import { useSelectListboxAnimation } from './select.animation'
+import {
+  useSelectOpenState,
+  useSelectSelection,
+  useSelectTriggerMeasurements,
+} from './select.state.hook'
+import { getTextValue } from './select.utils'
 
 const defaultPlaceholder = 'Select an option'
 
@@ -21,12 +36,6 @@ type ItemData = {
   key: string
   element: React.ReactElement<SelectItemProps>
   labelText: string
-}
-
-const getTextValue = (value: unknown): string | undefined => {
-  if (typeof value === 'string') return value
-  if (typeof value === 'number') return String(value)
-  return undefined
 }
 
 export const Select: React.FC<SelectProps> = ({
@@ -59,27 +68,23 @@ export const Select: React.FC<SelectProps> = ({
   onSelectionChange,
   onClear,
 }) => {
-  const triggerRef = useRef<View>(null)
-  const [internalSelectedKeys, setInternalSelectedKeys] = useState(
-    defaultSelectedKeys ?? []
-  )
-  const [internalOpen, setInternalOpen] = useState(false)
-  const [triggerWidth, setTriggerWidth] = useState<number | null>(null)
-  const [triggerPosition, setTriggerPosition] = useState<{
-    x: number
-    y: number
-    height: number
-    width: number
-  } | null>(null)
-  const animationOpacity = useRef(new Animated.Value(0)).current
-  const animationScale = useRef(new Animated.Value(0.98)).current
-
-  const isControlledSelection = selectedKeys !== undefined
-  const currentSelectedKeys = isControlledSelection
-    ? (selectedKeys ?? [])
-    : internalSelectedKeys
-
-  const isOpen = isOpened ?? internalOpen
+  const { isOpen, setOpen } = useSelectOpenState({
+    isOpened,
+    isDisabled,
+    onOpenChange,
+    onClose,
+  })
+  const { currentSelectedKeys, updateSelection, getNextSelection } =
+    useSelectSelection({
+      selectionMode,
+      selectedKeys,
+      defaultSelectedKeys,
+      onSelectionChange,
+      onClear,
+    })
+  const { triggerRef, triggerWidth, triggerPosition, handleTriggerLayout } =
+    useSelectTriggerMeasurements(isOpen)
+  const { animationOpacity, animationScale } = useSelectListboxAnimation(isOpen)
 
   const disabledKeySet = useMemo(() => {
     return new Set(disabledKeys ?? [])
@@ -118,51 +123,14 @@ export const Select: React.FC<SelectProps> = ({
 
   const shouldShowPlaceholder = selectedLabels.length === 0
 
-  const {
-    theme,
-    sizeStyles,
-    radiusStyles,
-    listboxRadius,
-    variantStyles,
-    labelStyle,
-    valueColor,
-    helperColor,
-    selectorColor,
-  } = useSelectStyles(themeColor, variant, size, radius, isInvalid, shouldShowPlaceholder)
-
-  const setOpen = useCallback(
-    (nextOpen: boolean) => {
-      if (nextOpen && isDisabled) {
-        return
-      }
-
-      if (isOpened === undefined) {
-        setInternalOpen(nextOpen)
-      }
-
-      onOpenChange?.(nextOpen)
-
-      if (!nextOpen) {
-        onClose?.()
-      }
-    },
-    [isDisabled, isOpened, onOpenChange, onClose]
-  )
-
-  const updateSelection = useCallback(
-    (nextKeys: string[]) => {
-      if (!isControlledSelection) {
-        setInternalSelectedKeys(nextKeys)
-      }
-
-      onSelectionChange?.(nextKeys)
-
-      if (nextKeys.length === 0) {
-        onClear?.()
-      }
-    },
-    [isControlledSelection, onSelectionChange, onClear]
-  )
+  const theme = useXUITheme()
+  const sizeStyles = useSelectSizeStyles(size)
+  const { radiusStyles, listboxRadius } = useSelectRadiusStyles(radius)
+  const variantStyles = useSelectVariantStyles(themeColor, variant, isInvalid)
+  const labelStyle = useSelectLabelStyle(themeColor, isInvalid, sizeStyles.labelSize)
+  const valueColor = useSelectValueColor(isInvalid, shouldShowPlaceholder)
+  const helperColor = useSelectHelperColor(isInvalid)
+  const selectorColor = useSelectSelectorColor(isInvalid, shouldShowPlaceholder)
 
   const handleItemSelection = useCallback(
     (key: string) => {
@@ -170,24 +138,24 @@ export const Select: React.FC<SelectProps> = ({
         return
       }
 
-      const isAlreadySelected = currentSelectedKeys.includes(key)
+      const nextKeys = getNextSelection(key)
 
-      if (selectionMode === 'multiple') {
-        const nextKeys = isAlreadySelected
-          ? currentSelectedKeys.filter(existingKey => existingKey !== key)
-          : [...currentSelectedKeys, key]
-
+      if (nextKeys !== currentSelectedKeys) {
         updateSelection(nextKeys)
-        return
       }
 
-      if (!isAlreadySelected) {
-        updateSelection([key])
+      if (selectionMode === 'single') {
+        setOpen(false)
       }
-
-      setOpen(false)
     },
-    [currentSelectedKeys, isDisabled, selectionMode, setOpen, updateSelection]
+    [
+      currentSelectedKeys,
+      isDisabled,
+      selectionMode,
+      setOpen,
+      updateSelection,
+      getNextSelection,
+    ]
   )
 
   const handleClear = () => {
@@ -196,10 +164,6 @@ export const Select: React.FC<SelectProps> = ({
     }
 
     updateSelection([])
-  }
-
-  const handleTriggerLayout = (event: LayoutChangeEvent) => {
-    setTriggerWidth(event.nativeEvent.layout.width)
   }
 
   const handleOverlayPress = () => {
@@ -216,48 +180,12 @@ export const Select: React.FC<SelectProps> = ({
   const dialogTitle =
     typeof label === 'string' || typeof label === 'number' ? String(label) : undefined
 
-  const renderSelectorIcon = selectorIcon ?? (
-    <ChevronDownIcon color={selectorColor} size={16} isOpen={isOpen} />
-  )
-
   const shouldShowHelper = Boolean(hint || errorMessage)
   const helperContent = isInvalid && errorMessage ? errorMessage : hint
 
   const listboxWidth = fullWidth ? (triggerWidth ?? triggerPosition?.width ?? 200) : 280
 
-  useEffect(() => {
-    if (!isOpen) {
-      return
-    }
-
-    const measureTrigger = () => {
-      triggerRef.current?.measureInWindow((x, y, width, height) => {
-        setTriggerPosition({ x, y, width, height })
-      })
-    }
-
-    const frameId = globalThis.setTimeout(measureTrigger, 0)
-
-    animationOpacity.setValue(0)
-    animationScale.setValue(0.98)
-    Animated.parallel([
-      Animated.timing(animationOpacity, {
-        toValue: 1,
-        duration: 180,
-        useNativeDriver: true,
-      }),
-      Animated.timing(animationScale, {
-        toValue: 1,
-        duration: 180,
-        useNativeDriver: true,
-      }),
-    ]).start()
-
-    return () => globalThis.clearTimeout(frameId)
-  }, [isOpen, animationOpacity, animationScale])
-
   const screenWidth = Dimensions.get('window').width
-  const screenHeight = Dimensions.get('window').height
   const listboxPosition = useMemo(() => {
     if (!triggerPosition) {
       return { top: 0, left: 0 }
@@ -269,7 +197,7 @@ export const Select: React.FC<SelectProps> = ({
     const top = Math.max(12, triggerPosition.y)
 
     return { top, left }
-  }, [triggerPosition, listboxWidth, screenWidth, screenHeight, maxListboxHeight])
+  }, [triggerPosition, listboxWidth, screenWidth])
 
   const listItems = items.map(item => {
     const itemProps = item.element.props
@@ -299,56 +227,30 @@ export const Select: React.FC<SelectProps> = ({
   const isLabelOutside = labelPlacement === 'outside' || labelPlacement === 'outside-top'
 
   const triggerContent = (
-    <View ref={triggerRef} collapsable={false}>
-      <Pressable
-        onPress={() => setOpen(!isOpen)}
-        disabled={isDisabled}
-        onLayout={handleTriggerLayout}
-        accessibilityRole="button"
-        accessibilityLabel={typeof label === 'string' ? label : undefined}
-        accessibilityState={{ disabled: isDisabled, expanded: isOpen }}
-        style={[
-          styles.trigger,
-          radiusStyles,
-          variantStyles,
-          {
-            minHeight: sizeStyles.minHeight,
-            paddingHorizontal:
-              variant === 'underlined' ? 2 : sizeStyles.paddingHorizontal,
-            paddingVertical: sizeStyles.paddingVertical,
-          },
-          isDisabled && styles.disabled,
-          style,
-        ]}
-      >
-        <View
-          style={[styles.triggerContent, isLabelInside && styles.triggerContentColumn]}
-        >
-          {startContent}
-          <View style={styles.valueWrapper}>
-            {isLabelInside && renderLabel}
-            <Text
-              style={[
-                styles.valueText,
-                { fontSize: sizeStyles.fontSize, color: valueColor },
-                textStyle,
-              ]}
-            >
-              {displayValue}
-            </Text>
-          </View>
-          {endContent}
-        </View>
-        <View style={styles.endSlot}>
-          {onClear && currentSelectedKeys.length > 0 && (
-            <Pressable onPress={handleClear} style={styles.clearButton}>
-              <Text style={[styles.clearText, { color: selectorColor }]}>x</Text>
-            </Pressable>
-          )}
-          {renderSelectorIcon}
-        </View>
-      </Pressable>
-    </View>
+    <SelectTrigger
+      triggerRef={triggerRef}
+      isOpen={isOpen}
+      isDisabled={isDisabled}
+      onPress={() => setOpen(!isOpen)}
+      onLayout={handleTriggerLayout}
+      accessibilityLabel={typeof label === 'string' ? label : undefined}
+      variant={variant}
+      sizeStyles={sizeStyles}
+      radiusStyles={radiusStyles}
+      variantStyles={variantStyles}
+      displayValue={displayValue}
+      valueColor={valueColor}
+      selectorColor={selectorColor}
+      labelInside={isLabelInside}
+      labelNode={renderLabel}
+      startContent={startContent}
+      endContent={endContent}
+      selectorIcon={selectorIcon}
+      onClear={handleClear}
+      showClear={Boolean(onClear && currentSelectedKeys.length > 0)}
+      textStyle={textStyle}
+      style={style}
+    />
   )
 
   const labelBlock = isLabelOutside || isLabelInside ? renderLabel : null

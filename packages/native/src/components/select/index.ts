@@ -4,8 +4,6 @@ export type {
   SelectProps,
   SelectItemProps,
   SelectVariant,
-  SelectSize,
-  SelectRadius,
   SelectLabelPlacement,
   SelectSelectionMode,
 } from './select.type'

@@ -1,12 +1,18 @@
 import React, { useContext } from 'react'
 import { Pressable, Text, View } from 'react-native'
 import { SelectContext } from './select-context'
-import type { SelectItemProps, SelectSize } from './select.type'
+import type { SelectItemProps } from './select.type'
 import { CheckmarkIcon } from './checkmark-icon'
-import { useSelectItemStyles } from './select-item.hook'
+import {
+  useSelectItemBackgroundColor,
+  useSelectItemCheckmarkColor,
+  useSelectItemSizeStyles,
+  useSelectItemTextColors,
+} from './select-item.hook'
 import { styles } from './select-item.style'
+import type { Size } from '../../types'
 
-const defaultSize: SelectSize = 'md'
+const defaultSize: Size = 'md'
 
 export const SelectItem: React.FC<SelectItemProps> = ({
   label,
@@ -26,13 +32,10 @@ export const SelectItem: React.FC<SelectItemProps> = ({
   const themeColor = context?.themeColor ?? 'default'
   const isItemDisabled = context?.isDisabled ? true : isDisabled
 
-  const {
-    sizeStyles,
-    backgroundColor,
-    textColor,
-    descriptionColor,
-    checkmarkColor,
-  } = useSelectItemStyles(size, themeColor, isSelected)
+  const sizeStyles = useSelectItemSizeStyles(size)
+  const backgroundColor = useSelectItemBackgroundColor(themeColor, isSelected)
+  const { textColor, descriptionColor } = useSelectItemTextColors()
+  const checkmarkColor = useSelectItemCheckmarkColor(themeColor)
 
   const handlePress = () => {
     if (isItemDisabled || isReadOnly) {

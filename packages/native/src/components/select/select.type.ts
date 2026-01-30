@@ -1,10 +1,9 @@
 import type { ReactNode } from 'react'
 import type { TextStyle, ViewStyle } from 'react-native'
-import type { ThemeColor } from '../../types'
+import type { Radius, Size, ThemeColor } from '../../types'
 
 export type SelectVariant = 'outlined' | 'flat' | 'light' | 'faded' | 'underlined'
-export type SelectSize = 'xs' | 'sm' | 'md' | 'lg'
-export type SelectRadius = 'none' | 'sm' | 'md' | 'lg' | 'full'
+
 export type SelectLabelPlacement = 'inside' | 'outside' | 'outside-left' | 'outside-top'
 export type SelectSelectionMode = 'single' | 'multiple'
 
@@ -44,12 +43,12 @@ export type SelectProps = {
    * Size of the select.
    * @default 'md'
    */
-  size?: SelectSize
+  size?: Size
   /**
    * Border radius of the select.
    * @default 'md'
    */
-  radius?: SelectRadius
+  radius?: Radius
   /**
    * Placeholder for empty value.
    */
