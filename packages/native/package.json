@@ -37,6 +37,11 @@
       "import": "./dist/checkbox/index.js",
       "require": "./dist/checkbox/index.js"
     },
+    "./accordion": {
+      "types": "./dist/accordion/index.d.ts",
+      "import": "./dist/accordion/index.js",
+      "require": "./dist/accordion/index.js"
+    },
     "./progress": {
       "types": "./dist/progress/index.d.ts",
       "import": "./dist/progress/index.js",
@@ -46,6 +51,11 @@
       "types": "./dist/indicator/index.d.ts",
       "import": "./dist/indicator/index.js",
       "require": "./dist/indicator/index.js"
+    },
+    "./divider": {
+      "types": "./dist/divider/index.d.ts",
+      "import": "./dist/divider/index.js",
+      "require": "./dist/divider/index.js"
     }
   },
   "files": [

@@ -1,6 +1,7 @@
 import React, { createContext, ReactNode } from 'react'
 import { useColorScheme } from 'react-native'
 import { defaultTheme, XUITheme } from '@xaui/core/theme'
+import { colors } from '@xaui/core/palette'
 
 export const XUIThemeContext = createContext<XUITheme | null>(null)
 
@@ -25,11 +26,14 @@ export function XUIProvider({
     if (!darkTheme && !lightTheme) return defaultTheme
 
     const activeTheme = colorScheme === 'dark' && darkTheme ? darkTheme : lightTheme
+    const mode = colorScheme === 'dark' ? 'dark' : 'light'
+
     if (!activeTheme) return defaultTheme
 
     return {
       ...defaultTheme,
       ...activeTheme,
+      mode,
       colors: {
         ...defaultTheme.colors,
         ...activeTheme.colors,
@@ -42,6 +46,7 @@ export function XUIProvider({
         ...defaultTheme.fontSizes,
         ...activeTheme.fontSizes,
       },
+      palette: colors,
     } as XUITheme
   }, [lightTheme, darkTheme, colorScheme])
 

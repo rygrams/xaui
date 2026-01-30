@@ -25,7 +25,7 @@ export const Button: React.FC<ButtonProps> = ({
   onLongPress,
   onPressIn,
   onPressOut,
-}) => {
+} : ButtonProps) => {
   const animatedScale = React.useRef(new Animated.Value(1)).current
   const animatedOpacity = React.useRef(new Animated.Value(1)).current
 
