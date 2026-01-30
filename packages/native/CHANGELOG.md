@@ -1,5 +1,12 @@
 # @xaui/mobile
 
+## 0.0.6
+
+### Patch Changes
+
+- 88fea0e: Refactor Select implementation by splitting hooks/animation/trigger and align
+  Select size styles with Button sizing.
+
 ## 0.0.5
 
 ### Patch Changes
