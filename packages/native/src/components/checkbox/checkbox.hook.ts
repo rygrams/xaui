@@ -1,28 +1,31 @@
 import { useMemo } from 'react'
 import { getSafeThemeColor } from '@xaui/core'
 import { useXUITheme } from '../../core'
-import type { ThemeColor } from '../../types'
+import type { Radius, Size, ThemeColor } from '../../types'
 import type {
   CheckboxVariant,
-  CheckboxSize,
-  CheckboxRadius,
   CheckboxLabelAlignment,
 } from './checkbox.type'
 
-export const useCheckboxStyles = (
-  themeColor: ThemeColor,
-  variant: CheckboxVariant,
-  size: CheckboxSize,
-  radius: CheckboxRadius,
-  labelAlignment: CheckboxLabelAlignment,
-  isActive: boolean
-) => {
+type CheckboxSizeStyles = {
+  checkboxSize: number
+  fontSize: number
+  iconSize: number
+}
+
+export function useSizeStyles(
+  size: Size,
+  variant: CheckboxVariant
+): CheckboxSizeStyles {
   const theme = useXUITheme()
-  const safeThemeColor = getSafeThemeColor(themeColor)
-  const colorScheme = theme.colors[safeThemeColor]
 
   const sizeStyles = useMemo(() => {
-    const sizes = {
+    const sizes: Record<Size, CheckboxSizeStyles> = {
+      xs: {
+        checkboxSize: 14,
+        fontSize: theme.fontSizes.xs,
+        iconSize: variant === 'light' ? 10 : 8,
+      },
       sm: {
         checkboxSize: 18,
         fontSize: theme.fontSizes.sm,
@@ -39,32 +42,81 @@ export const useCheckboxStyles = (
         iconSize: variant === 'light' ? 22 : 16,
       },
     }
-
     return sizes[size]
-  }, [size, theme, variant])
+  }, [size, variant, theme])
+
+  return sizeStyles
+}
+
+export function useRadiusStyles(radius: Radius) {
+  const theme = useXUITheme()
 
   const radiusStyles = useMemo(() => {
-    const radii = {
+    const radii: Record<Radius, number> = {
       none: theme.borderRadius.none,
       sm: theme.borderRadius.sm,
       md: theme.borderRadius.md,
       lg: theme.borderRadius.lg,
       full: theme.borderRadius.full,
     }
-
     return { borderRadius: radii[radius] }
   }, [radius, theme])
 
-  const checkboxStyles = useMemo(() => {
-    const baseStyle = {
-      width: sizeStyles.checkboxSize,
-      height: sizeStyles.checkboxSize,
-      ...radiusStyles,
-    }
+  return radiusStyles
+}
 
+export function useCheckmarkColors(
+  themeColor: ThemeColor,
+  variant: CheckboxVariant,
+  isActive: boolean
+) {
+  const theme = useXUITheme()
+  const safeThemeColor = getSafeThemeColor(themeColor)
+  const colorScheme = theme.colors[safeThemeColor]
+
+  const checkmarkColors = useMemo(() => {
     if (variant === 'filled') {
       return {
-        ...baseStyle,
+        checked: colorScheme.foreground,
+        unchecked: undefined,
+      }
+    }
+
+    if (isActive) {
+      return {
+        checked: colorScheme.main,
+        unchecked: undefined,
+      }
+    }
+
+    if (themeColor !== 'default') {
+      return {
+        checked: colorScheme.foreground,
+        unchecked: colorScheme.background,
+      }
+    }
+
+    return {
+      checked: theme.colors.foreground,
+      unchecked: colorScheme.background,
+    }
+  }, [variant, colorScheme, isActive, themeColor, theme.colors])
+
+  return checkmarkColors
+}
+
+export function useVariantStyles(
+  themeColor: ThemeColor,
+  variant: CheckboxVariant,
+  isActive: boolean
+) {
+  const theme = useXUITheme()
+  const safeThemeColor = getSafeThemeColor(themeColor)
+  const colorScheme = theme.colors[safeThemeColor]
+
+  const variantStyles = useMemo(() => {
+    if (variant === 'filled') {
+      return {
         backgroundColor: 'transparent',
         borderWidth: isActive ? 0 : theme.borderWidth.md,
         borderColor: isActive ? 'transparent' : colorScheme.main,
@@ -72,31 +124,19 @@ export const useCheckboxStyles = (
     }
 
     return {
-      ...baseStyle,
       backgroundColor: 'transparent',
       borderWidth: 0,
       borderColor: 'transparent',
     }
-  }, [variant, isActive, colorScheme, sizeStyles, radiusStyles, theme])
+  }, [variant, isActive, colorScheme, theme])
 
-  const checkmarkColor = useMemo(() => {
-    if (variant === 'filled') {
-      return colorScheme.foreground
-    }
+  return variantStyles
+}
 
-    if (isActive) {
-      return colorScheme.main
-    }
-
-    if (themeColor !== 'default') {
-      return colorScheme.background
-    }
-
-    return theme.colors.foreground
-  }, [variant, colorScheme, isActive, themeColor, theme.colors.foreground])
-
+export function useContainerStyles(labelAlignment: CheckboxLabelAlignment) {
   const containerStyles = useMemo(() => {
-    const isJustified = labelAlignment === 'justify-left' || labelAlignment === 'justify-right'
+    const isJustified =
+      labelAlignment === 'justify-left' || labelAlignment === 'justify-right'
 
     return {
       flexDirection:
@@ -107,12 +147,5 @@ export const useCheckboxStyles = (
     }
   }, [labelAlignment])
 
-  return {
-    colorScheme,
-    sizeStyles,
-    radiusStyles,
-    checkboxStyles,
-    checkmarkColor,
-    containerStyles,
-  }
+  return containerStyles
 }

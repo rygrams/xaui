@@ -1,5 +1,6 @@
 import { darkThemeColors, themeColors } from './theme-colors'
 import type { ThemeColors } from './theme-colors'
+import { colors } from '../tokens'
 
 export interface ThemeSpacing {
   xs: number
@@ -89,6 +90,8 @@ export interface ThemeShadows {
 }
 
 export interface XUITheme {
+  mode: 'light' | 'dark'
+  palette: typeof colors
   colors: ThemeColors
   spacing: ThemeSpacing
   borderRadius: ThemeBorderRadius
@@ -183,12 +186,16 @@ const baseTheme = {
 } as const
 
 export const theme: XUITheme = {
+  palette: colors,
   colors: themeColors,
+  mode: 'light',
   ...baseTheme,
 }
 
 export const darkTheme: XUITheme = {
+  palette: colors,
   colors: darkThemeColors,
+  mode: 'dark',
   ...baseTheme,
 }
 
