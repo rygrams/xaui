@@ -22,7 +22,7 @@ import { getSafeThemeColor } from '@xaui/core'
 export const Checkbox: React.FC<CheckboxProps> = ({
   label,
   labelAlignment = 'right',
-  themeColor = 'default',
+  themeColor = 'primary',
   variant = 'filled',
   size = 'md',
   radius = 'sm',

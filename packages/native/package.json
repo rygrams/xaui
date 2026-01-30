@@ -1,6 +1,6 @@
 {
   "name": "@xaui/native",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Flutter-inspired React Native UI components with native animations powered by React Native Reanimated",
   "keywords": [
     "react-native",
@@ -51,6 +51,11 @@
       "types": "./dist/indicator/index.d.ts",
       "import": "./dist/indicator/index.js",
       "require": "./dist/indicator/index.js"
+    },
+    "./switch": {
+      "types": "./dist/switch/index.d.ts",
+      "import": "./dist/switch/index.js",
+      "require": "./dist/switch/index.js"
     },
     "./select": {
       "types": "./dist/select/index.d.ts",

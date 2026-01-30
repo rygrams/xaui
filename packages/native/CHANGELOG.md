@@ -1,5 +1,11 @@
 # @xaui/mobile
 
+## 0.0.7
+
+### Patch Changes
+
+- d4859cb: Add Switch component with full feature support including controlled/uncontrolled modes, variants (inside/overlap), sizes, themes, and smooth animations
+
 ## 0.0.6
 
 ### Patch Changes

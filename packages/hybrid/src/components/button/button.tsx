@@ -7,7 +7,7 @@ import type { ButtonProps } from './button.type'
 
 export const Button: React.FC<ButtonProps> = ({
   children,
-  themeColor = 'default',
+  themeColor = 'primary',
   variant = 'solid',
   size = 'md',
   radius = 'md',
