@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import type { ViewStyle } from 'react-native'
+import type { StyleProp, ViewStyle } from 'react-native'
 
 export type GridProps = {
   /**
@@ -26,9 +26,9 @@ export type GridProps = {
   /**
    * Custom style for the grid container.
    */
-  style?: ViewStyle
+  style?: StyleProp<ViewStyle>
   /**
    * Custom style for each grid item.
    */
-  itemStyle?: ViewStyle
+  itemStyle?: StyleProp<ViewStyle>
 }

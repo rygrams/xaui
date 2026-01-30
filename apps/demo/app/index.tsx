@@ -1,8 +1,7 @@
 import { useXUIColors, useXUITheme } from '@xaui/native/core'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, Text } from 'react-native'
 import { useState, useEffect } from 'react'
-import { Select, SelectItem } from '@xaui/native/select'
-import { Switch } from '@xaui/native/switch'
+import { Grid, GridItem } from '@xaui/native/view'
 import { Button } from '@xaui/native/button'
 
 export default function HomeScreen() {
@@ -28,26 +27,50 @@ export default function HomeScreen() {
         },
       ]}
     >
-      <Select
-        placeholder="Select an option"
-        size="lg"
-        onSelectionChange={keys => console.log(keys)}
-        fullWidth
-        selectionMode="multiple"
-        labelPlacement="outside-top"
-        label="Select an option"
-        variant="faded"
-        themeColor="primary"
-      >
-        <SelectItem key="option-1" value="option-1" label="Option 1" />
-        <SelectItem key="option-2" value="option-2" label="Option 2" />
-        <SelectItem key="option-3" value="option-3" label="Option 3" />
-      </Select>
-      <Button size="lg" onPress={() => console.log('pressed')} variant="solid">
-        Press me
-      </Button>
-      <Switch />
-      <Switch label="Switch" />
+      <Grid columns={3} rowSpacing={theme.spacing.xs} columnSpacing={theme.spacing.xs}>
+        <GridItem>
+          <Button variant="faded" size="lg">
+            Button
+          </Button>
+        </GridItem>
+        <GridItem>
+          <View
+            style={{
+              width: '100%',
+              height: 100,
+              backgroundColor: theme.colors.secondary.background,
+            }}
+          />
+        </GridItem>
+        <GridItem>
+          <View
+            style={{
+              width: '100%',
+              height: 100,
+              backgroundColor: theme.colors.tertiary.background,
+            }}
+          />
+        </GridItem>
+
+        <GridItem span={2}>
+          <View
+            style={{
+              width: '100%',
+              height: 100,
+              backgroundColor: theme.colors.danger.background,
+            }}
+          />
+        </GridItem>
+        <GridItem>
+          <View
+            style={{
+              width: '100%',
+              height: 100,
+              backgroundColor: theme.colors.warning.background,
+            }}
+          />
+        </GridItem>
+      </Grid>
     </View>
   )
 }
