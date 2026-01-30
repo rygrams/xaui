@@ -1,9 +1,8 @@
 import { useXUIColors, useXUITheme } from '@xaui/native/core'
-import { StyleSheet, View, Text } from 'react-native'
-import { Accordion, AccordionItem } from '@xaui/native/accordion'
+import { StyleSheet, View } from 'react-native'
 import { useState, useEffect } from 'react'
+import { Select, SelectItem } from '@xaui/native/select'
 import { Button } from '@xaui/native/button'
-import { Divider } from '@xaui/native/divider'
 
 export default function HomeScreen() {
   const colors = useXUIColors()
@@ -28,57 +27,28 @@ export default function HomeScreen() {
         },
       ]}
     >
-      <Accordion
-        variant="splitted"
+      <Select
+        placeholder="Select an option"
+        size="lg"
+        onSelectionChange={keys => console.log(keys)}
+        fullWidth
         selectionMode="multiple"
-        defaultExpandedKeys={['section-1']}
-        disabledKeys={['section-2']}
+        labelPlacement="outside-top"
+        label="Select an option"
+        variant="faded"
       >
-        <AccordionItem key="section-1" title="Section 1">
-          <Text style={{ color: colors.primary.main }}>Content for section 1</Text>
-        </AccordionItem>
-        <AccordionItem key="section-2" title="Section 2" subtitle="This is section 2">
-          <Text style={{ color: colors.primary.main }}>Content for section 2</Text>
-        </AccordionItem>
-      </Accordion>
-
-      <Divider />
-
-      <Accordion
-        variant="bordered"
-        selectionMode="toggle"
-        defaultExpandedKeys={['section-1']}
+        <SelectItem key="option-1" value="option-1" label="Option 1" />
+        <SelectItem key="option-2" value="option-2" label="Option 2" />
+        <SelectItem key="option-3" value="option-3" label="Option 3" />
+      </Select>
+      <Button
+        size="lg"
+        onPress={() => console.log('pressed')}
+        variant="solid"
+        themeColor="primary"
       >
-        <AccordionItem key="section-1" title="Section 1" subtitle="This is section 1">
-          <View style={{ flexDirection: 'row', gap: 8 }}>
-            <Button variant="solid" themeColor="primary" onPress={() => {}}>
-              Press me
-            </Button>
-            <Button variant="solid" themeColor="tertiary" onPress={() => {}}>
-              Press me
-            </Button>
-          </View>
-        </AccordionItem>
-        <AccordionItem key="section-2" title="Section 2" subtitle="This is section 2">
-          <Text style={{ color: colors.primary.main }}>
-            Content for section 1 Content for section 1 Content for section 1
-          </Text>
-        </AccordionItem>
-        <AccordionItem key="section-3" title="Section 2" subtitle="This is section 2">
-          <Text style={{ color: colors.primary.main }}>
-            Content for section 1 Content for section 1 Content for section 1
-          </Text>
-        </AccordionItem>
-      </Accordion>
-
-      <Accordion variant="light" selectionMode="multiple">
-        <AccordionItem key="section-1" title="Section 1" subtitle="This is section 1">
-          <Text style={{ color: colors.primary.main }}>Content for section 1</Text>
-        </AccordionItem>
-        <AccordionItem key="section-2" title="Section 2" subtitle="This is section 2">
-          <Text style={{ color: colors.primary.main }}>Content for section 2</Text>
-        </AccordionItem>
-      </Accordion>
+        Press me
+      </Button>
     </View>
   )
 }
