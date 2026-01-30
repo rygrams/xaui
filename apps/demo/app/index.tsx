@@ -44,7 +44,11 @@ export default function HomeScreen() {
 
       <Divider />
 
-      <Accordion variant="bordered" selectionMode="single ">
+      <Accordion
+        variant="bordered"
+        selectionMode="toggle"
+        defaultExpandedKeys={['section-1']}
+      >
         <AccordionItem key="section-1" title="Section 1" subtitle="This is section 1">
           <View style={{ flexDirection: 'row', gap: 8 }}>
             <Button variant="solid" themeColor="primary" onPress={() => {}}>

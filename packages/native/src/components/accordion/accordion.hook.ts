@@ -54,8 +54,12 @@ export const useAccordionStyles = ({ variant, fullWidth }: AccordionStylesConfig
     return base
   }, [variant, fullWidth, theme])
 
-  const dividerColor =
-    variant === 'bordered' ? containerStyles.borderColor : palette.transparent
+  const dividerColor: string | undefined =
+    variant === 'bordered'
+      ? (containerStyles.borderColor as string | undefined)
+      : theme.mode === 'dark'
+        ? palette.gray[800]
+        : theme.palette.gray[200]
   const dividerOpacity = variant === 'bordered' ? 1 : 0.2
 
   return { containerStyles, dividerColor, dividerOpacity }

@@ -98,7 +98,7 @@ export function useCheckmarkColors(
 
     return {
       checked: theme.colors.foreground,
-      unchecked: theme.colors.background,
+      unchecked: colorScheme.background,
     }
   }, [variant, colorScheme, isActive, themeColor, theme.colors])
 
