@@ -20,7 +20,7 @@ import { useXUITheme } from '../../core'
 export const Switch: React.FC<SwitchProps> = ({
   label,
   labelAlignment = 'right',
-  themeColor = 'default',
+  themeColor = 'primary',
   variant = 'inside',
   size = 'md',
   radius = 'full',
