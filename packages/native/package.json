@@ -52,6 +52,11 @@
       "import": "./dist/indicator/index.js",
       "require": "./dist/indicator/index.js"
     },
+    "./switch": {
+      "types": "./dist/switch/index.d.ts",
+      "import": "./dist/switch/index.js",
+      "require": "./dist/switch/index.js"
+    },
     "./select": {
       "types": "./dist/select/index.d.ts",
       "import": "./dist/select/index.js",

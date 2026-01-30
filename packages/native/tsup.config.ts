@@ -9,6 +9,7 @@ export default defineConfig({
     'accordion/index': 'src/components/accordion/index.ts',
     'progress/index': 'src/components/progress/index.ts',
     'indicator/index': 'src/components/indicator/index.ts',
+    'switch/index': 'src/components/switch/index.ts',
     'select/index': 'src/components/select/index.ts',
     'divider/index': 'src/components/divider/index.ts',
   },
