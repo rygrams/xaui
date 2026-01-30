@@ -11,6 +11,7 @@ export default defineConfig({
     'indicator/index': 'src/components/indicator/index.ts',
     'select/index': 'src/components/select/index.ts',
     'divider/index': 'src/components/divider/index.ts',
+    'view/index': 'src/components/view/index.ts',
   },
   format: ['cjs', 'esm'],
   dts: true,
