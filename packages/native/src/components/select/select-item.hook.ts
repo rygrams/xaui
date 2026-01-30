@@ -16,7 +16,7 @@ export const useSelectItemSizeStyles = (size: Size): SelectItemSizeStyles => {
   return useMemo(() => {
     const sizes = {
       xs: {
-        paddingVertical: theme.spacing.xs,
+        paddingVertical: theme.spacing.sm,
         paddingHorizontal: theme.spacing.xs,
         titleSize: theme.fontSizes.xs,
         descriptionSize: theme.fontSizes.xs,
@@ -30,7 +30,7 @@ export const useSelectItemSizeStyles = (size: Size): SelectItemSizeStyles => {
       md: {
         paddingVertical: theme.spacing.md,
         paddingHorizontal: theme.spacing.md,
-        titleSize: theme.fontSizes.sm,
+        titleSize: theme.fontSizes.md,
         descriptionSize: theme.fontSizes.xs,
       },
       lg: {
