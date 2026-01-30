@@ -13,6 +13,7 @@ export default defineConfig({
     'select/index': 'src/components/select/index.ts',
     'divider/index': 'src/components/divider/index.ts',
     'avatar/index': 'src/components/avatar/index.ts',
+    'badge/index': 'src/components/badge/index.ts',
   },
   format: ['cjs', 'esm'],
   dts: true,
