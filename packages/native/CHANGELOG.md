@@ -1,5 +1,12 @@
 # @xaui/mobile
 
+## 0.0.8
+
+### Patch Changes
+
+- 7c8dde8: Add GridBuilder and MasonryGridBuilder for Flutter-style builder APIs and fix MasonryGrid layout updates for newly measured items.
+- dbbd7bc: Add view layout components (grid, row, column, conditional view) and set default theme colors to primary for button, checkbox, and switch.
+
 ## 0.0.7
 
 ### Patch Changes
