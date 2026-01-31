@@ -79,6 +79,9 @@ export const Grid: React.FC<GridProps> = ({
           baseItemWidth === undefined
             ? `${(100 / safeColumns) * span}%`
             : baseItemWidth * span + resolvedColumnSpacing * (span - 1)
+        if (currentColumn + span > safeColumns) {
+          currentColumn = 0
+        }
         const isEndOfRow = currentColumn + span >= safeColumns
         const marginRight = isEndOfRow ? 0 : resolvedColumnSpacing
 
