@@ -3,6 +3,7 @@ import { StyleSheet } from 'react-native'
 export const styles = StyleSheet.create({
   container: {
     gap: 6,
+    position: 'relative',
   },
   fullWidth: {
     flexShrink: 1,
@@ -20,6 +21,9 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     gap: 8,
+  },
+  triggerWrapper: {
+    position: 'relative',
   },
   triggerContent: {
     flexDirection: 'row',
@@ -56,7 +60,12 @@ export const styles = StyleSheet.create({
   },
   listbox: {
     overflow: 'hidden',
-    marginTop: 2,
+    marginTop: 0,
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    zIndex: 50,
+    elevation: 4,
   },
   listboxContent: {
     flexShrink: 1,

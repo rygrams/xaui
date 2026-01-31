@@ -54,7 +54,6 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
   fullWidth = false,
   isDisabled = false,
   isInvalid = false,
-  _isRequired = false,
   isReadOnly = false,
   isClearable = true,
   allowsCustomValue = false,
@@ -79,6 +78,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
 }) => {
   const [isFocused, setFocused] = useState(false)
   const blurTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
+  const isInteractingWithListboxRef = useRef(false)
 
   const { currentSelectedKey, updateSelection } = useAutocompleteSelection({
     selectedKey,
@@ -100,7 +100,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
     onClose,
   })
 
-  const { triggerRef, triggerWidth, handleTriggerLayout } =
+  const { triggerRef, triggerWidth, triggerHeight, handleTriggerLayout } =
     useAutocompleteTriggerMeasurements()
   const { animationOpacity, animationScale } = useAutocompleteListboxAnimation(
     isOpen && !disableAnimation
@@ -223,11 +223,24 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
     setFocused(false)
 
     blurTimeoutRef.current = setTimeout(() => {
-      setOpen(false)
+      if (!isInteractingWithListboxRef.current) {
+        setOpen(false)
+      }
     }, 200)
 
     onBlur?.()
   }, [onBlur, setOpen])
+
+  const handleListboxTouchStart = useCallback(() => {
+    isInteractingWithListboxRef.current = true
+    if (blurTimeoutRef.current) {
+      clearTimeout(blurTimeoutRef.current)
+    }
+  }, [])
+
+  const handleListboxTouchEnd = useCallback(() => {
+    isInteractingWithListboxRef.current = false
+  }, [])
 
   const renderLabel = label ? (
     typeof label === 'string' || typeof label === 'number' ? (
@@ -241,6 +254,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
   const helperContent = isInvalid && errorMessage ? errorMessage : description
 
   const listboxWidth = triggerWidth || 280
+  const listboxTop = (triggerHeight ?? 0) + 4
 
   const listItems = filteredItems.map(item => {
     const itemProps = item.element.props
@@ -272,37 +286,78 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
   const isLabelOutside = labelPlacement === 'outside' || labelPlacement === 'outside-top'
 
   const triggerContent = (
-    <AutocompleteTrigger
-      triggerRef={triggerRef}
-      _isOpen={isOpen}
-      isDisabled={isDisabled}
-      _isFocused={isFocused}
-      inputValue={currentInputValue}
-      placeholder={placeholder}
-      variant={variant}
-      sizeStyles={sizeStyles}
-      radiusStyles={radiusStyles}
-      variantStyles={variantStyles}
-      inputColor={inputColor}
-      placeholderColor={placeholderColor}
-      selectorColor={selectorColor}
-      labelInside={isLabelInside}
-      labelNode={renderLabel}
-      startContent={startContent}
-      endContent={endContent}
-      selectorIcon={selectorIcon}
-      clearIcon={clearIcon}
-      showClear={isClearable && Boolean(currentInputValue || currentSelectedKey)}
-      selectorRotation={rotation}
-      onPress={() => setOpen(!isOpen)}
-      onInputChange={handleInputChange}
-      onClear={handleClear}
-      onLayout={handleTriggerLayout}
-      onFocus={handleFocus}
-      onBlur={handleBlur}
-      textStyle={textStyle}
-      style={style}
-    />
+    <View style={styles.triggerWrapper}>
+      <AutocompleteTrigger
+        triggerRef={triggerRef}
+        _isOpen={isOpen}
+        isDisabled={isDisabled}
+        _isFocused={isFocused}
+        inputValue={currentInputValue}
+        placeholder={placeholder}
+        variant={variant}
+        sizeStyles={sizeStyles}
+        radiusStyles={radiusStyles}
+        variantStyles={variantStyles}
+        inputColor={inputColor}
+        placeholderColor={placeholderColor}
+        selectorColor={selectorColor}
+        labelInside={isLabelInside}
+        labelNode={renderLabel}
+        startContent={startContent}
+        endContent={endContent}
+        selectorIcon={selectorIcon}
+        clearIcon={clearIcon}
+        showClear={isClearable && Boolean(currentInputValue || currentSelectedKey)}
+        selectorRotation={rotation}
+        onPress={() => setOpen(!isOpen)}
+        onInputChange={handleInputChange}
+        onClear={handleClear}
+        onLayout={handleTriggerLayout}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        textStyle={textStyle}
+        style={style}
+      />
+
+      {isOpen && (filteredItems.length > 0 || showEmptyMessage) ? (
+        <Animated.View
+          onTouchStart={handleListboxTouchStart}
+          onTouchEnd={handleListboxTouchEnd}
+          style={[
+            styles.listbox,
+            {
+              width: listboxWidth || 300,
+              maxHeight: maxListboxHeight,
+              top: listboxTop,
+              borderRadius: listboxRadius,
+              backgroundColor: theme.colors.background,
+              opacity: disableAnimation ? 1 : animationOpacity,
+              transform: [{ scale: disableAnimation ? 1 : animationScale }],
+              ...theme.shadows.md,
+            },
+          ]}
+        >
+          <AutocompleteContext.Provider value={{ size, themeColor, isDisabled }}>
+            <View style={styles.listboxContent}>
+              <ScrollView
+                keyboardShouldPersistTaps="always"
+                keyboardDismissMode="none"
+                nestedScrollEnabled
+                style={{ maxHeight: maxListboxHeight }}
+              >
+                {showEmptyMessage ? (
+                  <Text style={[styles.emptyMessage, { color: theme.colors.foreground }]}>
+                    No results found
+                  </Text>
+                ) : (
+                  listItems
+                )}
+              </ScrollView>
+            </View>
+          </AutocompleteContext.Provider>
+        </Animated.View>
+      ) : null}
+    </View>
   )
 
   const labelBlock = isLabelOutside || isLabelInside ? renderLabel : null
@@ -326,41 +381,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
         )
       ) : null}
 
-      {isOpen && (filteredItems.length > 0 || showEmptyMessage) ? (
-        <Animated.View
-          style={[
-            styles.listbox,
-            {
-              width: listboxWidth || 300,
-              maxHeight: maxListboxHeight,
-              borderRadius: listboxRadius,
-              backgroundColor: theme.colors.background,
-              opacity: disableAnimation ? 1 : animationOpacity,
-              transform: [{ scale: disableAnimation ? 1 : animationScale }],
-              ...theme.shadows.md,
-            },
-          ]}
-        >
-          <AutocompleteContext.Provider value={{ size, themeColor, isDisabled }}>
-            <View style={styles.listboxContent}>
-              <ScrollView
-                keyboardShouldPersistTaps="handled"
-                nestedScrollEnabled
-                showsVerticalScrollIndicator={false}
-                style={{ maxHeight: maxListboxHeight }}
-              >
-                {showEmptyMessage ? (
-                  <Text style={[styles.emptyMessage, { color: theme.colors.foreground }]}>
-                    No results found
-                  </Text>
-                ) : (
-                  listItems
-                )}
-              </ScrollView>
-            </View>
-          </AutocompleteContext.Provider>
-        </Animated.View>
-      ) : null}
+      {null}
     </View>
   )
 }

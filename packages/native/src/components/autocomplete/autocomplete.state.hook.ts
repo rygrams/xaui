@@ -110,10 +110,12 @@ export const useAutocompleteSelection = ({
 export const useAutocompleteTriggerMeasurements = () => {
   const triggerRef = useRef<View | null>(null)
   const [triggerWidth, setTriggerWidth] = useState<number>()
+  const [triggerHeight, setTriggerHeight] = useState<number>()
 
   const handleTriggerLayout = useCallback((event: { nativeEvent: { layout: LayoutRectangle } }) => {
     setTriggerWidth(event.nativeEvent.layout.width)
+    setTriggerHeight(event.nativeEvent.layout.height)
   }, [])
 
-  return { triggerRef, triggerWidth, handleTriggerLayout }
+  return { triggerRef, triggerWidth, triggerHeight, handleTriggerLayout }
 }

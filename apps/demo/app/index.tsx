@@ -25,6 +25,9 @@ export default function HomeScreen() {
           backgroundColor: colors.background,
         },
       ]}
+      keyboardShouldPersistTaps="always"
+      keyboardDismissMode="none"
+      nestedScrollEnabled
       contentContainerStyle={[
         styles.container,
         {
@@ -56,7 +59,6 @@ export default function HomeScreen() {
         />
         <AutocompleteItem value="solid" label="Solid" description="Reactive framework" />
       </Autocomplete>
-      <Button>hello world</Button>
     </ScrollView>
   )
 }
