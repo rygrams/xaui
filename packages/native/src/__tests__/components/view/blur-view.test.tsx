@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import type { BlurViewProps } from '../../../../components/view/blur-view/blur-view.type'
+import { BlurViewProps } from '../../../components/view'
 
 describe('BlurView Types', () => {
   it('exports BlurViewProps type', () => {
