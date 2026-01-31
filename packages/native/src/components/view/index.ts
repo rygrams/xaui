@@ -4,6 +4,7 @@ export { Spacer } from './spacer/spacer'
 export { Padding } from './padding/padding'
 export { Margin } from './margin/margin'
 export { SizedBox } from './sized-box/sized-box'
+export { PositionedView } from './positioned-view/positioned-view'
 export { BlurView } from './blur-view/blur-view'
 export { Grid } from './grid/grid'
 export { GridItem } from './grid/grid-item'
@@ -23,10 +24,13 @@ export type { SpacerProps } from './spacer/spacer.type'
 export type { PaddingProps } from './padding/padding.type'
 export type { MarginProps } from './margin/margin.type'
 export type { SizedBoxProps } from './sized-box/sized-box.type'
+export type { PositionedViewProps } from './positioned-view/positioned-view.type'
 export type { BlurViewProps } from './blur-view/blur-view.type'
 
-export { ConditionalViewAnimation } from './conditional/conditional-view.type'
-export type { ConditionalViewProps } from './conditional/conditional-view.type'
+export type {
+  ConditionalViewAnimation,
+  ConditionalViewProps,
+} from './conditional/conditional-view.type'
 export type { GridProps } from './grid/grid.type'
 export type { GridItemProps } from './grid/grid-item.type'
 export type { GridBuilderProps } from './grid/grid-builder.type'

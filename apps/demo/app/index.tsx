@@ -1,84 +1,76 @@
-import { useXUIColors, useXUITheme } from '@xaui/native/core'
-import { StyleSheet, View, Text } from 'react-native'
-import { useState } from 'react'
-import { GridBuilder } from '@xaui/native/view'
-
+import { Text, View } from 'react-native'
+import {
+  Column,
+  ConditionalView,
+  Grid,
+  GridItem,
+  Margin,
+  Row,
+  SizedBox,
+} from '@xaui/native/view'
+import { colors } from '@xaui/core/palette'
+import { Button } from '@xaui/native/button'
+import { useXUITheme } from '@xaui/native/core'
+import React, { useEffect } from 'react'
 export default function HomeScreen() {
-  const colors = useXUIColors()
+  const [isVisible, setIsVisible] = React.useState(false)
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsVisible(true)
+    }, 3000)
+
+    return () => clearTimeout(timer)
+  }, [])
   const theme = useXUITheme()
-
-  const [gridItems, setGridItems] = useState(() =>
-    Array.from({ length: 20 }, (_, index) => index)
-  )
-
-  const palette = [
-    theme.colors.primary.main,
-    theme.colors.secondary.main,
-    theme.colors.tertiary.background,
-    theme.colors.success.background,
-    theme.colors.warning.background,
-  ]
-
   return (
-    <GridBuilder
-      data={gridItems}
-      columns={3}
-      spacing={theme.spacing.xs}
-      onEndReached={() => {
-        console.log('End reached, loading more items...')
-      }}
-      header={
-        <View style={{ height: 100 }}>
-          <Text
-            style={{
-              color: colors.primary.main,
-              fontSize: 24,
-              textAlign: 'center',
-              lineHeight: 100,
-            }}
-          >
-            Grid Header
-          </Text>
-        </View>
-      }
-      footer={
-        <View style={{ height: 100 }}>
-          <Text
-            style={{
-              color: colors.primary.main,
-              fontSize: 24,
-              textAlign: 'center',
-              lineHeight: 100,
-            }}
-          >
-            Grid footer
-          </Text>
-        </View>
-      }
-      style={styles.container}
-      onEndReachedThreshold={0.4}
-      renderItem={({ index }) => (
-        <View
-          style={[
-            styles.tile,
-            {
-              backgroundColor: palette[index % palette.length],
-              height: 150 + (index % 3) * 50,
-            },
-          ]}
+    <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
+      <Margin top={48}>
+        <Column spacing={16} style={{ padding: 16 }} fullWidth>
+          <Row spacing={8} fullWidth>
+            <Button themeColor="primary" fullWidth>
+              one
+            </Button>
+            <Button themeColor="secondary" fullWidth>
+              two
+            </Button>
+            <ConditionalView isVisible={isVisible} animation="scale">
+              <Button themeColor="tertiary">three</Button>
+            </ConditionalView>
+          </Row>
+          <Grid columns={3} spacing={6}>
+            {Array.from({ length: 9 }).map((_, index) => (
+              <GridItem
+                key={index}
+                style={{
+                  backgroundColor:
+                    Math.random() > 0.5 ? colors.blue[500] : colors.purple[500],
+                  flex: 1,
+                  height: 65,
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  borderRadius: 8,
+                }}
+              >
+                <Text style={{ color: 'white', fontWeight: 'bold' }}>
+                  Item {index + 1}
+                </Text>
+              </GridItem>
+            ))}
+          </Grid>
+        </Column>
+      </Margin>
+      <Margin top={8} left={16}>
+        <SizedBox
+          height={200}
+          width={200}
+          style={{
+            backgroundColor: theme.colors.danger.main,
+            borderRadius: 8,
+          }}
         />
-      )}
-    />
+      </Margin>
+      s
+    </View>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'stretch',
-    padding: 16,
-  },
-  tile: {
-    width: '100%',
-    borderRadius: 8,
-  },
-})

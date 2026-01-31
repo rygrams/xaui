@@ -1,11 +1,13 @@
 import { Animated, Easing } from 'react-native'
-import { FINAL_VALUES } from './conditional-view.utils'
+import type { AnimationValues } from './conditional-view.utils'
 
 type AnimationRefs = {
   opacity: Animated.Value
   scale: Animated.Value
   translateX: Animated.Value
   translateY: Animated.Value
+  toValues: AnimationValues
+  onComplete?: () => void
 }
 
 export const runConditionalViewAnimation = ({
@@ -13,33 +15,43 @@ export const runConditionalViewAnimation = ({
   scale,
   translateX,
   translateY,
+  toValues,
+  onComplete,
 }: AnimationRefs) => {
   const easing = Easing.out(Easing.cubic)
 
-  Animated.parallel([
+  const animation = Animated.parallel([
     Animated.timing(opacity, {
-      toValue: FINAL_VALUES.opacity,
-      duration: 220,
+      toValue: toValues.opacity,
+      duration: 800,
       easing,
       useNativeDriver: true,
     }),
     Animated.timing(scale, {
-      toValue: FINAL_VALUES.scale,
-      duration: 220,
+      toValue: toValues.scale,
+      duration: 800,
       easing,
       useNativeDriver: true,
     }),
     Animated.timing(translateX, {
-      toValue: FINAL_VALUES.translateX,
-      duration: 220,
+      toValue: toValues.translateX,
+      duration: 800,
       easing,
       useNativeDriver: true,
     }),
     Animated.timing(translateY, {
-      toValue: FINAL_VALUES.translateY,
-      duration: 220,
+      toValue: toValues.translateY,
+      duration: 800,
       easing,
       useNativeDriver: true,
     }),
-  ]).start()
+  ])
+
+  animation.start(({ finished }) => {
+    if (finished) {
+      onComplete?.()
+    }
+  })
+
+  return animation
 }

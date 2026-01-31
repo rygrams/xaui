@@ -22,12 +22,6 @@ describe('ConditionalView Types', () => {
     const animations: Array<ConditionalViewProps['animation']> = [
       'fade',
       'scale',
-      'slide-up',
-      'slide-down',
-      'slide-left',
-      'slide-right',
-      'zoom-in',
-      'zoom-out',
     ]
 
     animations.forEach((animation) => {
@@ -41,18 +35,12 @@ describe('ConditionalView Types', () => {
     })
   })
 
-  it('exports ConditionalViewAnimation enum', () => {
+  it('exports ConditionalViewAnimation type', () => {
     const animations: Array<ConditionalViewAnimation> = [
       'fade',
       'scale',
-      'slide-up',
-      'slide-down',
-      'slide-left',
-      'slide-right',
-      'zoom-in',
-      'zoom-out',
     ]
 
-    expect(animations).toHaveLength(8)
+    expect(animations).toHaveLength(2)
   })
 })

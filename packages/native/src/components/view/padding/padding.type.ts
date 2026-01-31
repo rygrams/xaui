@@ -9,7 +9,7 @@ export type PaddingProps = {
   /**
    * Padding on all sides.
    */
-  value?: number
+  all?: number
   /**
    * Horizontal padding.
    */

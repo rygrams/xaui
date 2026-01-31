@@ -1,19 +1,20 @@
-import React, { useEffect, useMemo, useRef } from 'react'
+import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { Animated } from 'react-native'
-import {
-  ConditionalViewAnimation,
-  type ConditionalViewProps,
-} from './conditional-view.type'
-import { FINAL_VALUES, getInitialValues } from './conditional-view.utils'
+import type { ConditionalViewProps } from './conditional-view.type'
+import { FINAL_VALUES, getExitValues, getInitialValues } from './conditional-view.utils'
 import { runConditionalViewAnimation } from './conditional-view.animation'
 
 export const ConditionalView: React.FC<ConditionalViewProps> = ({
   isVisible,
   children,
-  animation = ConditionalViewAnimation.Fade,
+  animation = 'fade',
   disableAnimation = false,
 }) => {
+  const [shouldRender, setShouldRender] = useState(isVisible)
+  const animationRef = useRef<Animated.CompositeAnimation | null>(null)
+
   const initialValues = useMemo(() => getInitialValues(animation), [animation])
+  const exitValues = useMemo(() => getExitValues(animation), [animation])
 
   const opacity = useRef(
     new Animated.Value(disableAnimation ? FINAL_VALUES.opacity : initialValues.opacity)
@@ -33,23 +34,52 @@ export const ConditionalView: React.FC<ConditionalViewProps> = ({
   ).current
 
   useEffect(() => {
-    if (!isVisible) return
+    if (isVisible) {
+      setShouldRender(true)
+    }
+  }, [isVisible])
 
-    const startValues = disableAnimation ? FINAL_VALUES : initialValues
+  useEffect(() => {
+    if (!shouldRender) return
+
+    const startValues = isVisible
+      ? disableAnimation
+        ? FINAL_VALUES
+        : initialValues
+      : FINAL_VALUES
+    const targetValues = isVisible ? FINAL_VALUES : exitValues
     opacity.setValue(startValues.opacity)
     scale.setValue(startValues.scale)
     translateX.setValue(startValues.translateX)
     translateY.setValue(startValues.translateY)
 
-    if (disableAnimation) return
+    if (disableAnimation) {
+      if (!isVisible) {
+        setShouldRender(false)
+      }
+      return
+    }
 
-    runConditionalViewAnimation({
+    animationRef.current?.stop()
+    animationRef.current = runConditionalViewAnimation({
       opacity,
       scale,
       translateX,
       translateY,
+      toValues: targetValues,
+      onComplete: !isVisible ? () => setShouldRender(false) : undefined,
     })
-  }, [isVisible, disableAnimation, initialValues, opacity, scale, translateX, translateY])
+  }, [
+    isVisible,
+    shouldRender,
+    disableAnimation,
+    initialValues,
+    exitValues,
+    opacity,
+    scale,
+    translateX,
+    translateY,
+  ])
 
   const animatedStyle = useMemo(
     () => ({
@@ -59,7 +89,7 @@ export const ConditionalView: React.FC<ConditionalViewProps> = ({
     [opacity, scale, translateX, translateY]
   )
 
-  if (!isVisible) {
+  if (!shouldRender) {
     return null
   }
 

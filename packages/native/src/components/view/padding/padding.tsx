@@ -4,7 +4,7 @@ import type { PaddingProps } from './padding.type'
 
 export const Padding: React.FC<PaddingProps> = ({
   children,
-  value,
+  all,
   horizontal,
   vertical,
   top,
@@ -17,7 +17,7 @@ export const Padding: React.FC<PaddingProps> = ({
     <View
       style={[
         {
-          padding: value,
+          padding: all,
           paddingHorizontal: horizontal,
           paddingVertical: vertical,
           paddingTop: top,

@@ -9,12 +9,7 @@ export type MainAxisAlignment =
   | 'space-around'
   | 'space-evenly'
 
-export type CrossAxisAlignment =
-  | 'start'
-  | 'center'
-  | 'end'
-  | 'stretch'
-  | 'baseline'
+export type CrossAxisAlignment = 'start' | 'center' | 'end' | 'stretch' | 'baseline'
 
 export type RowProps = {
   /**
@@ -40,6 +35,11 @@ export type RowProps = {
    * @default false
    */
   reverse?: boolean
+  /**
+   * Force the container to take the full width.
+   * @default false
+   */
+  fullWidth?: boolean
   /**
    * Custom style for the row container.
    */
