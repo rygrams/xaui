@@ -1,9 +1,7 @@
 import { useXUIColors, useXUITheme } from '@xaui/native/core'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, ScrollView } from 'react-native'
 import { useState, useEffect } from 'react'
-import { Select, SelectItem } from '@xaui/native/select'
-import { Switch } from '@xaui/native/switch'
-import { Button } from '@xaui/native/button'
+import { Autocomplete, AutocompleteItem } from '@xaui/native/autocomplete'
 
 export default function HomeScreen() {
   const colors = useXUIColors()
@@ -19,44 +17,57 @@ export default function HomeScreen() {
   }, [])
 
   return (
-    <View
+    <ScrollView
       style={[
-        styles.container,
+        styles.scrollView,
         {
           backgroundColor: colors.background,
-          gap: theme.spacing.md,
+        },
+      ]}
+      contentContainerStyle={[
+        styles.container,
+        {
+          gap: theme.spacing.lg,
         },
       ]}
     >
-      <Select
-        placeholder="Select an option"
-        size="lg"
-        onSelectionChange={keys => console.log(keys)}
-        fullWidth
-        selectionMode="multiple"
-        labelPlacement="outside-top"
-        label="Select an option"
-        variant="faded"
+      <Autocomplete
+        label="Search Framework"
+        placeholder="Type to search..."
+        variant="outlined"
         themeColor="primary"
+        fullWidth
+        labelPlacement="outside-top"
+        description="Select your favorite framework"
+        onSelectionChange={key => console.log('Selected:', key)}
+        onInputChange={value => console.log('Input:', value)}
       >
-        <SelectItem key="option-1" value="option-1" label="Option 1" />
-        <SelectItem key="option-2" value="option-2" label="Option 2" />
-        <SelectItem key="option-3" value="option-3" label="Option 3" />
-      </Select>
-      <Button size="lg" onPress={() => console.log('pressed')} variant="solid">
-        Press me
-      </Button>
-      <Switch />
-      <Switch label="Switch" />
-    </View>
+        <AutocompleteItem value="react" label="React" description="JavaScript library" />
+        <AutocompleteItem value="vue" label="Vue" description="Progressive framework" />
+        <AutocompleteItem
+          value="angular"
+          label="Angular"
+          description="Platform framework"
+        />
+        <AutocompleteItem
+          value="svelte"
+          label="Svelte"
+          description="Compiler framework"
+        />
+        <AutocompleteItem value="solid" label="Solid" description="Reactive framework" />
+      </Autocomplete>
+    </ScrollView>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
+  scrollView: {
     flex: 1,
+  },
+  container: {
     alignItems: 'center',
     justifyContent: 'center',
     padding: 16,
+    paddingBottom: 40,
   },
 })
