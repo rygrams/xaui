@@ -56,10 +56,10 @@ export const styles = StyleSheet.create({
   },
   listbox: {
     overflow: 'hidden',
-    marginTop: 4,
+    marginTop: 2,
   },
   listboxContent: {
-    flex: 1,
+    flexShrink: 1,
   },
   emptyMessage: {
     paddingHorizontal: 16,

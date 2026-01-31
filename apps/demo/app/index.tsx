@@ -2,6 +2,7 @@ import { useXUIColors, useXUITheme } from '@xaui/native/core'
 import { StyleSheet, ScrollView } from 'react-native'
 import { useState, useEffect } from 'react'
 import { Autocomplete, AutocompleteItem } from '@xaui/native/autocomplete'
+import { Button } from '@react-navigation/elements'
 
 export default function HomeScreen() {
   const colors = useXUIColors()
@@ -38,7 +39,6 @@ export default function HomeScreen() {
         themeColor="primary"
         fullWidth
         labelPlacement="outside-top"
-        description="Select your favorite framework"
         onSelectionChange={key => console.log('Selected:', key)}
         onInputChange={value => console.log('Input:', value)}
       >
@@ -56,6 +56,7 @@ export default function HomeScreen() {
         />
         <AutocompleteItem value="solid" label="Solid" description="Reactive framework" />
       </Autocomplete>
+      <Button>hello world</Button>
     </ScrollView>
   )
 }

@@ -343,7 +343,12 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
         >
           <AutocompleteContext.Provider value={{ size, themeColor, isDisabled }}>
             <View style={styles.listboxContent}>
-              <ScrollView keyboardShouldPersistTaps="handled" nestedScrollEnabled>
+              <ScrollView
+                keyboardShouldPersistTaps="handled"
+                nestedScrollEnabled
+                showsVerticalScrollIndicator={false}
+                style={{ maxHeight: maxListboxHeight }}
+              >
                 {showEmptyMessage ? (
                   <Text style={[styles.emptyMessage, { color: theme.colors.foreground }]}>
                     No results found
