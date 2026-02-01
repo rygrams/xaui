@@ -71,6 +71,11 @@
       "types": "./dist/typography/index.d.ts",
       "import": "./dist/typography/index.js",
       "require": "./dist/typography/index.js"
+    },
+    "./view": {
+      "types": "./dist/view/index.d.ts",
+      "import": "./dist/view/index.js",
+      "require": "./dist/view/index.js"
     }
   },
   "files": [
