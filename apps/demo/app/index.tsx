@@ -8,15 +8,6 @@ export default function HomeScreen() {
   const colors = useXUIColors()
   const theme = useXUITheme()
 
-  const [, setValue] = useState(0.1)
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setValue(prevValue => prevValue + 0.06)
-    }, 1000)
-    return () => clearInterval(interval)
-  }, [])
-
   return (
     <ScrollView
       style={[

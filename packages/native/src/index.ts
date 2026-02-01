@@ -8,3 +8,4 @@ export type {
   AutocompleteLabelPlacement,
   AutocompleteMenuTrigger,
 } from './components/autocomplete'
+export { Typography } from './components/typography'
