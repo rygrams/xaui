@@ -1,22 +1,10 @@
 import { useXUIColors, useXUITheme } from '@xaui/native/core'
 import { StyleSheet, View } from 'react-native'
-import { useState, useEffect } from 'react'
-import { Select, SelectItem } from '@xaui/native/select'
-import { Switch } from '@xaui/native/switch'
-import { Button } from '@xaui/native/button'
+import { Typography } from '@xaui/native/typography'
 
 export default function HomeScreen() {
   const colors = useXUIColors()
   const theme = useXUITheme()
-
-  const [, setValue] = useState(0.1)
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setValue(prevValue => prevValue + 0.06)
-    }, 1000)
-    return () => clearInterval(interval)
-  }, [])
 
   return (
     <View
@@ -28,26 +16,23 @@ export default function HomeScreen() {
         },
       ]}
     >
-      <Select
-        placeholder="Select an option"
-        size="lg"
-        onSelectionChange={keys => console.log(keys)}
-        fullWidth
-        selectionMode="multiple"
-        labelPlacement="outside-top"
-        label="Select an option"
-        variant="faded"
-        themeColor="primary"
-      >
-        <SelectItem key="option-1" value="option-1" label="Option 1" />
-        <SelectItem key="option-2" value="option-2" label="Option 2" />
-        <SelectItem key="option-3" value="option-3" label="Option 3" />
-      </Select>
-      <Button size="lg" onPress={() => console.log('pressed')} variant="solid">
-        Press me
-      </Button>
-      <Switch />
-      <Switch label="Switch" />
+      <Typography variant="headlineLarge">Typography</Typography>
+      <Typography variant="subtitleLarge" themeColor="primary">
+        Subtitle example with primary color
+      </Typography>
+      <Typography variant="bodyMedium">
+        This is a bodyMedium example showing the default typography style.
+      </Typography>
+      <Typography variant="caption" themeColor="secondary">
+        Caption example with secondary color
+      </Typography>
+      <Typography maxLines={1} overflow="ellipsis">
+        This is a long line that will be truncated with ellipsis at one line.
+      </Typography>
+      <Typography maxLines={3} overflow="clip" variant="bodyMedium">
+        This is a longer block of text that clips after three lines to demonstrate the
+        clip overflow behavior in Typography.
+      </Typography>
     </View>
   )
 }
@@ -55,7 +40,7 @@ export default function HomeScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
+    alignItems: 'flex-start',
     justifyContent: 'center',
     padding: 16,
   },

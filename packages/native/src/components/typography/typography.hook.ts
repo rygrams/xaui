@@ -6,36 +6,28 @@ import type { TypographyVariant } from './typography.type'
 import { getSafeThemeColor } from '@xaui/core'
 
 type KnownVariant =
-  | 'body1'
-  | 'body2'
-  | 'button'
   | 'caption'
-  | 'h1'
-  | 'h2'
-  | 'h3'
-  | 'h4'
-  | 'h5'
-  | 'h6'
-  | 'inherit'
-  | 'overline'
-  | 'subtitle1'
-  | 'subtitle2'
+  | 'headlineLarge'
+  | 'headlineMedium'
+  | 'headlineSmall'
+  | 'subtitleLarge'
+  | 'subtitleMedium'
+  | 'subtitleSmall'
+  | 'bodyLarge'
+  | 'bodyMedium'
+  | 'bodySmall'
 
 const knownVariants: Record<string, true> = {
-  body1: true,
-  body2: true,
-  button: true,
   caption: true,
-  h1: true,
-  h2: true,
-  h3: true,
-  h4: true,
-  h5: true,
-  h6: true,
-  inherit: true,
-  overline: true,
-  subtitle1: true,
-  subtitle2: true,
+  headlineLarge: true,
+  headlineMedium: true,
+  headlineSmall: true,
+  subtitleLarge: true,
+  subtitleMedium: true,
+  subtitleSmall: true,
+  bodyLarge: true,
+  bodyMedium: true,
+  bodySmall: true,
 }
 
 const isKnownVariant = (variant: TypographyVariant): variant is KnownVariant => {
@@ -69,81 +61,57 @@ export const useTypographyVariantStyles = (variant: TypographyVariant) => {
       }
     }
 
-    if (variant === 'inherit') {
-      return {}
-    }
-
     const styles: Record<KnownVariant, TextStyle> = {
-      body1: {
-        fontFamily: theme.fontFamilies.body,
-        fontSize: theme.fontSizes.md,
-        fontWeight: theme.fontWeights.normal as TextStyle['fontWeight'],
-      },
-      body2: {
-        fontFamily: theme.fontFamilies.body,
-        fontSize: theme.fontSizes.sm,
-        fontWeight: theme.fontWeights.normal as TextStyle['fontWeight'],
-      },
-      button: {
-        fontFamily: theme.fontFamilies.heading,
-        fontSize: theme.fontSizes.sm,
-        fontWeight: theme.fontWeights.semibold as TextStyle['fontWeight'],
-        textTransform: 'uppercase',
-        letterSpacing: 0.8,
-      },
       caption: {
         fontFamily: theme.fontFamilies.body,
         fontSize: theme.fontSizes.xs,
         fontWeight: theme.fontWeights.normal as TextStyle['fontWeight'],
       },
-      h1: {
+      headlineLarge: {
         fontFamily: theme.fontFamilies.heading,
         fontSize: theme.fontSizes['4xl'],
         fontWeight: theme.fontWeights.bold as TextStyle['fontWeight'],
       },
-      h2: {
+      headlineMedium: {
         fontFamily: theme.fontFamilies.heading,
         fontSize: theme.fontSizes['3xl'],
         fontWeight: theme.fontWeights.bold as TextStyle['fontWeight'],
       },
-      h3: {
+      headlineSmall: {
         fontFamily: theme.fontFamilies.heading,
         fontSize: theme.fontSizes['2xl'],
         fontWeight: theme.fontWeights.semibold as TextStyle['fontWeight'],
       },
-      h4: {
-        fontFamily: theme.fontFamilies.heading,
-        fontSize: theme.fontSizes.xl,
-        fontWeight: theme.fontWeights.semibold as TextStyle['fontWeight'],
-      },
-      h5: {
-        fontFamily: theme.fontFamilies.heading,
-        fontSize: theme.fontSizes.lg,
-        fontWeight: theme.fontWeights.semibold as TextStyle['fontWeight'],
-      },
-      h6: {
-        fontFamily: theme.fontFamilies.heading,
-        fontSize: theme.fontSizes.md,
-        fontWeight: theme.fontWeights.medium as TextStyle['fontWeight'],
-      },
-      overline: {
-        fontFamily: theme.fontFamilies.body,
-        fontSize: theme.fontSizes.xs,
-        fontWeight: theme.fontWeights.medium as TextStyle['fontWeight'],
-        textTransform: 'uppercase',
-        letterSpacing: 1,
-      },
-      subtitle1: {
+      subtitleLarge: {
         fontFamily: theme.fontFamilies.body,
         fontSize: theme.fontSizes.md,
         fontWeight: theme.fontWeights.medium as TextStyle['fontWeight'],
       },
-      subtitle2: {
+      subtitleMedium: {
         fontFamily: theme.fontFamilies.body,
         fontSize: theme.fontSizes.sm,
         fontWeight: theme.fontWeights.medium as TextStyle['fontWeight'],
       },
-      inherit: {},
+      subtitleSmall: {
+        fontFamily: theme.fontFamilies.body,
+        fontSize: theme.fontSizes.xs,
+        fontWeight: theme.fontWeights.medium as TextStyle['fontWeight'],
+      },
+      bodyLarge: {
+        fontFamily: theme.fontFamilies.body,
+        fontSize: theme.fontSizes.md,
+        fontWeight: theme.fontWeights.normal as TextStyle['fontWeight'],
+      },
+      bodyMedium: {
+        fontFamily: theme.fontFamilies.body,
+        fontSize: theme.fontSizes.sm,
+        fontWeight: theme.fontWeights.normal as TextStyle['fontWeight'],
+      },
+      bodySmall: {
+        fontFamily: theme.fontFamilies.body,
+        fontSize: theme.fontSizes.xs,
+        fontWeight: theme.fontWeights.normal as TextStyle['fontWeight'],
+      },
     }
 
     return styles[variant]

@@ -66,6 +66,11 @@
       "types": "./dist/divider/index.d.ts",
       "import": "./dist/divider/index.js",
       "require": "./dist/divider/index.js"
+    },
+    "./typography": {
+      "types": "./dist/typography/index.d.ts",
+      "import": "./dist/typography/index.js",
+      "require": "./dist/typography/index.js"
     }
   },
   "files": [

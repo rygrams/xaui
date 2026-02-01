@@ -5,20 +5,16 @@ import type { ThemeColor } from '../../types'
 export type TypographyAlign = 'center' | 'justify' | 'left' | 'right'
 
 export type TypographyVariant =
-  | 'body1'
-  | 'body2'
-  | 'button'
   | 'caption'
-  | 'h1'
-  | 'h2'
-  | 'h3'
-  | 'h4'
-  | 'h5'
-  | 'h6'
-  | 'inherit'
-  | 'overline'
-  | 'subtitle1'
-  | 'subtitle2'
+  | 'headlineLarge'
+  | 'headlineMedium'
+  | 'headlineSmall'
+  | 'subtitleLarge'
+  | 'subtitleMedium'
+  | 'subtitleSmall'
+  | 'bodyLarge'
+  | 'bodyMedium'
+  | 'bodySmall'
   | string
 
 export type TypographyProps = {
@@ -37,9 +33,18 @@ export type TypographyProps = {
   themeColor?: ThemeColor
   /**
    * The typography variant.
-   * @default 'body1'
+   * @default 'bodyMedium'
    */
   variant?: TypographyVariant
+  /**
+   * Maximum number of lines to display.
+   */
+  maxLines?: number
+  /**
+   * How to handle text overflow when maxLines is set.
+   * @default 'clip'
+   */
+  overflow?: 'clip' | 'ellipsis'
   /**
    * Custom styles for the text.
    */
