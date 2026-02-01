@@ -1,5 +1,5 @@
 ---
-"@xaui/native": minor
+"@xaui/native": patch
 ---
 
-feat(native): add Typography component
+feat(native): add Typography component with semantic scale, text truncation support, and comprehensive styling system
