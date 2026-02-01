@@ -4,6 +4,7 @@
 
 ### Patch Changes
 
+- 976cea6: feat(native): add Typography component with semantic scale, text truncation support, and comprehensive styling system
 - 7c8dde8: Add GridBuilder and MasonryGridBuilder for Flutter-style builder APIs and fix MasonryGrid layout updates for newly measured items.
 - dbbd7bc: Add view layout components (grid, row, column, conditional view) and set default theme colors to primary for button, checkbox, and switch.
 

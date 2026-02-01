@@ -1,76 +1,50 @@
-import { Text, View } from 'react-native'
-import {
-  Column,
-  ConditionalView,
-  Grid,
-  GridItem,
-  Margin,
-  Row,
-  SizedBox,
-} from '@xaui/native/view'
-import { colors } from '@xaui/core/palette'
-import { Button } from '@xaui/native/button'
-import { useXUITheme } from '@xaui/native/core'
-import React, { useEffect } from 'react'
+import { useXUIColors, useXUITheme } from '@xaui/native/core'
+import { StyleSheet, View } from 'react-native'
+import { Typography } from '@xaui/native/typography'
+
 export default function HomeScreen() {
-  const [isVisible, setIsVisible] = React.useState(false)
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsVisible(true)
-    }, 3000)
-
-    return () => clearTimeout(timer)
-  }, [])
+  const colors = useXUIColors()
   const theme = useXUITheme()
+
   return (
-    <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
-      <Margin top={48}>
-        <Column spacing={16} style={{ padding: 16 }} fullWidth>
-          <Row spacing={8} fullWidth>
-            <Button themeColor="primary" fullWidth>
-              one
-            </Button>
-            <Button themeColor="secondary" fullWidth>
-              two
-            </Button>
-            <ConditionalView isVisible={isVisible} animation="scale">
-              <Button themeColor="tertiary">three</Button>
-            </ConditionalView>
-          </Row>
-          <Grid columns={3} spacing={6}>
-            {Array.from({ length: 9 }).map((_, index) => (
-              <GridItem
-                key={index}
-                style={{
-                  backgroundColor:
-                    Math.random() > 0.5 ? colors.blue[500] : colors.purple[500],
-                  flex: 1,
-                  height: 65,
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  borderRadius: 8,
-                }}
-              >
-                <Text style={{ color: 'white', fontWeight: 'bold' }}>
-                  Item {index + 1}
-                </Text>
-              </GridItem>
-            ))}
-          </Grid>
-        </Column>
-      </Margin>
-      <Margin top={8} left={16}>
-        <SizedBox
-          height={200}
-          width={200}
-          style={{
-            backgroundColor: theme.colors.danger.main,
-            borderRadius: 8,
-          }}
-        />
-      </Margin>
-      s
+    <View
+      style={[
+        styles.container,
+        {
+          backgroundColor: colors.background,
+          gap: theme.spacing.md,
+        },
+      ]}
+    >
+      <Typography variant="headlineLarge">Typography</Typography>
+      <Typography variant="subtitleLarge" themeColor="primary">
+        Subtitle example with primary color
+      </Typography>
+      <Typography variant="bodyLarge">
+        This is a bodyMedium example showing the default typography style.
+      </Typography>
+      <Typography variant="bodyMedium">
+        This is a bodyMedium example showing the default typography style.
+      </Typography>
+      <Typography variant="caption" themeColor="secondary">
+        Caption example with secondary color
+      </Typography>
+      <Typography maxLines={1} overflow="ellipsis">
+        This is a long line that will be truncated with ellipsis at one line.
+      </Typography>
+      <Typography maxLines={3} overflow="clip" variant="bodyMedium">
+        This is a longer block of text that clips after three lines to demonstrate the
+        clip overflow behavior in Typography.
+      </Typography>
     </View>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    padding: 16,
+  },
+})

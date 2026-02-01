@@ -4,6 +4,7 @@
 
 ### Patch Changes
 
+- Updated dependencies [976cea6]
 - Updated dependencies [7c8dde8]
 - Updated dependencies [dbbd7bc]
   - @xaui/native@0.0.8
