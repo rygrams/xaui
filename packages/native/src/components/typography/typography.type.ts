@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import type { TextStyle } from 'react-native'
+import type { StyleProp, TextStyle } from 'react-native'
 import type { ThemeColor } from '../../types'
 
 export type TypographyAlign = 'center' | 'justify' | 'left' | 'right'
@@ -48,5 +48,5 @@ export type TypographyProps = {
   /**
    * Custom styles for the text.
    */
-  style?: TextStyle
+  style?: StyleProp<TextStyle>
 }
