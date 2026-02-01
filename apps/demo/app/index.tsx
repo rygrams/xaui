@@ -20,6 +20,9 @@ export default function HomeScreen() {
       <Typography variant="subtitleLarge" themeColor="primary">
         Subtitle example with primary color
       </Typography>
+      <Typography variant="bodyLarge">
+        This is a bodyMedium example showing the default typography style.
+      </Typography>
       <Typography variant="bodyMedium">
         This is a bodyMedium example showing the default typography style.
       </Typography>

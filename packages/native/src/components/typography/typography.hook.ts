@@ -69,32 +69,32 @@ export const useTypographyVariantStyles = (variant: TypographyVariant) => {
       },
       headlineLarge: {
         fontFamily: theme.fontFamilies.heading,
-        fontSize: theme.fontSizes['4xl'],
+        fontSize: theme.fontSizes['4xl'] + 3,
         fontWeight: theme.fontWeights.bold as TextStyle['fontWeight'],
       },
       headlineMedium: {
         fontFamily: theme.fontFamilies.heading,
-        fontSize: theme.fontSizes['3xl'],
+        fontSize: theme.fontSizes['3xl'] + 3,
         fontWeight: theme.fontWeights.bold as TextStyle['fontWeight'],
       },
       headlineSmall: {
         fontFamily: theme.fontFamilies.heading,
-        fontSize: theme.fontSizes['2xl'],
+        fontSize: theme.fontSizes['2xl'] + 3,
         fontWeight: theme.fontWeights.semibold as TextStyle['fontWeight'],
       },
       subtitleLarge: {
         fontFamily: theme.fontFamilies.body,
-        fontSize: theme.fontSizes.md,
+        fontSize: theme.fontSizes.md + 5,
         fontWeight: theme.fontWeights.medium as TextStyle['fontWeight'],
       },
       subtitleMedium: {
         fontFamily: theme.fontFamilies.body,
-        fontSize: theme.fontSizes.sm,
+        fontSize: theme.fontSizes.sm + 5,
         fontWeight: theme.fontWeights.medium as TextStyle['fontWeight'],
       },
       subtitleSmall: {
         fontFamily: theme.fontFamilies.body,
-        fontSize: theme.fontSizes.xs,
+        fontSize: theme.fontSizes.xs + 5,
         fontWeight: theme.fontWeights.medium as TextStyle['fontWeight'],
       },
       bodyLarge: {
