@@ -1,5 +1,11 @@
 # @xaui/mobile
 
+## 0.0.8
+
+### Patch Changes
+
+- 976cea6: feat(native): add Typography component with semantic scale, text truncation support, and comprehensive styling system
+
 ## 0.0.7
 
 ### Patch Changes
