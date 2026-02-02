@@ -5,7 +5,7 @@ import type { MarginProps } from './margin.type'
 
 export const Margin: React.FC<MarginProps> = ({
   children,
-  value,
+  all,
   horizontal,
   vertical,
   top,
@@ -23,7 +23,7 @@ export const Margin: React.FC<MarginProps> = ({
     <View
       style={[
         {
-          margin: value,
+          margin: all,
           marginHorizontal: horizontal,
           marginVertical: vertical,
           marginTop: top,

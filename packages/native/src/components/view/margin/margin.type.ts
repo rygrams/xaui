@@ -9,7 +9,7 @@ export type MarginProps = {
   /**
    * Margin on all sides.
    */
-  value?: number
+  all?: number
   /**
    * Horizontal margin.
    */
