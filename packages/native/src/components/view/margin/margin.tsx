@@ -1,5 +1,6 @@
 import React from 'react'
 import { View } from 'react-native'
+import type { ViewStyle } from 'react-native'
 import type { MarginProps } from './margin.type'
 
 export const Margin: React.FC<MarginProps> = ({
@@ -11,8 +12,13 @@ export const Margin: React.FC<MarginProps> = ({
   right,
   bottom,
   left,
+  fullWidth,
   style,
 }) => {
+  const fullWidthStyle = fullWidth
+    ? ({ flexShrink: 1, flexBasis: 'auto', width: '100%' } as ViewStyle)
+    : undefined
+
   return (
     <View
       style={[
@@ -25,6 +31,7 @@ export const Margin: React.FC<MarginProps> = ({
           marginBottom: bottom,
           marginLeft: left,
         },
+        fullWidthStyle,
         style,
       ]}
     >
