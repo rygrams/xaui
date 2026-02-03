@@ -4,19 +4,17 @@ export const styles = StyleSheet.create({
   item: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingVertical: 10,
     gap: 8,
   },
-  itemContent: {
+  content: {
     flex: 1,
     gap: 2,
   },
-  label: {
+  title: {
     fontWeight: '500',
   },
   description: {
-    fontSize: 12,
+    opacity: 0.7,
   },
   disabled: {
     opacity: 0.5,

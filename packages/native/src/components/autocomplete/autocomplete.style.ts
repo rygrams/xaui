@@ -22,6 +22,9 @@ export const styles = StyleSheet.create({
     justifyContent: 'space-between',
     gap: 8,
   },
+  triggerText: {
+    flex: 1,
+  },
   triggerWrapper: {
     position: 'relative',
   },

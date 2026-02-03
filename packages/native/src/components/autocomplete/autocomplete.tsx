@@ -1,33 +1,29 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react'
-import { Animated, ScrollView, Text, View } from 'react-native'
+import React, { useCallback, useMemo } from 'react'
+import { Pressable, Text, TouchableOpacity, View } from 'react-native'
 import { AutocompleteContext } from './autocomplete-context'
 import type { AutocompleteItemProps, AutocompleteProps } from './autocomplete.type'
 import {
   useAutocompleteHelperColor,
-  useAutocompleteInputColor,
   useAutocompleteLabelStyle,
-  useAutocompletePlaceholderColor,
   useAutocompleteRadiusStyles,
-  useAutocompleteSelectorColor,
   useAutocompleteSizeStyles,
   useAutocompleteVariantStyles,
 } from './autocomplete.hook'
 import { styles } from './autocomplete.style'
 import { useXUITheme } from '../../core'
-import { AutocompleteTrigger } from './autocomplete-trigger'
-import {
-  useAutocompleteListboxAnimation,
-  useAutocompleteSelectorAnimation,
-} from './autocomplete.animation'
 import {
   useAutocompleteInputState,
   useAutocompleteOpenState,
   useAutocompleteSelection,
-  useAutocompleteTriggerMeasurements,
 } from './autocomplete.state.hook'
 import { defaultFilterFunction, getTextValue } from './autocomplete.utils'
+import { AutocompleteDialog } from '../dialogs/autocomplete-dialog'
 
 const defaultPlaceholder = 'Search...'
+
+const CloseIcon: React.FC<{ color: string; size: number }> = ({ color, size }) => (
+  <Text style={{ fontSize: size, color, lineHeight: size }}>×</Text>
+)
 
 type ItemData = {
   key: string
@@ -46,26 +42,18 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
   label,
   description,
   errorMessage,
-  startContent,
-  endContent,
-  selectorIcon,
   clearIcon,
-  maxListboxHeight = 280,
   fullWidth = false,
   isDisabled = false,
   isInvalid = false,
-  isReadOnly = false,
   isClearable = true,
   allowsCustomValue = false,
   allowsEmptyCollection = true,
-  disableAnimation = false,
-  disableSelectorIconRotation = false,
   selectedKey,
   defaultSelectedKey,
   inputValue,
   defaultInputValue,
   disabledKeys,
-  menuTrigger = 'focus',
   style,
   textStyle,
   onClose,
@@ -73,13 +61,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
   onSelectionChange,
   onInputChange,
   onClear,
-  onFocus,
-  onBlur,
 }) => {
-  const [isFocused, setFocused] = useState(false)
-  const blurTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
-  const isInteractingWithListboxRef = useRef(false)
-
   const { currentSelectedKey, updateSelection } = useAutocompleteSelection({
     selectedKey,
     defaultSelectedKey,
@@ -99,16 +81,6 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
     onOpenChange,
     onClose,
   })
-
-  const { triggerRef, triggerWidth, triggerHeight, handleTriggerLayout } =
-    useAutocompleteTriggerMeasurements()
-  const { animationOpacity, animationScale } = useAutocompleteListboxAnimation(
-    isOpen && !disableAnimation
-  )
-  const { rotation } = useAutocompleteSelectorAnimation(
-    isOpen,
-    disableSelectorIconRotation
-  )
 
   const disabledKeySet = useMemo(() => {
     return new Set(disabledKeys ?? [])
@@ -145,39 +117,32 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
 
   const theme = useXUITheme()
   const sizeStyles = useAutocompleteSizeStyles(size)
-  const { radiusStyles, listboxRadius } = useAutocompleteRadiusStyles(radius)
+  const { radiusStyles } = useAutocompleteRadiusStyles(radius)
   const variantStyles = useAutocompleteVariantStyles(themeColor, variant, isInvalid)
   const labelStyle = useAutocompleteLabelStyle(
     themeColor,
     isInvalid,
     sizeStyles.labelSize
   )
-  const inputColor = useAutocompleteInputColor(isInvalid)
-  const placeholderColor = useAutocompletePlaceholderColor()
   const helperColor = useAutocompleteHelperColor(isInvalid)
-  const selectorColor = useAutocompleteSelectorColor(
-    isInvalid,
-    Boolean(currentInputValue || currentSelectedKey)
-  )
+
+  const selectedItem = items.find(item => item.key === currentSelectedKey)
+  const displayValue = selectedItem?.labelText || placeholder
 
   const handleInputChange = useCallback(
     (text: string) => {
       updateInputValue(text)
 
-      if (menuTrigger === 'input' && text.trim()) {
-        setOpen(true)
-      }
-
       if (!text.trim() && !allowsCustomValue) {
         updateSelection(null)
       }
     },
-    [updateInputValue, menuTrigger, setOpen, allowsCustomValue, updateSelection]
+    [updateInputValue, allowsCustomValue, updateSelection]
   )
 
   const handleItemSelection = useCallback(
     (key: string, itemLabel: string) => {
-      if (isDisabled || isReadOnly) {
+      if (isDisabled) {
         return
       }
 
@@ -185,76 +150,28 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
       updateInputValue(itemLabel)
       setOpen(false)
     },
-    [isDisabled, isReadOnly, updateSelection, updateInputValue, setOpen]
+    [isDisabled, updateSelection, updateInputValue, setOpen]
   )
 
+  const handleCheckmark = useCallback(() => {
+    setOpen(false)
+  }, [setOpen])
+
   const handleClear = useCallback(() => {
-    if (isDisabled || (!currentInputValue && !currentSelectedKey)) {
+    if (isDisabled) {
       return
     }
 
     updateSelection(null)
     updateInputValue('')
     onClear?.()
-  }, [
-    isDisabled,
-    currentInputValue,
-    currentSelectedKey,
-    updateSelection,
-    updateInputValue,
-    onClear,
-  ])
+  }, [isDisabled, updateSelection, updateInputValue, onClear])
 
-  const handleFocus = useCallback(() => {
-    setFocused(true)
-
-    if (blurTimeoutRef.current) {
-      clearTimeout(blurTimeoutRef.current)
-    }
-
-    if (menuTrigger === 'focus') {
+  const handleTriggerPress = useCallback(() => {
+    if (!isDisabled) {
       setOpen(true)
     }
-
-    onFocus?.()
-  }, [menuTrigger, setOpen, onFocus])
-
-  const handleBlur = useCallback(() => {
-    setFocused(false)
-
-    blurTimeoutRef.current = setTimeout(() => {
-      if (!isInteractingWithListboxRef.current) {
-        setOpen(false)
-      }
-    }, 200)
-
-    onBlur?.()
-  }, [onBlur, setOpen])
-
-  const handleListboxTouchStart = useCallback(() => {
-    isInteractingWithListboxRef.current = true
-    if (blurTimeoutRef.current) {
-      clearTimeout(blurTimeoutRef.current)
-    }
-  }, [])
-
-  const handleListboxTouchEnd = useCallback(() => {
-    isInteractingWithListboxRef.current = false
-  }, [])
-
-  const renderLabel = label ? (
-    typeof label === 'string' || typeof label === 'number' ? (
-      <Text style={[styles.label, labelStyle]}>{label}</Text>
-    ) : (
-      <View>{label}</View>
-    )
-  ) : null
-
-  const shouldShowHelper = Boolean(description || errorMessage)
-  const helperContent = isInvalid && errorMessage ? errorMessage : description
-
-  const listboxWidth = triggerWidth || 280
-  const listboxTop = (triggerHeight ?? 0) + 4
+  }, [isDisabled, setOpen])
 
   const listItems = filteredItems.map(item => {
     const itemProps = item.element.props
@@ -285,79 +202,62 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
   const isLabelOutsideLeft = labelPlacement === 'outside-left'
   const isLabelOutside = labelPlacement === 'outside' || labelPlacement === 'outside-top'
 
-  const triggerContent = (
-    <View style={styles.triggerWrapper}>
-      <AutocompleteTrigger
-        triggerRef={triggerRef}
-        _isOpen={isOpen}
-        isDisabled={isDisabled}
-        _isFocused={isFocused}
-        inputValue={currentInputValue}
-        placeholder={placeholder}
-        variant={variant}
-        sizeStyles={sizeStyles}
-        radiusStyles={radiusStyles}
-        variantStyles={variantStyles}
-        inputColor={inputColor}
-        placeholderColor={placeholderColor}
-        selectorColor={selectorColor}
-        labelInside={isLabelInside}
-        labelNode={renderLabel}
-        startContent={startContent}
-        endContent={endContent}
-        selectorIcon={selectorIcon}
-        clearIcon={clearIcon}
-        showClear={isClearable && Boolean(currentInputValue || currentSelectedKey)}
-        selectorRotation={rotation}
-        onPress={() => setOpen(!isOpen)}
-        onInputChange={handleInputChange}
-        onClear={handleClear}
-        onLayout={handleTriggerLayout}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-        textStyle={textStyle}
-        style={style}
-      />
+  const renderLabel = label ? (
+    typeof label === 'string' || typeof label === 'number' ? (
+      <Text style={[styles.label, labelStyle]}>{label}</Text>
+    ) : (
+      <View>{label}</View>
+    )
+  ) : null
 
-      {isOpen && (filteredItems.length > 0 || showEmptyMessage) ? (
-        <Animated.View
-          onTouchStart={handleListboxTouchStart}
-          onTouchEnd={handleListboxTouchEnd}
+  const shouldShowHelper = Boolean(description || errorMessage)
+  const helperContent = isInvalid && errorMessage ? errorMessage : description
+
+  const triggerContent = (
+    <Pressable
+      onPress={handleTriggerPress}
+      disabled={isDisabled}
+      style={[
+        styles.trigger,
+        {
+          minHeight: sizeStyles.minHeight,
+          paddingHorizontal: sizeStyles.paddingHorizontal,
+          paddingVertical: sizeStyles.paddingVertical,
+        },
+        radiusStyles,
+        variantStyles,
+        isDisabled && styles.disabled,
+        style,
+      ]}
+      accessibilityLabel={typeof label === 'string' ? label : undefined}
+      accessibilityRole="button"
+      accessibilityState={{ disabled: isDisabled }}
+    >
+      <View style={styles.triggerContent}>
+        {isLabelInside && renderLabel}
+        <Text
           style={[
-            styles.listbox,
-            {
-              width: listboxWidth || 300,
-              maxHeight: maxListboxHeight,
-              top: listboxTop,
-              borderRadius: listboxRadius,
-              backgroundColor: theme.colors.background,
-              opacity: disableAnimation ? 1 : animationOpacity,
-              transform: [{ scale: disableAnimation ? 1 : animationScale }],
-              ...theme.shadows.md,
-            },
+            styles.triggerText,
+            { fontSize: sizeStyles.fontSize, color: theme.colors.foreground },
+            !currentSelectedKey && { opacity: 0.5 },
+            textStyle,
           ]}
+          numberOfLines={1}
+          ellipsizeMode="tail"
         >
-          <AutocompleteContext.Provider value={{ size, themeColor, isDisabled }}>
-            <View style={styles.listboxContent}>
-              <ScrollView
-                keyboardShouldPersistTaps="always"
-                keyboardDismissMode="none"
-                nestedScrollEnabled
-                style={{ maxHeight: maxListboxHeight }}
-              >
-                {showEmptyMessage ? (
-                  <Text style={[styles.emptyMessage, { color: theme.colors.foreground }]}>
-                    No results found
-                  </Text>
-                ) : (
-                  listItems
-                )}
-              </ScrollView>
-            </View>
-          </AutocompleteContext.Provider>
-        </Animated.View>
+          {displayValue}
+        </Text>
+      </View>
+      {isClearable && currentSelectedKey ? (
+        <TouchableOpacity
+          onPress={handleClear}
+          style={styles.clearButton}
+          hitSlop={{ top: 8, right: 8, bottom: 8, left: 8 }}
+        >
+          {clearIcon ?? <CloseIcon color={theme.colors.foreground} size={20} />}
+        </TouchableOpacity>
       ) : null}
-    </View>
+    </Pressable>
   )
 
   const labelBlock = isLabelOutside || isLabelInside ? renderLabel : null
@@ -381,7 +281,26 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
         )
       ) : null}
 
-      {null}
+      <AutocompleteDialog
+        visible={isOpen}
+        inputValue={currentInputValue}
+        placeholder={placeholder}
+        title={typeof label === 'string' ? label : undefined}
+        themeColor={themeColor}
+        onInputChange={handleInputChange}
+        onClose={() => setOpen(false)}
+        onCheckmark={handleCheckmark}
+      >
+        <AutocompleteContext.Provider value={{ size, themeColor, isDisabled }}>
+          {showEmptyMessage ? (
+            <Text style={[styles.emptyMessage, { color: theme.colors.foreground }]}>
+              No results found
+            </Text>
+          ) : (
+            listItems
+          )}
+        </AutocompleteContext.Provider>
+      </AutocompleteDialog>
     </View>
   )
 }

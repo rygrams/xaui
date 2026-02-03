@@ -1,14 +1,23 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Pressable, Text, View } from 'react-native'
 import type { AutocompleteItemProps } from './autocomplete.type'
+import { CheckmarkIcon } from '../select/checkmark-icon'
 import { styles } from './autocomplete-item.style'
-import { useAutocompleteItemStyles } from './autocomplete-item.hook'
+import {
+  useAutocompleteItemSizeStyles,
+  useAutocompleteItemStyles,
+} from './autocomplete-item.hook'
+import { AutocompleteContext } from './autocomplete-context'
+import type { Size } from '../../types'
+
+const defaultSize: Size = 'md'
 
 export const AutocompleteItem: React.FC<AutocompleteItemProps> = ({
   label,
   description,
   startContent,
   endContent,
+  selectedIcon,
   isDisabled = false,
   isSelected = false,
   isReadOnly = false,
@@ -16,13 +25,16 @@ export const AutocompleteItem: React.FC<AutocompleteItemProps> = ({
   textStyle,
   onSelected,
 }) => {
-  const { backgroundColor, labelColor, descriptionColor } = useAutocompleteItemStyles(
-    isSelected,
-    isDisabled
-  )
+  const context = useContext(AutocompleteContext)
+  const size = context?.size ?? defaultSize
+  const isItemDisabled = context?.isDisabled ? true : isDisabled
+
+  const sizeStyles = useAutocompleteItemSizeStyles(size)
+  const { backgroundColor, labelColor, descriptionColor, checkmarkColor } =
+    useAutocompleteItemStyles(isSelected, isItemDisabled)
 
   const handlePress = () => {
-    if (isDisabled || isReadOnly) {
+    if (isItemDisabled || isReadOnly) {
       return
     }
 
@@ -32,26 +44,41 @@ export const AutocompleteItem: React.FC<AutocompleteItemProps> = ({
   return (
     <Pressable
       onPress={handlePress}
-      disabled={isDisabled || isReadOnly}
-      style={[styles.item, { backgroundColor }, isDisabled && styles.disabled, style]}
+      disabled={isItemDisabled}
+      style={[
+        styles.item,
+        {
+          paddingVertical: sizeStyles.paddingVertical,
+          paddingHorizontal: sizeStyles.paddingHorizontal,
+          backgroundColor,
+        },
+        isItemDisabled && styles.disabled,
+        style,
+      ]}
     >
       {startContent}
-      <View style={styles.itemContent}>
-        {typeof label === 'string' || typeof label === 'number' ? (
-          <Text style={[styles.label, { color: labelColor }, textStyle]}>{label}</Text>
-        ) : (
-          <View>{label}</View>
+      <View style={styles.content}>
+        <Text
+          style={[
+            styles.title,
+            { fontSize: sizeStyles.titleSize, color: labelColor },
+            textStyle,
+          ]}
+        >
+          {label}
+        </Text>
+        {description && (
+          <Text
+            style={[
+              styles.description,
+              { fontSize: sizeStyles.descriptionSize, color: descriptionColor },
+            ]}
+          >
+            {description}
+          </Text>
         )}
-        {description ? (
-          typeof description === 'string' || typeof description === 'number' ? (
-            <Text style={[styles.description, { color: descriptionColor }]}>
-              {description}
-            </Text>
-          ) : (
-            <View>{description}</View>
-          )
-        ) : null}
       </View>
+      {isSelected && (selectedIcon || <CheckmarkIcon color={checkmarkColor} size={16} />)}
       {endContent}
     </Pressable>
   )

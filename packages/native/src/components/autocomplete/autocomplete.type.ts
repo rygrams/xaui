@@ -64,6 +64,7 @@ export type AutocompleteItemProps = {
   description?: ReactNode
   startContent?: ReactNode
   endContent?: ReactNode
+  selectedIcon?: ReactNode
   isDisabled?: boolean
   isSelected?: boolean
   isReadOnly?: boolean

@@ -1,37 +1,40 @@
 import { useXUIColors, useXUITheme } from '@xaui/native/core'
 import { StyleSheet, ScrollView } from 'react-native'
-import { useState, useEffect } from 'react'
 import { Autocomplete, AutocompleteItem } from '@xaui/native/autocomplete'
-import { Button } from '@react-navigation/elements'
+import { Select, SelectItem } from '@xaui/native/select'
 
 export default function HomeScreen() {
   const colors = useXUIColors()
-  const theme = useXUITheme()
 
   return (
     <ScrollView
-      style={[
-        styles.scrollView,
-        {
-          backgroundColor: colors.background,
-        },
-      ]}
-      keyboardShouldPersistTaps="always"
-      keyboardDismissMode="none"
-      nestedScrollEnabled
-      contentContainerStyle={[
-        styles.container,
-        {
-          gap: theme.spacing.lg,
-        },
-      ]}
+      style={{
+        paddingVertical: 32,
+        paddingHorizontal: 16,
+        backgroundColor: colors.background,
+      }}
     >
+      <Select
+        label="Choose a framework"
+        placeholder="Select framework"
+        size="md"
+        style={{ marginBottom: 24 }}
+      >
+        <SelectItem value="react" label="React" />
+        <SelectItem value="vue" label="Vue" />
+        <SelectItem value="angular" label="Angular" />
+        <SelectItem value="svelte" label="Svelte" />
+        <SelectItem value="solid" label="Solid" />
+        <SelectItem value="astro" label="Astro" />
+        <SelectItem value="nextjs" label="Next.js" />
+      </Select>
       <Autocomplete
         label="Search Framework"
         placeholder="Type to search..."
         variant="outlined"
         themeColor="primary"
         fullWidth
+        size="md"
         labelPlacement="outside-top"
         onSelectionChange={key => console.log('Selected:', key)}
         onInputChange={value => console.log('Input:', value)}
@@ -49,19 +52,13 @@ export default function HomeScreen() {
           description="Compiler framework"
         />
         <AutocompleteItem value="solid" label="Solid" description="Reactive framework" />
+        <AutocompleteItem
+          value="Astro"
+          label="Astro"
+          description="Static site generator"
+        />
+        <AutocompleteItem value="Next.js" label="Next.js" description="React framework" />
       </Autocomplete>
     </ScrollView>
   )
 }
-
-const styles = StyleSheet.create({
-  scrollView: {
-    flex: 1,
-  },
-  container: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 16,
-    paddingBottom: 40,
-  },
-})
