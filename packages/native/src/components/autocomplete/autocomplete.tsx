@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo } from 'react'
+import React, { useCallback, useMemo, useRef, useState } from 'react'
 import { Pressable, Text, TouchableOpacity, View } from 'react-native'
 import { AutocompleteContext } from './autocomplete-context'
 import type { AutocompleteItemProps, AutocompleteProps } from './autocomplete.type'
@@ -18,6 +18,7 @@ import {
 } from './autocomplete.state.hook'
 import { defaultFilterFunction, getTextValue } from './autocomplete.utils'
 import { AutocompleteDialog } from '../dialogs/autocomplete-dialog'
+import type { TriggerLayout } from '../dialogs/autocomplete-dialog/autocomplete-dialog.type'
 
 const defaultPlaceholder = 'Search...'
 
@@ -81,6 +82,15 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
     onOpenChange,
     onClose,
   })
+
+  const triggerRef = useRef<View>(null)
+  const [triggerLayout, setTriggerLayout] = useState<TriggerLayout | undefined>()
+
+  const handleTriggerLayout = useCallback(() => {
+    triggerRef.current?.measureInWindow((x, y, width, height) => {
+      setTriggerLayout({ x, y, width, height })
+    })
+  }, [])
 
   const disabledKeySet = useMemo(() => {
     return new Set(disabledKeys ?? [])
@@ -215,7 +225,9 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
 
   const triggerContent = (
     <Pressable
+      ref={triggerRef}
       onPress={handleTriggerPress}
+      onLayout={handleTriggerLayout}
       disabled={isDisabled}
       style={[
         styles.trigger,
@@ -287,6 +299,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
         placeholder={placeholder}
         title={typeof label === 'string' ? label : undefined}
         themeColor={themeColor}
+        _triggerLayout={triggerLayout}
         onInputChange={handleInputChange}
         onClose={() => setOpen(false)}
         onCheckmark={handleCheckmark}

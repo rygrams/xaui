@@ -2,6 +2,13 @@ import type { ReactNode } from 'react'
 import type { StyleProp, TextStyle, ViewStyle } from 'react-native'
 import type { ThemeColor } from '../../../types'
 
+export type TriggerLayout = {
+  x: number
+  y: number
+  width: number
+  height: number
+}
+
 export type AutocompleteDialogProps = {
   /**
    * Theme color for the checkmark icon
@@ -44,6 +51,10 @@ export type AutocompleteDialogProps = {
    * Container style
    */
   style?: StyleProp<ViewStyle>
+  /**
+   * @private Internal prop for trigger layout animation
+   */
+  _triggerLayout?: TriggerLayout
   /**
    * Callback when input value changes
    */

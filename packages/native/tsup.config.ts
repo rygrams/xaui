@@ -15,6 +15,7 @@ export default defineConfig({
     'autocomplete/index': 'src/components/autocomplete/index.ts',
     'typography/index': 'src/components/typography/index.ts',
     'view/index': 'src/components/view/index.ts',
+    'icon/index': 'src/components/icon/index.ts',
   },
   format: ['cjs', 'esm'],
   dts: true,

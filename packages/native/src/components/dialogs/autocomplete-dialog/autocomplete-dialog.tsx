@@ -1,7 +1,9 @@
 import React, { useEffect, useRef } from 'react'
 import {
   Animated,
+  KeyboardAvoidingView,
   Modal,
+  Platform,
   Pressable,
   ScrollView,
   Text,
@@ -28,6 +30,7 @@ export const AutocompleteDialog: React.FC<AutocompleteDialogProps> = ({
   checkmarkIcon,
   inputTextStyle,
   style,
+  _triggerLayout,
   onInputChange,
   onClose,
   onCheckmark,
@@ -46,8 +49,8 @@ export const AutocompleteDialog: React.FC<AutocompleteDialogProps> = ({
       Animated.spring(scaleAnim, {
         toValue: 1,
         useNativeDriver: true,
-        tension: 80,
-        friction: 10,
+        tension: 50,
+        friction: 8,
       }).start(() => {
         setTimeout(() => {
           inputRef.current?.focus()
@@ -81,74 +84,77 @@ export const AutocompleteDialog: React.FC<AutocompleteDialogProps> = ({
       onShow={handleModalShow}
       statusBarTranslucent
     >
-      <View style={[styles.overlay, style]}>
-        <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
-          <View style={styles.header}>
-            {title ? (
-              <Text style={[styles.title, { color: theme.colors.foreground }]}>
-                {title}
-              </Text>
-            ) : null}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.keyboardAvoidingView}
+      >
+        <View style={[styles.overlay, style]}>
+          <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
+            <View style={styles.header}>
+              {title ? (
+                <Text style={[styles.title, { color: theme.colors.foreground }]}>
+                  {title}
+                </Text>
+              ) : null}
 
-            <View style={styles.inputContainer}>
-              <Animated.View style={[styles.inputWrapper, inputAnimatedStyle]}>
-                <TextInput
-                  ref={inputRef}
-                  value={inputValue}
-                  onChangeText={onInputChange}
-                  placeholder={placeholder}
-                  placeholderTextColor={theme.colors.content3}
-                  style={[
-                    styles.input,
-                    {
-                      backgroundColor: theme.colors.default[100],
-                      color: theme.colors.foreground,
-                    },
-                    inputTextStyle,
-                  ]}
-                  autoFocus
-                  onFocus={onFocus}
-                  onBlur={onBlur}
-                />
-                {inputValue ? (
-                  <Pressable
-                    style={styles.clearInputButton}
-                    onPress={() => onInputChange?.('')}
-                    accessibilityLabel="Clear input"
-                    accessibilityRole="button"
-                  >
-                    <CloseIcon color={theme.colors.foreground} />
-                  </Pressable>
-                ) : null}
-              </Animated.View>
-
-              <Pressable
-                style={styles.closeButton}
-                onPress={onClose}
-                accessibilityLabel="Close dialog"
-                accessibilityRole="button"
-              >
-                <CloseIcon color={theme.colors.foreground} />
-              </Pressable>
+              <View style={styles.inputContainer}>
+                <Animated.View style={[styles.inputWrapper, inputAnimatedStyle]}>
+                  <TextInput
+                    ref={inputRef}
+                    value={inputValue}
+                    onChangeText={onInputChange}
+                    placeholder={placeholder}
+                    placeholderTextColor={theme.colors.content3}
+                    style={[
+                      styles.input,
+                      {
+                        backgroundColor: theme.colors.default[100],
+                        color: theme.colors.foreground,
+                      },
+                      inputTextStyle,
+                    ]}
+                    autoFocus
+                    onFocus={onFocus}
+                    onBlur={onBlur}
+                  />
+                  {inputValue ? (
+                    <Pressable
+                      style={styles.clearInputButton}
+                      onPress={() => onInputChange?.('')}
+                      accessibilityLabel="Clear input"
+                      accessibilityRole="button"
+                    >
+                      <CloseIcon color={theme.colors.foreground} />
+                    </Pressable>
+                  ) : null}
+                </Animated.View>
+              </View>
             </View>
-          </View>
 
-          <ScrollView style={styles.listContainer} keyboardShouldPersistTaps="always">
-            {children}
-          </ScrollView>
-
-          {showCheckmark ? (
-            <Pressable
-              style={styles.checkmarkButton}
-              onPress={onCheckmark}
-              accessibilityLabel="Confirm"
-              accessibilityRole="button"
+            <ScrollView
+              style={styles.listContainer}
+              contentContainerStyle={styles.listContentContainer}
+              keyboardShouldPersistTaps="always"
+              showsVerticalScrollIndicator={false}
             >
-              {checkmarkIcon ?? <CheckmarkIcon color={checkmarkColor} size={20} />}
-            </Pressable>
-          ) : null}
+              {children}
+            </ScrollView>
+
+            {showCheckmark ? (
+              <View style={styles.checkmarkButtonContainer}>
+                <Pressable
+                  style={styles.checkmarkButton}
+                  onPress={onCheckmark}
+                  accessibilityLabel="Confirm"
+                  accessibilityRole="button"
+                >
+                  {checkmarkIcon ?? <CheckmarkIcon color={checkmarkColor} size={20} />}
+                </Pressable>
+              </View>
+            ) : null}
+          </View>
         </View>
-      </View>
+      </KeyboardAvoidingView>
     </Modal>
   )
 }

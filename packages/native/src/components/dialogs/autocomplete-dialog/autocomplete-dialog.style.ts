@@ -1,6 +1,9 @@
 import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
+  keyboardAvoidingView: {
+    flex: 1,
+  },
   overlay: {
     flex: 1,
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -9,7 +12,6 @@ export const styles = StyleSheet.create({
     flex: 1,
     paddingTop: 60,
     paddingHorizontal: 16,
-    paddingBottom: 16,
   },
   header: {
     marginBottom: 16,
@@ -48,12 +50,16 @@ export const styles = StyleSheet.create({
   },
   listContainer: {
     flex: 1,
-    marginBottom: 16,
+  },
+  listContentContainer: {
+    paddingBottom: 80,
+  },
+  checkmarkButtonContainer: {
+    paddingVertical: 16,
+    paddingHorizontal: 24,
+    alignItems: 'flex-end',
   },
   checkmarkButton: {
-    position: 'absolute',
-    bottom: 24,
-    right: 24,
     padding: 12,
   },
 })
