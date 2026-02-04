@@ -248,7 +248,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
           {displayValue}
         </Text>
       </View>
-      {isClearable && currentSelectedKey ? (
+      {isClearable && (currentSelectedKey || currentInputValue) ? (
         <TouchableOpacity
           onPress={handleClear}
           style={styles.clearButton}

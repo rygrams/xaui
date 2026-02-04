@@ -33,6 +33,7 @@ export default function HomeScreen() {
         placeholder="Type to search..."
         variant="outlined"
         themeColor="primary"
+        isClearable
         fullWidth
         size="md"
         labelPlacement="outside-top"

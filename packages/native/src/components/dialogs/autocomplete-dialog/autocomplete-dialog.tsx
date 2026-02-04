@@ -36,11 +36,10 @@ export const AutocompleteDialog: React.FC<AutocompleteDialogProps> = ({
 }) => {
   const theme = useXUITheme()
   const scaleAnim = useRef(new Animated.Value(0)).current
+  const inputRef = useRef<TextInput>(null)
 
   const checkmarkColor =
-    themeColor === 'default'
-      ? theme.colors.primary.main
-      : theme.colors[themeColor].main
+    themeColor === 'default' ? theme.colors.primary.main : theme.colors[themeColor].main
 
   useEffect(() => {
     if (visible) {
@@ -49,7 +48,11 @@ export const AutocompleteDialog: React.FC<AutocompleteDialogProps> = ({
         useNativeDriver: true,
         tension: 80,
         friction: 10,
-      }).start()
+      }).start(() => {
+        setTimeout(() => {
+          inputRef.current?.focus()
+        }, 50)
+      })
     } else {
       scaleAnim.setValue(0)
     }
@@ -63,24 +66,34 @@ export const AutocompleteDialog: React.FC<AutocompleteDialogProps> = ({
     ],
   }
 
+  const handleModalShow = () => {
+    setTimeout(() => {
+      inputRef.current?.focus()
+    }, 300)
+  }
+
   return (
     <Modal
       visible={visible}
       transparent
       animationType="fade"
       onRequestClose={onClose}
+      onShow={handleModalShow}
       statusBarTranslucent
     >
       <View style={[styles.overlay, style]}>
         <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
           <View style={styles.header}>
             {title ? (
-              <Text style={[styles.title, { color: theme.colors.foreground }]}>{title}</Text>
+              <Text style={[styles.title, { color: theme.colors.foreground }]}>
+                {title}
+              </Text>
             ) : null}
 
             <View style={styles.inputContainer}>
               <Animated.View style={[styles.inputWrapper, inputAnimatedStyle]}>
                 <TextInput
+                  ref={inputRef}
                   value={inputValue}
                   onChangeText={onInputChange}
                   placeholder={placeholder}
@@ -131,7 +144,7 @@ export const AutocompleteDialog: React.FC<AutocompleteDialogProps> = ({
               accessibilityLabel="Confirm"
               accessibilityRole="button"
             >
-              {checkmarkIcon ?? <CheckmarkIcon color={checkmarkColor} size={32} />}
+              {checkmarkIcon ?? <CheckmarkIcon color={checkmarkColor} size={20} />}
             </Pressable>
           ) : null}
         </View>
