@@ -32,9 +32,7 @@ export const Alert: React.FC<AlertProps> = ({
   hideIcon = false,
   closeButton,
   isVisible,
-  style,
-  titleStyle,
-  descriptionStyle,
+  customAppearance,
   children,
   onClose,
   onVisibleChange,
@@ -67,7 +65,7 @@ export const Alert: React.FC<AlertProps> = ({
   const renderIcon = () => {
     if (hideIcon) return null
     if (icon && isValidElement(icon)) {
-      return cloneElement(icon, { color: iconColor, size: 22 })
+      return cloneElement(icon, { color: iconColor, size: 22 } as never)
     }
     if (icon) {
       return <Text style={[styles.iconText, { color: iconColor }]}>{icon}</Text>
@@ -80,7 +78,11 @@ export const Alert: React.FC<AlertProps> = ({
   ) => {
     if (content === null || content === undefined) return null
     if (typeof content === 'string' || typeof content === 'number') {
-      return <Text style={[styles.description, descriptionStyles, descriptionStyle]}>{content}</Text>
+      return (
+        <Text style={[styles.description, descriptionStyles, customAppearance?.description]}>
+          {content}
+        </Text>
+      )
     }
     return content
   }
@@ -88,10 +90,12 @@ export const Alert: React.FC<AlertProps> = ({
   const titleNode = useMemo(() => {
     if (title === null || title === undefined) return null
     if (typeof title === 'string' || typeof title === 'number') {
-      return <Text style={[styles.title, titleStyles, titleStyle]}>{title}</Text>
+      return (
+        <Text style={[styles.title, titleStyles, customAppearance?.title]}>{title}</Text>
+      )
     }
     return title
-  }, [title, titleStyle, titleStyles])
+  }, [title, customAppearance?.title, titleStyles])
 
   const descriptionNode = renderContentText(description)
 
@@ -101,16 +105,15 @@ export const Alert: React.FC<AlertProps> = ({
     if (!closeButton) return null
     if (!isValidElement(closeButton)) return closeButton
 
-    const existingOnPress = closeButton.props.onPress as
-      | ((event: unknown) => void)
-      | undefined
+    const existingOnPress = (closeButton.props as { onPress?: (event: unknown) => void })
+      .onPress
 
     return cloneElement(closeButton, {
       onPress: (event: unknown) => {
         existingOnPress?.(event)
         handleClose()
       },
-    })
+    } as never)
   }, [closeButton, handleClose])
 
   if (!visible) return null
@@ -118,7 +121,7 @@ export const Alert: React.FC<AlertProps> = ({
   return (
     <View
       accessibilityRole="alert"
-      style={[styles.container, containerStyles, radiusStyles, style]}
+      style={[styles.container, containerStyles, radiusStyles, customAppearance?.container]}
     >
       {!hideIcon && <View style={[styles.iconWrapper, iconWrapperStyles]}>{renderIcon()}</View>}
       <View style={styles.mainWrapper}>

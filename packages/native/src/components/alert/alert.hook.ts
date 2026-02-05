@@ -1,4 +1,5 @@
 import { useMemo } from 'react'
+import type { TextStyle } from 'react-native'
 import { getSafeThemeColor, withOpacity } from '@xaui/core'
 import { useXUITheme } from '../../core'
 import type { ThemeColor } from '../../types'
@@ -99,12 +100,12 @@ export const useAlertTextStyles = (themeColor: ThemeColor, variant: AlertVariant
         color: baseTextColor,
         fontSize: theme.fontSizes.sm,
         fontWeight: theme.fontWeights.semibold,
-      },
+      } as TextStyle,
       descriptionStyles: {
         color: withOpacity(baseTextColor, 0.75),
         fontSize: theme.fontSizes.xs,
         fontWeight: theme.fontWeights.normal,
-      },
+      } as TextStyle,
       iconColor: baseTextColor,
       closeButtonColor: baseTextColor,
     }

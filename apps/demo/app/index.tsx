@@ -1,13 +1,13 @@
 import { useXUIColors, useXUITheme } from '@xaui/native/core'
 import { StyleSheet, View } from 'react-native'
 import { useState, useEffect } from 'react'
-import { Select, SelectItem } from '@xaui/native/select'
-import { Switch } from '@xaui/native/switch'
 import { Button } from '@xaui/native/button'
+import { useRouter } from 'expo-router'
 
 export default function HomeScreen() {
   const colors = useXUIColors()
   const theme = useXUITheme()
+  const router = useRouter()
 
   const [, setValue] = useState(0.1)
 
@@ -28,26 +28,14 @@ export default function HomeScreen() {
         },
       ]}
     >
-      <Select
-        placeholder="Select an option"
+      <Button
         size="lg"
-        onSelectionChange={keys => console.log(keys)}
-        fullWidth
-        selectionMode="multiple"
-        labelPlacement="outside-top"
-        label="Select an option"
-        variant="faded"
+        onPress={() => router.push('/alerts')}
+        variant="outlined"
         themeColor="primary"
       >
-        <SelectItem key="option-1" value="option-1" label="Option 1" />
-        <SelectItem key="option-2" value="option-2" label="Option 2" />
-        <SelectItem key="option-3" value="option-3" label="Option 3" />
-      </Select>
-      <Button size="lg" onPress={() => console.log('pressed')} variant="solid">
-        Press me
+        View Alert Examples
       </Button>
-      <Switch />
-      <Switch label="Switch" />
     </View>
   )
 }

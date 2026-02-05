@@ -16,6 +16,21 @@ export type AlertEvents = {
   onVisibleChange?: (isVisible: boolean) => void
 }
 
+type AlertCustomAppearance = {
+  /**
+   * Custom style for the alert container.
+   */
+  container?: ViewStyle
+  /**
+   * Custom style for the alert title.
+   */
+  title?: TextStyle
+  /**
+   * Custom style for the alert description.
+   */
+  description?: TextStyle
+}
+
 export type AlertProps = {
   /**
    * The title of the alert.
@@ -64,17 +79,9 @@ export type AlertProps = {
    */
   isVisible?: boolean
   /**
-   * Custom style for the alert container.
+   * Custom appearance styles for all alert parts
    */
-  style?: ViewStyle
-  /**
-   * Custom style for the alert title.
-   */
-  titleStyle?: TextStyle
-  /**
-   * Custom style for the alert description.
-   */
-  descriptionStyle?: TextStyle
+  customAppearance?: AlertCustomAppearance
   /**
    * Additional content rendered below the description.
    */

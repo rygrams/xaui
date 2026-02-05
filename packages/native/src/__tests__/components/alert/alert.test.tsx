@@ -70,4 +70,18 @@ describe('Alert Types', () => {
     expect(props.onClose).toBeDefined()
     expect(props.onVisibleChange).toBeDefined()
   })
+
+  it('accepts customAppearance with style props', () => {
+    const props: AlertProps = {
+      customAppearance: {
+        container: { backgroundColor: 'red' },
+        title: { fontSize: 18 },
+        description: { fontSize: 14 },
+      },
+    }
+
+    expect(props.customAppearance?.container).toEqual({ backgroundColor: 'red' })
+    expect(props.customAppearance?.title).toEqual({ fontSize: 18 })
+    expect(props.customAppearance?.description).toEqual({ fontSize: 14 })
+  })
 })
