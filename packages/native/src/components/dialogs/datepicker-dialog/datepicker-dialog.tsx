@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 import {
   Animated,
   BackHandler,
@@ -7,10 +7,13 @@ import {
   View,
   useWindowDimensions,
 } from 'react-native'
-import { useEffect } from 'react'
 import { Portal, useXUITheme } from '../../../core'
 import { useDatePickerViewState } from '../../datepicker/datepicker.state.hook'
-import { useDatePickerDialogAnimation } from './datepicker-dialog.animation'
+import {
+  useDatePickerDialogAnimation,
+  useMonthSlideAnimation,
+  useViewTransitionAnimation,
+} from './datepicker-dialog.animation'
 import { DatePickerDialogCalendar } from './datepicker-dialog-calendar'
 import { DatePickerDialogHeader } from './datepicker-dialog-header'
 import { DatePickerDialogMonthPicker } from './datepicker-dialog-month-picker'
@@ -30,6 +33,7 @@ export const DatePickerDialog: React.FC<DatePickerDialogProps> = ({
   todayLabel = 'Today',
   confirmLabel = 'OK',
   onDateSelect,
+  onClearValue,
   onClose,
 }) => {
   const theme = useXUITheme()
@@ -37,7 +41,12 @@ export const DatePickerDialog: React.FC<DatePickerDialogProps> = ({
   const fadeAnim = useRef(new Animated.Value(0)).current
   const slideAnim = useRef(new Animated.Value(0)).current
   const scaleAnim = useRef(new Animated.Value(0)).current
+  const viewFadeAnim = useRef(new Animated.Value(1)).current
+  const monthSlideXAnim = useRef(new Animated.Value(0)).current
+  const monthFadeAnim = useRef(new Animated.Value(1)).current
   const colorScheme = theme.colors[themeColor] ?? theme.colors.primary
+  const isDefault = themeColor === 'default'
+  const accentColor = isDefault ? theme.colors.foreground : colorScheme.main
 
   const {
     viewDate,
@@ -51,7 +60,40 @@ export const DatePickerDialog: React.FC<DatePickerDialogProps> = ({
     syncViewToDate,
   } = useDatePickerViewState(selectedDate)
 
-  useDatePickerDialogAnimation({ visible, fadeAnim, slideAnim, scaleAnim })
+  const onCloseComplete = useCallback(() => {
+    fadeAnim.setValue(0)
+    slideAnim.setValue(0)
+    scaleAnim.setValue(0)
+    viewFadeAnim.setValue(1)
+    monthSlideXAnim.setValue(0)
+    monthFadeAnim.setValue(1)
+  }, [fadeAnim, slideAnim, scaleAnim, viewFadeAnim, monthSlideXAnim, monthFadeAnim])
+
+  const { shouldRender } = useDatePickerDialogAnimation({
+    visible,
+    fadeAnim,
+    slideAnim,
+    scaleAnim,
+    onCloseComplete,
+  })
+
+  const { animate: animateViewTransition } = useViewTransitionAnimation({
+    fadeAnim: viewFadeAnim,
+  })
+
+  const { animate: animateMonthSlide } = useMonthSlideAnimation({
+    slideAnim: monthSlideXAnim,
+    fadeAnim: monthFadeAnim,
+  })
+
+  const prevViewModeRef = useRef(viewMode)
+
+  useEffect(() => {
+    if (prevViewModeRef.current !== viewMode) {
+      prevViewModeRef.current = viewMode
+      animateViewTransition()
+    }
+  }, [viewMode, animateViewTransition])
 
   useEffect(() => {
     if (visible && selectedDate) {
@@ -70,6 +112,16 @@ export const DatePickerDialog: React.FC<DatePickerDialogProps> = ({
     return () => sub.remove()
   }, [visible, onClose])
 
+  const handlePreviousMonth = useCallback(() => {
+    goToPreviousMonth()
+    animateMonthSlide('left')
+  }, [goToPreviousMonth, animateMonthSlide])
+
+  const handleNextMonth = useCallback(() => {
+    goToNextMonth()
+    animateMonthSlide('right')
+  }, [goToNextMonth, animateMonthSlide])
+
   const handleDaySelect = useCallback(
     (date: Date) => {
       onDateSelect(date)
@@ -82,7 +134,7 @@ export const DatePickerDialog: React.FC<DatePickerDialogProps> = ({
     onDateSelect(new Date())
   }, [goToToday, onDateSelect])
 
-  if (!visible) return null
+  if (!shouldRender) return null
 
   const overlayStyle = {
     position: 'absolute' as const,
@@ -98,10 +150,33 @@ export const DatePickerDialog: React.FC<DatePickerDialogProps> = ({
       {
         scale: scaleAnim.interpolate({
           inputRange: [0, 1],
-          outputRange: [0.9, 1],
+          outputRange: [0.92, 1],
+        }),
+      },
+      {
+        translateY: slideAnim.interpolate({
+          inputRange: [0, 1],
+          outputRange: [40, 0],
         }),
       },
     ],
+  }
+
+  const viewTransitionStyle = {
+    opacity: viewFadeAnim,
+    transform: [
+      {
+        translateY: viewFadeAnim.interpolate({
+          inputRange: [0, 1],
+          outputRange: [8, 0],
+        }),
+      },
+    ],
+  }
+
+  const monthSlideStyle = {
+    opacity: monthFadeAnim,
+    transform: [{ translateX: monthSlideXAnim }],
   }
 
   const renderContent = () => {
@@ -128,16 +203,18 @@ export const DatePickerDialog: React.FC<DatePickerDialogProps> = ({
       case 'calendar':
       default:
         return (
-          <DatePickerDialogCalendar
-            viewDate={viewDate}
-            selectedDate={selectedDate}
-            locale={locale}
-            firstDayOfWeek={firstDayOfWeek}
-            themeColor={themeColor}
-            minDate={minDate}
-            maxDate={maxDate}
-            onSelectDay={handleDaySelect}
-          />
+          <Animated.View style={monthSlideStyle}>
+            <DatePickerDialogCalendar
+              viewDate={viewDate}
+              selectedDate={selectedDate}
+              locale={locale}
+              firstDayOfWeek={firstDayOfWeek}
+              themeColor={themeColor}
+              minDate={minDate}
+              maxDate={maxDate}
+              onSelectDay={handleDaySelect}
+            />
+          </Animated.View>
         )
     }
   }
@@ -166,13 +243,15 @@ export const DatePickerDialog: React.FC<DatePickerDialogProps> = ({
               locale={locale}
               themeColor={themeColor}
               viewMode={viewMode}
-              onClose={onClose}
-              onPreviousMonth={goToPreviousMonth}
-              onNextMonth={goToNextMonth}
+              onClearValue={onClearValue}
+              onPreviousMonth={handlePreviousMonth}
+              onNextMonth={handleNextMonth}
               onToggleYearPicker={toggleYearPicker}
             />
 
-            {renderContent()}
+            <Animated.View style={viewTransitionStyle}>
+              {renderContent()}
+            </Animated.View>
 
             <View style={styles.footer}>
               <Pressable
@@ -184,7 +263,7 @@ export const DatePickerDialog: React.FC<DatePickerDialogProps> = ({
                 <Text
                   style={[
                     styles.footerButtonText,
-                    { color: colorScheme.main },
+                    { color: accentColor },
                   ]}
                 >
                   {todayLabel}
@@ -199,7 +278,7 @@ export const DatePickerDialog: React.FC<DatePickerDialogProps> = ({
                 <Text
                   style={[
                     styles.footerButtonText,
-                    { color: colorScheme.main },
+                    { color: accentColor },
                   ]}
                 >
                   {confirmLabel}

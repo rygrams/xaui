@@ -13,5 +13,6 @@ export type DatePickerDialogProps = {
   confirmLabel?: string
   todayLabel?: string
   onDateSelect: (date: Date) => void
+  onClearValue: () => void
   onClose: () => void
 }

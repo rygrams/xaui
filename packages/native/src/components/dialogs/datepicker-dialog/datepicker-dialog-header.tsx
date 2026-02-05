@@ -16,7 +16,7 @@ type DatePickerDialogHeaderProps = {
   locale: string
   themeColor: ThemeColor
   viewMode: CalendarViewMode
-  onClose: () => void
+  onClearValue: () => void
   onPreviousMonth: () => void
   onNextMonth: () => void
   onToggleYearPicker: () => void
@@ -28,7 +28,7 @@ export const DatePickerDialogHeader: React.FC<DatePickerDialogHeaderProps> = ({
   locale,
   themeColor,
   viewMode,
-  onClose,
+  onClearValue,
   onPreviousMonth,
   onNextMonth,
   onToggleYearPicker,
@@ -57,9 +57,9 @@ export const DatePickerDialogHeader: React.FC<DatePickerDialogHeaderProps> = ({
             {dateText}
           </Text>
           <Pressable
-            onPress={onClose}
+            onPress={onClearValue}
             hitSlop={{ top: 8, right: 8, bottom: 8, left: 8 }}
-            accessibilityLabel="Close"
+            accessibilityLabel="Clear date"
             accessibilityRole="button"
           >
             <CloseIcon size={20} color={colorScheme.foreground} />

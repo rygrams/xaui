@@ -1,5 +1,5 @@
-import React, { useCallback, useMemo, useRef } from 'react'
-import { FlatList, Pressable, Text, View } from 'react-native'
+import React, { useCallback, useEffect, useMemo, useRef } from 'react'
+import { Animated, FlatList, Pressable, Text, View } from 'react-native'
 import { useXUITheme } from '../../../core'
 import type { ThemeColor } from '../../../types'
 import { getYearRange } from '../../datepicker/datepicker.utils'
@@ -16,11 +16,78 @@ type DatePickerDialogYearPickerProps = {
 const ITEM_HEIGHT = 48
 const NUM_COLUMNS = 4
 
+type AnimatedYearCellProps = {
+  year: number
+  isCurrentYear: boolean
+  themeColor: ThemeColor
+  onSelectYear: (year: number) => void
+}
+
+const AnimatedYearCell: React.FC<AnimatedYearCellProps> = ({
+  year,
+  isCurrentYear,
+  themeColor,
+  onSelectYear,
+}) => {
+  const theme = useXUITheme()
+  const colorScheme = theme.colors[themeColor] ?? theme.colors.primary
+  const isDefault = themeColor === 'default'
+  const accentColor = isDefault ? theme.colors.foreground : colorScheme.main
+  const accentFg = isDefault ? theme.colors.background : colorScheme.foreground
+  const scaleAnim = useRef(new Animated.Value(isCurrentYear ? 1 : 0)).current
+
+  useEffect(() => {
+    if (isCurrentYear) {
+      scaleAnim.setValue(0.92)
+      Animated.spring(scaleAnim, {
+        toValue: 1,
+        useNativeDriver: true,
+        damping: 20,
+        stiffness: 300,
+        mass: 0.6,
+      }).start()
+    } else {
+      scaleAnim.setValue(0)
+    }
+  }, [isCurrentYear, scaleAnim])
+
+  return (
+    <Pressable
+      style={[styles.yearCell]}
+      onPress={() => onSelectYear(year)}
+      accessibilityLabel={`${year}`}
+      accessibilityRole="button"
+      accessibilityState={{ selected: isCurrentYear }}
+    >
+      {isCurrentYear ? (
+        <Animated.View
+          style={[
+            styles.yearCellInner,
+            { backgroundColor: accentColor },
+            { transform: [{ scale: scaleAnim }] },
+          ]}
+        >
+          <Text
+            style={[
+              styles.yearText,
+              { color: accentFg, fontWeight: '600' },
+            ]}
+          >
+            {year}
+          </Text>
+        </Animated.View>
+      ) : (
+        <Text style={[styles.yearText, { color: theme.colors.foreground }]}>
+          {year}
+        </Text>
+      )}
+    </Pressable>
+  )
+}
+
 export const DatePickerDialogYearPicker: React.FC<
   DatePickerDialogYearPickerProps
 > = ({ viewDate, themeColor, minDate, maxDate, onSelectYear }) => {
-  const theme = useXUITheme()
-  const colorScheme = theme.colors[themeColor] ?? theme.colors.primary
   const listRef = useRef<FlatList>(null)
 
   const years = useMemo(
@@ -46,36 +113,15 @@ export const DatePickerDialogYearPicker: React.FC<
   )
 
   const renderYear = useCallback(
-    ({ item }: { item: number }) => {
-      const isCurrentYear = item === currentYear
-
-      return (
-        <Pressable
-          style={[
-            styles.yearCell,
-            isCurrentYear && { backgroundColor: colorScheme.main },
-          ]}
-          onPress={() => onSelectYear(item)}
-          accessibilityLabel={`${item}`}
-          accessibilityRole="button"
-          accessibilityState={{ selected: isCurrentYear }}
-        >
-          <Text
-            style={[
-              styles.yearText,
-              { color: theme.colors.foreground },
-              isCurrentYear && {
-                color: colorScheme.foreground,
-                fontWeight: '600',
-              },
-            ]}
-          >
-            {item}
-          </Text>
-        </Pressable>
-      )
-    },
-    [currentYear, colorScheme, theme, onSelectYear]
+    ({ item }: { item: number }) => (
+      <AnimatedYearCell
+        year={item}
+        isCurrentYear={item === currentYear}
+        themeColor={themeColor}
+        onSelectYear={onSelectYear}
+      />
+    ),
+    [currentYear, themeColor, onSelectYear]
   )
 
   return (

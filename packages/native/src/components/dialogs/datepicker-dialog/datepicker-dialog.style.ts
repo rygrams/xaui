@@ -15,7 +15,7 @@ export const styles = StyleSheet.create({
   container: {
     width: '100%',
     maxWidth: 360,
-    borderRadius: 28,
+    borderRadius: 16,
     overflow: 'hidden',
     elevation: 6,
     shadowColor: '#000',
@@ -110,6 +110,13 @@ export const styles = StyleSheet.create({
   selectedCell: {
     borderWidth: 0,
   },
+  selectedCellInner: {
+    width: 44,
+    height: 44,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 22,
+  },
   disabledText: {
     opacity: 0.3,
   },
@@ -151,6 +158,13 @@ export const styles = StyleSheet.create({
     borderRadius: 22,
     margin: 2,
   },
+  yearCellInner: {
+    width: 76,
+    height: 44,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 22,
+  },
   yearText: {
     fontSize: 14,
   },
@@ -165,6 +179,13 @@ export const styles = StyleSheet.create({
     gap: 8,
   },
   monthCell: {
+    width: 90,
+    height: 44,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 22,
+  },
+  monthCellInner: {
     width: 90,
     height: 44,
     justifyContent: 'center',
