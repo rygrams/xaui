@@ -41,12 +41,8 @@ export type AutocompleteProps = {
   allowsEmptyCollection?: boolean
   disableLocalFilter?: boolean
   disableAnimation?: boolean
-  disableSelectorIconRotation?: boolean
-  selectedKey?: string | null
-  defaultSelectedKey?: string | null
   inputValue?: string
   defaultInputValue?: string
-  disabledKeys?: string[]
   menuTrigger?: AutocompleteMenuTrigger
   style?: ViewStyle
   textStyle?: TextStyle

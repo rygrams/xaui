@@ -48,11 +48,8 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
   allowsCustomValue = false,
   allowsEmptyCollection = true,
   disableLocalFilter = false,
-  selectedKey,
-  defaultSelectedKey,
   inputValue,
   defaultInputValue,
-  disabledKeys,
   style,
   textStyle,
   onClose,
@@ -62,8 +59,6 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
   onClear,
 }) => {
   const { currentSelectedKey, updateSelection } = useAutocompleteSelection({
-    selectedKey,
-    defaultSelectedKey,
     onSelectionChange,
   })
 
@@ -89,10 +84,6 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
       setTriggerLayout({ x, y, width, height })
     })
   }, [])
-
-  const disabledKeySet = useMemo(() => {
-    return new Set(disabledKeys ?? [])
-  }, [disabledKeys])
 
   const items = useMemo(() => {
     const elements = React.Children.toArray(children).filter(Boolean)
@@ -190,8 +181,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
 
   const listItems = filteredItems.map(item => {
     const itemProps = item.element.props
-    const itemDisabled =
-      isDisabled || itemProps.isDisabled || disabledKeySet.has(item.key)
+    const itemDisabled = isDisabled || itemProps.isDisabled
     const itemSelected = itemProps.isSelected ?? currentSelectedKey === item.key
 
     const handleItemSelected = () => {

@@ -1,5 +1,8 @@
 import { describe, it, expect } from 'vitest'
-import type { AutocompleteItemProps, AutocompleteProps } from '../../../components/autocomplete'
+import type {
+  AutocompleteItemProps,
+  AutocompleteProps,
+} from '../../../components/autocomplete'
 
 describe('Autocomplete Types', () => {
   it('exports AutocompleteProps type', () => {
@@ -14,14 +17,13 @@ describe('Autocomplete Types', () => {
       fullWidth: true,
       isDisabled: false,
       isInvalid: false,
-      isRequired: false,
+      _isRequired: false,
       isReadOnly: false,
       isClearable: true,
       allowsCustomValue: false,
       allowsEmptyCollection: true,
       disableLocalFilter: false,
       disableAnimation: false,
-      disableSelectorIconRotation: false,
       menuTrigger: 'focus',
     }
 
@@ -62,7 +64,13 @@ describe('Autocomplete Types', () => {
   })
 
   it('accepts all radius options', () => {
-    const radii: Array<AutocompleteProps['radius']> = ['none', 'sm', 'md', 'lg', 'full']
+    const radii: Array<AutocompleteProps['radius']> = [
+      'none',
+      'sm',
+      'md',
+      'lg',
+      'full',
+    ]
 
     radii.forEach(radius => {
       const props: AutocompleteProps = {
@@ -91,7 +99,11 @@ describe('Autocomplete Types', () => {
   })
 
   it('accepts menu trigger options', () => {
-    const triggers: Array<AutocompleteProps['menuTrigger']> = ['focus', 'input', 'manual']
+    const triggers: Array<AutocompleteProps['menuTrigger']> = [
+      'focus',
+      'input',
+      'manual',
+    ]
 
     triggers.forEach(menuTrigger => {
       const props: AutocompleteProps = {
@@ -100,18 +112,6 @@ describe('Autocomplete Types', () => {
       }
       expect(props.menuTrigger).toBe(menuTrigger)
     })
-  })
-
-  it('accepts controlled selectedKey prop', () => {
-    const props: AutocompleteProps = {
-      children: null,
-      selectedKey: 'option1',
-      onSelectionChange: key => {
-        expect(key).toBeDefined()
-      },
-    }
-
-    expect(props.selectedKey).toBe('option1')
   })
 
   it('accepts controlled inputValue prop', () => {

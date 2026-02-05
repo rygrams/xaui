@@ -77,31 +77,21 @@ export const useAutocompleteInputState = ({
 }
 
 type UseAutocompleteSelectionProps = {
-  selectedKey?: string | null
-  defaultSelectedKey?: string | null
   onSelectionChange?: (key: string | null) => void
 }
 
 export const useAutocompleteSelection = ({
-  selectedKey,
-  defaultSelectedKey,
   onSelectionChange,
 }: UseAutocompleteSelectionProps) => {
-  const [internalSelectedKey, setInternalSelectedKey] = useState<string | null>(
-    defaultSelectedKey ?? null
-  )
-
-  const currentSelectedKey = selectedKey !== undefined ? selectedKey : internalSelectedKey
+  const [currentSelectedKey, setCurrentSelectedKey] = useState<string | null>(null)
 
   const updateSelection = useCallback(
     (key: string | null) => {
-      if (selectedKey === undefined) {
-        setInternalSelectedKey(key)
-      }
+      setCurrentSelectedKey(key)
 
       onSelectionChange?.(key)
     },
-    [selectedKey, onSelectionChange]
+    [onSelectionChange]
   )
 
   return { currentSelectedKey, updateSelection }
