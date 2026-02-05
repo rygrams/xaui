@@ -76,7 +76,9 @@ export const AutocompleteTrigger: React.FC<AutocompleteTriggerProps> = ({
         isDisabled && styles.disabled,
         style,
       ]}
-      accessibilityLabel={labelText ?? (typeof label === 'string' ? label : undefined)}
+      accessibilityLabel={
+        labelText ?? (typeof label === 'string' ? label : undefined)
+      }
       accessibilityRole="button"
       accessibilityState={{ disabled: isDisabled }}
     >

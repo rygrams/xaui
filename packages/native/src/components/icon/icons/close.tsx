@@ -51,11 +51,7 @@ export const CloseIcon: React.FC<IconProps> = ({
 
   const renderBaseline = () => (
     <AnimatedPath
-      fill="none"
-      stroke={resolvedColor}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={32}
+      fill={resolvedColor}
       d="m289.94 256l95-95A24 24 0 0 0 351 127l-95 95l-95-95a24 24 0 0 0-34 34l95 95l-95 95a24 24 0 1 0 34 34l95-95l95 95a24 24 0 0 0 34-34Z"
       {...animatedProps}
     />
@@ -77,11 +73,7 @@ export const CloseIcon: React.FC<IconProps> = ({
         d="M256 48C141.31 48 48 141.31 48 256s93.31 208 208 208 208-93.31 208-208S370.69 48 256 48z"
       />
       <AnimatedPath
-        fill="none"
-        stroke={resolvedColor}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={32}
+        fill={resolvedColor}
         d="m289.94 256l95-95A24 24 0 0 0 351 127l-95 95l-95-95a24 24 0 0 0-34 34l95 95l-95 95a24 24 0 1 0 34 34l95-95l95 95a24 24 0 0 0 34-34Z"
         {...animatedProps}
       />
@@ -99,11 +91,7 @@ export const CloseIcon: React.FC<IconProps> = ({
         strokeWidth={32}
       />
       <AnimatedPath
-        fill="none"
-        stroke={resolvedColor}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={32}
+        fill={resolvedColor}
         d="m289.94 256l95-95A24 24 0 0 0 351 127l-95 95l-95-95a24 24 0 0 0-34 34l95 95l-95 95a24 24 0 1 0 34 34l95-95l95 95a24 24 0 0 0 34-34Z"
         {...animatedProps}
       />
@@ -123,11 +111,7 @@ export const CloseIcon: React.FC<IconProps> = ({
         strokeWidth={32}
       />
       <AnimatedPath
-        fill="none"
-        stroke={resolvedColor}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={32}
+        fill={resolvedColor}
         d="m289.94 256l95-95A24 24 0 0 0 351 127l-95 95l-95-95a24 24 0 0 0-34 34l95 95l-95 95a24 24 0 1 0 34 34l95-95l95 95a24 24 0 0 0 34-34Z"
         {...animatedProps}
       />

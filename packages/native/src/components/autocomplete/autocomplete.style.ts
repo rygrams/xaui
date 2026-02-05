@@ -52,8 +52,9 @@ export const styles = StyleSheet.create({
     gap: 8,
   },
   clearButton: {
-    paddingHorizontal: 4,
-    paddingVertical: 2,
+    padding: 2,
+    paddingLeft: 4,
+    marginRight: -4,
   },
   helperText: {
     fontSize: 12,

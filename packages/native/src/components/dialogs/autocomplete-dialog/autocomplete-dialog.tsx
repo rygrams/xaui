@@ -14,13 +14,9 @@ import {
 } from 'react-native'
 import { useXUITheme } from '../../../core'
 import { CheckmarkIcon } from '../../select/checkmark-icon'
-import { ArrowBackIcon } from '../../icon'
+import { ArrowBackIcon, CloseIcon } from '../../icon'
 import { styles } from './autocomplete-dialog.style'
 import type { AutocompleteDialogProps } from './autocomplete-dialog.type'
-
-const CloseIcon: React.FC<{ color: string }> = ({ color }) => (
-  <Text style={{ fontSize: 24, color }}>×</Text>
-)
 
 const addOpacityToColor = (color: string, opacity: number): string => {
   const hex = color.replace('#', '')
@@ -77,14 +73,20 @@ export const AutocompleteDialog: React.FC<AutocompleteDialogProps> = ({
   }
 
   const focusInput = useCallback(() => {
+    const delay = Platform.OS === 'android' ? 300 : 100
     InteractionManager.runAfterInteractions(() => {
       setTimeout(() => {
         inputRef.current?.focus()
-      }, 100)
+      }, delay)
     })
   }, [])
 
   const handleModalShow = () => {
+    if (Platform.OS === 'android') {
+      setTimeout(() => {
+        inputRef.current?.focus()
+      }, 150)
+    }
     focusInput()
   }
 
@@ -155,7 +157,7 @@ export const AutocompleteDialog: React.FC<AutocompleteDialogProps> = ({
                       },
                       inputTextStyle,
                     ]}
-                    autoFocus
+                    autoFocus={Platform.OS === 'ios'}
                     returnKeyType="done"
                     onSubmitEditing={handleCheckmarkPress}
                     onFocus={onFocus}
