@@ -2,7 +2,6 @@ import React, { useMemo } from 'react'
 import { Pressable, Text, View } from 'react-native'
 import { useXUITheme } from '../../../core'
 import type { ThemeColor } from '../../../types'
-import type { CalendarViewMode } from '../../datepicker/datepicker.type'
 import {
   formatDate,
   getMonthName,
@@ -15,7 +14,6 @@ type DatePickerDialogHeaderProps = {
   selectedDate: Date | null
   locale: string
   themeColor: ThemeColor
-  viewMode: CalendarViewMode
   selectDateLabel: string
   onClearValue: () => void
   onPreviousMonth: () => void
@@ -28,7 +26,6 @@ export const DatePickerDialogHeader: React.FC<DatePickerDialogHeaderProps> = ({
   selectedDate,
   locale,
   themeColor,
-  viewMode,
   selectDateLabel,
   onClearValue,
   onPreviousMonth,
@@ -87,26 +84,24 @@ export const DatePickerDialogHeader: React.FC<DatePickerDialogHeaderProps> = ({
           />
         </Pressable>
 
-        {viewMode === 'calendar' ? (
-          <View style={styles.navButtons}>
-            <Pressable
-              style={styles.navButton}
-              onPress={onPreviousMonth}
-              accessibilityLabel="Previous month"
-              accessibilityRole="button"
-            >
-              <ChevronLeftIcon size={20} color={theme.colors.foreground} />
-            </Pressable>
-            <Pressable
-              style={styles.navButton}
-              onPress={onNextMonth}
-              accessibilityLabel="Next month"
-              accessibilityRole="button"
-            >
-              <ChevronRightIcon size={20} color={theme.colors.foreground} />
-            </Pressable>
-          </View>
-        ) : null}
+        <View style={styles.navButtons}>
+          <Pressable
+            style={styles.navButton}
+            onPress={onPreviousMonth}
+            accessibilityLabel="Previous month"
+            accessibilityRole="button"
+          >
+            <ChevronLeftIcon size={20} color={theme.colors.foreground} />
+          </Pressable>
+          <Pressable
+            style={styles.navButton}
+            onPress={onNextMonth}
+            accessibilityLabel="Next month"
+            accessibilityRole="button"
+          >
+            <ChevronRightIcon size={20} color={theme.colors.foreground} />
+          </Pressable>
+        </View>
       </View>
     </>
   )
