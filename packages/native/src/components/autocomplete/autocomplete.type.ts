@@ -17,6 +17,30 @@ export type AutocompleteLabelPlacement =
 
 export type AutocompleteMenuTrigger = 'focus' | 'input' | 'manual'
 
+type AutocompleteCustomAppearance = {
+  /**
+   * Custom styles for the container
+   */
+  container?: ViewStyle
+
+  /**
+   * Custom styles for the text
+   */
+  text?: TextStyle
+}
+
+type AutocompleteItemCustomAppearance = {
+  /**
+   * Custom styles for the container
+   */
+  container?: ViewStyle
+
+  /**
+   * Custom styles for the text
+   */
+  text?: TextStyle
+}
+
 export type AutocompleteProps = {
   children: ReactNode
   variant?: AutocompleteVariant
@@ -45,8 +69,7 @@ export type AutocompleteProps = {
   inputValue?: string
   defaultInputValue?: string
   menuTrigger?: AutocompleteMenuTrigger
-  style?: ViewStyle
-  textStyle?: TextStyle
+  customAppearance?: AutocompleteCustomAppearance
 } & AutocompletePrivateProps &
   AutocompleteEvents
 
@@ -74,7 +97,6 @@ export type AutocompleteItemProps = {
   isDisabled?: boolean
   isSelected?: boolean
   isReadOnly?: boolean
-  style?: ViewStyle
-  textStyle?: TextStyle
+  customAppearance?: AutocompleteItemCustomAppearance
   onSelected?: () => void
 }
