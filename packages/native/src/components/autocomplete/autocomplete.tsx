@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react'
-import { Pressable, Text, TouchableOpacity, View } from 'react-native'
+import { Text, View } from 'react-native'
 import { AutocompleteContext } from './autocomplete-context'
 import type { AutocompleteItemProps, AutocompleteProps } from './autocomplete.type'
 import {
@@ -19,12 +19,9 @@ import {
 import { defaultFilterFunction, getTextValue } from './autocomplete.utils'
 import { AutocompleteDialog } from '../dialogs/autocomplete-dialog'
 import type { TriggerLayout } from '../dialogs/autocomplete-dialog/autocomplete-dialog.type'
+import { AutocompleteTrigger } from './autocomplete-trigger'
 
 const defaultPlaceholder = 'Search...'
-
-const CloseIcon: React.FC<{ color: string; size: number }> = ({ color, size }) => (
-  <Text style={{ fontSize: size, color, lineHeight: size }}>×</Text>
-)
 
 type ItemData = {
   key: string
@@ -50,6 +47,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
   isClearable = true,
   allowsCustomValue = false,
   allowsEmptyCollection = true,
+  disableLocalFilter = false,
   selectedKey,
   defaultSelectedKey,
   inputValue,
@@ -118,12 +116,12 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
   }, [children])
 
   const filteredItems = useMemo(() => {
-    if (!currentInputValue.trim()) {
+    if (disableLocalFilter || !currentInputValue.trim()) {
       return items
     }
 
     return items.filter(item => defaultFilterFunction(item.labelText, currentInputValue))
-  }, [items, currentInputValue])
+  }, [disableLocalFilter, items, currentInputValue])
 
   const theme = useXUITheme()
   const sizeStyles = useAutocompleteSizeStyles(size)
@@ -137,7 +135,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
   const helperColor = useAutocompleteHelperColor(isInvalid)
 
   const selectedItem = items.find(item => item.key === currentSelectedKey)
-  const displayValue = selectedItem?.labelText || placeholder
+  const displayValue = selectedItem?.labelText || currentInputValue || placeholder
 
   const handleInputChange = useCallback(
     (text: string) => {
@@ -179,9 +177,12 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
 
   const handleTriggerPress = useCallback(() => {
     if (!isDisabled) {
+      if (selectedItem && !currentInputValue) {
+        updateInputValue(selectedItem.labelText)
+      }
       setOpen(true)
     }
-  }, [isDisabled, setOpen])
+  }, [isDisabled, setOpen, selectedItem, currentInputValue, updateInputValue])
 
   const listItems = filteredItems.map(item => {
     const itemProps = item.element.props
@@ -224,52 +225,27 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
   const helperContent = isInvalid && errorMessage ? errorMessage : description
 
   const triggerContent = (
-    <Pressable
-      ref={triggerRef}
+    <AutocompleteTrigger
+      triggerRef={triggerRef}
+      isDisabled={isDisabled}
+      currentSelectedKey={currentSelectedKey}
+      currentInputValue={currentInputValue}
+      displayValue={displayValue}
+      sizeStyles={sizeStyles}
+      radiusStyles={radiusStyles}
+      variantStyles={variantStyles}
+      theme={theme}
+      isClearable={isClearable}
+      label={renderLabel}
+      labelText={typeof label === 'string' ? label : undefined}
+      isLabelInside={isLabelInside}
+      clearIcon={clearIcon}
+      style={style}
+      textStyle={textStyle}
       onPress={handleTriggerPress}
+      onClear={handleClear}
       onLayout={handleTriggerLayout}
-      disabled={isDisabled}
-      style={[
-        styles.trigger,
-        {
-          minHeight: sizeStyles.minHeight,
-          paddingHorizontal: sizeStyles.paddingHorizontal,
-          paddingVertical: sizeStyles.paddingVertical,
-        },
-        radiusStyles,
-        variantStyles,
-        isDisabled && styles.disabled,
-        style,
-      ]}
-      accessibilityLabel={typeof label === 'string' ? label : undefined}
-      accessibilityRole="button"
-      accessibilityState={{ disabled: isDisabled }}
-    >
-      <View style={styles.triggerContent}>
-        {isLabelInside && renderLabel}
-        <Text
-          style={[
-            styles.triggerText,
-            { fontSize: sizeStyles.fontSize, color: theme.colors.foreground },
-            !currentSelectedKey && { opacity: 0.5 },
-            textStyle,
-          ]}
-          numberOfLines={1}
-          ellipsizeMode="tail"
-        >
-          {displayValue}
-        </Text>
-      </View>
-      {isClearable && (currentSelectedKey || currentInputValue) ? (
-        <TouchableOpacity
-          onPress={handleClear}
-          style={styles.clearButton}
-          hitSlop={{ top: 8, right: 8, bottom: 8, left: 8 }}
-        >
-          {clearIcon ?? <CloseIcon color={theme.colors.foreground} size={20} />}
-        </TouchableOpacity>
-      ) : null}
-    </Pressable>
+    />
   )
 
   const labelBlock = isLabelOutside || isLabelInside ? renderLabel : null
@@ -300,6 +276,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
         title={typeof label === 'string' ? label : undefined}
         themeColor={themeColor}
         _triggerLayout={triggerLayout}
+        showCheckmark={false}
         onInputChange={handleInputChange}
         onClose={() => setOpen(false)}
         onCheckmark={handleCheckmark}

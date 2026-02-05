@@ -19,6 +19,7 @@ describe('Autocomplete Types', () => {
       isClearable: true,
       allowsCustomValue: false,
       allowsEmptyCollection: true,
+      disableLocalFilter: false,
       disableAnimation: false,
       disableSelectorIconRotation: false,
       menuTrigger: 'focus',
@@ -27,6 +28,7 @@ describe('Autocomplete Types', () => {
     expect(props).toBeDefined()
     expect(props.variant).toBe('flat')
     expect(props.themeColor).toBe('primary')
+    expect(props.disableLocalFilter).toBe(false)
   })
 
   it('accepts all variants', () => {
@@ -158,6 +160,15 @@ describe('Autocomplete Types', () => {
     }
 
     expect(props.allowsCustomValue).toBe(true)
+  })
+
+  it('supports disableLocalFilter prop', () => {
+    const props: AutocompleteProps = {
+      children: null,
+      disableLocalFilter: true,
+    }
+
+    expect(props.disableLocalFilter).toBe(true)
   })
 
   it('supports disableAnimation prop', () => {

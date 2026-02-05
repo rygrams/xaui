@@ -1,13 +1,13 @@
 import React, { useEffect, useMemo, useRef } from 'react'
 import { Animated } from 'react-native'
-import Svg, { Path, Circle, Rect } from 'react-native-svg'
+import Svg, { Path, Rect, Circle } from 'react-native-svg'
 import type { IconProps } from '../icon.type'
 import { isThemeColor } from '../icon.utils'
 import { useXUITheme } from '../../../core'
 
 const AnimatedPath = Animated.createAnimatedComponent(Path)
 
-export const CheckmarkIcon: React.FC<IconProps> = ({
+export const CloseIcon: React.FC<IconProps> = ({
   variant = 'baseline',
   size = 24,
   color = 'default',
@@ -56,7 +56,7 @@ export const CheckmarkIcon: React.FC<IconProps> = ({
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={32}
-      d="M416 128L192 384l-96-96"
+      d="m289.94 256l95-95A24 24 0 0 0 351 127l-95 95l-95-95a24 24 0 0 0-34 34l95 95l-95 95a24 24 0 1 0 34 34l95-95l95 95a24 24 0 0 0 34-34Z"
       {...animatedProps}
     />
   )
@@ -64,7 +64,7 @@ export const CheckmarkIcon: React.FC<IconProps> = ({
   const renderFilled = () => (
     <AnimatedPath
       fill={resolvedColor}
-      d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192zm-257.9 78.9l-64-64a16 16 0 0 1 22.6-22.6l52.7 52.7 116.7-116.7a16 16 0 0 1 22.6 22.6l-128 128a16 16 0 0 1-22.6 0z"
+      d="M256 48C141.31 48 48 141.31 48 256s93.31 208 208 208 208-93.31 208-208S370.69 48 256 48zm75.31 260.69a16 16 0 1 1-22.62 22.62L256 278.63l-52.69 52.68a16 16 0 0 1-22.62-22.62L233.37 256l-52.68-52.69a16 16 0 0 1 22.62-22.62L256 233.37l52.69-52.68a16 16 0 0 1 22.62 22.62L278.63 256z"
       {...animatedProps}
     />
   )
@@ -82,7 +82,7 @@ export const CheckmarkIcon: React.FC<IconProps> = ({
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth={32}
-        d="M416 128L192 384l-96-96"
+        d="m289.94 256l95-95A24 24 0 0 0 351 127l-95 95l-95-95a24 24 0 0 0-34 34l95 95l-95 95a24 24 0 1 0 34 34l95-95l95 95a24 24 0 0 0 34-34Z"
         {...animatedProps}
       />
     </>
@@ -104,7 +104,7 @@ export const CheckmarkIcon: React.FC<IconProps> = ({
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth={32}
-        d="M416 128L192 384l-96-96"
+        d="m289.94 256l95-95A24 24 0 0 0 351 127l-95 95l-95-95a24 24 0 0 0-34 34l95 95l-95 95a24 24 0 1 0 34 34l95-95l95 95a24 24 0 0 0 34-34Z"
         {...animatedProps}
       />
     </>
@@ -128,7 +128,7 @@ export const CheckmarkIcon: React.FC<IconProps> = ({
         strokeLinecap="round"
         strokeLinejoin="round"
         strokeWidth={32}
-        d="M416 128L192 384l-96-96"
+        d="m289.94 256l95-95A24 24 0 0 0 351 127l-95 95l-95-95a24 24 0 0 0-34 34l95 95l-95 95a24 24 0 1 0 34 34l95-95l95 95a24 24 0 0 0 34-34Z"
         {...animatedProps}
       />
     </>
@@ -137,7 +137,7 @@ export const CheckmarkIcon: React.FC<IconProps> = ({
   const renderRoundFilled = () => (
     <AnimatedPath
       fill={resolvedColor}
-      d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192zm-257.9 78.9l-64-64a16 16 0 0 1 22.6-22.6l52.7 52.7 116.7-116.7a16 16 0 0 1 22.6 22.6l-128 128a16 16 0 0 1-22.6 0z"
+      d="M256 48C141.31 48 48 141.31 48 256s93.31 208 208 208 208-93.31 208-208S370.69 48 256 48zm75.31 260.69a16 16 0 1 1-22.62 22.62L256 278.63l-52.69 52.68a16 16 0 0 1-22.62-22.62L233.37 256l-52.68-52.69a16 16 0 0 1 22.62-22.62L256 233.37l52.69-52.68a16 16 0 0 1 22.62 22.62L278.63 256z"
       {...animatedProps}
     />
   )
@@ -145,7 +145,7 @@ export const CheckmarkIcon: React.FC<IconProps> = ({
   const renderSquareFilled = () => (
     <AnimatedPath
       fill={resolvedColor}
-      d="M400 64H112a48 48 0 0 0-48 48v288a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V112a48 48 0 0 0-48-48zm-141.45 241.25l-116.36-103a16 16 0 0 1 21.62-23.58l104.18 92.23 145.69-145.69a16 16 0 0 1 22.62 22.62l-156 156a16 16 0 0 1-21.75.42z"
+      d="M400 64H112a48 48 0 0 0-48 48v288a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V112a48 48 0 0 0-48-48zm-59.31 244.69a16 16 0 1 1-22.62 22.62L256 278.63l-62.07 52.68a16 16 0 0 1-22.62-22.62L223.37 256l-52.06-52.69a16 16 0 0 1 22.62-22.62L256 233.37l62.07-52.68a16 16 0 0 1 22.62 22.62L288.63 256z"
       {...animatedProps}
     />
   )

@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import type { IconProps } from '../../../components/icon/icon.type'
 
-describe('CheckmarkIcon', () => {
+describe('CloseIcon', () => {
   it('accepts baseline variant', () => {
     const props: IconProps = {
       variant: 'baseline',

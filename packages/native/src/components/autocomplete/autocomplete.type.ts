@@ -2,7 +2,12 @@ import type { ReactNode } from 'react'
 import type { TextStyle, ViewStyle } from 'react-native'
 import type { Radius, Size, ThemeColor } from '../../types'
 
-export type AutocompleteVariant = 'outlined' | 'flat' | 'light' | 'faded' | 'underlined'
+export type AutocompleteVariant =
+  | 'outlined'
+  | 'flat'
+  | 'light'
+  | 'faded'
+  | 'underlined'
 
 export type AutocompleteLabelPlacement =
   | 'inside'
@@ -31,11 +36,11 @@ export type AutocompleteProps = {
   fullWidth?: boolean
   isDisabled?: boolean
   isInvalid?: boolean
-  _isRequired?: boolean
   isReadOnly?: boolean
   isClearable?: boolean
   allowsCustomValue?: boolean
   allowsEmptyCollection?: boolean
+  disableLocalFilter?: boolean
   disableAnimation?: boolean
   disableSelectorIconRotation?: boolean
   selectedKey?: string | null
@@ -46,7 +51,12 @@ export type AutocompleteProps = {
   menuTrigger?: AutocompleteMenuTrigger
   style?: ViewStyle
   textStyle?: TextStyle
-} & AutocompleteEvents
+} & AutocompletePrivateProps &
+  AutocompleteEvents
+
+export type AutocompletePrivateProps = {
+  _isRequired?: boolean
+}
 
 export type AutocompleteEvents = {
   onClose?: () => void

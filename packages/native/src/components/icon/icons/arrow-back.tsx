@@ -1,13 +1,13 @@
 import React, { useEffect, useMemo, useRef } from 'react'
 import { Animated } from 'react-native'
-import Svg, { Path, Circle, Rect } from 'react-native-svg'
+import Svg, { Circle, Path, Rect } from 'react-native-svg'
 import type { IconProps } from '../icon.type'
 import { isThemeColor } from '../icon.utils'
 import { useXUITheme } from '../../../core'
 
 const AnimatedPath = Animated.createAnimatedComponent(Path)
 
-export const CheckmarkIcon: React.FC<IconProps> = ({
+export const ArrowBackIcon: React.FC<IconProps> = ({
   variant = 'baseline',
   size = 24,
   color = 'default',
@@ -49,22 +49,14 @@ export const CheckmarkIcon: React.FC<IconProps> = ({
       }
     : undefined
 
-  const renderBaseline = () => (
+  const renderArrow = () => (
     <AnimatedPath
       fill="none"
       stroke={resolvedColor}
       strokeLinecap="round"
       strokeLinejoin="round"
-      strokeWidth={32}
-      d="M416 128L192 384l-96-96"
-      {...animatedProps}
-    />
-  )
-
-  const renderFilled = () => (
-    <AnimatedPath
-      fill={resolvedColor}
-      d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192zm-257.9 78.9l-64-64a16 16 0 0 1 22.6-22.6l52.7 52.7 116.7-116.7a16 16 0 0 1 22.6 22.6l-128 128a16 16 0 0 1-22.6 0z"
+      strokeWidth={48}
+      d="M244 400L100 256l144-144M120 256h292"
       {...animatedProps}
     />
   )
@@ -76,15 +68,7 @@ export const CheckmarkIcon: React.FC<IconProps> = ({
         opacity={0.3}
         d="M256 48C141.31 48 48 141.31 48 256s93.31 208 208 208 208-93.31 208-208S370.69 48 256 48z"
       />
-      <AnimatedPath
-        fill="none"
-        stroke={resolvedColor}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={32}
-        d="M416 128L192 384l-96-96"
-        {...animatedProps}
-      />
+      {renderArrow()}
     </>
   )
 
@@ -98,15 +82,7 @@ export const CheckmarkIcon: React.FC<IconProps> = ({
         stroke={resolvedColor}
         strokeWidth={32}
       />
-      <AnimatedPath
-        fill="none"
-        stroke={resolvedColor}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={32}
-        d="M416 128L192 384l-96-96"
-        {...animatedProps}
-      />
+      {renderArrow()}
     </>
   )
 
@@ -122,51 +98,24 @@ export const CheckmarkIcon: React.FC<IconProps> = ({
         stroke={resolvedColor}
         strokeWidth={32}
       />
-      <AnimatedPath
-        fill="none"
-        stroke={resolvedColor}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        strokeWidth={32}
-        d="M416 128L192 384l-96-96"
-        {...animatedProps}
-      />
+      {renderArrow()}
     </>
-  )
-
-  const renderRoundFilled = () => (
-    <AnimatedPath
-      fill={resolvedColor}
-      d="M448 256c0-106-86-192-192-192S64 150 64 256s86 192 192 192 192-86 192-192zm-257.9 78.9l-64-64a16 16 0 0 1 22.6-22.6l52.7 52.7 116.7-116.7a16 16 0 0 1 22.6 22.6l-128 128a16 16 0 0 1-22.6 0z"
-      {...animatedProps}
-    />
-  )
-
-  const renderSquareFilled = () => (
-    <AnimatedPath
-      fill={resolvedColor}
-      d="M400 64H112a48 48 0 0 0-48 48v288a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V112a48 48 0 0 0-48-48zm-141.45 241.25l-116.36-103a16 16 0 0 1 21.62-23.58l104.18 92.23 145.69-145.69a16 16 0 0 1 22.62 22.62l-156 156a16 16 0 0 1-21.75.42z"
-      {...animatedProps}
-    />
   )
 
   const renderVariant = () => {
     switch (variant) {
-      case 'filled':
-        return renderFilled()
       case 'duotone':
         return renderDuotone()
       case 'round-outlined':
         return renderRoundOutlined()
       case 'square-outlined':
         return renderSquareOutlined()
+      case 'filled':
       case 'round-filled':
-        return renderRoundFilled()
       case 'square-filled':
-        return renderSquareFilled()
       case 'baseline':
       default:
-        return renderBaseline()
+        return renderArrow()
     }
   }
 

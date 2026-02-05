@@ -1,7 +1,6 @@
 import React, { useContext } from 'react'
 import { Pressable, Text, View } from 'react-native'
 import type { AutocompleteItemProps } from './autocomplete.type'
-import { CheckmarkIcon } from '../select/checkmark-icon'
 import { styles } from './autocomplete-item.style'
 import {
   useAutocompleteItemSizeStyles,
@@ -17,7 +16,7 @@ export const AutocompleteItem: React.FC<AutocompleteItemProps> = ({
   description,
   startContent,
   endContent,
-  selectedIcon,
+  selectedIcon: _selectedIcon,
   isDisabled = false,
   isSelected = false,
   isReadOnly = false,
@@ -30,7 +29,7 @@ export const AutocompleteItem: React.FC<AutocompleteItemProps> = ({
   const isItemDisabled = context?.isDisabled ? true : isDisabled
 
   const sizeStyles = useAutocompleteItemSizeStyles(size)
-  const { backgroundColor, labelColor, descriptionColor, checkmarkColor } =
+  const { backgroundColor, labelColor, descriptionColor } =
     useAutocompleteItemStyles(isSelected, isItemDisabled)
 
   const handlePress = () => {
@@ -78,7 +77,6 @@ export const AutocompleteItem: React.FC<AutocompleteItemProps> = ({
           </Text>
         )}
       </View>
-      {isSelected && (selectedIcon || <CheckmarkIcon color={checkmarkColor} size={16} />)}
       {endContent}
     </Pressable>
   )

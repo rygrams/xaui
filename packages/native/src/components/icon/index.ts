@@ -1,3 +1,5 @@
+export { ArrowBackIcon } from './icons/arrow-back'
 export { CheckmarkIcon } from './icons/checkmark'
 export { ChevronDownIcon } from './icons/chevron-down'
+export { CloseIcon } from './icons/close'
 export type { IconProps, IconVariant } from './icon.type'

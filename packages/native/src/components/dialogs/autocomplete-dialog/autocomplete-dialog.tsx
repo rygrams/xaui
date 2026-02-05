@@ -1,6 +1,8 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 import {
   Animated,
+  InteractionManager,
+  Keyboard,
   KeyboardAvoidingView,
   Modal,
   Platform,
@@ -12,12 +14,21 @@ import {
 } from 'react-native'
 import { useXUITheme } from '../../../core'
 import { CheckmarkIcon } from '../../select/checkmark-icon'
+import { ArrowBackIcon } from '../../icon'
 import { styles } from './autocomplete-dialog.style'
 import type { AutocompleteDialogProps } from './autocomplete-dialog.type'
 
 const CloseIcon: React.FC<{ color: string }> = ({ color }) => (
   <Text style={{ fontSize: 24, color }}>×</Text>
 )
+
+const addOpacityToColor = (color: string, opacity: number): string => {
+  const hex = color.replace('#', '')
+  const r = parseInt(hex.substring(0, 2), 16)
+  const g = parseInt(hex.substring(2, 4), 16)
+  const b = parseInt(hex.substring(4, 6), 16)
+  return `rgba(${r}, ${g}, ${b}, ${opacity})`
+}
 
 export const AutocompleteDialog: React.FC<AutocompleteDialogProps> = ({
   visible,
@@ -30,7 +41,6 @@ export const AutocompleteDialog: React.FC<AutocompleteDialogProps> = ({
   checkmarkIcon,
   inputTextStyle,
   style,
-  _triggerLayout,
   onInputChange,
   onClose,
   onCheckmark,
@@ -41,8 +51,9 @@ export const AutocompleteDialog: React.FC<AutocompleteDialogProps> = ({
   const scaleAnim = useRef(new Animated.Value(0)).current
   const inputRef = useRef<TextInput>(null)
 
-  const checkmarkColor =
-    themeColor === 'default' ? theme.colors.primary.main : theme.colors[themeColor].main
+  const checkmarkColor = theme.colors[themeColor].main
+
+  const checkmarkBackgroundColor = theme.colors[themeColor].background
 
   useEffect(() => {
     if (visible) {
@@ -51,11 +62,7 @@ export const AutocompleteDialog: React.FC<AutocompleteDialogProps> = ({
         useNativeDriver: true,
         tension: 50,
         friction: 8,
-      }).start(() => {
-        setTimeout(() => {
-          inputRef.current?.focus()
-        }, 50)
-      })
+      }).start()
     } else {
       scaleAnim.setValue(0)
     }
@@ -69,11 +76,30 @@ export const AutocompleteDialog: React.FC<AutocompleteDialogProps> = ({
     ],
   }
 
+  const focusInput = useCallback(() => {
+    InteractionManager.runAfterInteractions(() => {
+      setTimeout(() => {
+        inputRef.current?.focus()
+      }, 0)
+    })
+  }, [])
+
   const handleModalShow = () => {
-    setTimeout(() => {
-      inputRef.current?.focus()
-    }, 300)
+    focusInput()
   }
+
+  const handleCheckmarkPress = () => {
+    onCheckmark?.()
+    Keyboard.dismiss()
+  }
+
+  useEffect(() => {
+    if (!visible) {
+      return
+    }
+
+    focusInput()
+  }, [focusInput, visible])
 
   return (
     <Modal
@@ -89,12 +115,24 @@ export const AutocompleteDialog: React.FC<AutocompleteDialogProps> = ({
         style={styles.keyboardAvoidingView}
       >
         <View style={[styles.overlay, style]}>
-          <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
+          <View
+            style={[styles.container, { backgroundColor: theme.colors.background }]}
+          >
             <View style={styles.header}>
               {title ? (
-                <Text style={[styles.title, { color: theme.colors.foreground }]}>
-                  {title}
-                </Text>
+                <View style={styles.titleRow}>
+                  <Pressable
+                    style={styles.backButton}
+                    onPress={onClose}
+                    accessibilityLabel="Back"
+                    accessibilityRole="button"
+                  >
+                    <ArrowBackIcon size={20} color={theme.colors.foreground} />
+                  </Pressable>
+                  <Text style={[styles.title, { color: theme.colors.foreground }]}>
+                    {title}
+                  </Text>
+                </View>
               ) : null}
 
               <View style={styles.inputContainer}>
@@ -104,16 +142,21 @@ export const AutocompleteDialog: React.FC<AutocompleteDialogProps> = ({
                     value={inputValue}
                     onChangeText={onInputChange}
                     placeholder={placeholder}
-                    placeholderTextColor={theme.colors.content3}
+                    placeholderTextColor={addOpacityToColor(
+                      theme.colors.foreground,
+                      0.5
+                    )}
                     style={[
                       styles.input,
                       {
-                        backgroundColor: theme.colors.default[100],
+                        backgroundColor: theme.colors.default.background,
                         color: theme.colors.foreground,
                       },
                       inputTextStyle,
                     ]}
                     autoFocus
+                    returnKeyType="done"
+                    onSubmitEditing={handleCheckmarkPress}
                     onFocus={onFocus}
                     onBlur={onBlur}
                   />
@@ -143,12 +186,17 @@ export const AutocompleteDialog: React.FC<AutocompleteDialogProps> = ({
             {showCheckmark ? (
               <View style={styles.checkmarkButtonContainer}>
                 <Pressable
-                  style={styles.checkmarkButton}
-                  onPress={onCheckmark}
+                  style={[
+                    styles.checkmarkButton,
+                    { backgroundColor: checkmarkBackgroundColor },
+                  ]}
+                  onPress={handleCheckmarkPress}
                   accessibilityLabel="Confirm"
                   accessibilityRole="button"
                 >
-                  {checkmarkIcon ?? <CheckmarkIcon color={checkmarkColor} size={20} />}
+                  {checkmarkIcon ?? (
+                    <CheckmarkIcon color={checkmarkColor} size={20} />
+                  )}
                 </Pressable>
               </View>
             ) : null}

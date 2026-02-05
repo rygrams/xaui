@@ -1,18 +1,15 @@
 import React from 'react'
 import type { LayoutChangeEvent, TextStyle, ViewStyle } from 'react-native'
-import { Animated, Pressable, TextInput, View } from 'react-native'
+import { Pressable, Text, TouchableOpacity, View } from 'react-native'
 import { styles } from './autocomplete.style'
-import { ChevronDownIcon } from './chevron-down-icon'
-import { ClearIcon } from './clear-icon'
+import { CloseIcon } from '../icon'
 
 type AutocompleteTriggerProps = {
   triggerRef: React.RefObject<View | null>
-  _isOpen: boolean
   isDisabled: boolean
-  _isFocused: boolean
-  inputValue: string
-  placeholder?: string
-  variant: string
+  currentSelectedKey?: string | number | null
+  currentInputValue?: string
+  displayValue: string
   sizeStyles: {
     minHeight: number
     paddingHorizontal: number
@@ -21,69 +18,52 @@ type AutocompleteTriggerProps = {
   }
   radiusStyles: ViewStyle
   variantStyles: ViewStyle
-  inputColor: string
-  placeholderColor: string
-  selectorColor: string
-  labelInside: boolean
-  labelNode: React.ReactNode
-  startContent?: React.ReactNode
-  endContent?: React.ReactNode
-  selectorIcon?: React.ReactNode
+  theme: {
+    colors: {
+      foreground: string
+    }
+  }
+  isClearable: boolean
+  label?: React.ReactNode
+  labelText?: string
+  isLabelInside?: boolean
   clearIcon?: React.ReactNode
-  showClear: boolean
-  selectorRotation: Animated.Value
   style?: ViewStyle
   textStyle?: TextStyle
   onPress: () => void
-  onInputChange: (text: string) => void
   onClear: () => void
   onLayout: (event: LayoutChangeEvent) => void
-  onFocus: () => void
-  onBlur: () => void
 }
 
 export const AutocompleteTrigger: React.FC<AutocompleteTriggerProps> = ({
   triggerRef,
-  _isOpen,
   isDisabled,
-  _isFocused,
-  inputValue,
-  placeholder,
+  currentSelectedKey,
+  currentInputValue,
+  displayValue,
   sizeStyles,
   radiusStyles,
   variantStyles,
-  inputColor,
-  placeholderColor,
-  selectorColor,
-  labelInside,
-  labelNode,
-  startContent,
-  endContent,
-  selectorIcon,
+  theme,
+  isClearable,
+  label,
+  labelText,
+  isLabelInside,
   clearIcon,
-  showClear,
-  selectorRotation,
   style,
   textStyle,
-  onPress,
-  onInputChange,
-  onClear,
-  onLayout,
-  onFocus,
-  onBlur,
+  onPress: handleTriggerPress,
+  onClear: handleClear,
+  onLayout: handleTriggerLayout,
 }) => {
-  const renderSelectorIcon = selectorIcon ?? <ChevronDownIcon color={selectorColor} />
-
-  const renderClearIcon = clearIcon ?? <ClearIcon color={selectorColor} />
-
-  const triggerContentStyle = labelInside
-    ? [styles.triggerContent, styles.triggerContentColumn]
-    : styles.triggerContent
+  const renderLabel = isLabelInside && label
 
   return (
-    <View
+    <Pressable
       ref={triggerRef}
-      onLayout={onLayout}
+      onPress={handleTriggerPress}
+      onLayout={handleTriggerLayout}
+      disabled={isDisabled}
       style={[
         styles.trigger,
         {
@@ -96,54 +76,34 @@ export const AutocompleteTrigger: React.FC<AutocompleteTriggerProps> = ({
         isDisabled && styles.disabled,
         style,
       ]}
+      accessibilityLabel={labelText ?? (typeof label === 'string' ? label : undefined)}
+      accessibilityRole="button"
+      accessibilityState={{ disabled: isDisabled }}
     >
-      <View style={triggerContentStyle}>
-        {labelInside && labelNode}
-        {startContent}
-        <View style={styles.inputWrapper}>
-          <TextInput
-            value={inputValue}
-            onChangeText={onInputChange}
-            onFocus={onFocus}
-            onBlur={onBlur}
-            placeholder={placeholder}
-            placeholderTextColor={placeholderColor}
-            editable={!isDisabled}
-            style={[
-              styles.input,
-              {
-                fontSize: sizeStyles.fontSize,
-                color: inputColor,
-              },
-              textStyle,
-            ]}
-          />
-        </View>
+      <View style={styles.triggerContent}>
+        {isLabelInside && renderLabel}
+        <Text
+          style={[
+            styles.triggerText,
+            { fontSize: sizeStyles.fontSize, color: theme.colors.foreground },
+            !currentSelectedKey && !currentInputValue && { opacity: 0.5 },
+            textStyle,
+          ]}
+          numberOfLines={1}
+          ellipsizeMode="tail"
+        >
+          {displayValue}
+        </Text>
       </View>
-      <View style={styles.endSlot}>
-        {endContent}
-        {showClear ? (
-          <Pressable onPress={onClear} style={styles.clearButton}>
-            {renderClearIcon}
-          </Pressable>
-        ) : null}
-        <Pressable onPress={onPress}>
-          <Animated.View
-            style={{
-              transform: [
-                {
-                  rotate: selectorRotation.interpolate({
-                    inputRange: [0, 180],
-                    outputRange: ['0deg', '180deg'],
-                  }),
-                },
-              ],
-            }}
-          >
-            {renderSelectorIcon}
-          </Animated.View>
-        </Pressable>
-      </View>
-    </View>
+      {isClearable && (currentSelectedKey || currentInputValue) ? (
+        <TouchableOpacity
+          onPress={handleClear}
+          style={styles.clearButton}
+          hitSlop={{ top: 8, right: 8, bottom: 8, left: 8 }}
+        >
+          {clearIcon ?? <CloseIcon color={theme.colors.foreground} size={20} />}
+        </TouchableOpacity>
+      ) : null}
+    </Pressable>
   )
 }

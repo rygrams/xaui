@@ -14,12 +14,20 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 16,
   },
   header: {
+    marginBottom: 12,
+  },
+  titleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
     marginBottom: 16,
+  },
+  backButton: {
+    padding: 4,
   },
   title: {
     fontSize: 20,
     fontWeight: '600',
-    marginBottom: 12,
   },
   inputContainer: {
     flexDirection: 'row',
@@ -55,11 +63,16 @@ export const styles = StyleSheet.create({
     paddingBottom: 80,
   },
   checkmarkButtonContainer: {
-    paddingVertical: 16,
-    paddingHorizontal: 24,
-    alignItems: 'flex-end',
+    position: 'absolute',
+    bottom: 24,
+    right: 24,
   },
   checkmarkButton: {
-    padding: 12,
+    width: 54,
+    height: 54,
+    borderRadius: 27,
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 8,
   },
 })

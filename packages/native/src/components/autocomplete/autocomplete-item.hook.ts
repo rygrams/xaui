@@ -11,32 +11,34 @@ type AutocompleteItemSizeStyles = {
   descriptionSize: number
 }
 
-export const useAutocompleteItemSizeStyles = (size: Size): AutocompleteItemSizeStyles => {
+export const useAutocompleteItemSizeStyles = (
+  size: Size
+): AutocompleteItemSizeStyles => {
   const theme = useXUITheme()
 
   return useMemo(() => {
     const sizes = {
       xs: {
         paddingVertical: theme.spacing.sm,
-        paddingHorizontal: theme.spacing.xs,
+        paddingHorizontal: theme.spacing.sm,
         titleSize: theme.fontSizes.xs,
         descriptionSize: theme.fontSizes.xs,
       },
       sm: {
         paddingVertical: theme.spacing.sm,
-        paddingHorizontal: theme.spacing.md,
+        paddingHorizontal: theme.spacing.sm,
         titleSize: theme.fontSizes.sm,
         descriptionSize: theme.fontSizes.xs,
       },
       md: {
-        paddingVertical: theme.spacing.md,
-        paddingHorizontal: theme.spacing.md,
+        paddingVertical: theme.spacing.sm,
+        paddingHorizontal: theme.spacing.sm,
         titleSize: theme.fontSizes.md,
         descriptionSize: theme.fontSizes.xs,
       },
       lg: {
-        paddingVertical: theme.spacing.lg,
-        paddingHorizontal: theme.spacing.lg,
+        paddingVertical: theme.spacing.sm,
+        paddingHorizontal: theme.spacing.sm,
         titleSize: theme.fontSizes.lg,
         descriptionSize: theme.fontSizes.md,
       },
@@ -55,10 +57,6 @@ export const useAutocompleteItemBackgroundColor = (
   const colorScheme = theme.colors[safeThemeColor]
 
   return useMemo(() => {
-    if (isSelected) {
-      return colorScheme.background
-    }
-
     return 'transparent'
   }, [isSelected, colorScheme])
 }
@@ -88,7 +86,10 @@ export const useAutocompleteItemCheckmarkColor = (themeColor: ThemeColor) => {
   }, [themeColor, colorScheme, theme])
 }
 
-export const useAutocompleteItemStyles = (isSelected: boolean, _isDisabled: boolean) => {
+export const useAutocompleteItemStyles = (
+  isSelected: boolean,
+  _isDisabled: boolean
+) => {
   const context = useContext(AutocompleteContext)
 
   const backgroundColor = useAutocompleteItemBackgroundColor(
