@@ -1,5 +1,12 @@
 # @xaui/mobile
 
+## 0.0.11
+
+### Patch Changes
+
+- eb4820e: Add Avatar, AvatarGroup, and Badge components with comprehensive styling, hooks, and tests. Includes new demo pages showcasing component usage and features.
+- 2295a7f: **BREAKING**: Replace Button `style` and `textStyle` props with `customAppearance` object for consistent styling API across components. Use `customAppearance={{ container, button, text }}` instead.
+
 ## 0.0.10
 
 ### Patch Changes
