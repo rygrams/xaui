@@ -1,3 +1,5 @@
 export { ActivityIndicator } from './components/indicator'
 export { Divider } from './components/divider'
 export { Alert } from './components/alert'
+export { Autocomplete, AutocompleteItem } from './components/autocomplete'
+export { Typography } from './components/typography'

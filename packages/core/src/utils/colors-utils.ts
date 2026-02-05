@@ -28,4 +28,25 @@ export function getSafeThemeColor(themeColor: string): ValidThemeColor {
     : 'primary'
 }
 
+export const addOpacityToColor = (color: string, opacity: number): string => {
+  if (color.startsWith('rgba(')) {
+    const inner = color.slice(5, -1)
+    const parts = inner.split(',').map(part => part.trim())
+    if (parts.length < 3) return color
+    return `rgba(${parts[0]}, ${parts[1]}, ${parts[2]}, ${opacity})`
+  }
+  if (color.startsWith('rgb(')) {
+    const inner = color.slice(4, -1)
+    const parts = inner.split(',').map(part => part.trim())
+    if (parts.length < 3) return color
+    return `rgba(${parts[0]}, ${parts[1]}, ${parts[2]}, ${opacity})`
+  }
+  const hex = color.replace('#', '')
+  if (hex.length < 6) return color
+  const r = parseInt(hex.substring(0, 2), 16)
+  const g = parseInt(hex.substring(2, 4), 16)
+  const b = parseInt(hex.substring(4, 6), 16)
+  return `rgba(${r}, ${g}, ${b}, ${opacity})`
+}
+
 export type ValidThemeColor = (typeof validThemeColors)[number]
