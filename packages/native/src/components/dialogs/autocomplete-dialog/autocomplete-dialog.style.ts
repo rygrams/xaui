@@ -7,6 +7,8 @@ export const styles = StyleSheet.create({
   overlay: {
     flex: 1,
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    zIndex: 9999,
+    elevation: 9999,
   },
   container: {
     flex: 1,

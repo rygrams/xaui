@@ -1,18 +1,19 @@
-import React, { useCallback, useEffect, useRef } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef } from 'react'
 import {
   Animated,
+  BackHandler,
+  FlatList,
   InteractionManager,
   Keyboard,
   KeyboardAvoidingView,
-  Modal,
   Platform,
   Pressable,
-  ScrollView,
+  StyleSheet,
   Text,
   TextInput,
   View,
 } from 'react-native'
-import { useXUITheme } from '../../../core'
+import { Portal, useXUITheme } from '../../../core'
 import { CheckmarkIcon } from '../../select/checkmark-icon'
 import { ArrowBackIcon, CloseIcon } from '../../icon'
 import { styles } from './autocomplete-dialog.style'
@@ -44,32 +45,55 @@ export const AutocompleteDialog: React.FC<AutocompleteDialogProps> = ({
   onBlur,
 }) => {
   const theme = useXUITheme()
+  const fadeAnim = useRef(new Animated.Value(0)).current
   const scaleAnim = useRef(new Animated.Value(0)).current
   const inputRef = useRef<TextInput>(null)
 
-  const checkmarkColor = theme.colors[themeColor].main
+  const items = useMemo(
+    () =>
+      React.Children.toArray(children).filter(
+        React.isValidElement
+      ) as React.ReactElement[],
+    [children]
+  )
 
+  const checkmarkColor = theme.colors[themeColor].main
   const checkmarkBackgroundColor = theme.colors[themeColor].background
 
   useEffect(() => {
     if (visible) {
-      Animated.spring(scaleAnim, {
-        toValue: 1,
-        useNativeDriver: true,
-        tension: 50,
-        friction: 8,
-      }).start()
+      Animated.parallel([
+        Animated.timing(fadeAnim, {
+          toValue: 1,
+          duration: 200,
+          useNativeDriver: true,
+        }),
+        Animated.spring(scaleAnim, {
+          toValue: 1,
+          useNativeDriver: true,
+          tension: 50,
+          friction: 8,
+        }),
+      ]).start()
     } else {
+      fadeAnim.setValue(0)
       scaleAnim.setValue(0)
     }
-  }, [visible, scaleAnim])
+  }, [visible, scaleAnim, fadeAnim])
+
+  useEffect(() => {
+    if (!visible) return
+
+    const sub = BackHandler.addEventListener('hardwareBackPress', () => {
+      onClose?.()
+      return true
+    })
+
+    return () => sub.remove()
+  }, [visible, onClose])
 
   const inputAnimatedStyle = {
-    transform: [
-      {
-        scaleX: scaleAnim,
-      },
-    ],
+    transform: [{ scaleX: scaleAnim }],
   }
 
   const focusInput = useCallback(() => {
@@ -80,15 +104,6 @@ export const AutocompleteDialog: React.FC<AutocompleteDialogProps> = ({
       }, delay)
     })
   }, [])
-
-  const handleModalShow = () => {
-    if (Platform.OS === 'android') {
-      setTimeout(() => {
-        inputRef.current?.focus()
-      }, 150)
-    }
-    focusInput()
-  }
 
   const handleCheckmarkPress = () => {
     onCheckmark?.()
@@ -104,88 +119,94 @@ export const AutocompleteDialog: React.FC<AutocompleteDialogProps> = ({
     focusInput()
   }, [focusInput, visible])
 
+  if (!visible) return null
+
+  const listHeader = (
+    <View style={styles.header}>
+      {title ? (
+        <View style={styles.titleRow}>
+          <Pressable
+            style={styles.backButton}
+            onPress={onClose}
+            accessibilityLabel="Back"
+            accessibilityRole="button"
+          >
+            <ArrowBackIcon size={20} color={theme.colors.foreground} />
+          </Pressable>
+          <Text style={[styles.title, { color: theme.colors.foreground }]}>
+            {title}
+          </Text>
+        </View>
+      ) : null}
+
+      <View style={styles.inputContainer}>
+        <Animated.View style={[styles.inputWrapper, inputAnimatedStyle]}>
+          <TextInput
+            ref={inputRef}
+            value={inputValue}
+            onChangeText={onInputChange}
+            placeholder={placeholder}
+            placeholderTextColor={addOpacityToColor(
+              theme.colors.foreground,
+              0.5
+            )}
+            style={[
+              styles.input,
+              {
+                backgroundColor: theme.colors.default.background,
+                color: theme.colors.foreground,
+              },
+              inputTextStyle,
+            ]}
+            autoFocus
+            returnKeyType="done"
+            onSubmitEditing={handleCheckmarkPress}
+            onFocus={onFocus}
+            onBlur={onBlur}
+          />
+          {inputValue ? (
+            <Pressable
+              style={styles.clearInputButton}
+              onPress={() => onInputChange?.('')}
+              accessibilityLabel="Clear input"
+              accessibilityRole="button"
+            >
+              <CloseIcon color={theme.colors.foreground} />
+            </Pressable>
+          ) : null}
+        </Animated.View>
+      </View>
+    </View>
+  )
+
   return (
-    <Modal
-      visible={visible}
-      transparent
-      animationType="fade"
-      onRequestClose={onClose}
-      onShow={handleModalShow}
-      statusBarTranslucent
-    >
-      <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.keyboardAvoidingView}
+    <Portal>
+      <Animated.View
+        style={[
+          StyleSheet.absoluteFill,
+          styles.overlay,
+          { opacity: fadeAnim },
+          style,
+        ]}
       >
-        <View style={[styles.overlay, style]}>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={styles.keyboardAvoidingView}
+        >
           <View
             style={[styles.container, { backgroundColor: theme.colors.background }]}
           >
-            <View style={styles.header}>
-              {title ? (
-                <View style={styles.titleRow}>
-                  <Pressable
-                    style={styles.backButton}
-                    onPress={onClose}
-                    accessibilityLabel="Back"
-                    accessibilityRole="button"
-                  >
-                    <ArrowBackIcon size={20} color={theme.colors.foreground} />
-                  </Pressable>
-                  <Text style={[styles.title, { color: theme.colors.foreground }]}>
-                    {title}
-                  </Text>
-                </View>
-              ) : null}
-
-              <View style={styles.inputContainer}>
-                <Animated.View style={[styles.inputWrapper, inputAnimatedStyle]}>
-                  <TextInput
-                    ref={inputRef}
-                    value={inputValue}
-                    onChangeText={onInputChange}
-                    placeholder={placeholder}
-                    placeholderTextColor={addOpacityToColor(
-                      theme.colors.foreground,
-                      0.5
-                    )}
-                    style={[
-                      styles.input,
-                      {
-                        backgroundColor: theme.colors.default.background,
-                        color: theme.colors.foreground,
-                      },
-                      inputTextStyle,
-                    ]}
-                    autoFocus={Platform.OS === 'ios'}
-                    returnKeyType="done"
-                    onSubmitEditing={handleCheckmarkPress}
-                    onFocus={onFocus}
-                    onBlur={onBlur}
-                  />
-                  {inputValue ? (
-                    <Pressable
-                      style={styles.clearInputButton}
-                      onPress={() => onInputChange?.('')}
-                      accessibilityLabel="Clear input"
-                      accessibilityRole="button"
-                    >
-                      <CloseIcon color={theme.colors.foreground} />
-                    </Pressable>
-                  ) : null}
-                </Animated.View>
-              </View>
-            </View>
-
-            <ScrollView
+            {listHeader}
+            <FlatList
+              data={items}
+              renderItem={({ item }) => item}
+              keyExtractor={(_, index) => String(index)}
               style={styles.listContainer}
               contentContainerStyle={styles.listContentContainer}
-              keyboardShouldPersistTaps="handled"
+              keyboardShouldPersistTaps="always"
               keyboardDismissMode="none"
               showsVerticalScrollIndicator={false}
-            >
-              {children}
-            </ScrollView>
+            />
 
             {showCheckmark ? (
               <View style={styles.checkmarkButtonContainer}>
@@ -205,8 +226,8 @@ export const AutocompleteDialog: React.FC<AutocompleteDialogProps> = ({
               </View>
             ) : null}
           </View>
-        </View>
-      </KeyboardAvoidingView>
-    </Modal>
+        </KeyboardAvoidingView>
+      </Animated.View>
+    </Portal>
   )
 }
