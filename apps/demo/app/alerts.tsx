@@ -1,7 +1,7 @@
 import { useXUIColors, useXUITheme } from '@xaui/native/core'
 import { StyleSheet, View, ScrollView, Text } from 'react-native'
-import { Alert } from '@xaui/native/alert'
 import { useState } from 'react'
+import { Alert } from '@xaui/native/alert'
 import { Button } from '@xaui/native/button'
 
 export default function AlertsScreen() {
@@ -48,7 +48,9 @@ export default function AlertsScreen() {
       </View>
 
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Variants</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Variants
+        </Text>
         <View style={{ gap: theme.spacing.md }}>
           <Alert
             title="Solid Variant"

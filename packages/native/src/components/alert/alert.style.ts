@@ -32,9 +32,6 @@ export const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     padding: 4,
   },
-  closeText: {
-    fontWeight: '600',
-  },
   extraContent: {
     marginTop: 4,
   },

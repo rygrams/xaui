@@ -33,11 +33,11 @@ export const useAlertContainerStyles = (
             : 'transparent'
 
     const borderWidth =
-      variant === 'bordered' || variant === 'faded' ? theme.borderWidth.sm : 0
+      variant === 'bordered' || variant === 'faded' ? theme.borderWidth.md : 0
 
     const borderColor =
       variant === 'bordered'
-        ? colorScheme.main
+        ? withOpacity(colorScheme.main, 0.75)
         : variant === 'faded'
           ? withOpacity(isDefault ? theme.colors.foreground : colorScheme.main, 0.25)
           : 'transparent'
@@ -84,7 +84,10 @@ export const useAlertIconWrapperStyles = (
   return iconWrapperStyles
 }
 
-export const useAlertTextStyles = (themeColor: ThemeColor, variant: AlertVariant) => {
+export const useAlertTextStyles = (
+  themeColor: ThemeColor,
+  variant: AlertVariant
+) => {
   const { theme, colorScheme, isDefault } = useAlertColorScheme(themeColor)
 
   const textStyles = useMemo(() => {

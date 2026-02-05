@@ -105,15 +105,15 @@ describe('alert hook styles', () => {
     const { result } = renderHook(() => useAlertContainerStyles('warning', 'bordered'))
 
     expect(result.current.backgroundColor).toBe('transparent')
-    expect(result.current.borderWidth).toBe(1)
-    expect(result.current.borderColor).toBe('#f57c00')
+    expect(result.current.borderWidth).toBe(2)
+    expect(result.current.borderColor).toBe(withOpacity('#f57c00', 0.75))
   })
 
   it('returns faded variant styles', () => {
     const { result } = renderHook(() => useAlertContainerStyles('success', 'faded'))
 
     expect(result.current.backgroundColor).toBe(withOpacity('#e8f5e9', 0.75))
-    expect(result.current.borderWidth).toBe(1)
+    expect(result.current.borderWidth).toBe(2)
   })
 
   it('uses foreground color for default theme in flat variant', () => {
