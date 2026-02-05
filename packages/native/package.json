@@ -67,6 +67,16 @@
       "import": "./dist/divider/index.js",
       "require": "./dist/divider/index.js"
     },
+    "./avatar": {
+      "types": "./dist/avatar/index.d.ts",
+      "import": "./dist/avatar/index.js",
+      "require": "./dist/avatar/index.js"
+    },
+    "./badge": {
+      "types": "./dist/badge/index.d.ts",
+      "import": "./dist/badge/index.js",
+      "require": "./dist/badge/index.js"
+    },
     "./alert": {
       "types": "./dist/alert/index.d.ts",
       "import": "./dist/alert/index.js",

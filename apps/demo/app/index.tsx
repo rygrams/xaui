@@ -20,18 +20,37 @@ export default function HomeScreen() {
   return (
     <ScrollView
       style={{
-        paddingVertical: 32,
+        paddingVertical: 55,
         paddingHorizontal: 16,
         backgroundColor: colors.background,
+        gap: 12,
       }}
     >
       <Button
-        size="lg"
+        size="sm"
         onPress={() => router.push('/alerts')}
         variant="outlined"
         themeColor="primary"
+        style={{ marginBottom: 12 }}
       >
         View Alert Examples
+      </Button>
+      <Button
+        size="sm"
+        onPress={() => router.push('/badges')}
+        variant="outlined"
+        themeColor="success"
+        style={{ marginBottom: 12 }}
+      >
+        View Badge Examples
+      </Button>
+      <Button
+        size="sm"
+        onPress={() => router.push('/avatars')}
+        variant="outlined"
+        themeColor="warning"
+      >
+        View Avatar Examples
       </Button>
     </ScrollView>
   )

@@ -11,11 +11,10 @@ type ViewProps = {
   [key: string]: unknown
 }
 
-export const View: React.FC<ViewProps> = ({ style, ...props }) => {
-  const normalizedStyle = Array.isArray(style)
-    ? Object.assign({}, ...style.filter(Boolean))
-    : style
+const normalizeStyle = (style?: ViewStyle) =>
+  Array.isArray(style) ? Object.assign({}, ...style.filter(Boolean)) : style
 
+const extractAccessibilityProps = (props: Record<string, unknown>) => {
   const {
     accessible: _accessible,
     accessibilityRole,
@@ -30,6 +29,20 @@ export const View: React.FC<ViewProps> = ({ style, ...props }) => {
     | { now?: number; min?: number; max?: number }
     | undefined
 
+  return {
+    domProps,
+    accessibilityRole,
+    accessibilityLabel,
+    accValue,
+  }
+}
+
+export const View: React.FC<ViewProps> = ({ style, ...props }) => {
+  const normalizedStyle = normalizeStyle(style)
+
+  const { domProps, accessibilityRole, accessibilityLabel, accValue } =
+    extractAccessibilityProps(props)
+
   return React.createElement('div', {
     ...domProps,
     style: normalizedStyle as React.CSSProperties,
@@ -37,6 +50,53 @@ export const View: React.FC<ViewProps> = ({ style, ...props }) => {
     'aria-valuenow': accValue?.now,
     'aria-valuemin': accValue?.min,
     'aria-valuemax': accValue?.max,
+    'aria-label': accessibilityLabel as string,
+  })
+}
+
+export const Text: React.FC<ViewProps> = ({ style, ...props }) => {
+  const normalizedStyle = normalizeStyle(style)
+
+  const { domProps, accessibilityRole, accessibilityLabel } =
+    extractAccessibilityProps(props)
+
+  return React.createElement('span', {
+    ...domProps,
+    style: normalizedStyle as React.CSSProperties,
+    role: accessibilityRole as React.AriaRole,
+    'aria-label': accessibilityLabel as string,
+  })
+}
+
+export const Image: React.FC<ViewProps & { source?: { uri?: string } }> = ({
+  style,
+  source,
+  ...props
+}) => {
+  const normalizedStyle = normalizeStyle(style)
+
+  const { domProps, accessibilityRole, accessibilityLabel } =
+    extractAccessibilityProps(props)
+
+  return React.createElement('div', {
+    ...domProps,
+    style: normalizedStyle as React.CSSProperties,
+    role: accessibilityRole as React.AriaRole,
+    'aria-label': accessibilityLabel as string,
+    'data-src': source?.uri,
+  })
+}
+
+export const Pressable: React.FC<ViewProps> = ({ style, ...props }) => {
+  const normalizedStyle = normalizeStyle(style)
+
+  const { domProps, accessibilityRole, accessibilityLabel } =
+    extractAccessibilityProps(props)
+
+  return React.createElement('button', {
+    ...domProps,
+    style: normalizedStyle as React.CSSProperties,
+    role: accessibilityRole as React.AriaRole,
     'aria-label': accessibilityLabel as string,
   })
 }
