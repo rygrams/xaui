@@ -46,6 +46,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
   isInvalid = false,
   isClearable = true,
   allowsCustomValue = false,
+  forceSelection = false,
   allowsEmptyCollection = true,
   disableLocalFilter = false,
   inputValue,
@@ -111,7 +112,9 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
       return items
     }
 
-    return items.filter(item => defaultFilterFunction(item.labelText, currentInputValue))
+    return items.filter(item =>
+      defaultFilterFunction(item.labelText, currentInputValue)
+    )
   }, [disableLocalFilter, items, currentInputValue])
 
   const theme = useXUITheme()
@@ -126,7 +129,9 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
   const helperColor = useAutocompleteHelperColor(isInvalid)
 
   const selectedItem = items.find(item => item.key === currentSelectedKey)
-  const displayValue = selectedItem?.labelText || currentInputValue || placeholder
+  const displayValue = forceSelection
+    ? selectedItem?.labelText || placeholder
+    : currentInputValue || placeholder
 
   const handleInputChange = useCallback(
     (text: string) => {
@@ -216,7 +221,8 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
 
   const isLabelInside = labelPlacement === 'inside'
   const isLabelOutsideLeft = labelPlacement === 'outside-left'
-  const isLabelOutside = labelPlacement === 'outside' || labelPlacement === 'outside-top'
+  const isLabelOutside =
+    labelPlacement === 'outside' || labelPlacement === 'outside-top'
 
   const renderLabel = label ? (
     typeof label === 'string' || typeof label === 'number' ? (
@@ -268,7 +274,9 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
       )}
       {shouldShowHelper && helperContent ? (
         typeof helperContent === 'string' || typeof helperContent === 'number' ? (
-          <Text style={[styles.helperText, { color: helperColor }]}>{helperContent}</Text>
+          <Text style={[styles.helperText, { color: helperColor }]}>
+            {helperContent}
+          </Text>
         ) : (
           <View>{helperContent}</View>
         )

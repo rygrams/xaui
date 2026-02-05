@@ -38,6 +38,7 @@ export type AutocompleteProps = {
   isReadOnly?: boolean
   isClearable?: boolean
   allowsCustomValue?: boolean
+  forceSelection?: boolean
   allowsEmptyCollection?: boolean
   disableLocalFilter?: boolean
   disableAnimation?: boolean

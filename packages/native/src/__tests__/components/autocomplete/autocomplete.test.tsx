@@ -21,6 +21,7 @@ describe('Autocomplete Types', () => {
       isReadOnly: false,
       isClearable: true,
       allowsCustomValue: false,
+      forceSelection: true,
       allowsEmptyCollection: true,
       disableLocalFilter: false,
       disableAnimation: false,
