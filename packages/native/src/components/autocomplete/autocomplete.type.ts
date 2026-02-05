@@ -32,7 +32,6 @@ export type AutocompleteProps = {
   endContent?: ReactNode
   selectorIcon?: ReactNode
   clearIcon?: ReactNode
-  maxListboxHeight?: number
   fullWidth?: boolean
   isDisabled?: boolean
   isInvalid?: boolean

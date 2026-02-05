@@ -1,6 +1,13 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react'
+import { StyleSheet, View } from 'react-native'
 import { PortalContext } from './portal-context'
 import type { ReactNode } from 'react'
+
+const hostStyles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+})
 
 export const PortalHost: React.FC<{ children: ReactNode }> = ({ children }) => {
   const portals = useRef(new Map<string, ReactNode>())
@@ -23,10 +30,12 @@ export const PortalHost: React.FC<{ children: ReactNode }> = ({ children }) => {
 
   return (
     <PortalContext.Provider value={contextValue}>
-      {children}
-      {Array.from(portals.current.entries()).map(([key, element]) => (
-        <React.Fragment key={key}>{element}</React.Fragment>
-      ))}
+      <View style={hostStyles.container}>
+        {children}
+        {Array.from(portals.current.entries()).map(([key, element]) => (
+          <React.Fragment key={key}>{element}</React.Fragment>
+        ))}
+      </View>
     </PortalContext.Provider>
   )
 }

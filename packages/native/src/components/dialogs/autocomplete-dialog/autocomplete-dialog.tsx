@@ -1,31 +1,22 @@
-import React, { useCallback, useEffect, useMemo, useRef } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import {
   Animated,
   BackHandler,
   FlatList,
   InteractionManager,
   Keyboard,
-  KeyboardAvoidingView,
   Platform,
   Pressable,
-  StyleSheet,
-  Text,
   TextInput,
   View,
+  useWindowDimensions,
 } from 'react-native'
 import { Portal, useXUITheme } from '../../../core'
 import { CheckmarkIcon } from '../../select/checkmark-icon'
-import { ArrowBackIcon, CloseIcon } from '../../icon'
+import { AutocompleteDialogHeader } from './autocomplete-dialog-header'
+import { useAutocompleteDialogAnimation } from './autocomplete-dialog.animation'
 import { styles } from './autocomplete-dialog.style'
 import type { AutocompleteDialogProps } from './autocomplete-dialog.type'
-
-const addOpacityToColor = (color: string, opacity: number): string => {
-  const hex = color.replace('#', '')
-  const r = parseInt(hex.substring(0, 2), 16)
-  const g = parseInt(hex.substring(2, 4), 16)
-  const b = parseInt(hex.substring(4, 6), 16)
-  return `rgba(${r}, ${g}, ${b}, ${opacity})`
-}
 
 export const AutocompleteDialog: React.FC<AutocompleteDialogProps> = ({
   visible,
@@ -45,9 +36,29 @@ export const AutocompleteDialog: React.FC<AutocompleteDialogProps> = ({
   onBlur,
 }) => {
   const theme = useXUITheme()
+  const { width: screenWidth, height: screenHeight } = useWindowDimensions()
   const fadeAnim = useRef(new Animated.Value(0)).current
+  const slideAnim = useRef(new Animated.Value(0)).current
   const scaleAnim = useRef(new Animated.Value(0)).current
   const inputRef = useRef<TextInput>(null)
+  const [keyboardHeight, setKeyboardHeight] = useState(0)
+
+  useEffect(() => {
+    const showEvent = Platform.OS === 'ios' ? 'keyboardWillShow' : 'keyboardDidShow'
+    const hideEvent = Platform.OS === 'ios' ? 'keyboardWillHide' : 'keyboardDidHide'
+
+    const showSub = Keyboard.addListener(showEvent, e => {
+      setKeyboardHeight(e.endCoordinates.height)
+    })
+    const hideSub = Keyboard.addListener(hideEvent, () => {
+      setKeyboardHeight(0)
+    })
+
+    return () => {
+      showSub.remove()
+      hideSub.remove()
+    }
+  }, [])
 
   const items = useMemo(
     () =>
@@ -60,26 +71,7 @@ export const AutocompleteDialog: React.FC<AutocompleteDialogProps> = ({
   const checkmarkColor = theme.colors[themeColor].main
   const checkmarkBackgroundColor = theme.colors[themeColor].background
 
-  useEffect(() => {
-    if (visible) {
-      Animated.parallel([
-        Animated.timing(fadeAnim, {
-          toValue: 1,
-          duration: 200,
-          useNativeDriver: true,
-        }),
-        Animated.spring(scaleAnim, {
-          toValue: 1,
-          useNativeDriver: true,
-          tension: 50,
-          friction: 8,
-        }),
-      ]).start()
-    } else {
-      fadeAnim.setValue(0)
-      scaleAnim.setValue(0)
-    }
-  }, [visible, scaleAnim, fadeAnim])
+  useAutocompleteDialogAnimation({ visible, fadeAnim, slideAnim, scaleAnim })
 
   useEffect(() => {
     if (!visible) return
@@ -91,10 +83,6 @@ export const AutocompleteDialog: React.FC<AutocompleteDialogProps> = ({
 
     return () => sub.remove()
   }, [visible, onClose])
-
-  const inputAnimatedStyle = {
-    transform: [{ scaleX: scaleAnim }],
-  }
 
   const focusInput = useCallback(() => {
     const delay = Platform.OS === 'android' ? 300 : 100
@@ -119,80 +107,57 @@ export const AutocompleteDialog: React.FC<AutocompleteDialogProps> = ({
     focusInput()
   }, [focusInput, visible])
 
+  const listBottomPadding = useMemo(() => {
+    const basePadding = showCheckmark ? 96 : 64
+    return (keyboardHeight > 0 ? keyboardHeight : 0) + basePadding
+  }, [keyboardHeight, showCheckmark])
+
   if (!visible) return null
 
-  const listHeader = (
-    <View style={styles.header}>
-      {title ? (
-        <View style={styles.titleRow}>
-          <Pressable
-            style={styles.backButton}
-            onPress={onClose}
-            accessibilityLabel="Back"
-            accessibilityRole="button"
-          >
-            <ArrowBackIcon size={20} color={theme.colors.foreground} />
-          </Pressable>
-          <Text style={[styles.title, { color: theme.colors.foreground }]}>
-            {title}
-          </Text>
-        </View>
-      ) : null}
+  const overlayStyle = {
+    position: 'absolute' as const,
+    top: 0,
+    left: 0,
+    width: screenWidth,
+    height: screenHeight,
+  }
 
-      <View style={styles.inputContainer}>
-        <Animated.View style={[styles.inputWrapper, inputAnimatedStyle]}>
-          <TextInput
-            ref={inputRef}
-            value={inputValue}
-            onChangeText={onInputChange}
-            placeholder={placeholder}
-            placeholderTextColor={addOpacityToColor(
-              theme.colors.foreground,
-              0.5
-            )}
-            style={[
-              styles.input,
-              {
-                backgroundColor: theme.colors.default.background,
-                color: theme.colors.foreground,
-              },
-              inputTextStyle,
-            ]}
-            autoFocus
-            returnKeyType="done"
-            onSubmitEditing={handleCheckmarkPress}
-            onFocus={onFocus}
-            onBlur={onBlur}
-          />
-          {inputValue ? (
-            <Pressable
-              style={styles.clearInputButton}
-              onPress={() => onInputChange?.('')}
-              accessibilityLabel="Clear input"
-              accessibilityRole="button"
-            >
-              <CloseIcon color={theme.colors.foreground} />
-            </Pressable>
-          ) : null}
-        </Animated.View>
-      </View>
-    </View>
+  const containerAnimatedStyle = {
+    transform: [
+      {
+        translateY: slideAnim.interpolate({
+          inputRange: [0, 1],
+          outputRange: [screenHeight, 0],
+        }),
+      },
+    ],
+  }
+
+  const inputAnimatedStyle = {
+    transform: [{ scaleX: scaleAnim }],
+  }
+
+  const listHeader = (
+    <AutocompleteDialogHeader
+      title={title}
+      inputValue={inputValue}
+      placeholder={placeholder}
+      inputRef={inputRef}
+      inputAnimatedStyle={inputAnimatedStyle}
+      inputTextStyle={inputTextStyle}
+      onInputChange={onInputChange}
+      onClose={onClose}
+      onCheckmarkPress={handleCheckmarkPress}
+      onFocus={onFocus}
+      onBlur={onBlur}
+    />
   )
 
   return (
     <Portal>
-      <Animated.View
-        style={[
-          StyleSheet.absoluteFill,
-          styles.overlay,
-          { opacity: fadeAnim },
-          style,
-        ]}
-      >
-        <KeyboardAvoidingView
-          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-          style={styles.keyboardAvoidingView}
-        >
+      <View style={[overlayStyle, style]}>
+        <Animated.View style={[styles.backdrop, { opacity: fadeAnim }]} />
+        <Animated.View style={[styles.dialogContainer, containerAnimatedStyle]}>
           <View
             style={[styles.container, { backgroundColor: theme.colors.background }]}
           >
@@ -202,7 +167,9 @@ export const AutocompleteDialog: React.FC<AutocompleteDialogProps> = ({
               renderItem={({ item }) => item}
               keyExtractor={(_, index) => String(index)}
               style={styles.listContainer}
-              contentContainerStyle={styles.listContentContainer}
+              contentContainerStyle={{
+                paddingBottom: listBottomPadding,
+              }}
               keyboardShouldPersistTaps="always"
               keyboardDismissMode="none"
               showsVerticalScrollIndicator={false}
@@ -226,8 +193,8 @@ export const AutocompleteDialog: React.FC<AutocompleteDialogProps> = ({
               </View>
             ) : null}
           </View>
-        </KeyboardAvoidingView>
-      </Animated.View>
+        </Animated.View>
+      </View>
     </Portal>
   )
 }

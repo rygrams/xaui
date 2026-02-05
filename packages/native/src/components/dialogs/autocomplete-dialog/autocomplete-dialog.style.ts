@@ -1,14 +1,13 @@
 import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
-  keyboardAvoidingView: {
-    flex: 1,
-  },
-  overlay: {
-    flex: 1,
+  backdrop: {
+    ...StyleSheet.absoluteFillObject,
     backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    zIndex: 9999,
-    elevation: 9999,
+  },
+  dialogContainer: {
+    flex: 1,
+    zIndex: 1,
   },
   container: {
     flex: 1,
@@ -55,16 +54,11 @@ export const styles = StyleSheet.create({
     right: 8,
     padding: 4,
   },
-  closeButton: {
-    padding: 8,
-  },
   listContainer: {
     flex: 1,
-    zIndex: 1000,
   },
   listContentContainer: {
     paddingBottom: 80,
-    zIndex: 1000,
   },
   checkmarkButtonContainer: {
     position: 'absolute',
