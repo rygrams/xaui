@@ -1,6 +1,5 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native'
 import { Stack } from 'expo-router'
-import { StatusBar } from 'expo-status-bar'
 import 'react-native-reanimated'
 import { useColorScheme } from '@/hooks/use-color-scheme'
 import { defaultDarkTheme, defaultTheme } from '@xaui/core/theme'
@@ -22,10 +21,9 @@ export default function RootLayout() {
             name="modal"
             options={{ presentation: 'modal', title: 'Modal' }}
           />
+          <Stack.Screen name="alerts" options={{ title: 'Alert Examples' }} />
         </Stack>
       </XUIProvider>
-
-      <StatusBar style="auto" />
     </ThemeProvider>
   )
 }

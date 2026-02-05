@@ -12,6 +12,7 @@ export default defineConfig({
     'switch/index': 'src/components/switch/index.ts',
     'select/index': 'src/components/select/index.ts',
     'divider/index': 'src/components/divider/index.ts',
+    'alert/index': 'src/components/alert/index.ts',
     'autocomplete/index': 'src/components/autocomplete/index.ts',
     'typography/index': 'src/components/typography/index.ts',
     'view/index': 'src/components/view/index.ts',

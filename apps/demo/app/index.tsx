@@ -1,10 +1,21 @@
 import { useXUIColors } from '@xaui/native/core'
 import { ScrollView } from 'react-native'
-import { Accordion, AccordionItem } from '@xaui/native/accordion'
-import { Typography } from '@xaui/native/typography'
+import { useState, useEffect } from 'react'
+import { Button } from '@xaui/native/button'
+import { useRouter } from 'expo-router'
 
 export default function HomeScreen() {
   const colors = useXUIColors()
+  const router = useRouter()
+
+  const [, setValue] = useState(0.1)
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setValue(prevValue => prevValue + 0.06)
+    }, 1000)
+    return () => clearInterval(interval)
+  }, [])
 
   return (
     <ScrollView
@@ -14,38 +25,14 @@ export default function HomeScreen() {
         backgroundColor: colors.background,
       }}
     >
-      <Accordion variant="splitted" showDivider>
-        <AccordionItem title="Section 1" subtitle="Content 1">
-          <Typography>Content 1</Typography>
-        </AccordionItem>
-        <AccordionItem title="Section 2" subtitle="Content 2">
-          <Typography>Content 2</Typography>
-        </AccordionItem>
-        <AccordionItem title="Section 3" subtitle="Content 3">
-          <Typography>Content 3</Typography>
-        </AccordionItem>
-        <AccordionItem title="Section 4" subtitle="Content 4">
-          <Typography>Content 4</Typography>
-        </AccordionItem>
-        <AccordionItem title="Section 5" subtitle="Content 5">
-          <Typography>Content 5</Typography>
-        </AccordionItem>
-        <AccordionItem title="Section 6" subtitle="Content 6">
-          <Typography>Content 6</Typography>
-        </AccordionItem>
-        <AccordionItem title="Section 7" subtitle="Content 7">
-          <Typography>Content 7</Typography>
-        </AccordionItem>
-        <AccordionItem title="Section 8" subtitle="Content 8">
-          <Typography>Content 8</Typography>
-        </AccordionItem>
-        <AccordionItem title="Section 9" subtitle="Content 9">
-          <Typography>Content 9</Typography>
-        </AccordionItem>
-        <AccordionItem title="Section 10" subtitle="Content 10">
-          <Typography>Content 10</Typography>
-        </AccordionItem>
-      </Accordion>
+      <Button
+        size="lg"
+        onPress={() => router.push('/alerts')}
+        variant="outlined"
+        themeColor="primary"
+      >
+        View Alert Examples
+      </Button>
     </ScrollView>
   )
 }

@@ -67,6 +67,11 @@
       "import": "./dist/divider/index.js",
       "require": "./dist/divider/index.js"
     },
+    "./alert": {
+      "types": "./dist/alert/index.d.ts",
+      "import": "./dist/alert/index.js",
+      "require": "./dist/alert/index.js"
+    },
     "./autocomplete": {
       "types": "./dist/autocomplete/index.d.ts",
       "import": "./dist/autocomplete/index.js",
