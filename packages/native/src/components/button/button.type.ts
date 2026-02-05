@@ -6,6 +6,21 @@ export type ButtonVariant = 'solid' | 'outlined' | 'flat' | 'light' | 'elevated'
 export type ButtonRadius = 'none' | 'sm' | 'md' | 'lg' | 'full'
 export type SpinnerPlacement = 'start' | 'end'
 
+type ButtonCustomAppearance = {
+  /**
+   * Custom styles for the outer container
+   */
+  container?: ViewStyle
+  /**
+   * Custom styles for the button
+   */
+  button?: ViewStyle
+  /**
+   * Custom styles for the button text
+   */
+  text?: TextStyle
+}
+
 export type ButtonProps = {
   /**
    * The content to display in the button.
@@ -60,13 +75,9 @@ export type ButtonProps = {
    */
   isLoading?: boolean
   /**
-   * Custom text style for the button label.
+   * Custom appearance styles for button parts
    */
-  textStyle?: TextStyle
-  /**
-   * Custom style for the button container.
-   */
-  style?: ViewStyle
+  customAppearance?: ButtonCustomAppearance
   /**
    * Callback fired when the button is pressed.
    */

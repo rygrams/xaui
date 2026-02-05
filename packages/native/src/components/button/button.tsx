@@ -19,8 +19,7 @@ export const Button: React.FC<ButtonProps> = ({
   fullWidth = false,
   isDisabled = false,
   isLoading = false,
-  textStyle,
-  style,
+  customAppearance,
   onPress,
   onLongPress,
   onPressIn,
@@ -60,7 +59,7 @@ export const Button: React.FC<ButtonProps> = ({
   )
 
   return (
-    <View style={[fullWidth && styles.fullWidth]}>
+    <View style={[fullWidth && styles.fullWidth, customAppearance?.container]}>
       <Pressable
         onPress={isDisabled || isLoading ? undefined : onPress}
         onLongPress={isDisabled || isLoading ? undefined : onLongPress}
@@ -80,7 +79,7 @@ export const Button: React.FC<ButtonProps> = ({
               transform: [{ scale: animatedScale }],
               opacity: animatedOpacity,
             },
-            style,
+            customAppearance?.button,
           ]}
         >
           <View style={styles.contentContainer}>
@@ -97,7 +96,7 @@ export const Button: React.FC<ButtonProps> = ({
                 styles.text,
                 { fontSize: sizeStyles.fontSize, color: textColor },
                 isDisabled && styles.disabledText,
-                textStyle,
+                customAppearance?.text,
               ]}
             >
               {children}
