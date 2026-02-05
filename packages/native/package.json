@@ -87,6 +87,11 @@
       "import": "./dist/autocomplete/index.js",
       "require": "./dist/autocomplete/index.js"
     },
+    "./datepicker": {
+      "types": "./dist/datepicker/index.d.ts",
+      "import": "./dist/datepicker/index.js",
+      "require": "./dist/datepicker/index.js"
+    },
     "./typography": {
       "types": "./dist/typography/index.d.ts",
       "import": "./dist/typography/index.js",

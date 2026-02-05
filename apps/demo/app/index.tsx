@@ -49,8 +49,17 @@ export default function HomeScreen() {
         onPress={() => router.push('/avatars')}
         variant="outlined"
         themeColor="warning"
+        style={{ marginBottom: 12 }}
       >
         View Avatar Examples
+      </Button>
+      <Button
+        size="sm"
+        onPress={() => router.push('/datepicker')}
+        variant="outlined"
+        themeColor="tertiary"
+      >
+        View DatePicker Examples
       </Button>
     </ScrollView>
   )
