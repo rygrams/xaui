@@ -308,7 +308,9 @@ export const Select: React.FC<SelectProps> = ({
                       {dialogTitle}
                     </Text>
                   ) : null}
-                  <ScrollView>{listItems}</ScrollView>
+                  <ScrollView style={{ maxHeight: maxListboxHeight }}>
+                    {listItems}
+                  </ScrollView>
                 </View>
               </SelectContext.Provider>
             </Pressable>

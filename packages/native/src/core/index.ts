@@ -1,3 +1,4 @@
 export { XUIProvider } from './theme-context'
 export { useColorMode, useXUITheme, useXUIColors } from './theme-hooks'
 export { defaultDarkTheme, defaultTheme } from '@xaui/core/theme'
+export { Portal, PortalHost } from './portal'

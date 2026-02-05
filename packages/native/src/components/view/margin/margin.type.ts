@@ -9,7 +9,7 @@ export type MarginProps = {
   /**
    * Margin on all sides.
    */
-  value?: number
+  all?: number
   /**
    * Horizontal margin.
    */
@@ -34,6 +34,11 @@ export type MarginProps = {
    * Left margin.
    */
   left?: number
+  /**
+   * Whether the margin container should take the full width of its parent.
+   * @default false
+   */
+  fullWidth?: boolean
   /**
    * Custom style for the margin container.
    */
