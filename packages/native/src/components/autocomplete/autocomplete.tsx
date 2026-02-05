@@ -132,11 +132,22 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
     (text: string) => {
       updateInputValue(text)
 
-      if (!text.trim() && !allowsCustomValue) {
+      const selectedLabel = selectedItem?.labelText ?? ''
+      const shouldClearSelection =
+        (!text.trim() && !allowsCustomValue) ||
+        (currentSelectedKey !== null && text !== selectedLabel)
+
+      if (shouldClearSelection) {
         updateSelection(null)
       }
     },
-    [updateInputValue, allowsCustomValue, updateSelection]
+    [
+      updateInputValue,
+      allowsCustomValue,
+      updateSelection,
+      selectedItem,
+      currentSelectedKey,
+    ]
   )
 
   const handleItemSelection = useCallback(
