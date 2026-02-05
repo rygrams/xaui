@@ -95,8 +95,13 @@ export const Alert: React.FC<AlertProps> = ({
       scale.value = 0.95
       opacity.value = withTiming(1, { duration: 250 })
       scale.value = withTiming(1, { duration: 250 })
+      return
     }
-  }, [visible, shouldRender, opacity, scale])
+
+    if (!visible && shouldRender) {
+      handleClose()
+    }
+  }, [visible, shouldRender, opacity, scale, handleClose])
 
   const animatedStyle = useAnimatedStyle(() => ({
     opacity: opacity.value,
