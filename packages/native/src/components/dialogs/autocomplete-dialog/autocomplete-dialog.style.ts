@@ -58,9 +58,11 @@ export const styles = StyleSheet.create({
   },
   listContainer: {
     flex: 1,
+    zIndex: 1000,
   },
   listContentContainer: {
     paddingBottom: 80,
+    zIndex: 1000,
   },
   checkmarkButtonContainer: {
     position: 'absolute',

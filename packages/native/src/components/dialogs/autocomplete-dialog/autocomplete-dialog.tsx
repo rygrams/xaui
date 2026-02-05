@@ -80,7 +80,7 @@ export const AutocompleteDialog: React.FC<AutocompleteDialogProps> = ({
     InteractionManager.runAfterInteractions(() => {
       setTimeout(() => {
         inputRef.current?.focus()
-      }, 0)
+      }, 100)
     })
   }, [])
 
@@ -95,6 +95,7 @@ export const AutocompleteDialog: React.FC<AutocompleteDialogProps> = ({
 
   useEffect(() => {
     if (!visible) {
+      Keyboard.dismiss()
       return
     }
 
@@ -177,7 +178,8 @@ export const AutocompleteDialog: React.FC<AutocompleteDialogProps> = ({
             <ScrollView
               style={styles.listContainer}
               contentContainerStyle={styles.listContentContainer}
-              keyboardShouldPersistTaps="always"
+              keyboardShouldPersistTaps="handled"
+              keyboardDismissMode="none"
               showsVerticalScrollIndicator={false}
             >
               {children}

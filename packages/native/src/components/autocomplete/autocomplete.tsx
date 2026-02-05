@@ -1,5 +1,5 @@
 import React, { useCallback, useMemo, useRef, useState } from 'react'
-import { Text, View } from 'react-native'
+import { Keyboard, Text, View } from 'react-native'
 import { AutocompleteContext } from './autocomplete-context'
 import type { AutocompleteItemProps, AutocompleteProps } from './autocomplete.type'
 import {
@@ -156,7 +156,11 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
 
       updateSelection(key)
       updateInputValue(itemLabel)
-      setOpen(false)
+
+      setTimeout(() => {
+        Keyboard.dismiss()
+        setOpen(false)
+      }, 50)
     },
     [isDisabled, updateSelection, updateInputValue, setOpen]
   )
