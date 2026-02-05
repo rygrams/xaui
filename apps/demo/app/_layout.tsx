@@ -26,6 +26,10 @@ export default function RootLayout() {
             name="bottom-sheet"
             options={{ title: 'Bottom Sheet Examples' }}
           />
+          <Stack.Screen
+            name="datepicker"
+            options={{ title: 'DatePicker Examples' }}
+          />
         </Stack>
       </XUIProvider>
     </ThemeProvider>
