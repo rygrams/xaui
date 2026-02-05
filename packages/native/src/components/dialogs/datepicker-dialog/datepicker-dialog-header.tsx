@@ -16,6 +16,7 @@ type DatePickerDialogHeaderProps = {
   locale: string
   themeColor: ThemeColor
   viewMode: CalendarViewMode
+  selectDateLabel: string
   onClearValue: () => void
   onPreviousMonth: () => void
   onNextMonth: () => void
@@ -28,6 +29,7 @@ export const DatePickerDialogHeader: React.FC<DatePickerDialogHeaderProps> = ({
   locale,
   themeColor,
   viewMode,
+  selectDateLabel,
   onClearValue,
   onPreviousMonth,
   onNextMonth,
@@ -50,7 +52,7 @@ export const DatePickerDialogHeader: React.FC<DatePickerDialogHeaderProps> = ({
     <>
       <View style={[styles.header, { backgroundColor: colorScheme.main }]}>
         <Text style={[styles.headerLabel, { color: colorScheme.foreground }]}>
-          Select date
+          {selectDateLabel}
         </Text>
         <View style={styles.headerDateRow}>
           <Text style={[styles.headerDate, { color: colorScheme.foreground }]}>

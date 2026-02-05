@@ -134,6 +134,39 @@ export const getYearRange = (minDate?: Date, maxDate?: Date): number[] => {
   return years
 }
 
+type DatePickerLabels = {
+  selectDate: string
+  today: string
+  confirm: string
+}
+
+const LOCALE_LABELS: Record<string, DatePickerLabels> = {
+  fr: { selectDate: 'Choisir une date', today: "Aujourd'hui", confirm: 'OK' },
+  de: { selectDate: 'Datum auswählen', today: 'Heute', confirm: 'OK' },
+  es: { selectDate: 'Seleccionar fecha', today: 'Hoy', confirm: 'OK' },
+  it: { selectDate: 'Seleziona data', today: 'Oggi', confirm: 'OK' },
+  pt: { selectDate: 'Selecionar data', today: 'Hoje', confirm: 'OK' },
+  nl: { selectDate: 'Datum selecteren', today: 'Vandaag', confirm: 'OK' },
+  pl: { selectDate: 'Wybierz datę', today: 'Dzisiaj', confirm: 'OK' },
+  ru: { selectDate: 'Выберите дату', today: 'Сегодня', confirm: 'OK' },
+  ja: { selectDate: '日付を選択', today: '今日', confirm: 'OK' },
+  ko: { selectDate: '날짜 선택', today: '오늘', confirm: '확인' },
+  zh: { selectDate: '选择日期', today: '今天', confirm: '确定' },
+  ar: { selectDate: 'اختر التاريخ', today: 'اليوم', confirm: 'موافق' },
+  tr: { selectDate: 'Tarih seçin', today: 'Bugün', confirm: 'Tamam' },
+}
+
+const DEFAULT_LABELS: DatePickerLabels = {
+  selectDate: 'Select date',
+  today: 'Today',
+  confirm: 'OK',
+}
+
+export const getDatePickerLabels = (locale: string): DatePickerLabels => {
+  const baseLocale = locale.split('-')[0].toLowerCase()
+  return LOCALE_LABELS[baseLocale] ?? DEFAULT_LABELS
+}
+
 export const getFirstDayOfWeek = (locale: string): 0 | 1 => {
   const mondayLocales = [
     'fr', 'de', 'es', 'it', 'pt', 'nl', 'pl', 'ru', 'sv', 'da',

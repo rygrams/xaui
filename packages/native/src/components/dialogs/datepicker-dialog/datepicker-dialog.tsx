@@ -9,6 +9,7 @@ import {
 } from 'react-native'
 import { Portal, useXUITheme } from '../../../core'
 import { useDatePickerViewState } from '../../datepicker/datepicker.state.hook'
+import { getDatePickerLabels } from '../../datepicker/datepicker.utils'
 import {
   useDatePickerDialogAnimation,
   useMonthSlideAnimation,
@@ -30,8 +31,8 @@ export const DatePickerDialog: React.FC<DatePickerDialogProps> = ({
   minDate,
   maxDate,
   style,
-  todayLabel = 'Today',
-  confirmLabel = 'OK',
+  todayLabel,
+  confirmLabel,
   onDateSelect,
   onClearValue,
   onClose,
@@ -47,6 +48,9 @@ export const DatePickerDialog: React.FC<DatePickerDialogProps> = ({
   const colorScheme = theme.colors[themeColor] ?? theme.colors.primary
   const isDefault = themeColor === 'default'
   const accentColor = isDefault ? theme.colors.foreground : colorScheme.main
+  const labels = getDatePickerLabels(locale)
+  const resolvedTodayLabel = todayLabel ?? labels.today
+  const resolvedConfirmLabel = confirmLabel ?? labels.confirm
 
   const {
     viewDate,
@@ -243,6 +247,7 @@ export const DatePickerDialog: React.FC<DatePickerDialogProps> = ({
               locale={locale}
               themeColor={themeColor}
               viewMode={viewMode}
+              selectDateLabel={labels.selectDate}
               onClearValue={onClearValue}
               onPreviousMonth={handlePreviousMonth}
               onNextMonth={handleNextMonth}
@@ -257,7 +262,7 @@ export const DatePickerDialog: React.FC<DatePickerDialogProps> = ({
               <Pressable
                 style={styles.footerButton}
                 onPress={handleTodayPress}
-                accessibilityLabel={todayLabel}
+                accessibilityLabel={resolvedTodayLabel}
                 accessibilityRole="button"
               >
                 <Text
@@ -266,13 +271,13 @@ export const DatePickerDialog: React.FC<DatePickerDialogProps> = ({
                     { color: accentColor },
                   ]}
                 >
-                  {todayLabel}
+                  {resolvedTodayLabel}
                 </Text>
               </Pressable>
               <Pressable
                 style={styles.footerButton}
                 onPress={onClose}
-                accessibilityLabel={confirmLabel}
+                accessibilityLabel={resolvedConfirmLabel}
                 accessibilityRole="button"
               >
                 <Text
@@ -281,7 +286,7 @@ export const DatePickerDialog: React.FC<DatePickerDialogProps> = ({
                     { color: accentColor },
                   ]}
                 >
-                  {confirmLabel}
+                  {resolvedConfirmLabel}
                 </Text>
               </Pressable>
             </View>
