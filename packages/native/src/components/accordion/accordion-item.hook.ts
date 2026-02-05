@@ -8,6 +8,7 @@ import {
 } from 'react-native'
 import { useXUITheme } from '../../core'
 import { colors as palette } from '@xaui/core/palette'
+import { addOpacityToColor } from '@xaui/core'
 import { useAccordionContext } from './accordion-context'
 
 export const useAccordionItemState = (itemKey?: string) => {
@@ -62,7 +63,11 @@ export const useAccordionItemAnimation = (
   }, [isExpanded, disableAnimation, animatedHeight, animatedRotation])
 
   useEffect(() => {
-    if (contentHeight <= 0 || contentHeight === prevContentHeight.current || !isExpanded)
+    if (
+      contentHeight <= 0 ||
+      contentHeight === prevContentHeight.current ||
+      !isExpanded
+    )
       return
     prevContentHeight.current = contentHeight
     if (!disableAnimation && isMeasured) {
@@ -109,9 +114,9 @@ export const useBaseStyles = (variant: string, isDisabled: boolean) => {
 
     if (variant === 'splitted') {
       base.paddingHorizontal = theme.spacing.md
-      base.backgroundColor = theme.colors.default.background
+      base.backgroundColor = addOpacityToColor(theme.colors.default.background, 0.5)
       base.borderRadius = theme.borderRadius.md
-      base.marginBottom = theme.spacing.sm
+      base.marginBottom = theme.spacing.xs
     } else if (variant === 'bordered') {
       base.paddingHorizontal = theme.spacing.md
     }
@@ -182,7 +187,7 @@ export const useContentContainerStyle = (isCompact: boolean, variant: string) =>
 
   const contentContainerStyle = useMemo<ViewStyle>(
     () => ({
-      paddingBottom: isCompact ? theme.spacing.sm : theme.spacing.md,
+      paddingBottom: isCompact ? theme.spacing.xs : theme.spacing.sm,
       paddingHorizontal: variant === 'light' ? theme.spacing.sm : 0,
     }),
     [isCompact, variant, theme]

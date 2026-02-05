@@ -17,8 +17,7 @@ export const Accordion: React.FC<AccordionProps> = (props: AccordionProps) => {
     variant = 'light',
     showDivider = false,
     fullWidth = true,
-    containerStyle,
-    itemStyle,
+    customAppearance,
   } = props
 
   const { containerStyles, dividerColor } = useAccordionStyles({
@@ -33,7 +32,7 @@ export const Accordion: React.FC<AccordionProps> = (props: AccordionProps) => {
 
   return (
     <AccordionContext.Provider value={contextValue}>
-      <View style={[containerStyles, containerStyle]}>
+      <View style={[containerStyles, customAppearance?.container]}>
         {childrenArray.map((child, index) => {
           const isLast = index === childrenArray.length - 1
           const showBottomDivider =
@@ -47,7 +46,7 @@ export const Accordion: React.FC<AccordionProps> = (props: AccordionProps) => {
               )
 
           return (
-            <View key={resolvedChildKey} style={itemStyle}>
+            <View key={resolvedChildKey} style={customAppearance?.item}>
               {isAccordionItem(child)
                 ? React.cloneElement(child, { itemKey: resolvedChildKey })
                 : child}
