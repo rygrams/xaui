@@ -21,9 +21,7 @@ export const Avatar: React.FC<AvatarProps> = ({
   isDisabled = false,
   showFallback = false,
   getInitials,
-  style,
-  imageStyle,
-  textStyle,
+  customAppearance,
 }: AvatarProps) => {
   const [isError, setIsError] = React.useState(false)
 
@@ -51,7 +49,7 @@ export const Avatar: React.FC<AvatarProps> = ({
           borderColor: isBordered ? borderColor : 'transparent',
         },
         radiusStyles,
-        style,
+        customAppearance?.container,
       ]}
       accessible
       accessibilityRole="image"
@@ -60,7 +58,7 @@ export const Avatar: React.FC<AvatarProps> = ({
       {!shouldShowFallback && src ? (
         <Image
           source={{ uri: src }}
-          style={[styles.image, radiusStyles, imageStyle]}
+          style={[styles.image, radiusStyles, customAppearance?.image]}
           accessibilityLabel={accessibilityLabel}
           onError={() => setIsError(true)}
         />
@@ -74,7 +72,7 @@ export const Avatar: React.FC<AvatarProps> = ({
                   fontSize,
                   fontWeight: '600',
                 },
-                textStyle,
+                customAppearance?.text,
               ]}
             >
               {initials}

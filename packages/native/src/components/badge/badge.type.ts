@@ -1,11 +1,27 @@
 import type { ReactNode } from 'react'
 import type { TextStyle, ViewStyle } from 'react-native'
-import type { ThemeColor } from '../../types'
+import type { Radius, ThemeColor } from '../../types'
 
 export type BadgeVariant = 'solid' | 'flat' | 'faded' | 'shadow'
 export type BadgeSize = 'sm' | 'md' | 'lg'
-export type BadgeShape = 'rectangle' | 'circle'
 export type BadgePlacement = 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'
+
+type BadgeCustomAppearance = {
+  /**
+   * Custom styles for the container
+   */
+  container?: ViewStyle
+
+  /**
+   * Custom styles for the badge
+   */
+  badge?: ViewStyle
+
+  /**
+   * Custom styles for the text
+   */
+  text?: TextStyle
+}
 
 export type BadgeProps = {
   /**
@@ -28,10 +44,10 @@ export type BadgeProps = {
    */
   size?: BadgeSize
   /**
-   * The badge shape.
-   * @default 'rectangle'
+   * The badge radius.
+   * @default 'full'
    */
-  shape?: BadgeShape
+  radius?: Radius
   /**
    * Placement relative to children.
    * @default 'top-right'
@@ -68,17 +84,9 @@ export type BadgeProps = {
    */
   disableAnimation?: boolean
   /**
-   * Badge wrapper style.
+   * Custom appearance styles for badge parts
    */
-  style?: ViewStyle
-  /**
-   * Badge style.
-   */
-  badgeStyle?: ViewStyle
-  /**
-   * Badge text style.
-   */
-  textStyle?: TextStyle
+  customAppearance?: BadgeCustomAppearance
   /**
    * Wrapped component.
    */

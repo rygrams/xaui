@@ -4,6 +4,23 @@ import type { Radius, Size, ThemeColor } from '../../types'
 
 export type AvatarSize = Size | number
 
+type AvatarCustomAppearance = {
+  /**
+   * Custom styles for the container
+   */
+  container?: ViewStyle
+
+  /**
+   * Custom styles for the image
+   */
+  image?: ImageStyle
+
+  /**
+   * Custom styles for the fallback text
+   */
+  text?: TextStyle
+}
+
 export type AvatarProps = {
   /**
    * Avatar image source URL.
@@ -53,17 +70,9 @@ export type AvatarProps = {
    */
   getInitials?: (name: string) => string
   /**
-   * Style for the container.
+   * Custom appearance styles for avatar parts
    */
-  style?: ViewStyle
-  /**
-   * Style for the image.
-   */
-  imageStyle?: ImageStyle
-  /**
-   * Style for the fallback text.
-   */
-  textStyle?: TextStyle
+  customAppearance?: AvatarCustomAppearance
 }
 
 export type AvatarGroupProps = {
@@ -105,7 +114,9 @@ export type AvatarGroupProps = {
    */
   renderCount?: (count: number) => ReactNode
   /**
-   * Style for the group container.
+   * Custom appearance styles for group container
    */
-  style?: ViewStyle
+  customAppearance?: {
+    container?: ViewStyle
+  }
 }

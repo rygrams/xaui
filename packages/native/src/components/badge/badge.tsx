@@ -4,7 +4,7 @@ import { styles } from './badge.style'
 import type { BadgeProps } from './badge.type'
 import {
   useBadgePlacementStyles,
-  useBadgeShapeStyles,
+  useBadgeRadiusStyles,
   useBadgeSizeStyles,
   useBadgeVariantStyles,
 } from './badge.hook'
@@ -15,7 +15,7 @@ export const Badge: React.FC<BadgeProps> = ({
   themeColor = 'primary',
   variant = 'solid',
   size = 'md',
-  shape = 'rectangle',
+  radius = 'full',
   placement = 'top-right',
   showOutline = true,
   disableOutline = false,
@@ -23,18 +23,17 @@ export const Badge: React.FC<BadgeProps> = ({
   isDot = false,
   isOneChar = false,
   disableAnimation = false,
-  style,
-  badgeStyle,
-  textStyle,
+  customAppearance,
 }: BadgeProps) => {
   const shouldRender = !isInvisible && (isDot || content !== undefined)
   if (!shouldRender && !children) {
     return null
   }
 
-  const sizeStyles = useBadgeSizeStyles(size, isDot, isOneChar)
+  const forceOneChar = isOneChar || radius === 'full'
+  const sizeStyles = useBadgeSizeStyles(size, isDot, forceOneChar)
   const variantStyles = useBadgeVariantStyles(themeColor, variant)
-  const shapeStyles = useBadgeShapeStyles(shape, sizeStyles.height)
+  const radiusStyles = useBadgeRadiusStyles(radius, sizeStyles.height)
   const placementStyles = useBadgePlacementStyles(placement, sizeStyles.height)
 
   const outlineEnabled = disableOutline ? false : showOutline
@@ -45,7 +44,7 @@ export const Badge: React.FC<BadgeProps> = ({
   const badgeContent = isDot ? null : content
 
   return (
-    <View style={[styles.container, style]}>
+    <View style={[styles.container, customAppearance?.container]}>
       {children}
       {shouldRender && (
         <View
@@ -58,11 +57,11 @@ export const Badge: React.FC<BadgeProps> = ({
               backgroundColor: variantStyles.backgroundColor,
               opacity: disableAnimation ? 1 : 1,
             },
-            shapeStyles,
+            radiusStyles,
             placementStyles,
             outlineStyles,
             variantStyles.shadow,
-            badgeStyle,
+            customAppearance?.badge,
           ]}
           accessible
           accessibilityRole="text"
@@ -75,7 +74,7 @@ export const Badge: React.FC<BadgeProps> = ({
                   fontSize: sizeStyles.fontSize,
                   color: variantStyles.color,
                 },
-                textStyle,
+                customAppearance?.text,
               ]}
             >
               {badgeContent}

@@ -17,7 +17,7 @@ export const AvatarGroup: React.FC<AvatarGroupProps> = ({
   isDisabled = false,
   isGrid = false,
   renderCount,
-  style,
+  customAppearance,
 }: AvatarGroupProps) => {
   const theme = useXUITheme()
   const resolvedSize = resolveAvatarSize(size)
@@ -101,7 +101,7 @@ export const AvatarGroup: React.FC<AvatarGroupProps> = ({
 
   return (
     <View
-      style={[isGrid ? styles.grid : styles.group, style]}
+      style={[isGrid ? styles.grid : styles.group, customAppearance?.container]}
       accessible
     >
       {enhanced}

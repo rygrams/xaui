@@ -13,5 +13,7 @@ export const styles = StyleSheet.create({
   text: {
     textAlign: 'center',
     fontWeight: '600',
+    includeFontPadding: false,
+    textAlignVertical: 'center',
   },
 })

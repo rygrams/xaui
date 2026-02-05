@@ -5,7 +5,10 @@ export default defineConfig({
   resolve: {
     alias: {
       // eslint-disable-next-line no-undef
-      'react-native': path.resolve(__dirname, 'src/__tests__/__mocks__/react-native.ts'),
+      'react-native': path.resolve(
+        __dirname,
+        'src/__tests__/__mocks__/react-native.ts'
+      ),
       // eslint-disable-next-line no-undef
       'react-native-reanimated': path.resolve(
         __dirname,

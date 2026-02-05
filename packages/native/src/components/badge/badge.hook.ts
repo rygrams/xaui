@@ -2,7 +2,8 @@ import { useMemo } from 'react'
 import { getSafeThemeColor, withOpacity } from '@xaui/core'
 import { useXUITheme } from '../../core'
 import type { ThemeColor } from '../../types'
-import type { BadgePlacement, BadgeShape, BadgeSize, BadgeVariant } from './badge.type'
+import type { Radius } from '../../types'
+import type { BadgePlacement, BadgeSize, BadgeVariant } from './badge.type'
 
 const sizeMap: Record<BadgeSize, { height: number; minWidth: number; dot: number }> = {
   sm: { height: 16, minWidth: 16, dot: 8 },
@@ -10,17 +11,25 @@ const sizeMap: Record<BadgeSize, { height: number; minWidth: number; dot: number
   lg: { height: 24, minWidth: 24, dot: 12 },
 }
 
+const fontSizeMap: Record<BadgeSize, number> = {
+  sm: 9,
+  md: 10,
+  lg: 12,
+}
+
 export function useBadgeSizeStyles(size: BadgeSize, isDot: boolean, isOneChar: boolean) {
   const theme = useXUITheme()
 
   return useMemo(() => {
     const { height, minWidth, dot } = sizeMap[size]
+    const fontSize = fontSizeMap[size]
+
     if (isDot) {
       return {
         height: dot,
         minWidth: dot,
         paddingHorizontal: 0,
-        fontSize: Math.max(10, Math.round(dot * 0.6)),
+        fontSize,
       }
     }
 
@@ -29,12 +38,11 @@ export function useBadgeSizeStyles(size: BadgeSize, isDot: boolean, isOneChar: b
         height,
         minWidth: height,
         paddingHorizontal: 0,
-        fontSize: theme.fontSizes[size === 'sm' ? 'xs' : size === 'md' ? 'sm' : 'md'],
+        fontSize,
       }
     }
 
     const paddingHorizontal = size === 'sm' ? theme.spacing.xs : theme.spacing.sm
-    const fontSize = theme.fontSizes[size === 'sm' ? 'xs' : size === 'md' ? 'sm' : 'md']
 
     return {
       height,
@@ -80,15 +88,15 @@ export function useBadgeVariantStyles(themeColor: ThemeColor, variant: BadgeVari
   }, [colorScheme, theme, variant])
 }
 
-export function useBadgeShapeStyles(shape: BadgeShape, height: number) {
+export function useBadgeRadiusStyles(radius: Radius, height: number) {
   const theme = useXUITheme()
 
   return useMemo(() => {
-    if (shape === 'circle') {
+    if (radius === 'full') {
       return { borderRadius: height / 2 }
     }
-    return { borderRadius: theme.borderRadius.sm }
-  }, [height, shape, theme.borderRadius.sm])
+    return { borderRadius: theme.borderRadius[radius] }
+  }, [height, radius, theme.borderRadius])
 }
 
 export function useBadgePlacementStyles(placement: BadgePlacement, height: number) {
