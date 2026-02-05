@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react'
-import { Pressable, Text, View } from 'react-native'
+import React, { useEffect, useMemo, useRef } from 'react'
+import { Animated, Pressable, Text, View } from 'react-native'
 import { useXUITheme } from '../../../core'
 import type { ThemeColor } from '../../../types'
 import {
@@ -20,6 +20,110 @@ type DatePickerDialogCalendarProps = {
   onSelectDay: (date: Date) => void
 }
 
+type AnimatedDayCellProps = {
+  isSelected: boolean
+  isToday: boolean
+  isCurrentMonth: boolean
+  isDisabled: boolean
+  day: number
+  date: Date
+  locale: string
+  themeColor: ThemeColor
+  onSelectDay: (date: Date) => void
+}
+
+const AnimatedDayCell: React.FC<AnimatedDayCellProps> = ({
+  isSelected,
+  isToday,
+  isCurrentMonth,
+  isDisabled,
+  day,
+  date,
+  locale,
+  themeColor,
+  onSelectDay,
+}) => {
+  const theme = useXUITheme()
+  const colorScheme = theme.colors[themeColor] ?? theme.colors.primary
+  const isDefault = themeColor === 'default'
+  const accentColor = isDefault ? theme.colors.foreground : colorScheme.main
+  const accentFg = isDefault ? theme.colors.background : colorScheme.foreground
+  const scaleAnim = useRef(new Animated.Value(isSelected ? 1 : 0)).current
+
+  useEffect(() => {
+    if (isSelected) {
+      scaleAnim.setValue(0.92)
+      Animated.spring(scaleAnim, {
+        toValue: 1,
+        useNativeDriver: true,
+        damping: 20,
+        stiffness: 300,
+        mass: 0.6,
+      }).start()
+    } else {
+      scaleAnim.setValue(0)
+    }
+  }, [isSelected, scaleAnim])
+
+  const animatedStyle = isSelected
+    ? { transform: [{ scale: scaleAnim }] }
+    : undefined
+
+  return (
+    <Pressable
+      style={[
+        styles.dayCell,
+        isToday &&
+          !isSelected && {
+            ...styles.todayCell,
+            borderColor: accentColor,
+          },
+      ]}
+      onPress={() => {
+        if (!isDisabled) {
+          onSelectDay(date)
+        }
+      }}
+      disabled={isDisabled}
+      accessibilityLabel={date.toLocaleDateString(locale)}
+      accessibilityRole="button"
+      accessibilityState={{
+        selected: isSelected,
+        disabled: isDisabled,
+      }}
+    >
+      {isSelected ? (
+        <Animated.View
+          style={[
+            styles.selectedCellInner,
+            { backgroundColor: accentColor },
+            animatedStyle,
+          ]}
+        >
+          <Text style={[styles.dayText, { color: accentFg }]}>
+            {day}
+          </Text>
+        </Animated.View>
+      ) : (
+        <Text
+          style={[
+            styles.dayText,
+            { color: theme.colors.foreground },
+            !isCurrentMonth && styles.otherMonthText,
+            isDisabled && styles.disabledText,
+            isToday && {
+              color: accentColor,
+              fontWeight: '600',
+            },
+          ]}
+        >
+          {day}
+        </Text>
+      )}
+    </Pressable>
+  )
+}
+
 export const DatePickerDialogCalendar: React.FC<
   DatePickerDialogCalendarProps
 > = ({
@@ -33,7 +137,6 @@ export const DatePickerDialogCalendar: React.FC<
   onSelectDay,
 }) => {
   const theme = useXUITheme()
-  const colorScheme = theme.colors[themeColor] ?? theme.colors.primary
 
   const weekdays = useMemo(
     () => getWeekdayNames(locale, firstDayOfWeek),
@@ -79,58 +182,22 @@ export const DatePickerDialogCalendar: React.FC<
 
       {weeks.map((week, weekIndex) => (
         <View key={weekIndex} style={styles.dayRow}>
-          {week.map((dayInfo, dayIndex) => {
-            const isSelected =
-              selectedDate && isSameDay(dayInfo.date, selectedDate)
-            const isTodayDate = dayInfo.isToday
-
-            return (
-              <Pressable
-                key={dayIndex}
-                style={[
-                  styles.dayCell,
-                  isTodayDate &&
-                    !isSelected && {
-                      ...styles.todayCell,
-                      borderColor: colorScheme.main,
-                    },
-                  isSelected && {
-                    ...styles.selectedCell,
-                    backgroundColor: colorScheme.main,
-                  },
-                ]}
-                onPress={() => {
-                  if (!dayInfo.isDisabled) {
-                    onSelectDay(dayInfo.date)
-                  }
-                }}
-                disabled={dayInfo.isDisabled}
-                accessibilityLabel={dayInfo.date.toLocaleDateString(locale)}
-                accessibilityRole="button"
-                accessibilityState={{
-                  selected: !!isSelected,
-                  disabled: dayInfo.isDisabled,
-                }}
-              >
-                <Text
-                  style={[
-                    styles.dayText,
-                    { color: theme.colors.foreground },
-                    !dayInfo.isCurrentMonth && styles.otherMonthText,
-                    dayInfo.isDisabled && styles.disabledText,
-                    isSelected && { color: colorScheme.foreground },
-                    isTodayDate &&
-                      !isSelected && {
-                        color: colorScheme.main,
-                        fontWeight: '600',
-                      },
-                  ]}
-                >
-                  {dayInfo.day}
-                </Text>
-              </Pressable>
-            )
-          })}
+          {week.map((dayInfo, dayIndex) => (
+            <AnimatedDayCell
+              key={dayIndex}
+              isSelected={
+                !!(selectedDate && isSameDay(dayInfo.date, selectedDate))
+              }
+              isToday={dayInfo.isToday}
+              isCurrentMonth={dayInfo.isCurrentMonth}
+              isDisabled={dayInfo.isDisabled}
+              day={dayInfo.day}
+              date={dayInfo.date}
+              locale={locale}
+              themeColor={themeColor}
+              onSelectDay={onSelectDay}
+            />
+          ))}
         </View>
       ))}
     </View>

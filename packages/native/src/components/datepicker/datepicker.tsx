@@ -182,6 +182,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
         maxDate={maxDate}
         style={customAppearance?.calendar}
         onDateSelect={handleDateSelect}
+        onClearValue={handleClear}
         onClose={handleClose}
       />
     </View>
