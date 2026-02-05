@@ -1,5 +1,10 @@
 import React, { useEffect, useMemo, useRef } from 'react'
 import { Animated, Pressable, Text, View } from 'react-native'
+import {
+  PanGestureHandler,
+  State,
+  type PanGestureHandlerStateChangeEvent,
+} from 'react-native-gesture-handler'
 import { useXUITheme } from '../../../core'
 import type { ThemeColor } from '../../../types'
 import {
@@ -18,6 +23,8 @@ type DatePickerDialogCalendarProps = {
   minDate?: Date
   maxDate?: Date
   onSelectDay: (date: Date) => void
+  onPreviousMonth: () => void
+  onNextMonth: () => void
 }
 
 type AnimatedDayCellProps = {
@@ -135,8 +142,11 @@ export const DatePickerDialogCalendar: React.FC<
   minDate,
   maxDate,
   onSelectDay,
+  onPreviousMonth,
+  onNextMonth,
 }) => {
   const theme = useXUITheme()
+  const swipeHandledRef = useRef(false)
 
   const weekdays = useMemo(
     () => getWeekdayNames(locale, firstDayOfWeek),
@@ -163,43 +173,73 @@ export const DatePickerDialogCalendar: React.FC<
     return result
   }, [days])
 
+  const onSwipeEnd = (event: PanGestureHandlerStateChangeEvent) => {
+    const { state, translationX, velocityX } = event.nativeEvent
+    if (state !== State.END || swipeHandledRef.current) return
+
+    const shouldSwipe =
+      Math.abs(translationX) > 40 || Math.abs(velocityX) > 600
+
+    if (!shouldSwipe) return
+
+    swipeHandledRef.current = true
+    if (translationX < 0) {
+      onNextMonth()
+    } else {
+      onPreviousMonth()
+    }
+  }
+
+  const onSwipeStateChange = (event: PanGestureHandlerStateChangeEvent) => {
+    if (event.nativeEvent.state === State.BEGAN) {
+      swipeHandledRef.current = false
+    }
+    onSwipeEnd(event)
+  }
+
   return (
-    <View style={styles.calendarGrid}>
-      <View style={styles.weekdayRow}>
-        {weekdays.map((day, index) => (
-          <View key={index} style={styles.weekdayCell}>
-            <Text
-              style={[
-                styles.weekdayText,
-                { color: theme.colors.foreground, opacity: 0.6 },
-              ]}
-            >
-              {day}
-            </Text>
+    <PanGestureHandler
+      activeOffsetX={[-12, 12]}
+      failOffsetY={[-12, 12]}
+      onHandlerStateChange={onSwipeStateChange}
+    >
+      <View style={styles.calendarGrid}>
+        <View style={styles.weekdayRow}>
+          {weekdays.map((day, index) => (
+            <View key={index} style={styles.weekdayCell}>
+              <Text
+                style={[
+                  styles.weekdayText,
+                  { color: theme.colors.foreground, opacity: 0.6 },
+                ]}
+              >
+                {day}
+              </Text>
+            </View>
+          ))}
+        </View>
+
+        {weeks.map((week, weekIndex) => (
+          <View key={weekIndex} style={styles.dayRow}>
+            {week.map((dayInfo, dayIndex) => (
+              <AnimatedDayCell
+                key={dayIndex}
+                isSelected={
+                  !!(selectedDate && isSameDay(dayInfo.date, selectedDate))
+                }
+                isToday={dayInfo.isToday}
+                isCurrentMonth={dayInfo.isCurrentMonth}
+                isDisabled={dayInfo.isDisabled}
+                day={dayInfo.day}
+                date={dayInfo.date}
+                locale={locale}
+                themeColor={themeColor}
+                onSelectDay={onSelectDay}
+              />
+            ))}
           </View>
         ))}
       </View>
-
-      {weeks.map((week, weekIndex) => (
-        <View key={weekIndex} style={styles.dayRow}>
-          {week.map((dayInfo, dayIndex) => (
-            <AnimatedDayCell
-              key={dayIndex}
-              isSelected={
-                !!(selectedDate && isSameDay(dayInfo.date, selectedDate))
-              }
-              isToday={dayInfo.isToday}
-              isCurrentMonth={dayInfo.isCurrentMonth}
-              isDisabled={dayInfo.isDisabled}
-              day={dayInfo.day}
-              date={dayInfo.date}
-              locale={locale}
-              themeColor={themeColor}
-              onSelectDay={onSelectDay}
-            />
-          ))}
-        </View>
-      ))}
-    </View>
+    </PanGestureHandler>
   )
 }

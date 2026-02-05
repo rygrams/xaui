@@ -27,6 +27,7 @@ export default defineConfig({
   external: [
     'react',
     'react-native',
+    'react-native-gesture-handler',
     'react-native-reanimated',
     'react-native-svg',
     '@xaui/core',

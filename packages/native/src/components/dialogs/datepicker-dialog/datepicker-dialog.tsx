@@ -207,7 +207,7 @@ export const DatePickerDialog: React.FC<DatePickerDialogProps> = ({
       case 'calendar':
       default:
         return (
-          <Animated.View style={monthSlideStyle}>
+          <Animated.View style={[viewTransitionStyle, monthSlideStyle]}>
             <DatePickerDialogCalendar
               viewDate={viewDate}
               selectedDate={selectedDate}
@@ -217,6 +217,8 @@ export const DatePickerDialog: React.FC<DatePickerDialogProps> = ({
               minDate={minDate}
               maxDate={maxDate}
               onSelectDay={handleDaySelect}
+              onPreviousMonth={handlePreviousMonth}
+              onNextMonth={handleNextMonth}
             />
           </Animated.View>
         )
@@ -246,7 +248,6 @@ export const DatePickerDialog: React.FC<DatePickerDialogProps> = ({
               selectedDate={selectedDate}
               locale={locale}
               themeColor={themeColor}
-              viewMode={viewMode}
               selectDateLabel={labels.selectDate}
               onClearValue={onClearValue}
               onPreviousMonth={handlePreviousMonth}
@@ -254,9 +255,7 @@ export const DatePickerDialog: React.FC<DatePickerDialogProps> = ({
               onToggleYearPicker={toggleYearPicker}
             />
 
-            <Animated.View style={viewTransitionStyle}>
-              {renderContent()}
-            </Animated.View>
+            {renderContent()}
 
             <View style={styles.footer}>
               <Pressable
