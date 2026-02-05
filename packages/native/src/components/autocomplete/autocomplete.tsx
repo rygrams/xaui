@@ -51,8 +51,7 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
   disableLocalFilter = false,
   inputValue,
   defaultInputValue,
-  style,
-  textStyle,
+  customAppearance,
   onClose,
   onOpenChange,
   onSelectionChange,
@@ -251,8 +250,8 @@ export const Autocomplete: React.FC<AutocompleteProps> = ({
       labelText={typeof label === 'string' ? label : undefined}
       isLabelInside={isLabelInside}
       clearIcon={clearIcon}
-      style={style}
-      textStyle={textStyle}
+      style={customAppearance?.container}
+      textStyle={customAppearance?.text}
       onPress={handleTriggerPress}
       onClear={handleClear}
       onLayout={handleTriggerLayout}

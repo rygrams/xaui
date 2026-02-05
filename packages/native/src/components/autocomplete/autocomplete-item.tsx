@@ -20,8 +20,7 @@ export const AutocompleteItem: React.FC<AutocompleteItemProps> = ({
   isDisabled = false,
   isSelected = false,
   isReadOnly = false,
-  style,
-  textStyle,
+  customAppearance,
   onSelected,
 }) => {
   const context = useContext(AutocompleteContext)
@@ -52,7 +51,7 @@ export const AutocompleteItem: React.FC<AutocompleteItemProps> = ({
           backgroundColor,
         },
         isItemDisabled && styles.disabled,
-        style,
+        customAppearance?.container,
       ]}
     >
       {startContent}
@@ -61,7 +60,7 @@ export const AutocompleteItem: React.FC<AutocompleteItemProps> = ({
           style={[
             styles.title,
             { fontSize: sizeStyles.titleSize, color: labelColor },
-            textStyle,
+            customAppearance?.text,
           ]}
         >
           {label}

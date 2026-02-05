@@ -180,4 +180,31 @@ describe('Autocomplete Types', () => {
 
     expect(props.disableAnimation).toBe(true)
   })
+
+  it('accepts customAppearance with style props', () => {
+    const props: AutocompleteProps = {
+      children: null,
+      customAppearance: {
+        container: { backgroundColor: 'red' },
+        text: { fontSize: 16 },
+      },
+    }
+
+    expect(props.customAppearance?.container).toEqual({ backgroundColor: 'red' })
+    expect(props.customAppearance?.text).toEqual({ fontSize: 16 })
+  })
+
+  it('accepts customAppearance for AutocompleteItem', () => {
+    const item: AutocompleteItemProps = {
+      label: 'Item',
+      value: 'item',
+      customAppearance: {
+        container: { padding: 10 },
+        text: { color: 'blue' },
+      },
+    }
+
+    expect(item.customAppearance?.container).toEqual({ padding: 10 })
+    expect(item.customAppearance?.text).toEqual({ color: 'blue' })
+  })
 })
