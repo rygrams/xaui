@@ -16,6 +16,7 @@ export default defineConfig({
     'badge/index': 'src/components/badge/index.ts',
     'alert/index': 'src/components/alert/index.ts',
     'autocomplete/index': 'src/components/autocomplete/index.ts',
+    'datepicker/index': 'src/components/datepicker/index.ts',
     'typography/index': 'src/components/typography/index.ts',
     'view/index': 'src/components/view/index.ts',
     'icon/index': 'src/components/icon/index.ts',
@@ -26,6 +27,7 @@ export default defineConfig({
   external: [
     'react',
     'react-native',
+    'react-native-gesture-handler',
     'react-native-reanimated',
     'react-native-svg',
     '@xaui/core',

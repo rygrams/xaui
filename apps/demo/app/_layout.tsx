@@ -22,6 +22,7 @@ export default function RootLayout() {
             options={{ presentation: 'modal', title: 'Modal' }}
           />
           <Stack.Screen name="alerts" options={{ title: 'Alert Examples' }} />
+          <Stack.Screen name="datepicker" options={{ title: 'DatePicker Examples' }} />
         </Stack>
       </XUIProvider>
     </ThemeProvider>

@@ -1,5 +1,8 @@
 export { ArrowBackIcon } from './icons/arrow-back'
+export { CalendarIcon } from './icons/calendar'
 export { CheckmarkIcon } from './icons/checkmark'
 export { ChevronDownIcon } from './icons/chevron-down'
+export { ChevronLeftIcon } from './icons/chevron-left'
+export { ChevronRightIcon } from './icons/chevron-right'
 export { CloseIcon } from './icons/close'
 export type { IconProps, IconVariant } from './icon.type'
