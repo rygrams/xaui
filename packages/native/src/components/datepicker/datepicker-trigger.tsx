@@ -104,9 +104,7 @@ export const DatePickerTrigger: React.FC<DatePickerTriggerProps> = ({
           <CloseIcon color={theme.colors.foreground} size={20} />
         </TouchableOpacity>
       ) : (
-        calendarIcon ?? (
-          <CalendarIcon color={theme.colors.foreground} size={20} />
-        )
+        (calendarIcon ?? <CalendarIcon color={theme.colors.foreground} size={20} />)
       )}
     </Pressable>
   )

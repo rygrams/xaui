@@ -4,7 +4,11 @@ import type { ThemeColor } from '../../types'
 export type SwitchVariant = 'inside' | 'overlap'
 export type SwitchSize = 'sm' | 'md' | 'lg'
 export type SwitchRadius = 'none' | 'sm' | 'md' | 'lg' | 'full'
-export type SwitchLabelAlignment = 'left' | 'right' | 'justify-left' | 'justify-right'
+export type SwitchLabelAlignment =
+  | 'left'
+  | 'right'
+  | 'justify-left'
+  | 'justify-right'
 
 export type SwitchEvents = {
   onValueChange?: (isSelected: boolean) => void

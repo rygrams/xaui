@@ -27,10 +27,7 @@ export const DatePickerDialogYearPicker: React.FC<
   const accentColor = isDefault ? theme.colors.foreground : colorScheme.main
   const accentFg = isDefault ? theme.colors.background : colorScheme.foreground
 
-  const years = useMemo(
-    () => getYearRange(minDate, maxDate),
-    [minDate, maxDate]
-  )
+  const years = useMemo(() => getYearRange(minDate, maxDate), [minDate, maxDate])
 
   const currentYear = viewDate.getFullYear()
 

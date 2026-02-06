@@ -1,5 +1,8 @@
 import { describe, it, expect } from 'vitest'
-import type { AccordionProps, AccordionItemProps } from '../../../components/accordion'
+import type {
+  AccordionProps,
+  AccordionItemProps,
+} from '../../../components/accordion'
 
 describe('Accordion Types', () => {
   it('accepts Accordion props', () => {
@@ -16,7 +19,11 @@ describe('Accordion Types', () => {
   })
 
   it('accepts all variants', () => {
-    const variants: Array<AccordionProps['variant']> = ['light', 'bordered', 'splitted']
+    const variants: Array<AccordionProps['variant']> = [
+      'light',
+      'bordered',
+      'splitted',
+    ]
     variants.forEach(variant => {
       const props: AccordionProps = {
         children: null,

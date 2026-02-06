@@ -19,7 +19,9 @@ export const BlurView: React.FC<BlurViewProps> = ({
   style,
 }) => {
   const overlayOpacity = Math.min(1, Math.max(0, intensity))
-  const overlayAnim = useRef(new Animated.Value(unlockable ? 0 : overlayOpacity)).current
+  const overlayAnim = useRef(
+    new Animated.Value(unlockable ? 0 : overlayOpacity)
+  ).current
   const scaleAnim = useRef(new Animated.Value(unlockable ? 1 : 0.98)).current
 
   useEffect(() => {

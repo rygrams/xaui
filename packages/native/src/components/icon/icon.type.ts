@@ -1,6 +1,13 @@
 import type { ThemeColor } from '../../types'
 
-export type IconVariant = 'baseline' | 'filled' | 'duotone' | 'round-outlined' | 'square-outlined' | 'round-filled' | 'square-filled'
+export type IconVariant =
+  | 'baseline'
+  | 'filled'
+  | 'duotone'
+  | 'round-outlined'
+  | 'square-outlined'
+  | 'round-filled'
+  | 'square-filled'
 
 export type IconProps = {
   /**

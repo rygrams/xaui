@@ -82,7 +82,8 @@ export const SelectItem: React.FC<SelectItemProps> = ({
           </Text>
         )}
       </View>
-      {isSelected && (selectedIcon || <CheckmarkIcon color={checkmarkColor} size={16} />)}
+      {isSelected &&
+        (selectedIcon || <CheckmarkIcon color={checkmarkColor} size={16} />)}
       {endContent}
     </Pressable>
   )

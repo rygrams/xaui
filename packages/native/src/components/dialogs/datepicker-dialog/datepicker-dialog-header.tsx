@@ -2,11 +2,13 @@ import React, { useMemo } from 'react'
 import { Pressable, Text, View } from 'react-native'
 import { useXUITheme } from '../../../core'
 import type { ThemeColor } from '../../../types'
+import { formatDate, getMonthName } from '../../datepicker/datepicker.utils'
 import {
-  formatDate,
-  getMonthName,
-} from '../../datepicker/datepicker.utils'
-import { ChevronDownIcon, ChevronLeftIcon, ChevronRightIcon, CloseIcon } from '../../icon'
+  ChevronDownIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  CloseIcon,
+} from '../../icon'
 import { styles } from './datepicker-dialog.style'
 
 type DatePickerDialogHeaderProps = {
@@ -73,15 +75,10 @@ export const DatePickerDialogHeader: React.FC<DatePickerDialogHeaderProps> = ({
           accessibilityLabel={`${monthYearLabel}, tap to change`}
           accessibilityRole="button"
         >
-          <Text
-            style={[styles.monthYearText, { color: theme.colors.foreground }]}
-          >
+          <Text style={[styles.monthYearText, { color: theme.colors.foreground }]}>
             {monthYearLabel}
           </Text>
-          <ChevronDownIcon
-            size={18}
-            color={theme.colors.foreground}
-          />
+          <ChevronDownIcon size={18} color={theme.colors.foreground} />
         </Pressable>
 
         <View style={styles.navButtons}>

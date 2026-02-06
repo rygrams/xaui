@@ -78,7 +78,10 @@ export function useSizesStyles(size: Size): {
   return { sizeStyles, spinnerSize }
 }
 
-export function useVariantSizesStyles(themeColor: ThemeColor, variant: ButtonVariant) {
+export function useVariantSizesStyles(
+  themeColor: ThemeColor,
+  variant: ButtonVariant
+) {
   const theme = useXUITheme()
   const safeThemeColor = getSafeThemeColor(themeColor)
   const colorScheme = theme.colors[safeThemeColor]
