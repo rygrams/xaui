@@ -1,43 +1,54 @@
 import { describe, it, expect } from 'vitest'
 import { renderHook } from '@testing-library/react'
-import { useMenuMeasurements } from '../../../components/menu/menu.hook'
+import {
+  useMenuTriggerMeasurements,
+  useMenuContentLayout,
+  useMenuAnimation,
+} from '../../../components/menu/menu.hook'
 
-describe('useMenuMeasurements', () => {
-  it('returns triggerRef and menuRef', () => {
-    const { result } = renderHook(() => useMenuMeasurements(false, 'bottom'))
-
+describe('useMenuTriggerMeasurements', () => {
+  it('returns triggerRef', () => {
+    const { result } = renderHook(() => useMenuTriggerMeasurements(false))
     expect(result.current.triggerRef).toBeDefined()
-    expect(result.current.menuRef).toBeDefined()
   })
 
-  it('initializes with default values', () => {
-    const { result } = renderHook(() => useMenuMeasurements(false, 'bottom'))
+  it('initializes triggerPosition as null', () => {
+    const { result } = renderHook(() => useMenuTriggerMeasurements(false))
+    expect(result.current.triggerPosition).toBeNull()
+  })
+})
 
-    expect(result.current.triggerLayout).toBeNull()
-    expect(result.current.menuLayout).toEqual({ width: 0, height: 0 })
-    expect(result.current.menuPosition).toEqual({ top: 0, left: 0 })
+describe('useMenuContentLayout', () => {
+  it('returns initial contentSize as zero', () => {
+    const { result } = renderHook(() => useMenuContentLayout())
+    expect(result.current.contentSize).toEqual({ width: 0, height: 0 })
   })
 
-  it('accepts bottom position', () => {
-    const { result } = renderHook(() => useMenuMeasurements(false, 'bottom'))
-    expect(result.current).toBeDefined()
+  it('returns handleContentLayout function', () => {
+    const { result } = renderHook(() => useMenuContentLayout())
+    expect(typeof result.current.handleContentLayout).toBe('function')
+  })
+})
+
+describe('useMenuAnimation', () => {
+  it('returns opacity and scale animated values', () => {
+    const { result } = renderHook(() => useMenuAnimation(false))
+    expect(result.current.opacity).toBeDefined()
+    expect(result.current.scale).toBeDefined()
   })
 
-  it('accepts top position', () => {
-    const { result } = renderHook(() => useMenuMeasurements(false, 'top'))
-    expect(result.current).toBeDefined()
-  })
-
-  it('handles visible state changes', () => {
+  it('handles visible state', () => {
     const { result, rerender } = renderHook(
-      ({ visible }) => useMenuMeasurements(visible, 'bottom'),
+      ({ visible }) => useMenuAnimation(visible),
       { initialProps: { visible: false } }
     )
 
-    expect(result.current.triggerLayout).toBeNull()
+    expect(result.current.opacity).toBeDefined()
+    expect(result.current.scale).toBeDefined()
 
     rerender({ visible: true })
 
-    expect(result.current).toBeDefined()
+    expect(result.current.opacity).toBeDefined()
+    expect(result.current.scale).toBeDefined()
   })
 })
