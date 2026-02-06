@@ -2,23 +2,19 @@ import React, { useEffect, useMemo, useRef } from 'react'
 import { Animated } from 'react-native'
 import Svg, { Circle, Path } from 'react-native-svg'
 import type { IconProps } from '../icon.type'
-import { isThemeColor } from '../icon.utils'
 
 const AnimatedPath = Animated.createAnimatedComponent(Path)
 
 export const BaseballIcon: React.FC<IconProps> = ({
   variant = 'baseline',
   size = 24,
-  color = 'default',
+  color = 'black',
   isAnimated = false,
 }) => {
   const scaleAnim = useRef(new Animated.Value(isAnimated ? 0 : 1)).current
   const opacityAnim = useRef(new Animated.Value(isAnimated ? 0 : 1)).current
 
   const resolvedColor = useMemo(() => {
-    if (typeof color === 'string' && isThemeColor(color)) {
-      return color
-    }
     return color
   }, [color])
 
