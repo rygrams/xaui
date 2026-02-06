@@ -1,22 +1,17 @@
 import type { CrossAxisAlignment, MainAxisAlignment } from './layout-types'
 import type { ViewStyle } from 'react-native'
 
-const MAIN_AXIS_JUSTIFY_MAP: Record<
-  MainAxisAlignment,
-  ViewStyle['justifyContent']
-> = {
-  start: 'flex-start',
-  center: 'center',
-  end: 'flex-end',
-  'space-between': 'space-between',
-  'space-around': 'space-around',
-  'space-evenly': 'space-evenly',
-}
+const MAIN_AXIS_JUSTIFY_MAP: Record<MainAxisAlignment, ViewStyle['justifyContent']> =
+  {
+    start: 'flex-start',
+    center: 'center',
+    end: 'flex-end',
+    'space-between': 'space-between',
+    'space-around': 'space-around',
+    'space-evenly': 'space-evenly',
+  }
 
-const CROSS_AXIS_ALIGN_MAP: Record<
-  CrossAxisAlignment,
-  ViewStyle['alignItems']
-> = {
+const CROSS_AXIS_ALIGN_MAP: Record<CrossAxisAlignment, ViewStyle['alignItems']> = {
   start: 'flex-start',
   center: 'center',
   end: 'flex-end',

@@ -4,7 +4,11 @@ import type { Radius, ThemeColor } from '../../types'
 
 export type BadgeVariant = 'solid' | 'flat' | 'faded' | 'shadow'
 export type BadgeSize = 'sm' | 'md' | 'lg'
-export type BadgePlacement = 'top-right' | 'top-left' | 'bottom-right' | 'bottom-left'
+export type BadgePlacement =
+  | 'top-right'
+  | 'top-left'
+  | 'bottom-right'
+  | 'bottom-left'
 
 type BadgeCustomAppearance = {
   /**

@@ -76,7 +76,9 @@ describe('Progress', () => {
 
   describe('Size', () => {
     it('should apply custom size for circular progress', () => {
-      const { container } = render(<Progress variant="circular" value={0.5} size={60} />)
+      const { container } = render(
+        <Progress variant="circular" value={0.5} size={60} />
+      )
       const svg = (container as HTMLElement).querySelector('svg')
       expect(svg?.getAttribute('width')).toBe('60')
       expect(svg?.getAttribute('height')).toBe('60')

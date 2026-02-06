@@ -1,6 +1,9 @@
 import { describe, it, expect, vi } from 'vitest'
 import { renderHook } from '@testing-library/react'
-import { useDividerColor, useDividerSize } from '../../../components/divider/divider.hook'
+import {
+  useDividerColor,
+  useDividerSize,
+} from '../../../components/divider/divider.hook'
 
 vi.mock('../../../core', () => ({
   useXUITheme: () => ({
@@ -66,9 +69,15 @@ describe('divider hook styles', () => {
   })
 
   it('returns correct color for different theme colors', () => {
-    const { result: primaryResult } = renderHook(() => useDividerColor('primary', undefined))
-    const { result: dangerResult } = renderHook(() => useDividerColor('danger', undefined))
-    const { result: successResult } = renderHook(() => useDividerColor('success', undefined))
+    const { result: primaryResult } = renderHook(() =>
+      useDividerColor('primary', undefined)
+    )
+    const { result: dangerResult } = renderHook(() =>
+      useDividerColor('danger', undefined)
+    )
+    const { result: successResult } = renderHook(() =>
+      useDividerColor('success', undefined)
+    )
 
     expect(primaryResult.current).toBe('#1976d2')
     expect(dangerResult.current).toBe('#d32f2f')

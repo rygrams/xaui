@@ -8,7 +8,11 @@ type ChevronDownIconProps = {
   isOpen?: boolean
 }
 
-export function ChevronDownIcon({ color, size, isOpen = false }: ChevronDownIconProps) {
+export function ChevronDownIcon({
+  color,
+  size,
+  isOpen = false,
+}: ChevronDownIconProps) {
   const rotation = useRef(new Animated.Value(isOpen ? 1 : 0)).current
 
   useEffect(() => {

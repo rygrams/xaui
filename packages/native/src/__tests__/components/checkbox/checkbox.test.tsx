@@ -32,7 +32,7 @@ describe('Checkbox Types', () => {
       'default',
     ]
 
-    colors.forEach((color) => {
+    colors.forEach(color => {
       const props: CheckboxProps = {
         label: 'Test',
         themeColor: color,
@@ -44,7 +44,7 @@ describe('Checkbox Types', () => {
   it('accepts all variants', () => {
     const variants: Array<CheckboxProps['variant']> = ['filled', 'light']
 
-    variants.forEach((variant) => {
+    variants.forEach(variant => {
       const props: CheckboxProps = {
         label: 'Test',
         variant,
@@ -56,7 +56,7 @@ describe('Checkbox Types', () => {
   it('accepts all sizes', () => {
     const sizes: Array<CheckboxProps['size']> = ['sm', 'md', 'lg']
 
-    sizes.forEach((size) => {
+    sizes.forEach(size => {
       const props: CheckboxProps = {
         label: 'Test',
         size,
@@ -68,7 +68,7 @@ describe('Checkbox Types', () => {
   it('accepts all radius options', () => {
     const radii: Array<CheckboxProps['radius']> = ['none', 'sm', 'md', 'lg', 'full']
 
-    radii.forEach((radius) => {
+    radii.forEach(radius => {
       const props: CheckboxProps = {
         label: 'Test',
         radius,
@@ -85,7 +85,7 @@ describe('Checkbox Types', () => {
       'justify-right',
     ]
 
-    alignments.forEach((labelAlignment) => {
+    alignments.forEach(labelAlignment => {
       const props: CheckboxProps = {
         label: 'Test',
         labelAlignment,

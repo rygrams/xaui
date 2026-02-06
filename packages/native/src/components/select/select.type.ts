@@ -4,7 +4,11 @@ import type { Radius, Size, ThemeColor } from '../../types'
 
 export type SelectVariant = 'outlined' | 'flat' | 'light' | 'faded' | 'underlined'
 
-export type SelectLabelPlacement = 'inside' | 'outside' | 'outside-left' | 'outside-top'
+export type SelectLabelPlacement =
+  | 'inside'
+  | 'outside'
+  | 'outside-left'
+  | 'outside-top'
 export type SelectSelectionMode = 'single' | 'multiple'
 
 export type SelectProps = {

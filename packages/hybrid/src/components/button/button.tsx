@@ -56,7 +56,9 @@ export const Button: React.FC<ButtonProps> = ({
     <ActivityIndicator
       variant="circular"
       showTrack={false}
-      themeColor={variant === 'solid' || variant === 'elevated' ? undefined : themeColor}
+      themeColor={
+        variant === 'solid' || variant === 'elevated' ? undefined : themeColor
+      }
       color={variant === 'solid' || variant === 'elevated' ? textColor : undefined}
       size={spinnerSize}
     />

@@ -94,7 +94,9 @@ export const SelectTrigger: React.FC<SelectTriggerProps> = ({
           style,
         ]}
       >
-        <View style={[styles.triggerContent, labelInside && styles.triggerContentColumn]}>
+        <View
+          style={[styles.triggerContent, labelInside && styles.triggerContentColumn]}
+        >
           {startContent}
           <View style={styles.valueWrapper}>
             {labelInside && labelNode}

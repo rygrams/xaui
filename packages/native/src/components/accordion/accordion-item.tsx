@@ -112,7 +112,9 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
             : { height: heightInterpolation },
         ]}
       >
-        <View style={[contentContainerStyle, customAppearance?.content]}>{children}</View>
+        <View style={[contentContainerStyle, customAppearance?.content]}>
+          {children}
+        </View>
       </Animated.View>
     </View>
   )
