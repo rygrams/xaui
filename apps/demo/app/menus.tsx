@@ -387,7 +387,12 @@ export default function MenusScreen() {
       </Margin>
 
       <Margin bottom={theme.spacing.lg}>
-        <View style={styles.section}>
+        <View
+          style={[
+            styles.section,
+            { flexDirection: 'row', justifyContent: 'flex-end' },
+          ]}
+        >
           <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
             Complex Example with IconButton
           </Text>

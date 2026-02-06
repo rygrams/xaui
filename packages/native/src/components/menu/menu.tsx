@@ -27,7 +27,7 @@ export const Menu: React.FC<MenuProps> = ({
 }) => {
   const theme = useXUITheme()
   const { triggerRef, triggerPosition } = useMenuTriggerMeasurements(visible)
-  const { contentSize, handleContentLayout } = useMenuContentLayout()
+  const { contentSize, handleContentLayout, isMeasured } = useMenuContentLayout(visible)
   const menuPosition = useMenuPosition(triggerPosition, contentSize, position)
   const { opacity, scale } = useMenuAnimation(visible)
 
@@ -54,11 +54,11 @@ export const Menu: React.FC<MenuProps> = ({
             style={[
               styles.menuContainer,
               {
-                top: menuPosition.top,
-                left: menuPosition.left,
+                top: isMeasured ? menuPosition.top : -9999,
+                left: isMeasured ? menuPosition.left : -9999,
                 backgroundColor: theme.colors.background,
                 borderRadius: theme.borderRadius.md,
-                opacity,
+                opacity: isMeasured ? opacity : 0,
                 transform: [{ scale }],
                 ...theme.shadows.md,
               },

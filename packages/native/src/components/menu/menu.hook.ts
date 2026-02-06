@@ -15,30 +15,53 @@ export const useMenuTriggerMeasurements = (visible: boolean) => {
   const [triggerPosition, setTriggerPosition] = useState<TriggerPosition | null>(null)
 
   useEffect(() => {
-    if (!visible) return
+    if (!visible) {
+      setTriggerPosition(null)
+      return
+    }
 
-    const measureTrigger = () => {
-      triggerRef.current?.measureInWindow((x, y, width, height) => {
-        setTriggerPosition({ x, y, width, height })
+    const measureTrigger = (attempt: number) => {
+      triggerRef.current?.measure((_, __, width, height, pageX, pageY) => {
+        if ((width <= 0 || height <= 0) && attempt < 5) {
+          globalThis.requestAnimationFrame(() => measureTrigger(attempt + 1))
+          return
+        }
+
+        setTriggerPosition({
+          x: pageX,
+          y: pageY,
+          width: Math.max(0, width),
+          height: Math.max(0, height),
+        })
       })
     }
 
-    const frameId = globalThis.setTimeout(measureTrigger, 0)
+    const frameId = globalThis.setTimeout(() => measureTrigger(0), 0)
     return () => globalThis.clearTimeout(frameId)
   }, [visible])
 
   return { triggerRef, triggerPosition }
 }
 
-export const useMenuContentLayout = () => {
+export const useMenuContentLayout = (visible: boolean) => {
   const [contentSize, setContentSize] = useState({ width: 0, height: 0 })
+  const [isMeasured, setIsMeasured] = useState(false)
+
+  useEffect(() => {
+    if (!visible) {
+      setIsMeasured(false)
+    }
+  }, [visible])
 
   const handleContentLayout = useCallback((event: LayoutChangeEvent) => {
     const { width, height } = event.nativeEvent.layout
-    setContentSize({ width, height })
+    if (width > 0 && height > 0) {
+      setContentSize({ width, height })
+      setIsMeasured(true)
+    }
   }, [])
 
-  return { contentSize, handleContentLayout }
+  return { contentSize, handleContentLayout, isMeasured }
 }
 
 export const useMenuPosition = (
@@ -89,7 +112,10 @@ export const useMenuPosition = (
       left = MENU_SCREEN_INDENT
     }
 
-    return { top, left }
+    const maxTop = Math.max(MENU_SCREEN_INDENT, screenHeight - MENU_SCREEN_INDENT - contentSize.height)
+    const clampedTop = Math.min(maxTop, Math.max(MENU_SCREEN_INDENT, top))
+
+    return { top: clampedTop, left }
   }, [triggerPosition, contentSize, position])
 }
 
