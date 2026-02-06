@@ -56,7 +56,10 @@ export const Menu: React.FC<MenuProps> = ({
               {
                 top: isMeasured ? menuPosition.top : -9999,
                 left: isMeasured ? menuPosition.left : -9999,
-                backgroundColor: theme.colors.background,
+                backgroundColor:
+                  theme.mode === 'dark'
+                    ? theme.colors.default.background
+                    : theme.colors.background,
                 borderRadius: theme.borderRadius.md,
                 opacity: isMeasured ? opacity : 0,
                 transform: [{ scale }],

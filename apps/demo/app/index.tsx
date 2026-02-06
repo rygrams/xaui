@@ -27,7 +27,7 @@ export default function HomeScreen() {
         gap: 12,
       }}
     >
-      <Grid columns={3} spacing={5}>
+      <Grid columns={2} spacing={5}>
         <GridItem>
           <Button
             size="sm"
@@ -36,6 +36,16 @@ export default function HomeScreen() {
             themeColor="primary"
           >
             Alert
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/buttons')}
+            variant="outlined"
+            themeColor="secondary"
+          >
+            Button
           </Button>
         </GridItem>
 
@@ -58,6 +68,16 @@ export default function HomeScreen() {
             themeColor="primary"
           >
             Avatar
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/accordion')}
+            variant="outlined"
+            themeColor="secondary"
+          >
+            Accordion
           </Button>
         </GridItem>
         <GridItem>
