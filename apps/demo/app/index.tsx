@@ -80,6 +80,16 @@ export default function HomeScreen() {
             Datepicker
           </Button>
         </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/bottom-sheet')}
+            variant="outlined"
+            themeColor="secondary"
+          >
+            Bottom Sheet
+          </Button>
+        </GridItem>
       </Grid>
     </ScrollView>
   )

@@ -77,7 +77,12 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
         ]}
       >
         <View
-          style={[styles.sheet, sheetStyles, style]}
+          style={[
+            styles.sheet,
+            { height: screenHeight },
+            sheetStyles,
+            style,
+          ]}
           {...panResponder.panHandlers}
         >
           {showHandle && (

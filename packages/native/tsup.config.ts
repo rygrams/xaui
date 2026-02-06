@@ -19,7 +19,6 @@ export default defineConfig({
     'datepicker/index': 'src/components/datepicker/index.ts',
     'typography/index': 'src/components/typography/index.ts',
     'view/index': 'src/components/view/index.ts',
-    'icon/index': 'src/components/icon/index.ts',
     'bottom-sheet/index': 'src/components/bottom-sheet/index.ts',
     'menu/index': 'src/components/menu/index.ts',
   },
