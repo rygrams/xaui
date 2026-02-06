@@ -101,6 +101,11 @@
       "types": "./dist/icon/index.d.ts",
       "import": "./dist/icon/index.js",
       "require": "./dist/icon/index.js"
+    },
+    "./menu": {
+      "types": "./dist/menu/index.d.ts",
+      "import": "./dist/menu/index.js",
+      "require": "./dist/menu/index.js"
     }
   },
   "files": [

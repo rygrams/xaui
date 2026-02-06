@@ -49,8 +49,17 @@ export default function HomeScreen() {
         onPress={() => router.push('/avatars')}
         variant="outlined"
         themeColor="warning"
+        style={{ marginBottom: 12 }}
       >
         View Avatar Examples
+      </Button>
+      <Button
+        size="sm"
+        onPress={() => router.push('/menus')}
+        variant="outlined"
+        themeColor="secondary"
+      >
+        View Menu Examples
       </Button>
     </ScrollView>
   )
