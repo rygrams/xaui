@@ -101,6 +101,16 @@
       "types": "./dist/icon/index.d.ts",
       "import": "./dist/icon/index.js",
       "require": "./dist/icon/index.js"
+    },
+    "./fab": {
+      "types": "./dist/fab/index.d.ts",
+      "import": "./dist/fab/index.js",
+      "require": "./dist/fab/index.js"
+    },
+    "./fab-menu": {
+      "types": "./dist/fab-menu/index.d.ts",
+      "import": "./dist/fab-menu/index.js",
+      "require": "./dist/fab-menu/index.js"
     }
   },
   "files": [

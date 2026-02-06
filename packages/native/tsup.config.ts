@@ -19,6 +19,8 @@ export default defineConfig({
     'typography/index': 'src/components/typography/index.ts',
     'view/index': 'src/components/view/index.ts',
     'icon/index': 'src/components/icon/index.ts',
+    'fab/index': 'src/components/fab/index.ts',
+    'fab-menu/index': 'src/components/fab-menu/index.ts',
   },
   format: ['cjs', 'esm'],
   dts: true,
