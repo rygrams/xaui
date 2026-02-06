@@ -61,6 +61,14 @@ export default function HomeScreen() {
       >
         View Bottom Sheet Examples
       </Button>
+      <Button
+        size="sm"
+        onPress={() => router.push('/menus')}
+        variant="outlined"
+        themeColor="secondary"
+      >
+        View Menu Examples
+      </Button>
     </ScrollView>
   )
 }
