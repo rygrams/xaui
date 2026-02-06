@@ -8,7 +8,7 @@ import {
   useWindowDimensions,
 } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import { Portal, useXUITheme } from '../../../core'
+import { useXUITheme } from '../../../core'
 import { useDatePickerViewState } from '../../datepicker/datepicker.state.hook'
 import { getDatePickerLabels } from '../../datepicker/datepicker.utils'
 import {
@@ -227,51 +227,42 @@ export const DatePickerDialog: React.FC<DatePickerDialogProps> = ({
   }
 
   return (
-    <Portal>
-      <GestureHandlerRootView style={[overlayStyle, style]}>
-        <View style={overlayStyle}>
-          <Animated.View style={[styles.backdrop, { opacity: fadeAnim }]}>
-            <Pressable
-              style={{ flex: 1 }}
-              onPress={onClose}
-              accessibilityLabel="Close calendar"
-              accessibilityRole="button"
+    <GestureHandlerRootView style={[overlayStyle, style]}>
+      <View style={overlayStyle}>
+        <Animated.View style={[styles.backdrop, { opacity: fadeAnim }]}>
+          <Pressable
+            style={{ flex: 1 }}
+            onPress={onClose}
+            accessibilityLabel="Close calendar"
+            accessibilityRole="button"
+          />
+        </Animated.View>
+        <Animated.View style={[styles.dialogContainer, containerAnimatedStyle]}>
+          <View
+            style={[styles.container, { backgroundColor: theme.colors.background }]}
+          >
+            <DatePickerDialogHeader
+              viewDate={viewDate}
+              selectedDate={selectedDate}
+              locale={locale}
+              themeColor={themeColor}
+              selectDateLabel={labels.selectDate}
+              onClearValue={onClearValue}
+              onPreviousMonth={handlePreviousMonth}
+              onNextMonth={handleNextMonth}
+              onToggleYearPicker={toggleYearPicker}
             />
-          </Animated.View>
-          <Animated.View style={[styles.dialogContainer, containerAnimatedStyle]}>
-            <View
-              style={[
-                styles.container,
-                { backgroundColor: theme.colors.background },
-              ]}
-            >
-              <DatePickerDialogHeader
-                viewDate={viewDate}
-                selectedDate={selectedDate}
-                locale={locale}
-                themeColor={themeColor}
-                selectDateLabel={labels.selectDate}
-                onClearValue={onClearValue}
-                onPreviousMonth={handlePreviousMonth}
-                onNextMonth={handleNextMonth}
-                onToggleYearPicker={toggleYearPicker}
-              />
 
-              {renderContent()}
+            {renderContent()}
 
-              <View style={styles.footer}>
-                <Pressable
+            <View style={styles.footer}>
+              <Pressable
                 style={styles.footerButton}
                 onPress={handleTodayPress}
                 accessibilityLabel={resolvedTodayLabel}
                 accessibilityRole="button"
               >
-                <Text
-                  style={[
-                    styles.footerButtonText,
-                    { color: accentColor },
-                  ]}
-                >
+                <Text style={[styles.footerButtonText, { color: accentColor }]}>
                   {resolvedTodayLabel}
                 </Text>
               </Pressable>
@@ -281,20 +272,14 @@ export const DatePickerDialog: React.FC<DatePickerDialogProps> = ({
                 accessibilityLabel={resolvedConfirmLabel}
                 accessibilityRole="button"
               >
-                <Text
-                  style={[
-                    styles.footerButtonText,
-                    { color: accentColor },
-                  ]}
-                >
+                <Text style={[styles.footerButtonText, { color: accentColor }]}>
                   {resolvedConfirmLabel}
                 </Text>
               </Pressable>
-              </View>
             </View>
-          </Animated.View>
-        </View>
-      </GestureHandlerRootView>
-    </Portal>
+          </View>
+        </Animated.View>
+      </View>
+    </GestureHandlerRootView>
   )
 }
