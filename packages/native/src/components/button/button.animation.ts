@@ -6,7 +6,7 @@ export const runPressInAnimation = (
 ) => {
   Animated.parallel([
     Animated.spring(animatedScale, {
-      toValue: 0.965,
+      toValue: 0.975,
       useNativeDriver: true,
       speed: 50,
       bounciness: 0,

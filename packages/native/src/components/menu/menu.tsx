@@ -1,18 +1,20 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React from 'react'
 import {
   Animated,
-  Easing,
+  Modal,
   Pressable,
   ScrollView,
   View,
 } from 'react-native'
-import { Portal } from '../../core/portal'
 import { useXUITheme } from '../../core'
 import type { MenuProps } from './menu.type'
-import { styles, ANIMATION_DURATION } from './menu.style'
-import { useMenuMeasurements } from './menu.hook'
-
-const EASING = Easing.bezier(0.4, 0, 0.2, 1)
+import { styles } from './menu.style'
+import {
+  useMenuTriggerMeasurements,
+  useMenuContentLayout,
+  useMenuPosition,
+  useMenuAnimation,
+} from './menu.hook'
 
 export const Menu: React.FC<MenuProps> = ({
   visible,
@@ -24,107 +26,55 @@ export const Menu: React.FC<MenuProps> = ({
   maxHeight = 280,
 }) => {
   const theme = useXUITheme()
-  const [rendered, setRendered] = useState(visible)
-  const opacityAnimation = useRef(new Animated.Value(0)).current
-  const scaleAnimation = useRef(new Animated.Value(0)).current
-
-  const { triggerRef, menuRef, menuLayout, menuPosition } = useMenuMeasurements(
-    rendered,
-    position
-  )
-
-  useEffect(() => {
-    if (visible && !rendered) {
-      setRendered(true)
-    }
-  }, [visible, rendered])
-
-  useEffect(() => {
-    if (rendered && visible) {
-      Animated.parallel([
-        Animated.timing(opacityAnimation, {
-          toValue: 1,
-          duration: ANIMATION_DURATION,
-          easing: EASING,
-          useNativeDriver: true,
-        }),
-        Animated.timing(scaleAnimation, {
-          toValue: 1,
-          duration: ANIMATION_DURATION,
-          easing: EASING,
-          useNativeDriver: true,
-        }),
-      ]).start()
-    } else if (rendered && !visible) {
-      Animated.parallel([
-        Animated.timing(opacityAnimation, {
-          toValue: 0,
-          duration: ANIMATION_DURATION,
-          easing: EASING,
-          useNativeDriver: true,
-        }),
-        Animated.timing(scaleAnimation, {
-          toValue: 0,
-          duration: ANIMATION_DURATION,
-          easing: EASING,
-          useNativeDriver: true,
-        }),
-      ]).start(() => {
-        setRendered(false)
-      })
-    }
-  }, [visible, rendered, opacityAnimation, scaleAnimation])
-
-  const handleDismiss = () => {
-    onDismiss?.()
-  }
-
-  const renderMenuContent = () => {
-    if (menuLayout.height > maxHeight) {
-      return <ScrollView style={{ maxHeight }}>{children}</ScrollView>
-    }
-    return <View>{children}</View>
-  }
+  const { triggerRef, triggerPosition } = useMenuTriggerMeasurements(visible)
+  const { contentSize, handleContentLayout } = useMenuContentLayout()
+  const menuPosition = useMenuPosition(triggerPosition, contentSize, position)
+  const { opacity, scale } = useMenuAnimation(visible)
 
   return (
     <>
       <View ref={triggerRef} collapsable={false}>
         {trigger}
       </View>
-      {rendered && (
-        <Portal>
-          <Pressable
-            style={[styles.overlay, customAppearance?.overlay]}
-            onPress={handleDismiss}
-            accessibilityRole="button"
-            accessibilityLabel="Close menu"
+
+      <Modal
+        visible={visible}
+        transparent
+        animationType="fade"
+        onRequestClose={onDismiss}
+      >
+        <Pressable
+          style={[styles.overlay, customAppearance?.overlay]}
+          onPress={onDismiss}
+          accessibilityRole="button"
+          accessibilityLabel="Close menu"
+        >
+          <Animated.View
+            onLayout={handleContentLayout}
+            style={[
+              styles.menuContainer,
+              {
+                top: menuPosition.top,
+                left: menuPosition.left,
+                backgroundColor: theme.colors.background,
+                borderRadius: theme.borderRadius.md,
+                opacity,
+                transform: [{ scale }],
+                ...theme.shadows.md,
+              },
+              customAppearance?.container,
+            ]}
           >
-            <Animated.View
-              ref={menuRef}
-              collapsable={false}
-              style={[
-                styles.menuContainer,
-                {
-                  top: menuPosition.top,
-                  left: menuPosition.left,
-                  backgroundColor: theme.colors.background,
-                  borderRadius: theme.borderRadius.md,
-                  opacity: opacityAnimation,
-                  transform: [{ scale: scaleAnimation }],
-                  ...theme.shadows.md,
-                },
-                customAppearance?.container,
-              ]}
-            >
-              <Pressable onPress={(e) => e.stopPropagation()}>
-                <View style={customAppearance?.content}>
-                  {renderMenuContent()}
-                </View>
-              </Pressable>
-            </Animated.View>
-          </Pressable>
-        </Portal>
-      )}
+            <Pressable onPress={(e) => e.stopPropagation()}>
+              <View style={customAppearance?.content}>
+                <ScrollView style={{ maxHeight }}>
+                  {children}
+                </ScrollView>
+              </View>
+            </Pressable>
+          </Animated.View>
+        </Pressable>
+      </Modal>
     </>
   )
 }
