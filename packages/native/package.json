@@ -101,6 +101,11 @@
       "types": "./dist/icon/index.d.ts",
       "import": "./dist/icon/index.js",
       "require": "./dist/icon/index.js"
+    },
+    "./carousel": {
+      "types": "./dist/carousel/index.d.ts",
+      "import": "./dist/carousel/index.js",
+      "require": "./dist/carousel/index.js"
     }
   },
   "files": [

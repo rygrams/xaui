@@ -19,6 +19,7 @@ export default defineConfig({
     'typography/index': 'src/components/typography/index.ts',
     'view/index': 'src/components/view/index.ts',
     'icon/index': 'src/components/icon/index.ts',
+    'carousel/index': 'src/components/carousel/index.ts',
   },
   format: ['cjs', 'esm'],
   dts: true,

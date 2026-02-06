@@ -150,5 +150,16 @@ const AnimatedMock = {
   Easing: EasingMock,
 }
 
+export const ScrollView: React.FC<ViewProps> = ({ style, ...props }) => {
+  const normalizedStyle = normalizeStyle(style)
+
+  const { domProps } = extractAccessibilityProps(props)
+
+  return React.createElement('div', {
+    ...domProps,
+    style: normalizedStyle as React.CSSProperties,
+  })
+}
+
 export const Animated = AnimatedMock
 export const Easing = EasingMock
