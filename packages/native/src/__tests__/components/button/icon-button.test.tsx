@@ -27,11 +27,10 @@ describe('IconButton Types', () => {
       'danger',
       'warning',
       'success',
-      'info',
       'default',
     ]
 
-    expect(colors).toHaveLength(8)
+    expect(colors).toHaveLength(7)
   })
 
   it('accepts all variants', () => {

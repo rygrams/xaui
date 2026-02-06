@@ -20,12 +20,12 @@ describe('useMenuTriggerMeasurements', () => {
 
 describe('useMenuContentLayout', () => {
   it('returns initial contentSize as zero', () => {
-    const { result } = renderHook(() => useMenuContentLayout())
+    const { result } = renderHook(() => useMenuContentLayout(false))
     expect(result.current.contentSize).toEqual({ width: 0, height: 0 })
   })
 
   it('returns handleContentLayout function', () => {
-    const { result } = renderHook(() => useMenuContentLayout())
+    const { result } = renderHook(() => useMenuContentLayout(false))
     expect(typeof result.current.handleContentLayout).toBe('function')
   })
 })

@@ -23,7 +23,7 @@ describe('MenuItem Types', () => {
   })
 
   it('accepts ReactNode title', () => {
-    const customTitle = { type: 'text', value: 'Custom' }
+    const customTitle = 'Custom'
     const props: MenuItemProps = {
       title: customTitle,
     }
@@ -31,8 +31,8 @@ describe('MenuItem Types', () => {
   })
 
   it('accepts startContent and endContent', () => {
-    const startContent = { type: 'icon', name: 'start' }
-    const endContent = { type: 'icon', name: 'end' }
+    const startContent = 'S'
+    const endContent = 'E'
     const props: MenuItemProps = {
       title: 'Item',
       startContent,
