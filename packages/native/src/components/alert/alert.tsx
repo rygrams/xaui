@@ -22,7 +22,7 @@ import {
 import type { AlertProps } from './alert.type'
 import { useBorderRadiusStyles } from '../../core/theme-hooks'
 import { DangerIcon, InfoIcon, SuccessIcon, WarningIcon } from './alert-icons'
-import { CloseIcon } from '../icon/icons/close'
+import { CloseIcon } from '@xaui/icons'
 import type { ThemeColor } from '../../types'
 
 const iconMap: Record<

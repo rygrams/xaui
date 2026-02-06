@@ -9,7 +9,7 @@ import {
   TextStyle,
 } from 'react-native'
 import { useXUITheme } from '../../../core'
-import { ArrowBackIcon, CloseIcon } from '../../icon'
+import { ArrowBackIcon, CloseIcon } from '@xaui/icons'
 import { styles } from './autocomplete-dialog.style'
 
 type AutocompleteDialogHeaderProps = {

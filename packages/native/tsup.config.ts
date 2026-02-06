@@ -19,7 +19,7 @@ export default defineConfig({
     'datepicker/index': 'src/components/datepicker/index.ts',
     'typography/index': 'src/components/typography/index.ts',
     'view/index': 'src/components/view/index.ts',
-    'icon/index': 'src/components/icon/index.ts',
+    'menu/index': 'src/components/menu/index.ts',
   },
   format: ['cjs', 'esm'],
   dts: true,
@@ -32,6 +32,7 @@ export default defineConfig({
     'react-native-svg',
     '@xaui/core',
     '@xaui/core/theme',
+    '@xaui/icons',
   ],
   target: 'es2020',
 })

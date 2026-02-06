@@ -3,6 +3,7 @@ import { ScrollView } from 'react-native'
 import { useState, useEffect } from 'react'
 import { Button } from '@xaui/native/button'
 import { useRouter } from 'expo-router'
+import { Grid, GridItem, Margin } from '@xaui/native/view'
 
 export default function HomeScreen() {
   const colors = useXUIColors()
@@ -26,41 +27,60 @@ export default function HomeScreen() {
         gap: 12,
       }}
     >
-      <Button
-        size="sm"
-        onPress={() => router.push('/alerts')}
-        variant="outlined"
-        themeColor="primary"
-        style={{ marginBottom: 12 }}
-      >
-        View Alert Examples
-      </Button>
-      <Button
-        size="sm"
-        onPress={() => router.push('/badges')}
-        variant="outlined"
-        themeColor="success"
-        style={{ marginBottom: 12 }}
-      >
-        View Badge Examples
-      </Button>
-      <Button
-        size="sm"
-        onPress={() => router.push('/avatars')}
-        variant="outlined"
-        themeColor="warning"
-        style={{ marginBottom: 12 }}
-      >
-        View Avatar Examples
-      </Button>
-      <Button
-        size="sm"
-        onPress={() => router.push('/datepicker')}
-        variant="outlined"
-        themeColor="tertiary"
-      >
-        View DatePicker Examples
-      </Button>
+      <Grid columns={3} spacing={5}>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/alerts')}
+            variant="outlined"
+            themeColor="primary"
+          >
+            Alert
+          </Button>
+        </GridItem>
+
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/badges')}
+            variant="outlined"
+            themeColor="secondary"
+          >
+            Badge
+          </Button>
+        </GridItem>
+
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/avatars')}
+            variant="outlined"
+            themeColor="primary"
+          >
+            Avatar
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/menus')}
+            variant="outlined"
+            themeColor="secondary"
+          >
+            Menu
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/datepicker')}
+            variant="outlined"
+            themeColor="primary"
+          >
+            Datepicker
+          </Button>
+        </GridItem>
+      </Grid>
     </ScrollView>
   )
 }

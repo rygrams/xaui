@@ -3,12 +3,10 @@ import { Pressable, Text, View } from 'react-native'
 import { useXUITheme } from '../../../core'
 import type { ThemeColor } from '../../../types'
 import { formatDate, getMonthName } from '../../datepicker/datepicker.utils'
-import {
-  ChevronDownIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-  CloseIcon,
-} from '../../icon'
+import { ChevronDownIcon } from '@xaui/icons/chevron-down'
+import { ChevronLeftIcon } from '@xaui/icons/chevron-left'
+import { ChevronRightIcon } from '@xaui/icons/chevron-right'
+import { CloseIcon } from '@xaui/icons/close'
 import { styles } from './datepicker-dialog.style'
 
 type DatePickerDialogHeaderProps = {
@@ -57,14 +55,16 @@ export const DatePickerDialogHeader: React.FC<DatePickerDialogHeaderProps> = ({
           <Text style={[styles.headerDate, { color: colorScheme.foreground }]}>
             {dateText}
           </Text>
-          <Pressable
-            onPress={onClearValue}
-            hitSlop={{ top: 8, right: 8, bottom: 8, left: 8 }}
-            accessibilityLabel="Clear date"
-            accessibilityRole="button"
-          >
-            <CloseIcon size={20} color={colorScheme.foreground} />
-          </Pressable>
+          {selectedDate ? (
+            <Pressable
+              onPress={onClearValue}
+              hitSlop={{ top: 8, right: 8, bottom: 8, left: 8 }}
+              accessibilityLabel="Clear date"
+              accessibilityRole="button"
+            >
+              <CloseIcon size={20} color={colorScheme.foreground} />
+            </Pressable>
+          ) : null}
         </View>
       </View>
 

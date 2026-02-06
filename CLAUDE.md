@@ -206,6 +206,7 @@ The project uses GitHub Actions with the following workflow:
 - Avoid any type as much as possible
 - create a test file for each component in `/__tests__` with same path as component
   example: `packages/core/src/components/button/index.tsx` -> `packages/core/src/__tests__/components/button/index.test.tsx`
+- **Exception:** Icon components do NOT require test files. Skip test creation for any icon in `packages/native/src/components/icon/icons/`
 - run test and lint after each component code change
 
 ## Package Guidelines
@@ -213,7 +214,7 @@ The project uses GitHub Actions with the following workflow:
 - Use pnpm for package management
 - Use workspace: \* for dependencies
 - Dont use react-native-reanimated, use built-in Reanimated from react-native
-- Add test for each component you code or update
+- Add test for each component you code or update (except icon components - icons do not need tests)
 - Package name should be in singular form
 - dont use css file for styling use tailwind for styling or framer-motion for animations
 
