@@ -2,8 +2,6 @@ import React, { useEffect, useMemo, useRef } from 'react'
 import { Animated } from 'react-native'
 import Svg, { Circle, Path, Rect } from 'react-native-svg'
 import type { IconProps } from '../icon.type'
-import { isThemeColor } from '../icon.utils'
-import { useXUITheme } from '../../../core'
 
 const AnimatedPath = Animated.createAnimatedComponent(Path)
 
@@ -13,16 +11,15 @@ export const ChevronRightIcon: React.FC<IconProps> = ({
   color = 'default',
   isAnimated = false,
 }) => {
-  const theme = useXUITheme()
   const scaleAnim = useRef(new Animated.Value(isAnimated ? 0 : 1)).current
   const opacityAnim = useRef(new Animated.Value(isAnimated ? 0 : 1)).current
 
   const resolvedColor = useMemo(() => {
-    if (typeof color === 'string' && isThemeColor(color)) {
-      return theme.colors[color].main
+    if (typeof color === 'string') {
+      return color
     }
     return color
-  }, [color, theme])
+  }, [color])
 
   useEffect(() => {
     if (isAnimated) {
