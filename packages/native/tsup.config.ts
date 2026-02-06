@@ -32,6 +32,7 @@ export default defineConfig({
     'react-native-svg',
     '@xaui/core',
     '@xaui/core/theme',
+    '@xaui/icons',
   ],
   target: 'es2020',
 })
