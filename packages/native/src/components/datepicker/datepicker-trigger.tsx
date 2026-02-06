@@ -4,11 +4,6 @@ import { Pressable, Text, TouchableOpacity, View } from 'react-native'
 import { CalendarIcon, CloseIcon } from '../icon'
 import { styles } from './datepicker.style'
 
-type DatePickerTriggerCustomAppearance = {
-  trigger?: ViewStyle
-  text?: TextStyle
-}
-
 type DatePickerTriggerProps = {
   triggerRef: React.RefObject<View | null>
   isDisabled: boolean
@@ -32,7 +27,8 @@ type DatePickerTriggerProps = {
   labelText?: string
   isLabelInside?: boolean
   calendarIcon?: React.ReactNode
-  customAppearance?: DatePickerTriggerCustomAppearance
+  style?: ViewStyle
+  textStyle?: TextStyle
   onPress: () => void
   onClear: () => void
   onLayout: (event: LayoutChangeEvent) => void
@@ -52,7 +48,8 @@ export const DatePickerTrigger: React.FC<DatePickerTriggerProps> = ({
   labelText,
   isLabelInside,
   calendarIcon,
-  customAppearance,
+  style,
+  textStyle,
   onPress: handleTriggerPress,
   onClear: handleClear,
   onLayout: handleTriggerLayout,
@@ -75,7 +72,7 @@ export const DatePickerTrigger: React.FC<DatePickerTriggerProps> = ({
         radiusStyles,
         variantStyles,
         isDisabled && styles.disabled,
-        customAppearance?.trigger,
+        style,
       ]}
       accessibilityLabel={
         labelText ?? (typeof label === 'string' ? label : undefined)
@@ -90,7 +87,7 @@ export const DatePickerTrigger: React.FC<DatePickerTriggerProps> = ({
             styles.triggerText,
             { fontSize: sizeStyles.fontSize, color: theme.colors.foreground },
             !hasValue && { opacity: 0.5 },
-            customAppearance?.text,
+            textStyle,
           ]}
           numberOfLines={1}
           ellipsizeMode="tail"
