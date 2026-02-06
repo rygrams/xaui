@@ -69,9 +69,7 @@ describe('datepicker.utils', () => {
 
     it('returns false when after maxDate', () => {
       const max = new Date(2024, 5, 30)
-      expect(
-        isDateInRange(new Date(2024, 6, 1), undefined, max)
-      ).toBe(false)
+      expect(isDateInRange(new Date(2024, 6, 1), undefined, max)).toBe(false)
     })
   })
 

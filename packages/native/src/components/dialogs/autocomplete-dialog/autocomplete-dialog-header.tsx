@@ -36,9 +36,7 @@ const addOpacityToColor = (color: string, opacity: number): string => {
   return `rgba(${r}, ${g}, ${b}, ${opacity})`
 }
 
-export const AutocompleteDialogHeader: React.FC<
-  AutocompleteDialogHeaderProps
-> = ({
+export const AutocompleteDialogHeader: React.FC<AutocompleteDialogHeaderProps> = ({
   title,
   inputValue,
   placeholder = 'Search...',
@@ -78,10 +76,7 @@ export const AutocompleteDialogHeader: React.FC<
             value={inputValue}
             onChangeText={onInputChange}
             placeholder={placeholder}
-            placeholderTextColor={addOpacityToColor(
-              theme.colors.foreground,
-              0.5
-            )}
+            placeholderTextColor={addOpacityToColor(theme.colors.foreground, 0.5)}
             style={[
               styles.input,
               {

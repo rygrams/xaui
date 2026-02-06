@@ -100,7 +100,10 @@ export const useAutocompleteVariantStyles = (
   return useMemo(() => {
     let borderColor = isInvalid ? theme.colors.danger.main : colorScheme.main
 
-    if ((variant === 'outlined' || variant === 'faded') && themeColor === 'default') {
+    if (
+      (variant === 'outlined' || variant === 'faded') &&
+      themeColor === 'default'
+    ) {
       borderColor = colors.gray[300]
     }
 
@@ -181,7 +184,10 @@ export const useAutocompleteHelperColor = (isInvalid: boolean) => {
   }, [isInvalid, theme])
 }
 
-export const useAutocompleteSelectorColor = (isInvalid: boolean, hasValue: boolean) => {
+export const useAutocompleteSelectorColor = (
+  isInvalid: boolean,
+  hasValue: boolean
+) => {
   const theme = useXUITheme()
 
   return useMemo(() => {

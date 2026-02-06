@@ -1,3 +1,8 @@
+<<<<<<< HEAD:packages/icons/src/icon.type.ts
+=======
+import type { ThemeColor } from '../../types'
+
+>>>>>>> 2422169 (refactor: Update and refactor various UI components, their hooks, types, and tests across native and hybrid packages.):packages/native/src/components/icon/icon.type.ts
 export type IconVariant =
   | 'baseline'
   | 'filled'

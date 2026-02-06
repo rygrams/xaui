@@ -145,11 +145,8 @@ export const useButtonStyles = (
 ) => {
   const theme = useXUITheme()
 
-  const { sizeStyles, variantStyles, textColor, spinnerSize } = useVariantSizesStyles(
-    themeColor,
-    variant,
-    size
-  )
+  const { sizeStyles, variantStyles, textColor, spinnerSize } =
+    useVariantSizesStyles(themeColor, variant, size)
 
   const radiusStyles = useMemo(() => {
     const radii = {

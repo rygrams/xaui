@@ -102,7 +102,9 @@ describe('alert hook styles', () => {
   })
 
   it('returns bordered variant styles', () => {
-    const { result } = renderHook(() => useAlertContainerStyles('warning', 'bordered'))
+    const { result } = renderHook(() =>
+      useAlertContainerStyles('warning', 'bordered')
+    )
 
     expect(result.current.backgroundColor).toBe('transparent')
     expect(result.current.borderWidth).toBe(2)
@@ -124,7 +126,9 @@ describe('alert hook styles', () => {
   })
 
   it('returns icon wrapper styles', () => {
-    const { result } = renderHook(() => useAlertIconWrapperStyles('secondary', 'flat'))
+    const { result } = renderHook(() =>
+      useAlertIconWrapperStyles('secondary', 'flat')
+    )
 
     expect(result.current.backgroundColor).toBe(withOpacity('#9c27b0', 0.12))
     expect(result.current.borderWidth).toBe(0)

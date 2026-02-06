@@ -170,7 +170,9 @@ export const useSwitchThumbStyles = ({
       height: sizeStyles.thumbSize,
       borderRadius: thumbRadius,
       backgroundColor:
-        variant === 'overlap' && isSelected ? colorScheme.main : theme.colors.background,
+        variant === 'overlap' && isSelected
+          ? colorScheme.main
+          : theme.colors.background,
     }
 
     if (variant !== 'overlap') return baseStyle
@@ -194,7 +196,9 @@ export const useSwitchContainerStyles = (labelAlignment: SwitchLabelAlignment) =
         labelAlignment === 'left' || labelAlignment === 'justify-left'
           ? ('row-reverse' as const)
           : ('row' as const),
-      justifyContent: isJustified ? ('space-between' as const) : ('flex-start' as const),
+      justifyContent: isJustified
+        ? ('space-between' as const)
+        : ('flex-start' as const),
     }
   }, [labelAlignment])
 

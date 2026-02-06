@@ -2,10 +2,7 @@ import { useMemo } from 'react'
 import { getSafeThemeColor } from '@xaui/core'
 import { useXUITheme } from '../../core'
 import type { Radius, Size, ThemeColor } from '../../types'
-import type {
-  CheckboxVariant,
-  CheckboxLabelAlignment,
-} from './checkbox.type'
+import type { CheckboxVariant, CheckboxLabelAlignment } from './checkbox.type'
 
 type CheckboxSizeStyles = {
   checkboxSize: number
@@ -143,7 +140,9 @@ export function useContainerStyles(labelAlignment: CheckboxLabelAlignment) {
         labelAlignment === 'left' || labelAlignment === 'justify-left'
           ? ('row-reverse' as const)
           : ('row' as const),
-      justifyContent: isJustified ? ('space-between' as const) : ('flex-start' as const),
+      justifyContent: isJustified
+        ? ('space-between' as const)
+        : ('flex-start' as const),
     }
   }, [labelAlignment])
 

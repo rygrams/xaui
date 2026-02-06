@@ -62,7 +62,7 @@ export const Grid: React.FC<GridProps> = ({
         },
         style,
       ]}
-      onLayout={(event) => {
+      onLayout={event => {
         const nextWidth = event.nativeEvent.layout.width
         if (!nextWidth || nextWidth === containerWidth) return
         setContainerWidth(nextWidth)

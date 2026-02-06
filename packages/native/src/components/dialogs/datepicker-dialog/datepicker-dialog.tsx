@@ -10,7 +10,10 @@ import {
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { Portal, useXUITheme } from '../../../core'
 import { useDatePickerViewState } from '../../datepicker/datepicker.state.hook'
-import { getDatePickerLabels, isDateInRange } from '../../datepicker/datepicker.utils'
+import {
+  getDatePickerLabels,
+  isDateInRange,
+} from '../../datepicker/datepicker.utils'
 import {
   useDatePickerDialogAnimation,
   useMonthSlideAnimation,

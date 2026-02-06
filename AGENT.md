@@ -50,6 +50,7 @@ pnpm changeset              # Create a new changeset
 ```
 
 Follow the prompts:
+
 1. Select which packages changed (space to select, enter to confirm)
 2. Choose bump type: major, minor, or **patch** (we're in alpha, always use patch)
 3. Write a summary of the changes
@@ -193,6 +194,7 @@ The project uses GitHub Actions with the following workflow:
 ## Pull Request Guidelines
 
 **Before creating a PR:**
+
 1. Create changeset(s) with `pnpm changeset`
    - Select all affected packages
    - Always use **patch** version bump (we're in alpha)
@@ -203,12 +205,14 @@ The project uses GitHub Actions with the following workflow:
 4. Run `pnpm lint`, `pnpm type-check`, and `pnpm test` to verify all checks pass
 
 **Creating the PR:**
+
 - Use `gh pr create` to create the pull request
 - Include What, Why, How sections with implementation details
 - Reference the last commit for global implementation description
 - Ensure all CI checks pass before requesting review
 
 **After PR is merged to main:**
+
 - Changesets Action will automatically create/update a "Version Packages" PR
 - When that PR is merged, packages are published to npm automatically
 

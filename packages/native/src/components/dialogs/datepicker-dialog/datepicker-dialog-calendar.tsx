@@ -107,9 +107,7 @@ const AnimatedDayCell: React.FC<AnimatedDayCellProps> = ({
             animatedStyle,
           ]}
         >
-          <Text style={[styles.dayText, { color: accentFg }]}>
-            {day}
-          </Text>
+          <Text style={[styles.dayText, { color: accentFg }]}>{day}</Text>
         </Animated.View>
       ) : (
         <Text
@@ -131,9 +129,7 @@ const AnimatedDayCell: React.FC<AnimatedDayCellProps> = ({
   )
 }
 
-export const DatePickerDialogCalendar: React.FC<
-  DatePickerDialogCalendarProps
-> = ({
+export const DatePickerDialogCalendar: React.FC<DatePickerDialogCalendarProps> = ({
   viewDate,
   selectedDate,
   locale,
@@ -177,8 +173,7 @@ export const DatePickerDialogCalendar: React.FC<
     const { state, translationX, velocityX } = event.nativeEvent
     if (state !== State.END || swipeHandledRef.current) return
 
-    const shouldSwipe =
-      Math.abs(translationX) > 40 || Math.abs(velocityX) > 600
+    const shouldSwipe = Math.abs(translationX) > 40 || Math.abs(velocityX) > 600
 
     if (!shouldSwipe) return
 

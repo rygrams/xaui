@@ -13,7 +13,9 @@ const getSafeColumns = (columns?: number) => {
 }
 
 const getItemKey = (child: React.ReactNode, index: number) => {
-  return React.isValidElement(child) && child.key ? String(child.key) : `masonry-${index}`
+  return React.isValidElement(child) && child.key
+    ? String(child.key)
+    : `masonry-${index}`
 }
 
 export const MasonryGrid: React.FC<MasonryGridProps> = ({
@@ -52,7 +54,7 @@ export const MasonryGrid: React.FC<MasonryGridProps> = ({
     const buckets: MasonryItem[][] = Array.from({ length: safeColumns }, () => [])
     const heights = new Array(safeColumns).fill(0)
 
-    items.forEach((item) => {
+    items.forEach(item => {
       const height = heightMapRef.current[item.key]
       const targetIndex = heights.indexOf(Math.min(...heights))
       buckets[targetIndex].push(item)
@@ -70,7 +72,7 @@ export const MasonryGrid: React.FC<MasonryGridProps> = ({
         },
         style,
       ]}
-      onLayout={(event) => {
+      onLayout={event => {
         const nextWidth = event.nativeEvent.layout.width
         if (!nextWidth || nextWidth === containerWidth) return
         setContainerWidth(nextWidth)
@@ -95,11 +97,11 @@ export const MasonryGrid: React.FC<MasonryGridProps> = ({
                 <View
                   key={item.key}
                   style={{ marginBottom: isLastRow ? 0 : resolvedRowSpacing }}
-                  onLayout={(event) => {
+                  onLayout={event => {
                     const nextHeight = event.nativeEvent.layout.height
                     if (heightMapRef.current[item.key] === nextHeight) return
                     heightMapRef.current[item.key] = nextHeight
-                    setLayoutVersion((value) => value + 1)
+                    setLayoutVersion(value => value + 1)
                   }}
                 >
                   {item.element}

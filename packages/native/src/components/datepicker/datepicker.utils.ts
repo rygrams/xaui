@@ -6,9 +6,7 @@ export const getWeekdayNames = (locale: string, firstDayOfWeek: 0 | 1): string[]
 
   for (let i = 0; i < 7; i++) {
     const date = new Date(2024, 0, 1 + offset + i)
-    days.push(
-      date.toLocaleDateString(locale, { weekday: 'short' }).slice(0, 2)
-    )
+    days.push(date.toLocaleDateString(locale, { weekday: 'short' }).slice(0, 2))
   }
 
   return days
@@ -184,9 +182,32 @@ export const getDatePickerLabels = (locale: string): DatePickerLabels => {
 
 export const getFirstDayOfWeek = (locale: string): 0 | 1 => {
   const mondayLocales = [
-    'fr', 'de', 'es', 'it', 'pt', 'nl', 'pl', 'ru', 'sv', 'da',
-    'fi', 'nb', 'nn', 'cs', 'sk', 'hu', 'ro', 'bg', 'hr', 'sl',
-    'uk', 'tr', 'el', 'et', 'lt', 'lv',
+    'fr',
+    'de',
+    'es',
+    'it',
+    'pt',
+    'nl',
+    'pl',
+    'ru',
+    'sv',
+    'da',
+    'fi',
+    'nb',
+    'nn',
+    'cs',
+    'sk',
+    'hu',
+    'ro',
+    'bg',
+    'hr',
+    'sl',
+    'uk',
+    'tr',
+    'el',
+    'et',
+    'lt',
+    'lv',
   ]
 
   const baseLocale = locale.split('-')[0].toLowerCase()
