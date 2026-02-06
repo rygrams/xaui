@@ -61,17 +61,17 @@ const MyComponent = () => {
 ### With Icons
 
 ```tsx
-import { Icon } from '@xaui/native/icon'
+import { SettingsIcon, PersonIcon } from '@xaui/icons'
 
 <Menu visible={visible} onDismiss={handleDismiss} trigger={trigger}>
   <MenuItem
     title="Settings"
-    startContent={<Icon name="settings" size={20} />}
+    startContent={<SettingsIcon size={20} />}
     onPress={handleSettings}
   />
   <MenuItem
     title="Profile"
-    startContent={<Icon name="person" size={20} />}
+    startContent={<PersonIcon size={20} />}
     onPress={handleProfile}
   />
 </Menu>

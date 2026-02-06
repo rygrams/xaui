@@ -97,11 +97,6 @@
       "import": "./dist/view/index.js",
       "require": "./dist/view/index.js"
     },
-    "./icon": {
-      "types": "./dist/icon/index.d.ts",
-      "import": "./dist/icon/index.js",
-      "require": "./dist/icon/index.js"
-    },
     "./menu": {
       "types": "./dist/menu/index.d.ts",
       "import": "./dist/menu/index.js",
@@ -125,7 +120,8 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@xaui/core": "workspace:*"
+    "@xaui/core": "workspace:*",
+    "@xaui/icons": "workspace:*"
   },
   "peerDependencies": {
     "react": "^18.0.0 || ^19.0.0",
