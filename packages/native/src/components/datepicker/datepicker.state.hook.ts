@@ -47,7 +47,7 @@ export const useDatePickerOpenState = ({
 
   const setOpen = useCallback(
     (open: boolean) => {
-      if (isDisabled) return
+      if (isDisabled && open) return
 
       setInternalOpen(open)
       onOpenChange?.(open)
