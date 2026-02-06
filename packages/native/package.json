@@ -101,6 +101,11 @@
       "types": "./dist/icon/index.d.ts",
       "import": "./dist/icon/index.js",
       "require": "./dist/icon/index.js"
+    },
+    "./segment-button": {
+      "types": "./dist/segment-button/index.d.ts",
+      "import": "./dist/segment-button/index.js",
+      "require": "./dist/segment-button/index.js"
     }
   },
   "files": [
