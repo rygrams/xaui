@@ -1,0 +1,11 @@
+# Generated files
+src/entries/
+
+# Build output
+dist/
+
+# Dependencies
+node_modules/
+
+# Test coverage
+coverage/
