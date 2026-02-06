@@ -3,7 +3,7 @@ import { ScrollView } from 'react-native'
 import { useState, useEffect } from 'react'
 import { Button } from '@xaui/native/button'
 import { useRouter } from 'expo-router'
-import { Grid, GridItem, Margin } from '@xaui/native/view'
+import { Grid, GridItem } from '@xaui/native/view'
 
 export default function HomeScreen() {
   const colors = useXUIColors()
