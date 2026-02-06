@@ -3,7 +3,7 @@ import type { MenuProps, MenuPosition } from '../../../components/menu'
 
 describe('Menu Types', () => {
   it('exports MenuProps type', () => {
-    const trigger = { type: 'button', text: 'Open' }
+    const trigger = 'Open'
     const props: MenuProps = {
       visible: false,
       trigger,
@@ -28,7 +28,7 @@ describe('Menu Types', () => {
   })
 
   it('accepts trigger element', () => {
-    const trigger = { type: 'pressable', label: 'Menu' }
+    const trigger = 'Menu'
     const props: MenuProps = {
       visible: false,
       trigger,
@@ -63,7 +63,7 @@ describe('Menu Types', () => {
   })
 
   it('accepts children', () => {
-    const children = { type: 'menuitem', title: 'Item' }
+    const children = 'Item'
     const props: MenuProps = {
       visible: false,
       trigger: null,
