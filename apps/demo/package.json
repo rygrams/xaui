@@ -38,7 +38,8 @@
     "react-native-svg": "^15.8.0",
     "react-native-web": "~0.21.0",
     "@xaui/core": "workspace:*",
-    "@xaui/native": "workspace:*"
+    "@xaui/native": "workspace:*",
+    "@xaui/icons": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "~19.1.0",
