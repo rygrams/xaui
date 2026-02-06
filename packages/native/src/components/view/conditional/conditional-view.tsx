@@ -1,7 +1,11 @@
 import React, { useEffect, useMemo, useRef, useState } from 'react'
 import { Animated } from 'react-native'
 import type { ConditionalViewProps } from './conditional-view.type'
-import { FINAL_VALUES, getExitValues, getInitialValues } from './conditional-view.utils'
+import {
+  FINAL_VALUES,
+  getExitValues,
+  getInitialValues,
+} from './conditional-view.utils'
 import { runConditionalViewAnimation } from './conditional-view.animation'
 
 export const ConditionalView: React.FC<ConditionalViewProps> = ({
@@ -17,7 +21,9 @@ export const ConditionalView: React.FC<ConditionalViewProps> = ({
   const exitValues = useMemo(() => getExitValues(animation), [animation])
 
   const opacity = useRef(
-    new Animated.Value(disableAnimation ? FINAL_VALUES.opacity : initialValues.opacity)
+    new Animated.Value(
+      disableAnimation ? FINAL_VALUES.opacity : initialValues.opacity
+    )
   ).current
   const scale = useRef(
     new Animated.Value(disableAnimation ? FINAL_VALUES.scale : initialValues.scale)

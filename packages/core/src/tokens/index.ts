@@ -293,5 +293,16 @@ export const colors = {
 } as const
 
 export type ColorName = keyof typeof colors
-export type ColorShade = 50 | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 | 950
+export type ColorShade =
+  | 50
+  | 100
+  | 200
+  | 300
+  | 400
+  | 500
+  | 600
+  | 700
+  | 800
+  | 900
+  | 950
 export type ColorValue = string

@@ -65,26 +65,10 @@ export default function AvatarsScreen() {
           With Images
         </Text>
         <View style={[styles.row, { gap: theme.spacing.md }]}>
-          <Avatar
-            src="https://i.pravatar.cc/150?img=1"
-            name="User 1"
-            size="xs"
-          />
-          <Avatar
-            src="https://i.pravatar.cc/150?img=2"
-            name="User 2"
-            size="sm"
-          />
-          <Avatar
-            src="https://i.pravatar.cc/150?img=3"
-            name="User 3"
-            size="md"
-          />
-          <Avatar
-            src="https://i.pravatar.cc/150?img=4"
-            name="User 4"
-            size="lg"
-          />
+          <Avatar src="https://i.pravatar.cc/150?img=1" name="User 1" size="xs" />
+          <Avatar src="https://i.pravatar.cc/150?img=2" name="User 2" size="sm" />
+          <Avatar src="https://i.pravatar.cc/150?img=3" name="User 3" size="md" />
+          <Avatar src="https://i.pravatar.cc/150?img=4" name="User 4" size="lg" />
         </View>
       </View>
 
@@ -98,16 +82,8 @@ export default function AvatarsScreen() {
             name="User 5"
             radius="none"
           />
-          <Avatar
-            src="https://i.pravatar.cc/150?img=6"
-            name="User 6"
-            radius="sm"
-          />
-          <Avatar
-            src="https://i.pravatar.cc/150?img=7"
-            name="User 7"
-            radius="md"
-          />
+          <Avatar src="https://i.pravatar.cc/150?img=6" name="User 6" radius="sm" />
+          <Avatar src="https://i.pravatar.cc/150?img=7" name="User 7" radius="md" />
           <Avatar
             src="https://i.pravatar.cc/150?img=8"
             name="User 8"
@@ -234,57 +210,21 @@ export default function AvatarsScreen() {
         </Text>
         <View style={{ gap: theme.spacing.md }}>
           <AvatarGroup max={3} isBordered>
-            <Avatar
-              src="https://i.pravatar.cc/150?img=20"
-              name="User 20"
-            />
-            <Avatar
-              src="https://i.pravatar.cc/150?img=21"
-              name="User 21"
-            />
-            <Avatar
-              src="https://i.pravatar.cc/150?img=22"
-              name="User 22"
-            />
-            <Avatar
-              src="https://i.pravatar.cc/150?img=23"
-              name="User 23"
-            />
-            <Avatar
-              src="https://i.pravatar.cc/150?img=24"
-              name="User 24"
-            />
+            <Avatar src="https://i.pravatar.cc/150?img=20" name="User 20" />
+            <Avatar src="https://i.pravatar.cc/150?img=21" name="User 21" />
+            <Avatar src="https://i.pravatar.cc/150?img=22" name="User 22" />
+            <Avatar src="https://i.pravatar.cc/150?img=23" name="User 23" />
+            <Avatar src="https://i.pravatar.cc/150?img=24" name="User 24" />
           </AvatarGroup>
 
           <AvatarGroup max={5} isBordered size="sm">
-            <Avatar
-              src="https://i.pravatar.cc/150?img=30"
-              name="User 30"
-            />
-            <Avatar
-              src="https://i.pravatar.cc/150?img=31"
-              name="User 31"
-            />
-            <Avatar
-              src="https://i.pravatar.cc/150?img=32"
-              name="User 32"
-            />
-            <Avatar
-              src="https://i.pravatar.cc/150?img=33"
-              name="User 33"
-            />
-            <Avatar
-              src="https://i.pravatar.cc/150?img=34"
-              name="User 34"
-            />
-            <Avatar
-              src="https://i.pravatar.cc/150?img=35"
-              name="User 35"
-            />
-            <Avatar
-              src="https://i.pravatar.cc/150?img=36"
-              name="User 36"
-            />
+            <Avatar src="https://i.pravatar.cc/150?img=30" name="User 30" />
+            <Avatar src="https://i.pravatar.cc/150?img=31" name="User 31" />
+            <Avatar src="https://i.pravatar.cc/150?img=32" name="User 32" />
+            <Avatar src="https://i.pravatar.cc/150?img=33" name="User 33" />
+            <Avatar src="https://i.pravatar.cc/150?img=34" name="User 34" />
+            <Avatar src="https://i.pravatar.cc/150?img=35" name="User 35" />
+            <Avatar src="https://i.pravatar.cc/150?img=36" name="User 36" />
           </AvatarGroup>
         </View>
       </View>
@@ -322,29 +262,13 @@ export default function AvatarsScreen() {
           Avatar Group - Grid Layout
         </Text>
         <AvatarGroup max={6} isGrid>
-          <Avatar
-            src="https://i.pravatar.cc/150?img=50"
-            name="User 50"
-            size="sm"
-          />
-          <Avatar
-            src="https://i.pravatar.cc/150?img=51"
-            name="User 51"
-            size="sm"
-          />
+          <Avatar src="https://i.pravatar.cc/150?img=50" name="User 50" size="sm" />
+          <Avatar src="https://i.pravatar.cc/150?img=51" name="User 51" size="sm" />
           <Avatar name="User 3" themeColor="primary" size="sm" />
           <Avatar name="User 4" themeColor="success" size="sm" />
-          <Avatar
-            src="https://i.pravatar.cc/150?img=52"
-            name="User 52"
-            size="sm"
-          />
+          <Avatar src="https://i.pravatar.cc/150?img=52" name="User 52" size="sm" />
           <Avatar name="User 6" themeColor="warning" size="sm" />
-          <Avatar
-            src="https://i.pravatar.cc/150?img=53"
-            name="User 53"
-            size="sm"
-          />
+          <Avatar src="https://i.pravatar.cc/150?img=53" name="User 53" size="sm" />
           <Avatar name="User 8" themeColor="danger" size="sm" />
         </AvatarGroup>
       </View>
@@ -354,18 +278,9 @@ export default function AvatarsScreen() {
           Avatar Group - Custom Total
         </Text>
         <AvatarGroup max={3} total={25} isBordered>
-          <Avatar
-            src="https://i.pravatar.cc/150?img=60"
-            name="User 60"
-          />
-          <Avatar
-            src="https://i.pravatar.cc/150?img=61"
-            name="User 61"
-          />
-          <Avatar
-            src="https://i.pravatar.cc/150?img=62"
-            name="User 62"
-          />
+          <Avatar src="https://i.pravatar.cc/150?img=60" name="User 60" />
+          <Avatar src="https://i.pravatar.cc/150?img=61" name="User 61" />
+          <Avatar src="https://i.pravatar.cc/150?img=62" name="User 62" />
         </AvatarGroup>
       </View>
     </ScrollView>

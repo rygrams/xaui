@@ -140,7 +140,10 @@ export const LinearActivityIndicator: React.FC<ActivityIndicatorProps> = ({
         }}
       >
         <motion.div
-          initial={{ x: primaryTranslateKeyframes[0], scaleX: primaryScaleKeyframes[0] }}
+          initial={{
+            x: primaryTranslateKeyframes[0],
+            scaleX: primaryScaleKeyframes[0],
+          }}
           animate={primaryAnimate}
           transition={primaryTransition}
           style={{

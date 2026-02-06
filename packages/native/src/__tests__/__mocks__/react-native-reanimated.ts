@@ -2,8 +2,9 @@ import React from 'react'
 
 type AnimatedStyle = Record<string, unknown>
 type AnimatedStyleFactory<T extends AnimatedStyle = AnimatedStyle> = () => T
-type AnimatedPropsFactory<T extends Record<string, unknown> = Record<string, unknown>> =
-  () => T
+type AnimatedPropsFactory<
+  T extends Record<string, unknown> = Record<string, unknown>,
+> = () => T
 
 type ViewProps = {
   [key: string]: unknown

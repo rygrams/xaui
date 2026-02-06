@@ -31,7 +31,7 @@ describe('Switch Types', () => {
       'default',
     ]
 
-    colors.forEach((color) => {
+    colors.forEach(color => {
       const props: SwitchProps = {
         label: 'Test',
         themeColor: color,
@@ -43,7 +43,7 @@ describe('Switch Types', () => {
   it('accepts all variants', () => {
     const variants: Array<SwitchProps['variant']> = ['inside', 'overlap']
 
-    variants.forEach((variant) => {
+    variants.forEach(variant => {
       const props: SwitchProps = {
         label: 'Test',
         variant,
@@ -55,7 +55,7 @@ describe('Switch Types', () => {
   it('accepts all sizes', () => {
     const sizes: Array<SwitchProps['size']> = ['sm', 'md', 'lg']
 
-    sizes.forEach((size) => {
+    sizes.forEach(size => {
       const props: SwitchProps = {
         label: 'Test',
         size,
@@ -67,7 +67,7 @@ describe('Switch Types', () => {
   it('accepts all radius options', () => {
     const radii: Array<SwitchProps['radius']> = ['none', 'sm', 'md', 'lg', 'full']
 
-    radii.forEach((radius) => {
+    radii.forEach(radius => {
       const props: SwitchProps = {
         label: 'Test',
         radius,
@@ -84,7 +84,7 @@ describe('Switch Types', () => {
       'justify-right',
     ]
 
-    alignments.forEach((labelAlignment) => {
+    alignments.forEach(labelAlignment => {
       const props: SwitchProps = {
         label: 'Test',
         labelAlignment,

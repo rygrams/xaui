@@ -51,7 +51,9 @@ describe('ActivityIndicator', () => {
     })
 
     it('should render with custom size for circular', () => {
-      const { getByRole } = render(<ActivityIndicator variant="circular" size={60} />)
+      const { getByRole } = render(
+        <ActivityIndicator variant="circular" size={60} />
+      )
       const container = getByRole('progressbar')
       expect(container.style.width).toBe('60px')
     })
@@ -133,7 +135,9 @@ describe('ActivityIndicator', () => {
     })
 
     it('should apply custom color for linear', () => {
-      const { getByRole } = render(<ActivityIndicator variant="linear" color="#ff0000" />)
+      const { getByRole } = render(
+        <ActivityIndicator variant="linear" color="#ff0000" />
+      )
       const container = getByRole('progressbar')
       const allDivs = Array.from(container.querySelectorAll('div'))
       const bar = allDivs.find(
