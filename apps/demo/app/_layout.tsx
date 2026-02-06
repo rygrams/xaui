@@ -1,7 +1,6 @@
 import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native'
 import { Stack } from 'expo-router'
 import 'react-native-reanimated'
-import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { useColorScheme } from '@/hooks/use-color-scheme'
 import { defaultDarkTheme, defaultTheme } from '@xaui/core/theme'
 import { XUIProvider } from '@xaui/native/core'
@@ -14,20 +13,18 @@ export default function RootLayout() {
   const colorScheme = useColorScheme()
 
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
-      <ThemeProvider value={colorScheme === 'light' ? DarkTheme : DefaultTheme}>
-        <XUIProvider theme={defaultTheme} darkTheme={defaultDarkTheme}>
-          <Stack>
-            <Stack.Screen name="index" options={{ headerShown: false }} />
-            <Stack.Screen
-              name="modal"
-              options={{ presentation: 'modal', title: 'Modal' }}
-            />
-            <Stack.Screen name="alerts" options={{ title: 'Alert Examples' }} />
-            <Stack.Screen name="datepicker" options={{ title: 'DatePicker Examples' }} />
-          </Stack>
-        </XUIProvider>
-      </ThemeProvider>
-    </GestureHandlerRootView>
+    <ThemeProvider value={colorScheme === 'light' ? DarkTheme : DefaultTheme}>
+      <XUIProvider theme={defaultTheme} darkTheme={defaultDarkTheme}>
+        <Stack>
+          <Stack.Screen name="index" options={{ headerShown: false }} />
+          <Stack.Screen
+            name="modal"
+            options={{ presentation: 'modal', title: 'Modal' }}
+          />
+          <Stack.Screen name="alerts" options={{ title: 'Alert Examples' }} />
+          <Stack.Screen name="datepicker" options={{ title: 'DatePicker Examples' }} />
+        </Stack>
+      </XUIProvider>
+    </ThemeProvider>
   )
 }
