@@ -2,7 +2,11 @@ import type { TextStyle, ViewStyle } from 'react-native'
 import type { Radius, Size, ThemeColor } from '../../types'
 
 export type CheckboxVariant = 'filled' | 'light'
-export type CheckboxLabelAlignment = 'left' | 'right' | 'justify-left' | 'justify-right'
+export type CheckboxLabelAlignment =
+  | 'left'
+  | 'right'
+  | 'justify-left'
+  | 'justify-right'
 
 export type CheckboxProps = {
   /**

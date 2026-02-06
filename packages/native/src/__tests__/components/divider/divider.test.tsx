@@ -35,7 +35,10 @@ describe('Divider Types', () => {
   })
 
   it('accepts all orientations', () => {
-    const orientations: Array<DividerProps['orientation']> = ['horizontal', 'vertical']
+    const orientations: Array<DividerProps['orientation']> = [
+      'horizontal',
+      'vertical',
+    ]
 
     orientations.forEach(orientation => {
       const props: DividerProps = {

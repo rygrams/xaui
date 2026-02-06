@@ -5,11 +5,12 @@ import type { ThemeColor } from '../../types'
 import type { Radius } from '../../types'
 import type { BadgePlacement, BadgeSize, BadgeVariant } from './badge.type'
 
-const sizeMap: Record<BadgeSize, { height: number; minWidth: number; dot: number }> = {
-  sm: { height: 16, minWidth: 16, dot: 8 },
-  md: { height: 20, minWidth: 20, dot: 10 },
-  lg: { height: 24, minWidth: 24, dot: 12 },
-}
+const sizeMap: Record<BadgeSize, { height: number; minWidth: number; dot: number }> =
+  {
+    sm: { height: 16, minWidth: 16, dot: 8 },
+    md: { height: 20, minWidth: 20, dot: 10 },
+    lg: { height: 24, minWidth: 24, dot: 12 },
+  }
 
 const fontSizeMap: Record<BadgeSize, number> = {
   sm: 9,
@@ -17,7 +18,11 @@ const fontSizeMap: Record<BadgeSize, number> = {
   lg: 12,
 }
 
-export function useBadgeSizeStyles(size: BadgeSize, isDot: boolean, isOneChar: boolean) {
+export function useBadgeSizeStyles(
+  size: BadgeSize,
+  isDot: boolean,
+  isOneChar: boolean
+) {
   const theme = useXUITheme()
 
   return useMemo(() => {
@@ -53,7 +58,10 @@ export function useBadgeSizeStyles(size: BadgeSize, isDot: boolean, isOneChar: b
   }, [isDot, isOneChar, size, theme])
 }
 
-export function useBadgeVariantStyles(themeColor: ThemeColor, variant: BadgeVariant) {
+export function useBadgeVariantStyles(
+  themeColor: ThemeColor,
+  variant: BadgeVariant
+) {
   const theme = useXUITheme()
   const safeThemeColor = getSafeThemeColor(themeColor)
   const colorScheme = theme.colors[safeThemeColor]

@@ -53,8 +53,11 @@ export const useAutocompleteInputState = ({
   selectedKey,
   onInputChange,
 }: UseAutocompleteInputStateProps) => {
-  const [internalInputValue, setInternalInputValue] = useState(defaultInputValue ?? '')
-  const currentInputValue = inputValue !== undefined ? inputValue : internalInputValue
+  const [internalInputValue, setInternalInputValue] = useState(
+    defaultInputValue ?? ''
+  )
+  const currentInputValue =
+    inputValue !== undefined ? inputValue : internalInputValue
 
   const updateInputValue = useCallback(
     (value: string) => {
@@ -102,10 +105,13 @@ export const useAutocompleteTriggerMeasurements = () => {
   const [triggerWidth, setTriggerWidth] = useState<number>()
   const [triggerHeight, setTriggerHeight] = useState<number>()
 
-  const handleTriggerLayout = useCallback((event: { nativeEvent: { layout: LayoutRectangle } }) => {
-    setTriggerWidth(event.nativeEvent.layout.width)
-    setTriggerHeight(event.nativeEvent.layout.height)
-  }, [])
+  const handleTriggerLayout = useCallback(
+    (event: { nativeEvent: { layout: LayoutRectangle } }) => {
+      setTriggerWidth(event.nativeEvent.layout.width)
+      setTriggerHeight(event.nativeEvent.layout.height)
+    },
+    []
+  )
 
   return { triggerRef, triggerWidth, triggerHeight, handleTriggerLayout }
 }

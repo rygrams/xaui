@@ -1,6 +1,6 @@
 {
   "name": "@xaui/native",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "Flutter-inspired React Native UI components with native animations powered by React Native Reanimated",
   "keywords": [
     "react-native",
@@ -87,6 +87,11 @@
       "import": "./dist/autocomplete/index.js",
       "require": "./dist/autocomplete/index.js"
     },
+    "./datepicker": {
+      "types": "./dist/datepicker/index.d.ts",
+      "import": "./dist/datepicker/index.js",
+      "require": "./dist/datepicker/index.js"
+    },
     "./typography": {
       "types": "./dist/typography/index.d.ts",
       "import": "./dist/typography/index.js",
@@ -126,6 +131,7 @@
   "peerDependencies": {
     "react": "^18.0.0 || ^19.0.0",
     "react-native": ">=0.70.0",
+    "react-native-gesture-handler": ">=2.0.0",
     "react-native-reanimated": ">=4.0.0",
     "react-native-svg": ">=15.0.0"
   },
@@ -134,6 +140,7 @@
     "@types/react-native": "^0.73.0",
     "react": "19.1.0",
     "react-native": "^0.81.5",
+    "react-native-gesture-handler": "^2.28.0",
     "react-native-reanimated": "^4.0.0",
     "react-native-svg": "^15.8.0",
     "tsup": "^8.5.1",

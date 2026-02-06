@@ -8,7 +8,10 @@ export const getTextValue = (node: ReactNode): string | null => {
   return null
 }
 
-export const defaultFilterFunction = (textValue: string, inputValue: string): boolean => {
+export const defaultFilterFunction = (
+  textValue: string,
+  inputValue: string
+): boolean => {
   const normalizedText = textValue.toLowerCase().trim()
   const normalizedInput = inputValue.toLowerCase().trim()
 

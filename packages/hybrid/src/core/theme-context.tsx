@@ -47,5 +47,7 @@ export function XUIProvider({
     } as XUITheme
   }, [lightTheme, darkTheme, colorScheme])
 
-  return <XUIThemeContext.Provider value={theme}>{children}</XUIThemeContext.Provider>
+  return (
+    <XUIThemeContext.Provider value={theme}>{children}</XUIThemeContext.Provider>
+  )
 }

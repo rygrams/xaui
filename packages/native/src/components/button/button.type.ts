@@ -2,7 +2,13 @@ import { ReactNode } from 'react'
 import type { TextStyle, ViewStyle, GestureResponderEvent } from 'react-native'
 import type { Size, ThemeColor } from '../../types'
 
-export type ButtonVariant = 'solid' | 'outlined' | 'flat' | 'light' | 'elevated' | 'faded'
+export type ButtonVariant =
+  | 'solid'
+  | 'outlined'
+  | 'flat'
+  | 'light'
+  | 'elevated'
+  | 'faded'
 export type ButtonRadius = 'none' | 'sm' | 'md' | 'lg' | 'full'
 export type SpinnerPlacement = 'start' | 'end'
 

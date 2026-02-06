@@ -40,7 +40,12 @@ describe('Alert Types', () => {
   })
 
   it('accepts all variants', () => {
-    const variants: Array<AlertProps['variant']> = ['solid', 'bordered', 'flat', 'faded']
+    const variants: Array<AlertProps['variant']> = [
+      'solid',
+      'bordered',
+      'flat',
+      'faded',
+    ]
 
     variants.forEach(variant => {
       const props: AlertProps = {
