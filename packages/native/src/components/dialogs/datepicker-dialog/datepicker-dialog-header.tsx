@@ -55,14 +55,16 @@ export const DatePickerDialogHeader: React.FC<DatePickerDialogHeaderProps> = ({
           <Text style={[styles.headerDate, { color: colorScheme.foreground }]}>
             {dateText}
           </Text>
-          <Pressable
-            onPress={onClearValue}
-            hitSlop={{ top: 8, right: 8, bottom: 8, left: 8 }}
-            accessibilityLabel="Clear date"
-            accessibilityRole="button"
-          >
-            <CloseIcon size={20} color={colorScheme.foreground} />
-          </Pressable>
+          {selectedDate ? (
+            <Pressable
+              onPress={onClearValue}
+              hitSlop={{ top: 8, right: 8, bottom: 8, left: 8 }}
+              accessibilityLabel="Clear date"
+              accessibilityRole="button"
+            >
+              <CloseIcon size={20} color={colorScheme.foreground} />
+            </Pressable>
+          ) : null}
         </View>
       </View>
 
