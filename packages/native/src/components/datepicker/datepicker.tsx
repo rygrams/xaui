@@ -135,8 +135,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
       labelText={typeof label === 'string' ? label : undefined}
       isLabelInside={isLabelInside}
       calendarIcon={calendarIcon}
-      style={customAppearance?.trigger}
-      textStyle={customAppearance?.text}
+      customAppearance={customAppearance}
       onPress={handleTriggerPress}
       onClear={handleClear}
       onLayout={handleTriggerLayout}

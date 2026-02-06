@@ -37,12 +37,10 @@ export default function DatePickerScreen() {
             label="Warning"
             themeColor="warning"
             placeholder="Pick a date"
+            isInvalid
+            errorMessage="This date is not recommended"
           />
-          <DatePicker
-            label="Danger"
-            themeColor="danger"
-            placeholder="Pick a date"
-          />
+          <DatePicker label="Danger" themeColor="danger" placeholder="Pick a date" />
         </View>
       </View>
 
@@ -51,31 +49,11 @@ export default function DatePickerScreen() {
           Variants
         </Text>
         <View style={{ gap: theme.spacing.md }}>
-          <DatePicker
-            label="Outlined"
-            variant="outlined"
-            themeColor="primary"
-          />
-          <DatePicker
-            label="Flat"
-            variant="flat"
-            themeColor="primary"
-          />
-          <DatePicker
-            label="Light"
-            variant="light"
-            themeColor="primary"
-          />
-          <DatePicker
-            label="Faded"
-            variant="faded"
-            themeColor="primary"
-          />
-          <DatePicker
-            label="Underlined"
-            variant="underlined"
-            themeColor="primary"
-          />
+          <DatePicker label="Outlined" variant="outlined" themeColor="primary" />
+          <DatePicker label="Flat" variant="flat" themeColor="primary" />
+          <DatePicker label="Light" variant="light" themeColor="primary" />
+          <DatePicker label="Faded" variant="faded" themeColor="primary" />
+          <DatePicker label="Underlined" variant="underlined" themeColor="primary" />
         </View>
       </View>
 
@@ -141,11 +119,7 @@ export default function DatePickerScreen() {
           Locale
         </Text>
         <View style={{ gap: theme.spacing.md }}>
-          <DatePicker
-            label="English (default)"
-            themeColor="primary"
-            locale="en"
-          />
+          <DatePicker label="English (default)" themeColor="primary" locale="en" />
           <DatePicker
             label="French"
             themeColor="primary"
@@ -251,11 +225,7 @@ export default function DatePickerScreen() {
           Full Width
         </Text>
         <View style={{ gap: theme.spacing.md }}>
-          <DatePicker
-            label="Full Width DatePicker"
-            themeColor="primary"
-            fullWidth
-          />
+          <DatePicker label="Full Width DatePicker" themeColor="primary" fullWidth />
         </View>
       </View>
     </ScrollView>
