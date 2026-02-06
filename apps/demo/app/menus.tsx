@@ -8,7 +8,7 @@ import {
   CheckmarkIcon,
   ArrowBackIcon,
   EllipsisVerticalIcon,
-} from '@xaui/native/icon'
+} from '@xaui/icons'
 import { useState } from 'react'
 
 export default function MenusScreen() {

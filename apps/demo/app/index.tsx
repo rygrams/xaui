@@ -27,7 +27,7 @@ export default function HomeScreen() {
         gap: 12,
       }}
     >
-      <Margin bottom={12}>
+      <Margin bottom={5}>
         <Button
           size="sm"
           onPress={() => router.push('/alerts')}
@@ -37,27 +37,27 @@ export default function HomeScreen() {
           View Alert Examples
         </Button>
       </Margin>
-      <Margin bottom={12}>
+      <Margin bottom={5}>
         <Button
           size="sm"
           onPress={() => router.push('/badges')}
           variant="outlined"
-          themeColor="success"
+          themeColor="secondary"
         >
           View Badge Examples
         </Button>
       </Margin>
-      <Margin bottom={12}>
+      <Margin bottom={5}>
         <Button
           size="sm"
           onPress={() => router.push('/avatars')}
           variant="outlined"
-          themeColor="warning"
+          themeColor="primary"
         >
           View Avatar Examples
         </Button>
       </Margin>
-      <Margin bottom={12}>
+      <Margin bottom={5}>
         <Button
           size="sm"
           onPress={() => router.push('/menus')}
@@ -65,6 +65,16 @@ export default function HomeScreen() {
           themeColor="secondary"
         >
           View Menu Examples
+        </Button>
+      </Margin>
+      <Margin bottom={5}>
+        <Button
+          size="sm"
+          onPress={() => router.push('/datepicker')}
+          variant="outlined"
+          themeColor="primary"
+        >
+          View Datepicker Examples
         </Button>
       </Margin>
     </ScrollView>
