@@ -22,6 +22,10 @@ export default function RootLayout() {
             options={{ presentation: 'modal', title: 'Modal' }}
           />
           <Stack.Screen name="alerts" options={{ title: 'Alert Examples' }} />
+          <Stack.Screen
+            name="bottom-sheet"
+            options={{ title: 'Bottom Sheet Examples' }}
+          />
         </Stack>
       </XUIProvider>
     </ThemeProvider>
