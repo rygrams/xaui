@@ -133,18 +133,30 @@ const AnimatedMock = {
     interpolate: (_config: never) => 0,
   }),
   timing: (_value: never, _config: never) => ({
-    start: () => {},
+    start: (cb?: (result: { finished: boolean }) => void) => {
+      cb?.({ finished: true })
+    },
+    stop: () => {},
+  }),
+  spring: (_value: never, _config: never) => ({
+    start: (cb?: (result: { finished: boolean }) => void) => {
+      cb?.({ finished: true })
+    },
     stop: () => {},
   }),
   loop: (_animation: never) => ({
     start: () => {},
   }),
   sequence: (_animations: never[]) => ({
-    start: () => {},
+    start: (cb?: (result: { finished: boolean }) => void) => {
+      cb?.({ finished: true })
+    },
     stop: () => {},
   }),
   parallel: (_animations: never[]) => ({
-    start: () => {},
+    start: (cb?: (result: { finished: boolean }) => void) => {
+      cb?.({ finished: true })
+    },
     stop: () => {},
   }),
   Easing: EasingMock,
@@ -152,3 +164,22 @@ const AnimatedMock = {
 
 export const Animated = AnimatedMock
 export const Easing = EasingMock
+
+export const Dimensions = {
+  get: (_dim: string) => ({ width: 375, height: 812 }),
+  addEventListener: () => ({ remove: () => {} }),
+}
+
+const emptyPanHandlers = {
+  onStartShouldSetResponder: () => false,
+  onMoveShouldSetResponder: () => false,
+  onResponderGrant: () => {},
+  onResponderMove: () => {},
+  onResponderRelease: () => {},
+  onResponderTerminate: () => {},
+  onResponderTerminationRequest: () => true,
+}
+
+export const PanResponder = {
+  create: () => ({ panHandlers: emptyPanHandlers }),
+}
