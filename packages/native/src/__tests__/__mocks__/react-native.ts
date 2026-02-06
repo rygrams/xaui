@@ -144,6 +144,10 @@ const AnimatedMock = {
     },
     stop: () => {},
   }),
+  spring: (_value: never, _config: never) => ({
+    start: () => {},
+    stop: () => {},
+  }),
   loop: (_animation: never) => ({
     start: () => {},
   }),

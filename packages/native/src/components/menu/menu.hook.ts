@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { Animated, Dimensions, type LayoutChangeEvent, type View } from 'react-native'
+import { Animated, Dimensions, Easing, type LayoutChangeEvent, type View } from 'react-native'
 import { MENU_SCREEN_INDENT, MENU_TRIGGER_GAP } from './menu.style'
 import type { MenuPosition } from './menu.type'
 
@@ -95,23 +95,25 @@ export const useMenuPosition = (
 
 export const useMenuAnimation = (visible: boolean) => {
   const opacity = useRef(new Animated.Value(0)).current
-  const scale = useRef(new Animated.Value(0.95)).current
+  const scale = useRef(new Animated.Value(0)).current
 
   useEffect(() => {
     if (!visible) return
 
     opacity.setValue(0)
-    scale.setValue(0.95)
+    scale.setValue(0)
 
     Animated.parallel([
       Animated.timing(opacity, {
         toValue: 1,
-        duration: 180,
+        duration: 200,
+        easing: Easing.bezier(0.4, 0.0, 0.2, 1),
         useNativeDriver: true,
       }),
-      Animated.timing(scale, {
+      Animated.spring(scale, {
         toValue: 1,
-        duration: 180,
+        friction: 9,
+        tension: 100,
         useNativeDriver: true,
       }),
     ]).start()

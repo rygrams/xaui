@@ -15,6 +15,7 @@ export default function MenusScreen() {
   const [disabledItemsVisible, setDisabledItemsVisible] = useState(false)
   const [customStylesVisible, setCustomStylesVisible] = useState(false)
   const [scrollableVisible, setScrollableVisible] = useState(false)
+  const [complexMenuVisible, setComplexMenuVisible] = useState(false)
 
   return (
     <ScrollView
@@ -82,18 +83,9 @@ export default function MenusScreen() {
               </Button>
             }
           >
-            <MenuItem
-              title="Item 1"
-              onPress={() => setPositionTopVisible(false)}
-            />
-            <MenuItem
-              title="Item 2"
-              onPress={() => setPositionTopVisible(false)}
-            />
-            <MenuItem
-              title="Item 3"
-              onPress={() => setPositionTopVisible(false)}
-            />
+            <MenuItem title="Item 1" onPress={() => setPositionTopVisible(false)} />
+            <MenuItem title="Item 2" onPress={() => setPositionTopVisible(false)} />
+            <MenuItem title="Item 3" onPress={() => setPositionTopVisible(false)} />
           </Menu>
 
           <Menu
@@ -307,7 +299,7 @@ export default function MenusScreen() {
               title="Custom Item 1"
               customAppearance={{
                 container: {
-                  backgroundColor: colors.primary.light,
+                  backgroundColor: colors.primary.main,
                 },
                 title: {
                   fontSize: 18,
@@ -370,10 +362,15 @@ export default function MenusScreen() {
         </Text>
         <View style={[styles.row, { gap: theme.spacing.md }]}>
           <Menu
-            visible={false}
-            onDismiss={() => {}}
+            visible={complexMenuVisible}
+            onDismiss={() => setComplexMenuVisible(false)}
             trigger={
-              <Button size="sm" variant="solid" themeColor="primary">
+              <Button
+                size="sm"
+                variant="solid"
+                themeColor="primary"
+                onPress={() => setComplexMenuVisible(true)}
+              >
                 Actions Menu
               </Button>
             }
@@ -393,6 +390,7 @@ export default function MenusScreen() {
               endContent={
                 <Text style={{ color: colors.foreground, opacity: 0.5 }}>⌘E</Text>
               }
+              onPress={() => setComplexMenuVisible(false)}
             />
             <MenuItem
               title="Duplicate"
@@ -409,6 +407,7 @@ export default function MenusScreen() {
               endContent={
                 <Text style={{ color: colors.foreground, opacity: 0.5 }}>⌘D</Text>
               }
+              onPress={() => setComplexMenuVisible(false)}
             />
             <MenuItem
               title="Archive"
@@ -422,6 +421,7 @@ export default function MenusScreen() {
                   }}
                 />
               }
+              onPress={() => setComplexMenuVisible(false)}
             />
             <MenuItem title="Share" isDisabled />
             <MenuItem
@@ -441,6 +441,7 @@ export default function MenusScreen() {
                   color: colors.danger.main,
                 },
               }}
+              onPress={() => setComplexMenuVisible(false)}
             />
           </Menu>
         </View>

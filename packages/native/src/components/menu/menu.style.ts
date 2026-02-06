@@ -13,8 +13,8 @@ export const styles = StyleSheet.create({
   menuContainer: {
     position: 'absolute',
     paddingVertical: 8,
-    minWidth: 112,
-    maxWidth: 280,
+    minWidth: 200,
+    maxWidth: 320,
   },
 })
 

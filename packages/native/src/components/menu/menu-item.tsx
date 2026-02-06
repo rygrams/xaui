@@ -45,10 +45,13 @@ export const MenuItem: React.FC<MenuItemProps> = ({
       accessibilityRole="menuitem"
       accessibilityLabel={accessibilityLabel}
       accessibilityState={{ disabled: isDisabled }}
-      style={[
+      style={({ pressed }) => [
         styles.container,
         dense && styles.denseContainer,
         isDisabled && styles.disabled,
+        pressed && !isDisabled && {
+          backgroundColor: theme.colors.foreground + '10',
+        },
         customAppearance?.container,
       ]}
     >
