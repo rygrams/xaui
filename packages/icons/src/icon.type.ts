@@ -1,6 +1,11 @@
-import type { ThemeColor } from './types'
-
-export type IconVariant = 'baseline' | 'filled' | 'duotone' | 'round-outlined' | 'square-outlined' | 'round-filled' | 'square-filled'
+export type IconVariant =
+  | 'baseline'
+  | 'filled'
+  | 'duotone'
+  | 'round-outlined'
+  | 'square-outlined'
+  | 'round-filled'
+  | 'square-filled'
 
 export type IconProps = {
   /**
@@ -15,9 +20,9 @@ export type IconProps = {
   size?: number
   /**
    * Icon color - can be a theme color or custom RGB string
-   * @default 'default'
+   * @default 'black'
    */
-  color?: ThemeColor | string
+  color?: string
   /**
    * Whether to animate the icon
    * @default false
