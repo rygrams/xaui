@@ -10,7 +10,7 @@ import {
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { Portal, useXUITheme } from '../../../core'
 import { useDatePickerViewState } from '../../datepicker/datepicker.state.hook'
-import { getDatePickerLabels } from '../../datepicker/datepicker.utils'
+import { getDatePickerLabels, isDateInRange } from '../../datepicker/datepicker.utils'
 import {
   useDatePickerDialogAnimation,
   useMonthSlideAnimation,
@@ -135,9 +135,11 @@ export const DatePickerDialog: React.FC<DatePickerDialogProps> = ({
   )
 
   const handleTodayPress = useCallback(() => {
+    const today = new Date()
+    if (!isDateInRange(today, minDate, maxDate)) return
     goToToday()
-    onDateSelect(new Date())
-  }, [goToToday, onDateSelect])
+    onDateSelect(today)
+  }, [goToToday, onDateSelect, minDate, maxDate])
 
   if (!shouldRender) return null
 

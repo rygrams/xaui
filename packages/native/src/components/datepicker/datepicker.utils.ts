@@ -53,8 +53,23 @@ export const isDateInRange = (
   minDate?: Date,
   maxDate?: Date
 ): boolean => {
-  if (minDate && date < minDate) return false
-  if (maxDate && date > maxDate) return false
+  const normalized = new Date(date.getFullYear(), date.getMonth(), date.getDate())
+  if (minDate) {
+    const minNormalized = new Date(
+      minDate.getFullYear(),
+      minDate.getMonth(),
+      minDate.getDate()
+    )
+    if (normalized < minNormalized) return false
+  }
+  if (maxDate) {
+    const maxNormalized = new Date(
+      maxDate.getFullYear(),
+      maxDate.getMonth(),
+      maxDate.getDate()
+    )
+    if (normalized > maxNormalized) return false
+  }
   return true
 }
 
