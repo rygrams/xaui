@@ -1,6 +1,8 @@
 import { describe, it, expect } from 'vitest'
 import type { DatePickerDialogProps } from '../../../components/dialogs/datepicker-dialog/datepicker-dialog.type'
 
+const onClearValue = () => {}
+
 describe('DatePickerDialog Types', () => {
   it('exports DatePickerDialogProps type', () => {
     const props: DatePickerDialogProps = {
@@ -9,6 +11,7 @@ describe('DatePickerDialog Types', () => {
       locale: 'en',
       firstDayOfWeek: 0,
       onDateSelect: () => {},
+      onClearValue,
       onClose: () => {},
     }
 
@@ -24,6 +27,7 @@ describe('DatePickerDialog Types', () => {
       locale: 'en',
       firstDayOfWeek: 0,
       onDateSelect: () => {},
+      onClearValue,
       onClose: () => {},
     }
 
@@ -38,6 +42,7 @@ describe('DatePickerDialog Types', () => {
       firstDayOfWeek: 0,
       themeColor: 'primary',
       onDateSelect: () => {},
+      onClearValue,
       onClose: () => {},
     }
 
@@ -55,6 +60,7 @@ describe('DatePickerDialog Types', () => {
       minDate: min,
       maxDate: max,
       onDateSelect: () => {},
+      onClearValue,
       onClose: () => {},
     }
 
@@ -70,6 +76,7 @@ describe('DatePickerDialog Types', () => {
       firstDayOfWeek: 0,
       style: { backgroundColor: 'white' },
       onDateSelect: () => {},
+      onClearValue,
       onClose: () => {},
     }
 
@@ -86,6 +93,7 @@ describe('DatePickerDialog Types', () => {
       locale: 'en',
       firstDayOfWeek: 0,
       onDateSelect,
+      onClearValue,
       onClose,
     }
 
@@ -100,6 +108,7 @@ describe('DatePickerDialog Types', () => {
       locale: 'en',
       firstDayOfWeek: 0,
       onDateSelect: () => {},
+      onClearValue,
       onClose: () => {},
     }
 
@@ -113,6 +122,7 @@ describe('DatePickerDialog Types', () => {
       locale: 'fr',
       firstDayOfWeek: 1,
       onDateSelect: () => {},
+      onClearValue,
       onClose: () => {},
     }
 
@@ -128,6 +138,7 @@ describe('DatePickerDialog Types', () => {
       todayLabel: "Aujourd'hui",
       confirmLabel: 'Confirmer',
       onDateSelect: () => {},
+      onClearValue,
       onClose: () => {},
     }
 

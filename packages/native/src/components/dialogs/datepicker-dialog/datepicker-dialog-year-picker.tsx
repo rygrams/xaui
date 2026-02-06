@@ -40,8 +40,6 @@ export const DatePickerDialogYearPicker: React.FC<
     return Math.max(0, rowIndex)
   }, [years, currentYear])
 
-  const baseIndex = initialIndex * NUM_COLUMNS
-
   useEffect(() => {
     groupAnim.setValue(0)
     Animated.timing(groupAnim, {
@@ -62,7 +60,7 @@ export const DatePickerDialogYearPicker: React.FC<
   )
 
   const renderYear = useCallback(
-    ({ item, index }: { item: number; index: number }) => {
+    ({ item }: { item: number }) => {
       const isCurrentYear = item === currentYear
       return (
         <Pressable
