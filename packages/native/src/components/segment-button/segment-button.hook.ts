@@ -75,7 +75,7 @@ export function useSegmentVariantStyles(
     const variants: Record<SegmentButtonVariant, SegmentVariantStyles> = {
       outlined: {
         containerBackground: 'transparent',
-        containerBorderWidth: theme.borderWidth.sm,
+        containerBorderWidth: theme.borderWidth.md,
         containerBorderColor: colorScheme.main,
         selectedBackground: selectedBackgroundColor,
         unselectedBackground: 'transparent',
@@ -102,7 +102,7 @@ export function useSegmentVariantStyles(
       },
       faded: {
         containerBackground: `${colorScheme.background}95`,
-        containerBorderWidth: theme.borderWidth.sm,
+        containerBorderWidth: theme.borderWidth.md,
         containerBorderColor: `${colorScheme.main}90`,
         selectedBackground: selectedBackgroundColor,
         unselectedBackground: 'transparent',
