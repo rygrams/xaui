@@ -57,11 +57,12 @@ export const GridBuilder = <T,>({
   const paddedData = useMemo(() => {
     const remainder = resolvedData.length % safeColumns
     const placeholders = remainder === 0 ? 0 : safeColumns - remainder
-    if (placeholders === 0) return resolvedData.map((item, index) => ({
-      type: 'data' as const,
-      item,
-      index,
-    }))
+    if (placeholders === 0)
+      return resolvedData.map((item, index) => ({
+        type: 'data' as const,
+        item,
+        index,
+      }))
     return [
       ...resolvedData.map((item, index) => ({
         type: 'data' as const,
@@ -80,11 +81,11 @@ export const GridBuilder = <T,>({
       return (item: GridRenderItem<T>, index: number) =>
         item.type === 'data'
           ? keyExtractor(item.item, item.index)
-          : item.key ?? `placeholder-${index}`
+          : (item.key ?? `placeholder-${index}`)
     return (item: GridRenderItem<T>, index: number) =>
       item.type === 'data'
         ? `grid-${item.index}`
-        : item.key ?? `placeholder-${index}`
+        : (item.key ?? `placeholder-${index}`)
   }, [keyExtractor])
 
   const resolvedRenderer = useMemo(() => {
@@ -105,9 +106,7 @@ export const GridBuilder = <T,>({
       const isLastColumn = (index + 1) % safeColumns === 0
       const totalItems = paddedData.length
       const lastRowStart =
-        totalItems === 0
-          ? 0
-          : totalItems - (totalItems % safeColumns || safeColumns)
+        totalItems === 0 ? 0 : totalItems - (totalItems % safeColumns || safeColumns)
       const isLastRow = index >= lastRowStart
 
       const placeholderStyle: StyleProp<ViewStyle> = [
@@ -128,9 +127,7 @@ export const GridBuilder = <T,>({
     const isLastColumn = (index + 1) % safeColumns === 0
     const totalItems = paddedData.length
     const lastRowStart =
-      totalItems === 0
-        ? 0
-        : totalItems - (totalItems % safeColumns || safeColumns)
+      totalItems === 0 ? 0 : totalItems - (totalItems % safeColumns || safeColumns)
     const isLastRow = index >= lastRowStart
 
     const wrapperStyle: StyleProp<ViewStyle> = [

@@ -1,14 +1,25 @@
 import type { ReactNode, ButtonHTMLAttributes } from 'react'
 import type { ThemeColor } from '../../types'
 
-export type ButtonVariant = 'solid' | 'outlined' | 'flat' | 'light' | 'elevated' | 'faded'
+export type ButtonVariant =
+  | 'solid'
+  | 'outlined'
+  | 'flat'
+  | 'light'
+  | 'elevated'
+  | 'faded'
 export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg'
 export type ButtonRadius = 'none' | 'sm' | 'md' | 'lg' | 'full'
 export type SpinnerPlacement = 'start' | 'end'
 
 export type ButtonProps = Omit<
   ButtonHTMLAttributes<HTMLButtonElement>,
-  'disabled' | 'children' | 'onAnimationStart' | 'onDragStart' | 'onDragEnd' | 'onDrag'
+  | 'disabled'
+  | 'children'
+  | 'onAnimationStart'
+  | 'onDragStart'
+  | 'onDragEnd'
+  | 'onDrag'
 > & {
   /**
    * The content to display in the button.

@@ -62,14 +62,11 @@ export const MasonryGridBuilder = <T,>({
 
   if (!resolvedRenderer) return null
 
-  const handleScroll = (
-    event: NativeSyntheticEvent<NativeScrollEvent>
-  ) => {
+  const handleScroll = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
     onScroll?.(event)
     if (!onEndReached) return
 
-    const { layoutMeasurement, contentOffset, contentSize } =
-      event.nativeEvent
+    const { layoutMeasurement, contentOffset, contentSize } = event.nativeEvent
     if (!layoutMeasurement?.height) return
 
     const distanceFromEnd =

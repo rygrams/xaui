@@ -111,7 +111,9 @@ export const useSelectSelection = ({
 export const useSelectTriggerMeasurements = (isOpen: boolean) => {
   const triggerRef = useRef<View>(null)
   const [triggerWidth, setTriggerWidth] = useState<number | null>(null)
-  const [triggerPosition, setTriggerPosition] = useState<TriggerPosition | null>(null)
+  const [triggerPosition, setTriggerPosition] = useState<TriggerPosition | null>(
+    null
+  )
 
   const handleTriggerLayout = useCallback((event: LayoutChangeEvent) => {
     setTriggerWidth(event.nativeEvent.layout.width)

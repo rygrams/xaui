@@ -57,7 +57,7 @@ export const AvatarGroup: React.FC<AvatarGroupProps> = ({
 
   const countNode =
     remaining > 0
-      ? renderCount?.(remaining) ?? (
+      ? (renderCount?.(remaining) ?? (
           <Avatar
             name={`+${remaining}`}
             showFallback
@@ -78,7 +78,7 @@ export const AvatarGroup: React.FC<AvatarGroupProps> = ({
               </Text>
             }
           />
-        )
+        ))
       : null
 
   if (countNode) {

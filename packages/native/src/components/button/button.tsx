@@ -33,7 +33,9 @@ export const Button: React.FC<ButtonProps> = ({
   const variantStyles = useVariantSizesStyles(themeColor, variant)
   const { textColor } = useTextStyles(themeColor, variant)
 
-  const handlePressIn = (event: Parameters<NonNullable<ButtonProps['onPressIn']>>[0]) => {
+  const handlePressIn = (
+    event: Parameters<NonNullable<ButtonProps['onPressIn']>>[0]
+  ) => {
     if (!isDisabled && !isLoading) {
       runPressInAnimation(animatedScale, animatedOpacity)
     }
@@ -52,7 +54,9 @@ export const Button: React.FC<ButtonProps> = ({
   const spinner = (
     <ActivityIndicator
       variant="circular"
-      themeColor={variant === 'solid' || variant === 'elevated' ? undefined : themeColor}
+      themeColor={
+        variant === 'solid' || variant === 'elevated' ? undefined : themeColor
+      }
       color={variant === 'solid' || variant === 'elevated' ? textColor : undefined}
       size={spinnerSize}
     />

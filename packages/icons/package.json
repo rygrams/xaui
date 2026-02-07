@@ -1,0 +1,2662 @@
+{
+  "name": "@xaui/icons",
+  "version": "0.0.3",
+  "description": "Icon components for XAUI - Flutter-inspired React Native UI library",
+  "keywords": [
+    "react-native",
+    "icons",
+    "svg",
+    "ui",
+    "components",
+    "xaui"
+  ],
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    },
+    "./package.json": "./package.json",
+    "./accessibility": {
+      "types": "./dist/accessibility.d.ts",
+      "import": "./dist/accessibility.js",
+      "require": "./dist/accessibility.js"
+    },
+    "./add": {
+      "types": "./dist/add.d.ts",
+      "import": "./dist/add.js",
+      "require": "./dist/add.js"
+    },
+    "./add-circle": {
+      "types": "./dist/add-circle.d.ts",
+      "import": "./dist/add-circle.js",
+      "require": "./dist/add-circle.js"
+    },
+    "./airplane": {
+      "types": "./dist/airplane.d.ts",
+      "import": "./dist/airplane.js",
+      "require": "./dist/airplane.js"
+    },
+    "./alarm": {
+      "types": "./dist/alarm.d.ts",
+      "import": "./dist/alarm.js",
+      "require": "./dist/alarm.js"
+    },
+    "./album": {
+      "types": "./dist/album.d.ts",
+      "import": "./dist/album.js",
+      "require": "./dist/album.js"
+    },
+    "./albums": {
+      "types": "./dist/albums.d.ts",
+      "import": "./dist/albums.js",
+      "require": "./dist/albums.js"
+    },
+    "./alert": {
+      "types": "./dist/alert.d.ts",
+      "import": "./dist/alert.js",
+      "require": "./dist/alert.js"
+    },
+    "./alert-circle": {
+      "types": "./dist/alert-circle.d.ts",
+      "import": "./dist/alert-circle.js",
+      "require": "./dist/alert-circle.js"
+    },
+    "./american-football": {
+      "types": "./dist/american-football.d.ts",
+      "import": "./dist/american-football.js",
+      "require": "./dist/american-football.js"
+    },
+    "./analytics": {
+      "types": "./dist/analytics.d.ts",
+      "import": "./dist/analytics.js",
+      "require": "./dist/analytics.js"
+    },
+    "./aperture": {
+      "types": "./dist/aperture.d.ts",
+      "import": "./dist/aperture.js",
+      "require": "./dist/aperture.js"
+    },
+    "./apps": {
+      "types": "./dist/apps.d.ts",
+      "import": "./dist/apps.js",
+      "require": "./dist/apps.js"
+    },
+    "./archive": {
+      "types": "./dist/archive.d.ts",
+      "import": "./dist/archive.js",
+      "require": "./dist/archive.js"
+    },
+    "./arrow-back": {
+      "types": "./dist/arrow-back.d.ts",
+      "import": "./dist/arrow-back.js",
+      "require": "./dist/arrow-back.js"
+    },
+    "./arrow-back-circle": {
+      "types": "./dist/arrow-back-circle.d.ts",
+      "import": "./dist/arrow-back-circle.js",
+      "require": "./dist/arrow-back-circle.js"
+    },
+    "./arrow-down": {
+      "types": "./dist/arrow-down.d.ts",
+      "import": "./dist/arrow-down.js",
+      "require": "./dist/arrow-down.js"
+    },
+    "./arrow-down-circle": {
+      "types": "./dist/arrow-down-circle.d.ts",
+      "import": "./dist/arrow-down-circle.js",
+      "require": "./dist/arrow-down-circle.js"
+    },
+    "./arrow-down-left-box": {
+      "types": "./dist/arrow-down-left-box.d.ts",
+      "import": "./dist/arrow-down-left-box.js",
+      "require": "./dist/arrow-down-left-box.js"
+    },
+    "./arrow-down-right-box": {
+      "types": "./dist/arrow-down-right-box.d.ts",
+      "import": "./dist/arrow-down-right-box.js",
+      "require": "./dist/arrow-down-right-box.js"
+    },
+    "./arrow-forward": {
+      "types": "./dist/arrow-forward.d.ts",
+      "import": "./dist/arrow-forward.js",
+      "require": "./dist/arrow-forward.js"
+    },
+    "./arrow-forward-circle": {
+      "types": "./dist/arrow-forward-circle.d.ts",
+      "import": "./dist/arrow-forward-circle.js",
+      "require": "./dist/arrow-forward-circle.js"
+    },
+    "./arrow-redo": {
+      "types": "./dist/arrow-redo.d.ts",
+      "import": "./dist/arrow-redo.js",
+      "require": "./dist/arrow-redo.js"
+    },
+    "./arrow-redo-circle": {
+      "types": "./dist/arrow-redo-circle.d.ts",
+      "import": "./dist/arrow-redo-circle.js",
+      "require": "./dist/arrow-redo-circle.js"
+    },
+    "./arrow-undo": {
+      "types": "./dist/arrow-undo.d.ts",
+      "import": "./dist/arrow-undo.js",
+      "require": "./dist/arrow-undo.js"
+    },
+    "./arrow-undo-circle": {
+      "types": "./dist/arrow-undo-circle.d.ts",
+      "import": "./dist/arrow-undo-circle.js",
+      "require": "./dist/arrow-undo-circle.js"
+    },
+    "./arrow-up": {
+      "types": "./dist/arrow-up.d.ts",
+      "import": "./dist/arrow-up.js",
+      "require": "./dist/arrow-up.js"
+    },
+    "./arrow-up-circle": {
+      "types": "./dist/arrow-up-circle.d.ts",
+      "import": "./dist/arrow-up-circle.js",
+      "require": "./dist/arrow-up-circle.js"
+    },
+    "./arrow-up-left-box": {
+      "types": "./dist/arrow-up-left-box.d.ts",
+      "import": "./dist/arrow-up-left-box.js",
+      "require": "./dist/arrow-up-left-box.js"
+    },
+    "./arrow-up-right-box": {
+      "types": "./dist/arrow-up-right-box.d.ts",
+      "import": "./dist/arrow-up-right-box.js",
+      "require": "./dist/arrow-up-right-box.js"
+    },
+    "./at": {
+      "types": "./dist/at.d.ts",
+      "import": "./dist/at.js",
+      "require": "./dist/at.js"
+    },
+    "./at-circle": {
+      "types": "./dist/at-circle.d.ts",
+      "import": "./dist/at-circle.js",
+      "require": "./dist/at-circle.js"
+    },
+    "./attach": {
+      "types": "./dist/attach.d.ts",
+      "import": "./dist/attach.js",
+      "require": "./dist/attach.js"
+    },
+    "./backspace": {
+      "types": "./dist/backspace.d.ts",
+      "import": "./dist/backspace.js",
+      "require": "./dist/backspace.js"
+    },
+    "./bag": {
+      "types": "./dist/bag.d.ts",
+      "import": "./dist/bag.js",
+      "require": "./dist/bag.js"
+    },
+    "./bag-add": {
+      "types": "./dist/bag-add.d.ts",
+      "import": "./dist/bag-add.js",
+      "require": "./dist/bag-add.js"
+    },
+    "./bag-check": {
+      "types": "./dist/bag-check.d.ts",
+      "import": "./dist/bag-check.js",
+      "require": "./dist/bag-check.js"
+    },
+    "./bag-handle": {
+      "types": "./dist/bag-handle.d.ts",
+      "import": "./dist/bag-handle.js",
+      "require": "./dist/bag-handle.js"
+    },
+    "./bag-remove": {
+      "types": "./dist/bag-remove.d.ts",
+      "import": "./dist/bag-remove.js",
+      "require": "./dist/bag-remove.js"
+    },
+    "./balloon": {
+      "types": "./dist/balloon.d.ts",
+      "import": "./dist/balloon.js",
+      "require": "./dist/balloon.js"
+    },
+    "./ban": {
+      "types": "./dist/ban.d.ts",
+      "import": "./dist/ban.js",
+      "require": "./dist/ban.js"
+    },
+    "./bandage": {
+      "types": "./dist/bandage.d.ts",
+      "import": "./dist/bandage.js",
+      "require": "./dist/bandage.js"
+    },
+    "./bar-chart": {
+      "types": "./dist/bar-chart.d.ts",
+      "import": "./dist/bar-chart.js",
+      "require": "./dist/bar-chart.js"
+    },
+    "./barbell": {
+      "types": "./dist/barbell.d.ts",
+      "import": "./dist/barbell.js",
+      "require": "./dist/barbell.js"
+    },
+    "./barcode": {
+      "types": "./dist/barcode.d.ts",
+      "import": "./dist/barcode.js",
+      "require": "./dist/barcode.js"
+    },
+    "./barrel": {
+      "types": "./dist/barrel.d.ts",
+      "import": "./dist/barrel.js",
+      "require": "./dist/barrel.js"
+    },
+    "./baseball": {
+      "types": "./dist/baseball.d.ts",
+      "import": "./dist/baseball.js",
+      "require": "./dist/baseball.js"
+    },
+    "./basket": {
+      "types": "./dist/basket.d.ts",
+      "import": "./dist/basket.js",
+      "require": "./dist/basket.js"
+    },
+    "./basketball": {
+      "types": "./dist/basketball.d.ts",
+      "import": "./dist/basketball.js",
+      "require": "./dist/basketball.js"
+    },
+    "./battery-charging": {
+      "types": "./dist/battery-charging.d.ts",
+      "import": "./dist/battery-charging.js",
+      "require": "./dist/battery-charging.js"
+    },
+    "./battery-dead": {
+      "types": "./dist/battery-dead.d.ts",
+      "import": "./dist/battery-dead.js",
+      "require": "./dist/battery-dead.js"
+    },
+    "./battery-full": {
+      "types": "./dist/battery-full.d.ts",
+      "import": "./dist/battery-full.js",
+      "require": "./dist/battery-full.js"
+    },
+    "./battery-half": {
+      "types": "./dist/battery-half.d.ts",
+      "import": "./dist/battery-half.js",
+      "require": "./dist/battery-half.js"
+    },
+    "./beaker": {
+      "types": "./dist/beaker.d.ts",
+      "import": "./dist/beaker.js",
+      "require": "./dist/beaker.js"
+    },
+    "./bed": {
+      "types": "./dist/bed.d.ts",
+      "import": "./dist/bed.js",
+      "require": "./dist/bed.js"
+    },
+    "./beer": {
+      "types": "./dist/beer.d.ts",
+      "import": "./dist/beer.js",
+      "require": "./dist/beer.js"
+    },
+    "./bicycle": {
+      "types": "./dist/bicycle.d.ts",
+      "import": "./dist/bicycle.js",
+      "require": "./dist/bicycle.js"
+    },
+    "./binoculars": {
+      "types": "./dist/binoculars.d.ts",
+      "import": "./dist/binoculars.js",
+      "require": "./dist/binoculars.js"
+    },
+    "./bluetooth": {
+      "types": "./dist/bluetooth.d.ts",
+      "import": "./dist/bluetooth.js",
+      "require": "./dist/bluetooth.js"
+    },
+    "./boat": {
+      "types": "./dist/boat.d.ts",
+      "import": "./dist/boat.js",
+      "require": "./dist/boat.js"
+    },
+    "./body": {
+      "types": "./dist/body.d.ts",
+      "import": "./dist/body.js",
+      "require": "./dist/body.js"
+    },
+    "./bonfire": {
+      "types": "./dist/bonfire.d.ts",
+      "import": "./dist/bonfire.js",
+      "require": "./dist/bonfire.js"
+    },
+    "./book": {
+      "types": "./dist/book.d.ts",
+      "import": "./dist/book.js",
+      "require": "./dist/book.js"
+    },
+    "./bookmark": {
+      "types": "./dist/bookmark.d.ts",
+      "import": "./dist/bookmark.js",
+      "require": "./dist/bookmark.js"
+    },
+    "./bookmarks": {
+      "types": "./dist/bookmarks.d.ts",
+      "import": "./dist/bookmarks.js",
+      "require": "./dist/bookmarks.js"
+    },
+    "./bowling-ball": {
+      "types": "./dist/bowling-ball.d.ts",
+      "import": "./dist/bowling-ball.js",
+      "require": "./dist/bowling-ball.js"
+    },
+    "./briefcase": {
+      "types": "./dist/briefcase.d.ts",
+      "import": "./dist/briefcase.js",
+      "require": "./dist/briefcase.js"
+    },
+    "./browsers": {
+      "types": "./dist/browsers.d.ts",
+      "import": "./dist/browsers.js",
+      "require": "./dist/browsers.js"
+    },
+    "./brush": {
+      "types": "./dist/brush.d.ts",
+      "import": "./dist/brush.js",
+      "require": "./dist/brush.js"
+    },
+    "./bug": {
+      "types": "./dist/bug.d.ts",
+      "import": "./dist/bug.js",
+      "require": "./dist/bug.js"
+    },
+    "./build": {
+      "types": "./dist/build.d.ts",
+      "import": "./dist/build.js",
+      "require": "./dist/build.js"
+    },
+    "./bulb": {
+      "types": "./dist/bulb.d.ts",
+      "import": "./dist/bulb.js",
+      "require": "./dist/bulb.js"
+    },
+    "./bus": {
+      "types": "./dist/bus.d.ts",
+      "import": "./dist/bus.js",
+      "require": "./dist/bus.js"
+    },
+    "./business": {
+      "types": "./dist/business.d.ts",
+      "import": "./dist/business.js",
+      "require": "./dist/business.js"
+    },
+    "./cafe": {
+      "types": "./dist/cafe.d.ts",
+      "import": "./dist/cafe.js",
+      "require": "./dist/cafe.js"
+    },
+    "./calculator": {
+      "types": "./dist/calculator.d.ts",
+      "import": "./dist/calculator.js",
+      "require": "./dist/calculator.js"
+    },
+    "./calendar": {
+      "types": "./dist/calendar.d.ts",
+      "import": "./dist/calendar.js",
+      "require": "./dist/calendar.js"
+    },
+    "./calendar-clear": {
+      "types": "./dist/calendar-clear.d.ts",
+      "import": "./dist/calendar-clear.js",
+      "require": "./dist/calendar-clear.js"
+    },
+    "./calendar-number": {
+      "types": "./dist/calendar-number.d.ts",
+      "import": "./dist/calendar-number.js",
+      "require": "./dist/calendar-number.js"
+    },
+    "./call": {
+      "types": "./dist/call.d.ts",
+      "import": "./dist/call.js",
+      "require": "./dist/call.js"
+    },
+    "./camera": {
+      "types": "./dist/camera.d.ts",
+      "import": "./dist/camera.js",
+      "require": "./dist/camera.js"
+    },
+    "./camera-reverse": {
+      "types": "./dist/camera-reverse.d.ts",
+      "import": "./dist/camera-reverse.js",
+      "require": "./dist/camera-reverse.js"
+    },
+    "./car": {
+      "types": "./dist/car.d.ts",
+      "import": "./dist/car.js",
+      "require": "./dist/car.js"
+    },
+    "./car-sport": {
+      "types": "./dist/car-sport.d.ts",
+      "import": "./dist/car-sport.js",
+      "require": "./dist/car-sport.js"
+    },
+    "./card": {
+      "types": "./dist/card.d.ts",
+      "import": "./dist/card.js",
+      "require": "./dist/card.js"
+    },
+    "./caret-back": {
+      "types": "./dist/caret-back.d.ts",
+      "import": "./dist/caret-back.js",
+      "require": "./dist/caret-back.js"
+    },
+    "./caret-back-circle": {
+      "types": "./dist/caret-back-circle.d.ts",
+      "import": "./dist/caret-back-circle.js",
+      "require": "./dist/caret-back-circle.js"
+    },
+    "./caret-down": {
+      "types": "./dist/caret-down.d.ts",
+      "import": "./dist/caret-down.js",
+      "require": "./dist/caret-down.js"
+    },
+    "./caret-down-circle": {
+      "types": "./dist/caret-down-circle.d.ts",
+      "import": "./dist/caret-down-circle.js",
+      "require": "./dist/caret-down-circle.js"
+    },
+    "./caret-forward": {
+      "types": "./dist/caret-forward.d.ts",
+      "import": "./dist/caret-forward.js",
+      "require": "./dist/caret-forward.js"
+    },
+    "./caret-forward-circle": {
+      "types": "./dist/caret-forward-circle.d.ts",
+      "import": "./dist/caret-forward-circle.js",
+      "require": "./dist/caret-forward-circle.js"
+    },
+    "./caret-up": {
+      "types": "./dist/caret-up.d.ts",
+      "import": "./dist/caret-up.js",
+      "require": "./dist/caret-up.js"
+    },
+    "./caret-up-circle": {
+      "types": "./dist/caret-up-circle.d.ts",
+      "import": "./dist/caret-up-circle.js",
+      "require": "./dist/caret-up-circle.js"
+    },
+    "./cart": {
+      "types": "./dist/cart.d.ts",
+      "import": "./dist/cart.js",
+      "require": "./dist/cart.js"
+    },
+    "./cash": {
+      "types": "./dist/cash.d.ts",
+      "import": "./dist/cash.js",
+      "require": "./dist/cash.js"
+    },
+    "./cellular": {
+      "types": "./dist/cellular.d.ts",
+      "import": "./dist/cellular.js",
+      "require": "./dist/cellular.js"
+    },
+    "./chatbox": {
+      "types": "./dist/chatbox.d.ts",
+      "import": "./dist/chatbox.js",
+      "require": "./dist/chatbox.js"
+    },
+    "./chatbox-ellipses": {
+      "types": "./dist/chatbox-ellipses.d.ts",
+      "import": "./dist/chatbox-ellipses.js",
+      "require": "./dist/chatbox-ellipses.js"
+    },
+    "./chatbubble": {
+      "types": "./dist/chatbubble.d.ts",
+      "import": "./dist/chatbubble.js",
+      "require": "./dist/chatbubble.js"
+    },
+    "./chatbubble-ellipses": {
+      "types": "./dist/chatbubble-ellipses.d.ts",
+      "import": "./dist/chatbubble-ellipses.js",
+      "require": "./dist/chatbubble-ellipses.js"
+    },
+    "./chatbubbles": {
+      "types": "./dist/chatbubbles.d.ts",
+      "import": "./dist/chatbubbles.js",
+      "require": "./dist/chatbubbles.js"
+    },
+    "./checkbox": {
+      "types": "./dist/checkbox.d.ts",
+      "import": "./dist/checkbox.js",
+      "require": "./dist/checkbox.js"
+    },
+    "./checkmark": {
+      "types": "./dist/checkmark.d.ts",
+      "import": "./dist/checkmark.js",
+      "require": "./dist/checkmark.js"
+    },
+    "./checkmark-circle": {
+      "types": "./dist/checkmark-circle.d.ts",
+      "import": "./dist/checkmark-circle.js",
+      "require": "./dist/checkmark-circle.js"
+    },
+    "./checkmark-done": {
+      "types": "./dist/checkmark-done.d.ts",
+      "import": "./dist/checkmark-done.js",
+      "require": "./dist/checkmark-done.js"
+    },
+    "./checkmark-done-circle": {
+      "types": "./dist/checkmark-done-circle.d.ts",
+      "import": "./dist/checkmark-done-circle.js",
+      "require": "./dist/checkmark-done-circle.js"
+    },
+    "./chevron-back": {
+      "types": "./dist/chevron-back.d.ts",
+      "import": "./dist/chevron-back.js",
+      "require": "./dist/chevron-back.js"
+    },
+    "./chevron-back-circle": {
+      "types": "./dist/chevron-back-circle.d.ts",
+      "import": "./dist/chevron-back-circle.js",
+      "require": "./dist/chevron-back-circle.js"
+    },
+    "./chevron-collapse": {
+      "types": "./dist/chevron-collapse.d.ts",
+      "import": "./dist/chevron-collapse.js",
+      "require": "./dist/chevron-collapse.js"
+    },
+    "./chevron-down": {
+      "types": "./dist/chevron-down.d.ts",
+      "import": "./dist/chevron-down.js",
+      "require": "./dist/chevron-down.js"
+    },
+    "./chevron-down-circle": {
+      "types": "./dist/chevron-down-circle.d.ts",
+      "import": "./dist/chevron-down-circle.js",
+      "require": "./dist/chevron-down-circle.js"
+    },
+    "./chevron-expand": {
+      "types": "./dist/chevron-expand.d.ts",
+      "import": "./dist/chevron-expand.js",
+      "require": "./dist/chevron-expand.js"
+    },
+    "./chevron-forward": {
+      "types": "./dist/chevron-forward.d.ts",
+      "import": "./dist/chevron-forward.js",
+      "require": "./dist/chevron-forward.js"
+    },
+    "./chevron-forward-circle": {
+      "types": "./dist/chevron-forward-circle.d.ts",
+      "import": "./dist/chevron-forward-circle.js",
+      "require": "./dist/chevron-forward-circle.js"
+    },
+    "./chevron-left": {
+      "types": "./dist/chevron-left.d.ts",
+      "import": "./dist/chevron-left.js",
+      "require": "./dist/chevron-left.js"
+    },
+    "./chevron-right": {
+      "types": "./dist/chevron-right.d.ts",
+      "import": "./dist/chevron-right.js",
+      "require": "./dist/chevron-right.js"
+    },
+    "./chevron-up": {
+      "types": "./dist/chevron-up.d.ts",
+      "import": "./dist/chevron-up.js",
+      "require": "./dist/chevron-up.js"
+    },
+    "./chevron-up-circle": {
+      "types": "./dist/chevron-up-circle.d.ts",
+      "import": "./dist/chevron-up-circle.js",
+      "require": "./dist/chevron-up-circle.js"
+    },
+    "./clipboard": {
+      "types": "./dist/clipboard.d.ts",
+      "import": "./dist/clipboard.js",
+      "require": "./dist/clipboard.js"
+    },
+    "./close": {
+      "types": "./dist/close.d.ts",
+      "import": "./dist/close.js",
+      "require": "./dist/close.js"
+    },
+    "./close-circle": {
+      "types": "./dist/close-circle.d.ts",
+      "import": "./dist/close-circle.js",
+      "require": "./dist/close-circle.js"
+    },
+    "./cloud": {
+      "types": "./dist/cloud.d.ts",
+      "import": "./dist/cloud.js",
+      "require": "./dist/cloud.js"
+    },
+    "./cloud-circle": {
+      "types": "./dist/cloud-circle.d.ts",
+      "import": "./dist/cloud-circle.js",
+      "require": "./dist/cloud-circle.js"
+    },
+    "./cloud-done": {
+      "types": "./dist/cloud-done.d.ts",
+      "import": "./dist/cloud-done.js",
+      "require": "./dist/cloud-done.js"
+    },
+    "./cloud-download": {
+      "types": "./dist/cloud-download.d.ts",
+      "import": "./dist/cloud-download.js",
+      "require": "./dist/cloud-download.js"
+    },
+    "./cloud-offline": {
+      "types": "./dist/cloud-offline.d.ts",
+      "import": "./dist/cloud-offline.js",
+      "require": "./dist/cloud-offline.js"
+    },
+    "./cloud-upload": {
+      "types": "./dist/cloud-upload.d.ts",
+      "import": "./dist/cloud-upload.js",
+      "require": "./dist/cloud-upload.js"
+    },
+    "./cloudy": {
+      "types": "./dist/cloudy.d.ts",
+      "import": "./dist/cloudy.js",
+      "require": "./dist/cloudy.js"
+    },
+    "./cloudy-night": {
+      "types": "./dist/cloudy-night.d.ts",
+      "import": "./dist/cloudy-night.js",
+      "require": "./dist/cloudy-night.js"
+    },
+    "./code": {
+      "types": "./dist/code.d.ts",
+      "import": "./dist/code.js",
+      "require": "./dist/code.js"
+    },
+    "./code-download": {
+      "types": "./dist/code-download.d.ts",
+      "import": "./dist/code-download.js",
+      "require": "./dist/code-download.js"
+    },
+    "./code-slash": {
+      "types": "./dist/code-slash.d.ts",
+      "import": "./dist/code-slash.js",
+      "require": "./dist/code-slash.js"
+    },
+    "./code-working": {
+      "types": "./dist/code-working.d.ts",
+      "import": "./dist/code-working.js",
+      "require": "./dist/code-working.js"
+    },
+    "./cog": {
+      "types": "./dist/cog.d.ts",
+      "import": "./dist/cog.js",
+      "require": "./dist/cog.js"
+    },
+    "./color-fill": {
+      "types": "./dist/color-fill.d.ts",
+      "import": "./dist/color-fill.js",
+      "require": "./dist/color-fill.js"
+    },
+    "./color-filter": {
+      "types": "./dist/color-filter.d.ts",
+      "import": "./dist/color-filter.js",
+      "require": "./dist/color-filter.js"
+    },
+    "./color-palette": {
+      "types": "./dist/color-palette.d.ts",
+      "import": "./dist/color-palette.js",
+      "require": "./dist/color-palette.js"
+    },
+    "./color-wand": {
+      "types": "./dist/color-wand.d.ts",
+      "import": "./dist/color-wand.js",
+      "require": "./dist/color-wand.js"
+    },
+    "./compass": {
+      "types": "./dist/compass.d.ts",
+      "import": "./dist/compass.js",
+      "require": "./dist/compass.js"
+    },
+    "./construct": {
+      "types": "./dist/construct.d.ts",
+      "import": "./dist/construct.js",
+      "require": "./dist/construct.js"
+    },
+    "./contract": {
+      "types": "./dist/contract.d.ts",
+      "import": "./dist/contract.js",
+      "require": "./dist/contract.js"
+    },
+    "./contrast": {
+      "types": "./dist/contrast.d.ts",
+      "import": "./dist/contrast.js",
+      "require": "./dist/contrast.js"
+    },
+    "./copy": {
+      "types": "./dist/copy.d.ts",
+      "import": "./dist/copy.js",
+      "require": "./dist/copy.js"
+    },
+    "./create": {
+      "types": "./dist/create.d.ts",
+      "import": "./dist/create.js",
+      "require": "./dist/create.js"
+    },
+    "./crop": {
+      "types": "./dist/crop.d.ts",
+      "import": "./dist/crop.js",
+      "require": "./dist/crop.js"
+    },
+    "./cube": {
+      "types": "./dist/cube.d.ts",
+      "import": "./dist/cube.js",
+      "require": "./dist/cube.js"
+    },
+    "./cut": {
+      "types": "./dist/cut.d.ts",
+      "import": "./dist/cut.js",
+      "require": "./dist/cut.js"
+    },
+    "./desktop": {
+      "types": "./dist/desktop.d.ts",
+      "import": "./dist/desktop.js",
+      "require": "./dist/desktop.js"
+    },
+    "./diamond": {
+      "types": "./dist/diamond.d.ts",
+      "import": "./dist/diamond.js",
+      "require": "./dist/diamond.js"
+    },
+    "./dice": {
+      "types": "./dist/dice.d.ts",
+      "import": "./dist/dice.js",
+      "require": "./dist/dice.js"
+    },
+    "./disc": {
+      "types": "./dist/disc.d.ts",
+      "import": "./dist/disc.js",
+      "require": "./dist/disc.js"
+    },
+    "./document": {
+      "types": "./dist/document.d.ts",
+      "import": "./dist/document.js",
+      "require": "./dist/document.js"
+    },
+    "./document-attach": {
+      "types": "./dist/document-attach.d.ts",
+      "import": "./dist/document-attach.js",
+      "require": "./dist/document-attach.js"
+    },
+    "./document-lock": {
+      "types": "./dist/document-lock.d.ts",
+      "import": "./dist/document-lock.js",
+      "require": "./dist/document-lock.js"
+    },
+    "./document-text": {
+      "types": "./dist/document-text.d.ts",
+      "import": "./dist/document-text.js",
+      "require": "./dist/document-text.js"
+    },
+    "./documents": {
+      "types": "./dist/documents.d.ts",
+      "import": "./dist/documents.js",
+      "require": "./dist/documents.js"
+    },
+    "./download": {
+      "types": "./dist/download.d.ts",
+      "import": "./dist/download.js",
+      "require": "./dist/download.js"
+    },
+    "./duplicate": {
+      "types": "./dist/duplicate.d.ts",
+      "import": "./dist/duplicate.js",
+      "require": "./dist/duplicate.js"
+    },
+    "./ear": {
+      "types": "./dist/ear.d.ts",
+      "import": "./dist/ear.js",
+      "require": "./dist/ear.js"
+    },
+    "./earth": {
+      "types": "./dist/earth.d.ts",
+      "import": "./dist/earth.js",
+      "require": "./dist/earth.js"
+    },
+    "./easel": {
+      "types": "./dist/easel.d.ts",
+      "import": "./dist/easel.js",
+      "require": "./dist/easel.js"
+    },
+    "./egg": {
+      "types": "./dist/egg.d.ts",
+      "import": "./dist/egg.js",
+      "require": "./dist/egg.js"
+    },
+    "./ellipse": {
+      "types": "./dist/ellipse.d.ts",
+      "import": "./dist/ellipse.js",
+      "require": "./dist/ellipse.js"
+    },
+    "./ellipsis-horizontal": {
+      "types": "./dist/ellipsis-horizontal.d.ts",
+      "import": "./dist/ellipsis-horizontal.js",
+      "require": "./dist/ellipsis-horizontal.js"
+    },
+    "./ellipsis-horizontal-circle": {
+      "types": "./dist/ellipsis-horizontal-circle.d.ts",
+      "import": "./dist/ellipsis-horizontal-circle.js",
+      "require": "./dist/ellipsis-horizontal-circle.js"
+    },
+    "./ellipsis-vertical": {
+      "types": "./dist/ellipsis-vertical.d.ts",
+      "import": "./dist/ellipsis-vertical.js",
+      "require": "./dist/ellipsis-vertical.js"
+    },
+    "./ellipsis-vertical-circle": {
+      "types": "./dist/ellipsis-vertical-circle.d.ts",
+      "import": "./dist/ellipsis-vertical-circle.js",
+      "require": "./dist/ellipsis-vertical-circle.js"
+    },
+    "./enter": {
+      "types": "./dist/enter.d.ts",
+      "import": "./dist/enter.js",
+      "require": "./dist/enter.js"
+    },
+    "./exit": {
+      "types": "./dist/exit.d.ts",
+      "import": "./dist/exit.js",
+      "require": "./dist/exit.js"
+    },
+    "./expand": {
+      "types": "./dist/expand.d.ts",
+      "import": "./dist/expand.js",
+      "require": "./dist/expand.js"
+    },
+    "./extension-puzzle": {
+      "types": "./dist/extension-puzzle.d.ts",
+      "import": "./dist/extension-puzzle.js",
+      "require": "./dist/extension-puzzle.js"
+    },
+    "./eye": {
+      "types": "./dist/eye.d.ts",
+      "import": "./dist/eye.js",
+      "require": "./dist/eye.js"
+    },
+    "./eye-off": {
+      "types": "./dist/eye-off.d.ts",
+      "import": "./dist/eye-off.js",
+      "require": "./dist/eye-off.js"
+    },
+    "./eyedrop": {
+      "types": "./dist/eyedrop.d.ts",
+      "import": "./dist/eyedrop.js",
+      "require": "./dist/eyedrop.js"
+    },
+    "./fast-food": {
+      "types": "./dist/fast-food.d.ts",
+      "import": "./dist/fast-food.js",
+      "require": "./dist/fast-food.js"
+    },
+    "./female": {
+      "types": "./dist/female.d.ts",
+      "import": "./dist/female.js",
+      "require": "./dist/female.js"
+    },
+    "./file-tray": {
+      "types": "./dist/file-tray.d.ts",
+      "import": "./dist/file-tray.js",
+      "require": "./dist/file-tray.js"
+    },
+    "./file-tray-full": {
+      "types": "./dist/file-tray-full.d.ts",
+      "import": "./dist/file-tray-full.js",
+      "require": "./dist/file-tray-full.js"
+    },
+    "./file-tray-stacked": {
+      "types": "./dist/file-tray-stacked.d.ts",
+      "import": "./dist/file-tray-stacked.js",
+      "require": "./dist/file-tray-stacked.js"
+    },
+    "./film": {
+      "types": "./dist/film.d.ts",
+      "import": "./dist/film.js",
+      "require": "./dist/film.js"
+    },
+    "./filter": {
+      "types": "./dist/filter.d.ts",
+      "import": "./dist/filter.js",
+      "require": "./dist/filter.js"
+    },
+    "./filter-circle": {
+      "types": "./dist/filter-circle.d.ts",
+      "import": "./dist/filter-circle.js",
+      "require": "./dist/filter-circle.js"
+    },
+    "./finger-print": {
+      "types": "./dist/finger-print.d.ts",
+      "import": "./dist/finger-print.js",
+      "require": "./dist/finger-print.js"
+    },
+    "./fish": {
+      "types": "./dist/fish.d.ts",
+      "import": "./dist/fish.js",
+      "require": "./dist/fish.js"
+    },
+    "./fitness": {
+      "types": "./dist/fitness.d.ts",
+      "import": "./dist/fitness.js",
+      "require": "./dist/fitness.js"
+    },
+    "./flag": {
+      "types": "./dist/flag.d.ts",
+      "import": "./dist/flag.js",
+      "require": "./dist/flag.js"
+    },
+    "./flame": {
+      "types": "./dist/flame.d.ts",
+      "import": "./dist/flame.js",
+      "require": "./dist/flame.js"
+    },
+    "./flash": {
+      "types": "./dist/flash.d.ts",
+      "import": "./dist/flash.js",
+      "require": "./dist/flash.js"
+    },
+    "./flash-off": {
+      "types": "./dist/flash-off.d.ts",
+      "import": "./dist/flash-off.js",
+      "require": "./dist/flash-off.js"
+    },
+    "./flashlight": {
+      "types": "./dist/flashlight.d.ts",
+      "import": "./dist/flashlight.js",
+      "require": "./dist/flashlight.js"
+    },
+    "./flask": {
+      "types": "./dist/flask.d.ts",
+      "import": "./dist/flask.js",
+      "require": "./dist/flask.js"
+    },
+    "./flower": {
+      "types": "./dist/flower.d.ts",
+      "import": "./dist/flower.js",
+      "require": "./dist/flower.js"
+    },
+    "./folder": {
+      "types": "./dist/folder.d.ts",
+      "import": "./dist/folder.js",
+      "require": "./dist/folder.js"
+    },
+    "./folder-open": {
+      "types": "./dist/folder-open.d.ts",
+      "import": "./dist/folder-open.js",
+      "require": "./dist/folder-open.js"
+    },
+    "./football": {
+      "types": "./dist/football.d.ts",
+      "import": "./dist/football.js",
+      "require": "./dist/football.js"
+    },
+    "./footsteps": {
+      "types": "./dist/footsteps.d.ts",
+      "import": "./dist/footsteps.js",
+      "require": "./dist/footsteps.js"
+    },
+    "./funnel": {
+      "types": "./dist/funnel.d.ts",
+      "import": "./dist/funnel.js",
+      "require": "./dist/funnel.js"
+    },
+    "./game-controller": {
+      "types": "./dist/game-controller.d.ts",
+      "import": "./dist/game-controller.js",
+      "require": "./dist/game-controller.js"
+    },
+    "./gift": {
+      "types": "./dist/gift.d.ts",
+      "import": "./dist/gift.js",
+      "require": "./dist/gift.js"
+    },
+    "./git-branch": {
+      "types": "./dist/git-branch.d.ts",
+      "import": "./dist/git-branch.js",
+      "require": "./dist/git-branch.js"
+    },
+    "./git-commit": {
+      "types": "./dist/git-commit.d.ts",
+      "import": "./dist/git-commit.js",
+      "require": "./dist/git-commit.js"
+    },
+    "./git-compare": {
+      "types": "./dist/git-compare.d.ts",
+      "import": "./dist/git-compare.js",
+      "require": "./dist/git-compare.js"
+    },
+    "./git-merge": {
+      "types": "./dist/git-merge.d.ts",
+      "import": "./dist/git-merge.js",
+      "require": "./dist/git-merge.js"
+    },
+    "./git-network": {
+      "types": "./dist/git-network.d.ts",
+      "import": "./dist/git-network.js",
+      "require": "./dist/git-network.js"
+    },
+    "./git-pull-request": {
+      "types": "./dist/git-pull-request.d.ts",
+      "import": "./dist/git-pull-request.js",
+      "require": "./dist/git-pull-request.js"
+    },
+    "./glasses": {
+      "types": "./dist/glasses.d.ts",
+      "import": "./dist/glasses.js",
+      "require": "./dist/glasses.js"
+    },
+    "./globe": {
+      "types": "./dist/globe.d.ts",
+      "import": "./dist/globe.js",
+      "require": "./dist/globe.js"
+    },
+    "./golf": {
+      "types": "./dist/golf.d.ts",
+      "import": "./dist/golf.js",
+      "require": "./dist/golf.js"
+    },
+    "./grid": {
+      "types": "./dist/grid.d.ts",
+      "import": "./dist/grid.js",
+      "require": "./dist/grid.js"
+    },
+    "./hammer": {
+      "types": "./dist/hammer.d.ts",
+      "import": "./dist/hammer.js",
+      "require": "./dist/hammer.js"
+    },
+    "./hand-left": {
+      "types": "./dist/hand-left.d.ts",
+      "import": "./dist/hand-left.js",
+      "require": "./dist/hand-left.js"
+    },
+    "./hand-right": {
+      "types": "./dist/hand-right.d.ts",
+      "import": "./dist/hand-right.js",
+      "require": "./dist/hand-right.js"
+    },
+    "./happy": {
+      "types": "./dist/happy.d.ts",
+      "import": "./dist/happy.js",
+      "require": "./dist/happy.js"
+    },
+    "./hardware-chip": {
+      "types": "./dist/hardware-chip.d.ts",
+      "import": "./dist/hardware-chip.js",
+      "require": "./dist/hardware-chip.js"
+    },
+    "./headset": {
+      "types": "./dist/headset.d.ts",
+      "import": "./dist/headset.js",
+      "require": "./dist/headset.js"
+    },
+    "./heart": {
+      "types": "./dist/heart.d.ts",
+      "import": "./dist/heart.js",
+      "require": "./dist/heart.js"
+    },
+    "./heart-circle": {
+      "types": "./dist/heart-circle.d.ts",
+      "import": "./dist/heart-circle.js",
+      "require": "./dist/heart-circle.js"
+    },
+    "./heart-dislike": {
+      "types": "./dist/heart-dislike.d.ts",
+      "import": "./dist/heart-dislike.js",
+      "require": "./dist/heart-dislike.js"
+    },
+    "./heart-dislike-circle": {
+      "types": "./dist/heart-dislike-circle.d.ts",
+      "import": "./dist/heart-dislike-circle.js",
+      "require": "./dist/heart-dislike-circle.js"
+    },
+    "./heart-half": {
+      "types": "./dist/heart-half.d.ts",
+      "import": "./dist/heart-half.js",
+      "require": "./dist/heart-half.js"
+    },
+    "./help": {
+      "types": "./dist/help.d.ts",
+      "import": "./dist/help.js",
+      "require": "./dist/help.js"
+    },
+    "./help-buoy": {
+      "types": "./dist/help-buoy.d.ts",
+      "import": "./dist/help-buoy.js",
+      "require": "./dist/help-buoy.js"
+    },
+    "./help-circle": {
+      "types": "./dist/help-circle.d.ts",
+      "import": "./dist/help-circle.js",
+      "require": "./dist/help-circle.js"
+    },
+    "./home": {
+      "types": "./dist/home.d.ts",
+      "import": "./dist/home.js",
+      "require": "./dist/home.js"
+    },
+    "./hourglass": {
+      "types": "./dist/hourglass.d.ts",
+      "import": "./dist/hourglass.js",
+      "require": "./dist/hourglass.js"
+    },
+    "./ice-cream": {
+      "types": "./dist/ice-cream.d.ts",
+      "import": "./dist/ice-cream.js",
+      "require": "./dist/ice-cream.js"
+    },
+    "./id-card": {
+      "types": "./dist/id-card.d.ts",
+      "import": "./dist/id-card.js",
+      "require": "./dist/id-card.js"
+    },
+    "./image": {
+      "types": "./dist/image.d.ts",
+      "import": "./dist/image.js",
+      "require": "./dist/image.js"
+    },
+    "./images": {
+      "types": "./dist/images.d.ts",
+      "import": "./dist/images.js",
+      "require": "./dist/images.js"
+    },
+    "./infinite": {
+      "types": "./dist/infinite.d.ts",
+      "import": "./dist/infinite.js",
+      "require": "./dist/infinite.js"
+    },
+    "./information": {
+      "types": "./dist/information.d.ts",
+      "import": "./dist/information.js",
+      "require": "./dist/information.js"
+    },
+    "./information-circle": {
+      "types": "./dist/information-circle.d.ts",
+      "import": "./dist/information-circle.js",
+      "require": "./dist/information-circle.js"
+    },
+    "./invert-mode": {
+      "types": "./dist/invert-mode.d.ts",
+      "import": "./dist/invert-mode.js",
+      "require": "./dist/invert-mode.js"
+    },
+    "./journal": {
+      "types": "./dist/journal.d.ts",
+      "import": "./dist/journal.js",
+      "require": "./dist/journal.js"
+    },
+    "./key": {
+      "types": "./dist/key.d.ts",
+      "import": "./dist/key.js",
+      "require": "./dist/key.js"
+    },
+    "./keypad": {
+      "types": "./dist/keypad.d.ts",
+      "import": "./dist/keypad.js",
+      "require": "./dist/keypad.js"
+    },
+    "./language": {
+      "types": "./dist/language.d.ts",
+      "import": "./dist/language.js",
+      "require": "./dist/language.js"
+    },
+    "./laptop": {
+      "types": "./dist/laptop.d.ts",
+      "import": "./dist/laptop.js",
+      "require": "./dist/laptop.js"
+    },
+    "./layers": {
+      "types": "./dist/layers.d.ts",
+      "import": "./dist/layers.js",
+      "require": "./dist/layers.js"
+    },
+    "./leaf": {
+      "types": "./dist/leaf.d.ts",
+      "import": "./dist/leaf.js",
+      "require": "./dist/leaf.js"
+    },
+    "./library": {
+      "types": "./dist/library.d.ts",
+      "import": "./dist/library.js",
+      "require": "./dist/library.js"
+    },
+    "./link": {
+      "types": "./dist/link.d.ts",
+      "import": "./dist/link.js",
+      "require": "./dist/link.js"
+    },
+    "./list": {
+      "types": "./dist/list.d.ts",
+      "import": "./dist/list.js",
+      "require": "./dist/list.js"
+    },
+    "./list-circle": {
+      "types": "./dist/list-circle.d.ts",
+      "import": "./dist/list-circle.js",
+      "require": "./dist/list-circle.js"
+    },
+    "./locate": {
+      "types": "./dist/locate.d.ts",
+      "import": "./dist/locate.js",
+      "require": "./dist/locate.js"
+    },
+    "./location": {
+      "types": "./dist/location.d.ts",
+      "import": "./dist/location.js",
+      "require": "./dist/location.js"
+    },
+    "./lock-closed": {
+      "types": "./dist/lock-closed.d.ts",
+      "import": "./dist/lock-closed.js",
+      "require": "./dist/lock-closed.js"
+    },
+    "./lock-open": {
+      "types": "./dist/lock-open.d.ts",
+      "import": "./dist/lock-open.js",
+      "require": "./dist/lock-open.js"
+    },
+    "./log-in": {
+      "types": "./dist/log-in.d.ts",
+      "import": "./dist/log-in.js",
+      "require": "./dist/log-in.js"
+    },
+    "./log-out": {
+      "types": "./dist/log-out.d.ts",
+      "import": "./dist/log-out.js",
+      "require": "./dist/log-out.js"
+    },
+    "./logo-alipay": {
+      "types": "./dist/logo-alipay.d.ts",
+      "import": "./dist/logo-alipay.js",
+      "require": "./dist/logo-alipay.js"
+    },
+    "./logo-amazon": {
+      "types": "./dist/logo-amazon.d.ts",
+      "import": "./dist/logo-amazon.js",
+      "require": "./dist/logo-amazon.js"
+    },
+    "./logo-amplify": {
+      "types": "./dist/logo-amplify.d.ts",
+      "import": "./dist/logo-amplify.js",
+      "require": "./dist/logo-amplify.js"
+    },
+    "./logo-android": {
+      "types": "./dist/logo-android.d.ts",
+      "import": "./dist/logo-android.js",
+      "require": "./dist/logo-android.js"
+    },
+    "./logo-angular": {
+      "types": "./dist/logo-angular.d.ts",
+      "import": "./dist/logo-angular.js",
+      "require": "./dist/logo-angular.js"
+    },
+    "./logo-appflow": {
+      "types": "./dist/logo-appflow.d.ts",
+      "import": "./dist/logo-appflow.js",
+      "require": "./dist/logo-appflow.js"
+    },
+    "./logo-apple": {
+      "types": "./dist/logo-apple.d.ts",
+      "import": "./dist/logo-apple.js",
+      "require": "./dist/logo-apple.js"
+    },
+    "./logo-apple-appstore": {
+      "types": "./dist/logo-apple-appstore.d.ts",
+      "import": "./dist/logo-apple-appstore.js",
+      "require": "./dist/logo-apple-appstore.js"
+    },
+    "./logo-apple-ar": {
+      "types": "./dist/logo-apple-ar.d.ts",
+      "import": "./dist/logo-apple-ar.js",
+      "require": "./dist/logo-apple-ar.js"
+    },
+    "./logo-behance": {
+      "types": "./dist/logo-behance.d.ts",
+      "import": "./dist/logo-behance.js",
+      "require": "./dist/logo-behance.js"
+    },
+    "./logo-bitbucket": {
+      "types": "./dist/logo-bitbucket.d.ts",
+      "import": "./dist/logo-bitbucket.js",
+      "require": "./dist/logo-bitbucket.js"
+    },
+    "./logo-bitcoin": {
+      "types": "./dist/logo-bitcoin.d.ts",
+      "import": "./dist/logo-bitcoin.js",
+      "require": "./dist/logo-bitcoin.js"
+    },
+    "./logo-buffer": {
+      "types": "./dist/logo-buffer.d.ts",
+      "import": "./dist/logo-buffer.js",
+      "require": "./dist/logo-buffer.js"
+    },
+    "./logo-capacitor": {
+      "types": "./dist/logo-capacitor.d.ts",
+      "import": "./dist/logo-capacitor.js",
+      "require": "./dist/logo-capacitor.js"
+    },
+    "./logo-chrome": {
+      "types": "./dist/logo-chrome.d.ts",
+      "import": "./dist/logo-chrome.js",
+      "require": "./dist/logo-chrome.js"
+    },
+    "./logo-closed-captioning": {
+      "types": "./dist/logo-closed-captioning.d.ts",
+      "import": "./dist/logo-closed-captioning.js",
+      "require": "./dist/logo-closed-captioning.js"
+    },
+    "./logo-codepen": {
+      "types": "./dist/logo-codepen.d.ts",
+      "import": "./dist/logo-codepen.js",
+      "require": "./dist/logo-codepen.js"
+    },
+    "./logo-css3": {
+      "types": "./dist/logo-css3.d.ts",
+      "import": "./dist/logo-css3.js",
+      "require": "./dist/logo-css3.js"
+    },
+    "./logo-designernews": {
+      "types": "./dist/logo-designernews.d.ts",
+      "import": "./dist/logo-designernews.js",
+      "require": "./dist/logo-designernews.js"
+    },
+    "./logo-deviantart": {
+      "types": "./dist/logo-deviantart.d.ts",
+      "import": "./dist/logo-deviantart.js",
+      "require": "./dist/logo-deviantart.js"
+    },
+    "./logo-discord": {
+      "types": "./dist/logo-discord.d.ts",
+      "import": "./dist/logo-discord.js",
+      "require": "./dist/logo-discord.js"
+    },
+    "./logo-docker": {
+      "types": "./dist/logo-docker.d.ts",
+      "import": "./dist/logo-docker.js",
+      "require": "./dist/logo-docker.js"
+    },
+    "./logo-dribbble": {
+      "types": "./dist/logo-dribbble.d.ts",
+      "import": "./dist/logo-dribbble.js",
+      "require": "./dist/logo-dribbble.js"
+    },
+    "./logo-dropbox": {
+      "types": "./dist/logo-dropbox.d.ts",
+      "import": "./dist/logo-dropbox.js",
+      "require": "./dist/logo-dropbox.js"
+    },
+    "./logo-edge": {
+      "types": "./dist/logo-edge.d.ts",
+      "import": "./dist/logo-edge.js",
+      "require": "./dist/logo-edge.js"
+    },
+    "./logo-electron": {
+      "types": "./dist/logo-electron.d.ts",
+      "import": "./dist/logo-electron.js",
+      "require": "./dist/logo-electron.js"
+    },
+    "./logo-euro": {
+      "types": "./dist/logo-euro.d.ts",
+      "import": "./dist/logo-euro.js",
+      "require": "./dist/logo-euro.js"
+    },
+    "./logo-facebook": {
+      "types": "./dist/logo-facebook.d.ts",
+      "import": "./dist/logo-facebook.js",
+      "require": "./dist/logo-facebook.js"
+    },
+    "./logo-figma": {
+      "types": "./dist/logo-figma.d.ts",
+      "import": "./dist/logo-figma.js",
+      "require": "./dist/logo-figma.js"
+    },
+    "./logo-firebase": {
+      "types": "./dist/logo-firebase.d.ts",
+      "import": "./dist/logo-firebase.js",
+      "require": "./dist/logo-firebase.js"
+    },
+    "./logo-firefox": {
+      "types": "./dist/logo-firefox.d.ts",
+      "import": "./dist/logo-firefox.js",
+      "require": "./dist/logo-firefox.js"
+    },
+    "./logo-flickr": {
+      "types": "./dist/logo-flickr.d.ts",
+      "import": "./dist/logo-flickr.js",
+      "require": "./dist/logo-flickr.js"
+    },
+    "./logo-foursquare": {
+      "types": "./dist/logo-foursquare.d.ts",
+      "import": "./dist/logo-foursquare.js",
+      "require": "./dist/logo-foursquare.js"
+    },
+    "./logo-github": {
+      "types": "./dist/logo-github.d.ts",
+      "import": "./dist/logo-github.js",
+      "require": "./dist/logo-github.js"
+    },
+    "./logo-gitlab": {
+      "types": "./dist/logo-gitlab.d.ts",
+      "import": "./dist/logo-gitlab.js",
+      "require": "./dist/logo-gitlab.js"
+    },
+    "./logo-google": {
+      "types": "./dist/logo-google.d.ts",
+      "import": "./dist/logo-google.js",
+      "require": "./dist/logo-google.js"
+    },
+    "./logo-google-playstore": {
+      "types": "./dist/logo-google-playstore.d.ts",
+      "import": "./dist/logo-google-playstore.js",
+      "require": "./dist/logo-google-playstore.js"
+    },
+    "./logo-hackernews": {
+      "types": "./dist/logo-hackernews.d.ts",
+      "import": "./dist/logo-hackernews.js",
+      "require": "./dist/logo-hackernews.js"
+    },
+    "./logo-html5": {
+      "types": "./dist/logo-html5.d.ts",
+      "import": "./dist/logo-html5.js",
+      "require": "./dist/logo-html5.js"
+    },
+    "./logo-instagram": {
+      "types": "./dist/logo-instagram.d.ts",
+      "import": "./dist/logo-instagram.js",
+      "require": "./dist/logo-instagram.js"
+    },
+    "./logo-ionic": {
+      "types": "./dist/logo-ionic.d.ts",
+      "import": "./dist/logo-ionic.js",
+      "require": "./dist/logo-ionic.js"
+    },
+    "./logo-ionitron": {
+      "types": "./dist/logo-ionitron.d.ts",
+      "import": "./dist/logo-ionitron.js",
+      "require": "./dist/logo-ionitron.js"
+    },
+    "./logo-javascript": {
+      "types": "./dist/logo-javascript.d.ts",
+      "import": "./dist/logo-javascript.js",
+      "require": "./dist/logo-javascript.js"
+    },
+    "./logo-laravel": {
+      "types": "./dist/logo-laravel.d.ts",
+      "import": "./dist/logo-laravel.js",
+      "require": "./dist/logo-laravel.js"
+    },
+    "./logo-linkedin": {
+      "types": "./dist/logo-linkedin.d.ts",
+      "import": "./dist/logo-linkedin.js",
+      "require": "./dist/logo-linkedin.js"
+    },
+    "./logo-markdown": {
+      "types": "./dist/logo-markdown.d.ts",
+      "import": "./dist/logo-markdown.js",
+      "require": "./dist/logo-markdown.js"
+    },
+    "./logo-mastodon": {
+      "types": "./dist/logo-mastodon.d.ts",
+      "import": "./dist/logo-mastodon.js",
+      "require": "./dist/logo-mastodon.js"
+    },
+    "./logo-medium": {
+      "types": "./dist/logo-medium.d.ts",
+      "import": "./dist/logo-medium.js",
+      "require": "./dist/logo-medium.js"
+    },
+    "./logo-microsoft": {
+      "types": "./dist/logo-microsoft.d.ts",
+      "import": "./dist/logo-microsoft.js",
+      "require": "./dist/logo-microsoft.js"
+    },
+    "./logo-no-smoking": {
+      "types": "./dist/logo-no-smoking.d.ts",
+      "import": "./dist/logo-no-smoking.js",
+      "require": "./dist/logo-no-smoking.js"
+    },
+    "./logo-nodejs": {
+      "types": "./dist/logo-nodejs.d.ts",
+      "import": "./dist/logo-nodejs.js",
+      "require": "./dist/logo-nodejs.js"
+    },
+    "./logo-npm": {
+      "types": "./dist/logo-npm.d.ts",
+      "import": "./dist/logo-npm.js",
+      "require": "./dist/logo-npm.js"
+    },
+    "./logo-octocat": {
+      "types": "./dist/logo-octocat.d.ts",
+      "import": "./dist/logo-octocat.js",
+      "require": "./dist/logo-octocat.js"
+    },
+    "./logo-paypal": {
+      "types": "./dist/logo-paypal.d.ts",
+      "import": "./dist/logo-paypal.js",
+      "require": "./dist/logo-paypal.js"
+    },
+    "./logo-pinterest": {
+      "types": "./dist/logo-pinterest.d.ts",
+      "import": "./dist/logo-pinterest.js",
+      "require": "./dist/logo-pinterest.js"
+    },
+    "./logo-playstation": {
+      "types": "./dist/logo-playstation.d.ts",
+      "import": "./dist/logo-playstation.js",
+      "require": "./dist/logo-playstation.js"
+    },
+    "./logo-pwa": {
+      "types": "./dist/logo-pwa.d.ts",
+      "import": "./dist/logo-pwa.js",
+      "require": "./dist/logo-pwa.js"
+    },
+    "./logo-python": {
+      "types": "./dist/logo-python.d.ts",
+      "import": "./dist/logo-python.js",
+      "require": "./dist/logo-python.js"
+    },
+    "./logo-react": {
+      "types": "./dist/logo-react.d.ts",
+      "import": "./dist/logo-react.js",
+      "require": "./dist/logo-react.js"
+    },
+    "./logo-reddit": {
+      "types": "./dist/logo-reddit.d.ts",
+      "import": "./dist/logo-reddit.js",
+      "require": "./dist/logo-reddit.js"
+    },
+    "./logo-rss": {
+      "types": "./dist/logo-rss.d.ts",
+      "import": "./dist/logo-rss.js",
+      "require": "./dist/logo-rss.js"
+    },
+    "./logo-sass": {
+      "types": "./dist/logo-sass.d.ts",
+      "import": "./dist/logo-sass.js",
+      "require": "./dist/logo-sass.js"
+    },
+    "./logo-skype": {
+      "types": "./dist/logo-skype.d.ts",
+      "import": "./dist/logo-skype.js",
+      "require": "./dist/logo-skype.js"
+    },
+    "./logo-slack": {
+      "types": "./dist/logo-slack.d.ts",
+      "import": "./dist/logo-slack.js",
+      "require": "./dist/logo-slack.js"
+    },
+    "./logo-snapchat": {
+      "types": "./dist/logo-snapchat.d.ts",
+      "import": "./dist/logo-snapchat.js",
+      "require": "./dist/logo-snapchat.js"
+    },
+    "./logo-soundcloud": {
+      "types": "./dist/logo-soundcloud.d.ts",
+      "import": "./dist/logo-soundcloud.js",
+      "require": "./dist/logo-soundcloud.js"
+    },
+    "./logo-stackoverflow": {
+      "types": "./dist/logo-stackoverflow.d.ts",
+      "import": "./dist/logo-stackoverflow.js",
+      "require": "./dist/logo-stackoverflow.js"
+    },
+    "./logo-steam": {
+      "types": "./dist/logo-steam.d.ts",
+      "import": "./dist/logo-steam.js",
+      "require": "./dist/logo-steam.js"
+    },
+    "./logo-stencil": {
+      "types": "./dist/logo-stencil.d.ts",
+      "import": "./dist/logo-stencil.js",
+      "require": "./dist/logo-stencil.js"
+    },
+    "./logo-tableau": {
+      "types": "./dist/logo-tableau.d.ts",
+      "import": "./dist/logo-tableau.js",
+      "require": "./dist/logo-tableau.js"
+    },
+    "./logo-threads": {
+      "types": "./dist/logo-threads.d.ts",
+      "import": "./dist/logo-threads.js",
+      "require": "./dist/logo-threads.js"
+    },
+    "./logo-tiktok": {
+      "types": "./dist/logo-tiktok.d.ts",
+      "import": "./dist/logo-tiktok.js",
+      "require": "./dist/logo-tiktok.js"
+    },
+    "./logo-trapeze": {
+      "types": "./dist/logo-trapeze.d.ts",
+      "import": "./dist/logo-trapeze.js",
+      "require": "./dist/logo-trapeze.js"
+    },
+    "./logo-tumblr": {
+      "types": "./dist/logo-tumblr.d.ts",
+      "import": "./dist/logo-tumblr.js",
+      "require": "./dist/logo-tumblr.js"
+    },
+    "./logo-tux": {
+      "types": "./dist/logo-tux.d.ts",
+      "import": "./dist/logo-tux.js",
+      "require": "./dist/logo-tux.js"
+    },
+    "./logo-twitch": {
+      "types": "./dist/logo-twitch.d.ts",
+      "import": "./dist/logo-twitch.js",
+      "require": "./dist/logo-twitch.js"
+    },
+    "./logo-twitter": {
+      "types": "./dist/logo-twitter.d.ts",
+      "import": "./dist/logo-twitter.js",
+      "require": "./dist/logo-twitter.js"
+    },
+    "./logo-usd": {
+      "types": "./dist/logo-usd.d.ts",
+      "import": "./dist/logo-usd.js",
+      "require": "./dist/logo-usd.js"
+    },
+    "./logo-venmo": {
+      "types": "./dist/logo-venmo.d.ts",
+      "import": "./dist/logo-venmo.js",
+      "require": "./dist/logo-venmo.js"
+    },
+    "./logo-vercel": {
+      "types": "./dist/logo-vercel.d.ts",
+      "import": "./dist/logo-vercel.js",
+      "require": "./dist/logo-vercel.js"
+    },
+    "./logo-vimeo": {
+      "types": "./dist/logo-vimeo.d.ts",
+      "import": "./dist/logo-vimeo.js",
+      "require": "./dist/logo-vimeo.js"
+    },
+    "./logo-vk": {
+      "types": "./dist/logo-vk.d.ts",
+      "import": "./dist/logo-vk.js",
+      "require": "./dist/logo-vk.js"
+    },
+    "./logo-vue": {
+      "types": "./dist/logo-vue.d.ts",
+      "import": "./dist/logo-vue.js",
+      "require": "./dist/logo-vue.js"
+    },
+    "./logo-web-component": {
+      "types": "./dist/logo-web-component.d.ts",
+      "import": "./dist/logo-web-component.js",
+      "require": "./dist/logo-web-component.js"
+    },
+    "./logo-wechat": {
+      "types": "./dist/logo-wechat.d.ts",
+      "import": "./dist/logo-wechat.js",
+      "require": "./dist/logo-wechat.js"
+    },
+    "./logo-whatsapp": {
+      "types": "./dist/logo-whatsapp.d.ts",
+      "import": "./dist/logo-whatsapp.js",
+      "require": "./dist/logo-whatsapp.js"
+    },
+    "./logo-windows": {
+      "types": "./dist/logo-windows.d.ts",
+      "import": "./dist/logo-windows.js",
+      "require": "./dist/logo-windows.js"
+    },
+    "./logo-wordpress": {
+      "types": "./dist/logo-wordpress.d.ts",
+      "import": "./dist/logo-wordpress.js",
+      "require": "./dist/logo-wordpress.js"
+    },
+    "./logo-x": {
+      "types": "./dist/logo-x.d.ts",
+      "import": "./dist/logo-x.js",
+      "require": "./dist/logo-x.js"
+    },
+    "./logo-xbox": {
+      "types": "./dist/logo-xbox.d.ts",
+      "import": "./dist/logo-xbox.js",
+      "require": "./dist/logo-xbox.js"
+    },
+    "./logo-xing": {
+      "types": "./dist/logo-xing.d.ts",
+      "import": "./dist/logo-xing.js",
+      "require": "./dist/logo-xing.js"
+    },
+    "./logo-yahoo": {
+      "types": "./dist/logo-yahoo.d.ts",
+      "import": "./dist/logo-yahoo.js",
+      "require": "./dist/logo-yahoo.js"
+    },
+    "./logo-yen": {
+      "types": "./dist/logo-yen.d.ts",
+      "import": "./dist/logo-yen.js",
+      "require": "./dist/logo-yen.js"
+    },
+    "./logo-youtube": {
+      "types": "./dist/logo-youtube.d.ts",
+      "import": "./dist/logo-youtube.js",
+      "require": "./dist/logo-youtube.js"
+    },
+    "./magnet": {
+      "types": "./dist/magnet.d.ts",
+      "import": "./dist/magnet.js",
+      "require": "./dist/magnet.js"
+    },
+    "./mail": {
+      "types": "./dist/mail.d.ts",
+      "import": "./dist/mail.js",
+      "require": "./dist/mail.js"
+    },
+    "./mail-open": {
+      "types": "./dist/mail-open.d.ts",
+      "import": "./dist/mail-open.js",
+      "require": "./dist/mail-open.js"
+    },
+    "./mail-unread": {
+      "types": "./dist/mail-unread.d.ts",
+      "import": "./dist/mail-unread.js",
+      "require": "./dist/mail-unread.js"
+    },
+    "./male": {
+      "types": "./dist/male.d.ts",
+      "import": "./dist/male.js",
+      "require": "./dist/male.js"
+    },
+    "./male-female": {
+      "types": "./dist/male-female.d.ts",
+      "import": "./dist/male-female.js",
+      "require": "./dist/male-female.js"
+    },
+    "./man": {
+      "types": "./dist/man.d.ts",
+      "import": "./dist/man.js",
+      "require": "./dist/man.js"
+    },
+    "./map": {
+      "types": "./dist/map.d.ts",
+      "import": "./dist/map.js",
+      "require": "./dist/map.js"
+    },
+    "./medal": {
+      "types": "./dist/medal.d.ts",
+      "import": "./dist/medal.js",
+      "require": "./dist/medal.js"
+    },
+    "./medical": {
+      "types": "./dist/medical.d.ts",
+      "import": "./dist/medical.js",
+      "require": "./dist/medical.js"
+    },
+    "./medkit": {
+      "types": "./dist/medkit.d.ts",
+      "import": "./dist/medkit.js",
+      "require": "./dist/medkit.js"
+    },
+    "./megaphone": {
+      "types": "./dist/megaphone.d.ts",
+      "import": "./dist/megaphone.js",
+      "require": "./dist/megaphone.js"
+    },
+    "./menu": {
+      "types": "./dist/menu.d.ts",
+      "import": "./dist/menu.js",
+      "require": "./dist/menu.js"
+    },
+    "./mic": {
+      "types": "./dist/mic.d.ts",
+      "import": "./dist/mic.js",
+      "require": "./dist/mic.js"
+    },
+    "./mic-circle": {
+      "types": "./dist/mic-circle.d.ts",
+      "import": "./dist/mic-circle.js",
+      "require": "./dist/mic-circle.js"
+    },
+    "./mic-off": {
+      "types": "./dist/mic-off.d.ts",
+      "import": "./dist/mic-off.js",
+      "require": "./dist/mic-off.js"
+    },
+    "./mic-off-circle": {
+      "types": "./dist/mic-off-circle.d.ts",
+      "import": "./dist/mic-off-circle.js",
+      "require": "./dist/mic-off-circle.js"
+    },
+    "./moon": {
+      "types": "./dist/moon.d.ts",
+      "import": "./dist/moon.js",
+      "require": "./dist/moon.js"
+    },
+    "./move": {
+      "types": "./dist/move.d.ts",
+      "import": "./dist/move.js",
+      "require": "./dist/move.js"
+    },
+    "./musical-note": {
+      "types": "./dist/musical-note.d.ts",
+      "import": "./dist/musical-note.js",
+      "require": "./dist/musical-note.js"
+    },
+    "./musical-notes": {
+      "types": "./dist/musical-notes.d.ts",
+      "import": "./dist/musical-notes.js",
+      "require": "./dist/musical-notes.js"
+    },
+    "./navigate": {
+      "types": "./dist/navigate.d.ts",
+      "import": "./dist/navigate.js",
+      "require": "./dist/navigate.js"
+    },
+    "./navigate-circle": {
+      "types": "./dist/navigate-circle.d.ts",
+      "import": "./dist/navigate-circle.js",
+      "require": "./dist/navigate-circle.js"
+    },
+    "./newspaper": {
+      "types": "./dist/newspaper.d.ts",
+      "import": "./dist/newspaper.js",
+      "require": "./dist/newspaper.js"
+    },
+    "./notifications": {
+      "types": "./dist/notifications.d.ts",
+      "import": "./dist/notifications.js",
+      "require": "./dist/notifications.js"
+    },
+    "./notifications-circle": {
+      "types": "./dist/notifications-circle.d.ts",
+      "import": "./dist/notifications-circle.js",
+      "require": "./dist/notifications-circle.js"
+    },
+    "./notifications-off": {
+      "types": "./dist/notifications-off.d.ts",
+      "import": "./dist/notifications-off.js",
+      "require": "./dist/notifications-off.js"
+    },
+    "./notifications-off-circle": {
+      "types": "./dist/notifications-off-circle.d.ts",
+      "import": "./dist/notifications-off-circle.js",
+      "require": "./dist/notifications-off-circle.js"
+    },
+    "./nuclear": {
+      "types": "./dist/nuclear.d.ts",
+      "import": "./dist/nuclear.js",
+      "require": "./dist/nuclear.js"
+    },
+    "./nutrition": {
+      "types": "./dist/nutrition.d.ts",
+      "import": "./dist/nutrition.js",
+      "require": "./dist/nutrition.js"
+    },
+    "./open": {
+      "types": "./dist/open.d.ts",
+      "import": "./dist/open.js",
+      "require": "./dist/open.js"
+    },
+    "./options": {
+      "types": "./dist/options.d.ts",
+      "import": "./dist/options.js",
+      "require": "./dist/options.js"
+    },
+    "./paper-plane": {
+      "types": "./dist/paper-plane.d.ts",
+      "import": "./dist/paper-plane.js",
+      "require": "./dist/paper-plane.js"
+    },
+    "./partly-sunny": {
+      "types": "./dist/partly-sunny.d.ts",
+      "import": "./dist/partly-sunny.js",
+      "require": "./dist/partly-sunny.js"
+    },
+    "./pause": {
+      "types": "./dist/pause.d.ts",
+      "import": "./dist/pause.js",
+      "require": "./dist/pause.js"
+    },
+    "./pause-circle": {
+      "types": "./dist/pause-circle.d.ts",
+      "import": "./dist/pause-circle.js",
+      "require": "./dist/pause-circle.js"
+    },
+    "./paw": {
+      "types": "./dist/paw.d.ts",
+      "import": "./dist/paw.js",
+      "require": "./dist/paw.js"
+    },
+    "./pencil": {
+      "types": "./dist/pencil.d.ts",
+      "import": "./dist/pencil.js",
+      "require": "./dist/pencil.js"
+    },
+    "./people": {
+      "types": "./dist/people.d.ts",
+      "import": "./dist/people.js",
+      "require": "./dist/people.js"
+    },
+    "./people-circle": {
+      "types": "./dist/people-circle.d.ts",
+      "import": "./dist/people-circle.js",
+      "require": "./dist/people-circle.js"
+    },
+    "./person": {
+      "types": "./dist/person.d.ts",
+      "import": "./dist/person.js",
+      "require": "./dist/person.js"
+    },
+    "./person-add": {
+      "types": "./dist/person-add.d.ts",
+      "import": "./dist/person-add.js",
+      "require": "./dist/person-add.js"
+    },
+    "./person-circle": {
+      "types": "./dist/person-circle.d.ts",
+      "import": "./dist/person-circle.js",
+      "require": "./dist/person-circle.js"
+    },
+    "./person-remove": {
+      "types": "./dist/person-remove.d.ts",
+      "import": "./dist/person-remove.js",
+      "require": "./dist/person-remove.js"
+    },
+    "./phone-landscape": {
+      "types": "./dist/phone-landscape.d.ts",
+      "import": "./dist/phone-landscape.js",
+      "require": "./dist/phone-landscape.js"
+    },
+    "./phone-portrait": {
+      "types": "./dist/phone-portrait.d.ts",
+      "import": "./dist/phone-portrait.js",
+      "require": "./dist/phone-portrait.js"
+    },
+    "./pie-chart": {
+      "types": "./dist/pie-chart.d.ts",
+      "import": "./dist/pie-chart.js",
+      "require": "./dist/pie-chart.js"
+    },
+    "./pin": {
+      "types": "./dist/pin.d.ts",
+      "import": "./dist/pin.js",
+      "require": "./dist/pin.js"
+    },
+    "./pint": {
+      "types": "./dist/pint.d.ts",
+      "import": "./dist/pint.js",
+      "require": "./dist/pint.js"
+    },
+    "./pizza": {
+      "types": "./dist/pizza.d.ts",
+      "import": "./dist/pizza.js",
+      "require": "./dist/pizza.js"
+    },
+    "./planet": {
+      "types": "./dist/planet.d.ts",
+      "import": "./dist/planet.js",
+      "require": "./dist/planet.js"
+    },
+    "./play": {
+      "types": "./dist/play.d.ts",
+      "import": "./dist/play.js",
+      "require": "./dist/play.js"
+    },
+    "./play-back": {
+      "types": "./dist/play-back.d.ts",
+      "import": "./dist/play-back.js",
+      "require": "./dist/play-back.js"
+    },
+    "./play-back-circle": {
+      "types": "./dist/play-back-circle.d.ts",
+      "import": "./dist/play-back-circle.js",
+      "require": "./dist/play-back-circle.js"
+    },
+    "./play-circle": {
+      "types": "./dist/play-circle.d.ts",
+      "import": "./dist/play-circle.js",
+      "require": "./dist/play-circle.js"
+    },
+    "./play-forward": {
+      "types": "./dist/play-forward.d.ts",
+      "import": "./dist/play-forward.js",
+      "require": "./dist/play-forward.js"
+    },
+    "./play-forward-circle": {
+      "types": "./dist/play-forward-circle.d.ts",
+      "import": "./dist/play-forward-circle.js",
+      "require": "./dist/play-forward-circle.js"
+    },
+    "./play-skip-back": {
+      "types": "./dist/play-skip-back.d.ts",
+      "import": "./dist/play-skip-back.js",
+      "require": "./dist/play-skip-back.js"
+    },
+    "./play-skip-back-circle": {
+      "types": "./dist/play-skip-back-circle.d.ts",
+      "import": "./dist/play-skip-back-circle.js",
+      "require": "./dist/play-skip-back-circle.js"
+    },
+    "./play-skip-forward": {
+      "types": "./dist/play-skip-forward.d.ts",
+      "import": "./dist/play-skip-forward.js",
+      "require": "./dist/play-skip-forward.js"
+    },
+    "./play-skip-forward-circle": {
+      "types": "./dist/play-skip-forward-circle.d.ts",
+      "import": "./dist/play-skip-forward-circle.js",
+      "require": "./dist/play-skip-forward-circle.js"
+    },
+    "./podium": {
+      "types": "./dist/podium.d.ts",
+      "import": "./dist/podium.js",
+      "require": "./dist/podium.js"
+    },
+    "./power": {
+      "types": "./dist/power.d.ts",
+      "import": "./dist/power.js",
+      "require": "./dist/power.js"
+    },
+    "./pricetag": {
+      "types": "./dist/pricetag.d.ts",
+      "import": "./dist/pricetag.js",
+      "require": "./dist/pricetag.js"
+    },
+    "./pricetags": {
+      "types": "./dist/pricetags.d.ts",
+      "import": "./dist/pricetags.js",
+      "require": "./dist/pricetags.js"
+    },
+    "./print": {
+      "types": "./dist/print.d.ts",
+      "import": "./dist/print.js",
+      "require": "./dist/print.js"
+    },
+    "./prism": {
+      "types": "./dist/prism.d.ts",
+      "import": "./dist/prism.js",
+      "require": "./dist/prism.js"
+    },
+    "./pulse": {
+      "types": "./dist/pulse.d.ts",
+      "import": "./dist/pulse.js",
+      "require": "./dist/pulse.js"
+    },
+    "./push": {
+      "types": "./dist/push.d.ts",
+      "import": "./dist/push.js",
+      "require": "./dist/push.js"
+    },
+    "./qr-code": {
+      "types": "./dist/qr-code.d.ts",
+      "import": "./dist/qr-code.js",
+      "require": "./dist/qr-code.js"
+    },
+    "./radio": {
+      "types": "./dist/radio.d.ts",
+      "import": "./dist/radio.js",
+      "require": "./dist/radio.js"
+    },
+    "./radio-button-off": {
+      "types": "./dist/radio-button-off.d.ts",
+      "import": "./dist/radio-button-off.js",
+      "require": "./dist/radio-button-off.js"
+    },
+    "./radio-button-on": {
+      "types": "./dist/radio-button-on.d.ts",
+      "import": "./dist/radio-button-on.js",
+      "require": "./dist/radio-button-on.js"
+    },
+    "./rainy": {
+      "types": "./dist/rainy.d.ts",
+      "import": "./dist/rainy.js",
+      "require": "./dist/rainy.js"
+    },
+    "./reader": {
+      "types": "./dist/reader.d.ts",
+      "import": "./dist/reader.js",
+      "require": "./dist/reader.js"
+    },
+    "./receipt": {
+      "types": "./dist/receipt.d.ts",
+      "import": "./dist/receipt.js",
+      "require": "./dist/receipt.js"
+    },
+    "./recording": {
+      "types": "./dist/recording.d.ts",
+      "import": "./dist/recording.js",
+      "require": "./dist/recording.js"
+    },
+    "./redo": {
+      "types": "./dist/redo.d.ts",
+      "import": "./dist/redo.js",
+      "require": "./dist/redo.js"
+    },
+    "./refresh": {
+      "types": "./dist/refresh.d.ts",
+      "import": "./dist/refresh.js",
+      "require": "./dist/refresh.js"
+    },
+    "./refresh-circle": {
+      "types": "./dist/refresh-circle.d.ts",
+      "import": "./dist/refresh-circle.js",
+      "require": "./dist/refresh-circle.js"
+    },
+    "./reload": {
+      "types": "./dist/reload.d.ts",
+      "import": "./dist/reload.js",
+      "require": "./dist/reload.js"
+    },
+    "./reload-circle": {
+      "types": "./dist/reload-circle.d.ts",
+      "import": "./dist/reload-circle.js",
+      "require": "./dist/reload-circle.js"
+    },
+    "./remove": {
+      "types": "./dist/remove.d.ts",
+      "import": "./dist/remove.js",
+      "require": "./dist/remove.js"
+    },
+    "./remove-circle": {
+      "types": "./dist/remove-circle.d.ts",
+      "import": "./dist/remove-circle.js",
+      "require": "./dist/remove-circle.js"
+    },
+    "./reorder-four": {
+      "types": "./dist/reorder-four.d.ts",
+      "import": "./dist/reorder-four.js",
+      "require": "./dist/reorder-four.js"
+    },
+    "./reorder-three": {
+      "types": "./dist/reorder-three.d.ts",
+      "import": "./dist/reorder-three.js",
+      "require": "./dist/reorder-three.js"
+    },
+    "./reorder-two": {
+      "types": "./dist/reorder-two.d.ts",
+      "import": "./dist/reorder-two.js",
+      "require": "./dist/reorder-two.js"
+    },
+    "./repeat": {
+      "types": "./dist/repeat.d.ts",
+      "import": "./dist/repeat.js",
+      "require": "./dist/repeat.js"
+    },
+    "./resize": {
+      "types": "./dist/resize.d.ts",
+      "import": "./dist/resize.js",
+      "require": "./dist/resize.js"
+    },
+    "./restaurant": {
+      "types": "./dist/restaurant.d.ts",
+      "import": "./dist/restaurant.js",
+      "require": "./dist/restaurant.js"
+    },
+    "./return-down-back": {
+      "types": "./dist/return-down-back.d.ts",
+      "import": "./dist/return-down-back.js",
+      "require": "./dist/return-down-back.js"
+    },
+    "./return-down-forward": {
+      "types": "./dist/return-down-forward.d.ts",
+      "import": "./dist/return-down-forward.js",
+      "require": "./dist/return-down-forward.js"
+    },
+    "./return-up-back": {
+      "types": "./dist/return-up-back.d.ts",
+      "import": "./dist/return-up-back.js",
+      "require": "./dist/return-up-back.js"
+    },
+    "./return-up-forward": {
+      "types": "./dist/return-up-forward.d.ts",
+      "import": "./dist/return-up-forward.js",
+      "require": "./dist/return-up-forward.js"
+    },
+    "./ribbon": {
+      "types": "./dist/ribbon.d.ts",
+      "import": "./dist/ribbon.js",
+      "require": "./dist/ribbon.js"
+    },
+    "./rocket": {
+      "types": "./dist/rocket.d.ts",
+      "import": "./dist/rocket.js",
+      "require": "./dist/rocket.js"
+    },
+    "./rose": {
+      "types": "./dist/rose.d.ts",
+      "import": "./dist/rose.js",
+      "require": "./dist/rose.js"
+    },
+    "./sad": {
+      "types": "./dist/sad.d.ts",
+      "import": "./dist/sad.js",
+      "require": "./dist/sad.js"
+    },
+    "./save": {
+      "types": "./dist/save.d.ts",
+      "import": "./dist/save.js",
+      "require": "./dist/save.js"
+    },
+    "./scale": {
+      "types": "./dist/scale.d.ts",
+      "import": "./dist/scale.js",
+      "require": "./dist/scale.js"
+    },
+    "./scan": {
+      "types": "./dist/scan.d.ts",
+      "import": "./dist/scan.js",
+      "require": "./dist/scan.js"
+    },
+    "./scan-circle": {
+      "types": "./dist/scan-circle.d.ts",
+      "import": "./dist/scan-circle.js",
+      "require": "./dist/scan-circle.js"
+    },
+    "./school": {
+      "types": "./dist/school.d.ts",
+      "import": "./dist/school.js",
+      "require": "./dist/school.js"
+    },
+    "./search": {
+      "types": "./dist/search.d.ts",
+      "import": "./dist/search.js",
+      "require": "./dist/search.js"
+    },
+    "./search-circle": {
+      "types": "./dist/search-circle.d.ts",
+      "import": "./dist/search-circle.js",
+      "require": "./dist/search-circle.js"
+    },
+    "./send": {
+      "types": "./dist/send.d.ts",
+      "import": "./dist/send.js",
+      "require": "./dist/send.js"
+    },
+    "./server": {
+      "types": "./dist/server.d.ts",
+      "import": "./dist/server.js",
+      "require": "./dist/server.js"
+    },
+    "./settings": {
+      "types": "./dist/settings.d.ts",
+      "import": "./dist/settings.js",
+      "require": "./dist/settings.js"
+    },
+    "./shapes": {
+      "types": "./dist/shapes.d.ts",
+      "import": "./dist/shapes.js",
+      "require": "./dist/shapes.js"
+    },
+    "./share": {
+      "types": "./dist/share.d.ts",
+      "import": "./dist/share.js",
+      "require": "./dist/share.js"
+    },
+    "./share-social": {
+      "types": "./dist/share-social.d.ts",
+      "import": "./dist/share-social.js",
+      "require": "./dist/share-social.js"
+    },
+    "./shield": {
+      "types": "./dist/shield.d.ts",
+      "import": "./dist/shield.js",
+      "require": "./dist/shield.js"
+    },
+    "./shield-checkmark": {
+      "types": "./dist/shield-checkmark.d.ts",
+      "import": "./dist/shield-checkmark.js",
+      "require": "./dist/shield-checkmark.js"
+    },
+    "./shield-half": {
+      "types": "./dist/shield-half.d.ts",
+      "import": "./dist/shield-half.js",
+      "require": "./dist/shield-half.js"
+    },
+    "./shirt": {
+      "types": "./dist/shirt.d.ts",
+      "import": "./dist/shirt.js",
+      "require": "./dist/shirt.js"
+    },
+    "./shuffle": {
+      "types": "./dist/shuffle.d.ts",
+      "import": "./dist/shuffle.js",
+      "require": "./dist/shuffle.js"
+    },
+    "./skull": {
+      "types": "./dist/skull.d.ts",
+      "import": "./dist/skull.js",
+      "require": "./dist/skull.js"
+    },
+    "./snow": {
+      "types": "./dist/snow.d.ts",
+      "import": "./dist/snow.js",
+      "require": "./dist/snow.js"
+    },
+    "./sparkles": {
+      "types": "./dist/sparkles.d.ts",
+      "import": "./dist/sparkles.js",
+      "require": "./dist/sparkles.js"
+    },
+    "./speedometer": {
+      "types": "./dist/speedometer.d.ts",
+      "import": "./dist/speedometer.js",
+      "require": "./dist/speedometer.js"
+    },
+    "./square": {
+      "types": "./dist/square.d.ts",
+      "import": "./dist/square.js",
+      "require": "./dist/square.js"
+    },
+    "./star": {
+      "types": "./dist/star.d.ts",
+      "import": "./dist/star.js",
+      "require": "./dist/star.js"
+    },
+    "./star-half": {
+      "types": "./dist/star-half.d.ts",
+      "import": "./dist/star-half.js",
+      "require": "./dist/star-half.js"
+    },
+    "./stats-chart": {
+      "types": "./dist/stats-chart.d.ts",
+      "import": "./dist/stats-chart.js",
+      "require": "./dist/stats-chart.js"
+    },
+    "./stop": {
+      "types": "./dist/stop.d.ts",
+      "import": "./dist/stop.js",
+      "require": "./dist/stop.js"
+    },
+    "./stop-circle": {
+      "types": "./dist/stop-circle.d.ts",
+      "import": "./dist/stop-circle.js",
+      "require": "./dist/stop-circle.js"
+    },
+    "./stopwatch": {
+      "types": "./dist/stopwatch.d.ts",
+      "import": "./dist/stopwatch.js",
+      "require": "./dist/stopwatch.js"
+    },
+    "./storefront": {
+      "types": "./dist/storefront.d.ts",
+      "import": "./dist/storefront.js",
+      "require": "./dist/storefront.js"
+    },
+    "./subway": {
+      "types": "./dist/subway.d.ts",
+      "import": "./dist/subway.js",
+      "require": "./dist/subway.js"
+    },
+    "./sunny": {
+      "types": "./dist/sunny.d.ts",
+      "import": "./dist/sunny.js",
+      "require": "./dist/sunny.js"
+    },
+    "./swap-horizontal": {
+      "types": "./dist/swap-horizontal.d.ts",
+      "import": "./dist/swap-horizontal.js",
+      "require": "./dist/swap-horizontal.js"
+    },
+    "./swap-vertical": {
+      "types": "./dist/swap-vertical.d.ts",
+      "import": "./dist/swap-vertical.js",
+      "require": "./dist/swap-vertical.js"
+    },
+    "./sync": {
+      "types": "./dist/sync.d.ts",
+      "import": "./dist/sync.js",
+      "require": "./dist/sync.js"
+    },
+    "./sync-circle": {
+      "types": "./dist/sync-circle.d.ts",
+      "import": "./dist/sync-circle.js",
+      "require": "./dist/sync-circle.js"
+    },
+    "./tablet-landscape": {
+      "types": "./dist/tablet-landscape.d.ts",
+      "import": "./dist/tablet-landscape.js",
+      "require": "./dist/tablet-landscape.js"
+    },
+    "./tablet-portrait": {
+      "types": "./dist/tablet-portrait.d.ts",
+      "import": "./dist/tablet-portrait.js",
+      "require": "./dist/tablet-portrait.js"
+    },
+    "./telescope": {
+      "types": "./dist/telescope.d.ts",
+      "import": "./dist/telescope.js",
+      "require": "./dist/telescope.js"
+    },
+    "./tennisball": {
+      "types": "./dist/tennisball.d.ts",
+      "import": "./dist/tennisball.js",
+      "require": "./dist/tennisball.js"
+    },
+    "./terminal": {
+      "types": "./dist/terminal.d.ts",
+      "import": "./dist/terminal.js",
+      "require": "./dist/terminal.js"
+    },
+    "./text": {
+      "types": "./dist/text.d.ts",
+      "import": "./dist/text.js",
+      "require": "./dist/text.js"
+    },
+    "./thermometer": {
+      "types": "./dist/thermometer.d.ts",
+      "import": "./dist/thermometer.js",
+      "require": "./dist/thermometer.js"
+    },
+    "./thumbs-down": {
+      "types": "./dist/thumbs-down.d.ts",
+      "import": "./dist/thumbs-down.js",
+      "require": "./dist/thumbs-down.js"
+    },
+    "./thumbs-up": {
+      "types": "./dist/thumbs-up.d.ts",
+      "import": "./dist/thumbs-up.js",
+      "require": "./dist/thumbs-up.js"
+    },
+    "./thunderstorm": {
+      "types": "./dist/thunderstorm.d.ts",
+      "import": "./dist/thunderstorm.js",
+      "require": "./dist/thunderstorm.js"
+    },
+    "./ticket": {
+      "types": "./dist/ticket.d.ts",
+      "import": "./dist/ticket.js",
+      "require": "./dist/ticket.js"
+    },
+    "./time": {
+      "types": "./dist/time.d.ts",
+      "import": "./dist/time.js",
+      "require": "./dist/time.js"
+    },
+    "./timer": {
+      "types": "./dist/timer.d.ts",
+      "import": "./dist/timer.js",
+      "require": "./dist/timer.js"
+    },
+    "./today": {
+      "types": "./dist/today.d.ts",
+      "import": "./dist/today.js",
+      "require": "./dist/today.js"
+    },
+    "./toggle": {
+      "types": "./dist/toggle.d.ts",
+      "import": "./dist/toggle.js",
+      "require": "./dist/toggle.js"
+    },
+    "./trail-sign": {
+      "types": "./dist/trail-sign.d.ts",
+      "import": "./dist/trail-sign.js",
+      "require": "./dist/trail-sign.js"
+    },
+    "./train": {
+      "types": "./dist/train.d.ts",
+      "import": "./dist/train.js",
+      "require": "./dist/train.js"
+    },
+    "./transgender": {
+      "types": "./dist/transgender.d.ts",
+      "import": "./dist/transgender.js",
+      "require": "./dist/transgender.js"
+    },
+    "./trash": {
+      "types": "./dist/trash.d.ts",
+      "import": "./dist/trash.js",
+      "require": "./dist/trash.js"
+    },
+    "./trash-bin": {
+      "types": "./dist/trash-bin.d.ts",
+      "import": "./dist/trash-bin.js",
+      "require": "./dist/trash-bin.js"
+    },
+    "./trending-down": {
+      "types": "./dist/trending-down.d.ts",
+      "import": "./dist/trending-down.js",
+      "require": "./dist/trending-down.js"
+    },
+    "./trending-up": {
+      "types": "./dist/trending-up.d.ts",
+      "import": "./dist/trending-up.js",
+      "require": "./dist/trending-up.js"
+    },
+    "./triangle": {
+      "types": "./dist/triangle.d.ts",
+      "import": "./dist/triangle.js",
+      "require": "./dist/triangle.js"
+    },
+    "./trophy": {
+      "types": "./dist/trophy.d.ts",
+      "import": "./dist/trophy.js",
+      "require": "./dist/trophy.js"
+    },
+    "./tv": {
+      "types": "./dist/tv.d.ts",
+      "import": "./dist/tv.js",
+      "require": "./dist/tv.js"
+    },
+    "./umbrella": {
+      "types": "./dist/umbrella.d.ts",
+      "import": "./dist/umbrella.js",
+      "require": "./dist/umbrella.js"
+    },
+    "./unlink": {
+      "types": "./dist/unlink.d.ts",
+      "import": "./dist/unlink.js",
+      "require": "./dist/unlink.js"
+    },
+    "./videocam": {
+      "types": "./dist/videocam.d.ts",
+      "import": "./dist/videocam.js",
+      "require": "./dist/videocam.js"
+    },
+    "./videocam-off": {
+      "types": "./dist/videocam-off.d.ts",
+      "import": "./dist/videocam-off.js",
+      "require": "./dist/videocam-off.js"
+    },
+    "./volume-high": {
+      "types": "./dist/volume-high.d.ts",
+      "import": "./dist/volume-high.js",
+      "require": "./dist/volume-high.js"
+    },
+    "./volume-low": {
+      "types": "./dist/volume-low.d.ts",
+      "import": "./dist/volume-low.js",
+      "require": "./dist/volume-low.js"
+    },
+    "./volume-medium": {
+      "types": "./dist/volume-medium.d.ts",
+      "import": "./dist/volume-medium.js",
+      "require": "./dist/volume-medium.js"
+    },
+    "./volume-mute": {
+      "types": "./dist/volume-mute.d.ts",
+      "import": "./dist/volume-mute.js",
+      "require": "./dist/volume-mute.js"
+    },
+    "./volume-off": {
+      "types": "./dist/volume-off.d.ts",
+      "import": "./dist/volume-off.js",
+      "require": "./dist/volume-off.js"
+    },
+    "./walk": {
+      "types": "./dist/walk.d.ts",
+      "import": "./dist/walk.js",
+      "require": "./dist/walk.js"
+    },
+    "./wallet": {
+      "types": "./dist/wallet.d.ts",
+      "import": "./dist/wallet.js",
+      "require": "./dist/wallet.js"
+    },
+    "./warning": {
+      "types": "./dist/warning.d.ts",
+      "import": "./dist/warning.js",
+      "require": "./dist/warning.js"
+    },
+    "./watch": {
+      "types": "./dist/watch.d.ts",
+      "import": "./dist/watch.js",
+      "require": "./dist/watch.js"
+    },
+    "./water": {
+      "types": "./dist/water.d.ts",
+      "import": "./dist/water.js",
+      "require": "./dist/water.js"
+    },
+    "./wifi": {
+      "types": "./dist/wifi.d.ts",
+      "import": "./dist/wifi.js",
+      "require": "./dist/wifi.js"
+    },
+    "./wine": {
+      "types": "./dist/wine.d.ts",
+      "import": "./dist/wine.js",
+      "require": "./dist/wine.js"
+    },
+    "./woman": {
+      "types": "./dist/woman.d.ts",
+      "import": "./dist/woman.js",
+      "require": "./dist/woman.js"
+    }
+  },
+  "files": [
+    "dist",
+    "package.json"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rygrams/xaui.git",
+    "directory": "packages/icons"
+  },
+  "scripts": {
+    "generate-exports": "node scripts/generate-exports.js",
+    "prebuild": "pnpm generate-exports",
+    "build": "tsup --config tsup.config.ts",
+    "dev": "tsup --config tsup.config.ts --watch",
+    "test": "vitest",
+    "lint": "eslint src/",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@xaui/core": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-native": ">=0.70.0",
+    "react-native-svg": ">=15.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.0",
+    "@types/react-native": "^0.73.0",
+    "react": "19.1.0",
+    "react-native": "^0.81.5",
+    "react-native-svg": "^15.8.0",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

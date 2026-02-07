@@ -2,7 +2,7 @@ import React from 'react'
 import type { LayoutChangeEvent, TextStyle, ViewStyle } from 'react-native'
 import { Pressable, Text, TouchableOpacity, View } from 'react-native'
 import { styles } from './autocomplete.style'
-import { CloseIcon } from '../icon'
+import { CloseIcon } from '@xaui/icons'
 
 type AutocompleteTriggerProps = {
   triggerRef: React.RefObject<View | null>
