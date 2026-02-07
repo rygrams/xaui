@@ -1,5 +1,11 @@
 # @xaui/mobile
 
+## 0.0.15
+
+### Patch Changes
+
+- 339c150: feat(native): implement Chip component with ChipGroup and selectable ChipItem variants
+
 ## 0.0.14
 
 ### Patch Changes
