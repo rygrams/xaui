@@ -57,13 +57,8 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
   return (
     <Portal>
       {showBackdrop && (
-        <Animated.View
-          style={[styles.backdrop, { opacity: backdropOpacity }]}
-        >
-          <Pressable
-            style={styles.backdrop}
-            onPress={handleBackdropPress}
-          />
+        <Animated.View style={[styles.backdrop, { opacity: backdropOpacity }]}>
+          <Pressable style={styles.backdrop} onPress={handleBackdropPress} />
         </Animated.View>
       )}
 
@@ -77,12 +72,7 @@ export const BottomSheet: React.FC<BottomSheetProps> = ({
         ]}
       >
         <View
-          style={[
-            styles.sheet,
-            { height: screenHeight },
-            sheetStyles,
-            style,
-          ]}
+          style={[styles.sheet, { height: screenHeight }, sheetStyles, style]}
           {...panResponder.panHandlers}
         >
           {showHandle && (

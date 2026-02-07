@@ -27,6 +27,7 @@ export default defineConfig(options => {
       'menu/index': 'src/components/menu/index.ts',
       'fab/index': 'src/components/fab/index.ts',
       'fab-menu/index': 'src/components/fab-menu/index.ts',
+      'segment-button/index': 'src/components/segment-button/index.ts',
     },
     format: ['cjs', 'esm'],
     dts: !isWatch,

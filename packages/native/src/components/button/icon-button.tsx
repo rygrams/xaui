@@ -31,7 +31,9 @@ export const IconButton: React.FC<IconButtonProps> = ({
   const variantStyles = useVariantSizesStyles(themeColor, variant, elevation)
   const { textColor } = useTextStyles(themeColor, variant)
 
-  const handlePressIn = (event: Parameters<NonNullable<IconButtonProps['onPressIn']>>[0]) => {
+  const handlePressIn = (
+    event: Parameters<NonNullable<IconButtonProps['onPressIn']>>[0]
+  ) => {
     if (!isDisabled && !isLoading) {
       runPressInAnimation(animatedScale, animatedOpacity)
     }

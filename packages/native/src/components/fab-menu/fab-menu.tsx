@@ -27,24 +27,15 @@ export const FabMenu: React.FC<FabMenuProps> = ({
   showOverlay = true,
   customAppearance,
 }: FabMenuProps) => {
-  const { expanded, toggle, close } = useFabMenuState(
-    controlledExpanded,
-    onToggle
-  )
+  const { expanded, toggle, close } = useFabMenuState(controlledExpanded, onToggle)
   const overlayColor = useFabMenuOverlayColor()
   const [isPortalVisible, setIsPortalVisible] = React.useState(expanded)
 
   const childArray = React.Children.toArray(children)
 
-  const overlayOpacity = React.useRef(
-    new Animated.Value(expanded ? 1 : 0)
-  ).current
-  const rotateValue = React.useRef(
-    new Animated.Value(expanded ? 1 : 0)
-  ).current
-  const itemAnimationsRef = React.useRef(
-    childArray.map(() => new Animated.Value(0))
-  )
+  const overlayOpacity = React.useRef(new Animated.Value(expanded ? 1 : 0)).current
+  const rotateValue = React.useRef(new Animated.Value(expanded ? 1 : 0)).current
+  const itemAnimationsRef = React.useRef(childArray.map(() => new Animated.Value(0)))
   const itemAnimations = itemAnimationsRef.current
 
   const prevExpanded = React.useRef(expanded)
@@ -52,8 +43,7 @@ export const FabMenu: React.FC<FabMenuProps> = ({
   React.useEffect(() => {
     if (itemAnimations.length === childArray.length) return
     itemAnimationsRef.current = childArray.map(
-      (_, index) =>
-        itemAnimations[index] ?? new Animated.Value(expanded ? 1 : 0)
+      (_, index) => itemAnimations[index] ?? new Animated.Value(expanded ? 1 : 0)
     )
   }, [expanded, itemAnimations, childArray])
 

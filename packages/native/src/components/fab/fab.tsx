@@ -39,14 +39,18 @@ export const Fab: React.FC<FabProps> = ({
     isExtended ? extendedSizeStyles.borderRadius : sizeStyles.borderRadius
   )
 
-  const handlePressIn = (event: Parameters<NonNullable<FabProps['onPressIn']>>[0]) => {
+  const handlePressIn = (
+    event: Parameters<NonNullable<FabProps['onPressIn']>>[0]
+  ) => {
     if (!isDisabled && !isLoading) {
       runFabPressInAnimation(animatedScale, animatedOpacity)
     }
     onPressIn?.(event)
   }
 
-  const handlePressOut = (event: Parameters<NonNullable<FabProps['onPressOut']>>[0]) => {
+  const handlePressOut = (
+    event: Parameters<NonNullable<FabProps['onPressOut']>>[0]
+  ) => {
     if (!isDisabled && !isLoading) {
       runFabPressOutAnimation(animatedScale, animatedOpacity)
     }

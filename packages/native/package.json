@@ -102,6 +102,11 @@
       "import": "./dist/view/index.js",
       "require": "./dist/view/index.js"
     },
+    "./segment-button": {
+      "types": "./dist/segment-button/index.d.ts",
+      "import": "./dist/segment-button/index.js",
+      "require": "./dist/segment-button/index.js"
+    },
     "./chip": {
       "types": "./dist/chip/index.d.ts",
       "import": "./dist/chip/index.js",

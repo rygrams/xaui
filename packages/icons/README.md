@@ -78,10 +78,10 @@ Icon names follow kebab-case format:
 
 ### Individual Imports vs Batch Imports
 
-| Import Method | Bundle Size Impact | Load Time | Recommended |
-|---------------|-------------------|-----------|-------------|
-| Individual (`@xaui/icons/chevron-left`) | Minimal (~2-5KB per icon) | Fast | ✅ Yes |
-| Batch (`@xaui/icons`) | Large (~2-3MB all icons) | Slow | ❌ No |
+| Import Method                           | Bundle Size Impact        | Load Time | Recommended |
+| --------------------------------------- | ------------------------- | --------- | ----------- |
+| Individual (`@xaui/icons/chevron-left`) | Minimal (~2-5KB per icon) | Fast      | ✅ Yes      |
+| Batch (`@xaui/icons`)                   | Large (~2-3MB all icons)  | Slow      | ❌ No       |
 
 ### Example Bundle Size Comparison
 
@@ -120,6 +120,7 @@ pnpm generate-exports
 ```
 
 This script:
+
 1. Scans all icon files in `src/icons/`
 2. Generates entry files in `src/entries/`
 3. Updates `package.json` exports

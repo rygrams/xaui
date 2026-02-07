@@ -1,5 +1,8 @@
 import { describe, it, expect } from 'vitest'
-import type { BottomSheetProps, BottomSheetEvents } from '../../../components/bottom-sheet'
+import type {
+  BottomSheetProps,
+  BottomSheetEvents,
+} from '../../../components/bottom-sheet'
 
 describe('BottomSheet Types', () => {
   it('exports BottomSheetProps type with required props', () => {

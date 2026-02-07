@@ -69,7 +69,7 @@ describe('Chip', () => {
     const { container } = render(
       <Chip variant="bordered" themeColor="primary">
         Bordered
-      </Chip>,
+      </Chip>
     )
     const chip = container.querySelector('div[role="text"]') as HTMLElement
     expect(chip.style.borderWidth).toBe('2px')
@@ -79,11 +79,11 @@ describe('Chip', () => {
     const { container } = render(
       <Chip variant="dot" themeColor="primary">
         Dot
-      </Chip>,
+      </Chip>
     )
     const dots = container.querySelectorAll('div')
     const dotElements = Array.from(dots).filter(
-      (el) => (el as HTMLElement).style.borderRadius === '9999px',
+      el => (el as HTMLElement).style.borderRadius === '9999px'
     )
     expect(dotElements.length).toBeGreaterThan(0)
   })
@@ -118,24 +118,20 @@ describe('Chip', () => {
   })
 
   it('should render avatar content', () => {
-    const { getByText } = render(
-      <Chip avatar={<span>AV</span>}>WithAvatar</Chip>,
-    )
+    const { getByText } = render(<Chip avatar={<span>AV</span>}>WithAvatar</Chip>)
     expect(getByText('AV')).toBeTruthy()
     expect(getByText('WithAvatar')).toBeTruthy()
   })
 
   it('should render startContent', () => {
     const { getByText } = render(
-      <Chip startContent={<span>Start</span>}>Content</Chip>,
+      <Chip startContent={<span>Start</span>}>Content</Chip>
     )
     expect(getByText('Start')).toBeTruthy()
   })
 
   it('should render endContent', () => {
-    const { getByText } = render(
-      <Chip endContent={<span>End</span>}>Content</Chip>,
-    )
+    const { getByText } = render(<Chip endContent={<span>End</span>}>Content</Chip>)
     expect(getByText('End')).toBeTruthy()
   })
 
@@ -170,7 +166,7 @@ describe('Chip', () => {
       'dot',
     ]
 
-    variants.forEach((variant) => {
+    variants.forEach(variant => {
       const props: ChipProps = { children: 'Test', variant }
       expect(props.variant).toBe(variant)
     })
@@ -187,7 +183,7 @@ describe('Chip', () => {
       'default',
     ]
 
-    colors.forEach((color) => {
+    colors.forEach(color => {
       const props: ChipProps = { children: 'Test', themeColor: color }
       expect(props.themeColor).toBe(color)
     })
@@ -196,7 +192,7 @@ describe('Chip', () => {
   it('should accept all sizes', () => {
     const sizes: Array<ChipProps['size']> = ['sm', 'md', 'lg']
 
-    sizes.forEach((size) => {
+    sizes.forEach(size => {
       const props: ChipProps = { children: 'Test', size }
       expect(props.size).toBe(size)
     })
@@ -205,7 +201,7 @@ describe('Chip', () => {
   it('should accept all radius options', () => {
     const radii: Array<ChipProps['radius']> = ['none', 'sm', 'md', 'lg', 'full']
 
-    radii.forEach((radius) => {
+    radii.forEach(radius => {
       const props: ChipProps = { children: 'Test', radius }
       expect(props.radius).toBe(radius)
     })

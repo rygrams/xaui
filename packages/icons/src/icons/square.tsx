@@ -143,11 +143,7 @@ export const SquareIcon: React.FC<IconProps> = ({
 
   const renderSquareFilled = () => (
     <>
-      <AnimatedPath
-        fill={resolvedColor}
-        d="M48 48h416v416H48z"
-        {...animatedProps}
-      />
+      <AnimatedPath fill={resolvedColor} d="M48 48h416v416H48z" {...animatedProps} />
     </>
   )
 

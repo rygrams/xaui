@@ -5,10 +5,10 @@ export function useChipGroupSelection(
   selectMode: ChipSelectMode,
   selectedValues?: string[],
   defaultSelectedValues?: string[],
-  onSelectionChange?: (values: string[]) => void,
+  onSelectionChange?: (values: string[]) => void
 ) {
   const [internalValues, setInternalValues] = useState<string[]>(
-    defaultSelectedValues ?? [],
+    defaultSelectedValues ?? []
   )
 
   const isControlled = selectedValues !== undefined
@@ -24,7 +24,7 @@ export function useChipGroupSelection(
         nextValues = isSelected ? [] : [value]
       } else {
         nextValues = isSelected
-          ? currentValues.filter((v) => v !== value)
+          ? currentValues.filter(v => v !== value)
           : [...currentValues, value]
       }
 
@@ -33,11 +33,8 @@ export function useChipGroupSelection(
       }
       onSelectionChange?.(nextValues)
     },
-    [currentValues, isControlled, onSelectionChange, selectMode],
+    [currentValues, isControlled, onSelectionChange, selectMode]
   )
 
-  return useMemo(
-    () => ({ currentValues, onToggle }),
-    [currentValues, onToggle],
-  )
+  return useMemo(() => ({ currentValues, onToggle }), [currentValues, onToggle])
 }

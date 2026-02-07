@@ -3,7 +3,6 @@ import { useXUITheme } from '../../core'
 import { getSafeThemeColor } from '@xaui/core'
 import type { ThemeColor } from '../../types'
 
-
 export function useFabMenuState(
   controlledExpanded?: boolean,
   onToggle?: (expanded: boolean) => void
@@ -55,8 +54,6 @@ export function useFabMenuOverlayColor() {
   const theme = useXUITheme()
 
   return useMemo(() => {
-    return theme.mode === 'dark'
-      ? 'rgba(0, 0, 0, 0.5)'
-      : 'rgba(0, 0, 0, 0.3)'
+    return theme.mode === 'dark' ? 'rgba(0, 0, 0, 0.5)' : 'rgba(0, 0, 0, 0.3)'
   }, [theme.mode])
 }

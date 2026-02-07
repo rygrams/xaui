@@ -23,12 +23,14 @@ export default function AccordionScreen() {
           </AccordionItem>
           <AccordionItem itemKey="theme" title="Theming">
             <Text style={{ color: colors.foreground }}>
-              Components use the provider theme and support custom appearance overrides.
+              Components use the provider theme and support custom appearance
+              overrides.
             </Text>
           </AccordionItem>
           <AccordionItem itemKey="perf" title="Performance">
             <Text style={{ color: colors.foreground }}>
-              Animations can be disabled and most components are optimized for common mobile usage.
+              Animations can be disabled and most components are optimized for common
+              mobile usage.
             </Text>
           </AccordionItem>
         </Accordion>

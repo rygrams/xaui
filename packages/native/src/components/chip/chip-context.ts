@@ -1,10 +1,5 @@
 import { createContext } from 'react'
-import type {
-  ChipRadius,
-  ChipSelectMode,
-  ChipSize,
-  ChipVariant,
-} from './chip.type'
+import type { ChipRadius, ChipSelectMode, ChipSize, ChipVariant } from './chip.type'
 import type { ThemeColor } from '../../types'
 
 export type ChipGroupContextValue = {

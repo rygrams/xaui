@@ -211,11 +211,7 @@ export const PersonRemoveIcon: React.FC<IconProps> = ({
 
   const renderSquareFilled = () => (
     <>
-      <AnimatedPath
-        fill={resolvedColor}
-        d="M16 214h144v36H16z"
-        {...animatedProps}
-      />
+      <AnimatedPath fill={resolvedColor} d="M16 214h144v36H16z" {...animatedProps} />
       <AnimatedCircle
         cx={288}
         cy={144}

@@ -195,11 +195,7 @@ export const AlertCircleIcon: React.FC<IconProps> = ({
 
   const renderSquareFilled = () => (
     <>
-      <AnimatedPath
-        fill="none"
-        d="M240 304h32l6-160h-44z"
-        {...animatedProps}
-      />
+      <AnimatedPath fill="none" d="M240 304h32l6-160h-44z" {...animatedProps} />
       <AnimatedPath
         fill={resolvedColor}
         d="M256 48C141.31 48 48 141.31 48 256s93.31 208 208 208s208-93.31 208-208S370.69 48 256 48m20 319.91h-40v-40h40ZM272 304h-32l-6-160h44Z"

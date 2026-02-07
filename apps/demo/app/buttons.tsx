@@ -18,12 +18,24 @@ export default function ButtonsScreen() {
           Variants
         </Text>
         <View style={{ gap: theme.spacing.md }}>
-          <Button themeColor="primary" variant="solid">Solid</Button>
-          <Button themeColor="primary" variant="outlined">Outlined</Button>
-          <Button themeColor="primary" variant="flat">Flat</Button>
-          <Button themeColor="primary" variant="light">Light</Button>
-          <Button themeColor="primary" variant="solid" elevation={2}>Solid + Elevation</Button>
-          <Button themeColor="primary" variant="faded">Faded</Button>
+          <Button themeColor="primary" variant="solid">
+            Solid
+          </Button>
+          <Button themeColor="primary" variant="outlined">
+            Outlined
+          </Button>
+          <Button themeColor="primary" variant="flat">
+            Flat
+          </Button>
+          <Button themeColor="primary" variant="light">
+            Light
+          </Button>
+          <Button themeColor="primary" variant="solid" elevation={2}>
+            Solid + Elevation
+          </Button>
+          <Button themeColor="primary" variant="faded">
+            Faded
+          </Button>
         </View>
       </View>
 
@@ -32,10 +44,18 @@ export default function ButtonsScreen() {
           Sizes
         </Text>
         <View style={{ gap: theme.spacing.md }}>
-          <Button size="xs" variant="outlined">Extra Small</Button>
-          <Button size="sm" variant="outlined">Small</Button>
-          <Button size="md" variant="outlined">Medium</Button>
-          <Button size="lg" variant="outlined">Large</Button>
+          <Button size="xs" variant="outlined">
+            Extra Small
+          </Button>
+          <Button size="sm" variant="outlined">
+            Small
+          </Button>
+          <Button size="md" variant="outlined">
+            Medium
+          </Button>
+          <Button size="lg" variant="outlined">
+            Large
+          </Button>
         </View>
       </View>
 

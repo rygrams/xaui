@@ -5,7 +5,7 @@ import type { ChipItemProps, ChipVariant } from './chip.type'
 
 function getSelectableVariant(
   baseVariant: ChipVariant,
-  isSelected: boolean,
+  isSelected: boolean
 ): ChipVariant {
   if (isSelected) {
     return baseVariant

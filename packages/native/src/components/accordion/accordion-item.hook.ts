@@ -8,7 +8,7 @@ import {
 } from 'react-native'
 import { useXUITheme } from '../../core'
 import { colors as palette } from '@xaui/core/palette'
-import { addOpacityToColor } from '@xaui/core'
+import { withOpacity } from '@xaui/core'
 import { useAccordionContext } from './accordion-context'
 
 export const useAccordionItemState = (itemKey?: string) => {
@@ -114,7 +114,7 @@ export const useBaseStyles = (variant: string, isDisabled: boolean) => {
 
     if (variant === 'splitted') {
       base.paddingHorizontal = theme.spacing.md
-      base.backgroundColor = addOpacityToColor(theme.colors.default.background, 0.5)
+      base.backgroundColor = withOpacity(theme.colors.default.background, 0.5)
       base.borderRadius = theme.borderRadius.md
       base.marginBottom = theme.spacing.xs
     } else if (variant === 'bordered') {

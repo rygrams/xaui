@@ -1,12 +1,7 @@
 import type { ReactNode, ButtonHTMLAttributes } from 'react'
 import type { ThemeColor } from '../../types'
 
-export type ButtonVariant =
-  | 'solid'
-  | 'outlined'
-  | 'flat'
-  | 'light'
-  | 'faded'
+export type ButtonVariant = 'solid' | 'outlined' | 'flat' | 'light' | 'faded'
 export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg'
 export type ButtonRadius = 'none' | 'sm' | 'md' | 'lg' | 'full'
 export type SpinnerPlacement = 'start' | 'end'

@@ -48,7 +48,7 @@ describe('ChipGroup', () => {
       <ChipGroup>
         <ChipItem value="a">Alpha</ChipItem>
         <ChipItem value="b">Beta</ChipItem>
-      </ChipGroup>,
+      </ChipGroup>
     )
     expect(getByText('Alpha')).toBeTruthy()
     expect(getByText('Beta')).toBeTruthy()
@@ -58,7 +58,7 @@ describe('ChipGroup', () => {
     const { container } = render(
       <ChipGroup size="lg">
         <ChipItem value="a">Alpha</ChipItem>
-      </ChipGroup>,
+      </ChipGroup>
     )
     const chip = container.querySelector('div[role="text"]') as HTMLElement
     expect(chip.style.height).toBe('44px')
@@ -73,7 +73,7 @@ describe('ChipGroup', () => {
     const { container } = render(
       <ChipGroup isDisabled>
         <ChipItem value="a">Alpha</ChipItem>
-      </ChipGroup>,
+      </ChipGroup>
     )
     const chip = container.querySelector('div[role="text"]') as HTMLElement
     expect(chip.style.opacity).toBe('0.5')
@@ -83,7 +83,7 @@ describe('ChipGroup', () => {
     const { container } = render(
       <ChipGroup isSelectable>
         <ChipItem value="a">Alpha</ChipItem>
-      </ChipGroup>,
+      </ChipGroup>
     )
     const button = container.querySelector('button')
     expect(button).toBeTruthy()
@@ -93,7 +93,7 @@ describe('ChipGroup', () => {
     const { container } = render(
       <ChipGroup>
         <ChipItem value="a">Alpha</ChipItem>
-      </ChipGroup>,
+      </ChipGroup>
     )
     const button = container.querySelector('button')
     expect(button).toBeNull()
@@ -135,22 +135,20 @@ describe('ChipGroup', () => {
 describe('useChipGroupSelection', () => {
   it('should initialize with default values', () => {
     const { result } = renderHook(() =>
-      useChipGroupSelection('single', undefined, ['a']),
+      useChipGroupSelection('single', undefined, ['a'])
     )
     expect(result.current.currentValues).toEqual(['a'])
   })
 
   it('should initialize with empty array by default', () => {
-    const { result } = renderHook(() =>
-      useChipGroupSelection('single'),
-    )
+    const { result } = renderHook(() => useChipGroupSelection('single'))
     expect(result.current.currentValues).toEqual([])
   })
 
   it('should toggle single selection', () => {
     const onSelectionChange = vi.fn()
     const { result } = renderHook(() =>
-      useChipGroupSelection('single', undefined, [], onSelectionChange),
+      useChipGroupSelection('single', undefined, [], onSelectionChange)
     )
 
     act(() => {
@@ -162,7 +160,7 @@ describe('useChipGroupSelection', () => {
   it('should deselect in single mode', () => {
     const onSelectionChange = vi.fn()
     const { result } = renderHook(() =>
-      useChipGroupSelection('single', undefined, ['a'], onSelectionChange),
+      useChipGroupSelection('single', undefined, ['a'], onSelectionChange)
     )
 
     act(() => {
@@ -174,7 +172,7 @@ describe('useChipGroupSelection', () => {
   it('should add to selection in multiple mode', () => {
     const onSelectionChange = vi.fn()
     const { result } = renderHook(() =>
-      useChipGroupSelection('multiple', undefined, ['a'], onSelectionChange),
+      useChipGroupSelection('multiple', undefined, ['a'], onSelectionChange)
     )
 
     act(() => {
@@ -186,7 +184,7 @@ describe('useChipGroupSelection', () => {
   it('should remove from selection in multiple mode', () => {
     const onSelectionChange = vi.fn()
     const { result } = renderHook(() =>
-      useChipGroupSelection('multiple', undefined, ['a', 'b'], onSelectionChange),
+      useChipGroupSelection('multiple', undefined, ['a', 'b'], onSelectionChange)
     )
 
     act(() => {
@@ -198,7 +196,7 @@ describe('useChipGroupSelection', () => {
   it('should use controlled values when provided', () => {
     const onSelectionChange = vi.fn()
     const { result } = renderHook(() =>
-      useChipGroupSelection('single', ['b'], undefined, onSelectionChange),
+      useChipGroupSelection('single', ['b'], undefined, onSelectionChange)
     )
 
     expect(result.current.currentValues).toEqual(['b'])
@@ -212,7 +210,7 @@ describe('useChipGroupSelection', () => {
   it('should replace selection in single mode', () => {
     const onSelectionChange = vi.fn()
     const { result } = renderHook(() =>
-      useChipGroupSelection('single', undefined, ['a'], onSelectionChange),
+      useChipGroupSelection('single', undefined, ['a'], onSelectionChange)
     )
 
     act(() => {

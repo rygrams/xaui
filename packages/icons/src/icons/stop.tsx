@@ -159,11 +159,7 @@ export const StopIcon: React.FC<IconProps> = ({
 
   const renderSquareFilled = () => (
     <>
-      <AnimatedPath
-        fill={resolvedColor}
-        d="M80 80h352v352H80z"
-        {...animatedProps}
-      />
+      <AnimatedPath fill={resolvedColor} d="M80 80h352v352H80z" {...animatedProps} />
     </>
   )
 

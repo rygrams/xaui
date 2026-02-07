@@ -1,8 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import type {
-  FabMenuProps,
-  FabMenuItemProps,
-} from '../../../components/fab-menu'
+import type { FabMenuProps, FabMenuItemProps } from '../../../components/fab-menu'
 
 describe('FabMenu Types', () => {
   it('exports FabMenuProps type with required props', () => {
@@ -31,7 +28,7 @@ describe('FabMenu Types', () => {
       'default',
     ]
 
-    colors.forEach((color) => {
+    colors.forEach(color => {
       const props: FabMenuProps = {
         icon: 'icon',
         children: null,
@@ -42,13 +39,9 @@ describe('FabMenu Types', () => {
   })
 
   it('accepts all variants', () => {
-    const variants: Array<FabMenuProps['variant']> = [
-      'solid',
-      'flat',
-      'outlined',
-    ]
+    const variants: Array<FabMenuProps['variant']> = ['solid', 'flat', 'outlined']
 
-    variants.forEach((variant) => {
+    variants.forEach(variant => {
       const props: FabMenuProps = {
         icon: 'icon',
         children: null,
@@ -61,7 +54,7 @@ describe('FabMenu Types', () => {
   it('accepts all sizes', () => {
     const sizes: Array<FabMenuProps['size']> = ['sm', 'md', 'lg']
 
-    sizes.forEach((size) => {
+    sizes.forEach(size => {
       const props: FabMenuProps = {
         icon: 'icon',
         children: null,
@@ -178,7 +171,7 @@ describe('FabMenuItem Types', () => {
       'default',
     ]
 
-    colors.forEach((color) => {
+    colors.forEach(color => {
       const props: FabMenuItemProps = {
         icon: 'icon',
         label: 'Item',
