@@ -14,6 +14,7 @@ import type { FabMenuItemProps } from './fab-menu.type'
 
 export const FabMenu: React.FC<FabMenuProps> = ({
   icon,
+  label,
   expandedIcon,
   children,
   themeColor = 'primary',
@@ -87,6 +88,7 @@ export const FabMenu: React.FC<FabMenuProps> = ({
     >
       <Fab
         icon={currentIcon}
+        label={label}
         themeColor={themeColor}
         variant={variant}
         size={size}

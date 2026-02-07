@@ -62,6 +62,10 @@ export type FabMenuProps = {
    */
   icon: ReactNode
   /**
+   * Optional text label for the toggle FAB (extended FAB).
+   */
+  label?: ReactNode
+  /**
    * The icon to display when the FAB menu is expanded.
    * Defaults to a close/X appearance if not provided.
    */

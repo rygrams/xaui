@@ -71,6 +71,16 @@ describe('FabMenu Types', () => {
     })
   })
 
+  it('accepts label for extended FAB toggle', () => {
+    const props: FabMenuProps = {
+      icon: 'plus-icon',
+      label: 'Create',
+      children: null,
+    }
+
+    expect(props.label).toBe('Create')
+  })
+
   it('accepts expanded icon', () => {
     const props: FabMenuProps = {
       icon: 'plus-icon',
