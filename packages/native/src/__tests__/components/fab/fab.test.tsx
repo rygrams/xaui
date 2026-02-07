@@ -61,6 +61,15 @@ describe('Fab Types', () => {
     })
   })
 
+  it('accepts radius prop', () => {
+    const props: FabProps = {
+      icon: 'icon',
+      radius: 12,
+    }
+
+    expect(props.radius).toBe(12)
+  })
+
   it('accepts label for extended FAB', () => {
     const props: FabProps = {
       icon: 'icon',

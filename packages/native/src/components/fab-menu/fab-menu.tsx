@@ -20,6 +20,7 @@ export const FabMenu: React.FC<FabMenuProps> = ({
   themeColor = 'primary',
   variant = 'solid',
   size = 'md',
+  radius,
   elevation = 0,
   isExpanded: controlledExpanded,
   onToggle,
@@ -92,6 +93,7 @@ export const FabMenu: React.FC<FabMenuProps> = ({
         themeColor={themeColor}
         variant={variant}
         size={size}
+        radius={radius}
         elevation={elevation}
         onPress={toggle}
         customAppearance={{ fab: customAppearance?.fab }}

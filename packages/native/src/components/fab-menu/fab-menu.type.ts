@@ -90,6 +90,11 @@ export type FabMenuProps = {
    */
   size?: FabSize
   /**
+   * Custom border radius for the toggle FAB.
+   * Overrides the default size-based border radius.
+   */
+  radius?: number
+  /**
    * Android elevation level for the toggle FAB from 0 to 4.
    * Does not apply to `outlined` and `light` variants.
    * @default 0

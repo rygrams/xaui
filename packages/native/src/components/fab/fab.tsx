@@ -12,6 +12,7 @@ export const Fab: React.FC<FabProps> = ({
   themeColor = 'primary',
   variant = 'solid',
   size = 'md',
+  radius,
   isDisabled = false,
   isLoading = false,
   elevation = 0,
@@ -46,13 +47,13 @@ export const Fab: React.FC<FabProps> = ({
   const fabDimensionStyles = isExtended
     ? {
         height: extendedSizeStyles.height,
-        borderRadius: extendedSizeStyles.borderRadius,
+        borderRadius: radius ?? extendedSizeStyles.borderRadius,
         paddingHorizontal: extendedSizeStyles.paddingHorizontal,
       }
     : {
         width: sizeStyles.width,
         height: sizeStyles.height,
-        borderRadius: sizeStyles.borderRadius,
+        borderRadius: radius ?? sizeStyles.borderRadius,
       }
 
   return (

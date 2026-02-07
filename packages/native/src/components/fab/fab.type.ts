@@ -44,6 +44,11 @@ export type FabProps = {
    */
   size?: FabSize
   /**
+   * Custom border radius for the FAB.
+   * Overrides the default size-based border radius.
+   */
+  radius?: number
+  /**
    * Whether the FAB is disabled.
    * @default false
    */
