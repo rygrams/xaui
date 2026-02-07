@@ -89,6 +89,12 @@ export const SegmentButton: React.FC<SegmentButtonProps> = ({
 
   const showDivider = variant === 'outlined' || variant === 'faded'
   const childrenArray = React.Children.toArray(children)
+  const getItemKey = (child: React.ReactNode): React.Key | undefined => {
+    if (!React.isValidElement<{ itemKey?: React.Key }>(child)) {
+      return undefined
+    }
+    return child.props.itemKey
+  }
 
   return (
     <SegmentButtonContext.Provider value={contextValue}>
@@ -108,16 +114,12 @@ export const SegmentButton: React.FC<SegmentButtonProps> = ({
       >
         {childrenArray.map((child, index) => {
           const isLast = index === childrenArray.length - 1
-          const childKey =
-            React.isValidElement(child) && child.props.itemKey
-              ? child.props.itemKey
-              : index
+          const childItemKey = getItemKey(child)
+          const childKey = childItemKey ?? index
 
           const isSelected = selectedKeys.includes(String(childKey))
           const nextChildKey =
-            !isLast &&
-            React.isValidElement(childrenArray[index + 1]) &&
-            (childrenArray[index + 1] as React.ReactElement).props.itemKey
+            !isLast ? getItemKey(childrenArray[index + 1]) : undefined
           const nextSelected = nextChildKey
             ? selectedKeys.includes(String(nextChildKey))
             : false
