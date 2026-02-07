@@ -1,5 +1,11 @@
 # @xaui/icons
 
+## 0.0.3
+
+### Patch Changes
+
+- fix(icons): resolve merge conflicts and restore standard pattern in CalendarIcon
+
 ## 0.0.2
 
 ### Patch Changes
