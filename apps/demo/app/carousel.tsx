@@ -71,7 +71,9 @@ function SlideCard({
     <View style={[styles.card, { backgroundColor: item.color }]}>
       <Text style={styles.badge}>#{index + 1}</Text>
       <Text style={[styles.cardTitle, { color: foreground }]}>{item.title}</Text>
-      <Text style={[styles.cardSubtitle, { color: foreground }]}>{item.subtitle}</Text>
+      <Text style={[styles.cardSubtitle, { color: foreground }]}>
+        {item.subtitle}
+      </Text>
     </View>
   )
 }
@@ -95,8 +97,6 @@ export default function CarouselScreen() {
           layout="multi-browse"
           itemWidth={220}
           itemHeight={170}
-          itemSpacing={0}
-          hideSidePreview
           showIndicator
           onActiveItemChange={setActiveSlide}
           renderItem={({ item, index }) => (
@@ -117,8 +117,6 @@ export default function CarouselScreen() {
           data={marketingSlides}
           layout="hero"
           itemHeight={190}
-          itemSpacing={0}
-          hideSidePreview
           showIndicator
           initialIndex={1}
           renderItem={({ item, index }) => (

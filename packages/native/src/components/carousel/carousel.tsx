@@ -3,18 +3,24 @@ import type {
   LayoutChangeEvent,
   NativeSyntheticEvent,
   NativeScrollEvent,
-  ScrollView as ScrollViewType,
 } from 'react-native'
-import { ScrollView, View } from 'react-native'
+import { View } from 'react-native'
+import Animated, {
+  useAnimatedScrollHandler,
+  useSharedValue,
+  useAnimatedRef,
+} from 'react-native-reanimated'
 import { styles } from './carousel.style'
 import { useCarouselLayout } from './carousel.hook'
 import { CarouselItem } from './carousel-item'
+import { AnimatedCarouselItem } from './animated-carousel-item'
 import { useBorderRadiusStyles } from '../../core/theme-hooks'
 import type { CarouselProps } from './carousel.type'
 
-const DEFAULT_ITEM_WIDTH = 186
+const DEFAULT_ITEM_WIDTH = 196
 const DEFAULT_ITEM_HEIGHT = 205
 const DEFAULT_ITEM_SPACING = 8
+const DEFAULT_ITEM_SPACING_MULTI_BROWSE = 4
 const DEFAULT_CONTENT_PADDING = 16
 const DEFAULT_AUTO_PLAY_INTERVAL = 3000
 
@@ -25,7 +31,7 @@ export function Carousel<T>({
   layout = 'multi-browse',
   itemWidth = DEFAULT_ITEM_WIDTH,
   itemHeight = DEFAULT_ITEM_HEIGHT,
-  itemSpacing = DEFAULT_ITEM_SPACING,
+  itemSpacing,
   contentPadding = DEFAULT_CONTENT_PADDING,
   radius = 'lg',
   showIndicator = false,
@@ -37,15 +43,23 @@ export function Carousel<T>({
 }: CarouselProps<T>) {
   const [containerWidth, setContainerWidth] = useState(0)
   const [activeIndex, setActiveIndex] = useState(initialIndex)
-  const scrollRef = useRef<ScrollViewType>(null)
+  const scrollRef = useAnimatedRef<Animated.ScrollView>()
   const onActiveItemChangeRef = useRef(onActiveItemChange)
   onActiveItemChangeRef.current = onActiveItemChange
 
+  const scrollX = useSharedValue(0)
+
   const { borderRadius } = useBorderRadiusStyles(radius)
+
+  const defaultSpacing =
+    layout === 'multi-browse'
+      ? DEFAULT_ITEM_SPACING_MULTI_BROWSE
+      : DEFAULT_ITEM_SPACING
+  const resolvedSpacing = itemSpacing ?? defaultSpacing
 
   const isFullScreen = layout === 'full-screen'
   const effectivePadding = isFullScreen ? 0 : contentPadding
-  const effectiveSpacing = isFullScreen ? 0 : itemSpacing
+  const effectiveSpacing = isFullScreen ? 0 : resolvedSpacing
 
   const { computedItemWidth, snapInterval, pagingEnabled } = useCarouselLayout({
     layout,
@@ -58,6 +72,12 @@ export function Carousel<T>({
   const handleLayout = useCallback((event: LayoutChangeEvent) => {
     setContainerWidth(event.nativeEvent.layout.width)
   }, [])
+
+  const scrollHandler = useAnimatedScrollHandler({
+    onScroll: event => {
+      scrollX.value = event.contentOffset.x
+    },
+  })
 
   const handleMomentumScrollEnd = useCallback(
     (event: NativeSyntheticEvent<NativeScrollEvent>) => {
@@ -91,9 +111,11 @@ export function Carousel<T>({
     return <View style={customAppearance?.container} onLayout={handleLayout} />
   }
 
+  const shouldAnimate = layout === 'multi-browse' || layout === 'hero'
+
   return (
     <View style={customAppearance?.container} onLayout={handleLayout}>
-      <ScrollView
+      <Animated.ScrollView
         ref={scrollRef}
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -104,23 +126,51 @@ export function Carousel<T>({
           styles.scrollContent,
           { paddingHorizontal: effectivePadding },
         ]}
+        onScroll={scrollHandler}
+        scrollEventThrottle={16}
         onMomentumScrollEnd={handleMomentumScrollEnd}
         contentOffset={{ x: initialIndex * snapInterval, y: 0 }}
       >
-        {data.map((item, index) => (
-          <CarouselItem
-            key={keyExtractor ? keyExtractor(item, index) : String(index)}
-            width={computedItemWidth}
-            height={itemHeight}
-            radius={borderRadius}
-            spacing={effectiveSpacing}
-            isLast={index === data.length - 1}
-            customStyle={customAppearance?.item}
-          >
-            {renderItem({ item, index })}
-          </CarouselItem>
-        ))}
-      </ScrollView>
+        {data.map((item, index) => {
+          const content = renderItem({ item, index })
+
+          if (shouldAnimate) {
+            return (
+              <AnimatedCarouselItem
+                key={keyExtractor ? keyExtractor(item, index) : String(index)}
+                index={index}
+                scrollX={scrollX}
+                width={computedItemWidth}
+                height={itemHeight}
+                radius={borderRadius}
+                spacing={effectiveSpacing}
+                isLast={index === data.length - 1}
+                customStyle={customAppearance?.item}
+                layout={layout}
+                snapInterval={snapInterval}
+                containerWidth={containerWidth}
+                contentPadding={effectivePadding}
+              >
+                {content}
+              </AnimatedCarouselItem>
+            )
+          }
+
+          return (
+            <CarouselItem
+              key={keyExtractor ? keyExtractor(item, index) : String(index)}
+              width={computedItemWidth}
+              height={itemHeight}
+              radius={borderRadius}
+              spacing={effectiveSpacing}
+              isLast={index === data.length - 1}
+              customStyle={customAppearance?.item}
+            >
+              {content}
+            </CarouselItem>
+          )
+        })}
+      </Animated.ScrollView>
 
       {showIndicator && data.length > 1 && (
         <View
