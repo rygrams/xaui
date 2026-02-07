@@ -32,6 +32,7 @@ export default function RootLayout() {
             name="datepicker"
             options={{ title: 'DatePicker Examples' }}
           />
+          <Stack.Screen name="chips" options={{ title: 'Chip Examples' }} />
           <Stack.Screen name="menus" options={{ title: 'Menu Examples' }} />
         </Stack>
       </XUIProvider>

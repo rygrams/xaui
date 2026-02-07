@@ -113,10 +113,15 @@ export const Platform = {
 const EasingMock = {
   linear: () => {},
   bezier: (_x1: number, _y1: number, _x2: number, _y2: number) => (_t: number) => _t,
+  out: (fn: (t: number) => number) => fn,
+  in: (fn: (t: number) => number) => fn,
+  cubic: (t: number) => t,
+  quad: (t: number) => t,
 }
 
 const AnimatedMock = {
   View: View,
+  Text: Text,
   Value: class {
     constructor(value: number) {
       this.value = value
@@ -142,14 +147,6 @@ const AnimatedMock = {
     start: (cb?: (result: { finished: boolean }) => void) => {
       cb?.({ finished: true })
     },
-    stop: () => {},
-  }),
-  spring: (_value: never, _config: never) => ({
-    start: () => {},
-    stop: () => {},
-  }),
-  spring: (_value: never, _config: never) => ({
-    start: () => {},
     stop: () => {},
   }),
   loop: (_animation: never) => ({
