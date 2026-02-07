@@ -158,6 +158,36 @@ export default function HomeScreen() {
             Segment Button
           </Button>
         </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/switch')}
+            variant="outlined"
+            themeColor="secondary"
+          >
+            Switch
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/progress')}
+            variant="outlined"
+            themeColor="primary"
+          >
+            Progress
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/indicator')}
+            variant="outlined"
+            themeColor="secondary"
+          >
+            Indicator
+          </Button>
+        </GridItem>
       </Grid>
     </ScrollView>
   )

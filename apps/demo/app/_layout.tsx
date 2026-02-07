@@ -43,6 +43,12 @@ export default function RootLayout() {
             name="segment-buttons"
             options={{ title: 'Segment Button Examples' }}
           />
+          <Stack.Screen name="switch" options={{ title: 'Switch Examples' }} />
+          <Stack.Screen name="progress" options={{ title: 'Progress Examples' }} />
+          <Stack.Screen
+            name="indicator"
+            options={{ title: 'Indicator Examples' }}
+          />
         </Stack>
       </XUIProvider>
     </ThemeProvider>
