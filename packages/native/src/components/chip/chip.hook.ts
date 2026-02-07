@@ -5,21 +5,21 @@ import type { ThemeColor } from '../../types'
 import type { ChipRadius, ChipSize, ChipVariant } from './chip.type'
 
 const sizeMap: Record<ChipSize, { height: number; paddingH: number; fontSize: number }> = {
-  sm: { height: 24, paddingH: 8, fontSize: 12 },
-  md: { height: 32, paddingH: 12, fontSize: 14 },
-  lg: { height: 40, paddingH: 16, fontSize: 16 },
+  sm: { height: 32, paddingH: 12, fontSize: 13 },
+  md: { height: 40, paddingH: 16, fontSize: 15 },
+  lg: { height: 44, paddingH: 18, fontSize: 17 },
 }
 
 const dotSizeMap: Record<ChipSize, number> = {
-  sm: 6,
-  md: 8,
-  lg: 10,
+  sm: 8,
+  md: 10,
+  lg: 11,
 }
 
 const closeSizeMap: Record<ChipSize, number> = {
-  sm: 12,
-  md: 14,
-  lg: 16,
+  sm: 14,
+  md: 16,
+  lg: 17,
 }
 
 export function useChipSizeStyles(size: ChipSize) {

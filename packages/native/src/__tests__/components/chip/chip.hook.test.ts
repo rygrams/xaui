@@ -41,20 +41,20 @@ vi.mock('../../../core', () => ({
 describe('useChipSizeStyles', () => {
   it('should return sm size styles', () => {
     const { result } = renderHook(() => useChipSizeStyles('sm'))
-    expect(result.current.height).toBe(24)
-    expect(result.current.fontSize).toBe(12)
+    expect(result.current.height).toBe(32)
+    expect(result.current.fontSize).toBe(13)
   })
 
   it('should return md size styles', () => {
     const { result } = renderHook(() => useChipSizeStyles('md'))
-    expect(result.current.height).toBe(32)
-    expect(result.current.fontSize).toBe(14)
+    expect(result.current.height).toBe(40)
+    expect(result.current.fontSize).toBe(15)
   })
 
   it('should return lg size styles', () => {
     const { result } = renderHook(() => useChipSizeStyles('lg'))
-    expect(result.current.height).toBe(40)
-    expect(result.current.fontSize).toBe(16)
+    expect(result.current.height).toBe(44)
+    expect(result.current.fontSize).toBe(17)
   })
 })
 
@@ -63,9 +63,9 @@ describe('useChipDotSize', () => {
     const { result: sm } = renderHook(() => useChipDotSize('sm'))
     const { result: md } = renderHook(() => useChipDotSize('md'))
     const { result: lg } = renderHook(() => useChipDotSize('lg'))
-    expect(sm.current).toBe(6)
-    expect(md.current).toBe(8)
-    expect(lg.current).toBe(10)
+    expect(sm.current).toBe(8)
+    expect(md.current).toBe(10)
+    expect(lg.current).toBe(11)
   })
 })
 
@@ -74,9 +74,9 @@ describe('useChipCloseSize', () => {
     const { result: sm } = renderHook(() => useChipCloseSize('sm'))
     const { result: md } = renderHook(() => useChipCloseSize('md'))
     const { result: lg } = renderHook(() => useChipCloseSize('lg'))
-    expect(sm.current).toBe(12)
-    expect(md.current).toBe(14)
-    expect(lg.current).toBe(16)
+    expect(sm.current).toBe(14)
+    expect(md.current).toBe(16)
+    expect(lg.current).toBe(17)
   })
 })
 

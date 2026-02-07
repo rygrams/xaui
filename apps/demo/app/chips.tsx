@@ -21,7 +21,9 @@ export default function ChipsScreen() {
         <View style={[styles.row, { gap: theme.spacing.sm }]}>
           <Chip>Default</Chip>
           <Chip themeColor="primary">Primary</Chip>
-          <Chip themeColor="success" variant="faded">Success</Chip>
+          <Chip themeColor="success" variant="faded">
+            Success
+          </Chip>
         </View>
       </View>
 
@@ -30,13 +32,27 @@ export default function ChipsScreen() {
           Variants
         </Text>
         <View style={[styles.row, { gap: theme.spacing.sm }]}>
-          <Chip variant="solid" themeColor="secondary">Solid</Chip>
-          <Chip variant="bordered" themeColor="secondary">Bordered</Chip>
-          <Chip variant="light" themeColor="secondary">Light</Chip>
-          <Chip variant="flat" themeColor="secondary">Flat</Chip>
-          <Chip variant="faded" themeColor="secondary">Faded</Chip>
-          <Chip variant="shadow" themeColor="secondary">Shadow</Chip>
-          <Chip variant="dot" themeColor="secondary">Dot</Chip>
+          <Chip variant="solid" themeColor="secondary">
+            Solid
+          </Chip>
+          <Chip variant="bordered" themeColor="secondary">
+            Bordered
+          </Chip>
+          <Chip variant="light" themeColor="secondary">
+            Light
+          </Chip>
+          <Chip variant="flat" themeColor="secondary">
+            Flat
+          </Chip>
+          <Chip variant="faded" themeColor="secondary">
+            Faded
+          </Chip>
+          <Chip variant="shadow" themeColor="secondary">
+            Shadow
+          </Chip>
+          <Chip variant="dot" themeColor="secondary">
+            Dot
+          </Chip>
         </View>
       </View>
 
@@ -68,10 +84,7 @@ export default function ChipsScreen() {
             Pressable
           </Chip>
           {showClosable ? (
-            <Chip
-              themeColor="danger"
-              onClose={() => setShowClosable(false)}
-            >
+            <Chip themeColor="danger" onClose={() => setShowClosable(false)}>
               Closable
             </Chip>
           ) : (
@@ -94,6 +107,7 @@ export default function ChipsScreen() {
           themeColor="primary"
           selectedValues={selectedTags}
           onSelectionChange={setSelectedTags}
+          size="lg"
         >
           <ChipItem value="react">React</ChipItem>
           <ChipItem value="native">Native</ChipItem>

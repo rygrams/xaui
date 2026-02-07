@@ -1,5 +1,5 @@
 import React from 'react'
-import { Pressable, Text, View } from 'react-native'
+import { Animated, Easing, Pressable, Text, View } from 'react-native'
 import { styles } from './chip.style'
 import type { ChipProps } from './chip.type'
 import {
@@ -32,9 +32,62 @@ export const Chip: React.FC<ChipProps> = ({
 
   const isDotVariant = variant === 'dot'
   const hasClose = onClose !== undefined
+  const isInteractive = onPress !== undefined || hasClose
+  const scale = React.useRef(new Animated.Value(1)).current
+  const opacity = React.useRef(new Animated.Value(1)).current
+
+  const handlePressIn = React.useCallback(() => {
+    if (!isInteractive || isDisabled) return
+    Animated.timing(scale, {
+      toValue: 0.97,
+      duration: 90,
+      easing: Easing.out(Easing.cubic),
+      useNativeDriver: true,
+    }).start()
+  }, [isInteractive, isDisabled, scale])
+
+  const handlePressOut = React.useCallback(() => {
+    if (!isInteractive || isDisabled) return
+    Animated.timing(scale, {
+      toValue: 1,
+      duration: 120,
+      easing: Easing.out(Easing.cubic),
+      useNativeDriver: true,
+    }).start()
+  }, [isInteractive, isDisabled, scale])
+
+  const handleChipPress = React.useCallback(() => {
+    if (isDisabled) return
+
+    if (hasClose && onClose) {
+      Animated.parallel([
+        Animated.timing(opacity, {
+          toValue: 0,
+          duration: 150,
+          easing: Easing.in(Easing.quad),
+          useNativeDriver: true,
+        }),
+        Animated.timing(scale, {
+          toValue: 0.92,
+          duration: 150,
+          easing: Easing.in(Easing.quad),
+          useNativeDriver: true,
+        }),
+      ]).start(({ finished }) => {
+        if (finished) {
+          onClose()
+          opacity.setValue(1)
+          scale.setValue(1)
+        }
+      })
+      return
+    }
+
+    onPress?.()
+  }, [hasClose, isDisabled, onClose, onPress, opacity, scale])
 
   const chipContent = (
-    <View
+    <Animated.View
       style={[
         styles.chip,
         {
@@ -43,6 +96,8 @@ export const Chip: React.FC<ChipProps> = ({
           backgroundColor: variantStyles.backgroundColor,
           borderWidth: variantStyles.borderWidth,
           borderColor: variantStyles.borderColor,
+          transform: [{ scale }],
+          opacity,
         },
         radiusStyles,
         variantStyles.shadow,
@@ -87,16 +142,12 @@ export const Chip: React.FC<ChipProps> = ({
       )}
 
       {hasClose && (
-        <Pressable
-          onPress={isDisabled ? undefined : onClose}
-          disabled={isDisabled}
+        <View
           style={[
             styles.closeButton,
             { width: closeSize, height: closeSize },
             customAppearance?.closeButton,
           ]}
-          accessibilityRole="button"
-          accessibilityLabel="Close"
         >
           <Text
             style={{
@@ -107,15 +158,17 @@ export const Chip: React.FC<ChipProps> = ({
           >
             ✕
           </Text>
-        </Pressable>
+        </View>
       )}
-    </View>
+    </Animated.View>
   )
 
-  if (onPress) {
+  if (isInteractive) {
     return (
       <Pressable
-        onPress={isDisabled ? undefined : onPress}
+        onPress={isDisabled ? undefined : handleChipPress}
+        onPressIn={handlePressIn}
+        onPressOut={handlePressOut}
         disabled={isDisabled}
       >
         {chipContent}

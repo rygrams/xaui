@@ -50,19 +50,19 @@ describe('Chip', () => {
     const { container } = render(<Chip>Default</Chip>)
     const chip = container.querySelector('div[role="text"]') as HTMLElement
     expect(chip).toBeTruthy()
-    expect(chip.style.height).toBe('32px')
+    expect(chip.style.height).toBe('40px')
   })
 
   it('should apply size sm', () => {
     const { container } = render(<Chip size="sm">Small</Chip>)
     const chip = container.querySelector('div[role="text"]') as HTMLElement
-    expect(chip.style.height).toBe('24px')
+    expect(chip.style.height).toBe('32px')
   })
 
   it('should apply size lg', () => {
     const { container } = render(<Chip size="lg">Large</Chip>)
     const chip = container.querySelector('div[role="text"]') as HTMLElement
-    expect(chip.style.height).toBe('40px')
+    expect(chip.style.height).toBe('44px')
   })
 
   it('should apply bordered variant border width', () => {
@@ -91,7 +91,7 @@ describe('Chip', () => {
   it('should apply radius full', () => {
     const { container } = render(<Chip radius="full">Full</Chip>)
     const chip = container.querySelector('div[role="text"]') as HTMLElement
-    expect(chip.style.borderRadius).toBe('16px')
+    expect(chip.style.borderRadius).toBe('20px')
   })
 
   it('should apply radius lg', () => {
@@ -100,17 +100,15 @@ describe('Chip', () => {
     expect(chip.style.borderRadius).toBe('12px')
   })
 
-  it('should render close button when onClose provided', () => {
+  it('should render close indicator when onClose provided', () => {
     const onClose = vi.fn()
-    const { getByRole } = render(<Chip onClose={onClose}>Closable</Chip>)
-    const closeBtn = getByRole('button', { name: 'Close' })
-    expect(closeBtn).toBeTruthy()
+    const { getByText } = render(<Chip onClose={onClose}>Closable</Chip>)
+    expect(getByText('✕')).toBeTruthy()
   })
 
-  it('should not render close button without onClose', () => {
-    const { queryByRole } = render(<Chip>NoClose</Chip>)
-    const closeBtn = queryByRole('button', { name: 'Close' })
-    expect(closeBtn).toBeNull()
+  it('should not render close indicator without onClose', () => {
+    const { queryByText } = render(<Chip>NoClose</Chip>)
+    expect(queryByText('✕')).toBeNull()
   })
 
   it('should apply disabled styles', () => {
@@ -144,6 +142,13 @@ describe('Chip', () => {
   it('should wrap in pressable button when onPress provided', () => {
     const onPress = vi.fn()
     const { container } = render(<Chip onPress={onPress}>Clickable</Chip>)
+    const button = container.querySelector('button')
+    expect(button).toBeTruthy()
+  })
+
+  it('should wrap in pressable button when onClose provided', () => {
+    const onClose = vi.fn()
+    const { container } = render(<Chip onClose={onClose}>Closable</Chip>)
     const button = container.querySelector('button')
     expect(button).toBeTruthy()
   })

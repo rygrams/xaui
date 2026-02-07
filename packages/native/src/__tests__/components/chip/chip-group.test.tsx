@@ -61,7 +61,7 @@ describe('ChipGroup', () => {
       </ChipGroup>,
     )
     const chip = container.querySelector('div[role="text"]') as HTMLElement
-    expect(chip.style.height).toBe('40px')
+    expect(chip.style.height).toBe('44px')
   })
 
   it('should not render ChipItem outside of ChipGroup', () => {
