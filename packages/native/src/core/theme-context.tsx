@@ -27,7 +27,7 @@ export function XUIProvider({
     if (!darkTheme && !lightTheme) return defaultTheme
 
     const activeTheme = colorScheme === 'dark' && darkTheme ? darkTheme : lightTheme
-    const mode = colorScheme === 'dark' ? 'dark' : 'light'
+    const mode = colorScheme === 'dark' && darkTheme ? 'dark' : 'light'
 
     if (!activeTheme) return defaultTheme
 
