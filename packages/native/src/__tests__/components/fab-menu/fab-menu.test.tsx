@@ -1,19 +1,14 @@
 import { describe, it, expect } from 'vitest'
 import type {
   FabMenuProps,
-  FabMenuItemConfig,
+  FabMenuItemProps,
 } from '../../../components/fab-menu'
 
 describe('FabMenu Types', () => {
   it('exports FabMenuProps type with required props', () => {
-    const items: FabMenuItemConfig[] = [
-      { key: 'edit', icon: 'edit-icon', label: 'Edit' },
-      { key: 'share', icon: 'share-icon', label: 'Share' },
-    ]
-
     const props: FabMenuProps = {
       icon: 'plus-icon',
-      items,
+      children: null,
       themeColor: 'primary',
       variant: 'solid',
       size: 'md',
@@ -21,7 +16,7 @@ describe('FabMenu Types', () => {
 
     expect(props).toBeDefined()
     expect(props.icon).toBe('plus-icon')
-    expect(props.items).toHaveLength(2)
+    expect(props.children).toBeNull()
     expect(props.themeColor).toBe('primary')
   })
 
@@ -36,10 +31,10 @@ describe('FabMenu Types', () => {
       'default',
     ]
 
-    colors.forEach(color => {
+    colors.forEach((color) => {
       const props: FabMenuProps = {
         icon: 'icon',
-        items: [],
+        children: null,
         themeColor: color,
       }
       expect(props.themeColor).toBe(color)
@@ -53,10 +48,10 @@ describe('FabMenu Types', () => {
       'outlined',
     ]
 
-    variants.forEach(variant => {
+    variants.forEach((variant) => {
       const props: FabMenuProps = {
         icon: 'icon',
-        items: [],
+        children: null,
         variant,
       }
       expect(props.variant).toBe(variant)
@@ -66,10 +61,10 @@ describe('FabMenu Types', () => {
   it('accepts all sizes', () => {
     const sizes: Array<FabMenuProps['size']> = ['sm', 'md', 'lg']
 
-    sizes.forEach(size => {
+    sizes.forEach((size) => {
       const props: FabMenuProps = {
         icon: 'icon',
-        items: [],
+        children: null,
         size,
       }
       expect(props.size).toBe(size)
@@ -80,7 +75,7 @@ describe('FabMenu Types', () => {
     const props: FabMenuProps = {
       icon: 'plus-icon',
       expandedIcon: 'close-icon',
-      items: [],
+      children: null,
     }
 
     expect(props.expandedIcon).toBe('close-icon')
@@ -89,7 +84,7 @@ describe('FabMenu Types', () => {
   it('accepts controlled expanded state', () => {
     const props: FabMenuProps = {
       icon: 'icon',
-      items: [],
+      children: null,
       isExpanded: true,
       onToggle: () => {},
     }
@@ -101,33 +96,17 @@ describe('FabMenu Types', () => {
   it('accepts showOverlay option', () => {
     const props: FabMenuProps = {
       icon: 'icon',
-      items: [],
+      children: null,
       showOverlay: false,
     }
 
     expect(props.showOverlay).toBe(false)
   })
 
-  it('accepts menu items with all properties', () => {
-    const item: FabMenuItemConfig = {
-      key: 'create',
-      icon: 'create-icon',
-      label: 'Create New',
-      onPress: () => {},
-      isDisabled: false,
-    }
-
-    expect(item.key).toBe('create')
-    expect(item.icon).toBe('create-icon')
-    expect(item.label).toBe('Create New')
-    expect(item.onPress).toBeDefined()
-    expect(item.isDisabled).toBe(false)
-  })
-
   it('accepts custom appearance', () => {
     const props: FabMenuProps = {
       icon: 'icon',
-      items: [],
+      children: null,
       customAppearance: {
         container: { padding: 10 },
         fab: { borderWidth: 2 },
@@ -144,5 +123,60 @@ describe('FabMenu Types', () => {
     expect(props.customAppearance?.overlay).toEqual({
       backgroundColor: 'rgba(0,0,0,0.5)',
     })
+  })
+})
+
+describe('FabMenuItem Types', () => {
+  it('exports FabMenuItemProps type with required props', () => {
+    const props: FabMenuItemProps = {
+      icon: 'camera-icon',
+      label: 'Take Photo',
+    }
+
+    expect(props.icon).toBe('camera-icon')
+    expect(props.label).toBe('Take Photo')
+  })
+
+  it('accepts themeColor prop', () => {
+    const props: FabMenuItemProps = {
+      icon: 'icon',
+      label: 'Item',
+      themeColor: 'secondary',
+    }
+
+    expect(props.themeColor).toBe('secondary')
+  })
+
+  it('accepts all theme colors for menu item', () => {
+    const colors: Array<FabMenuItemProps['themeColor']> = [
+      'primary',
+      'secondary',
+      'tertiary',
+      'danger',
+      'warning',
+      'success',
+      'default',
+    ]
+
+    colors.forEach((color) => {
+      const props: FabMenuItemProps = {
+        icon: 'icon',
+        label: 'Item',
+        themeColor: color,
+      }
+      expect(props.themeColor).toBe(color)
+    })
+  })
+
+  it('accepts onPress and isDisabled', () => {
+    const props: FabMenuItemProps = {
+      icon: 'icon',
+      label: 'Item',
+      onPress: () => {},
+      isDisabled: true,
+    }
+
+    expect(props.onPress).toBeDefined()
+    expect(props.isDisabled).toBe(true)
   })
 })

@@ -4,11 +4,7 @@ import type { ThemeColor } from '../../types'
 import type { FabVariant, FabSize } from '../fab/fab.type'
 import type { ElevationLevel } from '../button/button.type'
 
-export type FabMenuItemConfig = {
-  /**
-   * Unique key for the menu item.
-   */
-  key: string
+export type FabMenuItemProps = {
   /**
    * The icon to display in the menu item.
    */
@@ -18,6 +14,11 @@ export type FabMenuItemConfig = {
    */
   label: string
   /**
+   * The theme color for the menu item chip.
+   * @default 'default'
+   */
+  themeColor?: ThemeColor
+  /**
    * Callback fired when the menu item is pressed.
    */
   onPress?: (event: GestureResponderEvent) => void
@@ -26,6 +27,10 @@ export type FabMenuItemConfig = {
    * @default false
    */
   isDisabled?: boolean
+  /**
+   * @internal Injected by FabMenu to close the menu on item press.
+   */
+  _onClose?: () => void
 }
 
 type FabMenuCustomAppearance = {
@@ -62,9 +67,9 @@ export type FabMenuProps = {
    */
   expandedIcon?: ReactNode
   /**
-   * The menu items to display when expanded.
+   * FabMenuItem children to display when expanded.
    */
-  items: FabMenuItemConfig[]
+  children: ReactNode
   /**
    * The theme color of the toggle FAB.
    * @default 'primary'

@@ -1,24 +1,21 @@
 import React from 'react'
-import { Pressable, Text, View, Animated } from 'react-native'
+import { Pressable, View, Animated } from 'react-native'
 import { Fab } from '../fab'
 import { Portal } from '../../core/portal/portal'
 import { styles } from './fab-menu.style'
-import {
-  useFabMenuState,
-  useFabMenuItemStyles,
-  useFabMenuOverlayColor,
-} from './fab-menu.hook'
+import { useFabMenuState, useFabMenuOverlayColor } from './fab-menu.hook'
 import {
   runMenuExpandAnimation,
   runMenuCollapseAnimation,
   runFabRotateAnimation,
 } from './fab-menu.animation'
 import type { FabMenuProps } from './fab-menu.type'
+import type { FabMenuItemProps } from './fab-menu.type'
 
 export const FabMenu: React.FC<FabMenuProps> = ({
   icon,
   expandedIcon,
-  items,
+  children,
   themeColor = 'primary',
   variant = 'solid',
   size = 'md',
@@ -28,24 +25,35 @@ export const FabMenu: React.FC<FabMenuProps> = ({
   showOverlay = true,
   customAppearance,
 }: FabMenuProps) => {
-  const { expanded, toggle, close } = useFabMenuState(controlledExpanded, onToggle)
-  const itemStyles = useFabMenuItemStyles(themeColor)
+  const { expanded, toggle, close } = useFabMenuState(
+    controlledExpanded,
+    onToggle
+  )
   const overlayColor = useFabMenuOverlayColor()
   const [isPortalVisible, setIsPortalVisible] = React.useState(expanded)
 
-  const overlayOpacity = React.useRef(new Animated.Value(expanded ? 1 : 0)).current
-  const rotateValue = React.useRef(new Animated.Value(expanded ? 1 : 0)).current
-  const itemAnimationsRef = React.useRef(items.map(() => new Animated.Value(0)))
+  const childArray = React.Children.toArray(children)
+
+  const overlayOpacity = React.useRef(
+    new Animated.Value(expanded ? 1 : 0)
+  ).current
+  const rotateValue = React.useRef(
+    new Animated.Value(expanded ? 1 : 0)
+  ).current
+  const itemAnimationsRef = React.useRef(
+    childArray.map(() => new Animated.Value(0))
+  )
   const itemAnimations = itemAnimationsRef.current
 
   const prevExpanded = React.useRef(expanded)
 
   React.useEffect(() => {
-    if (itemAnimations.length === items.length) return
-    itemAnimationsRef.current = items.map(
-      (_, index) => itemAnimations[index] ?? new Animated.Value(expanded ? 1 : 0)
+    if (itemAnimations.length === childArray.length) return
+    itemAnimationsRef.current = childArray.map(
+      (_, index) =>
+        itemAnimations[index] ?? new Animated.Value(expanded ? 1 : 0)
     )
-  }, [expanded, itemAnimations, items])
+  }, [expanded, itemAnimations, childArray])
 
   React.useEffect(() => {
     if (prevExpanded.current === expanded) return
@@ -70,15 +78,6 @@ export const FabMenu: React.FC<FabMenuProps> = ({
 
   const currentIcon = expanded && expandedIcon ? expandedIcon : icon
 
-  const renderMenuIcon = (menuIcon: React.ReactNode) => {
-    if (!React.isValidElement(menuIcon)) return menuIcon
-
-    return React.cloneElement(
-      menuIcon as React.ReactElement<Record<string, unknown>>,
-      { color: itemStyles.iconColor }
-    )
-  }
-
   const renderFabToggle = () => (
     <Animated.View
       style={{
@@ -100,62 +99,40 @@ export const FabMenu: React.FC<FabMenuProps> = ({
 
   const renderMenuItems = () => (
     <View style={[styles.menuContainer, customAppearance?.menuContainer]}>
-      {items.map((item, index) => (
-        <Animated.View
-          key={item.key}
-          style={[
-            styles.menuItem,
-            item.isDisabled && styles.disabled,
-            {
-              opacity: itemAnimations[index],
-              transform: [
-                {
-                  translateY: itemAnimations[index].interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [20, 0],
-                  }),
-                },
-                {
-                  scale: itemAnimations[index].interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [0.8, 1],
-                  }),
-                },
-              ],
-            },
-            customAppearance?.menuItem,
-          ]}
-        >
-          <Pressable
+      {childArray.map((child, index) => {
+        const childElement = child as React.ReactElement<FabMenuItemProps>
+        const isDisabled = childElement.props?.isDisabled
+
+        return (
+          <Animated.View
+            key={childElement.key ?? index}
             style={[
-              styles.menuItemChip,
+              styles.menuItem,
+              isDisabled && styles.disabled,
               {
-                backgroundColor: itemStyles.chipStyles.backgroundColor,
-                borderRadius: itemStyles.chipStyles.borderRadius,
+                opacity: itemAnimations[index],
+                transform: [
+                  {
+                    translateY: itemAnimations[index].interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [20, 0],
+                    }),
+                  },
+                  {
+                    scale: itemAnimations[index].interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [0.8, 1],
+                    }),
+                  },
+                ],
               },
+              customAppearance?.menuItem,
             ]}
-            onPress={(event) => {
-              if (item.isDisabled) return
-              item.onPress?.(event)
-              close()
-            }}
-            disabled={item.isDisabled}
           >
-            {renderMenuIcon(item.icon)}
-            <Text
-              style={[
-                styles.menuItemLabel,
-                {
-                  color: itemStyles.chipStyles.color,
-                  fontSize: itemStyles.chipStyles.fontSize,
-                },
-              ]}
-            >
-              {item.label}
-            </Text>
-          </Pressable>
-        </Animated.View>
-      ))}
+            {React.cloneElement(childElement, { _onClose: close })}
+          </Animated.View>
+        )
+      })}
     </View>
   )
 

@@ -2,7 +2,7 @@ import { useXUIColors, useXUITheme } from '@xaui/native/core'
 import { StyleSheet, View, ScrollView, Text } from 'react-native'
 import { useState } from 'react'
 import { Fab } from '@xaui/native/fab'
-import { FabMenu } from '@xaui/native/fab-menu'
+import { FabMenu, FabMenuItem } from '@xaui/native/fab-menu'
 import {
   AddIcon,
   PencilIcon,
@@ -16,7 +16,6 @@ import {
 export default function FabScreen() {
   const colors = useXUIColors()
   const theme = useXUITheme()
-  const [menuExpanded, setMenuExpanded] = useState(false)
   const [controlledExpanded, setControlledExpanded] = useState(false)
 
   return (
@@ -57,7 +56,9 @@ export default function FabScreen() {
         <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
           Sizes
         </Text>
-        <View style={[styles.row, { gap: theme.spacing.md, alignItems: 'center' }]}>
+        <View
+          style={[styles.row, { gap: theme.spacing.md, alignItems: 'center' }]}
+        >
           <Fab
             icon={<AddIcon size={24} color={colors.secondary.foreground} />}
             size="sm"
@@ -150,27 +151,28 @@ export default function FabScreen() {
         <View style={styles.fabMenuContainer}>
           <FabMenu
             icon={<AddIcon size={24} color={colors.primary.foreground} />}
-            expandedIcon={<CloseIcon size={24} color={colors.primary.foreground} />}
+            expandedIcon={
+              <CloseIcon size={24} color={colors.primary.foreground} />
+            }
             themeColor="primary"
             variant="solid"
-            items={[
-              {
-                key: 'photo',
-                icon: <CameraIcon size={20} color={colors.primary.main} />,
-                label: 'Take Photo',
-              },
-              {
-                key: 'gallery',
-                icon: <ImageIcon size={20} color={colors.primary.main} />,
-                label: 'Gallery',
-              },
-              {
-                key: 'share',
-                icon: <ShareIcon size={20} color={colors.primary.main} />,
-                label: 'Share',
-              },
-            ]}
-          />
+          >
+            <FabMenuItem
+              icon={<CameraIcon size={20} />}
+              label="Take Photo"
+              themeColor="primary"
+            />
+            <FabMenuItem
+              icon={<ImageIcon size={20} />}
+              label="Gallery"
+              themeColor="secondary"
+            />
+            <FabMenuItem
+              icon={<ShareIcon size={20} />}
+              label="Share"
+              themeColor="default"
+            />
+          </FabMenu>
         </View>
       </View>
 
@@ -180,31 +182,34 @@ export default function FabScreen() {
         </Text>
         <View style={styles.fabMenuContainer}>
           <FabMenu
-            icon={<PencilIcon size={24} color={colors.secondary.foreground} />}
-            expandedIcon={<CloseIcon size={24} color={colors.secondary.foreground} />}
+            icon={
+              <PencilIcon size={24} color={colors.secondary.foreground} />
+            }
+            expandedIcon={
+              <CloseIcon size={24} color={colors.secondary.foreground} />
+            }
             themeColor="secondary"
             variant="solid"
             isExpanded={controlledExpanded}
             onToggle={setControlledExpanded}
-            items={[
-              {
-                key: 'star',
-                icon: <StarIcon size={20} color={colors.secondary.main} />,
-                label: 'Favorite',
-              },
-              {
-                key: 'edit',
-                icon: <PencilIcon size={20} color={colors.secondary.main} />,
-                label: 'Edit',
-              },
-              {
-                key: 'share',
-                icon: <ShareIcon size={20} color={colors.secondary.main} />,
-                label: 'Share',
-                isDisabled: true,
-              },
-            ]}
-          />
+          >
+            <FabMenuItem
+              icon={<StarIcon size={20} />}
+              label="Favorite"
+              themeColor="warning"
+            />
+            <FabMenuItem
+              icon={<PencilIcon size={20} />}
+              label="Edit"
+              themeColor="secondary"
+            />
+            <FabMenuItem
+              icon={<ShareIcon size={20} />}
+              label="Share"
+              themeColor="default"
+              isDisabled
+            />
+          </FabMenu>
         </View>
       </View>
     </ScrollView>
