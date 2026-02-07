@@ -129,7 +129,10 @@ export const FabMenu: React.FC<FabMenuProps> = ({
               customAppearance?.menuItem,
             ]}
           >
-            {React.cloneElement(childElement, { _onClose: close })}
+            {React.cloneElement(childElement, {
+              _onClose: close,
+              themeColor: childElement.props?.themeColor ?? themeColor,
+            })}
           </Animated.View>
         )
       })}

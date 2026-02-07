@@ -7,7 +7,7 @@ import type { FabMenuItemProps } from './fab-menu.type'
 export const FabMenuItem: React.FC<FabMenuItemProps> = ({
   icon,
   label,
-  themeColor = 'default',
+  themeColor = 'primary',
   onPress,
   isDisabled,
   _onClose,

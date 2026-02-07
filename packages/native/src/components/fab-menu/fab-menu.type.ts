@@ -15,7 +15,7 @@ export type FabMenuItemProps = {
   label: string
   /**
    * The theme color for the menu item chip.
-   * @default 'default'
+   * Inherits from parent FabMenu themeColor if not specified.
    */
   themeColor?: ThemeColor
   /**
