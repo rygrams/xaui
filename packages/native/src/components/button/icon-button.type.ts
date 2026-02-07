@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import type { ViewStyle, GestureResponderEvent } from 'react-native'
 import type { ThemeColor, Size } from '../../types'
-import type { ButtonVariant, ButtonRadius } from './button.type'
+import type { ButtonVariant, ButtonRadius, ElevationLevel } from './button.type'
 
 export type IconButtonProps = {
   /**
@@ -38,6 +38,12 @@ export type IconButtonProps = {
    * @default false
    */
   isLoading?: boolean
+  /**
+   * Android elevation level from 0 to 4.
+   * Does not apply to `outlined` and `light` variants.
+   * @default 0
+   */
+  elevation?: ElevationLevel
   /**
    * Custom appearance overrides
    */

@@ -3,12 +3,10 @@ import { StyleSheet, View, ScrollView, Text } from 'react-native'
 import { Menu, MenuItem } from '@xaui/native/menu'
 import { Button, IconButton } from '@xaui/native/button'
 import { Margin } from '@xaui/native/view'
-import {
-  CloseIcon,
-  CheckmarkIcon,
-  ArrowBackIcon,
-  EllipsisVerticalIcon,
-} from '@xaui/icons'
+import { CloseIcon } from '@xaui/icons/close'
+import { CheckmarkIcon } from '@xaui/icons/checkmark'
+import { ArrowBackIcon } from '@xaui/icons/arrow-back'
+import { EllipsisVerticalIcon } from '@xaui/icons/ellipsis-vertical'
 import { useState } from 'react'
 
 export default function MenusScreen() {

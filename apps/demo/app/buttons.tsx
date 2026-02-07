@@ -22,7 +22,7 @@ export default function ButtonsScreen() {
           <Button themeColor="primary" variant="outlined">Outlined</Button>
           <Button themeColor="primary" variant="flat">Flat</Button>
           <Button themeColor="primary" variant="light">Light</Button>
-          <Button themeColor="primary" variant="elevated">Elevated</Button>
+          <Button themeColor="primary" variant="solid" elevation={2}>Solid + Elevation</Button>
           <Button themeColor="primary" variant="faded">Faded</Button>
         </View>
       </View>

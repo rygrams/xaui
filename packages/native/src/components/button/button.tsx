@@ -19,6 +19,7 @@ export const Button: React.FC<ButtonProps> = ({
   fullWidth = false,
   isDisabled = false,
   isLoading = false,
+  elevation = 0,
   customAppearance,
   onPress,
   onLongPress,
@@ -30,7 +31,7 @@ export const Button: React.FC<ButtonProps> = ({
 
   const { sizeStyles, spinnerSize } = useSizesStyles(size)
   const radiusStyles = useBorderRadiusStyles(radius)
-  const variantStyles = useVariantSizesStyles(themeColor, variant)
+  const variantStyles = useVariantSizesStyles(themeColor, variant, elevation)
   const { textColor } = useTextStyles(themeColor, variant)
 
   const handlePressIn = (
@@ -54,10 +55,8 @@ export const Button: React.FC<ButtonProps> = ({
   const spinner = (
     <ActivityIndicator
       variant="circular"
-      themeColor={
-        variant === 'solid' || variant === 'elevated' ? undefined : themeColor
-      }
-      color={variant === 'solid' || variant === 'elevated' ? textColor : undefined}
+      themeColor={variant === 'solid' ? undefined : themeColor}
+      color={variant === 'solid' ? textColor : undefined}
       size={spinnerSize}
     />
   )

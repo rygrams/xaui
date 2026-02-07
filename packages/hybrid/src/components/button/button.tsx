@@ -17,6 +17,7 @@ export const Button: React.FC<ButtonProps> = ({
   fullWidth = false,
   isDisabled = false,
   isLoading = false,
+  elevation = 0,
   className,
   style: userStyle,
   onMouseLeave,
@@ -29,7 +30,7 @@ export const Button: React.FC<ButtonProps> = ({
   const { base } = buttonStyles({ fullWidth, isDisabled })
 
   const { sizeStyles, radiusStyles, variantStyles, textColor, spinnerSize } =
-    useButtonStyles(themeColor, variant, size, radius)
+    useButtonStyles(themeColor, variant, size, radius, elevation)
 
   const handleMouseDown: React.MouseEventHandler<HTMLButtonElement> = event => {
     if (!isDisabled && !isLoading) {
@@ -56,10 +57,8 @@ export const Button: React.FC<ButtonProps> = ({
     <ActivityIndicator
       variant="circular"
       showTrack={false}
-      themeColor={
-        variant === 'solid' || variant === 'elevated' ? undefined : themeColor
-      }
-      color={variant === 'solid' || variant === 'elevated' ? textColor : undefined}
+      themeColor={variant === 'solid' ? undefined : themeColor}
+      color={variant === 'solid' ? textColor : undefined}
       size={spinnerSize}
     />
   )

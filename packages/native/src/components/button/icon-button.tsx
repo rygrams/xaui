@@ -16,6 +16,7 @@ export const IconButton: React.FC<IconButtonProps> = ({
   radius = 'md',
   isDisabled = false,
   isLoading = false,
+  elevation = 0,
   customAppearance,
   onPress,
   onLongPress,
@@ -27,7 +28,7 @@ export const IconButton: React.FC<IconButtonProps> = ({
 
   const sizeStyles = useIconButtonSizeStyles(size)
   const radiusStyles = useBorderRadiusStyles(radius)
-  const variantStyles = useVariantSizesStyles(themeColor, variant)
+  const variantStyles = useVariantSizesStyles(themeColor, variant, elevation)
   const { textColor } = useTextStyles(themeColor, variant)
 
   const handlePressIn = (event: Parameters<NonNullable<IconButtonProps['onPressIn']>>[0]) => {
@@ -79,8 +80,8 @@ export const IconButton: React.FC<IconButtonProps> = ({
           {isLoading ? (
             <ActivityIndicator
               variant="circular"
-              themeColor={variant === 'solid' || variant === 'elevated' ? undefined : themeColor}
-              color={variant === 'solid' || variant === 'elevated' ? textColor : undefined}
+              themeColor={variant === 'solid' ? undefined : themeColor}
+              color={variant === 'solid' ? textColor : undefined}
               size={spinnerSize}
             />
           ) : (

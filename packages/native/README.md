@@ -58,7 +58,7 @@ function Banner() {
 
 ### `Button`
 
-- Variants: `solid`, `outlined`, `flat`, `light`, `elevated`, `faded`
+- Variants: `solid`, `outlined`, `flat`, `light`, `faded`
 - Sizes: `xs`, `sm`, `md`, `lg`
 - Radii: `none`, `sm`, `md`, `lg`, `full`
 - Supports start/end content, `fullWidth`, `isDisabled`, `isLoading` with an integrated spinner
@@ -67,7 +67,8 @@ function Banner() {
 ```tsx
 <Button
   themeColor="primary"
-  variant="elevated"
+  variant="solid"
+  elevation={2}
   size="lg"
   radius="full"
   isLoading={saving}

@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { useXUITheme } from '../../core'
-import type { ButtonVariant } from './button.type'
+import type { ButtonVariant, ElevationLevel } from './button.type'
 import type { Size, ThemeColor } from '../../types'
 import { getSafeThemeColor } from '@xaui/core'
 
@@ -18,7 +18,7 @@ export const useTextStyles = (themeColor: ThemeColor, variant: ButtonVariant) =>
   const colorScheme = theme.colors[safeThemeColor]
 
   const textColor = useMemo(() => {
-    if (variant === 'solid' || variant === 'elevated') {
+    if (variant === 'solid') {
       return colorScheme.foreground
     }
     return colorScheme.main
@@ -80,7 +80,8 @@ export function useSizesStyles(size: Size): {
 
 export function useVariantSizesStyles(
   themeColor: ThemeColor,
-  variant: ButtonVariant
+  variant: ButtonVariant,
+  elevation: ElevationLevel = 0
 ) {
   const theme = useXUITheme()
   const safeThemeColor = getSafeThemeColor(themeColor)
@@ -105,19 +106,33 @@ export function useVariantSizesStyles(
         backgroundColor: 'transparent',
         borderWidth: 0,
       },
-      elevated: {
-        backgroundColor: colorScheme.main,
-        borderWidth: 0,
-        ...theme.shadows.md,
-      },
       faded: {
         backgroundColor: `${colorScheme.background}95`,
         borderWidth: theme.borderWidth.md,
         borderColor: `${colorScheme.main}90`,
       },
+    } as const
+
+    const baseStyle = styles[variant]
+    const shouldApplyElevation = variant !== 'outlined' && variant !== 'light'
+
+    const shadowStyles =
+      elevation === 0
+        ? {}
+        : elevation === 1
+          ? theme.shadows.sm
+          : elevation === 2
+            ? theme.shadows.md
+            : elevation === 3
+              ? theme.shadows.lg
+              : theme.shadows.xl
+
+    return {
+      ...baseStyle,
+      ...(shouldApplyElevation ? shadowStyles : {}),
+      ...(shouldApplyElevation && elevation > 0 ? { elevation } : {}),
     }
-    return styles[variant]
-  }, [variant, colorScheme, theme])
+  }, [variant, colorScheme, theme, elevation])
 
   return variantStyles
 }
