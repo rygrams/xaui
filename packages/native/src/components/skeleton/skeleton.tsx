@@ -11,6 +11,7 @@ export const Skeleton: React.FC<SkeletonProps> = ({
   skeletonColor,
   width,
   height,
+  radius = 'md',
   style,
 }) => {
   const theme = useXUITheme()
@@ -19,6 +20,10 @@ export const Skeleton: React.FC<SkeletonProps> = ({
   const resolvedColor = useMemo(
     () => skeletonColor ?? theme.colors.default.background,
     [skeletonColor, theme.colors.default.background]
+  )
+  const resolvedRadius = useMemo(
+    () => theme.borderRadius[radius],
+    [radius, theme.borderRadius]
   )
 
   useEffect(() => {
@@ -57,7 +62,13 @@ export const Skeleton: React.FC<SkeletonProps> = ({
     <Animated.View
       style={[
         styles.skeleton,
-        { backgroundColor: resolvedColor, width, height, opacity },
+        {
+          backgroundColor: resolvedColor,
+          width,
+          height,
+          borderRadius: resolvedRadius,
+          opacity,
+        },
         style,
       ]}
     />

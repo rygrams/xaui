@@ -10,10 +10,12 @@ describe('Skeleton Types', () => {
       skeletonColor: '#e4e4e7',
       width: 120,
       height: 16,
+      radius: 'lg',
     }
 
     expect(props).toBeDefined()
     expect(props.isLoaded).toBe(false)
+    expect(props.radius).toBe('lg')
   })
 
   it('accepts style props', () => {

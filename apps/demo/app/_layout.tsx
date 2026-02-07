@@ -38,17 +38,18 @@ export default function RootLayout() {
             options={{ title: 'DatePicker Examples' }}
           />
           <Stack.Screen name="fab" options={{ title: 'FAB Examples' }} />
-          <Stack.Screen name="menus" options={{ title: 'Menu Examples' }} />
-          <Stack.Screen
-            name="segment-buttons"
-            options={{ title: 'Segment Button Examples' }}
-          />
-          <Stack.Screen name="switch" options={{ title: 'Switch Examples' }} />
-          <Stack.Screen name="progress" options={{ title: 'Progress Examples' }} />
           <Stack.Screen
             name="indicator"
             options={{ title: 'Indicator Examples' }}
           />
+          <Stack.Screen name="menus" options={{ title: 'Menu Examples' }} />
+          <Stack.Screen name="progress" options={{ title: 'Progress Examples' }} />
+          <Stack.Screen
+            name="segment-buttons"
+            options={{ title: 'Segment Button Examples' }}
+          />
+          <Stack.Screen name="skeleton" options={{ title: 'Skeleton Examples' }} />
+          <Stack.Screen name="switch" options={{ title: 'Switch Examples' }} />
         </Stack>
       </XUIProvider>
     </ThemeProvider>

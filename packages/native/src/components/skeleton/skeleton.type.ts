@@ -1,5 +1,6 @@
 import { ReactNode } from 'react'
 import type { ColorValue, DimensionValue, StyleProp, ViewStyle } from 'react-native'
+import type { Radius } from '../../types'
 
 export type SkeletonProps = {
   /**
@@ -28,6 +29,11 @@ export type SkeletonProps = {
    * Height of the skeleton.
    */
   height?: DimensionValue
+  /**
+   * Border radius of the skeleton.
+   * @default 'md'
+   */
+  radius?: Radius
   /**
    * Custom style for the skeleton container.
    */
