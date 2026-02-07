@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import type { ViewStyle, TextStyle } from 'react-native'
+import type { ViewStyle } from 'react-native'
 import type { Size, ThemeColor } from '../../types'
 
 export type SegmentButtonVariant = 'solid' | 'outlined' | 'flat' | 'light' | 'faded'
@@ -10,64 +10,26 @@ export type SegmentButtonRadius = 'none' | 'sm' | 'md' | 'lg' | 'full'
 
 export type SegmentButtonSelectionMode = 'single' | 'multiple'
 
-export type SegmentItem = {
-  /**
-   * Unique key for the segment
-   */
-  key: string
-  /**
-   * Label text for the segment
-   */
-  label: string
-  /**
-   * Optional icon to display in the segment
-   */
-  icon?: ReactNode
-  /**
-   * Whether the segment is disabled
-   * @default false
-   */
-  isDisabled?: boolean
-}
-
-type SegmentButtonCustomAppearance = {
-  /**
-   * Custom styles for the outer container
-   */
-  container?: ViewStyle
-  /**
-   * Custom styles for individual segment buttons
-   */
-  segment?: ViewStyle
-  /**
-   * Custom styles for the selected segment
-   */
-  selectedSegment?: ViewStyle
-  /**
-   * Custom styles for segment label text
-   */
-  text?: TextStyle
-  /**
-   * Custom styles for selected segment label text
-   */
-  selectedText?: TextStyle
-}
-
 export type SegmentButtonProps = {
   /**
-   * Array of segment items to render
+   * SegmentButtonItem children
    */
-  segments: SegmentItem[]
+  children: ReactNode
   /**
-   * The currently selected key(s).
+   * The currently selected key(s) (controlled mode).
    * Use a string for single-select, string array for multi-select.
    */
-  selected: string | string[]
+  selected?: string | string[]
+  /**
+   * Default selected key(s) for uncontrolled mode.
+   * Use a string for single-select, string array for multi-select.
+   */
+  defaultSelected?: string | string[]
   /**
    * Callback fired when selection changes.
    * Returns a string for single-select mode, string array for multi-select.
    */
-  onSelectionChange: (selected: string | string[]) => void
+  onSelectionChange?: (selected: string | string[]) => void
   /**
    * Selection mode: single or multiple
    * @default 'single'
@@ -115,7 +77,9 @@ export type SegmentButtonProps = {
    */
   elevation?: ElevationLevel
   /**
-   * Custom appearance styles for segment button parts
+   * Custom styles for the outer container
    */
-  customAppearance?: SegmentButtonCustomAppearance
+  customAppearance?: {
+    container?: ViewStyle
+  }
 }

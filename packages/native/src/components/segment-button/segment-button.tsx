@@ -1,139 +1,16 @@
-import React, { useCallback, useRef } from 'react'
-import { Pressable, Text, View, Animated } from 'react-native'
-import Svg, { Path } from 'react-native-svg'
+import React, { useCallback, useMemo, useState } from 'react'
+import { View } from 'react-native'
 import { styles } from './segment-button.style'
-import { useSegmentSizeStyles, useSegmentVariantStyles } from './segment-button.hook'
+import { useSegmentVariantStyles } from './segment-button.hook'
 import { useBorderRadiusStyles } from '../../core/theme-hooks'
-import {
-  runSegmentPressInAnimation,
-  runSegmentPressOutAnimation,
-} from './segment-button.animation'
-import type { SegmentButtonProps, SegmentItem } from './segment-button.type'
-
-const CheckIcon: React.FC<{ size: number; color: string }> = ({ size, color }) => (
-  <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-    <Path
-      d="M20 6L9 17l-5-5"
-      stroke={color}
-      strokeWidth={2.5}
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    />
-  </Svg>
-)
-
-type SegmentItemComponentProps = {
-  item: SegmentItem
-  isSelected: boolean
-  isFirst: boolean
-  isLast: boolean
-  sizeStyles: ReturnType<typeof useSegmentSizeStyles>
-  variantStyles: ReturnType<typeof useSegmentVariantStyles>
-  borderRadius: number
-  isGroupDisabled: boolean
-  showCheckmark: boolean
-  onPress: (key: string) => void
-  customAppearance: SegmentButtonProps['customAppearance']
-}
-
-const SegmentItemComponent: React.FC<SegmentItemComponentProps> = ({
-  item,
-  isSelected,
-  isFirst,
-  isLast,
-  sizeStyles,
-  variantStyles,
-  borderRadius,
-  isGroupDisabled,
-  showCheckmark,
-  onPress,
-  customAppearance,
-}) => {
-  const animatedScale = useRef(new Animated.Value(1)).current
-  const disabled = isGroupDisabled || item.isDisabled
-
-  const handlePressIn = () => {
-    if (!disabled) {
-      runSegmentPressInAnimation(animatedScale)
-    }
-  }
-
-  const handlePressOut = () => {
-    if (!disabled) {
-      runSegmentPressOutAnimation(animatedScale)
-    }
-  }
-
-  const handlePress = () => {
-    if (!disabled) {
-      onPress(item.key)
-    }
-  }
-
-  const segmentBorderRadius = {
-    borderTopLeftRadius: isFirst ? borderRadius : 0,
-    borderBottomLeftRadius: isFirst ? borderRadius : 0,
-    borderTopRightRadius: isLast ? borderRadius : 0,
-    borderBottomRightRadius: isLast ? borderRadius : 0,
-  }
-
-  const backgroundColor = isSelected
-    ? variantStyles.selectedBackground
-    : variantStyles.unselectedBackground
-
-  const textColor = isSelected
-    ? variantStyles.selectedTextColor
-    : variantStyles.unselectedTextColor
-
-  return (
-    <Pressable
-      style={styles.segment}
-      onPress={handlePress}
-      onPressIn={handlePressIn}
-      onPressOut={handlePressOut}
-      disabled={disabled}
-    >
-      <Animated.View
-        style={[
-          styles.segmentInner,
-          {
-            paddingHorizontal: sizeStyles.paddingHorizontal,
-            paddingVertical: sizeStyles.paddingVertical,
-            minHeight: sizeStyles.minHeight,
-            backgroundColor,
-            ...segmentBorderRadius,
-            transform: [{ scale: animatedScale }],
-          },
-          disabled && styles.disabled,
-          isSelected ? customAppearance?.selectedSegment : customAppearance?.segment,
-        ]}
-      >
-        <View style={styles.segmentContent}>
-          {isSelected && showCheckmark && (
-            <CheckIcon size={sizeStyles.iconSize} color={textColor} />
-          )}
-          {item.icon && (!isSelected || !showCheckmark) && item.icon}
-          <Text
-            style={[
-              styles.segmentText,
-              {
-                fontSize: sizeStyles.fontSize,
-                color: textColor,
-              },
-              isSelected ? customAppearance?.selectedText : customAppearance?.text,
-            ]}
-          >
-            {item.label}
-          </Text>
-        </View>
-      </Animated.View>
-    </Pressable>
-  )
-}
+import { SegmentButtonContext } from './segment-button-context'
+import type { SegmentButtonProps } from './segment-button.type'
+import type { SegmentButtonContextValue } from './segment-button-context'
 
 export const SegmentButton: React.FC<SegmentButtonProps> = ({
-  segments,
-  selected,
+  children,
+  selected: controlledSelected,
+  defaultSelected,
   onSelectionChange,
   selectionMode = 'single',
   themeColor = 'primary',
@@ -146,92 +23,123 @@ export const SegmentButton: React.FC<SegmentButtonProps> = ({
   elevation = 0,
   customAppearance,
 }) => {
-  const sizeStyles = useSegmentSizeStyles(size)
+  const isControlled = controlledSelected !== undefined
+  const [internalSelected, setInternalSelected] = useState<string | string[]>(
+    () => defaultSelected ?? ''
+  )
+
+  const selected = isControlled ? controlledSelected : internalSelected
+
+  const selectedKeys = useMemo(() => {
+    if (Array.isArray(selected)) return selected
+    return selected ? [selected] : []
+  }, [selected])
+
   const variantStyles = useSegmentVariantStyles(themeColor, variant, elevation)
   const radiusStyles = useBorderRadiusStyles(radius)
 
-  const isItemSelected = useCallback(
-    (key: string): boolean => {
-      if (Array.isArray(selected)) {
-        return selected.includes(key)
+  const toggleItem = useCallback(
+    (key: string) => {
+      let nextSelected: string | string[]
+
+      if (selectionMode === 'single') {
+        nextSelected = key
+      } else {
+        const isCurrentlySelected = selectedKeys.includes(key)
+
+        if (isCurrentlySelected && selectedKeys.length > 1) {
+          nextSelected = selectedKeys.filter(k => k !== key)
+        } else if (!isCurrentlySelected) {
+          nextSelected = [...selectedKeys, key]
+        } else {
+          return
+        }
       }
-      return selected === key
+
+      if (!isControlled) {
+        setInternalSelected(nextSelected)
+      }
+      onSelectionChange?.(nextSelected)
     },
-    [selected]
+    [selectionMode, selectedKeys, onSelectionChange, isControlled]
   )
 
-  const handleSegmentPress = useCallback(
-    (key: string) => {
-      if (selectionMode === 'single') {
-        onSelectionChange(key)
-        return
-      }
-
-      const currentSelected = Array.isArray(selected) ? selected : [selected]
-      const isCurrentlySelected = currentSelected.includes(key)
-
-      if (isCurrentlySelected && currentSelected.length > 1) {
-        onSelectionChange(currentSelected.filter(k => k !== key))
-        return
-      }
-
-      if (!isCurrentlySelected) {
-        onSelectionChange([...currentSelected, key])
-      }
-    },
-    [selectionMode, selected, onSelectionChange]
+  const contextValue: SegmentButtonContextValue = useMemo(
+    () => ({
+      selectedKeys,
+      toggleItem,
+      themeColor,
+      variant,
+      size,
+      elevation,
+      isDisabled,
+      showCheckmark,
+    }),
+    [
+      selectedKeys,
+      toggleItem,
+      themeColor,
+      variant,
+      size,
+      elevation,
+      isDisabled,
+      showCheckmark,
+    ]
   )
 
   const showDivider = variant === 'outlined' || variant === 'faded'
+  const childrenArray = React.Children.toArray(children)
 
   return (
-    <View
-      style={[
-        styles.container,
-        {
-          backgroundColor: variantStyles.containerBackground,
-          borderWidth: variantStyles.containerBorderWidth,
-          borderColor: variantStyles.containerBorderColor,
-          borderRadius: radiusStyles.borderRadius,
-          ...(variantStyles.containerShadow as Record<string, unknown>),
-        },
-        fullWidth && styles.fullWidth,
-        isDisabled && styles.disabled,
-        customAppearance?.container,
-      ]}
-    >
-      {segments.map((item, index) => {
-        const isFirst = index === 0
-        const isLast = index === segments.length - 1
-        const isSelected = isItemSelected(item.key)
-        const nextSelected = !isLast && isItemSelected(segments[index + 1].key)
+    <SegmentButtonContext.Provider value={contextValue}>
+      <View
+        style={[
+          styles.container,
+          {
+            backgroundColor: variantStyles.containerBackground,
+            borderWidth: variantStyles.containerBorderWidth,
+            borderColor: variantStyles.containerBorderColor,
+            borderRadius: radiusStyles.borderRadius,
+            ...(variantStyles.containerShadow as Record<string, unknown>),
+          },
+          fullWidth && styles.fullWidth,
+          isDisabled && styles.disabled,
+          customAppearance?.container,
+        ]}
+      >
+        {childrenArray.map((child, index) => {
+          const isLast = index === childrenArray.length - 1
+          const childKey =
+            React.isValidElement(child) && child.props.itemKey
+              ? child.props.itemKey
+              : index
 
-        return (
-          <React.Fragment key={item.key}>
-            <SegmentItemComponent
-              item={item}
-              isSelected={isSelected}
-              isFirst={isFirst}
-              isLast={isLast}
-              sizeStyles={sizeStyles}
-              variantStyles={variantStyles}
-              borderRadius={radiusStyles.borderRadius}
-              isGroupDisabled={isDisabled}
-              showCheckmark={showCheckmark}
-              onPress={handleSegmentPress}
-              customAppearance={customAppearance}
-            />
-            {showDivider && !isLast && !isSelected && !nextSelected && (
-              <View
-                style={[
-                  styles.divider,
-                  { backgroundColor: variantStyles.containerBorderColor },
-                ]}
-              />
-            )}
-          </React.Fragment>
-        )
-      })}
-    </View>
+          const isSelected = selectedKeys.includes(String(childKey))
+          const nextChildKey =
+            !isLast &&
+            React.isValidElement(childrenArray[index + 1]) &&
+            (childrenArray[index + 1] as React.ReactElement).props.itemKey
+          const nextSelected = nextChildKey
+            ? selectedKeys.includes(String(nextChildKey))
+            : false
+
+          return (
+            <React.Fragment key={childKey}>
+              {child}
+              {showDivider && !isLast && !isSelected && !nextSelected && (
+                <View
+                  style={[
+                    styles.divider,
+                    {
+                      backgroundColor: variantStyles.containerBorderColor,
+                    },
+                  ]}
+                />
+              )}
+            </React.Fragment>
+          )
+        })}
+      </View>
+    </SegmentButtonContext.Provider>
   )
 }

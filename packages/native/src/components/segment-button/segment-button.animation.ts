@@ -1,19 +1,18 @@
 import { Animated } from 'react-native'
 
-export const runSegmentPressInAnimation = (animatedScale: Animated.Value) => {
-  Animated.spring(animatedScale, {
-    toValue: 0.96,
+export const runCheckmarkEnterAnimation = (animatedValue: Animated.Value) => {
+  animatedValue.setValue(0)
+  Animated.timing(animatedValue, {
+    toValue: 1,
+    duration: 200,
     useNativeDriver: true,
-    speed: 50,
-    bounciness: 0,
   }).start()
 }
 
-export const runSegmentPressOutAnimation = (animatedScale: Animated.Value) => {
-  Animated.spring(animatedScale, {
-    toValue: 1,
+export const runCheckmarkExitAnimation = (animatedValue: Animated.Value) => {
+  Animated.timing(animatedValue, {
+    toValue: 0,
+    duration: 150,
     useNativeDriver: true,
-    speed: 50,
-    bounciness: 0,
   }).start()
 }

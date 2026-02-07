@@ -3,7 +3,7 @@ import { StyleSheet } from 'react-native'
 export const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'stretch',
     overflow: 'hidden',
     alignSelf: 'flex-start',
   },
@@ -15,6 +15,7 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
   segmentInner: {
+    flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
@@ -23,14 +24,17 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 6,
+    gap: 4,
   },
   segmentText: {
     fontWeight: '500',
     textAlign: 'center',
   },
   disabled: {
-    opacity: 0.5,
+    opacity: 0.38,
+  },
+  disabledText: {
+    opacity: 0.6,
   },
   divider: {
     width: 1,

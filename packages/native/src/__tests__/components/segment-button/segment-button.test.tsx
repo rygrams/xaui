@@ -1,29 +1,43 @@
+import React from 'react'
 import { describe, it, expect } from 'vitest'
 import type {
   SegmentButtonProps,
-  SegmentItem,
   SegmentButtonVariant,
   SegmentButtonSelectionMode,
   ElevationLevel,
+  SegmentButtonItemProps,
 } from '../../../components/segment-button'
 
 describe('SegmentButton Types', () => {
-  const segments: SegmentItem[] = [
-    { key: 'day', label: 'Day' },
-    { key: 'week', label: 'Week' },
-    { key: 'month', label: 'Month' },
-  ]
-
-  it('exports SegmentButtonProps type with required props', () => {
+  it('exports SegmentButtonProps type with children', () => {
     const props: SegmentButtonProps = {
-      segments,
+      children: React.createElement('div'),
+    }
+
+    expect(props).toBeDefined()
+    expect(props.children).toBeDefined()
+  })
+
+  it('accepts controlled mode props', () => {
+    const props: SegmentButtonProps = {
+      children: React.createElement('div'),
       selected: 'day',
       onSelectionChange: () => {},
     }
 
-    expect(props).toBeDefined()
-    expect(props.segments).toHaveLength(3)
     expect(props.selected).toBe('day')
+    expect(props.onSelectionChange).toBeDefined()
+  })
+
+  it('accepts uncontrolled mode with defaultSelected', () => {
+    const props: SegmentButtonProps = {
+      children: React.createElement('div'),
+      defaultSelected: 'week',
+    }
+
+    expect(props.defaultSelected).toBe('week')
+    expect(props.selected).toBeUndefined()
+    expect(props.onSelectionChange).toBeUndefined()
   })
 
   it('accepts all theme colors', () => {
@@ -39,9 +53,7 @@ describe('SegmentButton Types', () => {
 
     colors.forEach(color => {
       const props: SegmentButtonProps = {
-        segments,
-        selected: 'day',
-        onSelectionChange: () => {},
+        children: React.createElement('div'),
         themeColor: color,
       }
       expect(props.themeColor).toBe(color)
@@ -59,9 +71,7 @@ describe('SegmentButton Types', () => {
 
     variants.forEach(variant => {
       const props: SegmentButtonProps = {
-        segments,
-        selected: 'day',
-        onSelectionChange: () => {},
+        children: React.createElement('div'),
         variant,
       }
       expect(props.variant).toBe(variant)
@@ -73,9 +83,7 @@ describe('SegmentButton Types', () => {
 
     sizes.forEach(size => {
       const props: SegmentButtonProps = {
-        segments,
-        selected: 'day',
-        onSelectionChange: () => {},
+        children: React.createElement('div'),
         size,
       }
       expect(props.size).toBe(size)
@@ -93,9 +101,7 @@ describe('SegmentButton Types', () => {
 
     radii.forEach(radius => {
       const props: SegmentButtonProps = {
-        segments,
-        selected: 'day',
-        onSelectionChange: () => {},
+        children: React.createElement('div'),
         radius,
       }
       expect(props.radius).toBe(radius)
@@ -107,9 +113,7 @@ describe('SegmentButton Types', () => {
 
     modes.forEach(mode => {
       const props: SegmentButtonProps = {
-        segments,
-        selected: mode === 'single' ? 'day' : ['day', 'week'],
-        onSelectionChange: () => {},
+        children: React.createElement('div'),
         selectionMode: mode,
       }
       expect(props.selectionMode).toBe(mode)
@@ -118,9 +122,7 @@ describe('SegmentButton Types', () => {
 
   it('accepts boolean props', () => {
     const props: SegmentButtonProps = {
-      segments,
-      selected: 'day',
-      onSelectionChange: () => {},
+      children: React.createElement('div'),
       fullWidth: true,
       isDisabled: true,
       showCheckmark: false,
@@ -136,9 +138,7 @@ describe('SegmentButton Types', () => {
 
     levels.forEach(level => {
       const props: SegmentButtonProps = {
-        segments,
-        selected: 'day',
-        onSelectionChange: () => {},
+        children: React.createElement('div'),
         elevation: level,
       }
       expect(props.elevation).toBe(level)
@@ -147,9 +147,8 @@ describe('SegmentButton Types', () => {
 
   it('accepts string selected for single mode', () => {
     const props: SegmentButtonProps = {
-      segments,
+      children: React.createElement('div'),
       selected: 'week',
-      onSelectionChange: () => {},
       selectionMode: 'single',
     }
 
@@ -158,40 +157,67 @@ describe('SegmentButton Types', () => {
 
   it('accepts array selected for multiple mode', () => {
     const props: SegmentButtonProps = {
-      segments,
+      children: React.createElement('div'),
       selected: ['day', 'month'],
-      onSelectionChange: () => {},
       selectionMode: 'multiple',
     }
 
     expect(props.selected).toEqual(['day', 'month'])
   })
 
-  it('accepts segment items with icons and disabled state', () => {
-    const itemsWithOptions: SegmentItem[] = [
-      { key: 'a', label: 'A', icon: 'icon-a', isDisabled: true },
-      { key: 'b', label: 'B', icon: 'icon-b', isDisabled: false },
-      { key: 'c', label: 'C' },
-    ]
-
+  it('accepts custom appearance container style', () => {
     const props: SegmentButtonProps = {
-      segments: itemsWithOptions,
-      selected: 'b',
-      onSelectionChange: () => {},
+      children: React.createElement('div'),
+      customAppearance: {
+        container: { marginTop: 10 },
+      },
     }
 
-    expect(props.segments[0].isDisabled).toBe(true)
-    expect(props.segments[0].icon).toBe('icon-a')
-    expect(props.segments[2].isDisabled).toBeUndefined()
+    expect(props.customAppearance?.container).toEqual({ marginTop: 10 })
+  })
+
+  it('accepts onSelectionChange callback', () => {
+    let result: string | string[] = ''
+    const props: SegmentButtonProps = {
+      children: React.createElement('div'),
+      onSelectionChange: val => {
+        result = val
+      },
+    }
+
+    props.onSelectionChange?.('week')
+    expect(result).toBe('week')
+  })
+})
+
+describe('SegmentButtonItem Types', () => {
+  it('exports SegmentButtonItemProps type', () => {
+    const props: SegmentButtonItemProps = {
+      itemKey: 'day',
+      label: 'Day',
+    }
+
+    expect(props.itemKey).toBe('day')
+    expect(props.label).toBe('Day')
+  })
+
+  it('accepts optional icon and disabled state', () => {
+    const props: SegmentButtonItemProps = {
+      itemKey: 'a',
+      label: 'A',
+      icon: React.createElement('div'),
+      isDisabled: true,
+    }
+
+    expect(props.isDisabled).toBe(true)
+    expect(props.icon).toBeDefined()
   })
 
   it('accepts custom appearance styles', () => {
-    const props: SegmentButtonProps = {
-      segments,
-      selected: 'day',
-      onSelectionChange: () => {},
+    const props: SegmentButtonItemProps = {
+      itemKey: 'b',
+      label: 'B',
       customAppearance: {
-        container: { marginTop: 10 },
         segment: { padding: 5 },
         selectedSegment: { padding: 8 },
         text: { fontWeight: '400' },
@@ -199,21 +225,7 @@ describe('SegmentButton Types', () => {
       },
     }
 
-    expect(props.customAppearance?.container).toEqual({ marginTop: 10 })
+    expect(props.customAppearance?.segment).toEqual({ padding: 5 })
     expect(props.customAppearance?.selectedSegment).toEqual({ padding: 8 })
-  })
-
-  it('accepts onSelectionChange callback', () => {
-    let result: string | string[] = ''
-    const props: SegmentButtonProps = {
-      segments,
-      selected: 'day',
-      onSelectionChange: val => {
-        result = val
-      },
-    }
-
-    props.onSelectionChange('week')
-    expect(result).toBe('week')
   })
 })

@@ -1,26 +1,7 @@
 import { useXUIColors, useXUITheme } from '@xaui/native/core'
 import { StyleSheet, View, ScrollView, Text } from 'react-native'
 import { useState } from 'react'
-import { SegmentButton } from '@xaui/native/segment-button'
-
-const deliverySegments = [
-  { key: 'standard', label: 'Standard' },
-  { key: 'express', label: 'Express' },
-  { key: 'pickup', label: 'Pickup' },
-]
-
-const filterSegments = [
-  { key: 'new', label: 'New' },
-  { key: 'popular', label: 'Popular' },
-  { key: 'sale', label: 'Sale' },
-]
-
-const viewSegments = [
-  { key: 'day', label: 'Day' },
-  { key: 'week', label: 'Week' },
-  { key: 'month', label: 'Month' },
-  { key: 'year', label: 'Year' },
-]
+import { SegmentButton, SegmentButtonItem } from '@xaui/native/segment-button'
 
 export default function SegmentButtonsScreen() {
   const colors = useXUIColors()
@@ -28,32 +9,28 @@ export default function SegmentButtonsScreen() {
 
   const [delivery, setDelivery] = useState('standard')
   const [filters, setFilters] = useState<string[]>(['new', 'popular'])
-  const [outlinedVal, setOutlinedVal] = useState('day')
-  const [solidVal, setSolidVal] = useState('day')
-  const [flatVal, setFlatVal] = useState('day')
-  const [lightVal, setLightVal] = useState('day')
-  const [fadedVal, setFadedVal] = useState('day')
-  const [elevatedVal, setElevatedVal] = useState('day')
-  const [sizeXs, setSizeXs] = useState('day')
-  const [sizeSm, setSizeSm] = useState('day')
-  const [sizeMd, setSizeMd] = useState('day')
-  const [sizeLg, setSizeLg] = useState('day')
 
   return (
     <ScrollView
       style={[localStyles.container, { backgroundColor: colors.background }]}
-      contentContainerStyle={[localStyles.content, { gap: theme.spacing.lg }]}
+      contentContainerStyle={[
+        localStyles.content,
+        { gap: theme.spacing.lg },
+      ]}
     >
       <View style={localStyles.section}>
         <Text style={[localStyles.sectionTitle, { color: colors.foreground }]}>
-          Single Selection
+          Single Selection (Controlled)
         </Text>
         <SegmentButton
-          segments={deliverySegments}
           selected={delivery}
           onSelectionChange={val => setDelivery(val as string)}
           fullWidth
-        />
+        >
+          <SegmentButtonItem itemKey="standard" label="Standard" />
+          <SegmentButtonItem itemKey="express" label="Express" />
+          <SegmentButtonItem itemKey="pickup" label="Pickup" />
+        </SegmentButton>
         <Text style={[localStyles.label, { color: colors.foreground }]}>
           Selected: {delivery}
         </Text>
@@ -61,19 +38,34 @@ export default function SegmentButtonsScreen() {
 
       <View style={localStyles.section}>
         <Text style={[localStyles.sectionTitle, { color: colors.foreground }]}>
-          Multiple Selection
+          Multiple Selection (Controlled)
         </Text>
         <SegmentButton
-          segments={filterSegments}
           selected={filters}
           onSelectionChange={val => setFilters(val as string[])}
           selectionMode="multiple"
           variant="solid"
           fullWidth
-        />
+        >
+          <SegmentButtonItem itemKey="new" label="New" />
+          <SegmentButtonItem itemKey="popular" label="Popular" />
+          <SegmentButtonItem itemKey="sale" label="Sale" />
+        </SegmentButton>
         <Text style={[localStyles.label, { color: colors.foreground }]}>
           Selected: {filters.join(', ')}
         </Text>
+      </View>
+
+      <View style={localStyles.section}>
+        <Text style={[localStyles.sectionTitle, { color: colors.foreground }]}>
+          Uncontrolled
+        </Text>
+        <SegmentButton defaultSelected="week" fullWidth>
+          <SegmentButtonItem itemKey="day" label="Day" />
+          <SegmentButtonItem itemKey="week" label="Week" />
+          <SegmentButtonItem itemKey="month" label="Month" />
+          <SegmentButtonItem itemKey="year" label="Year" />
+        </SegmentButton>
       </View>
 
       <View style={localStyles.section}>
@@ -84,67 +76,67 @@ export default function SegmentButtonsScreen() {
           <Text style={[localStyles.label, { color: colors.foreground }]}>
             Outlined
           </Text>
-          <SegmentButton
-            segments={viewSegments}
-            selected={outlinedVal}
-            onSelectionChange={val => setOutlinedVal(val as string)}
-            variant="outlined"
-            fullWidth
-          />
+          <SegmentButton defaultSelected="day" variant="outlined" fullWidth>
+            <SegmentButtonItem itemKey="day" label="Day" />
+            <SegmentButtonItem itemKey="week" label="Week" />
+            <SegmentButtonItem itemKey="month" label="Month" />
+            <SegmentButtonItem itemKey="year" label="Year" />
+          </SegmentButton>
 
           <Text style={[localStyles.label, { color: colors.foreground }]}>
             Solid
           </Text>
-          <SegmentButton
-            segments={viewSegments}
-            selected={solidVal}
-            onSelectionChange={val => setSolidVal(val as string)}
-            variant="solid"
-            fullWidth
-          />
+          <SegmentButton defaultSelected="day" variant="solid" fullWidth>
+            <SegmentButtonItem itemKey="day" label="Day" />
+            <SegmentButtonItem itemKey="week" label="Week" />
+            <SegmentButtonItem itemKey="month" label="Month" />
+            <SegmentButtonItem itemKey="year" label="Year" />
+          </SegmentButton>
 
-          <Text style={[localStyles.label, { color: colors.foreground }]}>Flat</Text>
-          <SegmentButton
-            segments={viewSegments}
-            selected={flatVal}
-            onSelectionChange={val => setFlatVal(val as string)}
-            variant="flat"
-            fullWidth
-          />
+          <Text style={[localStyles.label, { color: colors.foreground }]}>
+            Flat
+          </Text>
+          <SegmentButton defaultSelected="day" variant="flat" fullWidth>
+            <SegmentButtonItem itemKey="day" label="Day" />
+            <SegmentButtonItem itemKey="week" label="Week" />
+            <SegmentButtonItem itemKey="month" label="Month" />
+            <SegmentButtonItem itemKey="year" label="Year" />
+          </SegmentButton>
 
           <Text style={[localStyles.label, { color: colors.foreground }]}>
             Light
           </Text>
-          <SegmentButton
-            segments={viewSegments}
-            selected={lightVal}
-            onSelectionChange={val => setLightVal(val as string)}
-            variant="light"
-            fullWidth
-          />
+          <SegmentButton defaultSelected="day" variant="light" fullWidth>
+            <SegmentButtonItem itemKey="day" label="Day" />
+            <SegmentButtonItem itemKey="week" label="Week" />
+            <SegmentButtonItem itemKey="month" label="Month" />
+            <SegmentButtonItem itemKey="year" label="Year" />
+          </SegmentButton>
 
           <Text style={[localStyles.label, { color: colors.foreground }]}>
             Faded
           </Text>
-          <SegmentButton
-            segments={viewSegments}
-            selected={fadedVal}
-            onSelectionChange={val => setFadedVal(val as string)}
-            variant="faded"
-            fullWidth
-          />
+          <SegmentButton defaultSelected="day" variant="faded" fullWidth>
+            <SegmentButtonItem itemKey="day" label="Day" />
+            <SegmentButtonItem itemKey="week" label="Week" />
+            <SegmentButtonItem itemKey="month" label="Month" />
+            <SegmentButtonItem itemKey="year" label="Year" />
+          </SegmentButton>
 
           <Text style={[localStyles.label, { color: colors.foreground }]}>
             Solid + Elevation
           </Text>
           <SegmentButton
-            segments={viewSegments}
-            selected={elevatedVal}
-            onSelectionChange={val => setElevatedVal(val as string)}
+            defaultSelected="day"
             variant="solid"
             elevation={2}
             fullWidth
-          />
+          >
+            <SegmentButtonItem itemKey="day" label="Day" />
+            <SegmentButtonItem itemKey="week" label="Week" />
+            <SegmentButtonItem itemKey="month" label="Month" />
+            <SegmentButtonItem itemKey="year" label="Year" />
+          </SegmentButton>
         </View>
       </View>
 
@@ -156,46 +148,42 @@ export default function SegmentButtonsScreen() {
           <Text style={[localStyles.label, { color: colors.foreground }]}>
             Extra Small
           </Text>
-          <SegmentButton
-            segments={viewSegments}
-            selected={sizeXs}
-            onSelectionChange={val => setSizeXs(val as string)}
-            size="xs"
-            fullWidth
-          />
+          <SegmentButton defaultSelected="day" size="xs" fullWidth>
+            <SegmentButtonItem itemKey="day" label="Day" />
+            <SegmentButtonItem itemKey="week" label="Week" />
+            <SegmentButtonItem itemKey="month" label="Month" />
+            <SegmentButtonItem itemKey="year" label="Year" />
+          </SegmentButton>
 
           <Text style={[localStyles.label, { color: colors.foreground }]}>
             Small
           </Text>
-          <SegmentButton
-            segments={viewSegments}
-            selected={sizeSm}
-            onSelectionChange={val => setSizeSm(val as string)}
-            size="sm"
-            fullWidth
-          />
+          <SegmentButton defaultSelected="day" size="sm" fullWidth>
+            <SegmentButtonItem itemKey="day" label="Day" />
+            <SegmentButtonItem itemKey="week" label="Week" />
+            <SegmentButtonItem itemKey="month" label="Month" />
+            <SegmentButtonItem itemKey="year" label="Year" />
+          </SegmentButton>
 
           <Text style={[localStyles.label, { color: colors.foreground }]}>
             Medium
           </Text>
-          <SegmentButton
-            segments={viewSegments}
-            selected={sizeMd}
-            onSelectionChange={val => setSizeMd(val as string)}
-            size="md"
-            fullWidth
-          />
+          <SegmentButton defaultSelected="day" size="md" fullWidth>
+            <SegmentButtonItem itemKey="day" label="Day" />
+            <SegmentButtonItem itemKey="week" label="Week" />
+            <SegmentButtonItem itemKey="month" label="Month" />
+            <SegmentButtonItem itemKey="year" label="Year" />
+          </SegmentButton>
 
           <Text style={[localStyles.label, { color: colors.foreground }]}>
             Large
           </Text>
-          <SegmentButton
-            segments={viewSegments}
-            selected={sizeLg}
-            onSelectionChange={val => setSizeLg(val as string)}
-            size="lg"
-            fullWidth
-          />
+          <SegmentButton defaultSelected="day" size="lg" fullWidth>
+            <SegmentButtonItem itemKey="day" label="Day" />
+            <SegmentButtonItem itemKey="week" label="Week" />
+            <SegmentButtonItem itemKey="month" label="Month" />
+            <SegmentButtonItem itemKey="year" label="Year" />
+          </SegmentButton>
         </View>
       </View>
 
@@ -205,40 +193,50 @@ export default function SegmentButtonsScreen() {
         </Text>
         <View style={{ gap: theme.spacing.md }}>
           <SegmentButton
-            segments={deliverySegments}
-            selected="standard"
-            onSelectionChange={() => {}}
+            defaultSelected="standard"
             themeColor="primary"
             fullWidth
-          />
+          >
+            <SegmentButtonItem itemKey="standard" label="Standard" />
+            <SegmentButtonItem itemKey="express" label="Express" />
+            <SegmentButtonItem itemKey="pickup" label="Pickup" />
+          </SegmentButton>
           <SegmentButton
-            segments={deliverySegments}
-            selected="standard"
-            onSelectionChange={() => {}}
+            defaultSelected="standard"
             themeColor="secondary"
             fullWidth
-          />
+          >
+            <SegmentButtonItem itemKey="standard" label="Standard" />
+            <SegmentButtonItem itemKey="express" label="Express" />
+            <SegmentButtonItem itemKey="pickup" label="Pickup" />
+          </SegmentButton>
           <SegmentButton
-            segments={deliverySegments}
-            selected="standard"
-            onSelectionChange={() => {}}
+            defaultSelected="standard"
             themeColor="success"
             fullWidth
-          />
+          >
+            <SegmentButtonItem itemKey="standard" label="Standard" />
+            <SegmentButtonItem itemKey="express" label="Express" />
+            <SegmentButtonItem itemKey="pickup" label="Pickup" />
+          </SegmentButton>
           <SegmentButton
-            segments={deliverySegments}
-            selected="standard"
-            onSelectionChange={() => {}}
+            defaultSelected="standard"
             themeColor="danger"
             fullWidth
-          />
+          >
+            <SegmentButtonItem itemKey="standard" label="Standard" />
+            <SegmentButtonItem itemKey="express" label="Express" />
+            <SegmentButtonItem itemKey="pickup" label="Pickup" />
+          </SegmentButton>
           <SegmentButton
-            segments={deliverySegments}
-            selected="standard"
-            onSelectionChange={() => {}}
+            defaultSelected="standard"
             themeColor="warning"
             fullWidth
-          />
+          >
+            <SegmentButtonItem itemKey="standard" label="Standard" />
+            <SegmentButtonItem itemKey="express" label="Express" />
+            <SegmentButtonItem itemKey="pickup" label="Pickup" />
+          </SegmentButton>
         </View>
       </View>
 
@@ -250,35 +248,33 @@ export default function SegmentButtonsScreen() {
           <Text style={[localStyles.label, { color: colors.foreground }]}>
             Disabled
           </Text>
-          <SegmentButton
-            segments={deliverySegments}
-            selected="standard"
-            onSelectionChange={() => {}}
-            isDisabled
-            fullWidth
-          />
+          <SegmentButton defaultSelected="standard" isDisabled fullWidth>
+            <SegmentButtonItem itemKey="standard" label="Standard" />
+            <SegmentButtonItem itemKey="express" label="Express" />
+            <SegmentButtonItem itemKey="pickup" label="Pickup" />
+          </SegmentButton>
 
           <Text style={[localStyles.label, { color: colors.foreground }]}>
             No Checkmark
           </Text>
           <SegmentButton
-            segments={deliverySegments}
-            selected="standard"
-            onSelectionChange={() => {}}
+            defaultSelected="standard"
             showCheckmark={false}
             fullWidth
-          />
+          >
+            <SegmentButtonItem itemKey="standard" label="Standard" />
+            <SegmentButtonItem itemKey="express" label="Express" />
+            <SegmentButtonItem itemKey="pickup" label="Pickup" />
+          </SegmentButton>
 
           <Text style={[localStyles.label, { color: colors.foreground }]}>
             Square Radius
           </Text>
-          <SegmentButton
-            segments={deliverySegments}
-            selected="standard"
-            onSelectionChange={() => {}}
-            radius="md"
-            fullWidth
-          />
+          <SegmentButton defaultSelected="standard" radius="md" fullWidth>
+            <SegmentButtonItem itemKey="standard" label="Standard" />
+            <SegmentButtonItem itemKey="express" label="Express" />
+            <SegmentButtonItem itemKey="pickup" label="Pickup" />
+          </SegmentButton>
         </View>
       </View>
 
