@@ -29,6 +29,7 @@ export default defineConfig(options => {
       'fab-menu/index': 'src/components/fab-menu/index.ts',
       'segment-button/index': 'src/components/segment-button/index.ts',
       'carousel/index': 'src/components/carousel/index.ts',
+      'card/index': 'src/components/card/index.ts',
     },
     format: ['cjs', 'esm'],
     dts: !isWatch,

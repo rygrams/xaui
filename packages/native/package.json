@@ -136,6 +136,11 @@
       "types": "./dist/fab-menu/index.d.ts",
       "import": "./dist/fab-menu/index.js",
       "require": "./dist/fab-menu/index.js"
+    },
+    "./card": {
+      "types": "./dist/card/index.d.ts",
+      "import": "./dist/card/index.js",
+      "require": "./dist/card/index.js"
     }
   },
   "files": [
