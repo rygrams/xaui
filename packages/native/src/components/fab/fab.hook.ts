@@ -134,10 +134,7 @@ export function useFabVariantStyles(
   return variantStyles
 }
 
-export function useFabIconColor(
-  themeColor: ThemeColor,
-  variant: FabVariant
-) {
+export function useFabIconColor(themeColor: ThemeColor, variant: FabVariant) {
   const theme = useXUITheme()
   const safeThemeColor = getSafeThemeColor(themeColor)
   const colorScheme = theme.colors[safeThemeColor]

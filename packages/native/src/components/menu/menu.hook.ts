@@ -1,5 +1,11 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { Animated, Dimensions, Easing, type LayoutChangeEvent, type View } from 'react-native'
+import {
+  Animated,
+  Dimensions,
+  Easing,
+  type LayoutChangeEvent,
+  type View,
+} from 'react-native'
 import { MENU_SCREEN_INDENT, MENU_TRIGGER_GAP } from './menu.style'
 import type { MenuPosition } from './menu.type'
 
@@ -12,7 +18,9 @@ type TriggerPosition = {
 
 export const useMenuTriggerMeasurements = (visible: boolean) => {
   const triggerRef = useRef<View>(null)
-  const [triggerPosition, setTriggerPosition] = useState<TriggerPosition | null>(null)
+  const [triggerPosition, setTriggerPosition] = useState<TriggerPosition | null>(
+    null
+  )
 
   useEffect(() => {
     if (!visible) {
@@ -79,7 +87,8 @@ export const useMenuPosition = (
     let left = triggerPosition.x
 
     const hasEnoughSpaceBelow =
-      triggerPosition.y + triggerPosition.height + contentSize.height <= screenHeight - MENU_SCREEN_INDENT
+      triggerPosition.y + triggerPosition.height + contentSize.height <=
+      screenHeight - MENU_SCREEN_INDENT
     const hasEnoughSpaceAbove =
       triggerPosition.y - contentSize.height >= MENU_SCREEN_INDENT
 
@@ -101,7 +110,10 @@ export const useMenuPosition = (
       }
     }
 
-    if (contentSize.width > 0 && left + contentSize.width > screenWidth - MENU_SCREEN_INDENT) {
+    if (
+      contentSize.width > 0 &&
+      left + contentSize.width > screenWidth - MENU_SCREEN_INDENT
+    ) {
       left = Math.max(
         MENU_SCREEN_INDENT,
         triggerPosition.x + triggerPosition.width - contentSize.width
@@ -112,7 +124,10 @@ export const useMenuPosition = (
       left = MENU_SCREEN_INDENT
     }
 
-    const maxTop = Math.max(MENU_SCREEN_INDENT, screenHeight - MENU_SCREEN_INDENT - contentSize.height)
+    const maxTop = Math.max(
+      MENU_SCREEN_INDENT,
+      screenHeight - MENU_SCREEN_INDENT - contentSize.height
+    )
     const clampedTop = Math.min(maxTop, Math.max(MENU_SCREEN_INDENT, top))
 
     return { top: clampedTop, left }

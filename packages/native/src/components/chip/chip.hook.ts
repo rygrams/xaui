@@ -4,7 +4,10 @@ import { useXUITheme } from '../../core'
 import type { ThemeColor } from '../../types'
 import type { ChipRadius, ChipSize, ChipVariant } from './chip.type'
 
-const sizeMap: Record<ChipSize, { height: number; paddingH: number; fontSize: number }> = {
+const sizeMap: Record<
+  ChipSize,
+  { height: number; paddingH: number; fontSize: number }
+> = {
   sm: { height: 32, paddingH: 12, fontSize: 13 },
   md: { height: 40, paddingH: 16, fontSize: 15 },
   lg: { height: 44, paddingH: 18, fontSize: 17 },

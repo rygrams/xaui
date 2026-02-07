@@ -24,11 +24,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({
     if (typeof title === 'string' || typeof title === 'number') {
       return (
         <Text
-          style={[
-            styles.titleText,
-            { color: titleColor },
-            customAppearance?.title,
-          ]}
+          style={[styles.titleText, { color: titleColor }, customAppearance?.title]}
           numberOfLines={1}
         >
           {title}
@@ -49,20 +45,17 @@ export const MenuItem: React.FC<MenuItemProps> = ({
         styles.container,
         dense && styles.denseContainer,
         isDisabled && styles.disabled,
-        pressed && !isDisabled && {
-          backgroundColor: theme.colors.foreground + '10',
-        },
+        pressed &&
+          !isDisabled && {
+            backgroundColor: theme.colors.foreground + '10',
+          },
         customAppearance?.container,
       ]}
     >
       <View style={[styles.row, customAppearance?.content]}>
-        {startContent && (
-          <View style={styles.startContent}>{startContent}</View>
-        )}
+        {startContent && <View style={styles.startContent}>{startContent}</View>}
         <View style={styles.content}>{renderTitle()}</View>
-        {endContent && (
-          <View style={styles.endContent}>{endContent}</View>
-        )}
+        {endContent && <View style={styles.endContent}>{endContent}</View>}
       </View>
     </Pressable>
   )

@@ -105,42 +105,32 @@ describe('useChipVariantStyles', () => {
   })
 
   it('should return bordered variant styles', () => {
-    const { result } = renderHook(() =>
-      useChipVariantStyles('primary', 'bordered'),
-    )
+    const { result } = renderHook(() => useChipVariantStyles('primary', 'bordered'))
     expect(result.current.backgroundColor).toBe('transparent')
     expect(result.current.borderWidth).toBe(2)
     expect(result.current.borderColor).toBe('#1976d2')
   })
 
   it('should return light variant styles', () => {
-    const { result } = renderHook(() =>
-      useChipVariantStyles('primary', 'light'),
-    )
+    const { result } = renderHook(() => useChipVariantStyles('primary', 'light'))
     expect(result.current.backgroundColor).toBe('transparent')
     expect(result.current.color).toBe('#1976d2')
   })
 
   it('should return flat variant styles', () => {
-    const { result } = renderHook(() =>
-      useChipVariantStyles('primary', 'flat'),
-    )
+    const { result } = renderHook(() => useChipVariantStyles('primary', 'flat'))
     expect(result.current.backgroundColor).toBe('#e3f2fd')
     expect(result.current.color).toBe('#1976d2')
   })
 
   it('should return shadow variant styles', () => {
-    const { result } = renderHook(() =>
-      useChipVariantStyles('primary', 'shadow'),
-    )
+    const { result } = renderHook(() => useChipVariantStyles('primary', 'shadow'))
     expect(result.current.backgroundColor).toBe('#1976d2')
     expect(result.current.shadow).toBeDefined()
   })
 
   it('should return dot variant styles', () => {
-    const { result } = renderHook(() =>
-      useChipVariantStyles('primary', 'dot'),
-    )
+    const { result } = renderHook(() => useChipVariantStyles('primary', 'dot'))
     expect(result.current.dotColor).toBe('#1976d2')
     expect(result.current.backgroundColor).toBe('#e3f2fd')
   })

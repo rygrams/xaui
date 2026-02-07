@@ -65,13 +65,7 @@ export const AddIcon: React.FC<IconProps> = ({
 
   const renderDuotone = () => (
     <>
-      <Circle
-        cx="256"
-        cy="256"
-        r="192"
-        fill={resolvedColor}
-        opacity={0.3}
-      />
+      <Circle cx="256" cy="256" r="192" fill={resolvedColor} opacity={0.3} />
       <AnimatedPath
         fill="none"
         stroke={resolvedColor}

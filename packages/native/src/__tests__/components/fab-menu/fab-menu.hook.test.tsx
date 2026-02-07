@@ -141,9 +141,7 @@ describe('fab-menu hook styles', () => {
 
   describe('useFabMenuItemStyles', () => {
     it('returns chip styles with background color from colorScheme', () => {
-      const { result } = renderHook(() =>
-        useFabMenuItemStyles('primary')
-      )
+      const { result } = renderHook(() => useFabMenuItemStyles('primary'))
 
       expect(result.current.chipStyles.backgroundColor).toBe('#e3f2fd')
       expect(result.current.chipStyles.color).toBe('#1976d2')
@@ -151,18 +149,14 @@ describe('fab-menu hook styles', () => {
     })
 
     it('returns consistent chip styles for secondary theme', () => {
-      const { result } = renderHook(() =>
-        useFabMenuItemStyles('primary')
-      )
+      const { result } = renderHook(() => useFabMenuItemStyles('primary'))
 
       expect(result.current.chipStyles.backgroundColor).toBe('#e3f2fd')
       expect(result.current.iconColor).toBe('#1976d2')
     })
 
     it('returns full border radius for chip shape', () => {
-      const { result } = renderHook(() =>
-        useFabMenuItemStyles('primary')
-      )
+      const { result } = renderHook(() => useFabMenuItemStyles('primary'))
 
       expect(result.current.chipStyles.borderRadius).toBe(9999)
     })

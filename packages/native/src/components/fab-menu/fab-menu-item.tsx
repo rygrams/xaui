@@ -32,7 +32,7 @@ export const FabMenuItem: React.FC<FabMenuItemProps> = ({
           borderRadius: itemStyles.chipStyles.borderRadius,
         },
       ]}
-      onPress={(event) => {
+      onPress={event => {
         if (isDisabled) return
         onPress?.(event)
         _onClose?.()

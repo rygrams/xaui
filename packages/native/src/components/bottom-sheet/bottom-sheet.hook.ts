@@ -2,7 +2,11 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Animated, Dimensions, PanResponder } from 'react-native'
 import { useXUITheme } from '../../core'
 import { getSafeThemeColor } from '@xaui/core'
-import { runCloseAnimation, runOpenAnimation, runSnapAnimation } from './bottom-sheet.animation'
+import {
+  runCloseAnimation,
+  runOpenAnimation,
+  runSnapAnimation,
+} from './bottom-sheet.animation'
 import type { BottomSheetProps } from './bottom-sheet.type'
 import type { Radius, ThemeColor } from '../../types'
 
@@ -115,7 +119,13 @@ export const useBottomSheetAnimation = ({
         snapTranslateValues[clampedIndex]
       )
     },
-    [sortedSnapPoints, snapTranslateValues, disableAnimation, translateY, onSnapChange]
+    [
+      sortedSnapPoints,
+      snapTranslateValues,
+      disableAnimation,
+      translateY,
+      onSnapChange,
+    ]
   )
 
   useEffect(() => {
@@ -147,7 +157,8 @@ export const useBottomSheetAnimation = ({
             enableSwipeToDismiss &&
             (gestureState.vy > DISMISS_VELOCITY_THRESHOLD ||
               finalPosition >
-                SCREEN_HEIGHT * (1 - sortedSnapPoints[0] * DISMISS_DISTANCE_FRACTION))
+                SCREEN_HEIGHT *
+                  (1 - sortedSnapPoints[0] * DISMISS_DISTANCE_FRACTION))
           ) {
             close()
             return
@@ -205,10 +216,7 @@ export const useBottomSheetAnimation = ({
   }
 }
 
-export const useBottomSheetStyles = (
-  themeColor: ThemeColor,
-  radius: Radius
-) => {
+export const useBottomSheetStyles = (themeColor: ThemeColor, radius: Radius) => {
   const theme = useXUITheme()
   const safeThemeColor = getSafeThemeColor(themeColor)
   const colorScheme = theme.colors[safeThemeColor]
@@ -225,9 +233,7 @@ export const useBottomSheetStyles = (
 
   const handleIndicatorColor = useMemo(
     () =>
-      theme.mode === 'dark'
-        ? `${colorScheme.main}60`
-        : `${colorScheme.main}40`,
+      theme.mode === 'dark' ? `${colorScheme.main}60` : `${colorScheme.main}40`,
     [theme, colorScheme]
   )
 

@@ -24,7 +24,7 @@ export const ChipGroup: React.FC<ChipGroupProps> = ({
     selectMode,
     selectedValues,
     defaultSelectedValues,
-    onSelectionChange,
+    onSelectionChange
   )
 
   const contextValue = React.useMemo(
@@ -49,7 +49,7 @@ export const ChipGroup: React.FC<ChipGroupProps> = ({
       selectMode,
       currentValues,
       onToggle,
-    ],
+    ]
   )
 
   return (

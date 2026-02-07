@@ -47,18 +47,8 @@ export const BinocularsIcon: React.FC<IconProps> = ({
 
   const renderBaseline = () => (
     <>
-      <AnimatedCircle
-        cx={392}
-        cy={344}
-        r={88}
-        {...animatedProps}
-      />
-      <AnimatedCircle
-        cx={120}
-        cy={344}
-        r={88}
-        {...animatedProps}
-      />
+      <AnimatedCircle cx={392} cy={344} r={88} {...animatedProps} />
+      <AnimatedCircle cx={120} cy={344} r={88} {...animatedProps} />
       <AnimatedPath
         d="M208 344V128c0-26.5-16-48-44-48c-35 0-46.5 21.5-57 48c0 0-48.5 127.833-71 189.5M208 184s16.5-8 48-8s48 8 48 8m-96 88s16.5-8 48-8s48 8 48 8m0 72V128c0-26.5 16-48 44-48c35 0 46.5 21.5 57 48c0 0 48.5 127.833 71 189.5"
         {...animatedProps}
@@ -88,18 +78,8 @@ export const BinocularsIcon: React.FC<IconProps> = ({
         opacity={0.3}
         {...animatedProps}
       />
-      <AnimatedCircle
-        cx={392}
-        cy={344}
-        r={88}
-        {...animatedProps}
-      />
-      <AnimatedCircle
-        cx={120}
-        cy={344}
-        r={88}
-        {...animatedProps}
-      />
+      <AnimatedCircle cx={392} cy={344} r={88} {...animatedProps} />
+      <AnimatedCircle cx={120} cy={344} r={88} {...animatedProps} />
       <AnimatedPath
         d="M208 344V128c0-26.5-16-48-44-48c-35 0-46.5 21.5-57 48c0 0-48.5 127.833-71 189.5M208 184s16.5-8 48-8s48 8 48 8m-96 88s16.5-8 48-8s48 8 48 8m0 72V128c0-26.5 16-48 44-48c35 0 46.5 21.5 57 48c0 0 48.5 127.833 71 189.5"
         {...animatedProps}
@@ -118,18 +98,8 @@ export const BinocularsIcon: React.FC<IconProps> = ({
         strokeWidth={32}
         {...animatedProps}
       />
-      <AnimatedCircle
-        cx={392}
-        cy={344}
-        r={88}
-        {...animatedProps}
-      />
-      <AnimatedCircle
-        cx={120}
-        cy={344}
-        r={88}
-        {...animatedProps}
-      />
+      <AnimatedCircle cx={392} cy={344} r={88} {...animatedProps} />
+      <AnimatedCircle cx={120} cy={344} r={88} {...animatedProps} />
       <AnimatedPath
         d="M208 344V128c0-26.5-16-48-44-48c-35 0-46.5 21.5-57 48c0 0-48.5 127.833-71 189.5M208 184s16.5-8 48-8s48 8 48 8m-96 88s16.5-8 48-8s48 8 48 8m0 72V128c0-26.5 16-48 44-48c35 0 46.5 21.5 57 48c0 0 48.5 127.833 71 189.5"
         {...animatedProps}
@@ -150,18 +120,8 @@ export const BinocularsIcon: React.FC<IconProps> = ({
         strokeWidth={32}
         {...animatedProps}
       />
-      <AnimatedCircle
-        cx={392}
-        cy={344}
-        r={88}
-        {...animatedProps}
-      />
-      <AnimatedCircle
-        cx={120}
-        cy={344}
-        r={88}
-        {...animatedProps}
-      />
+      <AnimatedCircle cx={392} cy={344} r={88} {...animatedProps} />
+      <AnimatedCircle cx={120} cy={344} r={88} {...animatedProps} />
       <AnimatedPath
         d="M208 344V128c0-26.5-16-48-44-48c-35 0-46.5 21.5-57 48c0 0-48.5 127.833-71 189.5M208 184s16.5-8 48-8s48 8 48 8m-96 88s16.5-8 48-8s48 8 48 8m0 72V128c0-26.5 16-48 44-48c35 0 46.5 21.5 57 48c0 0 48.5 127.833 71 189.5"
         {...animatedProps}

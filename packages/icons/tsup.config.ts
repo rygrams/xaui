@@ -2,7 +2,7 @@ import { defineConfig } from 'tsup'
 
 export default defineConfig({
   entry: {
-    'index': 'src/index.ts',
+    index: 'src/index.ts',
     accessibility: 'src/entries/accessibility.ts',
     add: 'src/entries/add.ts',
     'add-circle': 'src/entries/add-circle.ts',
@@ -522,7 +522,7 @@ export default defineConfig({
     water: 'src/entries/water.ts',
     wifi: 'src/entries/wifi.ts',
     wine: 'src/entries/wine.ts',
-    woman: 'src/entries/woman.ts'
+    woman: 'src/entries/woman.ts',
   },
   format: ['cjs', 'esm'],
   dts: true,

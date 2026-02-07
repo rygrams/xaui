@@ -21,11 +21,7 @@ const MyComponent = () => {
     <Menu
       visible={visible}
       onDismiss={() => setVisible(false)}
-      trigger={
-        <Button onPress={() => setVisible(true)}>
-          Open Menu
-        </Button>
-      }
+      trigger={<Button onPress={() => setVisible(true)}>Open Menu</Button>}
     >
       <MenuItem title="Item 1" onPress={() => console.log('Item 1')} />
       <MenuItem title="Item 2" onPress={() => console.log('Item 2')} />
@@ -63,7 +59,7 @@ const MyComponent = () => {
 ```tsx
 import { SettingsIcon, PersonIcon } from '@xaui/icons'
 
-<Menu visible={visible} onDismiss={handleDismiss} trigger={trigger}>
+;<Menu visible={visible} onDismiss={handleDismiss} trigger={trigger}>
   <MenuItem
     title="Settings"
     startContent={<SettingsIcon size={20} />}

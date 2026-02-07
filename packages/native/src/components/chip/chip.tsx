@@ -86,10 +86,7 @@ export const Chip: React.FC<ChipProps> = ({
 
   const animatedBackgroundColor = colorProgress.interpolate({
     inputRange: [0, 1],
-    outputRange: [
-      previousColorsRef.current.backgroundColor,
-      targetBackgroundColor,
-    ],
+    outputRange: [previousColorsRef.current.backgroundColor, targetBackgroundColor],
   })
 
   const animatedBorderColor = colorProgress.interpolate({

@@ -31,17 +31,14 @@ export default function BottomSheetScreen() {
         >
           Open Basic Sheet
         </Button>
-        <BottomSheet
-          isOpen={basicOpen}
-          onClose={() => setBasicOpen(false)}
-        >
+        <BottomSheet isOpen={basicOpen} onClose={() => setBasicOpen(false)}>
           <View style={[styles.sheetContent, { gap: theme.spacing.md }]}>
             <Text style={[styles.sheetTitle, { color: colors.foreground }]}>
               Basic Bottom Sheet
             </Text>
             <Text style={{ color: colors.foreground }}>
-              This is a simple bottom sheet that slides up from the bottom.
-              Swipe down to dismiss it.
+              This is a simple bottom sheet that slides up from the bottom. Swipe
+              down to dismiss it.
             </Text>
           </View>
         </BottomSheet>
@@ -62,7 +59,7 @@ export default function BottomSheetScreen() {
           isOpen={expandableOpen}
           snapPoints={[0.3, 0.6, 0.9]}
           onClose={() => setExpandableOpen(false)}
-          onSnapChange={(index) => {
+          onSnapChange={index => {
             const labels = ['collapsed', 'half', 'expanded']
             void labels[index]
           }}
@@ -72,12 +69,12 @@ export default function BottomSheetScreen() {
               Expandable Sheet
             </Text>
             <Text style={{ color: colors.foreground }}>
-              Swipe up to expand this sheet through 3 snap points: 30%, 60%, and
-              90% of the screen height.
+              Swipe up to expand this sheet through 3 snap points: 30%, 60%, and 90%
+              of the screen height.
             </Text>
             <Text style={{ color: colors.foreground }}>
-              Try swiping up quickly to jump to the next snap point, or drag
-              slowly to settle at the closest one.
+              Try swiping up quickly to jump to the next snap point, or drag slowly
+              to settle at the closest one.
             </Text>
             <View
               style={[
@@ -228,8 +225,8 @@ export default function BottomSheetScreen() {
               Non-Dismissible
             </Text>
             <Text style={{ color: colors.foreground }}>
-              This sheet cannot be dismissed by swiping or tapping the backdrop.
-              Use the button below to close it.
+              This sheet cannot be dismissed by swiping or tapping the backdrop. Use
+              the button below to close it.
             </Text>
             <Button
               onPress={() => setNonDismissibleOpen(false)}
