@@ -2,7 +2,7 @@ import { useMemo, useState, useCallback } from 'react'
 import { useXUITheme } from '../../core'
 import { getSafeThemeColor } from '@xaui/core'
 import type { ThemeColor } from '../../types'
-import type { FabVariant } from '../fab/fab.type'
+
 
 export function useFabMenuState(
   controlledExpanded?: boolean,
@@ -30,38 +30,23 @@ export function useFabMenuState(
   return { expanded, toggle, close }
 }
 
-export function useFabMenuItemStyles(
-  themeColor: ThemeColor,
-  variant: FabVariant
-) {
+export function useFabMenuItemStyles(themeColor: ThemeColor) {
   const theme = useXUITheme()
   const safeThemeColor = getSafeThemeColor(themeColor)
   const colorScheme = theme.colors[safeThemeColor]
 
   const itemStyles = useMemo(() => {
-    const iconContainerSize = 48
-    const iconContainerRadius = theme.borderRadius.lg
-
-    const labelStyles = {
+    const chipStyles = {
       backgroundColor: colorScheme.background,
-      borderRadius: theme.borderRadius.md,
+      borderRadius: theme.borderRadius.full,
       color: colorScheme.main,
-      fontSize: theme.fontSizes.sm,
+      fontSize: theme.fontSizes.md,
     }
 
-    const iconStyles = {
-      width: iconContainerSize,
-      height: iconContainerSize,
-      borderRadius: iconContainerRadius,
-      backgroundColor:
-        variant === 'solid' ? colorScheme.main : colorScheme.background,
-    }
+    const iconColor = colorScheme.main
 
-    const iconColor =
-      variant === 'solid' ? colorScheme.foreground : colorScheme.main
-
-    return { labelStyles, iconStyles, iconColor }
-  }, [colorScheme, variant, theme])
+    return { chipStyles, iconColor }
+  }, [colorScheme, theme])
 
   return itemStyles
 }

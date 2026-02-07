@@ -25,25 +25,18 @@ export const styles = StyleSheet.create({
     marginBottom: 16,
   },
   menuItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
     marginBottom: 12,
   },
-  menuItemPressable: {
+  menuItemChip: {
     flexDirection: 'row',
     alignItems: 'center',
+    paddingVertical: 12,
+    paddingLeft: 16,
+    paddingRight: 20,
+    gap: 8,
   },
   menuItemLabel: {
     fontWeight: '500',
-    marginRight: 12,
-    paddingVertical: 8,
-    paddingHorizontal: 16,
-    overflow: 'hidden',
-  },
-  menuItemIcon: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    overflow: 'hidden',
   },
   disabled: {
     opacity: 0.5,

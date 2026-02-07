@@ -29,7 +29,7 @@ export const FabMenu: React.FC<FabMenuProps> = ({
   customAppearance,
 }: FabMenuProps) => {
   const { expanded, toggle, close } = useFabMenuState(controlledExpanded, onToggle)
-  const itemStyles = useFabMenuItemStyles(themeColor, variant)
+  const itemStyles = useFabMenuItemStyles(themeColor)
   const overlayColor = useFabMenuOverlayColor()
   const [isPortalVisible, setIsPortalVisible] = React.useState(expanded)
 
@@ -127,7 +127,13 @@ export const FabMenu: React.FC<FabMenuProps> = ({
           ]}
         >
           <Pressable
-            style={styles.menuItemPressable}
+            style={[
+              styles.menuItemChip,
+              {
+                backgroundColor: itemStyles.chipStyles.backgroundColor,
+                borderRadius: itemStyles.chipStyles.borderRadius,
+              },
+            ]}
             onPress={(event) => {
               if (item.isDisabled) return
               item.onPress?.(event)
@@ -135,33 +141,18 @@ export const FabMenu: React.FC<FabMenuProps> = ({
             }}
             disabled={item.isDisabled}
           >
+            {renderMenuIcon(item.icon)}
             <Text
               style={[
                 styles.menuItemLabel,
                 {
-                  backgroundColor: itemStyles.labelStyles.backgroundColor,
-                  borderRadius: itemStyles.labelStyles.borderRadius,
-                  color: itemStyles.labelStyles.color,
-                  fontSize: itemStyles.labelStyles.fontSize,
+                  color: itemStyles.chipStyles.color,
+                  fontSize: itemStyles.chipStyles.fontSize,
                 },
               ]}
             >
               {item.label}
             </Text>
-
-            <View
-              style={[
-                styles.menuItemIcon,
-                {
-                  width: itemStyles.iconStyles.width,
-                  height: itemStyles.iconStyles.height,
-                  borderRadius: itemStyles.iconStyles.borderRadius,
-                  backgroundColor: itemStyles.iconStyles.backgroundColor,
-                },
-              ]}
-            >
-              {renderMenuIcon(item.icon)}
-            </View>
           </Pressable>
         </Animated.View>
       ))}

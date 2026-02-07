@@ -49,6 +49,7 @@ vi.mock('../../../core', () => ({
       lg: 12,
       xl: 16,
       '2xl': 24,
+      full: 9999,
     },
     borderWidth: {
       md: 2,
@@ -139,34 +140,31 @@ describe('fab-menu hook styles', () => {
   })
 
   describe('useFabMenuItemStyles', () => {
-    it('returns correct item styles for solid variant', () => {
+    it('returns chip styles with background color from colorScheme', () => {
       const { result } = renderHook(() =>
-        useFabMenuItemStyles('primary', 'solid')
+        useFabMenuItemStyles('primary')
       )
 
-      expect(result.current.iconStyles.backgroundColor).toBe('#1976d2')
-      expect(result.current.iconColor).toBe('#ffffff')
-      expect(result.current.labelStyles.color).toBe('#1976d2')
-      expect(result.current.labelStyles.backgroundColor).toBe('#e3f2fd')
-    })
-
-    it('returns correct item styles for flat variant', () => {
-      const { result } = renderHook(() =>
-        useFabMenuItemStyles('primary', 'flat')
-      )
-
-      expect(result.current.iconStyles.backgroundColor).toBe('#e3f2fd')
+      expect(result.current.chipStyles.backgroundColor).toBe('#e3f2fd')
+      expect(result.current.chipStyles.color).toBe('#1976d2')
       expect(result.current.iconColor).toBe('#1976d2')
     })
 
-    it('returns correct icon container dimensions', () => {
+    it('returns consistent chip styles for secondary theme', () => {
       const { result } = renderHook(() =>
-        useFabMenuItemStyles('primary', 'solid')
+        useFabMenuItemStyles('primary')
       )
 
-      expect(result.current.iconStyles.width).toBe(48)
-      expect(result.current.iconStyles.height).toBe(48)
-      expect(result.current.iconStyles.borderRadius).toBe(12)
+      expect(result.current.chipStyles.backgroundColor).toBe('#e3f2fd')
+      expect(result.current.iconColor).toBe('#1976d2')
+    })
+
+    it('returns full border radius for chip shape', () => {
+      const { result } = renderHook(() =>
+        useFabMenuItemStyles('primary')
+      )
+
+      expect(result.current.chipStyles.borderRadius).toBe(9999)
     })
   })
 
