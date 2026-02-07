@@ -111,6 +111,16 @@ export default function HomeScreen() {
         <GridItem>
           <Button
             size="sm"
+            onPress={() => router.push('/fab')}
+            variant="outlined"
+            themeColor="primary"
+          >
+            FAB
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
             onPress={() => router.push('/menus')}
             variant="outlined"
             themeColor="secondary"
