@@ -50,8 +50,8 @@ export const themeColors: ThemeColors = {
     background: colors.green[100],
   },
   default: {
-    main: colors.white,
-    foreground: colors.zinc[900],
+    main: colors.zinc[900],
+    foreground: colors.white,
     background: colors.zinc[200],
   },
 
@@ -91,8 +91,8 @@ export const darkThemeColors: ThemeColors = {
     background: colors.green[900],
   },
   default: {
-    main: colors.zinc[900],
-    foreground: colors.stone[200],
+    main: colors.stone[200],
+    foreground: colors.zinc[900],
     background: colors.zinc[700],
   },
   background: colors.zinc[900],

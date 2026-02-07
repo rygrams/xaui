@@ -2,9 +2,10 @@ import { ReactNode } from 'react'
 import type { TextStyle, ViewStyle, GestureResponderEvent } from 'react-native'
 import type { Size, ThemeColor } from '../../types'
 
-export type ButtonVariant = 'solid' | 'outlined' | 'flat' | 'light' | 'elevated' | 'faded'
+export type ButtonVariant = 'solid' | 'outlined' | 'flat' | 'light' | 'faded'
 export type ButtonRadius = 'none' | 'sm' | 'md' | 'lg' | 'full'
 export type SpinnerPlacement = 'start' | 'end'
+export type ElevationLevel = 0 | 1 | 2 | 3 | 4
 
 type ButtonCustomAppearance = {
   /**
@@ -74,6 +75,12 @@ export type ButtonProps = {
    * @default false
    */
   isLoading?: boolean
+  /**
+   * Android elevation level from 0 to 4.
+   * Does not apply to `outlined` and `light` variants.
+   * @default 0
+   */
+  elevation?: ElevationLevel
   /**
    * Custom appearance styles for button parts
    */

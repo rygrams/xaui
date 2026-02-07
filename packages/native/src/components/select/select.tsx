@@ -119,7 +119,9 @@ export const Select: React.FC<SelectProps> = ({
       .filter((value): value is string => Boolean(value))
   }, [currentSelectedKeys, items])
 
-  const displayValue = selectedLabels.length ? selectedLabels.join(', ') : placeholder
+  const displayValue = selectedLabels.length
+    ? selectedLabels.join(', ')
+    : placeholder
 
   const shouldShowPlaceholder = selectedLabels.length === 0
 
@@ -178,12 +180,16 @@ export const Select: React.FC<SelectProps> = ({
     )
   ) : null
   const dialogTitle =
-    typeof label === 'string' || typeof label === 'number' ? String(label) : undefined
+    typeof label === 'string' || typeof label === 'number'
+      ? String(label)
+      : undefined
 
   const shouldShowHelper = Boolean(hint || errorMessage)
   const helperContent = isInvalid && errorMessage ? errorMessage : hint
 
-  const listboxWidth = fullWidth ? (triggerWidth ?? triggerPosition?.width ?? 200) : 280
+  const listboxWidth = fullWidth
+    ? (triggerWidth ?? triggerPosition?.width ?? 200)
+    : 280
 
   const screenWidth = Dimensions.get('window').width
   const listboxPosition = useMemo(() => {
@@ -192,7 +198,8 @@ export const Select: React.FC<SelectProps> = ({
     }
 
     const listWidth = listboxWidth || 0
-    const centeredLeft = triggerPosition.x + triggerPosition.width / 2 - listWidth / 2
+    const centeredLeft =
+      triggerPosition.x + triggerPosition.width / 2 - listWidth / 2
     const left = Math.max(12, Math.min(centeredLeft, screenWidth - listWidth - 12))
     const top = Math.max(12, triggerPosition.y)
 
@@ -203,7 +210,8 @@ export const Select: React.FC<SelectProps> = ({
     const itemProps = item.element.props
     const itemDisabled =
       isDisabled || itemProps.isDisabled || disabledKeySet.has(item.key)
-    const itemSelected = itemProps.isSelected ?? currentSelectedKeys.includes(item.key)
+    const itemSelected =
+      itemProps.isSelected ?? currentSelectedKeys.includes(item.key)
 
     const handleItemSelected = () => {
       if (itemDisabled || itemProps.isReadOnly) {
@@ -224,7 +232,8 @@ export const Select: React.FC<SelectProps> = ({
 
   const isLabelInside = labelPlacement === 'inside'
   const isLabelOutsideLeft = labelPlacement === 'outside-left'
-  const isLabelOutside = labelPlacement === 'outside' || labelPlacement === 'outside-top'
+  const isLabelOutside =
+    labelPlacement === 'outside' || labelPlacement === 'outside-top'
 
   const triggerContent = (
     <SelectTrigger
@@ -268,7 +277,9 @@ export const Select: React.FC<SelectProps> = ({
       )}
       {shouldShowHelper && helperContent ? (
         typeof helperContent === 'string' || typeof helperContent === 'number' ? (
-          <Text style={[styles.helperText, { color: helperColor }]}>{helperContent}</Text>
+          <Text style={[styles.helperText, { color: helperColor }]}>
+            {helperContent}
+          </Text>
         ) : (
           <View>{helperContent}</View>
         )
@@ -298,12 +309,18 @@ export const Select: React.FC<SelectProps> = ({
               },
             ]}
           >
-            <Pressable onPress={event => event.stopPropagation()} style={{ flex: 1 }}>
+            <Pressable
+              onPress={event => event.stopPropagation()}
+              style={{ flex: 1 }}
+            >
               <SelectContext.Provider value={{ size, themeColor, isDisabled }}>
                 <View style={styles.listboxContent}>
                   {dialogTitle ? (
                     <Text
-                      style={[styles.dialogTitle, { color: theme.colors.foreground }]}
+                      style={[
+                        styles.dialogTitle,
+                        { color: theme.colors.foreground },
+                      ]}
                     >
                       {dialogTitle}
                     </Text>

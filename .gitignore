@@ -6,6 +6,7 @@ node_modules
 # Testing
 coverage
 *.log
+screenshots
 
 # Next.js
 .next
@@ -41,3 +42,4 @@ pnpm-debug.log*
 *.swp
 *.swo
 *~
+

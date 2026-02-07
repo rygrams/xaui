@@ -9,8 +9,9 @@ import {
   TextStyle,
 } from 'react-native'
 import { useXUITheme } from '../../../core'
-import { ArrowBackIcon, CloseIcon } from '../../icon'
+import { ArrowBackIcon, CloseIcon } from '@xaui/icons'
 import { styles } from './autocomplete-dialog.style'
+import { withOpacity } from '@xaui/core'
 
 type AutocompleteDialogHeaderProps = {
   title?: string
@@ -28,17 +29,7 @@ type AutocompleteDialogHeaderProps = {
   onBlur?: () => void
 }
 
-const addOpacityToColor = (color: string, opacity: number): string => {
-  const hex = color.replace('#', '')
-  const r = parseInt(hex.substring(0, 2), 16)
-  const g = parseInt(hex.substring(2, 4), 16)
-  const b = parseInt(hex.substring(4, 6), 16)
-  return `rgba(${r}, ${g}, ${b}, ${opacity})`
-}
-
-export const AutocompleteDialogHeader: React.FC<
-  AutocompleteDialogHeaderProps
-> = ({
+export const AutocompleteDialogHeader: React.FC<AutocompleteDialogHeaderProps> = ({
   title,
   inputValue,
   placeholder = 'Search...',
@@ -78,10 +69,7 @@ export const AutocompleteDialogHeader: React.FC<
             value={inputValue}
             onChangeText={onInputChange}
             placeholder={placeholder}
-            placeholderTextColor={addOpacityToColor(
-              theme.colors.foreground,
-              0.5
-            )}
+            placeholderTextColor={withOpacity(theme.colors.foreground, 0.5)}
             style={[
               styles.input,
               {

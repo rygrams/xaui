@@ -73,7 +73,9 @@ export const CircularProgressIndicator: React.FC<ProgressIndicatorProps> = ({
           initial={disableAnimation ? false : { strokeDashoffset: circumference }}
           animate={{ strokeDashoffset: circumference * (1 - progressValue) }}
           transition={
-            disableAnimation ? { duration: 0 } : { duration: 0.5, ease: [0, 0, 0.2, 1] }
+            disableAnimation
+              ? { duration: 0 }
+              : { duration: 0.5, ease: [0, 0, 0.2, 1] }
           }
         />
       </svg>

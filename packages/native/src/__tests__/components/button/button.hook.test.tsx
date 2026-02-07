@@ -90,7 +90,6 @@ vi.mock('../../../core', () => ({
   }),
 }))
 
-
 describe('button hook styles', () => {
   it('returns correct size styles for md size', () => {
     const { result } = renderHook(() => useSizesStyles('md'))

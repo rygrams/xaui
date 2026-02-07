@@ -19,12 +19,9 @@ describe('ConditionalView Types', () => {
   })
 
   it('accepts all animations', () => {
-    const animations: Array<ConditionalViewProps['animation']> = [
-      'fade',
-      'scale',
-    ]
+    const animations: Array<ConditionalViewProps['animation']> = ['fade', 'scale']
 
-    animations.forEach((animation) => {
+    animations.forEach(animation => {
       const props: ConditionalViewProps = {
         isVisible: true,
         children: 'Content',
@@ -36,10 +33,7 @@ describe('ConditionalView Types', () => {
   })
 
   it('exports ConditionalViewAnimation type', () => {
-    const animations: Array<ConditionalViewAnimation> = [
-      'fade',
-      'scale',
-    ]
+    const animations: Array<ConditionalViewAnimation> = ['fade', 'scale']
 
     expect(animations).toHaveLength(2)
   })
