@@ -1,4 +1,4 @@
-import { Animated, Easing } from 'react-native'
+import { Animated } from 'react-native'
 
 export const runMenuExpandAnimation = (
   overlayOpacity: Animated.Value,
@@ -58,19 +58,4 @@ export const runFabRotateAnimation = (
     speed: 20,
     bounciness: 0,
   }).start()
-}
-
-export const runMenuVisibilityAnimation = (
-  visibilityValue: Animated.Value,
-  toExpanded: boolean,
-  onComplete?: () => void
-) => {
-  Animated.timing(visibilityValue, {
-    toValue: toExpanded ? 1 : 0,
-    duration: toExpanded ? 220 : 180,
-    easing: toExpanded
-      ? Easing.out(Easing.cubic)
-      : Easing.in(Easing.cubic),
-    useNativeDriver: true,
-  }).start(onComplete)
 }

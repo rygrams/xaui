@@ -9,26 +9,29 @@ export const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
   },
   overlay: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
+    ...StyleSheet.absoluteFillObject,
+  },
+  overlayPressable: {
+    flex: 1,
   },
   portalContent: {
     ...StyleSheet.absoluteFillObject,
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
+    padding: 16,
   },
   menuContainer: {
     alignItems: 'flex-end',
     marginBottom: 16,
-    marginRight: 0,
   },
   menuItem: {
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 12,
+  },
+  menuItemPressable: {
+    flexDirection: 'row',
+    alignItems: 'center',
   },
   menuItemLabel: {
     fontWeight: '500',
