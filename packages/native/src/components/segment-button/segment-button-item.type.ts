@@ -30,9 +30,21 @@ export type SegmentButtonItemProps = {
    */
   label: string
   /**
-   * Optional icon to display in the segment
+   * Content to display at the start of the segment item
+   */
+  startContent?: ReactNode
+  /**
+   * @deprecated Use `startContent` instead
    */
   icon?: ReactNode
+  /**
+   * Content to display at the end of the segment item
+   */
+  endContent?: ReactNode
+  /**
+   * Custom indicator shown when the segment item is selected
+   */
+  checkIndicator?: ReactNode
   /**
    * Whether the segment item is disabled
    * @default false

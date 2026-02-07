@@ -91,6 +91,16 @@ export default function HomeScreen() {
         <GridItem>
           <Button
             size="sm"
+            onPress={() => router.push('/carousel')}
+            variant="outlined"
+            themeColor="secondary"
+          >
+            Carousel
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
             onPress={() => router.push('/chips')}
             variant="outlined"
             themeColor="primary"
