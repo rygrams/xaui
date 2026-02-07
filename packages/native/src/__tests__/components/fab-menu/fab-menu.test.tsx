@@ -75,10 +75,10 @@ describe('FabMenu Types', () => {
     const props: FabMenuProps = {
       icon: 'icon',
       children: null,
-      radius: 16,
+      radius: 'full',
     }
 
-    expect(props.radius).toBe(16)
+    expect(props.radius).toBe('full')
   })
 
   it('accepts label for extended FAB toggle', () => {

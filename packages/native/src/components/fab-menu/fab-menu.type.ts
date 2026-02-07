@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 import type { ViewStyle, GestureResponderEvent } from 'react-native'
 import type { ThemeColor } from '../../types'
 import type { FabVariant, FabSize } from '../fab/fab.type'
-import type { ElevationLevel } from '../button/button.type'
+import type { ButtonRadius, ElevationLevel } from '../button/button.type'
 
 export type FabMenuItemProps = {
   /**
@@ -93,7 +93,7 @@ export type FabMenuProps = {
    * Custom border radius for the toggle FAB.
    * Overrides the default size-based border radius.
    */
-  radius?: number
+  radius?: ButtonRadius
   /**
    * Android elevation level for the toggle FAB from 0 to 4.
    * Does not apply to `outlined` and `light` variants.

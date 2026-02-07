@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 import type { ViewStyle, GestureResponderEvent } from 'react-native'
 import type { ThemeColor } from '../../types'
-import type { ElevationLevel } from '../button/button.type'
+import type { ButtonRadius, ElevationLevel } from '../button/button.type'
 
 export type FabVariant = 'solid' | 'flat' | 'outlined'
 
@@ -47,7 +47,7 @@ export type FabProps = {
    * Custom border radius for the FAB.
    * Overrides the default size-based border radius.
    */
-  radius?: number
+  radius?: ButtonRadius
   /**
    * Whether the FAB is disabled.
    * @default false

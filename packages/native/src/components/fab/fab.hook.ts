@@ -3,7 +3,7 @@ import { useXUITheme } from '../../core'
 import { getSafeThemeColor } from '@xaui/core'
 import type { FabVariant, FabSize } from './fab.type'
 import type { ThemeColor } from '../../types'
-import type { ElevationLevel } from '../button/button.type'
+import type { ButtonRadius, ElevationLevel } from '../button/button.type'
 
 type FabSizeStyles = {
   width: number
@@ -150,4 +150,25 @@ export function useFabIconColor(
   }, [variant, colorScheme])
 
   return { iconColor }
+}
+
+export function useFabRadiusValue(
+  radius: ButtonRadius | undefined,
+  fallback: number
+) {
+  const theme = useXUITheme()
+
+  return useMemo(() => {
+    if (!radius) return fallback
+
+    const radiusMap: Record<ButtonRadius, number> = {
+      none: theme.borderRadius.none,
+      sm: theme.borderRadius.sm,
+      md: theme.borderRadius.md,
+      lg: theme.borderRadius.lg,
+      full: theme.borderRadius.full,
+    }
+
+    return radiusMap[radius]
+  }, [fallback, radius, theme])
 }

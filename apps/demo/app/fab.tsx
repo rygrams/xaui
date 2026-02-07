@@ -186,6 +186,7 @@ export default function FabScreen() {
             themeColor="secondary"
             variant="solid"
             label="Expand Menu"
+            radius="full"
             isExpanded={controlledExpanded}
             onToggle={setControlledExpanded}
           >

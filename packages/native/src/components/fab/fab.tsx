@@ -2,7 +2,12 @@ import React from 'react'
 import { Pressable, Text, View, Animated } from 'react-native'
 import { ActivityIndicator } from '../indicator'
 import { styles } from './fab.style'
-import { useFabSizeStyles, useFabVariantStyles, useFabIconColor } from './fab.hook'
+import {
+  useFabSizeStyles,
+  useFabVariantStyles,
+  useFabIconColor,
+  useFabRadiusValue,
+} from './fab.hook'
 import { runFabPressInAnimation, runFabPressOutAnimation } from './fab.animation'
 import type { FabProps } from './fab.type'
 
@@ -29,6 +34,10 @@ export const Fab: React.FC<FabProps> = ({
   const variantStyles = useFabVariantStyles(themeColor, variant, elevation)
   const { iconColor } = useFabIconColor(themeColor, variant)
   const isExtended = !!label
+  const resolvedRadius = useFabRadiusValue(
+    radius,
+    isExtended ? extendedSizeStyles.borderRadius : sizeStyles.borderRadius
+  )
 
   const handlePressIn = (event: Parameters<NonNullable<FabProps['onPressIn']>>[0]) => {
     if (!isDisabled && !isLoading) {
@@ -47,13 +56,13 @@ export const Fab: React.FC<FabProps> = ({
   const fabDimensionStyles = isExtended
     ? {
         height: extendedSizeStyles.height,
-        borderRadius: radius ?? extendedSizeStyles.borderRadius,
+        borderRadius: resolvedRadius,
         paddingHorizontal: extendedSizeStyles.paddingHorizontal,
       }
     : {
         width: sizeStyles.width,
         height: sizeStyles.height,
-        borderRadius: radius ?? sizeStyles.borderRadius,
+        borderRadius: resolvedRadius,
       }
 
   return (
