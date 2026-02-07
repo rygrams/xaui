@@ -118,8 +118,9 @@ export const SegmentButton: React.FC<SegmentButtonProps> = ({
           const childKey = childItemKey ?? index
 
           const isSelected = selectedKeys.includes(String(childKey))
-          const nextChildKey =
-            !isLast ? getItemKey(childrenArray[index + 1]) : undefined
+          const nextChildKey = !isLast
+            ? getItemKey(childrenArray[index + 1])
+            : undefined
           const nextSelected = nextChildKey
             ? selectedKeys.includes(String(nextChildKey))
             : false
