@@ -152,6 +152,7 @@ export default function FabScreen() {
             expandedIcon={<CloseIcon size={24} color={colors.primary.foreground} />}
             themeColor="primary"
             variant="solid"
+            elevation={2}
           >
             <FabMenuItem
               icon={<CameraIcon size={20} />}
