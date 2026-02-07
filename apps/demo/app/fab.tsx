@@ -56,9 +56,7 @@ export default function FabScreen() {
         <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
           Sizes
         </Text>
-        <View
-          style={[styles.row, { gap: theme.spacing.md, alignItems: 'center' }]}
-        >
+        <View style={[styles.row, { gap: theme.spacing.md, alignItems: 'center' }]}>
           <Fab
             icon={<AddIcon size={24} color={colors.secondary.foreground} />}
             size="sm"
@@ -151,9 +149,7 @@ export default function FabScreen() {
         <View style={styles.fabMenuContainer}>
           <FabMenu
             icon={<AddIcon size={24} color={colors.primary.foreground} />}
-            expandedIcon={
-              <CloseIcon size={24} color={colors.primary.foreground} />
-            }
+            expandedIcon={<CloseIcon size={24} color={colors.primary.foreground} />}
             themeColor="primary"
             variant="solid"
           >
@@ -182,9 +178,7 @@ export default function FabScreen() {
         </Text>
         <View style={styles.fabMenuContainer}>
           <FabMenu
-            icon={
-              <PencilIcon size={24} color={colors.secondary.foreground} />
-            }
+            icon={<PencilIcon size={24} color={colors.secondary.foreground} />}
             expandedIcon={
               <CloseIcon size={24} color={colors.secondary.foreground} />
             }
