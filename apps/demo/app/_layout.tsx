@@ -37,6 +37,10 @@ export default function RootLayout() {
           />
           <Stack.Screen name="fab" options={{ title: 'FAB Examples' }} />
           <Stack.Screen name="menus" options={{ title: 'Menu Examples' }} />
+          <Stack.Screen
+            name="segment-buttons"
+            options={{ title: 'Segment Button Examples' }}
+          />
         </Stack>
       </XUIProvider>
     </ThemeProvider>

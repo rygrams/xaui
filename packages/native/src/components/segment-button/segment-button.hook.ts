@@ -1,7 +1,7 @@
 import { useMemo } from 'react'
 import { useXUITheme } from '../../core'
 import { getSafeThemeColor } from '@xaui/core'
-import type { SegmentButtonVariant } from './segment-button.type'
+import type { SegmentButtonVariant, ElevationLevel } from './segment-button.type'
 import type { Size, ThemeColor } from '../../types'
 
 type SegmentSizeStyles = {
@@ -63,7 +63,8 @@ type SegmentVariantStyles = {
 
 export function useSegmentVariantStyles(
   themeColor: ThemeColor,
-  variant: SegmentButtonVariant
+  variant: SegmentButtonVariant,
+  elevation: ElevationLevel = 0
 ): SegmentVariantStyles {
   const theme = useXUITheme()
   const safeThemeColor = getSafeThemeColor(themeColor)
@@ -107,16 +108,6 @@ export function useSegmentVariantStyles(
         selectedTextColor: colorScheme.main,
         unselectedTextColor: colorScheme.main,
       },
-      elevated: {
-        containerBackground: colorScheme.background,
-        containerBorderWidth: 0,
-        containerBorderColor: 'transparent',
-        selectedBackground: colorScheme.main,
-        unselectedBackground: 'transparent',
-        selectedTextColor: colorScheme.foreground,
-        unselectedTextColor: colorScheme.main,
-        containerShadow: theme.shadows.md,
-      },
       faded: {
         containerBackground: `${colorScheme.background}95`,
         containerBorderWidth: theme.borderWidth.sm,
@@ -127,6 +118,27 @@ export function useSegmentVariantStyles(
         unselectedTextColor: colorScheme.main,
       },
     }
-    return variants[variant]
-  }, [variant, colorScheme, theme])
+
+    const baseStyle = variants[variant]
+    const shouldApplyElevation = variant !== 'outlined' && variant !== 'light'
+
+    const shadowStyles =
+      elevation === 0
+        ? {}
+        : elevation === 1
+          ? theme.shadows.sm
+          : elevation === 2
+            ? theme.shadows.md
+            : elevation === 3
+              ? theme.shadows.lg
+              : theme.shadows.xl
+
+    return {
+      ...baseStyle,
+      containerShadow:
+        shouldApplyElevation && elevation > 0
+          ? shadowStyles
+          : baseStyle.containerShadow,
+    }
+  }, [variant, colorScheme, theme, elevation])
 }

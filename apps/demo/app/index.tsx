@@ -128,6 +128,16 @@ export default function HomeScreen() {
             Menu
           </Button>
         </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/segment-buttons')}
+            variant="outlined"
+            themeColor="primary"
+          >
+            Segment Button
+          </Button>
+        </GridItem>
       </Grid>
     </ScrollView>
   )

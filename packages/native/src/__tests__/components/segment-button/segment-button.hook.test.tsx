@@ -41,12 +41,33 @@ vi.mock('../../../core', () => ({
       md: 2,
     },
     shadows: {
+      sm: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.18,
+        shadowRadius: 1.0,
+        elevation: 1,
+      },
       md: {
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5,
+      },
+      lg: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.3,
+        shadowRadius: 4.65,
+        elevation: 8,
+      },
+      xl: {
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 6 },
+        shadowOpacity: 0.37,
+        shadowRadius: 7.49,
+        elevation: 12,
       },
     },
   }),
@@ -128,18 +149,6 @@ describe('useSegmentVariantStyles', () => {
     expect(result.current.selectedTextColor).toBe('#1976d2')
   })
 
-  it('returns correct styles for elevated variant', () => {
-    const { result } = renderHook(() =>
-      useSegmentVariantStyles('primary', 'elevated')
-    )
-
-    expect(result.current.containerBackground).toBe('#e3f2fd')
-    expect(result.current.containerBorderWidth).toBe(0)
-    expect(result.current.selectedBackground).toBe('#1976d2')
-    expect(result.current.containerShadow).toBeDefined()
-    expect(result.current.containerShadow).toHaveProperty('elevation', 5)
-  })
-
   it('returns correct styles for faded variant', () => {
     const { result } = renderHook(() => useSegmentVariantStyles('primary', 'faded'))
 
@@ -147,6 +156,39 @@ describe('useSegmentVariantStyles', () => {
     expect(result.current.containerBorderWidth).toBe(1)
     expect(result.current.containerBorderColor).toBe('#1976d290')
     expect(result.current.selectedBackground).toBe('#1976d2')
+  })
+
+  it('applies elevation shadow to solid variant', () => {
+    const { result } = renderHook(() =>
+      useSegmentVariantStyles('primary', 'solid', 2)
+    )
+
+    expect(result.current.containerShadow).toBeDefined()
+    expect(result.current.containerShadow).toHaveProperty('elevation', 5)
+  })
+
+  it('does not apply elevation to outlined variant', () => {
+    const { result } = renderHook(() =>
+      useSegmentVariantStyles('primary', 'outlined', 2)
+    )
+
+    expect(result.current.containerShadow).toBeUndefined()
+  })
+
+  it('does not apply elevation to light variant', () => {
+    const { result } = renderHook(() =>
+      useSegmentVariantStyles('primary', 'light', 3)
+    )
+
+    expect(result.current.containerShadow).toBeUndefined()
+  })
+
+  it('returns no shadow when elevation is 0', () => {
+    const { result } = renderHook(() =>
+      useSegmentVariantStyles('primary', 'solid', 0)
+    )
+
+    expect(result.current.containerShadow).toBeUndefined()
   })
 
   it('uses correct colors for secondary theme color', () => {

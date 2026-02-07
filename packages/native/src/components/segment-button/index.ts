@@ -5,4 +5,5 @@ export type {
   SegmentButtonRadius,
   SegmentButtonSelectionMode,
   SegmentItem,
+  ElevationLevel,
 } from './segment-button.type'

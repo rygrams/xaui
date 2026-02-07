@@ -4,6 +4,7 @@ import type {
   SegmentItem,
   SegmentButtonVariant,
   SegmentButtonSelectionMode,
+  ElevationLevel,
 } from '../../../components/segment-button'
 
 describe('SegmentButton Types', () => {
@@ -53,7 +54,6 @@ describe('SegmentButton Types', () => {
       'outlined',
       'flat',
       'light',
-      'elevated',
       'faded',
     ]
 
@@ -129,6 +129,20 @@ describe('SegmentButton Types', () => {
     expect(props.fullWidth).toBe(true)
     expect(props.isDisabled).toBe(true)
     expect(props.showCheckmark).toBe(false)
+  })
+
+  it('accepts elevation levels', () => {
+    const levels: ElevationLevel[] = [0, 1, 2, 3, 4]
+
+    levels.forEach(level => {
+      const props: SegmentButtonProps = {
+        segments,
+        selected: 'day',
+        onSelectionChange: () => {},
+        elevation: level,
+      }
+      expect(props.elevation).toBe(level)
+    })
   })
 
   it('accepts string selected for single mode', () => {

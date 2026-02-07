@@ -87,6 +87,7 @@ const SegmentItemComponent: React.FC<SegmentItemComponentProps> = ({
 
   return (
     <Pressable
+      style={styles.segment}
       onPress={handlePress}
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
@@ -94,7 +95,7 @@ const SegmentItemComponent: React.FC<SegmentItemComponentProps> = ({
     >
       <Animated.View
         style={[
-          styles.segment,
+          styles.segmentInner,
           {
             paddingHorizontal: sizeStyles.paddingHorizontal,
             paddingVertical: sizeStyles.paddingVertical,
@@ -142,10 +143,11 @@ export const SegmentButton: React.FC<SegmentButtonProps> = ({
   fullWidth = false,
   isDisabled = false,
   showCheckmark = true,
+  elevation = 0,
   customAppearance,
 }) => {
   const sizeStyles = useSegmentSizeStyles(size)
-  const variantStyles = useSegmentVariantStyles(themeColor, variant)
+  const variantStyles = useSegmentVariantStyles(themeColor, variant, elevation)
   const radiusStyles = useBorderRadiusStyles(radius)
 
   const isItemSelected = useCallback(

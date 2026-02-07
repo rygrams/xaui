@@ -2,13 +2,9 @@ import { ReactNode } from 'react'
 import type { ViewStyle, TextStyle } from 'react-native'
 import type { Size, ThemeColor } from '../../types'
 
-export type SegmentButtonVariant =
-  | 'solid'
-  | 'outlined'
-  | 'flat'
-  | 'light'
-  | 'elevated'
-  | 'faded'
+export type SegmentButtonVariant = 'solid' | 'outlined' | 'flat' | 'light' | 'faded'
+
+export type ElevationLevel = 0 | 1 | 2 | 3 | 4
 
 export type SegmentButtonRadius = 'none' | 'sm' | 'md' | 'lg' | 'full'
 
@@ -112,6 +108,12 @@ export type SegmentButtonProps = {
    * @default true
    */
   showCheckmark?: boolean
+  /**
+   * Android elevation level from 0 to 4.
+   * Does not apply to `outlined` and `light` variants.
+   * @default 0
+   */
+  elevation?: ElevationLevel
   /**
    * Custom appearance styles for segment button parts
    */

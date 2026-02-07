@@ -12,10 +12,12 @@ export const styles = StyleSheet.create({
     alignSelf: 'stretch',
   },
   segment: {
+    flex: 1,
+  },
+  segmentInner: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    flex: 1,
   },
   segmentContent: {
     flexDirection: 'row',
