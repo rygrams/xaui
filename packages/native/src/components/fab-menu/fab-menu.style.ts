@@ -5,6 +5,9 @@ export const styles = StyleSheet.create({
     position: 'relative',
     alignItems: 'flex-end',
   },
+  portalRoot: {
+    ...StyleSheet.absoluteFillObject,
+  },
   overlay: {
     position: 'absolute',
     top: 0,
@@ -12,9 +15,15 @@ export const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
   },
+  portalContent: {
+    ...StyleSheet.absoluteFillObject,
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+  },
   menuContainer: {
     alignItems: 'flex-end',
     marginBottom: 16,
+    marginRight: 0,
   },
   menuItem: {
     flexDirection: 'row',

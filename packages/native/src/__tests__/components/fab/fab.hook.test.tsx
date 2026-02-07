@@ -125,11 +125,11 @@ describe('fab hook styles', () => {
       expect(result.current.borderWidth).toBe(2)
     })
 
-    it('returns correct styles for elevated variant', () => {
-      const { result } = renderHook(() => useFabVariantStyles('primary', 'elevated'))
-
+    it('returns shadow/elevation styles when elevation is set', () => {
+      const { result } = renderHook(() => useFabVariantStyles('primary', 'flat', 2))
       expect(result.current.backgroundColor).toBe('#e3f2fd')
       expect(result.current.borderWidth).toBe(0)
+      expect(result.current.elevation).toBe(2)
     })
   })
 
@@ -152,9 +152,8 @@ describe('fab hook styles', () => {
       expect(result.current.iconColor).toBe('#1976d2')
     })
 
-    it('returns main color for elevated variant', () => {
-      const { result } = renderHook(() => useFabIconColor('primary', 'elevated'))
-
+    it('returns main color for flat variant', () => {
+      const { result } = renderHook(() => useFabIconColor('primary', 'flat'))
       expect(result.current.iconColor).toBe('#1976d2')
     })
   })

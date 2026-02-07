@@ -38,7 +38,7 @@ describe('Fab Types', () => {
   })
 
   it('accepts all variants', () => {
-    const variants: FabVariant[] = ['solid', 'flat', 'outlined', 'elevated']
+    const variants: FabVariant[] = ['solid', 'flat', 'outlined']
 
     variants.forEach(variant => {
       const props: FabProps = {

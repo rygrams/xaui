@@ -14,6 +14,7 @@ export const Fab: React.FC<FabProps> = ({
   size = 'md',
   isDisabled = false,
   isLoading = false,
+  elevation = 0,
   customAppearance,
   onPress,
   onLongPress,
@@ -24,7 +25,7 @@ export const Fab: React.FC<FabProps> = ({
   const animatedOpacity = React.useRef(new Animated.Value(1)).current
 
   const { sizeStyles, extendedSizeStyles } = useFabSizeStyles(size)
-  const variantStyles = useFabVariantStyles(themeColor, variant)
+  const variantStyles = useFabVariantStyles(themeColor, variant, elevation)
   const { iconColor } = useFabIconColor(themeColor, variant)
   const isExtended = !!label
 
@@ -55,7 +56,7 @@ export const Fab: React.FC<FabProps> = ({
       }
 
   return (
-    <View style={customAppearance?.container}>
+    <View style={[styles.container, customAppearance?.container]}>
       <Pressable
         onPress={isDisabled || isLoading ? undefined : onPress}
         onLongPress={isDisabled || isLoading ? undefined : onLongPress}

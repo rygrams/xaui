@@ -1,8 +1,9 @@
 import { ReactNode } from 'react'
 import type { ViewStyle, GestureResponderEvent } from 'react-native'
 import type { ThemeColor } from '../../types'
+import type { ElevationLevel } from '../button/button.type'
 
-export type FabVariant = 'solid' | 'flat' | 'outlined' | 'elevated'
+export type FabVariant = 'solid' | 'flat' | 'outlined'
 
 export type FabSize = 'sm' | 'md' | 'lg'
 
@@ -52,6 +53,12 @@ export type FabProps = {
    * @default false
    */
   isLoading?: boolean
+  /**
+   * Android elevation level from 0 to 4.
+   * Does not apply to `outlined` and `light` variants.
+   * @default 0
+   */
+  elevation?: ElevationLevel
   /**
    * Custom appearance styles for FAB parts.
    */

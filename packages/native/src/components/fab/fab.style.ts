@@ -1,6 +1,9 @@
 import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
+  container: {
+    alignSelf: 'flex-start',
+  },
   fab: {
     flexDirection: 'row',
     alignItems: 'center',

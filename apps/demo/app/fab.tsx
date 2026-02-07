@@ -46,7 +46,8 @@ export default function FabScreen() {
           />
           <Fab
             icon={<AddIcon size={24} color={colors.primary.main} />}
-            variant="elevated"
+            variant="flat"
+            elevation={2}
             themeColor="primary"
           />
         </View>

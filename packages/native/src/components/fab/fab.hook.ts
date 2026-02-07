@@ -3,6 +3,7 @@ import { useXUITheme } from '../../core'
 import { getSafeThemeColor } from '@xaui/core'
 import type { FabVariant, FabSize } from './fab.type'
 import type { ThemeColor } from '../../types'
+import type { ElevationLevel } from '../button/button.type'
 
 type FabSizeStyles = {
   width: number
@@ -85,7 +86,8 @@ export function useFabSizeStyles(size: FabSize): {
 
 export function useFabVariantStyles(
   themeColor: ThemeColor,
-  variant: FabVariant
+  variant: FabVariant,
+  elevation: ElevationLevel = 0
 ) {
   const theme = useXUITheme()
   const safeThemeColor = getSafeThemeColor(themeColor)
@@ -106,14 +108,28 @@ export function useFabVariantStyles(
         borderWidth: theme.borderWidth.md,
         borderColor: colorScheme.main,
       },
-      elevated: {
-        backgroundColor: colorScheme.background,
-        borderWidth: 0,
-        ...theme.shadows.md,
-      },
+    } as const
+
+    const baseStyle = variantMap[variant]
+    const shouldApplyElevation = variant !== 'outlined'
+
+    const shadowStyles =
+      elevation === 0
+        ? {}
+        : elevation === 1
+          ? theme.shadows.sm
+          : elevation === 2
+            ? theme.shadows.md
+            : elevation === 3
+              ? theme.shadows.lg
+              : theme.shadows.xl
+
+    return {
+      ...baseStyle,
+      ...(shouldApplyElevation ? shadowStyles : {}),
+      ...(shouldApplyElevation && elevation > 0 ? { elevation } : {}),
     }
-    return variantMap[variant]
-  }, [variant, colorScheme, theme])
+  }, [variant, colorScheme, theme, elevation])
 
   return variantStyles
 }

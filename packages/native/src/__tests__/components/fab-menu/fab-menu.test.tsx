@@ -51,7 +51,6 @@ describe('FabMenu Types', () => {
       'solid',
       'flat',
       'outlined',
-      'elevated',
     ]
 
     variants.forEach(variant => {

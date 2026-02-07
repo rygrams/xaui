@@ -7,10 +7,10 @@ export type ButtonVariant =
   | 'outlined'
   | 'flat'
   | 'light'
-  | 'elevated'
   | 'faded'
 export type ButtonRadius = 'none' | 'sm' | 'md' | 'lg' | 'full'
 export type SpinnerPlacement = 'start' | 'end'
+export type ElevationLevel = 0 | 1 | 2 | 3 | 4
 
 type ButtonCustomAppearance = {
   /**
@@ -80,6 +80,12 @@ export type ButtonProps = {
    * @default false
    */
   isLoading?: boolean
+  /**
+   * Android elevation level from 0 to 4.
+   * Does not apply to `outlined` and `light` variants.
+   * @default 0
+   */
+  elevation?: ElevationLevel
   /**
    * Custom appearance styles for button parts
    */

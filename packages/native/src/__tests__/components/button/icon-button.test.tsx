@@ -39,11 +39,10 @@ describe('IconButton Types', () => {
       'outlined',
       'flat',
       'light',
-      'elevated',
       'faded',
     ]
 
-    expect(variants).toHaveLength(6)
+    expect(variants).toHaveLength(5)
   })
 
   it('accepts all sizes', () => {

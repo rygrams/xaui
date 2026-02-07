@@ -2,6 +2,7 @@ import { ReactNode } from 'react'
 import type { ViewStyle, GestureResponderEvent } from 'react-native'
 import type { ThemeColor } from '../../types'
 import type { FabVariant, FabSize } from '../fab/fab.type'
+import type { ElevationLevel } from '../button/button.type'
 
 export type FabMenuItemConfig = {
   /**
@@ -79,6 +80,12 @@ export type FabMenuProps = {
    * @default 'md'
    */
   size?: FabSize
+  /**
+   * Android elevation level for the toggle FAB from 0 to 4.
+   * Does not apply to `outlined` and `light` variants.
+   * @default 0
+   */
+  elevation?: ElevationLevel
   /**
    * Whether the menu is expanded.
    * When provided, the component becomes controlled.

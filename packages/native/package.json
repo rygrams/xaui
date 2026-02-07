@@ -102,11 +102,6 @@
       "import": "./dist/view/index.js",
       "require": "./dist/view/index.js"
     },
-    "./icon": {
-      "types": "./dist/icon/index.d.ts",
-      "import": "./dist/icon/index.js",
-      "require": "./dist/icon/index.js"
-    },
     "./chip": {
       "types": "./dist/chip/index.d.ts",
       "import": "./dist/chip/index.js",
