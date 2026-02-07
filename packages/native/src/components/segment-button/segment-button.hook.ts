@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { useXUITheme } from '../../core'
-import { getSafeThemeColor } from '@xaui/core'
+import { getSafeThemeColor, withOpacity } from '@xaui/core'
 import type { SegmentButtonVariant, ElevationLevel } from './segment-button.type'
 import type { Size, ThemeColor } from '../../types'
 
@@ -69,6 +69,7 @@ export function useSegmentVariantStyles(
   const theme = useXUITheme()
   const safeThemeColor = getSafeThemeColor(themeColor)
   const colorScheme = theme.colors[safeThemeColor]
+  const selectedBackgroundColor = withOpacity(colorScheme.main, 0.75)
 
   return useMemo(() => {
     const variants: Record<SegmentButtonVariant, SegmentVariantStyles> = {
@@ -76,7 +77,7 @@ export function useSegmentVariantStyles(
         containerBackground: 'transparent',
         containerBorderWidth: theme.borderWidth.sm,
         containerBorderColor: colorScheme.main,
-        selectedBackground: colorScheme.main,
+        selectedBackground: selectedBackgroundColor,
         unselectedBackground: 'transparent',
         selectedTextColor: colorScheme.foreground,
         unselectedTextColor: colorScheme.main,
@@ -85,7 +86,7 @@ export function useSegmentVariantStyles(
         containerBackground: colorScheme.background,
         containerBorderWidth: 0,
         containerBorderColor: 'transparent',
-        selectedBackground: colorScheme.main,
+        selectedBackground: selectedBackgroundColor,
         unselectedBackground: 'transparent',
         selectedTextColor: colorScheme.foreground,
         unselectedTextColor: colorScheme.main,
@@ -94,7 +95,7 @@ export function useSegmentVariantStyles(
         containerBackground: colorScheme.background,
         containerBorderWidth: 0,
         containerBorderColor: 'transparent',
-        selectedBackground: colorScheme.main,
+        selectedBackground: selectedBackgroundColor,
         unselectedBackground: 'transparent',
         selectedTextColor: colorScheme.foreground,
         unselectedTextColor: colorScheme.main,
@@ -103,7 +104,7 @@ export function useSegmentVariantStyles(
         containerBackground: 'transparent',
         containerBorderWidth: 0,
         containerBorderColor: 'transparent',
-        selectedBackground: colorScheme.background,
+        selectedBackground: selectedBackgroundColor,
         unselectedBackground: 'transparent',
         selectedTextColor: colorScheme.main,
         unselectedTextColor: colorScheme.main,
@@ -112,7 +113,7 @@ export function useSegmentVariantStyles(
         containerBackground: `${colorScheme.background}95`,
         containerBorderWidth: theme.borderWidth.sm,
         containerBorderColor: `${colorScheme.main}90`,
-        selectedBackground: colorScheme.main,
+        selectedBackground: selectedBackgroundColor,
         unselectedBackground: 'transparent',
         selectedTextColor: colorScheme.foreground,
         unselectedTextColor: colorScheme.main,
