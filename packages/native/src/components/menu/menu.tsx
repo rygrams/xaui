@@ -1,11 +1,5 @@
 import React from 'react'
-import {
-  Animated,
-  Modal,
-  Pressable,
-  ScrollView,
-  View,
-} from 'react-native'
+import { Animated, Modal, Pressable, ScrollView, View } from 'react-native'
 import { useXUITheme } from '../../core'
 import type { MenuProps } from './menu.type'
 import { styles } from './menu.style'
@@ -27,7 +21,8 @@ export const Menu: React.FC<MenuProps> = ({
 }) => {
   const theme = useXUITheme()
   const { triggerRef, triggerPosition } = useMenuTriggerMeasurements(visible)
-  const { contentSize, handleContentLayout, isMeasured } = useMenuContentLayout(visible)
+  const { contentSize, handleContentLayout, isMeasured } =
+    useMenuContentLayout(visible)
   const menuPosition = useMenuPosition(triggerPosition, contentSize, position)
   const { opacity, scale } = useMenuAnimation(visible)
 
@@ -56,7 +51,10 @@ export const Menu: React.FC<MenuProps> = ({
               {
                 top: isMeasured ? menuPosition.top : -9999,
                 left: isMeasured ? menuPosition.left : -9999,
-                backgroundColor: theme.colors.background,
+                backgroundColor:
+                  theme.mode === 'dark'
+                    ? theme.colors.default.background
+                    : theme.colors.background,
                 borderRadius: theme.borderRadius.md,
                 opacity: isMeasured ? opacity : 0,
                 transform: [{ scale }],
@@ -65,11 +63,9 @@ export const Menu: React.FC<MenuProps> = ({
               customAppearance?.container,
             ]}
           >
-            <Pressable onPress={(e) => e.stopPropagation()}>
+            <Pressable onPress={e => e.stopPropagation()}>
               <View style={customAppearance?.content}>
-                <ScrollView style={{ maxHeight }}>
-                  {children}
-                </ScrollView>
+                <ScrollView style={{ maxHeight }}>{children}</ScrollView>
               </View>
             </Pressable>
           </Animated.View>

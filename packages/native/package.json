@@ -102,6 +102,11 @@
       "import": "./dist/view/index.js",
       "require": "./dist/view/index.js"
     },
+    "./bottom-sheet": {
+      "types": "./dist/bottom-sheet/index.d.ts",
+      "import": "./dist/bottom-sheet/index.js",
+      "require": "./dist/bottom-sheet/index.js"
+    },
     "./menu": {
       "types": "./dist/menu/index.d.ts",
       "import": "./dist/menu/index.js",
