@@ -31,10 +31,7 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
   },
   disabled: {
-    opacity: 0.38,
-  },
-  disabledText: {
-    opacity: 0.6,
+    opacity: 0.5,
   },
   divider: {
     width: 1,

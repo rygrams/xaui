@@ -103,7 +103,6 @@ export const SegmentButton: React.FC<SegmentButtonProps> = ({
             ...(variantStyles.containerShadow as Record<string, unknown>),
           },
           fullWidth && styles.fullWidth,
-          isDisabled && styles.disabled,
           customAppearance?.container,
         ]}
       >

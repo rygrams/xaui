@@ -75,7 +75,11 @@ export const SegmentButtonItem: React.FC<SegmentButtonItemProps> = ({
   const showCheck = isSelected && showCheckmark
 
   return (
-    <Pressable style={styles.segment} onPress={handlePress} disabled={disabled}>
+    <Pressable
+      style={[styles.segment, disabled && styles.disabled]}
+      onPress={handlePress}
+      disabled={disabled}
+    >
       <View
         style={[
           styles.segmentInner,
@@ -85,7 +89,6 @@ export const SegmentButtonItem: React.FC<SegmentButtonItemProps> = ({
             minHeight: sizeStyles.minHeight,
             backgroundColor,
           },
-          disabled && styles.disabled,
           isSelected
             ? customAppearance?.selectedSegment
             : customAppearance?.segment,
@@ -111,7 +114,6 @@ export const SegmentButtonItem: React.FC<SegmentButtonItemProps> = ({
                 fontSize: sizeStyles.fontSize,
                 color: textColor,
               },
-              disabled && styles.disabledText,
               isSelected
                 ? customAppearance?.selectedText
                 : customAppearance?.text,
