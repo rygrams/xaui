@@ -61,13 +61,7 @@ describe('SegmentButton Types', () => {
   })
 
   it('accepts all variants', () => {
-    const variants: SegmentButtonVariant[] = [
-      'solid',
-      'outlined',
-      'flat',
-      'light',
-      'faded',
-    ]
+    const variants: SegmentButtonVariant[] = ['outlined', 'flat', 'light', 'faded']
 
     variants.forEach(variant => {
       const props: SegmentButtonProps = {

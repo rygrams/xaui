@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { useXUITheme } from '../../core'
-import { getSafeThemeColor, withOpacity } from '@xaui/core'
+import { getSafeThemeColor, withPaletteNumber } from '@xaui/core'
 import type { SegmentButtonVariant, ElevationLevel } from './segment-button.type'
 import type { Size, ThemeColor } from '../../types'
 
@@ -69,7 +69,7 @@ export function useSegmentVariantStyles(
   const theme = useXUITheme()
   const safeThemeColor = getSafeThemeColor(themeColor)
   const colorScheme = theme.colors[safeThemeColor]
-  const selectedBackgroundColor = withOpacity(colorScheme.main, 0.75)
+  const selectedBackgroundColor = withPaletteNumber(colorScheme.main, 400)
 
   return useMemo(() => {
     const variants: Record<SegmentButtonVariant, SegmentVariantStyles> = {
@@ -77,15 +77,6 @@ export function useSegmentVariantStyles(
         containerBackground: 'transparent',
         containerBorderWidth: theme.borderWidth.sm,
         containerBorderColor: colorScheme.main,
-        selectedBackground: selectedBackgroundColor,
-        unselectedBackground: 'transparent',
-        selectedTextColor: colorScheme.foreground,
-        unselectedTextColor: colorScheme.main,
-      },
-      solid: {
-        containerBackground: colorScheme.background,
-        containerBorderWidth: 0,
-        containerBorderColor: 'transparent',
         selectedBackground: selectedBackgroundColor,
         unselectedBackground: 'transparent',
         selectedTextColor: colorScheme.foreground,
@@ -106,7 +97,7 @@ export function useSegmentVariantStyles(
         containerBorderColor: 'transparent',
         selectedBackground: selectedBackgroundColor,
         unselectedBackground: 'transparent',
-        selectedTextColor: colorScheme.main,
+        selectedTextColor: colorScheme.foreground,
         unselectedTextColor: colorScheme.main,
       },
       faded: {
@@ -120,7 +111,7 @@ export function useSegmentVariantStyles(
       },
     }
 
-    const baseStyle = variants[variant]
+    const baseStyle = variants[variant] ?? variants.outlined
     const shouldApplyElevation = variant !== 'outlined' && variant !== 'light'
 
     const shadowStyles =

@@ -2,7 +2,7 @@ import { ReactNode } from 'react'
 import type { ViewStyle } from 'react-native'
 import type { Size, ThemeColor } from '../../types'
 
-export type SegmentButtonVariant = 'solid' | 'outlined' | 'flat' | 'light' | 'faded'
+export type SegmentButtonVariant = 'outlined' | 'flat' | 'light' | 'faded'
 
 export type ElevationLevel = 0 | 1 | 2 | 3 | 4
 

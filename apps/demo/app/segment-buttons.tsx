@@ -69,7 +69,6 @@ export default function SegmentButtonsScreen() {
           selected={filters}
           onSelectionChange={val => setFilters(val as string[])}
           selectionMode="multiple"
-          variant="solid"
           fullWidth
         />
         <Text style={[localStyles.label, { color: colors.foreground }]}>
@@ -100,7 +99,6 @@ export default function SegmentButtonsScreen() {
             segments={viewSegments}
             selected={solidVal}
             onSelectionChange={val => setSolidVal(val as string)}
-            variant="solid"
             fullWidth
           />
 
@@ -142,7 +140,6 @@ export default function SegmentButtonsScreen() {
             segments={viewSegments}
             selected={elevatedVal}
             onSelectionChange={val => setElevatedVal(val as string)}
-            variant="solid"
             elevation={2}
             fullWidth
           />

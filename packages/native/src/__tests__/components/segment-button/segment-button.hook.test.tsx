@@ -122,16 +122,6 @@ describe('useSegmentVariantStyles', () => {
     expect(result.current.unselectedTextColor).toBe('#1976d2')
   })
 
-  it('returns correct styles for solid variant', () => {
-    const { result } = renderHook(() => useSegmentVariantStyles('primary', 'solid'))
-
-    expect(result.current.containerBackground).toBe('#e3f2fd')
-    expect(result.current.containerBorderWidth).toBe(0)
-    expect(result.current.selectedBackground).toBe('#1976d2')
-    expect(result.current.selectedTextColor).toBe('#ffffff')
-    expect(result.current.unselectedTextColor).toBe('#1976d2')
-  })
-
   it('returns correct styles for flat variant', () => {
     const { result } = renderHook(() => useSegmentVariantStyles('primary', 'flat'))
 
@@ -145,7 +135,7 @@ describe('useSegmentVariantStyles', () => {
 
     expect(result.current.containerBackground).toBe('transparent')
     expect(result.current.containerBorderWidth).toBe(0)
-    expect(result.current.selectedBackground).toBe('#e3f2fd')
+    expect(result.current.selectedBackground).toBe('#1976d2')
     expect(result.current.selectedTextColor).toBe('#1976d2')
   })
 
@@ -158,9 +148,9 @@ describe('useSegmentVariantStyles', () => {
     expect(result.current.selectedBackground).toBe('#1976d2')
   })
 
-  it('applies elevation shadow to solid variant', () => {
+  it('applies elevation shadow to flat variant', () => {
     const { result } = renderHook(() =>
-      useSegmentVariantStyles('primary', 'solid', 2)
+      useSegmentVariantStyles('primary', 'flat', 2)
     )
 
     expect(result.current.containerShadow).toBeDefined()
@@ -185,7 +175,7 @@ describe('useSegmentVariantStyles', () => {
 
   it('returns no shadow when elevation is 0', () => {
     const { result } = renderHook(() =>
-      useSegmentVariantStyles('primary', 'solid', 0)
+      useSegmentVariantStyles('primary', 'flat', 0)
     )
 
     expect(result.current.containerShadow).toBeUndefined()
