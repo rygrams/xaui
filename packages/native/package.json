@@ -67,6 +67,11 @@
       "import": "./dist/divider/index.js",
       "require": "./dist/divider/index.js"
     },
+    "./skeleton": {
+      "types": "./dist/skeleton/index.d.ts",
+      "import": "./dist/skeleton/index.js",
+      "require": "./dist/skeleton/index.js"
+    },
     "./avatar": {
       "types": "./dist/avatar/index.d.ts",
       "import": "./dist/avatar/index.js",

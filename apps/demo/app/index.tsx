@@ -91,21 +91,21 @@ export default function HomeScreen() {
         <GridItem>
           <Button
             size="sm"
-            onPress={() => router.push('/carousel')}
-            variant="outlined"
-            themeColor="secondary"
-          >
-            Carousel
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
             onPress={() => router.push('/card')}
             variant="outlined"
             themeColor="primary"
           >
             Card
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/carousel')}
+            variant="outlined"
+            themeColor="secondary"
+          >
+            Carousel
           </Button>
         </GridItem>
         <GridItem>
@@ -141,31 +141,21 @@ export default function HomeScreen() {
         <GridItem>
           <Button
             size="sm"
+            onPress={() => router.push('/indicator')}
+            variant="outlined"
+            themeColor="secondary"
+          >
+            Indicator
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
             onPress={() => router.push('/menus')}
             variant="outlined"
             themeColor="secondary"
           >
             Menu
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/segment-buttons')}
-            variant="outlined"
-            themeColor="primary"
-          >
-            Segment Button
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/switch')}
-            variant="outlined"
-            themeColor="secondary"
-          >
-            Switch
           </Button>
         </GridItem>
         <GridItem>
@@ -181,11 +171,31 @@ export default function HomeScreen() {
         <GridItem>
           <Button
             size="sm"
-            onPress={() => router.push('/indicator')}
+            onPress={() => router.push('/segment-buttons')}
+            variant="outlined"
+            themeColor="primary"
+          >
+            Segment Button
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/skeleton')}
             variant="outlined"
             themeColor="secondary"
           >
-            Indicator
+            Skeleton
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/switch')}
+            variant="outlined"
+            themeColor="secondary"
+          >
+            Switch
           </Button>
         </GridItem>
       </Grid>

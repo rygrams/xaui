@@ -119,7 +119,7 @@ describe('useSegmentVariantStyles', () => {
     )
 
     expect(result.current.containerBackground).toBe('transparent')
-    expect(result.current.containerBorderWidth).toBe(1)
+    expect(result.current.containerBorderWidth).toBe(2)
     expect(result.current.containerBorderColor).toBe('#1976d2')
     expect(result.current.selectedBackground).toBe('#1976d2')
     expect(result.current.unselectedBackground).toBe('transparent')
@@ -148,7 +148,7 @@ describe('useSegmentVariantStyles', () => {
     const { result } = renderHook(() => useSegmentVariantStyles('primary', 'faded'))
 
     expect(result.current.containerBackground).toBe('#e3f2fd95')
-    expect(result.current.containerBorderWidth).toBe(1)
+    expect(result.current.containerBorderWidth).toBe(2)
     expect(result.current.containerBorderColor).toBe('#1976d290')
     expect(result.current.selectedBackground).toBe('#1976d2')
   })

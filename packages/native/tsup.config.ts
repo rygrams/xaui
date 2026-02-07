@@ -30,6 +30,7 @@ export default defineConfig(options => {
       'segment-button/index': 'src/components/segment-button/index.ts',
       'carousel/index': 'src/components/carousel/index.ts',
       'card/index': 'src/components/card/index.ts',
+      'skeleton/index': 'src/components/skeleton/index.ts',
     },
     format: ['cjs', 'esm'],
     dts: !isWatch,
