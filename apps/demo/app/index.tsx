@@ -31,11 +31,51 @@ export default function HomeScreen() {
         <GridItem>
           <Button
             size="sm"
-            onPress={() => router.push('/alerts')}
+            onPress={() => router.push('/accordion')}
             variant="outlined"
             themeColor="primary"
           >
+            Accordion
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/alerts')}
+            variant="outlined"
+            themeColor="secondary"
+          >
             Alert
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/avatars')}
+            variant="outlined"
+            themeColor="secondary"
+          >
+            Avatar
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/badges')}
+            variant="outlined"
+            themeColor="primary"
+          >
+            Badge
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/bottom-sheet')}
+            variant="outlined"
+            themeColor="secondary"
+          >
+            Bottom Sheet
           </Button>
         </GridItem>
         <GridItem>
@@ -48,36 +88,24 @@ export default function HomeScreen() {
             Button
           </Button>
         </GridItem>
-
         <GridItem>
           <Button
             size="sm"
-            onPress={() => router.push('/badges')}
-            variant="outlined"
-            themeColor="secondary"
-          >
-            Badge
-          </Button>
-        </GridItem>
-
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/avatars')}
+            onPress={() => router.push('/chips')}
             variant="outlined"
             themeColor="primary"
           >
-            Avatar
+            Chip
           </Button>
         </GridItem>
         <GridItem>
           <Button
             size="sm"
-            onPress={() => router.push('/accordion')}
+            onPress={() => router.push('/datepicker')}
             variant="outlined"
             themeColor="secondary"
           >
-            Accordion
+            Datepicker
           </Button>
         </GridItem>
         <GridItem>
@@ -88,36 +116,6 @@ export default function HomeScreen() {
             themeColor="secondary"
           >
             Menu
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/datepicker')}
-            variant="outlined"
-            themeColor="primary"
-          >
-            Datepicker
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/chips')}
-            variant="outlined"
-            themeColor="secondary"
-          >
-            Chip
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/bottom-sheet')}
-            variant="outlined"
-            themeColor="secondary"
-          >
-            Bottom Sheet
           </Button>
         </GridItem>
       </Grid>
