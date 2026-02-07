@@ -30,6 +30,7 @@ export default function RootLayout() {
             options={{ title: 'Bottom Sheet Examples' }}
           />
           <Stack.Screen name="buttons" options={{ title: 'Button Examples' }} />
+          <Stack.Screen name="carousel" options={{ title: 'Carousel Examples' }} />
           <Stack.Screen name="chips" options={{ title: 'Chip Examples' }} />
           <Stack.Screen
             name="datepicker"

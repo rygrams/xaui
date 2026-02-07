@@ -25,7 +25,10 @@ const CheckIcon: React.FC<{ size: number; color: string }> = ({ size, color }) =
 export const SegmentButtonItem: React.FC<SegmentButtonItemProps> = ({
   itemKey,
   label,
+  startContent,
   icon,
+  endContent,
+  checkIndicator,
   isDisabled: itemDisabled = false,
   customAppearance,
 }) => {
@@ -73,6 +76,9 @@ export const SegmentButtonItem: React.FC<SegmentButtonItemProps> = ({
     : variantStyles.unselectedTextColor
 
   const showCheck = isSelected && showCheckmark
+  const startNode = showCheck
+    ? checkIndicator ?? <CheckIcon size={sizeStyles.iconSize} color={textColor} />
+    : startContent ?? icon
 
   return (
     <Pressable
@@ -95,17 +101,16 @@ export const SegmentButtonItem: React.FC<SegmentButtonItemProps> = ({
         ]}
       >
         <View style={styles.segmentContent}>
-          {showCheck && (
+          {startNode && (
             <Animated.View
               style={{
-                opacity: checkmarkAnim,
-                transform: [{ scale: checkmarkAnim }],
+                opacity: showCheck ? checkmarkAnim : 1,
+                transform: [{ scale: showCheck ? checkmarkAnim : 1 }],
               }}
             >
-              <CheckIcon size={sizeStyles.iconSize} color={textColor} />
+              {startNode}
             </Animated.View>
           )}
-          {icon && !showCheck && icon}
           <Text
             numberOfLines={1}
             style={[
@@ -121,6 +126,7 @@ export const SegmentButtonItem: React.FC<SegmentButtonItemProps> = ({
           >
             {label}
           </Text>
+          {endContent}
         </View>
       </View>
     </Pressable>

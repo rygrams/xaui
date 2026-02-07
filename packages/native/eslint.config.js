@@ -7,6 +7,8 @@ export default [
       globals: {
         setTimeout: 'readonly',
         clearTimeout: 'readonly',
+        setInterval: 'readonly',
+        clearInterval: 'readonly',
       },
     },
   },

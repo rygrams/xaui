@@ -102,6 +102,11 @@
       "import": "./dist/view/index.js",
       "require": "./dist/view/index.js"
     },
+    "./carousel": {
+      "types": "./dist/carousel/index.d.ts",
+      "import": "./dist/carousel/index.js",
+      "require": "./dist/carousel/index.js"
+    },
     "./segment-button": {
       "types": "./dist/segment-button/index.d.ts",
       "import": "./dist/segment-button/index.js",
