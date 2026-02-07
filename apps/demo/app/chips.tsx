@@ -1,7 +1,7 @@
 import { useXUIColors, useXUITheme } from '@xaui/native/core'
 import { StyleSheet, View, ScrollView, Text } from 'react-native'
 import { useState } from 'react'
-import { Chip, ChipGroup, ChipItem } from '@xaui/native'
+import { Chip, ChipGroup, ChipItem } from '@xaui/native/chip'
 
 export default function ChipsScreen() {
   const colors = useXUIColors()
