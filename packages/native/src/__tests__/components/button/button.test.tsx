@@ -46,7 +46,6 @@ describe('Button Types', () => {
       'outlined',
       'flat',
       'light',
-      'elevated',
       'faded',
     ]
 

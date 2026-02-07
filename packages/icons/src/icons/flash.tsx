@@ -1,0 +1,179 @@
+import React, { useEffect, useMemo, useRef } from 'react'
+import { Animated } from 'react-native'
+import { Svg, Path, Circle, Rect } from 'react-native-svg'
+import type { IconProps } from '../icon.type'
+
+const AnimatedPath = Animated.createAnimatedComponent(Path)
+const AnimatedCircle = Animated.createAnimatedComponent(Circle)
+const AnimatedRect = Animated.createAnimatedComponent(Rect)
+
+export const FlashIcon: React.FC<IconProps> = ({
+  variant = 'baseline',
+  size = 24,
+  color = 'black',
+  isAnimated = false,
+}) => {
+  const scaleAnim = useRef(new Animated.Value(isAnimated ? 0 : 1)).current
+  const opacityAnim = useRef(new Animated.Value(isAnimated ? 0 : 1)).current
+
+  const resolvedColor = useMemo(() => {
+    return color
+  }, [color])
+
+  useEffect(() => {
+    if (isAnimated) {
+      Animated.parallel([
+        Animated.spring(scaleAnim, {
+          toValue: 1,
+          useNativeDriver: true,
+          tension: 50,
+          friction: 7,
+        }),
+        Animated.timing(opacityAnim, {
+          toValue: 1,
+          duration: 200,
+          useNativeDriver: true,
+        }),
+      ]).start()
+    }
+  }, [isAnimated, scaleAnim, opacityAnim])
+
+  const animatedProps = isAnimated
+    ? {
+        transform: [{ scale: scaleAnim }],
+        opacity: opacityAnim,
+      }
+    : undefined
+
+  const renderBaseline = () => (
+    <>
+      <AnimatedPath
+        fill="none"
+        stroke={resolvedColor}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={32}
+        d="M315.27 33L96 304h128l-31.51 173.23a2.36 2.36 0 0 0 2.33 2.77h0a2.36 2.36 0 0 0 1.89-.95L416 208H288l31.66-173.25a2.45 2.45 0 0 0-2.44-2.75h0a2.42 2.42 0 0 0-1.95 1"
+        {...animatedProps}
+      />
+    </>
+  )
+
+  const renderFilled = () => (
+    <>
+      <AnimatedPath
+        fill={resolvedColor}
+        d="M194.82 496a18.36 18.36 0 0 1-18.1-21.53v-.11L204.83 320H96a16 16 0 0 1-12.44-26.06L302.73 23a18.45 18.45 0 0 1 32.8 13.71c0 .3-.08.59-.13.89L307.19 192H416a16 16 0 0 1 12.44 26.06L209.24 489a18.45 18.45 0 0 1-14.42 7"
+        {...animatedProps}
+      />
+    </>
+  )
+
+  const renderDuotone = () => (
+    <>
+      <AnimatedCircle
+        cx={256}
+        cy={256}
+        r={192}
+        fill={resolvedColor}
+        opacity={0.3}
+        {...animatedProps}
+      />
+      <AnimatedPath
+        fill="none"
+        stroke={resolvedColor}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={32}
+        d="M315.27 33L96 304h128l-31.51 173.23a2.36 2.36 0 0 0 2.33 2.77h0a2.36 2.36 0 0 0 1.89-.95L416 208H288l31.66-173.25a2.45 2.45 0 0 0-2.44-2.75h0a2.42 2.42 0 0 0-1.95 1"
+        {...animatedProps}
+      />
+    </>
+  )
+
+  const renderRoundOutlined = () => (
+    <>
+      <AnimatedCircle
+        cx={256}
+        cy={256}
+        r={192}
+        fill="none"
+        stroke={resolvedColor}
+        strokeWidth={32}
+        {...animatedProps}
+      />
+      <AnimatedPath
+        fill="none"
+        stroke={resolvedColor}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={32}
+        d="M315.27 33L96 304h128l-31.51 173.23a2.36 2.36 0 0 0 2.33 2.77h0a2.36 2.36 0 0 0 1.89-.95L416 208H288l31.66-173.25a2.45 2.45 0 0 0-2.44-2.75h0a2.42 2.42 0 0 0-1.95 1"
+        {...animatedProps}
+      />
+    </>
+  )
+
+  const renderSquareOutlined = () => (
+    <>
+      <AnimatedRect
+        x={64}
+        y={64}
+        width={384}
+        height={384}
+        rx={48}
+        fill="none"
+        stroke={resolvedColor}
+        strokeWidth={32}
+        {...animatedProps}
+      />
+      <AnimatedPath
+        fill="none"
+        stroke={resolvedColor}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={32}
+        d="M315.27 33L96 304h128l-31.51 173.23a2.36 2.36 0 0 0 2.33 2.77h0a2.36 2.36 0 0 0 1.89-.95L416 208H288l31.66-173.25a2.45 2.45 0 0 0-2.44-2.75h0a2.42 2.42 0 0 0-1.95 1"
+        {...animatedProps}
+      />
+    </>
+  )
+
+  const renderRoundFilled = () => renderFilled()
+
+  const renderSquareFilled = () => (
+    <>
+      <AnimatedPath
+        fill={resolvedColor}
+        d="M432 208H288l32-192L80 304h144l-32 192Z"
+        {...animatedProps}
+      />
+    </>
+  )
+
+  const renderVariant = () => {
+    switch (variant) {
+      case 'filled':
+        return renderFilled()
+      case 'duotone':
+        return renderDuotone()
+      case 'round-outlined':
+        return renderRoundOutlined()
+      case 'square-outlined':
+        return renderSquareOutlined()
+      case 'round-filled':
+        return renderRoundFilled()
+      case 'square-filled':
+        return renderSquareFilled()
+      case 'baseline':
+      default:
+        return renderBaseline()
+    }
+  }
+
+  return (
+    <Svg width={size} height={size} viewBox="0 0 512 512">
+      {renderVariant()}
+    </Svg>
+  )
+}

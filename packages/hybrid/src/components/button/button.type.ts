@@ -1,16 +1,11 @@
 import type { ReactNode, ButtonHTMLAttributes } from 'react'
 import type { ThemeColor } from '../../types'
 
-export type ButtonVariant =
-  | 'solid'
-  | 'outlined'
-  | 'flat'
-  | 'light'
-  | 'elevated'
-  | 'faded'
+export type ButtonVariant = 'solid' | 'outlined' | 'flat' | 'light' | 'faded'
 export type ButtonSize = 'xs' | 'sm' | 'md' | 'lg'
 export type ButtonRadius = 'none' | 'sm' | 'md' | 'lg' | 'full'
 export type SpinnerPlacement = 'start' | 'end'
+export type ElevationLevel = 0 | 1 | 2 | 3 | 4
 
 export type ButtonProps = Omit<
   ButtonHTMLAttributes<HTMLButtonElement>,
@@ -73,4 +68,10 @@ export type ButtonProps = Omit<
    * @default false
    */
   isLoading?: boolean
+  /**
+   * Elevation level from 0 to 4.
+   * Does not apply to `outlined` and `light` variants.
+   * @default 0
+   */
+  elevation?: ElevationLevel
 }
