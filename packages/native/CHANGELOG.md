@@ -1,5 +1,11 @@
 # @xaui/mobile
 
+## 0.0.19
+
+### Patch Changes
+
+- 407a5a2: Add `radius` support to `Skeleton` so placeholder shapes can use theme radius tokens (`none`, `sm`, `md`, `lg`, `full`) without relying on custom style overrides.
+
 ## 0.0.18
 
 ### Patch Changes
