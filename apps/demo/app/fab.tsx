@@ -3,15 +3,13 @@ import { StyleSheet, View, ScrollView, Text } from 'react-native'
 import { useState } from 'react'
 import { Fab } from '@xaui/native/fab'
 import { FabMenu, FabMenuItem } from '@xaui/native/fab-menu'
-import {
-  AddIcon,
-  PencilIcon,
-  ShareIcon,
-  CameraIcon,
-  CloseIcon,
-  ImageIcon,
-  StarIcon,
-} from '@xaui/icons'
+import { AddIcon } from '@xaui/icons/add'
+import { PencilIcon } from '@xaui/icons/pencil'
+import { ShareIcon } from '@xaui/icons/share'
+import { CameraIcon } from '@xaui/icons/camera'
+import { CloseIcon } from '@xaui/icons/close'
+import { ImageIcon } from '@xaui/icons/image'
+import { StarIcon } from '@xaui/icons/star'
 
 export default function FabScreen() {
   const colors = useXUIColors()
