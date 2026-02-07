@@ -1,5 +1,11 @@
 # @xaui/mobile
 
+## 0.0.18
+
+### Patch Changes
+
+- e0e7bdd: Add Card component with comprehensive features including header, body, footer sections, theme color support, blur effects, press/hover interactions, and proper light/dark theme defaults (white in light mode, dark.default.background in dark mode)
+
 ## 0.0.17
 
 ### Patch Changes
