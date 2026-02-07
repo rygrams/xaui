@@ -107,7 +107,6 @@ export default function ChipsScreen() {
           themeColor="primary"
           selectedValues={selectedTags}
           onSelectionChange={setSelectedTags}
-          size="lg"
         >
           <ChipItem value="react">React</ChipItem>
           <ChipItem value="native">Native</ChipItem>

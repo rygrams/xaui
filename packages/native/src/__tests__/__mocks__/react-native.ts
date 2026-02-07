@@ -121,6 +121,7 @@ const EasingMock = {
 
 const AnimatedMock = {
   View: View,
+  Text: Text,
   Value: class {
     constructor(value: number) {
       this.value = value
