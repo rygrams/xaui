@@ -12,7 +12,9 @@ export type AccordionContextValue = {
   toggleItem: (key: string) => void
 }
 
-export const AccordionContext = createContext<AccordionContextValue | undefined>(undefined)
+export const AccordionContext = createContext<AccordionContextValue | undefined>(
+  undefined
+)
 
 export const useAccordionContext = () => {
   const context = useContext(AccordionContext)

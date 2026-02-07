@@ -31,7 +31,7 @@ describe('Button Types', () => {
       'default',
     ]
 
-    colors.forEach((color) => {
+    colors.forEach(color => {
       const props: ButtonProps = {
         children: 'Test',
         themeColor: color,
@@ -50,7 +50,7 @@ describe('Button Types', () => {
       'faded',
     ]
 
-    variants.forEach((variant) => {
+    variants.forEach(variant => {
       const props: ButtonProps = {
         children: 'Test',
         variant,
@@ -62,7 +62,7 @@ describe('Button Types', () => {
   it('accepts all sizes', () => {
     const sizes: Array<ButtonProps['size']> = ['xs', 'sm', 'md', 'lg']
 
-    sizes.forEach((size) => {
+    sizes.forEach(size => {
       const props: ButtonProps = {
         children: 'Test',
         size,
@@ -74,7 +74,7 @@ describe('Button Types', () => {
   it('accepts all radius options', () => {
     const radii: Array<ButtonProps['radius']> = ['none', 'sm', 'md', 'lg', 'full']
 
-    radii.forEach((radius) => {
+    radii.forEach(radius => {
       const props: ButtonProps = {
         children: 'Test',
         radius,
@@ -86,7 +86,7 @@ describe('Button Types', () => {
   it('accepts spinner placement options', () => {
     const placements: Array<ButtonProps['spinnerPlacement']> = ['start', 'end']
 
-    placements.forEach((placement) => {
+    placements.forEach(placement => {
       const props: ButtonProps = {
         children: 'Test',
         spinnerPlacement: placement,

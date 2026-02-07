@@ -57,6 +57,7 @@ function Banner() {
 ## Key components
 
 ### `Button`
+
 - Variants: `solid`, `outlined`, `flat`, `light`, `elevated`, `faded`
 - Sizes: `xs`, `sm`, `md`, `lg`
 - Radii: `none`, `sm`, `md`, `lg`, `full`
@@ -80,12 +81,18 @@ function Banner() {
 `useButtonStyles` exposes the internal calculations if you need to derive custom layouts (spacing, colors, shadows, spinner size).
 
 ### `ActivityIndicator`
+
 - Variants: `circular` (default size 40) and `linear` (custom height)
 - Draws from the theme colors (`primary`, `secondary`, etc.) and optionally renders a track with `showTrack`
 - `disableAnimation` is provided for snapshots or silent loading states
 
 ```tsx
-<ActivityIndicator variant="linear" themeColor="secondary" showTrack borderRadius={4} />
+<ActivityIndicator
+  variant="linear"
+  themeColor="secondary"
+  showTrack
+  borderRadius={4}
+/>
 ```
 
 ## Theme hooks & utilities

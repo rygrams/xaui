@@ -1,5 +1,66 @@
 # @xaui/mobile
 
+## 0.0.14
+
+### Patch Changes
+
+- 5ac3865: feat(native): implement BottomSheet component and fix sheet surface/background rendering
+- Updated dependencies
+  - @xaui/icons@0.0.3
+
+## 0.0.13
+
+### Patch Changes
+
+- 395b05b: Add Menu and MenuItem components
+  - Added Menu component with Portal-based rendering and smooth animations
+  - Added MenuItem component with support for startContent and endContent
+  - Both components support customAppearance for flexible styling
+  - Menu supports position prop (top/bottom) and maxHeight for scrollable content
+  - MenuItem supports dense mode and disabled state
+
+- 9cba698: Extract icon components into separate @xaui/icons package
+
+  This refactoring moves all 518 icon components from @xaui/native into a new dedicated @xaui/icons package.
+
+  ## Changes
+
+  ### New Package: @xaui/icons
+  - Created new @xaui/icons package with 518 icon components
+  - Icons are simplified and no longer depend on theme context
+  - Icons accept color as a string prop directly
+  - Package exports all icons and icon-related types
+
+  ### @xaui/native Changes
+  - Removed icon components directory
+  - Added @xaui/icons as a dependency
+  - Updated all icon imports to use @xaui/icons
+  - Removed icon export from package.json
+
+  ## Migration Guide
+
+  If you were importing icons from @xaui/native, update your imports:
+
+  ```tsx
+  // Before
+  import { CloseIcon } from '@xaui/native/icon'
+
+  // After
+  import { CloseIcon } from '@xaui/icons'
+  ```
+
+  All icon components now accept color as a direct string value instead of resolving theme colors internally.
+
+- Updated dependencies [9cba698]
+- Updated dependencies [cb50e8a]
+  - @xaui/icons@0.0.2
+
+## 0.0.12
+
+### Patch Changes
+
+- fcfccbf: Add DatePicker component with dialog-based calendar interface, supporting date selection, min/max ranges, locale customization, and theme variants (outlined, flat, light, faded, underlined)
+
 ## 0.0.11
 
 ### Patch Changes

@@ -118,7 +118,9 @@ export const CircularActivityIndicator: React.FC<ActivityIndicatorProps> = ({
                   transformOrigin: '50% 50%',
                 }}
                 initial={{ rotate: outerStart }}
-                animate={disableAnimation ? { rotate: outerStart } : { rotate: outerEnd }}
+                animate={
+                  disableAnimation ? { rotate: outerStart } : { rotate: outerEnd }
+                }
                 transition={
                   disableAnimation
                     ? { duration: 0 }

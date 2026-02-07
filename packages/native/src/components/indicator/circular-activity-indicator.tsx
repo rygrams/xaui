@@ -135,7 +135,10 @@ export const CircularActivityIndicator: React.FC<ActivityIndicatorProps> = ({
           return (
             <Animated.View key={index} style={[styles.layer]}>
               <Animated.View style={layerStyle}>
-                <Animated.View style={[containerStyle, offsetStyle]} collapsable={false}>
+                <Animated.View
+                  style={[containerStyle, offsetStyle]}
+                  collapsable={false}
+                >
                   <Animated.View style={viewportStyle}>
                     <Animated.View style={containerStyle} collapsable={false}>
                       <Animated.View style={lineStyle} />

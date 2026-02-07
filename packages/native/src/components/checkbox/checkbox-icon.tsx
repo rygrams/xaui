@@ -78,11 +78,17 @@ function IndeterminateCheckIcon({
   )
 }
 
-export function CheckboxIcon({ isIndeterminate, variant, ...props }: CheckboxIconProps) {
+export function CheckboxIcon({
+  isIndeterminate,
+  variant,
+  ...props
+}: CheckboxIconProps) {
   const BaseIcon = isIndeterminate ? IndeterminateCheckIcon : CheckIcon
 
   if (variant === 'light' && !props.isChecked && !isIndeterminate) {
-    return <PlaceholderCheckIcon size={props.size} color={props.placeholderColor ?? ''} />
+    return (
+      <PlaceholderCheckIcon size={props.size} color={props.placeholderColor ?? ''} />
+    )
   }
 
   return <BaseIcon {...props} />

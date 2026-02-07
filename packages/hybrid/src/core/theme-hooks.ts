@@ -26,7 +26,9 @@ const getWebColorMode = (): ColorMode => {
     return 'light'
   }
 
-  return globalScope.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+  return globalScope.matchMedia('(prefers-color-scheme: dark)').matches
+    ? 'dark'
+    : 'light'
 }
 
 export function useColorMode(): ColorMode {
