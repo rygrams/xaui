@@ -1,5 +1,8 @@
 import { describe, it, expect } from 'vitest'
-import type { AccordionProps, AccordionItemProps } from '../../../components/accordion'
+import type {
+  AccordionProps,
+  AccordionItemProps,
+} from '../../../components/accordion'
 
 describe('Accordion Types', () => {
   it('accepts Accordion props', () => {
@@ -16,7 +19,11 @@ describe('Accordion Types', () => {
   })
 
   it('accepts all variants', () => {
-    const variants: Array<AccordionProps['variant']> = ['light', 'bordered', 'splitted']
+    const variants: Array<AccordionProps['variant']> = [
+      'light',
+      'bordered',
+      'splitted',
+    ]
     variants.forEach(variant => {
       const props: AccordionProps = {
         children: null,
@@ -72,14 +79,16 @@ describe('Accordion Types', () => {
     expect(props.onSelectionChange).toBe(mockCallback)
   })
 
-  it('accepts custom styles', () => {
+  it('accepts customAppearance with style props', () => {
     const props: AccordionProps = {
       children: null,
-      containerStyle: { backgroundColor: 'red' },
-      itemStyle: { padding: 10 },
+      customAppearance: {
+        container: { backgroundColor: 'red' },
+        item: { padding: 10 },
+      },
     }
-    expect(props.containerStyle).toEqual({ backgroundColor: 'red' })
-    expect(props.itemStyle).toEqual({ padding: 10 })
+    expect(props.customAppearance?.container).toEqual({ backgroundColor: 'red' })
+    expect(props.customAppearance?.item).toEqual({ padding: 10 })
   })
 
   it('accepts boolean flags', () => {
@@ -143,26 +152,28 @@ describe('AccordionItem Types', () => {
     expect(props.onSelected).toBe(mockCallback)
   })
 
-  it('accepts all custom style props', () => {
+  it('accepts customAppearance with all style props', () => {
     const props: AccordionItemProps = {
       children: null,
       title: 'Title',
-      baseStyle: { backgroundColor: 'red' },
-      headingStyle: { padding: 10 },
-      triggerStyle: { margin: 5 },
-      titleStyle: { fontSize: 16 },
-      subtitleStyle: { fontSize: 12 },
-      contentStyle: { padding: 15 },
-      startContentStyle: { marginRight: 10 },
-      indicatorStyle: { opacity: 0.8 },
+      customAppearance: {
+        base: { backgroundColor: 'red' },
+        heading: { padding: 10 },
+        trigger: { margin: 5 },
+        title: { fontSize: 16 },
+        subtitle: { fontSize: 12 },
+        content: { padding: 15 },
+        startContent: { marginRight: 10 },
+        indicator: { opacity: 0.8 },
+      },
     }
-    expect(props.baseStyle).toEqual({ backgroundColor: 'red' })
-    expect(props.headingStyle).toEqual({ padding: 10 })
-    expect(props.triggerStyle).toEqual({ margin: 5 })
-    expect(props.titleStyle).toEqual({ fontSize: 16 })
-    expect(props.subtitleStyle).toEqual({ fontSize: 12 })
-    expect(props.contentStyle).toEqual({ padding: 15 })
-    expect(props.startContentStyle).toEqual({ marginRight: 10 })
-    expect(props.indicatorStyle).toEqual({ opacity: 0.8 })
+    expect(props.customAppearance?.base).toEqual({ backgroundColor: 'red' })
+    expect(props.customAppearance?.heading).toEqual({ padding: 10 })
+    expect(props.customAppearance?.trigger).toEqual({ margin: 5 })
+    expect(props.customAppearance?.title).toEqual({ fontSize: 16 })
+    expect(props.customAppearance?.subtitle).toEqual({ fontSize: 12 })
+    expect(props.customAppearance?.content).toEqual({ padding: 15 })
+    expect(props.customAppearance?.startContent).toEqual({ marginRight: 10 })
+    expect(props.customAppearance?.indicator).toEqual({ opacity: 0.8 })
   })
 })

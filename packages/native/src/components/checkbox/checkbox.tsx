@@ -33,7 +33,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
   labelStyle,
   style,
   onValueChange,
-}: CheckboxProps)  => {
+}: CheckboxProps) => {
   const theme = useXUITheme()
   const colorScheme = theme.colors[getSafeThemeColor(themeColor)]
   const isControlled = typeof isCheckedProp === 'boolean'

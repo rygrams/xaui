@@ -16,11 +16,13 @@ XAUI is a Flutter-inspired component system targeting React Native, hybrid web/n
 ## Key workspaces
 
 ### Packages
+
 - `@xaui/core` — shared theme tokens (colors, spacing, typography, shadows) plus hooks like `useXUITheme` and `useColorMode`. It is the source of truth for all downstream packages.
 - `@xaui/native` — React Native components (animated buttons, circular/linear indicators, hooks, `XUIProvider`) that leverage `@xaui/core` while exposing mobile-first helpers (variants, spinner, lightweight animation states powered by Reanimated).
 - `@xaui/hybrid` — hybrid React/ReactDOM package layered with `framer-motion` and `tailwindcss` for web-first experiences. In-depth documentation is still pending (`packages/hybrid/README.md`).
 
 ### Applications
+
 - `apps/demo` — Expo-based sandbox (with `app` router + `app.json`) showcasing mobile usage patterns.
 - `apps/docs` — Next.js-powered documentation site (`app/` directory, `next/font`, content in `apps/docs/contents`).
 - `apps/mcp` — placeholder (only `.gitkeep`) reserved for future tooling or internal console.

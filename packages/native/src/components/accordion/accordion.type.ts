@@ -8,6 +8,18 @@ export type AccordionEvents = {
   onSelectionChange?: (selectedKeys: string[]) => void
 }
 
+type AccordionCustomAppearance = {
+  /**
+   * Custom styles for the container
+   */
+  container?: ViewStyle
+
+  /**
+   * Custom styles for individual items
+   */
+  item?: ViewStyle
+}
+
 export type AccordionProps = {
   /**
    * List of AccordionItem components
@@ -75,12 +87,7 @@ export type AccordionProps = {
   isCompact?: boolean
 
   /**
-   * Custom styles for the container
+   * Custom appearance styles for all accordion parts
    */
-  containerStyle?: ViewStyle
-
-  /**
-   * Custom styles for individual items
-   */
-  itemStyle?: ViewStyle
+  customAppearance?: AccordionCustomAppearance
 } & AccordionEvents

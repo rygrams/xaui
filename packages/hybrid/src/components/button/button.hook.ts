@@ -1,6 +1,11 @@
 import { useMemo } from 'react'
 import { useXUITheme } from '../../core'
-import type { ButtonVariant, ButtonSize, ButtonRadius } from './button.type'
+import type {
+  ButtonVariant,
+  ButtonSize,
+  ButtonRadius,
+  ElevationLevel,
+} from './button.type'
 import type { ThemeColor } from '../../types'
 
 type ButtonSizeStyles = {
@@ -16,7 +21,8 @@ type ButtonSizeStyles = {
 export const useVariantSizesStyles = (
   themeColor: ThemeColor,
   variant: ButtonVariant,
-  size: ButtonSize
+  size: ButtonSize,
+  elevation: ElevationLevel = 0
 ): {
   sizeStyles: ButtonSizeStyles
   variantStyles: Record<string, string>
@@ -92,15 +98,6 @@ export const useVariantSizesStyles = (
         borderWidth: '0',
         color: colorScheme.main,
       },
-      elevated: {
-        backgroundColor: colorScheme.main,
-        borderWidth: '0',
-        color: colorScheme.foreground,
-        boxShadow:
-          typeof theme.shadows.md === 'string'
-            ? theme.shadows.md
-            : '0 2px 4px rgba(0,0,0,0.1)',
-      },
       faded: {
         backgroundColor: `${colorScheme.background}90`,
         borderWidth: `${theme.borderWidth.md}px`,
@@ -108,12 +105,28 @@ export const useVariantSizesStyles = (
         borderColor: colorScheme.main,
         color: colorScheme.main,
       },
+    } as const
+
+    const shadowMap: Record<Exclude<ElevationLevel, 0>, string> = {
+      1: '0 1px 2px rgba(0,0,0,0.18)',
+      2: '0 2px 4px rgba(0,0,0,0.23)',
+      3: '0 4px 8px rgba(0,0,0,0.30)',
+      4: '0 6px 12px rgba(0,0,0,0.37)',
     }
-    return styles[variant]
-  }, [variant, colorScheme, theme])
+
+    const baseStyle = styles[variant]
+    const shouldApplyElevation = variant !== 'outlined' && variant !== 'light'
+
+    return {
+      ...baseStyle,
+      ...(shouldApplyElevation && elevation > 0
+        ? { boxShadow: shadowMap[elevation as Exclude<ElevationLevel, 0>] }
+        : {}),
+    }
+  }, [variant, colorScheme, theme, elevation])
 
   const textColor = useMemo(() => {
-    if (variant === 'solid' || variant === 'elevated') {
+    if (variant === 'solid') {
       return colorScheme.foreground
     }
     return colorScheme.main
@@ -141,15 +154,13 @@ export const useButtonStyles = (
   themeColor: ThemeColor,
   variant: ButtonVariant,
   size: ButtonSize,
-  radius: ButtonRadius
+  radius: ButtonRadius,
+  elevation: ElevationLevel = 0
 ) => {
   const theme = useXUITheme()
 
-  const { sizeStyles, variantStyles, textColor, spinnerSize } = useVariantSizesStyles(
-    themeColor,
-    variant,
-    size
-  )
+  const { sizeStyles, variantStyles, textColor, spinnerSize } =
+    useVariantSizesStyles(themeColor, variant, size, elevation)
 
   const radiusStyles = useMemo(() => {
     const radii = {

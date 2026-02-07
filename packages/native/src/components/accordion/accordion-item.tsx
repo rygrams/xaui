@@ -21,14 +21,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
   subtitle,
   startContent,
   indicator,
-  baseStyle,
-  headingStyle,
-  triggerStyle,
-  titleStyle,
-  subtitleStyle,
-  contentStyle,
-  startContentStyle,
-  indicatorStyle,
+  customAppearance,
   onSelected,
 }) => {
   const {
@@ -57,28 +50,32 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
   const foregroundColor = useForegroundColor()
 
   return (
-    <View style={[baseStyles, baseStyle]}>
-      <View style={headingStyle}>
+    <View style={[baseStyles, customAppearance?.base]}>
+      <View style={customAppearance?.heading}>
         <Pressable
-          style={[triggerStyles, triggerStyle]}
+          style={[triggerStyles, customAppearance?.trigger]}
           onPress={handlePress}
           disabled={isDisabled}
           accessibilityRole="button"
           accessibilityState={{ expanded: isExpanded, disabled: isDisabled }}
         >
           {startContent && (
-            <View style={[styles.startContent, startContentStyle]}>{startContent}</View>
+            <View style={[styles.startContent, customAppearance?.startContent]}>
+              {startContent}
+            </View>
           )}
 
           <View style={styles.titleWrapper}>
             {typeof title === 'string' ? (
-              <Text style={[titleTextStyle, titleStyle]}>{title}</Text>
+              <Text style={[titleTextStyle, customAppearance?.title]}>{title}</Text>
             ) : (
               title
             )}
             {subtitle &&
               (typeof subtitle === 'string' ? (
-                <Text style={[subtitleTextStyle, subtitleStyle]}>{subtitle}</Text>
+                <Text style={[subtitleTextStyle, customAppearance?.subtitle]}>
+                  {subtitle}
+                </Text>
               ) : (
                 subtitle
               ))}
@@ -88,7 +85,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
             <Animated.View
               style={[
                 styles.indicator,
-                indicatorStyle,
+                customAppearance?.indicator,
                 { transform: [{ rotate: rotationInterpolation }] },
               ]}
             >
@@ -99,7 +96,10 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
       </View>
 
       <View style={styles.hiddenMeasure} pointerEvents="none">
-        <View onLayout={onContentLayout} style={[contentContainerStyle, contentStyle]}>
+        <View
+          onLayout={onContentLayout}
+          style={[contentContainerStyle, customAppearance?.content]}
+        >
           {children}
         </View>
       </View>
@@ -112,7 +112,9 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
             : { height: heightInterpolation },
         ]}
       >
-        <View style={[contentContainerStyle, contentStyle]}>{children}</View>
+        <View style={[contentContainerStyle, customAppearance?.content]}>
+          {children}
+        </View>
       </Animated.View>
     </View>
   )

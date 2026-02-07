@@ -29,7 +29,10 @@ interface AccordionContextConfig {
   onSelectionChange?: (expandedKeys: string[]) => void
 }
 
-export const useAccordionStyles = ({ variant, fullWidth }: AccordionStylesConfig) => {
+export const useAccordionStyles = ({
+  variant,
+  fullWidth,
+}: AccordionStylesConfig) => {
   const theme = useXUITheme()
   const palette = useXUIPalette()
 
@@ -45,7 +48,7 @@ export const useAccordionStyles = ({ variant, fullWidth }: AccordionStylesConfig
       base.borderColor =
         theme.mode === 'dark' ? palette.gray[800] : theme.palette.gray[200]
       base.borderRadius = theme.borderRadius.md
-      base.marginHorizontal = theme.spacing.sm
+      base.paddingHorizontal = theme.spacing.sm
       base.overflow = 'hidden'
     } else if (variant === 'light') {
       base.paddingHorizontal = theme.spacing.sm

@@ -11,11 +11,10 @@ type ViewProps = {
   [key: string]: unknown
 }
 
-export const View: React.FC<ViewProps> = ({ style, ...props }) => {
-  const normalizedStyle = Array.isArray(style)
-    ? Object.assign({}, ...style.filter(Boolean))
-    : style
+const normalizeStyle = (style?: ViewStyle) =>
+  Array.isArray(style) ? Object.assign({}, ...style.filter(Boolean)) : style
 
+const extractAccessibilityProps = (props: Record<string, unknown>) => {
   const {
     accessible: _accessible,
     accessibilityRole,
@@ -30,6 +29,20 @@ export const View: React.FC<ViewProps> = ({ style, ...props }) => {
     | { now?: number; min?: number; max?: number }
     | undefined
 
+  return {
+    domProps,
+    accessibilityRole,
+    accessibilityLabel,
+    accValue,
+  }
+}
+
+export const View: React.FC<ViewProps> = ({ style, ...props }) => {
+  const normalizedStyle = normalizeStyle(style)
+
+  const { domProps, accessibilityRole, accessibilityLabel, accValue } =
+    extractAccessibilityProps(props)
+
   return React.createElement('div', {
     ...domProps,
     style: normalizedStyle as React.CSSProperties,
@@ -37,6 +50,53 @@ export const View: React.FC<ViewProps> = ({ style, ...props }) => {
     'aria-valuenow': accValue?.now,
     'aria-valuemin': accValue?.min,
     'aria-valuemax': accValue?.max,
+    'aria-label': accessibilityLabel as string,
+  })
+}
+
+export const Text: React.FC<ViewProps> = ({ style, ...props }) => {
+  const normalizedStyle = normalizeStyle(style)
+
+  const { domProps, accessibilityRole, accessibilityLabel } =
+    extractAccessibilityProps(props)
+
+  return React.createElement('span', {
+    ...domProps,
+    style: normalizedStyle as React.CSSProperties,
+    role: accessibilityRole as React.AriaRole,
+    'aria-label': accessibilityLabel as string,
+  })
+}
+
+export const Image: React.FC<ViewProps & { source?: { uri?: string } }> = ({
+  style,
+  source,
+  ...props
+}) => {
+  const normalizedStyle = normalizeStyle(style)
+
+  const { domProps, accessibilityRole, accessibilityLabel } =
+    extractAccessibilityProps(props)
+
+  return React.createElement('div', {
+    ...domProps,
+    style: normalizedStyle as React.CSSProperties,
+    role: accessibilityRole as React.AriaRole,
+    'aria-label': accessibilityLabel as string,
+    'data-src': source?.uri,
+  })
+}
+
+export const Pressable: React.FC<ViewProps> = ({ style, ...props }) => {
+  const normalizedStyle = normalizeStyle(style)
+
+  const { domProps, accessibilityRole, accessibilityLabel } =
+    extractAccessibilityProps(props)
+
+  return React.createElement('button', {
+    ...domProps,
+    style: normalizedStyle as React.CSSProperties,
+    role: accessibilityRole as React.AriaRole,
     'aria-label': accessibilityLabel as string,
   })
 }
@@ -53,10 +113,15 @@ export const Platform = {
 const EasingMock = {
   linear: () => {},
   bezier: (_x1: number, _y1: number, _x2: number, _y2: number) => (_t: number) => _t,
+  out: (fn: (t: number) => number) => fn,
+  in: (fn: (t: number) => number) => fn,
+  cubic: (t: number) => t,
+  quad: (t: number) => t,
 }
 
 const AnimatedMock = {
   View: View,
+  Text: Text,
   Value: class {
     constructor(value: number) {
       this.value = value
@@ -73,22 +138,64 @@ const AnimatedMock = {
     interpolate: (_config: never) => 0,
   }),
   timing: (_value: never, _config: never) => ({
-    start: () => {},
+    start: (cb?: (result: { finished: boolean }) => void) => {
+      cb?.({ finished: true })
+    },
+    stop: () => {},
+  }),
+  spring: (_value: never, _config: never) => ({
+    start: (cb?: (result: { finished: boolean }) => void) => {
+      cb?.({ finished: true })
+    },
     stop: () => {},
   }),
   loop: (_animation: never) => ({
     start: () => {},
   }),
   sequence: (_animations: never[]) => ({
-    start: () => {},
+    start: (cb?: (result: { finished: boolean }) => void) => {
+      cb?.({ finished: true })
+    },
     stop: () => {},
   }),
   parallel: (_animations: never[]) => ({
-    start: () => {},
+    start: (cb?: (result: { finished: boolean }) => void) => {
+      cb?.({ finished: true })
+    },
     stop: () => {},
   }),
   Easing: EasingMock,
 }
 
+export const ScrollView: React.FC<ViewProps> = ({ style, ...props }) => {
+  const normalizedStyle = normalizeStyle(style)
+
+  const { domProps } = extractAccessibilityProps(props)
+
+  return React.createElement('div', {
+    ...domProps,
+    style: normalizedStyle as React.CSSProperties,
+  })
+}
+
 export const Animated = AnimatedMock
 export const Easing = EasingMock
+
+export const Dimensions = {
+  get: (_dim: string) => ({ width: 375, height: 812 }),
+  addEventListener: () => ({ remove: () => {} }),
+}
+
+const emptyPanHandlers = {
+  onStartShouldSetResponder: () => false,
+  onMoveShouldSetResponder: () => false,
+  onResponderGrant: () => {},
+  onResponderMove: () => {},
+  onResponderRelease: () => {},
+  onResponderTerminate: () => {},
+  onResponderTerminationRequest: () => true,
+}
+
+export const PanResponder = {
+  create: () => ({ panHandlers: emptyPanHandlers }),
+}

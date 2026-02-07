@@ -5,6 +5,48 @@ export type AccordionItemEvents = {
   onSelected?: (isSelected: boolean) => void
 }
 
+export type AccordionItemCustomAppearance = {
+  /**
+   * Custom styles for the base container
+   */
+  base?: ViewStyle
+
+  /**
+   * Custom styles for the header container
+   */
+  heading?: ViewStyle
+
+  /**
+   * Custom styles for the trigger button
+   */
+  trigger?: ViewStyle
+
+  /**
+   * Custom styles for the title text
+   */
+  title?: TextStyle
+
+  /**
+   * Custom styles for the subtitle text
+   */
+  subtitle?: TextStyle
+
+  /**
+   * Custom styles for the content container
+   */
+  content?: ViewStyle
+
+  /**
+   * Custom styles for the start content container
+   */
+  startContent?: ViewStyle
+
+  /**
+   * Custom styles for the indicator
+   */
+  indicator?: ViewStyle
+}
+
 export type AccordionItemProps = {
   /**
    * Unique key for the accordion item
@@ -38,42 +80,7 @@ export type AccordionItemProps = {
   indicator?: ReactNode
 
   /**
-   * Custom styles for the base container
+   * Custom appearance styles for all accordion item parts
    */
-  baseStyle?: ViewStyle
-
-  /**
-   * Custom styles for the header container
-   */
-  headingStyle?: ViewStyle
-
-  /**
-   * Custom styles for the trigger button
-   */
-  triggerStyle?: ViewStyle
-
-  /**
-   * Custom styles for the title text
-   */
-  titleStyle?: TextStyle
-
-  /**
-   * Custom styles for the subtitle text
-   */
-  subtitleStyle?: TextStyle
-
-  /**
-   * Custom styles for the content container
-   */
-  contentStyle?: ViewStyle
-
-  /**
-   * Custom styles for the start content container
-   */
-  startContentStyle?: ViewStyle
-
-  /**
-   * Custom styles for the indicator
-   */
-  indicatorStyle?: ViewStyle
+  customAppearance?: AccordionItemCustomAppearance
 } & AccordionItemEvents

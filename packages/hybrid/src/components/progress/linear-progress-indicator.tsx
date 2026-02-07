@@ -32,7 +32,9 @@ export const LinearProgressIndicator: React.FC<ProgressIndicatorProps> = ({
         initial={disableAnimation ? false : { width: 0 }}
         animate={{ width: `${progressValue * 100}%` }}
         transition={
-          disableAnimation ? { duration: 0 } : { duration: 0.5, ease: [0, 0, 0.2, 1] }
+          disableAnimation
+            ? { duration: 0 }
+            : { duration: 0.5, ease: [0, 0, 0.2, 1] }
         }
         style={{
           backgroundColor: color,

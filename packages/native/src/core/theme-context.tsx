@@ -2,6 +2,7 @@ import React, { createContext, ReactNode } from 'react'
 import { useColorScheme } from 'react-native'
 import { defaultTheme, XUITheme } from '@xaui/core/theme'
 import { colors } from '@xaui/core/palette'
+import { PortalHost } from './portal'
 
 export const XUIThemeContext = createContext<XUITheme | null>(null)
 
@@ -26,7 +27,7 @@ export function XUIProvider({
     if (!darkTheme && !lightTheme) return defaultTheme
 
     const activeTheme = colorScheme === 'dark' && darkTheme ? darkTheme : lightTheme
-    const mode = colorScheme === 'dark' ? 'dark' : 'light'
+    const mode = colorScheme === 'dark' && darkTheme ? 'dark' : 'light'
 
     if (!activeTheme) return defaultTheme
 
@@ -50,5 +51,9 @@ export function XUIProvider({
     } as XUITheme
   }, [lightTheme, darkTheme, colorScheme])
 
-  return <XUIThemeContext.Provider value={theme}>{children}</XUIThemeContext.Provider>
+  return (
+    <XUIThemeContext.Provider value={theme}>
+      <PortalHost>{children}</PortalHost>
+    </XUIThemeContext.Provider>
+  )
 }

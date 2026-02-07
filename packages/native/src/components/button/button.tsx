@@ -19,8 +19,8 @@ export const Button: React.FC<ButtonProps> = ({
   fullWidth = false,
   isDisabled = false,
   isLoading = false,
-  textStyle,
-  style,
+  elevation = 0,
+  customAppearance,
   onPress,
   onLongPress,
   onPressIn,
@@ -31,10 +31,12 @@ export const Button: React.FC<ButtonProps> = ({
 
   const { sizeStyles, spinnerSize } = useSizesStyles(size)
   const radiusStyles = useBorderRadiusStyles(radius)
-  const variantStyles = useVariantSizesStyles(themeColor, variant)
+  const variantStyles = useVariantSizesStyles(themeColor, variant, elevation)
   const { textColor } = useTextStyles(themeColor, variant)
 
-  const handlePressIn = (event: Parameters<NonNullable<ButtonProps['onPressIn']>>[0]) => {
+  const handlePressIn = (
+    event: Parameters<NonNullable<ButtonProps['onPressIn']>>[0]
+  ) => {
     if (!isDisabled && !isLoading) {
       runPressInAnimation(animatedScale, animatedOpacity)
     }
@@ -53,14 +55,14 @@ export const Button: React.FC<ButtonProps> = ({
   const spinner = (
     <ActivityIndicator
       variant="circular"
-      themeColor={variant === 'solid' || variant === 'elevated' ? undefined : themeColor}
-      color={variant === 'solid' || variant === 'elevated' ? textColor : undefined}
+      themeColor={variant === 'solid' ? undefined : themeColor}
+      color={variant === 'solid' ? textColor : undefined}
       size={spinnerSize}
     />
   )
 
   return (
-    <View style={[fullWidth && styles.fullWidth]}>
+    <View style={[fullWidth && styles.fullWidth, customAppearance?.container]}>
       <Pressable
         onPress={isDisabled || isLoading ? undefined : onPress}
         onLongPress={isDisabled || isLoading ? undefined : onLongPress}
@@ -80,7 +82,7 @@ export const Button: React.FC<ButtonProps> = ({
               transform: [{ scale: animatedScale }],
               opacity: animatedOpacity,
             },
-            style,
+            customAppearance?.button,
           ]}
         >
           <View style={styles.contentContainer}>
@@ -97,7 +99,7 @@ export const Button: React.FC<ButtonProps> = ({
                 styles.text,
                 { fontSize: sizeStyles.fontSize, color: textColor },
                 isDisabled && styles.disabledText,
-                textStyle,
+                customAppearance?.text,
               ]}
             >
               {children}

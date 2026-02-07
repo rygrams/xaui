@@ -1,0 +1,186 @@
+import React, { useMemo } from 'react'
+import {
+  FlatList,
+  StyleSheet,
+  View,
+  type ListRenderItemInfo,
+  type StyleProp,
+  type ViewStyle,
+} from 'react-native'
+import type { GridBuilderProps } from './grid-builder.type'
+
+const getSafeColumns = (columns?: number) => {
+  if (!columns || columns <= 0) return 1
+  return Math.floor(columns)
+}
+
+const resolveGridData = <T,>(
+  data: readonly T[] | undefined,
+  itemCount: number | undefined
+) => {
+  if (data) return data
+  if (!itemCount || itemCount <= 0) return []
+  return Array.from({ length: itemCount }, (_, index) => index as T)
+}
+
+export const GridBuilder = <T,>({
+  data,
+  itemCount,
+  renderItem,
+  itemBuilder,
+  keyExtractor,
+  columns = 2,
+  spacing,
+  rowSpacing,
+  columnSpacing,
+  style,
+  itemStyle,
+  scrollEnabled,
+  onEndReached,
+  onEndReachedThreshold = 0.1,
+  contentContainerStyle,
+  header,
+  footer,
+}: GridBuilderProps<T>) => {
+  type GridRenderItem<TItem> =
+    | { type: 'data'; item: TItem; index: number }
+    | { type: 'placeholder'; key: string }
+
+  const safeColumns = getSafeColumns(columns)
+  const resolvedRowSpacing = rowSpacing ?? spacing ?? 0
+  const resolvedColumnSpacing = columnSpacing ?? spacing ?? 0
+  const resolvedData = useMemo(
+    () => resolveGridData(data, itemCount),
+    [data, itemCount]
+  )
+
+  const paddedData = useMemo(() => {
+    const remainder = resolvedData.length % safeColumns
+    const placeholders = remainder === 0 ? 0 : safeColumns - remainder
+    if (placeholders === 0)
+      return resolvedData.map((item, index) => ({
+        type: 'data' as const,
+        item,
+        index,
+      }))
+    return [
+      ...resolvedData.map((item, index) => ({
+        type: 'data' as const,
+        item,
+        index,
+      })),
+      ...Array.from({ length: placeholders }, (_, index) => ({
+        type: 'placeholder' as const,
+        key: `placeholder-${resolvedData.length + index}`,
+      })),
+    ]
+  }, [resolvedData, safeColumns])
+
+  const resolvedKeyExtractor = useMemo(() => {
+    if (keyExtractor)
+      return (item: GridRenderItem<T>, index: number) =>
+        item.type === 'data'
+          ? keyExtractor(item.item, item.index)
+          : (item.key ?? `placeholder-${index}`)
+    return (item: GridRenderItem<T>, index: number) =>
+      item.type === 'data'
+        ? `grid-${item.index}`
+        : (item.key ?? `placeholder-${index}`)
+  }, [keyExtractor])
+
+  const resolvedRenderer = useMemo(() => {
+    if (renderItem) return renderItem
+    if (itemBuilder)
+      return ({ item, index }: { item: T; index: number }) =>
+        itemBuilder({ item, index })
+    return undefined
+  }, [renderItem, itemBuilder])
+
+  if (!resolvedRenderer) return null
+
+  const renderGridItem = ({
+    item,
+    index,
+  }: ListRenderItemInfo<GridRenderItem<T>>) => {
+    if (item.type === 'placeholder') {
+      const isLastColumn = (index + 1) % safeColumns === 0
+      const totalItems = paddedData.length
+      const lastRowStart =
+        totalItems === 0 ? 0 : totalItems - (totalItems % safeColumns || safeColumns)
+      const isLastRow = index >= lastRowStart
+
+      const placeholderStyle: StyleProp<ViewStyle> = [
+        {
+          flex: 1,
+          marginRight: isLastColumn ? 0 : resolvedColumnSpacing,
+          marginBottom: isLastRow ? 0 : resolvedRowSpacing,
+        },
+        itemStyle,
+      ]
+
+      return <View style={placeholderStyle} pointerEvents="none" />
+    }
+
+    const element = resolvedRenderer({ item: item.item, index: item.index })
+    if (element === null) return null
+
+    const isLastColumn = (index + 1) % safeColumns === 0
+    const totalItems = paddedData.length
+    const lastRowStart =
+      totalItems === 0 ? 0 : totalItems - (totalItems % safeColumns || safeColumns)
+    const isLastRow = index >= lastRowStart
+
+    const wrapperStyle: StyleProp<ViewStyle> = [
+      {
+        flex: 1,
+        marginRight: isLastColumn ? 0 : resolvedColumnSpacing,
+        marginBottom: isLastRow ? 0 : resolvedRowSpacing,
+      },
+      itemStyle,
+    ]
+
+    return <View style={wrapperStyle}>{element}</View>
+  }
+
+  const flattenedStyle = StyleSheet.flatten(style) ?? {}
+  const {
+    alignItems,
+    justifyContent,
+    alignContent,
+    gap,
+    rowGap,
+    columnGap,
+    ...restStyle
+  } = flattenedStyle
+
+  const layoutStyle: ViewStyle = {
+    ...(alignItems !== undefined ? { alignItems } : {}),
+    ...(justifyContent !== undefined ? { justifyContent } : {}),
+    ...(alignContent !== undefined ? { alignContent } : {}),
+    ...(gap !== undefined ? { gap } : {}),
+    ...(rowGap !== undefined ? { rowGap } : {}),
+    ...(columnGap !== undefined ? { columnGap } : {}),
+  }
+
+  const hasLayoutStyle = Object.keys(layoutStyle).length > 0
+
+  return (
+    <FlatList
+      data={paddedData}
+      renderItem={renderGridItem}
+      keyExtractor={resolvedKeyExtractor}
+      numColumns={safeColumns}
+      scrollEnabled={scrollEnabled}
+      onEndReached={onEndReached}
+      onEndReachedThreshold={onEndReachedThreshold}
+      contentContainerStyle={
+        hasLayoutStyle ? [contentContainerStyle, layoutStyle] : contentContainerStyle
+      }
+      ListHeaderComponent={header}
+      ListFooterComponent={footer}
+      style={Object.keys(restStyle).length > 0 ? restStyle : undefined}
+    />
+  )
+}
+
+GridBuilder.displayName = 'GridBuilder'
