@@ -5,6 +5,11 @@ import {
   useSegmentVariantStyles,
 } from '../../../components/segment-button/segment-button.hook'
 
+vi.mock('@xaui/core', () => ({
+  withPaletteNumber: (color: string) => color,
+  getSafeThemeColor: (color: string) => color,
+}))
+
 vi.mock('../../../core', () => ({
   useXUITheme: () => ({
     colors: {
@@ -136,7 +141,7 @@ describe('useSegmentVariantStyles', () => {
     expect(result.current.containerBackground).toBe('transparent')
     expect(result.current.containerBorderWidth).toBe(0)
     expect(result.current.selectedBackground).toBe('#1976d2')
-    expect(result.current.selectedTextColor).toBe('#1976d2')
+    expect(result.current.selectedTextColor).toBe('#ffffff')
   })
 
   it('returns correct styles for faded variant', () => {
