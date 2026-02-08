@@ -161,6 +161,46 @@ export default function HomeScreen() {
         <GridItem>
           <Button
             size="sm"
+            onPress={() => router.push('/input')}
+            variant="outlined"
+            themeColor="primary"
+          >
+            Input
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/date-input')}
+            variant="outlined"
+            themeColor="secondary"
+          >
+            Date/Time Input
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/otp-input')}
+            variant="outlined"
+            themeColor="primary"
+          >
+            OTP Input
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/number-input')}
+            variant="outlined"
+            themeColor="secondary"
+          >
+            Number Input
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
             onPress={() => router.push('/menus')}
             variant="outlined"
             themeColor="secondary"

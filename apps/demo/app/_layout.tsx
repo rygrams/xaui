@@ -39,9 +39,19 @@ export default function RootLayout() {
             options={{ title: 'DatePicker Examples' }}
           />
           <Stack.Screen name="fab" options={{ title: 'FAB Examples' }} />
+          <Stack.Screen name="indicator" options={{ title: 'Indicator Examples' }} />
+          <Stack.Screen name="input" options={{ title: 'Input Examples' }} />
           <Stack.Screen
-            name="indicator"
-            options={{ title: 'Indicator Examples' }}
+            name="date-input"
+            options={{ title: 'Date/Time Input Examples' }}
+          />
+          <Stack.Screen
+            name="otp-input"
+            options={{ title: 'OTP Input Examples' }}
+          />
+          <Stack.Screen
+            name="number-input"
+            options={{ title: 'Number Input Examples' }}
           />
           <Stack.Screen name="menus" options={{ title: 'Menu Examples' }} />
           <Stack.Screen name="progress" options={{ title: 'Progress Examples' }} />
