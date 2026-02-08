@@ -77,7 +77,7 @@ export const FeatureDiscovery: React.FC<FeatureDiscoveryProps> = ({
     contentOpacity.setValue(0)
     haloScale.setValue(0.8)
 
-    const frame = requestAnimationFrame(() => {
+    const timer = setTimeout(() => {
       measureTarget()
 
       Animated.parallel([
@@ -104,9 +104,9 @@ export const FeatureDiscovery: React.FC<FeatureDiscoveryProps> = ({
           useNativeDriver: true,
         }),
       ]).start()
-    })
+    }, 0)
 
-    return () => cancelAnimationFrame(frame)
+    return () => clearTimeout(timer)
   }, [
     backdropOpacity,
     circleAnimScale,
@@ -116,13 +116,13 @@ export const FeatureDiscovery: React.FC<FeatureDiscoveryProps> = ({
     measureTarget,
   ])
 
-  const accentColors = theme.colors[getSafeThemeColor(themeColor)]
+  const colorScheme = theme.colors[getSafeThemeColor(themeColor)]
   const resolvedOverlayColor =
     overlayColor ?? withOpacity(theme.colors.foreground, 0.42)
 
   const circleDiameter = useMemo(() => {
-    return Math.hypot(viewportWidth, viewportHeight) * circleScale
-  }, [circleScale, viewportHeight, viewportWidth])
+    return viewportWidth * circleScale
+  }, [circleScale, viewportWidth])
 
   if (!isVisible) return null
 
@@ -142,6 +142,22 @@ export const FeatureDiscovery: React.FC<FeatureDiscoveryProps> = ({
   const messageTop = isTargetInTopHalf
     ? Math.min(viewportHeight - 180, target.y + target.height + 30)
     : Math.max(28, target.y - 150)
+
+  const circleRadius = circleDiameter / 2
+  const TEXT_PADDING = 24
+  const textDy = messageTop - targetCenterY
+  const textHalfChord =
+    Math.abs(textDy) < circleRadius
+      ? Math.sqrt(circleRadius ** 2 - textDy ** 2)
+      : 0
+  const msgLeft = Math.max(TEXT_PADDING, targetCenterX - textHalfChord + TEXT_PADDING)
+  const msgRight = Math.max(
+    TEXT_PADDING,
+    viewportWidth - (targetCenterX + textHalfChord - TEXT_PADDING)
+  )
+  const msgMaxHeight = isTargetInTopHalf
+    ? Math.max(80, targetCenterY + circleRadius - messageTop - TEXT_PADDING)
+    : Math.max(80, target.y - spotlightSize / 2 - messageTop - TEXT_PADDING)
 
   const renderContent = (
     content: React.ReactNode,
@@ -187,7 +203,7 @@ export const FeatureDiscovery: React.FC<FeatureDiscoveryProps> = ({
               borderRadius: circleDiameter / 2,
               left: targetCenterX - circleDiameter / 2,
               top: targetCenterY - circleDiameter / 2,
-              backgroundColor: accentColors.main,
+              backgroundColor: colorScheme.main,
               opacity: contentOpacity,
               transform: [{ scale: circleAnimScale }],
             },
@@ -233,22 +249,40 @@ export const FeatureDiscovery: React.FC<FeatureDiscoveryProps> = ({
             styles.messageContainer,
             {
               top: messageTop,
+              left: msgLeft,
+              right: msgRight,
+              maxHeight: msgMaxHeight,
+              backgroundColor: colorScheme.main,
               opacity: contentOpacity,
             },
             customAppearance?.messageContainer,
           ]}
           pointerEvents="box-none"
         >
-          {renderContent(title, [
-            styles.title,
-            { color: accentColors.foreground },
-            customAppearance?.title,
-          ])}
+          <View style={styles.messageHeader}>
+            <View style={styles.messageTitleWrapper}>
+              {renderContent(title, [
+                styles.title,
+                { color: colorScheme.foreground },
+                customAppearance?.title,
+              ])}
+            </View>
+
+            <Pressable
+              onPress={onDismiss}
+              style={styles.closeButton}
+              accessibilityRole="button"
+            >
+              <Text style={[styles.closeIcon, { color: colorScheme.foreground }]}>
+                ✕
+              </Text>
+            </Pressable>
+          </View>
 
           {description
             ? renderContent(description, [
                 styles.description,
-                { color: withOpacity(accentColors.foreground, 0.9) },
+                { color: withOpacity(colorScheme.foreground, 0.9) },
                 customAppearance?.description,
               ])
             : null}
@@ -261,7 +295,7 @@ export const FeatureDiscovery: React.FC<FeatureDiscoveryProps> = ({
             >
               {renderContent(actionText, [
                 styles.actionText,
-                { color: accentColors.foreground },
+                { color: colorScheme.foreground },
                 customAppearance?.actionText,
               ])}
             </Pressable>

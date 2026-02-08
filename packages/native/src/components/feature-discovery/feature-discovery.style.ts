@@ -22,25 +22,40 @@ export const styles = StyleSheet.create({
   },
   messageContainer: {
     position: 'absolute',
-    left: 24,
-    right: 24,
     gap: 10,
+    overflow: 'hidden',
+  },
+  messageHeader: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    gap: 8,
+  },
+  messageTitleWrapper: {
+    flex: 1,
   },
   title: {
-    fontSize: 34,
+    fontSize: 24,
     fontWeight: '700',
   },
+  closeButton: {
+    padding: 4,
+  },
+  closeIcon: {
+    fontSize: 18,
+    fontWeight: '600',
+  },
   description: {
-    fontSize: 27,
+    fontSize: 16,
     fontWeight: '400',
     opacity: 0.86,
-    lineHeight: 35,
+    lineHeight: 22,
   },
   actionPressable: {
     alignSelf: 'flex-start',
   },
   actionText: {
-    fontSize: 20,
+    fontSize: 14,
     fontWeight: '600',
     textDecorationLine: 'underline',
   },
