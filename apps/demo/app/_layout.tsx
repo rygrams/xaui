@@ -56,8 +56,10 @@ export default function RootLayout() {
             name="segment-buttons"
             options={{ title: 'Segment Button Examples' }}
           />
+          <Stack.Screen name="slider" options={{ title: 'Slider Examples' }} />
           <Stack.Screen name="skeleton" options={{ title: 'Skeleton Examples' }} />
           <Stack.Screen name="switch" options={{ title: 'Switch Examples' }} />
+          <Stack.Screen name="tabs" options={{ title: 'Tabs Examples' }} />
         </Stack>
       </XUIProvider>
     </ThemeProvider>
