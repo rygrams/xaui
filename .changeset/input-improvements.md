@@ -1,6 +1,5 @@
 ---
 '@xaui/native': patch
-'demo': patch
 ---
 
 Improve TextInput component with focus wrapper, animations, and better styling

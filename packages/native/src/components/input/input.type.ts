@@ -82,6 +82,11 @@ export type TextInputProps = Omit<
    */
   radius?: Radius
   /**
+   * Whether the input should be secured (password mode).
+   * @default false
+   */
+  isSecured?: boolean
+  /**
    * Whether to show a clear button when input has value.
    * @default false
    */

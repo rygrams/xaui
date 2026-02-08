@@ -34,6 +34,7 @@ export const TextInput = forwardRef<React.ElementRef<typeof RNTextInput>, TextIn
       variant = 'flat',
       size = 'md',
       radius = 'md',
+      isSecured = false,
       isClearable = false,
       isDisabled = false,
       isReadOnly = false,
@@ -51,6 +52,7 @@ export const TextInput = forwardRef<React.ElementRef<typeof RNTextInput>, TextIn
     const borderAnimation = useRef(new Animated.Value(0)).current
 
     const inputValue = isControlled ? (value ?? '') : internalValue
+    const secureTextEntry = nativeProps.secureTextEntry ?? isSecured
     const sizeStyles = useTextInputSizeStyles(size)
     const radiusStyles = useTextInputRadiusStyles(radius)
     const variantStyles = useTextInputVariantStyles({
@@ -74,6 +76,7 @@ export const TextInput = forwardRef<React.ElementRef<typeof RNTextInput>, TextIn
       !!inputValue &&
       !isDisabled &&
       !isReadOnly &&
+      !secureTextEntry &&
       nativeProps.editable !== false
 
     const editable = nativeProps.editable ?? (!isDisabled && !isReadOnly)
@@ -218,6 +221,7 @@ export const TextInput = forwardRef<React.ElementRef<typeof RNTextInput>, TextIn
                     onBlur?.(event)
                   }}
                   editable={editable}
+                  secureTextEntry={secureTextEntry}
                   placeholderTextColor={variantStyles.placeholderColor}
                   style={[
                     styles.input,

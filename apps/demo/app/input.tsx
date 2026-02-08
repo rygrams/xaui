@@ -23,6 +23,7 @@ export default function InputScreen() {
   const [search, setSearch] = useState('HeroUI patterns')
   const [notes, setNotes] = useState('')
   const [customValue, setCustomValue] = useState('')
+  const [password, setPassword] = useState('')
 
   return (
     <ScrollView
@@ -99,6 +100,23 @@ export default function InputScreen() {
             onValueChange={setSearch}
             isClearable
             description="Try clearing this field with the clear button."
+          />
+        </View>
+      </View>
+
+      <View style={styles.section}>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Secured
+        </Text>
+        <View style={{ gap: theme.spacing.md }}>
+          <TextInput
+            label="Password"
+            placeholder="Enter your password"
+            value={password}
+            onValueChange={setPassword}
+            isSecured
+            description="isSecured sets secureTextEntry on the native input."
+            themeColor="tertiary"
           />
         </View>
       </View>
