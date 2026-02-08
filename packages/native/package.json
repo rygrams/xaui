@@ -146,6 +146,11 @@
       "types": "./dist/card/index.d.ts",
       "import": "./dist/card/index.js",
       "require": "./dist/card/index.js"
+    },
+    "./input": {
+      "types": "./dist/input/index.d.ts",
+      "import": "./dist/input/index.js",
+      "require": "./dist/input/index.js"
     }
   },
   "files": [

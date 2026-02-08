@@ -31,6 +31,7 @@ export default defineConfig(options => {
       'carousel/index': 'src/components/carousel/index.ts',
       'card/index': 'src/components/card/index.ts',
       'skeleton/index': 'src/components/skeleton/index.ts',
+      'input/index': 'src/components/input/index.ts',
     },
     format: ['cjs', 'esm'],
     dts: !isWatch,
