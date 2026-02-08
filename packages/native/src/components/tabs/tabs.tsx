@@ -10,7 +10,7 @@ import { useBorderRadiusStyles } from '../../core/theme-hooks'
 import { runTabsCursorAnimation } from './tabs.animation'
 import { useTabsSizeStyles, useTabsVariantStyles } from './tabs.hook'
 import { styles } from './tabs.style'
-import type { TabsItem, TabsProps } from './tabs.type'
+import type { TabProps, TabsItem, TabsProps } from './tabs.type'
 
 type TabLayout = {
   x: number
@@ -40,8 +40,33 @@ function getFallbackKey(
   return firstEnabled?.key ?? ''
 }
 
+export const Tab: React.FC<TabProps> = () => null
+Tab.displayName = 'Tab'
+
+function toTabItems(children: TabsProps['children']): TabsItem[] {
+  return React.Children.toArray(children).flatMap(child => {
+    if (!React.isValidElement<TabProps>(child) || child.type !== Tab) {
+      return []
+    }
+
+    if (child.key == null) {
+      return []
+    }
+
+    return [
+      {
+        key: String(child.key),
+        title: child.props.title,
+        startContent: child.props.startContent,
+        endContent: child.props.endContent,
+        isDisabled: child.props.isDisabled,
+        content: child.props.children,
+      },
+    ]
+  })
+}
+
 export const Tabs: React.FC<TabsProps> = ({
-  items,
   selectedKey: controlledSelectedKey,
   defaultSelectedKey,
   onSelectionChange,
@@ -56,8 +81,10 @@ export const Tabs: React.FC<TabsProps> = ({
   animationDuration = 220,
   renderTab,
   children,
+  content,
   customAppearance,
 }) => {
+  const items = useMemo(() => toTabItems(children), [children])
   const isControlled = controlledSelectedKey !== undefined
   const initialKey = useMemo(() => {
     if (defaultSelectedKey) return defaultSelectedKey
@@ -141,17 +168,13 @@ export const Tabs: React.FC<TabsProps> = ({
           return prev
         }
 
-        const isUnderlined = variant === 'underlined'
         const isBordered = variant === 'bordered'
         const isFirstTab = items[0]?.key === key
 
         let cursorWidth = nextLayout.width
         let cursorX = nextLayout.x
 
-        if (isUnderlined) {
-          cursorWidth = nextLayout.width * 0.8
-          cursorX = nextLayout.x + (nextLayout.width - cursorWidth) / 2
-        } else if (isBordered) {
+        if (isBordered) {
           cursorWidth = nextLayout.width
           cursorX = nextLayout.x
 
@@ -191,6 +214,11 @@ export const Tabs: React.FC<TabsProps> = ({
   const shouldShowCursor =
     !!selectedKey && !!layouts[selectedKey] && !isDisabled && items.length > 0
 
+  const resolvedContent =
+    typeof content === 'function'
+      ? content({ selectedKey, selectedItem })
+      : (content ?? selectedItem?.content)
+
   return (
     <View style={[styles.container, customAppearance?.container]}>
       <View
@@ -198,8 +226,7 @@ export const Tabs: React.FC<TabsProps> = ({
         style={[
           styles.list,
           {
-            borderRadius:
-              variant === 'underlined' ? 0 : radiusStyles.borderRadius,
+            borderRadius: variant === 'underlined' ? 0 : radiusStyles.borderRadius,
             backgroundColor: variantStyles.listBackgroundColor,
             borderColor: variantStyles.listBorderColor,
             borderWidth: variantStyles.listBorderWidth,
@@ -308,11 +335,9 @@ export const Tabs: React.FC<TabsProps> = ({
         })}
       </View>
 
-      {children !== undefined && (
+      {resolvedContent !== undefined && (
         <View style={[styles.content, customAppearance?.content]}>
-          {typeof children === 'function'
-            ? children({ selectedKey, selectedItem })
-            : children}
+          {resolvedContent}
         </View>
       )}
     </View>

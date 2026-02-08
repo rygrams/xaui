@@ -26,6 +26,34 @@ export type TabsItem = {
    * @default false
    */
   isDisabled?: boolean
+  /**
+   * Optional content rendered when this tab is selected.
+   */
+  content?: ReactNode
+}
+
+export type TabProps = {
+  /**
+   * Label content for the tab trigger.
+   */
+  title: ReactNode
+  /**
+   * Optional content displayed before the title.
+   */
+  startContent?: ReactNode
+  /**
+   * Optional content displayed after the title.
+   */
+  endContent?: ReactNode
+  /**
+   * Whether this tab is disabled.
+   * @default false
+   */
+  isDisabled?: boolean
+  /**
+   * Optional content rendered when this tab is selected.
+   */
+  children?: ReactNode
 }
 
 type TabsCustomAppearance = {
@@ -74,10 +102,6 @@ type RenderChildrenState = {
 }
 
 export type TabsProps = {
-  /**
-   * Tabs items to render.
-   */
-  items: TabsItem[]
   /**
    * Controlled selected key.
    */
@@ -139,10 +163,13 @@ export type TabsProps = {
    */
   renderTab?: (item: TabsItem, state: RenderTabState) => ReactNode
   /**
-   * Optional content area rendered below the tabs.
-   * Accepts a render function to support fully custom behavior.
+   * Tab items as children.
    */
-  children?: ReactNode | ((state: RenderChildrenState) => ReactNode)
+  children: ReactNode
+  /**
+   * Optional content area rendered below the tabs.
+   */
+  content?: ReactNode | ((state: RenderChildrenState) => ReactNode)
   /**
    * Custom appearance overrides.
    */

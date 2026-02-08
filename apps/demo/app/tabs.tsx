@@ -1,13 +1,8 @@
 import { useState } from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import { Tabs, type TabsItem } from '@xaui/native/tabs'
+import { Tab, Tabs } from '@xaui/native/tabs'
 import { useXUIColors, useXUITheme } from '@xaui/native/core'
 
-const accountTabs: TabsItem[] = [
-  { key: 'profile', title: 'Profile' },
-  { key: 'security', title: 'Security' },
-  { key: 'billing', title: 'Billing' },
-]
 const themeColors = [
   'primary',
   'secondary',
@@ -17,6 +12,73 @@ const themeColors = [
   'success',
   'default',
 ] as const
+
+function renderAccountTabs() {
+  return [
+    <Tab key="profile" title="Profile" />,
+    <Tab key="security" title="Security" />,
+    <Tab key="billing" title="Billing" />,
+  ]
+}
+
+function renderAccountTabsWithContent(colors: ReturnType<typeof useXUIColors>) {
+  return [
+    <Tab key="profile" title="Profile">
+      <View
+        style={[
+          styles.contentBox,
+          {
+            backgroundColor: colors.background,
+            borderColor: `${colors.foreground}20`,
+          },
+        ]}
+      >
+        <Text style={[styles.contentTitle, { color: colors.foreground }]}>
+          Profile
+        </Text>
+        <Text style={[styles.contentText, { color: colors.foreground }]}>
+          Active tab key: profile
+        </Text>
+      </View>
+    </Tab>,
+    <Tab key="security" title="Security">
+      <View
+        style={[
+          styles.contentBox,
+          {
+            backgroundColor: colors.background,
+            borderColor: `${colors.foreground}20`,
+          },
+        ]}
+      >
+        <Text style={[styles.contentTitle, { color: colors.foreground }]}>
+          Security
+        </Text>
+        <Text style={[styles.contentText, { color: colors.foreground }]}>
+          Active tab key: security
+        </Text>
+      </View>
+    </Tab>,
+    <Tab key="billing" title="Billing">
+      <View
+        style={[
+          styles.contentBox,
+          {
+            backgroundColor: colors.background,
+            borderColor: `${colors.foreground}20`,
+          },
+        ]}
+      >
+        <Text style={[styles.contentTitle, { color: colors.foreground }]}>
+          Billing
+        </Text>
+        <Text style={[styles.contentText, { color: colors.foreground }]}>
+          Active tab key: billing
+        </Text>
+      </View>
+    </Tab>,
+  ]
+}
 
 export default function TabsScreen() {
   const colors = useXUIColors()
@@ -32,18 +94,12 @@ export default function TabsScreen() {
         <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
           Controlled + Content Render
         </Text>
-        <Tabs
-          items={accountTabs}
-          selectedKey={selectedKey}
-          onSelectionChange={setSelectedKey}
-          fullWidth
-        >
-          {({ selectedKey: activeKey }) => (
-            <Text style={[styles.resultText, { color: colors.foreground }]}>
-              Active tab: {activeKey}
-            </Text>
-          )}
+        <Tabs selectedKey={selectedKey} onSelectionChange={setSelectedKey} fullWidth>
+          {renderAccountTabs()}
         </Tabs>
+        <Text style={[styles.resultText, { color: colors.foreground }]}>
+          Active tab: {selectedKey}
+        </Text>
       </View>
 
       <View style={styles.section}>
@@ -51,30 +107,18 @@ export default function TabsScreen() {
           Variants
         </Text>
         <View style={{ gap: theme.spacing.md }}>
-          <Tabs
-            items={accountTabs}
-            defaultSelectedKey="profile"
-            variant="solid"
-            fullWidth
-          />
-          <Tabs
-            items={accountTabs}
-            defaultSelectedKey="profile"
-            variant="bordered"
-            fullWidth
-          />
-          <Tabs
-            items={accountTabs}
-            defaultSelectedKey="profile"
-            variant="light"
-            fullWidth
-          />
-          <Tabs
-            items={accountTabs}
-            defaultSelectedKey="profile"
-            variant="underlined"
-            fullWidth
-          />
+          <Tabs defaultSelectedKey="profile" variant="solid" fullWidth>
+            {renderAccountTabs()}
+          </Tabs>
+          <Tabs defaultSelectedKey="profile" variant="bordered" fullWidth>
+            {renderAccountTabs()}
+          </Tabs>
+          <Tabs defaultSelectedKey="profile" variant="light" fullWidth>
+            {renderAccountTabs()}
+          </Tabs>
+          <Tabs defaultSelectedKey="profile" variant="underlined" fullWidth>
+            {renderAccountTabs()}
+          </Tabs>
         </View>
       </View>
 
@@ -89,12 +133,13 @@ export default function TabsScreen() {
                 {themeColor}
               </Text>
               <Tabs
-                items={accountTabs}
                 defaultSelectedKey="profile"
                 color={themeColor}
                 variant="bordered"
                 fullWidth
-              />
+              >
+                {renderAccountTabs()}
+              </Tabs>
             </View>
           ))}
         </View>
@@ -105,30 +150,18 @@ export default function TabsScreen() {
           Sizes
         </Text>
         <View style={{ gap: theme.spacing.md }}>
-          <Tabs
-            items={accountTabs}
-            defaultSelectedKey="profile"
-            size="xs"
-            fullWidth
-          />
-          <Tabs
-            items={accountTabs}
-            defaultSelectedKey="profile"
-            size="sm"
-            fullWidth
-          />
-          <Tabs
-            items={accountTabs}
-            defaultSelectedKey="profile"
-            size="md"
-            fullWidth
-          />
-          <Tabs
-            items={accountTabs}
-            defaultSelectedKey="profile"
-            size="lg"
-            fullWidth
-          />
+          <Tabs defaultSelectedKey="profile" size="xs" fullWidth>
+            {renderAccountTabs()}
+          </Tabs>
+          <Tabs defaultSelectedKey="profile" size="sm" fullWidth>
+            {renderAccountTabs()}
+          </Tabs>
+          <Tabs defaultSelectedKey="profile" size="md" fullWidth>
+            {renderAccountTabs()}
+          </Tabs>
+          <Tabs defaultSelectedKey="profile" size="lg" fullWidth>
+            {renderAccountTabs()}
+          </Tabs>
         </View>
       </View>
 
@@ -137,19 +170,17 @@ export default function TabsScreen() {
           Disabled Keys + Animation Toggle
         </Text>
         <View style={{ gap: theme.spacing.md }}>
+          <Tabs defaultSelectedKey="profile" disabledKeys={['billing']} fullWidth>
+            {renderAccountTabs()}
+          </Tabs>
           <Tabs
-            items={accountTabs}
-            defaultSelectedKey="profile"
-            disabledKeys={['billing']}
-            fullWidth
-          />
-          <Tabs
-            items={accountTabs}
             defaultSelectedKey="security"
             disableAnimation
             color="secondary"
             fullWidth
-          />
+          >
+            {renderAccountTabs()}
+          </Tabs>
         </View>
       </View>
 
@@ -157,39 +188,8 @@ export default function TabsScreen() {
         <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
           With Children Content
         </Text>
-        <Tabs
-          items={accountTabs}
-          defaultSelectedKey="profile"
-          variant="solid"
-          fullWidth
-        >
-          {({ selectedKey: activeKey, selectedItem }) => (
-            <View
-              style={[
-                styles.contentBox,
-                {
-                  backgroundColor: colors.background,
-                  borderColor: `${colors.foreground}20`,
-                },
-              ]}
-            >
-              <Text style={[styles.contentTitle, { color: colors.foreground }]}>
-                {selectedItem?.title}
-              </Text>
-              <Text style={[styles.contentText, { color: colors.foreground }]}>
-                Active tab key: {activeKey}
-              </Text>
-              <Text
-                style={[
-                  styles.contentDescription,
-                  { color: `${colors.foreground}80` },
-                ]}
-              >
-                This content is rendered using the children render prop. It updates
-                automatically when you switch tabs.
-              </Text>
-            </View>
-          )}
+        <Tabs defaultSelectedKey="profile" variant="solid" fullWidth>
+          {renderAccountTabsWithContent(colors)}
         </Tabs>
       </View>
 
@@ -198,11 +198,6 @@ export default function TabsScreen() {
           Custom Tab Render (No children required)
         </Text>
         <Tabs
-          items={[
-            { key: 'all', title: 'All' },
-            { key: 'active', title: 'Active' },
-            { key: 'done', title: 'Done' },
-          ]}
           defaultSelectedKey="all"
           fullWidth
           variant="bordered"
@@ -218,7 +213,11 @@ export default function TabsScreen() {
               {item.title}
             </Text>
           )}
-        />
+        >
+          <Tab key="all" title="All" />
+          <Tab key="active" title="Active" />
+          <Tab key="done" title="Done" />
+        </Tabs>
       </View>
 
       <View style={{ height: 40 }} />
@@ -264,9 +263,5 @@ const styles = StyleSheet.create({
   contentText: {
     fontSize: 14,
     marginBottom: 8,
-  },
-  contentDescription: {
-    fontSize: 12,
-    lineHeight: 18,
   },
 })

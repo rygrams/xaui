@@ -1,38 +1,43 @@
 import React from 'react'
 import { describe, expect, it } from 'vitest'
-import type { TabsItem, TabsProps, TabsVariant } from '../../../components/tabs'
+import {
+  Tab,
+  type TabProps,
+  type TabsItem,
+  type TabsProps,
+  type TabsVariant,
+} from '../../../components/tabs'
 
 describe('Tabs Types', () => {
-  it('accepts tabs items and controlled props', () => {
+  it('accepts controlled props with Tab children', () => {
     const props: TabsProps = {
-      items: [
-        { key: 'account', title: 'Account' },
-        { key: 'billing', title: 'Billing' },
-      ],
       selectedKey: 'account',
       onSelectionChange: () => {},
+      children: [
+        <Tab key="account" title="Account" />,
+        <Tab key="billing" title="Billing" />,
+      ],
     }
 
-    expect(props.items).toHaveLength(2)
     expect(props.selectedKey).toBe('account')
     expect(props.onSelectionChange).toBeDefined()
   })
 
-  it('does not require children', () => {
+  it('requires children', () => {
     const props: TabsProps = {
-      items: [{ key: 'overview', title: 'Overview' }],
+      children: [<Tab key="overview" title="Overview" />],
     }
 
-    expect(props.children).toBeUndefined()
+    expect(props.children).toBeDefined()
   })
 
-  it('accepts render function as children', () => {
+  it('accepts render function as content', () => {
     const props: TabsProps = {
-      items: [{ key: 'security', title: 'Security' }],
-      children: ({ selectedKey }) => React.createElement('div', null, selectedKey),
+      children: [<Tab key="security" title="Security" />],
+      content: ({ selectedKey }) => React.createElement('div', null, selectedKey),
     }
 
-    expect(typeof props.children).toBe('function')
+    expect(typeof props.content).toBe('function')
   })
 
   it('accepts all variants', () => {
@@ -40,7 +45,7 @@ describe('Tabs Types', () => {
 
     variants.forEach(variant => {
       const props: TabsProps = {
-        items: [{ key: 'general', title: 'General' }],
+        children: [<Tab key="general" title="General" />],
         variant,
       }
 
@@ -50,7 +55,7 @@ describe('Tabs Types', () => {
 
   it('accepts theme color, size and radius', () => {
     const props: TabsProps = {
-      items: [{ key: 'general', title: 'General' }],
+      children: [<Tab key="general" title="General" />],
       color: 'secondary',
       size: 'lg',
       radius: 'md',
@@ -68,10 +73,23 @@ describe('Tabs Types', () => {
       startContent: React.createElement('div'),
       endContent: React.createElement('div'),
       isDisabled: true,
+      content: React.createElement('div'),
     }
 
     expect(item.startContent).toBeDefined()
     expect(item.endContent).toBeDefined()
     expect(item.isDisabled).toBe(true)
+    expect(item.content).toBeDefined()
+  })
+
+  it('accepts tab props with tab content', () => {
+    const tabProps: TabProps = {
+      title: 'Overview',
+      isDisabled: false,
+      children: React.createElement('div'),
+    }
+
+    expect(tabProps.title).toBe('Overview')
+    expect(tabProps.children).toBeDefined()
   })
 })
