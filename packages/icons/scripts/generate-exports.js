@@ -11,8 +11,8 @@ const tsupConfigPath = join(__dirname, '..', 'tsup.config.ts')
 
 // Get all icon files
 const iconFiles = readdirSync(iconsDir)
-  .filter((file) => file.endsWith('.tsx'))
-  .map((file) => file.replace('.tsx', ''))
+  .filter(file => file.endsWith('.tsx'))
+  .map(file => file.replace('.tsx', ''))
   .sort()
 
 // Generate package.json exports
@@ -64,7 +64,7 @@ const createEntryFiles = () => {
     const iconName =
       icon
         .split('-')
-        .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+        .map(part => part.charAt(0).toUpperCase() + part.slice(1))
         .join('') + 'Icon'
 
     const entryContent = `export { ${iconName} } from '../icons/${icon}'
@@ -89,7 +89,7 @@ const updateTsupConfig = () => {
   const entries = generateTsupEntries()
 
   // Format entries with proper quoting for keys containing hyphens
-  const formatEntries = (obj) => {
+  const formatEntries = obj => {
     const lines = []
     for (const [key, value] of Object.entries(obj)) {
       const quotedKey = key.includes('-') || key === 'index' ? `'${key}'` : key
@@ -131,4 +131,6 @@ updateTsupConfig()
 console.log('✅ Done! Icon exports generated successfully.')
 console.log('\n📋 Next steps:')
 console.log('1. Run `pnpm build` to build the package')
-console.log('2. Test imports with `import { ChevronLeftIcon } from "@xaui/icons/chevron-left"`')
+console.log(
+  '2. Test imports with `import { ChevronLeftIcon } from "@xaui/icons/chevron-left"`'
+)

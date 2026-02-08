@@ -221,7 +221,7 @@ export const Slider: React.FC<SliderProps> = ({
             : Math.abs(gs.dy) >= Math.abs(gs.dx)
         },
         onPanResponderTerminationRequest: () => !isDragging.current,
-        onPanResponderGrant: (event) => {
+        onPanResponderGrant: event => {
           if (!isInteractive) return
           isDragging.current = true
           runSliderThumbPressInAnimation(thumbScale)
@@ -268,9 +268,7 @@ export const Slider: React.FC<SliderProps> = ({
           runSliderThumbPressOutAnimation(thumbScale)
           const val = currentValueRef.current
           const pct = valueToPercent(val, minValue, maxValue)
-          animatedTrackPosition.setValue(
-            getPixelPosition(pct, effectiveTrackLength)
-          )
+          animatedTrackPosition.setValue(getPixelPosition(pct, effectiveTrackLength))
           onChangeEndRef.current?.(val)
         },
       }),
@@ -441,8 +439,7 @@ export const Slider: React.FC<SliderProps> = ({
                 borderRadius: sizeStyles.thumbSize / 2,
                 left: orientation === 'vertical' ? 0 : animatedThumbOffset,
                 top: orientation === 'vertical' ? undefined : 0,
-                bottom:
-                  orientation === 'vertical' ? animatedThumbOffset : undefined,
+                bottom: orientation === 'vertical' ? animatedThumbOffset : undefined,
                 backgroundColor: theme.colors.background,
                 borderWidth: 2,
                 borderColor: colorStyles.fillColor,
