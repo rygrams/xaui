@@ -220,11 +220,14 @@ export const Tabs: React.FC<TabsProps> = ({
               styles.cursor,
               {
                 bottom: variantStyles.cursorBottom,
-                borderRadius: Math.max(
-                  0,
-                  (radiusStyles.borderRadius as number) -
-                    variantStyles.listBorderWidth
-                ),
+                borderRadius:
+                  variant === 'underlined'
+                    ? 0
+                    : Math.max(
+                        0,
+                        (radiusStyles.borderRadius as number) -
+                          variantStyles.listBorderWidth
+                      ),
                 width: cursorWidth,
                 backgroundColor: variantStyles.cursorColor,
                 transform: [

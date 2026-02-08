@@ -8,6 +8,15 @@ const accountTabs: TabsItem[] = [
   { key: 'security', title: 'Security' },
   { key: 'billing', title: 'Billing' },
 ]
+const themeColors = [
+  'primary',
+  'secondary',
+  'tertiary',
+  'danger',
+  'warning',
+  'success',
+  'default',
+] as const
 
 export default function TabsScreen() {
   const colors = useXUIColors()
@@ -66,6 +75,28 @@ export default function TabsScreen() {
             variant="underlined"
             fullWidth
           />
+        </View>
+      </View>
+
+      <View style={styles.section}>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Theme Colors
+        </Text>
+        <View style={{ gap: theme.spacing.md }}>
+          {themeColors.map(themeColor => (
+            <View key={themeColor} style={{ gap: theme.spacing.xs }}>
+              <Text style={[styles.colorLabel, { color: colors.foreground }]}>
+                {themeColor}
+              </Text>
+              <Tabs
+                items={accountTabs}
+                defaultSelectedKey="profile"
+                color={themeColor}
+                variant="bordered"
+                fullWidth
+              />
+            </View>
+          ))}
         </View>
       </View>
 
@@ -213,6 +244,11 @@ const styles = StyleSheet.create({
   resultText: {
     marginTop: 8,
     fontSize: 14,
+  },
+  colorLabel: {
+    fontSize: 12,
+    fontWeight: '600',
+    textTransform: 'capitalize',
   },
   contentBox: {
     padding: 16,
