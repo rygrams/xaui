@@ -111,6 +111,16 @@ export default function HomeScreen() {
         <GridItem>
           <Button
             size="sm"
+            onPress={() => router.push('/checkbox')}
+            variant="outlined"
+            themeColor="primary"
+          >
+            Checkbox
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
             onPress={() => router.push('/chips')}
             variant="outlined"
             themeColor="primary"
