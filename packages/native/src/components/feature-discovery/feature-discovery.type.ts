@@ -9,6 +9,7 @@ type MeasurableNode = {
 }
 
 export type FeatureDiscoveryCustomAppearance = {
+  root?: ViewStyle
   container?: ViewStyle
   title?: TextStyle
   description?: TextStyle
@@ -74,10 +75,6 @@ export type FeatureDiscoveryProps = {
    * Optional custom content rendered over the highlighted target.
    */
   highlightContent?: ReactNode
-  /**
-   * Custom style for the root container.
-   */
-  style?: ViewStyle
   /**
    * Optional style overrides.
    */

@@ -23,7 +23,9 @@ export const styles = StyleSheet.create({
   messageContainer: {
     position: 'absolute',
     gap: 10,
-    overflow: 'hidden',
+    paddingVertical: 16,
+    paddingHorizontal: 16,
+    borderRadius: 12,
   },
   messageHeader: {
     flexDirection: 'row',

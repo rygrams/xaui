@@ -1,8 +1,7 @@
-import { exec } from 'node:child_process'
-import { promisify } from 'node:util'
-import { defineConfig } from 'tsup'
+import { copyFile, mkdir, readdir, rm } from 'node:fs/promises'
+import { execSync } from 'node:child_process'
+import { dirname } from 'node:path'
 
-const pexec = promisify(exec)
 const entries = {
   index: 'src/index.ts',
   'core/index': 'src/core/index.ts',
@@ -36,37 +35,38 @@ const entries = {
   'list/index': 'src/components/list/index.ts',
   'radio/index': 'src/components/radio/index.ts',
   'toolbar/index': 'src/components/toolbar/index.ts',
-} as const
+}
 
-export default defineConfig(options => {
-  const isWatch = !!options.watch
+const getDeclarationFiles = async dir => {
+  const entriesInDir = await readdir(dir, { withFileTypes: true })
+  const nestedFiles = await Promise.all(
+    entriesInDir.map(async entry => {
+      const path = `${dir}/${entry.name}`
+      if (entry.isDirectory()) return getDeclarationFiles(path)
+      return path.endsWith('.d.ts') ? [path] : []
+    })
+  )
+  return nestedFiles.flat()
+}
 
-  return {
-    entry: entries,
-    format: ['cjs', 'esm'],
-    dts: false,
-    clean: !isWatch,
-    external: [
-      'react',
-      'react-native',
-      'react-native-gesture-handler',
-      'react-native-reanimated',
-      'react-native-svg',
-      '@xaui/core',
-      '@xaui/core/theme',
-      '@xaui/icons',
-    ],
-    target: 'es2020',
-    async onSuccess() {
-      try {
-        await pexec('node ./scripts/generate-types.mjs')
-      } catch (err) {
-        console.error()
-        console.error('Types generation error:')
-        console.error()
-        console.error((err as { stdout?: string }).stdout)
-        throw err
-      }
-    },
-  }
+execSync('tsc -p tsconfig.json --emitDeclarationOnly --declaration', {
+  stdio: 'inherit',
 })
+
+await Promise.all(
+  Object.entries(entries).map(async ([entryKey, sourcePath]) => {
+    const sourceDtsPath = `dist/${sourcePath
+      .replace(/^src\//, '')
+      .replace(/\.tsx?$/, '.d.ts')}`
+    const targetDtsPath = `dist/${entryKey}.d.ts`
+    await mkdir(dirname(targetDtsPath), { recursive: true })
+    await copyFile(sourceDtsPath, targetDtsPath)
+  })
+)
+
+const declarationFiles = await getDeclarationFiles('dist')
+await Promise.all(
+  declarationFiles.map(file => copyFile(file, file.replace('.d.ts', '.d.mts')))
+)
+
+await rm('dist/__tests__', { recursive: true, force: true })

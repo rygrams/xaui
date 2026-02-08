@@ -1,25 +1,22 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, { useEffect } from 'react'
 import {
   Animated,
   Modal,
   Pressable,
   Text,
-  useWindowDimensions,
   View,
   type StyleProp,
   type TextStyle,
 } from 'react-native'
-import { getSafeThemeColor, withOpacity } from '@xaui/core'
-import { useXUITheme } from '../../core'
+import { withOpacity } from '@xaui/core'
 import type { FeatureDiscoveryProps } from './feature-discovery.type'
 import { styles } from './feature-discovery.style'
-
-type TargetLayout = {
-  x: number
-  y: number
-  width: number
-  height: number
-}
+import {
+  useFeatureDiscoveryAnimations,
+  useFeatureDiscoveryLayout,
+  useFeatureDiscoveryGeometry,
+  useFeatureDiscoveryTheme,
+} from './feature-discovery.hook'
 
 const DEFAULT_SPOTLIGHT_PADDING = 14
 const DEFAULT_CIRCLE_SCALE = 1.65
@@ -38,33 +35,49 @@ export const FeatureDiscovery: React.FC<FeatureDiscoveryProps> = ({
   spotlightPadding = DEFAULT_SPOTLIGHT_PADDING,
   circleScale = DEFAULT_CIRCLE_SCALE,
   highlightContent,
-  style,
   customAppearance,
 }: FeatureDiscoveryProps) => {
-  const theme = useXUITheme()
-  const { width: viewportWidth, height: viewportHeight } = useWindowDimensions()
-  const [targetLayout, setTargetLayout] = useState<TargetLayout | null>(null)
+  const {
+    backdropOpacity,
+    circleAnimScale,
+    contentOpacity,
+    haloScale,
+    startAnimations,
+    resetAnimations,
+  } = useFeatureDiscoveryAnimations()
 
-  const backdropOpacity = useRef(new Animated.Value(0)).current
-  const circleAnimScale = useRef(new Animated.Value(0.2)).current
-  const contentOpacity = useRef(new Animated.Value(0)).current
-  const haloScale = useRef(new Animated.Value(0.8)).current
+  const {
+    target,
+    measureTarget,
+    setTargetLayout,
+    viewportWidth,
+    viewportHeight,
+  } = useFeatureDiscoveryLayout(targetRef)
 
-  const measureTarget = useCallback(() => {
-    targetRef.current?.measureInWindow((x, y, width, height) => {
-      if (!width && !height) {
-        setTargetLayout({
-          x: viewportWidth / 2 - 28,
-          y: viewportHeight / 2 - 28,
-          width: 56,
-          height: 56,
-        })
-        return
-      }
+  const {
+    targetCenterX,
+    targetCenterY,
+    spotlightSize,
+    circleDiameter,
+    messageTop,
+    msgLeft,
+    msgRight,
+    msgMaxHeight,
+    isTargetOnLeft,
+    highlightX,
+    highlightY,
+  } = useFeatureDiscoveryGeometry(
+    target,
+    viewportWidth,
+    viewportHeight,
+    spotlightPadding,
+    circleScale
+  )
 
-      setTargetLayout({ x, y, width, height })
-    })
-  }, [targetRef, viewportHeight, viewportWidth])
+  const { colorScheme, resolvedOverlayColor } = useFeatureDiscoveryTheme(
+    themeColor,
+    overlayColor
+  )
 
   useEffect(() => {
     if (!isVisible) {
@@ -72,92 +85,17 @@ export const FeatureDiscovery: React.FC<FeatureDiscoveryProps> = ({
       return
     }
 
-    backdropOpacity.setValue(0)
-    circleAnimScale.setValue(0.2)
-    contentOpacity.setValue(0)
-    haloScale.setValue(0.8)
+    resetAnimations()
 
     const timer = setTimeout(() => {
       measureTarget()
-
-      Animated.parallel([
-        Animated.timing(backdropOpacity, {
-          toValue: 1,
-          duration: 220,
-          useNativeDriver: true,
-        }),
-        Animated.spring(circleAnimScale, {
-          toValue: 1,
-          friction: 8,
-          tension: 80,
-          useNativeDriver: true,
-        }),
-        Animated.timing(contentOpacity, {
-          toValue: 1,
-          duration: 260,
-          useNativeDriver: true,
-        }),
-        Animated.spring(haloScale, {
-          toValue: 1,
-          friction: 8,
-          tension: 80,
-          useNativeDriver: true,
-        }),
-      ]).start()
+      startAnimations()
     }, 0)
 
     return () => clearTimeout(timer)
-  }, [
-    backdropOpacity,
-    circleAnimScale,
-    contentOpacity,
-    haloScale,
-    isVisible,
-    measureTarget,
-  ])
-
-  const colorScheme = theme.colors[getSafeThemeColor(themeColor)]
-  const resolvedOverlayColor =
-    overlayColor ?? withOpacity(theme.colors.foreground, 0.42)
-
-  const circleDiameter = useMemo(() => {
-    return viewportWidth * circleScale
-  }, [circleScale, viewportWidth])
+  }, [isVisible, measureTarget, resetAnimations, setTargetLayout, startAnimations])
 
   if (!isVisible) return null
-
-  const fallbackTarget = {
-    x: viewportWidth / 2 - 28,
-    y: viewportHeight / 2 - 28,
-    width: 56,
-    height: 56,
-  }
-
-  const target = targetLayout ?? fallbackTarget
-  const targetCenterX = target.x + target.width / 2
-  const targetCenterY = target.y + target.height / 2
-  const spotlightSize = Math.max(target.width, target.height) + spotlightPadding * 2
-
-  const isTargetInTopHalf = targetCenterY < viewportHeight * 0.55
-  const messageTop = isTargetInTopHalf
-    ? Math.min(viewportHeight - 180, target.y + target.height + 30)
-    : Math.max(28, target.y - 150)
-
-  const circleRadius = circleDiameter / 2
-  const TEXT_PADDING = 24
-  const textDy = messageTop - targetCenterY
-  const textHalfChord =
-    Math.abs(textDy) < circleRadius
-      ? Math.sqrt(circleRadius ** 2 - textDy ** 2)
-      : 0
-  const msgLeft = Math.max(TEXT_PADDING, targetCenterX - textHalfChord + TEXT_PADDING)
-  const msgRight = Math.max(
-    TEXT_PADDING,
-    viewportWidth - (targetCenterX + textHalfChord - TEXT_PADDING)
-  )
-  const msgMaxHeight = isTargetInTopHalf
-    ? Math.max(80, targetCenterY + circleRadius - messageTop - TEXT_PADDING)
-    : Math.max(80, target.y - spotlightSize / 2 - messageTop - TEXT_PADDING)
 
   const renderContent = (
     content: React.ReactNode,
@@ -178,7 +116,7 @@ export const FeatureDiscovery: React.FC<FeatureDiscoveryProps> = ({
       statusBarTranslucent
       onRequestClose={onDismiss}
     >
-      <View style={[styles.root, style, customAppearance?.container]}>
+      <View style={[styles.root, customAppearance?.root, customAppearance?.container]}>
         <Pressable
           style={styles.absoluteFill}
           onPress={dismissOnBackdropPress ? onDismiss : undefined}
@@ -230,8 +168,8 @@ export const FeatureDiscovery: React.FC<FeatureDiscoveryProps> = ({
             style={[
               styles.highlightContainer,
               {
-                left: target.x,
-                top: target.y,
+                left: highlightX,
+                top: highlightY,
                 width: target.width,
                 height: target.height,
                 opacity: contentOpacity,
@@ -252,7 +190,6 @@ export const FeatureDiscovery: React.FC<FeatureDiscoveryProps> = ({
               left: msgLeft,
               right: msgRight,
               maxHeight: msgMaxHeight,
-              backgroundColor: colorScheme.main,
               opacity: contentOpacity,
             },
             customAppearance?.messageContainer,
@@ -264,6 +201,7 @@ export const FeatureDiscovery: React.FC<FeatureDiscoveryProps> = ({
               {renderContent(title, [
                 styles.title,
                 { color: colorScheme.foreground },
+                { textAlign: isTargetOnLeft ? 'left' : 'right' },
                 customAppearance?.title,
               ])}
             </View>
@@ -283,6 +221,7 @@ export const FeatureDiscovery: React.FC<FeatureDiscoveryProps> = ({
             ? renderContent(description, [
                 styles.description,
                 { color: withOpacity(colorScheme.foreground, 0.9) },
+                { textAlign: isTargetOnLeft ? 'left' : 'right' },
                 customAppearance?.description,
               ])
             : null}
@@ -290,7 +229,10 @@ export const FeatureDiscovery: React.FC<FeatureDiscoveryProps> = ({
           {actionText ? (
             <Pressable
               onPress={onActionPress}
-              style={styles.actionPressable}
+              style={[
+                styles.actionPressable,
+                { alignSelf: isTargetOnLeft ? 'flex-start' : 'flex-end' },
+              ]}
               accessibilityRole="button"
             >
               {renderContent(actionText, [
