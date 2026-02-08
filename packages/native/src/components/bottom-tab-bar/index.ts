@@ -5,6 +5,7 @@ export type {
   BottomTabBarComposableProps,
   BottomTabBarItemProps,
   BottomTabBarSize,
+  BottomTabBarVariant,
   BottomTabBarIconRenderParams,
   BottomTabBarItemLabelRenderParams,
   BottomTabBarItemCustomAppearance,

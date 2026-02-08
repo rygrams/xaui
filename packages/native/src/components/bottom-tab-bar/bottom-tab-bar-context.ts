@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react'
-import type { BottomTabBarSize } from './bottom-tab-bar.type'
+import type { BottomTabBarSize, BottomTabBarVariant } from './bottom-tab-bar.type'
 import type { ThemeColor } from '../../types'
 
 export type BottomTabBarContextValue = {
@@ -8,6 +8,7 @@ export type BottomTabBarContextValue = {
   isDisabled: boolean
   showLabel: boolean
   size: BottomTabBarSize
+  variant: BottomTabBarVariant
   themeColor: ThemeColor
   indicatorColor?: string
   activeColor?: string

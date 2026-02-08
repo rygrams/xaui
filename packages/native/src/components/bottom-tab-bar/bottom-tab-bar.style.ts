@@ -15,10 +15,18 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  itemContainerInline: {
+    flexDirection: 'row',
+  },
   indicator: {
     alignItems: 'center',
     justifyContent: 'center',
     position: 'relative',
+  },
+  indicatorContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   indicatorBackground: {
     position: 'absolute',
@@ -26,6 +34,9 @@ export const styles = StyleSheet.create({
   label: {
     fontWeight: '600',
     letterSpacing: 0.1,
+  },
+  inlineLabel: {
+    marginLeft: 6,
   },
   badgeContainer: {
     position: 'absolute',

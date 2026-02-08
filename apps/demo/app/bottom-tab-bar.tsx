@@ -60,13 +60,19 @@ export default function BottomTabBarScreen() {
       contentContainerStyle={[styles.content, { gap: theme.spacing.lg }]}
     >
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Composable API</Text>
-        <Text style={[styles.sectionDescription, { color: colors.foreground }]}>Use `BottomTabBar` with explicit `BottomTabBarItem` children.</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Composable API
+        </Text>
+        <Text style={[styles.sectionDescription, { color: colors.foreground }]}>
+          Use `BottomTabBar` with explicit `BottomTabBarItem` children (variant:
+          `stacked`).
+        </Text>
         <View style={styles.previewBox}>
           <BottomTabBar
             selectedKey={selectedKey}
             onSelectionChange={setSelectedKey}
             themeColor="primary"
+            variant="stacked"
           >
             <BottomTabBarItem
               itemKey="home"
@@ -96,11 +102,93 @@ export default function BottomTabBarScreen() {
             />
           </BottomTabBar>
         </View>
-        <Text style={[styles.valueText, { color: colors.foreground }]}>Selected key: {selectedKey}</Text>
+        <Text style={[styles.valueText, { color: colors.foreground }]}>
+          Selected key: {selectedKey}
+        </Text>
       </View>
 
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Expo Router Compatible API</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Composable API (Inline)
+        </Text>
+        <Text style={[styles.sectionDescription, { color: colors.foreground }]}>
+          Icon and label on the same row (variant: `inline`).
+        </Text>
+        <View style={styles.previewBox}>
+          <BottomTabBar
+            selectedKey={selectedKey}
+            onSelectionChange={setSelectedKey}
+            themeColor="secondary"
+            variant="inline"
+          >
+            <BottomTabBarItem
+              itemKey="home"
+              label="Home"
+              icon={({ color, size }) => (
+                <HomeIcon size={size} color={color} variant="filled" />
+              )}
+            />
+            <BottomTabBarItem
+              itemKey="search"
+              label="Search"
+              icon={({ color, size }) => (
+                <SearchIcon size={size} color={color} variant="filled" />
+              )}
+            />
+            <BottomTabBarItem
+              itemKey="settings"
+              label="Settings"
+              icon={({ color, size }) => (
+                <SettingsIcon size={size} color={color} variant="filled" />
+              )}
+            />
+          </BottomTabBar>
+        </View>
+      </View>
+
+      <View style={styles.section}>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Composable API (Icon Only)
+        </Text>
+        <Text style={[styles.sectionDescription, { color: colors.foreground }]}>
+          Only icons are displayed (variant: `icon-only`).
+        </Text>
+        <View style={styles.previewBox}>
+          <BottomTabBar
+            selectedKey={selectedKey}
+            onSelectionChange={setSelectedKey}
+            themeColor="tertiary"
+            variant="icon-only"
+          >
+            <BottomTabBarItem
+              itemKey="home"
+              label="Home"
+              icon={({ color, size }) => (
+                <HomeIcon size={size} color={color} variant="filled" />
+              )}
+            />
+            <BottomTabBarItem
+              itemKey="search"
+              label="Search"
+              icon={({ color, size }) => (
+                <SearchIcon size={size} color={color} variant="filled" />
+              )}
+            />
+            <BottomTabBarItem
+              itemKey="settings"
+              label="Settings"
+              icon={({ color, size }) => (
+                <SettingsIcon size={size} color={color} variant="filled" />
+              )}
+            />
+          </BottomTabBar>
+        </View>
+      </View>
+
+      <View style={styles.section}>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Expo Router Compatible API
+        </Text>
         <Text style={[styles.sectionDescription, { color: colors.foreground }]}>
           Pass state, descriptors, and navigation from the expo-router tabBar props.
         </Text>
@@ -119,9 +207,12 @@ export default function BottomTabBarScreen() {
             }}
             insets={{ bottom: 0 }}
             themeColor="secondary"
+            variant="stacked"
           />
         </View>
-        <Text style={[styles.valueText, { color: colors.foreground }]}>Focused route: {routes[routerIndex]?.name}</Text>
+        <Text style={[styles.valueText, { color: colors.foreground }]}>
+          Focused route: {routes[routerIndex]?.name}
+        </Text>
       </View>
 
       <View style={{ height: 40 }} />

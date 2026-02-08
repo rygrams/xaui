@@ -9,6 +9,7 @@ import type {
 import type { ThemeColor } from '../../types'
 
 export type BottomTabBarSize = 'sm' | 'md' | 'lg'
+export type BottomTabBarVariant = 'stacked' | 'inline' | 'icon-only'
 
 export type BottomTabBarIconRenderParams = {
   focused: boolean
@@ -20,7 +21,7 @@ export type BottomTabBarItemLabelRenderParams = {
   focused: boolean
   color: string
   children: string
-  position: 'below-icon'
+  position: 'below-icon' | 'beside-icon'
 }
 
 export type BottomTabBarItemCustomAppearance = {
@@ -162,6 +163,11 @@ type BottomTabBarBaseProps = {
    * @default 'md'
    */
   size?: BottomTabBarSize
+  /**
+   * Layout variant for each tab item.
+   * @default 'stacked'
+   */
+  variant?: BottomTabBarVariant
   /**
    * Whether all items are disabled.
    * @default false

@@ -7,6 +7,7 @@ import { styles } from './bottom-tab-bar.style'
 import type {
   BottomTabBarComposableProps,
   BottomTabBarProps,
+  BottomTabBarVariant,
   ExpoRouterBottomTabBarCompatibleProps,
   ExpoRouterTabDescriptorOptions,
   ExpoRouterTabRoute,
@@ -29,14 +30,15 @@ const getRouteLabel = (
   route: ExpoRouterTabRoute,
   options: ExpoRouterTabDescriptorOptions,
   focused: boolean,
-  color: string
+  color: string,
+  variant: BottomTabBarVariant
 ) => {
   if (typeof options.tabBarLabel === 'function') {
     return options.tabBarLabel({
       focused,
       color,
       children: options.title ?? route.name,
-      position: 'below-icon',
+      position: variant === 'inline' ? 'beside-icon' : 'below-icon',
     })
   }
 
@@ -55,6 +57,7 @@ export const BottomTabBar: React.FC<BottomTabBarProps> = props => {
   const {
     themeColor = 'primary',
     size = 'md',
+    variant = 'stacked',
     isDisabled = false,
     showLabel = true,
     insetBottom = 0,
@@ -115,7 +118,7 @@ export const BottomTabBar: React.FC<BottomTabBarProps> = props => {
               <BottomTabBarItem
                 key={route.key}
                 itemKey={route.key}
-                label={getRouteLabel(route, routeOptions, focused, labelColor)}
+                label={getRouteLabel(route, routeOptions, focused, labelColor, variant)}
                 icon={routeOptions.tabBarIcon}
                 isSelected={focused}
                 showLabel={routeOptions.tabBarShowLabel ?? showLabel}
@@ -188,6 +191,7 @@ export const BottomTabBar: React.FC<BottomTabBarProps> = props => {
       isDisabled,
       showLabel,
       size,
+      variant,
       themeColor,
       indicatorColor,
       activeColor,
@@ -201,6 +205,7 @@ export const BottomTabBar: React.FC<BottomTabBarProps> = props => {
       resolvedSelectedKey,
       showLabel,
       size,
+      variant,
       themeColor,
     ]
   )
