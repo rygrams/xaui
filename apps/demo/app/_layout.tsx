@@ -29,6 +29,10 @@ export default function RootLayout() {
             name="bottom-sheet"
             options={{ title: 'Bottom Sheet Examples' }}
           />
+          <Stack.Screen
+            name="bottom-tab-bar"
+            options={{ title: 'BottomTabBar Examples' }}
+          />
           <Stack.Screen name="buttons" options={{ title: 'Button Examples' }} />
           <Stack.Screen name="card" options={{ title: 'Card Examples' }} />
           <Stack.Screen name="carousel" options={{ title: 'Carousel Examples' }} />
@@ -39,6 +43,10 @@ export default function RootLayout() {
             options={{ title: 'DatePicker Examples' }}
           />
           <Stack.Screen name="fab" options={{ title: 'FAB Examples' }} />
+          <Stack.Screen
+            name="feature-discovery"
+            options={{ title: 'FeatureDiscovery Examples' }}
+          />
           <Stack.Screen name="indicator" options={{ title: 'Indicator Examples' }} />
           <Stack.Screen name="input" options={{ title: 'Input Examples' }} />
           <Stack.Screen
@@ -50,6 +58,7 @@ export default function RootLayout() {
             name="number-input"
             options={{ title: 'Number Input Examples' }}
           />
+          <Stack.Screen name="radio" options={{ title: 'Radio Examples' }} />
           <Stack.Screen name="menus" options={{ title: 'Menu Examples' }} />
           <Stack.Screen name="progress" options={{ title: 'Progress Examples' }} />
           <Stack.Screen
@@ -58,6 +67,8 @@ export default function RootLayout() {
           />
           <Stack.Screen name="skeleton" options={{ title: 'Skeleton Examples' }} />
           <Stack.Screen name="switch" options={{ title: 'Switch Examples' }} />
+          <Stack.Screen name="textarea" options={{ title: 'TextArea Examples' }} />
+          <Stack.Screen name="toolbar" options={{ title: 'Toolbar Examples' }} />
         </Stack>
       </XUIProvider>
     </ThemeProvider>

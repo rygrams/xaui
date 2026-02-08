@@ -81,6 +81,16 @@ export default function HomeScreen() {
         <GridItem>
           <Button
             size="sm"
+            onPress={() => router.push('/bottom-tab-bar')}
+            variant="outlined"
+            themeColor="primary"
+          >
+            BottomTabBar
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
             onPress={() => router.push('/buttons')}
             variant="outlined"
             themeColor="secondary"
@@ -151,6 +161,16 @@ export default function HomeScreen() {
         <GridItem>
           <Button
             size="sm"
+            onPress={() => router.push('/feature-discovery')}
+            variant="outlined"
+            themeColor="secondary"
+          >
+            FeatureDiscovery
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
             onPress={() => router.push('/indicator')}
             variant="outlined"
             themeColor="secondary"
@@ -196,6 +216,16 @@ export default function HomeScreen() {
             themeColor="secondary"
           >
             Number Input
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/radio')}
+            variant="outlined"
+            themeColor="primary"
+          >
+            Radio
           </Button>
         </GridItem>
         <GridItem>
@@ -256,6 +286,26 @@ export default function HomeScreen() {
             themeColor="secondary"
           >
             Switch
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/textarea')}
+            variant="outlined"
+            themeColor="primary"
+          >
+            TextArea
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/toolbar')}
+            variant="outlined"
+            themeColor="secondary"
+          >
+            Toolbar
           </Button>
         </GridItem>
       </Grid>

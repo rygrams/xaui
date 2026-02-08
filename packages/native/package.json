@@ -127,6 +127,11 @@
       "import": "./dist/bottom-sheet/index.js",
       "require": "./dist/bottom-sheet/index.js"
     },
+    "./bottom-tab-bar": {
+      "types": "./dist/bottom-tab-bar/index.d.ts",
+      "import": "./dist/bottom-tab-bar/index.js",
+      "require": "./dist/bottom-tab-bar/index.js"
+    },
     "./menu": {
       "types": "./dist/menu/index.d.ts",
       "import": "./dist/menu/index.js",
@@ -142,6 +147,11 @@
       "import": "./dist/fab-menu/index.js",
       "require": "./dist/fab-menu/index.js"
     },
+    "./feature-discovery": {
+      "types": "./dist/feature-discovery/index.d.ts",
+      "import": "./dist/feature-discovery/index.js",
+      "require": "./dist/feature-discovery/index.js"
+    },
     "./card": {
       "types": "./dist/card/index.d.ts",
       "import": "./dist/card/index.js",
@@ -156,6 +166,16 @@
       "types": "./dist/list/index.d.ts",
       "import": "./dist/list/index.js",
       "require": "./dist/list/index.js"
+    },
+    "./radio": {
+      "types": "./dist/radio/index.d.ts",
+      "import": "./dist/radio/index.js",
+      "require": "./dist/radio/index.js"
+    },
+    "./toolbar": {
+      "types": "./dist/toolbar/index.d.ts",
+      "import": "./dist/toolbar/index.js",
+      "require": "./dist/toolbar/index.js"
     }
   },
   "files": [
