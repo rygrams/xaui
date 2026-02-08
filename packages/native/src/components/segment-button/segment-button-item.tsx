@@ -77,8 +77,8 @@ export const SegmentButtonItem: React.FC<SegmentButtonItemProps> = ({
 
   const showCheck = isSelected && showCheckmark
   const startNode = showCheck
-    ? checkIndicator ?? <CheckIcon size={sizeStyles.iconSize} color={textColor} />
-    : startContent ?? icon
+    ? (checkIndicator ?? <CheckIcon size={sizeStyles.iconSize} color={textColor} />)
+    : (startContent ?? icon)
 
   return (
     <Pressable
@@ -95,9 +95,7 @@ export const SegmentButtonItem: React.FC<SegmentButtonItemProps> = ({
             minHeight: sizeStyles.minHeight,
             backgroundColor,
           },
-          isSelected
-            ? customAppearance?.selectedSegment
-            : customAppearance?.segment,
+          isSelected ? customAppearance?.selectedSegment : customAppearance?.segment,
         ]}
       >
         <View style={styles.segmentContent}>
@@ -119,9 +117,7 @@ export const SegmentButtonItem: React.FC<SegmentButtonItemProps> = ({
                 fontSize: sizeStyles.fontSize,
                 color: textColor,
               },
-              isSelected
-                ? customAppearance?.selectedText
-                : customAppearance?.text,
+              isSelected ? customAppearance?.selectedText : customAppearance?.text,
             ]}
           >
             {label}

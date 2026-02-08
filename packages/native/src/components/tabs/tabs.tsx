@@ -53,7 +53,7 @@ export const Tabs: React.FC<TabsProps> = ({
   fullWidth = false,
   isDisabled = false,
   disableAnimation = false,
-  animationDuration = 150,
+  animationDuration = 220,
   renderTab,
   children,
   customAppearance,
@@ -66,6 +66,7 @@ export const Tabs: React.FC<TabsProps> = ({
 
   const [internalSelectedKey, setInternalSelectedKey] = useState(initialKey)
   const [layouts, setLayouts] = useState<Record<string, TabLayout>>({})
+  const [listWidth, setListWidth] = useState(0)
 
   const selectedKey =
     (isControlled ? controlledSelectedKey : internalSelectedKey) ?? ''
@@ -80,6 +81,8 @@ export const Tabs: React.FC<TabsProps> = ({
 
   const cursorTranslateX = useRef(new Animated.Value(0)).current
   const cursorWidth = useRef(new Animated.Value(0)).current
+  const cursorScaleX = useRef(new Animated.Value(1)).current
+  const prevCursorLayout = useRef<TabLayout | null>(null)
 
   useEffect(() => {
     if (isControlled || selectedKey) return
@@ -96,15 +99,20 @@ export const Tabs: React.FC<TabsProps> = ({
     const selectedLayout = layouts[selectedKey]
     if (!selectedLayout) return
 
-    if (disableAnimation) {
+    const from = prevCursorLayout.current
+    prevCursorLayout.current = selectedLayout
+
+    if (disableAnimation || !from) {
       cursorTranslateX.setValue(selectedLayout.x)
       cursorWidth.setValue(selectedLayout.width)
+      cursorScaleX.setValue(1)
       return
     }
 
     runTabsCursorAnimation(
       cursorTranslateX,
       cursorWidth,
+      cursorScaleX,
       selectedLayout.x,
       selectedLayout.width,
       animationDuration
@@ -113,6 +121,7 @@ export const Tabs: React.FC<TabsProps> = ({
     animationDuration,
     cursorTranslateX,
     cursorWidth,
+    cursorScaleX,
     disableAnimation,
     layouts,
     selectedKey,
@@ -134,6 +143,7 @@ export const Tabs: React.FC<TabsProps> = ({
 
         const isUnderlined = variant === 'underlined'
         const isBordered = variant === 'bordered'
+        const isFirstTab = items[0]?.key === key
 
         let cursorWidth = nextLayout.width
         let cursorX = nextLayout.x
@@ -144,6 +154,16 @@ export const Tabs: React.FC<TabsProps> = ({
         } else if (isBordered) {
           cursorWidth = nextLayout.width
           cursorX = nextLayout.x
+
+          if (isFirstTab) {
+            cursorWidth = nextLayout.width + variantStyles.listBorderWidth
+            cursorX = Math.max(0, nextLayout.x - variantStyles.listBorderWidth)
+          }
+
+          if (listWidth > 0) {
+            const maxWidth = Math.max(0, listWidth - cursorX)
+            cursorWidth = Math.min(cursorWidth, maxWidth)
+          }
         }
 
         return {
@@ -152,7 +172,7 @@ export const Tabs: React.FC<TabsProps> = ({
         }
       })
     },
-    [setLayouts, variant]
+    [items, listWidth, setLayouts, variant, variantStyles.listBorderWidth]
   )
 
   const handleTabPress = useCallback(
@@ -174,6 +194,7 @@ export const Tabs: React.FC<TabsProps> = ({
   return (
     <View style={[styles.container, customAppearance?.container]}>
       <View
+        onLayout={event => setListWidth(event.nativeEvent.layout.width)}
         style={[
           styles.list,
           {
@@ -186,6 +207,7 @@ export const Tabs: React.FC<TabsProps> = ({
                 ? (variantStyles.cursorHeight ?? 2)
                 : variantStyles.listBorderWidth,
             paddingHorizontal: variantStyles.listPaddingHorizontal,
+            ...(variant === 'bordered' && { overflow: 'hidden' }),
           },
           fullWidth && styles.fullWidth,
           customAppearance?.list,
@@ -198,10 +220,17 @@ export const Tabs: React.FC<TabsProps> = ({
               styles.cursor,
               {
                 bottom: variantStyles.cursorBottom,
-                borderRadius: radiusStyles.borderRadius,
+                borderRadius: Math.max(
+                  0,
+                  (radiusStyles.borderRadius as number) -
+                    variantStyles.listBorderWidth
+                ),
                 width: cursorWidth,
                 backgroundColor: variantStyles.cursorColor,
-                transform: [{ translateX: cursorTranslateX }],
+                transform: [
+                  { translateX: cursorTranslateX },
+                  { scaleX: cursorScaleX },
+                ],
                 ...(variantStyles.cursorTop !== undefined && {
                   top: variantStyles.cursorTop,
                 }),

@@ -1,6 +1,9 @@
 import { describe, expect, it, vi } from 'vitest'
 import { renderHook } from '@testing-library/react'
-import { useTabsSizeStyles, useTabsVariantStyles } from '../../../components/tabs/tabs.hook'
+import {
+  useTabsSizeStyles,
+  useTabsVariantStyles,
+} from '../../../components/tabs/tabs.hook'
 
 vi.mock('@xaui/core', () => ({
   withPaletteNumber: (color: string) => color,

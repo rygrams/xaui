@@ -16,27 +16,39 @@ export default function CheckboxScreen() {
       contentContainerStyle={[styles.content, { gap: theme.spacing.lg }]}
     >
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Controlled</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Controlled
+        </Text>
         <View style={{ gap: theme.spacing.md }}>
           <Checkbox
-            label={isEmailEnabled ? 'Email Notifications On' : 'Email Notifications Off'}
+            label={
+              isEmailEnabled ? 'Email Notifications On' : 'Email Notifications Off'
+            }
             isChecked={isEmailEnabled}
             onValueChange={setIsEmailEnabled}
             themeColor="primary"
           />
           <Checkbox
-            label={isPushEnabled ? 'Push Notifications On' : 'Push Notifications Off'}
+            label={
+              isPushEnabled ? 'Push Notifications On' : 'Push Notifications Off'
+            }
             isChecked={isPushEnabled}
             onValueChange={setIsPushEnabled}
             themeColor="secondary"
             variant="light"
           />
-          <Checkbox label="Partially Selected" isIndeterminate themeColor="warning" />
+          <Checkbox
+            label="Partially Selected"
+            isIndeterminate
+            themeColor="warning"
+          />
         </View>
       </View>
 
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Internal State (Uncontrolled)</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Internal State (Uncontrolled)
+        </Text>
         <View style={{ gap: theme.spacing.md }}>
           <Checkbox label="Newsletter" />
           <Checkbox label="Product Updates" variant="light" />
@@ -44,7 +56,9 @@ export default function CheckboxScreen() {
       </View>
 
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Variants</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Variants
+        </Text>
         <View style={{ gap: theme.spacing.md }}>
           <Checkbox label="Filled" variant="filled" isChecked />
           <Checkbox label="Light" variant="light" isChecked />
@@ -52,7 +66,9 @@ export default function CheckboxScreen() {
       </View>
 
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Sizes</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Sizes
+        </Text>
         <View style={{ gap: theme.spacing.md }}>
           <Checkbox label="Extra Small" size="xs" isChecked />
           <Checkbox label="Small" size="sm" isChecked />
@@ -62,7 +78,9 @@ export default function CheckboxScreen() {
       </View>
 
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Theme Colors</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Theme Colors
+        </Text>
         <View style={{ gap: theme.spacing.md }}>
           <Checkbox label="Primary" themeColor="primary" isChecked />
           <Checkbox label="Secondary" themeColor="secondary" isChecked />
@@ -73,10 +91,22 @@ export default function CheckboxScreen() {
       </View>
 
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Layout & States</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Layout & States
+        </Text>
         <View style={{ gap: theme.spacing.md }}>
-          <Checkbox label="Justify Left" labelAlignment="justify-left" fullWidth isChecked />
-          <Checkbox label="Justify Right" labelAlignment="justify-right" fullWidth isChecked />
+          <Checkbox
+            label="Justify Left"
+            labelAlignment="justify-left"
+            fullWidth
+            isChecked
+          />
+          <Checkbox
+            label="Justify Right"
+            labelAlignment="justify-right"
+            fullWidth
+            isChecked
+          />
           <Checkbox label="Radius None" radius="none" isChecked />
           <Checkbox label="Radius Full" radius="full" isChecked />
           <Checkbox label="Disabled Off" isDisabled />

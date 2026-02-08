@@ -30,12 +30,7 @@ const valueToPercent = (value: number, min: number, max: number) => {
   return ((value - min) / range) * 100
 }
 
-const percentToValue = (
-  percent: number,
-  min: number,
-  max: number,
-  step: number
-) => {
+const percentToValue = (percent: number, min: number, max: number, step: number) => {
   const raw = min + ((max - min) * percent) / 100
   return clamp(roundToStep(raw, min, step), min, max)
 }
@@ -319,7 +314,9 @@ export const Slider: React.FC<SliderProps> = ({
                       ? `${activePercent}%`
                       : sizeStyles.trackThickness,
                   width:
-                    orientation === 'vertical' ? sizeStyles.trackThickness : `${activePercent}%`,
+                    orientation === 'vertical'
+                      ? sizeStyles.trackThickness
+                      : `${activePercent}%`,
                 },
                 customAppearance?.fill,
               ]}
@@ -342,14 +339,16 @@ export const Slider: React.FC<SliderProps> = ({
                           : colorStyles.stepColor,
                         left:
                           orientation === 'vertical'
-                            ? (sizeStyles.trackThickness - sizeStyles.stepDotSize) / 2
+                            ? (sizeStyles.trackThickness - sizeStyles.stepDotSize) /
+                              2
                             : getPixelPosition(percent, effectiveTrackLength) -
                               sizeStyles.stepDotSize / 2,
                         bottom:
                           orientation === 'vertical'
                             ? getPixelPosition(percent, effectiveTrackLength) -
                               sizeStyles.stepDotSize / 2
-                            : (sizeStyles.trackThickness - sizeStyles.stepDotSize) / 2,
+                            : (sizeStyles.trackThickness - sizeStyles.stepDotSize) /
+                              2,
                         top: orientation === 'vertical' ? undefined : 0,
                       },
                       customAppearance?.step,

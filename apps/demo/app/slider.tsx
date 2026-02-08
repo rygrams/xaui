@@ -43,7 +43,11 @@ export default function SliderScreen() {
           showSteps
           showValueLabel
           onChange={setPrice}
-          formatOptions={{ style: 'currency', currency: 'USD', maximumFractionDigits: 0 }}
+          formatOptions={{
+            style: 'currency',
+            currency: 'USD',
+            maximumFractionDigits: 0,
+          }}
         />
       </View>
 

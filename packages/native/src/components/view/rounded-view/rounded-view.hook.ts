@@ -11,10 +11,28 @@ type BorderRadiusStyle = {
 export const useRoundedViewStyle = (
   props: Pick<
     RoundedViewProps,
-    'all' | 'top' | 'bottom' | 'left' | 'right' | 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight'
+    | 'all'
+    | 'top'
+    | 'bottom'
+    | 'left'
+    | 'right'
+    | 'topLeft'
+    | 'topRight'
+    | 'bottomLeft'
+    | 'bottomRight'
   >
 ): BorderRadiusStyle => {
-  const { all = 0, top, bottom, left, right, topLeft, topRight, bottomLeft, bottomRight } = props
+  const {
+    all = 0,
+    top,
+    bottom,
+    left,
+    right,
+    topLeft,
+    topRight,
+    bottomLeft,
+    bottomRight,
+  } = props
 
   return useMemo(() => {
     return {

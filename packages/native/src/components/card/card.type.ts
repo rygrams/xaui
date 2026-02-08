@@ -1,9 +1,5 @@
 import type { ReactNode } from 'react'
-import type {
-  GestureResponderEvent,
-  TextStyle,
-  ViewStyle,
-} from 'react-native'
+import type { GestureResponderEvent, TextStyle, ViewStyle } from 'react-native'
 import type { Radius, ThemeColor } from '../../types'
 import type { ElevationLevel } from '../button/button.type'
 
