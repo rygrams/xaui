@@ -211,6 +211,16 @@ export default function HomeScreen() {
         <GridItem>
           <Button
             size="sm"
+            onPress={() => router.push('/list')}
+            variant="outlined"
+            themeColor="primary"
+          >
+            List
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
             onPress={() => router.push('/progress')}
             variant="outlined"
             themeColor="primary"

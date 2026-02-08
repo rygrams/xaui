@@ -151,6 +151,11 @@
       "types": "./dist/input/index.d.ts",
       "import": "./dist/input/index.js",
       "require": "./dist/input/index.js"
+    },
+    "./list": {
+      "types": "./dist/list/index.d.ts",
+      "import": "./dist/list/index.js",
+      "require": "./dist/list/index.js"
     }
   },
   "files": [

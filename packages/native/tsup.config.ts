@@ -32,6 +32,7 @@ export default defineConfig(options => {
       'card/index': 'src/components/card/index.ts',
       'skeleton/index': 'src/components/skeleton/index.ts',
       'input/index': 'src/components/input/index.ts',
+      'list/index': 'src/components/list/index.ts',
     },
     format: ['cjs', 'esm'],
     dts: !isWatch,
