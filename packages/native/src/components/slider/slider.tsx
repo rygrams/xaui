@@ -229,22 +229,24 @@ export const Slider: React.FC<SliderProps> = ({
             orientation === 'vertical'
               ? event.nativeEvent.locationY
               : event.nativeEvent.locationX
-          const position = point - thumbOverlapInset
-          initialTouchTrackPosition.current = position
+          const rawPosition = point - thumbOverlapInset
+          initialTouchTrackPosition.current = rawPosition
+          const clamped = clamp(rawPosition, 0, effectiveTrackLength)
           animatedTrackPosition.setValue(
-            clamp(position, 0, effectiveTrackLength)
+            orientation === 'vertical' ? effectiveTrackLength - clamped : clamped
           )
-          setValueFromPosition(position)
+          setValueFromPosition(rawPosition)
         },
         onPanResponderMove: (_event, gestureState) => {
           if (!isInteractive) return
           const delta =
             orientation === 'vertical' ? gestureState.dy : gestureState.dx
-          const position = initialTouchTrackPosition.current + delta
+          const rawPosition = initialTouchTrackPosition.current + delta
+          const clamped = clamp(rawPosition, 0, effectiveTrackLength)
           animatedTrackPosition.setValue(
-            clamp(position, 0, effectiveTrackLength)
+            orientation === 'vertical' ? effectiveTrackLength - clamped : clamped
           )
-          setValueFromPosition(position)
+          setValueFromPosition(rawPosition)
         },
         onPanResponderRelease: (_event, gestureState) => {
           isDragging.current = false

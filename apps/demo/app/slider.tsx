@@ -8,6 +8,7 @@ export default function SliderScreen() {
   const theme = useXUITheme()
   const [volume, setVolume] = useState(30)
   const [price, setPrice] = useState(250)
+  const [opacity, setOpacity] = useState(70)
 
   return (
     <ScrollView
@@ -59,6 +60,7 @@ export default function SliderScreen() {
           label="Delivery priority"
           defaultValue={50}
           step={25}
+          color="success"
           showValueLabel
           marks={[
             { value: 0, label: 'Low' },
@@ -70,15 +72,28 @@ export default function SliderScreen() {
 
       <View style={styles.section}>
         <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
-          Vertical + Disabled
+          Sizes
         </Text>
-        <View style={{ flexDirection: 'row', gap: theme.spacing.lg }}>
+        <View style={{ gap: theme.spacing.md }}>
+          <Slider label="xs" size="xs" defaultValue={40} color="primary" />
+          <Slider label="sm" size="sm" defaultValue={55} color="secondary" />
+          <Slider label="md" size="md" defaultValue={70} color="warning" />
+          <Slider label="lg" size="lg" defaultValue={85} color="danger" />
+        </View>
+      </View>
+
+      <View style={styles.section}>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Vertical
+        </Text>
+        <View style={{ flexDirection: 'row', gap: theme.spacing.xl }}>
           <Slider
             label="Opacity"
-            defaultValue={70}
+            value={opacity}
             orientation="vertical"
             showValueLabel
-            trackLength={220}
+            trackLength={200}
+            onChange={setOpacity}
           />
           <Slider
             label="Read only"
@@ -87,7 +102,7 @@ export default function SliderScreen() {
             isReadOnly
             showValueLabel
             color="warning"
-            trackLength={220}
+            trackLength={200}
           />
           <Slider
             label="Disabled"
@@ -95,7 +110,7 @@ export default function SliderScreen() {
             orientation="vertical"
             isDisabled
             showValueLabel
-            trackLength={220}
+            trackLength={200}
           />
         </View>
       </View>
