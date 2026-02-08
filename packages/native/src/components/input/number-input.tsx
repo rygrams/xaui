@@ -48,7 +48,6 @@ export const NumberInput = forwardRef<
       handleTextChange,
       handleFocus,
       handleBlur,
-      handleClear,
       handleIncrement,
       handleDecrement,
       canIncrement,
@@ -81,8 +80,7 @@ export const NumberInput = forwardRef<
             accessibilityRole="button"
             style={[
               numberInputStyles.stepperButton,
-              (!canDecrement || isDisabled) &&
-                numberInputStyles.stepperDisabled,
+              (!canDecrement || isDisabled) && numberInputStyles.stepperDisabled,
               customAppearance?.stepperButton,
             ]}
           >
@@ -95,8 +93,7 @@ export const NumberInput = forwardRef<
             accessibilityRole="button"
             style={[
               numberInputStyles.stepperButton,
-              (!canIncrement || isDisabled) &&
-                numberInputStyles.stepperDisabled,
+              (!canIncrement || isDisabled) && numberInputStyles.stepperDisabled,
               customAppearance?.stepperButton,
             ]}
           >
@@ -112,7 +109,6 @@ export const NumberInput = forwardRef<
         onChangeText={handleTextChange}
         onFocus={handleFocus}
         onBlur={handleBlur}
-        onValueChange={isClearable && !displayValue ? undefined : handleClear}
         label={label}
         labelPlacement={labelPlacement}
         description={description}
