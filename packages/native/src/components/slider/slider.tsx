@@ -1,12 +1,12 @@
-import React, { useCallback, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import {
   Animated,
   PanResponder,
-  Pressable,
   Text,
   View,
   type LayoutChangeEvent,
 } from 'react-native'
+import { useXUITheme } from '../../core'
 import { useBorderRadiusStyles } from '../../core/theme-hooks'
 import {
   runSliderThumbPressInAnimation,
@@ -115,7 +115,19 @@ export const Slider: React.FC<SliderProps> = ({
   const sizeStyles = useSliderSizeStyles(size)
   const colorStyles = useSliderColorStyles(color, isDisabled)
   const radiusStyles = useBorderRadiusStyles(radius)
+  const theme = useXUITheme()
   const thumbScale = useRef(new Animated.Value(1)).current
+  const initialTouchTrackPosition = useRef(0)
+  const animatedTrackPosition = useRef(new Animated.Value(0)).current
+  const isDragging = useRef(false)
+  const currentValueRef = useRef(currentValue)
+  currentValueRef.current = currentValue
+  const onChangeEndRef = useRef(onChangeEnd)
+  onChangeEndRef.current = onChangeEnd
+  const thumbOverlapInset = Math.max(
+    0,
+    (sizeStyles.thumbSize - sizeStyles.trackThickness) / 2
+  )
 
   const formattedValue = useMemo(() => {
     try {
@@ -129,6 +141,48 @@ export const Slider: React.FC<SliderProps> = ({
   const effectiveTrackLength =
     trackLength && trackLength > 0 ? trackLength : measuredTrackLength
   const thumbCenterPosition = getPixelPosition(activePercent, effectiveTrackLength)
+  const trackContainerLengthStyle =
+    orientation === 'vertical'
+      ? {
+          height:
+            (trackLength && trackLength > 0 ? trackLength : 220) +
+            thumbOverlapInset * 2,
+        }
+      : trackLength && trackLength > 0
+        ? { width: trackLength + thumbOverlapInset * 2 }
+        : null
+
+  useEffect(() => {
+    if (!isDragging.current && effectiveTrackLength > 0) {
+      animatedTrackPosition.setValue(
+        clamp(thumbCenterPosition, 0, effectiveTrackLength)
+      )
+    }
+  }, [thumbCenterPosition, effectiveTrackLength, animatedTrackPosition])
+
+  const animatedFillSize = useMemo(() => {
+    const safeLength = Math.max(effectiveTrackLength, 1)
+    return animatedTrackPosition.interpolate({
+      inputRange: [0, safeLength],
+      outputRange: [0, safeLength],
+      extrapolate: 'clamp',
+    })
+  }, [animatedTrackPosition, effectiveTrackLength])
+
+  const animatedThumbOffset = useMemo(() => {
+    const base = thumbOverlapInset - sizeStyles.thumbSize / 2
+    const safeLength = Math.max(effectiveTrackLength, 1)
+    return animatedTrackPosition.interpolate({
+      inputRange: [0, safeLength],
+      outputRange: [base, safeLength + base],
+      extrapolate: 'clamp',
+    })
+  }, [
+    animatedTrackPosition,
+    effectiveTrackLength,
+    thumbOverlapInset,
+    sizeStyles.thumbSize,
+  ])
 
   const setValue = useCallback(
     (nextValue: number) => {
@@ -160,46 +214,74 @@ export const Slider: React.FC<SliderProps> = ({
     () =>
       PanResponder.create({
         onStartShouldSetPanResponder: () => isInteractive,
-        onMoveShouldSetPanResponder: () => isInteractive,
-        onPanResponderGrant: event => {
+        onMoveShouldSetPanResponder: (_evt, gs) => {
+          if (!isInteractive) return false
+          return orientation === 'horizontal'
+            ? Math.abs(gs.dx) >= Math.abs(gs.dy)
+            : Math.abs(gs.dy) >= Math.abs(gs.dx)
+        },
+        onPanResponderTerminationRequest: () => !isDragging.current,
+        onPanResponderGrant: (event) => {
           if (!isInteractive) return
+          isDragging.current = true
           runSliderThumbPressInAnimation(thumbScale)
           const point =
             orientation === 'vertical'
               ? event.nativeEvent.locationY
               : event.nativeEvent.locationX
-          setValueFromPosition(point)
+          const position = point - thumbOverlapInset
+          initialTouchTrackPosition.current = position
+          animatedTrackPosition.setValue(
+            clamp(position, 0, effectiveTrackLength)
+          )
+          setValueFromPosition(position)
         },
-        onPanResponderMove: event => {
+        onPanResponderMove: (_event, gestureState) => {
           if (!isInteractive) return
-          const point =
-            orientation === 'vertical'
-              ? event.nativeEvent.locationY
-              : event.nativeEvent.locationX
-          setValueFromPosition(point)
+          const delta =
+            orientation === 'vertical' ? gestureState.dy : gestureState.dx
+          const position = initialTouchTrackPosition.current + delta
+          animatedTrackPosition.setValue(
+            clamp(position, 0, effectiveTrackLength)
+          )
+          setValueFromPosition(position)
         },
-        onPanResponderRelease: event => {
+        onPanResponderRelease: (_event, gestureState) => {
+          isDragging.current = false
           runSliderThumbPressOutAnimation(thumbScale)
           if (!isInteractive) return
-          const point =
-            orientation === 'vertical'
-              ? event.nativeEvent.locationY
-              : event.nativeEvent.locationX
-          const nextValue = setValueFromPosition(point)
-          onChangeEnd?.(nextValue)
+          const delta =
+            orientation === 'vertical' ? gestureState.dy : gestureState.dx
+          const nextValue = setValueFromPosition(
+            initialTouchTrackPosition.current + delta
+          )
+          const snappedPercent = valueToPercent(nextValue, minValue, maxValue)
+          animatedTrackPosition.setValue(
+            getPixelPosition(snappedPercent, effectiveTrackLength)
+          )
+          onChangeEndRef.current?.(nextValue)
         },
         onPanResponderTerminate: () => {
+          isDragging.current = false
           runSliderThumbPressOutAnimation(thumbScale)
-          onChangeEnd?.(currentValue)
+          const val = currentValueRef.current
+          const pct = valueToPercent(val, minValue, maxValue)
+          animatedTrackPosition.setValue(
+            getPixelPosition(pct, effectiveTrackLength)
+          )
+          onChangeEndRef.current?.(val)
         },
       }),
     [
-      currentValue,
+      animatedTrackPosition,
+      effectiveTrackLength,
       isInteractive,
-      onChangeEnd,
+      minValue,
+      maxValue,
       orientation,
       setValueFromPosition,
       thumbScale,
+      thumbOverlapInset,
     ]
   )
 
@@ -213,19 +295,6 @@ export const Slider: React.FC<SliderProps> = ({
       setMeasuredTrackLength(nextLength)
     },
     [orientation, trackLength]
-  )
-
-  const handleTrackPress = useCallback(
-    (event: { nativeEvent: { locationX: number; locationY: number } }) => {
-      if (!isInteractive) return
-      const point =
-        orientation === 'vertical'
-          ? event.nativeEvent.locationY
-          : event.nativeEvent.locationX
-      const nextValue = setValueFromPosition(point)
-      onChangeEnd?.(nextValue)
-    },
-    [isInteractive, onChangeEnd, orientation, setValueFromPosition]
   )
 
   const steps = useMemo(() => {
@@ -273,16 +342,15 @@ export const Slider: React.FC<SliderProps> = ({
         ]}
       >
         {startContent}
-        <Pressable
-          onPress={handleTrackPress}
+        <View
+          {...panResponder.panHandlers}
           style={[
             styles.trackContainer,
             orientation === 'vertical' && styles.verticalTrackContainer,
-            trackLength && trackLength > 0
-              ? orientation === 'vertical'
-                ? { height: trackLength }
-                : { width: trackLength }
-              : null,
+            {
+              padding: thumbOverlapInset,
+            },
+            trackContainerLengthStyle,
             customAppearance?.trackContainer,
           ]}
         >
@@ -301,9 +369,8 @@ export const Slider: React.FC<SliderProps> = ({
               },
               customAppearance?.track,
             ]}
-            {...panResponder.panHandlers}
           >
-            <View
+            <Animated.View
               style={[
                 styles.fill,
                 orientation === 'vertical' && styles.verticalFill,
@@ -311,12 +378,16 @@ export const Slider: React.FC<SliderProps> = ({
                   backgroundColor: colorStyles.fillColor,
                   height:
                     orientation === 'vertical'
-                      ? `${activePercent}%`
+                      ? effectiveTrackLength > 0
+                        ? animatedFillSize
+                        : `${activePercent}%`
                       : sizeStyles.trackThickness,
                   width:
                     orientation === 'vertical'
                       ? sizeStyles.trackThickness
-                      : `${activePercent}%`,
+                      : effectiveTrackLength > 0
+                        ? animatedFillSize
+                        : `${activePercent}%`,
                 },
                 customAppearance?.fill,
               ]}
@@ -349,7 +420,6 @@ export const Slider: React.FC<SliderProps> = ({
                               sizeStyles.stepDotSize / 2
                             : (sizeStyles.trackThickness - sizeStyles.stepDotSize) /
                               2,
-                        top: orientation === 'vertical' ? undefined : 0,
                       },
                       customAppearance?.step,
                       isActive && customAppearance?.activeStep,
@@ -367,16 +437,14 @@ export const Slider: React.FC<SliderProps> = ({
                 width: sizeStyles.thumbSize,
                 height: sizeStyles.thumbSize,
                 borderRadius: sizeStyles.thumbSize / 2,
-                backgroundColor: colorStyles.thumbColor,
-                left:
-                  orientation === 'vertical'
-                    ? (sizeStyles.trackThickness - sizeStyles.thumbSize) / 2
-                    : thumbCenterPosition - sizeStyles.thumbSize / 2,
-                bottom:
-                  orientation === 'vertical'
-                    ? thumbCenterPosition - sizeStyles.thumbSize / 2
-                    : (sizeStyles.trackThickness - sizeStyles.thumbSize) / 2,
+                left: orientation === 'vertical' ? 0 : animatedThumbOffset,
                 top: orientation === 'vertical' ? undefined : 0,
+                bottom:
+                  orientation === 'vertical' ? animatedThumbOffset : undefined,
+                backgroundColor: theme.colors.background,
+                borderWidth: 2,
+                borderColor: colorStyles.fillColor,
+                ...theme.shadows.md,
                 transform: [{ scale: thumbScale }],
               },
               customAppearance?.thumb,
@@ -393,13 +461,20 @@ export const Slider: React.FC<SliderProps> = ({
                   {
                     left:
                       orientation === 'vertical'
-                        ? sizeStyles.trackThickness + sizeStyles.markOffset
-                        : getPixelPosition(percent, effectiveTrackLength) - 10,
+                        ? thumbOverlapInset + sizeStyles.trackThickness + 8
+                        : thumbOverlapInset +
+                          getPixelPosition(percent, effectiveTrackLength) -
+                          10,
+                    top:
+                      orientation === 'vertical'
+                        ? undefined
+                        : thumbOverlapInset + sizeStyles.trackThickness,
                     bottom:
                       orientation === 'vertical'
-                        ? getPixelPosition(percent, effectiveTrackLength)
-                        : -sizeStyles.markOffset,
-                    top: orientation === 'vertical' ? undefined : 0,
+                        ? thumbOverlapInset +
+                          getPixelPosition(percent, effectiveTrackLength) -
+                          8
+                        : undefined,
                   },
                   customAppearance?.mark,
                 ]}
@@ -416,7 +491,7 @@ export const Slider: React.FC<SliderProps> = ({
               </View>
             )
           })}
-        </Pressable>
+        </View>
         {endContent}
       </View>
     </View>

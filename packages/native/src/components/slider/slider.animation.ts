@@ -5,7 +5,7 @@ export const runSliderThumbPressInAnimation = (scale: Animated.Value) => {
     toValue: 1.08,
     friction: 6,
     tension: 120,
-    useNativeDriver: true,
+    useNativeDriver: false,
   }).start()
 }
 
@@ -14,6 +14,6 @@ export const runSliderThumbPressOutAnimation = (scale: Animated.Value) => {
     toValue: 1,
     friction: 6,
     tension: 120,
-    useNativeDriver: true,
+    useNativeDriver: false,
   }).start()
 }
