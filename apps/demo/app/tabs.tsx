@@ -42,14 +42,24 @@ export default function TabsScreen() {
           Variants
         </Text>
         <View style={{ gap: theme.spacing.md }}>
-          <Tabs items={accountTabs} defaultSelectedKey="profile" variant="solid" fullWidth />
+          <Tabs
+            items={accountTabs}
+            defaultSelectedKey="profile"
+            variant="solid"
+            fullWidth
+          />
           <Tabs
             items={accountTabs}
             defaultSelectedKey="profile"
             variant="bordered"
             fullWidth
           />
-          <Tabs items={accountTabs} defaultSelectedKey="profile" variant="light" fullWidth />
+          <Tabs
+            items={accountTabs}
+            defaultSelectedKey="profile"
+            variant="light"
+            fullWidth
+          />
           <Tabs
             items={accountTabs}
             defaultSelectedKey="profile"
@@ -60,12 +70,34 @@ export default function TabsScreen() {
       </View>
 
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Sizes</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Sizes
+        </Text>
         <View style={{ gap: theme.spacing.md }}>
-          <Tabs items={accountTabs} defaultSelectedKey="profile" size="xs" fullWidth />
-          <Tabs items={accountTabs} defaultSelectedKey="profile" size="sm" fullWidth />
-          <Tabs items={accountTabs} defaultSelectedKey="profile" size="md" fullWidth />
-          <Tabs items={accountTabs} defaultSelectedKey="profile" size="lg" fullWidth />
+          <Tabs
+            items={accountTabs}
+            defaultSelectedKey="profile"
+            size="xs"
+            fullWidth
+          />
+          <Tabs
+            items={accountTabs}
+            defaultSelectedKey="profile"
+            size="sm"
+            fullWidth
+          />
+          <Tabs
+            items={accountTabs}
+            defaultSelectedKey="profile"
+            size="md"
+            fullWidth
+          />
+          <Tabs
+            items={accountTabs}
+            defaultSelectedKey="profile"
+            size="lg"
+            fullWidth
+          />
         </View>
       </View>
 
@@ -92,6 +124,46 @@ export default function TabsScreen() {
 
       <View style={styles.section}>
         <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          With Children Content
+        </Text>
+        <Tabs
+          items={accountTabs}
+          defaultSelectedKey="profile"
+          variant="solid"
+          fullWidth
+        >
+          {({ selectedKey: activeKey, selectedItem }) => (
+            <View
+              style={[
+                styles.contentBox,
+                {
+                  backgroundColor: colors.background,
+                  borderColor: `${colors.foreground}20`,
+                },
+              ]}
+            >
+              <Text style={[styles.contentTitle, { color: colors.foreground }]}>
+                {selectedItem?.title}
+              </Text>
+              <Text style={[styles.contentText, { color: colors.foreground }]}>
+                Active tab key: {activeKey}
+              </Text>
+              <Text
+                style={[
+                  styles.contentDescription,
+                  { color: `${colors.foreground}80` },
+                ]}
+              >
+                This content is rendered using the children render prop. It updates
+                automatically when you switch tabs.
+              </Text>
+            </View>
+          )}
+        </Tabs>
+      </View>
+
+      <View style={styles.section}>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
           Custom Tab Render (No children required)
         </Text>
         <Tabs
@@ -107,7 +179,9 @@ export default function TabsScreen() {
             <Text
               style={{
                 fontWeight: state.isSelected ? '700' : '500',
-                color: state.isDisabled ? `${colors.foreground}70` : colors.foreground,
+                color: state.isDisabled
+                  ? `${colors.foreground}70`
+                  : colors.foreground,
               }}
             >
               {item.title}
@@ -139,5 +213,24 @@ const styles = StyleSheet.create({
   resultText: {
     marginTop: 8,
     fontSize: 14,
+  },
+  contentBox: {
+    padding: 16,
+    borderRadius: 8,
+    borderWidth: 1,
+    marginTop: 12,
+  },
+  contentTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    marginBottom: 8,
+  },
+  contentText: {
+    fontSize: 14,
+    marginBottom: 8,
+  },
+  contentDescription: {
+    fontSize: 12,
+    lineHeight: 18,
   },
 })

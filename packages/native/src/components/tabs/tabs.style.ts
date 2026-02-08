@@ -8,7 +8,6 @@ export const styles = StyleSheet.create({
     position: 'relative',
     flexDirection: 'row',
     alignItems: 'stretch',
-    overflow: 'hidden',
     alignSelf: 'flex-start',
   },
   fullWidth: {

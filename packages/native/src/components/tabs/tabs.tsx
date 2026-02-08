@@ -22,7 +22,11 @@ function isTabDisabled(
   disabledKeys: string[] | undefined,
   isDisabled: boolean
 ) {
-  return isDisabled || item.isDisabled === true || disabledKeys?.includes(item.key) === true
+  return (
+    isDisabled ||
+    item.isDisabled === true ||
+    disabledKeys?.includes(item.key) === true
+  )
 }
 
 function getFallbackKey(
@@ -49,7 +53,7 @@ export const Tabs: React.FC<TabsProps> = ({
   fullWidth = false,
   isDisabled = false,
   disableAnimation = false,
-  animationDuration = 220,
+  animationDuration = 150,
   renderTab,
   children,
   customAppearance,
@@ -128,13 +132,27 @@ export const Tabs: React.FC<TabsProps> = ({
           return prev
         }
 
+        const isUnderlined = variant === 'underlined'
+        const isBordered = variant === 'bordered'
+
+        let cursorWidth = nextLayout.width
+        let cursorX = nextLayout.x
+
+        if (isUnderlined) {
+          cursorWidth = nextLayout.width * 0.8
+          cursorX = nextLayout.x + (nextLayout.width - cursorWidth) / 2
+        } else if (isBordered) {
+          cursorWidth = nextLayout.width
+          cursorX = nextLayout.x
+        }
+
         return {
           ...prev,
-          [key]: { x: nextLayout.x, width: nextLayout.width },
+          [key]: { x: cursorX, width: cursorWidth },
         }
       })
     },
-    [setLayouts]
+    [setLayouts, variant]
   )
 
   const handleTabPress = useCallback(
@@ -165,8 +183,9 @@ export const Tabs: React.FC<TabsProps> = ({
             borderWidth: variantStyles.listBorderWidth,
             borderBottomWidth:
               variant === 'underlined'
-                ? variantStyles.cursorHeight as number
+                ? (variantStyles.cursorHeight ?? 2)
                 : variantStyles.listBorderWidth,
+            paddingHorizontal: variantStyles.listPaddingHorizontal,
           },
           fullWidth && styles.fullWidth,
           customAppearance?.list,
@@ -180,11 +199,22 @@ export const Tabs: React.FC<TabsProps> = ({
               {
                 bottom: variantStyles.cursorBottom,
                 borderRadius: radiusStyles.borderRadius,
-                left: variantStyles.cursorInset,
                 width: cursorWidth,
-                height: variantStyles.cursorHeight,
                 backgroundColor: variantStyles.cursorColor,
                 transform: [{ translateX: cursorTranslateX }],
+                ...(variantStyles.cursorTop !== undefined && {
+                  top: variantStyles.cursorTop,
+                }),
+                ...(variantStyles.cursorHeight !== undefined && {
+                  height: variantStyles.cursorHeight,
+                }),
+                ...(variantStyles.cursorShadow && {
+                  shadowColor: '#000',
+                  shadowOffset: { width: 0, height: 1 },
+                  shadowOpacity: 0.15,
+                  shadowRadius: 3,
+                  elevation: 2,
+                }),
               },
               customAppearance?.cursor,
             ]}

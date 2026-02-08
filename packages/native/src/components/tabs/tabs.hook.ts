@@ -15,12 +15,14 @@ type TabsVariantStyles = {
   listBackgroundColor: string
   listBorderColor: string
   listBorderWidth: number
+  listPaddingHorizontal: number
   cursorColor: string
   textColor: string
   selectedTextColor: string
-  cursorInset: number
-  cursorHeight: number | `${number}%`
+  cursorHeight: number | undefined
+  cursorTop: number | undefined
   cursorBottom: number
+  cursorShadow: boolean
 }
 
 export function useTabsSizeStyles(size: Size): TabsSizeStyles {
@@ -73,45 +75,53 @@ export function useTabsVariantStyles(
         listBackgroundColor: palette.background,
         listBorderColor: 'transparent',
         listBorderWidth: 0,
+        listPaddingHorizontal: 4,
         cursorColor: cursorSolidColor,
         textColor: palette.main,
         selectedTextColor: palette.foreground,
-        cursorInset: 4,
-        cursorHeight: '100%',
-        cursorBottom: 0,
+        cursorHeight: undefined,
+        cursorTop: 4,
+        cursorBottom: 4,
+        cursorShadow: true,
       },
       bordered: {
         listBackgroundColor: 'transparent',
-        listBorderColor: palette.main,
+        listBorderColor: `${palette.main}30`,
         listBorderWidth: theme.borderWidth.md,
+        listPaddingHorizontal: theme.borderWidth.md,
         cursorColor: cursorSolidColor,
         textColor: palette.main,
         selectedTextColor: palette.foreground,
-        cursorInset: 4,
-        cursorHeight: '100%',
-        cursorBottom: 0,
+        cursorHeight: undefined,
+        cursorTop: theme.borderWidth.md,
+        cursorBottom: theme.borderWidth.md,
+        cursorShadow: false,
       },
       light: {
         listBackgroundColor: 'transparent',
         listBorderColor: 'transparent',
         listBorderWidth: 0,
+        listPaddingHorizontal: 0,
         cursorColor: `${cursorSolidColor}25`,
         textColor: palette.main,
         selectedTextColor: palette.main,
-        cursorInset: 4,
-        cursorHeight: '100%',
+        cursorHeight: undefined,
+        cursorTop: 0,
         cursorBottom: 0,
+        cursorShadow: false,
       },
       underlined: {
         listBackgroundColor: 'transparent',
         listBorderColor: `${palette.main}45`,
         listBorderWidth: 0,
+        listPaddingHorizontal: 0,
         cursorColor: cursorSolidColor,
         textColor: `${palette.main}B0`,
         selectedTextColor: palette.main,
-        cursorInset: 0,
         cursorHeight: 2,
+        cursorTop: undefined,
         cursorBottom: 0,
+        cursorShadow: false,
       },
     }
 

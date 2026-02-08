@@ -85,7 +85,7 @@ describe('useTabsVariantStyles', () => {
       useTabsVariantStyles('secondary', 'bordered')
     )
 
-    expect(result.current.listBorderColor).toBe('#9c27b0')
+    expect(result.current.listBorderColor).toBe('#9c27b030')
     expect(result.current.cursorColor).toBe('#9c27b0')
     expect(result.current.textColor).toBe('#9c27b0')
   })
