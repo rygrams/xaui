@@ -6,10 +6,6 @@ import { useColorScheme } from '@/hooks/use-color-scheme'
 import { defaultDarkTheme, defaultTheme } from '@xaui/core/theme'
 import { XUIProvider } from '@xaui/native/core'
 
-export const unstable_settings = {
-  anchor: '(tabs)',
-}
-
 export default function RootLayout() {
   const colorScheme = useColorScheme()
 
