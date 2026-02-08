@@ -198,7 +198,8 @@ export const Tabs: React.FC<TabsProps> = ({
         style={[
           styles.list,
           {
-            borderRadius: radiusStyles.borderRadius,
+            borderRadius:
+              variant === 'underlined' ? 0 : radiusStyles.borderRadius,
             backgroundColor: variantStyles.listBackgroundColor,
             borderColor: variantStyles.listBorderColor,
             borderWidth: variantStyles.listBorderWidth,

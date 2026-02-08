@@ -120,7 +120,7 @@ export function useTabsVariantStyles(
         selectedTextColor: palette.main,
         cursorHeight: 2,
         cursorTop: undefined,
-        cursorBottom: 0,
+        cursorBottom: -2,
         cursorShadow: false,
       },
     }
