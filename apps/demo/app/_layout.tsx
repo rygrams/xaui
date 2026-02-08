@@ -45,10 +45,7 @@ export default function RootLayout() {
             name="date-input"
             options={{ title: 'Date/Time Input Examples' }}
           />
-          <Stack.Screen
-            name="otp-input"
-            options={{ title: 'OTP Input Examples' }}
-          />
+          <Stack.Screen name="otp-input" options={{ title: 'OTP Input Examples' }} />
           <Stack.Screen
             name="number-input"
             options={{ title: 'Number Input Examples' }}
