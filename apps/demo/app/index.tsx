@@ -344,6 +344,16 @@ export default function HomeScreen() {
         <GridItem>
           <Button
             size="sm"
+            onPress={() => router.push('/snackbar')}
+            variant="outlined"
+            themeColor="primary"
+          >
+            Snackbar
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
             onPress={() => router.push('/switch')}
             variant="outlined"
             themeColor="secondary"

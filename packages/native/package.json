@@ -221,6 +221,11 @@
       "types": "./dist/chart/index.d.ts",
       "import": "./dist/chart/index.js",
       "require": "./dist/chart/index.js"
+    },
+    "./snackbar": {
+      "types": "./dist/snackbar/index.d.ts",
+      "import": "./dist/snackbar/index.js",
+      "require": "./dist/snackbar/index.js"
     }
   },
   "files": [
