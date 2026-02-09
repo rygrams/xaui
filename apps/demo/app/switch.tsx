@@ -16,7 +16,9 @@ export default function SwitchScreen() {
       contentContainerStyle={[styles.content, { gap: theme.spacing.lg }]}
     >
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Controlled</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Controlled
+        </Text>
         <View style={{ gap: theme.spacing.md }}>
           <Switch
             label={isWifiEnabled ? 'Wi-Fi Enabled' : 'Wi-Fi Disabled'}
@@ -45,7 +47,9 @@ export default function SwitchScreen() {
       </View>
 
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Variants</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Variants
+        </Text>
         <View style={{ gap: theme.spacing.md }}>
           <Switch label="Inside" variant="inside" />
           <Switch label="Overlap" variant="overlap" />
@@ -53,7 +57,9 @@ export default function SwitchScreen() {
       </View>
 
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Sizes</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Sizes
+        </Text>
         <View style={{ gap: theme.spacing.md }}>
           <Switch label="Small" size="sm" />
           <Switch label="Medium" size="md" />
@@ -62,7 +68,9 @@ export default function SwitchScreen() {
       </View>
 
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Theme Colors</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Theme Colors
+        </Text>
         <View style={{ gap: theme.spacing.md }}>
           <Switch label="Primary" themeColor="primary" />
           <Switch label="Secondary" themeColor="secondary" />
@@ -73,7 +81,9 @@ export default function SwitchScreen() {
       </View>
 
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Label & States</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Label & States
+        </Text>
         <View style={{ gap: theme.spacing.md }}>
           <Switch
             label="Justify Right"

@@ -23,7 +23,10 @@ export default function RootLayout() {
               name="modal"
               options={{ presentation: 'modal', title: 'Modal' }}
             />
-            <Stack.Screen name="accordion" options={{ title: 'Accordion Examples' }} />
+            <Stack.Screen
+              name="accordion"
+              options={{ title: 'Accordion Examples' }}
+            />
             <Stack.Screen name="alerts" options={{ title: 'Alert Examples' }} />
             <Stack.Screen name="avatars" options={{ title: 'Avatar Examples' }} />
             <Stack.Screen name="badges" options={{ title: 'Badge Examples' }} />
@@ -49,13 +52,19 @@ export default function RootLayout() {
               name="feature-discovery"
               options={{ title: 'FeatureDiscovery Examples' }}
             />
-            <Stack.Screen name="indicator" options={{ title: 'Indicator Examples' }} />
+            <Stack.Screen
+              name="indicator"
+              options={{ title: 'Indicator Examples' }}
+            />
             <Stack.Screen name="input" options={{ title: 'Input Examples' }} />
             <Stack.Screen
               name="date-input"
               options={{ title: 'Date/Time Input Examples' }}
             />
-            <Stack.Screen name="otp-input" options={{ title: 'OTP Input Examples' }} />
+            <Stack.Screen
+              name="otp-input"
+              options={{ title: 'OTP Input Examples' }}
+            />
             <Stack.Screen
               name="number-input"
               options={{ title: 'Number Input Examples' }}
@@ -72,6 +81,8 @@ export default function RootLayout() {
             <Stack.Screen name="switch" options={{ title: 'Switch Examples' }} />
             <Stack.Screen name="textarea" options={{ title: 'TextArea Examples' }} />
             <Stack.Screen name="toolbar" options={{ title: 'Toolbar Examples' }} />
+            <Stack.Screen name="switch" options={{ title: 'Switch Examples' }} />
+            <Stack.Screen name="tabs" options={{ title: 'Tabs Examples' }} />
           </Stack>
         </XUIProvider>
       </GestureHandlerRootView>

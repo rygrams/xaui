@@ -8,10 +8,7 @@ import {
 } from 'react-native'
 import type { OTPInputProps } from './otp-input.type'
 import { useOTPInputState, useOTPSegmentSizeStyles } from './otp-input.hook'
-import {
-  useTextInputRadiusStyles,
-  useTextInputVariantStyles,
-} from './input.hook'
+import { useTextInputRadiusStyles, useTextInputVariantStyles } from './input.hook'
 import { otpStyles } from './otp-input.style'
 
 const OTPSegment = ({
@@ -208,9 +205,7 @@ export const OTPInput = ({
         </Text>
       )}
 
-      <View
-        style={[otpStyles.segmentContainer, customAppearance?.segmentContainer]}
-      >
+      <View style={[otpStyles.segmentContainer, customAppearance?.segmentContainer]}>
         {segments.map((char, index) => (
           <OTPSegment
             key={index}

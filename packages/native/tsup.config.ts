@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import { exec } from 'node:child_process'
 import { promisify } from 'node:util'
 import { defineConfig } from 'tsup'
@@ -39,6 +40,8 @@ const entries = {
   'timepicker/index': 'src/components/timepicker/index.ts',
   'stepper/index': 'src/components/stepper/index.ts',
   'menubox/index': 'src/components/menubox/index.ts',
+  'slider/index': 'src/components/slider/index.ts',
+  'tabs/index': 'src/components/tabs/index.ts',
 } as const
 
 export default defineConfig(options => {

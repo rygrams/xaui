@@ -12,7 +12,9 @@ export default function IndicatorScreen() {
       contentContainerStyle={[styles.content, { gap: theme.spacing.lg }]}
     >
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Circular Cases</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Circular Cases
+        </Text>
         <View style={styles.row}>
           <View style={styles.itemCenter}>
             <ActivityIndicator variant="circular" size={24} />
@@ -27,26 +29,60 @@ export default function IndicatorScreen() {
             <Text style={[styles.label, { color: colors.foreground }]}>Large</Text>
           </View>
           <View style={styles.itemCenter}>
-            <ActivityIndicator variant="circular" size={56} themeColor="warning" disableAnimation />
-            <Text style={[styles.label, { color: colors.foreground }]}>No Animation</Text>
+            <ActivityIndicator
+              variant="circular"
+              size={56}
+              themeColor="warning"
+              disableAnimation
+            />
+            <Text style={[styles.label, { color: colors.foreground }]}>
+              No Animation
+            </Text>
           </View>
         </View>
       </View>
 
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Linear Cases</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Linear Cases
+        </Text>
         <View style={{ gap: theme.spacing.md }}>
           <ActivityIndicator variant="linear" size={4} themeColor="primary" />
-          <ActivityIndicator variant="linear" size={8} themeColor="secondary" showTrack />
-          <ActivityIndicator variant="linear" size={10} themeColor="success" borderRadius={999} showTrack />
-          <ActivityIndicator variant="linear" size={10} themeColor="danger" disableAnimation showTrack />
+          <ActivityIndicator
+            variant="linear"
+            size={8}
+            themeColor="secondary"
+            showTrack
+          />
+          <ActivityIndicator
+            variant="linear"
+            size={10}
+            themeColor="success"
+            borderRadius={999}
+            showTrack
+          />
+          <ActivityIndicator
+            variant="linear"
+            size={10}
+            themeColor="danger"
+            disableAnimation
+            showTrack
+          />
         </View>
       </View>
 
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Custom Colors</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Custom Colors
+        </Text>
         <View style={{ gap: theme.spacing.md }}>
-          <ActivityIndicator variant="linear" size={8} color="#0ea5e9" backgroundColor="#bae6fd" showTrack />
+          <ActivityIndicator
+            variant="linear"
+            size={8}
+            color="#0ea5e9"
+            backgroundColor="#bae6fd"
+            showTrack
+          />
           <ActivityIndicator
             variant="circular"
             size={52}

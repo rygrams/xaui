@@ -53,9 +53,7 @@ export const DateInput = forwardRef<
     return (
       <TextInput
         ref={ref}
-        placeholder={
-          placeholder ?? getDatePlaceholder(resolvedOrder, separator)
-        }
+        placeholder={placeholder ?? getDatePlaceholder(resolvedOrder, separator)}
         keyboardType="number-pad"
         autoCapitalize="none"
         autoCorrect={false}
@@ -95,9 +93,7 @@ export const TimeInput = forwardRef<
     return (
       <TextInput
         ref={ref}
-        placeholder={
-          placeholder ?? getTimePlaceholder(granularity, hourCycle)
-        }
+        placeholder={placeholder ?? getTimePlaceholder(granularity, hourCycle)}
         keyboardType="number-pad"
         autoCapitalize="none"
         autoCorrect={false}
@@ -159,8 +155,7 @@ export const DateTimeInput = forwardRef<
         autoCapitalize="none"
         autoCorrect={false}
         maxLength={
-          maxLength ??
-          getDateTimeMaxLength(separator, granularity, hourCycle)
+          maxLength ?? getDateTimeMaxLength(separator, granularity, hourCycle)
         }
         onChangeText={handleChangeText}
         {...props}

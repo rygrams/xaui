@@ -338,6 +338,26 @@ export default function HomeScreen() {
             MenuBox
           </Button>
         </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/slider')}
+            variant="outlined"
+            themeColor="secondary"
+          >
+            Slider
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/tabs')}
+            variant="outlined"
+            themeColor="primary"
+          >
+            Tabs
+          </Button>
+        </GridItem>
       </Grid>
     </ScrollView>
   )

@@ -56,8 +56,7 @@ export const formatDateInput = (
   separator: DateSeparator
 ): string => {
   const digits = text.replace(/\D/g, '').slice(0, 8)
-  const segments =
-    dateOrder === 'YMD' ? [4, 2, 2] : [2, 2, 4]
+  const segments = dateOrder === 'YMD' ? [4, 2, 2] : [2, 2, 4]
 
   return insertAtPositions(digits, segments, separator)
 }
@@ -71,8 +70,7 @@ export const formatTimeInput = (
   const digits = cleaned.replace(/\D/g, '')
   const maxDigits = granularity === 'second' ? 6 : 4
   const trimmed = digits.slice(0, maxDigits)
-  const segments =
-    granularity === 'second' ? [2, 2, 2] : [2, 2]
+  const segments = granularity === 'second' ? [2, 2, 2] : [2, 2]
   let result = insertAtPositions(trimmed, segments, ':')
 
   if (hourCycle === 12 && trimmed.length >= 4) {
@@ -105,16 +103,13 @@ export const formatDateTimeInput = (
   let result = formatDateInput(datePart, dateOrder, separator)
 
   if (timePart) {
-    const timeSegments =
-      granularity === 'second' ? [2, 2, 2] : [2, 2]
+    const timeSegments = granularity === 'second' ? [2, 2, 2] : [2, 2]
     result += ' ' + insertAtPositions(timePart, timeSegments, ':')
 
     if (hourCycle === 12 && timePart.length >= 4) {
       const ampmMatch = text.match(/[aApP][mM]?/i)
       if (ampmMatch) {
-        const period = ampmMatch[0].toUpperCase().startsWith('P')
-          ? 'PM'
-          : 'AM'
+        const period = ampmMatch[0].toUpperCase().startsWith('P') ? 'PM' : 'AM'
         result += ' ' + period
       }
     }

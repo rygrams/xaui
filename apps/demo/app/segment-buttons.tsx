@@ -80,9 +80,7 @@ export default function SegmentButtonsScreen() {
             <SegmentButtonItem itemKey="year" label="Year" />
           </SegmentButton>
 
-          <Text style={[localStyles.label, { color: colors.foreground }]}>
-            Flat
-          </Text>
+          <Text style={[localStyles.label, { color: colors.foreground }]}>Flat</Text>
           <SegmentButton defaultSelected="day" variant="flat" fullWidth>
             <SegmentButtonItem itemKey="day" label="Day" />
             <SegmentButtonItem itemKey="week" label="Week" />
@@ -179,47 +177,27 @@ export default function SegmentButtonsScreen() {
           Theme Colors
         </Text>
         <View style={{ gap: theme.spacing.md }}>
-          <SegmentButton
-            defaultSelected="standard"
-            themeColor="primary"
-            fullWidth
-          >
+          <SegmentButton defaultSelected="standard" themeColor="primary" fullWidth>
             <SegmentButtonItem itemKey="standard" label="Standard" />
             <SegmentButtonItem itemKey="express" label="Express" />
             <SegmentButtonItem itemKey="pickup" label="Pickup" />
           </SegmentButton>
-          <SegmentButton
-            defaultSelected="standard"
-            themeColor="secondary"
-            fullWidth
-          >
+          <SegmentButton defaultSelected="standard" themeColor="secondary" fullWidth>
             <SegmentButtonItem itemKey="standard" label="Standard" />
             <SegmentButtonItem itemKey="express" label="Express" />
             <SegmentButtonItem itemKey="pickup" label="Pickup" />
           </SegmentButton>
-          <SegmentButton
-            defaultSelected="standard"
-            themeColor="success"
-            fullWidth
-          >
+          <SegmentButton defaultSelected="standard" themeColor="success" fullWidth>
             <SegmentButtonItem itemKey="standard" label="Standard" />
             <SegmentButtonItem itemKey="express" label="Express" />
             <SegmentButtonItem itemKey="pickup" label="Pickup" />
           </SegmentButton>
-          <SegmentButton
-            defaultSelected="standard"
-            themeColor="danger"
-            fullWidth
-          >
+          <SegmentButton defaultSelected="standard" themeColor="danger" fullWidth>
             <SegmentButtonItem itemKey="standard" label="Standard" />
             <SegmentButtonItem itemKey="express" label="Express" />
             <SegmentButtonItem itemKey="pickup" label="Pickup" />
           </SegmentButton>
-          <SegmentButton
-            defaultSelected="standard"
-            themeColor="warning"
-            fullWidth
-          >
+          <SegmentButton defaultSelected="standard" themeColor="warning" fullWidth>
             <SegmentButtonItem itemKey="standard" label="Standard" />
             <SegmentButtonItem itemKey="express" label="Express" />
             <SegmentButtonItem itemKey="pickup" label="Pickup" />
@@ -244,11 +222,7 @@ export default function SegmentButtonsScreen() {
           <Text style={[localStyles.label, { color: colors.foreground }]}>
             No Checkmark
           </Text>
-          <SegmentButton
-            defaultSelected="standard"
-            showCheckmark={false}
-            fullWidth
-          >
+          <SegmentButton defaultSelected="standard" showCheckmark={false} fullWidth>
             <SegmentButtonItem itemKey="standard" label="Standard" />
             <SegmentButtonItem itemKey="express" label="Express" />
             <SegmentButtonItem itemKey="pickup" label="Pickup" />
