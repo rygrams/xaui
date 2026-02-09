@@ -1,11 +1,11 @@
 import type { ReactNode } from 'react'
 import type { ViewStyle, TextStyle } from 'react-native'
 
-export type AccordionItemEvents = {
+export type ExpansionPanelItemEvents = {
   onSelected?: (isSelected: boolean) => void
 }
 
-export type AccordionItemCustomAppearance = {
+export type ExpansionPanelItemCustomAppearance = {
   /**
    * Custom styles for the base container
    */
@@ -47,19 +47,19 @@ export type AccordionItemCustomAppearance = {
   indicator?: ViewStyle
 }
 
-export type AccordionItemProps = {
+export type ExpansionPanelItemProps = {
   /**
-   * Unique key for the accordion item
+   * Unique key for the expansion-panel item
    */
   itemKey?: string
 
   /**
-   * Content to display when accordion item is expanded
+   * Content to display when expansion-panel item is expanded
    */
   children: ReactNode
 
   /**
-   * Title displayed in the accordion header
+   * Title displayed in the expansion-panel header
    */
   title: ReactNode
 
@@ -80,7 +80,7 @@ export type AccordionItemProps = {
   indicator?: ReactNode
 
   /**
-   * Custom appearance styles for all accordion item parts
+   * Custom appearance styles for all expansion-panel item parts
    */
-  customAppearance?: AccordionItemCustomAppearance
-} & AccordionItemEvents
+  customAppearance?: ExpansionPanelItemCustomAppearance
+} & ExpansionPanelItemEvents

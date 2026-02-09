@@ -1,17 +1,17 @@
 import React from 'react'
 import { View } from 'react-native'
-import { AccordionContext } from './accordion-context'
-import { useAccordionStyles, useAccordionContextValue } from './accordion.hook'
+import { ExpansionPanelContext } from './expansion-panel-context'
+import { useExpansionPanelStyles, useExpansionPanelContextValue } from './expansion-panel.hook'
 import {
-  buildAccordionContextParams,
+  buildExpansionPanelContextParams,
   getItemKey,
-  isAccordionItem,
+  isExpansionPanelItem,
   normalizeElementKey,
-} from './accordion.utils'
-import type { AccordionProps } from './accordion.type'
+} from './expansion-panel.utils'
+import type { ExpansionPanelProps } from './expansion-panel.type'
 import { Divider } from '../divider'
 
-export const Accordion: React.FC<AccordionProps> = (props: AccordionProps) => {
+export const ExpansionPanel: React.FC<ExpansionPanelProps> = (props: ExpansionPanelProps) => {
   const {
     children,
     variant = 'light',
@@ -20,18 +20,18 @@ export const Accordion: React.FC<AccordionProps> = (props: AccordionProps) => {
     customAppearance,
   } = props
 
-  const { containerStyles, dividerColor } = useAccordionStyles({
+  const { containerStyles, dividerColor } = useExpansionPanelStyles({
     variant,
     fullWidth,
   })
 
-  const contextParams = buildAccordionContextParams(props)
-  const contextValue = useAccordionContextValue(contextParams)
+  const contextParams = buildExpansionPanelContextParams(props)
+  const contextValue = useExpansionPanelContextValue(contextParams)
 
   const childrenArray = React.Children.toArray(children)
 
   return (
-    <AccordionContext.Provider value={contextValue}>
+    <ExpansionPanelContext.Provider value={contextValue}>
       <View style={[containerStyles, customAppearance?.container]}>
         {childrenArray.map((child, index) => {
           const isLast = index === childrenArray.length - 1
@@ -40,7 +40,7 @@ export const Accordion: React.FC<AccordionProps> = (props: AccordionProps) => {
             !isLast &&
             variant !== 'splitted'
 
-          const resolvedChildKey = isAccordionItem(child)
+          const resolvedChildKey = isExpansionPanelItem(child)
             ? getItemKey(
                 child.props.itemKey ?? normalizeElementKey(child.key),
                 index
@@ -54,7 +54,7 @@ export const Accordion: React.FC<AccordionProps> = (props: AccordionProps) => {
 
           return (
             <View key={resolvedChildKey} style={customAppearance?.item}>
-              {isAccordionItem(child)
+              {isExpansionPanelItem(child)
                 ? React.cloneElement(child, { itemKey: resolvedChildKey })
                 : child}
               {showBottomDivider && <Divider color={dividerColor} size={2} />}
@@ -62,6 +62,6 @@ export const Accordion: React.FC<AccordionProps> = (props: AccordionProps) => {
           )
         })}
       </View>
-    </AccordionContext.Provider>
+    </ExpansionPanelContext.Provider>
   )
 }

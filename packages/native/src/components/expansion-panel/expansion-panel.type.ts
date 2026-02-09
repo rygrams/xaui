@@ -1,14 +1,14 @@
 import type { ReactNode } from 'react'
 import type { ViewStyle } from 'react-native'
 
-export type AccordionVariant = 'light' | 'bordered' | 'splitted'
-export type AccordionSelectionMode = 'toggle' | 'multiple'
+export type ExpansionPanelVariant = 'light' | 'bordered' | 'splitted'
+export type ExpansionPanelSelectionMode = 'toggle' | 'multiple'
 
-export type AccordionEvents = {
+export type ExpansionPanelEvents = {
   onSelectionChange?: (selectedKeys: string[]) => void
 }
 
-type AccordionCustomAppearance = {
+type ExpansionPanelCustomAppearance = {
   /**
    * Custom styles for the container
    */
@@ -20,28 +20,28 @@ type AccordionCustomAppearance = {
   item?: ViewStyle
 }
 
-export type AccordionProps = {
+export type ExpansionPanelProps = {
   /**
-   * List of AccordionItem components
+   * List of ExpansionPanelItem components
    */
   children: ReactNode
 
   /**
-   * Visual variant of the accordion
+   * Visual variant of the expansion-panel
    * @default 'light'
    */
-  variant?: AccordionVariant
+  variant?: ExpansionPanelVariant
 
   /**
    * Selection behavior mode
-   * - toggle: Only one accordion item can be expanded at a time
-   * - multiple: Multiple accordion items can be expanded simultaneously
+   * - toggle: Only one expansion-panel item can be expanded at a time
+   * - multiple: Multiple expansion-panel items can be expanded simultaneously
    * @default 'toggle'
    */
-  selectionMode?: AccordionSelectionMode
+  selectionMode?: ExpansionPanelSelectionMode
 
   /**
-   * Show dividers between accordion items
+   * Show dividers between expansion-panel items
    * @default false
    */
   showDivider?: boolean
@@ -53,7 +53,7 @@ export type AccordionProps = {
   hideIndicator?: boolean
 
   /**
-   * Whether the accordion should take full width
+   * Whether the expansion-panel should take full width
    * @default true
    */
   fullWidth?: boolean
@@ -70,7 +70,7 @@ export type AccordionProps = {
   defaultExpandedKeys?: string[]
 
   /**
-   * Keys of disabled accordion items
+   * Keys of disabled expansion-panel items
    */
   disabledKeys?: string[]
 
@@ -81,13 +81,13 @@ export type AccordionProps = {
   disableAnimation?: boolean
 
   /**
-   * Make the accordion items more compact
+   * Make the expansion-panel items more compact
    * @default false
    */
   isCompact?: boolean
 
   /**
-   * Custom appearance styles for all accordion parts
+   * Custom appearance styles for all expansion-panel parts
    */
-  customAppearance?: AccordionCustomAppearance
-} & AccordionEvents
+  customAppearance?: ExpansionPanelCustomAppearance
+} & ExpansionPanelEvents

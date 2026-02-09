@@ -37,10 +37,10 @@
       "import": "./dist/checkbox/index.js",
       "require": "./dist/checkbox/index.js"
     },
-    "./accordion": {
-      "types": "./dist/accordion/index.d.ts",
-      "import": "./dist/accordion/index.js",
-      "require": "./dist/accordion/index.js"
+    "./expansion-panel": {
+      "types": "./dist/expansion-panel/index.d.ts",
+      "import": "./dist/expansion-panel/index.js",
+      "require": "./dist/expansion-panel/index.js"
     },
     "./progress": {
       "types": "./dist/progress/index.d.ts",
@@ -71,6 +71,11 @@
       "types": "./dist/divider/index.d.ts",
       "import": "./dist/divider/index.js",
       "require": "./dist/divider/index.js"
+    },
+    "./drawer": {
+      "types": "./dist/drawer/index.d.ts",
+      "import": "./dist/drawer/index.js",
+      "require": "./dist/drawer/index.js"
     },
     "./skeleton": {
       "types": "./dist/skeleton/index.d.ts",
@@ -126,6 +131,11 @@
       "types": "./dist/tabs/index.d.ts",
       "import": "./dist/tabs/index.js",
       "require": "./dist/tabs/index.js"
+    },
+    "./pager": {
+      "types": "./dist/pager/index.d.ts",
+      "import": "./dist/pager/index.js",
+      "require": "./dist/pager/index.js"
     },
     "./chip": {
       "types": "./dist/chip/index.d.ts",
@@ -187,6 +197,11 @@
       "import": "./dist/toolbar/index.js",
       "require": "./dist/toolbar/index.js"
     },
+    "./app-bar": {
+      "types": "./dist/app-bar/index.d.ts",
+      "import": "./dist/app-bar/index.js",
+      "require": "./dist/app-bar/index.js"
+    },
     "./timepicker": {
       "types": "./dist/timepicker/index.d.ts",
       "import": "./dist/timepicker/index.js",
@@ -201,6 +216,11 @@
       "types": "./dist/menubox/index.d.ts",
       "import": "./dist/menubox/index.js",
       "require": "./dist/menubox/index.js"
+    },
+    "./chart": {
+      "types": "./dist/chart/index.d.ts",
+      "import": "./dist/chart/index.js",
+      "require": "./dist/chart/index.js"
     }
   },
   "files": [

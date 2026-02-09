@@ -1,8 +1,8 @@
 import { useXUIColors, useXUITheme } from '@xaui/native/core'
 import { StyleSheet, View, ScrollView, Text } from 'react-native'
-import { Accordion, AccordionItem } from '@xaui/native/accordion'
+import { ExpansionPanel, ExpansionPanelItem } from '@xaui/native/expansion-panel'
 
-export default function AccordionScreen() {
+export default function ExpansionPanelScreen() {
   const colors = useXUIColors()
   const theme = useXUITheme()
 
@@ -15,66 +15,66 @@ export default function AccordionScreen() {
         <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
           Toggle Mode
         </Text>
-        <Accordion variant="light" defaultExpandedKeys={['intro']}>
-          <AccordionItem itemKey="intro" title="What is XAUI?">
+        <ExpansionPanel variant="light" defaultExpandedKeys={['intro']}>
+          <ExpansionPanelItem itemKey="intro" title="What is XAUI?">
             <Text style={{ color: colors.foreground }}>
               XAUI is a cross-platform UI kit for React Native and hybrid apps.
             </Text>
-          </AccordionItem>
-          <AccordionItem itemKey="theme" title="Theming">
+          </ExpansionPanelItem>
+          <ExpansionPanelItem itemKey="theme" title="Theming">
             <Text style={{ color: colors.foreground }}>
               Components use the provider theme and support custom appearance
               overrides.
             </Text>
-          </AccordionItem>
-          <AccordionItem itemKey="perf" title="Performance">
+          </ExpansionPanelItem>
+          <ExpansionPanelItem itemKey="perf" title="Performance">
             <Text style={{ color: colors.foreground }}>
               Animations can be disabled and most components are optimized for common
               mobile usage.
             </Text>
-          </AccordionItem>
-        </Accordion>
+          </ExpansionPanelItem>
+        </ExpansionPanel>
       </View>
 
       <View style={styles.section}>
         <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
           Multiple Mode
         </Text>
-        <Accordion
+        <ExpansionPanel
           variant="bordered"
           selectionMode="multiple"
           showDivider
           defaultExpandedKeys={['a', 'c']}
         >
-          <AccordionItem itemKey="a" title="Account">
+          <ExpansionPanelItem itemKey="a" title="Account">
             <Text style={{ color: colors.foreground }}>
               Manage profile, security, and connected devices.
             </Text>
-          </AccordionItem>
-          <AccordionItem itemKey="b" title="Notifications">
+          </ExpansionPanelItem>
+          <ExpansionPanelItem itemKey="b" title="Notifications">
             <Text style={{ color: colors.foreground }}>
               Configure push, email, and in-app notification preferences.
             </Text>
-          </AccordionItem>
-          <AccordionItem itemKey="c" title="Privacy">
+          </ExpansionPanelItem>
+          <ExpansionPanelItem itemKey="c" title="Privacy">
             <Text style={{ color: colors.foreground }}>
               Control visibility and data-sharing options.
             </Text>
-          </AccordionItem>
-        </Accordion>
+          </ExpansionPanelItem>
+        </ExpansionPanel>
       </View>
 
       <View style={styles.section}>
         <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
           Compact + Disabled
         </Text>
-        <Accordion
+        <ExpansionPanel
           variant="splitted"
           isCompact
           disabledKeys={['disabled']}
           defaultExpandedKeys={['enabled']}
         >
-          <AccordionItem
+          <ExpansionPanelItem
             itemKey="enabled"
             title="Enabled Item"
             subtitle="Tap to expand/collapse"
@@ -82,8 +82,8 @@ export default function AccordionScreen() {
             <Text style={{ color: colors.foreground }}>
               Compact mode reduces spacing while keeping content readable.
             </Text>
-          </AccordionItem>
-          <AccordionItem
+          </ExpansionPanelItem>
+          <ExpansionPanelItem
             itemKey="disabled"
             title="Disabled Item"
             subtitle="Interaction blocked"
@@ -91,8 +91,8 @@ export default function AccordionScreen() {
             <Text style={{ color: colors.foreground }}>
               This content should not open because the item is disabled.
             </Text>
-          </AccordionItem>
-        </Accordion>
+          </ExpansionPanelItem>
+        </ExpansionPanel>
       </View>
     </ScrollView>
   )

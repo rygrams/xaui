@@ -9,10 +9,10 @@ import {
 import { useXUITheme } from '../../core'
 import { colors as palette } from '@xaui/core/palette'
 import { withOpacity } from '@xaui/core'
-import { useAccordionContext } from './accordion-context'
+import { useExpansionPanelContext } from './expansion-panel-context'
 
-export const useAccordionItemState = (itemKey?: string) => {
-  const context = useAccordionContext()
+export const useExpansionPanelItemState = (itemKey?: string) => {
+  const context = useExpansionPanelContext()
   const resolvedItemKey = itemKey ?? ''
   const isExpanded = resolvedItemKey
     ? context.expandedKeys.includes(resolvedItemKey)
@@ -29,7 +29,7 @@ export const useAccordionItemState = (itemKey?: string) => {
   return { ...context, resolvedItemKey, isExpanded, isDisabled, handlePress }
 }
 
-export const useAccordionItemAnimation = (
+export const useExpansionPanelItemAnimation = (
   isExpanded: boolean,
   disableAnimation: boolean
 ) => {
