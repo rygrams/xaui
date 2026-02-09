@@ -1,0 +1,188 @@
+import { StyleSheet } from 'react-native'
+
+export const styles = StyleSheet.create({
+  container: {
+    padding: 24,
+    alignItems: 'center',
+  },
+  header: {
+    alignSelf: 'stretch',
+    marginBottom: 24,
+  },
+  headerTitle: {
+    fontSize: 14,
+    fontWeight: '400',
+    marginBottom: 16,
+  },
+  timeDisplay: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+  },
+  timeDisplayWithPeriod: {
+    justifyContent: 'space-between',
+  },
+  timeSection: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+  },
+  timeDigit: {
+    fontSize: 57,
+    fontWeight: '400',
+    lineHeight: 64,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 8,
+    minWidth: 96,
+    textAlign: 'center',
+  },
+  timeSeparator: {
+    fontSize: 57,
+    fontWeight: '400',
+    lineHeight: 64,
+  },
+  periodSelector: {
+    gap: 4,
+  },
+  periodButton: {
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: 8,
+    borderWidth: 1,
+    minWidth: 52,
+    alignItems: 'center',
+  },
+  periodText: {
+    fontSize: 16,
+    fontWeight: '500',
+  },
+  clockContainer: {
+    width: 256,
+    height: 256,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 24,
+  },
+  clockFace: {
+    width: 256,
+    height: 256,
+    borderRadius: 128,
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'relative',
+  },
+  clockCenter: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+    position: 'absolute',
+  },
+  clockHand: {
+    position: 'absolute',
+    width: 2,
+    backgroundColor: 'transparent',
+    transformOrigin: 'top center',
+  },
+  clockHandLine: {
+    width: 2,
+    backgroundColor: 'transparent',
+  },
+  clockHandDot: {
+    width: 16,
+    height: 16,
+    borderRadius: 8,
+    position: 'absolute',
+    top: -8,
+    left: -7,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  clockNumber: {
+    position: 'absolute',
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  clockNumberText: {
+    fontSize: 16,
+    fontWeight: '400',
+  },
+  actions: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    gap: 8,
+    alignSelf: 'stretch',
+  },
+  actionButton: {
+    paddingVertical: 10,
+    paddingHorizontal: 24,
+    borderRadius: 20,
+  },
+  actionButtonText: {
+    fontSize: 14,
+    fontWeight: '500',
+  },
+  keyboardButton: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  inputContainer: {
+    width: 256,
+    height: 256,
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 16,
+  },
+  inputRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  input: {
+    width: 96,
+    height: 80,
+    borderRadius: 8,
+    borderWidth: 1,
+    fontSize: 57,
+    fontWeight: '400',
+    textAlign: 'center',
+    padding: 8,
+  },
+  inputSeparator: {
+    fontSize: 36,
+    fontWeight: '400',
+  },
+  trigger: {
+    minHeight: 52,
+    borderWidth: 1,
+    borderRadius: 12,
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 12,
+  },
+  triggerContent: {
+    flex: 1,
+    minWidth: 0,
+  },
+  triggerText: {
+    fontSize: 16,
+    fontWeight: '500',
+  },
+  clearButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  disabled: {
+    opacity: 0.5,
+  },
+})

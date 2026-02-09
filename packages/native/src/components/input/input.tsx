@@ -15,7 +15,10 @@ import {
 } from './input.hook'
 import { styles } from './input.style'
 
-export const TextInput = forwardRef<React.ElementRef<typeof RNTextInput>, TextInputProps>(
+export const TextInput = forwardRef<
+  React.ElementRef<typeof RNTextInput>,
+  TextInputProps
+>(
   (
     {
       value,
@@ -144,7 +147,10 @@ export const TextInput = forwardRef<React.ElementRef<typeof RNTextInput>, TextIn
             </Text>
           )}
 
-          <Pressable onPress={handleWrapperPress} disabled={isDisabled || isReadOnly}>
+          <Pressable
+            onPress={handleWrapperPress}
+            disabled={isDisabled || isReadOnly}
+          >
             <Animated.View
               style={[
                 styles.inputWrapper,
@@ -155,7 +161,9 @@ export const TextInput = forwardRef<React.ElementRef<typeof RNTextInput>, TextIn
                   gap: sizeStyles.slotGap,
                   backgroundColor: variantStyles.container.backgroundColor,
                   borderWidth:
-                    variant === 'underlined' ? 0 : variantStyles.container.borderWidth,
+                    variant === 'underlined'
+                      ? 0
+                      : variantStyles.container.borderWidth,
                   ...(variant === 'underlined' && {
                     borderBottomWidth: variantStyles.container.borderBottomWidth,
                   }),
@@ -187,7 +195,12 @@ export const TextInput = forwardRef<React.ElementRef<typeof RNTextInput>, TextIn
             >
               {startContent && <View style={styles.slot}>{startContent}</View>}
 
-              <View style={{ flex: 1, gap: labelPlacement === 'inside' && label ? 2 : 0 }}>
+              <View
+                style={{
+                  flex: 1,
+                  gap: labelPlacement === 'inside' && label ? 2 : 0,
+                }}
+              >
                 {label && labelPlacement === 'inside' && (
                   <Text
                     style={[

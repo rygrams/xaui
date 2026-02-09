@@ -1,4 +1,5 @@
 export { TextInput } from './input'
+export { TextArea } from './textarea'
 export { DateInput, TimeInput, DateTimeInput } from './date-time-input'
 export { OTPInput } from './otp-input'
 export { NumberInput } from './number-input'
@@ -9,6 +10,7 @@ export type {
   TextInputLabelPlacement,
   TextInputCustomAppearance,
 } from './input.type'
+export type { TextAreaProps } from './textarea.type'
 export type {
   DateInputProps,
   TimeInputProps,

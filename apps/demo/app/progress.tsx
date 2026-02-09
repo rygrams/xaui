@@ -25,15 +25,21 @@ export default function ProgressScreen() {
       contentContainerStyle={[styles.content, { gap: theme.spacing.lg }]}
     >
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Animated Value</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Animated Value
+        </Text>
         <View style={{ gap: theme.spacing.md }}>
           <Progress value={value} />
-          <Text style={[styles.label, { color: colors.foreground }]}>Current: {Math.round(value * 100)}%</Text>
+          <Text style={[styles.label, { color: colors.foreground }]}>
+            Current: {Math.round(value * 100)}%
+          </Text>
         </View>
       </View>
 
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Linear Cases</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Linear Cases
+        </Text>
         <View style={{ gap: theme.spacing.md }}>
           <Progress value={0.25} size={4} themeColor="primary" />
           <Progress value={0.5} size={8} themeColor="secondary" />
@@ -44,14 +50,26 @@ export default function ProgressScreen() {
       </View>
 
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Circular Cases</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Circular Cases
+        </Text>
         <View style={styles.row}>
           <View style={styles.itemCenter}>
-            <Progress variant="circular" value={0.2} size={40} themeColor="primary" />
+            <Progress
+              variant="circular"
+              value={0.2}
+              size={40}
+              themeColor="primary"
+            />
             <Text style={[styles.label, { color: colors.foreground }]}>20%</Text>
           </View>
           <View style={styles.itemCenter}>
-            <Progress variant="circular" value={0.55} size={56} themeColor="secondary" />
+            <Progress
+              variant="circular"
+              value={0.55}
+              size={56}
+              themeColor="secondary"
+            />
             <Text style={[styles.label, { color: colors.foreground }]}>55%</Text>
           </View>
           <View style={styles.itemCenter}>
@@ -68,9 +86,17 @@ export default function ProgressScreen() {
       </View>
 
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Custom Colors</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Custom Colors
+        </Text>
         <View style={{ gap: theme.spacing.md }}>
-          <Progress value={0.66} color="#0ea5e9" backgroundColor="#bae6fd" size={10} borderRadius={12} />
+          <Progress
+            value={0.66}
+            color="#0ea5e9"
+            backgroundColor="#bae6fd"
+            size={10}
+            borderRadius={12}
+          />
           <Progress
             variant="circular"
             value={0.38}

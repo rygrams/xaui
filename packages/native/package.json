@@ -1,6 +1,6 @@
 {
   "name": "@xaui/native",
-  "version": "0.0.21",
+  "version": "0.0.22",
   "description": "Flutter-inspired React Native UI components with native animations powered by React Native Reanimated",
   "keywords": [
     "react-native",
@@ -37,10 +37,10 @@
       "import": "./dist/checkbox/index.js",
       "require": "./dist/checkbox/index.js"
     },
-    "./accordion": {
-      "types": "./dist/accordion/index.d.ts",
-      "import": "./dist/accordion/index.js",
-      "require": "./dist/accordion/index.js"
+    "./expansion-panel": {
+      "types": "./dist/expansion-panel/index.d.ts",
+      "import": "./dist/expansion-panel/index.js",
+      "require": "./dist/expansion-panel/index.js"
     },
     "./progress": {
       "types": "./dist/progress/index.d.ts",
@@ -57,6 +57,11 @@
       "import": "./dist/switch/index.js",
       "require": "./dist/switch/index.js"
     },
+    "./slider": {
+      "types": "./dist/slider/index.d.ts",
+      "import": "./dist/slider/index.js",
+      "require": "./dist/slider/index.js"
+    },
     "./select": {
       "types": "./dist/select/index.d.ts",
       "import": "./dist/select/index.js",
@@ -66,6 +71,11 @@
       "types": "./dist/divider/index.d.ts",
       "import": "./dist/divider/index.js",
       "require": "./dist/divider/index.js"
+    },
+    "./drawer": {
+      "types": "./dist/drawer/index.d.ts",
+      "import": "./dist/drawer/index.js",
+      "require": "./dist/drawer/index.js"
     },
     "./skeleton": {
       "types": "./dist/skeleton/index.d.ts",
@@ -117,6 +127,16 @@
       "import": "./dist/segment-button/index.js",
       "require": "./dist/segment-button/index.js"
     },
+    "./tabs": {
+      "types": "./dist/tabs/index.d.ts",
+      "import": "./dist/tabs/index.js",
+      "require": "./dist/tabs/index.js"
+    },
+    "./pager": {
+      "types": "./dist/pager/index.d.ts",
+      "import": "./dist/pager/index.js",
+      "require": "./dist/pager/index.js"
+    },
     "./chip": {
       "types": "./dist/chip/index.d.ts",
       "import": "./dist/chip/index.js",
@@ -126,6 +146,11 @@
       "types": "./dist/bottom-sheet/index.d.ts",
       "import": "./dist/bottom-sheet/index.js",
       "require": "./dist/bottom-sheet/index.js"
+    },
+    "./bottom-tab-bar": {
+      "types": "./dist/bottom-tab-bar/index.d.ts",
+      "import": "./dist/bottom-tab-bar/index.js",
+      "require": "./dist/bottom-tab-bar/index.js"
     },
     "./menu": {
       "types": "./dist/menu/index.d.ts",
@@ -142,6 +167,11 @@
       "import": "./dist/fab-menu/index.js",
       "require": "./dist/fab-menu/index.js"
     },
+    "./feature-discovery": {
+      "types": "./dist/feature-discovery/index.d.ts",
+      "import": "./dist/feature-discovery/index.js",
+      "require": "./dist/feature-discovery/index.js"
+    },
     "./card": {
       "types": "./dist/card/index.d.ts",
       "import": "./dist/card/index.js",
@@ -156,6 +186,41 @@
       "types": "./dist/list/index.d.ts",
       "import": "./dist/list/index.js",
       "require": "./dist/list/index.js"
+    },
+    "./radio": {
+      "types": "./dist/radio/index.d.ts",
+      "import": "./dist/radio/index.js",
+      "require": "./dist/radio/index.js"
+    },
+    "./toolbar": {
+      "types": "./dist/toolbar/index.d.ts",
+      "import": "./dist/toolbar/index.js",
+      "require": "./dist/toolbar/index.js"
+    },
+    "./app-bar": {
+      "types": "./dist/app-bar/index.d.ts",
+      "import": "./dist/app-bar/index.js",
+      "require": "./dist/app-bar/index.js"
+    },
+    "./timepicker": {
+      "types": "./dist/timepicker/index.d.ts",
+      "import": "./dist/timepicker/index.js",
+      "require": "./dist/timepicker/index.js"
+    },
+    "./stepper": {
+      "types": "./dist/stepper/index.d.ts",
+      "import": "./dist/stepper/index.js",
+      "require": "./dist/stepper/index.js"
+    },
+    "./menubox": {
+      "types": "./dist/menubox/index.d.ts",
+      "import": "./dist/menubox/index.js",
+      "require": "./dist/menubox/index.js"
+    },
+    "./chart": {
+      "types": "./dist/chart/index.d.ts",
+      "import": "./dist/chart/index.js",
+      "require": "./dist/chart/index.js"
     }
   },
   "files": [
@@ -168,7 +233,7 @@
     "directory": "packages/native"
   },
   "scripts": {
-    "build": "tsup --config tsup.config.ts",
+    "build": "tsup --config tsup.config.ts && node ./scripts/generate-types.mjs",
     "dev": "tsup --config tsup.config.ts --watch",
     "test": "vitest",
     "lint": "eslint src/",

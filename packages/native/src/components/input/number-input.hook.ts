@@ -103,8 +103,10 @@ export const useNumberInputState = ({
     updateValue(undefined)
   }, [updateValue])
 
-  const canIncrement = maxValue === undefined || (currentValue ?? 0) + step <= maxValue
-  const canDecrement = minValue === undefined || (currentValue ?? 0) - step >= minValue
+  const canIncrement =
+    maxValue === undefined || (currentValue ?? 0) + step <= maxValue
+  const canDecrement =
+    minValue === undefined || (currentValue ?? 0) - step >= minValue
 
   const handleIncrement = useCallback(() => {
     const base = currentValue ?? 0

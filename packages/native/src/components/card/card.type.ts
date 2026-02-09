@@ -1,9 +1,5 @@
 import type { ReactNode } from 'react'
-import type {
-  GestureResponderEvent,
-  TextStyle,
-  ViewStyle,
-} from 'react-native'
+import type { GestureResponderEvent, TextStyle, ViewStyle } from 'react-native'
 import type { Radius, ThemeColor } from '../../types'
 import type { ElevationLevel } from '../button/button.type'
 
@@ -49,6 +45,11 @@ export type CardProps = {
    * @default 'lg'
    */
   radius?: Radius
+  /**
+   * Card padding (applies to all sides).
+   * @default 16
+   */
+  padding?: number
   /**
    * Android elevation level from 0 to 4.
    * @default 0

@@ -15,7 +15,9 @@ export default function SkeletonScreen() {
       contentContainerStyle={[styles.content, { gap: theme.spacing.lg }]}
     >
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Interactive</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Interactive
+        </Text>
         <Button
           variant="outlined"
           onPress={() => setIsLoaded(prev => !prev)}
@@ -26,44 +28,60 @@ export default function SkeletonScreen() {
       </View>
 
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Text Lines</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Text Lines
+        </Text>
         <View style={{ gap: theme.spacing.sm }}>
           <Skeleton isLoaded={isLoaded} width="100%" height={16}>
-            <Text style={[styles.loadedText, { color: colors.foreground }]}>Account summary</Text>
+            <Text style={[styles.loadedText, { color: colors.foreground }]}>
+              Account summary
+            </Text>
           </Skeleton>
           <Skeleton isLoaded={isLoaded} width="82%" height={16}>
-            <Text style={[styles.loadedText, { color: colors.foreground }]}>Available balance</Text>
+            <Text style={[styles.loadedText, { color: colors.foreground }]}>
+              Available balance
+            </Text>
           </Skeleton>
           <Skeleton isLoaded={isLoaded} width="68%" height={16}>
-            <Text style={[styles.loadedText, { color: colors.foreground }]}>Updated 2 minutes ago</Text>
+            <Text style={[styles.loadedText, { color: colors.foreground }]}>
+              Updated 2 minutes ago
+            </Text>
           </Skeleton>
         </View>
       </View>
 
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Avatar Row</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Avatar Row
+        </Text>
         <View style={styles.row}>
-          <Skeleton
-            isLoaded={isLoaded}
-            width={48}
-            height={48}
-            radius="full"
-          >
-            <View style={[styles.avatarLoaded, { backgroundColor: theme.colors.primary.main }]} />
+          <Skeleton isLoaded={isLoaded} width={48} height={48} radius="full">
+            <View
+              style={[
+                styles.avatarLoaded,
+                { backgroundColor: theme.colors.primary.main },
+              ]}
+            />
           </Skeleton>
           <View style={{ flex: 1, gap: theme.spacing.sm }}>
             <Skeleton isLoaded={isLoaded} width="75%" height={14}>
-              <Text style={[styles.loadedText, { color: colors.foreground }]}>Jamie Park</Text>
+              <Text style={[styles.loadedText, { color: colors.foreground }]}>
+                Jamie Park
+              </Text>
             </Skeleton>
             <Skeleton isLoaded={isLoaded} width="55%" height={14}>
-              <Text style={[styles.loadedText, { color: colors.foreground }]}>Online now</Text>
+              <Text style={[styles.loadedText, { color: colors.foreground }]}>
+                Online now
+              </Text>
             </Skeleton>
           </View>
         </View>
       </View>
 
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Custom & Static</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Custom & Static
+        </Text>
         <View style={{ gap: theme.spacing.md }}>
           <Skeleton
             isLoaded={false}
