@@ -1,12 +1,12 @@
 import { describe, it, expect } from 'vitest'
 import type {
-  AccordionProps,
-  AccordionItemProps,
-} from '../../../components/accordion'
+  ExpansionPanelProps,
+  ExpansionPanelItemProps,
+} from '../../../components/expansion-panel'
 
-describe('Accordion Types', () => {
-  it('accepts Accordion props', () => {
-    const props: AccordionProps = {
+describe('ExpansionPanel Types', () => {
+  it('accepts ExpansionPanel props', () => {
+    const props: ExpansionPanelProps = {
       children: null,
       variant: 'light',
       selectionMode: 'toggle',
@@ -19,13 +19,13 @@ describe('Accordion Types', () => {
   })
 
   it('accepts all variants', () => {
-    const variants: Array<AccordionProps['variant']> = [
+    const variants: Array<ExpansionPanelProps['variant']> = [
       'light',
       'bordered',
       'splitted',
     ]
     variants.forEach(variant => {
-      const props: AccordionProps = {
+      const props: ExpansionPanelProps = {
         children: null,
         variant,
       }
@@ -34,9 +34,12 @@ describe('Accordion Types', () => {
   })
 
   it('accepts all selection modes', () => {
-    const modes: Array<AccordionProps['selectionMode']> = ['toggle', 'multiple']
+    const modes: Array<ExpansionPanelProps['selectionMode']> = [
+      'toggle',
+      'multiple',
+    ]
     modes.forEach(selectionMode => {
-      const props: AccordionProps = {
+      const props: ExpansionPanelProps = {
         children: null,
         selectionMode,
       }
@@ -45,7 +48,7 @@ describe('Accordion Types', () => {
   })
 
   it('accepts expandedKeys array', () => {
-    const props: AccordionProps = {
+    const props: ExpansionPanelProps = {
       children: null,
       expandedKeys: ['item1', 'item2'],
     }
@@ -53,7 +56,7 @@ describe('Accordion Types', () => {
   })
 
   it('accepts defaultExpandedKeys array', () => {
-    const props: AccordionProps = {
+    const props: ExpansionPanelProps = {
       children: null,
       defaultExpandedKeys: ['item1'],
     }
@@ -61,7 +64,7 @@ describe('Accordion Types', () => {
   })
 
   it('accepts disabledKeys array', () => {
-    const props: AccordionProps = {
+    const props: ExpansionPanelProps = {
       children: null,
       disabledKeys: ['item2', 'item3'],
     }
@@ -72,7 +75,7 @@ describe('Accordion Types', () => {
     const mockCallback = (keys: string[]) => {
       expect(keys).toBeDefined()
     }
-    const props: AccordionProps = {
+    const props: ExpansionPanelProps = {
       children: null,
       onSelectionChange: mockCallback,
     }
@@ -80,7 +83,7 @@ describe('Accordion Types', () => {
   })
 
   it('accepts customAppearance with style props', () => {
-    const props: AccordionProps = {
+    const props: ExpansionPanelProps = {
       children: null,
       customAppearance: {
         container: { backgroundColor: 'red' },
@@ -92,7 +95,7 @@ describe('Accordion Types', () => {
   })
 
   it('accepts boolean flags', () => {
-    const props: AccordionProps = {
+    const props: ExpansionPanelProps = {
       children: null,
       showDivider: true,
       hideIndicator: true,
@@ -108,9 +111,9 @@ describe('Accordion Types', () => {
   })
 })
 
-describe('AccordionItem Types', () => {
-  it('accepts AccordionItem props', () => {
-    const props: AccordionItemProps = {
+describe('ExpansionPanelItem Types', () => {
+  it('accepts ExpansionPanelItem props', () => {
+    const props: ExpansionPanelItemProps = {
       children: null,
       title: 'Test Title',
       subtitle: 'Test Subtitle',
@@ -120,7 +123,7 @@ describe('AccordionItem Types', () => {
   })
 
   it('accepts ReactNode for title and subtitle', () => {
-    const props: AccordionItemProps = {
+    const props: ExpansionPanelItemProps = {
       children: null,
       title: 'String title',
       subtitle: 'String subtitle',
@@ -130,7 +133,7 @@ describe('AccordionItem Types', () => {
   })
 
   it('accepts startContent and indicator', () => {
-    const props: AccordionItemProps = {
+    const props: ExpansionPanelItemProps = {
       children: null,
       title: 'Title',
       startContent: 'Start',
@@ -144,7 +147,7 @@ describe('AccordionItem Types', () => {
     const mockCallback = (isSelected: boolean) => {
       expect(typeof isSelected).toBe('boolean')
     }
-    const props: AccordionItemProps = {
+    const props: ExpansionPanelItemProps = {
       children: null,
       title: 'Title',
       onSelected: mockCallback,
@@ -153,7 +156,7 @@ describe('AccordionItem Types', () => {
   })
 
   it('accepts customAppearance with all style props', () => {
-    const props: AccordionItemProps = {
+    const props: ExpansionPanelItemProps = {
       children: null,
       title: 'Title',
       customAppearance: {

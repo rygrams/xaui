@@ -9,7 +9,7 @@ const entries = {
   'core/index': 'src/core/index.ts',
   'button/index': 'src/components/button/index.ts',
   'checkbox/index': 'src/components/checkbox/index.ts',
-  'accordion/index': 'src/components/accordion/index.ts',
+  'expansion-panel/index': 'src/components/expansion-panel/index.ts',
   'progress/index': 'src/components/progress/index.ts',
   'indicator/index': 'src/components/indicator/index.ts',
   'switch/index': 'src/components/switch/index.ts',
@@ -37,11 +37,13 @@ const entries = {
   'list/index': 'src/components/list/index.ts',
   'radio/index': 'src/components/radio/index.ts',
   'toolbar/index': 'src/components/toolbar/index.ts',
+  'app-bar/index': 'src/components/app-bar/index.ts',
   'timepicker/index': 'src/components/timepicker/index.ts',
   'stepper/index': 'src/components/stepper/index.ts',
   'menubox/index': 'src/components/menubox/index.ts',
   'slider/index': 'src/components/slider/index.ts',
   'tabs/index': 'src/components/tabs/index.ts',
+  'pager/index': 'src/components/pager/index.ts',
 } as const
 
 export default defineConfig(options => {

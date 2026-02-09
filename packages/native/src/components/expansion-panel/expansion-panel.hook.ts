@@ -1,23 +1,23 @@
 import { useState, useCallback, useMemo } from 'react'
 import type { ViewStyle } from 'react-native'
 import { useXUITheme } from '../../core'
-import type { AccordionVariant, AccordionSelectionMode } from './accordion.type'
+import type { ExpansionPanelVariant, ExpansionPanelSelectionMode } from './expansion-panel.type'
 import { useXUIPalette } from '../../core/theme-hooks'
 
-interface AccordionStylesConfig {
-  variant: AccordionVariant
+interface ExpansionPanelStylesConfig {
+  variant: ExpansionPanelVariant
   fullWidth: boolean
 }
 
-interface AccordionSelectionConfig {
-  selectionMode: AccordionSelectionMode
+interface ExpansionPanelSelectionConfig {
+  selectionMode: ExpansionPanelSelectionMode
   expandedKeys?: string[]
   defaultExpandedKeys: string[]
   onSelectionChange?: (expandedKeys: string[]) => void
 }
 
-interface AccordionContextConfig {
-  variant: AccordionVariant
+interface ExpansionPanelContextConfig {
+  variant: ExpansionPanelVariant
   hideIndicator: boolean
   disableAnimation: boolean
   isCompact: boolean
@@ -25,14 +25,14 @@ interface AccordionContextConfig {
   expandedKeys?: string[]
   defaultExpandedKeys: string[]
   disabledKeys: string[]
-  selectionMode: AccordionSelectionMode
+  selectionMode: ExpansionPanelSelectionMode
   onSelectionChange?: (expandedKeys: string[]) => void
 }
 
-export const useAccordionStyles = ({
+export const useExpansionPanelStyles = ({
   variant,
   fullWidth,
-}: AccordionStylesConfig) => {
+}: ExpansionPanelStylesConfig) => {
   const theme = useXUITheme()
   const palette = useXUIPalette()
 
@@ -68,12 +68,12 @@ export const useAccordionStyles = ({
   return { containerStyles, dividerColor, dividerOpacity }
 }
 
-export const useAccordionSelection = ({
+export const useExpansionPanelSelection = ({
   selectionMode,
   expandedKeys,
   defaultExpandedKeys,
   onSelectionChange,
-}: AccordionSelectionConfig) => {
+}: ExpansionPanelSelectionConfig) => {
   const [internalExpandedKeys, setInternalExpandedKeys] =
     useState<string[]>(defaultExpandedKeys)
 
@@ -104,8 +104,8 @@ export const useAccordionSelection = ({
   return { currentExpandedKeys, toggleItem }
 }
 
-export const useAccordionContextValue = (config: AccordionContextConfig) => {
-  const { currentExpandedKeys, toggleItem } = useAccordionSelection({
+export const useExpansionPanelContextValue = (config: ExpansionPanelContextConfig) => {
+  const { currentExpandedKeys, toggleItem } = useExpansionPanelSelection({
     selectionMode: config.selectionMode,
     expandedKeys: config.expandedKeys,
     defaultExpandedKeys: config.defaultExpandedKeys,

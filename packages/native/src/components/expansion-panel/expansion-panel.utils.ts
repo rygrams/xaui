@@ -1,7 +1,7 @@
-import type { AccordionItemProps } from './accordion-item.type'
-import { AccordionItem } from './accordion-item'
+import type { ExpansionPanelItemProps } from './expansion-panel-item.type'
+import { ExpansionPanelItem } from './expansion-panel-item'
 import React from 'react'
-import type { AccordionProps } from './accordion.type'
+import type { ExpansionPanelProps } from './expansion-panel.type'
 
 export const getItemKey = (value: unknown, fallback: number) => {
   if (value === null || value === undefined) return String(fallback)
@@ -18,15 +18,15 @@ export const normalizeElementKey = (value: unknown) => {
       : value
 }
 
-export const isAccordionItem = (
+export const isExpansionPanelItem = (
   value: React.ReactNode
-): value is React.ReactElement<AccordionItemProps> =>
+): value is React.ReactElement<ExpansionPanelItemProps> =>
   React.isValidElement(value) &&
-  (value.type === AccordionItem ||
+  (value.type === ExpansionPanelItem ||
     (typeof value.type === 'function' &&
-      (value.type as { displayName?: string }).displayName === 'AccordionItem'))
+      (value.type as { displayName?: string }).displayName === 'ExpansionPanelItem'))
 
-export const buildAccordionContextParams = (props: AccordionProps) => {
+export const buildExpansionPanelContextParams = (props: ExpansionPanelProps) => {
   return {
     variant: props.variant || 'light',
     hideIndicator: Boolean(props.hideIndicator),

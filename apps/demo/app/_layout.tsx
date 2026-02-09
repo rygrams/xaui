@@ -24,8 +24,8 @@ export default function RootLayout() {
               options={{ presentation: 'modal', title: 'Modal' }}
             />
             <Stack.Screen
-              name="accordion"
-              options={{ title: 'Accordion Examples' }}
+              name="expansion-panel"
+              options={{ title: 'Expansion Panel Examples' }}
             />
             <Stack.Screen name="alerts" options={{ title: 'Alert Examples' }} />
             <Stack.Screen name="avatars" options={{ title: 'Avatar Examples' }} />
@@ -38,6 +38,7 @@ export default function RootLayout() {
               name="bottom-tab-bar"
               options={{ title: 'BottomTabBar Examples' }}
             />
+            <Stack.Screen name="app-bar" options={{ title: 'AppBar Examples' }} />
             <Stack.Screen name="buttons" options={{ title: 'Button Examples' }} />
             <Stack.Screen name="card" options={{ title: 'Card Examples' }} />
             <Stack.Screen name="carousel" options={{ title: 'Carousel Examples' }} />
@@ -72,6 +73,7 @@ export default function RootLayout() {
             <Stack.Screen name="radio" options={{ title: 'Radio Examples' }} />
             <Stack.Screen name="menus" options={{ title: 'Menu Examples' }} />
             <Stack.Screen name="progress" options={{ title: 'Progress Examples' }} />
+            <Stack.Screen name="pager" options={{ title: 'Pager Examples' }} />
             <Stack.Screen
               name="segment-buttons"
               options={{ title: 'Segment Button Examples' }}
@@ -81,7 +83,6 @@ export default function RootLayout() {
             <Stack.Screen name="switch" options={{ title: 'Switch Examples' }} />
             <Stack.Screen name="textarea" options={{ title: 'TextArea Examples' }} />
             <Stack.Screen name="toolbar" options={{ title: 'Toolbar Examples' }} />
-            <Stack.Screen name="switch" options={{ title: 'Switch Examples' }} />
             <Stack.Screen name="tabs" options={{ title: 'Tabs Examples' }} />
           </Stack>
         </XUIProvider>

@@ -37,10 +37,10 @@
       "import": "./dist/checkbox/index.js",
       "require": "./dist/checkbox/index.js"
     },
-    "./accordion": {
-      "types": "./dist/accordion/index.d.ts",
-      "import": "./dist/accordion/index.js",
-      "require": "./dist/accordion/index.js"
+    "./expansion-panel": {
+      "types": "./dist/expansion-panel/index.d.ts",
+      "import": "./dist/expansion-panel/index.js",
+      "require": "./dist/expansion-panel/index.js"
     },
     "./progress": {
       "types": "./dist/progress/index.d.ts",
@@ -127,6 +127,11 @@
       "import": "./dist/tabs/index.js",
       "require": "./dist/tabs/index.js"
     },
+    "./pager": {
+      "types": "./dist/pager/index.d.ts",
+      "import": "./dist/pager/index.js",
+      "require": "./dist/pager/index.js"
+    },
     "./chip": {
       "types": "./dist/chip/index.d.ts",
       "import": "./dist/chip/index.js",
@@ -186,6 +191,11 @@
       "types": "./dist/toolbar/index.d.ts",
       "import": "./dist/toolbar/index.js",
       "require": "./dist/toolbar/index.js"
+    },
+    "./app-bar": {
+      "types": "./dist/app-bar/index.d.ts",
+      "import": "./dist/app-bar/index.js",
+      "require": "./dist/app-bar/index.js"
     },
     "./timepicker": {
       "types": "./dist/timepicker/index.d.ts",

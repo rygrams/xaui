@@ -31,11 +31,11 @@ export default function HomeScreen() {
         <GridItem>
           <Button
             size="sm"
-            onPress={() => router.push('/accordion')}
+            onPress={() => router.push('/expansion-panel')}
             variant="outlined"
             themeColor="primary"
           >
-            Accordion
+            Expansion Panel
           </Button>
         </GridItem>
         <GridItem>
@@ -86,6 +86,16 @@ export default function HomeScreen() {
             themeColor="primary"
           >
             BottomTabBar
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/app-bar')}
+            variant="outlined"
+            themeColor="primary"
+          >
+            AppBar
           </Button>
         </GridItem>
         <GridItem>
@@ -256,6 +266,16 @@ export default function HomeScreen() {
             themeColor="primary"
           >
             Progress
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/pager')}
+            variant="outlined"
+            themeColor="secondary"
+          >
+            Pager
           </Button>
         </GridItem>
         <GridItem>

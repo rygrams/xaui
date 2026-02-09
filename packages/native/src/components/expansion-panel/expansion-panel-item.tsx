@@ -1,20 +1,20 @@
 import React from 'react'
 import { View, Text, Pressable, Animated } from 'react-native'
-import { styles } from './accordion-item.style'
+import { styles } from './expansion-panel-item.style'
 import {
-  useAccordionItemState,
-  useAccordionItemAnimation,
+  useExpansionPanelItemState,
+  useExpansionPanelItemAnimation,
   useBaseStyles,
   useTriggerStyles,
   useTitleTextStyle,
   useSubtitleTextStyle,
   useContentContainerStyle,
   useForegroundColor,
-} from './accordion-item.hook'
+} from './expansion-panel-item.hook'
 import { ChevronRightIcon } from './chevron-right-icon'
-import type { AccordionItemProps } from './accordion-item.type'
+import type { ExpansionPanelItemProps } from './expansion-panel-item.type'
 
-export const AccordionItem: React.FC<AccordionItemProps> = ({
+export const ExpansionPanelItem: React.FC<ExpansionPanelItemProps> = ({
   itemKey,
   children,
   title,
@@ -32,7 +32,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
     isExpanded,
     isDisabled,
     handlePress: togglePress,
-  } = useAccordionItemState(itemKey)
+  } = useExpansionPanelItemState(itemKey)
 
   const handlePress = () => {
     togglePress()
@@ -40,7 +40,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
   }
 
   const { onContentLayout, heightInterpolation, rotationInterpolation } =
-    useAccordionItemAnimation(isExpanded, disableAnimation)
+    useExpansionPanelItemAnimation(isExpanded, disableAnimation)
 
   const baseStyles = useBaseStyles(variant, isDisabled)
   const triggerStyles = useTriggerStyles(variant, isCompact)
@@ -120,4 +120,4 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
   )
 }
 
-AccordionItem.displayName = 'AccordionItem'
+ExpansionPanelItem.displayName = 'ExpansionPanelItem'
