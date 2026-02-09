@@ -186,6 +186,11 @@
       "types": "./dist/stepper/index.d.ts",
       "import": "./dist/stepper/index.js",
       "require": "./dist/stepper/index.js"
+    },
+    "./menubox": {
+      "types": "./dist/menubox/index.d.ts",
+      "import": "./dist/menubox/index.js",
+      "require": "./dist/menubox/index.js"
     }
   },
   "files": [

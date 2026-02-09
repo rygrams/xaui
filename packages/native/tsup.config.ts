@@ -38,6 +38,7 @@ const entries = {
   'toolbar/index': 'src/components/toolbar/index.ts',
   'timepicker/index': 'src/components/timepicker/index.ts',
   'stepper/index': 'src/components/stepper/index.ts',
+  'menubox/index': 'src/components/menubox/index.ts',
 } as const
 
 export default defineConfig(options => {
