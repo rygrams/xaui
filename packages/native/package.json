@@ -181,6 +181,11 @@
       "types": "./dist/timepicker/index.d.ts",
       "import": "./dist/timepicker/index.js",
       "require": "./dist/timepicker/index.js"
+    },
+    "./stepper": {
+      "types": "./dist/stepper/index.d.ts",
+      "import": "./dist/stepper/index.js",
+      "require": "./dist/stepper/index.js"
     }
   },
   "files": [

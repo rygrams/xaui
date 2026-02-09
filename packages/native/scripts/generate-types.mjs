@@ -35,6 +35,8 @@ const entries = {
   'list/index': 'src/components/list/index.ts',
   'radio/index': 'src/components/radio/index.ts',
   'toolbar/index': 'src/components/toolbar/index.ts',
+  'timepicker/index': 'src/components/timepicker/index.ts',
+  'stepper/index': 'src/components/stepper/index.ts',
 }
 
 const getDeclarationFiles = async dir => {

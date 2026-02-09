@@ -67,6 +67,7 @@ export default function RootLayout() {
               name="segment-buttons"
               options={{ title: 'Segment Button Examples' }}
             />
+            <Stack.Screen name="stepper" options={{ title: 'Stepper Examples' }} />
             <Stack.Screen name="skeleton" options={{ title: 'Skeleton Examples' }} />
             <Stack.Screen name="switch" options={{ title: 'Switch Examples' }} />
             <Stack.Screen name="textarea" options={{ title: 'TextArea Examples' }} />

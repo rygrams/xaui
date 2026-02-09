@@ -37,6 +37,7 @@ const entries = {
   'radio/index': 'src/components/radio/index.ts',
   'toolbar/index': 'src/components/toolbar/index.ts',
   'timepicker/index': 'src/components/timepicker/index.ts',
+  'stepper/index': 'src/components/stepper/index.ts',
 } as const
 
 export default defineConfig(options => {
