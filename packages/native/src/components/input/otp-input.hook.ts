@@ -36,9 +36,7 @@ export const useOTPInputState = ({
   allowedKeys,
 }: UseOTPInputStateParams) => {
   const isControlled = typeof value === 'string'
-  const [internalValue, setInternalValue] = useState(
-    defaultValue ?? ''
-  )
+  const [internalValue, setInternalValue] = useState(defaultValue ?? '')
   const [activeIndex, setActiveIndex] = useState(-1)
   const refs = useRef<(RNTextInput | null)[]>([])
 

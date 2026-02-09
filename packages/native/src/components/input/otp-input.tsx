@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useCallback, useEffect, useRef } from 'react'
 import {
   Animated,
   Pressable,
@@ -8,10 +8,7 @@ import {
 } from 'react-native'
 import type { OTPInputProps } from './otp-input.type'
 import { useOTPInputState, useOTPSegmentSizeStyles } from './otp-input.hook'
-import {
-  useTextInputRadiusStyles,
-  useTextInputVariantStyles,
-} from './input.hook'
+import { useTextInputRadiusStyles, useTextInputVariantStyles } from './input.hook'
 import { otpStyles } from './otp-input.style'
 
 const OTPSegment = ({
@@ -29,6 +26,7 @@ const OTPSegment = ({
   onKeyPress,
   onFocus,
   onBlur,
+  onPress,
 }: {
   char: string
   isActive: boolean
@@ -44,6 +42,7 @@ const OTPSegment = ({
   onKeyPress: (key: string) => void
   onFocus: () => void
   onBlur: () => void
+  onPress: () => void
 }) => {
   const borderAnimation = useRef(new Animated.Value(0)).current
 
@@ -59,8 +58,7 @@ const OTPSegment = ({
     <Pressable
       onPress={() => {
         if (!isDisabled) {
-          const inputEl = inputRef as unknown as { current: RNTextInput | null }
-          if (typeof inputEl !== 'function') return
+          onPress()
         }
       }}
       disabled={isDisabled}
@@ -184,6 +182,20 @@ export const OTPInput = ({
     isDisabled,
   })
 
+  const focusSegment = useCallback(
+    (index: number) => {
+      if (isDisabled) return
+      refs.current[index]?.focus()
+    },
+    [isDisabled, refs]
+  )
+
+  const handleContainerPress = useCallback(() => {
+    const firstEmptyIndex = segments.findIndex(segment => !segment)
+    const targetIndex = firstEmptyIndex === -1 ? length - 1 : firstEmptyIndex
+    focusSegment(targetIndex)
+  }, [focusSegment, length, segments])
+
   return (
     <View
       style={[
@@ -208,7 +220,9 @@ export const OTPInput = ({
         </Text>
       )}
 
-      <View
+      <Pressable
+        onPress={handleContainerPress}
+        disabled={isDisabled}
         style={[otpStyles.segmentContainer, customAppearance?.segmentContainer]}
       >
         {segments.map((char, index) => (
@@ -232,9 +246,10 @@ export const OTPInput = ({
             onKeyPress={key => handleSegmentKeyPress(index, key)}
             onFocus={() => handleSegmentFocus(index)}
             onBlur={handleSegmentBlur}
+            onPress={() => focusSegment(index)}
           />
         ))}
-      </View>
+      </Pressable>
 
       {helperText && (
         <Text
