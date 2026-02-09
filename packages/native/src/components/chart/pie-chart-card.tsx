@@ -66,7 +66,7 @@ export const PieChartCard: React.FC<PieChartCardProps> = ({
   const chartSize = Math.max(120, size)
   const center = chartSize / 2
   const radius = chartSize * 0.44
-  const gapDegrees = 0
+  const gapDegrees = 1
 
   const sectors = React.useMemo(() => {
     if (!normalizedData.length || totalValue <= 0) {
@@ -131,7 +131,9 @@ export const PieChartCard: React.FC<PieChartCardProps> = ({
               {item.label}
             </Text>
           </View>
-          <Text style={[styles.legendValue, { color: textColor }]}>{item.value}</Text>
+          <Text style={[styles.legendValue, { color: textColor }]}>
+            {item.value}
+          </Text>
         </View>
       ))}
     </View>
@@ -162,7 +164,9 @@ export const PieChartCard: React.FC<PieChartCardProps> = ({
     >
       {(title !== undefined || total !== undefined) && (
         <View style={styles.pieHeader}>
-          <Text style={[styles.pieHeaderTitle, { color: textColor }]}>{title ?? ''}</Text>
+          <Text style={[styles.pieHeaderTitle, { color: textColor }]}>
+            {title ?? ''}
+          </Text>
           <Text style={[styles.pieHeaderTotal, { color: textColor }]}>
             {total ?? ''}
           </Text>

@@ -154,6 +154,16 @@ export default function HomeScreen() {
         <GridItem>
           <Button
             size="sm"
+            onPress={() => router.push('/drawer')}
+            variant="outlined"
+            themeColor="secondary"
+          >
+            Drawer
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
             onPress={() => router.push('/datepicker')}
             variant="outlined"
             themeColor="secondary"

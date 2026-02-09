@@ -34,6 +34,7 @@ export const Card: React.FC<CardProps> = ({
   children,
   themeColor = 'default',
   radius = 'lg',
+  padding = 16,
   elevation = 0,
   fullWidth = false,
   isHoverable = false,
@@ -131,6 +132,7 @@ export const Card: React.FC<CardProps> = ({
         fullWidth && styles.fullWidth,
         isDisabled && styles.disabled,
         {
+          padding,
           transform: [{ scale: animatedScale }],
           opacity: animatedOpacity,
         },

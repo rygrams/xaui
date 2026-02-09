@@ -46,6 +46,11 @@ export type CardProps = {
    */
   radius?: Radius
   /**
+   * Card padding (applies to all sides).
+   * @default 16
+   */
+  padding?: number
+  /**
    * Android elevation level from 0 to 4.
    * @default 0
    */

@@ -79,7 +79,7 @@ export default function AppBarScreen() {
         </Text>
         <Text style={[styles.description, { color: colors.foreground, opacity: 0.7 }]}>
           Rounded app bar with `variant=floating` that does not take the full screen
-          width. This example also uses `themeColor="primary"`.
+          width. This example also uses `themeColor=&quot;primary&quot;`.
         </Text>
         <View style={styles.controlsRow}>
           <Button
