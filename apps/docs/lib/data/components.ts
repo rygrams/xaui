@@ -9,12 +9,12 @@ export interface Component {
 
 export const components: Component[] = [
   {
-    id: 'accordion',
-    name: 'Accordion',
+    id: 'expansion-panel',
+    name: 'ExpansionPanel',
     description:
       'A vertically stacked set of interactive headings that each reveal a section of content.',
     category: 'Layout',
-    href: '/docs/components/accordion',
+    href: '/docs/components/expansion-panel',
     status: 'stable',
   },
 ]

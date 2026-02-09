@@ -35,8 +35,8 @@ export const navigation: NavSection[] = [
         href: '/docs/components',
       },
       {
-        title: 'Accordion',
-        href: '/docs/components/accordion',
+        title: 'ExpansionPanel',
+        href: '/docs/components/expansion-panel',
       },
     ],
   },
