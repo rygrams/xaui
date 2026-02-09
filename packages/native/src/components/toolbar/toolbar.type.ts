@@ -1,14 +1,9 @@
 import type { ReactNode } from 'react'
-import type {
-  GestureResponderEvent,
-  StyleProp,
-  TextStyle,
-  ViewStyle,
-} from 'react-native'
+import type { GestureResponderEvent, StyleProp, ViewStyle } from 'react-native'
 import type { ThemeColor } from '../../types'
 
-export type ToolbarVariant = 'small' | 'centered' | 'medium' | 'large'
-export type ToolbarPosition = 'relative' | 'absolute-top' | 'absolute-bottom'
+export type ToolbarVariant = 'floating' | 'docked' | 'vertical'
+export type ToolbarPosition = 'top' | 'bottom' | 'left' | 'right'
 
 export type ToolbarActionRenderParams = {
   color: string
@@ -50,34 +45,27 @@ export type ToolbarActionProps = {
 export type ToolbarCustomAppearance = {
   container?: StyleProp<ViewStyle>
   topRow?: StyleProp<ViewStyle>
-  headlineContainer?: StyleProp<ViewStyle>
-  title?: StyleProp<TextStyle>
-  subtitle?: StyleProp<TextStyle>
-  navigationButton?: StyleProp<ViewStyle>
   actionsContainer?: StyleProp<ViewStyle>
 }
 
 export type ToolbarProps = {
   /**
-   * Main toolbar title.
-   */
-  title: ReactNode
-  /**
-   * Optional subtitle displayed under title in medium/large variants.
-   */
-  subtitle?: ReactNode
-  /**
    * Toolbar variant.
-   * @default 'small'
+   * - floating: rounded floating bar
+   * - docked: fixed bar without rounding
+   * - vertical: vertical bar (always centered)
+   * @default 'docked'
    */
   variant?: ToolbarVariant
   /**
-   * Toolbar position strategy.
-   * @default 'relative'
+   * Toolbar position.
+   * - For floating/docked: 'top' | 'bottom'
+   * - For vertical: 'left' | 'right'
+   * @default 'top'
    */
   position?: ToolbarPosition
   /**
-   * Whether toolbar is visible.
+   * Whether toolbar is visible (with animation).
    * @default true
    */
   isVisible?: boolean
@@ -87,25 +75,12 @@ export type ToolbarProps = {
    */
   themeColor?: ThemeColor
   /**
-   * Optional leading icon.
-   */
-  navigationIcon?: ReactNode
-  /**
-   * Callback fired when leading icon is pressed.
-   */
-  onNavigationPress?: (event: GestureResponderEvent) => void
-  /**
-   * Accessibility label for leading icon.
-   */
-  navigationAccessibilityLabel?: string
-  /**
-   * Whether to render a bottom divider.
-   * @default true
+   * Whether to render a divider.
+   * @default false
    */
   showDivider?: boolean
   /**
-   * Whether to show elevation shadow.
-   * @default false
+   * Whether to show elevation shadow. If not provided, uses variant default.
    */
   isElevated?: boolean
   /**

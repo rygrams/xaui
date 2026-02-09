@@ -3,7 +3,8 @@ import { createContext, useContext } from 'react'
 type ToolbarContextValue = {
   actionColor: string
   actionPressedColor: string
-  actionSize: number
+  iconSize: number
+  actionButtonSize: number
 }
 
 export const ToolbarContext = createContext<ToolbarContextValue | null>(null)

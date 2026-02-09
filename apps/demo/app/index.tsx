@@ -308,6 +308,16 @@ export default function HomeScreen() {
             Toolbar
           </Button>
         </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/timepicker')}
+            variant="outlined"
+            themeColor="secondary"
+          >
+            Time Picker
+          </Button>
+        </GridItem>
       </Grid>
     </ScrollView>
   )

@@ -176,6 +176,11 @@
       "types": "./dist/toolbar/index.d.ts",
       "import": "./dist/toolbar/index.js",
       "require": "./dist/toolbar/index.js"
+    },
+    "./timepicker": {
+      "types": "./dist/timepicker/index.d.ts",
+      "import": "./dist/timepicker/index.js",
+      "require": "./dist/timepicker/index.js"
     }
   },
   "files": [

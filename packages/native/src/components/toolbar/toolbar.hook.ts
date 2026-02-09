@@ -2,69 +2,70 @@ import { useMemo } from 'react'
 import { getSafeThemeColor, withOpacity } from '@xaui/core'
 import { useXUITheme } from '../../core'
 import type { ThemeColor } from '../../types'
-import type { ToolbarVariant } from './toolbar.type'
+import type { ToolbarVariant, ToolbarPosition } from './toolbar.type'
 
 type ToolbarVariantStyles = {
-  containerMinHeight: number
-  topRowMinHeight: number
-  headlinePaddingBottom: number
-  titleSize: number
-  subtitleSize: number
-  actionSize: number
+  containerHeight: number | 'auto'
+  containerWidth: number | 'auto'
   iconSize: number
-  centeredTitle: boolean
-  headlineWeight: '600' | '700'
+  actionSize: number
+  borderRadius: number
+  paddingHorizontal: number
+  paddingVertical: number
+  gap: number
+  isElevated: boolean
 }
 
 const variantMap: Record<ToolbarVariant, ToolbarVariantStyles> = {
-  small: {
-    containerMinHeight: 64,
-    topRowMinHeight: 64,
-    headlinePaddingBottom: 0,
-    titleSize: 22,
-    subtitleSize: 14,
+  floating: {
+    containerHeight: 72,
+    containerWidth: 'auto',
+    iconSize: 26,
     actionSize: 40,
-    iconSize: 24,
-    centeredTitle: false,
-    headlineWeight: '600',
+    borderRadius: 56,
+    paddingHorizontal: 16,
+    paddingVertical: 16,
+    gap: 0,
+    isElevated: true,
   },
-  centered: {
-    containerMinHeight: 64,
-    topRowMinHeight: 64,
-    headlinePaddingBottom: 0,
-    titleSize: 22,
-    subtitleSize: 14,
+  docked: {
+    containerHeight: 72,
+    containerWidth: 'auto',
+    iconSize: 26,
     actionSize: 40,
-    iconSize: 24,
-    centeredTitle: true,
-    headlineWeight: '600',
+    borderRadius: 0,
+    paddingHorizontal: 16,
+    paddingVertical: 16,
+    gap: 0,
+    isElevated: false,
   },
-  medium: {
-    containerMinHeight: 112,
-    topRowMinHeight: 64,
-    headlinePaddingBottom: 14,
-    titleSize: 28,
-    subtitleSize: 15,
+  vertical: {
+    containerHeight: 'auto',
+    containerWidth: 80,
+    iconSize: 26,
     actionSize: 40,
-    iconSize: 24,
-    centeredTitle: false,
-    headlineWeight: '700',
-  },
-  large: {
-    containerMinHeight: 152,
-    topRowMinHeight: 64,
-    headlinePaddingBottom: 18,
-    titleSize: 34,
-    subtitleSize: 16,
-    actionSize: 40,
-    iconSize: 24,
-    centeredTitle: false,
-    headlineWeight: '700',
+    borderRadius: 0,
+    paddingHorizontal: 16,
+    paddingVertical: 16,
+    gap: 0,
+    isElevated: false,
   },
 }
 
-export const useToolbarVariantStyles = (variant: ToolbarVariant) => {
-  return useMemo(() => variantMap[variant], [variant])
+export const useToolbarVariantStyles = (
+  variant: ToolbarVariant,
+  position: ToolbarPosition
+) => {
+  return useMemo(() => {
+    const baseStyles = variantMap[variant]
+    const isVertical = variant === 'vertical'
+
+    return {
+      ...baseStyles,
+      isVertical,
+      position,
+    }
+  }, [variant, position])
 }
 
 export const useToolbarColors = (themeColor: ThemeColor) => {
@@ -73,7 +74,10 @@ export const useToolbarColors = (themeColor: ThemeColor) => {
 
   return useMemo(() => {
     return {
-      background: theme.colors.background,
+      background:
+        theme.mode === 'dark'
+          ? theme.colors.default.background
+          : theme.colors.background,
       divider: withOpacity(theme.colors.foreground, 0.1),
       title: theme.colors.foreground,
       subtitle: withOpacity(theme.colors.foreground, 0.72),
@@ -81,5 +85,5 @@ export const useToolbarColors = (themeColor: ThemeColor) => {
       pressed: withOpacity(colorScheme.main, 0.16),
       shadow: withOpacity(theme.colors.foreground, 0.35),
     }
-  }, [colorScheme.main, theme.colors.background, theme.colors.foreground])
+  }, [colorScheme.main, theme.colors, theme.mode])
 }

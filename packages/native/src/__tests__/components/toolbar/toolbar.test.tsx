@@ -4,41 +4,31 @@ import type { ToolbarProps, ToolbarActionProps } from '../../../components/toolb
 describe('Toolbar Types', () => {
   it('exports ToolbarProps type', () => {
     const props: ToolbarProps = {
-      title: 'Inbox',
-      variant: 'small',
-      position: 'relative',
+      variant: 'docked',
+      position: 'top',
       isVisible: true,
       themeColor: 'primary',
     }
 
     expect(props).toBeDefined()
-    expect(props.title).toBe('Inbox')
-    expect(props.variant).toBe('small')
+    expect(props.variant).toBe('docked')
+    expect(props.position).toBe('top')
   })
 
   it('accepts toolbar variants', () => {
-    const variants: Array<ToolbarProps['variant']> = [
-      'small',
-      'centered',
-      'medium',
-      'large',
-    ]
+    const variants: Array<ToolbarProps['variant']> = ['floating', 'docked', 'vertical']
 
-    variants.forEach(variant => {
-      const props: ToolbarProps = { title: 'Title', variant }
+    variants.forEach((variant) => {
+      const props: ToolbarProps = { variant }
       expect(props.variant).toBe(variant)
     })
   })
 
   it('accepts toolbar positions', () => {
-    const positions: Array<ToolbarProps['position']> = [
-      'relative',
-      'absolute-top',
-      'absolute-bottom',
-    ]
+    const positions: Array<ToolbarProps['position']> = ['top', 'bottom', 'left', 'right']
 
-    positions.forEach(position => {
-      const props: ToolbarProps = { title: 'Title', position }
+    positions.forEach((position) => {
+      const props: ToolbarProps = { position }
       expect(props.position).toBe(position)
     })
   })

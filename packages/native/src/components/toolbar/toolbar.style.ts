@@ -2,71 +2,71 @@ import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
   container: {
-    width: '100%',
-    borderBottomWidth: 1,
-  },
-  absoluteTop: {
     position: 'absolute',
+    zIndex: 40,
+  },
+  top: {
     top: 0,
     left: 0,
     right: 0,
-    zIndex: 40,
   },
-  absoluteBottom: {
-    position: 'absolute',
+  bottom: {
+    bottom: 0,
     left: 0,
     right: 0,
+  },
+  left: {
+    left: 0,
+    top: 0,
     bottom: 0,
-    zIndex: 40,
+  },
+  right: {
+    right: 0,
+    top: 0,
+    bottom: 0,
+  },
+  floating: {
+    margin: 16,
+  },
+  floatingBottom: {
+    marginBottom: 16,
+  },
+  floatingTop: {
+    marginTop: 16,
   },
   elevated: {
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 1,
-    shadowRadius: 6,
-    elevation: 4,
+    shadowOpacity: 0.15,
+    shadowRadius: 8,
+    elevation: 3,
   },
-  topRow: {
+  content: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 8,
   },
-  navSlot: {
-    width: 48,
+  contentVertical: {
+    flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  titleSlot: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  title: {
-    fontWeight: '600',
-  },
-  subtitle: {
-    marginTop: 2,
-    fontWeight: '400',
   },
   actions: {
-    minWidth: 48,
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-end',
-    gap: 2,
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  actionsVertical: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    height: '100%',
   },
   actionButton: {
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 999,
   },
-  headlineContainer: {
-    paddingHorizontal: 16,
-    justifyContent: 'flex-end',
-    gap: 2,
-  },
-  centeredTitle: {
-    textAlign: 'center',
-  },
   disabledAction: {
-    opacity: 0.5,
+    opacity: 0.38,
   },
 })

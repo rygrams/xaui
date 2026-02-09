@@ -19,7 +19,7 @@ export const ToolbarAction: React.FC<ToolbarActionProps> = ({
     typeof icon === 'function'
       ? icon({
           color: context?.actionColor ?? '#000000',
-          size: context?.actionSize ?? 24,
+          size: context?.iconSize ?? 26,
         })
       : icon
 
@@ -33,8 +33,8 @@ export const ToolbarAction: React.FC<ToolbarActionProps> = ({
       style={({ pressed }) => [
         styles.actionButton,
         {
-          width: (context?.actionSize ?? 24) + 16,
-          height: (context?.actionSize ?? 24) + 16,
+          width: context?.actionButtonSize ?? 40,
+          height: context?.actionButtonSize ?? 40,
           backgroundColor: pressed
             ? context?.actionPressedColor ?? 'transparent'
             : 'transparent',
