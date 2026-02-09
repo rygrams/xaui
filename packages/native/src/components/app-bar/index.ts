@@ -1,4 +1,9 @@
-export { AppBar, AppBarStartContent, AppBarContent, AppBarEndContent } from './app-bar'
+export {
+  AppBar,
+  AppBarStartContent,
+  AppBarContent,
+  AppBarEndContent,
+} from './app-bar'
 export type {
   AppBarProps,
   AppBarVariant,

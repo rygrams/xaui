@@ -14,7 +14,10 @@ export const useTimePickerState = (
   const [mode, setMode] = useState<TimePickerMode>('hour')
 
   const { hours: displayHours, period } = useMemo(
-    () => (is24Hour ? { hours: time.hours, period: 'AM' as TimePeriod } : to12HourFormat(time.hours)),
+    () =>
+      is24Hour
+        ? { hours: time.hours, period: 'AM' as TimePeriod }
+        : to12HourFormat(time.hours),
     [time.hours, is24Hour]
   )
 
@@ -56,7 +59,7 @@ export const useTimePickerState = (
   }
 
   const toggleMode = () => {
-    setMode((prev) => (prev === 'hour' ? 'minute' : 'hour'))
+    setMode(prev => (prev === 'hour' ? 'minute' : 'hour'))
   }
 
   return {
@@ -89,5 +92,10 @@ export const useTimePickerColors = (themeColor: ThemeColor) => {
       clockFace: withOpacity(colorScheme.main, 0.08),
       selectedDigit: withOpacity(colorScheme.main, 0.12),
     }
-  }, [colorScheme.main, colorScheme.foreground, theme.colors.background, theme.colors.foreground])
+  }, [
+    colorScheme.main,
+    colorScheme.foreground,
+    theme.colors.background,
+    theme.colors.foreground,
+  ])
 }

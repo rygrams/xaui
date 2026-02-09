@@ -159,9 +159,7 @@ export const useFeatureDiscoveryGeometry = (
   const messageTop = Math.max(TEXT_PADDING, baseMessageTop - MESSAGE_VERTICAL_OFFSET)
   const textDy = messageTop - targetCenterY
   const textHalfChord =
-    Math.abs(textDy) < circleRadius
-      ? Math.sqrt(circleRadius ** 2 - textDy ** 2)
-      : 0
+    Math.abs(textDy) < circleRadius ? Math.sqrt(circleRadius ** 2 - textDy ** 2) : 0
 
   const baseMsgLeft = Math.max(
     TEXT_PADDING,

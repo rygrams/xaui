@@ -37,13 +37,20 @@ export const TimePicker: React.FC<TimePickerProps> = ({
 
   const colors = useTimePickerColors(themeColor)
 
-  const hourAngle = useMemo(() => getHourAngle(displayHours, is24Hour), [displayHours, is24Hour])
+  const hourAngle = useMemo(
+    () => getHourAngle(displayHours, is24Hour),
+    [displayHours, is24Hour]
+  )
   const minuteAngle = useMemo(() => getMinuteAngle(time.minutes), [time.minutes])
 
   const currentAngle = mode === 'hour' ? hourAngle : minuteAngle
   const handRotation = useSharedValue(currentAngle)
-  const [hourInput, setHourInput] = useState(displayHours.toString().padStart(2, '0'))
-  const [minuteInput, setMinuteInput] = useState(time.minutes.toString().padStart(2, '0'))
+  const [hourInput, setHourInput] = useState(
+    displayHours.toString().padStart(2, '0')
+  )
+  const [minuteInput, setMinuteInput] = useState(
+    time.minutes.toString().padStart(2, '0')
+  )
 
   useEffect(() => {
     handRotation.value = withTiming(currentAngle - 180, {
@@ -218,13 +225,12 @@ export const TimePicker: React.FC<TimePickerProps> = ({
   return (
     <View style={[styles.container, style]}>
       <View style={styles.header}>
-        <Text style={[styles.headerTitle, { color: colors.textSecondary }]}>Select time</Text>
+        <Text style={[styles.headerTitle, { color: colors.textSecondary }]}>
+          Select time
+        </Text>
 
         <View
-          style={[
-            styles.timeDisplay,
-            !is24Hour && styles.timeDisplayWithPeriod,
-          ]}
+          style={[styles.timeDisplay, !is24Hour && styles.timeDisplayWithPeriod]}
         >
           <View style={styles.timeSection}>
             <TextInput
@@ -237,7 +243,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
                 },
               ]}
               value={hourInput}
-              onChangeText={(text) => {
+              onChangeText={text => {
                 const numeric = text.replace(/[^0-9]/g, '')
                 if (numeric.length > 2) return
                 setHourInput(numeric)
@@ -277,7 +283,7 @@ export const TimePicker: React.FC<TimePickerProps> = ({
                 },
               ]}
               value={minuteInput}
-              onChangeText={(text) => {
+              onChangeText={text => {
                 const numeric = text.replace(/[^0-9]/g, '')
                 if (numeric.length > 2) return
                 setMinuteInput(numeric)
@@ -304,7 +310,8 @@ export const TimePicker: React.FC<TimePickerProps> = ({
                 style={[
                   styles.periodButton,
                   {
-                    backgroundColor: period === 'AM' ? colors.surface : 'transparent',
+                    backgroundColor:
+                      period === 'AM' ? colors.surface : 'transparent',
                     borderColor: period === 'AM' ? colors.primary : colors.border,
                   },
                 ]}
@@ -324,7 +331,8 @@ export const TimePicker: React.FC<TimePickerProps> = ({
                 style={[
                   styles.periodButton,
                   {
-                    backgroundColor: period === 'PM' ? colors.surface : 'transparent',
+                    backgroundColor:
+                      period === 'PM' ? colors.surface : 'transparent',
                     borderColor: period === 'PM' ? colors.primary : colors.border,
                   },
                 ]}

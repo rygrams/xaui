@@ -46,13 +46,8 @@ export const FeatureDiscovery: React.FC<FeatureDiscoveryProps> = ({
     resetAnimations,
   } = useFeatureDiscoveryAnimations()
 
-  const {
-    target,
-    measureTarget,
-    setTargetLayout,
-    viewportWidth,
-    viewportHeight,
-  } = useFeatureDiscoveryLayout(targetRef)
+  const { target, measureTarget, setTargetLayout, viewportWidth, viewportHeight } =
+    useFeatureDiscoveryLayout(targetRef)
 
   const {
     targetCenterX,
@@ -116,7 +111,9 @@ export const FeatureDiscovery: React.FC<FeatureDiscoveryProps> = ({
       statusBarTranslucent
       onRequestClose={onDismiss}
     >
-      <View style={[styles.root, customAppearance?.root, customAppearance?.container]}>
+      <View
+        style={[styles.root, customAppearance?.root, customAppearance?.container]}
+      >
         <Pressable
           style={styles.absoluteFill}
           onPress={dismissOnBackdropPress ? onDismiss : undefined}

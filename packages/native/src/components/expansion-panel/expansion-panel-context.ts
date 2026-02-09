@@ -12,14 +12,16 @@ export type ExpansionPanelContextValue = {
   toggleItem: (key: string) => void
 }
 
-export const ExpansionPanelContext = createContext<ExpansionPanelContextValue | undefined>(
-  undefined
-)
+export const ExpansionPanelContext = createContext<
+  ExpansionPanelContextValue | undefined
+>(undefined)
 
 export const useExpansionPanelContext = () => {
   const context = useContext(ExpansionPanelContext)
   if (!context) {
-    throw new Error('ExpansionPanelItem must be used within an ExpansionPanel component')
+    throw new Error(
+      'ExpansionPanelItem must be used within an ExpansionPanel component'
+    )
   }
   return context
 }

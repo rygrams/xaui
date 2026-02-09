@@ -1,7 +1,10 @@
 import { useMemo } from 'react'
 import { useXUITheme } from '../../core'
 
-const resolveShadowStyle = (elevation: number, shadows: ReturnType<typeof useXUITheme>['shadows']) => {
+const resolveShadowStyle = (
+  elevation: number,
+  shadows: ReturnType<typeof useXUITheme>['shadows']
+) => {
   if (elevation <= 1) {
     return shadows.sm
   }

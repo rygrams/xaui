@@ -139,7 +139,11 @@ export const MenuBoxItem: React.FC<MenuBoxItemProps> = props => {
       onPressIn={handlePressIn}
       onPressOut={handlePressOut}
       disabled={isDisabled}
-      style={[radiusStyles, { overflow: 'hidden' }, !isLast && { marginBottom: spacing }]}
+      style={[
+        radiusStyles,
+        { overflow: 'hidden' },
+        !isLast && { marginBottom: spacing },
+      ]}
     >
       {content}
     </Pressable>

@@ -25,18 +25,16 @@ export const AppBar: React.FC<AppBarProps> = ({
   const colorScheme = theme.colors[safeThemeColor]
   const isDefaultThemeColor = safeThemeColor === 'default'
 
-  const backgroundColor =
-    isDefaultThemeColor
-      ? theme.mode === 'dark'
-        ? theme.colors.default.background
-        : '#FFFFFF'
-      : colorScheme.background
-  const borderBottomColor =
-    isDefaultThemeColor
-      ? theme.mode === 'dark'
-        ? 'rgba(255, 255, 255, 0.06)'
-        : 'rgba(0, 0, 0, 0.08)'
-      : colorScheme.main
+  const backgroundColor = isDefaultThemeColor
+    ? theme.mode === 'dark'
+      ? theme.colors.default.background
+      : '#FFFFFF'
+    : colorScheme.background
+  const borderBottomColor = isDefaultThemeColor
+    ? theme.mode === 'dark'
+      ? 'rgba(255, 255, 255, 0.06)'
+      : 'rgba(0, 0, 0, 0.08)'
+    : colorScheme.main
 
   return (
     <View style={[styles.container, isFloating && styles.floatingContainer]}>

@@ -27,7 +27,9 @@ export default function RadioScreen() {
       contentContainerStyle={[styles.content, { gap: theme.spacing.lg }]}
     >
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Controlled Group</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Controlled Group
+        </Text>
         <RadioGroup value={plan} onValueChange={setPlan} themeColor="primary">
           <Radio value="free" label="Free" />
           <Radio value="pro" label="Pro" />
@@ -36,7 +38,9 @@ export default function RadioScreen() {
       </View>
 
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Horizontal Group</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Horizontal Group
+        </Text>
         <RadioGroup
           value={frequency}
           onValueChange={setFrequency}
@@ -51,7 +55,9 @@ export default function RadioScreen() {
       </View>
 
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Light Variant</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Light Variant
+        </Text>
         <RadioGroup
           value={lightChoice}
           onValueChange={setLightChoice}
@@ -65,18 +71,27 @@ export default function RadioScreen() {
       </View>
 
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Standalone</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Standalone
+        </Text>
         <View style={{ gap: theme.spacing.md }}>
           <Radio label="Uncontrolled" defaultChecked />
           <Radio label="Disabled" isDisabled />
           <Radio label="Disabled Checked" isChecked isDisabled />
           <Radio label="Radius none" radius="none" isChecked />
-          <Radio label="Justify left" labelAlignment="justify-left" fullWidth isChecked />
+          <Radio
+            label="Justify left"
+            labelAlignment="justify-left"
+            fullWidth
+            isChecked
+          />
         </View>
       </View>
 
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Theme Colors</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Theme Colors
+        </Text>
         <View style={{ gap: theme.spacing.md }}>
           {themeColors.map(themeColor => (
             <Radio
@@ -91,7 +106,9 @@ export default function RadioScreen() {
       </View>
 
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Sizes</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Sizes
+        </Text>
         <View style={{ gap: theme.spacing.md }}>
           <Radio label="Extra Small" size="xs" isChecked />
           <Radio label="Small" size="sm" isChecked />

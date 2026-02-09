@@ -34,10 +34,7 @@ describe('ExpansionPanel Types', () => {
   })
 
   it('accepts all selection modes', () => {
-    const modes: Array<ExpansionPanelProps['selectionMode']> = [
-      'toggle',
-      'multiple',
-    ]
+    const modes: Array<ExpansionPanelProps['selectionMode']> = ['toggle', 'multiple']
     modes.forEach(selectionMode => {
       const props: ExpansionPanelProps = {
         children: null,

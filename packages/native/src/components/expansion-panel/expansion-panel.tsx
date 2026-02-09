@@ -1,7 +1,10 @@
 import React from 'react'
 import { View } from 'react-native'
 import { ExpansionPanelContext } from './expansion-panel-context'
-import { useExpansionPanelStyles, useExpansionPanelContextValue } from './expansion-panel.hook'
+import {
+  useExpansionPanelStyles,
+  useExpansionPanelContextValue,
+} from './expansion-panel.hook'
 import {
   buildExpansionPanelContextParams,
   getItemKey,
@@ -11,7 +14,9 @@ import {
 import type { ExpansionPanelProps } from './expansion-panel.type'
 import { Divider } from '../divider'
 
-export const ExpansionPanel: React.FC<ExpansionPanelProps> = (props: ExpansionPanelProps) => {
+export const ExpansionPanel: React.FC<ExpansionPanelProps> = (
+  props: ExpansionPanelProps
+) => {
   const {
     children,
     variant = 'light',

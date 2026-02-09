@@ -32,7 +32,9 @@ export default function AppBarScreen() {
         <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
           Docked AppBar
         </Text>
-        <Text style={[styles.description, { color: colors.foreground, opacity: 0.7 }]}>
+        <Text
+          style={[styles.description, { color: colors.foreground, opacity: 0.7 }]}
+        >
           Full-width app bar with `variant=docked` and configurable `elevation`.
         </Text>
         <View style={styles.controlsRow}>
@@ -77,7 +79,9 @@ export default function AppBarScreen() {
         <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
           Floating AppBar
         </Text>
-        <Text style={[styles.description, { color: colors.foreground, opacity: 0.7 }]}>
+        <Text
+          style={[styles.description, { color: colors.foreground, opacity: 0.7 }]}
+        >
           Rounded app bar with `variant=floating` that does not take the full screen
           width. This example also uses `themeColor=&quot;primary&quot;`.
         </Text>
@@ -102,7 +106,11 @@ export default function AppBarScreen() {
         </Text>
 
         <View style={styles.preview}>
-          <AppBar variant="floating" elevation={floatingElevation} themeColor="primary">
+          <AppBar
+            variant="floating"
+            elevation={floatingElevation}
+            themeColor="primary"
+          >
             <AppBarStartContent>
               <StarIcon size={22} color={floatingThemeColor.main} />
             </AppBarStartContent>

@@ -69,7 +69,11 @@ export const Radio: React.FC<RadioProps> = ({
   const sizeStyles = useSizeStyles(resolvedSize, resolvedVariant)
   const radiusStyles = useRadiusStyles(resolvedRadius)
   const dotColors = useDotColors(resolvedThemeColor, resolvedVariant, isChecked)
-  const variantStyles = useVariantStyles(resolvedThemeColor, resolvedVariant, isChecked)
+  const variantStyles = useVariantStyles(
+    resolvedThemeColor,
+    resolvedVariant,
+    isChecked
+  )
   const containerStyles = useContainerStyles(resolvedLabelAlignment)
 
   useEffect(() => {

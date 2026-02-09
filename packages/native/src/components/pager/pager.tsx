@@ -55,7 +55,7 @@ export const Pager: React.FC<PagerProps> = ({
   const initialScrollAppliedRef = useRef(false)
 
   const activePage = clampPage(
-    isControlled ? controlledPage ?? 0 : internalPage,
+    isControlled ? (controlledPage ?? 0) : internalPage,
     maxPage
   )
 

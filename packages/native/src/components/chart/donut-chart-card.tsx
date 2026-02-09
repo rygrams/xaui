@@ -169,7 +169,9 @@ export const DonutChartCard: React.FC<DonutChartCardProps> = ({
               {item.label}
             </Text>
           </View>
-          <Text style={[styles.legendValue, { color: textColor }]}>{item.value}</Text>
+          <Text style={[styles.legendValue, { color: textColor }]}>
+            {item.value}
+          </Text>
         </View>
       ))}
     </View>

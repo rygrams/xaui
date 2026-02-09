@@ -143,7 +143,15 @@ export const Drawer: React.FC<DrawerProps> = ({
         setIsModalMounted(false)
       }
     })
-  }, [isOpen, position, size, disableAnimation, translateX, translateY, overlayOpacity])
+  }, [
+    isOpen,
+    position,
+    size,
+    disableAnimation,
+    translateX,
+    translateY,
+    overlayOpacity,
+  ])
 
   if (!isModalMounted) {
     return null

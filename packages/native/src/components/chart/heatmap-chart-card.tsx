@@ -56,7 +56,6 @@ export const HeatmapChartCard: React.FC<HeatmapChartCardProps> = ({
   cellGap = 4,
   style,
 }) => {
-
   const { minValue, maxValue } = React.useMemo(() => {
     let min = Number.POSITIVE_INFINITY
     let max = Number.NEGATIVE_INFINITY
@@ -158,9 +157,7 @@ export const HeatmapChartCard: React.FC<HeatmapChartCardProps> = ({
                     },
                   ]}
                 >
-                  {showValues && (
-                    <Text style={styles.heatmapCellText}>{value}</Text>
-                  )}
+                  {showValues && <Text style={styles.heatmapCellText}>{value}</Text>}
                 </View>
               )
             })}

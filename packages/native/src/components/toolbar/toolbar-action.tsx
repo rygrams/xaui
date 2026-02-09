@@ -36,7 +36,7 @@ export const ToolbarAction: React.FC<ToolbarActionProps> = ({
           width: context?.actionButtonSize ?? 40,
           height: context?.actionButtonSize ?? 40,
           backgroundColor: pressed
-            ? context?.actionPressedColor ?? 'transparent'
+            ? (context?.actionPressedColor ?? 'transparent')
             : 'transparent',
         },
         isDisabled && styles.disabledAction,

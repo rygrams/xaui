@@ -3,7 +3,9 @@ import type { TimeValue, TimePeriod } from './timepicker.type'
 /**
  * Convert 24-hour time to 12-hour format with period
  */
-export const to12HourFormat = (hours: number): { hours: number; period: TimePeriod } => {
+export const to12HourFormat = (
+  hours: number
+): { hours: number; period: TimePeriod } => {
   if (hours === 0) {
     return { hours: 12, period: 'AM' }
   }

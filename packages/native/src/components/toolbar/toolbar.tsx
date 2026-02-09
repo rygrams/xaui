@@ -25,7 +25,9 @@ export const Toolbar: React.FC<ToolbarProps> = ({
   const variantStyles = useToolbarVariantStyles(variant, position)
   const colors = useToolbarColors(themeColor)
 
-  const translateValue = useSharedValue(isVisible ? 0 : getInitialTranslate(position))
+  const translateValue = useSharedValue(
+    isVisible ? 0 : getInitialTranslate(position)
+  )
   const opacityValue = useSharedValue(isVisible ? 1 : 0)
 
   useEffect(() => {

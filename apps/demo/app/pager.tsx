@@ -32,9 +32,21 @@ const slides: Slide[] = [
   },
 ]
 
-function SlideCard({ item, fullscreen = false }: { item: Slide; fullscreen?: boolean }) {
+function SlideCard({
+  item,
+  fullscreen = false,
+}: {
+  item: Slide
+  fullscreen?: boolean
+}) {
   return (
-    <View style={[styles.card, fullscreen && styles.fullscreenCard, { backgroundColor: item.color }]}>
+    <View
+      style={[
+        styles.card,
+        fullscreen && styles.fullscreenCard,
+        { backgroundColor: item.color },
+      ]}
+    >
       <Text style={styles.cardTitle}>{item.title}</Text>
       <Text style={styles.cardSubtitle}>{item.subtitle}</Text>
     </View>

@@ -103,7 +103,15 @@ export const LineChartCard: React.FC<LineChartCardProps> = ({
       const y = graphHeight - ratio * graphHeight
       return { x, y }
     })
-  }, [chartWidth, dataRange, graphHeight, minValue, normalizedData, paddingX, rightPadding])
+  }, [
+    chartWidth,
+    dataRange,
+    graphHeight,
+    minValue,
+    normalizedData,
+    paddingX,
+    rightPadding,
+  ])
 
   const linePath =
     lineMode === 'smooth' ? buildSmoothPath(points) : buildDirectPath(points)
@@ -148,12 +156,20 @@ export const LineChartCard: React.FC<LineChartCardProps> = ({
         )}
 
         <View style={styles.chartAndLabels}>
-          <View style={[styles.lineChartArea, { width: chartWidth, height: chartHeight }]}>
+          <View
+            style={[
+              styles.lineChartArea,
+              { width: chartWidth, height: chartHeight },
+            ]}
+          >
             {showAxes && (
               <>
                 <View style={[styles.lineChartGrid, { top: 0 }]} />
                 <View
-                  style={[styles.lineChartGrid, { top: Math.round(chartHeight / 2) }]}
+                  style={[
+                    styles.lineChartGrid,
+                    { top: Math.round(chartHeight / 2) },
+                  ]}
                 />
                 <View style={[styles.lineChartGrid, { top: chartHeight - 1 }]} />
               </>
@@ -161,9 +177,7 @@ export const LineChartCard: React.FC<LineChartCardProps> = ({
 
             <Svg width={chartWidth} height={chartHeight}>
               {!!areaPath &&
-                (PathElement ? (
-                  <PathElement d={areaPath} fill={areaColor} />
-                ) : null)}
+                (PathElement ? <PathElement d={areaPath} fill={areaColor} /> : null)}
               {!!linePath &&
                 (PathElement ? (
                   <PathElement

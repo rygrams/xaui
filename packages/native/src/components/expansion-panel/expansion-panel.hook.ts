@@ -1,7 +1,10 @@
 import { useState, useCallback, useMemo } from 'react'
 import type { ViewStyle } from 'react-native'
 import { useXUITheme } from '../../core'
-import type { ExpansionPanelVariant, ExpansionPanelSelectionMode } from './expansion-panel.type'
+import type {
+  ExpansionPanelVariant,
+  ExpansionPanelSelectionMode,
+} from './expansion-panel.type'
 import { useXUIPalette } from '../../core/theme-hooks'
 
 interface ExpansionPanelStylesConfig {
@@ -104,7 +107,9 @@ export const useExpansionPanelSelection = ({
   return { currentExpandedKeys, toggleItem }
 }
 
-export const useExpansionPanelContextValue = (config: ExpansionPanelContextConfig) => {
+export const useExpansionPanelContextValue = (
+  config: ExpansionPanelContextConfig
+) => {
   const { currentExpandedKeys, toggleItem } = useExpansionPanelSelection({
     selectionMode: config.selectionMode,
     expandedKeys: config.expandedKeys,

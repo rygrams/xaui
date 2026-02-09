@@ -1,6 +1,5 @@
 import { Metadata } from 'next'
-import { ExpansionPanelDemo } from '@/components/preview/expansion-panel-demo'
-import { PhonePreview } from '@/components/preview/phone-preview'
+import { ExpansionPanelNativeDemo } from '@/components/preview/expansion-panel-native-demo'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 export const metadata: Metadata = {
@@ -26,6 +25,150 @@ export function MyComponent() {
   )
 }`
 
+const variantsCode = `// Light Variant - Clean, minimal appearance
+<ExpansionPanel variant="light">
+  <ExpansionPanelItem title="Light Item">
+    <Text>Clean and minimal styling</Text>
+  </ExpansionPanelItem>
+</ExpansionPanel>
+
+// Bordered Variant - Visible borders around items
+<ExpansionPanel variant="bordered">
+  <ExpansionPanelItem title="Bordered Item">
+    <Text>Items have visible borders</Text>
+  </ExpansionPanelItem>
+</ExpansionPanel>
+
+// Splitted Variant - Separated cards appearance
+<ExpansionPanel variant="splitted">
+  <ExpansionPanelItem title="Splitted Item">
+    <Text>Items appear as separate cards</Text>
+  </ExpansionPanelItem>
+</ExpansionPanel>`
+
+const sizingCode = `// Compact Mode - Reduced padding for dense UIs
+<ExpansionPanel isCompact>
+  <ExpansionPanelItem title="Compact Item">
+    <Text>Less padding, more items visible</Text>
+  </ExpansionPanelItem>
+</ExpansionPanel>
+
+// Full Width Control
+<ExpansionPanel fullWidth={false}>
+  <ExpansionPanelItem title="Fixed Width">
+    <Text>Does not stretch to fill container</Text>
+  </ExpansionPanelItem>
+</ExpansionPanel>`
+
+const selectionModeCode = `// Toggle Mode - Only one item expanded at a time (default)
+<ExpansionPanel selectionMode="toggle">
+  <ExpansionPanelItem itemKey="a" title="Item A">
+    <Text>Opening this closes Item B</Text>
+  </ExpansionPanelItem>
+  <ExpansionPanelItem itemKey="b" title="Item B">
+    <Text>Opening this closes Item A</Text>
+  </ExpansionPanelItem>
+</ExpansionPanel>
+
+// Multiple Mode - Multiple items can be expanded
+<ExpansionPanel selectionMode="multiple">
+  <ExpansionPanelItem itemKey="a" title="Item A">
+    <Text>Can be expanded with Item B</Text>
+  </ExpansionPanelItem>
+  <ExpansionPanelItem itemKey="b" title="Item B">
+    <Text>Can be expanded with Item A</Text>
+  </ExpansionPanelItem>
+</ExpansionPanel>`
+
+const eventsCode = `import { useState } from 'react'
+
+export function ControlledExample() {
+  const [expandedKeys, setExpandedKeys] = useState<string[]>(['item1'])
+
+  const handleSelectionChange = (keys: string[]) => {
+    console.log('Expanded items:', keys)
+    setExpandedKeys(keys)
+  }
+
+  const handleItemSelected = (isSelected: boolean) => {
+    console.log('Item selected state:', isSelected)
+  }
+
+  return (
+    <ExpansionPanel
+      expandedKeys={expandedKeys}
+      onSelectionChange={handleSelectionChange}
+    >
+      <ExpansionPanelItem
+        itemKey="item1"
+        title="Controlled Item"
+        onSelected={handleItemSelected}
+      >
+        <Text>This item is controlled externally</Text>
+      </ExpansionPanelItem>
+    </ExpansionPanel>
+  )
+}`
+
+const disabledCode = `// Disabled Items
+<ExpansionPanel disabledKeys={['disabled-item']}>
+  <ExpansionPanelItem itemKey="enabled" title="Enabled Item">
+    <Text>This item can be interacted with</Text>
+  </ExpansionPanelItem>
+  <ExpansionPanelItem itemKey="disabled-item" title="Disabled Item">
+    <Text>This item cannot be expanded</Text>
+  </ExpansionPanelItem>
+</ExpansionPanel>`
+
+const customizationCode = `// Custom Appearance
+<ExpansionPanel
+  customAppearance={{
+    container: { backgroundColor: '#f5f5f5', borderRadius: 12 },
+    item: { marginVertical: 4 }
+  }}
+>
+  <ExpansionPanelItem
+    title="Custom Styled Item"
+    subtitle="With custom subtitle"
+    startContent={<Icon name="settings" />}
+    customAppearance={{
+      base: { backgroundColor: 'white' },
+      title: { fontSize: 18, fontWeight: 'bold' },
+      subtitle: { color: '#666' },
+      content: { padding: 16 }
+    }}
+  >
+    <Text>Custom styled content</Text>
+  </ExpansionPanelItem>
+</ExpansionPanel>
+
+// Hide Indicator
+<ExpansionPanel hideIndicator>
+  <ExpansionPanelItem title="No Indicator">
+    <Text>Chevron icon is hidden</Text>
+  </ExpansionPanelItem>
+</ExpansionPanel>
+
+// Disable Animation
+<ExpansionPanel disableAnimation>
+  <ExpansionPanelItem title="No Animation">
+    <Text>Expands/collapses instantly</Text>
+  </ExpansionPanelItem>
+</ExpansionPanel>`
+
+const defaultExpandedCode = `// Default Expanded Keys
+<ExpansionPanel defaultExpandedKeys={['intro', 'details']}>
+  <ExpansionPanelItem itemKey="intro" title="Introduction">
+    <Text>Expanded by default</Text>
+  </ExpansionPanelItem>
+  <ExpansionPanelItem itemKey="details" title="Details">
+    <Text>Also expanded by default</Text>
+  </ExpansionPanelItem>
+  <ExpansionPanelItem itemKey="extra" title="Extra">
+    <Text>Collapsed by default</Text>
+  </ExpansionPanelItem>
+</ExpansionPanel>`
+
 export default function ExpansionPanelPage() {
   return (
     <div className="space-y-8">
@@ -42,20 +185,17 @@ export default function ExpansionPanelPage() {
         </p>
       </div>
 
-      <Tabs defaultValue="preview" className="w-full">
+      <Tabs defaultValue="code" className="w-full">
         <TabsList>
-          <TabsTrigger value="preview">Preview</TabsTrigger>
           <TabsTrigger value="code">Code</TabsTrigger>
           <TabsTrigger value="props">Props</TabsTrigger>
         </TabsList>
 
-        <TabsContent value="preview" className="space-y-4">
-          <PhonePreview>
-            <ExpansionPanelDemo />
-          </PhonePreview>
-        </TabsContent>
-
-        <TabsContent value="code" className="space-y-4">
+        <TabsContent value="code" className="space-y-6">
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">Preview</h3>
+            <ExpansionPanelNativeDemo />
+          </div>
           <div className="space-y-4">
             <div>
               <h3 className="text-lg font-semibold mb-2">Installation</h3>
@@ -64,11 +204,85 @@ export default function ExpansionPanelPage() {
               </pre>
             </div>
             <div>
-              <h3 className="text-lg font-semibold mb-2">Usage</h3>
+              <h3 className="text-lg font-semibold mb-2">Basic Usage</h3>
               <pre className="rounded-md bg-muted p-4 overflow-x-auto">
                 <code className="text-sm">{usageCode}</code>
               </pre>
             </div>
+          </div>
+
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">Variants</h3>
+            <p className="text-muted-foreground">
+              Three visual variants available: light (minimal), bordered (visible
+              borders), and splitted (card-like).
+            </p>
+            <pre className="rounded-md bg-muted p-4 overflow-x-auto">
+              <code className="text-sm">{variantsCode}</code>
+            </pre>
+          </div>
+
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">Sizing Options</h3>
+            <p className="text-muted-foreground">
+              Control the density with isCompact and width with fullWidth props.
+            </p>
+            <pre className="rounded-md bg-muted p-4 overflow-x-auto">
+              <code className="text-sm">{sizingCode}</code>
+            </pre>
+          </div>
+
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">Selection Modes</h3>
+            <p className="text-muted-foreground">
+              Toggle mode allows only one expanded item at a time. Multiple mode
+              allows multiple items to be expanded simultaneously.
+            </p>
+            <pre className="rounded-md bg-muted p-4 overflow-x-auto">
+              <code className="text-sm">{selectionModeCode}</code>
+            </pre>
+          </div>
+
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">Events & Controlled State</h3>
+            <p className="text-muted-foreground">
+              Handle selection changes with onSelectionChange and individual item
+              selection with onSelected.
+            </p>
+            <pre className="rounded-md bg-muted p-4 overflow-x-auto">
+              <code className="text-sm">{eventsCode}</code>
+            </pre>
+          </div>
+
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">Disabled Items</h3>
+            <p className="text-muted-foreground">
+              Disable specific items by their keys to prevent interaction.
+            </p>
+            <pre className="rounded-md bg-muted p-4 overflow-x-auto">
+              <code className="text-sm">{disabledCode}</code>
+            </pre>
+          </div>
+
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">Default Expanded State</h3>
+            <p className="text-muted-foreground">
+              Set items to be expanded by default using defaultExpandedKeys.
+            </p>
+            <pre className="rounded-md bg-muted p-4 overflow-x-auto">
+              <code className="text-sm">{defaultExpandedCode}</code>
+            </pre>
+          </div>
+
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">Customization</h3>
+            <p className="text-muted-foreground">
+              Customize appearance with customAppearance prop, hide indicators, or
+              disable animations.
+            </p>
+            <pre className="rounded-md bg-muted p-4 overflow-x-auto">
+              <code className="text-sm">{customizationCode}</code>
+            </pre>
           </div>
         </TabsContent>
 

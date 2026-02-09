@@ -37,6 +37,5 @@ export const abbreviateLabel = (label: string, length: number) => {
   return `${compact.slice(0, length)}.`
 }
 
-export const isLegendHorizontal = (
-  position: 'top' | 'left' | 'right' | 'bottom'
-) => position === 'left' || position === 'right'
+export const isLegendHorizontal = (position: 'top' | 'left' | 'right' | 'bottom') =>
+  position === 'left' || position === 'right'
