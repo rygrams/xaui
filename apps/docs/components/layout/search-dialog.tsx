@@ -33,10 +33,6 @@ export function SearchDialog({ open, onOpenChange }: SearchDialogProps) {
     : components
 
   useEffect(() => {
-    setSelectedIndex(0)
-  }, [query])
-
-  useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'k' && (e.metaKey || e.ctrlKey)) {
         e.preventDefault()
@@ -83,7 +79,10 @@ export function SearchDialog({ open, onOpenChange }: SearchDialogProps) {
           <Input
             placeholder="Type to search..."
             value={query}
-            onChange={e => setQuery(e.target.value)}
+            onChange={e => {
+              setQuery(e.target.value)
+              setSelectedIndex(0)
+            }}
             onKeyDown={handleKeyDown}
             className="h-10"
             autoFocus
