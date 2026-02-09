@@ -42,6 +42,7 @@ const entries = {
   'slider/index': 'src/components/slider/index.ts',
   'tabs/index': 'src/components/tabs/index.ts',
   'pager/index': 'src/components/pager/index.ts',
+  'chart/index': 'src/components/chart/index.ts',
 }
 
 const getDeclarationFiles = async dir => {

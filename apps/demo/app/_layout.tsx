@@ -48,6 +48,14 @@ export default function RootLayout() {
               name="datepicker"
               options={{ title: 'DatePicker Examples' }}
             />
+            <Stack.Screen
+              name="select"
+              options={{ title: 'Select Examples' }}
+            />
+            <Stack.Screen
+              name="autocomplete"
+              options={{ title: 'Autocomplete Examples' }}
+            />
             <Stack.Screen name="fab" options={{ title: 'FAB Examples' }} />
             <Stack.Screen
               name="feature-discovery"

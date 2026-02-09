@@ -1,6 +1,5 @@
 import { useXUIColors } from '@xaui/native/core'
 import { ScrollView } from 'react-native'
-import { useState, useEffect } from 'react'
 import { Button } from '@xaui/native/button'
 import { useRouter } from 'expo-router'
 import { Grid, GridItem } from '@xaui/native/view'
@@ -9,25 +8,29 @@ export default function HomeScreen() {
   const colors = useXUIColors()
   const router = useRouter()
 
-  const [, setValue] = useState(0.1)
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setValue(prevValue => prevValue + 0.06)
-    }, 1000)
-    return () => clearInterval(interval)
-  }, [])
-
   return (
     <ScrollView
       style={{
+        backgroundColor: colors.background,
+      }}
+      contentContainerStyle={{
         paddingVertical: 55,
         paddingHorizontal: 16,
-        backgroundColor: colors.background,
         gap: 12,
+        paddingBottom: 24,
       }}
     >
       <Grid columns={2} spacing={5}>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/chart')}
+            variant="outlined"
+            themeColor="secondary"
+          >
+            Chart
+          </Button>
+        </GridItem>
         <GridItem>
           <Button
             size="sm"
@@ -156,6 +159,26 @@ export default function HomeScreen() {
             themeColor="secondary"
           >
             Datepicker
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/select')}
+            variant="outlined"
+            themeColor="primary"
+          >
+            Select
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/autocomplete')}
+            variant="outlined"
+            themeColor="secondary"
+          >
+            Autocomplete
           </Button>
         </GridItem>
         <GridItem>

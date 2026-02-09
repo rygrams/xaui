@@ -211,6 +211,11 @@
       "types": "./dist/menubox/index.d.ts",
       "import": "./dist/menubox/index.js",
       "require": "./dist/menubox/index.js"
+    },
+    "./chart": {
+      "types": "./dist/chart/index.d.ts",
+      "import": "./dist/chart/index.js",
+      "require": "./dist/chart/index.js"
     }
   },
   "files": [
