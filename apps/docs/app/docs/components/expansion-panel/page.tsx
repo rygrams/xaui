@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import { ExpansionPanelNativeDemo } from '@/components/preview/expansion-panel-native-demo'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { CodeBlock } from '@/components/ui/code-block'
 
 export const metadata: Metadata = {
   title: 'ExpansionPanel - Xaui',
@@ -199,15 +200,11 @@ export default function ExpansionPanelPage() {
           <div className="space-y-4">
             <div>
               <h3 className="text-lg font-semibold mb-2">Installation</h3>
-              <pre className="rounded-md bg-muted p-4 overflow-x-auto">
-                <code className="text-sm">{installationCode}</code>
-              </pre>
+              <CodeBlock code={installationCode} language="bash" />
             </div>
             <div>
               <h3 className="text-lg font-semibold mb-2">Basic Usage</h3>
-              <pre className="rounded-md bg-muted p-4 overflow-x-auto">
-                <code className="text-sm">{usageCode}</code>
-              </pre>
+              <CodeBlock code={usageCode} />
             </div>
           </div>
 
@@ -217,9 +214,7 @@ export default function ExpansionPanelPage() {
               Three visual variants available: light (minimal), bordered (visible
               borders), and splitted (card-like).
             </p>
-            <pre className="rounded-md bg-muted p-4 overflow-x-auto">
-              <code className="text-sm">{variantsCode}</code>
-            </pre>
+            <CodeBlock code={variantsCode} />
           </div>
 
           <div className="space-y-4">
@@ -227,9 +222,7 @@ export default function ExpansionPanelPage() {
             <p className="text-muted-foreground">
               Control the density with isCompact and width with fullWidth props.
             </p>
-            <pre className="rounded-md bg-muted p-4 overflow-x-auto">
-              <code className="text-sm">{sizingCode}</code>
-            </pre>
+            <CodeBlock code={sizingCode} />
           </div>
 
           <div className="space-y-4">
@@ -238,9 +231,7 @@ export default function ExpansionPanelPage() {
               Toggle mode allows only one expanded item at a time. Multiple mode
               allows multiple items to be expanded simultaneously.
             </p>
-            <pre className="rounded-md bg-muted p-4 overflow-x-auto">
-              <code className="text-sm">{selectionModeCode}</code>
-            </pre>
+            <CodeBlock code={selectionModeCode} />
           </div>
 
           <div className="space-y-4">
@@ -249,9 +240,7 @@ export default function ExpansionPanelPage() {
               Handle selection changes with onSelectionChange and individual item
               selection with onSelected.
             </p>
-            <pre className="rounded-md bg-muted p-4 overflow-x-auto">
-              <code className="text-sm">{eventsCode}</code>
-            </pre>
+            <CodeBlock code={eventsCode} />
           </div>
 
           <div className="space-y-4">
@@ -259,9 +248,7 @@ export default function ExpansionPanelPage() {
             <p className="text-muted-foreground">
               Disable specific items by their keys to prevent interaction.
             </p>
-            <pre className="rounded-md bg-muted p-4 overflow-x-auto">
-              <code className="text-sm">{disabledCode}</code>
-            </pre>
+            <CodeBlock code={disabledCode} />
           </div>
 
           <div className="space-y-4">
@@ -269,9 +256,7 @@ export default function ExpansionPanelPage() {
             <p className="text-muted-foreground">
               Set items to be expanded by default using defaultExpandedKeys.
             </p>
-            <pre className="rounded-md bg-muted p-4 overflow-x-auto">
-              <code className="text-sm">{defaultExpandedCode}</code>
-            </pre>
+            <CodeBlock code={defaultExpandedCode} />
           </div>
 
           <div className="space-y-4">
@@ -280,9 +265,7 @@ export default function ExpansionPanelPage() {
               Customize appearance with customAppearance prop, hide indicators, or
               disable animations.
             </p>
-            <pre className="rounded-md bg-muted p-4 overflow-x-auto">
-              <code className="text-sm">{customizationCode}</code>
-            </pre>
+            <CodeBlock code={customizationCode} />
           </div>
         </TabsContent>
 

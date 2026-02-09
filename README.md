@@ -5,7 +5,7 @@
 >
 > This library is evolving rapidly. Public APIs may change without notice as the project matures.
 
-XAUI is a Flutter-inspired component system targeting React Native, hybrid web/native experiences, and interactive documentation within a Turborepo monorepo. The thematic core (`@xaui/core`) centralises tokens, dynamic theming, and motion primitives. Platform-specific packages build on that foundation to deliver native-ready, hybrid, and documentation-focused tooling.
+XAUI is a Flutter-inspired component system targeting React Native and hybrid web/native experiences within a Turborepo monorepo. The thematic core (`@xaui/core`) centralises tokens, dynamic theming, and motion primitives. Platform-specific packages build on that foundation to deliver native-ready components.
 
 ## Monorepo architecture
 
@@ -19,13 +19,12 @@ XAUI is a Flutter-inspired component system targeting React Native, hybrid web/n
 
 - `@xaui/core` — shared theme tokens (colors, spacing, typography, shadows) plus hooks like `useXUITheme` and `useColorMode`. It is the source of truth for all downstream packages.
 - `@xaui/native` — React Native components (animated buttons, circular/linear indicators, hooks, `XUIProvider`) that leverage `@xaui/core` while exposing mobile-first helpers (variants, spinner, lightweight animation states powered by Reanimated).
-- `@xaui/hybrid` — hybrid React/ReactDOM package layered with `framer-motion` and `tailwindcss` for web-first experiences. In-depth documentation is still pending (`packages/hybrid/README.md`).
+- `@xaui/icons` — 520+ icon components with individual exports for optimal tree-shaking. Supports multiple variants (baseline, filled, duotone, outlined).
 
 ### Applications
 
-- `apps/demo` — Expo-based sandbox (with `app` router + `app.json`) showcasing mobile usage patterns.
-- `apps/docs` — Next.js-powered documentation site (`app/` directory, `next/font`, content in `apps/docs/contents`).
-- `apps/mcp` — placeholder (only `.gitkeep`) reserved for future tooling or internal console.
+- `apps/demo` — Expo-based sandbox showcasing mobile usage patterns.
+- `apps/docs` — Next.js-powered documentation site.
 
 ## Getting started
 
@@ -41,8 +40,6 @@ XAUI is a Flutter-inspired component system targeting React Native, hybrid web/n
 - `pnpm format` → `prettier --write "**/*.{ts,tsx,md}"`.
 - `pnpm type-check` → `turbo run type-check`.
 
-App-level instructions (Expo, Next.js) remain in `apps/demo/README.md` and `apps/docs/README.md` respectively.
-
 ## Testing & validation
 
 - Unit tests run with `vitest` (config in `vitest.config.ts` at the root).
@@ -57,11 +54,12 @@ Release automation relies on `@changesets/cli`:
 - `pnpm version-packages` (alias `pnpm version`) adjusts versions and regenerates CHANGELOGs.
 - `pnpm release` builds all `@xaui/*` packages (`turbo run build --filter=@xaui/*`) and runs `changeset publish`.
 
-## Resources
+## Documentation
 
-- `packages/core/README.md` details the theme system and shared APIs.
-- `packages/native/README.md` explains mobile components, hooks, and providers.
-- `packages/hybrid/README.md` currently states “no doc yet” but lists installation/dependency info.
-- `apps/docs/README.md` and `apps/demo/README.md` cover Next.js and Expo workflows.
+- `@xaui/core` — [packages/core/README.md](./packages/core/README.md) — Theme system, tokens, and shared APIs.
+- `@xaui/native` — [packages/native/README.md](./packages/native/README.md) — React Native components, hooks, and providers.
+- `@xaui/icons` — [packages/icons/README.md](./packages/icons/README.md) — Icon components and usage patterns.
 
-For questions, open an issue or follow the future MCP guidelines when the cockpit app is defined.
+## License
+
+MIT

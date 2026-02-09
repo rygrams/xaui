@@ -1,7 +1,8 @@
 import { Metadata } from 'next'
 import { Button } from '@/components/ui/button'
-import { ArrowRight, Copy, Check } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
+import { CodeBlock } from '@/components/ui/code-block'
 
 export const metadata: Metadata = {
   title: 'Getting Started - Xaui',
@@ -25,13 +26,21 @@ export default function GettingStartedPage() {
           <p className="text-muted-foreground">
             Install the core packages using your preferred package manager:
           </p>
-          <div className="space-y-2">
-            <div className="rounded-md bg-muted p-4">
-              <code className="text-sm">npm install @xaui/native @xaui/core</code>
+          <div className="space-y-4">
+            <div>
+              <p className="text-sm text-muted-foreground mb-2">With npm:</p>
+              <CodeBlock
+                code="npm install @xaui/native @xaui/icons"
+                language="bash"
+              />
             </div>
-            <p className="text-sm text-muted-foreground">Or with yarn:</p>
-            <div className="rounded-md bg-muted p-4">
-              <code className="text-sm">yarn add @xaui/native @xaui/core</code>
+            <div>
+              <p className="text-sm text-muted-foreground mb-2">Or with yarn:</p>
+              <CodeBlock code="yarn add @xaui/native @xaui/icons" language="bash" />
+            </div>
+            <div>
+              <p className="text-sm text-muted-foreground mb-2">Or with pnpm:</p>
+              <CodeBlock code="pnpm add @xaui/native @xaui/icons" language="bash" />
             </div>
           </div>
         </section>
@@ -41,8 +50,8 @@ export default function GettingStartedPage() {
           <p className="text-muted-foreground">
             Wrap your app with the XUIProvider to enable theming and context:
           </p>
-          <pre className="rounded-md bg-muted p-4 overflow-x-auto">
-            <code className="text-sm">{`import { XUIProvider } from '@xaui/core'
+          <CodeBlock
+            code={`import { XUIProvider } from '@xaui/native/core'
 
 export default function App() {
   return (
@@ -50,8 +59,8 @@ export default function App() {
       <YourApp />
     </XUIProvider>
   )
-}`}</code>
-          </pre>
+}`}
+          />
         </section>
 
         <section className="space-y-4">
@@ -59,8 +68,8 @@ export default function App() {
           <p className="text-muted-foreground">
             Start using components in your application:
           </p>
-          <pre className="rounded-md bg-muted p-4 overflow-x-auto">
-            <code className="text-sm">{`import { Button } from '@xaui/native/button'
+          <CodeBlock
+            code={`import { Button } from '@xaui/native/button'
 
 export function MyComponent() {
   return (
@@ -68,8 +77,8 @@ export function MyComponent() {
       Hello Xaui
     </Button>
   )
-}`}</code>
-          </pre>
+}`}
+          />
         </section>
 
         <section className="space-y-4">

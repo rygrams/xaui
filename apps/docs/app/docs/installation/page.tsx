@@ -1,4 +1,5 @@
 import { Metadata } from 'next'
+import { CodeBlock } from '@/components/ui/code-block'
 
 export const metadata: Metadata = {
   title: 'Installation - Xaui',
@@ -27,10 +28,26 @@ export default function InstallationPage() {
         </section>
 
         <section className="space-y-4">
-          <h2 className="text-2xl font-semibold">Install Core Packages</h2>
-          <pre className="rounded-md bg-muted p-4 overflow-x-auto">
-            <code className="text-sm">npm install @xaui/native @xaui/core</code>
-          </pre>
+          <h2 className="text-2xl font-semibold">Expo Installation (Recommended)</h2>
+          <p className="text-muted-foreground">
+            Xaui works seamlessly with Expo. We recommend using Expo for the best
+            development experience:
+          </p>
+          <CodeBlock code="npx create-expo-app@latest my-app" language="bash" />
+          <p className="text-muted-foreground">Then install Xaui packages:</p>
+          <CodeBlock code="npx expo install @xaui/native" language="bash" />
+          <p className="text-sm text-muted-foreground">
+            Expo handles the native configuration automatically. No additional iOS or
+            Android setup required.
+          </p>
+        </section>
+
+        <section className="space-y-4">
+          <h2 className="text-2xl font-semibold">React Native CLI Installation</h2>
+          <p className="text-muted-foreground">
+            For React Native CLI projects, install the core packages:
+          </p>
+          <CodeBlock code="npm install @xaui/native @xaui/core" language="bash" />
         </section>
 
         <section className="space-y-4">
@@ -38,19 +55,16 @@ export default function InstallationPage() {
           <p className="text-muted-foreground">
             Xaui requires the following peer dependencies:
           </p>
-          <pre className="rounded-md bg-muted p-4 overflow-x-auto">
-            <code className="text-sm">
-              npm install react-native-reanimated react-native-gesture-handler
-            </code>
-          </pre>
+          <CodeBlock
+            code="npm install react-native-reanimated react-native-gesture-handler"
+            language="bash"
+          />
         </section>
 
         <section className="space-y-4">
           <h2 className="text-2xl font-semibold">iOS Setup</h2>
           <p className="text-muted-foreground">After installing pods, run:</p>
-          <pre className="rounded-md bg-muted p-4 overflow-x-auto">
-            <code className="text-sm">cd ios && pod install</code>
-          </pre>
+          <CodeBlock code="cd ios && pod install" language="bash" />
         </section>
 
         <section className="space-y-4">
@@ -58,11 +72,11 @@ export default function InstallationPage() {
           <p className="text-muted-foreground">
             Ensure you have the following in your android/app/build.gradle:
           </p>
-          <pre className="rounded-md bg-muted p-4 overflow-x-auto">
-            <code className="text-sm">{`project.ext.react = [
+          <CodeBlock
+            code={`project.ext.react = [
     enableHermes: true
-]`}</code>
-          </pre>
+]`}
+          />
         </section>
       </div>
     </div>

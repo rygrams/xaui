@@ -2,6 +2,7 @@ import { Metadata } from 'next'
 import { Button } from '@/components/ui/button'
 import { ArrowRight, Sparkles, Zap, Palette } from 'lucide-react'
 import Link from 'next/link'
+import { CodeBlock } from '@/components/ui/code-block'
 
 export const metadata: Metadata = {
   title: 'Introduction - Xaui',
@@ -73,9 +74,7 @@ export default function IntroductionPage() {
         <p className="text-muted-foreground">
           Install Xaui in your React Native project and start building:
         </p>
-        <pre className="rounded-md bg-muted p-4 overflow-x-auto">
-          <code className="text-sm">npm install @xaui/native @xaui/core</code>
-        </pre>
+        <CodeBlock code="npm install @xaui/native @xaui/core" language="bash" />
         <Link href="/docs/installation">
           <Button variant="outline" className="mt-2">
             View Installation Guide
