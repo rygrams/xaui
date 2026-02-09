@@ -2633,8 +2633,8 @@
   "scripts": {
     "generate-exports": "node scripts/generate-exports.js",
     "prebuild": "pnpm generate-exports",
-    "build": "tsup --config tsup.config.ts",
-    "dev": "tsup --config tsup.config.ts --watch",
+    "build": "NODE_OPTIONS=--max-old-space-size=4096 tsup --config tsup.config.ts",
+    "dev": "NODE_OPTIONS=--max-old-space-size=4096 tsup --config tsup.config.ts --watch",
     "test": "vitest",
     "lint": "eslint src/",
     "type-check": "tsc --noEmit"

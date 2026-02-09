@@ -100,15 +100,29 @@ const updateTsupConfig = () => {
 
   const config = `import { defineConfig } from 'tsup'
 
-export default defineConfig({
-  entry: {
+const entries = {
 ${formatEntries(entries)}
-  },
-  format: ['cjs', 'esm'],
-  dts: true,
-  clean: true,
-  external: ['react', 'react-native', 'react-native-svg', '@xaui/core'],
-  target: 'es2020',
+} as const
+
+export default defineConfig(options => {
+  const entryList = Object.entries(entries)
+  const groupSize = 80
+  const entryGroups = Array.from(
+    { length: Math.ceil(entryList.length / groupSize) },
+    (_, index) =>
+      Object.fromEntries(
+        entryList.slice(index * groupSize, (index + 1) * groupSize)
+      )
+  )
+
+  return entryGroups.map((entry, index) => ({
+    entry,
+    format: ['cjs', 'esm'] as const,
+    dts: true,
+    clean: !options.watch && index === 0,
+    external: ['react', 'react-native', 'react-native-svg', '@xaui/core'],
+    target: 'es2020',
+  }))
 })
 `
 
