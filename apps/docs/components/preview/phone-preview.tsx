@@ -9,7 +9,7 @@ interface PhonePreviewProps {
 export function PhonePreview({ children }: PhonePreviewProps) {
   return (
     <div className="flex justify-center py-10">
-      <div className="relative rounded-[2.25rem] bg-gradient-to-br from-cyan-400 via-sky-500 to-emerald-500 p-8 shadow-[0_30px_70px_rgba(14,116,144,0.35)]">
+      <div className="relative rounded-[2.25rem] bg-linear-to-br from-cyan-400 via-sky-500 to-emerald-500 p-8 shadow-[0_30px_70px_rgba(14,116,144,0.35)]">
         <div className="pointer-events-none absolute -left-6 top-10 h-24 w-24 rounded-full bg-white/25 blur-2xl" />
         <div className="pointer-events-none absolute -right-8 bottom-8 h-28 w-28 rounded-full bg-blue-900/25 blur-2xl" />
 
