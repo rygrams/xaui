@@ -261,6 +261,7 @@
     "tsup": "^8.5.1",
     "typescript": "^5.9.3"
   },
+  "homepage": "https://ui.xtartapp.com/docs/introduction",
   "publishConfig": {
     "access": "public"
   }
