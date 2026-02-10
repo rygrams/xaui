@@ -1,5 +1,11 @@
 # @xaui/mobile
 
+## 0.0.27
+
+### Patch Changes
+
+- 5830945: add homepage field pointing to the documentation site
+
 ## 0.0.26
 
 ### Patch Changes
