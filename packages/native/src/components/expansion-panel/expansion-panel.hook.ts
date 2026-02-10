@@ -53,8 +53,6 @@ export const useExpansionPanelStyles = ({
       base.borderRadius = theme.borderRadius.md
       base.paddingHorizontal = theme.spacing.sm
       base.overflow = 'hidden'
-    } else if (variant === 'light') {
-      base.paddingHorizontal = theme.spacing.sm
     }
 
     return base
