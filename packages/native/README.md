@@ -102,7 +102,6 @@ function Banner() {
 
 ```tsx
 import { ExpansionPanel, ExpansionPanelItem } from '@xaui/native/expansion-panel'
-
 ;<ExpansionPanel variant="light" selectionMode="toggle" showDivider>
   <ExpansionPanelItem title="Section 1" itemKey="section1">
     <Text>Content for section 1</Text>
@@ -159,7 +158,6 @@ import { Badge } from '@xaui/native/badge'
 
 ```tsx
 import { Checkbox } from '@xaui/native/checkbox'
-
 ;<Checkbox
   isSelected={isChecked}
   onValueChange={setIsChecked}
@@ -202,7 +200,6 @@ import { Divider } from '@xaui/native/divider'
 
 ```tsx
 import { Radio, RadioGroup } from '@xaui/native/radio'
-
 ;<RadioGroup value={selected} onValueChange={setSelected}>
   <Radio value="option1" themeColor="primary">
     Option 1
@@ -220,7 +217,6 @@ import { Radio, RadioGroup } from '@xaui/native/radio'
 
 ```tsx
 import { Switch } from '@xaui/native/switch'
-
 ;<Switch
   isSelected={isEnabled}
   onValueChange={setIsEnabled}
@@ -237,7 +233,6 @@ Centers its child both vertically and horizontally.
 
 ```tsx
 import { Center } from '@xaui/native/center'
-
 ;<Center style={{ flex: 1 }}>
   <Text>Centered content</Text>
 </Center>
@@ -283,7 +278,6 @@ View with rounded corners and optional border.
 
 ```tsx
 import { RoundedView } from '@xaui/native/rounded-view'
-
 ;<RoundedView borderRadius={16} borderWidth={2} borderColor="#E5E7EB" padding={20}>
   <Text>Content with rounded corners</Text>
 </RoundedView>
