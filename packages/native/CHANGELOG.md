@@ -1,5 +1,11 @@
 # @xaui/mobile
 
+## 0.0.25
+
+### Patch Changes
+
+- 1b66f47: Remove horizontal container padding for `ExpansionPanel` when using the `light` variant.
+
 ## 0.0.24
 
 ### Patch Changes
