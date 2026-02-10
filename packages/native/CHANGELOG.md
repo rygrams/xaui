@@ -1,5 +1,11 @@
 # @xaui/mobile
 
+## 0.0.26
+
+### Patch Changes
+
+- d6e0b03: fix: reduce ExpansionPanel bottom divider size from 2 to 1
+
 ## 0.0.25
 
 ### Patch Changes
