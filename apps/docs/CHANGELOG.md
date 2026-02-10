@@ -1,5 +1,13 @@
 # docs
 
+## 0.1.11
+
+### Patch Changes
+
+- Updated dependencies [0b79534]
+  - @xaui/native@0.0.24
+  - @xaui/icons@0.0.4
+
 ## 0.1.10
 
 ### Patch Changes
