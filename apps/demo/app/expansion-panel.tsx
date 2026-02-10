@@ -12,10 +12,10 @@ export default function ExpansionPanelScreen() {
       contentContainerStyle={[styles.content, { gap: theme.spacing.lg }]}
     >
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+        <Text style={[styles.content, { color: theme.palette.fuchsia[500] }]}>
           Toggle Mode
         </Text>
-        <ExpansionPanel variant="light" defaultExpandedKeys={['intro']}>
+        <ExpansionPanel variant="splitted" defaultExpandedKeys={['intro']}>
           <ExpansionPanelItem itemKey="intro" title="What is XAUI?">
             <Text style={{ color: colors.foreground }}>
               XAUI is a cross-platform UI kit for React Native and hybrid apps.
@@ -37,13 +37,12 @@ export default function ExpansionPanelScreen() {
       </View>
 
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+        <Text style={[styles.content, { color: theme.palette.fuchsia[500] }]}>
           Multiple Mode
         </Text>
         <ExpansionPanel
-          variant="bordered"
+          variant="splitted"
           selectionMode="multiple"
-          showDivider
           defaultExpandedKeys={['a', 'c']}
         >
           <ExpansionPanelItem itemKey="a" title="Account">
@@ -59,37 +58,6 @@ export default function ExpansionPanelScreen() {
           <ExpansionPanelItem itemKey="c" title="Privacy">
             <Text style={{ color: colors.foreground }}>
               Control visibility and data-sharing options.
-            </Text>
-          </ExpansionPanelItem>
-        </ExpansionPanel>
-      </View>
-
-      <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
-          Compact + Disabled
-        </Text>
-        <ExpansionPanel
-          variant="splitted"
-          isCompact
-          disabledKeys={['disabled']}
-          defaultExpandedKeys={['enabled']}
-        >
-          <ExpansionPanelItem
-            itemKey="enabled"
-            title="Enabled Item"
-            subtitle="Tap to expand/collapse"
-          >
-            <Text style={{ color: colors.foreground }}>
-              Compact mode reduces spacing while keeping content readable.
-            </Text>
-          </ExpansionPanelItem>
-          <ExpansionPanelItem
-            itemKey="disabled"
-            title="Disabled Item"
-            subtitle="Interaction blocked"
-          >
-            <Text style={{ color: colors.foreground }}>
-              This content should not open because the item is disabled.
             </Text>
           </ExpansionPanelItem>
         </ExpansionPanel>

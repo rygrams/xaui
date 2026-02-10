@@ -271,7 +271,7 @@ export default function ExpansionPanelPage() {
 
         <TabsContent value="props" className="space-y-8">
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Props</h3>
+            <h3 className="text-lg font-semibold">ExpansionPanel Props</h3>
             <div className="rounded-lg border">
               <table className="w-full text-sm">
                 <thead>
@@ -283,6 +283,14 @@ export default function ExpansionPanelPage() {
                   </tr>
                 </thead>
                 <tbody>
+                  <tr className="border-b">
+                    <td className="px-4 py-3 font-mono text-xs">children</td>
+                    <td className="px-4 py-3 text-muted-foreground">ReactNode</td>
+                    <td className="px-4 py-3 text-muted-foreground">-</td>
+                    <td className="px-4 py-3 text-muted-foreground">
+                      List of ExpansionPanelItem components
+                    </td>
+                  </tr>
                   <tr className="border-b">
                     <td className="px-4 py-3 font-mono text-xs">variant</td>
                     <td className="px-4 py-3 text-muted-foreground">
@@ -365,12 +373,22 @@ export default function ExpansionPanelPage() {
                       Disable animations
                     </td>
                   </tr>
-                  <tr>
+                  <tr className="border-b">
                     <td className="px-4 py-3 font-mono text-xs">isCompact</td>
                     <td className="px-4 py-3 text-muted-foreground">boolean</td>
                     <td className="px-4 py-3 text-muted-foreground">false</td>
                     <td className="px-4 py-3 text-muted-foreground">
                       Make items more compact
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-3 font-mono text-xs">customAppearance</td>
+                    <td className="px-4 py-3 text-muted-foreground">
+                      {`{ container?: ViewStyle; item?: ViewStyle }`}
+                    </td>
+                    <td className="px-4 py-3 text-muted-foreground">-</td>
+                    <td className="px-4 py-3 text-muted-foreground">
+                      Custom styles for container and item wrappers
                     </td>
                   </tr>
                 </tbody>
@@ -379,7 +397,7 @@ export default function ExpansionPanelPage() {
           </div>
 
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold">Events</h3>
+            <h3 className="text-lg font-semibold">ExpansionPanel Events</h3>
             <div className="rounded-lg border">
               <table className="w-full text-sm">
                 <thead>
@@ -399,6 +417,119 @@ export default function ExpansionPanelPage() {
                     </td>
                     <td className="px-4 py-3 text-muted-foreground">
                       Callback when selection changes
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">ExpansionPanelItem Props</h3>
+            <div className="rounded-lg border">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b bg-muted/50">
+                    <th className="px-4 py-3 text-left font-medium">Prop</th>
+                    <th className="px-4 py-3 text-left font-medium">Type</th>
+                    <th className="px-4 py-3 text-left font-medium">Default</th>
+                    <th className="px-4 py-3 text-left font-medium">Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr className="border-b">
+                    <td className="px-4 py-3 font-mono text-xs">itemKey</td>
+                    <td className="px-4 py-3 text-muted-foreground">string</td>
+                    <td className="px-4 py-3 text-muted-foreground">auto-generated</td>
+                    <td className="px-4 py-3 text-muted-foreground">
+                      Unique key for the expansion item
+                    </td>
+                  </tr>
+                  <tr className="border-b">
+                    <td className="px-4 py-3 font-mono text-xs">children</td>
+                    <td className="px-4 py-3 text-muted-foreground">ReactNode</td>
+                    <td className="px-4 py-3 text-muted-foreground">-</td>
+                    <td className="px-4 py-3 text-muted-foreground">
+                      Content shown when item is expanded
+                    </td>
+                  </tr>
+                  <tr className="border-b">
+                    <td className="px-4 py-3 font-mono text-xs">title</td>
+                    <td className="px-4 py-3 text-muted-foreground">ReactNode</td>
+                    <td className="px-4 py-3 text-muted-foreground">-</td>
+                    <td className="px-4 py-3 text-muted-foreground">
+                      Header title content
+                    </td>
+                  </tr>
+                  <tr className="border-b">
+                    <td className="px-4 py-3 font-mono text-xs">subtitle</td>
+                    <td className="px-4 py-3 text-muted-foreground">ReactNode</td>
+                    <td className="px-4 py-3 text-muted-foreground">-</td>
+                    <td className="px-4 py-3 text-muted-foreground">
+                      Optional subtitle below title
+                    </td>
+                  </tr>
+                  <tr className="border-b">
+                    <td className="px-4 py-3 font-mono text-xs">startContent</td>
+                    <td className="px-4 py-3 text-muted-foreground">ReactNode</td>
+                    <td className="px-4 py-3 text-muted-foreground">-</td>
+                    <td className="px-4 py-3 text-muted-foreground">
+                      Content rendered at the start of the header
+                    </td>
+                  </tr>
+                  <tr className="border-b">
+                    <td className="px-4 py-3 font-mono text-xs">indicator</td>
+                    <td className="px-4 py-3 text-muted-foreground">ReactNode</td>
+                    <td className="px-4 py-3 text-muted-foreground">
+                      ChevronRight icon
+                    </td>
+                    <td className="px-4 py-3 text-muted-foreground">
+                      Custom expanded/collapsed indicator
+                    </td>
+                  </tr>
+                  <tr>
+                    <td className="px-4 py-3 font-mono text-xs">customAppearance</td>
+                    <td className="px-4 py-3 text-muted-foreground">
+                      {`{
+  base?: ViewStyle;
+  heading?: ViewStyle;
+  trigger?: ViewStyle;
+  title?: TextStyle;
+  subtitle?: TextStyle;
+  content?: ViewStyle;
+  startContent?: ViewStyle;
+  indicator?: ViewStyle;
+}`}
+                    </td>
+                    <td className="px-4 py-3 text-muted-foreground">-</td>
+                    <td className="px-4 py-3 text-muted-foreground">
+                      Custom styles for item parts
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div className="space-y-4">
+            <h3 className="text-lg font-semibold">ExpansionPanelItem Events</h3>
+            <div className="rounded-lg border">
+              <table className="w-full text-sm">
+                <thead>
+                  <tr className="border-b bg-muted/50">
+                    <th className="px-4 py-3 text-left font-medium">Event</th>
+                    <th className="px-4 py-3 text-left font-medium">Type</th>
+                    <th className="px-4 py-3 text-left font-medium">Description</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className="px-4 py-3 font-mono text-xs">onSelected</td>
+                    <td className="px-4 py-3 text-muted-foreground">
+                      (isSelected: boolean) =&gt; void
+                    </td>
+                    <td className="px-4 py-3 text-muted-foreground">
+                      Callback when this item toggles selected state
                     </td>
                   </tr>
                 </tbody>

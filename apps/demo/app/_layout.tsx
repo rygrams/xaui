@@ -14,7 +14,7 @@ export default function RootLayout() {
   const colorScheme = useColorScheme()
 
   return (
-    <ThemeProvider value={colorScheme === 'light' ? DarkTheme : DefaultTheme}>
+    <ThemeProvider value={colorScheme === 'light' ? DefaultTheme : DarkTheme}>
       <GestureHandlerRootView style={{ flex: 1 }}>
         <XUIProvider theme={defaultTheme} darkTheme={defaultDarkTheme}>
           <Stack>
@@ -25,7 +25,10 @@ export default function RootLayout() {
             />
             <Stack.Screen
               name="expansion-panel"
-              options={{ title: 'Expansion Panel Examples' }}
+              options={{
+                title: 'Expansion Panel',
+                headerShadowVisible: false,
+              }}
             />
             <Stack.Screen name="alerts" options={{ title: 'Alert Examples' }} />
             <Stack.Screen name="avatars" options={{ title: 'Avatar Examples' }} />
