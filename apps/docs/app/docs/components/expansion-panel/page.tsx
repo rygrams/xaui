@@ -176,8 +176,8 @@ export default function ExpansionPanelPage() {
       <div className="space-y-4">
         <div className="flex items-center gap-4">
           <h1 className="text-4xl font-bold tracking-tight">ExpansionPanel</h1>
-          <span className="rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-700 dark:bg-green-900 dark:text-green-300">
-            Stable
+          <span className="rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-medium text-amber-700 dark:bg-amber-900 dark:text-amber-300">
+            Beta
           </span>
         </div>
         <p className="text-xl text-muted-foreground">

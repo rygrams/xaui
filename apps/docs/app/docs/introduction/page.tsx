@@ -39,10 +39,10 @@ export default function IntroductionPage() {
           <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
             <Sparkles className="h-5 w-5 text-primary" />
           </div>
-          <h3 className="font-semibold">Flutter-Inspired</h3>
+          <h3 className="font-semibold">Component-First</h3>
           <p className="text-sm text-muted-foreground">
-            Consistent API design inspired by Flutter&apos;s widget system. Familiar
-            patterns for developers coming from Flutter.
+            Built with a high-volume component set so teams can ship complete apps
+            with minimal external UI libraries.
           </p>
         </div>
 

@@ -25,6 +25,10 @@ export const navigation: NavSection[] = [
         title: 'Installation',
         href: '/docs/installation',
       },
+      {
+        title: 'Theme',
+        href: '/docs/theme',
+      },
     ],
   },
   {
