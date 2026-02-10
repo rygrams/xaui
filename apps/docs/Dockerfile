@@ -8,7 +8,7 @@ FROM base AS pruner
 WORKDIR /app
 RUN pnpm add -g turbo
 COPY . .
-RUN turbo prune docs --docker
+RUN turbo prune docs --docker --use-gitignore=false
 
 FROM base AS installer
 WORKDIR /app

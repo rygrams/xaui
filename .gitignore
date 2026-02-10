@@ -8,6 +8,7 @@ coverage
 *.log
 screenshots
 !apps/docs/public/screenshots
+!apps/docs/public/screenshots/**
 
 # Next.js
 .next
@@ -43,4 +44,3 @@ pnpm-debug.log*
 *.swp
 *.swo
 *~
-
