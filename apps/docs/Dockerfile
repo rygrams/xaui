@@ -20,5 +20,6 @@ RUN pnpm turbo build --filter=docs
 
 FROM nginx:alpine AS runner
 COPY --from=installer /app/apps/docs/out /usr/share/nginx/html
+COPY apps/docs/docker/nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
