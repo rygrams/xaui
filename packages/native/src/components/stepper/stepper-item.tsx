@@ -10,9 +10,8 @@ import type {
   StepperSize,
 } from './stepper.type'
 
-const isStringOrNumber = (
-  value: React.ReactNode
-): value is string | number => typeof value === 'string' || typeof value === 'number'
+const isStringOrNumber = (value: React.ReactNode): value is string | number =>
+  typeof value === 'string' || typeof value === 'number'
 
 export const StepperItem: React.FC<StepperItemProps> = ({
   itemKey,
@@ -41,7 +40,8 @@ export const StepperItem: React.FC<StepperItemProps> = ({
   const index = context?.keys.indexOf(itemKey) ?? -1
   const isActive = context?.activeKey === itemKey
   const hasActiveStep = (context?.activeIndex ?? -1) >= 0
-  const isCompleted = hasActiveStep && index >= 0 && index < (context?.activeIndex ?? -1)
+  const isCompleted =
+    hasActiveStep && index >= 0 && index < (context?.activeIndex ?? -1)
   const isLast = index === (context?.keys.length ?? 0) - 1
   const lineTargetProgress = isCompleted ? 1 : 0
   const lineProgress = useRef(new Animated.Value(lineTargetProgress)).current
@@ -91,7 +91,15 @@ export const StepperItem: React.FC<StepperItemProps> = ({
     }
 
     return String(indicatorState.index + 1)
-  }, [indicator, indicatorState, sizeStyles.indicatorSize, isLocked, isCompleted, itemKey, colors])
+  }, [
+    indicator,
+    indicatorState,
+    sizeStyles.indicatorSize,
+    isLocked,
+    isCompleted,
+    itemKey,
+    colors,
+  ])
 
   useEffect(() => {
     Animated.timing(lineProgress, {

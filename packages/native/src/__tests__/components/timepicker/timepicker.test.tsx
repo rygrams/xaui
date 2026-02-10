@@ -1,5 +1,8 @@
 import { describe, it, expect } from 'vitest'
-import type { TimePickerProps, TimePickerDialogProps } from '../../../components/timepicker'
+import type {
+  TimePickerProps,
+  TimePickerDialogProps,
+} from '../../../components/timepicker'
 
 describe('TimePicker Types', () => {
   it('exports TimePickerProps type', () => {

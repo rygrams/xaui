@@ -70,7 +70,8 @@ export const useBottomTabBarColors = (
       activeColor: activeColor ?? colorScheme.main,
       inactiveColor: inactiveColor ?? withOpacity(theme.colors.foreground, 0.66),
       indicatorColor:
-        indicatorColor ?? withOpacity(colorScheme.main, theme.mode === 'dark' ? 0.28 : 0.16),
+        indicatorColor ??
+        withOpacity(colorScheme.main, theme.mode === 'dark' ? 0.28 : 0.16),
       containerColor: theme.colors.background,
       borderColor: withOpacity(theme.colors.foreground, 0.08),
     }

@@ -233,8 +233,8 @@
     "directory": "packages/native"
   },
   "scripts": {
-    "build": "tsup --config tsup.config.ts && node ./scripts/generate-types.mjs",
-    "dev": "tsup --config tsup.config.ts --watch",
+    "build": "rm -rf dist && NODE_OPTIONS=--max-old-space-size=4096 tsup --config tsup.config.ts",
+    "dev": "NODE_OPTIONS=--max-old-space-size=4096 tsup --config tsup.config.ts --watch",
     "test": "vitest",
     "lint": "eslint src/",
     "type-check": "tsc --noEmit"

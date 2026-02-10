@@ -167,7 +167,7 @@ export default function ToolbarScreen() {
           <Text style={[styles.previewLabel, { color: colors.foreground }]}>
             Preview Container
           </Text>
-          <Toolbar variant="docked" position="bottom" themeColor="warning" ra>
+          <Toolbar variant="docked" position="bottom" themeColor="warning">
             <ToolbarAction
               icon={({ color, size }) => <DownloadIcon size={size} color={color} />}
             />
@@ -244,7 +244,7 @@ export default function ToolbarScreen() {
           <Text style={[styles.previewLabel, { color: colors.foreground }]}>
             Preview Container
           </Text>
-          <Toolbar variant="vertical" position="right" themeColor="error">
+          <Toolbar variant="vertical" position="right" themeColor="danger">
             <ToolbarAction
               icon={({ color, size }) => <AddIcon size={size} color={color} />}
             />

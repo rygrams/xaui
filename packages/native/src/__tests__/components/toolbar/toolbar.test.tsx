@@ -16,18 +16,27 @@ describe('Toolbar Types', () => {
   })
 
   it('accepts toolbar variants', () => {
-    const variants: Array<ToolbarProps['variant']> = ['floating', 'docked', 'vertical']
+    const variants: Array<ToolbarProps['variant']> = [
+      'floating',
+      'docked',
+      'vertical',
+    ]
 
-    variants.forEach((variant) => {
+    variants.forEach(variant => {
       const props: ToolbarProps = { variant }
       expect(props.variant).toBe(variant)
     })
   })
 
   it('accepts toolbar positions', () => {
-    const positions: Array<ToolbarProps['position']> = ['top', 'bottom', 'left', 'right']
+    const positions: Array<ToolbarProps['position']> = [
+      'top',
+      'bottom',
+      'left',
+      'right',
+    ]
 
-    positions.forEach((position) => {
+    positions.forEach(position => {
       const props: ToolbarProps = { position }
       expect(props.position).toBe(position)
     })

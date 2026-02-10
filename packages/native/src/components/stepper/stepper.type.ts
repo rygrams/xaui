@@ -107,9 +107,7 @@ export type StepperItemProps = {
   /**
    * Custom indicator content or indicator render function.
    */
-  indicator?:
-    | ReactNode
-    | ((state: StepperItemIndicatorState) => ReactNode)
+  indicator?: ReactNode | ((state: StepperItemIndicatorState) => ReactNode)
   /**
    * Locks this step from interaction.
    * @default false

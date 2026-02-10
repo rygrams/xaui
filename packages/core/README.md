@@ -269,12 +269,61 @@ const blue500 = colors.blue[500]
 const red600 = colors.red[600]
 ```
 
+## Spacing Tokens
+
+Access the spacing scale for consistent layout:
+
+```typescript
+import { spacing } from '@xaui/core/tokens'
+
+const smallGap = spacing.sm // 8
+const mediumGap = spacing.md // 16
+const largeGap = spacing.lg // 24
+```
+
+## Border Radius Tokens
+
+Access border radius tokens:
+
+```typescript
+import { borderRadius } from '@xaui/core/tokens'
+
+const smallRadius = borderRadius.sm // 4
+const mediumRadius = borderRadius.md // 8
+const largeRadius = borderRadius.lg // 12
+const fullRadius = borderRadius.full // 9999
+```
+
+## Typography Tokens
+
+Access typography tokens:
+
+```typescript
+import { fontSizes, fontWeights, fontFamilies } from '@xaui/core/tokens'
+
+const headingSize = fontSizes['2xl'] // 24
+const boldWeight = fontWeights.bold // 700
+const bodyFont = fontFamilies.body // 'System'
+```
+
+## Shadow Tokens
+
+Access shadow tokens for elevation:
+
+```typescript
+import { shadows } from '@xaui/core/tokens'
+
+const cardShadow = shadows.md
+// { shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.1, shadowRadius: 4, elevation: 2 }
+```
+
 ## TypeScript Support
 
 All exports are fully typed for excellent IntelliSense support:
 
 ```typescript
-import type { XUITheme } from '@xaui/core/theme'
+import type { XUITheme, DeepPartial } from '@xaui/core/theme'
+import type { ColorRole, SpacingScale } from '@xaui/core/tokens'
 ```
 
 ## Theme Structure

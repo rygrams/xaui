@@ -1,8 +1,7 @@
 import { defineConfig } from 'tsup'
 
-export default defineConfig({
-  entry: {
-    index: 'src/index.ts',
+const entries = {
+    'index': 'src/index.ts',
     accessibility: 'src/entries/accessibility.ts',
     add: 'src/entries/add.ts',
     'add-circle': 'src/entries/add-circle.ts',
@@ -522,11 +521,26 @@ export default defineConfig({
     water: 'src/entries/water.ts',
     wifi: 'src/entries/wifi.ts',
     wine: 'src/entries/wine.ts',
-    woman: 'src/entries/woman.ts',
-  },
-  format: ['cjs', 'esm'],
-  dts: true,
-  clean: true,
-  external: ['react', 'react-native', 'react-native-svg', '@xaui/core'],
-  target: 'es2020',
+    woman: 'src/entries/woman.ts'
+} as const
+
+export default defineConfig(options => {
+  const entryList = Object.entries(entries)
+  const groupSize = 80
+  const entryGroups = Array.from(
+    { length: Math.ceil(entryList.length / groupSize) },
+    (_, index) =>
+      Object.fromEntries(
+        entryList.slice(index * groupSize, (index + 1) * groupSize)
+      )
+  )
+
+  return entryGroups.map((entry, index) => ({
+    entry,
+    format: ['cjs', 'esm'] as const,
+    dts: true,
+    clean: !options.watch && index === 0,
+    external: ['react', 'react-native', 'react-native-svg', '@xaui/core'],
+    target: 'es2020',
+  }))
 })

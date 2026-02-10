@@ -115,9 +115,7 @@ export type ExpoRouterTabState = {
 
 export type ExpoRouterTabDescriptorOptions = {
   title?: string
-  tabBarLabel?:
-    | string
-    | ((props: BottomTabBarItemLabelRenderParams) => ReactNode)
+  tabBarLabel?: string | ((props: BottomTabBarItemLabelRenderParams) => ReactNode)
   tabBarIcon?: (props: BottomTabBarIconRenderParams) => ReactNode
   tabBarActiveTintColor?: string
   tabBarInactiveTintColor?: string

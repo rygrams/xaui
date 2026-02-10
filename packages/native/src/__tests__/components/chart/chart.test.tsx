@@ -83,9 +83,7 @@ describe('VerticalBarChartCard', () => {
   })
 
   it('renders min max mean axis labels when showAxes is true', () => {
-    const { getAllByText } = render(
-      <VerticalBarChartCard data={barData} showAxes />
-    )
+    const { getAllByText } = render(<VerticalBarChartCard data={barData} showAxes />)
 
     expect(getAllByText('40').length).toBeGreaterThan(0)
     expect(getAllByText('30').length).toBeGreaterThan(0)
@@ -131,17 +129,13 @@ describe('PieChartCard', () => {
 
 describe('LineChartCard', () => {
   it('renders smooth line chart by default', () => {
-    const { getByText } = render(
-      <LineChartCard data={lineData} title="Line" />
-    )
+    const { getByText } = render(<LineChartCard data={lineData} title="Line" />)
     expect(getByText('Line')).toBeTruthy()
     expect(getByText('Mon')).toBeTruthy()
   })
 
   it('renders direct line mode', () => {
-    const { getByText } = render(
-      <LineChartCard data={lineData} lineMode="direct" />
-    )
+    const { getByText } = render(<LineChartCard data={lineData} lineMode="direct" />)
     expect(getByText('Tue')).toBeTruthy()
   })
 })
@@ -169,9 +163,7 @@ describe('HeatmapChartCard', () => {
   })
 
   it('renders values when showValues is true', () => {
-    const { getByText } = render(
-      <HeatmapChartCard data={heatmapData} showValues />
-    )
+    const { getByText } = render(<HeatmapChartCard data={heatmapData} showValues />)
     expect(getByText('10')).toBeTruthy()
     expect(getByText('30')).toBeTruthy()
   })

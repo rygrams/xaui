@@ -28,7 +28,9 @@ export default function TextAreaScreen() {
       contentContainerStyle={[styles.content, { gap: theme.spacing.lg }]}
     >
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Per Variant</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Per Variant
+        </Text>
         <View style={{ gap: theme.spacing.md }}>
           {variants.map(variant => (
             <TextArea
@@ -42,7 +44,9 @@ export default function TextAreaScreen() {
       </View>
 
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Per Color</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Per Color
+        </Text>
         <View style={{ gap: theme.spacing.md }}>
           {themeColors.map(themeColor => (
             <TextArea
@@ -57,7 +61,9 @@ export default function TextAreaScreen() {
       </View>
 
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Controlled</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Controlled
+        </Text>
         <View style={{ gap: theme.spacing.md }}>
           <TextArea
             label="Bio"
@@ -82,7 +88,9 @@ export default function TextAreaScreen() {
       </View>
 
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Validation</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Validation
+        </Text>
         <View style={{ gap: theme.spacing.md }}>
           <TextArea
             label="Required comment"

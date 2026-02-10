@@ -24,7 +24,9 @@ export default function TimePickerScreen() {
     minutes: 25,
   })
   const [isTriggerOpen, setIsTriggerOpen] = useState(false)
-  const [triggerTheme, setTriggerTheme] = useState<'primary' | 'success' | 'warning'>('primary')
+  const [triggerTheme, setTriggerTheme] = useState<
+    'primary' | 'success' | 'warning'
+  >('primary')
   const [triggerIs24Hour, setTriggerIs24Hour] = useState(false)
 
   const formatTime = (time: TimeValue, is24Hour: boolean) => {
@@ -57,8 +59,14 @@ export default function TimePickerScreen() {
       contentContainerStyle={[styles.content, { gap: theme.spacing.xl }]}
     >
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Trigger (DatePicker style)</Text>
-        <Text style={[styles.description, { color: colors.foreground, opacity: 0.7 }]}>Use a trigger to open the time picker dialog</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Trigger (DatePicker style)
+        </Text>
+        <Text
+          style={[styles.description, { color: colors.foreground, opacity: 0.7 }]}
+        >
+          Use a trigger to open the time picker dialog
+        </Text>
 
         <View style={styles.triggerStack}>
           <TimePickerTrigger
@@ -114,9 +122,17 @@ export default function TimePickerScreen() {
       </View>
 
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>12-Hour Format</Text>
-        <Text style={[styles.description, { color: colors.foreground, opacity: 0.7 }]}>Time picker with AM/PM selector</Text>
-        <Text style={[styles.selectedTime, { color: colors.foreground }]}>Selected: {formatTime(time12Hour, false)}</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          12-Hour Format
+        </Text>
+        <Text
+          style={[styles.description, { color: colors.foreground, opacity: 0.7 }]}
+        >
+          Time picker with AM/PM selector
+        </Text>
+        <Text style={[styles.selectedTime, { color: colors.foreground }]}>
+          Selected: {formatTime(time12Hour, false)}
+        </Text>
 
         <View style={styles.pickerContainer}>
           <TimePicker
@@ -129,9 +145,17 @@ export default function TimePickerScreen() {
       </View>
 
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>24-Hour Format</Text>
-        <Text style={[styles.description, { color: colors.foreground, opacity: 0.7 }]}>Time picker without AM/PM selector</Text>
-        <Text style={[styles.selectedTime, { color: colors.foreground }]}>Selected: {formatTime(time24Hour, true)}</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          24-Hour Format
+        </Text>
+        <Text
+          style={[styles.description, { color: colors.foreground, opacity: 0.7 }]}
+        >
+          Time picker without AM/PM selector
+        </Text>
+        <Text style={[styles.selectedTime, { color: colors.foreground }]}>
+          Selected: {formatTime(time24Hour, true)}
+        </Text>
 
         <View style={styles.pickerContainer}>
           <TimePicker
@@ -144,9 +168,17 @@ export default function TimePickerScreen() {
       </View>
 
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Dialog Action</Text>
-        <Text style={[styles.description, { color: colors.foreground, opacity: 0.7 }]}>Open dialog from button</Text>
-        <Text style={[styles.selectedTime, { color: colors.foreground }]}>Selected: {formatTime(dialogTime, false)}</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Dialog Action
+        </Text>
+        <Text
+          style={[styles.description, { color: colors.foreground, opacity: 0.7 }]}
+        >
+          Open dialog from button
+        </Text>
+        <Text style={[styles.selectedTime, { color: colors.foreground }]}>
+          Selected: {formatTime(dialogTime, false)}
+        </Text>
 
         <Button
           variant="filled"

@@ -1,23 +1,8 @@
 import { useXUIColors, useXUITheme } from '@xaui/native/core'
 import { StyleSheet, View, ScrollView, Text } from 'react-native'
-import { List, ListItem, ListBuilder } from '@xaui/native/list'
+import { List, ListItem } from '@xaui/native/list'
 import { Margin } from '@xaui/native/view'
 import { useState } from 'react'
-
-interface ListDataItem {
-  id: string
-  title: string
-  description: string
-  icon: string
-}
-
-const listData: ListDataItem[] = [
-  { id: '1', title: 'Inbox', description: '3 unread messages', icon: '📧' },
-  { id: '2', title: 'Sent', description: '12 messages sent today', icon: '📤' },
-  { id: '3', title: 'Drafts', description: '5 drafts saved', icon: '📝' },
-  { id: '4', title: 'Trash', description: 'Empty trash folder', icon: '🗑️' },
-  { id: '5', title: 'Spam', description: '2 spam messages', icon: '⚠️' },
-]
 
 export default function ListScreen() {
   const colors = useXUIColors()

@@ -1,6 +1,9 @@
 import React, { useMemo, useState } from 'react'
 import { View } from 'react-native'
-import { useBottomTabBarColors, useBottomTabBarSizeStyles } from './bottom-tab-bar.hook'
+import {
+  useBottomTabBarColors,
+  useBottomTabBarSizeStyles,
+} from './bottom-tab-bar.hook'
 import { BottomTabBarContext } from './bottom-tab-bar-context'
 import { BottomTabBarItem } from './bottom-tab-bar-item'
 import { styles } from './bottom-tab-bar.style'
@@ -80,7 +83,9 @@ export const BottomTabBar: React.FC<BottomTabBarProps> = props => {
     const { state, descriptors, navigation, insets } = props
     const currentRoute = state.routes[state.index]
     const focusedOptions = descriptors[currentRoute.key]?.options
-    const focusedStyle = focusedOptions?.tabBarStyle as { display?: string } | undefined
+    const focusedStyle = focusedOptions?.tabBarStyle as
+      | { display?: string }
+      | undefined
 
     if (focusedStyle?.display === 'none') {
       return null
@@ -107,18 +112,25 @@ export const BottomTabBar: React.FC<BottomTabBarProps> = props => {
           .map(route => {
             const routeOptions = descriptors[route.key]?.options ?? {}
             const focused = currentRoute.key === route.key
-            const routeActiveColor = routeOptions.tabBarActiveTintColor ?? activeColor
+            const routeActiveColor =
+              routeOptions.tabBarActiveTintColor ?? activeColor
             const routeInactiveColor =
               routeOptions.tabBarInactiveTintColor ?? inactiveColor
             const labelColor = focused
-              ? routeActiveColor ?? colors.activeColor
-              : routeInactiveColor ?? colors.inactiveColor
+              ? (routeActiveColor ?? colors.activeColor)
+              : (routeInactiveColor ?? colors.inactiveColor)
 
             return (
               <BottomTabBarItem
                 key={route.key}
                 itemKey={route.key}
-                label={getRouteLabel(route, routeOptions, focused, labelColor, variant)}
+                label={getRouteLabel(
+                  route,
+                  routeOptions,
+                  focused,
+                  labelColor,
+                  variant
+                )}
                 icon={routeOptions.tabBarIcon}
                 isSelected={focused}
                 showLabel={routeOptions.tabBarShowLabel ?? showLabel}
@@ -153,12 +165,8 @@ export const BottomTabBar: React.FC<BottomTabBarProps> = props => {
     )
   }
 
-  const {
-    children,
-    selectedKey,
-    defaultSelectedKey,
-    onSelectionChange,
-  } = props as BottomTabBarComposableProps
+  const { children, selectedKey, defaultSelectedKey, onSelectionChange } =
+    props as BottomTabBarComposableProps
 
   const firstItemKey = React.useMemo(() => {
     const child = React.Children.toArray(children)[0]

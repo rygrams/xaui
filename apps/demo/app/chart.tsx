@@ -1,5 +1,3 @@
-import { useXUIColors, useXUITheme } from '@xaui/native/core'
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import {
   DonutChartCard,
   HeatmapChartCard,
@@ -7,6 +5,8 @@ import {
   PieChartCard,
   VerticalBarChartCard,
 } from '@xaui/native/chart'
+import { useXUIColors, useXUITheme } from '@xaui/native/core'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
 
 const sampleData = [
   { label: 'Cuts', value: 100, color: '#F2F3F4', labelColor: '#F2F3F4' },

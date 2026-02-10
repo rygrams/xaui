@@ -14,14 +14,35 @@ export default function StepperScreen() {
       contentContainerStyle={[localStyles.content, { gap: theme.spacing.lg }]}
     >
       <View style={localStyles.section}>
-        <Text style={[localStyles.title, { color: colors.foreground }]}>Horizontal</Text>
+        <Text style={[localStyles.title, { color: colors.foreground }]}>
+          Horizontal
+        </Text>
         <Stepper activeKey={activeKey} onStepChange={setActiveKey}>
-          <StepperItem itemKey="account" title="Account" description="Create profile" />
-          <StepperItem itemKey="details" title="Details" description="Personal info" />
-          <StepperItem itemKey="payment" title="Payment" description="Card details" />
-          <StepperItem itemKey="review" title="Review" description="Confirm" isLocked />
+          <StepperItem
+            itemKey="account"
+            title="Account"
+            description="Create profile"
+          />
+          <StepperItem
+            itemKey="details"
+            title="Details"
+            description="Personal info"
+          />
+          <StepperItem
+            itemKey="payment"
+            title="Payment"
+            description="Card details"
+          />
+          <StepperItem
+            itemKey="review"
+            title="Review"
+            description="Confirm"
+            isLocked
+          />
         </Stepper>
-        <Text style={[localStyles.label, { color: colors.foreground }]}>Active: {activeKey}</Text>
+        <Text style={[localStyles.label, { color: colors.foreground }]}>
+          Active: {activeKey}
+        </Text>
       </View>
 
       <View style={localStyles.section}>
@@ -30,21 +51,29 @@ export default function StepperScreen() {
         </Text>
         <Stepper direction="vertical" showLines={false} defaultActiveKey="ship">
           <StepperItem itemKey="cart" title="Cart" description="Items selected" />
-          <StepperItem itemKey="ship" title="Shipping" description="Address details" />
+          <StepperItem
+            itemKey="ship"
+            title="Shipping"
+            description="Address details"
+          />
           <StepperItem itemKey="pay" title="Payment" description="Choose method" />
           <StepperItem itemKey="done" title="Done" description="Order confirmed" />
         </Stepper>
       </View>
 
       <View style={localStyles.section}>
-        <Text style={[localStyles.title, { color: colors.foreground }]}>Custom Indicator</Text>
+        <Text style={[localStyles.title, { color: colors.foreground }]}>
+          Custom Indicator
+        </Text>
         <Stepper direction="vertical" defaultActiveKey="sync" themeColor="success">
           <StepperItem
             itemKey="queue"
             title="Queued"
             description="Waiting for worker"
             indicator={({ index }) => (
-              <Text style={[localStyles.badge, { color: colors.foreground }]}>{index + 1}</Text>
+              <Text style={[localStyles.badge, { color: colors.foreground }]}>
+                {index + 1}
+              </Text>
             )}
           />
           <StepperItem

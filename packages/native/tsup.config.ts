@@ -1,9 +1,5 @@
-/* eslint-disable no-undef */
-import { exec } from 'node:child_process'
-import { promisify } from 'node:util'
 import { defineConfig } from 'tsup'
 
-const pexec = promisify(exec)
 const entries = {
   index: 'src/index.ts',
   'core/index': 'src/core/index.ts',
@@ -48,14 +44,20 @@ const entries = {
   'chart/index': 'src/components/chart/index.ts',
 } as const
 
-export default defineConfig(options => {
-  const isWatch = !!options.watch
+export default defineConfig(() => {
+  const entryList = Object.entries(entries)
+  const groupSize = 10
+  const entryGroups = Array.from(
+    { length: Math.ceil(entryList.length / groupSize) },
+    (_, index) =>
+      Object.fromEntries(entryList.slice(index * groupSize, (index + 1) * groupSize))
+  )
 
-  return {
-    entry: entries,
-    format: ['cjs', 'esm'],
-    dts: false,
-    clean: !isWatch,
+  return entryGroups.map(entry => ({
+    entry,
+    format: ['cjs', 'esm'] as const,
+    dts: true,
+    clean: false,
     external: [
       'react',
       'react-native',
@@ -67,16 +69,5 @@ export default defineConfig(options => {
       '@xaui/icons',
     ],
     target: 'es2020',
-    async onSuccess() {
-      try {
-        await pexec('node ./scripts/generate-types.mjs')
-      } catch (err) {
-        console.error()
-        console.error('Types generation error:')
-        console.error()
-        console.error((err as { stdout?: string }).stdout)
-        throw err
-      }
-    },
-  }
+  }))
 })

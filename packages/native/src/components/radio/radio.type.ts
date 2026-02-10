@@ -3,11 +3,7 @@ import type { TextStyle, ViewStyle } from 'react-native'
 import type { Radius, Size, ThemeColor } from '../../types'
 
 export type RadioVariant = 'filled' | 'light'
-export type RadioLabelAlignment =
-  | 'left'
-  | 'right'
-  | 'justify-left'
-  | 'justify-right'
+export type RadioLabelAlignment = 'left' | 'right' | 'justify-left' | 'justify-right'
 export type RadioOrientation = 'vertical' | 'horizontal'
 
 export type RadioProps = {
