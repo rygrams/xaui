@@ -44,23 +44,20 @@ const entries = {
   'chart/index': 'src/components/chart/index.ts',
 } as const
 
-export default defineConfig(options => {
-  const isWatch = !!options.watch
+export default defineConfig(() => {
   const entryList = Object.entries(entries)
   const groupSize = 10
   const entryGroups = Array.from(
     { length: Math.ceil(entryList.length / groupSize) },
     (_, index) =>
-      Object.fromEntries(
-        entryList.slice(index * groupSize, (index + 1) * groupSize)
-      )
+      Object.fromEntries(entryList.slice(index * groupSize, (index + 1) * groupSize))
   )
 
-  return entryGroups.map((entry, index) => ({
+  return entryGroups.map(entry => ({
     entry,
     format: ['cjs', 'esm'] as const,
     dts: true,
-    clean: !isWatch && index === 0,
+    clean: false,
     external: [
       'react',
       'react-native',
