@@ -62,7 +62,7 @@ export const ExpansionPanel: React.FC<ExpansionPanelProps> = (
               {isExpansionPanelItem(child)
                 ? React.cloneElement(child, { itemKey: resolvedChildKey })
                 : child}
-              {showBottomDivider && <Divider color={dividerColor} size={2} />}
+              {showBottomDivider && <Divider color={dividerColor} size={1} />}
             </View>
           )
         })}

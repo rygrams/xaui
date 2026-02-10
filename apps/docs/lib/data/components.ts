@@ -15,7 +15,7 @@ export const components: Component[] = [
       'A vertically stacked set of interactive headings that each reveal a section of content.',
     category: 'Layout',
     href: '/docs/components/expansion-panel',
-    status: 'stable',
+    status: 'beta',
   },
 ]
 

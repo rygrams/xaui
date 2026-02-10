@@ -46,7 +46,76 @@ export default function GettingStartedPage() {
         </section>
 
         <section className="space-y-4">
-          <h2 className="text-2xl font-semibold">2. Setup Provider</h2>
+          <h2 className="text-2xl font-semibold">2. Theme Customization</h2>
+          <p className="text-muted-foreground">
+            Xaui lets you override only the parts of the theme you need. You can
+            customize brand colors, surface colors, text colors, typography tokens,
+            spacing, radius, and more without rewriting the full theme.
+          </p>
+          <ul className="list-disc pl-6 text-muted-foreground space-y-1">
+            <li>
+              Use <span className="font-mono text-xs">theme</span> for light mode.
+            </li>
+            <li>
+              Use <span className="font-mono text-xs">darkTheme</span> for dark mode.
+            </li>
+            <li>Pass partial objects: non-overridden tokens keep default values.</li>
+          </ul>
+          <CodeBlock
+            code={`import { XUIProvider } from '@xaui/native/core'
+
+const customLightTheme = {
+  colors: {
+    primary: {
+      main: '#2563EB',
+      foreground: '#FFFFFF',
+      background: '#DBEAFE',
+    },
+    secondary: {
+      main: '#0EA5E9',
+      foreground: '#FFFFFF',
+      background: '#E0F2FE',
+    },
+    background: '#FFFFFF',
+    foreground: '#0F172A',
+  },
+  borderRadius: {
+    md: 12,
+    lg: 16,
+  },
+}
+
+const customDarkTheme = {
+  colors: {
+    primary: {
+      main: '#60A5FA',
+      foreground: '#0B1220',
+      background: '#1E3A8A',
+    },
+    background: '#020617',
+    foreground: '#E2E8F0',
+  },
+}
+
+export default function App() {
+  return (
+    <XUIProvider theme={customLightTheme} darkTheme={customDarkTheme}>
+      <YourApp />
+    </XUIProvider>
+  )
+}`}
+          />
+          <p className="text-sm text-muted-foreground">
+            Tip: Start by overriding only
+            <span className="font-mono text-xs"> colors.primary </span>and
+            <span className="font-mono text-xs"> colors.background </span>
+            to quickly align Xaui with your brand, then extend to spacing and
+            typography if needed.
+          </p>
+        </section>
+
+        <section className="space-y-4">
+          <h2 className="text-2xl font-semibold">3. Setup Provider</h2>
           <p className="text-muted-foreground">
             Wrap your app with the XUIProvider to enable theming and context:
           </p>
@@ -64,7 +133,7 @@ export default function App() {
         </section>
 
         <section className="space-y-4">
-          <h2 className="text-2xl font-semibold">3. Use Components</h2>
+          <h2 className="text-2xl font-semibold">4. Use Components</h2>
           <p className="text-muted-foreground">
             Start using components in your application:
           </p>
@@ -94,6 +163,12 @@ export function MyComponent() {
               <Button variant="outline" className="justify-start">
                 <ArrowRight className="mr-2 h-4 w-4" />
                 Browse Components
+              </Button>
+            </Link>
+            <Link href="/docs/theme">
+              <Button variant="outline" className="justify-start">
+                <ArrowRight className="mr-2 h-4 w-4" />
+                Theme Guide
               </Button>
             </Link>
           </div>

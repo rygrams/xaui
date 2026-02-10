@@ -126,9 +126,9 @@ const baseTheme = {
     none: 0,
     xs: 0.5,
     sm: 1,
-    md: 2,
-    lg: 3,
-    xl: 4,
+    md: 1.75,
+    lg: 2.5,
+    xl: 3,
   },
   fontSizes: {
     xs: 12,
