@@ -31,8 +31,8 @@ export default function RootLayout({
       >
         <div className="flex min-h-screen">
           <Sidebar />
-          <main className="flex-1 pl-64">
-            <div className="mx-auto max-w-5xl px-8 py-8">{children}</div>
+          <main className="flex-1 pt-14 md:pt-0 md:pl-64">
+            <div className="mx-auto max-w-5xl px-4 py-8 md:px-8">{children}</div>
           </main>
         </div>
         {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
