@@ -15,7 +15,7 @@ export default function ExpansionPanelScreen() {
         <Text style={[styles.content, { color: theme.palette.fuchsia[500] }]}>
           Toggle Mode
         </Text>
-        <ExpansionPanel variant="splitted" defaultExpandedKeys={['intro']}>
+        <ExpansionPanel variant="bordered" defaultExpandedKeys={['intro']}>
           <ExpansionPanelItem itemKey="intro" title="What is XAUI?">
             <Text style={{ color: colors.foreground }}>
               XAUI is a cross-platform UI kit for React Native and hybrid apps.
