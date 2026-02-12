@@ -168,6 +168,9 @@ importers:
       '@next/third-parties':
         specifier: ^16.1.6
         version: 16.1.6(next@16.1.1(@babel/core@7.28.6)(babel-plugin-react-compiler@1.0.0)(react-dom@19.1.0(react@19.1.0))(react@19.1.0)(sass@1.97.3))(react@19.1.0)
+      '@xaui/native':
+        specifier: workspace:*
+        version: link:../../packages/native
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
@@ -195,6 +198,9 @@ importers:
       react-dom:
         specifier: 19.1.0
         version: 19.1.0(react@19.1.0)
+      react-native-svg:
+        specifier: ^15.15.1
+        version: 15.15.1(react-native@0.81.5(@babel/core@7.28.6)(@types/react@19.1.17)(react@19.1.0))(react@19.1.0)
       react-native-web:
         specifier: ~0.21.2
         version: 0.21.2(react-dom@19.1.0(react@19.1.0))(react@19.1.0)

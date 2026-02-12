@@ -8,15 +8,24 @@ const nextConfig: NextConfig = {
     '@xaui/core',
     '@xaui/icons',
     'react-native-web',
+    'react-native-svg',
   ],
-  webpack: config => {
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      'react-native$': 'react-native-web',
-    }
-    return config
+  turbopack: {
+    resolveAlias: {
+      'react-native': 'react-native-web',
+      'react-native-svg': 'react-native-svg/src/ReactNativeSVG.web',
+    },
+    resolveExtensions: [
+      '.web.tsx',
+      '.web.ts',
+      '.web.jsx',
+      '.web.js',
+      '.tsx',
+      '.ts',
+      '.jsx',
+      '.js',
+    ],
   },
-  turbopack: {},
 }
 
 export default nextConfig
