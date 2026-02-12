@@ -16,6 +16,7 @@ COPY --from=pruner /app/out/json/ .
 COPY --from=pruner /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 COPY --from=pruner /app/out/full/ .
+COPY --from=pruner /app/tsconfig.base.json ./tsconfig.base.json
 RUN pnpm turbo build --filter=docs
 
 FROM nginx:alpine AS runner
