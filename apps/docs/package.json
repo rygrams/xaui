@@ -1,6 +1,6 @@
 {
   "name": "docs",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -10,10 +10,7 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@xaui/core": "workspace:*",
-    "@xaui/hybrid": "workspace:*",
-    "@xaui/icons": "workspace:*",
-    "@xaui/native": "workspace:*",
+    "@next/third-parties": "^16.1.6",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.28.1",
@@ -21,8 +18,8 @@
     "next": "16.1.1",
     "prism-react-renderer": "^2.4.1",
     "radix-ui": "^1.4.3",
-    "react": "19.2.3",
-    "react-dom": "19.2.3",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
     "react-native-web": "~0.21.2",
     "tailwind-merge": "^3.4.0"
   },
