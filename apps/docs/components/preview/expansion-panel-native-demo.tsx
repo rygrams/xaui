@@ -5,9 +5,10 @@ import { ExpansionPanel, ExpansionPanelItem } from '@xaui/native/expansion-panel
 import { WebPreview } from '@/components/ui/web-preview'
 
 const itemAppearance = {
-  title: { fontSize: 15 },
-  content: { paddingBottom: 10 },
+  title: { fontSize: 16 },
 }
+
+const itemBodyText = { color: '#666', paddingBottom: 12 }
 
 export function ExpansionPanelNativeDemo() {
   return (
@@ -18,12 +19,12 @@ export function ExpansionPanelNativeDemo() {
             title="What is Xaui?"
             customAppearance={itemAppearance}
           >
-            <Text style={{ color: '#666' }}>
+            <Text style={itemBodyText}>
               Xaui is a modern React Native UI library inspired by Flutter.
             </Text>
           </ExpansionPanelItem>
           <ExpansionPanelItem title="Key Features" customAppearance={itemAppearance}>
-            <Text style={{ color: '#666' }}>
+            <Text style={itemBodyText}>
               Flutter-inspired API, smooth animations, complete design system.
             </Text>
           </ExpansionPanelItem>
@@ -31,7 +32,7 @@ export function ExpansionPanelNativeDemo() {
             title="Getting Started"
             customAppearance={itemAppearance}
           >
-            <Text style={{ color: '#666' }}>
+            <Text style={itemBodyText}>
               Install @xaui/native, wrap your app with XUIProvider, and start
               building.
             </Text>
@@ -44,7 +45,7 @@ export function ExpansionPanelNativeDemo() {
               title="What is Xaui?"
               customAppearance={itemAppearance}
             >
-              <Text style={{ color: '#666' }}>
+              <Text style={itemBodyText}>
                 Xaui is a modern React Native UI library inspired by Flutter.
               </Text>
             </ExpansionPanelItem>
@@ -52,7 +53,7 @@ export function ExpansionPanelNativeDemo() {
               title="Key Features"
               customAppearance={itemAppearance}
             >
-              <Text style={{ color: '#666' }}>
+              <Text style={itemBodyText}>
                 Flutter-inspired API, smooth animations, complete design system.
               </Text>
             </ExpansionPanelItem>
@@ -60,7 +61,7 @@ export function ExpansionPanelNativeDemo() {
               title="Getting Started"
               customAppearance={itemAppearance}
             >
-              <Text style={{ color: '#666' }}>
+              <Text style={itemBodyText}>
                 Install @xaui/native, wrap your app with XUIProvider, and start
                 building.
               </Text>

@@ -133,7 +133,7 @@ class DeviceFrame extends HTMLElement {
 }
 .hed-left {
     justify-self: start;
-    padding-left: 1rem;
+    padding-left: 1.25rem;
     font-size: 0.9rem;
     text-align: left;
 }
@@ -141,7 +141,7 @@ class DeviceFrame extends HTMLElement {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    padding-right: 1rem;
+    padding-right: 1.25rem;
 }
 .main {
     border-radius: calc(var(--df-radius-outer) - .75rem);
