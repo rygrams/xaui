@@ -40,12 +40,12 @@ export function Sidebar() {
               href="https://github.com/rygrams/xaui"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 rounded-md border px-2 py-1 text-xs text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+              className="flex items-center gap-1.5 rounded-full border px-2 py-1 text-xs text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
             >
               <Github className="h-4 w-4" />
               {stars !== null && (
                 <>
-                  <Star className="h-3 w-3 fill-current" />
+                  <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
                   <span>{formatStars(stars)}</span>
                 </>
               )}
