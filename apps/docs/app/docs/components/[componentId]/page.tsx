@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { CodeBlock } from '@/components/ui/code-block'
-import { getComponentById, components } from '@/lib/data/components'
+import { getComponentById, components, type Component } from '@/lib/data/components'
 import { componentPropsMap } from '@/lib/data/component-props'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
@@ -37,6 +37,23 @@ function getCustomizationCode(importPath: string, primaryExport: string) {
   return `import { ${primaryExport} } from '${importPath}'\n\nexport function CustomAppearanceExample() {\n  return (\n    <${primaryExport}\n      customAppearance={{\n        container: { borderRadius: 12 },\n      }}\n    />\n  )\n}`
 }
 
+function getComponentKeywords(component: Component) {
+  return Array.from(
+    new Set([
+      'xaui',
+      'xaui docs',
+      'react native',
+      'ui component',
+      component.name,
+      component.id,
+      component.category,
+      component.importPath,
+      ...component.exports,
+      ...(component.types ?? []),
+    ])
+  )
+}
+
 export function generateStaticParams() {
   return components
     .filter(component => component.id !== 'expansion-panel')
@@ -55,12 +72,39 @@ export async function generateMetadata({
     return {
       title: 'Component Not Found - Xaui',
       description: 'This component documentation page does not exist.',
+      robots: {
+        index: false,
+        follow: false,
+      },
     }
   }
 
+  const title = `${component.name} - Xaui`
+  const description = component.description
+
   return {
-    title: `${component.name} - Xaui`,
-    description: component.description,
+    title,
+    description,
+    keywords: getComponentKeywords(component),
+    alternates: {
+      canonical: component.href,
+    },
+    openGraph: {
+      type: 'article',
+      title,
+      description,
+      url: component.href,
+      siteName: 'Xaui Documentation',
+    },
+    twitter: {
+      card: 'summary',
+      title,
+      description,
+    },
+    robots: {
+      index: true,
+      follow: true,
+    },
   }
 }
 
