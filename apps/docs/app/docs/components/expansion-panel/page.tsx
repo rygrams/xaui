@@ -11,15 +11,16 @@ export const metadata: Metadata = {
 const installationCode = `npm install @xaui/native`
 
 const usageCode = `import { ExpansionPanel, ExpansionPanelItem } from '@xaui/native/expansion-panel'
+import { Typography } from '@xaui/native/typography'
 
 export function MyComponent() {
   return (
     <ExpansionPanel variant="light" showDivider>
       <ExpansionPanelItem title="Section 1">
-        <Text>Content for section 1</Text>
+        <Typography>Content for section 1</Typography>
       </ExpansionPanelItem>
       <ExpansionPanelItem title="Section 2">
-        <Text>Content for section 2</Text>
+        <Typography>Content for section 2</Typography>
       </ExpansionPanelItem>
     </ExpansionPanel>
   )
@@ -28,59 +29,61 @@ export function MyComponent() {
 const variantsCode = `// Light Variant - Clean, minimal appearance
 <ExpansionPanel variant="light">
   <ExpansionPanelItem title="Light Item">
-    <Text>Clean and minimal styling</Text>
+    <Typography>Clean and minimal styling</Typography>
   </ExpansionPanelItem>
 </ExpansionPanel>
 
 // Bordered Variant - Visible borders around items
 <ExpansionPanel variant="bordered">
   <ExpansionPanelItem title="Bordered Item">
-    <Text>Items have visible borders</Text>
+    <Typography>Items have visible borders</Typography>
   </ExpansionPanelItem>
 </ExpansionPanel>
 
 // Splitted Variant - Separated cards appearance
 <ExpansionPanel variant="splitted">
   <ExpansionPanelItem title="Splitted Item">
-    <Text>Items appear as separate cards</Text>
+    <Typography>Items appear as separate cards</Typography>
   </ExpansionPanelItem>
 </ExpansionPanel>`
 
 const sizingCode = `// Compact Mode - Reduced padding for dense UIs
 <ExpansionPanel isCompact>
   <ExpansionPanelItem title="Compact Item">
-    <Text>Less padding, more items visible</Text>
+    <Typography>Less padding, more items visible</Typography>
   </ExpansionPanelItem>
 </ExpansionPanel>
 
 // Full Width Control
 <ExpansionPanel fullWidth={false}>
   <ExpansionPanelItem title="Fixed Width">
-    <Text>Does not stretch to fill container</Text>
+    <Typography>Does not stretch to fill container</Typography>
   </ExpansionPanelItem>
 </ExpansionPanel>`
 
 const selectionModeCode = `// Toggle Mode - Only one item expanded at a time (default)
 <ExpansionPanel selectionMode="toggle">
   <ExpansionPanelItem itemKey="a" title="Item A">
-    <Text>Opening this closes Item B</Text>
+    <Typography>Opening this closes Item B</Typography>
   </ExpansionPanelItem>
   <ExpansionPanelItem itemKey="b" title="Item B">
-    <Text>Opening this closes Item A</Text>
+    <Typography>Opening this closes Item A</Typography>
   </ExpansionPanelItem>
 </ExpansionPanel>
 
 // Multiple Mode - Multiple items can be expanded
 <ExpansionPanel selectionMode="multiple">
   <ExpansionPanelItem itemKey="a" title="Item A">
-    <Text>Can be expanded with Item B</Text>
+    <Typography>Can be expanded with Item B</Typography>
   </ExpansionPanelItem>
   <ExpansionPanelItem itemKey="b" title="Item B">
-    <Text>Can be expanded with Item A</Text>
+    <Typography>Can be expanded with Item A</Typography>
   </ExpansionPanelItem>
 </ExpansionPanel>`
 
 const eventsCode = `import { useState } from 'react'
+import { ExpansionPanel, ExpansionPanelItem } from '@xaui/native/expansion-panel'
+import { Typography } from '@xaui/native/typography'
 
 export function ControlledExample() {
   const [expandedKeys, setExpandedKeys] = useState<string[]>(['item1'])
@@ -104,7 +107,7 @@ export function ControlledExample() {
         title="Controlled Item"
         onSelected={handleItemSelected}
       >
-        <Text>This item is controlled externally</Text>
+        <Typography>This item is controlled externally</Typography>
       </ExpansionPanelItem>
     </ExpansionPanel>
   )
@@ -113,10 +116,10 @@ export function ControlledExample() {
 const disabledCode = `// Disabled Items
 <ExpansionPanel disabledKeys={['disabled-item']}>
   <ExpansionPanelItem itemKey="enabled" title="Enabled Item">
-    <Text>This item can be interacted with</Text>
+    <Typography>This item can be interacted with</Typography>
   </ExpansionPanelItem>
   <ExpansionPanelItem itemKey="disabled-item" title="Disabled Item">
-    <Text>This item cannot be expanded</Text>
+    <Typography>This item cannot be expanded</Typography>
   </ExpansionPanelItem>
 </ExpansionPanel>`
 
@@ -138,34 +141,34 @@ const customizationCode = `// Custom Appearance
       content: { padding: 16 }
     }}
   >
-    <Text>Custom styled content</Text>
+    <Typography>Custom styled content</Typography>
   </ExpansionPanelItem>
 </ExpansionPanel>
 
 // Hide Indicator
 <ExpansionPanel hideIndicator>
   <ExpansionPanelItem title="No Indicator">
-    <Text>Chevron icon is hidden</Text>
+    <Typography>Chevron icon is hidden</Typography>
   </ExpansionPanelItem>
 </ExpansionPanel>
 
 // Disable Animation
 <ExpansionPanel disableAnimation>
   <ExpansionPanelItem title="No Animation">
-    <Text>Expands/collapses instantly</Text>
+    <Typography>Expands/collapses instantly</Typography>
   </ExpansionPanelItem>
 </ExpansionPanel>`
 
 const defaultExpandedCode = `// Default Expanded Keys
 <ExpansionPanel defaultExpandedKeys={['intro', 'details']}>
   <ExpansionPanelItem itemKey="intro" title="Introduction">
-    <Text>Expanded by default</Text>
+    <Typography>Expanded by default</Typography>
   </ExpansionPanelItem>
   <ExpansionPanelItem itemKey="details" title="Details">
-    <Text>Also expanded by default</Text>
+    <Typography>Also expanded by default</Typography>
   </ExpansionPanelItem>
   <ExpansionPanelItem itemKey="extra" title="Extra">
-    <Text>Collapsed by default</Text>
+    <Typography>Collapsed by default</Typography>
   </ExpansionPanelItem>
 </ExpansionPanel>`
 

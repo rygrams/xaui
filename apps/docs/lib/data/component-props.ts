@@ -109,7 +109,7 @@ export function ClosableExample() {
         title: 'With Custom Icon',
         description: 'Replace the default icon with a custom element.',
         code: `import { Alert } from '@xaui/native/alert'
-import { Text } from 'react-native'
+import { Typography } from '@xaui/native/typography'
 
 export function CustomIconExample() {
   return (
@@ -117,7 +117,7 @@ export function CustomIconExample() {
       title="Tip"
       description="Long-press any item to see more options."
       themeColor="secondary"
-      icon={<Text>💡</Text>}
+      icon={<Typography>💡</Typography>}
     />
   )
 }`,
@@ -478,6 +478,7 @@ export function AvatarImageExample() {
         title: 'Initials fallback',
         description: 'When `src` is absent, `name` generates initials automatically.',
         code: `import { Avatar } from '@xaui/native/avatar'
+import { Row } from '@xaui/native/view'
 
 export function AvatarInitialsExample() {
   return (
@@ -507,6 +508,7 @@ export function AvatarCustomInitialsExample() {
         title: 'Sizes',
         description: 'Use `size` preset or pass a custom number.',
         code: `import { Avatar } from '@xaui/native/avatar'
+import { Row } from '@xaui/native/view'
 
 export function AvatarSizesExample() {
   return (
@@ -523,6 +525,7 @@ export function AvatarSizesExample() {
         title: 'Radius',
         description: 'Control the shape with `radius`.',
         code: `import { Avatar } from '@xaui/native/avatar'
+import { Row } from '@xaui/native/view'
 
 export function AvatarRadiusExample() {
   return (
@@ -540,6 +543,7 @@ export function AvatarRadiusExample() {
         title: 'Bordered',
         description: 'Add a ring with `isBordered`.',
         code: `import { Avatar } from '@xaui/native/avatar'
+import { Row } from '@xaui/native/view'
 
 export function AvatarBorderedExample() {
   return (
@@ -578,7 +582,7 @@ export function AvatarCustomFallbackExample() {
       showFallback
       fallback={
         <View style={{ width: '100%', height: '100%', backgroundColor: '#eee', alignItems: 'center', justifyContent: 'center' }}>
-          <Text style={{ fontSize: 10 }}>N/A</Text>
+          <Typography style={{ fontSize: 10 }}>N/A</Typography>
         </View>
       }
     />
@@ -727,7 +731,7 @@ export function AvatarGroupRenderCountExample() {
       max={3}
       renderCount={(count) => (
         <View style={{ width: 40, height: 40, borderRadius: 20, backgroundColor: '#6366f1', alignItems: 'center', justifyContent: 'center' }}>
-          <Text style={{ color: '#fff', fontSize: 12, fontWeight: '600' }}>+{count}</Text>
+          <Typography style={{ color: '#fff', fontSize: 12, fontWeight: '600' }}>+{count}</Typography>
         </View>
       )}
     >
@@ -1388,11 +1392,11 @@ export function SizesExample() {
         title: 'With Icons',
         description: 'Add content before or after the label using startContent / endContent.',
         code: `import { Button } from '@xaui/native/button'
-import { Text } from 'react-native'
+import { Typography } from '@xaui/native/typography'
 
 export function WithIconsExample() {
   return (
-    <Button startContent={<Text>⬅</Text>} endContent={<Text>➡</Text>}>
+    <Button startContent={<Typography>⬅</Typography>} endContent={<Typography>➡</Typography>}>
       Navigate
     </Button>
   )
@@ -1459,10 +1463,10 @@ export function ElevationExample() {
         title: 'Icon Button',
         description: 'A square button that holds only an icon.',
         code: `import { IconButton } from '@xaui/native/button'
-import { Text } from 'react-native'
+import { Typography } from '@xaui/native/typography'
 
 export function IconButtonExample() {
-  return <IconButton icon={<Text>🔔</Text>} onPress={() => {}} />
+  return <IconButton icon={<Typography>🔔</Typography>} onPress={() => {}} />
 }`,
       },
     ],
@@ -1523,7 +1527,7 @@ export function IconButtonExample() {
   CardFooter,
 } from '@xaui/native/card'
 import { Button } from '@xaui/native/button'
-import { Text } from 'react-native'
+import { Typography } from '@xaui/native/typography'
 
 export function FullCardExample() {
   return (
@@ -1533,7 +1537,7 @@ export function FullCardExample() {
         <CardDescription>You have 3 unread messages</CardDescription>
       </CardHeader>
       <CardBody>
-        <Text>Open your inbox to see the latest updates from your team.</Text>
+        <Typography>Open your inbox to see the latest updates from your team.</Typography>
       </CardBody>
       <CardFooter>
         <Button variant="flat" size="sm">Dismiss</Button>
@@ -1547,7 +1551,7 @@ export function FullCardExample() {
         title: 'Header with Title & Description Only',
         description: 'CardTitle and CardDescription inside CardHeader for structured headings.',
         code: `import { Card, CardHeader, CardTitle, CardDescription, CardBody } from '@xaui/native/card'
-import { Text } from 'react-native'
+import { Typography } from '@xaui/native/typography'
 
 export function HeaderExample() {
   return (
@@ -1557,7 +1561,7 @@ export function HeaderExample() {
         <CardDescription>Last updated 2 hours ago</CardDescription>
       </CardHeader>
       <CardBody>
-        <Text>Progress: 74% complete</Text>
+        <Typography>Progress: 74% complete</Typography>
       </CardBody>
     </Card>
   )
@@ -1567,7 +1571,7 @@ export function HeaderExample() {
         title: 'Pressable Card',
         description: 'Make the entire card tappable.',
         code: `import { Card, CardHeader, CardTitle, CardDescription, CardBody } from '@xaui/native/card'
-import { Text } from 'react-native'
+import { Typography } from '@xaui/native/typography'
 
 export function PressableCardExample() {
   return (
@@ -1577,7 +1581,7 @@ export function PressableCardExample() {
         <CardDescription>Tap anywhere on the card</CardDescription>
       </CardHeader>
       <CardBody>
-        <Text>More information about this item.</Text>
+        <Typography>More information about this item.</Typography>
       </CardBody>
     </Card>
   )
@@ -1587,7 +1591,7 @@ export function PressableCardExample() {
         title: 'Elevated Card',
         description: 'Add a shadow with the elevation prop.',
         code: `import { Card, CardHeader, CardTitle, CardBody } from '@xaui/native/card'
-import { Text } from 'react-native'
+import { Typography } from '@xaui/native/typography'
 
 export function ElevatedCardExample() {
   return (
@@ -1596,7 +1600,7 @@ export function ElevatedCardExample() {
         <CardTitle>Elevated</CardTitle>
       </CardHeader>
       <CardBody>
-        <Text>This card casts a shadow.</Text>
+        <Typography>This card casts a shadow.</Typography>
       </CardBody>
     </Card>
   )
@@ -1667,7 +1671,8 @@ export function ElevatedCardExample() {
         title: 'Basic Carousel',
         description: 'Display a list of items with data, renderItem, and keyExtractor.',
         code: `import { Carousel } from '@xaui/native/carousel'
-import { View, Text } from 'react-native'
+import { Typography } from '@xaui/native/typography'
+import { View } from 'react-native'
 
 const slides = [
   { id: '1', label: 'Slide 1', color: '#4f46e5' },
@@ -1684,7 +1689,7 @@ export function BasicCarouselExample() {
       itemHeight={180}
       renderItem={({ item }) => (
         <View style={{ flex: 1, backgroundColor: item.color, borderRadius: 12, justifyContent: 'center', alignItems: 'center' }}>
-          <Text style={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }}>{item.label}</Text>
+          <Typography style={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }}>{item.label}</Typography>
         </View>
       )}
     />
@@ -1695,7 +1700,8 @@ export function BasicCarouselExample() {
         title: 'Auto Play',
         description: 'Auto-scroll slides at a fixed interval.',
         code: `import { Carousel } from '@xaui/native/carousel'
-import { View, Text } from 'react-native'
+import { Typography } from '@xaui/native/typography'
+import { View } from 'react-native'
 
 const banners = [
   { id: '1', title: 'Welcome' },
@@ -1714,7 +1720,7 @@ export function AutoPlayExample() {
       autoPlayInterval={2500}
       renderItem={({ item }) => (
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#f1f5f9', borderRadius: 12 }}>
-          <Text style={{ fontSize: 20, fontWeight: 'bold' }}>{item.title}</Text>
+          <Typography style={{ fontSize: 20, fontWeight: 'bold' }}>{item.title}</Typography>
         </View>
       )}
     />
@@ -1725,7 +1731,8 @@ export function AutoPlayExample() {
         title: 'Hero Layout',
         description: 'Full-width hero carousel with a large focal item.',
         code: `import { Carousel } from '@xaui/native/carousel'
-import { View, Text } from 'react-native'
+import { Typography } from '@xaui/native/typography'
+import { View } from 'react-native'
 
 const items = [
   { id: '1', label: 'Feature A' },
@@ -1743,7 +1750,7 @@ export function HeroCarouselExample() {
       itemHeight={200}
       renderItem={({ item }) => (
         <View style={{ flex: 1, backgroundColor: '#1e293b', borderRadius: 16, justifyContent: 'center', alignItems: 'center' }}>
-          <Text style={{ color: '#fff', fontSize: 22 }}>{item.label}</Text>
+          <Typography style={{ color: '#fff', fontSize: 22 }}>{item.label}</Typography>
         </View>
       )}
       onActiveItemChange={index => console.log('active:', index)}
@@ -2665,14 +2672,14 @@ export function ValidationExample() {
         title: 'With Start & End Content',
         description: 'Add icons or labels inside the input.',
         code: `import { Input } from '@xaui/native/input'
-import { Text } from 'react-native'
+import { Typography } from '@xaui/native/typography'
 
 export function WithContentExample() {
   return (
     <Input
       label="Amount"
-      startContent={<Text>$</Text>}
-      endContent={<Text>USD</Text>}
+      startContent={<Typography>$</Typography>}
+      endContent={<Typography>USD</Typography>}
       placeholder="0.00"
     />
   )
@@ -3523,19 +3530,19 @@ export function SizesExample() {
         title: 'Basic Tabs',
         description: 'Tabs with inline content per panel.',
         code: `import { Tabs, Tab } from '@xaui/native/tabs'
-import { Text } from 'react-native'
+import { Typography } from '@xaui/native/typography'
 
 export function BasicExample() {
   return (
     <Tabs>
       <Tab title="Home">
-        <Text>Home content</Text>
+        <Typography>Home content</Typography>
       </Tab>
       <Tab title="Profile">
-        <Text>Profile content</Text>
+        <Typography>Profile content</Typography>
       </Tab>
       <Tab title="Settings">
-        <Text>Settings content</Text>
+        <Typography>Settings content</Typography>
       </Tab>
     </Tabs>
   )
@@ -3546,26 +3553,26 @@ export function BasicExample() {
         description: 'Switch between tab bar visual styles.',
         code: `import { Tabs, Tab } from '@xaui/native/tabs'
 import { Column } from '@xaui/native/view'
-import { Text } from 'react-native'
+import { Typography } from '@xaui/native/typography'
 
 export function VariantsExample() {
   return (
     <Column gap={24}>
       <Tabs variant="solid">
-        <Tab title="One"><Text>One</Text></Tab>
-        <Tab title="Two"><Text>Two</Text></Tab>
+        <Tab title="One"><Typography>One</Typography></Tab>
+        <Tab title="Two"><Typography>Two</Typography></Tab>
       </Tabs>
       <Tabs variant="bordered">
-        <Tab title="One"><Text>One</Text></Tab>
-        <Tab title="Two"><Text>Two</Text></Tab>
+        <Tab title="One"><Typography>One</Typography></Tab>
+        <Tab title="Two"><Typography>Two</Typography></Tab>
       </Tabs>
       <Tabs variant="light">
-        <Tab title="One"><Text>One</Text></Tab>
-        <Tab title="Two"><Text>Two</Text></Tab>
+        <Tab title="One"><Typography>One</Typography></Tab>
+        <Tab title="Two"><Typography>Two</Typography></Tab>
       </Tabs>
       <Tabs variant="underlined">
-        <Tab title="One"><Text>One</Text></Tab>
-        <Tab title="Two"><Text>Two</Text></Tab>
+        <Tab title="One"><Typography>One</Typography></Tab>
+        <Tab title="Two"><Typography>Two</Typography></Tab>
       </Tabs>
     </Column>
   )
@@ -3576,7 +3583,7 @@ export function VariantsExample() {
         description: 'Drive the active tab from external state.',
         code: `import { useState } from 'react'
 import { Tabs, Tab } from '@xaui/native/tabs'
-import { Text } from 'react-native'
+import { Typography } from '@xaui/native/typography'
 
 export function ControlledExample() {
   const [selected, setSelected] = useState('inbox')
@@ -3584,13 +3591,13 @@ export function ControlledExample() {
   return (
     <Tabs selectedKey={selected} onSelectionChange={setSelected}>
       <Tab title="Inbox">
-        <Text>Inbox items</Text>
+        <Typography>Inbox items</Typography>
       </Tab>
       <Tab title="Sent">
-        <Text>Sent items</Text>
+        <Typography>Sent items</Typography>
       </Tab>
       <Tab title="Drafts">
-        <Text>Draft items</Text>
+        <Typography>Draft items</Typography>
       </Tab>
     </Tabs>
   )
@@ -3600,16 +3607,16 @@ export function ControlledExample() {
         title: 'Disabled Tabs',
         description: 'Disable specific tabs by passing their keys.',
         code: `import { Tabs, Tab } from '@xaui/native/tabs'
-import { Text } from 'react-native'
+import { Typography } from '@xaui/native/typography'
 
 export function DisabledTabsExample() {
   return (
     <Tabs disabledKeys={['premium']}>
       <Tab title="Free">
-        <Text>Free content</Text>
+        <Typography>Free content</Typography>
       </Tab>
       <Tab title="Premium">
-        <Text>Premium content</Text>
+        <Typography>Premium content</Typography>
       </Tab>
     </Tabs>
   )
@@ -3619,14 +3626,14 @@ export function DisabledTabsExample() {
         title: 'Full Width',
         description: 'Stretch tabs to fill the available width.',
         code: `import { Tabs, Tab } from '@xaui/native/tabs'
-import { Text } from 'react-native'
+import { Typography } from '@xaui/native/typography'
 
 export function FullWidthExample() {
   return (
     <Tabs fullWidth>
-      <Tab title="Overview"><Text>Overview</Text></Tab>
-      <Tab title="Details"><Text>Details</Text></Tab>
-      <Tab title="Reviews"><Text>Reviews</Text></Tab>
+      <Tab title="Overview"><Typography>Overview</Typography></Tab>
+      <Tab title="Details"><Typography>Details</Typography></Tab>
+      <Tab title="Reviews"><Typography>Reviews</Typography></Tab>
     </Tabs>
   )
 }`,
@@ -3828,14 +3835,14 @@ export function TypographyAlignmentExample() {
         title: 'Basic Column',
         description: 'Stack children vertically with a spacing gap.',
         code: `import { Column } from '@xaui/native/view'
-import { Text } from 'react-native'
+import { Typography } from '@xaui/native/typography'
 
 export function BasicColumnExample() {
   return (
     <Column spacing={12}>
-      <Text>First</Text>
-      <Text>Second</Text>
-      <Text>Third</Text>
+      <Typography>First</Typography>
+      <Typography>Second</Typography>
+      <Typography>Third</Typography>
     </Column>
   )
 }`,
@@ -3844,14 +3851,14 @@ export function BasicColumnExample() {
         title: 'Main Axis Alignment',
         description: 'Control vertical distribution of children.',
         code: `import { Column } from '@xaui/native/view'
-import { Text } from 'react-native'
+import { Typography } from '@xaui/native/typography'
 
 export function MainAxisExample() {
   return (
     <Column mainAxisAlignment="space-between" style={{ height: 200 }}>
-      <Text>Top</Text>
-      <Text>Middle</Text>
-      <Text>Bottom</Text>
+      <Typography>Top</Typography>
+      <Typography>Middle</Typography>
+      <Typography>Bottom</Typography>
     </Column>
   )
 }`,
@@ -3860,13 +3867,13 @@ export function MainAxisExample() {
         title: 'Cross Axis Alignment',
         description: 'Align children horizontally inside the column.',
         code: `import { Column } from '@xaui/native/view'
-import { Text } from 'react-native'
+import { Typography } from '@xaui/native/typography'
 
 export function CrossAxisExample() {
   return (
     <Column crossAxisAlignment="center" fullWidth spacing={8}>
-      <Text>Centered item</Text>
-      <Text>Another centered item</Text>
+      <Typography>Centered item</Typography>
+      <Typography>Another centered item</Typography>
     </Column>
   )
 }`,
@@ -3889,14 +3896,14 @@ export function CrossAxisExample() {
         title: 'Basic Row',
         description: 'Align children side by side with a gap.',
         code: `import { Row } from '@xaui/native/view'
-import { Text } from 'react-native'
+import { Typography } from '@xaui/native/typography'
 
 export function BasicRowExample() {
   return (
     <Row spacing={16}>
-      <Text>Left</Text>
-      <Text>Center</Text>
-      <Text>Right</Text>
+      <Typography>Left</Typography>
+      <Typography>Center</Typography>
+      <Typography>Right</Typography>
     </Row>
   )
 }`,
@@ -3921,13 +3928,13 @@ export function SpaceBetweenExample() {
         description: 'Center children on the cross (vertical) axis.',
         code: `import { Row } from '@xaui/native/view'
 import { Avatar } from '@xaui/native/avatar'
-import { Text } from 'react-native'
+import { Typography } from '@xaui/native/typography'
 
 export function VerticalCenterExample() {
   return (
     <Row crossAxisAlignment="center" spacing={12}>
       <Avatar name="Jane Doe" size="sm" />
-      <Text style={{ fontWeight: 'bold' }}>Jane Doe</Text>
+      <Typography style={{ fontWeight: 'bold' }}>Jane Doe</Typography>
     </Row>
   )
 }`,
@@ -3945,14 +3952,14 @@ export function VerticalCenterExample() {
         title: 'Push Items Apart',
         description: 'Place a Spacer between items to push them to opposite ends.',
         code: `import { Row, Spacer } from '@xaui/native/view'
-import { Text } from 'react-native'
+import { Typography } from '@xaui/native/typography'
 
 export function SpacerExample() {
   return (
     <Row fullWidth>
-      <Text>Left</Text>
+      <Typography>Left</Typography>
       <Spacer />
-      <Text>Right</Text>
+      <Typography>Right</Typography>
     </Row>
   )
 }`,
@@ -3961,16 +3968,16 @@ export function SpacerExample() {
         title: 'Weighted Spacing',
         description: 'Use flex to distribute space unevenly.',
         code: `import { Row, Spacer } from '@xaui/native/view'
-import { Text } from 'react-native'
+import { Typography } from '@xaui/native/typography'
 
 export function WeightedSpacerExample() {
   return (
     <Row fullWidth>
-      <Text>Start</Text>
+      <Typography>Start</Typography>
       <Spacer flex={2} />
-      <Text>Middle</Text>
+      <Typography>Middle</Typography>
       <Spacer flex={1} />
-      <Text>End</Text>
+      <Typography>End</Typography>
     </Row>
   )
 }`,
@@ -3996,12 +4003,12 @@ export function WeightedSpacerExample() {
         title: 'Uniform Padding',
         description: 'Apply the same padding to all sides with all.',
         code: `import { Padding } from '@xaui/native/view'
-import { Text } from 'react-native'
+import { Typography } from '@xaui/native/typography'
 
 export function UniformPaddingExample() {
   return (
     <Padding all={16}>
-      <Text>Content with 16px padding on all sides</Text>
+      <Typography>Content with 16px padding on all sides</Typography>
     </Padding>
   )
 }`,
@@ -4010,12 +4017,12 @@ export function UniformPaddingExample() {
         title: 'Directional Padding',
         description: 'Fine-tune padding per side.',
         code: `import { Padding } from '@xaui/native/view'
-import { Text } from 'react-native'
+import { Typography } from '@xaui/native/typography'
 
 export function DirectionalPaddingExample() {
   return (
     <Padding top={24} bottom={8} horizontal={16}>
-      <Text>Custom padding per side</Text>
+      <Typography>Custom padding per side</Typography>
     </Padding>
   )
 }`,
@@ -4041,12 +4048,12 @@ export function DirectionalPaddingExample() {
         title: 'Uniform Margin',
         description: 'Add the same margin on all sides.',
         code: `import { Margin } from '@xaui/native/view'
-import { Text } from 'react-native'
+import { Typography } from '@xaui/native/typography'
 
 export function UniformMarginExample() {
   return (
     <Margin all={16}>
-      <Text>Content offset by 16px on all sides</Text>
+      <Typography>Content offset by 16px on all sides</Typography>
     </Margin>
   )
 }`,
@@ -4055,12 +4062,12 @@ export function UniformMarginExample() {
         title: 'Vertical & Horizontal Margin',
         description: 'Combine vertical and horizontal shorthand props.',
         code: `import { Margin } from '@xaui/native/view'
-import { Text } from 'react-native'
+import { Typography } from '@xaui/native/typography'
 
 export function DirectionalMarginExample() {
   return (
     <Margin vertical={24} horizontal={16}>
-      <Text>24px top/bottom, 16px left/right</Text>
+      <Typography>24px top/bottom, 16px left/right</Typography>
     </Margin>
   )
 }`,
@@ -4080,14 +4087,14 @@ export function DirectionalMarginExample() {
         title: 'Fixed Spacer',
         description: 'Use SizedBox as a blank space between items.',
         code: `import { Column, SizedBox } from '@xaui/native/view'
-import { Text } from 'react-native'
+import { Typography } from '@xaui/native/typography'
 
 export function SizedBoxSpacerExample() {
   return (
     <Column>
-      <Text>Section A</Text>
+      <Typography>Section A</Typography>
       <SizedBox height={32} />
-      <Text>Section B</Text>
+      <Typography>Section B</Typography>
     </Column>
   )
 }`,
@@ -4124,7 +4131,8 @@ export function FixedContainerExample() {
         title: 'Badge Overlay',
         description: 'Position a badge absolutely over a parent element.',
         code: `import { PositionedView } from '@xaui/native/view'
-import { View, Text } from 'react-native'
+import { Typography } from '@xaui/native/typography'
+import { View } from 'react-native'
 
 export function BadgeOverlayExample() {
   return (
@@ -4141,13 +4149,14 @@ export function BadgeOverlayExample() {
         title: 'Bottom Label',
         description: 'Anchor a label to the bottom of a container.',
         code: `import { PositionedView } from '@xaui/native/view'
-import { View, Text } from 'react-native'
+import { Typography } from '@xaui/native/typography'
+import { View } from 'react-native'
 
 export function BottomLabelExample() {
   return (
     <View style={{ height: 120, position: 'relative', backgroundColor: '#1e293b', borderRadius: 12 }}>
       <PositionedView bottom={8} left={12} right={12}>
-        <Text style={{ color: '#fff', fontWeight: 'bold' }}>Overlay label</Text>
+        <Typography style={{ color: '#fff', fontWeight: 'bold' }}>Overlay label</Typography>
       </PositionedView>
     </View>
   )
@@ -4169,12 +4178,12 @@ export function BottomLabelExample() {
         title: 'Frosted Glass Effect',
         description: 'Blur the background behind the children.',
         code: `import { BlurView } from '@xaui/native/view'
-import { Text } from 'react-native'
+import { Typography } from '@xaui/native/typography'
 
 export function FrostedGlassExample() {
   return (
     <BlurView intensity={60} style={{ padding: 16, borderRadius: 12 }}>
-      <Text style={{ fontWeight: 'bold' }}>Frosted content</Text>
+      <Typography style={{ fontWeight: 'bold' }}>Frosted content</Typography>
     </BlurView>
   )
 }`,
@@ -4183,12 +4192,12 @@ export function FrostedGlassExample() {
         title: 'Unlockable Blur',
         description: 'Hide premium content behind a blur that the user can reveal.',
         code: `import { BlurView } from '@xaui/native/view'
-import { Text } from 'react-native'
+import { Typography } from '@xaui/native/typography'
 
 export function UnlockableBlurExample() {
   return (
     <BlurView intensity={80} unlockable>
-      <Text>This content is hidden until unlocked</Text>
+      <Typography>This content is hidden until unlocked</Typography>
     </BlurView>
   )
 }`,
@@ -4217,12 +4226,12 @@ export function UnlockableBlurExample() {
         title: 'Uniform Radius',
         description: 'Round all corners equally.',
         code: `import { RoundedView } from '@xaui/native/view'
-import { Text } from 'react-native'
+import { Typography } from '@xaui/native/typography'
 
 export function UniformRadiusExample() {
   return (
     <RoundedView all={16} backgroundColor="#4f46e5">
-      <Text style={{ color: '#fff', padding: 12 }}>Rounded card</Text>
+      <Typography style={{ color: '#fff', padding: 12 }}>Rounded card</Typography>
     </RoundedView>
   )
 }`,
@@ -4231,12 +4240,12 @@ export function UniformRadiusExample() {
         title: 'Asymmetric Radius',
         description: 'Round only specific corners for a custom shape.',
         code: `import { RoundedView } from '@xaui/native/view'
-import { Text } from 'react-native'
+import { Typography } from '@xaui/native/typography'
 
 export function AsymmetricRadiusExample() {
   return (
     <RoundedView topLeft={24} topRight={24} bottomLeft={4} bottomRight={4} backgroundColor="#0ea5e9">
-      <Text style={{ color: '#fff', padding: 12 }}>Custom shape</Text>
+      <Typography style={{ color: '#fff', padding: 12 }}>Custom shape</Typography>
     </RoundedView>
   )
 }`,
@@ -4301,17 +4310,18 @@ export function SquareExample() {
         title: 'Static Grid with GridItem',
         description: 'Lay out a fixed set of cells using GridItem.',
         code: `import { Grid, GridItem } from '@xaui/native/view'
-import { View, Text } from 'react-native'
+import { Typography } from '@xaui/native/typography'
+import { View } from 'react-native'
 
 export function StaticGridExample() {
   return (
     <Grid columns={3} spacing={8}>
-      <GridItem><View style={{ height: 80, backgroundColor: '#e0e7ff', borderRadius: 8, justifyContent: 'center', alignItems: 'center' }}><Text>A</Text></View></GridItem>
-      <GridItem><View style={{ height: 80, backgroundColor: '#dbeafe', borderRadius: 8, justifyContent: 'center', alignItems: 'center' }}><Text>B</Text></View></GridItem>
-      <GridItem><View style={{ height: 80, backgroundColor: '#dcfce7', borderRadius: 8, justifyContent: 'center', alignItems: 'center' }}><Text>C</Text></View></GridItem>
-      <GridItem><View style={{ height: 80, backgroundColor: '#fef9c3', borderRadius: 8, justifyContent: 'center', alignItems: 'center' }}><Text>D</Text></View></GridItem>
-      <GridItem><View style={{ height: 80, backgroundColor: '#ffe4e6', borderRadius: 8, justifyContent: 'center', alignItems: 'center' }}><Text>E</Text></View></GridItem>
-      <GridItem><View style={{ height: 80, backgroundColor: '#f3e8ff', borderRadius: 8, justifyContent: 'center', alignItems: 'center' }}><Text>F</Text></View></GridItem>
+      <GridItem><View style={{ height: 80, backgroundColor: '#e0e7ff', borderRadius: 8, justifyContent: 'center', alignItems: 'center' }}><Typography>A</Typography></View></GridItem>
+      <GridItem><View style={{ height: 80, backgroundColor: '#dbeafe', borderRadius: 8, justifyContent: 'center', alignItems: 'center' }}><Typography>B</Typography></View></GridItem>
+      <GridItem><View style={{ height: 80, backgroundColor: '#dcfce7', borderRadius: 8, justifyContent: 'center', alignItems: 'center' }}><Typography>C</Typography></View></GridItem>
+      <GridItem><View style={{ height: 80, backgroundColor: '#fef9c3', borderRadius: 8, justifyContent: 'center', alignItems: 'center' }}><Typography>D</Typography></View></GridItem>
+      <GridItem><View style={{ height: 80, backgroundColor: '#ffe4e6', borderRadius: 8, justifyContent: 'center', alignItems: 'center' }}><Typography>E</Typography></View></GridItem>
+      <GridItem><View style={{ height: 80, backgroundColor: '#f3e8ff', borderRadius: 8, justifyContent: 'center', alignItems: 'center' }}><Typography>F</Typography></View></GridItem>
     </Grid>
   )
 }`,
@@ -4320,7 +4330,8 @@ export function StaticGridExample() {
         title: 'Dynamic Grid with GridBuilder',
         description: 'Render a data array into a grid using GridBuilder.',
         code: `import { GridBuilder } from '@xaui/native/view'
-import { View, Text } from 'react-native'
+import { Typography } from '@xaui/native/typography'
+import { View } from 'react-native'
 
 const products = [
   { id: '1', name: 'Item A' },
@@ -4338,7 +4349,7 @@ export function DynamicGridExample() {
       spacing={12}
       renderItem={item => (
         <View style={{ height: 100, backgroundColor: '#f1f5f9', borderRadius: 10, justifyContent: 'center', alignItems: 'center' }}>
-          <Text>{item.name}</Text>
+          <Typography>{item.name}</Typography>
         </View>
       )}
     />
@@ -4386,7 +4397,8 @@ export function DynamicGridExample() {
         title: 'Static Masonry',
         description: 'Items of varying heights placed in masonry columns using MasonryGridItem.',
         code: `import { MasonryGrid, MasonryGridItem } from '@xaui/native/view'
-import { View, Text } from 'react-native'
+import { Typography } from '@xaui/native/typography'
+import { View } from 'react-native'
 
 export function StaticMasonryExample() {
   return (
@@ -4404,7 +4416,8 @@ export function StaticMasonryExample() {
         title: 'Dynamic Masonry with MasonryGridBuilder',
         description: 'Render variable-height items from a data array.',
         code: `import { MasonryGridBuilder } from '@xaui/native/view'
-import { View, Text } from 'react-native'
+import { Typography } from '@xaui/native/typography'
+import { View } from 'react-native'
 
 const photos = [
   { id: '1', height: 130, label: 'Photo A' },
@@ -4422,7 +4435,7 @@ export function DynamicMasonryExample() {
       spacing={8}
       renderItem={item => (
         <View style={{ height: item.height, backgroundColor: '#f1f5f9', borderRadius: 10, justifyContent: 'center', alignItems: 'center' }}>
-          <Text>{item.label}</Text>
+          <Typography>{item.label}</Typography>
         </View>
       )}
     />
@@ -4611,7 +4624,7 @@ export function StackExample() {
         code: `import { useState } from 'react'
 import { ConditionalView } from '@xaui/native/view'
 import { Button } from '@xaui/native/button'
-import { Text } from 'react-native'
+import { Typography } from '@xaui/native/typography'
 
 export function FadeExample() {
   const [visible, setVisible] = useState(false)
@@ -4620,7 +4633,7 @@ export function FadeExample() {
     <>
       <Button onPress={() => setVisible(v => !v)}>Toggle</Button>
       <ConditionalView isVisible={visible} animation="fade">
-        <Text>This content fades in and out</Text>
+        <Typography>This content fades in and out</Typography>
       </ConditionalView>
     </>
   )
@@ -4632,7 +4645,7 @@ export function FadeExample() {
         code: `import { useState } from 'react'
 import { ConditionalView } from '@xaui/native/view'
 import { Button } from '@xaui/native/button'
-import { Text } from 'react-native'
+import { Typography } from '@xaui/native/typography'
 
 export function ScaleExample() {
   const [visible, setVisible] = useState(false)
@@ -4641,7 +4654,7 @@ export function ScaleExample() {
     <>
       <Button onPress={() => setVisible(v => !v)}>Toggle</Button>
       <ConditionalView isVisible={visible} animation="scale">
-        <Text>This content scales in and out</Text>
+        <Typography>This content scales in and out</Typography>
       </ConditionalView>
     </>
   )

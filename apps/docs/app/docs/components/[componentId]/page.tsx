@@ -141,8 +141,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
           <div className="space-y-4">
             <h3 className="text-lg font-semibold">Basic Usage</h3>
             <p className="text-muted-foreground">
-              Exemple minimal pour afficher le composant avec sa configuration par
-              defaut.
+              Minimal example showing the component with its default configuration.
             </p>
             <CodeBlock code={usageCode} />
           </div>
@@ -163,7 +162,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                   <div className="space-y-4">
                     <h3 className="text-lg font-semibold">Variants</h3>
                     <p className="text-muted-foreground">
-                      Cas d&apos;usage avec plusieurs variantes visuelles.
+                      Use case with multiple visual variants.
                     </p>
                     <CodeBlock code={variantsCode} />
                   </div>
@@ -173,7 +172,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                   <div className="space-y-4">
                     <h3 className="text-lg font-semibold">Controlled State</h3>
                     <p className="text-muted-foreground">
-                      Pattern controle avec un state React externe.
+                      Controlled pattern using external React state.
                     </p>
                     <CodeBlock code={controlledCode} />
                   </div>
@@ -183,7 +182,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                   <div className="space-y-4">
                     <h3 className="text-lg font-semibold">Disabled State</h3>
                     <p className="text-muted-foreground">
-                      Cas ou le composant doit etre non interactif.
+                      Use case where the component should be non-interactive.
                     </p>
                     <CodeBlock code={disabledCode} />
                   </div>
@@ -193,7 +192,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                   <div className="space-y-4">
                     <h3 className="text-lg font-semibold">Customization</h3>
                     <p className="text-muted-foreground">
-                      Personnalisation via l&apos;API `customAppearance`.
+                      Customization via the <code>customAppearance</code> API.
                     </p>
                     <CodeBlock code={customizationCode} />
                   </div>
