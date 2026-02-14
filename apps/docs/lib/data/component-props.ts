@@ -2584,12 +2584,85 @@ export function FullWidthExample() {
   typography: {
     props: [
       { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Text content' },
-      { name: 'variant', type: '"caption" | "bodySmall" | "bodyMedium" | "bodyLarge" | "subtitleSmall" | "subtitleMedium" | "subtitleLarge" | "headlineSmall" | "headlineMedium" | "headlineLarge"', defaultValue: '"bodyMedium"', description: 'Typographic style variant' },
-      { name: 'align', type: '"left" | "center" | "right" | "justify"', defaultValue: '"left"', description: 'Text alignment' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '-', description: 'Color theme for the text' },
+      { name: 'variant', type: '"caption" | "bodySmall" | "bodyMedium" | "bodyLarge" | "subtitleSmall" | "subtitleMedium" | "subtitleLarge" | "headlineSmall" | "headlineMedium" | "headlineLarge" | string', defaultValue: '"bodyMedium"', description: 'Typographic style variant — also accepts a custom string for theme-extended variants' },
+      { name: 'align', type: '"left" | "center" | "right" | "justify"', defaultValue: '-', description: 'Text alignment' },
+      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"default"', description: 'Color theme for the text' },
       { name: 'maxLines', type: 'number', defaultValue: '-', description: 'Maximum number of lines before truncation' },
-      { name: 'overflow', type: '"clip" | "ellipsis"', defaultValue: '"ellipsis"', description: 'Overflow handling' },
+      { name: 'overflow', type: '"clip" | "ellipsis"', defaultValue: '"clip"', description: 'Overflow handling when maxLines is set' },
       { name: 'style', type: 'StyleProp<TextStyle>', defaultValue: '-', description: 'Additional text styles' },
+    ],
+    examples: [
+      {
+        title: 'Variants',
+        description: 'Use variant to apply the correct typographic scale.',
+        code: `import { Typography } from '@xaui/native/typography'
+import { View } from 'react-native'
+
+export function TypographyVariantsExample() {
+  return (
+    <View>
+      <Typography variant="headlineLarge">Headline Large</Typography>
+      <Typography variant="headlineMedium">Headline Medium</Typography>
+      <Typography variant="headlineSmall">Headline Small</Typography>
+      <Typography variant="subtitleLarge">Subtitle Large</Typography>
+      <Typography variant="subtitleMedium">Subtitle Medium</Typography>
+      <Typography variant="subtitleSmall">Subtitle Small</Typography>
+      <Typography variant="bodyLarge">Body Large</Typography>
+      <Typography variant="bodyMedium">Body Medium</Typography>
+      <Typography variant="bodySmall">Body Small</Typography>
+      <Typography variant="caption">Caption</Typography>
+    </View>
+  )
+}`,
+      },
+      {
+        title: 'Theme Colors',
+        description: 'Apply a theme color to the text.',
+        code: `import { Typography } from '@xaui/native/typography'
+import { View } from 'react-native'
+
+export function TypographyColorsExample() {
+  return (
+    <View>
+      <Typography themeColor="primary">Primary color</Typography>
+      <Typography themeColor="success">Success color</Typography>
+      <Typography themeColor="danger">Danger color</Typography>
+      <Typography themeColor="warning">Warning color</Typography>
+    </View>
+  )
+}`,
+      },
+      {
+        title: 'Text Truncation',
+        description: 'Limit lines and control overflow behavior.',
+        code: `import { Typography } from '@xaui/native/typography'
+
+export function TypographyTruncationExample() {
+  return (
+    <Typography variant="bodyMedium" maxLines={2} overflow="ellipsis">
+      This is a very long text that will be truncated after two lines with an
+      ellipsis at the end to indicate that there is more content available.
+    </Typography>
+  )
+}`,
+      },
+      {
+        title: 'Alignment',
+        description: 'Control text alignment within the container.',
+        code: `import { Typography } from '@xaui/native/typography'
+import { View } from 'react-native'
+
+export function TypographyAlignmentExample() {
+  return (
+    <View>
+      <Typography align="left">Left aligned</Typography>
+      <Typography align="center">Center aligned</Typography>
+      <Typography align="right">Right aligned</Typography>
+      <Typography align="justify">Justified text that spans multiple lines to demonstrate justify alignment behavior.</Typography>
+    </View>
+  )
+}`,
+      },
     ],
   },
 
