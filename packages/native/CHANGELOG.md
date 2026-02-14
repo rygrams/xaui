@@ -1,5 +1,11 @@
 # @xaui/mobile
 
+## 0.0.28
+
+### Patch Changes
+
+- ce8b7f4: docs: add detailed code examples and props documentation for all @xaui/native components
+
 ## 0.0.27
 
 ### Patch Changes
