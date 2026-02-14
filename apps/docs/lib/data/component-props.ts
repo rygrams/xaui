@@ -2509,28 +2509,111 @@ export function DrawerCustomSizeExample() {
 
   'fab-menu': {
     props: [
-      { name: 'icon', type: 'ReactNode', defaultValue: '-', description: 'Trigger icon' },
-      { name: 'label', type: 'ReactNode', defaultValue: '-', description: 'Optional trigger label' },
-      { name: 'expandedIcon', type: 'ReactNode', defaultValue: '-', description: 'Icon shown when menu is open' },
-      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'FabMenuItem children' },
-      { name: 'variant', type: '"solid" | "flat" | "outlined"', defaultValue: '"solid"', description: 'Visual style variant' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme' },
-      { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'FAB size' },
-      { name: 'isExpanded', type: 'boolean', defaultValue: '-', description: 'Controlled expanded state' },
-      { name: 'showOverlay', type: 'boolean', defaultValue: 'true', description: 'Show backdrop overlay when open' },
-      { name: 'elevation', type: '0 | 1 | 2 | 3 | 4', defaultValue: '2', description: 'Shadow elevation level' },
-      { name: 'customAppearance', type: 'FabMenuCustomAppearance', defaultValue: '-', description: 'Custom style overrides' },
+      { name: 'icon', type: 'ReactNode', defaultValue: '-', description: 'Toggle icon when collapsed' },
+      { name: 'label', type: 'ReactNode', defaultValue: '-', description: 'Optional extended-FAB label on the toggle' },
+      { name: 'expandedIcon', type: 'ReactNode', defaultValue: '-', description: 'Alternate toggle icon when expanded' },
+      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'FabMenuItem children rendered in the expanded list' },
+      { name: 'variant', type: '"solid" | "flat" | "outlined"', defaultValue: '"solid"', description: 'Visual style variant of the toggle FAB' },
+      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Theme color shared by toggle and item defaults' },
+      { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Toggle FAB size' },
+      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '-', description: 'Border radius override for the toggle FAB' },
+      { name: 'isExpanded', type: 'boolean', defaultValue: '-', description: 'Controlled expanded state (uncontrolled if omitted)' },
+      { name: 'showOverlay', type: 'boolean', defaultValue: 'true', description: 'Show dismissible backdrop while expanded' },
+      { name: 'elevation', type: '0 | 1 | 2 | 3 | 4', defaultValue: '0', description: 'Android shadow elevation for the toggle FAB' },
+      { name: 'customAppearance', type: 'FabMenuCustomAppearance', defaultValue: '-', description: 'Style overrides for container, overlay, toggle, and item rows' },
     ],
     events: [
       { name: 'onToggle', type: '(expanded: boolean) => void', description: 'Called when the menu opens or closes' },
+    ],
+    examples: [
+      {
+        title: 'Basic Menu',
+        description: 'Uncontrolled menu with three actions.',
+        code: `import { FabMenu, FabMenuItem } from '@xaui/native/fab-menu'
+import { AddIcon } from '@xaui/icons/add'
+import { CloseIcon } from '@xaui/icons/close'
+import { CameraIcon } from '@xaui/icons/camera'
+import { ImageIcon } from '@xaui/icons/image'
+import { ShareIcon } from '@xaui/icons/share'
+
+export function BasicFabMenuExample() {
+  return (
+    <FabMenu
+      icon={<AddIcon size={24} />}
+      expandedIcon={<CloseIcon size={24} />}
+      themeColor="primary"
+      showOverlay
+    >
+      <FabMenuItem icon={<CameraIcon size={20} />} label="Take photo" />
+      <FabMenuItem icon={<ImageIcon size={20} />} label="Gallery" />
+      <FabMenuItem icon={<ShareIcon size={20} />} label="Share" />
+    </FabMenu>
+  )
+}`,
+      },
+      {
+        title: 'Controlled State',
+        description: 'Control open/close state with isExpanded and onToggle.',
+        code: `import { useState } from 'react'
+import { FabMenu, FabMenuItem } from '@xaui/native/fab-menu'
+import { AddIcon } from '@xaui/icons/add'
+import { CloseIcon } from '@xaui/icons/close'
+import { PencilIcon } from '@xaui/icons/pencil'
+import { StarIcon } from '@xaui/icons/star'
+
+export function ControlledFabMenuExample() {
+  const [expanded, setExpanded] = useState(false)
+
+  return (
+    <FabMenu
+      icon={<AddIcon size={24} />}
+      expandedIcon={<CloseIcon size={24} />}
+      isExpanded={expanded}
+      onToggle={setExpanded}
+      label="Actions"
+      themeColor="secondary"
+      radius="full"
+    >
+      <FabMenuItem icon={<PencilIcon size={20} />} label="Edit" />
+      <FabMenuItem icon={<StarIcon size={20} />} label="Favorite" />
+    </FabMenu>
+  )
+}`,
+      },
+      {
+        title: 'Custom Appearance',
+        description: 'Tune overlay, list spacing, and toggle container styles.',
+        code: `import { FabMenu, FabMenuItem } from '@xaui/native/fab-menu'
+import { AddIcon } from '@xaui/icons/add'
+import { CameraIcon } from '@xaui/icons/camera'
+import { ImageIcon } from '@xaui/icons/image'
+
+export function CustomAppearanceFabMenuExample() {
+  return (
+    <FabMenu
+      icon={<AddIcon size={24} />}
+      themeColor="tertiary"
+      customAppearance={{
+        overlay: { backgroundColor: 'rgba(15, 23, 42, 0.45)' },
+        menuContainer: { gap: 10 },
+        menuItem: { marginBottom: 2 },
+        fab: { borderWidth: 1, borderColor: '#00000022' },
+      }}
+    >
+      <FabMenuItem icon={<CameraIcon size={20} />} label="Camera" />
+      <FabMenuItem icon={<ImageIcon size={20} />} label="Library" isDisabled />
+    </FabMenu>
+  )
+}`,
+      },
     ],
     subComponents: [
       {
         name: 'FabMenuItem',
         props: [
-          { name: 'icon', type: 'ReactNode', defaultValue: '-', description: 'Item icon' },
-          { name: 'label', type: 'string', defaultValue: '-', description: 'Item label' },
-          { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme' },
+          { name: 'icon', type: 'ReactNode', defaultValue: '-', description: 'Item icon content' },
+          { name: 'label', type: 'string', defaultValue: '-', description: 'Text label shown in the item row' },
+          { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Item theme override (inherits parent when omitted)' },
           { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable this item' },
         ],
         events: [
@@ -2542,34 +2625,237 @@ export function DrawerCustomSizeExample() {
 
   'feature-discovery': {
     props: [
-      { name: 'isVisible', type: 'boolean', defaultValue: '-', description: 'Controls spotlight visibility' },
-      { name: 'targetRef', type: 'RefObject<MeasurableNode | null>', defaultValue: '-', description: 'Ref to the element to highlight' },
-      { name: 'title', type: 'ReactNode', defaultValue: '-', description: 'Spotlight title' },
-      { name: 'description', type: 'ReactNode', defaultValue: '-', description: 'Spotlight description' },
-      { name: 'actionText', type: 'ReactNode', defaultValue: '-', description: 'Text for the action button' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme' },
-      { name: 'overlayColor', type: 'string', defaultValue: '"rgba(0,0,0,0.7)"', description: 'Overlay background color' },
-      { name: 'spotlightPadding', type: 'number', defaultValue: '8', description: 'Padding around the highlighted area' },
-      { name: 'circleScale', type: 'number', defaultValue: '1', description: 'Scale factor for spotlight circle' },
-      { name: 'dismissOnBackdropPress', type: 'boolean', defaultValue: 'true', description: 'Dismiss when overlay is pressed' },
-      { name: 'highlightContent', type: 'ReactNode', defaultValue: '-', description: 'Custom content inside the spotlight' },
-      { name: 'customAppearance', type: 'FeatureDiscoveryCustomAppearance', defaultValue: '-', description: 'Custom style overrides' },
+      { name: 'isVisible', type: 'boolean', defaultValue: '-', description: 'Controls whether the discovery overlay is visible' },
+      { name: 'targetRef', type: 'RefObject<MeasurableNode | null>', defaultValue: '-', description: 'Ref to the target element to measure and highlight' },
+      { name: 'title', type: 'ReactNode', defaultValue: '-', description: 'Primary message shown near the spotlight' },
+      { name: 'description', type: 'ReactNode', defaultValue: '-', description: 'Optional supporting text under the title' },
+      { name: 'actionText', type: 'ReactNode', defaultValue: '-', description: 'Optional action label (for example “Got it”)' },
+      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Accent color used by spotlight visuals' },
+      { name: 'overlayColor', type: 'string', defaultValue: '-', description: 'Custom backdrop color behind the spotlight' },
+      { name: 'spotlightPadding', type: 'number', defaultValue: '14', description: 'Extra space around the highlighted target bounds' },
+      { name: 'circleScale', type: 'number', defaultValue: '1.65', description: 'Multiplier applied to spotlight circle diameter' },
+      { name: 'dismissOnBackdropPress', type: 'boolean', defaultValue: 'true', description: 'Whether tapping outside the message closes the overlay' },
+      { name: 'highlightContent', type: 'ReactNode', defaultValue: '-', description: 'Custom content rendered over the highlighted target area' },
+      { name: 'customAppearance', type: 'FeatureDiscoveryCustomAppearance', defaultValue: '-', description: 'Style overrides for root, container, title, description, actionText and highlight wrappers' },
     ],
     events: [
-      { name: 'onActionPress', type: '() => void', description: 'Called when the action button is pressed' },
-      { name: 'onDismiss', type: '() => void', description: 'Called when the spotlight is dismissed' },
+      { name: 'onActionPress', type: '() => void', description: 'Called when the action label is pressed' },
+      { name: 'onDismiss', type: '() => void', description: 'Called when the overlay requests to close (backdrop/action)' },
+    ],
+    examples: [
+      {
+        title: 'Basic',
+        description: 'Show a spotlight around a referenced element.',
+        code: `import { useRef, useState } from 'react'
+import { Pressable, Text, View } from 'react-native'
+import { FeatureDiscovery } from '@xaui/native/feature-discovery'
+
+export function BasicFeatureDiscoveryExample() {
+  const [visible, setVisible] = useState(true)
+  const targetRef = useRef<View>(null)
+
+  return (
+    <View>
+      <View ref={targetRef} collapsable={false}>
+        <Pressable>
+          <Text>Target Element</Text>
+        </Pressable>
+      </View>
+
+      <FeatureDiscovery
+        isVisible={visible}
+        targetRef={targetRef}
+        title="Tap here first"
+        description="This button starts your workflow."
+        actionText="Got it"
+        onActionPress={() => setVisible(false)}
+        onDismiss={() => setVisible(false)}
+      />
+    </View>
+  )
+}`,
+      },
+      {
+        title: 'Controlled Trigger',
+        description: 'Open the overlay from a dedicated trigger button.',
+        code: `import { useRef, useState } from 'react'
+import { View } from 'react-native'
+import { Button } from '@xaui/native/button'
+import { FeatureDiscovery } from '@xaui/native/feature-discovery'
+
+export function TriggeredFeatureDiscoveryExample() {
+  const [visible, setVisible] = useState(false)
+  const targetRef = useRef<View>(null)
+
+  return (
+    <View>
+      <Button onPress={() => setVisible(true)}>Show Walkthrough</Button>
+
+      <View ref={targetRef} collapsable={false}>
+        <Button themeColor="secondary">Sync Data</Button>
+      </View>
+
+      <FeatureDiscovery
+        isVisible={visible}
+        targetRef={targetRef}
+        title="Sync your data"
+        description="Use this action to refresh local state from the server."
+        actionText="Next"
+        onActionPress={() => setVisible(false)}
+        onDismiss={() => setVisible(false)}
+      />
+    </View>
+  )
+}`,
+      },
+      {
+        title: 'Custom Highlight Content',
+        description: 'Render custom highlight UI and styling over the target.',
+        code: `import { useRef, useState } from 'react'
+import { Text, View } from 'react-native'
+import { FeatureDiscovery } from '@xaui/native/feature-discovery'
+
+export function CustomHighlightFeatureDiscoveryExample() {
+  const [visible, setVisible] = useState(true)
+  const targetRef = useRef<View>(null)
+
+  return (
+    <View>
+      <View ref={targetRef} collapsable={false}>
+        <Text>Notifications</Text>
+      </View>
+
+      <FeatureDiscovery
+        isVisible={visible}
+        targetRef={targetRef}
+        title="Stay informed"
+        description="Enable notifications so you never miss updates."
+        themeColor="warning"
+        spotlightPadding={18}
+        circleScale={1.85}
+        highlightContent={
+          <View style={{ paddingHorizontal: 10, paddingVertical: 6, borderRadius: 999, backgroundColor: '#fff' }}>
+            <Text>NEW</Text>
+          </View>
+        }
+        customAppearance={{
+          actionText: { textTransform: 'uppercase' },
+          messageContainer: { maxWidth: 280 },
+        }}
+        actionText="Understood"
+        onActionPress={() => setVisible(false)}
+        onDismiss={() => setVisible(false)}
+      />
+    </View>
+  )
+}`,
+      },
     ],
   },
 
   indicator: {
     props: [
       { name: 'variant', type: '"linear" | "circular"', defaultValue: '"circular"', description: 'Indicator style' },
-      { name: 'size', type: 'number', defaultValue: '24', description: 'Indicator size in pixels' },
+      { name: 'size', type: 'number', defaultValue: '4 (linear), 40 (circular)', description: 'Indicator size (height for linear, diameter for circular)' },
       { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme' },
       { name: 'color', type: 'string', defaultValue: '-', description: 'Custom color override' },
       { name: 'backgroundColor', type: 'string', defaultValue: '-', description: 'Track background color' },
+      { name: 'borderRadius', type: 'number', defaultValue: '-', description: 'Custom border radius for indicator/track' },
       { name: 'showTrack', type: 'boolean', defaultValue: 'false', description: 'Show background track' },
       { name: 'disableAnimation', type: 'boolean', defaultValue: 'false', description: 'Disable spin animation' },
+    ],
+    examples: [
+      {
+        title: 'Variants',
+        description: 'Use circular or linear indicators.',
+        code: `import { ActivityIndicator } from '@xaui/native/indicator'
+import { Column } from '@xaui/native/view'
+
+export function VariantsExample() {
+  return (
+    <Column gap={12}>
+      <ActivityIndicator variant="circular" />
+      <ActivityIndicator variant="linear" />
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Theme Colors',
+        description: 'Apply semantic theme colors.',
+        code: `import { ActivityIndicator } from '@xaui/native/indicator'
+import { Row } from '@xaui/native/view'
+
+export function ThemeColorsExample() {
+  return (
+    <Row spacing={12} crossAxisAlignment="center">
+      <ActivityIndicator themeColor="primary" />
+      <ActivityIndicator themeColor="secondary" />
+      <ActivityIndicator themeColor="success" />
+      <ActivityIndicator themeColor="danger" />
+    </Row>
+  )
+}`,
+      },
+      {
+        title: 'Sizes',
+        description: 'Adjust indicator size per context.',
+        code: `import { ActivityIndicator } from '@xaui/native/indicator'
+import { Row } from '@xaui/native/view'
+
+export function SizesExample() {
+  return (
+    <Row spacing={12} crossAxisAlignment="center">
+      <ActivityIndicator variant="circular" size={20} />
+      <ActivityIndicator variant="circular" size={32} />
+      <ActivityIndicator variant="circular" size={48} />
+    </Row>
+  )
+}`,
+      },
+      {
+        title: 'Track and Custom Colors',
+        description: 'Show track and override both foreground/background colors.',
+        code: `import { ActivityIndicator } from '@xaui/native/indicator'
+import { Column } from '@xaui/native/view'
+
+export function TrackAndColorExample() {
+  return (
+    <Column gap={12}>
+      <ActivityIndicator
+        variant="linear"
+        size={6}
+        showTrack
+        color="#7c3aed"
+        backgroundColor="#ede9fe"
+        borderRadius={999}
+      />
+      <ActivityIndicator
+        variant="circular"
+        size={42}
+        showTrack
+        color="#0ea5e9"
+        backgroundColor="#e0f2fe"
+      />
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Disable Animation',
+        description: 'Render a static indicator state (useful for previews/tests).',
+        code: `import { ActivityIndicator } from '@xaui/native/indicator'
+import { Row } from '@xaui/native/view'
+
+export function DisableAnimationExample() {
+  return (
+    <Row spacing={12}>
+      <ActivityIndicator disableAnimation />
+      <ActivityIndicator variant="linear" disableAnimation showTrack />
+    </Row>
+  )
+}`,
+      },
     ],
   },
 
@@ -2705,6 +2991,135 @@ export function ClearableExample() {
 }`,
       },
       {
+        title: 'Label Placement',
+        description: 'Switch label rendering between inside and outside.',
+        code: `import { Input } from '@xaui/native/input'
+import { Column } from '@xaui/native/view'
+
+export function LabelPlacementExample() {
+  return (
+    <Column gap={10}>
+      <Input
+        label="Inside Label"
+        labelPlacement="inside"
+        placeholder="Type here"
+      />
+      <Input
+        label="Outside Label"
+        labelPlacement="outside"
+        placeholder="Type here"
+      />
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Sizes and Radius',
+        description: 'Tune field density and shape.',
+        code: `import { Input } from '@xaui/native/input'
+import { Column } from '@xaui/native/view'
+
+export function SizesAndRadiusExample() {
+  return (
+    <Column gap={10}>
+      <Input size="sm" radius="sm" label="Small" placeholder="sm + sm" />
+      <Input size="md" radius="md" label="Medium" placeholder="md + md" />
+      <Input size="lg" radius="full" label="Large pill" placeholder="lg + full" />
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Disabled and Read-Only',
+        description: 'Compare non-editable input states.',
+        code: `import { Input } from '@xaui/native/input'
+import { Column } from '@xaui/native/view'
+
+export function StatesExample() {
+  return (
+    <Column gap={10}>
+      <Input label="Disabled" defaultValue="Cannot edit" isDisabled />
+      <Input label="Read-only" value="Visible but locked" isReadOnly />
+      <Input label="Full width" placeholder="Stretches to container width" fullWidth />
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Custom Appearance',
+        description: 'Override field and text style tokens with customAppearance.',
+        code: `import { Input } from '@xaui/native/input'
+
+export function CustomAppearanceExample() {
+  return (
+    <Input
+      label="Promo Code"
+      placeholder="SUMMER24"
+      customAppearance={{
+        container: {
+          borderWidth: 1,
+          borderColor: '#c7d2fe',
+          backgroundColor: '#eef2ff',
+        },
+        input: {
+          fontWeight: '600',
+          letterSpacing: 0.4,
+        },
+      }}
+    />
+  )
+}`,
+      },
+      {
+        title: 'Date Input',
+        description: 'Date-only input with locale/dateOrder formatting support.',
+        code: `import { DateInput } from '@xaui/native/input'
+
+export function DateInputExample() {
+  return (
+    <DateInput
+      label="Birth date"
+      placeholder="YYYY-MM-DD"
+      dateOrder="YMD"
+      separator="-"
+      locale="en-US"
+    />
+  )
+}`,
+      },
+      {
+        title: 'Time Input',
+        description: 'Time-only input with 12h/24h and granularity control.',
+        code: `import { TimeInput } from '@xaui/native/input'
+import { Column } from '@xaui/native/view'
+
+export function TimeInputExample() {
+  return (
+    <Column gap={10}>
+      <TimeInput label="Start time" hourCycle={24} granularity="minute" />
+      <TimeInput label="Precise time" hourCycle={12} granularity="second" />
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Date Time Input',
+        description: 'Combined date + time field in one input.',
+        code: `import { DateTimeInput } from '@xaui/native/input'
+
+export function DateTimeInputExample() {
+  return (
+    <DateTimeInput
+      label="Reminder"
+      dateOrder="DMY"
+      separator="/"
+      hourCycle={24}
+      granularity="minute"
+    />
+  )
+}`,
+      },
+      {
         title: 'OTP Input',
         description: 'One-time password input for verification codes.',
         code: `import { OTPInput } from '@xaui/native/input'
@@ -2764,6 +3179,40 @@ export function NumberInputExample() {
         ],
       },
       {
+        name: 'DateInput',
+        props: [
+          { name: 'separator', type: '"-" | "/" | "."', defaultValue: '"-"', description: 'Separator between date segments' },
+          { name: 'dateOrder', type: '"YMD" | "DMY" | "MDY"', defaultValue: '-', description: 'Date segment order (auto-detected if omitted)' },
+          { name: 'locale', type: 'string', defaultValue: '"en-US"', description: 'Locale used for auto date-order detection' },
+        ],
+        events: [
+          { name: 'onValueChange', type: '(value: string) => void', description: 'Called when value changes' },
+        ],
+      },
+      {
+        name: 'TimeInput',
+        props: [
+          { name: 'granularity', type: '"minute" | "second"', defaultValue: '"minute"', description: 'Smallest displayed unit' },
+          { name: 'hourCycle', type: '12 | 24', defaultValue: '24', description: '12-hour or 24-hour format hint' },
+        ],
+        events: [
+          { name: 'onValueChange', type: '(value: string) => void', description: 'Called when value changes' },
+        ],
+      },
+      {
+        name: 'DateTimeInput',
+        props: [
+          { name: 'separator', type: '"-" | "/" | "."', defaultValue: '"-"', description: 'Separator between date segments' },
+          { name: 'dateOrder', type: '"YMD" | "DMY" | "MDY"', defaultValue: '-', description: 'Date segment order (auto-detected if omitted)' },
+          { name: 'locale', type: 'string', defaultValue: '"en-US"', description: 'Locale used for auto date-order detection' },
+          { name: 'granularity', type: '"minute" | "second"', defaultValue: '"minute"', description: 'Smallest displayed time unit' },
+          { name: 'hourCycle', type: '12 | 24', defaultValue: '24', description: '12-hour or 24-hour format hint' },
+        ],
+        events: [
+          { name: 'onValueChange', type: '(value: string) => void', description: 'Called when value changes' },
+        ],
+      },
+      {
         name: 'NumberInput',
         props: [
           { name: 'value', type: 'number', defaultValue: '-', description: 'Controlled numeric value' },
@@ -2794,6 +3243,116 @@ export function NumberInputExample() {
     ],
     events: [
       { name: 'onSelectionChange', type: '(keys: string[]) => void', description: 'Called when selection changes' },
+    ],
+    examples: [
+      {
+        title: 'Basic List',
+        description: 'Simple composable list using List and ListItem.',
+        code: `import { List, ListItem } from '@xaui/native/list'
+
+export function BasicListExample() {
+  return (
+    <List>
+      <ListItem itemKey="profile" title="Profile" description="Manage account settings" />
+      <ListItem itemKey="notifications" title="Notifications" description="Push and email preferences" />
+      <ListItem itemKey="security" title="Security" description="Password and 2FA" />
+    </List>
+  )
+}`,
+      },
+      {
+        title: 'Single Selection (Controlled)',
+        description: 'Drive selected state externally with selectedKeys.',
+        code: `import { useState } from 'react'
+import { List, ListItem } from '@xaui/native/list'
+import { Typography } from '@xaui/native/typography'
+
+export function ControlledSingleSelectionListExample() {
+  const [selected, setSelected] = useState<string[]>(['weekly'])
+
+  return (
+    <>
+      <List
+        selectionMode="single"
+        isSelectable
+        selectedKeys={selected}
+        onSelectionChange={setSelected}
+      >
+        <ListItem itemKey="daily" title="Daily digest" />
+        <ListItem itemKey="weekly" title="Weekly summary" />
+        <ListItem itemKey="never" title="Never" />
+      </List>
+      <Typography variant="caption">Selected: {selected[0] ?? 'none'}</Typography>
+    </>
+  )
+}`,
+      },
+      {
+        title: 'Multiple Selection with Dividers',
+        description: 'Enable multi-select and separators between rows.',
+        code: `import { useState } from 'react'
+import { List, ListItem } from '@xaui/native/list'
+
+export function MultiSelectionListExample() {
+  const [selected, setSelected] = useState<string[]>(['docs'])
+
+  return (
+    <List
+      selectionMode="multiple"
+      isSelectable
+      showDivider
+      selectedKeys={selected}
+      onSelectionChange={setSelected}
+    >
+      <ListItem itemKey="docs" title="Docs" />
+      <ListItem itemKey="api" title="API" />
+      <ListItem itemKey="sdk" title="SDK" />
+      <ListItem itemKey="examples" title="Examples" />
+    </List>
+  )
+}`,
+      },
+      {
+        title: 'Disabled Item',
+        description: 'Prevent selection and press interaction for specific rows.',
+        code: `import { List, ListItem } from '@xaui/native/list'
+
+export function DisabledItemListExample() {
+  return (
+    <List selectionMode="single" isSelectable>
+      <ListItem itemKey="free" title="Free plan" />
+      <ListItem itemKey="pro" title="Pro plan" />
+      <ListItem itemKey="enterprise" title="Enterprise" isDisabled description="Contact sales" />
+    </List>
+  )
+}`,
+      },
+      {
+        title: 'Custom Item Content',
+        description: 'Use startContent, endContent, and customAppearance on rows.',
+        code: `import { List, ListItem } from '@xaui/native/list'
+import { Typography } from '@xaui/native/typography'
+import { Badge } from '@xaui/native/badge'
+
+export function CustomContentListExample() {
+  return (
+    <List showDivider>
+      <ListItem
+        itemKey="inbox"
+        title="Inbox"
+        startContent={<Typography>📥</Typography>}
+        endContent={<Badge content={12} size="sm" />}
+      />
+      <ListItem
+        itemKey="sent"
+        title="Sent"
+        startContent={<Typography>📤</Typography>}
+        customAppearance={{ title: { fontWeight: '700' } }}
+      />
+    </List>
+  )
+}`,
+      },
     ],
     subComponents: [
       {
@@ -2987,11 +3546,104 @@ export function ControlledListBuilderExample() {
       { name: 'trigger', type: 'ReactNode', defaultValue: '-', description: 'Element that anchors the menu' },
       { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'MenuItem children' },
       { name: 'position', type: '"top" | "bottom"', defaultValue: '"bottom"', description: 'Menu placement relative to trigger' },
-      { name: 'maxHeight', type: 'number', defaultValue: '-', description: 'Maximum menu height' },
+      { name: 'maxHeight', type: 'number', defaultValue: '280', description: 'Maximum menu height before scrolling' },
       { name: 'customAppearance', type: 'MenuCustomAppearance', defaultValue: '-', description: 'Custom style overrides' },
     ],
     events: [
       { name: 'onDismiss', type: '() => void', description: 'Called when menu is dismissed' },
+    ],
+    examples: [
+      {
+        title: 'Basic Menu',
+        description: 'Controlled open/close state with simple items.',
+        code: `import { useState } from 'react'
+import { Button } from '@xaui/native/button'
+import { Menu, MenuItem } from '@xaui/native/menu'
+
+export function BasicMenuExample() {
+  const [visible, setVisible] = useState(false)
+
+  return (
+    <Menu
+      visible={visible}
+      onDismiss={() => setVisible(false)}
+      trigger={
+        <Button variant="outlined" onPress={() => setVisible(true)}>
+          Open menu
+        </Button>
+      }
+    >
+      <MenuItem title="Profile" onPress={() => setVisible(false)} />
+      <MenuItem title="Settings" onPress={() => setVisible(false)} />
+      <MenuItem title="Logout" onPress={() => setVisible(false)} />
+    </Menu>
+  )
+}`,
+      },
+      {
+        title: 'Position and Max Height',
+        description: 'Open above trigger and constrain long menus.',
+        code: `import { useState } from 'react'
+import { Button } from '@xaui/native/button'
+import { Menu, MenuItem } from '@xaui/native/menu'
+
+const actions = Array.from({ length: 12 }, (_, i) => \`Action \${i + 1}\`)
+
+export function PositionedMenuExample() {
+  const [visible, setVisible] = useState(false)
+
+  return (
+    <Menu
+      visible={visible}
+      position="top"
+      maxHeight={220}
+      onDismiss={() => setVisible(false)}
+      trigger={<Button onPress={() => setVisible(true)}>Open top menu</Button>}
+    >
+      {actions.map(action => (
+        <MenuItem key={action} title={action} onPress={() => setVisible(false)} />
+      ))}
+    </Menu>
+  )
+}`,
+      },
+      {
+        title: 'Start/End Content and Disabled Item',
+        description: 'Attach icons/shortcuts and disable unavailable actions.',
+        code: `import { useState } from 'react'
+import { Button } from '@xaui/native/button'
+import { Menu, MenuItem } from '@xaui/native/menu'
+import { Typography } from '@xaui/native/typography'
+
+export function RichMenuExample() {
+  const [visible, setVisible] = useState(false)
+
+  return (
+    <Menu
+      visible={visible}
+      onDismiss={() => setVisible(false)}
+      trigger={<Button onPress={() => setVisible(true)}>More</Button>}
+    >
+      <MenuItem
+        title="New file"
+        startContent={<Typography>📄</Typography>}
+        endContent={<Typography>⌘N</Typography>}
+        onPress={() => setVisible(false)}
+      />
+      <MenuItem
+        title="Rename"
+        startContent={<Typography>✏️</Typography>}
+        onPress={() => setVisible(false)}
+      />
+      <MenuItem
+        title="Delete"
+        startContent={<Typography>🗑️</Typography>}
+        isDisabled
+      />
+    </Menu>
+  )
+}`,
+      },
     ],
     subComponents: [
       {
@@ -3013,11 +3665,91 @@ export function ControlledListBuilderExample() {
     props: [
       { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'MenuBoxItem children' },
       { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Item size' },
-      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Border radius' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme' },
+      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"lg"', description: 'Border radius' },
+      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"default"', description: 'Color theme' },
       { name: 'spacing', type: 'number', defaultValue: '0', description: 'Gap between items' },
       { name: 'backgroundColor', type: 'string', defaultValue: '-', description: 'Custom background color' },
       { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Additional container styles' },
+    ],
+    examples: [
+      {
+        title: 'Basic Settings MenuBox',
+        description: 'Group navigation-like actions in a compact settings card.',
+        code: `import { MenuBox, MenuBoxItem } from '@xaui/native/menubox'
+import { Typography } from '@xaui/native/typography'
+
+export function BasicMenuBoxExample() {
+  return (
+    <MenuBox>
+      <MenuBoxItem itemKey="account" title="Account" endContent={<Typography>›</Typography>} />
+      <MenuBoxItem itemKey="notifications" title="Notifications" endContent={<Typography>›</Typography>} />
+      <MenuBoxItem itemKey="privacy" title="Privacy" endContent={<Typography>›</Typography>} />
+    </MenuBox>
+  )
+}`,
+      },
+      {
+        title: 'Descriptions and Disabled Item',
+        description: 'Show secondary text and disable unavailable rows.',
+        code: `import { MenuBox, MenuBoxItem } from '@xaui/native/menubox'
+import { Typography } from '@xaui/native/typography'
+
+export function DescriptiveMenuBoxExample() {
+  return (
+    <MenuBox spacing={6}>
+      <MenuBoxItem
+        itemKey="wifi"
+        title="Wi-Fi"
+        description="Connected to Office-5G"
+        endContent={<Typography>On</Typography>}
+      />
+      <MenuBoxItem
+        itemKey="bluetooth"
+        title="Bluetooth"
+        description="No device connected"
+      />
+      <MenuBoxItem
+        itemKey="cellular"
+        title="Cellular"
+        description="Unavailable on this device"
+        isDisabled
+      />
+    </MenuBox>
+  )
+}`,
+      },
+      {
+        title: 'Custom Appearance',
+        description: 'Control spacing, radius, and per-item text styling.',
+        code: `import { MenuBox, MenuBoxItem } from '@xaui/native/menubox'
+import { Typography } from '@xaui/native/typography'
+
+export function CustomAppearanceMenuBoxExample() {
+  return (
+    <MenuBox
+      radius="md"
+      spacing={8}
+      themeColor="secondary"
+      backgroundColor="#f8fafc"
+      style={{ padding: 6 }}
+    >
+      <MenuBoxItem
+        itemKey="theme"
+        title="Theme"
+        description="System default"
+        endContent={<Typography>Auto</Typography>}
+        customAppearance={{ title: { fontWeight: '700' } }}
+      />
+      <MenuBoxItem
+        itemKey="language"
+        title="Language"
+        description="English"
+        endContent={<Typography>›</Typography>}
+      />
+    </MenuBox>
+  )
+}`,
+      },
     ],
     subComponents: [
       {
