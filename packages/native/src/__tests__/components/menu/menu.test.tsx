@@ -62,6 +62,17 @@ describe('Menu Types', () => {
     expect(props.onDismiss).toBe(onDismiss)
   })
 
+  it('accepts onItemPress callback', () => {
+    const onItemPress = (itemKey: string) => itemKey
+    const props: MenuProps = {
+      visible: true,
+      trigger: null,
+      onItemPress,
+      children: null,
+    }
+    expect(props.onItemPress).toBe(onItemPress)
+  })
+
   it('accepts children', () => {
     const children = 'Item'
     const props: MenuProps = {

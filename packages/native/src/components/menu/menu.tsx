@@ -2,6 +2,7 @@ import React from 'react'
 import { Animated, Modal, Pressable, ScrollView, View } from 'react-native'
 import { useXUITheme } from '../../core'
 import type { MenuProps } from './menu.type'
+import type { MenuItemProps } from './menu-item.type'
 import { styles } from './menu.style'
 import {
   useMenuTriggerMeasurements,
@@ -15,6 +16,7 @@ export const Menu: React.FC<MenuProps> = ({
   trigger,
   position = 'bottom',
   onDismiss,
+  onItemPress,
   children,
   customAppearance,
   maxHeight = 280,
@@ -25,6 +27,20 @@ export const Menu: React.FC<MenuProps> = ({
     useMenuContentLayout(visible)
   const menuPosition = useMenuPosition(triggerPosition, contentSize, position)
   const { opacity, scale } = useMenuAnimation(visible)
+
+  const handledChildren = React.Children.map(children, child => {
+    if (!React.isValidElement<MenuItemProps>(child)) return child
+
+    const { onPress, itemKey } = child.props
+    if (!onPress && !itemKey) return child
+
+    return React.cloneElement(child, {
+      onPress: e => {
+        onPress?.(e)
+        if (itemKey) onItemPress?.(itemKey)
+      },
+    })
+  })
 
   return (
     <>
@@ -65,7 +81,7 @@ export const Menu: React.FC<MenuProps> = ({
           >
             <Pressable onPress={e => e.stopPropagation()}>
               <View style={customAppearance?.content}>
-                <ScrollView style={{ maxHeight }}>{children}</ScrollView>
+                <ScrollView style={{ maxHeight }}>{handledChildren}</ScrollView>
               </View>
             </Pressable>
           </Animated.View>

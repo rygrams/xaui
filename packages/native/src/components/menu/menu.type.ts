@@ -37,6 +37,10 @@ export type MenuProps = {
    */
   onDismiss?: () => void
   /**
+   * Callback fired when a MenuItem with an `itemKey` is pressed.
+   */
+  onItemPress?: (itemKey: string) => void
+  /**
    * Content of the Menu.
    */
   children: ReactNode

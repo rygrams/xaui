@@ -3551,6 +3551,7 @@ export function ControlledListBuilderExample() {
     ],
     events: [
       { name: 'onDismiss', type: '() => void', description: 'Called when menu is dismissed' },
+      { name: 'onItemPress', type: '(itemKey: string) => void', description: 'Called when a MenuItem with itemKey is pressed' },
     ],
     examples: [
       {
@@ -3567,15 +3568,19 @@ export function BasicMenuExample() {
     <Menu
       visible={visible}
       onDismiss={() => setVisible(false)}
+      onItemPress={itemKey => {
+        console.log('Pressed menu item:', itemKey)
+        setVisible(false)
+      }}
       trigger={
         <Button variant="outlined" onPress={() => setVisible(true)}>
           Open menu
         </Button>
       }
     >
-      <MenuItem title="Profile" onPress={() => setVisible(false)} />
-      <MenuItem title="Settings" onPress={() => setVisible(false)} />
-      <MenuItem title="Logout" onPress={() => setVisible(false)} />
+      <MenuItem itemKey="profile" title="Profile" />
+      <MenuItem itemKey="settings" title="Settings" />
+      <MenuItem itemKey="logout" title="Logout" />
     </Menu>
   )
 }`,
@@ -3649,6 +3654,7 @@ export function RichMenuExample() {
       {
         name: 'MenuItem',
         props: [
+          { name: 'itemKey', type: 'string', defaultValue: '-', description: 'Optional key emitted via Menu onItemPress' },
           { name: 'title', type: 'ReactNode', defaultValue: '-', description: 'Item title' },
           { name: 'startContent', type: 'ReactNode', defaultValue: '-', description: 'Element at start' },
           { name: 'endContent', type: 'ReactNode', defaultValue: '-', description: 'Element at end' },
@@ -3779,10 +3785,124 @@ export function CustomAppearanceMenuBoxExample() {
       { name: 'showIndicator', type: 'boolean', defaultValue: 'true', description: 'Show page indicator' },
       { name: 'renderIndicator', type: '(state: PagerIndicatorRenderState) => ReactNode', defaultValue: '-', description: 'Custom indicator renderer' },
       { name: 'isFullscreen', type: 'boolean', defaultValue: 'false', description: 'Expand to fill screen' },
+      { name: 'isfullscreen', type: 'boolean', defaultValue: 'false', description: 'Alias of isFullscreen' },
       { name: 'customAppearance', type: 'PagerCustomAppearance', defaultValue: '-', description: 'Custom style overrides' },
     ],
     events: [
       { name: 'onPageChange', type: '(page: number) => void', description: 'Called when the active page changes' },
+    ],
+    examples: [
+      {
+        title: 'Basic Pager',
+        description: 'Swipe between simple pages with default indicators.',
+        code: `import { Pager, PagerItem } from '@xaui/native/pager'
+import { Typography } from '@xaui/native/typography'
+import { View } from 'react-native'
+
+export function BasicPagerExample() {
+  return (
+    <Pager>
+      <PagerItem>
+        <View style={{ height: 160, justifyContent: 'center', alignItems: 'center', backgroundColor: '#e0f2fe', borderRadius: 12 }}>
+          <Typography variant="titleMedium">Page 1</Typography>
+        </View>
+      </PagerItem>
+      <PagerItem>
+        <View style={{ height: 160, justifyContent: 'center', alignItems: 'center', backgroundColor: '#dcfce7', borderRadius: 12 }}>
+          <Typography variant="titleMedium">Page 2</Typography>
+        </View>
+      </PagerItem>
+      <PagerItem>
+        <View style={{ height: 160, justifyContent: 'center', alignItems: 'center', backgroundColor: '#fef3c7', borderRadius: 12 }}>
+          <Typography variant="titleMedium">Page 3</Typography>
+        </View>
+      </PagerItem>
+    </Pager>
+  )
+}`,
+      },
+      {
+        title: 'Controlled Page',
+        description: 'Drive active page externally and react to page changes.',
+        code: `import { useState } from 'react'
+import { Button } from '@xaui/native/button'
+import { Pager, PagerItem } from '@xaui/native/pager'
+import { Column, Row } from '@xaui/native/view'
+import { Typography } from '@xaui/native/typography'
+
+export function ControlledPagerExample() {
+  const [page, setPage] = useState(0)
+
+  return (
+    <Column gap={10}>
+      <Row spacing={8}>
+        <Button size="sm" variant="outlined" onPress={() => setPage(0)}>1</Button>
+        <Button size="sm" variant="outlined" onPress={() => setPage(1)}>2</Button>
+        <Button size="sm" variant="outlined" onPress={() => setPage(2)}>3</Button>
+      </Row>
+
+      <Pager page={page} onPageChange={setPage}>
+        <PagerItem><Typography>Overview content</Typography></PagerItem>
+        <PagerItem><Typography>Details content</Typography></PagerItem>
+        <PagerItem><Typography>Reviews content</Typography></PagerItem>
+      </Pager>
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Custom Indicator',
+        description: 'Replace default dots with a custom renderer.',
+        code: `import { Pager, PagerItem } from '@xaui/native/pager'
+import type { PagerIndicatorRenderState } from '@xaui/native/pager'
+import { Typography } from '@xaui/native/typography'
+import { View } from 'react-native'
+
+export function CustomIndicatorPagerExample() {
+  return (
+    <Pager
+      defaultPage={1}
+      renderIndicator={({ index, isActive }: PagerIndicatorRenderState) => (
+        <View
+          key={\`pill-\${index}\`}
+          style={{
+            width: isActive ? 24 : 10,
+            height: 10,
+            borderRadius: 999,
+            backgroundColor: isActive ? '#2563eb' : '#cbd5e1',
+          }}
+        />
+      )}
+    >
+      <PagerItem><Typography>Alpha</Typography></PagerItem>
+      <PagerItem><Typography>Beta</Typography></PagerItem>
+      <PagerItem><Typography>Gamma</Typography></PagerItem>
+    </Pager>
+  )
+}`,
+      },
+      {
+        title: 'Fullscreen and Swipe Control',
+        description: 'Use fullscreen mode and disable swipe for guided flows.',
+        code: `import { Pager, PagerItem } from '@xaui/native/pager'
+import { Typography } from '@xaui/native/typography'
+import { View } from 'react-native'
+
+export function FullscreenPagerExample() {
+  return (
+    <View style={{ height: 280, borderRadius: 14, overflow: 'hidden' }}>
+      <Pager
+        isFullscreen
+        swipeEnabled={false}
+        customAppearance={{ container: { flex: 1 } }}
+      >
+        <PagerItem><Typography>Step 1</Typography></PagerItem>
+        <PagerItem><Typography>Step 2</Typography></PagerItem>
+      </Pager>
+    </View>
+  )
+}`,
+      },
     ],
     subComponents: [
       {
@@ -3796,14 +3916,93 @@ export function CustomAppearanceMenuBoxExample() {
 
   progress: {
     props: [
-      { name: 'value', type: 'number', defaultValue: '-', description: 'Progress value (0–100)' },
+      { name: 'value', type: 'number', defaultValue: '-', description: 'Progress value (0–1)' },
       { name: 'variant', type: '"linear" | "circular"', defaultValue: '"linear"', description: 'Progress style' },
-      { name: 'size', type: 'number', defaultValue: '8', description: 'Track thickness (linear) or diameter (circular)' },
+      { name: 'size', type: 'number', defaultValue: '4 (linear), 40 (circular)', description: 'Track thickness (linear) or diameter (circular)' },
       { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme' },
       { name: 'color', type: 'string', defaultValue: '-', description: 'Custom fill color override' },
       { name: 'backgroundColor', type: 'string', defaultValue: '-', description: 'Track background color override' },
       { name: 'borderRadius', type: 'number', defaultValue: '-', description: 'Custom border radius for linear variant' },
       { name: 'disableAnimation', type: 'boolean', defaultValue: 'false', description: 'Disable fill animation' },
+    ],
+    examples: [
+      {
+        title: 'Linear Progress',
+        description: 'Default linear progress bar with fractional values.',
+        code: `import { Progress } from '@xaui/native/progress'
+import { Column } from '@xaui/native/view'
+
+export function LinearProgressExample() {
+  return (
+    <Column gap={10}>
+      <Progress value={0.2} />
+      <Progress value={0.55} />
+      <Progress value={0.9} />
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Circular Progress',
+        description: 'Use circular variant for compact progress indicators.',
+        code: `import { Progress } from '@xaui/native/progress'
+import { Row } from '@xaui/native/view'
+
+export function CircularProgressExample() {
+  return (
+    <Row spacing={12} crossAxisAlignment="center">
+      <Progress variant="circular" value={0.25} />
+      <Progress variant="circular" value={0.6} />
+      <Progress variant="circular" value={1} />
+    </Row>
+  )
+}`,
+      },
+      {
+        title: 'Theme Colors and Size',
+        description: 'Apply semantic colors and adjust thickness/diameter.',
+        code: `import { Progress } from '@xaui/native/progress'
+import { Column, Row } from '@xaui/native/view'
+
+export function ThemedProgressExample() {
+  return (
+    <Column gap={12}>
+      <Progress value={0.45} themeColor="primary" size={6} />
+      <Progress value={0.7} themeColor="success" size={8} />
+      <Row spacing={10}>
+        <Progress variant="circular" value={0.4} themeColor="secondary" size={28} />
+        <Progress variant="circular" value={0.75} themeColor="warning" size={44} />
+      </Row>
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Custom Colors and Static Mode',
+        description: 'Override colors manually and disable animation.',
+        code: `import { Progress } from '@xaui/native/progress'
+import { Column } from '@xaui/native/view'
+
+export function CustomProgressExample() {
+  return (
+    <Column gap={10}>
+      <Progress
+        value={0.66}
+        color="#2563eb"
+        backgroundColor="#dbeafe"
+        borderRadius={999}
+      />
+      <Progress
+        variant="circular"
+        value={0.35}
+        color="#9333ea"
+        backgroundColor="#f3e8ff"
+        disableAnimation
+      />
+    </Column>
+  )
+}`,
+      },
     ],
   },
 
@@ -3866,6 +4065,45 @@ export function HorizontalExample() {
   )
 }`,
       },
+      {
+        title: 'Sizes',
+        description: 'Use sm, md, and lg radio sizes.',
+        code: `import { Radio } from '@xaui/native/radio'
+import { Column } from '@xaui/native/view'
+
+export function RadioSizesExample() {
+  return (
+    <Column gap={10}>
+      <Radio size="sm" label="Small" />
+      <Radio size="md" label="Medium" defaultChecked />
+      <Radio size="lg" label="Large" />
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Theme Colors',
+        description: 'Apply semantic theme colors on radios and groups.',
+        code: `import { useState } from 'react'
+import { Radio, RadioGroup } from '@xaui/native/radio'
+import { Column } from '@xaui/native/view'
+
+export function RadioThemeColorsExample() {
+  const [value, setValue] = useState('secondary')
+
+  return (
+    <Column gap={12}>
+      <RadioGroup value={value} onValueChange={setValue} themeColor="primary">
+        <Radio label="Primary group color" value="primary" />
+        <Radio label="Secondary group color" value="secondary" />
+      </RadioGroup>
+
+      <Radio label="Success single radio" themeColor="success" />
+      <Radio label="Danger single radio" themeColor="danger" />
+    </Column>
+  )
+}`,
+      },
     ],
     subComponents: [
       {
@@ -3893,7 +4131,7 @@ export function HorizontalExample() {
       { name: 'selectionMode', type: '"single" | "multiple"', defaultValue: '"single"', description: 'Selection behavior' },
       { name: 'variant', type: '"outlined" | "flat" | "light" | "faded"', defaultValue: '"outlined"', description: 'Visual style variant' },
       { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme' },
-      { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Component size' },
+      { name: 'size', type: '"xs" | "sm" | "md" | "lg"', defaultValue: '"md"', description: 'Component size' },
       { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"full"', description: 'Border radius' },
       { name: 'fullWidth', type: 'boolean', defaultValue: 'false', description: 'Expand to full container width' },
       { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable all segments' },
@@ -3903,6 +4141,146 @@ export function HorizontalExample() {
     ],
     events: [
       { name: 'onSelectionChange', type: '(selected: string | string[]) => void', description: 'Called when selection changes' },
+    ],
+    examples: [
+      {
+        title: 'Single Selection (Controlled)',
+        description: 'Control the selected segment with string state.',
+        code: `import { useState } from 'react'
+import { SegmentButton, SegmentButtonItem } from '@xaui/native/segment-button'
+import { Typography } from '@xaui/native/typography'
+
+export function SingleControlledSegmentButtonExample() {
+  const [value, setValue] = useState('week')
+
+  return (
+    <>
+      <SegmentButton
+        selected={value}
+        onSelectionChange={next => setValue(next as string)}
+        fullWidth
+      >
+        <SegmentButtonItem itemKey="day" label="Day" />
+        <SegmentButtonItem itemKey="week" label="Week" />
+        <SegmentButtonItem itemKey="month" label="Month" />
+      </SegmentButton>
+      <Typography variant="caption">Selected: {value}</Typography>
+    </>
+  )
+}`,
+      },
+      {
+        title: 'Multiple Selection',
+        description: 'Use selectionMode="multiple" with string[] state.',
+        code: `import { useState } from 'react'
+import { SegmentButton, SegmentButtonItem } from '@xaui/native/segment-button'
+
+export function MultiSelectSegmentButtonExample() {
+  const [keys, setKeys] = useState<string[]>(['new', 'popular'])
+
+  return (
+    <SegmentButton
+      selectionMode="multiple"
+      selected={keys}
+      onSelectionChange={next => setKeys(next as string[])}
+      variant="flat"
+      fullWidth
+    >
+      <SegmentButtonItem itemKey="new" label="New" />
+      <SegmentButtonItem itemKey="popular" label="Popular" />
+      <SegmentButtonItem itemKey="sale" label="Sale" />
+    </SegmentButton>
+  )
+}`,
+      },
+      {
+        title: 'Variants and Elevation',
+        description: 'Compare visual variants and use elevation where supported.',
+        code: `import { SegmentButton, SegmentButtonItem } from '@xaui/native/segment-button'
+import { Column } from '@xaui/native/view'
+
+export function SegmentButtonVariantsExample() {
+  return (
+    <Column gap={10}>
+      <SegmentButton defaultSelected="a" variant="outlined" fullWidth>
+        <SegmentButtonItem itemKey="a" label="One" />
+        <SegmentButtonItem itemKey="b" label="Two" />
+      </SegmentButton>
+      <SegmentButton defaultSelected="a" variant="light" fullWidth>
+        <SegmentButtonItem itemKey="a" label="One" />
+        <SegmentButtonItem itemKey="b" label="Two" />
+      </SegmentButton>
+      <SegmentButton defaultSelected="a" variant="flat" elevation={2} fullWidth>
+        <SegmentButtonItem itemKey="a" label="One" />
+        <SegmentButtonItem itemKey="b" label="Two" />
+      </SegmentButton>
+      <SegmentButton defaultSelected="a" variant="faded" elevation={1} fullWidth>
+        <SegmentButtonItem itemKey="a" label="One" />
+        <SegmentButtonItem itemKey="b" label="Two" />
+      </SegmentButton>
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Size and Theme Color',
+        description: 'Tune density and semantic color.',
+        code: `import { SegmentButton, SegmentButtonItem } from '@xaui/native/segment-button'
+import { Column } from '@xaui/native/view'
+
+export function SegmentButtonSizeThemeExample() {
+  return (
+    <Column gap={10}>
+      <SegmentButton defaultSelected="std" size="xs" themeColor="primary" fullWidth>
+        <SegmentButtonItem itemKey="std" label="Standard" />
+        <SegmentButtonItem itemKey="exp" label="Express" />
+      </SegmentButton>
+      <SegmentButton defaultSelected="std" size="md" themeColor="secondary" fullWidth>
+        <SegmentButtonItem itemKey="std" label="Standard" />
+        <SegmentButtonItem itemKey="exp" label="Express" />
+      </SegmentButton>
+      <SegmentButton defaultSelected="std" size="lg" themeColor="success" fullWidth>
+        <SegmentButtonItem itemKey="std" label="Standard" />
+        <SegmentButtonItem itemKey="exp" label="Express" />
+      </SegmentButton>
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'States and Custom Content',
+        description: 'Disable segments, hide checkmarks, and attach start/end content.',
+        code: `import { SegmentButton, SegmentButtonItem } from '@xaui/native/segment-button'
+import { Typography } from '@xaui/native/typography'
+
+export function SegmentButtonStatesExample() {
+  return (
+    <SegmentButton
+      defaultSelected="home"
+      showCheckmark={false}
+      radius="md"
+      fullWidth
+    >
+      <SegmentButtonItem
+        itemKey="home"
+        label="Home"
+        startContent={<Typography>🏠</Typography>}
+      />
+      <SegmentButtonItem
+        itemKey="search"
+        label="Search"
+        startContent={<Typography>🔎</Typography>}
+      />
+      <SegmentButtonItem
+        itemKey="profile"
+        label="Profile"
+        endContent={<Typography>•</Typography>}
+        isDisabled
+      />
+    </SegmentButton>
+  )
+}`,
+      },
     ],
     subComponents: [
       {

@@ -22,6 +22,14 @@ describe('MenuItem Types', () => {
     expect(props.title).toBe('Menu Item')
   })
 
+  it('accepts optional itemKey', () => {
+    const props: MenuItemProps = {
+      itemKey: 'settings',
+      title: 'Menu Item',
+    }
+    expect(props.itemKey).toBe('settings')
+  })
+
   it('accepts ReactNode title', () => {
     const customTitle = 'Custom'
     const props: MenuItemProps = {

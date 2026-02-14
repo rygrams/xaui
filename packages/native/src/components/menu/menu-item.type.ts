@@ -18,6 +18,10 @@ export type MenuItemCustomAppearance = {
 
 export type MenuItemProps = {
   /**
+   * Optional key emitted via Menu `onItemPress`.
+   */
+  itemKey?: string
+  /**
    * Title text for the MenuItem.
    */
   title: ReactNode
