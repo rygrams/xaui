@@ -6,10 +6,6 @@ import { useColorScheme } from '@/hooks/use-color-scheme'
 import { defaultDarkTheme, defaultTheme } from '@xaui/core/theme'
 import { XUIProvider } from '@xaui/native/core'
 
-export const unstable_settings = {
-  anchor: '(tabs)',
-}
-
 export default function RootLayout() {
   const colorScheme = useColorScheme()
 
@@ -87,11 +83,21 @@ export default function RootLayout() {
               options={{ title: 'Segment Button Examples' }}
             />
             <Stack.Screen name="stepper" options={{ title: 'Stepper Examples' }} />
+            <Stack.Screen name="snackbar" options={{ title: 'Snackbar Examples' }} />
             <Stack.Screen name="skeleton" options={{ title: 'Skeleton Examples' }} />
             <Stack.Screen name="switch" options={{ title: 'Switch Examples' }} />
             <Stack.Screen name="textarea" options={{ title: 'TextArea Examples' }} />
             <Stack.Screen name="toolbar" options={{ title: 'Toolbar Examples' }} />
             <Stack.Screen name="tabs" options={{ title: 'Tabs Examples' }} />
+            <Stack.Screen
+              name="typography"
+              options={{ title: 'Typography Examples' }}
+            />
+            <Stack.Screen name="drawer" options={{ title: 'Drawer Examples' }} />
+            <Stack.Screen name="list" options={{ title: 'List Examples' }} />
+            <Stack.Screen name="menubox" options={{ title: 'Menubox Examples' }} />
+            <Stack.Screen name="slider" options={{ title: 'Slider Examples' }} />
+            <Stack.Screen name="chart" options={{ title: 'Chart Examples' }} />
           </Stack>
         </XUIProvider>
       </GestureHandlerRootView>

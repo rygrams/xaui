@@ -2,6 +2,8 @@
 
 React Native components and hooks that extend the core `@xaui/core` theme system. This mobile layer ships animated primitives (buttons, indicators, hooks) ready to use with `XUIProvider`.
 
+**[Full documentation → ui.xtartapp.com](https://ui.xtartapp.com)**
+
 ## Installation
 
 ```bash

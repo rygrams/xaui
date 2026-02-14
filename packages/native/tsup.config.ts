@@ -42,7 +42,24 @@ const entries = {
   'tabs/index': 'src/components/tabs/index.ts',
   'pager/index': 'src/components/pager/index.ts',
   'chart/index': 'src/components/chart/index.ts',
+  'snackbar/index': 'src/components/snackbar/index.ts',
 } as const
+
+const sharedConfig = {
+  format: ['cjs', 'esm'] as ('cjs' | 'esm')[],
+  clean: false,
+  external: [
+    'react',
+    'react-native',
+    'react-native-gesture-handler',
+    'react-native-reanimated',
+    'react-native-svg',
+    '@xaui/core',
+    '@xaui/core/theme',
+    '@xaui/icons',
+  ],
+  target: 'es2020',
+}
 
 export default defineConfig(() => {
   const entryList = Object.entries(entries)
@@ -53,21 +70,20 @@ export default defineConfig(() => {
       Object.fromEntries(entryList.slice(index * groupSize, (index + 1) * groupSize))
   )
 
-  return entryGroups.map(entry => ({
+  const jsBuilds = [
+    {
+      ...sharedConfig,
+      entry: entries,
+      splitting: true,
+      dts: false,
+    },
+  ]
+
+  const dtsBuilds = entryGroups.map(entry => ({
+    ...sharedConfig,
     entry,
-    format: ['cjs', 'esm'] as const,
-    dts: true,
-    clean: false,
-    external: [
-      'react',
-      'react-native',
-      'react-native-gesture-handler',
-      'react-native-reanimated',
-      'react-native-svg',
-      '@xaui/core',
-      '@xaui/core/theme',
-      '@xaui/icons',
-    ],
-    target: 'es2020',
+    dts: { only: true },
   }))
+
+  return [...jsBuilds, ...dtsBuilds]
 })

@@ -5,6 +5,9 @@ import type { ThemeColor } from '../../types'
 export type TypographyAlign = 'center' | 'justify' | 'left' | 'right'
 
 export type TypographyVariant =
+  | 'displayLarge'
+  | 'displayMedium'
+  | 'displaySmall'
   | 'caption'
   | 'headlineLarge'
   | 'headlineMedium'
