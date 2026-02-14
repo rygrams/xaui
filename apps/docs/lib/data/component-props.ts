@@ -2576,6 +2576,55 @@ export function FullWidthExample() {
       { name: 'fullWidth', type: 'boolean', defaultValue: 'false', description: 'Expand to full available width' },
       { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Additional styles' },
     ],
+    examples: [
+      {
+        title: 'Basic Column',
+        description: 'Stack children vertically with a spacing gap.',
+        code: `import { Column } from '@xaui/native/view'
+import { Text } from 'react-native'
+
+export function BasicColumnExample() {
+  return (
+    <Column spacing={12}>
+      <Text>First</Text>
+      <Text>Second</Text>
+      <Text>Third</Text>
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Main Axis Alignment',
+        description: 'Control vertical distribution of children.',
+        code: `import { Column } from '@xaui/native/view'
+import { Text } from 'react-native'
+
+export function MainAxisExample() {
+  return (
+    <Column mainAxisAlignment="space-between" style={{ height: 200 }}>
+      <Text>Top</Text>
+      <Text>Middle</Text>
+      <Text>Bottom</Text>
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Cross Axis Alignment',
+        description: 'Align children horizontally inside the column.',
+        code: `import { Column } from '@xaui/native/view'
+import { Text } from 'react-native'
+
+export function CrossAxisExample() {
+  return (
+    <Column crossAxisAlignment="center" fullWidth spacing={8}>
+      <Text>Centered item</Text>
+      <Text>Another centered item</Text>
+    </Column>
+  )
+}`,
+      },
+    ],
   },
 
   row: {
@@ -2588,12 +2637,97 @@ export function FullWidthExample() {
       { name: 'fullWidth', type: 'boolean', defaultValue: 'false', description: 'Expand to full available width' },
       { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Additional styles' },
     ],
+    examples: [
+      {
+        title: 'Basic Row',
+        description: 'Align children side by side with a gap.',
+        code: `import { Row } from '@xaui/native/view'
+import { Text } from 'react-native'
+
+export function BasicRowExample() {
+  return (
+    <Row spacing={16}>
+      <Text>Left</Text>
+      <Text>Center</Text>
+      <Text>Right</Text>
+    </Row>
+  )
+}`,
+      },
+      {
+        title: 'Space Between',
+        description: 'Push items to the edges with space-between.',
+        code: `import { Row } from '@xaui/native/view'
+import { Button } from '@xaui/native/button'
+
+export function SpaceBetweenExample() {
+  return (
+    <Row mainAxisAlignment="space-between" fullWidth>
+      <Button variant="flat">Cancel</Button>
+      <Button>Confirm</Button>
+    </Row>
+  )
+}`,
+      },
+      {
+        title: 'Vertically Centered',
+        description: 'Center children on the cross (vertical) axis.',
+        code: `import { Row } from '@xaui/native/view'
+import { Avatar } from '@xaui/native/avatar'
+import { Text } from 'react-native'
+
+export function VerticalCenterExample() {
+  return (
+    <Row crossAxisAlignment="center" spacing={12}>
+      <Avatar name="Jane Doe" size="sm" />
+      <Text style={{ fontWeight: 'bold' }}>Jane Doe</Text>
+    </Row>
+  )
+}`,
+      },
+    ],
   },
 
   spacer: {
     props: [
       { name: 'flex', type: 'number', defaultValue: '1', description: 'Flex factor for space distribution' },
       { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Additional styles' },
+    ],
+    examples: [
+      {
+        title: 'Push Items Apart',
+        description: 'Place a Spacer between items to push them to opposite ends.',
+        code: `import { Row, Spacer } from '@xaui/native/view'
+import { Text } from 'react-native'
+
+export function SpacerExample() {
+  return (
+    <Row fullWidth>
+      <Text>Left</Text>
+      <Spacer />
+      <Text>Right</Text>
+    </Row>
+  )
+}`,
+      },
+      {
+        title: 'Weighted Spacing',
+        description: 'Use flex to distribute space unevenly.',
+        code: `import { Row, Spacer } from '@xaui/native/view'
+import { Text } from 'react-native'
+
+export function WeightedSpacerExample() {
+  return (
+    <Row fullWidth>
+      <Text>Start</Text>
+      <Spacer flex={2} />
+      <Text>Middle</Text>
+      <Spacer flex={1} />
+      <Text>End</Text>
+    </Row>
+  )
+}`,
+      },
     ],
   },
 
@@ -2610,6 +2744,36 @@ export function FullWidthExample() {
       { name: 'fullWidth', type: 'boolean', defaultValue: 'false', description: 'Expand to full available width' },
       { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Additional styles' },
     ],
+    examples: [
+      {
+        title: 'Uniform Padding',
+        description: 'Apply the same padding to all sides with all.',
+        code: `import { Padding } from '@xaui/native/view'
+import { Text } from 'react-native'
+
+export function UniformPaddingExample() {
+  return (
+    <Padding all={16}>
+      <Text>Content with 16px padding on all sides</Text>
+    </Padding>
+  )
+}`,
+      },
+      {
+        title: 'Directional Padding',
+        description: 'Fine-tune padding per side.',
+        code: `import { Padding } from '@xaui/native/view'
+import { Text } from 'react-native'
+
+export function DirectionalPaddingExample() {
+  return (
+    <Padding top={24} bottom={8} horizontal={16}>
+      <Text>Custom padding per side</Text>
+    </Padding>
+  )
+}`,
+      },
+    ],
   },
 
   margin: {
@@ -2625,6 +2789,36 @@ export function FullWidthExample() {
       { name: 'fullWidth', type: 'boolean', defaultValue: 'false', description: 'Expand to full available width' },
       { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Additional styles' },
     ],
+    examples: [
+      {
+        title: 'Uniform Margin',
+        description: 'Add the same margin on all sides.',
+        code: `import { Margin } from '@xaui/native/view'
+import { Text } from 'react-native'
+
+export function UniformMarginExample() {
+  return (
+    <Margin all={16}>
+      <Text>Content offset by 16px on all sides</Text>
+    </Margin>
+  )
+}`,
+      },
+      {
+        title: 'Vertical & Horizontal Margin',
+        description: 'Combine vertical and horizontal shorthand props.',
+        code: `import { Margin } from '@xaui/native/view'
+import { Text } from 'react-native'
+
+export function DirectionalMarginExample() {
+  return (
+    <Margin vertical={24} horizontal={16}>
+      <Text>24px top/bottom, 16px left/right</Text>
+    </Margin>
+  )
+}`,
+      },
+    ],
   },
 
   'sized-box': {
@@ -2633,6 +2827,38 @@ export function FullWidthExample() {
       { name: 'width', type: 'number', defaultValue: '-', description: 'Fixed width in pixels' },
       { name: 'height', type: 'number', defaultValue: '-', description: 'Fixed height in pixels' },
       { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Additional styles' },
+    ],
+    examples: [
+      {
+        title: 'Fixed Spacer',
+        description: 'Use SizedBox as a blank space between items.',
+        code: `import { Column, SizedBox } from '@xaui/native/view'
+import { Text } from 'react-native'
+
+export function SizedBoxSpacerExample() {
+  return (
+    <Column>
+      <Text>Section A</Text>
+      <SizedBox height={32} />
+      <Text>Section B</Text>
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Fixed-Size Container',
+        description: 'Constrain a child to an exact size.',
+        code: `import { SizedBox } from '@xaui/native/view'
+import { View } from 'react-native'
+
+export function FixedContainerExample() {
+  return (
+    <SizedBox width={80} height={80}>
+      <View style={{ flex: 1, backgroundColor: '#4f46e5', borderRadius: 8 }} />
+    </SizedBox>
+  )
+}`,
+      },
     ],
   },
 
@@ -2646,6 +2872,41 @@ export function FullWidthExample() {
       { name: 'zIndex', type: 'number', defaultValue: '-', description: 'Stack order' },
       { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Additional styles' },
     ],
+    examples: [
+      {
+        title: 'Badge Overlay',
+        description: 'Position a badge absolutely over a parent element.',
+        code: `import { PositionedView } from '@xaui/native/view'
+import { View, Text } from 'react-native'
+
+export function BadgeOverlayExample() {
+  return (
+    <View style={{ width: 48, height: 48, position: 'relative' }}>
+      <View style={{ width: 48, height: 48, backgroundColor: '#e2e8f0', borderRadius: 8 }} />
+      <PositionedView top={-4} right={-4} zIndex={1}>
+        <View style={{ width: 16, height: 16, backgroundColor: '#ef4444', borderRadius: 8 }} />
+      </PositionedView>
+    </View>
+  )
+}`,
+      },
+      {
+        title: 'Bottom Label',
+        description: 'Anchor a label to the bottom of a container.',
+        code: `import { PositionedView } from '@xaui/native/view'
+import { View, Text } from 'react-native'
+
+export function BottomLabelExample() {
+  return (
+    <View style={{ height: 120, position: 'relative', backgroundColor: '#1e293b', borderRadius: 12 }}>
+      <PositionedView bottom={8} left={12} right={12}>
+        <Text style={{ color: '#fff', fontWeight: 'bold' }}>Overlay label</Text>
+      </PositionedView>
+    </View>
+  )
+}`,
+      },
+    ],
   },
 
   'blur-view': {
@@ -2655,6 +2916,36 @@ export function FullWidthExample() {
       { name: 'unlockable', type: 'boolean', defaultValue: 'false', description: 'Enable unlock/reveal interaction' },
       { name: 'overlayColor', type: 'ColorValue', defaultValue: '-', description: 'Color overlay tint' },
       { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Additional styles' },
+    ],
+    examples: [
+      {
+        title: 'Frosted Glass Effect',
+        description: 'Blur the background behind the children.',
+        code: `import { BlurView } from '@xaui/native/view'
+import { Text } from 'react-native'
+
+export function FrostedGlassExample() {
+  return (
+    <BlurView intensity={60} style={{ padding: 16, borderRadius: 12 }}>
+      <Text style={{ fontWeight: 'bold' }}>Frosted content</Text>
+    </BlurView>
+  )
+}`,
+      },
+      {
+        title: 'Unlockable Blur',
+        description: 'Hide premium content behind a blur that the user can reveal.',
+        code: `import { BlurView } from '@xaui/native/view'
+import { Text } from 'react-native'
+
+export function UnlockableBlurExample() {
+  return (
+    <BlurView intensity={80} unlockable>
+      <Text>This content is hidden until unlocked</Text>
+    </BlurView>
+  )
+}`,
+      },
     ],
   },
 
@@ -2674,6 +2965,36 @@ export function FullWidthExample() {
       { name: 'backgroundColor', type: 'string', defaultValue: '-', description: 'Background color' },
       { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Additional styles' },
     ],
+    examples: [
+      {
+        title: 'Uniform Radius',
+        description: 'Round all corners equally.',
+        code: `import { RoundedView } from '@xaui/native/view'
+import { Text } from 'react-native'
+
+export function UniformRadiusExample() {
+  return (
+    <RoundedView all={16} backgroundColor="#4f46e5">
+      <Text style={{ color: '#fff', padding: 12 }}>Rounded card</Text>
+    </RoundedView>
+  )
+}`,
+      },
+      {
+        title: 'Asymmetric Radius',
+        description: 'Round only specific corners for a custom shape.',
+        code: `import { RoundedView } from '@xaui/native/view'
+import { Text } from 'react-native'
+
+export function AsymmetricRadiusExample() {
+  return (
+    <RoundedView topLeft={24} topRight={24} bottomLeft={4} bottomRight={4} backgroundColor="#0ea5e9">
+      <Text style={{ color: '#fff', padding: 12 }}>Custom shape</Text>
+    </RoundedView>
+  )
+}`,
+      },
+    ],
   },
 
   'aspect-ratio': {
@@ -2681,6 +3002,40 @@ export function FullWidthExample() {
       { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Content to constrain' },
       { name: 'ratio', type: 'number', defaultValue: '-', description: 'Aspect ratio (width / height), e.g. 16/9' },
       { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Additional styles' },
+    ],
+    examples: [
+      {
+        title: '16:9 Video Thumbnail',
+        description: 'Keep an image in a 16:9 ratio regardless of screen width.',
+        code: `import { AspectRatio } from '@xaui/native/view'
+import { Image } from 'react-native'
+
+export function VideoThumbnailExample() {
+  return (
+    <AspectRatio ratio={16 / 9}>
+      <Image
+        source={{ uri: 'https://picsum.photos/800/450' }}
+        style={{ width: '100%', height: '100%' }}
+        resizeMode="cover"
+      />
+    </AspectRatio>
+  )
+}`,
+      },
+      {
+        title: 'Square Avatar',
+        description: 'Force a 1:1 ratio for a perfect square.',
+        code: `import { AspectRatio } from '@xaui/native/view'
+import { View } from 'react-native'
+
+export function SquareExample() {
+  return (
+    <AspectRatio ratio={1} style={{ width: 80 }}>
+      <View style={{ flex: 1, backgroundColor: '#f59e0b', borderRadius: 8 }} />
+    </AspectRatio>
+  )
+}`,
+      },
     ],
   },
 
@@ -2693,6 +3048,56 @@ export function FullWidthExample() {
       { name: 'columnSpacing', type: 'number', defaultValue: '-', description: 'Horizontal gap between columns' },
       { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Container styles' },
       { name: 'itemStyle', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Applied to each grid cell' },
+    ],
+    examples: [
+      {
+        title: 'Static Grid with GridItem',
+        description: 'Lay out a fixed set of cells using GridItem.',
+        code: `import { Grid, GridItem } from '@xaui/native/view'
+import { View, Text } from 'react-native'
+
+export function StaticGridExample() {
+  return (
+    <Grid columns={3} spacing={8}>
+      <GridItem><View style={{ height: 80, backgroundColor: '#e0e7ff', borderRadius: 8, justifyContent: 'center', alignItems: 'center' }}><Text>A</Text></View></GridItem>
+      <GridItem><View style={{ height: 80, backgroundColor: '#dbeafe', borderRadius: 8, justifyContent: 'center', alignItems: 'center' }}><Text>B</Text></View></GridItem>
+      <GridItem><View style={{ height: 80, backgroundColor: '#dcfce7', borderRadius: 8, justifyContent: 'center', alignItems: 'center' }}><Text>C</Text></View></GridItem>
+      <GridItem><View style={{ height: 80, backgroundColor: '#fef9c3', borderRadius: 8, justifyContent: 'center', alignItems: 'center' }}><Text>D</Text></View></GridItem>
+      <GridItem><View style={{ height: 80, backgroundColor: '#ffe4e6', borderRadius: 8, justifyContent: 'center', alignItems: 'center' }}><Text>E</Text></View></GridItem>
+      <GridItem><View style={{ height: 80, backgroundColor: '#f3e8ff', borderRadius: 8, justifyContent: 'center', alignItems: 'center' }}><Text>F</Text></View></GridItem>
+    </Grid>
+  )
+}`,
+      },
+      {
+        title: 'Dynamic Grid with GridBuilder',
+        description: 'Render a data array into a grid using GridBuilder.',
+        code: `import { GridBuilder } from '@xaui/native/view'
+import { View, Text } from 'react-native'
+
+const products = [
+  { id: '1', name: 'Item A' },
+  { id: '2', name: 'Item B' },
+  { id: '3', name: 'Item C' },
+  { id: '4', name: 'Item D' },
+]
+
+export function DynamicGridExample() {
+  return (
+    <GridBuilder
+      data={products}
+      keyExtractor={item => item.id}
+      columns={2}
+      spacing={12}
+      renderItem={item => (
+        <View style={{ height: 100, backgroundColor: '#f1f5f9', borderRadius: 10, justifyContent: 'center', alignItems: 'center' }}>
+          <Text>{item.name}</Text>
+        </View>
+      )}
+    />
+  )
+}`,
+      },
     ],
     subComponents: [
       {
@@ -2729,6 +3134,55 @@ export function FullWidthExample() {
       { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Container styles' },
       { name: 'columnStyle', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Applied to each column' },
     ],
+    examples: [
+      {
+        title: 'Static Masonry',
+        description: 'Items of varying heights placed in masonry columns using MasonryGridItem.',
+        code: `import { MasonryGrid, MasonryGridItem } from '@xaui/native/view'
+import { View, Text } from 'react-native'
+
+export function StaticMasonryExample() {
+  return (
+    <MasonryGrid columns={2} spacing={8}>
+      <MasonryGridItem><View style={{ height: 120, backgroundColor: '#dbeafe', borderRadius: 8 }} /></MasonryGridItem>
+      <MasonryGridItem><View style={{ height: 80, backgroundColor: '#dcfce7', borderRadius: 8 }} /></MasonryGridItem>
+      <MasonryGridItem><View style={{ height: 160, backgroundColor: '#fef9c3', borderRadius: 8 }} /></MasonryGridItem>
+      <MasonryGridItem><View style={{ height: 100, backgroundColor: '#ffe4e6', borderRadius: 8 }} /></MasonryGridItem>
+      <MasonryGridItem><View style={{ height: 90, backgroundColor: '#f3e8ff', borderRadius: 8 }} /></MasonryGridItem>
+    </MasonryGrid>
+  )
+}`,
+      },
+      {
+        title: 'Dynamic Masonry with MasonryGridBuilder',
+        description: 'Render variable-height items from a data array.',
+        code: `import { MasonryGridBuilder } from '@xaui/native/view'
+import { View, Text } from 'react-native'
+
+const photos = [
+  { id: '1', height: 130, label: 'Photo A' },
+  { id: '2', height: 90, label: 'Photo B' },
+  { id: '3', height: 160, label: 'Photo C' },
+  { id: '4', height: 110, label: 'Photo D' },
+]
+
+export function DynamicMasonryExample() {
+  return (
+    <MasonryGridBuilder
+      data={photos}
+      keyExtractor={item => item.id}
+      columns={2}
+      spacing={8}
+      renderItem={item => (
+        <View style={{ height: item.height, backgroundColor: '#f1f5f9', borderRadius: 10, justifyContent: 'center', alignItems: 'center' }}>
+          <Text>{item.label}</Text>
+        </View>
+      )}
+    />
+  )
+}`,
+      },
+    ],
     subComponents: [
       {
         name: 'MasonryGridItem',
@@ -2758,6 +3212,50 @@ export function FullWidthExample() {
       { name: 'isVisible', type: 'boolean', defaultValue: '-', description: 'Controls visibility' },
       { name: 'animation', type: '"fade" | "scale"', defaultValue: '"fade"', description: 'Transition animation type' },
       { name: 'disableAnimation', type: 'boolean', defaultValue: 'false', description: 'Disable transition animation' },
+    ],
+    examples: [
+      {
+        title: 'Fade In/Out',
+        description: 'Toggle content visibility with a fade animation.',
+        code: `import { useState } from 'react'
+import { ConditionalView } from '@xaui/native/view'
+import { Button } from '@xaui/native/button'
+import { Text } from 'react-native'
+
+export function FadeExample() {
+  const [visible, setVisible] = useState(false)
+
+  return (
+    <>
+      <Button onPress={() => setVisible(v => !v)}>Toggle</Button>
+      <ConditionalView isVisible={visible} animation="fade">
+        <Text>This content fades in and out</Text>
+      </ConditionalView>
+    </>
+  )
+}`,
+      },
+      {
+        title: 'Scale Animation',
+        description: 'Show/hide with a scale transition.',
+        code: `import { useState } from 'react'
+import { ConditionalView } from '@xaui/native/view'
+import { Button } from '@xaui/native/button'
+import { Text } from 'react-native'
+
+export function ScaleExample() {
+  const [visible, setVisible] = useState(false)
+
+  return (
+    <>
+      <Button onPress={() => setVisible(v => !v)}>Toggle</Button>
+      <ConditionalView isVisible={visible} animation="scale">
+        <Text>This content scales in and out</Text>
+      </ConditionalView>
+    </>
+  )
+}`,
+      },
     ],
   },
 }
