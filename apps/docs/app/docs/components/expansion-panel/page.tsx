@@ -1,5 +1,4 @@
 import { Metadata } from 'next'
-import { ExpansionPanelNativeDemo } from '@/components/preview/expansion-panel-native-demo'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { CodeBlock } from '@/components/ui/code-block'
 
@@ -193,82 +192,76 @@ export default function ExpansionPanelPage() {
         </TabsList>
 
         <TabsContent value="code">
-          <div className="flex flex-col gap-8 xl:flex-row xl:items-start">
-            <div className="min-w-0 flex-1 space-y-6">
-              <div className="space-y-4">
-                <div>
-                  <h3 className="mb-2 text-lg font-semibold">Installation</h3>
-                  <CodeBlock code={installationCode} language="bash" />
-                </div>
-                <div>
-                  <h3 className="mb-2 text-lg font-semibold">Basic Usage</h3>
-                  <CodeBlock code={usageCode} />
-                </div>
+          <div className="space-y-6">
+            <div className="space-y-4">
+              <div>
+                <h3 className="mb-2 text-lg font-semibold">Installation</h3>
+                <CodeBlock code={installationCode} language="bash" />
               </div>
-
-              <div className="space-y-4">
-                <h3 className="text-lg font-semibold">Variants</h3>
-                <p className="text-muted-foreground">
-                  Three visual variants available: light (minimal), bordered (visible
-                  borders), and splitted (card-like).
-                </p>
-                <CodeBlock code={variantsCode} />
-              </div>
-
-              <div className="space-y-4">
-                <h3 className="text-lg font-semibold">Sizing Options</h3>
-                <p className="text-muted-foreground">
-                  Control the density with isCompact and width with fullWidth props.
-                </p>
-                <CodeBlock code={sizingCode} />
-              </div>
-
-              <div className="space-y-4">
-                <h3 className="text-lg font-semibold">Selection Modes</h3>
-                <p className="text-muted-foreground">
-                  Toggle mode allows only one expanded item at a time. Multiple mode
-                  allows multiple items to be expanded simultaneously.
-                </p>
-                <CodeBlock code={selectionModeCode} />
-              </div>
-
-              <div className="space-y-4">
-                <h3 className="text-lg font-semibold">Events & Controlled State</h3>
-                <p className="text-muted-foreground">
-                  Handle selection changes with onSelectionChange and individual item
-                  selection with onSelected.
-                </p>
-                <CodeBlock code={eventsCode} />
-              </div>
-
-              <div className="space-y-4">
-                <h3 className="text-lg font-semibold">Disabled Items</h3>
-                <p className="text-muted-foreground">
-                  Disable specific items by their keys to prevent interaction.
-                </p>
-                <CodeBlock code={disabledCode} />
-              </div>
-
-              <div className="space-y-4">
-                <h3 className="text-lg font-semibold">Default Expanded State</h3>
-                <p className="text-muted-foreground">
-                  Set items to be expanded by default using defaultExpandedKeys.
-                </p>
-                <CodeBlock code={defaultExpandedCode} />
-              </div>
-
-              <div className="space-y-4">
-                <h3 className="text-lg font-semibold">Customization</h3>
-                <p className="text-muted-foreground">
-                  Customize appearance with customAppearance prop, hide indicators, or
-                  disable animations.
-                </p>
-                <CodeBlock code={customizationCode} />
+              <div>
+                <h3 className="mb-2 text-lg font-semibold">Basic Usage</h3>
+                <CodeBlock code={usageCode} />
               </div>
             </div>
 
-            <div className="xl:sticky xl:top-8 xl:shrink-0">
-              <ExpansionPanelNativeDemo />
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold">Variants</h3>
+              <p className="text-muted-foreground">
+                Three visual variants available: light (minimal), bordered (visible
+                borders), and splitted (card-like).
+              </p>
+              <CodeBlock code={variantsCode} />
+            </div>
+
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold">Sizing Options</h3>
+              <p className="text-muted-foreground">
+                Control the density with isCompact and width with fullWidth props.
+              </p>
+              <CodeBlock code={sizingCode} />
+            </div>
+
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold">Selection Modes</h3>
+              <p className="text-muted-foreground">
+                Toggle mode allows only one expanded item at a time. Multiple mode
+                allows multiple items to be expanded simultaneously.
+              </p>
+              <CodeBlock code={selectionModeCode} />
+            </div>
+
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold">Events & Controlled State</h3>
+              <p className="text-muted-foreground">
+                Handle selection changes with onSelectionChange and individual item
+                selection with onSelected.
+              </p>
+              <CodeBlock code={eventsCode} />
+            </div>
+
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold">Disabled Items</h3>
+              <p className="text-muted-foreground">
+                Disable specific items by their keys to prevent interaction.
+              </p>
+              <CodeBlock code={disabledCode} />
+            </div>
+
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold">Default Expanded State</h3>
+              <p className="text-muted-foreground">
+                Set items to be expanded by default using defaultExpandedKeys.
+              </p>
+              <CodeBlock code={defaultExpandedCode} />
+            </div>
+
+            <div className="space-y-4">
+              <h3 className="text-lg font-semibold">Customization</h3>
+              <p className="text-muted-foreground">
+                Customize appearance with customAppearance prop, hide indicators, or
+                disable animations.
+              </p>
+              <CodeBlock code={customizationCode} />
             </div>
           </div>
         </TabsContent>
@@ -444,7 +437,9 @@ export default function ExpansionPanelPage() {
                   <tr className="border-b">
                     <td className="px-4 py-3 font-mono text-xs">itemKey</td>
                     <td className="px-4 py-3 text-muted-foreground">string</td>
-                    <td className="px-4 py-3 text-muted-foreground">auto-generated</td>
+                    <td className="px-4 py-3 text-muted-foreground">
+                      auto-generated
+                    </td>
                     <td className="px-4 py-3 text-muted-foreground">
                       Unique key for the expansion item
                     </td>

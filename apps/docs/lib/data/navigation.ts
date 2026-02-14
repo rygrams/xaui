@@ -1,3 +1,5 @@
+import { components } from './components'
+
 export interface NavItem {
   title: string
   href: string
@@ -37,10 +39,10 @@ export const navigation: NavSection[] = [
       {
         title: 'All Components',
         href: '/docs/components',
-      },
-      {
-        title: 'ExpansionPanel',
-        href: '/docs/components/expansion-panel',
+        items: components.map(component => ({
+          title: component.name,
+          href: component.href,
+        })),
       },
     ],
   },
