@@ -6,9 +6,9 @@ import { componentPropsMap } from '@/lib/data/component-props'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 type ComponentPageProps = {
-  params: Promise<{
+  params: {
     componentId: string
-  }>
+  }
 }
 
 function getStatusClass(status: 'stable' | 'beta' | 'alpha') {
@@ -45,10 +45,10 @@ export function generateStaticParams() {
     }))
 }
 
-export async function generateMetadata({
+export function generateMetadata({
   params,
-}: ComponentPageProps): Promise<Metadata> {
-  const { componentId } = await params
+}: ComponentPageProps): Metadata {
+  const { componentId } = params
   const component = getComponentById(componentId)
 
   if (!component) {
@@ -64,8 +64,8 @@ export async function generateMetadata({
   }
 }
 
-export default async function ComponentPage({ params }: ComponentPageProps) {
-  const { componentId } = await params
+export default function ComponentPage({ params }: ComponentPageProps) {
+  const { componentId } = params
   const component = getComponentById(componentId)
 
   if (!component) {
