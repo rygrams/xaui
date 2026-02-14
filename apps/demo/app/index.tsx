@@ -411,6 +411,16 @@ export default function HomeScreen() {
             Tabs
           </Button>
         </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/typography')}
+            variant="outlined"
+            themeColor="secondary"
+          >
+            Typography
+          </Button>
+        </GridItem>
       </Grid>
     </ScrollView>
   )
