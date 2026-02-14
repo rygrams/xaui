@@ -16,6 +16,9 @@ export default function TypographyScreen() {
           Variants
         </Typography>
         <View style={{ gap: theme.spacing.sm }}>
+          <Typography variant="displayLarge">displayLarge</Typography>
+          <Typography variant="displayMedium">displayMedium</Typography>
+          <Typography variant="displaySmall">displaySmall</Typography>
           <Typography variant="headlineLarge">headlineLarge</Typography>
           <Typography variant="headlineMedium">headlineMedium</Typography>
           <Typography variant="headlineSmall">headlineSmall</Typography>

@@ -2584,7 +2584,7 @@ export function FullWidthExample() {
   typography: {
     props: [
       { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Text content' },
-      { name: 'variant', type: '"caption" | "bodySmall" | "bodyMedium" | "bodyLarge" | "subtitleSmall" | "subtitleMedium" | "subtitleLarge" | "headlineSmall" | "headlineMedium" | "headlineLarge" | string', defaultValue: '"bodyMedium"', description: 'Typographic style variant — also accepts a custom string for theme-extended variants' },
+      { name: 'variant', type: '"displayLarge" | "displayMedium" | "displaySmall" | "headlineLarge" | "headlineMedium" | "headlineSmall" | "subtitleLarge" | "subtitleMedium" | "subtitleSmall" | "bodyLarge" | "bodyMedium" | "bodySmall" | "caption" | string', defaultValue: '"bodyMedium"', description: 'Typographic style variant — also accepts a custom string for theme-extended variants' },
       { name: 'align', type: '"left" | "center" | "right" | "justify"', defaultValue: '-', description: 'Text alignment' },
       { name: 'themeColor', type: 'ThemeColor', defaultValue: '"default"', description: 'Color theme for the text' },
       { name: 'maxLines', type: 'number', defaultValue: '-', description: 'Maximum number of lines before truncation' },
@@ -2601,6 +2601,9 @@ import { View } from 'react-native'
 export function TypographyVariantsExample() {
   return (
     <View>
+      <Typography variant="displayLarge">Display Large</Typography>
+      <Typography variant="displayMedium">Display Medium</Typography>
+      <Typography variant="displaySmall">Display Small</Typography>
       <Typography variant="headlineLarge">Headline Large</Typography>
       <Typography variant="headlineMedium">Headline Medium</Typography>
       <Typography variant="headlineSmall">Headline Small</Typography>

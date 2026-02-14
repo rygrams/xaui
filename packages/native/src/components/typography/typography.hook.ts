@@ -6,6 +6,9 @@ import type { TypographyVariant } from './typography.type'
 import { getSafeThemeColor } from '@xaui/core'
 
 type KnownVariant =
+  | 'displayLarge'
+  | 'displayMedium'
+  | 'displaySmall'
   | 'caption'
   | 'headlineLarge'
   | 'headlineMedium'
@@ -18,6 +21,9 @@ type KnownVariant =
   | 'bodySmall'
 
 const knownVariants: Record<string, true> = {
+  displayLarge: true,
+  displayMedium: true,
+  displaySmall: true,
   caption: true,
   headlineLarge: true,
   headlineMedium: true,
@@ -62,6 +68,21 @@ export const useTypographyVariantStyles = (variant: TypographyVariant) => {
     }
 
     const styles: Record<KnownVariant, TextStyle> = {
+      displayLarge: {
+        fontFamily: theme.fontFamilies.heading,
+        fontSize: 72,
+        fontWeight: theme.fontWeights.extrabold as TextStyle['fontWeight'],
+      },
+      displayMedium: {
+        fontFamily: theme.fontFamilies.heading,
+        fontSize: 57,
+        fontWeight: theme.fontWeights.bold as TextStyle['fontWeight'],
+      },
+      displaySmall: {
+        fontFamily: theme.fontFamilies.heading,
+        fontSize: 45,
+        fontWeight: theme.fontWeights.bold as TextStyle['fontWeight'],
+      },
       caption: {
         fontFamily: theme.fontFamilies.body,
         fontSize: theme.fontSizes.xs,
