@@ -92,6 +92,7 @@ export default function RootLayout() {
             <Stack.Screen name="textarea" options={{ title: 'TextArea Examples' }} />
             <Stack.Screen name="toolbar" options={{ title: 'Toolbar Examples' }} />
             <Stack.Screen name="tabs" options={{ title: 'Tabs Examples' }} />
+            <Stack.Screen name="typography" options={{ title: 'Typography Examples' }} />
           </Stack>
         </XUIProvider>
       </GestureHandlerRootView>

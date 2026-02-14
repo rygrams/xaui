@@ -1470,15 +1470,104 @@ export function SizesExample() {
       { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Drawer content' },
       { name: 'isOpen', type: 'boolean', defaultValue: '-', description: 'Controls whether drawer is open' },
       { name: 'position', type: '"top" | "left" | "bottom" | "right"', defaultValue: '"left"', description: 'Slide-in direction' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme' },
-      { name: 'width', type: 'number', defaultValue: '300', description: 'Drawer width (for left/right)' },
-      { name: 'height', type: 'number', defaultValue: '300', description: 'Drawer height (for top/bottom)' },
-      { name: 'showOverlay', type: 'boolean', defaultValue: 'true', description: 'Show backdrop overlay' },
-      { name: 'disableAnimation', type: 'boolean', defaultValue: 'false', description: 'Disable slide animation' },
-      { name: 'customStyle', type: 'ViewStyle', defaultValue: '-', description: 'Custom drawer styles' },
+      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"default"', description: 'Color theme for the drawer background' },
+      { name: 'width', type: 'number', defaultValue: '280', description: 'Drawer width for left/right positions' },
+      { name: 'height', type: 'number', defaultValue: '280', description: 'Drawer height for top/bottom positions' },
+      { name: 'showOverlay', type: 'boolean', defaultValue: 'true', description: 'Show semi-transparent backdrop' },
+      { name: 'disableAnimation', type: 'boolean', defaultValue: 'false', description: 'Skip slide-in/out animation' },
+      { name: 'customStyle', type: 'ViewStyle', defaultValue: '-', description: 'Custom styles applied to the drawer panel' },
     ],
     events: [
-      { name: 'onClose', type: '() => void', description: 'Called when drawer is dismissed' },
+      { name: 'onClose', type: '() => void', description: 'Called when the backdrop is tapped or back is pressed' },
+    ],
+    examples: [
+      {
+        title: 'Basic Left Drawer',
+        description: 'Toggle a left-side navigation drawer with a button.',
+        code: `import { useState } from 'react'
+import { View } from 'react-native'
+import { Drawer } from '@xaui/native/drawer'
+import { Button } from '@xaui/native/button'
+import { Typography } from '@xaui/native/typography'
+
+export function BasicDrawerExample() {
+  const [isOpen, setIsOpen] = useState(false)
+
+  return (
+    <View>
+      <Button onPress={() => setIsOpen(true)}>Open Drawer</Button>
+      <Drawer isOpen={isOpen} onClose={() => setIsOpen(false)}>
+        <Typography variant="subtitleLarge">Navigation</Typography>
+        <Typography>Home</Typography>
+        <Typography>Profile</Typography>
+        <Typography>Settings</Typography>
+      </Drawer>
+    </View>
+  )
+}`,
+      },
+      {
+        title: 'Positions',
+        description: 'Drawer can slide in from any edge using the position prop.',
+        code: `import { useState } from 'react'
+import { View } from 'react-native'
+import { Drawer } from '@xaui/native/drawer'
+import { Button } from '@xaui/native/button'
+import { Typography } from '@xaui/native/typography'
+
+type Position = 'left' | 'right' | 'top' | 'bottom'
+
+export function DrawerPositionsExample() {
+  const [position, setPosition] = useState<Position>('left')
+  const [isOpen, setIsOpen] = useState(false)
+
+  const open = (pos: Position) => {
+    setPosition(pos)
+    setIsOpen(true)
+  }
+
+  return (
+    <View style={{ gap: 12 }}>
+      <Button onPress={() => open('left')}>Left</Button>
+      <Button onPress={() => open('right')}>Right</Button>
+      <Button onPress={() => open('top')}>Top</Button>
+      <Button onPress={() => open('bottom')}>Bottom</Button>
+      <Drawer isOpen={isOpen} position={position} onClose={() => setIsOpen(false)}>
+        <Typography variant="subtitleMedium">{position} drawer</Typography>
+      </Drawer>
+    </View>
+  )
+}`,
+      },
+      {
+        title: 'Custom Size & No Overlay',
+        description: 'Set a custom width and hide the backdrop.',
+        code: `import { useState } from 'react'
+import { View } from 'react-native'
+import { Drawer } from '@xaui/native/drawer'
+import { Button } from '@xaui/native/button'
+import { Typography } from '@xaui/native/typography'
+
+export function DrawerCustomSizeExample() {
+  const [isOpen, setIsOpen] = useState(false)
+
+  return (
+    <View>
+      <Button onPress={() => setIsOpen(true)}>Open Wide Drawer</Button>
+      <Drawer
+        isOpen={isOpen}
+        width={360}
+        showOverlay={false}
+        onClose={() => setIsOpen(false)}
+      >
+        <Typography variant="subtitleLarge">Wide Drawer</Typography>
+        <Typography>No overlay backdrop is shown.</Typography>
+        <Button onPress={() => setIsOpen(false)}>Close</Button>
+      </Drawer>
+    </View>
+  )
+}`,
+      },
     ],
   },
 
@@ -1813,7 +1902,7 @@ export function NumberInputExample() {
     props: [
       { name: 'data', type: 'T[]', defaultValue: '-', description: 'Array of data items to render' },
       { name: 'keyExtractor', type: '(item: T, index: number) => string', defaultValue: '-', description: 'Function to extract unique key from each item' },
-      { name: 'renderItem', type: '(item: T, index: number) => ReactNode', defaultValue: '-', description: 'Function to render each item' },
+      { name: 'renderItem', type: '(item: T, index: number) => ReactNode', defaultValue: '-', description: 'Function to render each item — receives the typed item and its index' },
       { name: 'selectionMode', type: '"single" | "multiple" | "none"', defaultValue: '"none"', description: 'Selection behavior' },
       { name: 'selectedKeys', type: 'string[]', defaultValue: '-', description: 'Controlled selected keys' },
       { name: 'defaultSelectedKeys', type: 'string[]', defaultValue: '[]', description: 'Default selected keys (uncontrolled)' },
@@ -1823,10 +1912,155 @@ export function NumberInputExample() {
       { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme for selected items' },
       { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Item size' },
       { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Additional container styles' },
-      { name: 'flatListProps', type: 'Omit<FlatListProps<T>, "data" | "renderItem" | "keyExtractor">', defaultValue: '-', description: 'Additional FlatList props' },
+      { name: 'flatListProps', type: 'Omit<FlatListProps<T>, "data" | "renderItem" | "keyExtractor">', defaultValue: '-', description: 'Extra FlatList props passed through (e.g. refreshing, onEndReached)' },
     ],
     events: [
       { name: 'onSelectionChange', type: '(keys: string[]) => void', description: 'Called when selection changes' },
+    ],
+    examples: [
+      {
+        title: 'Basic List',
+        description: 'Render a typed array with renderItem and keyExtractor.',
+        code: `import { ListBuilder } from '@xaui/native/list'
+import { ListItem } from '@xaui/native/list'
+
+type Fruit = { id: string; name: string; emoji: string }
+
+const fruits: Fruit[] = [
+  { id: '1', name: 'Apple', emoji: '🍎' },
+  { id: '2', name: 'Banana', emoji: '🍌' },
+  { id: '3', name: 'Cherry', emoji: '🍒' },
+]
+
+export function BasicListBuilderExample() {
+  return (
+    <ListBuilder
+      data={fruits}
+      keyExtractor={(item) => item.id}
+      renderItem={(item) => (
+        <ListItem
+          itemKey={item.id}
+          title={item.name}
+          startContent={item.emoji}
+        />
+      )}
+    />
+  )
+}`,
+      },
+      {
+        title: 'Single Selection',
+        description: 'Enable item selection with selectionMode and isSelectable.',
+        code: `import { useState } from 'react'
+import { ListBuilder, ListItem } from '@xaui/native/list'
+import { Typography } from '@xaui/native/typography'
+
+type Language = { id: string; label: string }
+
+const languages: Language[] = [
+  { id: 'ts', label: 'TypeScript' },
+  { id: 'py', label: 'Python' },
+  { id: 'go', label: 'Go' },
+  { id: 'rs', label: 'Rust' },
+]
+
+export function SingleSelectionExample() {
+  const [selected, setSelected] = useState<string[]>([])
+
+  return (
+    <>
+      <ListBuilder
+        data={languages}
+        keyExtractor={(item) => item.id}
+        selectionMode="single"
+        isSelectable
+        themeColor="primary"
+        onSelectionChange={setSelected}
+        renderItem={(item) => (
+          <ListItem itemKey={item.id} title={item.label} />
+        )}
+      />
+      <Typography variant="caption">
+        Selected: {selected[0] ?? 'none'}
+      </Typography>
+    </>
+  )
+}`,
+      },
+      {
+        title: 'Multiple Selection with Dividers',
+        description: 'Allow multi-select and show dividers between items.',
+        code: `import { useState } from 'react'
+import { ListBuilder, ListItem } from '@xaui/native/list'
+
+type Tag = { id: string; label: string; color: string }
+
+const tags: Tag[] = [
+  { id: 'bug', label: 'Bug', color: 'danger' },
+  { id: 'feat', label: 'Feature', color: 'success' },
+  { id: 'docs', label: 'Docs', color: 'primary' },
+  { id: 'refactor', label: 'Refactor', color: 'warning' },
+]
+
+export function MultiSelectionExample() {
+  const [selected, setSelected] = useState<string[]>([])
+
+  return (
+    <ListBuilder
+      data={tags}
+      keyExtractor={(item) => item.id}
+      selectionMode="multiple"
+      isSelectable
+      showDivider
+      defaultSelectedKeys={['bug']}
+      onSelectionChange={setSelected}
+      renderItem={(item) => (
+        <ListItem itemKey={item.id} title={item.label} />
+      )}
+    />
+  )
+}`,
+      },
+      {
+        title: 'Controlled Selection',
+        description: 'Drive selection state externally with selectedKeys.',
+        code: `import { useState } from 'react'
+import { View } from 'react-native'
+import { ListBuilder, ListItem } from '@xaui/native/list'
+import { Button } from '@xaui/native/button'
+
+type Item = { id: string; label: string }
+
+const items: Item[] = [
+  { id: 'a', label: 'Item A' },
+  { id: 'b', label: 'Item B' },
+  { id: 'c', label: 'Item C' },
+]
+
+export function ControlledListBuilderExample() {
+  const [selected, setSelected] = useState<string[]>(['a'])
+
+  return (
+    <View style={{ gap: 12 }}>
+      <ListBuilder
+        data={items}
+        keyExtractor={(item) => item.id}
+        selectionMode="multiple"
+        isSelectable
+        selectedKeys={selected}
+        onSelectionChange={setSelected}
+        renderItem={(item) => (
+          <ListItem itemKey={item.id} title={item.label} />
+        )}
+      />
+      <Button onPress={() => setSelected([])}>Clear Selection</Button>
+      <Button onPress={() => setSelected(items.map((i) => i.id))}>
+        Select All
+      </Button>
+    </View>
+  )
+}`,
+      },
     ],
   },
 
