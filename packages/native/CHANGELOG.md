@@ -1,5 +1,11 @@
 # @xaui/mobile
 
+## 0.0.29
+
+### Patch Changes
+
+- cb3c3ff: Fix `Menu` `onItemPress` handling so items with an empty-string `itemKey` are still emitted.
+
 ## 0.0.28
 
 ### Patch Changes
