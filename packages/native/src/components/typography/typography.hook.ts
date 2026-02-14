@@ -71,17 +71,17 @@ export const useTypographyVariantStyles = (variant: TypographyVariant) => {
       displayLarge: {
         fontFamily: theme.fontFamilies.heading,
         fontSize: 72,
-        fontWeight: theme.fontWeights.extrabold as TextStyle['fontWeight'],
+        fontWeight: theme.fontWeights.semibold as TextStyle['fontWeight'],
       },
       displayMedium: {
         fontFamily: theme.fontFamilies.heading,
         fontSize: 57,
-        fontWeight: theme.fontWeights.bold as TextStyle['fontWeight'],
+        fontWeight: theme.fontWeights.semibold as TextStyle['fontWeight'],
       },
       displaySmall: {
         fontFamily: theme.fontFamilies.heading,
         fontSize: 45,
-        fontWeight: theme.fontWeights.bold as TextStyle['fontWeight'],
+        fontWeight: theme.fontWeights.semibold as TextStyle['fontWeight'],
       },
       caption: {
         fontFamily: theme.fontFamilies.body,

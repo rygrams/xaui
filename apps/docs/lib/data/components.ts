@@ -461,6 +461,18 @@ export const components: Component[] = [
     ],
   },
   {
+    id: 'snackbar',
+    name: 'Snackbar',
+    description:
+      'Transient notification surface with optional action, auto-dismiss, and stacking support.',
+    category: 'Feedback',
+    href: '/docs/components/snackbar',
+    status: 'beta',
+    importPath: '@xaui/native/snackbar',
+    exports: ['Snackbar', 'SnackbarStack'],
+    types: ['SnackbarProps', 'SnackbarStackProps', 'SnackbarItem', 'SnackbarPosition'],
+  },
+  {
     id: 'skeleton',
     name: 'Skeleton',
     description: 'Placeholder shimmer component used while loading content.',

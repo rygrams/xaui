@@ -44,6 +44,22 @@ const entries = {
   'chart/index': 'src/components/chart/index.ts',
 } as const
 
+const sharedConfig = {
+  format: ['cjs', 'esm'] as ('cjs' | 'esm')[],
+  clean: false,
+  external: [
+    'react',
+    'react-native',
+    'react-native-gesture-handler',
+    'react-native-reanimated',
+    'react-native-svg',
+    '@xaui/core',
+    '@xaui/core/theme',
+    '@xaui/icons',
+  ],
+  target: 'es2020',
+}
+
 export default defineConfig(() => {
   const entryList = Object.entries(entries)
   const groupSize = 10
@@ -53,21 +69,20 @@ export default defineConfig(() => {
       Object.fromEntries(entryList.slice(index * groupSize, (index + 1) * groupSize))
   )
 
-  return entryGroups.map(entry => ({
+  const jsBuilds = [
+    {
+      ...sharedConfig,
+      entry: entries,
+      splitting: true,
+      dts: false,
+    },
+  ]
+
+  const dtsBuilds = entryGroups.map(entry => ({
+    ...sharedConfig,
     entry,
-    format: ['cjs', 'esm'] as const,
-    dts: true,
-    clean: false,
-    external: [
-      'react',
-      'react-native',
-      'react-native-gesture-handler',
-      'react-native-reanimated',
-      'react-native-svg',
-      '@xaui/core',
-      '@xaui/core/theme',
-      '@xaui/icons',
-    ],
-    target: 'es2020',
+    dts: { only: true },
   }))
+
+  return [...jsBuilds, ...dtsBuilds]
 })

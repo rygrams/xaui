@@ -127,28 +127,29 @@ export function CustomIconExample() {
 
   'app-bar': {
     props: [
-      { name: 'variant', type: '"docked" | "floating"', defaultValue: '"docked"', description: 'Layout variant of the app bar' },
-      { name: 'elevation', type: 'number', defaultValue: '0', description: 'Shadow elevation level' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme' },
-      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'AppBarStartContent, AppBarContent, AppBarEndContent' },
-      { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Additional container styles' },
+      { name: 'variant', type: '"docked" | "floating"', defaultValue: '"docked"', description: 'Layout variant. Docked spans full width with no radius; floating is narrower with a pill radius and a shadow' },
+      { name: 'elevation', type: 'number', defaultValue: '0', description: 'Shadow elevation level (0–4+). Maps to theme shadow tokens: sm ≤1, md ≤2, lg ≤3, xl >3' },
+      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"default"', description: 'Color theme. Default uses white (light) or surface (dark) background with a subtle border' },
+      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Compose using AppBarStartContent, AppBarContent, and AppBarEndContent slots' },
+      { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Additional styles applied to the root container' },
     ],
     examples: [
       {
-        title: 'Basic App Bar',
-        description: 'Title centered with a back button on the left.',
-        code: `import { AppBar, AppBarStartContent, AppBarContent, AppBarEndContent } from '@xaui/native/app-bar'
+        title: 'Basic',
+        description: 'Title centred with a back button on the left.',
+        code: `import { AppBar, AppBarStartContent, AppBarContent } from '@xaui/native/app-bar'
 import { IconButton } from '@xaui/native/button'
-import { Text } from 'react-native'
+import { Typography } from '@xaui/native/typography'
+import { ArrowBackIcon } from '@xaui/icons/arrow-back'
 
 export function BasicExample() {
   return (
     <AppBar>
       <AppBarStartContent>
-        <IconButton icon={<Text>←</Text>} onPress={() => {}} />
+        <IconButton icon={<ArrowBackIcon />} onPress={() => {}} />
       </AppBarStartContent>
       <AppBarContent>
-        <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Home</Text>
+        <Typography variant="titleMedium">Home</Typography>
       </AppBarContent>
     </AppBar>
   )
@@ -156,23 +157,26 @@ export function BasicExample() {
       },
       {
         title: 'With End Actions',
-        description: 'Add action buttons on the right with AppBarEndContent.',
+        description: 'Action buttons on the right using AppBarEndContent.',
         code: `import { AppBar, AppBarStartContent, AppBarContent, AppBarEndContent } from '@xaui/native/app-bar'
 import { IconButton } from '@xaui/native/button'
-import { Text } from 'react-native'
+import { Typography } from '@xaui/native/typography'
+import { MenuIcon } from '@xaui/icons/menu'
+import { NotificationsIcon } from '@xaui/icons/notifications'
+import { SettingsIcon } from '@xaui/icons/settings'
 
 export function WithActionsExample() {
   return (
     <AppBar>
       <AppBarStartContent>
-        <IconButton icon={<Text>☰</Text>} onPress={() => {}} />
+        <IconButton icon={<MenuIcon />} onPress={() => {}} />
       </AppBarStartContent>
       <AppBarContent>
-        <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Dashboard</Text>
+        <Typography variant="titleMedium">Dashboard</Typography>
       </AppBarContent>
       <AppBarEndContent>
-        <IconButton icon={<Text>🔔</Text>} onPress={() => {}} />
-        <IconButton icon={<Text>⚙️</Text>} onPress={() => {}} />
+        <IconButton icon={<NotificationsIcon />} onPress={() => {}} />
+        <IconButton icon={<SettingsIcon />} onPress={() => {}} />
       </AppBarEndContent>
     </AppBar>
   )
@@ -180,39 +184,76 @@ export function WithActionsExample() {
       },
       {
         title: 'Floating Variant',
-        description: 'Detached app bar that floats above the content.',
-        code: `import { AppBar, AppBarContent } from '@xaui/native/app-bar'
-import { Text } from 'react-native'
+        description: 'Detached pill-shaped bar with an elevation shadow.',
+        code: `import { AppBar, AppBarStartContent, AppBarContent, AppBarEndContent } from '@xaui/native/app-bar'
+import { IconButton } from '@xaui/native/button'
+import { Typography } from '@xaui/native/typography'
+import { ArrowBackIcon } from '@xaui/icons/arrow-back'
+import { SearchIcon } from '@xaui/icons/search'
 
 export function FloatingExample() {
   return (
     <AppBar variant="floating" elevation={2}>
+      <AppBarStartContent>
+        <IconButton icon={<ArrowBackIcon />} onPress={() => {}} />
+      </AppBarStartContent>
       <AppBarContent>
-        <Text style={{ fontSize: 18, fontWeight: 'bold' }}>Search</Text>
+        <Typography variant="titleMedium">Search</Typography>
       </AppBarContent>
+      <AppBarEndContent>
+        <IconButton icon={<SearchIcon />} onPress={() => {}} />
+      </AppBarEndContent>
     </AppBar>
   )
 }`,
       },
       {
         title: 'Theme Colors',
-        description: 'Change the app bar color with themeColor.',
-        code: `import { AppBar, AppBarContent } from '@xaui/native/app-bar'
-import { Text } from 'react-native'
+        description: 'Use themeColor to apply a branded background.',
+        code: `import { AppBar, AppBarStartContent, AppBarContent } from '@xaui/native/app-bar'
+import { IconButton } from '@xaui/native/button'
+import { Typography } from '@xaui/native/typography'
+import { ArrowBackIcon } from '@xaui/icons/arrow-back'
 import { Column } from '@xaui/native/view'
 
 export function ThemeColorsExample() {
+  const colors = ['primary', 'secondary', 'success', 'danger', 'warning'] as const
+
   return (
     <Column gap={8}>
-      <AppBar themeColor="primary">
-        <AppBarContent><Text>Primary</Text></AppBarContent>
-      </AppBar>
-      <AppBar themeColor="secondary">
-        <AppBarContent><Text>Secondary</Text></AppBarContent>
-      </AppBar>
-      <AppBar themeColor="success">
-        <AppBarContent><Text>Success</Text></AppBarContent>
-      </AppBar>
+      {colors.map(color => (
+        <AppBar key={color} themeColor={color}>
+          <AppBarStartContent>
+            <IconButton icon={<ArrowBackIcon />} onPress={() => {}} />
+          </AppBarStartContent>
+          <AppBarContent>
+            <Typography variant="titleMedium" style={{ textTransform: 'capitalize' }}>
+              {color}
+            </Typography>
+          </AppBarContent>
+        </AppBar>
+      ))}
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Elevation Levels',
+        description: 'Increase elevation to add progressively stronger shadows.',
+        code: `import { AppBar, AppBarContent } from '@xaui/native/app-bar'
+import { Typography } from '@xaui/native/typography'
+import { Column } from '@xaui/native/view'
+
+export function ElevationExample() {
+  return (
+    <Column gap={8}>
+      {([0, 1, 2, 3, 4] as const).map(level => (
+        <AppBar key={level} elevation={level}>
+          <AppBarContent>
+            <Typography variant="titleMedium">Elevation {level}</Typography>
+          </AppBarContent>
+        </AppBar>
+      ))}
     </Column>
   )
 }`,
@@ -222,21 +263,21 @@ export function ThemeColorsExample() {
       {
         name: 'AppBarStartContent',
         props: [
-          { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Content rendered at the start (left) of the app bar' },
+          { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Content rendered at the leading edge (left). Typically a back button or menu icon' },
           { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Additional styles' },
         ],
       },
       {
         name: 'AppBarContent',
         props: [
-          { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Main content area (typically a title)' },
+          { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Main content area. Centred and takes all available space between start and end slots' },
           { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Additional styles' },
         ],
       },
       {
         name: 'AppBarEndContent',
         props: [
-          { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Content rendered at the end (right) of the app bar' },
+          { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Content rendered at the trailing edge (right). Typically action icon buttons' },
           { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Additional styles' },
         ],
       },
@@ -703,18 +744,137 @@ export function AvatarGroupRenderCountExample() {
 
   badge: {
     props: [
-      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Element the badge is attached to' },
-      { name: 'content', type: 'ReactNode', defaultValue: '-', description: 'Badge label or count' },
+      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Element the badge is anchored to. Badge is absolutely positioned over its corner' },
+      { name: 'content', type: 'ReactNode', defaultValue: '-', description: 'Badge label or count. Omit when using isDot' },
       { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme' },
       { name: 'variant', type: '"solid" | "flat" | "faded" | "shadow"', defaultValue: '"solid"', description: 'Visual style variant' },
-      { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Badge size' },
+      { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Badge size (sm: 16px, md: 20px, lg: 24px height)' },
       { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"full"', description: 'Border radius' },
-      { name: 'placement', type: '"top-right" | "top-left" | "bottom-right" | "bottom-left"', defaultValue: '"top-right"', description: 'Badge position relative to child' },
-      { name: 'showOutline', type: 'boolean', defaultValue: 'false', description: 'Show outline ring around badge' },
-      { name: 'isInvisible', type: 'boolean', defaultValue: 'false', description: 'Hide the badge' },
-      { name: 'isDot', type: 'boolean', defaultValue: 'false', description: 'Render as a small dot indicator' },
-      { name: 'disableAnimation', type: 'boolean', defaultValue: 'false', description: 'Disable scale animation' },
-      { name: 'customAppearance', type: '{ container?: ViewStyle; badge?: ViewStyle; text?: TextStyle }', defaultValue: '-', description: 'Custom style overrides' },
+      { name: 'placement', type: '"top-right" | "top-left" | "bottom-right" | "bottom-left"', defaultValue: '"top-right"', description: 'Corner the badge is anchored to' },
+      { name: 'showOutline', type: 'boolean', defaultValue: 'true', description: 'Show white outline ring between badge and its parent' },
+      { name: 'disableOutline', type: 'boolean', defaultValue: 'false', description: 'Force-remove the outline even when showOutline is true' },
+      { name: 'isInvisible', type: 'boolean', defaultValue: 'false', description: 'Hide the badge while preserving layout' },
+      { name: 'isDot', type: 'boolean', defaultValue: 'false', description: 'Render as a small dot with no content (sm: 8px, md: 10px, lg: 12px)' },
+      { name: 'isOneChar', type: 'boolean', defaultValue: 'false', description: 'Optimise layout for a single character (e.g. "9")' },
+      { name: 'disableAnimation', type: 'boolean', defaultValue: 'false', description: 'Disable the entrance scale animation' },
+      { name: 'customAppearance', type: '{ container?: ViewStyle; badge?: ViewStyle; text?: TextStyle }', defaultValue: '-', description: 'Custom style overrides for container, badge pill, and text' },
+    ],
+    examples: [
+      {
+        title: 'Basic Count',
+        description: 'Attach a numeric badge to any element.',
+        code: `import { Badge } from '@xaui/native/badge'
+import { IconButton } from '@xaui/native/button'
+import { NotificationsIcon } from '@xaui/icons/notifications'
+
+export function BasicExample() {
+  return (
+    <Badge content={3}>
+      <IconButton icon={<NotificationsIcon />} onPress={() => {}} />
+    </Badge>
+  )
+}`,
+      },
+      {
+        title: 'Dot Indicator',
+        description: 'Use isDot for a minimal status indicator with no content.',
+        code: `import { Badge } from '@xaui/native/badge'
+import { Avatar } from '@xaui/native/avatar'
+import { Row } from '@xaui/native/view'
+
+export function DotExample() {
+  return (
+    <Row gap={16}>
+      <Badge isDot themeColor="success">
+        <Avatar label="Online" />
+      </Badge>
+      <Badge isDot themeColor="danger">
+        <Avatar label="Busy" />
+      </Badge>
+      <Badge isDot themeColor="default">
+        <Avatar label="Away" />
+      </Badge>
+    </Row>
+  )
+}`,
+      },
+      {
+        title: 'Variants',
+        description: 'Four visual styles available for badges.',
+        code: `import { Badge } from '@xaui/native/badge'
+import { IconButton } from '@xaui/native/button'
+import { BellIcon } from '@xaui/icons/bell'
+import { Row } from '@xaui/native/view'
+
+export function VariantsExample() {
+  return (
+    <Row gap={24}>
+      <Badge content={4} variant="solid" themeColor="primary">
+        <IconButton icon={<BellIcon />} onPress={() => {}} />
+      </Badge>
+      <Badge content={4} variant="flat" themeColor="primary">
+        <IconButton icon={<BellIcon />} onPress={() => {}} />
+      </Badge>
+      <Badge content={4} variant="faded" themeColor="primary">
+        <IconButton icon={<BellIcon />} onPress={() => {}} />
+      </Badge>
+      <Badge content={4} variant="shadow" themeColor="primary">
+        <IconButton icon={<BellIcon />} onPress={() => {}} />
+      </Badge>
+    </Row>
+  )
+}`,
+      },
+      {
+        title: 'Placements',
+        description: 'Position the badge on any corner of the wrapped element.',
+        code: `import { Badge } from '@xaui/native/badge'
+import { Avatar } from '@xaui/native/avatar'
+import { Row } from '@xaui/native/view'
+
+export function PlacementsExample() {
+  return (
+    <Row gap={24}>
+      <Badge content="1" placement="top-right">
+        <Avatar label="TR" />
+      </Badge>
+      <Badge content="2" placement="top-left">
+        <Avatar label="TL" />
+      </Badge>
+      <Badge content="3" placement="bottom-right">
+        <Avatar label="BR" />
+      </Badge>
+      <Badge content="4" placement="bottom-left">
+        <Avatar label="BL" />
+      </Badge>
+    </Row>
+  )
+}`,
+      },
+      {
+        title: 'Visibility Toggle',
+        description: 'Use isInvisible to conditionally hide the badge.',
+        code: `import { useState } from 'react'
+import { Badge } from '@xaui/native/badge'
+import { Button, IconButton } from '@xaui/native/button'
+import { NotificationsIcon } from '@xaui/icons/notifications'
+import { Row } from '@xaui/native/view'
+
+export function VisibilityExample() {
+  const [hasNotif, setHasNotif] = useState(true)
+
+  return (
+    <Row gap={16} alignItems="center">
+      <Badge content={5} isInvisible={!hasNotif}>
+        <IconButton icon={<NotificationsIcon />} onPress={() => {}} />
+      </Badge>
+      <Button onPress={() => setHasNotif(v => !v)}>
+        {hasNotif ? 'Clear' : 'Notify'}
+      </Button>
+    </Row>
+  )
+}`,
+      },
     ],
   },
 
@@ -722,57 +882,445 @@ export function AvatarGroupRenderCountExample() {
     props: [
       { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Content rendered inside the sheet' },
       { name: 'isOpen', type: 'boolean', defaultValue: '-', description: 'Controls whether the sheet is open' },
-      { name: 'snapPoints', type: '[number, ...number[]]', defaultValue: '-', description: 'Snap point heights (0–1 as percentage or pixels)' },
-      { name: 'initialSnapIndex', type: 'number', defaultValue: '0', description: 'Index of the initial snap point' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme' },
-      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"lg"', description: 'Top corner radius' },
-      { name: 'showBackdrop', type: 'boolean', defaultValue: 'true', description: 'Show backdrop overlay' },
-      { name: 'closeOnBackdropPress', type: 'boolean', defaultValue: 'true', description: 'Close when backdrop is pressed' },
-      { name: 'enableSwipeToDismiss', type: 'boolean', defaultValue: 'true', description: 'Allow swiping down to close' },
-      { name: 'showHandle', type: 'boolean', defaultValue: 'true', description: 'Show drag handle at top' },
-      { name: 'handleContent', type: 'ReactNode', defaultValue: '-', description: 'Custom handle element' },
-      { name: 'disableAnimation', type: 'boolean', defaultValue: 'false', description: 'Disable slide animation' },
-      { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Additional container styles' },
+      { name: 'snapPoints', type: '[number, ...number[]]', defaultValue: '[0.4, 0.9]', description: 'Array of snap heights as a fraction of the screen (0–1). First value is the collapsed height, subsequent values are expanded heights' },
+      { name: 'initialSnapIndex', type: 'number', defaultValue: '0', description: 'Index into snapPoints to open at' },
+      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"default"', description: 'Color theme applied to the sheet surface' },
+      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"lg"', description: 'Top corner radius of the sheet' },
+      { name: 'showBackdrop', type: 'boolean', defaultValue: 'true', description: 'Show a semi-transparent backdrop behind the sheet' },
+      { name: 'closeOnBackdropPress', type: 'boolean', defaultValue: 'true', description: 'Dismiss the sheet when the backdrop is pressed' },
+      { name: 'enableSwipeToDismiss', type: 'boolean', defaultValue: 'true', description: 'Allow swiping down past the first snap point to close' },
+      { name: 'showHandle', type: 'boolean', defaultValue: 'true', description: 'Show the drag handle pill at the top of the sheet' },
+      { name: 'handleContent', type: 'ReactNode', defaultValue: '-', description: 'Replace the default handle with a custom element' },
+      { name: 'disableAnimation', type: 'boolean', defaultValue: 'false', description: 'Disable all open/close/snap animations' },
+      { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Additional styles applied to the sheet surface' },
     ],
     events: [
-      { name: 'onClose', type: '() => void', description: 'Called when the sheet is dismissed' },
-      { name: 'onSnapChange', type: '(index: number) => void', description: 'Called when snap point changes' },
+      { name: 'onClose', type: '() => void', description: 'Called when the sheet is fully dismissed' },
+      { name: 'onSnapChange', type: '(index: number) => void', description: 'Called when the sheet snaps to a new point, with the snap index' },
+    ],
+    examples: [
+      {
+        title: 'Basic',
+        description: 'Open a sheet with a single snap point.',
+        code: `import { useState } from 'react'
+import { BottomSheet } from '@xaui/native/bottom-sheet'
+import { Button } from '@xaui/native/button'
+import { Typography } from '@xaui/native/typography'
+import { Column, Padding } from '@xaui/native/view'
+
+export function BasicExample() {
+  const [open, setOpen] = useState(false)
+
+  return (
+    <>
+      <Button onPress={() => setOpen(true)}>Open Sheet</Button>
+      <BottomSheet isOpen={open} onClose={() => setOpen(false)}>
+        <Padding all={24}>
+          <Column gap={12}>
+            <Typography variant="titleMedium">Bottom Sheet</Typography>
+            <Typography variant="bodyMedium">
+              Swipe down or tap the backdrop to dismiss.
+            </Typography>
+            <Button onPress={() => setOpen(false)}>Close</Button>
+          </Column>
+        </Padding>
+      </BottomSheet>
+    </>
+  )
+}`,
+      },
+      {
+        title: 'Multiple Snap Points',
+        description: 'Define several heights the sheet can snap to.',
+        code: `import { useState } from 'react'
+import { BottomSheet } from '@xaui/native/bottom-sheet'
+import { Button } from '@xaui/native/button'
+import { Typography } from '@xaui/native/typography'
+import { Column, Padding } from '@xaui/native/view'
+
+export function MultiSnapExample() {
+  const [open, setOpen] = useState(false)
+  const [snapIndex, setSnapIndex] = useState(0)
+
+  return (
+    <>
+      <Button onPress={() => setOpen(true)}>Open Sheet</Button>
+      <BottomSheet
+        isOpen={open}
+        snapPoints={[0.3, 0.6, 0.9]}
+        initialSnapIndex={0}
+        onClose={() => setOpen(false)}
+        onSnapChange={setSnapIndex}
+      >
+        <Padding all={24}>
+          <Column gap={12}>
+            <Typography variant="titleMedium">
+              Snap index: {snapIndex}
+            </Typography>
+            <Typography variant="bodyMedium">
+              Drag the handle up or down to snap between 30 %, 60 %, and 90 % heights.
+            </Typography>
+          </Column>
+        </Padding>
+      </BottomSheet>
+    </>
+  )
+}`,
+      },
+      {
+        title: 'Custom Handle',
+        description: 'Replace the default handle with your own element.',
+        code: `import { useState } from 'react'
+import { BottomSheet } from '@xaui/native/bottom-sheet'
+import { Button } from '@xaui/native/button'
+import { Typography } from '@xaui/native/typography'
+import { Column, Padding, Row } from '@xaui/native/view'
+import { View } from 'react-native'
+
+export function CustomHandleExample() {
+  const [open, setOpen] = useState(false)
+
+  const handle = (
+    <Padding horizontal={24} vertical={16}>
+      <Row justifyContent="space-between" alignItems="center">
+        <Typography variant="titleSmall">Options</Typography>
+        <Button size="sm" variant="light" onPress={() => setOpen(false)}>
+          Done
+        </Button>
+      </Row>
+    </Padding>
+  )
+
+  return (
+    <>
+      <Button onPress={() => setOpen(true)}>Open Sheet</Button>
+      <BottomSheet
+        isOpen={open}
+        showHandle={false}
+        handleContent={handle}
+        onClose={() => setOpen(false)}
+      >
+        <Padding horizontal={24} bottom={32}>
+          <Column gap={8}>
+            {['Option A', 'Option B', 'Option C'].map(label => (
+              <Button key={label} variant="flat" fullWidth onPress={() => setOpen(false)}>
+                {label}
+              </Button>
+            ))}
+          </Column>
+        </Padding>
+      </BottomSheet>
+    </>
+  )
+}`,
+      },
+      {
+        title: 'Theme Colors',
+        description: 'Style the sheet surface with a theme color.',
+        code: `import { useState } from 'react'
+import { BottomSheet } from '@xaui/native/bottom-sheet'
+import { Button } from '@xaui/native/button'
+import { Typography } from '@xaui/native/typography'
+import { Column, Padding } from '@xaui/native/view'
+
+export function ThemeColorsExample() {
+  const [color, setColor] = useState<string | null>(null)
+
+  return (
+    <Column gap={8}>
+      {(['primary', 'success', 'warning', 'danger'] as const).map(c => (
+        <Button key={c} themeColor={c} onPress={() => setColor(c)}>
+          Open {c}
+        </Button>
+      ))}
+      <BottomSheet
+        isOpen={color !== null}
+        themeColor={color as 'primary' | 'success' | 'warning' | 'danger'}
+        onClose={() => setColor(null)}
+      >
+        <Padding all={24}>
+          <Typography variant="titleMedium" style={{ textTransform: 'capitalize' }}>
+            {color} sheet
+          </Typography>
+        </Padding>
+      </BottomSheet>
+    </Column>
+  )
+}`,
+      },
     ],
   },
 
   'bottom-tab-bar': {
     props: [
-      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'BottomTabBarItem children' },
+      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'BottomTabBarItem children (composable mode)' },
       { name: 'selectedKey', type: 'string', defaultValue: '-', description: 'Controlled selected tab key' },
-      { name: 'defaultSelectedKey', type: 'string', defaultValue: '-', description: 'Initial selected key (uncontrolled)' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme' },
-      { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Tab bar size' },
-      { name: 'variant', type: '"stacked" | "inline" | "icon-only"', defaultValue: '"stacked"', description: 'Layout variant' },
-      { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable all tab items' },
-      { name: 'showLabel', type: 'boolean', defaultValue: 'true', description: 'Show labels under icons' },
-      { name: 'insetBottom', type: 'number', defaultValue: '0', description: 'Bottom inset for safe area' },
-      { name: 'activeColor', type: 'string', defaultValue: '-', description: 'Active tab color override' },
-      { name: 'inactiveColor', type: 'string', defaultValue: '-', description: 'Inactive tab color override' },
-      { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Additional container styles' },
+      { name: 'defaultSelectedKey', type: 'string', defaultValue: '-', description: 'Initial selected key for uncontrolled usage' },
+      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme applied to the active indicator, active icon, and active label' },
+      { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Component size (sm: 68px, md: 78px, lg: 86px min-height)' },
+      { name: 'variant', type: '"stacked" | "inline" | "icon-only"', defaultValue: '"stacked"', description: 'Layout variant: stacked places label below icon, inline places it beside, icon-only hides labels' },
+      { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable all tab items at once' },
+      { name: 'showLabel', type: 'boolean', defaultValue: 'true', description: 'Show or hide labels on all items. Individual items can override this' },
+      { name: 'insetBottom', type: 'number', defaultValue: '0', description: 'Extra bottom padding for safe-area insets (e.g. iPhone home indicator)' },
+      { name: 'activeColor', type: 'string', defaultValue: '-', description: 'Override active icon and label colour for all items' },
+      { name: 'inactiveColor', type: 'string', defaultValue: '-', description: 'Override inactive icon and label colour for all items' },
+      { name: 'indicatorColor', type: 'string', defaultValue: '-', description: 'Override the selected-state pill indicator colour for all items' },
+      { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Additional styles for the root container' },
+      { name: 'customAppearance', type: '{ container?: StyleProp<ViewStyle> }', defaultValue: '-', description: 'Fine-grained style overrides for the container' },
     ],
     events: [
-      { name: 'onSelectionChange', type: '(key: string) => void', description: 'Called when a tab is selected' },
+      { name: 'onSelectionChange', type: '(key: string) => void', description: 'Called when a tab is selected, receiving the itemKey of the pressed item' },
+    ],
+    examples: [
+      {
+        title: 'Basic',
+        description: 'Stacked variant with icons and labels.',
+        code: `import { useState } from 'react'
+import { BottomTabBar, BottomTabBarItem } from '@xaui/native/bottom-tab-bar'
+import { HomeIcon } from '@xaui/icons/home'
+import { SearchIcon } from '@xaui/icons/search'
+import { PersonIcon } from '@xaui/icons/person'
+
+export function BasicExample() {
+  const [selected, setSelected] = useState('home')
+
+  return (
+    <BottomTabBar selectedKey={selected} onSelectionChange={setSelected}>
+      <BottomTabBarItem itemKey="home" label="Home" icon={<HomeIcon />} />
+      <BottomTabBarItem itemKey="search" label="Search" icon={<SearchIcon />} />
+      <BottomTabBarItem itemKey="profile" label="Profile" icon={<PersonIcon />} />
+    </BottomTabBar>
+  )
+}`,
+      },
+      {
+        title: 'Variants',
+        description: 'Three layout variants: stacked, inline, and icon-only.',
+        code: `import { useState } from 'react'
+import { BottomTabBar, BottomTabBarItem } from '@xaui/native/bottom-tab-bar'
+import { Column } from '@xaui/native/view'
+import { HomeIcon } from '@xaui/icons/home'
+import { SearchIcon } from '@xaui/icons/search'
+import { PersonIcon } from '@xaui/icons/person'
+import { BookmarkIcon } from '@xaui/icons/bookmark'
+
+const items = [
+  { key: 'home', label: 'Home', icon: <HomeIcon /> },
+  { key: 'search', label: 'Search', icon: <SearchIcon /> },
+  { key: 'saved', label: 'Saved', icon: <BookmarkIcon /> },
+  { key: 'profile', label: 'Profile', icon: <PersonIcon /> },
+]
+
+export function VariantsExample() {
+  const [selected, setSelected] = useState('home')
+
+  return (
+    <Column gap={16}>
+      <BottomTabBar variant="stacked" selectedKey={selected} onSelectionChange={setSelected}>
+        {items.map(i => (
+          <BottomTabBarItem key={i.key} itemKey={i.key} label={i.label} icon={i.icon} />
+        ))}
+      </BottomTabBar>
+
+      <BottomTabBar variant="inline" selectedKey={selected} onSelectionChange={setSelected}>
+        {items.map(i => (
+          <BottomTabBarItem key={i.key} itemKey={i.key} label={i.label} icon={i.icon} />
+        ))}
+      </BottomTabBar>
+
+      <BottomTabBar variant="icon-only" selectedKey={selected} onSelectionChange={setSelected}>
+        {items.map(i => (
+          <BottomTabBarItem key={i.key} itemKey={i.key} label={i.label} icon={i.icon} />
+        ))}
+      </BottomTabBar>
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Sizes',
+        description: 'Three sizes control bar height and icon/label scaling.',
+        code: `import { useState } from 'react'
+import { BottomTabBar, BottomTabBarItem } from '@xaui/native/bottom-tab-bar'
+import { Column } from '@xaui/native/view'
+import { HomeIcon } from '@xaui/icons/home'
+import { SearchIcon } from '@xaui/icons/search'
+import { PersonIcon } from '@xaui/icons/person'
+
+export function SizesExample() {
+  const [selected, setSelected] = useState('home')
+
+  return (
+    <Column gap={16}>
+      {(['sm', 'md', 'lg'] as const).map(size => (
+        <BottomTabBar
+          key={size}
+          size={size}
+          selectedKey={selected}
+          onSelectionChange={setSelected}
+        >
+          <BottomTabBarItem itemKey="home" label="Home" icon={<HomeIcon />} />
+          <BottomTabBarItem itemKey="search" label="Search" icon={<SearchIcon />} />
+          <BottomTabBarItem itemKey="profile" label="Profile" icon={<PersonIcon />} />
+        </BottomTabBar>
+      ))}
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Theme Colors',
+        description: 'Apply a design system color to the active indicator.',
+        code: `import { useState } from 'react'
+import { BottomTabBar, BottomTabBarItem } from '@xaui/native/bottom-tab-bar'
+import { Column } from '@xaui/native/view'
+import { HomeIcon } from '@xaui/icons/home'
+import { SearchIcon } from '@xaui/icons/search'
+import { PersonIcon } from '@xaui/icons/person'
+
+export function ThemeColorsExample() {
+  const [selected, setSelected] = useState('home')
+
+  return (
+    <Column gap={16}>
+      {(['primary', 'secondary', 'success', 'danger'] as const).map(color => (
+        <BottomTabBar
+          key={color}
+          themeColor={color}
+          selectedKey={selected}
+          onSelectionChange={setSelected}
+        >
+          <BottomTabBarItem itemKey="home" label="Home" icon={<HomeIcon />} />
+          <BottomTabBarItem itemKey="search" label="Search" icon={<SearchIcon />} />
+          <BottomTabBarItem itemKey="profile" label="Profile" icon={<PersonIcon />} />
+        </BottomTabBar>
+      ))}
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Badge on Item',
+        description: 'Attach a Badge component to any tab item.',
+        code: `import { useState } from 'react'
+import { BottomTabBar, BottomTabBarItem } from '@xaui/native/bottom-tab-bar'
+import { Badge } from '@xaui/native/badge'
+import { HomeIcon } from '@xaui/icons/home'
+import { NotificationsIcon } from '@xaui/icons/notifications'
+import { PersonIcon } from '@xaui/icons/person'
+
+export function BadgeExample() {
+  const [selected, setSelected] = useState('home')
+
+  return (
+    <BottomTabBar selectedKey={selected} onSelectionChange={setSelected}>
+      <BottomTabBarItem itemKey="home" label="Home" icon={<HomeIcon />} />
+      <BottomTabBarItem
+        itemKey="notifications"
+        label="Alerts"
+        icon={<NotificationsIcon />}
+        badge={<Badge content={5} size="sm" />}
+      />
+      <BottomTabBarItem itemKey="profile" label="Profile" icon={<PersonIcon />} />
+    </BottomTabBar>
+  )
+}`,
+      },
+      {
+        title: 'Active Icon',
+        description: 'Swap to a filled icon variant when a tab is selected.',
+        code: `import { useState } from 'react'
+import { BottomTabBar, BottomTabBarItem } from '@xaui/native/bottom-tab-bar'
+import { HomeIcon } from '@xaui/icons/home'
+import { HomeFilledIcon } from '@xaui/icons/home-filled'
+import { SearchIcon } from '@xaui/icons/search'
+import { PersonIcon } from '@xaui/icons/person'
+import { PersonFilledIcon } from '@xaui/icons/person-filled'
+
+export function ActiveIconExample() {
+  const [selected, setSelected] = useState('home')
+
+  return (
+    <BottomTabBar selectedKey={selected} onSelectionChange={setSelected}>
+      <BottomTabBarItem
+        itemKey="home"
+        label="Home"
+        icon={<HomeIcon />}
+        activeIcon={<HomeFilledIcon />}
+      />
+      <BottomTabBarItem itemKey="search" label="Search" icon={<SearchIcon />} />
+      <BottomTabBarItem
+        itemKey="profile"
+        label="Profile"
+        icon={<PersonIcon />}
+        activeIcon={<PersonFilledIcon />}
+      />
+    </BottomTabBar>
+  )
+}`,
+      },
+      {
+        title: 'Expo Router Integration',
+        description: 'Pass expo-router tab props directly to replace the default tab bar.',
+        code: `import { Tabs } from 'expo-router'
+import { BottomTabBar } from '@xaui/native/bottom-tab-bar'
+import { HomeIcon } from '@xaui/icons/home'
+import { SearchIcon } from '@xaui/icons/search'
+import { PersonIcon } from '@xaui/icons/person'
+
+export default function TabLayout() {
+  return (
+    <Tabs
+      tabBar={props => <BottomTabBar {...props} themeColor="primary" />}
+    >
+      <Tabs.Screen
+        name="index"
+        options={{
+          title: 'Home',
+          tabBarIcon: ({ color, size }) => <HomeIcon color={color} size={size} />,
+        }}
+      />
+      <Tabs.Screen
+        name="search"
+        options={{
+          title: 'Search',
+          tabBarIcon: ({ color, size }) => <SearchIcon color={color} size={size} />,
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: 'Profile',
+          tabBarIcon: ({ color, size }) => <PersonIcon color={color} size={size} />,
+        }}
+      />
+    </Tabs>
+  )
+}`,
+      },
     ],
     subComponents: [
       {
         name: 'BottomTabBarItem',
         props: [
-          { name: 'itemKey', type: 'string', defaultValue: '-', description: 'Unique key for this tab item' },
-          { name: 'label', type: 'ReactNode', defaultValue: '-', description: 'Tab label' },
-          { name: 'icon', type: 'ReactNode', defaultValue: '-', description: 'Tab icon' },
-          { name: 'activeIcon', type: 'ReactNode', defaultValue: '-', description: 'Icon shown when tab is active' },
-          { name: 'badge', type: 'ReactNode', defaultValue: '-', description: 'Badge element on the tab' },
-          { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable this tab item' },
-          { name: 'showLabel', type: 'boolean', defaultValue: 'true', description: 'Show label for this item' },
-          { name: 'customAppearance', type: 'BottomTabBarItemCustomAppearance', defaultValue: '-', description: 'Custom style overrides' },
+          { name: 'itemKey', type: 'string', defaultValue: '-', description: 'Unique identifier used to track selection. Must be unique within the bar' },
+          { name: 'label', type: 'ReactNode', defaultValue: '-', description: 'Label text or element. Also accepts a render function with (focused, color, position) params' },
+          { name: 'icon', type: 'ReactNode | (params: BottomTabBarIconRenderParams) => ReactNode', defaultValue: '-', description: 'Icon element or render function receiving focused, color, and size' },
+          { name: 'activeIcon', type: 'ReactNode | (params: BottomTabBarIconRenderParams) => ReactNode', defaultValue: '-', description: 'Alternate icon shown when the item is selected. Falls back to icon if omitted' },
+          { name: 'badge', type: 'ReactNode', defaultValue: '-', description: 'Badge element anchored top-right of the icon (use the Badge component)' },
+          { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable this specific item. Renders at 50% opacity and ignores press events' },
+          { name: 'isSelected', type: 'boolean', defaultValue: '-', description: 'Force the selected state independent of the parent bar (standalone mode)' },
+          { name: 'showLabel', type: 'boolean', defaultValue: '-', description: 'Override the parent bar showLabel for this item only' },
+          { name: 'activeColor', type: 'string', defaultValue: '-', description: 'Per-item active icon and label colour override' },
+          { name: 'inactiveColor', type: 'string', defaultValue: '-', description: 'Per-item inactive icon and label colour override' },
+          { name: 'indicatorColor', type: 'string', defaultValue: '-', description: 'Per-item selection indicator colour override' },
+          { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Additional styles for the item pressable container' },
+          { name: 'customAppearance', type: '{ container?: StyleProp<ViewStyle>; indicator?: StyleProp<ViewStyle>; label?: StyleProp<TextStyle> }', defaultValue: '-', description: 'Fine-grained style overrides for container, pill indicator, and label' },
+          { name: 'accessibilityLabel', type: 'string', defaultValue: '-', description: 'Accessibility label for screen readers' },
+          { name: 'testID', type: 'string', defaultValue: '-', description: 'Test identifier for end-to-end testing' },
         ],
         events: [
-          { name: 'onPress', type: '(event: GestureResponderEvent) => void', description: 'Called when the tab is pressed' },
+          { name: 'onPress', type: '(event: GestureResponderEvent) => void', description: 'Called when the tab is pressed (not fired when isDisabled is true)' },
           { name: 'onLongPress', type: '(event: GestureResponderEvent) => void', description: 'Called on long press' },
         ],
       },
@@ -1208,49 +1756,213 @@ export function HeroCarouselExample() {
 
   chart: {
     props: [
-      { name: 'title', type: 'string', defaultValue: '-', description: 'Chart card title' },
-      { name: 'data', type: 'ChartDataItem[]', defaultValue: '-', description: 'Chart data array' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme' },
-      { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Additional container styles' },
+      { name: 'title', type: 'string', defaultValue: '-', description: 'Chart card title rendered in the header' },
+      { name: 'data', type: 'varies per chart', defaultValue: '-', description: 'Data array — shape depends on which chart component is used (see sub-components below)' },
+      { name: 'elevation', type: 'number', defaultValue: '0', description: 'Shadow elevation level' },
+      { name: 'backgroundColor', type: 'string', defaultValue: '"#6a6a6a30"', description: 'Card background color' },
+      { name: 'textColor', type: 'string', defaultValue: '"#ffffff"', description: 'Text color for labels, title, and axis values' },
+      { name: 'size', type: 'number', defaultValue: 'varies', description: 'Chart size in pixels. Acts as diameter for circular charts and height proxy for line/bar charts' },
+      { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Additional styles for the card container' },
+    ],
+    examples: [
+      {
+        title: 'Donut Chart',
+        description: 'Ring chart with a centre label, legend, and configurable stroke width.',
+        code: `import { DonutChartCard } from '@xaui/native/chart'
+
+export function DonutExample() {
+  return (
+    <DonutChartCard
+      title="Revenue"
+      total="$12 400"
+      data={[
+        { label: 'Product A', value: 42, color: '#6366F1' },
+        { label: 'Product B', value: 28, color: '#22D3EE' },
+        { label: 'Product C', value: 18, color: '#F59E0B' },
+        { label: 'Product D', value: 12, color: '#10B981' },
+      ]}
+      legendPosition="bottom"
+    />
+  )
+}`,
+      },
+      {
+        title: 'Pie Chart',
+        description: 'Filled pie chart with optional legend.',
+        code: `import { PieChartCard } from '@xaui/native/chart'
+
+export function PieExample() {
+  return (
+    <PieChartCard
+      title="Market Share"
+      data={[
+        { label: 'iOS', value: 57, color: '#6366F1' },
+        { label: 'Android', value: 38, color: '#22D3EE' },
+        { label: 'Other', value: 5, color: '#F59E0B' },
+      ]}
+      legendPosition="right"
+      size={200}
+    />
+  )
+}`,
+      },
+      {
+        title: 'Line Chart',
+        description: 'Smooth or direct line chart with optional area fill and data point markers.',
+        code: `import { LineChartCard } from '@xaui/native/chart'
+
+export function LineExample() {
+  return (
+    <LineChartCard
+      title="Monthly Sales"
+      lineMode="smooth"
+      showPoints
+      showAxes
+      data={[
+        { label: 'Jan', value: 30 },
+        { label: 'Feb', value: 55 },
+        { label: 'Mar', value: 42 },
+        { label: 'Apr', value: 70 },
+        { label: 'May', value: 61 },
+        { label: 'Jun', value: 88 },
+      ]}
+    />
+  )
+}`,
+      },
+      {
+        title: 'Vertical Bar Chart',
+        description: 'Bar chart with per-bar colour, axis labels, and optional full legend.',
+        code: `import { VerticalBarChartCard } from '@xaui/native/chart'
+
+export function BarExample() {
+  return (
+    <VerticalBarChartCard
+      title="Weekly Activity"
+      showAxes
+      data={[
+        { label: 'Mon', value: 12, color: '#6366F1' },
+        { label: 'Tue', value: 28, color: '#22D3EE' },
+        { label: 'Wed', value: 19, color: '#F59E0B' },
+        { label: 'Thu', value: 35, color: '#10B981' },
+        { label: 'Fri', value: 42, color: '#EF4444' },
+        { label: 'Sat', value: 8,  color: '#8B5CF6' },
+        { label: 'Sun', value: 5,  color: '#EC4899' },
+      ]}
+    />
+  )
+}`,
+      },
+      {
+        title: 'Heatmap Chart',
+        description: 'Grid heatmap interpolating between two colours based on cell intensity.',
+        code: `import { HeatmapChartCard } from '@xaui/native/chart'
+
+export function HeatmapExample() {
+  return (
+    <HeatmapChartCard
+      title="Commit Activity"
+      xLabels={['Mon', 'Tue', 'Wed', 'Thu', 'Fri']}
+      yLabels={['W1', 'W2', 'W3', 'W4']}
+      showValues
+      startColor="#3B82F6"
+      endColor="#EF4444"
+      data={[
+        [3, 8, 2, 14, 6],
+        [1, 5, 9, 3, 12],
+        [7, 2, 15, 1, 4],
+        [10, 6, 3, 8, 2],
+      ]}
+    />
+  )
+}`,
+      },
     ],
     subComponents: [
       {
         name: 'DonutChartCard',
         props: [
-          { name: 'title', type: 'string', defaultValue: '-', description: 'Chart title' },
-          { name: 'data', type: 'DonutChartItem[]', defaultValue: '-', description: 'Segments data' },
-          { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme' },
+          { name: 'data', type: 'DonutChartDataItem[]', defaultValue: '-', description: 'Segments: { label, value, color, labelColor? }' },
+          { name: 'title', type: 'string', defaultValue: '-', description: 'Text shown in the centre of the donut' },
+          { name: 'total', type: 'string | number', defaultValue: '-', description: 'Value shown in the centre below the title' },
+          { name: 'showLegend', type: 'boolean', defaultValue: 'true', description: 'Show colour legend' },
+          { name: 'legendPosition', type: '"top" | "left" | "right" | "bottom"', defaultValue: '"top"', description: 'Legend placement' },
+          { name: 'size', type: 'number', defaultValue: '250', description: 'Outer diameter in px' },
+          { name: 'strokeWidth', type: 'number', defaultValue: 'auto', description: 'Ring thickness in px. Auto-calculated from size if omitted (6–22px)' },
+          { name: 'elevation', type: 'number', defaultValue: '0', description: 'Shadow elevation' },
+          { name: 'backgroundColor', type: 'string', defaultValue: '"#6a6a6a30"', description: 'Card background' },
+          { name: 'textColor', type: 'string', defaultValue: '"#ffffff"', description: 'Text color' },
+          { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Container styles' },
         ],
       },
       {
         name: 'PieChartCard',
         props: [
-          { name: 'title', type: 'string', defaultValue: '-', description: 'Chart title' },
-          { name: 'data', type: 'PieChartItem[]', defaultValue: '-', description: 'Slices data' },
-        ],
-      },
-      {
-        name: 'VerticalBarChartCard',
-        props: [
-          { name: 'title', type: 'string', defaultValue: '-', description: 'Chart title' },
-          { name: 'data', type: 'BarChartItem[]', defaultValue: '-', description: 'Bar data' },
-          { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme' },
+          { name: 'data', type: 'PieChartDataItem[]', defaultValue: '-', description: 'Slices: { label, value, color, labelColor? }' },
+          { name: 'title', type: 'string', defaultValue: '-', description: 'Card title' },
+          { name: 'total', type: 'string | number', defaultValue: '-', description: 'Total value shown in header' },
+          { name: 'showLegend', type: 'boolean', defaultValue: 'true', description: 'Show colour legend' },
+          { name: 'legendPosition', type: '"top" | "left" | "right" | "bottom"', defaultValue: '"bottom"', description: 'Legend placement' },
+          { name: 'size', type: 'number', defaultValue: '220', description: 'Diameter in px (min 120)' },
+          { name: 'elevation', type: 'number', defaultValue: '0', description: 'Shadow elevation' },
+          { name: 'backgroundColor', type: 'string', defaultValue: '"#6a6a6a30"', description: 'Card background' },
+          { name: 'textColor', type: 'string', defaultValue: '"#ffffff"', description: 'Text color' },
+          { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Container styles' },
         ],
       },
       {
         name: 'LineChartCard',
         props: [
-          { name: 'title', type: 'string', defaultValue: '-', description: 'Chart title' },
-          { name: 'data', type: 'LineChartItem[]', defaultValue: '-', description: 'Line data points' },
-          { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme' },
+          { name: 'data', type: 'LineChartDataItem[]', defaultValue: '-', description: 'Points: { label, value }' },
+          { name: 'title', type: 'string', defaultValue: '-', description: 'Card title' },
+          { name: 'lineMode', type: '"smooth" | "direct"', defaultValue: '"smooth"', description: 'Smooth uses cubic Bezier curves; direct draws straight segments' },
+          { name: 'lineColor', type: 'string', defaultValue: '"#57C9ED"', description: 'Line stroke color' },
+          { name: 'areaColor', type: 'string', defaultValue: '"rgba(87,201,237,0.16)"', description: 'Fill color under the line' },
+          { name: 'showPoints', type: 'boolean', defaultValue: 'false', description: 'Render a circle at each data point' },
+          { name: 'showAxes', type: 'boolean', defaultValue: 'false', description: 'Render X/Y axis grid lines and value labels' },
+          { name: 'abbreviateXAxisLabels', type: 'boolean', defaultValue: 'false', description: 'Truncate long X-axis labels' },
+          { name: 'xAxisAbbreviationLength', type: 'number', defaultValue: '3', description: 'Max characters for X-axis labels when abbreviation is on' },
+          { name: 'size', type: 'number', defaultValue: '280', description: 'Chart height proxy in px' },
+          { name: 'elevation', type: 'number', defaultValue: '0', description: 'Shadow elevation' },
+          { name: 'backgroundColor', type: 'string', defaultValue: '"#6a6a6a30"', description: 'Card background' },
+          { name: 'textColor', type: 'string', defaultValue: '"#ffffff"', description: 'Text color' },
+          { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Container styles' },
+        ],
+      },
+      {
+        name: 'VerticalBarChartCard',
+        props: [
+          { name: 'data', type: 'VerticalBarChartDataItem[]', defaultValue: '-', description: 'Bars: { label, value, color? }' },
+          { name: 'title', type: 'string', defaultValue: '-', description: 'Card title' },
+          { name: 'showAxes', type: 'boolean', defaultValue: 'false', description: 'Render Y-axis grid lines and value labels' },
+          { name: 'showFullLegendBelow', type: 'boolean', defaultValue: 'false', description: 'Render a full label+value legend below the chart' },
+          { name: 'justifyBars', type: 'boolean', defaultValue: 'false', description: 'Evenly distribute bars across the full chart width' },
+          { name: 'abbreviateXAxisLabels', type: 'boolean', defaultValue: 'false', description: 'Truncate long X-axis labels' },
+          { name: 'xAxisAbbreviationLength', type: 'number', defaultValue: '3', description: 'Max characters for X-axis labels' },
+          { name: 'size', type: 'number', defaultValue: '260', description: 'Chart height proxy in px' },
+          { name: 'elevation', type: 'number', defaultValue: '0', description: 'Shadow elevation' },
+          { name: 'backgroundColor', type: 'string', defaultValue: '"#6a6a6a30"', description: 'Card background' },
+          { name: 'textColor', type: 'string', defaultValue: '"#ffffff"', description: 'Text color' },
+          { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Container styles' },
         ],
       },
       {
         name: 'HeatmapChartCard',
         props: [
-          { name: 'title', type: 'string', defaultValue: '-', description: 'Chart title' },
-          { name: 'data', type: 'HeatmapItem[][]', defaultValue: '-', description: '2D heatmap data' },
-          { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme' },
+          { name: 'data', type: 'number[][]', defaultValue: '-', description: '2D row-major array of numeric values' },
+          { name: 'title', type: 'string', defaultValue: '-', description: 'Card title' },
+          { name: 'xLabels', type: 'string[]', defaultValue: '-', description: 'Column labels (truncated to 3 chars)' },
+          { name: 'yLabels', type: 'string[]', defaultValue: '-', description: 'Row labels (truncated to 5 chars)' },
+          { name: 'showValues', type: 'boolean', defaultValue: 'false', description: 'Render the numeric value inside each cell' },
+          { name: 'showLegend', type: 'boolean', defaultValue: 'true', description: 'Show a 5-stop colour gradient legend' },
+          { name: 'startColor', type: 'string', defaultValue: '"#3B82F6"', description: 'Color for the lowest value' },
+          { name: 'endColor', type: 'string', defaultValue: '"#EF4444"', description: 'Color for the highest value' },
+          { name: 'cellSize', type: 'number', defaultValue: '32', description: 'Cell width and height in px' },
+          { name: 'cellGap', type: 'number', defaultValue: '4', description: 'Gap between cells in px' },
+          { name: 'elevation', type: 'number', defaultValue: '0', description: 'Shadow elevation' },
+          { name: 'backgroundColor', type: 'string', defaultValue: '"#6a6a6a30"', description: 'Card background' },
+          { name: 'textColor', type: 'string', defaultValue: '"#ffffff"', description: 'Text color' },
+          { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Container styles' },
         ],
       },
     ],
@@ -1258,25 +1970,25 @@ export function HeroCarouselExample() {
 
   checkbox: {
     props: [
-      { name: 'label', type: 'string', defaultValue: '-', description: 'Checkbox label text' },
+      { name: 'label', type: 'string', defaultValue: '-', description: 'Label text displayed next to the checkbox' },
       { name: 'isChecked', type: 'boolean', defaultValue: 'false', description: 'Controlled checked state' },
-      { name: 'isIndeterminate', type: 'boolean', defaultValue: 'false', description: 'Indeterminate state' },
-      { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable interaction' },
-      { name: 'variant', type: '"filled" | "light"', defaultValue: '"filled"', description: 'Visual style variant' },
+      { name: 'isIndeterminate', type: 'boolean', defaultValue: 'false', description: 'Shows a dash instead of a checkmark — use for a "select all" that is partially checked' },
+      { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable interaction and reduce opacity' },
+      { name: 'variant', type: '"filled" | "light"', defaultValue: '"filled"', description: 'filled: solid background when checked. light: transparent with coloured border and animated checkmark' },
       { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme' },
-      { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Checkbox size' },
-      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"sm"', description: 'Border radius' },
-      { name: 'labelAlignment', type: '"left" | "right" | "justify-left" | "justify-right"', defaultValue: '"right"', description: 'Label position relative to checkbox' },
-      { name: 'fullWidth', type: 'boolean', defaultValue: 'false', description: 'Expand to full container width' },
-      { name: 'labelStyle', type: 'TextStyle', defaultValue: '-', description: 'Custom label text styles' },
+      { name: 'size', type: '"xs" | "sm" | "md" | "lg"', defaultValue: '"md"', description: 'Checkbox size (xs: 14px, sm: 18px, md: 22px, lg: 26px)' },
+      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"sm"', description: 'Border radius of the checkbox box' },
+      { name: 'labelAlignment', type: '"left" | "right" | "justify-left" | "justify-right"', defaultValue: '"right"', description: 'Label side. justify-* variants push the checkbox and label to opposite ends (requires fullWidth)' },
+      { name: 'fullWidth', type: 'boolean', defaultValue: 'false', description: 'Expand to fill the container width' },
+      { name: 'labelStyle', type: 'TextStyle', defaultValue: '-', description: 'Custom styles for the label text' },
       { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Additional container styles' },
     ],
     events: [
-      { name: 'onValueChange', type: '(isChecked: boolean) => void', description: 'Called when checked state changes' },
+      { name: 'onValueChange', type: '(isChecked: boolean) => void', description: 'Called with the new boolean state when the user toggles the checkbox' },
     ],
     examples: [
       {
-        title: 'Basic Checkbox',
+        title: 'Basic',
         description: 'A simple labeled checkbox.',
         code: `import { Checkbox } from '@xaui/native/checkbox'
 
@@ -1285,7 +1997,39 @@ export function BasicExample() {
 }`,
       },
       {
-        title: 'Controlled State',
+        title: 'Variants',
+        description: 'Filled has a solid background; light keeps a transparent background with a coloured border.',
+        code: `import { Checkbox } from '@xaui/native/checkbox'
+import { Column } from '@xaui/native/view'
+
+export function VariantsExample() {
+  return (
+    <Column gap={12}>
+      <Checkbox label="Filled (default)" variant="filled" isChecked />
+      <Checkbox label="Light" variant="light" isChecked />
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Sizes',
+        description: 'Four sizes from extra-small to large.',
+        code: `import { Checkbox } from '@xaui/native/checkbox'
+import { Column } from '@xaui/native/view'
+
+export function SizesExample() {
+  return (
+    <Column gap={12}>
+      <Checkbox label="Extra small" size="xs" isChecked />
+      <Checkbox label="Small" size="sm" isChecked />
+      <Checkbox label="Medium" size="md" isChecked />
+      <Checkbox label="Large" size="lg" isChecked />
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Controlled',
         description: 'Drive the checked state from React.',
         code: `import { useState } from 'react'
 import { Checkbox } from '@xaui/native/checkbox'
@@ -1303,21 +2047,80 @@ export function ControlledExample() {
 }`,
       },
       {
-        title: 'Indeterminate State',
-        description: 'Represent a partially selected group.',
-        code: `import { Checkbox } from '@xaui/native/checkbox'
+        title: 'Select All with Indeterminate',
+        description: 'Drive a parent checkbox from a list of children.',
+        code: `import { useState } from 'react'
+import { Checkbox } from '@xaui/native/checkbox'
+import { Column } from '@xaui/native/view'
+
+const items = ['Option A', 'Option B', 'Option C']
 
 export function IndeterminateExample() {
-  return <Checkbox label="Select all" isIndeterminate />
+  const [checked, setChecked] = useState<string[]>([])
+
+  const allChecked = checked.length === items.length
+  const someChecked = checked.length > 0 && !allChecked
+
+  const toggleAll = () => setChecked(allChecked ? [] : items)
+  const toggle = (item: string) =>
+    setChecked(prev =>
+      prev.includes(item) ? prev.filter(i => i !== item) : [...prev, item]
+    )
+
+  return (
+    <Column gap={8}>
+      <Checkbox
+        label="Select all"
+        isChecked={allChecked}
+        isIndeterminate={someChecked}
+        onValueChange={toggleAll}
+      />
+      {items.map(item => (
+        <Checkbox
+          key={item}
+          label={item}
+          isChecked={checked.includes(item)}
+          onValueChange={() => toggle(item)}
+          style={{ marginLeft: 24 }}
+        />
+      ))}
+    </Column>
+  )
 }`,
       },
       {
-        title: 'Disabled',
-        description: 'Prevent user interaction.',
+        title: 'Label Alignment',
+        description: 'Place the label on either side or use justify variants to push them apart.',
         code: `import { Checkbox } from '@xaui/native/checkbox'
+import { Column } from '@xaui/native/view'
 
-export function DisabledExample() {
-  return <Checkbox label="Disabled option" isDisabled />
+export function LabelAlignmentExample() {
+  return (
+    <Column gap={12}>
+      <Checkbox label="Right (default)" labelAlignment="right" isChecked />
+      <Checkbox label="Left" labelAlignment="left" isChecked />
+      <Checkbox label="Justify right" labelAlignment="justify-right" fullWidth isChecked />
+      <Checkbox label="Justify left" labelAlignment="justify-left" fullWidth isChecked />
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Theme Colors',
+        description: 'Apply any design system color.',
+        code: `import { Checkbox } from '@xaui/native/checkbox'
+import { Column } from '@xaui/native/view'
+
+export function ThemeColorsExample() {
+  return (
+    <Column gap={12}>
+      <Checkbox label="Primary" themeColor="primary" isChecked />
+      <Checkbox label="Secondary" themeColor="secondary" isChecked />
+      <Checkbox label="Success" themeColor="success" isChecked />
+      <Checkbox label="Danger" themeColor="danger" isChecked />
+      <Checkbox label="Warning" themeColor="warning" isChecked />
+    </Column>
+  )
 }`,
       },
     ],
@@ -1326,81 +2129,170 @@ export function DisabledExample() {
   chip: {
     props: [
       { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Chip label content' },
-      { name: 'variant', type: '"solid" | "bordered" | "light" | "flat" | "faded" | "shadow" | "dot"', defaultValue: '"solid"', description: 'Visual style variant' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme' },
-      { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Chip size' },
-      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"full"', description: 'Border radius' },
-      { name: 'avatar', type: 'ReactNode', defaultValue: '-', description: 'Avatar element at start' },
-      { name: 'startContent', type: 'ReactNode', defaultValue: '-', description: 'Element at start of chip' },
-      { name: 'endContent', type: 'ReactNode', defaultValue: '-', description: 'Element at end of chip' },
-      { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable interaction' },
-      { name: 'customAppearance', type: 'ChipCustomAppearance', defaultValue: '-', description: 'Custom style overrides' },
+      { name: 'variant', type: '"solid" | "bordered" | "light" | "flat" | "faded" | "shadow" | "dot"', defaultValue: '"solid"', description: '7 visual styles. dot renders a coloured indicator at the start' },
+      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"default"', description: 'Color theme' },
+      { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Chip size (sm: 32px, md: 40px, lg: 44px height)' },
+      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"full"', description: 'Border radius. full uses height/2 for a pill shape' },
+      { name: 'avatar', type: 'ReactNode', defaultValue: '-', description: 'Avatar element displayed at the leading edge' },
+      { name: 'startContent', type: 'ReactNode', defaultValue: '-', description: 'Arbitrary element at the leading edge (replaces avatar if both provided)' },
+      { name: 'endContent', type: 'ReactNode', defaultValue: '-', description: 'Arbitrary element at the trailing edge. Hidden when onClose is provided' },
+      { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable interaction and reduce opacity to 50%' },
+      { name: 'customAppearance', type: '{ container?: ViewStyle; text?: TextStyle; closeButton?: ViewStyle; dot?: ViewStyle }', defaultValue: '-', description: 'Fine-grained style overrides' },
     ],
     events: [
-      { name: 'onClose', type: '() => void', description: 'Called when close button is pressed' },
-      { name: 'onPress', type: '() => void', description: 'Called when chip is pressed' },
+      { name: 'onClose', type: '() => void', description: 'Providing this prop renders a close (✕) button; called when it is pressed. The chip animates out before calling this' },
+      { name: 'onPress', type: '() => void', description: 'Called when the chip body is pressed' },
     ],
     examples: [
       {
         title: 'Variants',
-        description: 'All chip visual styles.',
+        description: 'All seven visual styles.',
         code: `import { Chip } from '@xaui/native/chip'
 import { Row } from '@xaui/native/view'
 
 export function VariantsExample() {
   return (
     <Row gap={8} flexWrap="wrap">
-      <Chip variant="solid">Solid</Chip>
-      <Chip variant="bordered">Bordered</Chip>
-      <Chip variant="light">Light</Chip>
-      <Chip variant="flat">Flat</Chip>
-      <Chip variant="faded">Faded</Chip>
-      <Chip variant="shadow">Shadow</Chip>
-      <Chip variant="dot">Dot</Chip>
+      <Chip variant="solid" themeColor="primary">Solid</Chip>
+      <Chip variant="bordered" themeColor="primary">Bordered</Chip>
+      <Chip variant="light" themeColor="primary">Light</Chip>
+      <Chip variant="flat" themeColor="primary">Flat</Chip>
+      <Chip variant="faded" themeColor="primary">Faded</Chip>
+      <Chip variant="shadow" themeColor="primary">Shadow</Chip>
+      <Chip variant="dot" themeColor="primary">Dot</Chip>
     </Row>
   )
 }`,
       },
       {
-        title: 'Closable Chip',
-        description: 'Show a close button to remove a chip.',
-        code: `import { useState } from 'react'
-import { Chip } from '@xaui/native/chip'
-
-export function ClosableExample() {
-  const [visible, setVisible] = useState(true)
-
-  if (!visible) return null
-  return <Chip onClose={() => setVisible(false)}>React Native</Chip>
-}`,
-      },
-      {
-        title: 'With Avatar',
-        description: 'Display an avatar at the start of the chip.',
-        code: `import { Chip } from '@xaui/native/chip'
-import { Avatar } from '@xaui/native/avatar'
-
-export function WithAvatarExample() {
-  return (
-    <Chip avatar={<Avatar name="Jane Doe" size="sm" />}>
-      Jane Doe
-    </Chip>
-  )
-}`,
-      },
-      {
         title: 'Sizes',
-        description: 'Adjust chip size with the size prop.',
+        description: 'Three sizes: sm (32px), md (40px), lg (44px).',
         code: `import { Chip } from '@xaui/native/chip'
 import { Row } from '@xaui/native/view'
 
 export function SizesExample() {
   return (
     <Row gap={8} alignItems="center">
-      <Chip size="sm">Small</Chip>
-      <Chip size="md">Medium</Chip>
-      <Chip size="lg">Large</Chip>
+      <Chip size="sm" themeColor="primary">Small</Chip>
+      <Chip size="md" themeColor="primary">Medium</Chip>
+      <Chip size="lg" themeColor="primary">Large</Chip>
     </Row>
+  )
+}`,
+      },
+      {
+        title: 'Closable',
+        description: 'Providing onClose renders a close button; the chip animates out when pressed.',
+        code: `import { useState } from 'react'
+import { Chip } from '@xaui/native/chip'
+import { Row } from '@xaui/native/view'
+
+const TAGS = ['React Native', 'TypeScript', 'Expo', 'Tailwind']
+
+export function ClosableExample() {
+  const [tags, setTags] = useState(TAGS)
+
+  return (
+    <Row gap={8} flexWrap="wrap">
+      {tags.map(tag => (
+        <Chip
+          key={tag}
+          themeColor="primary"
+          onClose={() => setTags(prev => prev.filter(t => t !== tag))}
+        >
+          {tag}
+        </Chip>
+      ))}
+    </Row>
+  )
+}`,
+      },
+      {
+        title: 'With Avatar',
+        description: 'Show an avatar at the leading edge.',
+        code: `import { Chip } from '@xaui/native/chip'
+import { Avatar } from '@xaui/native/avatar'
+import { Row } from '@xaui/native/view'
+
+export function WithAvatarExample() {
+  return (
+    <Row gap={8}>
+      <Chip avatar={<Avatar label="JD" size="sm" />} themeColor="primary">
+        Jane Doe
+      </Chip>
+      <Chip avatar={<Avatar label="JS" size="sm" />} themeColor="secondary">
+        John Smith
+      </Chip>
+    </Row>
+  )
+}`,
+      },
+      {
+        title: 'Theme Colors',
+        description: 'Apply any design system color.',
+        code: `import { Chip } from '@xaui/native/chip'
+import { Row } from '@xaui/native/view'
+
+export function ThemeColorsExample() {
+  return (
+    <Row gap={8} flexWrap="wrap">
+      <Chip themeColor="primary">Primary</Chip>
+      <Chip themeColor="secondary">Secondary</Chip>
+      <Chip themeColor="success">Success</Chip>
+      <Chip themeColor="danger">Danger</Chip>
+      <Chip themeColor="warning">Warning</Chip>
+    </Row>
+  )
+}`,
+      },
+      {
+        title: 'Single Selection (ChipGroup)',
+        description: 'Use ChipGroup with isSelectable and selectMode="single".',
+        code: `import { useState } from 'react'
+import { ChipGroup, ChipItem } from '@xaui/native/chip'
+
+export function SingleSelectionExample() {
+  const [selected, setSelected] = useState<string[]>(['react-native'])
+
+  return (
+    <ChipGroup
+      isSelectable
+      selectMode="single"
+      themeColor="primary"
+      selectedValues={selected}
+      onSelectionChange={setSelected}
+    >
+      <ChipItem value="react-native">React Native</ChipItem>
+      <ChipItem value="flutter">Flutter</ChipItem>
+      <ChipItem value="ionic">Ionic</ChipItem>
+      <ChipItem value="xamarin">Xamarin</ChipItem>
+    </ChipGroup>
+  )
+}`,
+      },
+      {
+        title: 'Multiple Selection (ChipGroup)',
+        description: 'Allow any number of chips to be selected simultaneously.',
+        code: `import { useState } from 'react'
+import { ChipGroup, ChipItem } from '@xaui/native/chip'
+
+export function MultipleSelectionExample() {
+  const [selected, setSelected] = useState<string[]>([])
+
+  return (
+    <ChipGroup
+      isSelectable
+      selectMode="multiple"
+      themeColor="secondary"
+      selectedValues={selected}
+      onSelectionChange={setSelected}
+    >
+      <ChipItem value="ts">TypeScript</ChipItem>
+      <ChipItem value="js">JavaScript</ChipItem>
+      <ChipItem value="python">Python</ChipItem>
+      <ChipItem value="go">Go</ChipItem>
+      <ChipItem value="rust">Rust</ChipItem>
+    </ChipGroup>
   )
 }`,
       },
@@ -1409,16 +2301,34 @@ export function SizesExample() {
       {
         name: 'ChipGroup',
         props: [
-          { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'ChipItem children' },
-          { name: 'isSelectable', type: 'boolean', defaultValue: 'false', description: 'Enable selection mode' },
-          { name: 'selectMode', type: '"single" | "multiple"', defaultValue: '"single"', description: 'Selection mode' },
-          { name: 'selectedValues', type: 'string[]', defaultValue: '-', description: 'Controlled selected values' },
-          { name: 'defaultSelectedValues', type: 'string[]', defaultValue: '-', description: 'Default selected values (uncontrolled)' },
-          { name: 'spacing', type: 'number', defaultValue: '8', description: 'Gap between chips' },
-          { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable all chips' },
+          { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'ChipItem children — use ChipItem instead of Chip inside a group' },
+          { name: 'isSelectable', type: 'boolean', defaultValue: 'false', description: 'Enable selection. When true, chips toggle between their variant and a dimmed unselected style' },
+          { name: 'selectMode', type: '"single" | "multiple"', defaultValue: '"single"', description: 'single allows one selection at a time; multiple allows toggling any number of chips' },
+          { name: 'selectedValues', type: 'string[]', defaultValue: '-', description: 'Controlled array of selected ChipItem values' },
+          { name: 'defaultSelectedValues', type: 'string[]', defaultValue: '-', description: 'Initial selection for uncontrolled usage' },
+          { name: 'variant', type: 'ChipVariant', defaultValue: '"solid"', description: 'Default variant applied to all ChipItems' },
+          { name: 'themeColor', type: 'ThemeColor', defaultValue: '"default"', description: 'Default color applied to all ChipItems' },
+          { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Size applied to all ChipItems' },
+          { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"full"', description: 'Border radius applied to all ChipItems' },
+          { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable all chips in the group' },
+          { name: 'spacing', type: 'number', defaultValue: '8', description: 'Gap between chips in px' },
         ],
         events: [
-          { name: 'onSelectionChange', type: '(values: string[]) => void', description: 'Called when selection changes' },
+          { name: 'onSelectionChange', type: '(values: string[]) => void', description: 'Called with the full array of currently selected values on each toggle' },
+        ],
+      },
+      {
+        name: 'ChipItem',
+        props: [
+          { name: 'value', type: 'string', defaultValue: '-', description: 'Unique key within the group used to track selection' },
+          { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Chip label content' },
+          { name: 'variant', type: 'ChipVariant', defaultValue: '-', description: 'Per-item variant override (inherits from ChipGroup)' },
+          { name: 'themeColor', type: 'ThemeColor', defaultValue: '-', description: 'Per-item color override (inherits from ChipGroup)' },
+          { name: 'avatar', type: 'ReactNode', defaultValue: '-', description: 'Avatar at leading edge' },
+          { name: 'startContent', type: 'ReactNode', defaultValue: '-', description: 'Custom leading content' },
+          { name: 'endContent', type: 'ReactNode', defaultValue: '-', description: 'Custom trailing content' },
+          { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Per-item disabled override' },
+          { name: 'customAppearance', type: 'ChipCustomAppearance', defaultValue: '-', description: 'Fine-grained style overrides' },
         ],
       },
     ],
@@ -3543,6 +4453,150 @@ export function DynamicMasonryExample() {
     ],
   },
 
+  snackbar: {
+    props: [
+      { name: 'message', type: 'ReactNode', defaultValue: '-', description: 'Message content shown inside the snackbar' },
+      { name: 'isVisible', type: 'boolean', defaultValue: 'true', description: 'Controls snackbar visibility' },
+      { name: 'duration', type: 'number', defaultValue: '4000', description: 'Auto-dismiss delay in ms. Set to 0 to disable' },
+      { name: 'position', type: '"top" | "bottom"', defaultValue: '"bottom"', description: 'Position on screen' },
+      { name: 'actionLabel', type: 'ReactNode', defaultValue: '-', description: 'Action content displayed at the end' },
+      { name: 'closeOnActionPress', type: 'boolean', defaultValue: 'true', description: 'Dismiss when action is pressed' },
+      { name: 'showCloseAffordance', type: 'boolean', defaultValue: 'false', description: 'Show a close icon button' },
+      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"default"', description: 'Color theme. Default uses Material 3 inverse surface' },
+      { name: 'numberOfLines', type: 'number', defaultValue: '2', description: 'Max lines for the message text' },
+      { name: 'insetHorizontal', type: 'number', defaultValue: '16', description: 'Horizontal inset from screen edges' },
+      { name: 'insetVertical', type: 'number', defaultValue: '16', description: 'Vertical inset from screen edge' },
+      { name: 'maxWidth', type: 'number', defaultValue: '640', description: 'Maximum width of the snackbar surface' },
+      { name: 'usePortal', type: 'boolean', defaultValue: 'true', description: 'Render in a portal overlay' },
+      { name: 'customAppearance', type: '{ container?: ViewStyle; message?: TextStyle; action?: TextStyle; closeButton?: ViewStyle }', defaultValue: '-', description: 'Custom style overrides for snackbar parts' },
+    ],
+    events: [
+      { name: 'onActionPress', type: '() => void', description: 'Called when the action label is pressed' },
+      { name: 'onClose', type: '() => void', description: 'Called when the snackbar is dismissed' },
+      { name: 'onVisibleChange', type: '(isVisible: boolean) => void', description: 'Called when visibility changes' },
+    ],
+    examples: [
+      {
+        title: 'Basic',
+        description: 'A simple snackbar with a message.',
+        code: `import { useState } from 'react'
+import { Snackbar } from '@xaui/native/snackbar'
+import { Button } from '@xaui/native/button'
+
+export function BasicExample() {
+  const [visible, setVisible] = useState(false)
+
+  return (
+    <>
+      <Button onPress={() => setVisible(true)}>Show Snackbar</Button>
+      <Snackbar
+        message="File saved successfully."
+        isVisible={visible}
+        onClose={() => setVisible(false)}
+      />
+    </>
+  )
+}`,
+      },
+      {
+        title: 'With Action',
+        description: 'Snackbar with an action label the user can tap.',
+        code: `import { useState } from 'react'
+import { Snackbar } from '@xaui/native/snackbar'
+import { Button } from '@xaui/native/button'
+
+export function WithActionExample() {
+  const [visible, setVisible] = useState(false)
+
+  return (
+    <>
+      <Button onPress={() => setVisible(true)}>Show</Button>
+      <Snackbar
+        message="Message deleted."
+        actionLabel="Undo"
+        onActionPress={() => console.log('undo')}
+        isVisible={visible}
+        onClose={() => setVisible(false)}
+      />
+    </>
+  )
+}`,
+      },
+      {
+        title: 'Theme Colors',
+        description: 'Use themeColor to convey semantic meaning.',
+        code: `import { useState } from 'react'
+import { Snackbar } from '@xaui/native/snackbar'
+import { Button } from '@xaui/native/button'
+import { Column } from '@xaui/native/view'
+
+export function ThemeColorsExample() {
+  const [color, setColor] = useState<string | null>(null)
+
+  return (
+    <Column gap={8}>
+      <Button onPress={() => setColor('success')}>Success</Button>
+      <Button onPress={() => setColor('danger')}>Danger</Button>
+      <Button onPress={() => setColor('warning')}>Warning</Button>
+      <Snackbar
+        message="Operation completed."
+        themeColor={color as 'success' | 'danger' | 'warning'}
+        isVisible={color !== null}
+        onClose={() => setColor(null)}
+      />
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Stack',
+        description: 'Show multiple snackbars at once with SnackbarStack.',
+        code: `import { useState } from 'react'
+import { SnackbarStack } from '@xaui/native/snackbar'
+import type { SnackbarItem } from '@xaui/native/snackbar'
+import { Button } from '@xaui/native/button'
+
+export function StackExample() {
+  const [items, setItems] = useState<SnackbarItem[]>([])
+
+  const addItem = () => {
+    const id = Date.now().toString()
+    setItems(prev => [...prev, { id, message: \`Notification \${prev.length + 1}\` }])
+  }
+
+  const dismiss = (id: string) => {
+    setItems(prev => prev.filter(item => item.id !== id))
+  }
+
+  return (
+    <>
+      <Button onPress={addItem}>Add notification</Button>
+      <SnackbarStack items={items} onDismiss={dismiss} />
+    </>
+  )
+}`,
+      },
+    ],
+    subComponents: [
+      {
+        name: 'SnackbarStack',
+        props: [
+          { name: 'items', type: 'SnackbarItem[]', defaultValue: '-', description: 'Snackbar items to render in a vertical stack' },
+          { name: 'position', type: '"top" | "bottom"', defaultValue: '"bottom"', description: 'Position of the stacked snackbars' },
+          { name: 'spacing', type: 'number', defaultValue: '8', description: 'Space between stacked snackbars' },
+          { name: 'defaultDuration', type: 'number', defaultValue: '4000', description: 'Default auto-dismiss duration for items without duration' },
+          { name: 'insetHorizontal', type: 'number', defaultValue: '16', description: 'Horizontal inset from screen edges' },
+          { name: 'insetVertical', type: 'number', defaultValue: '16', description: 'Vertical inset from screen edge' },
+          { name: 'maxWidth', type: 'number', defaultValue: '640', description: 'Maximum width of each snackbar surface' },
+          { name: 'usePortal', type: 'boolean', defaultValue: 'true', description: 'Render stack in a portal overlay' },
+          { name: 'customAppearance', type: '{ container?: ViewStyle; content?: ViewStyle }', defaultValue: '-', description: 'Custom style overrides for the stack container' },
+        ],
+        events: [
+          { name: 'onDismiss', type: '(id: string) => void', description: 'Called when an item requests dismissal' },
+        ],
+      },
+    ],
+  },
   'conditional-view': {
     props: [
       { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Content to conditionally render' },

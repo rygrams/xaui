@@ -7,6 +7,8 @@
 
 XAUI is a Flutter-inspired component system targeting React Native and hybrid web/native experiences within a Turborepo monorepo. The thematic core (`@xaui/core`) centralises tokens, dynamic theming, and motion primitives. Platform-specific packages build on that foundation to deliver native-ready components.
 
+**[Documentation → ui.xtartapp.com](https://ui.xtartapp.com)**
+
 ## Monorepo architecture
 
 - **Package manager & task runner**: `pnpm` (v10+) for installations and `turbo` for orchestrating builds, linting, and tests.
@@ -56,6 +58,7 @@ Release automation relies on `@changesets/cli`:
 
 ## Documentation
 
+- **Component docs** — [ui.xtartapp.com](https://ui.xtartapp.com)
 - `@xaui/core` — [packages/core/README.md](./packages/core/README.md) — Theme system, tokens, and shared APIs.
 - `@xaui/native` — [packages/native/README.md](./packages/native/README.md) — React Native components, hooks, and providers.
 - `@xaui/icons` — [packages/icons/README.md](./packages/icons/README.md) — Icon components and usage patterns.
