@@ -4426,10 +4426,141 @@ export function ItemDescriptionExample() {
       { name: 'isLoaded', type: 'boolean', defaultValue: '-', description: 'Whether the content is ready' },
       { name: 'width', type: 'DimensionValue', defaultValue: '-', description: 'Skeleton width' },
       { name: 'height', type: 'DimensionValue', defaultValue: '-', description: 'Skeleton height' },
-      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"sm"', description: 'Skeleton border radius' },
+      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Skeleton border radius' },
       { name: 'skeletonColor', type: 'ColorValue', defaultValue: '-', description: 'Custom shimmer color' },
       { name: 'disableAnimation', type: 'boolean', defaultValue: 'false', description: 'Disable shimmer animation' },
       { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Additional container styles' },
+    ],
+    examples: [
+      {
+        title: 'Text Lines',
+        description: 'Use multiple line placeholders for text content.',
+        code: `import { Skeleton } from '@xaui/native/skeleton'
+import { Column } from '@xaui/native/view'
+import { Typography } from '@xaui/native/typography'
+
+export function SkeletonTextLinesExample() {
+  const isLoaded = false
+
+  return (
+    <Column gap={8}>
+      <Skeleton isLoaded={isLoaded} width="100%" height={14}>
+        <Typography>Account summary</Typography>
+      </Skeleton>
+      <Skeleton isLoaded={isLoaded} width="82%" height={14}>
+        <Typography>Available balance</Typography>
+      </Skeleton>
+      <Skeleton isLoaded={isLoaded} width="68%" height={14}>
+        <Typography>Updated 2 minutes ago</Typography>
+      </Skeleton>
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Avatar Row',
+        description: 'Compose circle + text skeletons for list items.',
+        code: `import { Skeleton } from '@xaui/native/skeleton'
+import { Row, Column } from '@xaui/native/view'
+import { Typography } from '@xaui/native/typography'
+import { View } from 'react-native'
+
+export function SkeletonAvatarRowExample() {
+  const isLoaded = false
+
+  return (
+    <Row spacing={12} crossAxisAlignment="center">
+      <Skeleton isLoaded={isLoaded} width={48} height={48} radius="full">
+        <View style={{ width: 48, height: 48, borderRadius: 999, backgroundColor: '#6366f1' }} />
+      </Skeleton>
+      <Column gap={8} style={{ flex: 1 }}>
+        <Skeleton isLoaded={isLoaded} width="70%" height={14}>
+          <Typography>Jamie Park</Typography>
+        </Skeleton>
+        <Skeleton isLoaded={isLoaded} width="45%" height={14}>
+          <Typography>Online now</Typography>
+        </Skeleton>
+      </Column>
+    </Row>
+  )
+}`,
+      },
+      {
+        title: 'Card Placeholder',
+        description: 'Build a full loading card with mixed block shapes.',
+        code: `import { Skeleton } from '@xaui/native/skeleton'
+import { Column } from '@xaui/native/view'
+
+export function SkeletonCardExample() {
+  const isLoaded = false
+
+  return (
+    <Column gap={10}>
+      <Skeleton isLoaded={isLoaded} width="100%" height={140} radius="lg">
+        <></>
+      </Skeleton>
+      <Skeleton isLoaded={isLoaded} width="60%" height={18} />
+      <Skeleton isLoaded={isLoaded} width="90%" height={14} />
+      <Skeleton isLoaded={isLoaded} width="75%" height={14} />
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Loaded State Toggle',
+        description: 'Swap skeleton to real content using isLoaded.',
+        code: `import { useState } from 'react'
+import { Button } from '@xaui/native/button'
+import { Skeleton } from '@xaui/native/skeleton'
+import { Column } from '@xaui/native/view'
+import { Typography } from '@xaui/native/typography'
+
+export function SkeletonLoadedStateExample() {
+  const [isLoaded, setIsLoaded] = useState(false)
+
+  return (
+    <Column gap={10}>
+      <Button size="sm" variant="outlined" onPress={() => setIsLoaded(v => !v)}>
+        {isLoaded ? 'Show Skeleton' : 'Show Loaded Content'}
+      </Button>
+      <Skeleton isLoaded={isLoaded} width="100%" height={18}>
+        <Typography variant="titleMedium">Revenue this month: $12,430</Typography>
+      </Skeleton>
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Custom Color and Static',
+        description: 'Customize skeleton color and disable animation.',
+        code: `import { Skeleton } from '@xaui/native/skeleton'
+import { Column } from '@xaui/native/view'
+
+export function SkeletonCustomStyleExample() {
+  return (
+    <Column gap={10}>
+      <Skeleton
+        isLoaded={false}
+        width="100%"
+        height={64}
+        radius="lg"
+        skeletonColor="#bae6fd"
+      >
+        <></>
+      </Skeleton>
+      <Skeleton
+        isLoaded={false}
+        width="100%"
+        height={16}
+        radius="full"
+        disableAnimation
+      >
+        <></>
+      </Skeleton>
+    </Column>
+  )
+}`,
+      },
     ],
   },
 
@@ -4532,6 +4663,130 @@ export function StepMarksExample() {
     events: [
       { name: 'onStepChange', type: '(key: string) => void', description: 'Called when active step changes' },
     ],
+    examples: [
+      {
+        title: 'Basic Horizontal',
+        description: 'Horizontal stepper with a controlled active step.',
+        code: `import { useState } from 'react'
+import { Stepper, StepperItem } from '@xaui/native/stepper'
+import { Typography } from '@xaui/native/typography'
+
+export function BasicStepperExample() {
+  const [activeKey, setActiveKey] = useState('details')
+
+  return (
+    <>
+      <Stepper activeKey={activeKey} onStepChange={setActiveKey}>
+        <StepperItem itemKey="account" title="Account" description="Create profile" />
+        <StepperItem itemKey="details" title="Details" description="Personal info" />
+        <StepperItem itemKey="payment" title="Payment" description="Card details" />
+        <StepperItem itemKey="review" title="Review" description="Confirm" isLocked />
+      </Stepper>
+      <Typography variant="caption">Active: {activeKey}</Typography>
+    </>
+  )
+}`,
+      },
+      {
+        title: 'Vertical and Line Display',
+        description: 'Use vertical direction and control connector visibility.',
+        code: `import { Stepper, StepperItem } from '@xaui/native/stepper'
+import { Column } from '@xaui/native/view'
+
+export function VerticalStepperExample() {
+  return (
+    <Column gap={16}>
+      <Stepper direction="vertical" lineDisplayMode="progress" defaultActiveKey="ship">
+        <StepperItem itemKey="cart" title="Cart" />
+        <StepperItem itemKey="ship" title="Shipping" />
+        <StepperItem itemKey="pay" title="Payment" />
+      </Stepper>
+
+      <Stepper direction="vertical" showLines={false} defaultActiveKey="pay">
+        <StepperItem itemKey="cart" title="Cart" />
+        <StepperItem itemKey="ship" title="Shipping" />
+        <StepperItem itemKey="pay" title="Payment" />
+      </Stepper>
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Sizes and Theme Colors',
+        description: 'Scale step indicators and apply semantic colors.',
+        code: `import { Stepper, StepperItem } from '@xaui/native/stepper'
+import { Column } from '@xaui/native/view'
+
+export function StepperSizeThemeExample() {
+  return (
+    <Column gap={14}>
+      <Stepper size="sm" themeColor="primary" defaultActiveKey="b">
+        <StepperItem itemKey="a" title="A" />
+        <StepperItem itemKey="b" title="B" />
+        <StepperItem itemKey="c" title="C" />
+      </Stepper>
+
+      <Stepper size="lg" themeColor="success" defaultActiveKey="b">
+        <StepperItem itemKey="a" title="A" />
+        <StepperItem itemKey="b" title="B" />
+        <StepperItem itemKey="c" title="C" />
+      </Stepper>
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Custom Indicator',
+        description: 'Render indicator content from item state.',
+        code: `import { Stepper, StepperItem } from '@xaui/native/stepper'
+import { Typography } from '@xaui/native/typography'
+
+export function CustomIndicatorStepperExample() {
+  return (
+    <Stepper direction="vertical" defaultActiveKey="sync" themeColor="secondary">
+      <StepperItem
+        itemKey="queue"
+        title="Queued"
+        indicator={({ index }) => <Typography variant="caption">{index + 1}</Typography>}
+      />
+      <StepperItem
+        itemKey="sync"
+        title="Syncing"
+        indicator={({ isActive, isCompleted }) => (
+          <Typography variant="caption">
+            {isCompleted ? 'DONE' : isActive ? 'NOW' : 'WAIT'}
+          </Typography>
+        )}
+      />
+      <StepperItem itemKey="finish" title="Finish" isLocked indicator="L" />
+    </Stepper>
+  )
+}`,
+      },
+      {
+        title: 'Disabled States',
+        description: 'Disable the whole stepper or individual items.',
+        code: `import { Stepper, StepperItem } from '@xaui/native/stepper'
+import { Column } from '@xaui/native/view'
+
+export function DisabledStepperExample() {
+  return (
+    <Column gap={16}>
+      <Stepper isDisabled defaultActiveKey="a">
+        <StepperItem itemKey="a" title="Step A" />
+        <StepperItem itemKey="b" title="Step B" />
+      </Stepper>
+
+      <Stepper defaultActiveKey="a">
+        <StepperItem itemKey="a" title="Step A" />
+        <StepperItem itemKey="b" title="Step B" isDisabled />
+        <StepperItem itemKey="c" title="Step C" isLocked />
+      </Stepper>
+    </Column>
+  )
+}`,
+      },
+    ],
     subComponents: [
       {
         name: 'StepperItem',
@@ -4610,6 +4865,88 @@ export function SizesExample() {
       <Switch label="Medium" size="md" />
       <Switch label="Large" size="lg" />
     </Column>
+  )
+}`,
+      },
+      {
+        title: 'Variants',
+        description: 'Compare inside and overlap visual variants.',
+        code: `import { Switch } from '@xaui/native/switch'
+import { Column } from '@xaui/native/view'
+
+export function VariantsExample() {
+  return (
+    <Column gap={10}>
+      <Switch label="Inside variant" variant="inside" defaultSelected />
+      <Switch label="Overlap variant" variant="overlap" defaultSelected />
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Theme Colors',
+        description: 'Apply semantic colors to communicate context.',
+        code: `import { Switch } from '@xaui/native/switch'
+import { Column } from '@xaui/native/view'
+
+export function ThemeColorsExample() {
+  return (
+    <Column gap={10}>
+      <Switch label="Primary" themeColor="primary" defaultSelected />
+      <Switch label="Success" themeColor="success" defaultSelected />
+      <Switch label="Warning" themeColor="warning" defaultSelected />
+      <Switch label="Danger" themeColor="danger" defaultSelected />
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Label Alignment and Full Width',
+        description: 'Change label position and stretch rows when needed.',
+        code: `import { Switch } from '@xaui/native/switch'
+import { Column } from '@xaui/native/view'
+
+export function AlignmentExample() {
+  return (
+    <Column gap={10}>
+      <Switch label="Right label (default)" labelAlignment="right" />
+      <Switch label="Left label" labelAlignment="left" />
+      <Switch label="Justify right" labelAlignment="justify-right" fullWidth />
+      <Switch label="Justify left" labelAlignment="justify-left" fullWidth />
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Radius and Disabled State',
+        description: 'Control shape and disable interaction.',
+        code: `import { Switch } from '@xaui/native/switch'
+import { Column } from '@xaui/native/view'
+
+export function RadiusDisabledExample() {
+  return (
+    <Column gap={10}>
+      <Switch label="Square" radius="sm" defaultSelected />
+      <Switch label="Rounded" radius="full" defaultSelected />
+      <Switch label="Disabled off" isDisabled />
+      <Switch label="Disabled on" isDisabled defaultSelected />
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Custom Label Style and Container Style',
+        description: 'Apply style overrides for text and row container.',
+        code: `import { Switch } from '@xaui/native/switch'
+
+export function StyledSwitchExample() {
+  return (
+    <Switch
+      label="Styled switch"
+      defaultSelected
+      labelStyle={{ fontWeight: '700', letterSpacing: 0.3 }}
+      style={{ paddingVertical: 8, borderBottomWidth: 1, borderBottomColor: '#e2e8f0' }}
+    />
   )
 }`,
       },
@@ -4775,6 +5112,116 @@ export function FullWidthExample() {
     events: [
       { name: 'onChange', type: '(time: TimeValue) => void', description: 'Called when time changes' },
     ],
+    examples: [
+      {
+        title: 'Basic Time Picker (12-hour)',
+        description: 'Controlled 12-hour picker with AM/PM selection.',
+        code: `import { useState } from 'react'
+import { TimePicker, type TimeValue } from '@xaui/native/timepicker'
+import { Typography } from '@xaui/native/typography'
+import { Column } from '@xaui/native/view'
+
+export function BasicTimePickerExample() {
+  const [time, setTime] = useState<TimeValue>({ hours: 9, minutes: 30 })
+
+  return (
+    <Column gap={8}>
+      <Typography variant="caption">Selected: {time.hours}:{time.minutes.toString().padStart(2, '0')}</Typography>
+      <TimePicker value={time} onChange={setTime} is24Hour={false} />
+    </Column>
+  )
+}`,
+      },
+      {
+        title: '24-hour and Bounds',
+        description: 'Use 24-hour mode and clamp selection with min/max.',
+        code: `import { useState } from 'react'
+import { TimePicker, type TimeValue } from '@xaui/native/timepicker'
+
+export function BoundedTimePickerExample() {
+  const [time, setTime] = useState<TimeValue>({ hours: 14, minutes: 0 })
+
+  return (
+    <TimePicker
+      value={time}
+      onChange={setTime}
+      is24Hour
+      minTime={{ hours: 9, minutes: 0 }}
+      maxTime={{ hours: 18, minutes: 30 }}
+      themeColor="secondary"
+    />
+  )
+}`,
+      },
+      {
+        title: 'Dialog Picker',
+        description: 'Open a modal dialog and confirm/cancel selection.',
+        code: `import { useState } from 'react'
+import { Button } from '@xaui/native/button'
+import { TimePickerDialog, type TimeValue } from '@xaui/native/timepicker'
+import { Column } from '@xaui/native/view'
+
+export function TimePickerDialogExample() {
+  const [isOpen, setIsOpen] = useState(false)
+  const [time, setTime] = useState<TimeValue>({ hours: 10, minutes: 15 })
+
+  return (
+    <Column gap={10}>
+      <Button onPress={() => setIsOpen(true)}>Open dialog</Button>
+      <TimePickerDialog
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        value={time}
+        onChange={setTime}
+        title="Select time"
+        onConfirm={(next) => {
+          setTime(next)
+          setIsOpen(false)
+        }}
+        onCancel={() => setIsOpen(false)}
+      />
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Trigger + Dialog Pattern',
+        description: 'Use TimePickerTrigger as input-like entry point.',
+        code: `import { useState } from 'react'
+import {
+  TimePickerDialog,
+  TimePickerTrigger,
+  type TimeValue,
+} from '@xaui/native/timepicker'
+
+export function TimePickerTriggerExample() {
+  const [isOpen, setIsOpen] = useState(false)
+  const [time, setTime] = useState<TimeValue | undefined>({ hours: 8, minutes: 45 })
+
+  return (
+    <>
+      <TimePickerTrigger
+        value={time}
+        placeholder="Select time"
+        onPress={() => setIsOpen(true)}
+        onClear={() => setTime(undefined)}
+        themeColor="primary"
+      />
+      <TimePickerDialog
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        value={time}
+        onChange={(next) => setTime(next)}
+        onConfirm={(next) => {
+          setTime(next)
+          setIsOpen(false)
+        }}
+      />
+    </>
+  )
+}`,
+      },
+    ],
     subComponents: [
       {
         name: 'TimePickerDialog',
@@ -4798,10 +5245,10 @@ export function FullWidthExample() {
         name: 'TimePickerTrigger',
         props: [
           { name: 'value', type: 'TimeValue', defaultValue: '-', description: 'Time to display' },
-          { name: 'placeholder', type: 'string', defaultValue: '-', description: 'Placeholder text' },
+          { name: 'placeholder', type: 'string', defaultValue: '"Select time"', description: 'Placeholder text' },
           { name: 'is24Hour', type: 'boolean', defaultValue: 'false', description: 'Use 24-hour format' },
           { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable interaction' },
-          { name: 'isClearable', type: 'boolean', defaultValue: 'false', description: 'Show clear button' },
+          { name: 'isClearable', type: 'boolean', defaultValue: 'true', description: 'Show clear button' },
           { name: 'icon', type: 'ReactNode', defaultValue: '-', description: 'Custom icon element' },
           { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme' },
         ],
@@ -4816,14 +5263,124 @@ export function FullWidthExample() {
   toolbar: {
     props: [
       { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'ToolbarAction children' },
-      { name: 'variant', type: '"floating" | "docked" | "vertical"', defaultValue: '"floating"', description: 'Layout variant' },
-      { name: 'position', type: '"top" | "bottom" | "left" | "right"', defaultValue: '"bottom"', description: 'Screen position' },
+      { name: 'variant', type: '"floating" | "docked" | "vertical"', defaultValue: '"docked"', description: 'Layout variant' },
+      { name: 'position', type: '"top" | "bottom" | "left" | "right"', defaultValue: '"top"', description: 'Screen position (left/right only for vertical variant)' },
       { name: 'isVisible', type: 'boolean', defaultValue: 'true', description: 'Controls toolbar visibility' },
       { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme' },
-      { name: 'showDivider', type: 'boolean', defaultValue: 'false', description: 'Show dividers between actions' },
-      { name: 'isElevated', type: 'boolean', defaultValue: 'false', description: 'Apply shadow elevation' },
+      { name: 'showDivider', type: 'boolean', defaultValue: 'false', description: 'Show a divider line on docked layout' },
+      { name: 'isElevated', type: 'boolean', defaultValue: '-', description: 'Apply shadow elevation (uses variant default when omitted)' },
       { name: 'customAppearance', type: 'ToolbarCustomAppearance', defaultValue: '-', description: 'Custom style overrides' },
       { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Additional container styles' },
+    ],
+    examples: [
+      {
+        title: 'Floating Bottom',
+        description: 'Rounded floating toolbar positioned at the bottom.',
+        code: `import { Toolbar, ToolbarAction } from '@xaui/native/toolbar'
+import { ShareIcon } from '@xaui/icons/share'
+import { PencilIcon } from '@xaui/icons/pencil'
+import { TrashIcon } from '@xaui/icons/trash'
+
+export function FloatingBottomToolbarExample() {
+  return (
+    <Toolbar variant="floating" position="bottom" themeColor="primary">
+      <ToolbarAction icon={({ color, size }) => <ShareIcon size={size} color={color} />} />
+      <ToolbarAction icon={({ color, size }) => <PencilIcon size={size} color={color} />} />
+      <ToolbarAction icon={({ color, size }) => <TrashIcon size={size} color={color} />} />
+    </Toolbar>
+  )
+}`,
+      },
+      {
+        title: 'Docked Top with Divider',
+        description: 'Fixed top toolbar with optional divider.',
+        code: `import { Toolbar, ToolbarAction } from '@xaui/native/toolbar'
+import { ArrowBackIcon } from '@xaui/icons/arrow-back'
+import { SearchIcon } from '@xaui/icons/search'
+import { EllipsisVerticalIcon } from '@xaui/icons/ellipsis-vertical'
+
+export function DockedTopToolbarExample() {
+  return (
+    <Toolbar variant="docked" position="top" showDivider themeColor="secondary">
+      <ToolbarAction icon={({ color, size }) => <ArrowBackIcon size={size} color={color} />} />
+      <ToolbarAction icon={({ color, size }) => <SearchIcon size={size} color={color} />} />
+      <ToolbarAction icon={({ color, size }) => <EllipsisVerticalIcon size={size} color={color} />} />
+    </Toolbar>
+  )
+}`,
+      },
+      {
+        title: 'Vertical Toolbar',
+        description: 'Side-mounted vertical toolbar, centered on screen.',
+        code: `import { Toolbar, ToolbarAction } from '@xaui/native/toolbar'
+import { AddIcon } from '@xaui/icons/add'
+import { SearchIcon } from '@xaui/icons/search'
+import { StarIcon } from '@xaui/icons/star'
+
+export function VerticalToolbarExample() {
+  return (
+    <Toolbar variant="vertical" position="right" themeColor="success">
+      <ToolbarAction icon={({ color, size }) => <AddIcon size={size} color={color} />} />
+      <ToolbarAction icon={({ color, size }) => <SearchIcon size={size} color={color} />} />
+      <ToolbarAction icon={({ color, size }) => <StarIcon size={size} color={color} />} />
+    </Toolbar>
+  )
+}`,
+      },
+      {
+        title: 'Visibility and Disabled Action',
+        description: 'Control toolbar visibility and disable specific actions.',
+        code: `import { useState } from 'react'
+import { Button } from '@xaui/native/button'
+import { Toolbar, ToolbarAction } from '@xaui/native/toolbar'
+import { ShareIcon } from '@xaui/icons/share'
+import { DownloadIcon } from '@xaui/icons/download'
+import { TrashIcon } from '@xaui/icons/trash'
+import { Column } from '@xaui/native/view'
+
+export function ToolbarStateExample() {
+  const [visible, setVisible] = useState(true)
+
+  return (
+    <Column gap={10}>
+      <Button size="sm" variant="outlined" onPress={() => setVisible(v => !v)}>
+        {visible ? 'Hide' : 'Show'} Toolbar
+      </Button>
+      <Toolbar isVisible={visible} variant="floating" position="bottom">
+        <ToolbarAction icon={({ color, size }) => <ShareIcon size={size} color={color} />} />
+        <ToolbarAction icon={({ color, size }) => <DownloadIcon size={size} color={color} />} isDisabled />
+        <ToolbarAction icon={({ color, size }) => <TrashIcon size={size} color={color} />} />
+      </Toolbar>
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Custom Appearance',
+        description: 'Override container and action row styles.',
+        code: `import { Toolbar, ToolbarAction } from '@xaui/native/toolbar'
+import { AddIcon } from '@xaui/icons/add'
+import { SearchIcon } from '@xaui/icons/search'
+import { StarIcon } from '@xaui/icons/star'
+
+export function ToolbarCustomAppearanceExample() {
+  return (
+    <Toolbar
+      variant="floating"
+      position="top"
+      customAppearance={{
+        container: { marginHorizontal: 12 },
+        actionsContainer: { gap: 6 },
+      }}
+      style={{ borderWidth: 1, borderColor: '#e2e8f0' }}
+    >
+      <ToolbarAction icon={({ color, size }) => <AddIcon size={size} color={color} />} />
+      <ToolbarAction icon={({ color, size }) => <SearchIcon size={size} color={color} />} />
+      <ToolbarAction icon={({ color, size }) => <StarIcon size={size} color={color} />} />
+    </Toolbar>
+  )
+}`,
+      },
     ],
     subComponents: [
       {
