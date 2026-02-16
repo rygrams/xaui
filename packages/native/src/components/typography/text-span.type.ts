@@ -1,7 +1,8 @@
 import type { ReactNode } from 'react'
 import type { StyleProp, TextStyle, ViewStyle } from 'react-native'
+import type { TypographyAlign } from './typography.type'
 
-export type TextSpanAlign = 'baseline' | 'center' | 'end' | 'start' | 'stretch'
+export type TextSpanAlign = TypographyAlign
 
 export type TextSpanProps = {
   /**
@@ -25,12 +26,11 @@ export type TextSpanProps = {
    */
   textTransform?: TextStyle['textTransform']
   /**
-   * Spacing between children in the container.
+   * Spacing between children.
    */
   spacing?: number
   /**
-   * Cross-axis alignment for children.
-   * @default 'start'
+   * Text alignment for all nested typography unless overridden.
    */
   align?: TextSpanAlign
   /**

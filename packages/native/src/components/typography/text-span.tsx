@@ -3,12 +3,14 @@ import { View } from 'react-native'
 import { TextSpanContext } from './text-span.context'
 import type { TextSpanAlign, TextSpanProps } from './text-span.type'
 
-const alignToItems: Record<TextSpanAlign, 'baseline' | 'center' | 'flex-end' | 'flex-start' | 'stretch'> = {
-  start: 'flex-start',
+const alignToJustifyContent: Record<
+  TextSpanAlign,
+  'center' | 'flex-end' | 'flex-start' | 'space-between'
+> = {
+  left: 'flex-start',
   center: 'center',
-  end: 'flex-end',
-  stretch: 'stretch',
-  baseline: 'baseline',
+  right: 'flex-end',
+  justify: 'space-between',
 }
 
 export const TextSpan: React.FC<TextSpanProps> = ({
@@ -18,7 +20,7 @@ export const TextSpan: React.FC<TextSpanProps> = ({
   fontStyle,
   textTransform,
   spacing,
-  align = 'start',
+  align,
   backgroundColor,
   style,
 }: TextSpanProps) => {
@@ -27,6 +29,7 @@ export const TextSpan: React.FC<TextSpanProps> = ({
     fontWeight,
     fontStyle,
     textTransform,
+    align,
   }
 
   return (
@@ -34,7 +37,10 @@ export const TextSpan: React.FC<TextSpanProps> = ({
       <View
         style={[
           {
-            alignItems: alignToItems[align],
+            flexDirection: 'row',
+            flexWrap: 'wrap',
+            alignItems: 'center',
+            ...(align ? { justifyContent: alignToJustifyContent[align] } : {}),
             ...(typeof spacing === 'number' ? { gap: spacing } : {}),
             ...(backgroundColor ? { backgroundColor } : {}),
           },

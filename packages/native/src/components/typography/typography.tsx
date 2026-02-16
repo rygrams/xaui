@@ -23,6 +23,7 @@ export const Typography: React.FC<TypographyProps> = ({
   const inheritedStyle = useTextSpanInheritedStyle()
   const themeColorValue = useTypographyColor(themeColor)
   const variantStyles = useTypographyVariantStyles(variant)
+  const resolvedAlign = align ?? inheritedStyle.align
   const textStyleOverrides = {
     color: color ?? inheritedStyle.color ?? themeColorValue,
     letterSpacing,
@@ -44,7 +45,7 @@ export const Typography: React.FC<TypographyProps> = ({
       style={[
         styles.text,
         variantStyles,
-        align && { textAlign: align },
+        resolvedAlign && { textAlign: resolvedAlign },
         textStyleOverrides,
         style,
       ]}

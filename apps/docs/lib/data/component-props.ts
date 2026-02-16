@@ -5495,8 +5495,8 @@ export function TypographyAlignmentExample() {
       { name: 'fontStyle', type: 'TextStyle["fontStyle"]', defaultValue: '-', description: 'Inherited font style for nested Typography children' },
       { name: 'textTransform', type: 'TextStyle["textTransform"]', defaultValue: '-', description: 'Inherited text transform for nested Typography children' },
       { name: 'spacing', type: 'number', defaultValue: '-', description: 'Gap between direct children' },
-      { name: 'align', type: '"start" | "center" | "end" | "stretch" | "baseline"', defaultValue: '"start"', description: 'Cross-axis alignment for children' },
-      { name: 'backgroundColor', type: 'ViewStyle["backgroundColor"]', defaultValue: '-', description: 'Background color of the container' },
+      { name: 'align', type: '"left" | "center" | "right" | "justify"', defaultValue: '-', description: 'Text alignment for grouped text' },
+      { name: 'backgroundColor', type: 'ViewStyle["backgroundColor"]', defaultValue: '-', description: 'Background color of the text span container' },
       { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Additional container styles' },
     ],
     examples: [
@@ -5507,7 +5507,7 @@ export function TypographyAlignmentExample() {
 
 export function TextSpanBasicExample() {
   return (
-    <TextSpan spacing={8} align="baseline">
+    <TextSpan spacing={8} align="justify">
       <Typography>Order total:</Typography>
       <Typography variant="titleSmall">$24.99</Typography>
     </TextSpan>
