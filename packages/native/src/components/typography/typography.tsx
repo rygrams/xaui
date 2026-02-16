@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react'
 import { Text } from 'react-native'
 import { styles } from './typography.style'
+import { useTextSpanInheritedStyle } from './text-span.context'
 import { useTypographyColor, useTypographyVariantStyles } from './typography.hook'
 import type { TypographyProps } from './typography.type'
 
@@ -11,11 +12,25 @@ export const Typography: React.FC<TypographyProps> = ({
   variant = 'bodyMedium',
   maxLines,
   overflow = 'clip',
+  color,
+  letterSpacing,
+  fontWeight,
+  fontStyle,
+  textDecorationLine,
+  textTransform,
   style,
 }: TypographyProps) => {
-  const color = useTypographyColor(themeColor)
+  const inheritedStyle = useTextSpanInheritedStyle()
+  const themeColorValue = useTypographyColor(themeColor)
   const variantStyles = useTypographyVariantStyles(variant)
-  const colorStyle = { color }
+  const textStyleOverrides = {
+    color: color ?? inheritedStyle.color ?? themeColorValue,
+    letterSpacing,
+    fontWeight: fontWeight ?? inheritedStyle.fontWeight,
+    fontStyle: fontStyle ?? inheritedStyle.fontStyle,
+    textDecorationLine,
+    textTransform: textTransform ?? inheritedStyle.textTransform,
+  }
   const ellipsizeMode = useMemo(() => {
     if (!maxLines) return undefined
     if (overflow === 'clip') return 'clip'
@@ -30,7 +45,7 @@ export const Typography: React.FC<TypographyProps> = ({
         styles.text,
         variantStyles,
         align && { textAlign: align },
-        colorStyle,
+        textStyleOverrides,
         style,
       ]}
     >

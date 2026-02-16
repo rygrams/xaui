@@ -52,4 +52,28 @@ export type TypographyProps = {
    * Custom styles for the text.
    */
   style?: StyleProp<TextStyle>
+  /**
+   * Custom text color override.
+   */
+  color?: TextStyle['color']
+  /**
+   * The spacing between characters.
+   */
+  letterSpacing?: number
+  /**
+   * The text weight.
+   */
+  fontWeight?: TextStyle['fontWeight']
+  /**
+   * The text style.
+   */
+  fontStyle?: TextStyle['fontStyle']
+  /**
+   * Text decoration line.
+   */
+  textDecorationLine?: TextStyle['textDecorationLine']
+  /**
+   * Text transform mode.
+   */
+  textTransform?: TextStyle['textTransform']
 }

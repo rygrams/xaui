@@ -1,0 +1,50 @@
+import React from 'react'
+import { View } from 'react-native'
+import { TextSpanContext } from './text-span.context'
+import type { TextSpanAlign, TextSpanProps } from './text-span.type'
+
+const alignToItems: Record<TextSpanAlign, 'baseline' | 'center' | 'flex-end' | 'flex-start' | 'stretch'> = {
+  start: 'flex-start',
+  center: 'center',
+  end: 'flex-end',
+  stretch: 'stretch',
+  baseline: 'baseline',
+}
+
+export const TextSpan: React.FC<TextSpanProps> = ({
+  children,
+  color,
+  fontWeight,
+  fontStyle,
+  textTransform,
+  spacing,
+  align = 'start',
+  backgroundColor,
+  style,
+}: TextSpanProps) => {
+  const inheritedTextStyle = {
+    color,
+    fontWeight,
+    fontStyle,
+    textTransform,
+  }
+
+  return (
+    <TextSpanContext.Provider value={inheritedTextStyle}>
+      <View
+        style={[
+          {
+            alignItems: alignToItems[align],
+            ...(typeof spacing === 'number' ? { gap: spacing } : {}),
+            ...(backgroundColor ? { backgroundColor } : {}),
+          },
+          style,
+        ]}
+      >
+        {children}
+      </View>
+    </TextSpanContext.Provider>
+  )
+}
+
+TextSpan.displayName = 'TextSpan'
