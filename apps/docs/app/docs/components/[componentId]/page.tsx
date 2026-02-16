@@ -139,6 +139,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
     component.id === 'list' ||
     component.id === 'pager' ||
     component.id === 'tabs' ||
+    component.id === 'text-span' ||
     component.id === 'stepper'
   const usageCode = needsChildren
     ? `import { ${primaryExport} } from '${component.importPath}'\n\nexport function Example() {\n  return (\n    <${primaryExport}>\n      {/* children */}\n    </${primaryExport}>\n  )\n}`

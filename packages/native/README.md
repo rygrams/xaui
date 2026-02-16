@@ -87,6 +87,7 @@ This table lists all public components exported by `@xaui/native` and their impo
 | `AutocompleteItem` | Suggestion item for `Autocomplete`. | `import { AutocompleteItem } from '@xaui/native/autocomplete'` |
 | `DatePicker` | Date selection input/picker. | `import { DatePicker } from '@xaui/native/datepicker'` |
 | `Typography` | Themed text component with variants. | `import { Typography } from '@xaui/native/typography'` |
+| `TextSpan` | Text group primitive that shares inherited styles across nested typography. | `import { TextSpan } from '@xaui/native/typography'` |
 | `Column` | Vertical flex layout helper. | `import { Column } from '@xaui/native/view'` |
 | `Row` | Horizontal flex layout helper. | `import { Row } from '@xaui/native/view'` |
 | `Spacer` | Flexible space element in layouts. | `import { Spacer } from '@xaui/native/view'` |

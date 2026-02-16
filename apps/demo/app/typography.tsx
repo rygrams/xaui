@@ -1,5 +1,5 @@
 import { useXUIColors, useXUITheme } from '@xaui/native/core'
-import { Typography } from '@xaui/native/typography'
+import { TextSpan, Typography } from '@xaui/native/typography'
 import { ScrollView, StyleSheet, View } from 'react-native'
 
 export default function TypographyScreen() {
@@ -71,16 +71,42 @@ export default function TypographyScreen() {
             {'maxLines=1 overflow="ellipsis"'}
           </Typography>
           <Typography maxLines={1} overflow="ellipsis">
-            This is a very long text that will be truncated after one line with
-            an ellipsis at the end.
+            This is a very long text that will be truncated after one line with an
+            ellipsis at the end.
           </Typography>
           <Typography variant="bodySmall" themeColor="secondary">
             {'maxLines=2 overflow="clip"'}
           </Typography>
           <Typography maxLines={2} overflow="clip">
-            This is a very long text that will be clipped after two lines
-            without any indicator that there is more content below this point.
+            This is a very long text that will be clipped after two lines without any
+            indicator that there is more content below this point.
           </Typography>
+        </View>
+      </View>
+
+      <View style={styles.section}>
+        <Typography variant="subtitleLarge" style={styles.sectionTitle}>
+          TextSpan
+        </Typography>
+        <View style={{ gap: theme.spacing.sm }}>
+          <TextSpan
+            color={colors.primary.main}
+            fontWeight="700"
+            textTransform="uppercase"
+            spacing={6}
+            align="center"
+            backgroundColor={colors.primary.background}
+          >
+            <Typography>Voici un texte avec</Typography>
+            <Typography letterSpacing={0.5}>une portion stylée</Typography>
+            <Typography
+              fontStyle="italic"
+              textTransform="none"
+              color={colors.foreground}
+            >
+              à l&apos;intérieur de TextSpan.
+            </Typography>
+          </TextSpan>
         </View>
       </View>
     </ScrollView>
@@ -100,5 +126,11 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontWeight: 'bold',
     marginBottom: 12,
+  },
+  textSpanContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    borderRadius: 8,
+    padding: 8,
   },
 })
