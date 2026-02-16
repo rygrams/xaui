@@ -586,6 +586,18 @@ export const components: Component[] = [
     types: ['TypographyProps', 'TypographyVariant', 'TypographyAlign'],
   },
   {
+    id: 'text-span',
+    name: 'TextSpan',
+    description:
+      'Inline text-group container that shares style context with nested Typography.',
+    category: 'Data Display',
+    href: '/docs/components/text-span',
+    status: 'beta',
+    importPath: '@xaui/native/typography',
+    exports: ['TextSpan'],
+    types: ['TextSpanProps', 'TextSpanAlign'],
+  },
+  {
     id: 'column',
     name: 'Column',
     description: 'Vertical flex layout with configurable alignment and spacing.',

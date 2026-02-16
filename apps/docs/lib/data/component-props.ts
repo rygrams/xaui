@@ -5487,6 +5487,50 @@ export function TypographyAlignmentExample() {
     ],
   },
 
+  'text-span': {
+    props: [
+      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Content to render inside the span container' },
+      { name: 'color', type: 'TextStyle["color"]', defaultValue: '-', description: 'Inherited text color for nested Typography children' },
+      { name: 'fontWeight', type: 'TextStyle["fontWeight"]', defaultValue: '-', description: 'Inherited font weight for nested Typography children' },
+      { name: 'fontStyle', type: 'TextStyle["fontStyle"]', defaultValue: '-', description: 'Inherited font style for nested Typography children' },
+      { name: 'textTransform', type: 'TextStyle["textTransform"]', defaultValue: '-', description: 'Inherited text transform for nested Typography children' },
+      { name: 'spacing', type: 'number', defaultValue: '-', description: 'Gap between direct children' },
+      { name: 'align', type: '"start" | "center" | "end" | "stretch" | "baseline"', defaultValue: '"start"', description: 'Cross-axis alignment for children' },
+      { name: 'backgroundColor', type: 'ViewStyle["backgroundColor"]', defaultValue: '-', description: 'Background color of the container' },
+      { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Additional container styles' },
+    ],
+    examples: [
+      {
+        title: 'Basic',
+        description: 'Group text nodes and keep consistent spacing/alignment.',
+        code: `import { TextSpan, Typography } from '@xaui/native/typography'
+
+export function TextSpanBasicExample() {
+  return (
+    <TextSpan spacing={8} align="baseline">
+      <Typography>Order total:</Typography>
+      <Typography variant="titleSmall">$24.99</Typography>
+    </TextSpan>
+  )
+}`,
+      },
+      {
+        title: 'Inherited Text Styles',
+        description: 'Apply shared text styles to nested Typography elements.',
+        code: `import { TextSpan, Typography } from '@xaui/native/typography'
+
+export function TextSpanInheritedStyleExample() {
+  return (
+    <TextSpan color="#1d4ed8" fontWeight="700" textTransform="uppercase" spacing={6}>
+      <Typography variant="caption">status</Typography>
+      <Typography variant="bodyMedium">active</Typography>
+    </TextSpan>
+  )
+}`,
+      },
+    ],
+  },
+
   column: {
     props: [
       { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Content to arrange vertically' },
