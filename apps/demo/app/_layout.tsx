@@ -15,7 +15,10 @@ export default function RootLayout() {
       <GestureHandlerRootView style={{ flex: 1 }}>
         <XUIProvider theme={defaultTheme} darkTheme={defaultDarkTheme}>
           <Stack>
-            <Stack.Screen name="index" options={{ headerShown: false }} />
+            <Stack.Screen
+              name="index"
+              options={{ headerShown: false, title: 'Home' }}
+            />
             <Stack.Screen
               name="modal"
               options={{ presentation: 'modal', title: 'Modal' }}
