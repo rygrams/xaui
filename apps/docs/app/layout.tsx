@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import { Sidebar } from '@/components/layout/sidebar'
@@ -19,6 +19,12 @@ export const metadata: Metadata = {
   description: 'A modern React Native UI library',
 }
 
+export const viewport: Viewport = {
+  themeColor: '#FFFFFF',
+  initialScale: 1,
+  width: 'device-width',
+}
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -31,7 +37,7 @@ export default function RootLayout({
       >
         <div className="flex min-h-screen">
           <Sidebar />
-          <main className="flex-1 pt-14 md:pt-0 md:pl-64">
+          <main className="min-w-0 flex-1 pt-14 md:pt-0 md:pl-64">
             <div className="mx-auto max-w-5xl px-4 py-8 md:px-8">{children}</div>
           </main>
         </div>

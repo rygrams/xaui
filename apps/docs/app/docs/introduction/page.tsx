@@ -13,14 +13,14 @@ export default function IntroductionPage() {
   return (
     <div className="space-y-8">
       <div className="space-y-4">
-        <h1 className="text-4xl font-bold tracking-tight">Xaui Documentation</h1>
-        <p className="text-xl text-muted-foreground max-w-2xl">
+        <h1 className="text-3xl font-bold tracking-tight md:text-4xl">Xaui Documentation</h1>
+        <p className="text-base text-muted-foreground max-w-2xl md:text-xl">
           A modern React Native UI library inspired by Flutter. Build beautiful,
           consistent, and performant mobile applications with ease.
         </p>
       </div>
 
-      <div className="flex gap-4">
+      <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
         <Link href="/docs/getting-started">
           <Button size="lg">
             Get Started
@@ -70,7 +70,7 @@ export default function IntroductionPage() {
       </div>
 
       <div className="rounded-lg border p-6 space-y-4">
-        <h2 className="text-2xl font-semibold">Quick Start</h2>
+        <h2 className="text-xl font-semibold md:text-2xl">Quick Start</h2>
         <p className="text-muted-foreground">
           Install Xaui in your React Native project and start building:
         </p>

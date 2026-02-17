@@ -12,8 +12,8 @@ const screenshots = [
 export function AlertScreenshots() {
   return (
     <div className="space-y-4">
-      <h2 className="text-2xl font-semibold tracking-tight">Preview</h2>
-      <div className="flex gap-4 flex-col md:flex-row justify-start items-center">
+      <h2 className="text-xl font-semibold tracking-tight md:text-2xl">Preview</h2>
+      <div className="grid grid-cols-2 gap-3 md:flex md:flex-row md:gap-4 md:items-start">
         {screenshots.map(item => (
           <Dialog key={item.src}>
             <DialogTrigger asChild>
@@ -25,20 +25,20 @@ export function AlertScreenshots() {
                 <Image
                   src={item.src}
                   alt={item.alt}
-                  width={1600}
-                  height={900}
+                  width={1080}
+                  height={2340}
                   className="h-auto w-full"
                 />
               </button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-5xl p-2 flex items-center justify-center">
-              <div className="w-full max-w-76 overflow-hidden rounded-2xl border-4 border-gray-300">
+              <div className="overflow-hidden rounded-2xl border-4 border-gray-300">
                 <Image
                   src={item.src}
                   alt={item.alt}
-                  width={1600}
-                  height={900}
-                  className="h-auto w-full"
+                  width={1080}
+                  height={2340}
+                  className="block max-h-[80dvh] w-auto"
                 />
               </div>
             </DialogContent>

@@ -10,8 +10,8 @@ export default function InstallationPage() {
   return (
     <div className="space-y-8">
       <div className="space-y-4">
-        <h1 className="text-4xl font-bold tracking-tight">Installation</h1>
-        <p className="text-xl text-muted-foreground">
+        <h1 className="text-3xl font-bold tracking-tight md:text-4xl">Installation</h1>
+        <p className="text-base text-muted-foreground md:text-xl">
           Detailed installation instructions for the Xaui native package and its
           dependencies.
         </p>
@@ -19,7 +19,7 @@ export default function InstallationPage() {
 
       <div className="space-y-6">
         <section className="space-y-4">
-          <h2 className="text-2xl font-semibold">Prerequisites</h2>
+          <h2 className="text-xl font-semibold md:text-2xl">Prerequisites</h2>
           <ul className="list-disc list-inside space-y-2 text-muted-foreground">
             <li>React Native 0.72+</li>
             <li>React 18+</li>
@@ -28,7 +28,7 @@ export default function InstallationPage() {
         </section>
 
         <section className="space-y-4">
-          <h2 className="text-2xl font-semibold">Expo Installation (Recommended)</h2>
+          <h2 className="text-xl font-semibold md:text-2xl">Expo Installation (Recommended)</h2>
           <p className="text-muted-foreground">
             Xaui works seamlessly with Expo. We recommend using Expo for the best
             development experience:
@@ -43,7 +43,7 @@ export default function InstallationPage() {
         </section>
 
         <section className="space-y-4">
-          <h2 className="text-2xl font-semibold">React Native CLI Installation</h2>
+          <h2 className="text-xl font-semibold md:text-2xl">React Native CLI Installation</h2>
           <p className="text-muted-foreground">
             For React Native CLI projects, install the core packages:
           </p>
@@ -51,7 +51,7 @@ export default function InstallationPage() {
         </section>
 
         <section className="space-y-4">
-          <h2 className="text-2xl font-semibold">Peer Dependencies</h2>
+          <h2 className="text-xl font-semibold md:text-2xl">Peer Dependencies</h2>
           <p className="text-muted-foreground">
             Xaui requires the following peer dependencies:
           </p>
@@ -62,13 +62,13 @@ export default function InstallationPage() {
         </section>
 
         <section className="space-y-4">
-          <h2 className="text-2xl font-semibold">iOS Setup</h2>
+          <h2 className="text-xl font-semibold md:text-2xl">iOS Setup</h2>
           <p className="text-muted-foreground">After installing pods, run:</p>
           <CodeBlock code="cd ios && pod install" language="bash" />
         </section>
 
         <section className="space-y-4">
-          <h2 className="text-2xl font-semibold">Android Setup</h2>
+          <h2 className="text-xl font-semibold md:text-2xl">Android Setup</h2>
           <p className="text-muted-foreground">
             Ensure you have the following in your android/app/build.gradle:
           </p>

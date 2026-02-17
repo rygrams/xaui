@@ -73,8 +73,8 @@ export default function ThemePage() {
   return (
     <div className="space-y-8">
       <div className="space-y-4">
-        <h1 className="text-4xl font-bold tracking-tight">Theme Customization</h1>
-        <p className="text-xl text-muted-foreground max-w-3xl">
+        <h1 className="text-3xl font-bold tracking-tight md:text-4xl">Theme Customization</h1>
+        <p className="text-base text-muted-foreground max-w-3xl md:text-xl">
           Customize Xaui to match your brand by overriding only the tokens you need.
           You can define separate light and dark themes while keeping all defaults for
           tokens you do not override.
@@ -82,7 +82,7 @@ export default function ThemePage() {
       </div>
 
       <section className="space-y-4">
-        <h2 className="text-2xl font-semibold">How It Works</h2>
+        <h2 className="text-xl font-semibold md:text-2xl">How It Works</h2>
         <ul className="list-disc pl-6 text-muted-foreground space-y-1">
           <li>
             Pass a partial object to
@@ -102,7 +102,7 @@ export default function ThemePage() {
       </section>
 
       <section className="space-y-4">
-        <h2 className="text-2xl font-semibold">Provider Setup</h2>
+        <h2 className="text-xl font-semibold md:text-2xl">Provider Setup</h2>
         <p className="text-muted-foreground">
           Start by configuring your app-level provider with custom light and dark
           tokens.
@@ -111,7 +111,7 @@ export default function ThemePage() {
       </section>
 
       <section className="space-y-4">
-        <h2 className="text-2xl font-semibold">Using Theme Values</h2>
+        <h2 className="text-xl font-semibold md:text-2xl">Using Theme Values</h2>
         <p className="text-muted-foreground">
           Access resolved values in any component with
           <span className="font-mono text-xs"> useXUITheme() </span>and check current
@@ -122,7 +122,7 @@ export default function ThemePage() {
       </section>
 
       <section className="space-y-4">
-        <h2 className="text-2xl font-semibold">Recommended Customization Order</h2>
+        <h2 className="text-xl font-semibold md:text-2xl">Recommended Customization Order</h2>
         <ol className="list-decimal pl-6 text-muted-foreground space-y-1">
           <li>Set core brand colors: primary, background, and foreground.</li>
           <li>Tune border radius and spacing to match your product identity.</li>

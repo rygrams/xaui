@@ -159,14 +159,14 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
   return (
     <div className="space-y-8">
       <div className="space-y-4">
-        <div className="flex items-center gap-4">
-          <h1 className="text-4xl font-bold tracking-tight">{component.name}</h1>
+        <div className="flex flex-wrap items-center gap-3">
+          <h1 className="text-3xl font-bold tracking-tight md:text-4xl">{component.name}</h1>
           <span className={getStatusClass(component.status)}>
             {component.status[0]?.toUpperCase()}
             {component.status.slice(1)}
           </span>
         </div>
-        <p className="text-xl text-muted-foreground">{component.description}</p>
+        <p className="text-base text-muted-foreground md:text-xl">{component.description}</p>
       </div>
 
       {component.id === 'alert' && <AlertScreenshots />}
@@ -265,7 +265,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
             <>
               <div className="space-y-4">
                 <h3 className="text-lg font-semibold">{component.name} Props</h3>
-                <div className="rounded-lg border">
+                <div className="overflow-x-auto rounded-lg border">
                   <table className="w-full text-sm">
                     <thead>
                       <tr className="border-b bg-muted/50">
@@ -299,7 +299,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
               {propsData.events && propsData.events.length > 0 && (
                 <div className="space-y-4">
                   <h3 className="text-lg font-semibold">{component.name} Events</h3>
-                  <div className="rounded-lg border">
+                  <div className="overflow-x-auto rounded-lg border">
                     <table className="w-full text-sm">
                       <thead>
                         <tr className="border-b bg-muted/50">
@@ -335,7 +335,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                 <div key={sub.name} className="space-y-6">
                   <div className="space-y-4">
                     <h3 className="text-lg font-semibold">{sub.name} Props</h3>
-                    <div className="rounded-lg border">
+                    <div className="overflow-x-auto rounded-lg border">
                       <table className="w-full text-sm">
                         <thead>
                           <tr className="border-b bg-muted/50">
@@ -369,7 +369,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                   {sub.events && sub.events.length > 0 && (
                     <div className="space-y-4">
                       <h3 className="text-lg font-semibold">{sub.name} Events</h3>
-                      <div className="rounded-lg border">
+                      <div className="overflow-x-auto rounded-lg border">
                         <table className="w-full text-sm">
                           <thead>
                             <tr className="border-b bg-muted/50">
@@ -406,7 +406,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
           ) : (
             <div className="space-y-4">
               <h3 className="text-lg font-semibold">Available Exports</h3>
-              <div className="rounded-lg border">
+              <div className="overflow-x-auto rounded-lg border">
                 <table className="w-full text-sm">
                   <thead>
                     <tr className="border-b bg-muted/50">

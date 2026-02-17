@@ -13,8 +13,8 @@ export default function GettingStartedPage() {
   return (
     <div className="space-y-8">
       <div className="space-y-4">
-        <h1 className="text-4xl font-bold tracking-tight">Getting Started</h1>
-        <p className="text-xl text-muted-foreground">
+        <h1 className="text-3xl font-bold tracking-tight md:text-4xl">Getting Started</h1>
+        <p className="text-base text-muted-foreground md:text-xl">
           Learn how to set up Xaui in your React Native project and start building
           beautiful user interfaces.
         </p>
@@ -22,7 +22,7 @@ export default function GettingStartedPage() {
 
       <div className="space-y-6">
         <section className="space-y-4">
-          <h2 className="text-2xl font-semibold">1. Installation</h2>
+          <h2 className="text-xl font-semibold md:text-2xl">1. Installation</h2>
           <p className="text-muted-foreground">
             Install the core packages using your preferred package manager:
           </p>
@@ -46,7 +46,7 @@ export default function GettingStartedPage() {
         </section>
 
         <section className="space-y-4">
-          <h2 className="text-2xl font-semibold">2. Theme Customization</h2>
+          <h2 className="text-xl font-semibold md:text-2xl">2. Theme Customization</h2>
           <p className="text-muted-foreground">
             Xaui lets you override only the parts of the theme you need. You can
             customize brand colors, surface colors, text colors, typography tokens,
@@ -115,7 +115,7 @@ export default function App() {
         </section>
 
         <section className="space-y-4">
-          <h2 className="text-2xl font-semibold">3. Setup Provider</h2>
+          <h2 className="text-xl font-semibold md:text-2xl">3. Setup Provider</h2>
           <p className="text-muted-foreground">
             Wrap your app with the XUIProvider to enable theming and context:
           </p>
@@ -133,7 +133,7 @@ export default function App() {
         </section>
 
         <section className="space-y-4">
-          <h2 className="text-2xl font-semibold">4. Use Components</h2>
+          <h2 className="text-xl font-semibold md:text-2xl">4. Use Components</h2>
           <p className="text-muted-foreground">
             Start using components in your application:
           </p>
@@ -151,7 +151,7 @@ export function MyComponent() {
         </section>
 
         <section className="space-y-4">
-          <h2 className="text-2xl font-semibold">Next Steps</h2>
+          <h2 className="text-xl font-semibold md:text-2xl">Next Steps</h2>
           <div className="flex flex-col gap-3">
             <Link href="/docs/installation">
               <Button variant="outline" className="justify-start">

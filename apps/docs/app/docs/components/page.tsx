@@ -29,8 +29,8 @@ export default function ComponentsPage() {
   return (
     <div className="space-y-8">
       <div className="space-y-4">
-        <h1 className="text-4xl font-bold tracking-tight">Components</h1>
-        <p className="text-xl text-muted-foreground">
+        <h1 className="text-3xl font-bold tracking-tight md:text-4xl">Components</h1>
+        <p className="text-base text-muted-foreground md:text-xl">
           Browse all available components in the Xaui library.
         </p>
       </div>

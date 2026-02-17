@@ -24,7 +24,7 @@ export function CodeBlock({
   }
 
   return (
-    <div className="relative group">
+    <div className="relative group min-w-0">
       {showCopy && (
         <button
           onClick={handleCopy}
