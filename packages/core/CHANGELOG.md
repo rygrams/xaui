@@ -1,5 +1,15 @@
 # @xaui/core
 
+## 0.1.8
+
+### Patch Changes
+
+- 04252c6: Fix AppBar theme-color surface behavior and improve AppBar documentation previews.
+  - ensure `secondary` theme background uses its own neutral token in core colors
+  - update AppBar slot alignment API by using `alignment` on `AppBarContent`
+  - refine floating AppBar width behavior to fill available space with a 97% max width
+  - add AppBar screenshot previews in docs using assets from `apps/docs/public/screenshots`
+
 ## 0.1.7
 
 ### Patch Changes
