@@ -67,6 +67,11 @@
       "import": "./dist/select/index.js",
       "require": "./dist/select/index.js"
     },
+    "./dialog": {
+      "types": "./dist/dialog/index.d.ts",
+      "import": "./dist/dialog/index.js",
+      "require": "./dist/dialog/index.js"
+    },
     "./divider": {
       "types": "./dist/divider/index.d.ts",
       "import": "./dist/divider/index.js",

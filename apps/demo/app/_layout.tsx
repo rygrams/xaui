@@ -47,6 +47,7 @@ export default function RootLayout() {
             <Stack.Screen name="carousel" options={{ title: 'Carousel Examples' }} />
             <Stack.Screen name="checkbox" options={{ title: 'Checkbox Examples' }} />
             <Stack.Screen name="chips" options={{ title: 'Chip Examples' }} />
+            <Stack.Screen name="dialog" options={{ title: 'Dialog Examples' }} />
             <Stack.Screen
               name="datepicker"
               options={{ title: 'DatePicker Examples' }}

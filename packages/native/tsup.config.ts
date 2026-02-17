@@ -10,6 +10,7 @@ const entries = {
   'indicator/index': 'src/components/indicator/index.ts',
   'switch/index': 'src/components/switch/index.ts',
   'select/index': 'src/components/select/index.ts',
+  'dialog/index': 'src/components/dialog/index.ts',
   'divider/index': 'src/components/divider/index.ts',
   'drawer/index': 'src/components/drawer/index.ts',
   'avatar/index': 'src/components/avatar/index.ts',
