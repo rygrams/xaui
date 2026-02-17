@@ -5,6 +5,7 @@ import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { useColorScheme } from '@/hooks/use-color-scheme'
 import { defaultDarkTheme, defaultTheme } from '@xaui/core/theme'
 import { XUIProvider } from '@xaui/native/core'
+import { StatusBar } from 'react-native'
 
 export default function RootLayout() {
   const colorScheme = useColorScheme()
@@ -101,6 +102,9 @@ export default function RootLayout() {
           </Stack>
         </XUIProvider>
       </GestureHandlerRootView>
+      <StatusBar
+        barStyle={colorScheme === 'light' ? 'dark-content' : 'light-content'}
+      />
     </ThemeProvider>
   )
 }

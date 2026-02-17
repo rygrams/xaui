@@ -5,7 +5,6 @@ export const styles = StyleSheet.create({
     width: '100%',
   },
   floatingContainer: {
-    paddingHorizontal: 16,
     paddingVertical: 8,
   },
   appBar: {
@@ -19,7 +18,8 @@ export const styles = StyleSheet.create({
     borderRadius: 0,
   },
   floating: {
-    width: '92%',
+    width: '100%',
+    maxWidth: '97%',
     borderRadius: 9999,
     alignSelf: 'center',
   },
@@ -34,7 +34,7 @@ export const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: 12,
+    paddingHorizontal: 10,
   },
   endContent: {
     flexShrink: 0,
