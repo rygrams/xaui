@@ -6374,4 +6374,207 @@ export function ScaleExample() {
       },
     ],
   },
+  'input-trigger': {
+    props: [
+      { name: 'value', type: 'ReactNode', defaultValue: '-', description: 'Content displayed inside the trigger' },
+      { name: 'placeholder', type: 'string', defaultValue: '"Select..."', description: 'Text shown when no value is set' },
+      { name: 'label', type: 'ReactNode', defaultValue: '-', description: 'Label displayed above or inside the trigger' },
+      { name: 'labelPlacement', type: '"outside" | "inside"', defaultValue: '"outside"', description: 'Position of the label' },
+      { name: 'description', type: 'ReactNode', defaultValue: '-', description: 'Helper text below the trigger' },
+      { name: 'errorMessage', type: 'ReactNode', defaultValue: '-', description: 'Error text when isInvalid is true' },
+      { name: 'startContent', type: 'ReactNode', defaultValue: '-', description: 'Content at the start of the trigger' },
+      { name: 'endContent', type: 'ReactNode', defaultValue: '-', description: 'Content at the end of the trigger' },
+      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme for focus/active states' },
+      { name: 'variant', type: '"flat" | "faded" | "bordered" | "underlined"', defaultValue: '"flat"', description: 'Visual style variant' },
+      { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Size of the trigger' },
+      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Border radius' },
+      { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable the trigger' },
+      { name: 'isInvalid', type: 'boolean', defaultValue: 'false', description: 'Show invalid state styling' },
+      { name: 'fullWidth', type: 'boolean', defaultValue: 'true', description: 'Take the full available width' },
+      { name: 'customAppearance', type: 'InputTriggerCustomAppearance', defaultValue: '-', description: 'Custom style overrides for trigger parts' },
+    ],
+    events: [
+      { name: 'onPress', type: '() => void', description: 'Called when the trigger is pressed' },
+    ],
+    examples: [
+      {
+        title: 'Basic',
+        description: 'A simple trigger styled like an input.',
+        code: `import { InputTrigger } from '@xaui/native/input-trigger'
+
+export function BasicExample() {
+  return (
+    <InputTrigger
+      label="Color"
+      placeholder="Pick a value..."
+      onPress={() => {}}
+    />
+  )
+}`,
+      },
+      {
+        title: 'Variants',
+        code: `import { InputTrigger } from '@xaui/native/input-trigger'
+import { Column } from '@xaui/native/view'
+
+export function VariantsExample() {
+  return (
+    <Column gap={12}>
+      <InputTrigger label="Flat" variant="flat" value="Selected value" onPress={() => {}} />
+      <InputTrigger label="Bordered" variant="bordered" value="Selected value" onPress={() => {}} />
+      <InputTrigger label="Faded" variant="faded" value="Selected value" onPress={() => {}} />
+      <InputTrigger label="Underlined" variant="underlined" value="Selected value" onPress={() => {}} />
+    </Column>
+  )
+}`,
+      },
+    ],
+  },
+  picker: {
+    props: [
+      { name: 'options', type: 'PickerOption[]', defaultValue: '-', description: 'Array of selectable options' },
+      { name: 'value', type: 'string', defaultValue: '-', description: 'Currently selected value (controlled)' },
+      { name: 'placeholder', type: 'string', defaultValue: '"Select an option..."', description: 'Placeholder when no value is selected' },
+      { name: 'label', type: 'ReactNode', defaultValue: '-', description: 'Label for the trigger' },
+      { name: 'labelPlacement', type: '"outside" | "inside"', defaultValue: '"outside"', description: 'Label position' },
+      { name: 'description', type: 'ReactNode', defaultValue: '-', description: 'Helper text below the trigger' },
+      { name: 'errorMessage', type: 'ReactNode', defaultValue: '-', description: 'Error text when isInvalid is true' },
+      { name: 'sheetTitle', type: 'string', defaultValue: '-', description: 'Title shown inside the bottom sheet' },
+      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme' },
+      { name: 'variant', type: '"flat" | "faded" | "bordered" | "underlined"', defaultValue: '"flat"', description: 'Trigger visual variant' },
+      { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Trigger size' },
+      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Border radius' },
+      { name: 'isOpened', type: 'boolean', defaultValue: '-', description: 'Controlled open state' },
+      { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable the picker' },
+      { name: 'isInvalid', type: 'boolean', defaultValue: 'false', description: 'Show invalid state' },
+      { name: 'fullWidth', type: 'boolean', defaultValue: 'true', description: 'Take full available width' },
+      { name: 'sheetStyle', type: 'ViewStyle', defaultValue: '-', description: 'Custom style for the bottom sheet' },
+      { name: 'endContent', type: 'ReactNode', defaultValue: '-', description: 'Custom end content replacing the chevron' },
+    ],
+    events: [
+      { name: 'onValueChange', type: '(value: string) => void', description: 'Called when the selected value changes' },
+      { name: 'onOpenChange', type: '(isOpen: boolean) => void', description: 'Called when the sheet opens or closes' },
+      { name: 'onClose', type: '() => void', description: 'Called when the sheet closes' },
+    ],
+    examples: [
+      {
+        title: 'Basic',
+        code: `import { useState } from 'react'
+import { Picker } from '@xaui/native/picker'
+
+export function BasicExample() {
+  const [value, setValue] = useState('')
+
+  return (
+    <Picker
+      label="Country"
+      placeholder="Select a country..."
+      options={[
+        { label: 'France', value: 'fr' },
+        { label: 'United States', value: 'us' },
+        { label: 'Japan', value: 'jp' },
+        { label: 'Brazil', value: 'br' },
+      ]}
+      value={value}
+      onValueChange={setValue}
+    />
+  )
+}`,
+      },
+      {
+        title: 'With sheet title',
+        code: `import { useState } from 'react'
+import { Picker } from '@xaui/native/picker'
+
+export function SheetTitleExample() {
+  const [value, setValue] = useState('')
+
+  return (
+    <Picker
+      label="Language"
+      sheetTitle="Select a language"
+      options={[
+        { label: 'English', value: 'en' },
+        { label: 'French', value: 'fr' },
+        { label: 'Spanish', value: 'es' },
+      ]}
+      value={value}
+      onValueChange={setValue}
+    />
+  )
+}`,
+      },
+    ],
+  },
+  'color-picker': {
+    props: [
+      { name: 'value', type: 'string', defaultValue: '-', description: 'Currently selected hex color string' },
+      { name: 'placeholder', type: 'string', defaultValue: '"Pick a color..."', description: 'Placeholder text when no color is selected' },
+      { name: 'label', type: 'ReactNode', defaultValue: '-', description: 'Label for the trigger' },
+      { name: 'labelPlacement', type: '"outside" | "inside"', defaultValue: '"outside"', description: 'Label position' },
+      { name: 'description', type: 'ReactNode', defaultValue: '-', description: 'Helper text below the trigger' },
+      { name: 'errorMessage', type: 'ReactNode', defaultValue: '-', description: 'Error text when isInvalid is true' },
+      { name: 'colorGroups', type: 'ColorGroup[]', defaultValue: 'defaultColorGroups', description: 'Custom color groups (name + colors array)' },
+      { name: 'sheetTitle', type: 'string', defaultValue: '"Pick a color"', description: 'Title shown at the top of the sheet' },
+      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme for the trigger and selection highlight' },
+      { name: 'variant', type: '"flat" | "faded" | "bordered" | "underlined"', defaultValue: '"flat"', description: 'Trigger visual variant' },
+      { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Trigger size' },
+      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Border radius' },
+      { name: 'isOpened', type: 'boolean', defaultValue: '-', description: 'Controlled open state' },
+      { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable the color picker' },
+      { name: 'isInvalid', type: 'boolean', defaultValue: 'false', description: 'Show invalid state' },
+      { name: 'fullWidth', type: 'boolean', defaultValue: 'true', description: 'Take full available width' },
+      { name: 'sheetStyle', type: 'ViewStyle', defaultValue: '-', description: 'Custom style for the bottom sheet' },
+      { name: 'swatchSize', type: 'number', defaultValue: '28', description: 'Size in pixels of each color swatch' },
+    ],
+    events: [
+      { name: 'onColorChange', type: '(color: string) => void', description: 'Called when a color is selected' },
+      { name: 'onOpenChange', type: '(isOpen: boolean) => void', description: 'Called when the sheet opens or closes' },
+      { name: 'onClose', type: '() => void', description: 'Called when the sheet closes' },
+    ],
+    examples: [
+      {
+        title: 'Basic',
+        code: `import { useState } from 'react'
+import { ColorPicker } from '@xaui/native/color-picker'
+
+export function BasicExample() {
+  const [color, setColor] = useState('')
+
+  return (
+    <ColorPicker
+      label="Brand color"
+      value={color}
+      onColorChange={setColor}
+    />
+  )
+}`,
+      },
+      {
+        title: 'Custom palette',
+        code: `import { useState } from 'react'
+import { ColorPicker } from '@xaui/native/color-picker'
+
+const brandColors = [
+  {
+    name: 'Brand',
+    colors: ['#6366f1', '#8b5cf6', '#ec4899', '#f97316', '#22c55e'],
+  },
+]
+
+export function CustomPaletteExample() {
+  const [color, setColor] = useState('')
+
+  return (
+    <ColorPicker
+      label="Brand color"
+      colorGroups={brandColors}
+      value={color}
+      onColorChange={setColor}
+    />
+  )
+}`,
+      },
+    ],
+  },
 }
