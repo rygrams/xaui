@@ -6322,6 +6322,116 @@ export function StackExample() {
       },
     ],
   },
+  snippet: {
+    props: [
+      { name: 'value', type: 'string', defaultValue: '-', description: 'Text value displayed inside the snippet' },
+      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Theme color used by snippet and copy button styles' },
+      { name: 'variant', type: '"outlined" | "flat" | "light"', defaultValue: '"outlined"', description: 'Visual style variant' },
+      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Border radius' },
+      { name: 'copyButtonPosition', type: '"top-left" | "top-right" | "bottom-left" | "bottom-right"', defaultValue: '"top-right"', description: 'Position of the copy action button' },
+      { name: 'copyLabel', type: 'string', defaultValue: '"Copy"', description: 'Label shown before copy success' },
+      { name: 'copiedLabel', type: 'string', defaultValue: '"Copied"', description: 'Label shown after successful copy' },
+      { name: 'copyResetDelay', type: 'number', defaultValue: '1500', description: 'Delay (ms) before resetting copied state' },
+      { name: 'fullWidth', type: 'boolean', defaultValue: 'true', description: 'Expand snippet to full width' },
+      { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable copy interaction and dim the snippet' },
+      { name: 'numberOfLines', type: 'number', defaultValue: '-', description: 'Optional max line clamp for snippet text' },
+      { name: 'fontSize', type: 'number', defaultValue: '14', description: 'Font size of the snippet text' },
+      { name: 'fontWeight', type: 'TextStyle["fontWeight"]', defaultValue: '"400"', description: 'Font weight of the snippet text' },
+      { name: 'customAppearance', type: '{ container?: ViewStyle; content?: ViewStyle; text?: TextStyle; copyButton?: ViewStyle; copyButtonText?: TextStyle }', defaultValue: '-', description: 'Custom style overrides' },
+    ],
+    events: [
+      { name: 'onCopy', type: '(value: string, isSuccess: boolean) => void', description: 'Called after a copy attempt' },
+    ],
+    examples: [
+      {
+        title: 'Basic',
+        description: 'Simple snippet with default copy action in the top-right corner.',
+        code: `import { Snippet } from '@xaui/native/snippet'
+
+export function BasicExample() {
+  return <Snippet value="pnpm add @xaui/native" />
+}`,
+      },
+      {
+        title: 'Variants',
+        description: 'Outlined, flat, and light styles.',
+        code: `import { Snippet } from '@xaui/native/snippet'
+import { Column } from '@xaui/native/view'
+
+export function VariantsExample() {
+  const command = 'pnpm add @xaui/native'
+
+  return (
+    <Column gap={10}>
+      <Snippet value={command} variant="outlined" />
+      <Snippet value={command} variant="flat" />
+      <Snippet value={command} variant="light" />
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Theme Colors',
+        description: 'Use semantic colors with the same variant.',
+        code: `import { Snippet } from '@xaui/native/snippet'
+import { Column } from '@xaui/native/view'
+
+export function ThemeColorsExample() {
+  const colors = ['primary', 'secondary', 'success', 'warning', 'danger', 'default'] as const
+
+  return (
+    <Column gap={10}>
+      {colors.map(color => (
+        <Snippet
+          key={color}
+          value={\`echo "\${color}"\`}
+          themeColor={color}
+          variant="outlined"
+        />
+      ))}
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Copy Button Positions',
+        description: 'Place the copy button on any corner using copyButtonPosition.',
+        code: `import { Snippet } from '@xaui/native/snippet'
+import { Column } from '@xaui/native/view'
+
+export function PositionsExample() {
+  const value = 'npm run build'
+
+  return (
+    <Column gap={10}>
+      <Snippet value={value} copyButtonPosition="top-left" />
+      <Snippet value={value} copyButtonPosition="top-right" />
+      <Snippet value={value} copyButtonPosition="bottom-left" />
+      <Snippet value={value} copyButtonPosition="bottom-right" />
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Typography Control',
+        description: 'Tune snippet text rendering with fontSize and fontWeight.',
+        code: `import { Snippet } from '@xaui/native/snippet'
+import { Column } from '@xaui/native/view'
+
+export function TypographyExample() {
+  const command = 'pnpm --filter @xaui/native build'
+
+  return (
+    <Column gap={10}>
+      <Snippet value={command} fontSize={13} fontWeight="400" />
+      <Snippet value={command} fontSize={16} fontWeight="600" />
+      <Snippet value={command} fontSize={18} fontWeight="700" />
+    </Column>
+  )
+}`,
+      },
+    ],
+  },
   'conditional-view': {
     props: [
       { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Content to conditionally render' },

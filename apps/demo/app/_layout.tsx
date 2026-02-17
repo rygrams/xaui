@@ -88,6 +88,7 @@ export default function RootLayout() {
             />
             <Stack.Screen name="stepper" options={{ title: 'Stepper Examples' }} />
             <Stack.Screen name="snackbar" options={{ title: 'Snackbar Examples' }} />
+            <Stack.Screen name="snippet" options={{ title: 'Snippet Examples' }} />
             <Stack.Screen name="skeleton" options={{ title: 'Skeleton Examples' }} />
             <Stack.Screen name="switch" options={{ title: 'Switch Examples' }} />
             <Stack.Screen name="textarea" options={{ title: 'TextArea Examples' }} />

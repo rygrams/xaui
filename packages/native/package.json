@@ -226,6 +226,11 @@
       "types": "./dist/snackbar/index.d.ts",
       "import": "./dist/snackbar/index.js",
       "require": "./dist/snackbar/index.js"
+    },
+    "./snippet": {
+      "types": "./dist/snippet/index.d.ts",
+      "import": "./dist/snippet/index.js",
+      "require": "./dist/snippet/index.js"
     }
   },
   "files": [

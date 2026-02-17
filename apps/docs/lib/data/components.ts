@@ -473,6 +473,23 @@ export const components: Component[] = [
     types: ['SnackbarProps', 'SnackbarStackProps', 'SnackbarItem', 'SnackbarPosition'],
   },
   {
+    id: 'snippet',
+    name: 'Snippet',
+    description:
+      'Code/text snippet container with themed variants and built-in copy action.',
+    category: 'Data Display',
+    href: '/docs/components/snippet',
+    status: 'beta',
+    importPath: '@xaui/native/snippet',
+    exports: ['Snippet'],
+    types: [
+      'SnippetProps',
+      'SnippetVariant',
+      'CopyButtonPosition',
+      'SnippetCustomAppearance',
+    ],
+  },
+  {
     id: 'skeleton',
     name: 'Skeleton',
     description: 'Placeholder shimmer component used while loading content.',
