@@ -43,6 +43,14 @@ export type AppBarSlotProps = {
   style?: StyleProp<ViewStyle>
 }
 
+export type AppBarSlotContentAlignment = 'start' | 'center' | 'end'
+
 export type AppBarStartContentProps = AppBarSlotProps
-export type AppBarContentProps = AppBarSlotProps
+export type AppBarContentProps = AppBarSlotProps & {
+  /**
+   * Horizontal alignment for content slot content.
+   * @default 'center'
+   */
+  alignment?: AppBarSlotContentAlignment
+}
 export type AppBarEndContentProps = AppBarSlotProps

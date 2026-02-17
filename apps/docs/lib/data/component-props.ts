@@ -271,6 +271,7 @@ export function ElevationExample() {
         name: 'AppBarContent',
         props: [
           { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Main content area. Centred and takes all available space between start and end slots' },
+          { name: 'alignment', type: '"start" | "center" | "end"', defaultValue: '"center"', description: 'Horizontal alignment of content inside the content slot' },
           { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Additional styles' },
         ],
       },

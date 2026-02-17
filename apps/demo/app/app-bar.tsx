@@ -1,14 +1,11 @@
-import { useState } from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import {
   ArrowBackIcon,
-  SearchIcon,
+  CloseCircleIcon,
   EllipsisVerticalIcon,
-  StarIcon,
-  AddIcon,
+  SearchIcon,
 } from '@xaui/icons'
 import { useXUIColors, useXUITheme } from '@xaui/native/core'
-import { Button } from '@xaui/native/button'
 import {
   AppBar,
   AppBarContent,
@@ -19,9 +16,6 @@ import {
 export default function AppBarScreen() {
   const colors = useXUIColors()
   const theme = useXUITheme()
-  const floatingThemeColor = theme.colors.primary
-  const [floatingElevation, setFloatingElevation] = useState(3)
-  const [dockedElevation, setDockedElevation] = useState(1)
 
   return (
     <ScrollView
@@ -35,43 +29,41 @@ export default function AppBarScreen() {
         <Text
           style={[styles.description, { color: colors.foreground, opacity: 0.7 }]}
         >
-          Full-width app bar with `variant=docked` and configurable `elevation`.
-        </Text>
-        <View style={styles.controlsRow}>
-          <Button
-            size="sm"
-            variant="outlined"
-            onPress={() => setDockedElevation(prev => Math.max(prev - 1, 0))}
-          >
-            Elevation -
-          </Button>
-          <Button
-            size="sm"
-            variant="outlined"
-            onPress={() => setDockedElevation(prev => Math.min(prev + 1, 12))}
-          >
-            Elevation +
-          </Button>
-        </View>
-        <Text style={[styles.valueLabel, { color: colors.foreground }]}>
-          elevation: {dockedElevation}
+          Full-width AppBar with title only.
         </Text>
 
         <View style={styles.preview}>
-          <AppBar variant="docked" elevation={dockedElevation}>
-            <AppBarStartContent>
-              <ArrowBackIcon size={22} color={colors.foreground} />
-            </AppBarStartContent>
-            <AppBarContent>
-              <Text style={[styles.title, { color: colors.foreground }]}>
-                AppBar Docked
-              </Text>
-            </AppBarContent>
-            <AppBarEndContent>
-              <SearchIcon size={22} color={colors.foreground} />
-              <EllipsisVerticalIcon size={22} color={colors.foreground} />
-            </AppBarEndContent>
-          </AppBar>
+          <View style={styles.stack}>
+            <AppBar variant="docked" elevation={1}>
+              <AppBarStartContent>
+                <ArrowBackIcon size={18} color={colors.foreground} />
+              </AppBarStartContent>
+              <AppBarContent alignment="start">
+                <Text style={[styles.title, { color: colors.foreground }]}>
+                  XAUI
+                </Text>
+              </AppBarContent>
+              <AppBarEndContent>
+                <Text style={[styles.slotText, { color: colors.foreground }]}>
+                  Menu
+                </Text>
+              </AppBarEndContent>
+            </AppBar>
+
+            <AppBar variant="docked" elevation={2}>
+              <AppBarStartContent>
+                <ArrowBackIcon size={22} color={colors.foreground} />
+              </AppBarStartContent>
+              <AppBarContent alignment="center">
+                <Text style={[styles.title, { color: colors.foreground }]}>
+                  XAUI
+                </Text>
+              </AppBarContent>
+              <AppBarEndContent>
+                <CloseCircleIcon size={22} color={colors.foreground} />
+              </AppBarEndContent>
+            </AppBar>
+          </View>
         </View>
       </View>
 
@@ -82,48 +74,53 @@ export default function AppBarScreen() {
         <Text
           style={[styles.description, { color: colors.foreground, opacity: 0.7 }]}
         >
-          Rounded app bar with `variant=floating` that does not take the full screen
-          width. This example also uses `themeColor=&quot;primary&quot;`.
-        </Text>
-        <View style={styles.controlsRow}>
-          <Button
-            size="sm"
-            variant="outlined"
-            onPress={() => setFloatingElevation(prev => Math.max(prev - 1, 0))}
-          >
-            Elevation -
-          </Button>
-          <Button
-            size="sm"
-            variant="outlined"
-            onPress={() => setFloatingElevation(prev => Math.min(prev + 1, 12))}
-          >
-            Elevation +
-          </Button>
-        </View>
-        <Text style={[styles.valueLabel, { color: colors.foreground }]}>
-          elevation: {floatingElevation}
+          Rounded AppBar with title only.
         </Text>
 
         <View style={styles.preview}>
-          <AppBar
-            variant="floating"
-            elevation={floatingElevation}
-            themeColor="primary"
-          >
-            <AppBarStartContent>
-              <StarIcon size={22} color={floatingThemeColor.main} />
-            </AppBarStartContent>
-            <AppBarContent>
-              <Text style={[styles.title, { color: floatingThemeColor.main }]}>
-                AppBar Floating
-              </Text>
-            </AppBarContent>
-            <AppBarEndContent>
-              <AddIcon size={22} color={floatingThemeColor.main} />
-              <SearchIcon size={22} color={floatingThemeColor.main} />
-            </AppBarEndContent>
-          </AppBar>
+          <View style={styles.stack}>
+            <AppBar variant="floating" elevation={1}>
+              <AppBarStartContent>
+                <ArrowBackIcon size={22} color={colors.foreground} />
+              </AppBarStartContent>
+              <AppBarContent alignment="center">
+                <Text style={[styles.title, { color: colors.foreground }]}>
+                  XAUI
+                </Text>
+              </AppBarContent>
+              <AppBarEndContent>
+                <SearchIcon size={22} color={colors.foreground} />
+              </AppBarEndContent>
+            </AppBar>
+
+            <AppBar variant="floating" themeColor="primary">
+              <AppBarStartContent>
+                <ArrowBackIcon size={22} color={theme.colors.primary.main} />
+              </AppBarStartContent>
+              <AppBarContent alignment="center">
+                <Text style={[styles.title, { color: theme.colors.primary.main }]}>
+                  XAUI
+                </Text>
+              </AppBarContent>
+              <AppBarEndContent>
+                <EllipsisVerticalIcon size={22} color={theme.colors.primary.main} />
+              </AppBarEndContent>
+            </AppBar>
+
+            <AppBar variant="floating" elevation={1} themeColor="tertiary">
+              <AppBarStartContent>
+                <ArrowBackIcon size={22} color={theme.colors.tertiary.main} />
+              </AppBarStartContent>
+              <AppBarContent alignment="center">
+                <Text style={[styles.title, { color: theme.colors.tertiary.main }]}>
+                  XAUI
+                </Text>
+              </AppBarContent>
+              <AppBarEndContent>
+                <EllipsisVerticalIcon size={22} color={theme.colors.tertiary.main} />
+              </AppBarEndContent>
+            </AppBar>
+          </View>
         </View>
       </View>
     </ScrollView>
@@ -133,9 +130,10 @@ export default function AppBarScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    paddingHorizontal: 16,
   },
   content: {
-    padding: 20,
+    paddingVertical: 12,
   },
   section: {
     width: '100%',
@@ -149,24 +147,19 @@ const styles = StyleSheet.create({
     fontSize: 14,
     lineHeight: 20,
   },
-  controlsRow: {
-    flexDirection: 'row',
-    gap: 8,
-  },
-  valueLabel: {
-    fontSize: 13,
-    opacity: 0.7,
-  },
   preview: {
-    borderWidth: 1,
-    borderColor: 'rgba(0, 0, 0, 0.12)',
-    borderRadius: 16,
     overflow: 'hidden',
     paddingVertical: 14,
-    backgroundColor: 'rgba(0, 0, 0, 0.02)',
+  },
+  stack: {
+    gap: 10,
   },
   title: {
     fontSize: 16,
     fontWeight: '600',
+  },
+  slotText: {
+    fontSize: 13,
+    fontWeight: '500',
   },
 })

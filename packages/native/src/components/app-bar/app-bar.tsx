@@ -28,8 +28,11 @@ export const AppBar: React.FC<AppBarProps> = ({
   const backgroundColor = isDefaultThemeColor
     ? theme.mode === 'dark'
       ? theme.colors.default.background
-      : '#FFFFFF'
+      : isFloating
+        ? theme.palette.gray[200]
+        : '#FFFFFF'
     : colorScheme.background
+
   const borderBottomColor = isDefaultThemeColor
     ? theme.mode === 'dark'
       ? 'rgba(255, 255, 255, 0.06)'
@@ -66,9 +69,17 @@ export const AppBarStartContent: React.FC<AppBarStartContentProps> = ({
 
 export const AppBarContent: React.FC<AppBarContentProps> = ({
   children,
+  alignment = 'center',
   style,
 }: AppBarContentProps) => {
-  return <View style={[styles.content, style]}>{children}</View>
+  const alignItems =
+    alignment === 'start'
+      ? 'flex-start'
+      : alignment === 'center'
+        ? 'center'
+        : 'flex-end'
+
+  return <View style={[styles.content, { alignItems }, style]}>{children}</View>
 }
 
 export const AppBarEndContent: React.FC<AppBarEndContentProps> = ({

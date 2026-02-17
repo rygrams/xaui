@@ -27,12 +27,12 @@ export const themeColors: ThemeColors = {
   secondary: {
     main: colors.zinc[500],
     foreground: colors.white,
-    background: colors.purple[200],
+    background: colors.zinc[200],
   },
   tertiary: {
     main: colors.stone[500],
     foreground: colors.white,
-    background: colors.red[100],
+    background: colors.stone[100],
   },
   danger: {
     main: colors.red[700],

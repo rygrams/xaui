@@ -4,6 +4,9 @@ import { CodeBlock } from '@/components/ui/code-block'
 import { getComponentById, components, type Component } from '@/lib/data/components'
 import { componentPropsMap } from '@/lib/data/component-props'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { AlertScreenshots } from '@/components/preview/alert-screenshots'
+import { AppBarScreenshots } from '@/components/preview/app-bar-screenshots'
+import { AutocompleteScreenshots } from '@/components/preview/autocomplete-screenshots'
 
 type ComponentPageProps = {
   params: Promise<{
@@ -165,6 +168,10 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
         </div>
         <p className="text-xl text-muted-foreground">{component.description}</p>
       </div>
+
+      {component.id === 'alert' && <AlertScreenshots />}
+      {component.id === 'app-bar' && <AppBarScreenshots />}
+      {component.id === 'autocomplete' && <AutocompleteScreenshots />}
 
       <Tabs defaultValue="code" className="w-full">
         <TabsList>
