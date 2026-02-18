@@ -25,6 +25,9 @@ const Swatch: React.FC<SwatchProps> = ({
 }) => (
   <Pressable
     onPress={() => onSelect(color)}
+    accessibilityRole="button"
+    accessibilityLabel={color}
+    accessibilityState={{ selected: isSelected }}
     style={[
       {
         width: size,
