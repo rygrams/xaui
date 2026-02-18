@@ -7,6 +7,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { AlertScreenshots } from '@/components/preview/alert-screenshots'
 import { AppBarScreenshots } from '@/components/preview/app-bar-screenshots'
 import { AutocompleteScreenshots } from '@/components/preview/autocomplete-screenshots'
+import { AvatarScreenshots } from '@/components/preview/avatar-screenshots'
+import { AvatarGroupScreenshots } from '@/components/preview/avatar-group-screenshots'
 
 type ComponentPageProps = {
   params: Promise<{
@@ -172,6 +174,8 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
       {component.id === 'alert' && <AlertScreenshots />}
       {component.id === 'app-bar' && <AppBarScreenshots />}
       {component.id === 'autocomplete' && <AutocompleteScreenshots />}
+      {component.id === 'avatar' && <AvatarScreenshots />}
+      {component.id === 'avatar-group' && <AvatarGroupScreenshots />}
 
       <Tabs defaultValue="code" className="w-full">
         <TabsList>
