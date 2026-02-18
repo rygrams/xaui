@@ -1,6 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import type {
-  SurfaceBackgroundColor,
+  SurfaceThemeColor,
   SurfaceProps,
 } from '../../../../components/view/surface/surface.type'
 
@@ -15,33 +15,31 @@ describe('Surface Types', () => {
   })
 
   it('supports theme background keys', () => {
-    const color: SurfaceBackgroundColor = 'primary'
+    const color: SurfaceThemeColor = 'primary'
     const props: SurfaceProps = {
       children: 'Content',
-      backgroundColor: color,
+      themeColor: color,
       padding: 16,
       radius: 'lg',
-      fullWidth: true,
     }
 
-    expect(props.backgroundColor).toBe('primary')
+    expect(props.themeColor).toBe('primary')
     expect(props.padding).toBe(16)
     expect(props.radius).toBe('lg')
-    expect(props.fullWidth).toBe(true)
   })
 
   it('supports raw theme background and foreground keys', () => {
     const bg: SurfaceProps = {
       children: 'Background',
-      backgroundColor: 'background',
+      themeColor: 'background',
     }
 
     const fg: SurfaceProps = {
       children: 'Foreground',
-      backgroundColor: 'foreground',
+      themeColor: 'foreground',
     }
 
-    expect(bg.backgroundColor).toBe('background')
-    expect(fg.backgroundColor).toBe('foreground')
+    expect(bg.themeColor).toBe('background')
+    expect(fg.themeColor).toBe('foreground')
   })
 })

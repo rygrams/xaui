@@ -742,7 +742,7 @@ export const components: Component[] = [
     status: 'beta',
     importPath: '@xaui/native/view',
     exports: ['Surface'],
-    types: ['SurfaceProps', 'SurfaceBackgroundColor'],
+    types: ['SurfaceProps', 'SurfaceThemeColor'],
   },
   {
     id: 'aspect-ratio',

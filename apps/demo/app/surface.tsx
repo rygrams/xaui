@@ -35,7 +35,12 @@ export default function SurfaceScreen() {
         </Text>
         <Column spacing={10}>
           {semanticColors.map(color => (
-            <Surface key={color} backgroundColor={color} padding={12} radius="sm" fullWidth>
+            <Surface
+              key={color}
+              themeColor={color}
+              padding={12}
+              radius="sm"
+            >
               <Row mainAxisAlignment="space-between" crossAxisAlignment="center" fullWidth>
                 <Text style={{ color: theme.colors.foreground, fontWeight: '600' }}>
                   {color}
@@ -52,14 +57,14 @@ export default function SurfaceScreen() {
           Radius, Padding, Full Width
         </Text>
         <Column spacing={10}>
-          <Surface backgroundColor="secondary" padding={10} radius="none">
+          <Surface themeColor="secondary" padding={10} radius="none">
             <Text style={{ color: theme.colors.foreground }}>radius="none" / padding=10</Text>
           </Surface>
-          <Surface backgroundColor="primary" padding={16} radius="md">
+          <Surface themeColor="primary" padding={16} radius="md">
             <Text style={{ color: theme.colors.foreground }}>radius="md" / padding=16</Text>
           </Surface>
-          <Surface backgroundColor="success" padding={22} radius="lg" fullWidth>
-            <Text style={{ color: theme.colors.foreground }}>radius="lg" / fullWidth</Text>
+          <Surface themeColor="success" padding={22} radius="lg">
+            <Text style={{ color: theme.colors.foreground }}>radius="lg"</Text>
           </Surface>
         </Column>
       </View>

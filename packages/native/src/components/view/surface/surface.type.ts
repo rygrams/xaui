@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 import type { StyleProp, ViewStyle } from 'react-native'
 import type { Radius, ThemeColor } from '../../../types'
 
-export type SurfaceBackgroundColor = ThemeColor | 'background' | 'foreground'
+export type SurfaceThemeColor = ThemeColor | 'background' | 'foreground'
 
 export type SurfaceProps = {
   /**
@@ -10,12 +10,12 @@ export type SurfaceProps = {
    */
   children: ReactNode
   /**
-   * Theme-based background color key.
+   * Theme-based color key used for background.
    * - Semantic keys (primary, secondary, etc.) use their `.background` tone.
-   * - `background` / `foreground` use the raw theme color values.
+   * - `background` / `foreground` use raw theme values.
    * @default 'background'
    */
-  backgroundColor?: SurfaceBackgroundColor
+  themeColor?: SurfaceThemeColor
   /**
    * Uniform padding inside the surface.
    */
@@ -25,11 +25,6 @@ export type SurfaceProps = {
    * @default 'md'
    */
   radius?: Radius
-  /**
-   * Whether the surface should take full width.
-   * @default false
-   */
-  fullWidth?: boolean
   /**
    * Additional container styles.
    */

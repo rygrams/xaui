@@ -31,7 +31,7 @@ export type { PositionedViewProps } from './positioned-view/positioned-view.type
 export type { BlurViewProps } from './blur-view/blur-view.type'
 export type { RoundedViewProps } from './rounded-view/rounded-view.type'
 export type { AspectRatioProps } from './aspect-ratio/aspect-ratio.type'
-export type { SurfaceProps, SurfaceBackgroundColor } from './surface/surface.type'
+export type { SurfaceProps, SurfaceThemeColor } from './surface/surface.type'
 
 export type {
   ConditionalViewAnimation,

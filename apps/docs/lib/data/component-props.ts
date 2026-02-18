@@ -6102,10 +6102,9 @@ export function AsymmetricRadiusExample() {
   surface: {
     props: [
       { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Content rendered inside the surface' },
-      { name: 'backgroundColor', type: '"primary" | "secondary" | "tertiary" | "danger" | "warning" | "success" | "default" | "background" | "foreground"', defaultValue: '"background"', description: 'Theme color key used for the surface background' },
+      { name: 'themeColor', type: '"primary" | "secondary" | "tertiary" | "danger" | "warning" | "success" | "default" | "background" | "foreground"', defaultValue: '"background"', description: 'Theme color key used for the surface background' },
       { name: 'padding', type: 'number', defaultValue: '-', description: 'Uniform internal padding' },
       { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Border radius token' },
-      { name: 'fullWidth', type: 'boolean', defaultValue: 'false', description: 'Expand to full available width' },
       { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Additional container styles' },
     ],
     examples: [
@@ -6132,13 +6131,13 @@ import { Typography } from '@xaui/native/typography'
 export function SurfaceThemeColorsExample() {
   return (
     <Column spacing={10}>
-      <Surface backgroundColor="primary" padding={12} radius="sm">
+      <Surface themeColor="primary" padding={12} radius="sm">
         <Typography>Primary background</Typography>
       </Surface>
-      <Surface backgroundColor="success" padding={12} radius="sm">
+      <Surface themeColor="success" padding={12} radius="sm">
         <Typography>Success background</Typography>
       </Surface>
-      <Surface backgroundColor="warning" padding={12} radius="sm">
+      <Surface themeColor="warning" padding={12} radius="sm">
         <Typography>Warning background</Typography>
       </Surface>
     </Column>
@@ -6147,17 +6146,16 @@ export function SurfaceThemeColorsExample() {
       },
       {
         title: 'Full Width Card Surface',
-        description: 'Combine fullWidth, radius, and padding for card-like sections.',
+        description: 'Use radius and padding for card-like sections.',
         code: `import { Surface } from '@xaui/native/view'
 import { Typography } from '@xaui/native/typography'
 
 export function SurfaceCardExample() {
   return (
     <Surface
-      fullWidth
       radius="lg"
       padding={18}
-      backgroundColor="secondary"
+      themeColor="secondary"
       style={{ borderWidth: 1, borderColor: '#d4d4d8' }}
     >
       <Typography variant="titleSmall">Team Notes</Typography>

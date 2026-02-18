@@ -1,12 +1,11 @@
 import React from 'react'
 import { View } from 'react-native'
-import type { ViewStyle } from 'react-native'
 import { useXUITheme } from '../../../core'
 import { useBorderRadiusStyles } from '../../../core/theme-hooks'
-import type { SurfaceBackgroundColor, SurfaceProps } from './surface.type'
+import type { SurfaceThemeColor, SurfaceProps } from './surface.type'
 
 const resolveBackgroundColor = (
-  color: SurfaceBackgroundColor,
+  color: SurfaceThemeColor,
   theme: ReturnType<typeof useXUITheme>
 ) => {
   if (color === 'background' || color === 'foreground') {
@@ -18,25 +17,22 @@ const resolveBackgroundColor = (
 
 export const Surface: React.FC<SurfaceProps> = ({
   children,
-  backgroundColor = 'background',
+  themeColor = 'background',
   padding,
   radius = 'md',
-  fullWidth = false,
   style,
 }) => {
   const theme = useXUITheme()
   const radiusStyle = useBorderRadiusStyles(radius)
-  const background = resolveBackgroundColor(backgroundColor, theme)
-  const fullWidthStyle = fullWidth
-    ? ({ flexShrink: 1, flexBasis: 'auto', width: '100%' } as ViewStyle)
-    : undefined
+  const background = resolveBackgroundColor(themeColor, theme)
 
   return (
     <View
       style={[
         radiusStyle,
-        fullWidthStyle,
         {
+          width: '100%',
+          height: '100%',
           backgroundColor: background,
           padding,
         },
