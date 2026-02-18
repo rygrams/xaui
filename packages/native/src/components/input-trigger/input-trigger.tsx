@@ -73,6 +73,7 @@ export const InputTrigger: React.FC<InputTriggerProps> = ({
         <Pressable
           onPress={isDisabled ? undefined : onPress}
           disabled={isDisabled}
+          accessibilityRole="button"
         >
           <View
             style={[
