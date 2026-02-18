@@ -1,5 +1,11 @@
 # @xaui/core
 
+## 0.1.9
+
+### Patch Changes
+
+- d16bad0: Trigger a patch release of `@xaui/core` to rebuild and republish with pnpm.
+
 ## 0.1.8
 
 ### Patch Changes
