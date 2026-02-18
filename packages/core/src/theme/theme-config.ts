@@ -115,7 +115,7 @@ export type PartialXUITheme = {
   shadows: Partial<ThemeShadows>
 }
 
-const baseTheme = {
+export const baseTheme = {
   spacing: {
     xs: 4,
     sm: 8,
