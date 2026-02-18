@@ -22,7 +22,7 @@ export type SurfaceProps = {
   padding?: number
   /**
    * Border radius token.
-   * @default 'md'
+   * @default 'none'
    */
   radius?: Radius
   /**
