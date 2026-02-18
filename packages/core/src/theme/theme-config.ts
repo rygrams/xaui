@@ -103,16 +103,16 @@ export interface XUITheme {
 }
 
 export type PartialXUITheme = {
-  readonly mode: 'light' | 'dark'
-  readonly palette: typeof colors
-  colors: Partial<ThemeColors>
-  spacing: Partial<ThemeSpacing>
-  borderRadius: Partial<ThemeBorderRadius>
-  borderWidth: Partial<ThemeBorderWidth>
-  fontSizes: Partial<ThemeFontSizes>
-  fontWeights: Partial<ThemeFontWeights>
-  fontFamilies: Partial<ThemeFontFamilies>
-  shadows: Partial<ThemeShadows>
+  readonly mode?: 'light' | 'dark'
+  readonly palette?: typeof colors
+  colors?: Partial<ThemeColors>
+  spacing?: Partial<ThemeSpacing>
+  borderRadius?: Partial<ThemeBorderRadius>
+  borderWidth?: Partial<ThemeBorderWidth>
+  fontSizes?: Partial<ThemeFontSizes>
+  fontWeights?: Partial<ThemeFontWeights>
+  fontFamilies?: Partial<ThemeFontFamilies>
+  shadows?: Partial<ThemeShadows>
 }
 
 export const baseTheme = {
