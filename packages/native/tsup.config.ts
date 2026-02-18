@@ -10,6 +10,7 @@ const entries = {
   'indicator/index': 'src/components/indicator/index.ts',
   'switch/index': 'src/components/switch/index.ts',
   'select/index': 'src/components/select/index.ts',
+  'dialog/index': 'src/components/dialog/index.ts',
   'divider/index': 'src/components/divider/index.ts',
   'drawer/index': 'src/components/drawer/index.ts',
   'avatar/index': 'src/components/avatar/index.ts',
@@ -43,6 +44,7 @@ const entries = {
   'pager/index': 'src/components/pager/index.ts',
   'chart/index': 'src/components/chart/index.ts',
   'snackbar/index': 'src/components/snackbar/index.ts',
+  'snippet/index': 'src/components/snippet/index.ts',
 } as const
 
 const sharedConfig = {

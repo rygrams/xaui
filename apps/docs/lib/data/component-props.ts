@@ -2383,6 +2383,140 @@ export function MultipleSelectionExample() {
     ],
   },
 
+  dialog: {
+    props: [
+      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Dialog content composed with DialogHeader, DialogBody, and DialogFooter' },
+      { name: 'isOpen', type: 'boolean', defaultValue: 'false', description: 'Controls dialog visibility' },
+      { name: 'size', type: '"sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Dialog size preset' },
+      { name: 'placement', type: '"top" | "center" | "bottom"', defaultValue: '"center"', description: 'Vertical placement on screen' },
+      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"lg"', description: 'Border radius of the dialog container' },
+      { name: 'backdrop', type: '"transparent" | "blurred" | "opaque"', defaultValue: '"opaque"', description: 'Backdrop intensity style' },
+      { name: 'closeOnBackdropPress', type: 'boolean', defaultValue: 'true', description: 'Close dialog when backdrop is pressed' },
+      { name: 'hideBackdrop', type: 'boolean', defaultValue: 'false', description: 'Hide the backdrop layer' },
+      { name: 'animationType', type: '"none" | "slide" | "fade"', defaultValue: '"fade"', description: 'Modal animation style' },
+      { name: 'disableAnimation', type: 'boolean', defaultValue: 'false', description: 'Disable opening/closing animation' },
+      { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Additional style for the dialog container' },
+      { name: 'customAppearance', type: 'DialogCustomAppearance', defaultValue: '-', description: 'Style overrides for backdrop, container, header, body, footer, and text' },
+    ],
+    events: [
+      { name: 'onClose', type: '() => void', description: 'Called when dialog requests to close' },
+      { name: 'onOpenChange', type: '(isOpen: boolean) => void', description: 'Called when open state changes' },
+    ],
+    examples: [
+      {
+        title: 'Basic Dialog',
+        description: 'Open and close a modal with header, body, and footer actions.',
+        code: `import { useState } from 'react'
+import { Dialog, DialogBody, DialogFooter, DialogHeader } from '@xaui/native/dialog'
+import { Button } from '@xaui/native/button'
+import { Column } from '@xaui/native/view'
+
+export function BasicDialogExample() {
+  const [isOpen, setIsOpen] = useState(false)
+
+  return (
+    <Column gap={10}>
+      <Button onPress={() => setIsOpen(true)}>Open dialog</Button>
+      <Dialog isOpen={isOpen} onClose={() => setIsOpen(false)}>
+        <DialogHeader isClosable>Delete item</DialogHeader>
+        <DialogBody>
+          This action is permanent and cannot be undone.
+        </DialogBody>
+        <DialogFooter>
+          <Button variant="flat" onPress={() => setIsOpen(false)}>Cancel</Button>
+          <Button themeColor="danger" onPress={() => setIsOpen(false)}>Delete</Button>
+        </DialogFooter>
+      </Dialog>
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Size and Placement',
+        description: 'Control where the dialog appears and how wide it is.',
+        code: `import { useState } from 'react'
+import { Dialog, DialogBody, DialogFooter, DialogHeader } from '@xaui/native/dialog'
+import { Button } from '@xaui/native/button'
+import { Row } from '@xaui/native/view'
+
+export function DialogPlacementExample() {
+  const [isOpen, setIsOpen] = useState(false)
+
+  return (
+    <>
+      <Row gap={8}>
+        <Button onPress={() => setIsOpen(true)}>Open bottom dialog</Button>
+      </Row>
+      <Dialog
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        placement="bottom"
+        size="lg"
+        backdrop="blurred"
+      >
+        <DialogHeader isClosable>Session timeout</DialogHeader>
+        <DialogBody>Your session will expire in 2 minutes.</DialogBody>
+        <DialogFooter>
+          <Button onPress={() => setIsOpen(false)}>Extend session</Button>
+        </DialogFooter>
+      </Dialog>
+    </>
+  )
+}`,
+      },
+      {
+        title: 'Controlled Open State',
+        description: 'Use onOpenChange to sync dialog state with external state.',
+        code: `import { useState } from 'react'
+import { Dialog, DialogBody, DialogHeader } from '@xaui/native/dialog'
+import { Button } from '@xaui/native/button'
+import { Column } from '@xaui/native/view'
+
+export function ControlledDialogExample() {
+  const [isOpen, setIsOpen] = useState(false)
+
+  return (
+    <Column gap={10}>
+      <Button onPress={() => setIsOpen(true)}>Open</Button>
+      <Dialog isOpen={isOpen} onOpenChange={setIsOpen} closeOnBackdropPress>
+        <DialogHeader isClosable>Dialog title</DialogHeader>
+        <DialogBody>
+          Tap the close button or backdrop to trigger onOpenChange(false).
+        </DialogBody>
+      </Dialog>
+    </Column>
+  )
+}`,
+      },
+    ],
+    subComponents: [
+      {
+        name: 'DialogHeader',
+        props: [
+          { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Header content or title text' },
+          { name: 'isClosable', type: 'boolean', defaultValue: 'false', description: 'Show a close button in the header' },
+          { name: 'closeButton', type: 'ReactNode', defaultValue: '-', description: 'Custom close button element' },
+          { name: 'onClose', type: '() => void', defaultValue: '-', description: 'Close handler override for this header' },
+          { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Custom style for the header container' },
+        ],
+      },
+      {
+        name: 'DialogBody',
+        props: [
+          { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Body content' },
+          { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Custom style for the body container' },
+        ],
+      },
+      {
+        name: 'DialogFooter',
+        props: [
+          { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Footer content, typically actions' },
+          { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Custom style for the footer container' },
+        ],
+      },
+    ],
+  },
+
   drawer: {
     props: [
       { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Drawer content' },
@@ -6319,6 +6453,116 @@ export function StackExample() {
         events: [
           { name: 'onDismiss', type: '(id: string) => void', description: 'Called when an item requests dismissal' },
         ],
+      },
+    ],
+  },
+  snippet: {
+    props: [
+      { name: 'value', type: 'string', defaultValue: '-', description: 'Text value displayed inside the snippet' },
+      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Theme color used by snippet and copy button styles' },
+      { name: 'variant', type: '"outlined" | "flat" | "light"', defaultValue: '"outlined"', description: 'Visual style variant' },
+      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Border radius' },
+      { name: 'copyButtonPosition', type: '"top-left" | "top-right" | "bottom-left" | "bottom-right"', defaultValue: '"top-right"', description: 'Position of the copy action button' },
+      { name: 'copyLabel', type: 'string', defaultValue: '"Copy"', description: 'Label shown before copy success' },
+      { name: 'copiedLabel', type: 'string', defaultValue: '"Copied"', description: 'Label shown after successful copy' },
+      { name: 'copyResetDelay', type: 'number', defaultValue: '1500', description: 'Delay (ms) before resetting copied state' },
+      { name: 'fullWidth', type: 'boolean', defaultValue: 'true', description: 'Expand snippet to full width' },
+      { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable copy interaction and dim the snippet' },
+      { name: 'numberOfLines', type: 'number', defaultValue: '-', description: 'Optional max line clamp for snippet text' },
+      { name: 'fontSize', type: 'number', defaultValue: '14', description: 'Font size of the snippet text' },
+      { name: 'fontWeight', type: 'TextStyle["fontWeight"]', defaultValue: '"400"', description: 'Font weight of the snippet text' },
+      { name: 'customAppearance', type: '{ container?: ViewStyle; content?: ViewStyle; text?: TextStyle; copyButton?: ViewStyle; copyButtonText?: TextStyle }', defaultValue: '-', description: 'Custom style overrides' },
+    ],
+    events: [
+      { name: 'onCopy', type: '(value: string, isSuccess: boolean) => void', description: 'Called after a copy attempt' },
+    ],
+    examples: [
+      {
+        title: 'Basic',
+        description: 'Simple snippet with default copy action in the top-right corner.',
+        code: `import { Snippet } from '@xaui/native/snippet'
+
+export function BasicExample() {
+  return <Snippet value="pnpm add @xaui/native" />
+}`,
+      },
+      {
+        title: 'Variants',
+        description: 'Outlined, flat, and light styles.',
+        code: `import { Snippet } from '@xaui/native/snippet'
+import { Column } from '@xaui/native/view'
+
+export function VariantsExample() {
+  const command = 'pnpm add @xaui/native'
+
+  return (
+    <Column gap={10}>
+      <Snippet value={command} variant="outlined" />
+      <Snippet value={command} variant="flat" />
+      <Snippet value={command} variant="light" />
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Theme Colors',
+        description: 'Use semantic colors with the same variant.',
+        code: `import { Snippet } from '@xaui/native/snippet'
+import { Column } from '@xaui/native/view'
+
+export function ThemeColorsExample() {
+  const colors = ['primary', 'secondary', 'success', 'warning', 'danger', 'default'] as const
+
+  return (
+    <Column gap={10}>
+      {colors.map(color => (
+        <Snippet
+          key={color}
+          value={\`echo "\${color}"\`}
+          themeColor={color}
+          variant="outlined"
+        />
+      ))}
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Copy Button Positions',
+        description: 'Place the copy button on any corner using copyButtonPosition.',
+        code: `import { Snippet } from '@xaui/native/snippet'
+import { Column } from '@xaui/native/view'
+
+export function PositionsExample() {
+  const value = 'npm run build'
+
+  return (
+    <Column gap={10}>
+      <Snippet value={value} copyButtonPosition="top-left" />
+      <Snippet value={value} copyButtonPosition="top-right" />
+      <Snippet value={value} copyButtonPosition="bottom-left" />
+      <Snippet value={value} copyButtonPosition="bottom-right" />
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Typography Control',
+        description: 'Tune snippet text rendering with fontSize and fontWeight.',
+        code: `import { Snippet } from '@xaui/native/snippet'
+import { Column } from '@xaui/native/view'
+
+export function TypographyExample() {
+  const command = 'pnpm --filter @xaui/native build'
+
+  return (
+    <Column gap={10}>
+      <Snippet value={command} fontSize={13} fontWeight="400" />
+      <Snippet value={command} fontSize={16} fontWeight="600" />
+      <Snippet value={command} fontSize={18} fontWeight="700" />
+    </Column>
+  )
+}`,
       },
     ],
   },

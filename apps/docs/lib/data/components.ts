@@ -256,6 +256,26 @@ export const components: Component[] = [
     types: ['DividerProps', 'DividerOrientation'],
   },
   {
+    id: 'dialog',
+    name: 'Dialog',
+    description:
+      'Modal overlay container with header, body, and footer composition slots.',
+    category: 'Overlays',
+    href: '/docs/components/dialog',
+    status: 'beta',
+    importPath: '@xaui/native/dialog',
+    exports: ['Dialog', 'DialogHeader', 'DialogBody', 'DialogFooter'],
+    types: [
+      'DialogProps',
+      'DialogHeaderProps',
+      'DialogBodyProps',
+      'DialogFooterProps',
+      'DialogSize',
+      'DialogPlacement',
+      'DialogBackdrop',
+    ],
+  },
+  {
     id: 'drawer',
     name: 'Drawer',
     description: 'Sliding panel from screen edges for contextual content.',
@@ -471,6 +491,23 @@ export const components: Component[] = [
     importPath: '@xaui/native/snackbar',
     exports: ['Snackbar', 'SnackbarStack'],
     types: ['SnackbarProps', 'SnackbarStackProps', 'SnackbarItem', 'SnackbarPosition'],
+  },
+  {
+    id: 'snippet',
+    name: 'Snippet',
+    description:
+      'Code/text snippet container with themed variants and built-in copy action.',
+    category: 'Data Display',
+    href: '/docs/components/snippet',
+    status: 'beta',
+    importPath: '@xaui/native/snippet',
+    exports: ['Snippet'],
+    types: [
+      'SnippetProps',
+      'SnippetVariant',
+      'CopyButtonPosition',
+      'SnippetCustomAppearance',
+    ],
   },
   {
     id: 'skeleton',
