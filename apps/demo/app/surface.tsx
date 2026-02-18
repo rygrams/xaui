@@ -58,13 +58,13 @@ export default function SurfaceScreen() {
         </Text>
         <Column spacing={10}>
           <Surface themeColor="secondary" padding={10} radius="none">
-            <Text style={{ color: theme.colors.foreground }}>radius="none" / padding=10</Text>
+            <Text style={{ color: theme.colors.foreground }}>radius=none / padding=10</Text>
           </Surface>
           <Surface themeColor="primary" padding={16} radius="md">
-            <Text style={{ color: theme.colors.foreground }}>radius="md" / padding=16</Text>
+            <Text style={{ color: theme.colors.foreground }}>radius=md / padding=16</Text>
           </Surface>
           <Surface themeColor="success" padding={22} radius="lg">
-            <Text style={{ color: theme.colors.foreground }}>radius="lg"</Text>
+            <Text style={{ color: theme.colors.foreground }}>radius=lg</Text>
           </Surface>
         </Column>
       </View>
