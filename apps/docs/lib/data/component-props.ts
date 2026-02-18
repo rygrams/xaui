@@ -6156,7 +6156,7 @@ export function SurfaceCardExample() {
       radius="lg"
       padding={18}
       themeColor="secondary"
-      style={{ borderWidth: 1, borderColor: '#d4d4d8' }}
+      style={{ width: '100%', borderWidth: 1, borderColor: '#d4d4d8' }}
     >
       <Typography variant="titleSmall">Team Notes</Typography>
       <Typography>Meeting starts at 10:30 AM.</Typography>
