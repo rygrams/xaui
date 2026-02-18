@@ -76,6 +76,10 @@ This table lists all public components exported by `@xaui/native` and their impo
 | `Slider` | Draggable value selector slider. | `import { Slider } from '@xaui/native/slider'` |
 | `Select` | Select input with trigger and list behavior. | `import { Select } from '@xaui/native/select'` |
 | `SelectItem` | Select option item for `Select`. | `import { SelectItem } from '@xaui/native/select'` |
+| `Dialog` | Modal dialog container component. | `import { Dialog } from '@xaui/native/dialog'` |
+| `DialogHeader` | Header section for `Dialog`. | `import { DialogHeader } from '@xaui/native/dialog'` |
+| `DialogBody` | Body/content section for `Dialog`. | `import { DialogBody } from '@xaui/native/dialog'` |
+| `DialogFooter` | Footer/actions section for `Dialog`. | `import { DialogFooter } from '@xaui/native/dialog'` |
 | `Divider` | Horizontal or vertical separator line. | `import { Divider } from '@xaui/native/divider'` |
 | `Drawer` | Side sheet / drawer container. | `import { Drawer } from '@xaui/native/drawer'` |
 | `Skeleton` | Placeholder loading block. | `import { Skeleton } from '@xaui/native/skeleton'` |

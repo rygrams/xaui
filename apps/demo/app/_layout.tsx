@@ -15,7 +15,10 @@ export default function RootLayout() {
       <GestureHandlerRootView style={{ flex: 1 }}>
         <XUIProvider theme={defaultTheme} darkTheme={defaultDarkTheme}>
           <Stack>
-            <Stack.Screen name="index" options={{ headerShown: false }} />
+            <Stack.Screen
+              name="index"
+              options={{ headerShown: false, title: 'Home' }}
+            />
             <Stack.Screen
               name="modal"
               options={{ presentation: 'modal', title: 'Modal' }}
@@ -44,6 +47,7 @@ export default function RootLayout() {
             <Stack.Screen name="carousel" options={{ title: 'Carousel Examples' }} />
             <Stack.Screen name="checkbox" options={{ title: 'Checkbox Examples' }} />
             <Stack.Screen name="chips" options={{ title: 'Chip Examples' }} />
+            <Stack.Screen name="dialog" options={{ title: 'Dialog Examples' }} />
             <Stack.Screen
               name="datepicker"
               options={{ title: 'DatePicker Examples' }}
@@ -85,6 +89,7 @@ export default function RootLayout() {
             />
             <Stack.Screen name="stepper" options={{ title: 'Stepper Examples' }} />
             <Stack.Screen name="snackbar" options={{ title: 'Snackbar Examples' }} />
+            <Stack.Screen name="snippet" options={{ title: 'Snippet Examples' }} />
             <Stack.Screen name="skeleton" options={{ title: 'Skeleton Examples' }} />
             <Stack.Screen name="switch" options={{ title: 'Switch Examples' }} />
             <Stack.Screen name="textarea" options={{ title: 'TextArea Examples' }} />

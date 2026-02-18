@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react'
 import { View } from 'react-native'
 import Animated, {
+  Easing,
   useAnimatedStyle,
   useSharedValue,
-  withSpring,
   withTiming,
 } from 'react-native-reanimated'
 import { useToolbarColors, useToolbarVariantStyles } from './toolbar.hook'
@@ -31,18 +31,26 @@ export const Toolbar: React.FC<ToolbarProps> = ({
   const opacityValue = useSharedValue(isVisible ? 1 : 0)
 
   useEffect(() => {
+    const nextTranslate = isVisible ? 0 : getInitialTranslate(position)
+
     if (isVisible) {
-      translateValue.value = withSpring(0, {
-        damping: 20,
-        stiffness: 300,
+      translateValue.value = withTiming(nextTranslate, {
+        duration: 220,
+        easing: Easing.out(Easing.cubic),
       })
-      opacityValue.value = withTiming(1, { duration: 200 })
+      opacityValue.value = withTiming(1, {
+        duration: 200,
+        easing: Easing.out(Easing.quad),
+      })
     } else {
-      translateValue.value = withSpring(getInitialTranslate(position), {
-        damping: 20,
-        stiffness: 300,
+      translateValue.value = withTiming(nextTranslate, {
+        duration: 180,
+        easing: Easing.in(Easing.cubic),
       })
-      opacityValue.value = withTiming(0, { duration: 200 })
+      opacityValue.value = withTiming(0, {
+        duration: 150,
+        easing: Easing.in(Easing.quad),
+      })
     }
   }, [isVisible, position, translateValue, opacityValue])
 
@@ -137,13 +145,13 @@ export const Toolbar: React.FC<ToolbarProps> = ({
 function getInitialTranslate(position: ToolbarProps['position']): number {
   switch (position) {
     case 'top':
-      return -100
+      return -24
     case 'bottom':
-      return 100
+      return 24
     case 'left':
-      return -100
+      return -24
     case 'right':
-      return 100
+      return 24
     default:
       return 0
   }

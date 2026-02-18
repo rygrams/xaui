@@ -2,6 +2,8 @@ import { StyleSheet } from 'react-native'
 
 export const styles = StyleSheet.create({
   container: {
+    flexShrink: 1,
+    flexBasis: 'auto',
     width: '100%',
   },
   floatingContainer: {
@@ -18,7 +20,8 @@ export const styles = StyleSheet.create({
     borderRadius: 0,
   },
   floating: {
-    width: '100%',
+    flexShrink: 1,
+    flexBasis: 'auto',
     maxWidth: '97%',
     borderRadius: 9999,
     alignSelf: 'center',

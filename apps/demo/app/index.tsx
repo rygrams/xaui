@@ -154,6 +154,16 @@ export default function HomeScreen() {
         <GridItem>
           <Button
             size="sm"
+            onPress={() => router.push('/dialog')}
+            variant="outlined"
+            themeColor="secondary"
+          >
+            Dialog
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
             onPress={() => router.push('/drawer')}
             variant="outlined"
             themeColor="secondary"
@@ -349,6 +359,16 @@ export default function HomeScreen() {
             themeColor="primary"
           >
             Snackbar
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/snippet')}
+            variant="outlined"
+            themeColor="secondary"
+          >
+            Snippet
           </Button>
         </GridItem>
         <GridItem>
