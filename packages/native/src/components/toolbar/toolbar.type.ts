@@ -36,6 +36,10 @@ export type ToolbarActionProps = {
    * Accessibility label for action.
    */
   accessibilityLabel?: string
+  /**
+   * testID for e2e tests.
+   */
+  testID?: string
 }
 
 export type ToolbarCustomAppearance = {
