@@ -1,5 +1,14 @@
 # demo
 
+## 1.0.47
+
+### Patch Changes
+
+- Updated dependencies [53408ce]
+  - @xaui/core@0.1.10
+  - @xaui/icons@0.0.7
+  - @xaui/native@0.0.36
+
 ## 1.0.46
 
 ### Patch Changes
