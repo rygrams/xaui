@@ -107,6 +107,10 @@ export type ColorPickerProps = {
 export type ColorPickerEvents = {
   /**
    * Called when the selected color changes.
+   *
+   * Note: This handler is named `onColorChange` instead of the more generic
+   * `onValueChange` (used by other picker components) to emphasize that the
+   * value is specifically a color string (e.g. `#RRGGBB`).
    */
   onColorChange?: (color: string) => void
   /**
