@@ -451,6 +451,36 @@ export default function HomeScreen() {
             Typography
           </Button>
         </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/input-trigger')}
+            variant="outlined"
+            themeColor="primary"
+          >
+            InputTrigger
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/picker')}
+            variant="outlined"
+            themeColor="secondary"
+          >
+            Picker
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/color-picker')}
+            variant="outlined"
+            themeColor="primary"
+          >
+            ColorPicker
+          </Button>
+        </GridItem>
       </Grid>
     </ScrollView>
   )

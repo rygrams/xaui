@@ -1,5 +1,13 @@
 # demo
 
+## 1.0.43
+
+### Patch Changes
+
+- Updated dependencies [8b56cf4]
+- Updated dependencies [d6fc9e7]
+  - @xaui/native@0.0.32
+
 ## 1.0.42
 
 ### Patch Changes

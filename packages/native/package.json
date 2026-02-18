@@ -1,6 +1,6 @@
 {
   "name": "@xaui/native",
-  "version": "0.0.31",
+  "version": "0.0.32",
   "description": "Flutter-inspired React Native UI components with native animations powered by React Native Reanimated",
   "keywords": [
     "react-native",
@@ -231,6 +231,21 @@
       "types": "./dist/snackbar/index.d.ts",
       "import": "./dist/snackbar/index.js",
       "require": "./dist/snackbar/index.js"
+    },
+    "./input-trigger": {
+      "types": "./dist/input-trigger/index.d.ts",
+      "import": "./dist/input-trigger/index.js",
+      "require": "./dist/input-trigger/index.js"
+    },
+    "./picker": {
+      "types": "./dist/picker/index.d.ts",
+      "import": "./dist/picker/index.js",
+      "require": "./dist/picker/index.js"
+    },
+    "./color-picker": {
+      "types": "./dist/color-picker/index.d.ts",
+      "import": "./dist/color-picker/index.js",
+      "require": "./dist/color-picker/index.js"
     },
     "./snippet": {
       "types": "./dist/snippet/index.d.ts",
