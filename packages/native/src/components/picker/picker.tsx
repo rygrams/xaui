@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Pressable, ScrollView, Text, View } from 'react-native'
 import { getSafeThemeColor, withOpacity } from '@xaui/core'
 import { useXUITheme } from '../../core'
@@ -112,38 +112,47 @@ export const Picker: React.FC<PickerProps> = ({
   onOpenChange,
   onClose,
 }) => {
-  const [isOpen, setIsOpen] = useState(isOpened ?? false)
+  const [internalIsOpen, setInternalIsOpen] = useState(false)
+  const isControlled = isOpened !== undefined
+  const isOpen = isControlled ? Boolean(isOpened) : internalIsOpen
   const theme = useXUITheme()
   const sheetBackground =
     theme.mode === 'dark' ? theme.colors.background : '#ffffff'
   const safeThemeColor = getSafeThemeColor(themeColor)
   const colorScheme = theme.colors[safeThemeColor]
 
-  useEffect(() => {
-    if (isOpened !== undefined) {
-      setIsOpen(isOpened)
-    }
-  }, [isOpened])
-
   const selectedOption = options.find(opt => opt.value === value)
   const displayLabel = selectedOption?.label
 
-  const handleOpen = () => {
-    if (isDisabled) return
-    const next = true
-    setIsOpen(next)
-    onOpenChange?.(next)
+  const setOpen = (nextOpen: boolean) => {
+    if (nextOpen && isDisabled) return
+
+    if (!isControlled) {
+      setInternalIsOpen(nextOpen)
+    }
+
+    onOpenChange?.(nextOpen)
   }
 
-  const handleClose = () => {
-    setIsOpen(false)
-    onOpenChange?.(false)
+  const handleOpen = () => {
+    setOpen(true)
+  }
+
+  const requestClose = () => {
+    setOpen(false)
+  }
+
+  const handleSheetClose = () => {
+    // If close came from swipe/backdrop, sync open state once.
+    if (isOpen) {
+      setOpen(false)
+    }
     onClose?.()
   }
 
   const handleSelect = (selectedValue: string) => {
     onValueChange?.(selectedValue)
-    handleClose()
+    requestClose()
   }
 
   const chevronColor = withOpacity(theme.colors.foreground, 0.45)
@@ -174,7 +183,7 @@ export const Picker: React.FC<PickerProps> = ({
         isOpen={isOpen}
         snapPoints={[Math.min(0.35 + options.length * 0.065, 0.85)]}
         themeColor={themeColor}
-        onClose={handleClose}
+        onClose={handleSheetClose}
         style={{ backgroundColor: sheetBackground, ...sheetStyle }}
       >
         <View style={styles.sheetContent}>
