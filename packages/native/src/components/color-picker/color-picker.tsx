@@ -125,7 +125,7 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
     handleClose()
   }
 
-  const triggerColor = value ?? undefined
+  const triggerColor = value
   const foreground = theme.colors.foreground
   const themeMain = theme.colors[themeColor]?.main ?? foreground
 
