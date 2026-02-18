@@ -1,5 +1,11 @@
 # docs
 
+## 0.1.22
+
+### Patch Changes
+
+- @xaui/native@0.0.36
+
 ## 0.1.21
 
 ### Patch Changes
