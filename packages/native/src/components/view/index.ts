@@ -8,6 +8,7 @@ export { PositionedView } from './positioned-view/positioned-view'
 export { BlurView } from './blur-view/blur-view'
 export { RoundedView } from './rounded-view/rounded-view'
 export { AspectRatio } from './aspect-ratio/aspect-ratio'
+export { Surface } from './surface/surface'
 export { Grid } from './grid/grid'
 export { GridItem } from './grid/grid-item'
 export { GridBuilder } from './grid/grid-builder'
@@ -30,6 +31,7 @@ export type { PositionedViewProps } from './positioned-view/positioned-view.type
 export type { BlurViewProps } from './blur-view/blur-view.type'
 export type { RoundedViewProps } from './rounded-view/rounded-view.type'
 export type { AspectRatioProps } from './aspect-ratio/aspect-ratio.type'
+export type { SurfaceProps, SurfaceThemeColor } from './surface/surface.type'
 
 export type {
   ConditionalViewAnimation,

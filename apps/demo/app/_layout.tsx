@@ -103,6 +103,7 @@ export default function RootLayout() {
             <Stack.Screen name="list" options={{ title: 'List Examples' }} />
             <Stack.Screen name="menubox" options={{ title: 'Menubox Examples' }} />
             <Stack.Screen name="slider" options={{ title: 'Slider Examples' }} />
+            <Stack.Screen name="surface" options={{ title: 'Surface Examples' }} />
             <Stack.Screen name="chart" options={{ title: 'Chart Examples' }} />
           </Stack>
         </XUIProvider>

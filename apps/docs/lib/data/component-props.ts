@@ -6099,6 +6099,74 @@ export function AsymmetricRadiusExample() {
     ],
   },
 
+  surface: {
+    props: [
+      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Content rendered inside the surface' },
+      { name: 'themeColor', type: '"primary" | "secondary" | "tertiary" | "danger" | "warning" | "success" | "default" | "background" | "foreground"', defaultValue: '"background"', description: 'Theme color key used for the surface background' },
+      { name: 'padding', type: 'number', defaultValue: '-', description: 'Uniform internal padding' },
+      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Border radius token' },
+      { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Additional container styles' },
+    ],
+    examples: [
+      {
+        title: 'Default Surface',
+        description: 'Uses the current theme background color by default.',
+        code: `import { Surface } from '@xaui/native/view'
+import { Typography } from '@xaui/native/typography'
+
+export function DefaultSurfaceExample() {
+  return (
+    <Surface padding={16}>
+      <Typography>Default background surface</Typography>
+    </Surface>
+  )
+}`,
+      },
+      {
+        title: 'Semantic Background Colors',
+        description: 'Use theme color keys to apply semantic background tones.',
+        code: `import { Column, Surface } from '@xaui/native/view'
+import { Typography } from '@xaui/native/typography'
+
+export function SurfaceThemeColorsExample() {
+  return (
+    <Column spacing={10}>
+      <Surface themeColor="primary" padding={12} radius="sm">
+        <Typography>Primary background</Typography>
+      </Surface>
+      <Surface themeColor="success" padding={12} radius="sm">
+        <Typography>Success background</Typography>
+      </Surface>
+      <Surface themeColor="warning" padding={12} radius="sm">
+        <Typography>Warning background</Typography>
+      </Surface>
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Full Width Card Surface',
+        description: 'Use radius and padding for card-like sections.',
+        code: `import { Surface } from '@xaui/native/view'
+import { Typography } from '@xaui/native/typography'
+
+export function SurfaceCardExample() {
+  return (
+    <Surface
+      radius="lg"
+      padding={18}
+      themeColor="secondary"
+      style={{ width: '100%', borderWidth: 1, borderColor: '#d4d4d8' }}
+    >
+      <Typography variant="titleSmall">Team Notes</Typography>
+      <Typography>Meeting starts at 10:30 AM.</Typography>
+    </Surface>
+  )
+}`,
+      },
+    ],
+  },
+
   'aspect-ratio': {
     props: [
       { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Content to constrain' },
