@@ -1,5 +1,20 @@
-import React, { createContext, useCallback, useContext, useMemo } from 'react'
+import React, {
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import { Modal, Pressable, Text, View } from 'react-native'
+import Animated, {
+  Easing,
+  runOnJS,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from 'react-native-reanimated'
 import { withOpacity } from '@xaui/core'
 import { useBorderRadiusStyles, useXUITheme } from '../../core/theme-hooks'
 import { CloseIcon } from '@xaui/icons'
@@ -40,6 +55,24 @@ const backdropStyles: Record<DialogBackdrop, object> = {
   opaque: styles.backdropOpaque,
 }
 
+const ENTER_DURATION = 240
+const EXIT_DURATION = 180
+
+function getTranslateOffset(
+  placement: DialogPlacement,
+  animationType: DialogProps['animationType']
+): number {
+  if (animationType === 'slide') {
+    if (placement === 'top') return -28
+    if (placement === 'bottom') return 28
+    return 18
+  }
+
+  if (placement === 'top') return -18
+  if (placement === 'bottom') return 18
+  return 10
+}
+
 const resolveChildrenContent = (
   content: React.ReactNode,
   textStyle: object
@@ -71,41 +104,156 @@ export const Dialog: React.FC<DialogProps> = ({
 }) => {
   const theme = useXUITheme()
   const radiusStyles = useBorderRadiusStyles(radius)
+  const [shouldRender, setShouldRender] = useState(isOpen)
+  const openRef = useRef(isOpen)
 
-  const resolvedAnimationType = disableAnimation ? 'none' : animationType
+  const shouldAnimate = !disableAnimation && animationType !== 'none'
+  const initialOffset = getTranslateOffset(placement, animationType)
+  const backdropOpacity = useSharedValue(isOpen ? 1 : 0)
+  const dialogOpacity = useSharedValue(isOpen ? 1 : 0)
+  const dialogTranslate = useSharedValue(isOpen ? 0 : initialOffset)
+  const dialogScale = useSharedValue(isOpen ? 1 : placement === 'center' ? 0.98 : 1)
 
-  const handleClose = useCallback(() => {
+  const requestClose = useCallback(() => {
     onOpenChange?.(false)
     onClose?.()
   }, [onClose, onOpenChange])
 
   const handleBackdropPress = () => {
     if (closeOnBackdropPress) {
-      handleClose()
+      requestClose()
     }
   }
 
+  const finishClosing = useCallback(() => {
+    if (!openRef.current) {
+      setShouldRender(false)
+    }
+  }, [])
+
+  useEffect(() => {
+    openRef.current = isOpen
+  }, [isOpen])
+
+  useEffect(() => {
+    if (isOpen && !shouldRender) {
+      setShouldRender(true)
+    }
+  }, [isOpen, shouldRender])
+
+  useEffect(() => {
+    if (!shouldRender) return
+
+    if (!shouldAnimate) {
+      backdropOpacity.value = isOpen ? 1 : 0
+      dialogOpacity.value = isOpen ? 1 : 0
+      dialogTranslate.value = 0
+      dialogScale.value = 1
+
+      if (!isOpen) {
+        setShouldRender(false)
+      }
+      return
+    }
+
+    const offset = getTranslateOffset(placement, animationType)
+
+    if (isOpen) {
+      backdropOpacity.value = 0
+      dialogOpacity.value = 0
+      dialogTranslate.value = offset
+      dialogScale.value = placement === 'center' ? 0.98 : 1
+
+      backdropOpacity.value = withTiming(1, {
+        duration: 210,
+        easing: Easing.out(Easing.quad),
+      })
+      dialogOpacity.value = withTiming(1, {
+        duration: 220,
+        easing: Easing.out(Easing.quad),
+      })
+      dialogTranslate.value = withTiming(0, {
+        duration: ENTER_DURATION,
+        easing: Easing.out(Easing.cubic),
+      })
+      dialogScale.value = withTiming(1, {
+        duration: 220,
+        easing: Easing.out(Easing.quad),
+      })
+      return
+    }
+
+    backdropOpacity.value = withTiming(0, {
+      duration: 150,
+      easing: Easing.in(Easing.quad),
+    })
+    dialogTranslate.value = withTiming(offset, {
+      duration: EXIT_DURATION,
+      easing: Easing.in(Easing.cubic),
+    })
+    dialogScale.value = withTiming(placement === 'center' ? 0.98 : 1, {
+      duration: 150,
+      easing: Easing.in(Easing.quad),
+    })
+
+    dialogOpacity.value = withTiming(
+      0,
+      {
+        duration: EXIT_DURATION,
+        easing: Easing.in(Easing.quad),
+      },
+      finished => {
+        if (finished) {
+          runOnJS(finishClosing)()
+        }
+      }
+    )
+  }, [
+    animationType,
+    backdropOpacity,
+    dialogOpacity,
+    dialogScale,
+    dialogTranslate,
+    finishClosing,
+    isOpen,
+    placement,
+    shouldAnimate,
+    shouldRender,
+  ])
+
+  const backdropAnimatedStyle = useAnimatedStyle(() => ({
+    opacity: backdropOpacity.value,
+  }))
+
+  const dialogAnimatedStyle = useAnimatedStyle(() => ({
+    opacity: dialogOpacity.value,
+    transform: [{ translateY: dialogTranslate.value }, { scale: dialogScale.value }],
+  }))
+
   const dialogContextValue = useMemo(
     () => ({
-      onClose: handleClose,
+      onClose: requestClose,
       customAppearance,
     }),
-    [customAppearance, handleClose]
+    [customAppearance, requestClose]
   )
+
+  if (!shouldRender) return null
 
   return (
     <Modal
-      visible={isOpen}
+      visible
       transparent
-      animationType={resolvedAnimationType}
-      onRequestClose={handleClose}
+      animationType="none"
+      onRequestClose={requestClose}
     >
       <View style={styles.root}>
         {!hideBackdrop && (
-          <Pressable
+          <AnimatedPressable
             style={[
               styles.backdrop,
               backdropStyles[backdrop],
+              backdropAnimatedStyle,
               customAppearance?.backdrop,
             ]}
             onPress={handleBackdropPress}
@@ -115,11 +263,12 @@ export const Dialog: React.FC<DialogProps> = ({
         <View style={[styles.placementBase, placementStyles[placement]]}>
           <DialogContext.Provider value={dialogContextValue}>
             <Pressable onPress={event => event.stopPropagation()}>
-              <View
+              <Animated.View
                 style={[
                   styles.dialog,
                   sizeStyles[size],
                   radiusStyles,
+                  dialogAnimatedStyle,
                   {
                     backgroundColor: theme.colors.background,
                     borderColor: withOpacity(theme.colors.foreground, 0.14),
@@ -130,7 +279,7 @@ export const Dialog: React.FC<DialogProps> = ({
                 ]}
               >
                 {children}
-              </View>
+              </Animated.View>
             </Pressable>
           </DialogContext.Provider>
         </View>
@@ -138,6 +287,8 @@ export const Dialog: React.FC<DialogProps> = ({
     </Modal>
   )
 }
+
+const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
 export const DialogHeader: React.FC<DialogHeaderProps> = ({
   children,

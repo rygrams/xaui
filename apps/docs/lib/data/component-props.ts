@@ -2383,6 +2383,140 @@ export function MultipleSelectionExample() {
     ],
   },
 
+  dialog: {
+    props: [
+      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Dialog content composed with DialogHeader, DialogBody, and DialogFooter' },
+      { name: 'isOpen', type: 'boolean', defaultValue: 'false', description: 'Controls dialog visibility' },
+      { name: 'size', type: '"sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Dialog size preset' },
+      { name: 'placement', type: '"top" | "center" | "bottom"', defaultValue: '"center"', description: 'Vertical placement on screen' },
+      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"lg"', description: 'Border radius of the dialog container' },
+      { name: 'backdrop', type: '"transparent" | "blurred" | "opaque"', defaultValue: '"opaque"', description: 'Backdrop intensity style' },
+      { name: 'closeOnBackdropPress', type: 'boolean', defaultValue: 'true', description: 'Close dialog when backdrop is pressed' },
+      { name: 'hideBackdrop', type: 'boolean', defaultValue: 'false', description: 'Hide the backdrop layer' },
+      { name: 'animationType', type: '"none" | "slide" | "fade"', defaultValue: '"fade"', description: 'Modal animation style' },
+      { name: 'disableAnimation', type: 'boolean', defaultValue: 'false', description: 'Disable opening/closing animation' },
+      { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Additional style for the dialog container' },
+      { name: 'customAppearance', type: 'DialogCustomAppearance', defaultValue: '-', description: 'Style overrides for backdrop, container, header, body, footer, and text' },
+    ],
+    events: [
+      { name: 'onClose', type: '() => void', description: 'Called when dialog requests to close' },
+      { name: 'onOpenChange', type: '(isOpen: boolean) => void', description: 'Called when open state changes' },
+    ],
+    examples: [
+      {
+        title: 'Basic Dialog',
+        description: 'Open and close a modal with header, body, and footer actions.',
+        code: `import { useState } from 'react'
+import { Dialog, DialogBody, DialogFooter, DialogHeader } from '@xaui/native/dialog'
+import { Button } from '@xaui/native/button'
+import { Column } from '@xaui/native/view'
+
+export function BasicDialogExample() {
+  const [isOpen, setIsOpen] = useState(false)
+
+  return (
+    <Column gap={10}>
+      <Button onPress={() => setIsOpen(true)}>Open dialog</Button>
+      <Dialog isOpen={isOpen} onClose={() => setIsOpen(false)}>
+        <DialogHeader isClosable>Delete item</DialogHeader>
+        <DialogBody>
+          This action is permanent and cannot be undone.
+        </DialogBody>
+        <DialogFooter>
+          <Button variant="flat" onPress={() => setIsOpen(false)}>Cancel</Button>
+          <Button themeColor="danger" onPress={() => setIsOpen(false)}>Delete</Button>
+        </DialogFooter>
+      </Dialog>
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Size and Placement',
+        description: 'Control where the dialog appears and how wide it is.',
+        code: `import { useState } from 'react'
+import { Dialog, DialogBody, DialogFooter, DialogHeader } from '@xaui/native/dialog'
+import { Button } from '@xaui/native/button'
+import { Row } from '@xaui/native/view'
+
+export function DialogPlacementExample() {
+  const [isOpen, setIsOpen] = useState(false)
+
+  return (
+    <>
+      <Row gap={8}>
+        <Button onPress={() => setIsOpen(true)}>Open bottom dialog</Button>
+      </Row>
+      <Dialog
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        placement="bottom"
+        size="lg"
+        backdrop="blurred"
+      >
+        <DialogHeader isClosable>Session timeout</DialogHeader>
+        <DialogBody>Your session will expire in 2 minutes.</DialogBody>
+        <DialogFooter>
+          <Button onPress={() => setIsOpen(false)}>Extend session</Button>
+        </DialogFooter>
+      </Dialog>
+    </>
+  )
+}`,
+      },
+      {
+        title: 'Controlled Open State',
+        description: 'Use onOpenChange to sync dialog state with external state.',
+        code: `import { useState } from 'react'
+import { Dialog, DialogBody, DialogHeader } from '@xaui/native/dialog'
+import { Button } from '@xaui/native/button'
+import { Column } from '@xaui/native/view'
+
+export function ControlledDialogExample() {
+  const [isOpen, setIsOpen] = useState(false)
+
+  return (
+    <Column gap={10}>
+      <Button onPress={() => setIsOpen(true)}>Open</Button>
+      <Dialog isOpen={isOpen} onOpenChange={setIsOpen} closeOnBackdropPress>
+        <DialogHeader isClosable>Dialog title</DialogHeader>
+        <DialogBody>
+          Tap the close button or backdrop to trigger onOpenChange(false).
+        </DialogBody>
+      </Dialog>
+    </Column>
+  )
+}`,
+      },
+    ],
+    subComponents: [
+      {
+        name: 'DialogHeader',
+        props: [
+          { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Header content or title text' },
+          { name: 'isClosable', type: 'boolean', defaultValue: 'false', description: 'Show a close button in the header' },
+          { name: 'closeButton', type: 'ReactNode', defaultValue: '-', description: 'Custom close button element' },
+          { name: 'onClose', type: '() => void', defaultValue: '-', description: 'Close handler override for this header' },
+          { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Custom style for the header container' },
+        ],
+      },
+      {
+        name: 'DialogBody',
+        props: [
+          { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Body content' },
+          { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Custom style for the body container' },
+        ],
+      },
+      {
+        name: 'DialogFooter',
+        props: [
+          { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Footer content, typically actions' },
+          { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Custom style for the footer container' },
+        ],
+      },
+    ],
+  },
+
   drawer: {
     props: [
       { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Drawer content' },

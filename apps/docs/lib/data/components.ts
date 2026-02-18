@@ -256,6 +256,26 @@ export const components: Component[] = [
     types: ['DividerProps', 'DividerOrientation'],
   },
   {
+    id: 'dialog',
+    name: 'Dialog',
+    description:
+      'Modal overlay container with header, body, and footer composition slots.',
+    category: 'Overlays',
+    href: '/docs/components/dialog',
+    status: 'beta',
+    importPath: '@xaui/native/dialog',
+    exports: ['Dialog', 'DialogHeader', 'DialogBody', 'DialogFooter'],
+    types: [
+      'DialogProps',
+      'DialogHeaderProps',
+      'DialogBodyProps',
+      'DialogFooterProps',
+      'DialogSize',
+      'DialogPlacement',
+      'DialogBackdrop',
+    ],
+  },
+  {
     id: 'drawer',
     name: 'Drawer',
     description: 'Sliding panel from screen edges for contextual content.',

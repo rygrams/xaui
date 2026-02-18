@@ -26,7 +26,9 @@ export default function SnippetScreen() {
       contentContainerStyle={[styles.content, { gap: theme.spacing.lg }]}
     >
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Variants</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Variants
+        </Text>
         <View style={{ gap: theme.spacing.md }}>
           {variants.map(variant => (
             <Snippet
@@ -96,16 +98,22 @@ export default function SnippetScreen() {
       </View>
 
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Copy Callback</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Copy Callback
+        </Text>
         <View style={{ gap: theme.spacing.sm }}>
           <Snippet
             value="pnpm changeset version && pnpm -r build"
             themeColor="success"
             onCopy={(value, isSuccess) => {
-              setCopyStatus(isSuccess ? `Copied: ${value}` : 'Copy failed on this platform')
+              setCopyStatus(
+                isSuccess ? `Copied: ${value}` : 'Copy failed on this platform'
+              )
             }}
           />
-          <Text style={{ color: colors.foreground, opacity: 0.75 }}>{copyStatus}</Text>
+          <Text style={{ color: colors.foreground, opacity: 0.75 }}>
+            {copyStatus}
+          </Text>
         </View>
       </View>
     </ScrollView>
