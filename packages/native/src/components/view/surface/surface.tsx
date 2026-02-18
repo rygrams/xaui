@@ -19,7 +19,7 @@ export const Surface: React.FC<SurfaceProps> = ({
   children,
   themeColor = 'background',
   padding,
-  radius = 'md',
+  radius = 'none',
   style,
 }) => {
   const theme = useXUITheme()
@@ -31,8 +31,7 @@ export const Surface: React.FC<SurfaceProps> = ({
       style={[
         radiusStyle,
         {
-          width: '100%',
-          height: '100%',
+          flex: 1,
           backgroundColor: background,
           padding,
         },
