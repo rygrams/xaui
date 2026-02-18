@@ -1,5 +1,20 @@
 # @xaui/mobile
 
+## 0.0.32
+
+### Patch Changes
+
+- 8b56cf4: Add a new `Snippet` component with built-in copy action, variants (`outlined`, `flat`, `light`), theme colors, and `copyButtonPosition` support.
+
+  Also add `fontSize` and `fontWeight` props to customize snippet typography.
+
+- d6fc9e7: Document toolbar animation behavior updates:
+  - replace spring-based motion with `withTiming` for deterministic show/hide transitions
+  - tune easing curves for faster, smoother entry/exit
+  - reduce initial translation offset from `100` to `24` for subtler movement
+
+  These changes affect Toolbar motion feel and visual behavior when toggling visibility.
+
 ## 0.0.31
 
 ### Patch Changes
