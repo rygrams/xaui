@@ -1,5 +1,11 @@
 # @xaui/core
 
+## 0.1.10
+
+### Patch Changes
+
+- 53408ce: Make `PartialXUITheme` properties optional to allow partial theme overrides.
+
 ## 0.1.9
 
 ### Patch Changes
