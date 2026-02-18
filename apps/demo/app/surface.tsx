@@ -54,7 +54,7 @@ export default function SurfaceScreen() {
 
       <View style={styles.section}>
         <Text style={[styles.title, { color: theme.colors.foreground }]}>
-          Radius, Padding, Full Width
+          Radius and Padding
         </Text>
         <Column spacing={10}>
           <Surface themeColor="secondary" padding={10} radius="none">
