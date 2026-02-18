@@ -102,9 +102,20 @@ export interface XUITheme {
   shadows: ThemeShadows
 }
 
-export type PartialXUITheme = Partial<XUITheme>
+export type PartialXUITheme = {
+  readonly mode: 'light' | 'dark'
+  readonly palette: typeof colors
+  colors: Partial<ThemeColors>
+  spacing: Partial<ThemeSpacing>
+  borderRadius: Partial<ThemeBorderRadius>
+  borderWidth: Partial<ThemeBorderWidth>
+  fontSizes: Partial<ThemeFontSizes>
+  fontWeights: Partial<ThemeFontWeights>
+  fontFamilies: Partial<ThemeFontFamilies>
+  shadows: Partial<ThemeShadows>
+}
 
-const baseTheme = {
+export const baseTheme = {
   spacing: {
     xs: 4,
     sm: 8,
