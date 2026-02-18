@@ -434,6 +434,16 @@ export default function HomeScreen() {
         <GridItem>
           <Button
             size="sm"
+            onPress={() => router.push('/surface')}
+            variant="outlined"
+            themeColor="primary"
+          >
+            Surface
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
             onPress={() => router.push('/tabs')}
             variant="outlined"
             themeColor="primary"

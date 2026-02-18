@@ -734,6 +734,17 @@ export const components: Component[] = [
     types: ['RoundedViewProps'],
   },
   {
+    id: 'surface',
+    name: 'Surface',
+    description: 'Theme-aware container with configurable background, radius, and padding.',
+    category: 'Layout',
+    href: '/docs/components/surface',
+    status: 'beta',
+    importPath: '@xaui/native/view',
+    exports: ['Surface'],
+    types: ['SurfaceProps', 'SurfaceBackgroundColor'],
+  },
+  {
     id: 'aspect-ratio',
     name: 'AspectRatio',
     description: 'Constrains a child to a fixed aspect ratio regardless of available width.',
