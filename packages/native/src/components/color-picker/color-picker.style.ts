@@ -47,17 +47,6 @@ export const styles = StyleSheet.create({
     flexWrap: 'wrap',
     gap: 8,
   },
-  swatch: {
-    borderRadius: 6,
-  },
-  swatchSelected: {
-    borderWidth: 3,
-  },
-  colorSwatch: {
-    width: 28,
-    height: 28,
-    borderRadius: 4,
-  },
   triggerSwatch: {
     width: 22,
     height: 22,
