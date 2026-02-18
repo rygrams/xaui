@@ -232,6 +232,21 @@
       "import": "./dist/snackbar/index.js",
       "require": "./dist/snackbar/index.js"
     },
+    "./input-trigger": {
+      "types": "./dist/input-trigger/index.d.ts",
+      "import": "./dist/input-trigger/index.js",
+      "require": "./dist/input-trigger/index.js"
+    },
+    "./picker": {
+      "types": "./dist/picker/index.d.ts",
+      "import": "./dist/picker/index.js",
+      "require": "./dist/picker/index.js"
+    },
+    "./color-picker": {
+      "types": "./dist/color-picker/index.d.ts",
+      "import": "./dist/color-picker/index.js",
+      "require": "./dist/color-picker/index.js"
+    },
     "./snippet": {
       "types": "./dist/snippet/index.d.ts",
       "import": "./dist/snippet/index.js",

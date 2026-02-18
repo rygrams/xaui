@@ -44,6 +44,9 @@ const entries = {
   'pager/index': 'src/components/pager/index.ts',
   'chart/index': 'src/components/chart/index.ts',
   'snackbar/index': 'src/components/snackbar/index.ts',
+  'input-trigger/index': 'src/components/input-trigger/index.ts',
+  'picker/index': 'src/components/picker/index.ts',
+  'color-picker/index': 'src/components/color-picker/index.ts',
   'snippet/index': 'src/components/snippet/index.ts',
 } as const
 

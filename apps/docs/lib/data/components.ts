@@ -777,6 +777,49 @@ export const components: Component[] = [
     exports: ['ConditionalView'],
     types: ['ConditionalViewProps'],
   },
+  {
+    id: 'input-trigger',
+    name: 'InputTrigger',
+    description:
+      'A pressable view styled like an input field. Used as a trigger for pickers, dialogs, and overlays.',
+    category: 'Inputs',
+    href: '/docs/components/input-trigger',
+    status: 'beta',
+    importPath: '@xaui/native/input-trigger',
+    exports: ['InputTrigger'],
+    types: [
+      'InputTriggerProps',
+      'InputTriggerEvents',
+      'InputTriggerVariant',
+      'InputTriggerSize',
+      'InputTriggerLabelPlacement',
+      'InputTriggerCustomAppearance',
+    ],
+  },
+  {
+    id: 'picker',
+    name: 'Picker',
+    description:
+      'Bottom sheet item selector with an input-like trigger. Ideal for mobile-friendly option selection.',
+    category: 'Inputs',
+    href: '/docs/components/picker',
+    status: 'beta',
+    importPath: '@xaui/native/picker',
+    exports: ['Picker'],
+    types: ['PickerProps', 'PickerEvents', 'PickerOption'],
+  },
+  {
+    id: 'color-picker',
+    name: 'ColorPicker',
+    description:
+      'Color palette selector displayed in a bottom sheet with an input-like color swatch trigger.',
+    category: 'Inputs',
+    href: '/docs/components/color-picker',
+    status: 'beta',
+    importPath: '@xaui/native/color-picker',
+    exports: ['ColorPicker', 'defaultColorGroups'],
+    types: ['ColorPickerProps', 'ColorPickerEvents', 'ColorGroup'],
+  },
 ]
 
 export const categories = Array.from(new Set(components.map(c => c.category))).sort()
