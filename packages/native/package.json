@@ -1,6 +1,6 @@
 {
   "name": "@xaui/native",
-  "version": "0.0.33",
+  "version": "0.0.34",
   "description": "Flutter-inspired React Native UI components with native animations powered by React Native Reanimated",
   "keywords": [
     "react-native",

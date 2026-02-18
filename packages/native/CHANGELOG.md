@@ -1,5 +1,11 @@
 # @xaui/mobile
 
+## 0.0.34
+
+### Patch Changes
+
+- 5a56007: Export `palette` from `@xaui/native/core`.
+
 ## 0.0.33
 
 ### Patch Changes
