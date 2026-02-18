@@ -1,5 +1,11 @@
 # @xaui/mobile
 
+## 0.0.37
+
+### Patch Changes
+
+- e6bc9e4: Add a new `Surface` component in `@xaui/native/view` with theme-aware background color, padding, radius, and full-width support.
+
 ## 0.0.36
 
 ### Patch Changes
