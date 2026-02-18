@@ -1,5 +1,13 @@
 # @xaui/mobile
 
+## 0.0.35
+
+### Patch Changes
+
+- Updated dependencies [d16bad0]
+  - @xaui/core@0.1.9
+  - @xaui/icons@0.0.6
+
 ## 0.0.34
 
 ### Patch Changes
