@@ -43,6 +43,8 @@ const entries = {
   'pager/index': 'src/components/pager/index.ts',
   'chart/index': 'src/components/chart/index.ts',
   'snackbar/index': 'src/components/snackbar/index.ts',
+  'scaffold/index': 'src/components/scaffold/index.ts',
+  'chat-scaffold/index': 'src/components/chat-scaffold/index.ts',
 } as const
 
 const sharedConfig = {

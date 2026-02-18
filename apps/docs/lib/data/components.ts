@@ -740,6 +740,50 @@ export const components: Component[] = [
     exports: ['ConditionalView'],
     types: ['ConditionalViewProps'],
   },
+  {
+    id: 'scaffold',
+    name: 'Scaffold',
+    description:
+      'Composable page layout with an app bar slot, scrollable body with pull-to-refresh, footer slot, floating action, and an indeterminate linear loader.',
+    category: 'Layout',
+    href: '/docs/components/scaffold',
+    status: 'beta',
+    importPath: '@xaui/native/scaffold',
+    exports: ['Scaffold', 'ScaffoldAppBar', 'ScaffoldBody', 'ScaffoldFooter'],
+    types: [
+      'ScaffoldProps',
+      'ScaffoldEvents',
+      'ScaffoldBodyProps',
+      'ScaffoldFooterProps',
+      'ScaffoldAppBarProps',
+    ],
+  },
+  {
+    id: 'chat-scaffold',
+    name: 'ChatScaffold',
+    description:
+      'Full-featured chat layout with message bubbles, typing indicator, composable app bar, and a multi-line input with send and attach actions.',
+    category: 'Layout',
+    href: '/docs/components/chat-scaffold',
+    status: 'beta',
+    importPath: '@xaui/native/chat-scaffold',
+    exports: [
+      'ChatScaffold',
+      'ChatScaffoldAppBar',
+      'ChatScaffoldMessage',
+      'ChatScaffoldInput',
+      'ChatScaffoldTypingIndicator',
+    ],
+    types: [
+      'ChatScaffoldProps',
+      'ChatScaffoldEvents',
+      'ChatScaffoldAppBarProps',
+      'ChatScaffoldMessageProps',
+      'ChatScaffoldInputProps',
+      'ChatMessage',
+      'ChatMessageStatus',
+    ],
+  },
 ]
 
 export const categories = Array.from(new Set(components.map(c => c.category))).sort()

@@ -431,6 +431,26 @@ export default function HomeScreen() {
             Typography
           </Button>
         </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/scaffold')}
+            variant="outlined"
+            themeColor="secondary"
+          >
+            Scaffold
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/chat-scaffold')}
+            variant="outlined"
+            themeColor="primary"
+          >
+            ChatScaffold
+          </Button>
+        </GridItem>
       </Grid>
     </ScrollView>
   )

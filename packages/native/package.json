@@ -226,6 +226,16 @@
       "types": "./dist/snackbar/index.d.ts",
       "import": "./dist/snackbar/index.js",
       "require": "./dist/snackbar/index.js"
+    },
+    "./scaffold": {
+      "types": "./dist/scaffold/index.d.ts",
+      "import": "./dist/scaffold/index.js",
+      "require": "./dist/scaffold/index.js"
+    },
+    "./chat-scaffold": {
+      "types": "./dist/chat-scaffold/index.d.ts",
+      "import": "./dist/chat-scaffold/index.js",
+      "require": "./dist/chat-scaffold/index.js"
     }
   },
   "files": [

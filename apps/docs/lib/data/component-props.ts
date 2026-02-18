@@ -6374,4 +6374,198 @@ export function ScaleExample() {
       },
     ],
   },
+  scaffold: {
+    props: [
+      { name: 'appBar', type: 'ReactNode', defaultValue: '-', description: 'App bar slot — rendered above the linear loader. Use ScaffoldAppBar or any ReactNode.' },
+      { name: 'footer', type: 'ReactNode', defaultValue: '-', description: 'Footer slot — rendered at the bottom of the page. Use ScaffoldFooter or any ReactNode.' },
+      { name: 'floatingAction', type: 'ReactNode', defaultValue: '-', description: 'Floating element overlaid above the footer (e.g. Fab).' },
+      { name: 'isLoading', type: 'boolean', defaultValue: 'false', description: 'Shows an indeterminate linear loader below the appBar (or at the very top if no appBar).' },
+      { name: 'isRefreshing', type: 'boolean', defaultValue: 'false', description: 'Activates the native pull-to-refresh indicator. Requires onRefresh.' },
+      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color used for the linear loader and refresh indicator.' },
+      { name: 'backgroundColor', type: 'string', defaultValue: 'theme.colors.background', description: 'Background color of the scaffold.' },
+      { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Custom style for the root container.' },
+    ],
+    events: [
+      { name: 'onRefresh', type: '() => void', description: 'Called when the user pulls to refresh.' },
+      { name: 'onScroll', type: '(event: NativeSyntheticEvent<NativeScrollEvent>) => void', description: 'Called when the body is scrolled.' },
+    ],
+    examples: [
+      {
+        title: 'Basic page',
+        code: `import { Scaffold, ScaffoldAppBar, ScaffoldBody, ScaffoldFooter } from '@xaui/native/scaffold'
+import { AppBarStartContent, AppBarContent, AppBarEndContent } from '@xaui/native/app-bar'
+import { Button } from '@xaui/native/button'
+import { useState } from 'react'
+
+export function BasicScaffoldExample() {
+  const [loading, setLoading] = useState(false)
+  const [refreshing, setRefreshing] = useState(false)
+
+  return (
+    <Scaffold
+      isLoading={loading}
+      isRefreshing={refreshing}
+      onRefresh={() => {
+        setRefreshing(true)
+        setTimeout(() => setRefreshing(false), 1500)
+      }}
+      appBar={
+        <ScaffoldAppBar>
+          <AppBarContent><Typography>My Page</Typography></AppBarContent>
+        </ScaffoldAppBar>
+      }
+      footer={
+        <ScaffoldFooter>
+          <Button onPress={() => setLoading(v => !v)}>Toggle loader</Button>
+        </ScaffoldFooter>
+      }
+    >
+      {/* body content */}
+    </Scaffold>
+  )
+}`,
+      },
+    ],
+    subComponents: [
+      {
+        name: 'ScaffoldAppBar',
+        props: [
+          { name: 'variant', type: '"docked" | "floating"', defaultValue: '"docked"', description: 'AppBar layout variant.' },
+          { name: 'elevation', type: 'number', defaultValue: '0', description: 'Shadow elevation.' },
+          { name: 'themeColor', type: 'ThemeColor', defaultValue: '"default"', description: 'Theme color for the app bar surface.' },
+          { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Custom style.' },
+        ],
+      },
+      {
+        name: 'ScaffoldBody',
+        props: [
+          { name: 'scrollable', type: 'boolean', defaultValue: 'true', description: 'Whether the body is scrollable.' },
+          { name: 'isRefreshing', type: 'boolean', defaultValue: 'false', description: 'Pull-to-refresh indicator state.' },
+          { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color of the refresh indicator.' },
+          { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Style for the scroll container.' },
+          { name: 'contentContainerStyle', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Style for the scroll content.' },
+        ],
+        events: [
+          { name: 'onRefresh', type: '() => void', description: 'Called when the user pulls to refresh.' },
+          { name: 'onScroll', type: '(event) => void', description: 'Scroll event callback.' },
+        ],
+      },
+      {
+        name: 'ScaffoldFooter',
+        props: [
+          { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Custom style for the footer container.' },
+        ],
+      },
+    ],
+  },
+  'chat-scaffold': {
+    props: [
+      { name: 'messages', type: 'ChatMessage[]', defaultValue: '-', description: 'List of messages to display (newest first for inverted FlatList).' },
+      { name: 'appBar', type: 'ReactNode', defaultValue: '-', description: 'App bar slot. Use ChatScaffoldAppBar or any ReactNode.' },
+      { name: 'inputValue', type: 'string', defaultValue: '-', description: 'Controlled value for the text input.' },
+      { name: 'inputPlaceholder', type: 'string', defaultValue: '"Type a message..."', description: 'Placeholder for the message input.' },
+      { name: 'inputPrefix', type: 'ReactNode', defaultValue: '-', description: 'Content prepended before the text input (e.g. chips).' },
+      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color for sent bubbles, send button and loading indicator.' },
+      { name: 'isLoading', type: 'boolean', defaultValue: 'false', description: 'Shows a linear loader (e.g. loading older messages).' },
+      { name: 'isTyping', type: 'boolean', defaultValue: 'false', description: 'Shows the animated typing indicator.' },
+      { name: 'typingLabel', type: 'string', defaultValue: '-', description: 'Name shown alongside the typing indicator.' },
+      { name: 'showTimestamps', type: 'boolean', defaultValue: 'true', description: 'Whether to show message timestamps inside bubbles.' },
+      { name: 'renderMessage', type: '(message: ChatMessage) => ReactNode', defaultValue: '-', description: 'Custom message bubble renderer.' },
+      { name: 'renderSendButton', type: '(onPress: () => void, disabled: boolean) => ReactNode', defaultValue: '-', description: 'Custom send button renderer.' },
+      { name: 'backgroundColor', type: 'string', defaultValue: 'theme.colors.background', description: 'Background color of the chat area.' },
+      { name: 'listProps', type: 'Partial<FlatListProps<ChatMessage>>', defaultValue: '-', description: 'Additional FlatList props forwarded to the messages list.' },
+      { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Custom style for the root container.' },
+    ],
+    events: [
+      { name: 'onInputChange', type: '(value: string) => void', description: 'Called when the text input changes.' },
+      { name: 'onSend', type: '(text: string) => void', description: 'Called when the user presses send.' },
+      { name: 'onAttach', type: '() => void', description: 'Called when the attach button is pressed.' },
+      { name: 'onEndReached', type: '() => void', description: 'Called when the list reaches the top (load older messages).' },
+    ],
+    examples: [
+      {
+        title: 'Basic chat',
+        code: `import { useState } from 'react'
+import { ChatScaffold, ChatScaffoldAppBar } from '@xaui/native/chat-scaffold'
+import type { ChatMessage } from '@xaui/native/chat-scaffold'
+
+const seed: ChatMessage[] = [
+  { id: '1', text: 'Hey! How are you?', isSent: false, timestamp: new Date(), showAvatar: true },
+  { id: '2', text: 'Doing great, thanks!', isSent: true, timestamp: new Date(), status: 'read' },
+]
+
+export function BasicChatExample() {
+  const [messages, setMessages] = useState<ChatMessage[]>(seed)
+  const [input, setInput] = useState('')
+
+  const handleSend = (text: string) => {
+    setMessages(prev => [{
+      id: Date.now().toString(),
+      text,
+      isSent: true,
+      timestamp: new Date(),
+      status: 'sending',
+    }, ...prev])
+    setInput('')
+  }
+
+  return (
+    <ChatScaffold
+      messages={messages}
+      inputValue={input}
+      onInputChange={setInput}
+      onSend={handleSend}
+      appBar={
+        <ChatScaffoldAppBar
+          title="Alice"
+          subtitle="Online"
+          isOnline
+          onBack={() => {}}
+        />
+      }
+    />
+  )
+}`,
+      },
+    ],
+    subComponents: [
+      {
+        name: 'ChatScaffoldAppBar',
+        props: [
+          { name: 'title', type: 'string', defaultValue: '-', description: 'Contact or group name.' },
+          { name: 'subtitle', type: 'string', defaultValue: '-', description: 'Status line (e.g. "Online", "Last seen…").' },
+          { name: 'avatarUri', type: 'string', defaultValue: '-', description: 'Avatar image URL.' },
+          { name: 'avatarInitials', type: 'string', defaultValue: '-', description: 'Fallback initials when no avatarUri.' },
+          { name: 'isOnline', type: 'boolean', defaultValue: 'false', description: 'Shows a green online dot on the avatar.' },
+          { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Theme color for the avatar.' },
+          { name: 'actions', type: 'ReactNode', defaultValue: '-', description: 'Action buttons in the end slot.' },
+        ],
+        events: [
+          { name: 'onBack', type: '() => void', description: 'Called when the back button is pressed.' },
+        ],
+      },
+      {
+        name: 'ChatScaffoldMessage',
+        props: [
+          { name: 'message', type: 'ChatMessage', defaultValue: '-', description: 'The message data.' },
+          { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color for sent bubbles.' },
+          { name: 'showTimestamp', type: 'boolean', defaultValue: 'true', description: 'Show timestamp inside the bubble.' },
+        ],
+      },
+      {
+        name: 'ChatScaffoldInput',
+        props: [
+          { name: 'value', type: 'string', defaultValue: '-', description: 'Controlled input value.' },
+          { name: 'placeholder', type: 'string', defaultValue: '"Type a message..."', description: 'Placeholder text.' },
+          { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color for the send button.' },
+          { name: 'prefix', type: 'ReactNode', defaultValue: '-', description: 'Content prepended before the text input.' },
+        ],
+        events: [
+          { name: 'onChangeText', type: '(value: string) => void', description: 'Text change callback.' },
+          { name: 'onSend', type: '(text: string) => void', description: 'Called when send is pressed.' },
+          { name: 'onAttach', type: '() => void', description: 'Called when attach is pressed.' },
+        ],
+      },
+    ],
+  },
 }
