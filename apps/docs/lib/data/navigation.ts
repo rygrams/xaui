@@ -46,13 +46,4 @@ export const navigation: NavSection[] = [
       },
     ],
   },
-  {
-    title: 'Hybrid (Web)',
-    items: [
-      {
-        title: 'Playground',
-        href: '/playground',
-      },
-    ],
-  },
 ]

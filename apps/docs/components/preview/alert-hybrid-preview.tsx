@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { AnimatePresence, motion } from 'framer-motion'
 import { Alert } from '@xaui/hybrid/alert'
 import type { AlertVariant } from '@xaui/hybrid/alert'
 import type { ThemeColor } from '@xaui/hybrid'
@@ -46,6 +47,24 @@ export function AlertHybridPreview() {
   return (
     <div className="grid gap-8 md:grid-cols-[1fr_auto]">
       <div className="space-y-4">
+        <div className="flex gap-2">
+          {(['light', 'dark'] as ColorScheme[]).map(scheme => (
+            <button
+              key={scheme}
+              type="button"
+              onClick={() => setColorScheme(scheme)}
+              className={[
+                'rounded-md border px-3 py-1.5 text-xs font-medium capitalize transition-colors',
+                colorScheme === scheme
+                  ? 'border-foreground bg-foreground text-background'
+                  : 'border-border bg-background text-muted-foreground hover:border-foreground/40 hover:text-foreground',
+              ].join(' ')}
+            >
+              {scheme}
+            </button>
+          ))}
+        </div>
+
         <div className="overflow-hidden rounded-xl border">
           {VARIANT_OPTIONS.map((option, i) => (
             <label
@@ -71,38 +90,29 @@ export function AlertHybridPreview() {
             </label>
           ))}
         </div>
-
-        <div className="flex gap-2">
-          {(['light', 'dark'] as ColorScheme[]).map(scheme => (
-            <button
-              key={scheme}
-              type="button"
-              onClick={() => setColorScheme(scheme)}
-              className={[
-                'rounded-md border px-3 py-1.5 text-xs font-medium capitalize transition-colors',
-                colorScheme === scheme
-                  ? 'border-foreground bg-foreground text-background'
-                  : 'border-border bg-background text-muted-foreground hover:border-foreground/40 hover:text-foreground',
-              ].join(' ')}
-            >
-              {scheme}
-            </button>
-          ))}
-        </div>
       </div>
 
       <FlatPhonePreview colorScheme={colorScheme}>
-        <div className="space-y-2 p-4">
-          {COLORS.map(color => (
-            <Alert
-              key={color}
-              title={color.charAt(0).toUpperCase() + color.slice(1)}
-              description="Hybrid web alert — @xaui/hybrid"
-              themeColor={color}
-              variant={variant}
-            />
-          ))}
-        </div>
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={variant}
+            className="space-y-2 p-4"
+            initial={{ opacity: 0, y: 8 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -8 }}
+            transition={{ duration: 0.2, ease: 'easeInOut' }}
+          >
+            {COLORS.map(color => (
+              <Alert
+                key={color}
+                title={color.charAt(0).toUpperCase() + color.slice(1)}
+                description="Hybrid web alert — @xaui/hybrid"
+                themeColor={color}
+                variant={variant}
+              />
+            ))}
+          </motion.div>
+        </AnimatePresence>
       </FlatPhonePreview>
     </div>
   )

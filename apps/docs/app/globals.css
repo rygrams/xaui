@@ -4,7 +4,7 @@
 @import '@xaui/hybrid/dist/index.css';
 
 @import 'tailwindcss';
-@source "../../node_modules/@xaui/hybrid";
+@source "../node_modules/@xaui/hybrid";
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
 

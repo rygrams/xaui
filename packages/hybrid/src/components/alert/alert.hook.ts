@@ -23,11 +23,17 @@ export const useAlertContainerStyles = (
   const { theme, colorScheme, isDefault } = useAlertColorScheme(themeColor)
 
   return useMemo(() => {
+    const isDark = theme.mode === 'dark'
+
     const backgroundColor =
       variant === 'solid'
-        ? colorScheme.main
-        : variant === 'flat'
+        ? isDark
           ? colorScheme.background
+          : colorScheme.main
+        : variant === 'flat'
+          ? isDark
+            ? withOpacity(colorScheme.background, 0.5)
+            : colorScheme.background
           : variant === 'faded'
             ? withOpacity(colorScheme.background, 0.75)
             : 'transparent'
@@ -58,9 +64,11 @@ export const useAlertIconWrapperStyles = (
   const { theme, colorScheme, isDefault } = useAlertColorScheme(themeColor)
 
   return useMemo(() => {
+    const isDark = theme.mode === 'dark'
+
     const backgroundColor =
       variant === 'solid'
-        ? withOpacity(colorScheme.foreground, 0.16)
+        ? withOpacity(isDark ? colorScheme.main : colorScheme.foreground, 0.16)
         : withOpacity(isDefault ? theme.colors.foreground : colorScheme.main, 0.12)
 
     const hasBorder = variant === 'bordered' || variant === 'faded'
@@ -82,9 +90,13 @@ export const useAlertTextStyles = (themeColor: ThemeColor, variant: AlertVariant
   const { theme, colorScheme, isDefault } = useAlertColorScheme(themeColor)
 
   return useMemo(() => {
+    const isDark = theme.mode === 'dark'
+
     const baseTextColor =
       variant === 'solid'
-        ? colorScheme.foreground
+        ? isDark
+          ? colorScheme.main
+          : colorScheme.foreground
         : isDefault
           ? theme.colors.foreground
           : colorScheme.main
