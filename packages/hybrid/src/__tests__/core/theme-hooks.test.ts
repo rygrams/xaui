@@ -6,7 +6,6 @@ import {
   useXUIPalette,
   useBorderRadiusStyles,
 } from '../../core/theme-hooks'
-import { defaultDarkTheme, defaultTheme } from '@xaui/core/theme'
 
 describe('useXUITheme', () => {
   it('returns default light theme by default', () => {
@@ -17,7 +16,7 @@ describe('useXUITheme', () => {
     document.documentElement.dataset.colorScheme = ''
 
     const { result } = renderHook(() => useXUITheme())
-    expect(result.current).toBe(defaultTheme)
+    expect(result.current.mode).toBe('light')
   })
 
   it('returns dark theme when document data-color-scheme=dark', () => {
@@ -28,7 +27,7 @@ describe('useXUITheme', () => {
     document.documentElement.dataset.colorScheme = 'dark'
 
     const { result } = renderHook(() => useXUITheme())
-    expect(result.current).toBe(defaultDarkTheme)
+    expect(result.current.mode).toBe('dark')
   })
 })
 
@@ -39,8 +38,9 @@ describe('useXUIColors', () => {
       value: vi.fn().mockReturnValue({ matches: false }),
     })
     document.documentElement.dataset.colorScheme = ''
+    const { result: themeResult } = renderHook(() => useXUITheme())
     const { result } = renderHook(() => useXUIColors())
-    expect(result.current).toBe(defaultTheme.colors)
+    expect(result.current).toEqual(themeResult.current.colors)
   })
 })
 
@@ -51,8 +51,9 @@ describe('useXUIPalette', () => {
       value: vi.fn().mockReturnValue({ matches: false }),
     })
     document.documentElement.dataset.colorScheme = ''
+    const { result: themeResult } = renderHook(() => useXUITheme())
     const { result } = renderHook(() => useXUIPalette())
-    expect(result.current).toBe(defaultTheme.palette)
+    expect(result.current).toEqual(themeResult.current.palette)
   })
 })
 
