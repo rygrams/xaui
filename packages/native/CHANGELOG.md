@@ -1,5 +1,11 @@
 # @xaui/mobile
 
+## 0.0.38
+
+### Patch Changes
+
+- 6aadb0a: fix(button): startContent and endContent props not rendering due to inverted visibility conditions
+
 ## 0.0.37
 
 ### Patch Changes
