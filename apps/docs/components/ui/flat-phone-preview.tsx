@@ -13,7 +13,7 @@ export function FlatPhonePreview({ children, colorScheme = 'light' }: FlatPhoneP
 
   return (
     <div className="flex justify-center py-4">
-      <div style={{ width: '260px' }}>
+      <div style={{ width: '290px' }}>
         <div className="rounded-[2.4rem] bg-zinc-800 p-[7px] shadow-md">
           <div className="flex justify-center pb-2 pt-1.5">
             <div className="h-1.5 w-10 rounded-full bg-zinc-600" />
