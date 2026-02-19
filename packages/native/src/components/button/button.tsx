@@ -86,7 +86,7 @@ export const Button: React.FC<ButtonProps> = ({
           ]}
         >
           <View style={styles.contentContainer}>
-            {startContent && !isLoading && spinnerPlacement !== 'start' && (
+            {startContent && (!isLoading || spinnerPlacement !== 'start') && (
               <View style={styles.startContent}>{startContent}</View>
             )}
 
@@ -109,7 +109,7 @@ export const Button: React.FC<ButtonProps> = ({
               <View style={styles.spinner}>{spinner}</View>
             )}
 
-            {endContent && !isLoading && spinnerPlacement !== 'end' && (
+            {endContent && (!isLoading || spinnerPlacement !== 'end') && (
               <View style={styles.endContent}>{endContent}</View>
             )}
           </View>
