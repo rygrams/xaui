@@ -7,10 +7,10 @@ export const useIconButtonSizeStyles = (size: Size) => {
 
   return useMemo(() => {
     const sizeMap = {
-      xs: { width: 34, height: 34 },
-      sm: { width: 38, height: 38 },
-      md: { width: 42, height: 42 },
-      lg: { width: 50, height: 50 },
+      xs: { width: theme.componentSizes.xs, height: theme.componentSizes.xs },
+      sm: { width: theme.componentSizes.sm, height: theme.componentSizes.sm },
+      md: { width: theme.componentSizes.md, height: theme.componentSizes.md },
+      lg: { width: theme.componentSizes.lg, height: theme.componentSizes.md },
     }
     return sizeMap[size]
   }, [size, theme])

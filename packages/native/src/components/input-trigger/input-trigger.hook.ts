@@ -28,38 +28,42 @@ type InputTriggerVariantStyles = {
   helperColor: string
 }
 
-const sizeMap: Record<InputTriggerSize, InputTriggerSizeStyles> = {
-  sm: {
-    minHeight: 40,
-    fontSize: 14,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-    slotGap: 8,
-    labelSize: 13,
-    helperSize: 12,
-  },
-  md: {
-    minHeight: 46,
-    fontSize: 16,
-    paddingHorizontal: 14,
-    paddingVertical: 10,
-    slotGap: 10,
-    labelSize: 14,
-    helperSize: 13,
-  },
-  lg: {
-    minHeight: 52,
-    fontSize: 17,
-    paddingHorizontal: 16,
-    paddingVertical: 12,
-    slotGap: 12,
-    labelSize: 15,
-    helperSize: 15,
-  },
-}
+export const useInputTriggerSizeStyles = (size: InputTriggerSize) => {
+  const theme = useXUITheme()
 
-export const useInputTriggerSizeStyles = (size: InputTriggerSize) =>
-  useMemo(() => sizeMap[size], [size])
+  return useMemo(() => {
+    const sizeMap: Record<InputTriggerSize, InputTriggerSizeStyles> = {
+      sm: {
+        minHeight: theme.componentSizes.sm,
+        fontSize: 14,
+        paddingHorizontal: 12,
+        paddingVertical: 8,
+        slotGap: 8,
+        labelSize: 13,
+        helperSize: 12,
+      },
+      md: {
+        minHeight: theme.componentSizes.md,
+        fontSize: 16,
+        paddingHorizontal: 14,
+        paddingVertical: 10,
+        slotGap: 10,
+        labelSize: 14,
+        helperSize: 13,
+      },
+      lg: {
+        minHeight: theme.componentSizes.lg,
+        fontSize: 17,
+        paddingHorizontal: 16,
+        paddingVertical: 12,
+        slotGap: 12,
+        labelSize: 15,
+        helperSize: 15,
+      },
+    }
+    return sizeMap[size]
+  }, [size, theme])
+}
 
 export const useInputTriggerRadiusStyles = (radius: Radius) => {
   const theme = useXUITheme()

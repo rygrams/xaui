@@ -31,25 +31,25 @@ export function useTabsSizeStyles(size: Size): TabsSizeStyles {
   return useMemo(() => {
     const sizes: Record<Size, TabsSizeStyles> = {
       xs: {
-        minHeight: 32,
+        minHeight: theme.componentSizes.xs,
         paddingHorizontal: theme.spacing.sm,
         paddingVertical: theme.spacing.xs,
         fontSize: theme.fontSizes.xs,
       },
       sm: {
-        minHeight: 36,
+        minHeight: theme.componentSizes.sm,
         paddingHorizontal: theme.spacing.md,
         paddingVertical: theme.spacing.xs,
         fontSize: theme.fontSizes.sm,
       },
       md: {
-        minHeight: 42,
+        minHeight: theme.componentSizes.md,
         paddingHorizontal: theme.spacing.md,
         paddingVertical: theme.spacing.sm,
         fontSize: theme.fontSizes.md,
       },
       lg: {
-        minHeight: 50,
+        minHeight: theme.componentSizes.lg,
         paddingHorizontal: theme.spacing.lg,
         paddingVertical: theme.spacing.md,
         fontSize: theme.fontSizes.lg,
