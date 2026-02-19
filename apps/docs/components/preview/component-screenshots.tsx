@@ -1,4 +1,3 @@
-import { AlertScreenshots } from './alert-screenshots'
 import { AppBarScreenshots } from './app-bar-screenshots'
 import { AutocompleteScreenshots } from './autocomplete-screenshots'
 import { AvatarScreenshots } from './avatar-screenshots'
@@ -17,7 +16,6 @@ import { DrawerScreenshots } from './drawer-screenshots'
 import { ExpansionPanelScreenshots } from './expansion-panel-screenshots'
 
 const screenshotsMap: Record<string, React.FC> = {
-  alert: AlertScreenshots,
   'app-bar': AppBarScreenshots,
   autocomplete: AutocompleteScreenshots,
   avatar: AvatarScreenshots,
