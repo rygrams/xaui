@@ -97,6 +97,76 @@ export default function ButtonsScreen() {
           </Button>
         </View>
       </View>
+
+      <View style={styles.section}>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Start & End Content
+        </Text>
+        <View style={{ gap: theme.spacing.md }}>
+          <Button
+            themeColor="primary"
+            variant="solid"
+            startContent={<Text style={styles.icon}>★</Text>}
+          >
+            Start Icon
+          </Button>
+          <Button
+            themeColor="secondary"
+            variant="solid"
+            endContent={<Text style={styles.icon}>→</Text>}
+          >
+            End Icon
+          </Button>
+          <Button
+            themeColor="success"
+            variant="outlined"
+            startContent={<Text style={styles.iconOutlined}>✓</Text>}
+            endContent={<Text style={styles.iconOutlined}>↗</Text>}
+          >
+            Both Sides
+          </Button>
+          <Button
+            themeColor="danger"
+            variant="flat"
+            startContent={<Text style={styles.iconFlat}>✕</Text>}
+          >
+            Delete
+          </Button>
+          <Button
+            themeColor="warning"
+            variant="light"
+            endContent={<Text style={styles.iconLight}>⚡</Text>}
+          >
+            Quick Action
+          </Button>
+          <Button
+            isLoading={isLoading}
+            spinnerPlacement="start"
+            startContent={<Text style={styles.icon}>★</Text>}
+            onPress={() => {
+              setIsLoading(true)
+              setTimeout(() => setIsLoading(false), 1500)
+            }}
+            variant="solid"
+            themeColor="primary"
+          >
+            Spinner Start (hides startContent)
+          </Button>
+          <Button
+            isLoading={isLoading}
+            spinnerPlacement="end"
+            endContent={<Text style={styles.icon}>→</Text>}
+            onPress={() => {
+              setIsLoading(true)
+              setTimeout(() => setIsLoading(false), 1500)
+            }}
+            variant="solid"
+            themeColor="secondary"
+          >
+            Spinner End (hides endContent)
+          </Button>
+        </View>
+      </View>
     </ScrollView>
   )
 }
@@ -115,5 +185,22 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 12,
+  },
+  icon: {
+    color: '#fff',
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
+  iconOutlined: {
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
+  iconFlat: {
+    fontSize: 14,
+    fontWeight: 'bold',
+  },
+  iconLight: {
+    fontSize: 14,
+    fontWeight: 'bold',
   },
 })
