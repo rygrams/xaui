@@ -1,6 +1,6 @@
 'use client'
 
-import React, { createContext, ReactNode } from 'react'
+import React, { createContext, ReactNode, useEffect } from 'react'
 import { useColorMode } from './theme-hooks'
 import { defaultTheme, XUITheme } from '@xaui/core/theme'
 
@@ -16,12 +16,13 @@ export interface XUIProviderProps {
   darkTheme?: DeepPartial<XUITheme>
 }
 
-export function XUIProvider({
-  children,
-  theme: lightTheme,
-  darkTheme,
-}: XUIProviderProps) {
+export function XUIProvider({ children, theme: lightTheme, darkTheme }: XUIProviderProps) {
   const colorScheme = useColorMode()
+
+  useEffect(() => {
+    if (typeof document === 'undefined') return
+    document.documentElement.dataset.colorScheme = colorScheme
+  }, [colorScheme])
 
   const theme = React.useMemo(() => {
     if (!darkTheme && !lightTheme) return defaultTheme
@@ -47,7 +48,5 @@ export function XUIProvider({
     } as XUITheme
   }, [lightTheme, darkTheme, colorScheme])
 
-  return (
-    <XUIThemeContext.Provider value={theme}>{children}</XUIThemeContext.Provider>
-  )
+  return <XUIThemeContext.Provider value={theme}>{children}</XUIThemeContext.Provider>
 }

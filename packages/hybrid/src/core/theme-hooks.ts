@@ -1,8 +1,9 @@
 'use client'
 
-import { useContext, useEffect, useState } from 'react'
+import { useContext, useEffect, useMemo, useState } from 'react'
 import { XUIThemeContext } from './theme-context'
 import { XUITheme } from '@xaui/core/theme'
+import { Radius } from '../types'
 
 type ColorMode = 'light' | 'dark'
 
@@ -22,13 +23,9 @@ const getWebColorMode = (): ColorMode => {
   if (typeof globalThis === 'undefined') return 'light'
 
   const globalScope = globalThis as GlobalThisLike
-  if (!globalScope.matchMedia) {
-    return 'light'
-  }
+  if (!globalScope.matchMedia) return 'light'
 
-  return globalScope.matchMedia('(prefers-color-scheme: dark)').matches
-    ? 'dark'
-    : 'light'
+  return globalScope.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
 }
 
 export function useColorMode(): ColorMode {
@@ -76,6 +73,26 @@ export function useXUITheme(): XUITheme {
 
 export function useXUIColors(): XUITheme['colors'] {
   const theme = useXUITheme()
-
   return theme.colors
+}
+
+export function useXUIPalette(): XUITheme['palette'] {
+  const theme = useXUITheme()
+  return useMemo(() => theme.palette, [theme])
+}
+
+export function useBorderRadiusStyles(radius: Radius): { borderRadius: string } {
+  const theme = useXUITheme()
+
+  return useMemo(() => {
+    const radiusMap: Record<Radius, number> = {
+      none: theme.borderRadius.none,
+      sm: theme.borderRadius.sm,
+      md: theme.borderRadius.md,
+      lg: theme.borderRadius.lg,
+      full: theme.borderRadius.full,
+    }
+
+    return { borderRadius: `${radiusMap[radius]}px` }
+  }, [radius, theme])
 }

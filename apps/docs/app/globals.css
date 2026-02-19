@@ -1,3 +1,8 @@
+/* XUI Hybrid — imported before tailwindcss so shadcn @theme tokens take precedence
+   over XUI's --color-* mappings. XUI CSS variables (--xui-*) and animations
+   remain available globally for the playground. */
+@import '@xaui/hybrid/dist/index.css';
+
 @import 'tailwindcss';
 @import 'tw-animate-css';
 @import 'shadcn/tailwind.css';
