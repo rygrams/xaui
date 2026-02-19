@@ -1,5 +1,11 @@
 # @xaui/core
 
+## 0.1.11
+
+### Patch Changes
+
+- 23e3c1c: feat: add componentSizes design token to theme and update all interactive components to use it
+
 ## 0.1.10
 
 ### Patch Changes
