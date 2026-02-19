@@ -15,8 +15,10 @@ export function FlatPhonePreview({ children }: FlatPhonePreviewProps) {
           <div className="flex justify-center pb-2 pt-1.5">
             <div className="h-1.5 w-12 rounded-full bg-zinc-600 dark:bg-zinc-500" />
           </div>
-          <div className="overflow-hidden rounded-[2rem] bg-white dark:bg-zinc-900">
-            <HybridProvider>{children}</HybridProvider>
+          <div className="flex min-h-[540px] flex-col overflow-hidden rounded-[2rem] bg-white dark:bg-zinc-900">
+            <div className="flex-1 overflow-y-auto">
+              <HybridProvider>{children}</HybridProvider>
+            </div>
             <div className="flex justify-center py-2">
               <div className="h-1 w-20 rounded-full bg-zinc-300 dark:bg-zinc-600" />
             </div>
