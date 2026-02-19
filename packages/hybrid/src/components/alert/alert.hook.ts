@@ -86,7 +86,10 @@ export const useAlertIconWrapperStyles = (
   }, [colorScheme, isDefault, theme, variant])
 }
 
-export const useAlertTextStyles = (themeColor: ThemeColor, variant: AlertVariant) => {
+export const useAlertTextStyles = (
+  themeColor: ThemeColor,
+  variant: AlertVariant
+) => {
   const { theme, colorScheme, isDefault } = useAlertColorScheme(themeColor)
 
   return useMemo(() => {

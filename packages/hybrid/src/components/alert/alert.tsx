@@ -107,7 +107,7 @@ export const Alert: React.FC<AlertProps> = ({
   const renderIcon = () => {
     if (hideIcon) return null
     if (icon && isValidElement(icon)) {
-      return cloneElement(icon, { color: iconColor, size: 22 } as never)
+      return cloneElement(icon, { color: iconColor, size: 18 } as never)
     }
     if (icon) {
       return (
@@ -116,7 +116,7 @@ export const Alert: React.FC<AlertProps> = ({
         </span>
       )
     }
-    return <IconComponent color={iconColor} size={24} />
+    return <IconComponent color={iconColor} size={18} />
   }
 
   const renderContentText = (content: AlertProps['title'] | AlertProps['description']) => {

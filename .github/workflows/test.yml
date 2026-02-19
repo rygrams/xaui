@@ -33,7 +33,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Lint
-        run: pnpm run lint
+        run: pnpm turbo run lint --filter="docs" --filter="@xaui/*"
 
   typecheck:
     name: Type Check
@@ -56,7 +56,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Type check
-        run: pnpm run type-check
+        run: pnpm --filter "docs" --filter "@xaui/*" run type-check
 
   vitest:
     name: Vitest
@@ -79,4 +79,4 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Test
-        run: pnpm run test
+        run: pnpm --filter "docs" --filter "@xaui/*" run test
