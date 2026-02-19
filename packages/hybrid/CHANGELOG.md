@@ -1,5 +1,12 @@
 # @xaui/web
 
+## 0.0.8
+
+### Patch Changes
+
+- Updated dependencies [23e3c1c]
+  - @xaui/core@0.1.11
+
 ## 0.0.7
 
 ### Patch Changes
