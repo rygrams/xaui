@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
-import { XUITheme, defaultDarkTheme, defaultTheme } from '@xaui/core/theme'
 import { Radius } from '../types'
 
 type ColorMode = 'light' | 'dark'
@@ -16,6 +15,31 @@ type MediaQueryListLike = {
 
 type GlobalThisLike = typeof globalThis & {
   matchMedia?: (query: string) => MediaQueryListLike
+}
+
+type CSSVarString = `var(--${string})`
+
+type CSSColorScheme = {
+  main: CSSVarString
+  foreground: CSSVarString
+  background: CSSVarString
+}
+
+export type HybridXUITheme = {
+  mode: ColorMode
+  palette: Record<string, CSSVarString>
+  colors: {
+    primary: CSSColorScheme
+    secondary: CSSColorScheme
+    tertiary: CSSColorScheme
+    danger: CSSColorScheme
+    warning: CSSColorScheme
+    success: CSSColorScheme
+    default: CSSColorScheme
+    background: CSSVarString
+    foreground: CSSVarString
+  }
+  borderRadius: Record<Radius, CSSVarString>
 }
 
 const getDocumentColorMode = (): ColorMode | null => {
@@ -66,7 +90,7 @@ export function useColorMode(): ColorMode {
   return webScheme
 }
 
-export function useXUITheme(): XUITheme {
+export function useXUITheme(): HybridXUITheme {
   const systemScheme = useColorMode()
   const [documentScheme, setDocumentScheme] = useState<ColorMode | null>(() =>
     getDocumentColorMode()
@@ -88,31 +112,85 @@ export function useXUITheme(): XUITheme {
   }, [])
 
   const resolvedScheme = documentScheme ?? systemScheme
-  return resolvedScheme === 'dark' ? defaultDarkTheme : defaultTheme
+
+  return useMemo(
+    () => ({
+      mode: resolvedScheme,
+      palette: {
+        primary: 'var(--xui-primary)',
+        secondary: 'var(--xui-secondary)',
+        tertiary: 'var(--xui-tertiary)',
+        danger: 'var(--xui-danger)',
+        warning: 'var(--xui-warning)',
+        success: 'var(--xui-success)',
+        default: 'var(--xui-default)',
+      },
+      colors: {
+        primary: {
+          main: 'var(--xui-primary)',
+          foreground: 'var(--xui-primary-fg)',
+          background: 'var(--xui-primary-bg)',
+        },
+        secondary: {
+          main: 'var(--xui-secondary)',
+          foreground: 'var(--xui-secondary-fg)',
+          background: 'var(--xui-secondary-bg)',
+        },
+        tertiary: {
+          main: 'var(--xui-tertiary)',
+          foreground: 'var(--xui-tertiary-fg)',
+          background: 'var(--xui-tertiary-bg)',
+        },
+        danger: {
+          main: 'var(--xui-danger)',
+          foreground: 'var(--xui-danger-fg)',
+          background: 'var(--xui-danger-bg)',
+        },
+        warning: {
+          main: 'var(--xui-warning)',
+          foreground: 'var(--xui-warning-fg)',
+          background: 'var(--xui-warning-bg)',
+        },
+        success: {
+          main: 'var(--xui-success)',
+          foreground: 'var(--xui-success-fg)',
+          background: 'var(--xui-success-bg)',
+        },
+        default: {
+          main: 'var(--xui-default)',
+          foreground: 'var(--xui-default-fg)',
+          background: 'var(--xui-default-bg)',
+        },
+        background: 'var(--xui-background)',
+        foreground: 'var(--xui-foreground)',
+      },
+      borderRadius: {
+        none: 'var(--xui-radius-none)',
+        sm: 'var(--xui-radius-sm)',
+        md: 'var(--xui-radius-md)',
+        lg: 'var(--xui-radius-lg)',
+        full: 'var(--xui-radius-full)',
+      },
+    }),
+    [resolvedScheme]
+  )
 }
 
-export function useXUIColors(): XUITheme['colors'] {
+export function useXUIColors(): HybridXUITheme['colors'] {
   const theme = useXUITheme()
   return theme.colors
 }
 
-export function useXUIPalette(): XUITheme['palette'] {
+export function useXUIPalette(): HybridXUITheme['palette'] {
   const theme = useXUITheme()
   return useMemo(() => theme.palette, [theme])
 }
 
 export function useBorderRadiusStyles(radius: Radius): { borderRadius: string } {
-  const theme = useXUITheme()
-
-  return useMemo(() => {
-    const radiusMap: Record<Radius, number> = {
-      none: theme.borderRadius.none,
-      sm: theme.borderRadius.sm,
-      md: theme.borderRadius.md,
-      lg: theme.borderRadius.lg,
-      full: theme.borderRadius.full,
-    }
-
-    return { borderRadius: `${radiusMap[radius]}px` }
-  }, [radius, theme])
+  return useMemo(
+    () => ({
+      borderRadius: `var(--xui-radius-${radius})`,
+    }),
+    [radius]
+  )
 }

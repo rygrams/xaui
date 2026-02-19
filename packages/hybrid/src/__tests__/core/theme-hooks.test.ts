@@ -38,9 +38,9 @@ describe('useXUIColors', () => {
       value: vi.fn().mockReturnValue({ matches: false }),
     })
     document.documentElement.dataset.colorScheme = ''
-    const { result: themeResult } = renderHook(() => useXUITheme())
     const { result } = renderHook(() => useXUIColors())
-    expect(result.current).toEqual(themeResult.current.colors)
+    expect(result.current.primary.main).toBe('var(--xui-primary)')
+    expect(result.current.warning.foreground).toBe('var(--xui-warning-fg)')
   })
 })
 
@@ -51,19 +51,19 @@ describe('useXUIPalette', () => {
       value: vi.fn().mockReturnValue({ matches: false }),
     })
     document.documentElement.dataset.colorScheme = ''
-    const { result: themeResult } = renderHook(() => useXUITheme())
     const { result } = renderHook(() => useXUIPalette())
-    expect(result.current).toEqual(themeResult.current.palette)
+    expect(result.current.primary).toBe('var(--xui-primary)')
+    expect(result.current.default).toBe('var(--xui-default)')
   })
 })
 
 describe('useBorderRadiusStyles', () => {
   it.each([
-    ['none', '0px'],
-    ['sm', '4px'],
-    ['md', '8px'],
-    ['lg', '12px'],
-    ['full', '9999px'],
+    ['none', 'var(--xui-radius-none)'],
+    ['sm', 'var(--xui-radius-sm)'],
+    ['md', 'var(--xui-radius-md)'],
+    ['lg', 'var(--xui-radius-lg)'],
+    ['full', 'var(--xui-radius-full)'],
   ] as const)('returns correct borderRadius for radius=%s', (radius, expected) => {
     Object.defineProperty(globalThis, 'matchMedia', {
       configurable: true,
