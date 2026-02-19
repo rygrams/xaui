@@ -45,6 +45,12 @@ vi.mock('../../../core', () => ({
       sm: 1,
       md: 2,
     },
+    componentSizes: {
+      xs: 38,
+      sm: 42,
+      md: 46,
+      lg: 50,
+    },
   }),
 }))
 
@@ -52,14 +58,14 @@ describe('useTabsSizeStyles', () => {
   it('returns correct styles for xs', () => {
     const { result } = renderHook(() => useTabsSizeStyles('xs'))
 
-    expect(result.current.minHeight).toBe(32)
+    expect(result.current.minHeight).toBe(38)
     expect(result.current.fontSize).toBe(12)
   })
 
   it('returns correct styles for md', () => {
     const { result } = renderHook(() => useTabsSizeStyles('md'))
 
-    expect(result.current.minHeight).toBe(42)
+    expect(result.current.minHeight).toBe(46)
     expect(result.current.fontSize).toBe(16)
   })
 })

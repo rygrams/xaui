@@ -78,6 +78,12 @@ vi.mock('../../../core', () => ({
     borderWidth: {
       md: 1,
     },
+    componentSizes: {
+      xs: 38,
+      sm: 42,
+      md: 46,
+      lg: 50,
+    },
     shadows: {
       md: {
         shadowColor: '#000',
@@ -94,7 +100,7 @@ describe('button hook styles', () => {
   it('returns correct size styles for md size', () => {
     const { result } = renderHook(() => useSizesStyles('md'))
 
-    expect(result.current.sizeStyles.minHeight).toBe(42)
+    expect(result.current.sizeStyles.minHeight).toBe(46)
     expect(result.current.sizeStyles.fontSize).toBe(16)
   })
 

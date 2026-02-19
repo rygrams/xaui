@@ -58,6 +58,13 @@ export interface ThemeFontFamilies {
   default: string
 }
 
+export interface ThemeComponentSizes {
+  xs: number
+  sm: number
+  md: number
+  lg: number
+}
+
 export interface ThemeShadows {
   sm: {
     shadowColor: string
@@ -100,6 +107,7 @@ export interface XUITheme {
   fontWeights: ThemeFontWeights
   fontFamilies: ThemeFontFamilies
   shadows: ThemeShadows
+  componentSizes: ThemeComponentSizes
 }
 
 export type PartialXUITheme = {
@@ -113,6 +121,7 @@ export type PartialXUITheme = {
   fontWeights?: Partial<ThemeFontWeights>
   fontFamilies?: Partial<ThemeFontFamilies>
   shadows?: Partial<ThemeShadows>
+  componentSizes?: Partial<ThemeComponentSizes>
 }
 
 export const baseTheme = {
@@ -195,6 +204,12 @@ export const baseTheme = {
       shadowRadius: 7.49,
       elevation: 12,
     },
+  },
+  componentSizes: {
+    xs: 38,
+    sm: 42,
+    md: 46,
+    lg: 50,
   },
 } as const
 

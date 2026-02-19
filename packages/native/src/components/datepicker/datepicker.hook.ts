@@ -27,28 +27,28 @@ export const useDatePickerSizeStyles = (size: Size): DatePickerSizeStyles => {
   return useMemo(() => {
     const sizes = {
       xs: {
-        minHeight: 34,
+        minHeight: theme.componentSizes.xs,
         paddingHorizontal: theme.spacing.sm,
         paddingVertical: theme.spacing.xs,
         fontSize: theme.fontSizes.xs,
         labelSize: theme.fontSizes.xs,
       },
       sm: {
-        minHeight: 38,
+        minHeight: theme.componentSizes.sm,
         paddingHorizontal: theme.spacing.md,
         paddingVertical: theme.spacing.xs,
         fontSize: theme.fontSizes.sm,
         labelSize: theme.fontSizes.xs,
       },
       md: {
-        minHeight: 42,
+        minHeight: theme.componentSizes.md,
         paddingHorizontal: theme.spacing.md,
         paddingVertical: theme.spacing.sm,
         fontSize: theme.fontSizes.md,
         labelSize: theme.fontSizes.sm,
       },
       lg: {
-        minHeight: 50,
+        minHeight: theme.componentSizes.lg,
         paddingHorizontal: theme.spacing.lg,
         paddingVertical: theme.spacing.md,
         fontSize: theme.fontSizes.lg,

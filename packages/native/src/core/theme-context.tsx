@@ -47,6 +47,10 @@ export function XUIProvider({
         ...defaultTheme.fontSizes,
         ...activeTheme.fontSizes,
       },
+      componentSizes: {
+        ...defaultTheme.componentSizes,
+        ...activeTheme.componentSizes,
+      },
       palette: colors,
     } as XUITheme
   }, [lightTheme, darkTheme, colorScheme])

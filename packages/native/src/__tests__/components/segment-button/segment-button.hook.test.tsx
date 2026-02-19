@@ -45,6 +45,12 @@ vi.mock('../../../core', () => ({
       sm: 1,
       md: 2,
     },
+    componentSizes: {
+      xs: 38,
+      sm: 42,
+      md: 46,
+      lg: 50,
+    },
     shadows: {
       sm: {
         shadowColor: '#000',
@@ -82,7 +88,7 @@ describe('useSegmentSizeStyles', () => {
   it('returns correct size styles for xs', () => {
     const { result } = renderHook(() => useSegmentSizeStyles('xs'))
 
-    expect(result.current.minHeight).toBe(32)
+    expect(result.current.minHeight).toBe(38)
     expect(result.current.fontSize).toBe(12)
     expect(result.current.iconSize).toBe(14)
   })
@@ -90,7 +96,7 @@ describe('useSegmentSizeStyles', () => {
   it('returns correct size styles for sm', () => {
     const { result } = renderHook(() => useSegmentSizeStyles('sm'))
 
-    expect(result.current.minHeight).toBe(36)
+    expect(result.current.minHeight).toBe(42)
     expect(result.current.fontSize).toBe(14)
     expect(result.current.iconSize).toBe(16)
   })
@@ -98,7 +104,7 @@ describe('useSegmentSizeStyles', () => {
   it('returns correct size styles for md', () => {
     const { result } = renderHook(() => useSegmentSizeStyles('md'))
 
-    expect(result.current.minHeight).toBe(40)
+    expect(result.current.minHeight).toBe(46)
     expect(result.current.fontSize).toBe(16)
     expect(result.current.iconSize).toBe(18)
   })
@@ -106,7 +112,7 @@ describe('useSegmentSizeStyles', () => {
   it('returns correct size styles for lg', () => {
     const { result } = renderHook(() => useSegmentSizeStyles('lg'))
 
-    expect(result.current.minHeight).toBe(48)
+    expect(result.current.minHeight).toBe(50)
     expect(result.current.fontSize).toBe(18)
     expect(result.current.iconSize).toBe(20)
   })

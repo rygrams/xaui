@@ -40,25 +40,25 @@ export function useSizesStyles(size: Size): {
       xs: {
         paddingHorizontal: theme.spacing.sm,
         paddingVertical: theme.spacing.xs,
-        minHeight: 34,
+        minHeight: theme.componentSizes.xs,
         fontSize: theme.fontSizes.xs,
       },
       sm: {
         paddingHorizontal: theme.spacing.md,
         paddingVertical: theme.spacing.xs,
-        minHeight: 38,
+        minHeight: theme.componentSizes.sm,
         fontSize: theme.fontSizes.sm,
       },
       md: {
         paddingHorizontal: theme.spacing.md,
         paddingVertical: theme.spacing.sm,
-        minHeight: 42,
+        minHeight: theme.componentSizes.md,
         fontSize: theme.fontSizes.md,
       },
       lg: {
         paddingHorizontal: theme.spacing.lg,
         paddingVertical: theme.spacing.md,
-        minHeight: 50,
+        minHeight: theme.componentSizes.lg,
         fontSize: theme.fontSizes.lg,
       },
     }
