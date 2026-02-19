@@ -4,11 +4,7 @@ import { CodeBlock } from '@/components/ui/code-block'
 import { getComponentById, components, type Component } from '@/lib/data/components'
 import { componentPropsMap } from '@/lib/data/component-props'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { AlertScreenshots } from '@/components/preview/alert-screenshots'
-import { AppBarScreenshots } from '@/components/preview/app-bar-screenshots'
-import { AutocompleteScreenshots } from '@/components/preview/autocomplete-screenshots'
-import { AvatarScreenshots } from '@/components/preview/avatar-screenshots'
-import { AvatarGroupScreenshots } from '@/components/preview/avatar-group-screenshots'
+import { ComponentScreenshots } from '@/components/preview/component-screenshots'
 
 type ComponentPageProps = {
   params: Promise<{
@@ -171,11 +167,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
         <p className="text-base text-muted-foreground md:text-xl">{component.description}</p>
       </div>
 
-      {component.id === 'alert' && <AlertScreenshots />}
-      {component.id === 'app-bar' && <AppBarScreenshots />}
-      {component.id === 'autocomplete' && <AutocompleteScreenshots />}
-      {component.id === 'avatar' && <AvatarScreenshots />}
-      {component.id === 'avatar-group' && <AvatarGroupScreenshots />}
+      <ComponentScreenshots componentId={component.id} />
 
       <Tabs defaultValue="code" className="w-full">
         <TabsList>

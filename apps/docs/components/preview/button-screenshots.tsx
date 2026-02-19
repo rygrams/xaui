@@ -1,0 +1,51 @@
+'use client'
+
+import Image from 'next/image'
+import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
+
+const screenshots = [
+  { src: '/screenshots/button-1.jpg', alt: 'Button preview dark mode - variants and sizes' },
+  { src: '/screenshots/button-2.jpg', alt: 'Button preview dark mode - theme colors and states' },
+  { src: '/screenshots/button-3.jpg', alt: 'Button preview light mode - variants and sizes' },
+  { src: '/screenshots/button-4.jpg', alt: 'Button preview light mode - theme colors and states' },
+] as const
+
+export function ButtonScreenshots() {
+  return (
+    <div className="space-y-4">
+      <h2 className="text-xl font-semibold tracking-tight md:text-2xl">Preview</h2>
+      <div className="grid grid-cols-2 gap-3 md:flex md:flex-row md:gap-4 md:items-start">
+        {screenshots.map(item => (
+          <Dialog key={item.src}>
+            <DialogTrigger asChild>
+              <button
+                type="button"
+                className="w-full max-w-64 cursor-pointer overflow-hidden rounded-2xl border-4 border-gray-300 transition hover:border-gray-400"
+                aria-label={`Open ${item.alt}`}
+              >
+                <Image
+                  src={item.src}
+                  alt={item.alt}
+                  width={1080}
+                  height={2340}
+                  className="h-auto w-full"
+                />
+              </button>
+            </DialogTrigger>
+            <DialogContent className="sm:max-w-5xl p-2 flex items-center justify-center">
+              <div className="overflow-hidden rounded-2xl border-4 border-gray-300">
+                <Image
+                  src={item.src}
+                  alt={item.alt}
+                  width={1080}
+                  height={2340}
+                  className="block max-h-[80dvh] w-auto"
+                />
+              </div>
+            </DialogContent>
+          </Dialog>
+        ))}
+      </div>
+    </div>
+  )
+}
