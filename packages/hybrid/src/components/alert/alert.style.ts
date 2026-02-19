@@ -1,7 +1,7 @@
 export const alertStyles = {
   container: 'flex flex-row items-center w-full gap-3',
   mainWrapper: 'flex-1 flex-col justify-center gap-0.5',
-  iconWrapper: 'w-9 aspect-square rounded-full flex items-center justify-center shrink-0',
+  iconWrapper: 'size-12 rounded-full flex items-center justify-center shrink-0',
   title: 'font-semibold leading-tight m-0',
   description: 'font-normal leading-tight m-0',
   iconText: 'font-semibold',
