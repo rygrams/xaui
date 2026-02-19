@@ -97,7 +97,7 @@
   --xui-size-lg: 50px;
 }
 
-/* Dark mode — toggled via XUIProvider setting data-color-scheme on <html> */
+/* Dark mode — toggled by setting data-color-scheme on <html> */
 [data-color-scheme='dark'] {
   --xui-primary: #d8b4fe;
   --xui-primary-fg: #3b0764;
@@ -131,6 +131,42 @@
   --xui-foreground: #e7e5e4;
 }
 
+/* SSR/no-JS fallback: honor OS dark mode until data-color-scheme is set */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-color-scheme]) {
+    --xui-primary: #d8b4fe;
+    --xui-primary-fg: #3b0764;
+    --xui-primary-bg: #4c1d95;
+
+    --xui-secondary: #d4d4d8;
+    --xui-secondary-fg: #3f3f46;
+    --xui-secondary-bg: #52525b;
+
+    --xui-tertiary: #fecaca;
+    --xui-tertiary-fg: #500724;
+    --xui-tertiary-bg: #57534e;
+
+    --xui-danger: #fca5a5;
+    --xui-danger-fg: #4c0519;
+    --xui-danger-bg: #991b1b;
+
+    --xui-warning: #fbbf24;
+    --xui-warning-fg: #f9fafb;
+    --xui-warning-bg: #78350f;
+
+    --xui-success: #4ade80;
+    --xui-success-fg: #f9fafb;
+    --xui-success-bg: #14532d;
+
+    --xui-default: #e7e5e4;
+    --xui-default-fg: #18181b;
+    --xui-default-bg: #3f3f46;
+
+    --xui-background: #18181b;
+    --xui-foreground: #e7e5e4;
+  }
+}
+
 /* Animations CSS — used via data-xui-state attribute */
 @keyframes xui-fade-in {
   from {
@@ -160,6 +196,30 @@
 
 [data-xui-state='closed'] {
   animation: xui-fade-out 250ms ease forwards;
+}
+
+/* Alert mode tokens derived from selected --xui-alert-* role vars */
+.xui-alert {
+  --xui-alert-solid-bg: var(--xui-alert-main);
+  --xui-alert-solid-text: #ffffff;
+  --xui-alert-solid-icon-bg: color-mix(in srgb, #ffffff 16%, transparent);
+  --xui-alert-flat-bg: var(--xui-alert-bg-base);
+}
+
+[data-color-scheme='dark'] .xui-alert {
+  --xui-alert-solid-bg: var(--xui-alert-bg-base);
+  --xui-alert-solid-text: var(--xui-alert-main);
+  --xui-alert-solid-icon-bg: color-mix(in srgb, var(--xui-alert-main) 16%, transparent);
+  --xui-alert-flat-bg: color-mix(in srgb, var(--xui-alert-bg-base) 50%, transparent);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-color-scheme]) .xui-alert {
+    --xui-alert-solid-bg: var(--xui-alert-bg-base);
+    --xui-alert-solid-text: var(--xui-alert-main);
+    --xui-alert-solid-icon-bg: color-mix(in srgb, var(--xui-alert-main) 16%, transparent);
+    --xui-alert-flat-bg: color-mix(in srgb, var(--xui-alert-bg-base) 50%, transparent);
+  }
 }
 
 /* Tailwind v4 — register XUI tokens as utilities via @theme inline.

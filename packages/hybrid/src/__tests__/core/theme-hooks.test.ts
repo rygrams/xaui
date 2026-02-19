@@ -1,41 +1,57 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { renderHook } from '@testing-library/react'
-import React from 'react'
-import { XUIThemeContext } from '../../core/theme-context'
 import {
   useXUITheme,
   useXUIColors,
   useXUIPalette,
   useBorderRadiusStyles,
 } from '../../core/theme-hooks'
-import { defaultTheme } from '@xaui/core/theme'
-
-const wrapper = ({ children }: { children: React.ReactNode }) =>
-  React.createElement(XUIThemeContext.Provider, { value: defaultTheme }, children)
+import { defaultDarkTheme, defaultTheme } from '@xaui/core/theme'
 
 describe('useXUITheme', () => {
-  it('returns the theme from context', () => {
-    const { result } = renderHook(() => useXUITheme(), { wrapper })
+  it('returns default light theme by default', () => {
+    Object.defineProperty(globalThis, 'matchMedia', {
+      configurable: true,
+      value: vi.fn().mockReturnValue({ matches: false }),
+    })
+    document.documentElement.dataset.colorScheme = ''
+
+    const { result } = renderHook(() => useXUITheme())
     expect(result.current).toBe(defaultTheme)
   })
 
-  it('throws when used outside XUIProvider', () => {
-    expect(() => renderHook(() => useXUITheme())).toThrow(
-      'useXUITheme must be used within XUIProvider'
-    )
+  it('returns dark theme when document data-color-scheme=dark', () => {
+    Object.defineProperty(globalThis, 'matchMedia', {
+      configurable: true,
+      value: vi.fn().mockReturnValue({ matches: false }),
+    })
+    document.documentElement.dataset.colorScheme = 'dark'
+
+    const { result } = renderHook(() => useXUITheme())
+    expect(result.current).toBe(defaultDarkTheme)
   })
 })
 
 describe('useXUIColors', () => {
   it('returns the colors from the theme', () => {
-    const { result } = renderHook(() => useXUIColors(), { wrapper })
+    Object.defineProperty(globalThis, 'matchMedia', {
+      configurable: true,
+      value: vi.fn().mockReturnValue({ matches: false }),
+    })
+    document.documentElement.dataset.colorScheme = ''
+    const { result } = renderHook(() => useXUIColors())
     expect(result.current).toBe(defaultTheme.colors)
   })
 })
 
 describe('useXUIPalette', () => {
   it('returns the palette from the theme', () => {
-    const { result } = renderHook(() => useXUIPalette(), { wrapper })
+    Object.defineProperty(globalThis, 'matchMedia', {
+      configurable: true,
+      value: vi.fn().mockReturnValue({ matches: false }),
+    })
+    document.documentElement.dataset.colorScheme = ''
+    const { result } = renderHook(() => useXUIPalette())
     expect(result.current).toBe(defaultTheme.palette)
   })
 })
@@ -48,7 +64,12 @@ describe('useBorderRadiusStyles', () => {
     ['lg', '12px'],
     ['full', '9999px'],
   ] as const)('returns correct borderRadius for radius=%s', (radius, expected) => {
-    const { result } = renderHook(() => useBorderRadiusStyles(radius), { wrapper })
+    Object.defineProperty(globalThis, 'matchMedia', {
+      configurable: true,
+      value: vi.fn().mockReturnValue({ matches: false }),
+    })
+    document.documentElement.dataset.colorScheme = ''
+    const { result } = renderHook(() => useBorderRadiusStyles(radius))
     expect(result.current).toEqual({ borderRadius: expected })
   })
 })
@@ -56,6 +77,7 @@ describe('useBorderRadiusStyles', () => {
 describe('useColorMode', () => {
   beforeEach(() => {
     vi.restoreAllMocks()
+    document.documentElement.dataset.colorScheme = ''
   })
 
   it('returns light when matchMedia is not available', async () => {

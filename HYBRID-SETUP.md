@@ -73,20 +73,31 @@ To prevent XUI from overriding shadcn's color tokens, import `@xaui/hybrid/dist/
 
 ---
 
-## 4. XUIProvider
+## 4. HybridProvider (no XUIProvider required)
 
-`XUIProvider` is a Client Component (it uses React hooks and `document`). A thin wrapper
-was created in `components/providers/xui-provider.tsx`:
+`@xaui/hybrid` no longer requires `XUIProvider`. A lightweight client wrapper is used only
+to optionally set `data-color-scheme` on `<html>` when a forced scheme is needed:
 
 ```tsx
 // apps/docs/components/providers/xui-provider.tsx
 'use client'
 
-import { XUIProvider } from '@xaui/hybrid/core'
+import { useEffect } from 'react'
 import type { ReactNode } from 'react'
 
-export function HybridProvider({ children }: { children: ReactNode }) {
-  return <XUIProvider>{children}</XUIProvider>
+export function HybridProvider({
+  children,
+  colorScheme,
+}: {
+  children: ReactNode
+  colorScheme?: 'light' | 'dark'
+}) {
+  useEffect(() => {
+    if (!colorScheme) return
+    document.documentElement.dataset.colorScheme = colorScheme
+  }, [colorScheme])
+
+  return <>{children}</>
 }
 ```
 
@@ -108,10 +119,10 @@ export default function RootLayout({ children }) {
 }
 ```
 
-**What XUIProvider does in hybrid:**
-- Provides theme tokens via React context (read by `useXUITheme`, `useXUIColors`, etc.)
-- Sets `document.documentElement.dataset.colorScheme = 'light' | 'dark'` reactively,
-  enabling the CSS `[data-color-scheme="dark"]` overrides defined in `xui.css`
+**What this wrapper does in hybrid:**
+- Optionally sets `document.documentElement.dataset.colorScheme = 'light' | 'dark'`
+- Leaves token resolution to CSS variables in `xui.css`
+- No React theme context provider is required for hybrid components
 
 #### Screenshot — layout.tsx with HybridProvider
 
@@ -140,8 +151,8 @@ import { BrowserPreview } from '@/components/ui/browser-preview'
 </BrowserPreview>
 ```
 
-`BrowserPreview` wraps children with `HybridProvider` internally so components have access
-to the XUI theme context.
+`BrowserPreview` wraps children with `HybridProvider` internally to allow forcing color scheme
+in preview contexts.
 
 #### Screenshot — BrowserPreview frame
 
@@ -218,9 +229,11 @@ Users can override any `--xui-*` variable in their CSS to customize the theme:
 }
 ```
 
-Dark mode is handled automatically when `XUIProvider` detects the system preference and sets
-`data-color-scheme="dark"` on `<html>`. Users can also switch themes programmatically by
-updating that attribute.
+Dark mode is handled by CSS:
+- `[data-color-scheme='dark']` for explicit dark mode
+- `@media (prefers-color-scheme: dark)` fallback when the attribute is absent (SSR/no-JS safe)
+
+Users can still switch themes programmatically by setting `data-color-scheme` on `<html>`.
 
 ---
 
@@ -231,7 +244,7 @@ updating that attribute.
 | Dependency | `apps/docs/package.json` |
 | Transpile | `apps/docs/next.config.ts` |
 | CSS import | `apps/docs/app/globals.css` |
-| Provider wrapper | `apps/docs/components/providers/xui-provider.tsx` |
+| Optional scheme wrapper | `apps/docs/components/providers/xui-provider.tsx` |
 | Layout | `apps/docs/app/layout.tsx` |
 | Browser frame | `apps/docs/components/ui/browser-preview.tsx` |
 | Playground | `apps/docs/app/playground/page.tsx` + `alert-playground.tsx` |

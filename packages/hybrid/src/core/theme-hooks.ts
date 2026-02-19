@@ -1,8 +1,7 @@
 'use client'
 
-import { useContext, useEffect, useMemo, useState } from 'react'
-import { XUIThemeContext } from './theme-context'
-import { XUITheme } from '@xaui/core/theme'
+import { useEffect, useMemo, useState } from 'react'
+import { XUITheme, defaultDarkTheme, defaultTheme } from '@xaui/core/theme'
 import { Radius } from '../types'
 
 type ColorMode = 'light' | 'dark'
@@ -17,6 +16,12 @@ type MediaQueryListLike = {
 
 type GlobalThisLike = typeof globalThis & {
   matchMedia?: (query: string) => MediaQueryListLike
+}
+
+const getDocumentColorMode = (): ColorMode | null => {
+  if (typeof document === 'undefined') return null
+  const scheme = document.documentElement.dataset.colorScheme
+  return scheme === 'dark' || scheme === 'light' ? scheme : null
 }
 
 const getWebColorMode = (): ColorMode => {
@@ -62,13 +67,28 @@ export function useColorMode(): ColorMode {
 }
 
 export function useXUITheme(): XUITheme {
-  const theme = useContext(XUIThemeContext)
+  const systemScheme = useColorMode()
+  const [documentScheme, setDocumentScheme] = useState<ColorMode | null>(() =>
+    getDocumentColorMode()
+  )
 
-  if (!theme) {
-    throw new Error('useXUITheme must be used within XUIProvider')
-  }
+  useEffect(() => {
+    if (typeof document === 'undefined') return
+    const node = document.documentElement
+    const update = () => setDocumentScheme(getDocumentColorMode())
+    update()
 
-  return theme
+    const observer = new MutationObserver(update)
+    observer.observe(node, {
+      attributes: true,
+      attributeFilter: ['data-color-scheme'],
+    })
+
+    return () => observer.disconnect()
+  }, [])
+
+  const resolvedScheme = documentScheme ?? systemScheme
+  return resolvedScheme === 'dark' ? defaultDarkTheme : defaultTheme
 }
 
 export function useXUIColors(): XUITheme['colors'] {
