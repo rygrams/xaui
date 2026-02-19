@@ -14,15 +14,23 @@ export interface XUIProviderProps {
   children: ReactNode
   theme?: DeepPartial<XUITheme>
   darkTheme?: DeepPartial<XUITheme>
+  colorScheme?: 'light' | 'dark'
 }
 
-export function XUIProvider({ children, theme: lightTheme, darkTheme }: XUIProviderProps) {
-  const colorScheme = useColorMode()
+export function XUIProvider({
+  children,
+  theme: lightTheme,
+  darkTheme,
+  colorScheme: forcedScheme,
+}: XUIProviderProps) {
+  const systemScheme = useColorMode()
+  const colorScheme = forcedScheme ?? systemScheme
 
   useEffect(() => {
+    if (forcedScheme) return
     if (typeof document === 'undefined') return
     document.documentElement.dataset.colorScheme = colorScheme
-  }, [colorScheme])
+  }, [colorScheme, forcedScheme])
 
   const theme = React.useMemo(() => {
     if (!darkTheme && !lightTheme) return defaultTheme
