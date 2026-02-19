@@ -116,7 +116,7 @@ export const Alert: React.FC<AlertProps> = ({
         </span>
       )
     }
-    return <IconComponent color={iconColor} size={22} />
+    return <IconComponent color={iconColor} size={28} />
   }
 
   const renderContentText = (content: AlertProps['title'] | AlertProps['description']) => {
