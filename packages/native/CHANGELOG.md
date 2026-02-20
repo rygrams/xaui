@@ -1,5 +1,13 @@
 # @xaui/mobile
 
+## 0.1.0
+
+### Minor Changes
+
+- d7c5ee1: feat(snippet): add inline-left and inline-right copy button positions with hideCopyLabel prop
+
+  feat(input): add date/time conversion utilities — dateInputValueToDate, dateToDateInputValue, timeInputValueToDate, dateToTimeInputValue, dateTimeInputValueToDate, dateToDateTimeInputValue with DateTimeInputConvertOptions and TimeInputConvertOptions types
+
 ## 0.0.41
 
 ### Patch Changes
