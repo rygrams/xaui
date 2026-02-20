@@ -1,2 +1,9 @@
-export { XUIProvider } from './theme-context'
-export { useColorMode, useXUITheme, useXUIColors } from './theme-hooks'
+export { XUIProvider } from './theme-provider'
+export type { XUIProviderProps, XUIVariables } from './theme-provider'
+export {
+  useColorMode,
+  useXUITheme,
+  useXUIColors,
+  useXUIPalette,
+  useBorderRadiusStyles,
+} from './theme-hooks'

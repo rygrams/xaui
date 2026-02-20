@@ -4,7 +4,8 @@ import { CodeBlock } from '@/components/ui/code-block'
 import { getComponentById, components, type Component } from '@/lib/data/components'
 import { componentPropsMap } from '@/lib/data/component-props'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { ComponentScreenshots } from '@/components/preview/component-screenshots'
+import { ComponentScreenshots, screenshotIds } from '@/components/screenshots/component-screenshots'
+import { ComponentHybridPreview, hybridPreviewIds } from '@/components/preview/hybrid-preview'
 
 type ComponentPageProps = {
   params: Promise<{
@@ -153,6 +154,8 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
     component.types && component.types.length > 0
       ? `import type { ${component.types.join(', ')} } from '${component.importPath}'`
       : null
+  const hasHybridPreview = hybridPreviewIds.has(component.id)
+  const hasScreenshots = screenshotIds.has(component.id)
 
   return (
     <div className="space-y-8">
@@ -167,12 +170,16 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
         <p className="text-base text-muted-foreground md:text-xl">{component.description}</p>
       </div>
 
-      <ComponentScreenshots componentId={component.id} />
-
       <Tabs defaultValue="code" className="w-full">
         <TabsList>
           <TabsTrigger value="code">Code</TabsTrigger>
           <TabsTrigger value="props">Props</TabsTrigger>
+          {hasHybridPreview && (
+            <TabsTrigger value="preview">Preview</TabsTrigger>
+          )}
+          {hasScreenshots && (
+            <TabsTrigger value="screenshots">Screenshots</TabsTrigger>
+          )}
         </TabsList>
 
         <TabsContent value="code" className="space-y-6">
@@ -428,6 +435,25 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
             </div>
           )}
         </TabsContent>
+
+        {hasHybridPreview && (
+          <TabsContent value="preview" className="space-y-4">
+            <p className="text-sm text-muted-foreground">
+              Live web preview rendered via{' '}
+              <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+                @xaui/hybrid
+              </code>
+              — Tailwind v4, CSS animations, no animation library.
+            </p>
+            <ComponentHybridPreview componentId={component.id} />
+          </TabsContent>
+        )}
+
+        {hasScreenshots && (
+          <TabsContent value="screenshots">
+            <ComponentScreenshots componentId={component.id} />
+          </TabsContent>
+        )}
       </Tabs>
     </div>
   )

@@ -1,0 +1,305 @@
+/* XUI Design System
+ * Import this file once in your app's root CSS:
+ *   @import "@xaui/hybrid/dist/index.css";
+ *
+ * All --xui-* variables can be overridden to customize the theme.
+ */
+
+:root {
+  /* Primary */
+  --xui-primary: #6b21a8;
+  --xui-primary-fg: #ffffff;
+  --xui-primary-bg: #e9d5ff;
+
+  /* Secondary */
+  --xui-secondary: #71717a;
+  --xui-secondary-fg: #ffffff;
+  --xui-secondary-bg: #e4e4e7;
+
+  /* Tertiary */
+  --xui-tertiary: #78716c;
+  --xui-tertiary-fg: #ffffff;
+  --xui-tertiary-bg: #f5f5f4;
+
+  /* Danger */
+  --xui-danger: #b91c1c;
+  --xui-danger-fg: #ffffff;
+  --xui-danger-bg: #fecdd3;
+
+  /* Warning */
+  --xui-warning: #d97706;
+  --xui-warning-fg: #111827;
+  --xui-warning-bg: #fef3c7;
+
+  /* Success */
+  --xui-success: #16a34a;
+  --xui-success-fg: #ffffff;
+  --xui-success-bg: #dcfce7;
+
+  /* Default */
+  --xui-default: #18181b;
+  --xui-default-fg: #ffffff;
+  --xui-default-bg: #e4e4e7;
+
+  /* Global */
+  --xui-background: #ffffff;
+  --xui-foreground: #18181b;
+
+  /* Spacing */
+  --xui-spacing-xs: 4px;
+  --xui-spacing-sm: 8px;
+  --xui-spacing-md: 16px;
+  --xui-spacing-lg: 24px;
+  --xui-spacing-xl: 32px;
+  --xui-spacing-2xl: 48px;
+  --xui-spacing-3xl: 64px;
+
+  /* Border radius */
+  --xui-radius-none: 0px;
+  --xui-radius-sm: 4px;
+  --xui-radius-md: 8px;
+  --xui-radius-lg: 12px;
+  --xui-radius-xl: 16px;
+  --xui-radius-2xl: 24px;
+  --xui-radius-3xl: 32px;
+  --xui-radius-full: 9999px;
+
+  /* Border width */
+  --xui-border-none: 0px;
+  --xui-border-xs: 0.5px;
+  --xui-border-sm: 1px;
+  --xui-border-md: 1.75px;
+  --xui-border-lg: 2.5px;
+  --xui-border-xl: 3px;
+
+  /* Font sizes */
+  --xui-text-xs: 12px;
+  --xui-text-sm: 14px;
+  --xui-text-md: 16px;
+  --xui-text-lg: 18px;
+  --xui-text-xl: 20px;
+  --xui-text-2xl: 24px;
+  --xui-text-3xl: 30px;
+  --xui-text-4xl: 36px;
+
+  /* Font weights */
+  --xui-font-light: 300;
+  --xui-font-normal: 400;
+  --xui-font-medium: 500;
+  --xui-font-semibold: 600;
+  --xui-font-bold: 700;
+  --xui-font-extrabold: 800;
+
+  /* Component sizes */
+  --xui-size-xs: 38px;
+  --xui-size-sm: 42px;
+  --xui-size-md: 46px;
+  --xui-size-lg: 50px;
+}
+
+/* Dark mode — toggled by setting data-color-scheme on <html> */
+[data-color-scheme='dark'] {
+  --xui-primary: #d8b4fe;
+  --xui-primary-fg: #3b0764;
+  --xui-primary-bg: #4c1d95;
+
+  --xui-secondary: #d4d4d8;
+  --xui-secondary-fg: #3f3f46;
+  --xui-secondary-bg: #52525b;
+
+  --xui-tertiary: #fecaca;
+  --xui-tertiary-fg: #500724;
+  --xui-tertiary-bg: #57534e;
+
+  --xui-danger: #fca5a5;
+  --xui-danger-fg: #4c0519;
+  --xui-danger-bg: #991b1b;
+
+  --xui-warning: #fbbf24;
+  --xui-warning-fg: #f9fafb;
+  --xui-warning-bg: #78350f;
+
+  --xui-success: #4ade80;
+  --xui-success-fg: #f9fafb;
+  --xui-success-bg: #14532d;
+
+  --xui-default: #e7e5e4;
+  --xui-default-fg: #18181b;
+  --xui-default-bg: #3f3f46;
+
+  --xui-background: #18181b;
+  --xui-foreground: #e7e5e4;
+}
+
+/* SSR/no-JS fallback: honor OS dark mode until data-color-scheme is set */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-color-scheme]) {
+    --xui-primary: #d8b4fe;
+    --xui-primary-fg: #3b0764;
+    --xui-primary-bg: #4c1d95;
+
+    --xui-secondary: #d4d4d8;
+    --xui-secondary-fg: #3f3f46;
+    --xui-secondary-bg: #52525b;
+
+    --xui-tertiary: #fecaca;
+    --xui-tertiary-fg: #500724;
+    --xui-tertiary-bg: #57534e;
+
+    --xui-danger: #fca5a5;
+    --xui-danger-fg: #4c0519;
+    --xui-danger-bg: #991b1b;
+
+    --xui-warning: #fbbf24;
+    --xui-warning-fg: #f9fafb;
+    --xui-warning-bg: #78350f;
+
+    --xui-success: #4ade80;
+    --xui-success-fg: #f9fafb;
+    --xui-success-bg: #14532d;
+
+    --xui-default: #e7e5e4;
+    --xui-default-fg: #18181b;
+    --xui-default-bg: #3f3f46;
+
+    --xui-background: #18181b;
+    --xui-foreground: #e7e5e4;
+  }
+}
+
+/* Animations CSS — used via data-xui-state attribute */
+@keyframes xui-fade-in {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes xui-fade-out {
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+}
+
+[data-xui-state='open'] {
+  animation: xui-fade-in 250ms ease forwards;
+}
+
+[data-xui-state='closed'] {
+  animation: xui-fade-out 250ms ease forwards;
+}
+
+/* Alert mode tokens derived from selected --xui-alert-* role vars */
+.xui-alert {
+  --xui-alert-solid-bg: var(--xui-alert-main);
+  --xui-alert-solid-text: #ffffff;
+  --xui-alert-solid-icon-bg: color-mix(in srgb, #ffffff 16%, transparent);
+  --xui-alert-flat-bg: var(--xui-alert-bg-base);
+}
+
+[data-color-scheme='dark'] .xui-alert {
+  --xui-alert-solid-bg: var(--xui-alert-bg-base);
+  --xui-alert-solid-text: var(--xui-alert-main);
+  --xui-alert-solid-icon-bg: color-mix(in srgb, var(--xui-alert-main) 16%, transparent);
+  --xui-alert-flat-bg: color-mix(in srgb, var(--xui-alert-bg-base) 50%, transparent);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-color-scheme]) .xui-alert {
+    --xui-alert-solid-bg: var(--xui-alert-bg-base);
+    --xui-alert-solid-text: var(--xui-alert-main);
+    --xui-alert-solid-icon-bg: color-mix(in srgb, var(--xui-alert-main) 16%, transparent);
+    --xui-alert-flat-bg: color-mix(in srgb, var(--xui-alert-bg-base) 50%, transparent);
+  }
+}
+
+/* Tailwind v4 — register XUI tokens as utilities via @theme inline.
+ * Colors become: bg-primary, text-primary-fg, border-danger, etc.
+ * Spacing becomes: p-xui-md, m-xui-lg, gap-xui-sm, etc.
+ * Radius becomes: rounded-xui-md, rounded-xui-full, etc.
+ */
+@theme inline {
+  /* Colors */
+  --color-primary: var(--xui-primary);
+  --color-primary-fg: var(--xui-primary-fg);
+  --color-primary-bg: var(--xui-primary-bg);
+
+  --color-secondary: var(--xui-secondary);
+  --color-secondary-fg: var(--xui-secondary-fg);
+  --color-secondary-bg: var(--xui-secondary-bg);
+
+  --color-tertiary: var(--xui-tertiary);
+  --color-tertiary-fg: var(--xui-tertiary-fg);
+  --color-tertiary-bg: var(--xui-tertiary-bg);
+
+  --color-danger: var(--xui-danger);
+  --color-danger-fg: var(--xui-danger-fg);
+  --color-danger-bg: var(--xui-danger-bg);
+
+  --color-warning: var(--xui-warning);
+  --color-warning-fg: var(--xui-warning-fg);
+  --color-warning-bg: var(--xui-warning-bg);
+
+  --color-success: var(--xui-success);
+  --color-success-fg: var(--xui-success-fg);
+  --color-success-bg: var(--xui-success-bg);
+
+  --color-default: var(--xui-default);
+  --color-default-fg: var(--xui-default-fg);
+  --color-default-bg: var(--xui-default-bg);
+
+  --color-xui-background: var(--xui-background);
+  --color-xui-foreground: var(--xui-foreground);
+
+  /* Spacing */
+  --spacing-xui-xs: var(--xui-spacing-xs);
+  --spacing-xui-sm: var(--xui-spacing-sm);
+  --spacing-xui-md: var(--xui-spacing-md);
+  --spacing-xui-lg: var(--xui-spacing-lg);
+  --spacing-xui-xl: var(--xui-spacing-xl);
+  --spacing-xui-2xl: var(--xui-spacing-2xl);
+  --spacing-xui-3xl: var(--xui-spacing-3xl);
+
+  /* Border radius */
+  --radius-xui-none: var(--xui-radius-none);
+  --radius-xui-sm: var(--xui-radius-sm);
+  --radius-xui-md: var(--xui-radius-md);
+  --radius-xui-lg: var(--xui-radius-lg);
+  --radius-xui-xl: var(--xui-radius-xl);
+  --radius-xui-2xl: var(--xui-radius-2xl);
+  --radius-xui-3xl: var(--xui-radius-3xl);
+  --radius-xui-full: var(--xui-radius-full);
+
+  /* Font sizes */
+  --text-xui-xs: var(--xui-text-xs);
+  --text-xui-sm: var(--xui-text-sm);
+  --text-xui-md: var(--xui-text-md);
+  --text-xui-lg: var(--xui-text-lg);
+  --text-xui-xl: var(--xui-text-xl);
+  --text-xui-2xl: var(--xui-text-2xl);
+  --text-xui-3xl: var(--xui-text-3xl);
+  --text-xui-4xl: var(--xui-text-4xl);
+
+  /* Font weights */
+  --font-weight-xui-light: var(--xui-font-light);
+  --font-weight-xui-normal: var(--xui-font-normal);
+  --font-weight-xui-medium: var(--xui-font-medium);
+  --font-weight-xui-semibold: var(--xui-font-semibold);
+  --font-weight-xui-bold: var(--xui-font-bold);
+  --font-weight-xui-extrabold: var(--xui-font-extrabold);
+
+  /* Component sizes (as spacing — usable as w-xui-size-md, h-xui-size-lg, etc.) */
+  --spacing-xui-size-xs: var(--xui-size-xs);
+  --spacing-xui-size-sm: var(--xui-size-sm);
+  --spacing-xui-size-md: var(--xui-size-md);
+  --spacing-xui-size-lg: var(--xui-size-lg);
+}

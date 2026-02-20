@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { CodeBlock } from '@/components/ui/code-block'
-import { ExpansionPanelScreenshots } from '@/components/preview/expansion-panel-screenshots'
+import { ExpansionPanelScreenshots } from '@/components/screenshots/expansion-panel-screenshots'
 
 export const metadata: Metadata = {
   title: 'ExpansionPanel - Xaui',

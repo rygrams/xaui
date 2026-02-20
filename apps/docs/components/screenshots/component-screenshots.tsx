@@ -36,6 +36,8 @@ const screenshotsMap: Record<string, React.FC> = {
   'expansion-panel': ExpansionPanelScreenshots,
 }
 
+export const screenshotIds = new Set(Object.keys(screenshotsMap))
+
 type ComponentScreenshotsProps = {
   componentId: string
 }
