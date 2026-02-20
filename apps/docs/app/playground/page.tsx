@@ -30,7 +30,7 @@ export default function PlaygroundPage() {
           </code>
         </div>
         <p className="text-sm text-muted-foreground">
-          Displays contextual feedback messages. 4 variants · 6 theme colors · CSS fade animation
+          Displays contextual feedback messages. 4 variants · 7 theme colors · CSS fade animation
           on dismiss.
         </p>
 

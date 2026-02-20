@@ -10,7 +10,7 @@ export const alertStyles = tv({
     title:
       'm-0 leading-tight text-[var(--xui-alert-text)] text-[length:var(--xui-text-sm)] font-[var(--xui-font-semibold)]',
     description:
-      'm-0 leading-tight text-[var(--xui-alert-description)] text-[length:var(--xui-text-xs)] font-[var(--xui-font-normal)]',
+      'm-0 mt-1 leading-none text-[var(--xui-alert-description)] text-[length:var(--xui-text-xs)] font-[var(--xui-font-normal)]',
     iconText: 'font-[var(--xui-font-semibold)]',
     closeButton:
       'self-start p-1 cursor-pointer bg-transparent border-0 rounded flex text-[var(--xui-alert-text)]',

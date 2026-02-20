@@ -7,7 +7,15 @@ import type { ThemeColor } from '@xaui/hybrid'
 import { BrowserPreview } from '@/components/ui/browser-preview'
 
 const VARIANTS: AlertVariant[] = ['flat', 'solid', 'bordered', 'faded']
-const COLORS: ThemeColor[] = ['default', 'primary', 'secondary', 'danger', 'warning', 'success']
+const COLORS: ThemeColor[] = [
+  'default',
+  'primary',
+  'secondary',
+  'tertiary',
+  'danger',
+  'warning',
+  'success',
+]
 
 type ChipButtonProps = {
   label: string
@@ -32,7 +40,10 @@ function ChipButton({ label, active, onClick }: ChipButtonProps) {
   )
 }
 
+type Tab = 'interactive' | 'screenshot'
+
 export function AlertPlayground() {
+  const [tab, setTab] = useState<Tab>('interactive')
   const [variant, setVariant] = useState<AlertVariant>('flat')
   const [color, setColor] = useState<ThemeColor>('primary')
   const [isClosable, setIsClosable] = useState(false)
@@ -51,67 +62,128 @@ export function AlertPlayground() {
   }
 
   return (
-    <div className="grid gap-6 md:grid-cols-[1fr_auto]">
-      <div className="space-y-5">
-        <div className="space-y-2">
-          <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-            Variant
-          </p>
-          <div className="flex flex-wrap gap-2">
-            {VARIANTS.map(v => (
-              <ChipButton key={v} label={v} active={variant === v} onClick={() => setVariant(v)} />
-            ))}
-          </div>
-        </div>
-
-        <div className="space-y-2">
-          <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-            Color
-          </p>
-          <div className="flex flex-wrap gap-2">
-            {COLORS.map(c => (
-              <ChipButton key={c} label={c} active={color === c} onClick={() => setColor(c)} />
-            ))}
-          </div>
-        </div>
-
-        <div className="flex flex-wrap gap-4">
-          <label className="flex cursor-pointer items-center gap-2">
-            <input
-              type="checkbox"
-              className="h-4 w-4 rounded border-border accent-foreground"
-              checked={isClosable}
-              onChange={e => setIsClosable(e.target.checked)}
-            />
-            <span className="text-sm">Closable</span>
-          </label>
-          <label className="flex cursor-pointer items-center gap-2">
-            <input
-              type="checkbox"
-              className="h-4 w-4 rounded border-border accent-foreground"
-              checked={hideIcon}
-              onChange={e => setHideIcon(e.target.checked)}
-            />
-            <span className="text-sm">Hide icon</span>
-          </label>
-        </div>
-
-        {!showAlert && (
+    <div className="space-y-4">
+      <div className="flex gap-1 border-b">
+        {(['interactive', 'screenshot'] as Tab[]).map(t => (
           <button
+            key={t}
             type="button"
-            onClick={() => setShowAlert(true)}
-            className="rounded-md border border-border px-3 py-1.5 text-xs font-medium hover:bg-muted"
+            onClick={() => setTab(t)}
+            className={[
+              'px-3 py-1.5 text-sm font-medium capitalize transition-colors border-b-2 -mb-px',
+              tab === t
+                ? 'border-foreground text-foreground'
+                : 'border-transparent text-muted-foreground hover:text-foreground',
+            ].join(' ')}
           >
-            Reset alert
+            {t}
           </button>
-        )}
+        ))}
       </div>
 
-      <BrowserPreview>
-        <div className="p-4">
-          <Alert {...alertProps} />
+      {tab === 'interactive' && (
+        <div className="grid gap-6 md:grid-cols-[1fr_auto]">
+          <div className="space-y-5">
+            <div className="space-y-2">
+              <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                Variant
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {VARIANTS.map(v => (
+                  <ChipButton
+                    key={v}
+                    label={v}
+                    active={variant === v}
+                    onClick={() => setVariant(v)}
+                  />
+                ))}
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+                Color
+              </p>
+              <div className="flex flex-wrap gap-2">
+                {COLORS.map(c => (
+                  <ChipButton key={c} label={c} active={color === c} onClick={() => setColor(c)} />
+                ))}
+              </div>
+            </div>
+
+            <div className="flex flex-wrap gap-4">
+              <label className="flex cursor-pointer items-center gap-2">
+                <input
+                  type="checkbox"
+                  className="h-4 w-4 rounded border-border accent-foreground"
+                  checked={isClosable}
+                  onChange={e => setIsClosable(e.target.checked)}
+                />
+                <span className="text-sm">Closable</span>
+              </label>
+              <label className="flex cursor-pointer items-center gap-2">
+                <input
+                  type="checkbox"
+                  className="h-4 w-4 rounded border-border accent-foreground"
+                  checked={hideIcon}
+                  onChange={e => setHideIcon(e.target.checked)}
+                />
+                <span className="text-sm">Hide icon</span>
+              </label>
+            </div>
+
+            {!showAlert && (
+              <button
+                type="button"
+                onClick={() => setShowAlert(true)}
+                className="rounded-md border border-border px-3 py-1.5 text-xs font-medium hover:bg-muted"
+              >
+                Reset alert
+              </button>
+            )}
+          </div>
+
+          <BrowserPreview>
+            <div className="p-4">
+              <Alert {...alertProps} />
+            </div>
+          </BrowserPreview>
         </div>
-      </BrowserPreview>
+      )}
+
+      {tab === 'screenshot' && (
+        <div className="space-y-4">
+          <div className="space-y-2">
+            <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
+              Variant
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {VARIANTS.map(v => (
+                <ChipButton
+                  key={v}
+                  label={v}
+                  active={variant === v}
+                  onClick={() => setVariant(v)}
+                />
+              ))}
+            </div>
+          </div>
+
+          <BrowserPreview>
+            <div className="space-y-2 p-4">
+              {COLORS.map(c => (
+                <Alert
+                  key={c}
+                  title={c.charAt(0).toUpperCase() + c.slice(1)}
+                  description={`${variant} · ${c}`}
+                  themeColor={c}
+                  variant={variant}
+                />
+              ))}
+            </div>
+          </BrowserPreview>
+        </div>
+      )}
     </div>
   )
 }

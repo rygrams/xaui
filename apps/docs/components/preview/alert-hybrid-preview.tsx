@@ -7,7 +7,7 @@ import type { AlertVariant, AlertRadius } from '@xaui/hybrid/alert'
 import type { ThemeColor } from '@xaui/hybrid'
 import { FlatPhonePreview } from '@/components/ui/flat-phone-preview'
 
-const COLORS: ThemeColor[] = ['primary', 'success', 'warning', 'danger']
+const COLORS: ThemeColor[] = ['primary', 'secondary', 'success', 'warning', 'danger']
 
 type VariantOption = {
   value: AlertVariant
@@ -153,7 +153,7 @@ export function AlertHybridPreview() {
               <Alert
                 key={color}
                 title={color.charAt(0).toUpperCase() + color.slice(1)}
-                description="Hybrid web alert — @xaui/hybrid"
+                description="This is an alert message for demonstration purposes."
                 themeColor={color}
                 variant={variant}
                 radius={radius}

@@ -34,7 +34,7 @@ export const componentPropsMap: Record<string, ComponentPropsData> = {
       { name: 'title', type: 'ReactNode', defaultValue: '-', description: 'Alert title' },
       { name: 'description', type: 'ReactNode', defaultValue: '-', description: 'Alert description text' },
       { name: 'icon', type: 'ReactNode', defaultValue: '-', description: 'Custom icon element' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme' },
+      { name: 'themeColor', type: '"default" | "primary" | "secondary" | "tertiary" | "danger" | "warning" | "success"', defaultValue: '"primary"', description: 'Color theme' },
       { name: 'variant', type: '"solid" | "bordered" | "flat" | "faded"', defaultValue: '"flat"', description: 'Visual style variant' },
       { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Border radius' },
       { name: 'isClosable', type: 'boolean', defaultValue: 'false', description: 'Show close button' },

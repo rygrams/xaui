@@ -24,7 +24,7 @@ export function FlatPhonePreview({ children, colorScheme = 'light' }: FlatPhoneP
               'flex flex-col overflow-hidden rounded-[1.8rem]',
               isDark ? 'bg-zinc-800' : 'bg-white',
             ].join(' ')}
-            style={{ minHeight: '540px' }}
+            style={{ height: '575px' }}
           >
             <div className="flex-1 overflow-y-auto">
               <HybridProvider colorScheme={colorScheme}>{children}</HybridProvider>
