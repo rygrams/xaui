@@ -18,10 +18,20 @@ export type {
   TimeInputGranularity,
   DateSeparator,
   DateOrder,
+  TimeInputConvertOptions,
+  DateTimeInputConvertOptions,
 } from './date-time-input.type'
 export type { OTPInputProps, OTPInputCustomAppearance } from './otp-input.type'
 export type {
   NumberInputProps,
   NumberInputCustomAppearance,
 } from './number-input.type'
-export { getDateOrder } from './date-time-input.hook'
+export {
+  getDateOrder,
+  dateInputValueToDate,
+  dateToDateInputValue,
+  timeInputValueToDate,
+  dateToTimeInputValue,
+  dateTimeInputValueToDate,
+  dateToDateTimeInputValue,
+} from './date-time-input.hook'

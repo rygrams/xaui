@@ -13,14 +13,11 @@ type ComponentPageProps = {
   }>
 }
 
-function getStatusClass(status: 'stable' | 'beta' | 'alpha') {
+function getStatusClass(status: 'stable' | 'beta') {
   if (status === 'stable') {
     return 'rounded-full bg-green-100 px-2.5 py-0.5 text-xs font-medium text-green-700 dark:bg-green-900 dark:text-green-300'
   }
-  if (status === 'beta') {
-    return 'rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-medium text-amber-700 dark:bg-amber-900 dark:text-amber-300'
-  }
-  return 'rounded-full bg-red-100 px-2.5 py-0.5 text-xs font-medium text-red-700 dark:bg-red-900 dark:text-red-300'
+  return 'rounded-full bg-amber-100 px-2.5 py-0.5 text-xs font-medium text-amber-700 dark:bg-amber-900 dark:text-amber-300'
 }
 
 function getVariantsCode(importPath: string, primaryExport: string) {

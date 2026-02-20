@@ -60,6 +60,8 @@ describe('Snippet Types', () => {
       'top-right',
       'bottom-left',
       'bottom-right',
+      'inline-left',
+      'inline-right',
     ]
 
     positions.forEach(copyButtonPosition => {
@@ -70,5 +72,10 @@ describe('Snippet Types', () => {
 
       expect(props.copyButtonPosition).toBe(copyButtonPosition)
     })
+  })
+
+  it('accepts hideCopyLabel prop', () => {
+    const props: SnippetProps = { value: 'echo hello', hideCopyLabel: true }
+    expect(props.hideCopyLabel).toBe(true)
   })
 })

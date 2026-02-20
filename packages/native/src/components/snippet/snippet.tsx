@@ -45,6 +45,7 @@ export const Snippet: React.FC<SnippetProps> = ({
   copyButtonPosition = 'top-right',
   copyLabel = 'Copy',
   copiedLabel = 'Copied',
+  hideCopyLabel = false,
   copyResetDelay = 1500,
   fullWidth = true,
   isDisabled = false,
@@ -59,7 +60,7 @@ export const Snippet: React.FC<SnippetProps> = ({
 
   const radiusStyles = useBorderRadiusStyles(radius)
   const colors = useSnippetColors(themeColor, variant, isDisabled)
-  const { isTop, isLeft } = useCopyButtonPositionStyles(copyButtonPosition)
+  const { isTop, isLeft, isInline } = useCopyButtonPositionStyles(copyButtonPosition)
 
   React.useEffect(() => {
     return () => {
@@ -98,6 +99,45 @@ export const Snippet: React.FC<SnippetProps> = ({
     }, copyResetDelay)
   }, [copyResetDelay, isDisabled, onCopy, value])
 
+  const copyButtonColors = {
+    backgroundColor: colors.copyButtonBackground,
+    borderColor: colors.copyButtonBorder,
+  }
+
+  const copyButton = (
+    <Pressable
+      onPress={handleCopy}
+      accessibilityRole="button"
+      accessibilityLabel={isCopied ? copiedLabel : copyLabel}
+      disabled={isDisabled}
+      style={
+        isInline
+          ? [styles.inlineCopyButton, radiusStyles, copyButtonColors, customAppearance?.copyButton]
+          : [
+              styles.copyButton,
+              radiusStyles,
+              isTop ? styles.top : styles.bottom,
+              isLeft ? styles.left : styles.right,
+              copyButtonColors,
+              customAppearance?.copyButton,
+            ]
+      }
+    >
+      <CopyIcon size={14} color={colors.copyButtonText} />
+      {!hideCopyLabel && (
+        <Text
+          style={[
+            styles.copyButtonText,
+            { color: colors.copyButtonText },
+            customAppearance?.copyButtonText,
+          ]}
+        >
+          {isCopied ? copiedLabel : copyLabel}
+        </Text>
+      )}
+    </Pressable>
+  )
+
   return (
     <View
       style={[
@@ -110,6 +150,7 @@ export const Snippet: React.FC<SnippetProps> = ({
       <View
         style={[
           styles.snippet,
+          isInline && styles.inlineSnippet,
           radiusStyles,
           {
             backgroundColor: colors.containerBackground,
@@ -117,39 +158,13 @@ export const Snippet: React.FC<SnippetProps> = ({
           },
         ]}
       >
-        <Pressable
-          onPress={handleCopy}
-          accessibilityRole="button"
-          accessibilityLabel={isCopied ? copiedLabel : copyLabel}
-          disabled={isDisabled}
-          style={[
-            styles.copyButton,
-            radiusStyles,
-            isTop ? styles.top : styles.bottom,
-            isLeft ? styles.left : styles.right,
-            {
-              backgroundColor: colors.copyButtonBackground,
-              borderColor: colors.copyButtonBorder,
-            },
-            customAppearance?.copyButton,
-          ]}
-        >
-          <CopyIcon size={14} color={colors.copyButtonText} />
-          <Text
-            style={[
-              styles.copyButtonText,
-              { color: colors.copyButtonText },
-              customAppearance?.copyButtonText,
-            ]}
-          >
-            {isCopied ? copiedLabel : copyLabel}
-          </Text>
-        </Pressable>
+        {isInline && isLeft && copyButton}
+        {!isInline && copyButton}
 
         <View
           style={[
-            styles.content,
-            isTop ? styles.topInset : styles.bottomInset,
+            isInline ? styles.inlineContent : styles.content,
+            !isInline && (isTop ? styles.topInset : styles.bottomInset),
             customAppearance?.content,
           ]}
         >
@@ -170,6 +185,8 @@ export const Snippet: React.FC<SnippetProps> = ({
             {value}
           </Text>
         </View>
+
+        {isInline && !isLeft && copyButton}
       </View>
     </View>
   )

@@ -129,7 +129,7 @@ export function CustomIconExample() {
     props: [
       { name: 'variant', type: '"docked" | "floating"', defaultValue: '"docked"', description: 'Layout variant. Docked spans full width with no radius; floating is narrower with a pill radius and a shadow' },
       { name: 'elevation', type: 'number', defaultValue: '0', description: 'Shadow elevation level (0–4+). Maps to theme shadow tokens: sm ≤1, md ≤2, lg ≤3, xl >3' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"default"', description: 'Color theme. Default uses white (light) or surface (dark) background with a subtle border' },
+      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"default"', description: 'Color theme. Default uses white (light) or surface (dark) background with a subtle border' },
       { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Compose using AppBarStartContent, AppBarContent, and AppBarEndContent slots' },
       { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Additional styles applied to the root container' },
     ],
@@ -289,7 +289,7 @@ export function ElevationExample() {
     props: [
       { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'AutocompleteItem children' },
       { name: 'variant', type: '"outlined" | "flat" | "light" | "faded" | "underlined"', defaultValue: '"outlined"', description: 'Visual style variant' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme' },
+      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
       { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Component size' },
       { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Border radius' },
       { name: 'placeholder', type: 'string', defaultValue: '-', description: 'Input placeholder text' },
@@ -453,7 +453,7 @@ export function CustomValueExample() {
       { name: 'fallback', type: 'ReactNode', defaultValue: '-', description: 'Custom fallback element' },
       { name: 'size', type: '"sm" | "md" | "lg" | number', defaultValue: '"md"', description: 'Avatar size' },
       { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"full"', description: 'Border radius' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme for initials background' },
+      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme for initials background' },
       { name: 'isBordered', type: 'boolean', defaultValue: 'false', description: 'Show a border ring' },
       { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Apply disabled appearance' },
       { name: 'showFallback', type: 'boolean', defaultValue: 'false', description: 'Force display of fallback' },
@@ -632,7 +632,7 @@ export function AvatarCustomAppearanceExample() {
       { name: 'total', type: 'number', defaultValue: '-', description: 'Total count used for overflow label (overrides auto-count)' },
       { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Size applied to all avatars' },
       { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"full"', description: 'Radius applied to all avatars' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme for overflow count badge' },
+      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme for overflow count badge' },
       { name: 'isBordered', type: 'boolean', defaultValue: 'false', description: 'Border ring on all avatars' },
       { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Apply disabled appearance to all avatars' },
       { name: 'isGrid', type: 'boolean', defaultValue: 'false', description: 'Render as a grid instead of stacked' },
@@ -751,7 +751,7 @@ export function AvatarGroupRenderCountExample() {
     props: [
       { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Element the badge is anchored to. Badge is absolutely positioned over its corner' },
       { name: 'content', type: 'ReactNode', defaultValue: '-', description: 'Badge label or count. Omit when using isDot' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme' },
+      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
       { name: 'variant', type: '"solid" | "flat" | "faded" | "shadow"', defaultValue: '"solid"', description: 'Visual style variant' },
       { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Badge size (sm: 16px, md: 20px, lg: 24px height)' },
       { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"full"', description: 'Border radius' },
@@ -889,7 +889,7 @@ export function VisibilityExample() {
       { name: 'isOpen', type: 'boolean', defaultValue: '-', description: 'Controls whether the sheet is open' },
       { name: 'snapPoints', type: '[number, ...number[]]', defaultValue: '[0.4, 0.9]', description: 'Array of snap heights as a fraction of the screen (0–1). First value is the collapsed height, subsequent values are expanded heights' },
       { name: 'initialSnapIndex', type: 'number', defaultValue: '0', description: 'Index into snapPoints to open at' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"default"', description: 'Color theme applied to the sheet surface' },
+      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"default"', description: 'Color theme applied to the sheet surface' },
       { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"lg"', description: 'Top corner radius of the sheet' },
       { name: 'showBackdrop', type: 'boolean', defaultValue: 'true', description: 'Show a semi-transparent backdrop behind the sheet' },
       { name: 'closeOnBackdropPress', type: 'boolean', defaultValue: 'true', description: 'Dismiss the sheet when the backdrop is pressed' },
@@ -1061,7 +1061,7 @@ export function ThemeColorsExample() {
       { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'BottomTabBarItem children (composable mode)' },
       { name: 'selectedKey', type: 'string', defaultValue: '-', description: 'Controlled selected tab key' },
       { name: 'defaultSelectedKey', type: 'string', defaultValue: '-', description: 'Initial selected key for uncontrolled usage' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme applied to the active indicator, active icon, and active label' },
+      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme applied to the active indicator, active icon, and active label' },
       { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Component size (sm: 68px, md: 78px, lg: 86px min-height)' },
       { name: 'variant', type: '"stacked" | "inline" | "icon-only"', defaultValue: '"stacked"', description: 'Layout variant: stacked places label below icon, inline places it beside, icon-only hides labels' },
       { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable all tab items at once' },
@@ -1336,7 +1336,7 @@ export default function TabLayout() {
     props: [
       { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Button label content' },
       { name: 'variant', type: '"solid" | "outlined" | "flat" | "light" | "faded"', defaultValue: '"solid"', description: 'Visual style variant' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme' },
+      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
       { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Button size' },
       { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Border radius' },
       { name: 'startContent', type: 'ReactNode', defaultValue: '-', description: 'Element rendered before the label' },
@@ -1477,7 +1477,7 @@ export function IconButtonExample() {
         props: [
           { name: 'icon', type: 'ReactNode', defaultValue: '-', description: 'Icon element to display' },
           { name: 'variant', type: '"solid" | "outlined" | "flat" | "light" | "faded"', defaultValue: '"solid"', description: 'Visual style variant' },
-          { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme' },
+          { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
           { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Button size' },
           { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Border radius' },
           { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable interaction' },
@@ -1498,7 +1498,7 @@ export function IconButtonExample() {
   card: {
     props: [
       { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'CardHeader, CardBody, CardFooter, CardTitle, CardDescription' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"default"', description: 'Color theme' },
+      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"default"', description: 'Color theme' },
       { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"lg"', description: 'Border radius' },
       { name: 'padding', type: 'number', defaultValue: '-', description: 'Internal padding override' },
       { name: 'elevation', type: '0 | 1 | 2 | 3 | 4', defaultValue: '0', description: 'Shadow elevation level' },
@@ -1983,7 +1983,7 @@ export function HeatmapExample() {
       { name: 'isIndeterminate', type: 'boolean', defaultValue: 'false', description: 'Shows a dash instead of a checkmark — use for a "select all" that is partially checked' },
       { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable interaction and reduce opacity' },
       { name: 'variant', type: '"filled" | "light"', defaultValue: '"filled"', description: 'filled: solid background when checked. light: transparent with coloured border and animated checkmark' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme' },
+      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
       { name: 'size', type: '"xs" | "sm" | "md" | "lg"', defaultValue: '"md"', description: 'Checkbox size (xs: 14px, sm: 18px, md: 22px, lg: 26px)' },
       { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"sm"', description: 'Border radius of the checkbox box' },
       { name: 'labelAlignment', type: '"left" | "right" | "justify-left" | "justify-right"', defaultValue: '"right"', description: 'Label side. justify-* variants push the checkbox and label to opposite ends (requires fullWidth)' },
@@ -2138,7 +2138,7 @@ export function ThemeColorsExample() {
     props: [
       { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Chip label content' },
       { name: 'variant', type: '"solid" | "bordered" | "light" | "flat" | "faded" | "shadow" | "dot"', defaultValue: '"solid"', description: '7 visual styles. dot renders a coloured indicator at the start' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"default"', description: 'Color theme' },
+      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"default"', description: 'Color theme' },
       { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Chip size (sm: 32px, md: 40px, lg: 44px height)' },
       { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"full"', description: 'Border radius. full uses height/2 for a pill shape' },
       { name: 'avatar', type: 'ReactNode', defaultValue: '-', description: 'Avatar element displayed at the leading edge' },
@@ -2315,7 +2315,7 @@ export function MultipleSelectionExample() {
           { name: 'selectedValues', type: 'string[]', defaultValue: '-', description: 'Controlled array of selected ChipItem values' },
           { name: 'defaultSelectedValues', type: 'string[]', defaultValue: '-', description: 'Initial selection for uncontrolled usage' },
           { name: 'variant', type: 'ChipVariant', defaultValue: '"solid"', description: 'Default variant applied to all ChipItems' },
-          { name: 'themeColor', type: 'ThemeColor', defaultValue: '"default"', description: 'Default color applied to all ChipItems' },
+          { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"default"', description: 'Default color applied to all ChipItems' },
           { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Size applied to all ChipItems' },
           { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"full"', description: 'Border radius applied to all ChipItems' },
           { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable all chips in the group' },
@@ -2331,7 +2331,7 @@ export function MultipleSelectionExample() {
           { name: 'value', type: 'string', defaultValue: '-', description: 'Unique key within the group used to track selection' },
           { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Chip label content' },
           { name: 'variant', type: 'ChipVariant', defaultValue: '-', description: 'Per-item variant override (inherits from ChipGroup)' },
-          { name: 'themeColor', type: 'ThemeColor', defaultValue: '-', description: 'Per-item color override (inherits from ChipGroup)' },
+          { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '-', description: 'Per-item color override (inherits from ChipGroup)' },
           { name: 'avatar', type: 'ReactNode', defaultValue: '-', description: 'Avatar at leading edge' },
           { name: 'startContent', type: 'ReactNode', defaultValue: '-', description: 'Custom leading content' },
           { name: 'endContent', type: 'ReactNode', defaultValue: '-', description: 'Custom trailing content' },
@@ -2347,7 +2347,7 @@ export function MultipleSelectionExample() {
       { name: 'value', type: 'Date | null', defaultValue: '-', description: 'Controlled selected date' },
       { name: 'defaultValue', type: 'Date', defaultValue: '-', description: 'Default date (uncontrolled)' },
       { name: 'variant', type: '"outlined" | "flat" | "light" | "faded" | "underlined"', defaultValue: '"outlined"', description: 'Visual style variant' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme' },
+      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
       { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Component size' },
       { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Border radius' },
       { name: 'label', type: 'ReactNode', defaultValue: '-', description: 'Field label' },
@@ -2378,7 +2378,7 @@ export function MultipleSelectionExample() {
     props: [
       { name: 'orientation', type: '"horizontal" | "vertical"', defaultValue: '"horizontal"', description: 'Divider orientation' },
       { name: 'size', type: 'number', defaultValue: '1', description: 'Thickness of the divider' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '-', description: 'Color theme' },
+      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '-', description: 'Color theme' },
       { name: 'color', type: 'string', defaultValue: '-', description: 'Custom color override' },
     ],
   },
@@ -2522,7 +2522,7 @@ export function ControlledDialogExample() {
       { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Drawer content' },
       { name: 'isOpen', type: 'boolean', defaultValue: '-', description: 'Controls whether drawer is open' },
       { name: 'position', type: '"top" | "left" | "bottom" | "right"', defaultValue: '"left"', description: 'Slide-in direction' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"default"', description: 'Color theme for the drawer background' },
+      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"default"', description: 'Color theme for the drawer background' },
       { name: 'width', type: 'number', defaultValue: '280', description: 'Drawer width for left/right positions' },
       { name: 'height', type: 'number', defaultValue: '280', description: 'Drawer height for top/bottom positions' },
       { name: 'showOverlay', type: 'boolean', defaultValue: 'true', description: 'Show semi-transparent backdrop' },
@@ -2628,7 +2628,7 @@ export function DrawerCustomSizeExample() {
       { name: 'icon', type: 'ReactNode', defaultValue: '-', description: 'Icon element for the FAB' },
       { name: 'label', type: 'ReactNode', defaultValue: '-', description: 'Optional text label beside the icon' },
       { name: 'variant', type: '"solid" | "flat" | "outlined"', defaultValue: '"solid"', description: 'Visual style variant' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme' },
+      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
       { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'FAB size' },
       { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"full"', description: 'Border radius' },
       { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable interaction' },
@@ -2649,7 +2649,7 @@ export function DrawerCustomSizeExample() {
       { name: 'expandedIcon', type: 'ReactNode', defaultValue: '-', description: 'Alternate toggle icon when expanded' },
       { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'FabMenuItem children rendered in the expanded list' },
       { name: 'variant', type: '"solid" | "flat" | "outlined"', defaultValue: '"solid"', description: 'Visual style variant of the toggle FAB' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Theme color shared by toggle and item defaults' },
+      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Theme color shared by toggle and item defaults' },
       { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Toggle FAB size' },
       { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '-', description: 'Border radius override for the toggle FAB' },
       { name: 'isExpanded', type: 'boolean', defaultValue: '-', description: 'Controlled expanded state (uncontrolled if omitted)' },
@@ -2748,7 +2748,7 @@ export function CustomAppearanceFabMenuExample() {
         props: [
           { name: 'icon', type: 'ReactNode', defaultValue: '-', description: 'Item icon content' },
           { name: 'label', type: 'string', defaultValue: '-', description: 'Text label shown in the item row' },
-          { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Item theme override (inherits parent when omitted)' },
+          { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Item theme override (inherits parent when omitted)' },
           { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable this item' },
         ],
         events: [
@@ -2765,7 +2765,7 @@ export function CustomAppearanceFabMenuExample() {
       { name: 'title', type: 'ReactNode', defaultValue: '-', description: 'Primary message shown near the spotlight' },
       { name: 'description', type: 'ReactNode', defaultValue: '-', description: 'Optional supporting text under the title' },
       { name: 'actionText', type: 'ReactNode', defaultValue: '-', description: 'Optional action label (for example “Got it”)' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Accent color used by spotlight visuals' },
+      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Accent color used by spotlight visuals' },
       { name: 'overlayColor', type: 'string', defaultValue: '-', description: 'Custom backdrop color behind the spotlight' },
       { name: 'spotlightPadding', type: 'number', defaultValue: '14', description: 'Extra space around the highlighted target bounds' },
       { name: 'circleScale', type: 'number', defaultValue: '1.65', description: 'Multiplier applied to spotlight circle diameter' },
@@ -2892,7 +2892,7 @@ export function CustomHighlightFeatureDiscoveryExample() {
     props: [
       { name: 'variant', type: '"linear" | "circular"', defaultValue: '"circular"', description: 'Indicator style' },
       { name: 'size', type: 'number', defaultValue: '4 (linear), 40 (circular)', description: 'Indicator size (height for linear, diameter for circular)' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme' },
+      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
       { name: 'color', type: 'string', defaultValue: '-', description: 'Custom color override' },
       { name: 'backgroundColor', type: 'string', defaultValue: '-', description: 'Track background color' },
       { name: 'borderRadius', type: 'number', defaultValue: '-', description: 'Custom border radius for indicator/track' },
@@ -3005,7 +3005,7 @@ export function DisableAnimationExample() {
       { name: 'startContent', type: 'ReactNode', defaultValue: '-', description: 'Element at start of input' },
       { name: 'endContent', type: 'ReactNode', defaultValue: '-', description: 'Element at end of input' },
       { name: 'variant', type: '"flat" | "faded" | "bordered" | "underlined"', defaultValue: '"flat"', description: 'Visual style variant' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme' },
+      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
       { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Input size' },
       { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Border radius' },
       { name: 'isSecured', type: 'boolean', defaultValue: 'false', description: 'Mask input (password mode)' },
@@ -3014,6 +3014,7 @@ export function DisableAnimationExample() {
       { name: 'isReadOnly', type: 'boolean', defaultValue: 'false', description: 'Read-only mode' },
       { name: 'isInvalid', type: 'boolean', defaultValue: 'false', description: 'Mark as invalid' },
       { name: 'fullWidth', type: 'boolean', defaultValue: 'false', description: 'Expand to full container width' },
+      { name: 'inputMode', type: '"none" | "text" | "decimal" | "numeric" | "tel" | "search" | "email" | "url"', defaultValue: '"text"', description: 'Keyboard type hint for the mobile soft keyboard' },
       { name: 'customAppearance', type: 'TextInputCustomAppearance', defaultValue: '-', description: 'Custom style overrides' },
     ],
     events: [
@@ -3023,25 +3024,25 @@ export function DisableAnimationExample() {
       {
         title: 'Basic Input',
         description: 'A simple text input with a label.',
-        code: `import { Input } from '@xaui/native/input'
+        code: `import { TextInput } from '@xaui/native/input'
 
 export function BasicExample() {
-  return <Input label="Name" placeholder="Enter your name" />
+  return <TextInput label="Name" placeholder="Enter your name" />
 }`,
       },
       {
         title: 'Variants',
         description: 'All available visual styles.',
-        code: `import { Input } from '@xaui/native/input'
+        code: `import { TextInput } from '@xaui/native/input'
 import { Column } from '@xaui/native/view'
 
 export function VariantsExample() {
   return (
     <Column gap={8}>
-      <Input variant="flat" label="Flat" />
-      <Input variant="faded" label="Faded" />
-      <Input variant="bordered" label="Bordered" />
-      <Input variant="underlined" label="Underlined" />
+      <TextInput variant="flat" label="Flat" />
+      <TextInput variant="faded" label="Faded" />
+      <TextInput variant="bordered" label="Bordered" />
+      <TextInput variant="underlined" label="Underlined" />
     </Column>
   )
 }`,
@@ -3050,13 +3051,13 @@ export function VariantsExample() {
         title: 'Controlled Input',
         description: 'Manage the value with React state.',
         code: `import { useState } from 'react'
-import { Input } from '@xaui/native/input'
+import { TextInput } from '@xaui/native/input'
 
 export function ControlledExample() {
   const [value, setValue] = useState('')
 
   return (
-    <Input
+    <TextInput
       label="Username"
       value={value}
       onValueChange={setValue}
@@ -3067,20 +3068,20 @@ export function ControlledExample() {
       {
         title: 'Password Input',
         description: 'Hide input text with isSecured.',
-        code: `import { Input } from '@xaui/native/input'
+        code: `import { TextInput } from '@xaui/native/input'
 
 export function PasswordExample() {
-  return <Input label="Password" isSecured placeholder="••••••••" />
+  return <TextInput label="Password" isSecured placeholder="••••••••" />
 }`,
       },
       {
         title: 'With Validation',
         description: 'Show an error message when the field is invalid.',
-        code: `import { Input } from '@xaui/native/input'
+        code: `import { TextInput } from '@xaui/native/input'
 
 export function ValidationExample() {
   return (
-    <Input
+    <TextInput
       label="Email"
       isInvalid
       errorMessage="Please enter a valid email address"
@@ -3092,12 +3093,12 @@ export function ValidationExample() {
       {
         title: 'With Start & End Content',
         description: 'Add icons or labels inside the input.',
-        code: `import { Input } from '@xaui/native/input'
+        code: `import { TextInput } from '@xaui/native/input'
 import { Typography } from '@xaui/native/typography'
 
 export function WithContentExample() {
   return (
-    <Input
+    <TextInput
       label="Amount"
       startContent={<Typography>$</Typography>}
       endContent={<Typography>USD</Typography>}
@@ -3110,13 +3111,13 @@ export function WithContentExample() {
         title: 'Clearable Input',
         description: 'Show a clear button to reset the value.',
         code: `import { useState } from 'react'
-import { Input } from '@xaui/native/input'
+import { TextInput } from '@xaui/native/input'
 
 export function ClearableExample() {
   const [value, setValue] = useState('Hello world')
 
   return (
-    <Input
+    <TextInput
       label="Search"
       value={value}
       onValueChange={setValue}
@@ -3128,18 +3129,18 @@ export function ClearableExample() {
       {
         title: 'Label Placement',
         description: 'Switch label rendering between inside and outside.',
-        code: `import { Input } from '@xaui/native/input'
+        code: `import { TextInput } from '@xaui/native/input'
 import { Column } from '@xaui/native/view'
 
 export function LabelPlacementExample() {
   return (
     <Column gap={10}>
-      <Input
+      <TextInput
         label="Inside Label"
         labelPlacement="inside"
         placeholder="Type here"
       />
-      <Input
+      <TextInput
         label="Outside Label"
         labelPlacement="outside"
         placeholder="Type here"
@@ -3151,15 +3152,15 @@ export function LabelPlacementExample() {
       {
         title: 'Sizes and Radius',
         description: 'Tune field density and shape.',
-        code: `import { Input } from '@xaui/native/input'
+        code: `import { TextInput } from '@xaui/native/input'
 import { Column } from '@xaui/native/view'
 
 export function SizesAndRadiusExample() {
   return (
     <Column gap={10}>
-      <Input size="sm" radius="sm" label="Small" placeholder="sm + sm" />
-      <Input size="md" radius="md" label="Medium" placeholder="md + md" />
-      <Input size="lg" radius="full" label="Large pill" placeholder="lg + full" />
+      <TextInput size="sm" radius="sm" label="Small" placeholder="sm + sm" />
+      <TextInput size="md" radius="md" label="Medium" placeholder="md + md" />
+      <TextInput size="lg" radius="full" label="Large pill" placeholder="lg + full" />
     </Column>
   )
 }`,
@@ -3167,15 +3168,32 @@ export function SizesAndRadiusExample() {
       {
         title: 'Disabled and Read-Only',
         description: 'Compare non-editable input states.',
-        code: `import { Input } from '@xaui/native/input'
+        code: `import { TextInput } from '@xaui/native/input'
 import { Column } from '@xaui/native/view'
 
 export function StatesExample() {
   return (
     <Column gap={10}>
-      <Input label="Disabled" defaultValue="Cannot edit" isDisabled />
-      <Input label="Read-only" value="Visible but locked" isReadOnly />
-      <Input label="Full width" placeholder="Stretches to container width" fullWidth />
+      <TextInput label="Disabled" defaultValue="Cannot edit" isDisabled />
+      <TextInput label="Read-only" value="Visible but locked" isReadOnly />
+      <TextInput label="Full width" placeholder="Stretches to container width" fullWidth />
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Input Mode',
+        description: 'Hint the mobile keyboard type with inputMode.',
+        code: `import { TextInput } from '@xaui/native/input'
+import { Column } from '@xaui/native/view'
+
+export function InputModeExample() {
+  return (
+    <Column gap={10}>
+      <TextInput label="Email" inputMode="email" placeholder="name@example.com" />
+      <TextInput label="Phone" inputMode="tel" placeholder="+1 234 567 890" />
+      <TextInput label="Amount" inputMode="decimal" placeholder="0.00" />
+      <TextInput label="Search" inputMode="search" placeholder="Search..." />
     </Column>
   )
 }`,
@@ -3183,11 +3201,11 @@ export function StatesExample() {
       {
         title: 'Custom Appearance',
         description: 'Override field and text style tokens with customAppearance.',
-        code: `import { Input } from '@xaui/native/input'
+        code: `import { TextInput } from '@xaui/native/input'
 
 export function CustomAppearanceExample() {
   return (
-    <Input
+    <TextInput
       label="Promo Code"
       placeholder="SUMMER24"
       customAppearance={{
@@ -3205,44 +3223,376 @@ export function CustomAppearanceExample() {
   )
 }`,
       },
-      {
-        title: 'Date Input',
-        description: 'Date-only input with locale/dateOrder formatting support.',
-        code: `import { DateInput } from '@xaui/native/input'
+    ],
+  },
 
-export function DateInputExample() {
+  textarea: {
+    props: [
+      { name: 'value', type: 'string', defaultValue: '-', description: 'Controlled value' },
+      { name: 'defaultValue', type: 'string', defaultValue: '-', description: 'Default value (uncontrolled)' },
+      { name: 'label', type: 'ReactNode', defaultValue: '-', description: 'Field label' },
+      { name: 'labelPlacement', type: '"outside" | "inside"', defaultValue: '"outside"', description: 'Label position' },
+      { name: 'placeholder', type: 'string', defaultValue: '-', description: 'Placeholder text' },
+      { name: 'description', type: 'ReactNode', defaultValue: '-', description: 'Helper text below the field' },
+      { name: 'errorMessage', type: 'ReactNode', defaultValue: '-', description: 'Error message when invalid' },
+      { name: 'numberOfLines', type: 'number', defaultValue: '4', description: 'Visible line count' },
+      { name: 'variant', type: '"flat" | "faded" | "bordered" | "underlined"', defaultValue: '"flat"', description: 'Visual style variant' },
+      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
+      { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Input size' },
+      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Border radius' },
+      { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable interaction' },
+      { name: 'isReadOnly', type: 'boolean', defaultValue: 'false', description: 'Read-only mode' },
+      { name: 'isInvalid', type: 'boolean', defaultValue: 'false', description: 'Mark as invalid' },
+      { name: 'fullWidth', type: 'boolean', defaultValue: 'false', description: 'Expand to full container width' },
+      { name: 'customAppearance', type: 'TextAreaCustomAppearance', defaultValue: '-', description: 'Custom style overrides' },
+    ],
+    events: [
+      { name: 'onValueChange', type: '(value: string) => void', description: 'Called when value changes' },
+    ],
+    examples: [
+      {
+        title: 'Basic TextArea',
+        description: 'A simple multi-line text input.',
+        code: `import { TextArea } from '@xaui/native/input'
+
+export function BasicExample() {
+  return <TextArea label="Notes" placeholder="Write something..." />
+}`,
+      },
+      {
+        title: 'Controlled TextArea',
+        description: 'Manage the value with React state.',
+        code: `import { useState } from 'react'
+import { TextArea } from '@xaui/native/input'
+
+export function ControlledExample() {
+  const [value, setValue] = useState('')
+
   return (
-    <DateInput
-      label="Birth date"
-      placeholder="YYYY-MM-DD"
-      dateOrder="YMD"
-      separator="-"
-      locale="en-US"
+    <TextArea
+      label="Description"
+      value={value}
+      onValueChange={setValue}
+      numberOfLines={6}
     />
   )
 }`,
       },
       {
-        title: 'Time Input',
-        description: 'Time-only input with 12h/24h and granularity control.',
-        code: `import { TimeInput } from '@xaui/native/input'
+        title: 'Variants',
+        description: 'All available visual styles.',
+        code: `import { TextArea } from '@xaui/native/input'
 import { Column } from '@xaui/native/view'
 
-export function TimeInputExample() {
+export function VariantsExample() {
   return (
-    <Column gap={10}>
-      <TimeInput label="Start time" hourCycle={24} granularity="minute" />
-      <TimeInput label="Precise time" hourCycle={12} granularity="second" />
+    <Column gap={8}>
+      <TextArea variant="flat" label="Flat" />
+      <TextArea variant="faded" label="Faded" />
+      <TextArea variant="bordered" label="Bordered" />
+      <TextArea variant="underlined" label="Underlined" />
     </Column>
   )
 }`,
       },
       {
-        title: 'Date Time Input',
-        description: 'Combined date + time field in one input.',
+        title: 'With Validation',
+        description: 'Display an error message when content is invalid.',
+        code: `import { TextArea } from '@xaui/native/input'
+
+export function ValidationExample() {
+  return (
+    <TextArea
+      label="Bio"
+      isInvalid
+      errorMessage="Bio cannot be empty"
+      description="Tell us about yourself"
+    />
+  )
+}`,
+      },
+      {
+        title: 'Disabled and Read-Only',
+        description: 'Non-editable states.',
+        code: `import { TextArea } from '@xaui/native/input'
+import { Column } from '@xaui/native/view'
+
+export function StatesExample() {
+  return (
+    <Column gap={10}>
+      <TextArea label="Disabled" defaultValue="Cannot edit" isDisabled />
+      <TextArea label="Read-only" value="Visible but locked" isReadOnly />
+    </Column>
+  )
+}`,
+      },
+    ],
+  },
+
+  'date-input': {
+    props: [
+      { name: 'value', type: 'string', defaultValue: '-', description: 'Controlled value — formatted string matching dateOrder and separator (e.g. "25/01/2024" for DMY + "/")' },
+      { name: 'label', type: 'ReactNode', defaultValue: '-', description: 'Field label' },
+      { name: 'labelPlacement', type: '"outside" | "inside"', defaultValue: '"inside"', description: 'Label position' },
+      { name: 'description', type: 'ReactNode', defaultValue: '-', description: 'Helper text below field' },
+      { name: 'errorMessage', type: 'ReactNode', defaultValue: '-', description: 'Error message when invalid' },
+      { name: 'separator', type: '"-" | "/" | "."', defaultValue: '"-"', description: 'Separator between date segments' },
+      { name: 'dateOrder', type: '"YMD" | "DMY" | "MDY"', defaultValue: '-', description: 'Date segment order (auto-detected from locale if omitted)' },
+      { name: 'locale', type: 'string', defaultValue: '"en-US"', description: 'Locale used for automatic date-order detection' },
+      { name: 'variant', type: '"flat" | "faded" | "bordered" | "underlined"', defaultValue: '"flat"', description: 'Visual style variant' },
+      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
+      { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Input size' },
+      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Border radius' },
+      { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable interaction' },
+      { name: 'isReadOnly', type: 'boolean', defaultValue: 'false', description: 'Read-only mode' },
+      { name: 'isInvalid', type: 'boolean', defaultValue: 'false', description: 'Mark as invalid' },
+      { name: 'fullWidth', type: 'boolean', defaultValue: 'false', description: 'Expand to full container width' },
+    ],
+    events: [
+      { name: 'onValueChange', type: '(value: string) => void', description: 'Called when the date value changes' },
+    ],
+    examples: [
+      {
+        title: 'Basic Date Input',
+        description: 'Date field with default locale-based ordering.',
+        code: `import { DateInput } from '@xaui/native/input'
+
+export function BasicExample() {
+  return <DateInput label="Birth date" />
+}`,
+      },
+      {
+        title: 'Custom Order and Separator',
+        description: 'Explicit segment order and separator character.',
+        code: `import { DateInput } from '@xaui/native/input'
+import { Column } from '@xaui/native/view'
+
+export function FormatExample() {
+  return (
+    <Column gap={10}>
+      <DateInput label="US format" dateOrder="MDY" separator="/" />
+      <DateInput label="ISO format" dateOrder="YMD" separator="-" />
+      <DateInput label="EU format" dateOrder="DMY" separator="." />
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Locale Auto-detection',
+        description: 'Let the locale determine the date order automatically.',
+        code: `import { DateInput } from '@xaui/native/input'
+import { Column } from '@xaui/native/view'
+
+export function LocaleExample() {
+  return (
+    <Column gap={10}>
+      <DateInput label="English" locale="en-US" />
+      <DateInput label="French" locale="fr-FR" />
+      <DateInput label="Japanese" locale="ja-JP" />
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Controlled Date Input',
+        description: 'Manage the date value with React state.',
+        code: `import { useState } from 'react'
+import { DateInput } from '@xaui/native/input'
+
+export function ControlledExample() {
+  const [date, setDate] = useState('')
+
+  return (
+    <DateInput
+      label="Appointment"
+      value={date}
+      onValueChange={setDate}
+      dateOrder="DMY"
+      separator="/"
+    />
+  )
+}`,
+      },
+      {
+        title: 'Convert value to Date',
+        description: 'Use dateInputValueToDate to parse the formatted string into a Date object (time set to 00:00:00.000).',
+        code: `import { dateInputValueToDate } from '@xaui/native/input'
+
+const date = dateInputValueToDate('25/01/2024', 'DMY', '/')
+// → Date { 2024-01-25T00:00:00.000 }
+
+const invalid = dateInputValueToDate('31/02/2024', 'DMY', '/')
+// → null`,
+      },
+      {
+        title: 'Convert Date to value',
+        description: 'Use dateToDateInputValue to format a Date or ISO string into the value format expected by DateInput.',
+        code: `import { dateToDateInputValue } from '@xaui/native/input'
+
+dateToDateInputValue(new Date(2024, 0, 25), 'DMY', '/')
+// → "25/01/2024"
+
+dateToDateInputValue(new Date(2024, 0, 25), 'YMD', '-')
+// → "2024-01-25"
+
+dateToDateInputValue('2024-01-25T00:00:00.000Z', 'MDY', '.')
+// → "01.25.2024"`,
+      },
+    ],
+  },
+
+  'time-input': {
+    props: [
+      { name: 'value', type: 'string', defaultValue: '-', description: 'Controlled value — formatted string matching hourCycle and granularity (e.g. "14:30" for 24h, "02:30 PM" for 12h)' },
+      { name: 'label', type: 'ReactNode', defaultValue: '-', description: 'Field label' },
+      { name: 'labelPlacement', type: '"outside" | "inside"', defaultValue: '"inside"', description: 'Label position' },
+      { name: 'description', type: 'ReactNode', defaultValue: '-', description: 'Helper text below field' },
+      { name: 'errorMessage', type: 'ReactNode', defaultValue: '-', description: 'Error message when invalid' },
+      { name: 'granularity', type: '"minute" | "second"', defaultValue: '"minute"', description: 'Smallest displayed time unit' },
+      { name: 'hourCycle', type: '12 | 24', defaultValue: '24', description: '12-hour or 24-hour format' },
+      { name: 'variant', type: '"flat" | "faded" | "bordered" | "underlined"', defaultValue: '"flat"', description: 'Visual style variant' },
+      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
+      { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Input size' },
+      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Border radius' },
+      { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable interaction' },
+      { name: 'isReadOnly', type: 'boolean', defaultValue: 'false', description: 'Read-only mode' },
+      { name: 'isInvalid', type: 'boolean', defaultValue: 'false', description: 'Mark as invalid' },
+      { name: 'fullWidth', type: 'boolean', defaultValue: 'false', description: 'Expand to full container width' },
+    ],
+    events: [
+      { name: 'onValueChange', type: '(value: string) => void', description: 'Called when the time value changes' },
+    ],
+    examples: [
+      {
+        title: 'Basic Time Input',
+        description: 'Time field with 24-hour format and minute granularity.',
+        code: `import { TimeInput } from '@xaui/native/input'
+
+export function BasicExample() {
+  return <TimeInput label="Start time" />
+}`,
+      },
+      {
+        title: '12-hour and 24-hour Format',
+        description: 'Switch between 12h and 24h hour cycles.',
+        code: `import { TimeInput } from '@xaui/native/input'
+import { Column } from '@xaui/native/view'
+
+export function HourCycleExample() {
+  return (
+    <Column gap={10}>
+      <TimeInput label="24-hour" hourCycle={24} />
+      <TimeInput label="12-hour" hourCycle={12} />
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Granularity',
+        description: 'Include seconds in the time field.',
+        code: `import { TimeInput } from '@xaui/native/input'
+import { Column } from '@xaui/native/view'
+
+export function GranularityExample() {
+  return (
+    <Column gap={10}>
+      <TimeInput label="Minutes only" granularity="minute" />
+      <TimeInput label="With seconds" granularity="second" />
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Controlled Time Input',
+        description: 'Manage the time value with React state.',
+        code: `import { useState } from 'react'
+import { TimeInput } from '@xaui/native/input'
+
+export function ControlledExample() {
+  const [time, setTime] = useState('')
+
+  return (
+    <TimeInput
+      label="Meeting time"
+      value={time}
+      onValueChange={setTime}
+      hourCycle={24}
+      granularity="minute"
+    />
+  )
+}`,
+      },
+      {
+        title: 'Convert value to Date',
+        description: 'Use timeInputValueToDate to parse the formatted time string into a Date set to today at that time.',
+        code: `import { timeInputValueToDate } from '@xaui/native/input'
+
+timeInputValueToDate('14:30')
+// → today at 14:30:00.000
+
+timeInputValueToDate('02:30 PM', { hourCycle: 12 })
+// → today at 14:30:00.000
+
+timeInputValueToDate('14:30:45', { granularity: 'second' })
+// → today at 14:30:45.000`,
+      },
+      {
+        title: 'Convert Date to value',
+        description: 'Use dateToTimeInputValue to format a Date or ISO string into the value format expected by TimeInput.',
+        code: `import { dateToTimeInputValue } from '@xaui/native/input'
+
+dateToTimeInputValue(new Date(2024, 0, 1, 14, 30, 0))
+// → "14:30"
+
+dateToTimeInputValue(new Date(2024, 0, 1, 14, 30, 0), { hourCycle: 12 })
+// → "02:30 PM"
+
+dateToTimeInputValue(new Date(2024, 0, 1, 14, 30, 45), { granularity: 'second' })
+// → "14:30:45"`,
+      },
+    ],
+  },
+
+  'datetime-input': {
+    props: [
+      { name: 'value', type: 'string', defaultValue: '-', description: 'Controlled value — formatted string combining date and time segments (e.g. "25/01/2024 14:30" for DMY + "/" + 24h)' },
+      { name: 'label', type: 'ReactNode', defaultValue: '-', description: 'Field label' },
+      { name: 'labelPlacement', type: '"outside" | "inside"', defaultValue: '"inside"', description: 'Label position' },
+      { name: 'description', type: 'ReactNode', defaultValue: '-', description: 'Helper text below field' },
+      { name: 'errorMessage', type: 'ReactNode', defaultValue: '-', description: 'Error message when invalid' },
+      { name: 'separator', type: '"-" | "/" | "."', defaultValue: '"-"', description: 'Separator between date segments' },
+      { name: 'dateOrder', type: '"YMD" | "DMY" | "MDY"', defaultValue: '-', description: 'Date segment order (auto-detected from locale if omitted)' },
+      { name: 'locale', type: 'string', defaultValue: '"en-US"', description: 'Locale used for automatic date-order detection' },
+      { name: 'granularity', type: '"minute" | "second"', defaultValue: '"minute"', description: 'Smallest displayed time unit' },
+      { name: 'hourCycle', type: '12 | 24', defaultValue: '24', description: '12-hour or 24-hour format' },
+      { name: 'variant', type: '"flat" | "faded" | "bordered" | "underlined"', defaultValue: '"flat"', description: 'Visual style variant' },
+      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
+      { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Input size' },
+      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Border radius' },
+      { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable interaction' },
+      { name: 'isReadOnly', type: 'boolean', defaultValue: 'false', description: 'Read-only mode' },
+      { name: 'isInvalid', type: 'boolean', defaultValue: 'false', description: 'Mark as invalid' },
+      { name: 'fullWidth', type: 'boolean', defaultValue: 'false', description: 'Expand to full container width' },
+    ],
+    events: [
+      { name: 'onValueChange', type: '(value: string) => void', description: 'Called when the datetime value changes' },
+    ],
+    examples: [
+      {
+        title: 'Basic DateTimeInput',
+        description: 'Combined date and time entry in a single field.',
         code: `import { DateTimeInput } from '@xaui/native/input'
 
-export function DateTimeInputExample() {
+export function BasicExample() {
+  return <DateTimeInput label="Appointment" />
+}`,
+      },
+      {
+        title: 'Custom Format',
+        description: 'Set date order, separator, hour cycle, and granularity.',
+        code: `import { DateTimeInput } from '@xaui/native/input'
+
+export function FormatExample() {
   return (
     <DateTimeInput
       label="Reminder"
@@ -3255,110 +3605,71 @@ export function DateTimeInputExample() {
 }`,
       },
       {
-        title: 'OTP Input',
-        description: 'One-time password input for verification codes.',
-        code: `import { OTPInput } from '@xaui/native/input'
+        title: 'With Seconds',
+        description: 'Include the seconds segment for precise time entry.',
+        code: `import { DateTimeInput } from '@xaui/native/input'
 
-export function OTPExample() {
+export function WithSecondsExample() {
   return (
-    <OTPInput
-      length={6}
-      onComplete={code => console.log('Code:', code)}
+    <DateTimeInput
+      label="Timestamp"
+      dateOrder="YMD"
+      separator="-"
+      hourCycle={24}
+      granularity="second"
     />
   )
 }`,
       },
       {
-        title: 'Number Input',
-        description: 'Increment/decrement numeric values with controls.',
+        title: 'Controlled DateTimeInput',
+        description: 'Manage the combined value with React state.',
         code: `import { useState } from 'react'
-import { NumberInput } from '@xaui/native/input'
+import { DateTimeInput } from '@xaui/native/input'
 
-export function NumberInputExample() {
-  const [value, setValue] = useState(0)
+export function ControlledExample() {
+  const [value, setValue] = useState('')
 
   return (
-    <NumberInput
+    <DateTimeInput
+      label="Event date & time"
       value={value}
       onValueChange={setValue}
-      min={0}
-      max={100}
-      step={5}
+      dateOrder="DMY"
+      separator="/"
+      hourCycle={24}
     />
   )
 }`,
       },
-    ],
-    subComponents: [
       {
-        name: 'TextArea',
-        props: [
-          { name: 'value', type: 'string', defaultValue: '-', description: 'Controlled value' },
-          { name: 'numberOfLines', type: 'number', defaultValue: '4', description: 'Visible line count' },
-          { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable interaction' },
-        ],
-        events: [
-          { name: 'onValueChange', type: '(value: string) => void', description: 'Called when value changes' },
-        ],
+        title: 'Convert value to Date',
+        description: 'Use dateTimeInputValueToDate to parse the formatted string into a Date object.',
+        code: `import { dateTimeInputValueToDate } from '@xaui/native/input'
+
+dateTimeInputValueToDate('25/01/2024 14:30', 'DMY', { separator: '/' })
+// → Date { 2024-01-25T14:30:00.000 }
+
+dateTimeInputValueToDate('2024-01-25 02:30 PM', 'YMD', { separator: '-', hourCycle: 12 })
+// → Date { 2024-01-25T14:30:00.000 }
+
+dateTimeInputValueToDate('31/02/2024 10:00', 'DMY', { separator: '/' })
+// → null (invalid date)`,
       },
       {
-        name: 'OTPInput',
-        props: [
-          { name: 'length', type: 'number', defaultValue: '6', description: 'Number of OTP digits' },
-          { name: 'value', type: 'string', defaultValue: '-', description: 'Controlled OTP value' },
-          { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable interaction' },
-        ],
-        events: [
-          { name: 'onValueChange', type: '(value: string) => void', description: 'Called when OTP changes' },
-          { name: 'onComplete', type: '(value: string) => void', description: 'Called when all digits are filled' },
-        ],
-      },
-      {
-        name: 'DateInput',
-        props: [
-          { name: 'separator', type: '"-" | "/" | "."', defaultValue: '"-"', description: 'Separator between date segments' },
-          { name: 'dateOrder', type: '"YMD" | "DMY" | "MDY"', defaultValue: '-', description: 'Date segment order (auto-detected if omitted)' },
-          { name: 'locale', type: 'string', defaultValue: '"en-US"', description: 'Locale used for auto date-order detection' },
-        ],
-        events: [
-          { name: 'onValueChange', type: '(value: string) => void', description: 'Called when value changes' },
-        ],
-      },
-      {
-        name: 'TimeInput',
-        props: [
-          { name: 'granularity', type: '"minute" | "second"', defaultValue: '"minute"', description: 'Smallest displayed unit' },
-          { name: 'hourCycle', type: '12 | 24', defaultValue: '24', description: '12-hour or 24-hour format hint' },
-        ],
-        events: [
-          { name: 'onValueChange', type: '(value: string) => void', description: 'Called when value changes' },
-        ],
-      },
-      {
-        name: 'DateTimeInput',
-        props: [
-          { name: 'separator', type: '"-" | "/" | "."', defaultValue: '"-"', description: 'Separator between date segments' },
-          { name: 'dateOrder', type: '"YMD" | "DMY" | "MDY"', defaultValue: '-', description: 'Date segment order (auto-detected if omitted)' },
-          { name: 'locale', type: 'string', defaultValue: '"en-US"', description: 'Locale used for auto date-order detection' },
-          { name: 'granularity', type: '"minute" | "second"', defaultValue: '"minute"', description: 'Smallest displayed time unit' },
-          { name: 'hourCycle', type: '12 | 24', defaultValue: '24', description: '12-hour or 24-hour format hint' },
-        ],
-        events: [
-          { name: 'onValueChange', type: '(value: string) => void', description: 'Called when value changes' },
-        ],
-      },
-      {
-        name: 'NumberInput',
-        props: [
-          { name: 'value', type: 'number', defaultValue: '-', description: 'Controlled numeric value' },
-          { name: 'min', type: 'number', defaultValue: '-', description: 'Minimum value' },
-          { name: 'max', type: 'number', defaultValue: '-', description: 'Maximum value' },
-          { name: 'step', type: 'number', defaultValue: '1', description: 'Increment/decrement step' },
-          { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable interaction' },
-        ],
-        events: [
-          { name: 'onValueChange', type: '(value: number) => void', description: 'Called when value changes' },
-        ],
+        title: 'Convert Date to value',
+        description: 'Use dateToDateTimeInputValue to format a Date or ISO string into the value format expected by DateTimeInput.',
+        code: `import { dateToDateTimeInputValue } from '@xaui/native/input'
+
+dateToDateTimeInputValue(new Date(2024, 0, 25, 14, 30, 0), 'DMY', { separator: '/' })
+// → "25/01/2024 14:30"
+
+dateToDateTimeInputValue(new Date(2024, 0, 25, 14, 30, 45), 'YMD', {
+  separator: '-',
+  granularity: 'second',
+  hourCycle: 12,
+})
+// → "2024-01-25 02:30:45 PM"`,
       },
     ],
   },
@@ -3372,7 +3683,7 @@ export function NumberInputExample() {
       { name: 'showDivider', type: 'boolean', defaultValue: 'false', description: 'Show dividers between items' },
       { name: 'isPressable', type: 'boolean', defaultValue: 'true', description: 'Make items pressable' },
       { name: 'isSelectable', type: 'boolean', defaultValue: 'false', description: 'Allow items to be selected' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme' },
+      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
       { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Item size' },
       { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Additional container styles' },
     ],
@@ -3520,7 +3831,7 @@ export function CustomContentListExample() {
       { name: 'showDivider', type: 'boolean', defaultValue: 'false', description: 'Show dividers between items' },
       { name: 'isPressable', type: 'boolean', defaultValue: 'true', description: 'Make items pressable' },
       { name: 'isSelectable', type: 'boolean', defaultValue: 'false', description: 'Allow items to be selected' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme for selected items' },
+      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme for selected items' },
       { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Item size' },
       { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Additional container styles' },
       { name: 'flatListProps', type: 'Omit<FlatListProps<T>, "data" | "renderItem" | "keyExtractor">', defaultValue: '-', description: 'Extra FlatList props passed through (e.g. refreshing, onEndReached)' },
@@ -3807,7 +4118,7 @@ export function RichMenuExample() {
       { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'MenuBoxItem children' },
       { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Item size' },
       { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"lg"', description: 'Border radius' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"default"', description: 'Color theme' },
+      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"default"', description: 'Color theme' },
       { name: 'spacing', type: 'number', defaultValue: '0', description: 'Gap between items' },
       { name: 'backgroundColor', type: 'string', defaultValue: '-', description: 'Custom background color' },
       { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Additional container styles' },
@@ -4054,7 +4365,7 @@ export function FullscreenPagerExample() {
       { name: 'value', type: 'number', defaultValue: '-', description: 'Progress value (0–1)' },
       { name: 'variant', type: '"linear" | "circular"', defaultValue: '"linear"', description: 'Progress style' },
       { name: 'size', type: 'number', defaultValue: '4 (linear), 40 (circular)', description: 'Track thickness (linear) or diameter (circular)' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme' },
+      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
       { name: 'color', type: 'string', defaultValue: '-', description: 'Custom fill color override' },
       { name: 'backgroundColor', type: 'string', defaultValue: '-', description: 'Track background color override' },
       { name: 'borderRadius', type: 'number', defaultValue: '-', description: 'Custom border radius for linear variant' },
@@ -4149,7 +4460,7 @@ export function CustomProgressExample() {
       { name: 'defaultChecked', type: 'boolean', defaultValue: 'false', description: 'Default checked (uncontrolled)' },
       { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable interaction' },
       { name: 'variant', type: '"filled" | "light"', defaultValue: '"filled"', description: 'Visual style variant' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme' },
+      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
       { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Radio size' },
       { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"full"', description: 'Border radius' },
       { name: 'labelAlignment', type: '"left" | "right" | "justify-left" | "justify-right"', defaultValue: '"right"', description: 'Label position' },
@@ -4265,7 +4576,7 @@ export function RadioThemeColorsExample() {
       { name: 'defaultSelected', type: 'string | string[]', defaultValue: '-', description: 'Default selected (uncontrolled)' },
       { name: 'selectionMode', type: '"single" | "multiple"', defaultValue: '"single"', description: 'Selection behavior' },
       { name: 'variant', type: '"outlined" | "flat" | "light" | "faded"', defaultValue: '"outlined"', description: 'Visual style variant' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme' },
+      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
       { name: 'size', type: '"xs" | "sm" | "md" | "lg"', defaultValue: '"md"', description: 'Component size' },
       { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"full"', description: 'Border radius' },
       { name: 'fullWidth', type: 'boolean', defaultValue: 'false', description: 'Expand to full container width' },
@@ -4441,7 +4752,7 @@ export function SegmentButtonStatesExample() {
       { name: 'disabledKeys', type: 'string[]', defaultValue: '-', description: 'Keys of disabled items' },
       { name: 'selectionMode', type: '"single" | "multiple"', defaultValue: '"single"', description: 'Selection behavior' },
       { name: 'variant', type: '"outlined" | "flat" | "light" | "faded" | "underlined"', defaultValue: '"outlined"', description: 'Visual style variant' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme' },
+      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
       { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Component size' },
       { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Border radius' },
       { name: 'placeholder', type: 'string', defaultValue: '-', description: 'Placeholder text' },
@@ -4712,7 +5023,7 @@ export function SkeletonCustomStyleExample() {
       { name: 'showSteps', type: 'boolean', defaultValue: 'false', description: 'Show step marks on track' },
       { name: 'orientation', type: '"horizontal" | "vertical"', defaultValue: '"horizontal"', description: 'Slider orientation' },
       { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Track thickness' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme' },
+      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
       { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"full"', description: 'Thumb and track radius' },
       { name: 'startContent', type: 'ReactNode', defaultValue: '-', description: 'Element at start of slider' },
       { name: 'endContent', type: 'ReactNode', defaultValue: '-', description: 'Element at end of slider' },
@@ -4789,7 +5100,7 @@ export function StepMarksExample() {
       { name: 'direction', type: '"horizontal" | "vertical"', defaultValue: '"horizontal"', description: 'Layout direction' },
       { name: 'showLines', type: 'boolean', defaultValue: 'true', description: 'Show connector lines between steps' },
       { name: 'lineDisplayMode', type: '"progress" | "all"', defaultValue: '"progress"', description: 'Which lines to highlight' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme' },
+      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
       { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Step indicator size' },
       { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable all steps' },
       { name: 'customAppearance', type: 'StepperCustomAppearance', defaultValue: '-', description: 'Custom style overrides' },
@@ -4948,7 +5259,7 @@ export function DisabledStepperExample() {
       { name: 'isSelected', type: 'boolean', defaultValue: 'false', description: 'Controlled on/off state' },
       { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable interaction' },
       { name: 'variant', type: '"inside" | "overlap"', defaultValue: '"inside"', description: 'Visual style variant' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme' },
+      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
       { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Switch size' },
       { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"full"', description: 'Border radius' },
       { name: 'labelAlignment', type: '"left" | "right" | "justify-left" | "justify-right"', defaultValue: '"right"', description: 'Label position' },
@@ -5095,7 +5406,7 @@ export function StyledSwitchExample() {
       { name: 'defaultSelectedKey', type: 'string', defaultValue: '-', description: 'Default selected key (uncontrolled)' },
       { name: 'disabledKeys', type: 'string[]', defaultValue: '-', description: 'Keys of disabled tabs' },
       { name: 'variant', type: '"solid" | "bordered" | "light" | "underlined"', defaultValue: '"solid"', description: 'Visual style variant' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme' },
+      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
       { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Tab bar size' },
       { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Border radius' },
       { name: 'fullWidth', type: 'boolean', defaultValue: 'false', description: 'Expand tabs to full width' },
@@ -5239,7 +5550,7 @@ export function FullWidthExample() {
     props: [
       { name: 'value', type: 'TimeValue', defaultValue: '-', description: 'Controlled time value { hours, minutes }' },
       { name: 'is24Hour', type: 'boolean', defaultValue: 'false', description: 'Use 24-hour format' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme' },
+      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
       { name: 'minTime', type: 'TimeValue', defaultValue: '-', description: 'Minimum selectable time' },
       { name: 'maxTime', type: 'TimeValue', defaultValue: '-', description: 'Maximum selectable time' },
       { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Additional container styles' },
@@ -5367,7 +5678,7 @@ export function TimePickerTriggerExample() {
           { name: 'title', type: 'ReactNode', defaultValue: '-', description: 'Dialog title' },
           { name: 'confirmText', type: 'string', defaultValue: '"OK"', description: 'Confirm button text' },
           { name: 'cancelText', type: 'string', defaultValue: '"Cancel"', description: 'Cancel button text' },
-          { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme' },
+          { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
         ],
         events: [
           { name: 'onClose', type: '() => void', description: 'Called when dialog is closed' },
@@ -5385,7 +5696,7 @@ export function TimePickerTriggerExample() {
           { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable interaction' },
           { name: 'isClearable', type: 'boolean', defaultValue: 'true', description: 'Show clear button' },
           { name: 'icon', type: 'ReactNode', defaultValue: '-', description: 'Custom icon element' },
-          { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme' },
+          { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
         ],
         events: [
           { name: 'onPress', type: '() => void', description: 'Called when trigger is pressed' },
@@ -5401,7 +5712,7 @@ export function TimePickerTriggerExample() {
       { name: 'variant', type: '"floating" | "docked" | "vertical"', defaultValue: '"docked"', description: 'Layout variant' },
       { name: 'position', type: '"top" | "bottom" | "left" | "right"', defaultValue: '"top"', description: 'Screen position (left/right only for vertical variant)' },
       { name: 'isVisible', type: 'boolean', defaultValue: 'true', description: 'Controls toolbar visibility' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme' },
+      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
       { name: 'showDivider', type: 'boolean', defaultValue: 'false', description: 'Show a divider line on docked layout' },
       { name: 'isElevated', type: 'boolean', defaultValue: '-', description: 'Apply shadow elevation (uses variant default when omitted)' },
       { name: 'customAppearance', type: 'ToolbarCustomAppearance', defaultValue: '-', description: 'Custom style overrides' },
@@ -5539,7 +5850,7 @@ export function ToolbarCustomAppearanceExample() {
       { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Text content' },
       { name: 'variant', type: '"displayLarge" | "displayMedium" | "displaySmall" | "headlineLarge" | "headlineMedium" | "headlineSmall" | "subtitleLarge" | "subtitleMedium" | "subtitleSmall" | "bodyLarge" | "bodyMedium" | "bodySmall" | "caption" | string', defaultValue: '"bodyMedium"', description: 'Typographic style variant — also accepts a custom string for theme-extended variants' },
       { name: 'align', type: '"left" | "center" | "right" | "justify"', defaultValue: '-', description: 'Text alignment' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"default"', description: 'Color theme for the text' },
+      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"default"', description: 'Color theme for the text' },
       { name: 'maxLines', type: 'number', defaultValue: '-', description: 'Maximum number of lines before truncation' },
       { name: 'overflow', type: '"clip" | "ellipsis"', defaultValue: '"clip"', description: 'Overflow handling when maxLines is set' },
       { name: 'style', type: 'StyleProp<TextStyle>', defaultValue: '-', description: 'Additional text styles' },
@@ -6389,7 +6700,7 @@ export function DynamicMasonryExample() {
       { name: 'actionLabel', type: 'ReactNode', defaultValue: '-', description: 'Action content displayed at the end' },
       { name: 'closeOnActionPress', type: 'boolean', defaultValue: 'true', description: 'Dismiss when action is pressed' },
       { name: 'showCloseAffordance', type: 'boolean', defaultValue: 'false', description: 'Show a close icon button' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"default"', description: 'Color theme. Default uses Material 3 inverse surface' },
+      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"default"', description: 'Color theme. Default uses Material 3 inverse surface' },
       { name: 'numberOfLines', type: 'number', defaultValue: '2', description: 'Max lines for the message text' },
       { name: 'insetHorizontal', type: 'number', defaultValue: '16', description: 'Horizontal inset from screen edges' },
       { name: 'insetVertical', type: 'number', defaultValue: '16', description: 'Vertical inset from screen edge' },
@@ -6527,12 +6838,13 @@ export function StackExample() {
   snippet: {
     props: [
       { name: 'value', type: 'string', defaultValue: '-', description: 'Text value displayed inside the snippet' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Theme color used by snippet and copy button styles' },
+      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Theme color used by snippet and copy button styles' },
       { name: 'variant', type: '"outlined" | "flat" | "light"', defaultValue: '"outlined"', description: 'Visual style variant' },
       { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Border radius' },
-      { name: 'copyButtonPosition', type: '"top-left" | "top-right" | "bottom-left" | "bottom-right"', defaultValue: '"top-right"', description: 'Position of the copy action button' },
+      { name: 'copyButtonPosition', type: '"top-left" | "top-right" | "bottom-left" | "bottom-right" | "inline-left" | "inline-right"', defaultValue: '"top-right"', description: 'Position of the copy button — corner positions are absolute, inline positions place the button beside the text' },
       { name: 'copyLabel', type: 'string', defaultValue: '"Copy"', description: 'Label shown before copy success' },
       { name: 'copiedLabel', type: 'string', defaultValue: '"Copied"', description: 'Label shown after successful copy' },
+      { name: 'hideCopyLabel', type: 'boolean', defaultValue: 'false', description: 'Hide the text label on the copy button, showing only the icon' },
       { name: 'copyResetDelay', type: 'number', defaultValue: '1500', description: 'Delay (ms) before resetting copied state' },
       { name: 'fullWidth', type: 'boolean', defaultValue: 'true', description: 'Expand snippet to full width' },
       { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable copy interaction and dim the snippet' },
@@ -6606,10 +6918,29 @@ export function PositionsExample() {
 
   return (
     <Column gap={10}>
-      <Snippet value={value} copyButtonPosition="top-left" />
       <Snippet value={value} copyButtonPosition="top-right" />
-      <Snippet value={value} copyButtonPosition="bottom-left" />
+      <Snippet value={value} copyButtonPosition="top-left" />
       <Snippet value={value} copyButtonPosition="bottom-right" />
+      <Snippet value={value} copyButtonPosition="bottom-left" />
+      <Snippet value={value} copyButtonPosition="inline-right" />
+      <Snippet value={value} copyButtonPosition="inline-left" />
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Hide Copy Label',
+        description: 'Show only the icon on the copy button with hideCopyLabel.',
+        code: `import { Snippet } from '@xaui/native/snippet'
+import { Column } from '@xaui/native/view'
+
+export function HideCopyLabelExample() {
+  const value = 'pnpm add @xaui/native'
+
+  return (
+    <Column gap={10}>
+      <Snippet value={value} hideCopyLabel copyButtonPosition="inline-right" />
+      <Snippet value={value} hideCopyLabel copyButtonPosition="top-right" />
     </Column>
   )
 }`,
@@ -6696,7 +7027,7 @@ export function ScaleExample() {
       { name: 'errorMessage', type: 'ReactNode', defaultValue: '-', description: 'Error text when isInvalid is true' },
       { name: 'startContent', type: 'ReactNode', defaultValue: '-', description: 'Content at the start of the trigger' },
       { name: 'endContent', type: 'ReactNode', defaultValue: '-', description: 'Content at the end of the trigger' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme for focus/active states' },
+      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme for focus/active states' },
       { name: 'variant', type: '"flat" | "faded" | "bordered" | "underlined"', defaultValue: '"flat"', description: 'Visual style variant' },
       { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Size of the trigger' },
       { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Border radius' },
@@ -6752,7 +7083,7 @@ export function VariantsExample() {
       { name: 'description', type: 'ReactNode', defaultValue: '-', description: 'Helper text below the trigger' },
       { name: 'errorMessage', type: 'ReactNode', defaultValue: '-', description: 'Error text when isInvalid is true' },
       { name: 'sheetTitle', type: 'string', defaultValue: '-', description: 'Title shown inside the bottom sheet' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme' },
+      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
       { name: 'variant', type: '"flat" | "faded" | "bordered" | "underlined"', defaultValue: '"flat"', description: 'Trigger visual variant' },
       { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Trigger size' },
       { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Border radius' },
@@ -6828,7 +7159,7 @@ export function SheetTitleExample() {
       { name: 'errorMessage', type: 'ReactNode', defaultValue: '-', description: 'Error text when isInvalid is true' },
       { name: 'colorGroups', type: 'ColorGroup[]', defaultValue: 'defaultColorGroups', description: 'Custom color groups (name + colors array)' },
       { name: 'sheetTitle', type: 'string', defaultValue: '"Pick a color"', description: 'Title shown at the top of the sheet' },
-      { name: 'themeColor', type: 'ThemeColor', defaultValue: '"primary"', description: 'Color theme for the trigger and selection highlight' },
+      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme for the trigger and selection highlight' },
       { name: 'variant', type: '"flat" | "faded" | "bordered" | "underlined"', defaultValue: '"flat"', description: 'Trigger visual variant' },
       { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Trigger size' },
       { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Border radius' },

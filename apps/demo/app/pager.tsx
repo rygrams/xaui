@@ -1,176 +1,274 @@
 import { useState } from 'react'
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import { Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native'
 import { Pager, PagerItem } from '@xaui/native/pager'
 import type { PagerIndicatorRenderState } from '@xaui/native/pager'
 import { useXUIColors, useXUITheme } from '@xaui/native/core'
 
 type Slide = {
   key: string
+  emoji: string
   title: string
-  subtitle: string
-  color: string
+  description: string
+  accent: string
+  bgLight: string
+  bgDark: string
 }
 
 const slides: Slide[] = [
   {
     key: 'welcome',
-    title: 'Welcome',
-    subtitle: 'Build swipeable onboarding in a few lines.',
-    color: '#0EA5E9',
+    emoji: '✦',
+    title: 'Welcome to XAUI',
+    description:
+      'A modern React Native UI library inspired by Flutter. Build beautiful mobile apps faster.',
+    accent: '#7C3AED',
+    bgLight: '#EDE9FE',
+    bgDark: '#2E1065',
   },
   {
-    key: 'customize',
-    title: 'Customize',
-    subtitle: 'Use custom indicator styles or your own renderer.',
-    color: '#22C55E',
+    key: 'components',
+    emoji: '🧩',
+    title: '50+ Components',
+    description:
+      'Buttons, inputs, dialogs, carousels and more. Everything you need, ready to use.',
+    accent: '#0EA5E9',
+    bgLight: '#E0F2FE',
+    bgDark: '#082F49',
   },
   {
-    key: 'ship',
-    title: 'Ship',
-    subtitle: 'Combine with any content inside PagerItem.',
-    color: '#F97316',
+    key: 'animations',
+    emoji: '⚡',
+    title: 'Smooth Animations',
+    description:
+      'Native-thread animations powered by Reanimated. Silky 60 fps, no jank, ever.',
+    accent: '#F59E0B',
+    bgLight: '#FEF3C7',
+    bgDark: '#451A03',
+  },
+  {
+    key: 'theming',
+    emoji: '🎨',
+    title: 'Full Theming',
+    description:
+      'Light & dark mode, 20+ color palettes, and complete custom appearance control.',
+    accent: '#10B981',
+    bgLight: '#D1FAE5',
+    bgDark: '#022C22',
   },
 ]
 
-function SlideCard({
-  item,
-  fullscreen = false,
-}: {
-  item: Slide
-  fullscreen?: boolean
-}) {
+function SlideIllustration({ slide, isDark }: { slide: Slide; isDark: boolean }) {
+  const bg = isDark ? slide.bgDark : slide.bgLight
+
+  return (
+    <View style={[styles.illustrationWrapper, { backgroundColor: bg }]}>
+      <View style={[styles.circle, styles.circleOuter, { borderColor: slide.accent, opacity: 0.12 }]} />
+      <View style={[styles.circle, styles.circleMid, { borderColor: slide.accent, opacity: 0.22 }]} />
+      <View style={[styles.circle, styles.circleInner, { backgroundColor: slide.accent, opacity: 0.14 }]} />
+      <Text style={styles.emoji}>{slide.emoji}</Text>
+    </View>
+  )
+}
+
+function PillIndicator({ index, isActive, total, accent }: PagerIndicatorRenderState & { accent: string }) {
   return (
     <View
+      key={`dot-${String(index)}-${String(total)}`}
       style={[
-        styles.card,
-        fullscreen && styles.fullscreenCard,
-        { backgroundColor: item.color },
+        styles.dot,
+        isActive
+          ? [styles.dotActive, { backgroundColor: accent }]
+          : styles.dotInactive,
       ]}
-    >
-      <Text style={styles.cardTitle}>{item.title}</Text>
-      <Text style={styles.cardSubtitle}>{item.subtitle}</Text>
-    </View>
+    />
   )
 }
 
 export default function PagerScreen() {
   const colors = useXUIColors()
   const theme = useXUITheme()
+  const isDark = theme.mode === 'dark'
   const [page, setPage] = useState(0)
 
+  const slide = slides[page] ?? slides[0]
+  const isLast = page === slides.length - 1
+
+  const handleNext = () => {
+    if (!isLast) setPage(p => p + 1)
+  }
+
+  const handleSkip = () => setPage(slides.length - 1)
+
   return (
-    <ScrollView
-      style={[styles.container, { backgroundColor: colors.background }]}
-      contentContainerStyle={[styles.content, { gap: theme.spacing.lg }]}
-    >
-      <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
-          Fullscreen Indicator
-        </Text>
-        <View style={styles.fullscreenDemo}>
-          <Pager
-            isFullscreen
-            defaultPage={0}
-            onPageChange={setPage}
-            customAppearance={{ container: styles.fullscreenPagerContainer }}
-          >
-            {slides.map(item => (
-              <PagerItem key={item.key}>
-                <SlideCard item={item} fullscreen />
-              </PagerItem>
-            ))}
-          </Pager>
+    <SafeAreaView style={[styles.root, { backgroundColor: colors.background }]}>
+      <View style={styles.header}>
+        <View style={styles.counter}>
+          <Text style={[styles.counterText, { color: colors.foreground }]}>
+            {page + 1}
+            <Text style={{ opacity: 0.4 }}>/{slides.length}</Text>
+          </Text>
         </View>
-        <Text style={[styles.helperText, { color: colors.foreground }]}>
-          Active page: {page + 1}
-        </Text>
+        {!isLast && (
+          <Pressable onPress={handleSkip} hitSlop={12}>
+            <Text style={[styles.skipText, { color: slide.accent }]}>Skip</Text>
+          </Pressable>
+        )}
       </View>
 
-      <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
-          Custom Indicator
-        </Text>
+      <View style={styles.pagerWrapper}>
         <Pager
-          defaultPage={1}
-          renderIndicator={({ index, isActive }: PagerIndicatorRenderState) => (
-            <View
-              key={`pill-${String(index)}`}
-              style={[
-                styles.customIndicator,
-                {
-                  backgroundColor: isActive
-                    ? theme.palette.blue[600]
-                    : theme.palette.gray[300],
-                  width: isActive ? 24 : 10,
-                },
-              ]}
-            />
-          )}
+          page={page}
+          onPageChange={setPage}
+          showIndicator={false}
+          customAppearance={{ container: styles.pager }}
         >
-          {slides.map(item => (
-            <PagerItem key={`custom-${item.key}`}>
-              <SlideCard item={item} />
+          {slides.map(s => (
+            <PagerItem key={s.key}>
+              <View style={styles.slide}>
+                <SlideIllustration slide={s} isDark={isDark} />
+                <View style={styles.copy}>
+                  <Text style={[styles.title, { color: colors.foreground }]}>{s.title}</Text>
+                  <Text style={[styles.description, { color: colors.foreground }]}>
+                    {s.description}
+                  </Text>
+                </View>
+              </View>
             </PagerItem>
           ))}
         </Pager>
       </View>
-    </ScrollView>
+
+      <View style={styles.footer}>
+        <View style={styles.indicators}>
+          {slides.map((s, index) => (
+            <PillIndicator
+              key={s.key}
+              index={index}
+              isActive={index === page}
+              total={slides.length}
+              accent={slide.accent}
+            />
+          ))}
+        </View>
+
+        <Pressable
+          onPress={isLast ? undefined : handleNext}
+          style={[styles.button, { backgroundColor: slide.accent }]}
+        >
+          <Text style={styles.buttonText}>{isLast ? 'Get Started' : 'Next'}</Text>
+        </Pressable>
+      </View>
+    </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
+  root: {
     flex: 1,
   },
-  content: {
-    padding: 16,
-    paddingBottom: 32,
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: 24,
+    paddingTop: 8,
+    paddingBottom: 4,
   },
-  section: {
-    width: '100%',
+  counter: {},
+  counterText: {
+    fontSize: 15,
+    fontWeight: '600',
   },
-  sectionTitle: {
-    fontSize: 20,
-    fontWeight: 'bold',
-    marginBottom: 12,
+  skipText: {
+    fontSize: 15,
+    fontWeight: '600',
   },
-  helperText: {
-    marginTop: 8,
-    fontSize: 14,
+  pagerWrapper: {
+    flex: 1,
   },
-  fullscreenDemo: {
-    height: 320,
-    borderRadius: 16,
+  pager: {
+    flex: 1,
+  },
+  slide: {
+    flex: 1,
+    paddingHorizontal: 32,
+    paddingBottom: 16,
+  },
+  illustrationWrapper: {
+    flex: 1,
+    marginVertical: 24,
+    borderRadius: 32,
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
     overflow: 'hidden',
   },
-  fullscreenPagerContainer: {
-    flex: 1,
-  },
-  card: {
-    height: 186,
-    borderRadius: 16,
-    padding: 16,
-    justifyContent: 'flex-end',
-  },
-  fullscreenCard: {
-    flex: 1,
-    height: '100%',
-    borderRadius: 0,
-  },
-  cardTitle: {
-    color: '#FFFFFF',
-    fontSize: 24,
-    fontWeight: '800',
-  },
-  cardSubtitle: {
-    marginTop: 6,
-    color: '#FFFFFF',
-    fontSize: 14,
-    lineHeight: 20,
-    opacity: 0.95,
-  },
-  customIndicator: {
-    height: 10,
+  circle: {
+    position: 'absolute',
     borderRadius: 999,
+    borderWidth: 1.5,
+  },
+  circleOuter: {
+    width: 280,
+    height: 280,
+  },
+  circleMid: {
+    width: 200,
+    height: 200,
+  },
+  circleInner: {
+    width: 130,
+    height: 130,
+    borderWidth: 0,
+  },
+  emoji: {
+    fontSize: 72,
+  },
+  copy: {
+    gap: 12,
+    paddingBottom: 8,
+  },
+  title: {
+    fontSize: 30,
+    fontWeight: '800',
+    letterSpacing: -0.5,
+  },
+  description: {
+    fontSize: 16,
+    lineHeight: 24,
+    opacity: 0.65,
+  },
+  footer: {
+    paddingHorizontal: 32,
+    paddingBottom: 24,
+    gap: 24,
+  },
+  indicators: {
+    flexDirection: 'row',
+    gap: 6,
+    alignSelf: 'center',
+  },
+  dot: {
+    height: 8,
+    borderRadius: 999,
+  },
+  dotActive: {
+    width: 28,
+  },
+  dotInactive: {
+    width: 8,
+    backgroundColor: '#D1D5DB',
+  },
+  button: {
+    height: 54,
+    borderRadius: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  buttonText: {
+    color: '#FFFFFF',
+    fontSize: 17,
+    fontWeight: '700',
+    letterSpacing: 0.2,
   },
 })

@@ -2,6 +2,8 @@ import type {
   DateOrder,
   DateSeparator,
   TimeInputGranularity,
+  TimeInputConvertOptions,
+  DateTimeInputConvertOptions,
 } from './date-time-input.type'
 
 const YMD_LOCALES = ['ja', 'zh', 'ko', 'hu', 'lt', 'mn']
@@ -167,4 +169,144 @@ export const getDateTimeMaxLength = (
   hourCycle: 12 | 24
 ): number => {
   return getDateMaxLength(separator) + 1 + getTimeMaxLength(granularity, hourCycle)
+}
+
+const pad = (n: number): string => String(n).padStart(2, '0')
+
+export const dateInputValueToDate = (
+  value: string,
+  dateOrder: DateOrder,
+  separator: DateSeparator
+): Date | null => {
+  const parts = value.split(separator)
+  if (parts.length !== 3) return null
+
+  let year: number, month: number, day: number
+
+  if (dateOrder === 'YMD') {
+    year = parseInt(parts[0], 10)
+    month = parseInt(parts[1], 10)
+    day = parseInt(parts[2], 10)
+  } else if (dateOrder === 'MDY') {
+    month = parseInt(parts[0], 10)
+    day = parseInt(parts[1], 10)
+    year = parseInt(parts[2], 10)
+  } else {
+    day = parseInt(parts[0], 10)
+    month = parseInt(parts[1], 10)
+    year = parseInt(parts[2], 10)
+  }
+
+  if (isNaN(year) || isNaN(month) || isNaN(day)) return null
+
+  const date = new Date(year, month - 1, day)
+
+  if (
+    date.getFullYear() !== year ||
+    date.getMonth() !== month - 1 ||
+    date.getDate() !== day
+  )
+    return null
+
+  return date
+}
+
+export const dateToDateInputValue = (
+  date: Date | string,
+  dateOrder: DateOrder,
+  separator: DateSeparator
+): string => {
+  const d = typeof date === 'string' ? new Date(date) : date
+  if (isNaN(d.getTime())) return ''
+
+  const year = String(d.getFullYear())
+  const month = pad(d.getMonth() + 1)
+  const day = pad(d.getDate())
+
+  if (dateOrder === 'YMD') return [year, month, day].join(separator)
+  if (dateOrder === 'MDY') return [month, day, year].join(separator)
+  return [day, month, year].join(separator)
+}
+
+export const timeInputValueToDate = (
+  value: string,
+  options: TimeInputConvertOptions = {}
+): Date | null => {
+  const { hourCycle = 24 } = options
+  const isPM = /pm$/i.test(value)
+  const isAM = /am$/i.test(value)
+  const cleaned = value.replace(/\s*(am|pm)$/i, '').trim()
+  const segments = cleaned.split(':')
+
+  let hours = parseInt(segments[0], 10)
+  const minutes = parseInt(segments[1] ?? '0', 10)
+  const seconds = parseInt(segments[2] ?? '0', 10)
+
+  if (isNaN(hours) || isNaN(minutes) || isNaN(seconds)) return null
+
+  if (hourCycle === 12) {
+    if (isPM && hours !== 12) hours += 12
+    if (isAM && hours === 12) hours = 0
+  }
+
+  const date = new Date()
+  date.setHours(hours, minutes, seconds, 0)
+  return date
+}
+
+export const dateToTimeInputValue = (
+  date: Date | string,
+  options: TimeInputConvertOptions = {}
+): string => {
+  const { granularity = 'minute', hourCycle = 24 } = options
+  const d = typeof date === 'string' ? new Date(date) : date
+  if (isNaN(d.getTime())) return ''
+
+  let hours = d.getHours()
+  const minutes = pad(d.getMinutes())
+  const seconds = pad(d.getSeconds())
+
+  if (hourCycle === 12) {
+    const period = hours >= 12 ? 'PM' : 'AM'
+    hours = hours % 12 || 12
+    const base = `${pad(hours)}:${minutes}`
+    return granularity === 'second' ? `${base}:${seconds} ${period}` : `${base} ${period}`
+  }
+
+  const base = `${pad(hours)}:${minutes}`
+  return granularity === 'second' ? `${base}:${seconds}` : base
+}
+
+export const dateTimeInputValueToDate = (
+  value: string,
+  dateOrder: DateOrder,
+  options: DateTimeInputConvertOptions = {}
+): Date | null => {
+  const { separator = '-', hourCycle = 24 } = options
+  const spaceIndex = value.indexOf(' ')
+  if (spaceIndex === -1) return null
+
+  const date = dateInputValueToDate(value.slice(0, spaceIndex), dateOrder, separator)
+  if (!date) return null
+
+  const timePart = value.slice(spaceIndex + 1)
+  const timed = timeInputValueToDate(timePart, { hourCycle })
+  if (!timed) return null
+
+  date.setHours(timed.getHours(), timed.getMinutes(), timed.getSeconds(), 0)
+  return date
+}
+
+export const dateToDateTimeInputValue = (
+  date: Date | string,
+  dateOrder: DateOrder,
+  options: DateTimeInputConvertOptions = {}
+): string => {
+  const { separator = '-', granularity = 'minute', hourCycle = 24 } = options
+  const d = typeof date === 'string' ? new Date(date) : date
+  if (isNaN(d.getTime())) return ''
+
+  const datePart = dateToDateInputValue(d, dateOrder, separator)
+  const timePart = dateToTimeInputValue(d, { granularity, hourCycle })
+  return `${datePart} ${timePart}`
 }
