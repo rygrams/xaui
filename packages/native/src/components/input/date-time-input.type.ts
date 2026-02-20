@@ -6,6 +6,17 @@ export type DateOrder = 'YMD' | 'DMY' | 'MDY'
 
 export type TimeInputGranularity = 'minute' | 'second'
 
+export type TimeInputConvertOptions = {
+  granularity?: TimeInputGranularity
+  hourCycle?: 12 | 24
+}
+
+export type DateTimeInputConvertOptions = {
+  separator?: DateSeparator
+  granularity?: TimeInputGranularity
+  hourCycle?: 12 | 24
+}
+
 export type DateInputProps = TextInputProps & {
   /**
    * Separator character between date segments.

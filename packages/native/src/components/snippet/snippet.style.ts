@@ -59,6 +59,26 @@ export const styles = StyleSheet.create({
     fontWeight: '600',
     includeFontPadding: false,
   },
+  inlineSnippet: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingHorizontal: 10,
+    paddingVertical: 8,
+    gap: 10,
+  },
+  inlineCopyButton: {
+    flexShrink: 0,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    borderWidth: 1,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+  },
+  inlineContent: {
+    flex: 1,
+    justifyContent: 'center',
+  },
   disabled: {
     opacity: 0.55,
   },

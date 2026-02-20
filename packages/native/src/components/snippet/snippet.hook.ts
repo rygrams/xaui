@@ -70,6 +70,7 @@ export const useCopyButtonPositionStyles = (position: CopyButtonPosition) => {
     () => ({
       isTop: position.startsWith('top'),
       isLeft: position.endsWith('left'),
+      isInline: position.startsWith('inline'),
     }),
     [position]
   )

@@ -14,6 +14,7 @@ const themeColors = [
   'default',
 ] as const
 const positions = ['top-left', 'top-right', 'bottom-left', 'bottom-right'] as const
+const inlinePositions = ['inline-left', 'inline-right'] as const
 
 export default function SnippetScreen() {
   const colors = useXUIColors()
@@ -68,6 +69,31 @@ export default function SnippetScreen() {
               copyButtonPosition={copyButtonPosition}
             />
           ))}
+        </View>
+      </View>
+
+      <View style={styles.section}>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Inline Position
+        </Text>
+        <View style={{ gap: theme.spacing.md }}>
+          {inlinePositions.map(copyButtonPosition => (
+            <Snippet
+              key={copyButtonPosition}
+              value={`git commit -m "feat: add snippet"`}
+              copyButtonPosition={copyButtonPosition}
+            />
+          ))}
+          <Snippet
+            value="pnpm test"
+            copyButtonPosition="inline-right"
+            hideCopyLabel
+          />
+          <Snippet
+            value="pnpm test"
+            copyButtonPosition="inline-left"
+            hideCopyLabel
+          />
         </View>
       </View>
 

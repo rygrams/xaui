@@ -7,6 +7,8 @@ export type CopyButtonPosition =
   | 'top-right'
   | 'bottom-left'
   | 'bottom-right'
+  | 'inline-left'
+  | 'inline-right'
 
 export type SnippetCustomAppearance = {
   container?: StyleProp<ViewStyle>
@@ -46,6 +48,11 @@ export type SnippetProps = {
    * @default 'Copy'
    */
   copyLabel?: string
+  /**
+   * Hide the copy/copied text label, showing only the icon.
+   * @default false
+   */
+  hideCopyLabel?: boolean
   /**
    * Label shown after a successful copy action.
    * @default 'Copied'
