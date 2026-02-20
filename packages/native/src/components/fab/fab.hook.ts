@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { useXUITheme } from '../../core'
-import { getSafeThemeColor } from '@xaui/core'
+import { getSafeThemeColor, withOpacity } from '@xaui/core'
 import type { FabVariant, FabSize } from './fab.type'
 import type { ThemeColor } from '../../types'
 import type { ButtonRadius, ElevationLevel } from '../button/button.type'
@@ -94,13 +94,16 @@ export function useFabVariantStyles(
   const colorScheme = theme.colors[safeThemeColor]
 
   const variantStyles = useMemo(() => {
+    const isDark = theme.mode === 'dark'
     const variantMap = {
       solid: {
-        backgroundColor: colorScheme.main,
+        backgroundColor: isDark ? colorScheme.background : colorScheme.main,
         borderWidth: 0,
       },
       flat: {
-        backgroundColor: colorScheme.background,
+        backgroundColor: isDark
+          ? withOpacity(colorScheme.background, 0.5)
+          : colorScheme.background,
         borderWidth: 0,
       },
       outlined: {
@@ -140,11 +143,12 @@ export function useFabIconColor(themeColor: ThemeColor, variant: FabVariant) {
   const colorScheme = theme.colors[safeThemeColor]
 
   const iconColor = useMemo(() => {
+    const isDark = theme.mode === 'dark'
     if (variant === 'solid') {
-      return colorScheme.foreground
+      return isDark ? colorScheme.main : colorScheme.foreground
     }
     return colorScheme.main
-  }, [variant, colorScheme])
+  }, [variant, colorScheme, theme])
 
   return { iconColor }
 }

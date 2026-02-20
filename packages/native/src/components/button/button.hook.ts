@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { useXUITheme } from '../../core'
 import type { ButtonVariant, ElevationLevel } from './button.type'
 import type { Size, ThemeColor } from '../../types'
-import { getSafeThemeColor } from '@xaui/core'
+import { getSafeThemeColor, withOpacity } from '@xaui/core'
 
 type ButtonSizeStyles = {
   paddingHorizontal: number
@@ -18,11 +18,12 @@ export const useTextStyles = (themeColor: ThemeColor, variant: ButtonVariant) =>
   const colorScheme = theme.colors[safeThemeColor]
 
   const textColor = useMemo(() => {
+    const isDark = theme.mode === 'dark'
     if (variant === 'solid') {
-      return colorScheme.foreground
+      return isDark ? colorScheme.main : colorScheme.foreground
     }
     return colorScheme.main
-  }, [variant, colorScheme])
+  }, [variant, colorScheme, theme])
 
   return {
     textColor,
@@ -88,9 +89,10 @@ export function useVariantSizesStyles(
   const colorScheme = theme.colors[safeThemeColor]
 
   const variantStyles = useMemo(() => {
+    const isDark = theme.mode === 'dark'
     const styles = {
       solid: {
-        backgroundColor: colorScheme.main,
+        backgroundColor: isDark ? colorScheme.background : colorScheme.main,
         borderWidth: 0,
       },
       outlined: {
@@ -99,7 +101,9 @@ export function useVariantSizesStyles(
         borderColor: colorScheme.main,
       },
       flat: {
-        backgroundColor: colorScheme.background,
+        backgroundColor: isDark
+          ? withOpacity(colorScheme.background, 0.5)
+          : colorScheme.background,
         borderWidth: 0,
       },
       light: {

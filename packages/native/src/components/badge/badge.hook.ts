@@ -67,31 +67,37 @@ export function useBadgeVariantStyles(
   const colorScheme = theme.colors[safeThemeColor]
 
   return useMemo(() => {
+    const isDark = theme.mode === 'dark'
+
     if (variant === 'flat') {
       return {
-        backgroundColor: colorScheme.background,
+        backgroundColor: isDark
+          ? withOpacity(colorScheme.background, 0.5)
+          : colorScheme.background,
         color: colorScheme.main,
       }
     }
 
     if (variant === 'faded') {
       return {
-        backgroundColor: withOpacity(colorScheme.background, 0.7),
+        backgroundColor: isDark
+          ? withOpacity(colorScheme.background, 0.35)
+          : withOpacity(colorScheme.background, 0.7),
         color: colorScheme.main,
       }
     }
 
     if (variant === 'shadow') {
       return {
-        backgroundColor: colorScheme.main,
-        color: colorScheme.foreground,
+        backgroundColor: isDark ? colorScheme.background : colorScheme.main,
+        color: isDark ? colorScheme.main : colorScheme.foreground,
         shadow: theme.shadows.sm,
       }
     }
 
     return {
-      backgroundColor: colorScheme.main,
-      color: colorScheme.foreground,
+      backgroundColor: isDark ? colorScheme.background : colorScheme.main,
+      color: isDark ? colorScheme.main : colorScheme.foreground,
     }
   }, [colorScheme, theme, variant])
 }

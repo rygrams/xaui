@@ -12,7 +12,7 @@ export const styles = StyleSheet.create({
   },
   text: {
     textAlign: 'center',
-    fontWeight: '600',
+    fontWeight: '700',
     includeFontPadding: false,
     textAlignVertical: 'center',
   },

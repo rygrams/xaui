@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { useXUITheme } from '../../core'
-import { getSafeThemeColor, withPaletteNumber } from '@xaui/core'
+import { getSafeThemeColor, withOpacity, withPaletteNumber } from '@xaui/core'
 import type { SegmentButtonVariant, ElevationLevel } from './segment-button.type'
 import type { Size, ThemeColor } from '../../types'
 
@@ -86,9 +86,9 @@ export function useSegmentVariantStyles(
         containerBackground: colorScheme.background,
         containerBorderWidth: 0,
         containerBorderColor: 'transparent',
-        selectedBackground: selectedBackgroundColor,
+        selectedBackground: withOpacity(colorScheme.main, 0.2),
         unselectedBackground: 'transparent',
-        selectedTextColor: colorScheme.foreground,
+        selectedTextColor: colorScheme.main,
         unselectedTextColor: colorScheme.main,
       },
       light: {
@@ -104,9 +104,9 @@ export function useSegmentVariantStyles(
         containerBackground: `${colorScheme.background}95`,
         containerBorderWidth: theme.borderWidth.md,
         containerBorderColor: `${colorScheme.main}90`,
-        selectedBackground: selectedBackgroundColor,
+        selectedBackground: withOpacity(colorScheme.main, 0.2),
         unselectedBackground: 'transparent',
-        selectedTextColor: colorScheme.foreground,
+        selectedTextColor: colorScheme.main,
         unselectedTextColor: colorScheme.main,
       },
     }
