@@ -1,7 +1,7 @@
 # XAUI Library
 
 > [!WARNING]
-> **🚧 ALPHA VERSION — ACTIVE DEVELOPMENT 🚧**
+> **🚧 BETA VERSION — ACTIVE DEVELOPMENT 🚧**
 >
 > This library is evolving rapidly. Public APIs may change without notice as the project matures.
 

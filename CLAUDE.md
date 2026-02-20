@@ -52,7 +52,7 @@ pnpm changeset              # Create a new changeset
 Follow the prompts:
 
 1. Select which packages changed (space to select, enter to confirm)
-2. Choose bump type: major, minor, or **patch** (we're in alpha, always use patch)
+2. Choose bump type: major, minor, or **patch** (we're in beta, always use patch)
 3. Write a summary of the changes
 
 This creates a `.changeset/*.md` file. **Commit this file with your changes.**
@@ -176,7 +176,7 @@ The project uses GitHub Actions with the following workflow:
 
 1. Create changeset(s) with `pnpm changeset`
    - Select all affected packages
-   - Always use **patch** version bump (we're in alpha)
+   - Always use **patch** version bump (we're in beta)
    - Write clear, concise summaries
    - If multiple packages updated, create a changeset for each
 2. **Commit the `.changeset/*.md` files** with your changes

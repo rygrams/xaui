@@ -11,7 +11,7 @@ export interface Component {
     | 'Navigation'
     | 'Overlays'
   href: string
-  status: 'stable' | 'beta' | 'alpha'
+  status: 'stable' | 'beta'
   importPath: string
   exports: string[]
   types?: string[]
