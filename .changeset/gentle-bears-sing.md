@@ -1,5 +1,5 @@
 ---
-'@xaui/native': patch
+'@xaui/native': minor
 ---
 
 feat(snippet): add inline-left and inline-right copy button positions with hideCopyLabel prop
