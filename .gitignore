@@ -6,7 +6,6 @@ node_modules
 # Testing
 coverage
 *.log
-screenshots
 !apps/docs/public/screenshots
 !apps/docs/public/screenshots/**
 
