@@ -32,6 +32,8 @@ import { PickerScreenshots } from './picker-screenshots'
 import { ProgressScreenshots } from './progress-screenshots'
 import { RadioScreenshots } from './radio-screenshots'
 import { SliderScreenshots } from './slider-screenshots'
+import { SelectScreenshots } from './select-screenshots'
+import { SnackbarScreenshots } from './snackbar-screenshots'
 import { SnippetScreenshots } from './snippet-screenshots'
 import { SurfaceScreenshots } from './surface-screenshots'
 import { SwitchScreenshots } from './switch-screenshots'
@@ -77,7 +79,9 @@ const screenshotsMap: Record<string, React.FC> = {
   picker: PickerScreenshots,
   progress: ProgressScreenshots,
   radio: RadioScreenshots,
+  select: SelectScreenshots,
   slider: SliderScreenshots,
+  snackbar: SnackbarScreenshots,
   snippet: SnippetScreenshots,
   surface: SurfaceScreenshots,
   switch: SwitchScreenshots,
