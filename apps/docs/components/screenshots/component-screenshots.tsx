@@ -15,6 +15,13 @@ import { DatepickerScreenshots } from './datepicker-screenshots'
 import { DialogScreenshots } from './dialog-screenshots'
 import { DrawerScreenshots } from './drawer-screenshots'
 import { ExpansionPanelScreenshots } from './expansion-panel-screenshots'
+import { FabScreenshots } from './fab-screenshots'
+import { FabMenuScreenshots } from './fab-menu-screenshots'
+import { FeatureDiscoveryScreenshots } from './feature-discovery-screenshots'
+import { IndicatorScreenshots } from './indicator-screenshots'
+import { InputScreenshots } from './input-screenshots'
+import { ListScreenshots } from './list-screenshots'
+import { MenuScreenshots } from './menu-screenshots'
 
 const screenshotsMap: Record<string, React.FC> = {
   alert: AlertScreenshots,
@@ -34,6 +41,13 @@ const screenshotsMap: Record<string, React.FC> = {
   dialog: DialogScreenshots,
   drawer: DrawerScreenshots,
   'expansion-panel': ExpansionPanelScreenshots,
+  fab: FabScreenshots,
+  'fab-menu': FabMenuScreenshots,
+  'feature-discovery': FeatureDiscoveryScreenshots,
+  indicator: IndicatorScreenshots,
+  input: InputScreenshots,
+  list: ListScreenshots,
+  menu: MenuScreenshots,
 }
 
 export const screenshotIds = new Set(Object.keys(screenshotsMap))
