@@ -47,6 +47,7 @@ export const Typography: React.FC<TypographyProps> = ({
         variantStyles,
         resolvedAlign && { textAlign: resolvedAlign },
         textStyleOverrides,
+        inheritedStyle.spacing != null ? { marginRight: inheritedStyle.spacing } : undefined,
         style,
       ]}
     >

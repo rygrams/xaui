@@ -8,6 +8,7 @@ export type TextSpanInheritedTextStyle = {
   fontStyle?: TextStyle['fontStyle']
   textTransform?: TextStyle['textTransform']
   align?: TypographyAlign
+  spacing?: number
 }
 
 export const TextSpanContext = createContext<TextSpanInheritedTextStyle>({})

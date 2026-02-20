@@ -1,16 +1,14 @@
 import React from 'react'
-import { View } from 'react-native'
+import { Text } from 'react-native'
 import { TextSpanContext } from './text-span.context'
 import type { TextSpanAlign, TextSpanProps } from './text-span.type'
+import type { TextStyle } from 'react-native'
 
-const alignToJustifyContent: Record<
-  TextSpanAlign,
-  'center' | 'flex-end' | 'flex-start' | 'space-between'
-> = {
-  left: 'flex-start',
+const alignToTextAlign: Record<TextSpanAlign, TextStyle['textAlign']> = {
+  left: 'left',
   center: 'center',
-  right: 'flex-end',
-  justify: 'space-between',
+  right: 'right',
+  justify: 'justify',
 }
 
 export const TextSpan: React.FC<TextSpanProps> = ({
@@ -30,25 +28,22 @@ export const TextSpan: React.FC<TextSpanProps> = ({
     fontStyle,
     textTransform,
     align,
+    spacing,
   }
 
   return (
     <TextSpanContext.Provider value={inheritedTextStyle}>
-      <View
+      <Text
         style={[
           {
-            flexDirection: 'row',
-            flexWrap: 'wrap',
-            alignItems: 'center',
-            ...(align ? { justifyContent: alignToJustifyContent[align] } : {}),
-            ...(typeof spacing === 'number' ? { gap: spacing } : {}),
+            ...(align ? { textAlign: alignToTextAlign[align] } : {}),
             ...(backgroundColor ? { backgroundColor } : {}),
           },
           style,
         ]}
       >
         {children}
-      </View>
+      </Text>
     </TextSpanContext.Provider>
   )
 }

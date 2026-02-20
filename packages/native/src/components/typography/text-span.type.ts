@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import type { StyleProp, TextStyle, ViewStyle } from 'react-native'
+import type { StyleProp, TextStyle } from 'react-native'
 import type { TypographyAlign } from './typography.type'
 
 export type TextSpanAlign = TypographyAlign
@@ -36,9 +36,9 @@ export type TextSpanProps = {
   /**
    * Background color for the text span container.
    */
-  backgroundColor?: ViewStyle['backgroundColor']
+  backgroundColor?: TextStyle['backgroundColor']
   /**
    * Custom styles for the text span container.
    */
-  style?: StyleProp<ViewStyle>
+  style?: StyleProp<TextStyle>
 }
