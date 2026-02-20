@@ -5,10 +5,14 @@ import {
   useSegmentVariantStyles,
 } from '../../../components/segment-button/segment-button.hook'
 
-vi.mock('@xaui/core', () => ({
-  withPaletteNumber: (color: string) => color,
-  getSafeThemeColor: (color: string) => color,
-}))
+vi.mock('@xaui/core', async importActual => {
+  const actual = await importActual<typeof import('@xaui/core')>()
+  return {
+    ...actual,
+    withPaletteNumber: (color: string) => color,
+    getSafeThemeColor: (color: string) => color,
+  }
+})
 
 vi.mock('../../../core', () => ({
   useXUITheme: () => ({
@@ -138,7 +142,9 @@ describe('useSegmentVariantStyles', () => {
 
     expect(result.current.containerBackground).toBe('#e3f2fd')
     expect(result.current.containerBorderWidth).toBe(0)
-    expect(result.current.selectedBackground).toBe('#1976d2')
+    expect(result.current.selectedBackground).toBe('#1976d233')
+    expect(result.current.selectedTextColor).toBe('#1976d2')
+    expect(result.current.unselectedTextColor).toBe('#1976d2')
   })
 
   it('returns correct styles for light variant', () => {
@@ -156,7 +162,9 @@ describe('useSegmentVariantStyles', () => {
     expect(result.current.containerBackground).toBe('#e3f2fd95')
     expect(result.current.containerBorderWidth).toBe(2)
     expect(result.current.containerBorderColor).toBe('#1976d290')
-    expect(result.current.selectedBackground).toBe('#1976d2')
+    expect(result.current.selectedBackground).toBe('#1976d233')
+    expect(result.current.selectedTextColor).toBe('#1976d2')
+    expect(result.current.unselectedTextColor).toBe('#1976d2')
   })
 
   it('applies elevation shadow to flat variant', () => {

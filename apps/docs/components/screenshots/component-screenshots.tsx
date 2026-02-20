@@ -15,6 +15,22 @@ import { DatepickerScreenshots } from './datepicker-screenshots'
 import { DialogScreenshots } from './dialog-screenshots'
 import { DrawerScreenshots } from './drawer-screenshots'
 import { ExpansionPanelScreenshots } from './expansion-panel-screenshots'
+import { FabScreenshots } from './fab-screenshots'
+import { FabMenuScreenshots } from './fab-menu-screenshots'
+import { FeatureDiscoveryScreenshots } from './feature-discovery-screenshots'
+import { IndicatorScreenshots } from './indicator-screenshots'
+import { InputScreenshots } from './input-screenshots'
+import { ListScreenshots } from './list-screenshots'
+import { MenuScreenshots } from './menu-screenshots'
+import { MenuBoxScreenshots } from './menubox-screenshots'
+import { ProgressScreenshots } from './progress-screenshots'
+import { RadioScreenshots } from './radio-screenshots'
+import { SwitchScreenshots } from './switch-screenshots'
+import { OtpInputScreenshots } from './otp-input-screenshots'
+import { TabsScreenshots } from './tabs-screenshots'
+import { SegmentButtonScreenshots } from './segment-button-screenshots'
+import { StepperScreenshots } from './stepper-screenshots'
+import { TimepickerScreenshots } from './timepicker-screenshots'
 
 const screenshotsMap: Record<string, React.FC> = {
   alert: AlertScreenshots,
@@ -34,6 +50,22 @@ const screenshotsMap: Record<string, React.FC> = {
   dialog: DialogScreenshots,
   drawer: DrawerScreenshots,
   'expansion-panel': ExpansionPanelScreenshots,
+  fab: FabScreenshots,
+  'fab-menu': FabMenuScreenshots,
+  'feature-discovery': FeatureDiscoveryScreenshots,
+  indicator: IndicatorScreenshots,
+  input: InputScreenshots,
+  list: ListScreenshots,
+  menu: MenuScreenshots,
+  menubox: MenuBoxScreenshots,
+  progress: ProgressScreenshots,
+  radio: RadioScreenshots,
+  switch: SwitchScreenshots,
+  'otp-input': OtpInputScreenshots,
+  tabs: TabsScreenshots,
+  'segment-button': SegmentButtonScreenshots,
+  stepper: StepperScreenshots,
+  timepicker: TimepickerScreenshots,
 }
 
 export const screenshotIds = new Set(Object.keys(screenshotsMap))

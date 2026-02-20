@@ -345,7 +345,7 @@ export const components: Component[] = [
     id: 'input',
     name: 'Input',
     description:
-      'Text input suite including text area, OTP, numeric, and date/time fields.',
+      'Text input suite with text, text area, and date/time field variants.',
     category: 'Inputs',
     href: '/docs/components/input',
     status: 'stable',
@@ -356,8 +356,6 @@ export const components: Component[] = [
       'DateInput',
       'TimeInput',
       'DateTimeInput',
-      'OTPInput',
-      'NumberInput',
       'getDateOrder',
     ],
     types: [
@@ -366,9 +364,31 @@ export const components: Component[] = [
       'DateInputProps',
       'TimeInputProps',
       'DateTimeInputProps',
-      'OTPInputProps',
-      'NumberInputProps',
     ],
+  },
+  {
+    id: 'otp-input',
+    name: 'OTPInput',
+    description:
+      'One-time password input with configurable digit count, variants, sizes, and theme colors.',
+    category: 'Inputs',
+    href: '/docs/components/otp-input',
+    status: 'stable',
+    importPath: '@xaui/native/input',
+    exports: ['OTPInput'],
+    types: ['OTPInputProps'],
+  },
+  {
+    id: 'number-input',
+    name: 'NumberInput',
+    description:
+      'Numeric input with increment and decrement controls, min/max bounds, and step configuration.',
+    category: 'Inputs',
+    href: '/docs/components/number-input',
+    status: 'stable',
+    importPath: '@xaui/native/input',
+    exports: ['NumberInput'],
+    types: ['NumberInputProps'],
   },
   {
     id: 'list',
