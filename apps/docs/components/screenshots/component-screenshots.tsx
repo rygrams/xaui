@@ -22,6 +22,10 @@ import { IndicatorScreenshots } from './indicator-screenshots'
 import { InputScreenshots } from './input-screenshots'
 import { ListScreenshots } from './list-screenshots'
 import { MenuScreenshots } from './menu-screenshots'
+import { MenuBoxScreenshots } from './menubox-screenshots'
+import { ProgressScreenshots } from './progress-screenshots'
+import { RadioScreenshots } from './radio-screenshots'
+import { SwitchScreenshots } from './switch-screenshots'
 
 const screenshotsMap: Record<string, React.FC> = {
   alert: AlertScreenshots,
@@ -48,6 +52,10 @@ const screenshotsMap: Record<string, React.FC> = {
   input: InputScreenshots,
   list: ListScreenshots,
   menu: MenuScreenshots,
+  menubox: MenuBoxScreenshots,
+  progress: ProgressScreenshots,
+  radio: RadioScreenshots,
+  switch: SwitchScreenshots,
 }
 
 export const screenshotIds = new Set(Object.keys(screenshotsMap))
