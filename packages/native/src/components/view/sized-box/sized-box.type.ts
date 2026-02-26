@@ -9,11 +9,16 @@ export type SizedBoxProps = {
   /**
    * Width of the box.
    */
-  width?: number
+  width?: ViewStyle['width']
   /**
    * Height of the box.
    */
-  height?: number
+  height?: ViewStyle['height']
+  /**
+   * Whether the box should take the full width of its parent.
+   * @default false
+   */
+  fullWidth?: boolean
   /**
    * Custom style for the box.
    */

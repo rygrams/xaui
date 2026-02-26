@@ -10586,15 +10586,21 @@ export function DirectionalMarginExample() {
       },
       {
         name: 'width',
-        type: 'number',
+        type: 'number | string',
         defaultValue: '-',
-        description: 'Fixed width in pixels',
+        description: 'Width value (number in px or string, e.g. "100%")',
       },
       {
         name: 'height',
-        type: 'number',
+        type: 'number | string',
         defaultValue: '-',
-        description: 'Fixed height in pixels',
+        description: 'Height value (number in px or string, e.g. "50%")',
+      },
+      {
+        name: 'fullWidth',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Expand to full available width',
       },
       {
         name: 'style',
