@@ -9925,6 +9925,12 @@ export function ToolbarCustomAppearanceExample() {
         description: 'Overflow handling when maxLines is set',
       },
       {
+        name: 'lineHeight',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Custom line height for the text',
+      },
+      {
         name: 'style',
         type: 'StyleProp<TextStyle>',
         defaultValue: '-',
@@ -10393,6 +10399,20 @@ export function CenterCardExample() {
   )
 }`,
       },
+      {
+        title: 'Full Width Center',
+        description: 'Stretch the centered container to full width with fullWidth.',
+        code: `import { Center } from '@xaui/native/view'
+import { Typography } from '@xaui/native/typography'
+
+export function CenterFullWidthExample() {
+  return (
+    <Center fullWidth style={{ minHeight: 120, backgroundColor: '#f1f5f9' }}>
+      <Typography>Centered on full width</Typography>
+    </Center>
+  )
+}`,
+      },
     ],
   },
 
@@ -10636,6 +10656,20 @@ export function FixedContainerExample() {
   return (
     <SizedBox width={80} height={80}>
       <View style={{ flex: 1, backgroundColor: '#4f46e5', borderRadius: 8 }} />
+    </SizedBox>
+  )
+}`,
+      },
+      {
+        title: 'String Dimensions and Full Width',
+        description: 'Use string dimensions and fullWidth for responsive sizing.',
+        code: `import { SizedBox } from '@xaui/native/view'
+import { View } from 'react-native'
+
+export function SizedBoxResponsiveExample() {
+  return (
+    <SizedBox fullWidth height="40%">
+      <View style={{ flex: 1, backgroundColor: '#e0e7ff', borderRadius: 8 }} />
     </SizedBox>
   )
 }`,

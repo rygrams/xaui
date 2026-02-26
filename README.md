@@ -1,10 +1,5 @@
 # XAUI Library
 
-> [!WARNING]
-> **🚧 BETA VERSION — ACTIVE DEVELOPMENT 🚧**
->
-> This library is evolving rapidly. Public APIs may change without notice as the project matures.
-
 XAUI is a Flutter-inspired component system targeting React Native and hybrid web/native experiences within a Turborepo monorepo. The thematic core (`@xaui/core`) centralises tokens, dynamic theming, and motion primitives. Platform-specific packages build on that foundation to deliver native-ready components.
 
 **[Documentation → ui.xtartapp.com](https://ui.xtartapp.com)**
