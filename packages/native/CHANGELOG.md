@@ -1,5 +1,11 @@
 # @xaui/mobile
 
+## 0.1.3
+
+### Patch Changes
+
+- 3e55120: Restore `fullWidth` on `Column`, `Padding`, `Margin`, and `Center` with a simplified behavior that applies only `width: '100%'`. Keep default `flex: 1` layout behavior and update docs/types to match.
+
 ## 0.1.2
 
 ### Patch Changes

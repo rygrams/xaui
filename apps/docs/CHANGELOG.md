@@ -1,5 +1,12 @@
 # docs
 
+## 0.1.31
+
+### Patch Changes
+
+- Updated dependencies [3e55120]
+  - @xaui/native@0.1.3
+
 ## 0.1.30
 
 ### Patch Changes
