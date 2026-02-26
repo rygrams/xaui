@@ -1,5 +1,11 @@
 # @xaui/mobile
 
+## 0.1.5
+
+### Patch Changes
+
+- 3c14a26: Add a `lineHeight` prop to `Typography` so text line spacing can be controlled directly via component props.
+
 ## 0.1.4
 
 ### Patch Changes
