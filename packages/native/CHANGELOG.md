@@ -1,5 +1,11 @@
 # @xaui/mobile
 
+## 0.1.4
+
+### Patch Changes
+
+- c255280: Add `fullWidth` support to `SizedBox` with a simplified behavior that applies only `width: '100%'`, and allow string dimension values for `width`/`height` (`number | string`).
+
 ## 0.1.3
 
 ### Patch Changes
