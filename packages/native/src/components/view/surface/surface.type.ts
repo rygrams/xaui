@@ -26,6 +26,11 @@ export type SurfaceProps = {
    */
   radius?: Radius
   /**
+   * Force the surface to take the full width.
+   * @default false
+   */
+  fullWidth?: boolean
+  /**
    * Additional container styles.
    */
   style?: StyleProp<ViewStyle>

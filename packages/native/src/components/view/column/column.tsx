@@ -15,8 +15,8 @@ export const Column: React.FC<ColumnProps> = ({
 }) => {
   const gapStyle = spacing === undefined ? undefined : { gap: spacing }
   const fullWidthStyle = fullWidth
-    ? ({ flexShrink: 1, flexBasis: 'auto', width: '100%' } as ViewStyle)
-    : undefined
+    ? ({ flexShrink: 1, flexBasis: 'auto', width: '100%', flexGrow: 1 } as ViewStyle)
+    : { flexGrow: 1 }
 
   return (
     <View

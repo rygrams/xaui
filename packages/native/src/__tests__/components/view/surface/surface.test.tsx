@@ -42,4 +42,13 @@ describe('Surface Types', () => {
     expect(bg.themeColor).toBe('background')
     expect(fg.themeColor).toBe('foreground')
   })
+
+  it('supports fullWidth prop', () => {
+    const props: SurfaceProps = {
+      children: 'Content',
+      fullWidth: true,
+    }
+
+    expect(props.fullWidth).toBe(true)
+  })
 })
