@@ -14,6 +14,7 @@ export const Typography: React.FC<TypographyProps> = ({
   overflow = 'clip',
   color,
   letterSpacing,
+  lineHeight,
   fontWeight,
   fontStyle,
   textDecorationLine,
@@ -27,6 +28,7 @@ export const Typography: React.FC<TypographyProps> = ({
   const textStyleOverrides = {
     color: color ?? inheritedStyle.color ?? themeColorValue,
     letterSpacing,
+    lineHeight,
     fontWeight: fontWeight ?? inheritedStyle.fontWeight,
     fontStyle: fontStyle ?? inheritedStyle.fontStyle,
     textDecorationLine,
@@ -47,7 +49,9 @@ export const Typography: React.FC<TypographyProps> = ({
         variantStyles,
         resolvedAlign && { textAlign: resolvedAlign },
         textStyleOverrides,
-        inheritedStyle.spacing != null ? { marginRight: inheritedStyle.spacing } : undefined,
+        inheritedStyle.spacing != null
+          ? { marginRight: inheritedStyle.spacing }
+          : undefined,
         style,
       ]}
     >

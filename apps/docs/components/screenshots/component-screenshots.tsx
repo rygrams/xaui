@@ -9,6 +9,7 @@ import { BottomTabBarScreenshots } from './bottom-tab-bar-screenshots'
 import { ButtonScreenshots } from './button-screenshots'
 import { CardScreenshots } from './card-screenshots'
 import { CarouselScreenshots } from './carousel-screenshots'
+import { CenterScreenshots } from './center-screenshots'
 import { CheckboxScreenshots } from './checkbox-screenshots'
 import { ChipScreenshots } from './chip-screenshots'
 import { DateInputScreenshots } from './date-input-screenshots'
@@ -57,6 +58,7 @@ const screenshotsMap: Record<string, React.FC> = {
   button: ButtonScreenshots,
   card: CardScreenshots,
   carousel: CarouselScreenshots,
+  center: CenterScreenshots,
   checkbox: CheckboxScreenshots,
   chip: ChipScreenshots,
   'date-input': DateInputScreenshots,

@@ -61,6 +61,10 @@ export type TypographyProps = {
    */
   letterSpacing?: number
   /**
+   * Line height for the text.
+   */
+  lineHeight?: TextStyle['lineHeight']
+  /**
    * The text weight.
    */
   fontWeight?: TextStyle['fontWeight']
