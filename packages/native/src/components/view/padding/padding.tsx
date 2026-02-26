@@ -16,8 +16,8 @@ export const Padding: React.FC<PaddingProps> = ({
   style,
 }) => {
   const fullWidthStyle = fullWidth
-    ? ({ flexShrink: 1, flexBasis: 'auto', width: '100%' } as ViewStyle)
-    : undefined
+    ? ({ flexGrow: 1, flexShrink: 1, flexBasis: 'auto', width: '100%' } as ViewStyle)
+    : { flexGrow: 1 }
 
   return (
     <View

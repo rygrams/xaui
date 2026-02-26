@@ -1,18 +1,11 @@
 import React from 'react'
 import { View } from 'react-native'
 import type { ViewStyle } from 'react-native'
-import type { MarginProps } from './margin.type'
+import type { CenterProps } from './center.type'
 
-export const Margin: React.FC<MarginProps> = ({
+export const Center: React.FC<CenterProps> = ({
   children,
-  all,
-  horizontal,
-  vertical,
-  top,
-  right,
-  bottom,
-  left,
-  fullWidth,
+  fullWidth = false,
   style,
 }) => {
   const fullWidthStyle = fullWidth
@@ -23,13 +16,8 @@ export const Margin: React.FC<MarginProps> = ({
     <View
       style={[
         {
-          margin: all,
-          marginHorizontal: horizontal,
-          marginVertical: vertical,
-          marginTop: top,
-          marginRight: right,
-          marginBottom: bottom,
-          marginLeft: left,
+          alignItems: 'center',
+          justifyContent: 'center',
         },
         fullWidthStyle,
         style,
@@ -40,4 +28,4 @@ export const Margin: React.FC<MarginProps> = ({
   )
 }
 
-Margin.displayName = 'Margin'
+Center.displayName = 'Center'

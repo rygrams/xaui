@@ -23,6 +23,7 @@ export const Surface: React.FC<SurfaceProps> = ({
   themeColor = 'background',
   padding,
   radius = 'none',
+  fullWidth = false,
   style,
 }) => {
   const theme = useXUITheme()
@@ -33,8 +34,13 @@ export const Surface: React.FC<SurfaceProps> = ({
     <View
       style={[
         radiusStyle,
+        fullWidth && {
+          flexShrink: 1,
+          flexBasis: 'auto',
+          width: '100%',
+          flexGrow: 1,
+        },
         {
-          flex: 1,
           backgroundColor: background,
           padding,
         },
