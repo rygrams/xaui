@@ -9,9 +9,11 @@ export const Column: React.FC<ColumnProps> = ({
   crossAxisAlignment,
   spacing,
   reverse = false,
+  fullWidth,
   style,
 }) => {
   const gapStyle = spacing === undefined ? undefined : { gap: spacing }
+  const fullWidthStyle = fullWidth ? { width: '100%' as const } : undefined
 
   return (
     <View
@@ -22,6 +24,7 @@ export const Column: React.FC<ColumnProps> = ({
           justifyContent: resolveMainAxisAlignment(mainAxisAlignment),
           alignItems: resolveCrossAxisAlignment(crossAxisAlignment),
         },
+        fullWidthStyle,
         gapStyle,
         style,
       ]}

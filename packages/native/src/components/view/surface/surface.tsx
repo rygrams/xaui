@@ -34,11 +34,7 @@ export const Surface: React.FC<SurfaceProps> = ({
     <View
       style={[
         radiusStyle,
-        fullWidth && {
-          flexShrink: 1,
-          flexBasis: 'auto',
-          width: '100%',
-        },
+        fullWidth && { flexShrink: 1, flexBasis: 'auto', width: '100%' },
         {
           backgroundColor: background,
           padding,
