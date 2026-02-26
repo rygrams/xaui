@@ -37,7 +37,6 @@ export const RoundedView: React.FC<RoundedViewProps> = ({
         fullWidth && styles.fullWidth,
         backgroundColor && { backgroundColor },
         style,
-        { flexGrow: 1 },
       ]}
     >
       {children}
@@ -47,6 +46,7 @@ export const RoundedView: React.FC<RoundedViewProps> = ({
 
 const styles = StyleSheet.create({
   fullWidth: {
+    flexGrow: 1,
     flexShrink: 1,
     flexBasis: 'auto',
     width: '100%',
