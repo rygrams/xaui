@@ -35,11 +35,6 @@ export type PaddingProps = {
    */
   left?: number
   /**
-   * Whether the padding container should take the full width of its parent.
-   * @default false
-   */
-  fullWidth?: boolean
-  /**
    * Custom style for the padding container.
    */
   style?: StyleProp<ViewStyle>

@@ -31,22 +31,90 @@ export type ComponentPropsData = {
 export const componentPropsMap: Record<string, ComponentPropsData> = {
   alert: {
     props: [
-      { name: 'title', type: 'ReactNode', defaultValue: '-', description: 'Alert title' },
-      { name: 'description', type: 'ReactNode', defaultValue: '-', description: 'Alert description text' },
-      { name: 'icon', type: 'ReactNode', defaultValue: '-', description: 'Custom icon element' },
-      { name: 'themeColor', type: '"default" | "primary" | "secondary" | "tertiary" | "danger" | "warning" | "success"', defaultValue: '"primary"', description: 'Color theme' },
-      { name: 'variant', type: '"solid" | "bordered" | "flat" | "faded"', defaultValue: '"flat"', description: 'Visual style variant' },
-      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Border radius' },
-      { name: 'isClosable', type: 'boolean', defaultValue: 'false', description: 'Show close button' },
-      { name: 'hideIcon', type: 'boolean', defaultValue: 'false', description: 'Hide the status icon' },
-      { name: 'closeButton', type: 'ReactNode', defaultValue: '-', description: 'Custom close button element' },
-      { name: 'isVisible', type: 'boolean', defaultValue: 'true', description: 'Controlled visibility' },
-      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Additional content inside the alert' },
-      { name: 'customAppearance', type: '{ container?: ViewStyle; title?: TextStyle; description?: TextStyle }', defaultValue: '-', description: 'Custom style overrides' },
+      {
+        name: 'title',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Alert title',
+      },
+      {
+        name: 'description',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Alert description text',
+      },
+      {
+        name: 'icon',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Custom icon element',
+      },
+      {
+        name: 'themeColor',
+        type: '"default" | "primary" | "secondary" | "tertiary" | "danger" | "warning" | "success"',
+        defaultValue: '"primary"',
+        description: 'Color theme',
+      },
+      {
+        name: 'variant',
+        type: '"solid" | "bordered" | "flat" | "faded"',
+        defaultValue: '"flat"',
+        description: 'Visual style variant',
+      },
+      {
+        name: 'radius',
+        type: '"none" | "sm" | "md" | "lg" | "full"',
+        defaultValue: '"md"',
+        description: 'Border radius',
+      },
+      {
+        name: 'isClosable',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Show close button',
+      },
+      {
+        name: 'hideIcon',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Hide the status icon',
+      },
+      {
+        name: 'closeButton',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Custom close button element',
+      },
+      {
+        name: 'isVisible',
+        type: 'boolean',
+        defaultValue: 'true',
+        description: 'Controlled visibility',
+      },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Additional content inside the alert',
+      },
+      {
+        name: 'customAppearance',
+        type: '{ container?: ViewStyle; title?: TextStyle; description?: TextStyle }',
+        defaultValue: '-',
+        description: 'Custom style overrides',
+      },
     ],
     events: [
-      { name: 'onClose', type: '() => void', description: 'Called when the alert is closed' },
-      { name: 'onVisibleChange', type: '(isVisible: boolean) => void', description: 'Called when visibility changes' },
+      {
+        name: 'onClose',
+        type: '() => void',
+        description: 'Called when the alert is closed',
+      },
+      {
+        name: 'onVisibleChange',
+        type: '(isVisible: boolean) => void',
+        description: 'Called when visibility changes',
+      },
     ],
     examples: [
       {
@@ -127,11 +195,40 @@ export function CustomIconExample() {
 
   'app-bar': {
     props: [
-      { name: 'variant', type: '"docked" | "floating"', defaultValue: '"docked"', description: 'Layout variant. Docked spans full width with no radius; floating is narrower with a pill radius and a shadow' },
-      { name: 'elevation', type: 'number', defaultValue: '0', description: 'Shadow elevation level (0–4+). Maps to theme shadow tokens: sm ≤1, md ≤2, lg ≤3, xl >3' },
-      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"default"', description: 'Color theme. Default uses white (light) or surface (dark) background with a subtle border' },
-      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Compose using AppBarStartContent, AppBarContent, and AppBarEndContent slots' },
-      { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Additional styles applied to the root container' },
+      {
+        name: 'variant',
+        type: '"docked" | "floating"',
+        defaultValue: '"docked"',
+        description:
+          'Layout variant. Docked spans full width with no radius; floating is narrower with a pill radius and a shadow',
+      },
+      {
+        name: 'elevation',
+        type: 'number',
+        defaultValue: '0',
+        description:
+          'Shadow elevation level (0–4+). Maps to theme shadow tokens: sm ≤1, md ≤2, lg ≤3, xl >3',
+      },
+      {
+        name: 'themeColor',
+        type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+        defaultValue: '"default"',
+        description:
+          'Color theme. Default uses white (light) or surface (dark) background with a subtle border',
+      },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description:
+          'Compose using AppBarStartContent, AppBarContent, and AppBarEndContent slots',
+      },
+      {
+        name: 'style',
+        type: 'StyleProp<ViewStyle>',
+        defaultValue: '-',
+        description: 'Additional styles applied to the root container',
+      },
     ],
     examples: [
       {
@@ -263,23 +360,61 @@ export function ElevationExample() {
       {
         name: 'AppBarStartContent',
         props: [
-          { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Content rendered at the leading edge (left). Typically a back button or menu icon' },
-          { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Additional styles' },
+          {
+            name: 'children',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description:
+              'Content rendered at the leading edge (left). Typically a back button or menu icon',
+          },
+          {
+            name: 'style',
+            type: 'StyleProp<ViewStyle>',
+            defaultValue: '-',
+            description: 'Additional styles',
+          },
         ],
       },
       {
         name: 'AppBarContent',
         props: [
-          { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Main content area. Centred and takes all available space between start and end slots' },
-          { name: 'alignment', type: '"start" | "center" | "end"', defaultValue: '"center"', description: 'Horizontal alignment of content inside the content slot' },
-          { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Additional styles' },
+          {
+            name: 'children',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description:
+              'Main content area. Centred and takes all available space between start and end slots',
+          },
+          {
+            name: 'alignment',
+            type: '"start" | "center" | "end"',
+            defaultValue: '"center"',
+            description: 'Horizontal alignment of content inside the content slot',
+          },
+          {
+            name: 'style',
+            type: 'StyleProp<ViewStyle>',
+            defaultValue: '-',
+            description: 'Additional styles',
+          },
         ],
       },
       {
         name: 'AppBarEndContent',
         props: [
-          { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Content rendered at the trailing edge (right). Typically action icon buttons' },
-          { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Additional styles' },
+          {
+            name: 'children',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description:
+              'Content rendered at the trailing edge (right). Typically action icon buttons',
+          },
+          {
+            name: 'style',
+            type: 'StyleProp<ViewStyle>',
+            defaultValue: '-',
+            description: 'Additional styles',
+          },
         ],
       },
     ],
@@ -287,37 +422,176 @@ export function ElevationExample() {
 
   autocomplete: {
     props: [
-      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'AutocompleteItem children' },
-      { name: 'variant', type: '"outlined" | "flat" | "light" | "faded" | "underlined"', defaultValue: '"outlined"', description: 'Visual style variant' },
-      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
-      { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Component size' },
-      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Border radius' },
-      { name: 'placeholder', type: 'string', defaultValue: '-', description: 'Input placeholder text' },
-      { name: 'label', type: 'ReactNode', defaultValue: '-', description: 'Field label' },
-      { name: 'description', type: 'ReactNode', defaultValue: '-', description: 'Helper text below the field' },
-      { name: 'errorMessage', type: 'ReactNode', defaultValue: '-', description: 'Error message when invalid' },
-      { name: 'startContent', type: 'ReactNode', defaultValue: '-', description: 'Element rendered at the start of the input' },
-      { name: 'endContent', type: 'ReactNode', defaultValue: '-', description: 'Element rendered at the end of the input' },
-      { name: 'labelPlacement', type: '"inside" | "outside" | "outside-left" | "outside-top"', defaultValue: '"inside"', description: 'Position of the label' },
-      { name: 'fullWidth', type: 'boolean', defaultValue: 'false', description: 'Expand to full container width' },
-      { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable interaction' },
-      { name: 'isInvalid', type: 'boolean', defaultValue: 'false', description: 'Mark field as invalid' },
-      { name: 'isReadOnly', type: 'boolean', defaultValue: 'false', description: 'Read-only mode' },
-      { name: 'isClearable', type: 'boolean', defaultValue: 'false', description: 'Show clear button' },
-      { name: 'allowsCustomValue', type: 'boolean', defaultValue: 'false', description: 'Allow values not in the list' },
-      { name: 'inputValue', type: 'string', defaultValue: '-', description: 'Controlled input text' },
-      { name: 'defaultInputValue', type: 'string', defaultValue: '-', description: 'Default input text (uncontrolled)' },
-      { name: 'menuTrigger', type: '"focus" | "input" | "manual"', defaultValue: '"input"', description: 'When to open suggestions' },
-      { name: 'disableAnimation', type: 'boolean', defaultValue: 'false', description: 'Disable transition animations' },
-      { name: 'customAppearance', type: 'AutocompleteCustomAppearance', defaultValue: '-', description: 'Custom style overrides' },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'AutocompleteItem children',
+      },
+      {
+        name: 'variant',
+        type: '"outlined" | "flat" | "light" | "faded" | "underlined"',
+        defaultValue: '"outlined"',
+        description: 'Visual style variant',
+      },
+      {
+        name: 'themeColor',
+        type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+        defaultValue: '"primary"',
+        description: 'Color theme',
+      },
+      {
+        name: 'size',
+        type: '"sm" | "md" | "lg"',
+        defaultValue: '"md"',
+        description: 'Component size',
+      },
+      {
+        name: 'radius',
+        type: '"none" | "sm" | "md" | "lg" | "full"',
+        defaultValue: '"md"',
+        description: 'Border radius',
+      },
+      {
+        name: 'placeholder',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Input placeholder text',
+      },
+      {
+        name: 'label',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Field label',
+      },
+      {
+        name: 'description',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Helper text below the field',
+      },
+      {
+        name: 'errorMessage',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Error message when invalid',
+      },
+      {
+        name: 'startContent',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Element rendered at the start of the input',
+      },
+      {
+        name: 'endContent',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Element rendered at the end of the input',
+      },
+      {
+        name: 'labelPlacement',
+        type: '"inside" | "outside" | "outside-left" | "outside-top"',
+        defaultValue: '"inside"',
+        description: 'Position of the label',
+      },
+      {
+        name: 'fullWidth',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Expand to full container width',
+      },
+      {
+        name: 'isDisabled',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Disable interaction',
+      },
+      {
+        name: 'isInvalid',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Mark field as invalid',
+      },
+      {
+        name: 'isReadOnly',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Read-only mode',
+      },
+      {
+        name: 'isClearable',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Show clear button',
+      },
+      {
+        name: 'allowsCustomValue',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Allow values not in the list',
+      },
+      {
+        name: 'inputValue',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Controlled input text',
+      },
+      {
+        name: 'defaultInputValue',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Default input text (uncontrolled)',
+      },
+      {
+        name: 'menuTrigger',
+        type: '"focus" | "input" | "manual"',
+        defaultValue: '"input"',
+        description: 'When to open suggestions',
+      },
+      {
+        name: 'disableAnimation',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Disable transition animations',
+      },
+      {
+        name: 'customAppearance',
+        type: 'AutocompleteCustomAppearance',
+        defaultValue: '-',
+        description: 'Custom style overrides',
+      },
     ],
     events: [
-      { name: 'onSelectionChange', type: '(key: string | null) => void', description: 'Called when an item is selected' },
-      { name: 'onInputChange', type: '(value: string) => void', description: 'Called when the input text changes' },
-      { name: 'onOpenChange', type: '(isOpen: boolean) => void', description: 'Called when the dropdown opens or closes' },
-      { name: 'onClear', type: '() => void', description: 'Called when the clear button is pressed' },
-      { name: 'onFocus', type: '() => void', description: 'Called when the input gains focus' },
-      { name: 'onBlur', type: '() => void', description: 'Called when the input loses focus' },
+      {
+        name: 'onSelectionChange',
+        type: '(key: string | null) => void',
+        description: 'Called when an item is selected',
+      },
+      {
+        name: 'onInputChange',
+        type: '(value: string) => void',
+        description: 'Called when the input text changes',
+      },
+      {
+        name: 'onOpenChange',
+        type: '(isOpen: boolean) => void',
+        description: 'Called when the dropdown opens or closes',
+      },
+      {
+        name: 'onClear',
+        type: '() => void',
+        description: 'Called when the clear button is pressed',
+      },
+      {
+        name: 'onFocus',
+        type: '() => void',
+        description: 'Called when the input gains focus',
+      },
+      {
+        name: 'onBlur',
+        type: '() => void',
+        description: 'Called when the input loses focus',
+      },
     ],
     examples: [
       {
@@ -431,15 +705,49 @@ export function CustomValueExample() {
       {
         name: 'AutocompleteItem',
         props: [
-          { name: 'label', type: 'ReactNode', defaultValue: '-', description: 'Display label' },
-          { name: 'value', type: 'string', defaultValue: '-', description: 'Unique value for selection' },
-          { name: 'description', type: 'ReactNode', defaultValue: '-', description: 'Secondary description text' },
-          { name: 'startContent', type: 'ReactNode', defaultValue: '-', description: 'Element at start of item' },
-          { name: 'endContent', type: 'ReactNode', defaultValue: '-', description: 'Element at end of item' },
-          { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable this item' },
+          {
+            name: 'label',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Display label',
+          },
+          {
+            name: 'value',
+            type: 'string',
+            defaultValue: '-',
+            description: 'Unique value for selection',
+          },
+          {
+            name: 'description',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Secondary description text',
+          },
+          {
+            name: 'startContent',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Element at start of item',
+          },
+          {
+            name: 'endContent',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Element at end of item',
+          },
+          {
+            name: 'isDisabled',
+            type: 'boolean',
+            defaultValue: 'false',
+            description: 'Disable this item',
+          },
         ],
         events: [
-          { name: 'onSelected', type: '() => void', description: 'Called when the item is selected' },
+          {
+            name: 'onSelected',
+            type: '() => void',
+            description: 'Called when the item is selected',
+          },
         ],
       },
     ],
@@ -447,18 +755,78 @@ export function CustomValueExample() {
 
   avatar: {
     props: [
-      { name: 'src', type: 'string', defaultValue: '-', description: 'Image source URL' },
-      { name: 'name', type: 'string', defaultValue: '-', description: 'Name used to generate initials fallback' },
-      { name: 'icon', type: 'ReactNode', defaultValue: '-', description: 'Custom icon fallback' },
-      { name: 'fallback', type: 'ReactNode', defaultValue: '-', description: 'Custom fallback element' },
-      { name: 'size', type: '"sm" | "md" | "lg" | number', defaultValue: '"md"', description: 'Avatar size' },
-      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"full"', description: 'Border radius' },
-      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme for initials background' },
-      { name: 'isBordered', type: 'boolean', defaultValue: 'false', description: 'Show a border ring' },
-      { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Apply disabled appearance' },
-      { name: 'showFallback', type: 'boolean', defaultValue: 'false', description: 'Force display of fallback' },
-      { name: 'getInitials', type: '(name: string) => string', defaultValue: '-', description: 'Custom initials generator' },
-      { name: 'customAppearance', type: '{ container?: ViewStyle; image?: ImageStyle; text?: TextStyle }', defaultValue: '-', description: 'Custom style overrides' },
+      {
+        name: 'src',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Image source URL',
+      },
+      {
+        name: 'name',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Name used to generate initials fallback',
+      },
+      {
+        name: 'icon',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Custom icon fallback',
+      },
+      {
+        name: 'fallback',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Custom fallback element',
+      },
+      {
+        name: 'size',
+        type: '"sm" | "md" | "lg" | number',
+        defaultValue: '"md"',
+        description: 'Avatar size',
+      },
+      {
+        name: 'radius',
+        type: '"none" | "sm" | "md" | "lg" | "full"',
+        defaultValue: '"full"',
+        description: 'Border radius',
+      },
+      {
+        name: 'themeColor',
+        type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+        defaultValue: '"primary"',
+        description: 'Color theme for initials background',
+      },
+      {
+        name: 'isBordered',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Show a border ring',
+      },
+      {
+        name: 'isDisabled',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Apply disabled appearance',
+      },
+      {
+        name: 'showFallback',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Force display of fallback',
+      },
+      {
+        name: 'getInitials',
+        type: '(name: string) => string',
+        defaultValue: '-',
+        description: 'Custom initials generator',
+      },
+      {
+        name: 'customAppearance',
+        type: '{ container?: ViewStyle; image?: ImageStyle; text?: TextStyle }',
+        defaultValue: '-',
+        description: 'Custom style overrides',
+      },
     ],
     examples: [
       {
@@ -477,7 +845,8 @@ export function AvatarImageExample() {
       },
       {
         title: 'Initials fallback',
-        description: 'When `src` is absent, `name` generates initials automatically.',
+        description:
+          'When `src` is absent, `name` generates initials automatically.',
         code: `import { Avatar } from '@xaui/native/avatar'
 import { Row } from '@xaui/native/view'
 
@@ -627,17 +996,72 @@ export function AvatarCustomAppearanceExample() {
 
   'avatar-group': {
     props: [
-      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Avatar children' },
-      { name: 'max', type: 'number', defaultValue: '-', description: 'Maximum avatars visible before overflow count' },
-      { name: 'total', type: 'number', defaultValue: '-', description: 'Total count used for overflow label (overrides auto-count)' },
-      { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Size applied to all avatars' },
-      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"full"', description: 'Radius applied to all avatars' },
-      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme for overflow count badge' },
-      { name: 'isBordered', type: 'boolean', defaultValue: 'false', description: 'Border ring on all avatars' },
-      { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Apply disabled appearance to all avatars' },
-      { name: 'isGrid', type: 'boolean', defaultValue: 'false', description: 'Render as a grid instead of stacked' },
-      { name: 'renderCount', type: '(count: number) => ReactNode', defaultValue: '-', description: 'Custom overflow count renderer' },
-      { name: 'customAppearance', type: '{ container?: ViewStyle }', defaultValue: '-', description: 'Custom container styles' },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Avatar children',
+      },
+      {
+        name: 'max',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Maximum avatars visible before overflow count',
+      },
+      {
+        name: 'total',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Total count used for overflow label (overrides auto-count)',
+      },
+      {
+        name: 'size',
+        type: '"sm" | "md" | "lg"',
+        defaultValue: '"md"',
+        description: 'Size applied to all avatars',
+      },
+      {
+        name: 'radius',
+        type: '"none" | "sm" | "md" | "lg" | "full"',
+        defaultValue: '"full"',
+        description: 'Radius applied to all avatars',
+      },
+      {
+        name: 'themeColor',
+        type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+        defaultValue: '"primary"',
+        description: 'Color theme for overflow count badge',
+      },
+      {
+        name: 'isBordered',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Border ring on all avatars',
+      },
+      {
+        name: 'isDisabled',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Apply disabled appearance to all avatars',
+      },
+      {
+        name: 'isGrid',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Render as a grid instead of stacked',
+      },
+      {
+        name: 'renderCount',
+        type: '(count: number) => ReactNode',
+        defaultValue: '-',
+        description: 'Custom overflow count renderer',
+      },
+      {
+        name: 'customAppearance',
+        type: '{ container?: ViewStyle }',
+        defaultValue: '-',
+        description: 'Custom container styles',
+      },
     ],
     examples: [
       {
@@ -658,7 +1082,8 @@ export function AvatarGroupBasicExample() {
       },
       {
         title: 'Max — overflow count',
-        description: 'Limit visible avatars with `max`. The rest shows as a count badge.',
+        description:
+          'Limit visible avatars with `max`. The rest shows as a count badge.',
         code: `import { Avatar, AvatarGroup } from '@xaui/native/avatar'
 
 export function AvatarGroupMaxExample() {
@@ -723,7 +1148,8 @@ export function AvatarGroupGridExample() {
       },
       {
         title: 'Custom overflow renderer',
-        description: 'Render the overflow badge exactly as you want with `renderCount`.',
+        description:
+          'Render the overflow badge exactly as you want with `renderCount`.',
         code: `import { Avatar, AvatarGroup } from '@xaui/native/avatar'
 
 export function AvatarGroupRenderCountExample() {
@@ -749,20 +1175,92 @@ export function AvatarGroupRenderCountExample() {
 
   badge: {
     props: [
-      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Element the badge is anchored to. Badge is absolutely positioned over its corner' },
-      { name: 'content', type: 'ReactNode', defaultValue: '-', description: 'Badge label or count. Omit when using isDot' },
-      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
-      { name: 'variant', type: '"solid" | "flat" | "faded" | "shadow"', defaultValue: '"solid"', description: 'Visual style variant' },
-      { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Badge size (sm: 16px, md: 20px, lg: 24px height)' },
-      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"full"', description: 'Border radius' },
-      { name: 'placement', type: '"top-right" | "top-left" | "bottom-right" | "bottom-left"', defaultValue: '"top-right"', description: 'Corner the badge is anchored to' },
-      { name: 'showOutline', type: 'boolean', defaultValue: 'true', description: 'Show white outline ring between badge and its parent' },
-      { name: 'disableOutline', type: 'boolean', defaultValue: 'false', description: 'Force-remove the outline even when showOutline is true' },
-      { name: 'isInvisible', type: 'boolean', defaultValue: 'false', description: 'Hide the badge while preserving layout' },
-      { name: 'isDot', type: 'boolean', defaultValue: 'false', description: 'Render as a small dot with no content (sm: 8px, md: 10px, lg: 12px)' },
-      { name: 'isOneChar', type: 'boolean', defaultValue: 'false', description: 'Optimise layout for a single character (e.g. "9")' },
-      { name: 'disableAnimation', type: 'boolean', defaultValue: 'false', description: 'Disable the entrance scale animation' },
-      { name: 'customAppearance', type: '{ container?: ViewStyle; badge?: ViewStyle; text?: TextStyle }', defaultValue: '-', description: 'Custom style overrides for container, badge pill, and text' },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description:
+          'Element the badge is anchored to. Badge is absolutely positioned over its corner',
+      },
+      {
+        name: 'content',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Badge label or count. Omit when using isDot',
+      },
+      {
+        name: 'themeColor',
+        type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+        defaultValue: '"primary"',
+        description: 'Color theme',
+      },
+      {
+        name: 'variant',
+        type: '"solid" | "flat" | "faded" | "shadow"',
+        defaultValue: '"solid"',
+        description: 'Visual style variant',
+      },
+      {
+        name: 'size',
+        type: '"sm" | "md" | "lg"',
+        defaultValue: '"md"',
+        description: 'Badge size (sm: 16px, md: 20px, lg: 24px height)',
+      },
+      {
+        name: 'radius',
+        type: '"none" | "sm" | "md" | "lg" | "full"',
+        defaultValue: '"full"',
+        description: 'Border radius',
+      },
+      {
+        name: 'placement',
+        type: '"top-right" | "top-left" | "bottom-right" | "bottom-left"',
+        defaultValue: '"top-right"',
+        description: 'Corner the badge is anchored to',
+      },
+      {
+        name: 'showOutline',
+        type: 'boolean',
+        defaultValue: 'true',
+        description: 'Show white outline ring between badge and its parent',
+      },
+      {
+        name: 'disableOutline',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Force-remove the outline even when showOutline is true',
+      },
+      {
+        name: 'isInvisible',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Hide the badge while preserving layout',
+      },
+      {
+        name: 'isDot',
+        type: 'boolean',
+        defaultValue: 'false',
+        description:
+          'Render as a small dot with no content (sm: 8px, md: 10px, lg: 12px)',
+      },
+      {
+        name: 'isOneChar',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Optimise layout for a single character (e.g. "9")',
+      },
+      {
+        name: 'disableAnimation',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Disable the entrance scale animation',
+      },
+      {
+        name: 'customAppearance',
+        type: '{ container?: ViewStyle; badge?: ViewStyle; text?: TextStyle }',
+        defaultValue: '-',
+        description: 'Custom style overrides for container, badge pill, and text',
+      },
     ],
     examples: [
       {
@@ -885,23 +1383,98 @@ export function VisibilityExample() {
 
   'bottom-sheet': {
     props: [
-      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Content rendered inside the sheet' },
-      { name: 'isOpen', type: 'boolean', defaultValue: '-', description: 'Controls whether the sheet is open' },
-      { name: 'snapPoints', type: '[number, ...number[]]', defaultValue: '[0.4, 0.9]', description: 'Array of snap heights as a fraction of the screen (0–1). First value is the collapsed height, subsequent values are expanded heights' },
-      { name: 'initialSnapIndex', type: 'number', defaultValue: '0', description: 'Index into snapPoints to open at' },
-      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"default"', description: 'Color theme applied to the sheet surface' },
-      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"lg"', description: 'Top corner radius of the sheet' },
-      { name: 'showBackdrop', type: 'boolean', defaultValue: 'true', description: 'Show a semi-transparent backdrop behind the sheet' },
-      { name: 'closeOnBackdropPress', type: 'boolean', defaultValue: 'true', description: 'Dismiss the sheet when the backdrop is pressed' },
-      { name: 'enableSwipeToDismiss', type: 'boolean', defaultValue: 'true', description: 'Allow swiping down past the first snap point to close' },
-      { name: 'showHandle', type: 'boolean', defaultValue: 'true', description: 'Show the drag handle pill at the top of the sheet' },
-      { name: 'handleContent', type: 'ReactNode', defaultValue: '-', description: 'Replace the default handle with a custom element' },
-      { name: 'disableAnimation', type: 'boolean', defaultValue: 'false', description: 'Disable all open/close/snap animations' },
-      { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Additional styles applied to the sheet surface' },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Content rendered inside the sheet',
+      },
+      {
+        name: 'isOpen',
+        type: 'boolean',
+        defaultValue: '-',
+        description: 'Controls whether the sheet is open',
+      },
+      {
+        name: 'snapPoints',
+        type: '[number, ...number[]]',
+        defaultValue: '[0.4, 0.9]',
+        description:
+          'Array of snap heights as a fraction of the screen (0–1). First value is the collapsed height, subsequent values are expanded heights',
+      },
+      {
+        name: 'initialSnapIndex',
+        type: 'number',
+        defaultValue: '0',
+        description: 'Index into snapPoints to open at',
+      },
+      {
+        name: 'themeColor',
+        type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+        defaultValue: '"default"',
+        description: 'Color theme applied to the sheet surface',
+      },
+      {
+        name: 'radius',
+        type: '"none" | "sm" | "md" | "lg" | "full"',
+        defaultValue: '"lg"',
+        description: 'Top corner radius of the sheet',
+      },
+      {
+        name: 'showBackdrop',
+        type: 'boolean',
+        defaultValue: 'true',
+        description: 'Show a semi-transparent backdrop behind the sheet',
+      },
+      {
+        name: 'closeOnBackdropPress',
+        type: 'boolean',
+        defaultValue: 'true',
+        description: 'Dismiss the sheet when the backdrop is pressed',
+      },
+      {
+        name: 'enableSwipeToDismiss',
+        type: 'boolean',
+        defaultValue: 'true',
+        description: 'Allow swiping down past the first snap point to close',
+      },
+      {
+        name: 'showHandle',
+        type: 'boolean',
+        defaultValue: 'true',
+        description: 'Show the drag handle pill at the top of the sheet',
+      },
+      {
+        name: 'handleContent',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Replace the default handle with a custom element',
+      },
+      {
+        name: 'disableAnimation',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Disable all open/close/snap animations',
+      },
+      {
+        name: 'style',
+        type: 'ViewStyle',
+        defaultValue: '-',
+        description: 'Additional styles applied to the sheet surface',
+      },
     ],
     events: [
-      { name: 'onClose', type: '() => void', description: 'Called when the sheet is fully dismissed' },
-      { name: 'onSnapChange', type: '(index: number) => void', description: 'Called when the sheet snaps to a new point, with the snap index' },
+      {
+        name: 'onClose',
+        type: '() => void',
+        description: 'Called when the sheet is fully dismissed',
+      },
+      {
+        name: 'onSnapChange',
+        type: '(index: number) => void',
+        description:
+          'Called when the sheet snaps to a new point, with the snap index',
+      },
     ],
     examples: [
       {
@@ -1058,23 +1631,103 @@ export function ThemeColorsExample() {
 
   'bottom-tab-bar': {
     props: [
-      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'BottomTabBarItem children (composable mode)' },
-      { name: 'selectedKey', type: 'string', defaultValue: '-', description: 'Controlled selected tab key' },
-      { name: 'defaultSelectedKey', type: 'string', defaultValue: '-', description: 'Initial selected key for uncontrolled usage' },
-      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme applied to the active indicator, active icon, and active label' },
-      { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Component size (sm: 68px, md: 78px, lg: 86px min-height)' },
-      { name: 'variant', type: '"stacked" | "inline" | "icon-only"', defaultValue: '"stacked"', description: 'Layout variant: stacked places label below icon, inline places it beside, icon-only hides labels' },
-      { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable all tab items at once' },
-      { name: 'showLabel', type: 'boolean', defaultValue: 'true', description: 'Show or hide labels on all items. Individual items can override this' },
-      { name: 'insetBottom', type: 'number', defaultValue: '0', description: 'Extra bottom padding for safe-area insets (e.g. iPhone home indicator)' },
-      { name: 'activeColor', type: 'string', defaultValue: '-', description: 'Override active icon and label colour for all items' },
-      { name: 'inactiveColor', type: 'string', defaultValue: '-', description: 'Override inactive icon and label colour for all items' },
-      { name: 'indicatorColor', type: 'string', defaultValue: '-', description: 'Override the selected-state pill indicator colour for all items' },
-      { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Additional styles for the root container' },
-      { name: 'customAppearance', type: '{ container?: StyleProp<ViewStyle> }', defaultValue: '-', description: 'Fine-grained style overrides for the container' },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'BottomTabBarItem children (composable mode)',
+      },
+      {
+        name: 'selectedKey',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Controlled selected tab key',
+      },
+      {
+        name: 'defaultSelectedKey',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Initial selected key for uncontrolled usage',
+      },
+      {
+        name: 'themeColor',
+        type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+        defaultValue: '"primary"',
+        description:
+          'Color theme applied to the active indicator, active icon, and active label',
+      },
+      {
+        name: 'size',
+        type: '"sm" | "md" | "lg"',
+        defaultValue: '"md"',
+        description: 'Component size (sm: 68px, md: 78px, lg: 86px min-height)',
+      },
+      {
+        name: 'variant',
+        type: '"stacked" | "inline" | "icon-only"',
+        defaultValue: '"stacked"',
+        description:
+          'Layout variant: stacked places label below icon, inline places it beside, icon-only hides labels',
+      },
+      {
+        name: 'isDisabled',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Disable all tab items at once',
+      },
+      {
+        name: 'showLabel',
+        type: 'boolean',
+        defaultValue: 'true',
+        description:
+          'Show or hide labels on all items. Individual items can override this',
+      },
+      {
+        name: 'insetBottom',
+        type: 'number',
+        defaultValue: '0',
+        description:
+          'Extra bottom padding for safe-area insets (e.g. iPhone home indicator)',
+      },
+      {
+        name: 'activeColor',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Override active icon and label colour for all items',
+      },
+      {
+        name: 'inactiveColor',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Override inactive icon and label colour for all items',
+      },
+      {
+        name: 'indicatorColor',
+        type: 'string',
+        defaultValue: '-',
+        description:
+          'Override the selected-state pill indicator colour for all items',
+      },
+      {
+        name: 'style',
+        type: 'StyleProp<ViewStyle>',
+        defaultValue: '-',
+        description: 'Additional styles for the root container',
+      },
+      {
+        name: 'customAppearance',
+        type: '{ container?: StyleProp<ViewStyle> }',
+        defaultValue: '-',
+        description: 'Fine-grained style overrides for the container',
+      },
     ],
     events: [
-      { name: 'onSelectionChange', type: '(key: string) => void', description: 'Called when a tab is selected, receiving the itemKey of the pressed item' },
+      {
+        name: 'onSelectionChange',
+        type: '(key: string) => void',
+        description:
+          'Called when a tab is selected, receiving the itemKey of the pressed item',
+      },
     ],
     examples: [
       {
@@ -1266,7 +1919,8 @@ export function ActiveIconExample() {
       },
       {
         title: 'Expo Router Integration',
-        description: 'Pass expo-router tab props directly to replace the default tab bar.',
+        description:
+          'Pass expo-router tab props directly to replace the default tab bar.',
         code: `import { Tabs } from 'expo-router'
 import { BottomTabBar } from '@xaui/native/bottom-tab-bar'
 import { HomeIcon } from '@xaui/icons/home'
@@ -1308,25 +1962,117 @@ export default function TabLayout() {
       {
         name: 'BottomTabBarItem',
         props: [
-          { name: 'itemKey', type: 'string', defaultValue: '-', description: 'Unique identifier used to track selection. Must be unique within the bar' },
-          { name: 'label', type: 'ReactNode', defaultValue: '-', description: 'Label text or element. Also accepts a render function with (focused, color, position) params' },
-          { name: 'icon', type: 'ReactNode | (params: BottomTabBarIconRenderParams) => ReactNode', defaultValue: '-', description: 'Icon element or render function receiving focused, color, and size' },
-          { name: 'activeIcon', type: 'ReactNode | (params: BottomTabBarIconRenderParams) => ReactNode', defaultValue: '-', description: 'Alternate icon shown when the item is selected. Falls back to icon if omitted' },
-          { name: 'badge', type: 'ReactNode', defaultValue: '-', description: 'Badge element anchored top-right of the icon (use the Badge component)' },
-          { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable this specific item. Renders at 50% opacity and ignores press events' },
-          { name: 'isSelected', type: 'boolean', defaultValue: '-', description: 'Force the selected state independent of the parent bar (standalone mode)' },
-          { name: 'showLabel', type: 'boolean', defaultValue: '-', description: 'Override the parent bar showLabel for this item only' },
-          { name: 'activeColor', type: 'string', defaultValue: '-', description: 'Per-item active icon and label colour override' },
-          { name: 'inactiveColor', type: 'string', defaultValue: '-', description: 'Per-item inactive icon and label colour override' },
-          { name: 'indicatorColor', type: 'string', defaultValue: '-', description: 'Per-item selection indicator colour override' },
-          { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Additional styles for the item pressable container' },
-          { name: 'customAppearance', type: '{ container?: StyleProp<ViewStyle>; indicator?: StyleProp<ViewStyle>; label?: StyleProp<TextStyle> }', defaultValue: '-', description: 'Fine-grained style overrides for container, pill indicator, and label' },
-          { name: 'accessibilityLabel', type: 'string', defaultValue: '-', description: 'Accessibility label for screen readers' },
-          { name: 'testID', type: 'string', defaultValue: '-', description: 'Test identifier for end-to-end testing' },
+          {
+            name: 'itemKey',
+            type: 'string',
+            defaultValue: '-',
+            description:
+              'Unique identifier used to track selection. Must be unique within the bar',
+          },
+          {
+            name: 'label',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description:
+              'Label text or element. Also accepts a render function with (focused, color, position) params',
+          },
+          {
+            name: 'icon',
+            type: 'ReactNode | (params: BottomTabBarIconRenderParams) => ReactNode',
+            defaultValue: '-',
+            description:
+              'Icon element or render function receiving focused, color, and size',
+          },
+          {
+            name: 'activeIcon',
+            type: 'ReactNode | (params: BottomTabBarIconRenderParams) => ReactNode',
+            defaultValue: '-',
+            description:
+              'Alternate icon shown when the item is selected. Falls back to icon if omitted',
+          },
+          {
+            name: 'badge',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description:
+              'Badge element anchored top-right of the icon (use the Badge component)',
+          },
+          {
+            name: 'isDisabled',
+            type: 'boolean',
+            defaultValue: 'false',
+            description:
+              'Disable this specific item. Renders at 50% opacity and ignores press events',
+          },
+          {
+            name: 'isSelected',
+            type: 'boolean',
+            defaultValue: '-',
+            description:
+              'Force the selected state independent of the parent bar (standalone mode)',
+          },
+          {
+            name: 'showLabel',
+            type: 'boolean',
+            defaultValue: '-',
+            description: 'Override the parent bar showLabel for this item only',
+          },
+          {
+            name: 'activeColor',
+            type: 'string',
+            defaultValue: '-',
+            description: 'Per-item active icon and label colour override',
+          },
+          {
+            name: 'inactiveColor',
+            type: 'string',
+            defaultValue: '-',
+            description: 'Per-item inactive icon and label colour override',
+          },
+          {
+            name: 'indicatorColor',
+            type: 'string',
+            defaultValue: '-',
+            description: 'Per-item selection indicator colour override',
+          },
+          {
+            name: 'style',
+            type: 'StyleProp<ViewStyle>',
+            defaultValue: '-',
+            description: 'Additional styles for the item pressable container',
+          },
+          {
+            name: 'customAppearance',
+            type: '{ container?: StyleProp<ViewStyle>; indicator?: StyleProp<ViewStyle>; label?: StyleProp<TextStyle> }',
+            defaultValue: '-',
+            description:
+              'Fine-grained style overrides for container, pill indicator, and label',
+          },
+          {
+            name: 'accessibilityLabel',
+            type: 'string',
+            defaultValue: '-',
+            description: 'Accessibility label for screen readers',
+          },
+          {
+            name: 'testID',
+            type: 'string',
+            defaultValue: '-',
+            description: 'Test identifier for end-to-end testing',
+          },
         ],
         events: [
-          { name: 'onPress', type: '(event: GestureResponderEvent) => void', description: 'Called when the tab is pressed (not fired when isDisabled is true)' },
-          { name: 'onLongPress', type: '(event: GestureResponderEvent) => void', description: 'Called on long press' },
+          {
+            name: 'onPress',
+            type: '(event: GestureResponderEvent) => void',
+            description:
+              'Called when the tab is pressed (not fired when isDisabled is true)',
+          },
+          {
+            name: 'onLongPress',
+            type: '(event: GestureResponderEvent) => void',
+            description: 'Called on long press',
+          },
         ],
       },
     ],
@@ -1334,25 +2080,106 @@ export default function TabLayout() {
 
   button: {
     props: [
-      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Button label content' },
-      { name: 'variant', type: '"solid" | "outlined" | "flat" | "light" | "faded"', defaultValue: '"solid"', description: 'Visual style variant' },
-      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
-      { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Button size' },
-      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Border radius' },
-      { name: 'startContent', type: 'ReactNode', defaultValue: '-', description: 'Element rendered before the label' },
-      { name: 'endContent', type: 'ReactNode', defaultValue: '-', description: 'Element rendered after the label' },
-      { name: 'spinnerPlacement', type: '"start" | "end"', defaultValue: '"start"', description: 'Position of loading spinner' },
-      { name: 'fullWidth', type: 'boolean', defaultValue: 'false', description: 'Expand to full container width' },
-      { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable interaction' },
-      { name: 'isLoading', type: 'boolean', defaultValue: 'false', description: 'Show loading spinner' },
-      { name: 'elevation', type: '0 | 1 | 2 | 3 | 4', defaultValue: '0', description: 'Shadow elevation level' },
-      { name: 'customAppearance', type: '{ container?: ViewStyle; button?: ViewStyle; text?: TextStyle }', defaultValue: '-', description: 'Custom style overrides' },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Button label content',
+      },
+      {
+        name: 'variant',
+        type: '"solid" | "outlined" | "flat" | "light" | "faded"',
+        defaultValue: '"solid"',
+        description: 'Visual style variant',
+      },
+      {
+        name: 'themeColor',
+        type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+        defaultValue: '"primary"',
+        description: 'Color theme',
+      },
+      {
+        name: 'size',
+        type: '"sm" | "md" | "lg"',
+        defaultValue: '"md"',
+        description: 'Button size',
+      },
+      {
+        name: 'radius',
+        type: '"none" | "sm" | "md" | "lg" | "full"',
+        defaultValue: '"md"',
+        description: 'Border radius',
+      },
+      {
+        name: 'startContent',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Element rendered before the label',
+      },
+      {
+        name: 'endContent',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Element rendered after the label',
+      },
+      {
+        name: 'spinnerPlacement',
+        type: '"start" | "end"',
+        defaultValue: '"start"',
+        description: 'Position of loading spinner',
+      },
+      {
+        name: 'fullWidth',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Expand to full container width',
+      },
+      {
+        name: 'isDisabled',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Disable interaction',
+      },
+      {
+        name: 'isLoading',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Show loading spinner',
+      },
+      {
+        name: 'elevation',
+        type: '0 | 1 | 2 | 3 | 4',
+        defaultValue: '0',
+        description: 'Shadow elevation level',
+      },
+      {
+        name: 'customAppearance',
+        type: '{ container?: ViewStyle; button?: ViewStyle; text?: TextStyle }',
+        defaultValue: '-',
+        description: 'Custom style overrides',
+      },
     ],
     events: [
-      { name: 'onPress', type: '(event: GestureResponderEvent) => void', description: 'Called when button is pressed' },
-      { name: 'onLongPress', type: '(event: GestureResponderEvent) => void', description: 'Called on long press' },
-      { name: 'onPressIn', type: '(event: GestureResponderEvent) => void', description: 'Called when press starts' },
-      { name: 'onPressOut', type: '(event: GestureResponderEvent) => void', description: 'Called when press ends' },
+      {
+        name: 'onPress',
+        type: '(event: GestureResponderEvent) => void',
+        description: 'Called when button is pressed',
+      },
+      {
+        name: 'onLongPress',
+        type: '(event: GestureResponderEvent) => void',
+        description: 'Called on long press',
+      },
+      {
+        name: 'onPressIn',
+        type: '(event: GestureResponderEvent) => void',
+        description: 'Called when press starts',
+      },
+      {
+        name: 'onPressOut',
+        type: '(event: GestureResponderEvent) => void',
+        description: 'Called when press ends',
+      },
     ],
     examples: [
       {
@@ -1391,7 +2218,8 @@ export function SizesExample() {
       },
       {
         title: 'With Icons',
-        description: 'Add content before or after the label using startContent / endContent.',
+        description:
+          'Add content before or after the label using startContent / endContent.',
         code: `import { Button } from '@xaui/native/button'
 import { Typography } from '@xaui/native/typography'
 
@@ -1475,21 +2303,82 @@ export function IconButtonExample() {
       {
         name: 'IconButton',
         props: [
-          { name: 'icon', type: 'ReactNode', defaultValue: '-', description: 'Icon element to display' },
-          { name: 'variant', type: '"solid" | "outlined" | "flat" | "light" | "faded"', defaultValue: '"solid"', description: 'Visual style variant' },
-          { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
-          { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Button size' },
-          { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Border radius' },
-          { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable interaction' },
-          { name: 'isLoading', type: 'boolean', defaultValue: 'false', description: 'Show loading spinner' },
-          { name: 'elevation', type: '0 | 1 | 2 | 3 | 4', defaultValue: '0', description: 'Shadow elevation level' },
-          { name: 'customAppearance', type: '{ container?: ViewStyle; button?: ViewStyle }', defaultValue: '-', description: 'Custom style overrides' },
+          {
+            name: 'icon',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Icon element to display',
+          },
+          {
+            name: 'variant',
+            type: '"solid" | "outlined" | "flat" | "light" | "faded"',
+            defaultValue: '"solid"',
+            description: 'Visual style variant',
+          },
+          {
+            name: 'themeColor',
+            type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+            defaultValue: '"primary"',
+            description: 'Color theme',
+          },
+          {
+            name: 'size',
+            type: '"sm" | "md" | "lg"',
+            defaultValue: '"md"',
+            description: 'Button size',
+          },
+          {
+            name: 'radius',
+            type: '"none" | "sm" | "md" | "lg" | "full"',
+            defaultValue: '"md"',
+            description: 'Border radius',
+          },
+          {
+            name: 'isDisabled',
+            type: 'boolean',
+            defaultValue: 'false',
+            description: 'Disable interaction',
+          },
+          {
+            name: 'isLoading',
+            type: 'boolean',
+            defaultValue: 'false',
+            description: 'Show loading spinner',
+          },
+          {
+            name: 'elevation',
+            type: '0 | 1 | 2 | 3 | 4',
+            defaultValue: '0',
+            description: 'Shadow elevation level',
+          },
+          {
+            name: 'customAppearance',
+            type: '{ container?: ViewStyle; button?: ViewStyle }',
+            defaultValue: '-',
+            description: 'Custom style overrides',
+          },
         ],
         events: [
-          { name: 'onPress', type: '(event: GestureResponderEvent) => void', description: 'Called when pressed' },
-          { name: 'onLongPress', type: '(event: GestureResponderEvent) => void', description: 'Called on long press' },
-          { name: 'onPressIn', type: '(event: GestureResponderEvent) => void', description: 'Called when press starts' },
-          { name: 'onPressOut', type: '(event: GestureResponderEvent) => void', description: 'Called when press ends' },
+          {
+            name: 'onPress',
+            type: '(event: GestureResponderEvent) => void',
+            description: 'Called when pressed',
+          },
+          {
+            name: 'onLongPress',
+            type: '(event: GestureResponderEvent) => void',
+            description: 'Called on long press',
+          },
+          {
+            name: 'onPressIn',
+            type: '(event: GestureResponderEvent) => void',
+            description: 'Called when press starts',
+          },
+          {
+            name: 'onPressOut',
+            type: '(event: GestureResponderEvent) => void',
+            description: 'Called when press ends',
+          },
         ],
       },
     ],
@@ -1497,28 +2386,102 @@ export function IconButtonExample() {
 
   card: {
     props: [
-      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'CardHeader, CardBody, CardFooter, CardTitle, CardDescription' },
-      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"default"', description: 'Color theme' },
-      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"lg"', description: 'Border radius' },
-      { name: 'padding', type: 'number', defaultValue: '-', description: 'Internal padding override' },
-      { name: 'elevation', type: '0 | 1 | 2 | 3 | 4', defaultValue: '0', description: 'Shadow elevation level' },
-      { name: 'fullWidth', type: 'boolean', defaultValue: 'false', description: 'Expand to full container width' },
-      { name: 'isPressable', type: 'boolean', defaultValue: 'false', description: 'Make card tappable' },
-      { name: 'isHoverable', type: 'boolean', defaultValue: 'false', description: 'Apply hover effect' },
-      { name: 'isBlurred', type: 'boolean', defaultValue: 'false', description: 'Apply blur background' },
-      { name: 'isFooterBlurred', type: 'boolean', defaultValue: 'false', description: 'Apply blur to footer only' },
-      { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable interaction' },
-      { name: 'disableAnimation', type: 'boolean', defaultValue: 'false', description: 'Disable press animation' },
-      { name: 'customAppearance', type: 'CardCustomAppearance', defaultValue: '-', description: 'Custom style overrides' },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'CardHeader, CardBody, CardFooter, CardTitle, CardDescription',
+      },
+      {
+        name: 'themeColor',
+        type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+        defaultValue: '"default"',
+        description: 'Color theme',
+      },
+      {
+        name: 'radius',
+        type: '"none" | "sm" | "md" | "lg" | "full"',
+        defaultValue: '"lg"',
+        description: 'Border radius',
+      },
+      {
+        name: 'padding',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Internal padding override',
+      },
+      {
+        name: 'elevation',
+        type: '0 | 1 | 2 | 3 | 4',
+        defaultValue: '0',
+        description: 'Shadow elevation level',
+      },
+      {
+        name: 'fullWidth',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Expand to full container width',
+      },
+      {
+        name: 'isPressable',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Make card tappable',
+      },
+      {
+        name: 'isHoverable',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Apply hover effect',
+      },
+      {
+        name: 'isBlurred',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Apply blur background',
+      },
+      {
+        name: 'isFooterBlurred',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Apply blur to footer only',
+      },
+      {
+        name: 'isDisabled',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Disable interaction',
+      },
+      {
+        name: 'disableAnimation',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Disable press animation',
+      },
+      {
+        name: 'customAppearance',
+        type: 'CardCustomAppearance',
+        defaultValue: '-',
+        description: 'Custom style overrides',
+      },
     ],
     events: [
-      { name: 'onPress', type: '(event: GestureResponderEvent) => void', description: 'Called when card is pressed' },
-      { name: 'onLongPress', type: '(event: GestureResponderEvent) => void', description: 'Called on long press' },
+      {
+        name: 'onPress',
+        type: '(event: GestureResponderEvent) => void',
+        description: 'Called when card is pressed',
+      },
+      {
+        name: 'onLongPress',
+        type: '(event: GestureResponderEvent) => void',
+        description: 'Called on long press',
+      },
     ],
     examples: [
       {
         title: 'Full Card Layout',
-        description: 'Using CardHeader, CardTitle, CardDescription, CardBody, and CardFooter.',
+        description:
+          'Using CardHeader, CardTitle, CardDescription, CardBody, and CardFooter.',
         code: `import {
   Card,
   CardHeader,
@@ -1550,7 +2513,8 @@ export function FullCardExample() {
       },
       {
         title: 'Header with Title & Description Only',
-        description: 'CardTitle and CardDescription inside CardHeader for structured headings.',
+        description:
+          'CardTitle and CardDescription inside CardHeader for structured headings.',
         code: `import { Card, CardHeader, CardTitle, CardDescription, CardBody } from '@xaui/native/card'
 import { Typography } from '@xaui/native/typography'
 
@@ -1612,36 +2576,86 @@ export function ElevatedCardExample() {
       {
         name: 'CardHeader',
         props: [
-          { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Header content' },
-          { name: 'customAppearance', type: '{ container?: ViewStyle }', defaultValue: '-', description: 'Custom styles' },
+          {
+            name: 'children',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Header content',
+          },
+          {
+            name: 'customAppearance',
+            type: '{ container?: ViewStyle }',
+            defaultValue: '-',
+            description: 'Custom styles',
+          },
         ],
       },
       {
         name: 'CardBody',
         props: [
-          { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Body content' },
-          { name: 'customAppearance', type: '{ container?: ViewStyle }', defaultValue: '-', description: 'Custom styles' },
+          {
+            name: 'children',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Body content',
+          },
+          {
+            name: 'customAppearance',
+            type: '{ container?: ViewStyle }',
+            defaultValue: '-',
+            description: 'Custom styles',
+          },
         ],
       },
       {
         name: 'CardFooter',
         props: [
-          { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Footer content' },
-          { name: 'customAppearance', type: '{ container?: ViewStyle }', defaultValue: '-', description: 'Custom styles' },
+          {
+            name: 'children',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Footer content',
+          },
+          {
+            name: 'customAppearance',
+            type: '{ container?: ViewStyle }',
+            defaultValue: '-',
+            description: 'Custom styles',
+          },
         ],
       },
       {
         name: 'CardTitle',
         props: [
-          { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Title text content' },
-          { name: 'style', type: 'TextStyle', defaultValue: '-', description: 'Additional text styles' },
+          {
+            name: 'children',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Title text content',
+          },
+          {
+            name: 'style',
+            type: 'TextStyle',
+            defaultValue: '-',
+            description: 'Additional text styles',
+          },
         ],
       },
       {
         name: 'CardDescription',
         props: [
-          { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Description text content' },
-          { name: 'style', type: 'TextStyle', defaultValue: '-', description: 'Additional text styles' },
+          {
+            name: 'children',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Description text content',
+          },
+          {
+            name: 'style',
+            type: 'TextStyle',
+            defaultValue: '-',
+            description: 'Additional text styles',
+          },
         ],
       },
     ],
@@ -1649,28 +2663,103 @@ export function ElevatedCardExample() {
 
   carousel: {
     props: [
-      { name: 'data', type: 'T[]', defaultValue: '-', description: 'Array of items to display' },
-      { name: 'renderItem', type: '(info: { item: T; index: number }) => ReactNode', defaultValue: '-', description: 'Renderer for each carousel item' },
-      { name: 'keyExtractor', type: '(item: T, index: number) => string', defaultValue: '-', description: 'Unique key extractor' },
-      { name: 'layout', type: '"multi-browse" | "uncontained" | "hero" | "full-screen"', defaultValue: '"multi-browse"', description: 'Carousel layout variant' },
-      { name: 'itemWidth', type: 'number', defaultValue: '-', description: 'Width of each item' },
-      { name: 'itemHeight', type: 'number', defaultValue: '-', description: 'Height of each item' },
-      { name: 'itemSpacing', type: 'number', defaultValue: '8', description: 'Spacing between items' },
-      { name: 'contentPadding', type: 'number', defaultValue: '-', description: 'Padding around the carousel' },
-      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Item border radius' },
-      { name: 'showIndicator', type: 'boolean', defaultValue: 'true', description: 'Show page indicator dots' },
-      { name: 'autoPlay', type: 'boolean', defaultValue: 'false', description: 'Enable auto scrolling' },
-      { name: 'autoPlayInterval', type: 'number', defaultValue: '3000', description: 'Auto play interval in ms' },
-      { name: 'initialIndex', type: 'number', defaultValue: '0', description: 'Initial active item index' },
-      { name: 'customAppearance', type: 'CarouselCustomAppearance', defaultValue: '-', description: 'Custom style overrides' },
+      {
+        name: 'data',
+        type: 'T[]',
+        defaultValue: '-',
+        description: 'Array of items to display',
+      },
+      {
+        name: 'renderItem',
+        type: '(info: { item: T; index: number }) => ReactNode',
+        defaultValue: '-',
+        description: 'Renderer for each carousel item',
+      },
+      {
+        name: 'keyExtractor',
+        type: '(item: T, index: number) => string',
+        defaultValue: '-',
+        description: 'Unique key extractor',
+      },
+      {
+        name: 'layout',
+        type: '"multi-browse" | "uncontained" | "hero" | "full-screen"',
+        defaultValue: '"multi-browse"',
+        description: 'Carousel layout variant',
+      },
+      {
+        name: 'itemWidth',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Width of each item',
+      },
+      {
+        name: 'itemHeight',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Height of each item',
+      },
+      {
+        name: 'itemSpacing',
+        type: 'number',
+        defaultValue: '8',
+        description: 'Spacing between items',
+      },
+      {
+        name: 'contentPadding',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Padding around the carousel',
+      },
+      {
+        name: 'radius',
+        type: '"none" | "sm" | "md" | "lg" | "full"',
+        defaultValue: '"md"',
+        description: 'Item border radius',
+      },
+      {
+        name: 'showIndicator',
+        type: 'boolean',
+        defaultValue: 'true',
+        description: 'Show page indicator dots',
+      },
+      {
+        name: 'autoPlay',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Enable auto scrolling',
+      },
+      {
+        name: 'autoPlayInterval',
+        type: 'number',
+        defaultValue: '3000',
+        description: 'Auto play interval in ms',
+      },
+      {
+        name: 'initialIndex',
+        type: 'number',
+        defaultValue: '0',
+        description: 'Initial active item index',
+      },
+      {
+        name: 'customAppearance',
+        type: 'CarouselCustomAppearance',
+        defaultValue: '-',
+        description: 'Custom style overrides',
+      },
     ],
     events: [
-      { name: 'onActiveItemChange', type: '(index: number) => void', description: 'Called when the active item changes' },
+      {
+        name: 'onActiveItemChange',
+        type: '(index: number) => void',
+        description: 'Called when the active item changes',
+      },
     ],
     examples: [
       {
         title: 'Basic Carousel',
-        description: 'Display a list of items with data, renderItem, and keyExtractor.',
+        description:
+          'Display a list of items with data, renderItem, and keyExtractor.',
         code: `import { Carousel } from '@xaui/native/carousel'
 import { Typography } from '@xaui/native/typography'
 import { View } from 'react-native'
@@ -1764,18 +2853,56 @@ export function HeroCarouselExample() {
 
   chart: {
     props: [
-      { name: 'title', type: 'string', defaultValue: '-', description: 'Chart card title rendered in the header' },
-      { name: 'data', type: 'varies per chart', defaultValue: '-', description: 'Data array — shape depends on which chart component is used (see sub-components below)' },
-      { name: 'elevation', type: 'number', defaultValue: '0', description: 'Shadow elevation level' },
-      { name: 'backgroundColor', type: 'string', defaultValue: '"#6a6a6a30"', description: 'Card background color' },
-      { name: 'textColor', type: 'string', defaultValue: '"#ffffff"', description: 'Text color for labels, title, and axis values' },
-      { name: 'size', type: 'number', defaultValue: 'varies', description: 'Chart size in pixels. Acts as diameter for circular charts and height proxy for line/bar charts' },
-      { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Additional styles for the card container' },
+      {
+        name: 'title',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Chart card title rendered in the header',
+      },
+      {
+        name: 'data',
+        type: 'varies per chart',
+        defaultValue: '-',
+        description:
+          'Data array — shape depends on which chart component is used (see sub-components below)',
+      },
+      {
+        name: 'elevation',
+        type: 'number',
+        defaultValue: '0',
+        description: 'Shadow elevation level',
+      },
+      {
+        name: 'backgroundColor',
+        type: 'string',
+        defaultValue: '"#6a6a6a30"',
+        description: 'Card background color',
+      },
+      {
+        name: 'textColor',
+        type: 'string',
+        defaultValue: '"#ffffff"',
+        description: 'Text color for labels, title, and axis values',
+      },
+      {
+        name: 'size',
+        type: 'number',
+        defaultValue: 'varies',
+        description:
+          'Chart size in pixels. Acts as diameter for circular charts and height proxy for line/bar charts',
+      },
+      {
+        name: 'style',
+        type: 'ViewStyle',
+        defaultValue: '-',
+        description: 'Additional styles for the card container',
+      },
     ],
     examples: [
       {
         title: 'Donut Chart',
-        description: 'Ring chart with a centre label, legend, and configurable stroke width.',
+        description:
+          'Ring chart with a centre label, legend, and configurable stroke width.',
         code: `import { DonutChartCard } from '@xaui/native/chart'
 
 export function DonutExample() {
@@ -1816,7 +2943,8 @@ export function PieExample() {
       },
       {
         title: 'Line Chart',
-        description: 'Smooth or direct line chart with optional area fill and data point markers.',
+        description:
+          'Smooth or direct line chart with optional area fill and data point markers.',
         code: `import { LineChartCard } from '@xaui/native/chart'
 
 export function LineExample() {
@@ -1840,7 +2968,8 @@ export function LineExample() {
       },
       {
         title: 'Vertical Bar Chart',
-        description: 'Bar chart with per-bar colour, axis labels, and optional full legend.',
+        description:
+          'Bar chart with per-bar colour, axis labels, and optional full legend.',
         code: `import { VerticalBarChartCard } from '@xaui/native/chart'
 
 export function BarExample() {
@@ -1863,7 +2992,8 @@ export function BarExample() {
       },
       {
         title: 'Heatmap Chart',
-        description: 'Grid heatmap interpolating between two colours based on cell intensity.',
+        description:
+          'Grid heatmap interpolating between two colours based on cell intensity.',
         code: `import { HeatmapChartCard } from '@xaui/native/chart'
 
 export function HeatmapExample() {
@@ -1890,87 +3020,394 @@ export function HeatmapExample() {
       {
         name: 'DonutChartCard',
         props: [
-          { name: 'data', type: 'DonutChartDataItem[]', defaultValue: '-', description: 'Segments: { label, value, color, labelColor? }' },
-          { name: 'title', type: 'string', defaultValue: '-', description: 'Text shown in the centre of the donut' },
-          { name: 'total', type: 'string | number', defaultValue: '-', description: 'Value shown in the centre below the title' },
-          { name: 'showLegend', type: 'boolean', defaultValue: 'true', description: 'Show colour legend' },
-          { name: 'legendPosition', type: '"top" | "left" | "right" | "bottom"', defaultValue: '"top"', description: 'Legend placement' },
-          { name: 'size', type: 'number', defaultValue: '250', description: 'Outer diameter in px' },
-          { name: 'strokeWidth', type: 'number', defaultValue: 'auto', description: 'Ring thickness in px. Auto-calculated from size if omitted (6–22px)' },
-          { name: 'elevation', type: 'number', defaultValue: '0', description: 'Shadow elevation' },
-          { name: 'backgroundColor', type: 'string', defaultValue: '"#6a6a6a30"', description: 'Card background' },
-          { name: 'textColor', type: 'string', defaultValue: '"#ffffff"', description: 'Text color' },
-          { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Container styles' },
+          {
+            name: 'data',
+            type: 'DonutChartDataItem[]',
+            defaultValue: '-',
+            description: 'Segments: { label, value, color, labelColor? }',
+          },
+          {
+            name: 'title',
+            type: 'string',
+            defaultValue: '-',
+            description: 'Text shown in the centre of the donut',
+          },
+          {
+            name: 'total',
+            type: 'string | number',
+            defaultValue: '-',
+            description: 'Value shown in the centre below the title',
+          },
+          {
+            name: 'showLegend',
+            type: 'boolean',
+            defaultValue: 'true',
+            description: 'Show colour legend',
+          },
+          {
+            name: 'legendPosition',
+            type: '"top" | "left" | "right" | "bottom"',
+            defaultValue: '"top"',
+            description: 'Legend placement',
+          },
+          {
+            name: 'size',
+            type: 'number',
+            defaultValue: '250',
+            description: 'Outer diameter in px',
+          },
+          {
+            name: 'strokeWidth',
+            type: 'number',
+            defaultValue: 'auto',
+            description:
+              'Ring thickness in px. Auto-calculated from size if omitted (6–22px)',
+          },
+          {
+            name: 'elevation',
+            type: 'number',
+            defaultValue: '0',
+            description: 'Shadow elevation',
+          },
+          {
+            name: 'backgroundColor',
+            type: 'string',
+            defaultValue: '"#6a6a6a30"',
+            description: 'Card background',
+          },
+          {
+            name: 'textColor',
+            type: 'string',
+            defaultValue: '"#ffffff"',
+            description: 'Text color',
+          },
+          {
+            name: 'style',
+            type: 'ViewStyle',
+            defaultValue: '-',
+            description: 'Container styles',
+          },
         ],
       },
       {
         name: 'PieChartCard',
         props: [
-          { name: 'data', type: 'PieChartDataItem[]', defaultValue: '-', description: 'Slices: { label, value, color, labelColor? }' },
-          { name: 'title', type: 'string', defaultValue: '-', description: 'Card title' },
-          { name: 'total', type: 'string | number', defaultValue: '-', description: 'Total value shown in header' },
-          { name: 'showLegend', type: 'boolean', defaultValue: 'true', description: 'Show colour legend' },
-          { name: 'legendPosition', type: '"top" | "left" | "right" | "bottom"', defaultValue: '"bottom"', description: 'Legend placement' },
-          { name: 'size', type: 'number', defaultValue: '220', description: 'Diameter in px (min 120)' },
-          { name: 'elevation', type: 'number', defaultValue: '0', description: 'Shadow elevation' },
-          { name: 'backgroundColor', type: 'string', defaultValue: '"#6a6a6a30"', description: 'Card background' },
-          { name: 'textColor', type: 'string', defaultValue: '"#ffffff"', description: 'Text color' },
-          { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Container styles' },
+          {
+            name: 'data',
+            type: 'PieChartDataItem[]',
+            defaultValue: '-',
+            description: 'Slices: { label, value, color, labelColor? }',
+          },
+          {
+            name: 'title',
+            type: 'string',
+            defaultValue: '-',
+            description: 'Card title',
+          },
+          {
+            name: 'total',
+            type: 'string | number',
+            defaultValue: '-',
+            description: 'Total value shown in header',
+          },
+          {
+            name: 'showLegend',
+            type: 'boolean',
+            defaultValue: 'true',
+            description: 'Show colour legend',
+          },
+          {
+            name: 'legendPosition',
+            type: '"top" | "left" | "right" | "bottom"',
+            defaultValue: '"bottom"',
+            description: 'Legend placement',
+          },
+          {
+            name: 'size',
+            type: 'number',
+            defaultValue: '220',
+            description: 'Diameter in px (min 120)',
+          },
+          {
+            name: 'elevation',
+            type: 'number',
+            defaultValue: '0',
+            description: 'Shadow elevation',
+          },
+          {
+            name: 'backgroundColor',
+            type: 'string',
+            defaultValue: '"#6a6a6a30"',
+            description: 'Card background',
+          },
+          {
+            name: 'textColor',
+            type: 'string',
+            defaultValue: '"#ffffff"',
+            description: 'Text color',
+          },
+          {
+            name: 'style',
+            type: 'ViewStyle',
+            defaultValue: '-',
+            description: 'Container styles',
+          },
         ],
       },
       {
         name: 'LineChartCard',
         props: [
-          { name: 'data', type: 'LineChartDataItem[]', defaultValue: '-', description: 'Points: { label, value }' },
-          { name: 'title', type: 'string', defaultValue: '-', description: 'Card title' },
-          { name: 'lineMode', type: '"smooth" | "direct"', defaultValue: '"smooth"', description: 'Smooth uses cubic Bezier curves; direct draws straight segments' },
-          { name: 'lineColor', type: 'string', defaultValue: '"#57C9ED"', description: 'Line stroke color' },
-          { name: 'areaColor', type: 'string', defaultValue: '"rgba(87,201,237,0.16)"', description: 'Fill color under the line' },
-          { name: 'showPoints', type: 'boolean', defaultValue: 'false', description: 'Render a circle at each data point' },
-          { name: 'showAxes', type: 'boolean', defaultValue: 'false', description: 'Render X/Y axis grid lines and value labels' },
-          { name: 'abbreviateXAxisLabels', type: 'boolean', defaultValue: 'false', description: 'Truncate long X-axis labels' },
-          { name: 'xAxisAbbreviationLength', type: 'number', defaultValue: '3', description: 'Max characters for X-axis labels when abbreviation is on' },
-          { name: 'size', type: 'number', defaultValue: '280', description: 'Chart height proxy in px' },
-          { name: 'elevation', type: 'number', defaultValue: '0', description: 'Shadow elevation' },
-          { name: 'backgroundColor', type: 'string', defaultValue: '"#6a6a6a30"', description: 'Card background' },
-          { name: 'textColor', type: 'string', defaultValue: '"#ffffff"', description: 'Text color' },
-          { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Container styles' },
+          {
+            name: 'data',
+            type: 'LineChartDataItem[]',
+            defaultValue: '-',
+            description: 'Points: { label, value }',
+          },
+          {
+            name: 'title',
+            type: 'string',
+            defaultValue: '-',
+            description: 'Card title',
+          },
+          {
+            name: 'lineMode',
+            type: '"smooth" | "direct"',
+            defaultValue: '"smooth"',
+            description:
+              'Smooth uses cubic Bezier curves; direct draws straight segments',
+          },
+          {
+            name: 'lineColor',
+            type: 'string',
+            defaultValue: '"#57C9ED"',
+            description: 'Line stroke color',
+          },
+          {
+            name: 'areaColor',
+            type: 'string',
+            defaultValue: '"rgba(87,201,237,0.16)"',
+            description: 'Fill color under the line',
+          },
+          {
+            name: 'showPoints',
+            type: 'boolean',
+            defaultValue: 'false',
+            description: 'Render a circle at each data point',
+          },
+          {
+            name: 'showAxes',
+            type: 'boolean',
+            defaultValue: 'false',
+            description: 'Render X/Y axis grid lines and value labels',
+          },
+          {
+            name: 'abbreviateXAxisLabels',
+            type: 'boolean',
+            defaultValue: 'false',
+            description: 'Truncate long X-axis labels',
+          },
+          {
+            name: 'xAxisAbbreviationLength',
+            type: 'number',
+            defaultValue: '3',
+            description: 'Max characters for X-axis labels when abbreviation is on',
+          },
+          {
+            name: 'size',
+            type: 'number',
+            defaultValue: '280',
+            description: 'Chart height proxy in px',
+          },
+          {
+            name: 'elevation',
+            type: 'number',
+            defaultValue: '0',
+            description: 'Shadow elevation',
+          },
+          {
+            name: 'backgroundColor',
+            type: 'string',
+            defaultValue: '"#6a6a6a30"',
+            description: 'Card background',
+          },
+          {
+            name: 'textColor',
+            type: 'string',
+            defaultValue: '"#ffffff"',
+            description: 'Text color',
+          },
+          {
+            name: 'style',
+            type: 'ViewStyle',
+            defaultValue: '-',
+            description: 'Container styles',
+          },
         ],
       },
       {
         name: 'VerticalBarChartCard',
         props: [
-          { name: 'data', type: 'VerticalBarChartDataItem[]', defaultValue: '-', description: 'Bars: { label, value, color? }' },
-          { name: 'title', type: 'string', defaultValue: '-', description: 'Card title' },
-          { name: 'showAxes', type: 'boolean', defaultValue: 'false', description: 'Render Y-axis grid lines and value labels' },
-          { name: 'showFullLegendBelow', type: 'boolean', defaultValue: 'false', description: 'Render a full label+value legend below the chart' },
-          { name: 'justifyBars', type: 'boolean', defaultValue: 'false', description: 'Evenly distribute bars across the full chart width' },
-          { name: 'abbreviateXAxisLabels', type: 'boolean', defaultValue: 'false', description: 'Truncate long X-axis labels' },
-          { name: 'xAxisAbbreviationLength', type: 'number', defaultValue: '3', description: 'Max characters for X-axis labels' },
-          { name: 'size', type: 'number', defaultValue: '260', description: 'Chart height proxy in px' },
-          { name: 'elevation', type: 'number', defaultValue: '0', description: 'Shadow elevation' },
-          { name: 'backgroundColor', type: 'string', defaultValue: '"#6a6a6a30"', description: 'Card background' },
-          { name: 'textColor', type: 'string', defaultValue: '"#ffffff"', description: 'Text color' },
-          { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Container styles' },
+          {
+            name: 'data',
+            type: 'VerticalBarChartDataItem[]',
+            defaultValue: '-',
+            description: 'Bars: { label, value, color? }',
+          },
+          {
+            name: 'title',
+            type: 'string',
+            defaultValue: '-',
+            description: 'Card title',
+          },
+          {
+            name: 'showAxes',
+            type: 'boolean',
+            defaultValue: 'false',
+            description: 'Render Y-axis grid lines and value labels',
+          },
+          {
+            name: 'showFullLegendBelow',
+            type: 'boolean',
+            defaultValue: 'false',
+            description: 'Render a full label+value legend below the chart',
+          },
+          {
+            name: 'justifyBars',
+            type: 'boolean',
+            defaultValue: 'false',
+            description: 'Evenly distribute bars across the full chart width',
+          },
+          {
+            name: 'abbreviateXAxisLabels',
+            type: 'boolean',
+            defaultValue: 'false',
+            description: 'Truncate long X-axis labels',
+          },
+          {
+            name: 'xAxisAbbreviationLength',
+            type: 'number',
+            defaultValue: '3',
+            description: 'Max characters for X-axis labels',
+          },
+          {
+            name: 'size',
+            type: 'number',
+            defaultValue: '260',
+            description: 'Chart height proxy in px',
+          },
+          {
+            name: 'elevation',
+            type: 'number',
+            defaultValue: '0',
+            description: 'Shadow elevation',
+          },
+          {
+            name: 'backgroundColor',
+            type: 'string',
+            defaultValue: '"#6a6a6a30"',
+            description: 'Card background',
+          },
+          {
+            name: 'textColor',
+            type: 'string',
+            defaultValue: '"#ffffff"',
+            description: 'Text color',
+          },
+          {
+            name: 'style',
+            type: 'ViewStyle',
+            defaultValue: '-',
+            description: 'Container styles',
+          },
         ],
       },
       {
         name: 'HeatmapChartCard',
         props: [
-          { name: 'data', type: 'number[][]', defaultValue: '-', description: '2D row-major array of numeric values' },
-          { name: 'title', type: 'string', defaultValue: '-', description: 'Card title' },
-          { name: 'xLabels', type: 'string[]', defaultValue: '-', description: 'Column labels (truncated to 3 chars)' },
-          { name: 'yLabels', type: 'string[]', defaultValue: '-', description: 'Row labels (truncated to 5 chars)' },
-          { name: 'showValues', type: 'boolean', defaultValue: 'false', description: 'Render the numeric value inside each cell' },
-          { name: 'showLegend', type: 'boolean', defaultValue: 'true', description: 'Show a 5-stop colour gradient legend' },
-          { name: 'startColor', type: 'string', defaultValue: '"#3B82F6"', description: 'Color for the lowest value' },
-          { name: 'endColor', type: 'string', defaultValue: '"#EF4444"', description: 'Color for the highest value' },
-          { name: 'cellSize', type: 'number', defaultValue: '32', description: 'Cell width and height in px' },
-          { name: 'cellGap', type: 'number', defaultValue: '4', description: 'Gap between cells in px' },
-          { name: 'elevation', type: 'number', defaultValue: '0', description: 'Shadow elevation' },
-          { name: 'backgroundColor', type: 'string', defaultValue: '"#6a6a6a30"', description: 'Card background' },
-          { name: 'textColor', type: 'string', defaultValue: '"#ffffff"', description: 'Text color' },
-          { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Container styles' },
+          {
+            name: 'data',
+            type: 'number[][]',
+            defaultValue: '-',
+            description: '2D row-major array of numeric values',
+          },
+          {
+            name: 'title',
+            type: 'string',
+            defaultValue: '-',
+            description: 'Card title',
+          },
+          {
+            name: 'xLabels',
+            type: 'string[]',
+            defaultValue: '-',
+            description: 'Column labels (truncated to 3 chars)',
+          },
+          {
+            name: 'yLabels',
+            type: 'string[]',
+            defaultValue: '-',
+            description: 'Row labels (truncated to 5 chars)',
+          },
+          {
+            name: 'showValues',
+            type: 'boolean',
+            defaultValue: 'false',
+            description: 'Render the numeric value inside each cell',
+          },
+          {
+            name: 'showLegend',
+            type: 'boolean',
+            defaultValue: 'true',
+            description: 'Show a 5-stop colour gradient legend',
+          },
+          {
+            name: 'startColor',
+            type: 'string',
+            defaultValue: '"#3B82F6"',
+            description: 'Color for the lowest value',
+          },
+          {
+            name: 'endColor',
+            type: 'string',
+            defaultValue: '"#EF4444"',
+            description: 'Color for the highest value',
+          },
+          {
+            name: 'cellSize',
+            type: 'number',
+            defaultValue: '32',
+            description: 'Cell width and height in px',
+          },
+          {
+            name: 'cellGap',
+            type: 'number',
+            defaultValue: '4',
+            description: 'Gap between cells in px',
+          },
+          {
+            name: 'elevation',
+            type: 'number',
+            defaultValue: '0',
+            description: 'Shadow elevation',
+          },
+          {
+            name: 'backgroundColor',
+            type: 'string',
+            defaultValue: '"#6a6a6a30"',
+            description: 'Card background',
+          },
+          {
+            name: 'textColor',
+            type: 'string',
+            defaultValue: '"#ffffff"',
+            description: 'Text color',
+          },
+          {
+            name: 'style',
+            type: 'ViewStyle',
+            defaultValue: '-',
+            description: 'Container styles',
+          },
         ],
       },
     ],
@@ -1978,21 +3415,89 @@ export function HeatmapExample() {
 
   checkbox: {
     props: [
-      { name: 'label', type: 'string', defaultValue: '-', description: 'Label text displayed next to the checkbox' },
-      { name: 'isChecked', type: 'boolean', defaultValue: 'false', description: 'Controlled checked state' },
-      { name: 'isIndeterminate', type: 'boolean', defaultValue: 'false', description: 'Shows a dash instead of a checkmark — use for a "select all" that is partially checked' },
-      { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable interaction and reduce opacity' },
-      { name: 'variant', type: '"filled" | "light"', defaultValue: '"filled"', description: 'filled: solid background when checked. light: transparent with coloured border and animated checkmark' },
-      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
-      { name: 'size', type: '"xs" | "sm" | "md" | "lg"', defaultValue: '"md"', description: 'Checkbox size (xs: 14px, sm: 18px, md: 22px, lg: 26px)' },
-      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"sm"', description: 'Border radius of the checkbox box' },
-      { name: 'labelAlignment', type: '"left" | "right" | "justify-left" | "justify-right"', defaultValue: '"right"', description: 'Label side. justify-* variants push the checkbox and label to opposite ends (requires fullWidth)' },
-      { name: 'fullWidth', type: 'boolean', defaultValue: 'false', description: 'Expand to fill the container width' },
-      { name: 'labelStyle', type: 'TextStyle', defaultValue: '-', description: 'Custom styles for the label text' },
-      { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Additional container styles' },
+      {
+        name: 'label',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Label text displayed next to the checkbox',
+      },
+      {
+        name: 'isChecked',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Controlled checked state',
+      },
+      {
+        name: 'isIndeterminate',
+        type: 'boolean',
+        defaultValue: 'false',
+        description:
+          'Shows a dash instead of a checkmark — use for a "select all" that is partially checked',
+      },
+      {
+        name: 'isDisabled',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Disable interaction and reduce opacity',
+      },
+      {
+        name: 'variant',
+        type: '"filled" | "light"',
+        defaultValue: '"filled"',
+        description:
+          'filled: solid background when checked. light: transparent with coloured border and animated checkmark',
+      },
+      {
+        name: 'themeColor',
+        type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+        defaultValue: '"primary"',
+        description: 'Color theme',
+      },
+      {
+        name: 'size',
+        type: '"xs" | "sm" | "md" | "lg"',
+        defaultValue: '"md"',
+        description: 'Checkbox size (xs: 14px, sm: 18px, md: 22px, lg: 26px)',
+      },
+      {
+        name: 'radius',
+        type: '"none" | "sm" | "md" | "lg" | "full"',
+        defaultValue: '"sm"',
+        description: 'Border radius of the checkbox box',
+      },
+      {
+        name: 'labelAlignment',
+        type: '"left" | "right" | "justify-left" | "justify-right"',
+        defaultValue: '"right"',
+        description:
+          'Label side. justify-* variants push the checkbox and label to opposite ends (requires fullWidth)',
+      },
+      {
+        name: 'fullWidth',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Expand to fill the container width',
+      },
+      {
+        name: 'labelStyle',
+        type: 'TextStyle',
+        defaultValue: '-',
+        description: 'Custom styles for the label text',
+      },
+      {
+        name: 'style',
+        type: 'ViewStyle',
+        defaultValue: '-',
+        description: 'Additional container styles',
+      },
     ],
     events: [
-      { name: 'onValueChange', type: '(isChecked: boolean) => void', description: 'Called with the new boolean state when the user toggles the checkbox' },
+      {
+        name: 'onValueChange',
+        type: '(isChecked: boolean) => void',
+        description:
+          'Called with the new boolean state when the user toggles the checkbox',
+      },
     ],
     examples: [
       {
@@ -2006,7 +3511,8 @@ export function BasicExample() {
       },
       {
         title: 'Variants',
-        description: 'Filled has a solid background; light keeps a transparent background with a coloured border.',
+        description:
+          'Filled has a solid background; light keeps a transparent background with a coloured border.',
         code: `import { Checkbox } from '@xaui/native/checkbox'
 import { Column } from '@xaui/native/view'
 
@@ -2098,7 +3604,8 @@ export function IndeterminateExample() {
       },
       {
         title: 'Label Alignment',
-        description: 'Place the label on either side or use justify variants to push them apart.',
+        description:
+          'Place the label on either side or use justify variants to push them apart.',
         code: `import { Checkbox } from '@xaui/native/checkbox'
 import { Column } from '@xaui/native/view'
 
@@ -2136,20 +3643,82 @@ export function ThemeColorsExample() {
 
   chip: {
     props: [
-      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Chip label content' },
-      { name: 'variant', type: '"solid" | "bordered" | "light" | "flat" | "faded" | "shadow" | "dot"', defaultValue: '"solid"', description: '7 visual styles. dot renders a coloured indicator at the start' },
-      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"default"', description: 'Color theme' },
-      { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Chip size (sm: 32px, md: 40px, lg: 44px height)' },
-      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"full"', description: 'Border radius. full uses height/2 for a pill shape' },
-      { name: 'avatar', type: 'ReactNode', defaultValue: '-', description: 'Avatar element displayed at the leading edge' },
-      { name: 'startContent', type: 'ReactNode', defaultValue: '-', description: 'Arbitrary element at the leading edge (replaces avatar if both provided)' },
-      { name: 'endContent', type: 'ReactNode', defaultValue: '-', description: 'Arbitrary element at the trailing edge. Hidden when onClose is provided' },
-      { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable interaction and reduce opacity to 50%' },
-      { name: 'customAppearance', type: '{ container?: ViewStyle; text?: TextStyle; closeButton?: ViewStyle; dot?: ViewStyle }', defaultValue: '-', description: 'Fine-grained style overrides' },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Chip label content',
+      },
+      {
+        name: 'variant',
+        type: '"solid" | "bordered" | "light" | "flat" | "faded" | "shadow" | "dot"',
+        defaultValue: '"solid"',
+        description:
+          '7 visual styles. dot renders a coloured indicator at the start',
+      },
+      {
+        name: 'themeColor',
+        type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+        defaultValue: '"default"',
+        description: 'Color theme',
+      },
+      {
+        name: 'size',
+        type: '"sm" | "md" | "lg"',
+        defaultValue: '"md"',
+        description: 'Chip size (sm: 32px, md: 40px, lg: 44px height)',
+      },
+      {
+        name: 'radius',
+        type: '"none" | "sm" | "md" | "lg" | "full"',
+        defaultValue: '"full"',
+        description: 'Border radius. full uses height/2 for a pill shape',
+      },
+      {
+        name: 'avatar',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Avatar element displayed at the leading edge',
+      },
+      {
+        name: 'startContent',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description:
+          'Arbitrary element at the leading edge (replaces avatar if both provided)',
+      },
+      {
+        name: 'endContent',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description:
+          'Arbitrary element at the trailing edge. Hidden when onClose is provided',
+      },
+      {
+        name: 'isDisabled',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Disable interaction and reduce opacity to 50%',
+      },
+      {
+        name: 'customAppearance',
+        type: '{ container?: ViewStyle; text?: TextStyle; closeButton?: ViewStyle; dot?: ViewStyle }',
+        defaultValue: '-',
+        description: 'Fine-grained style overrides',
+      },
     ],
     events: [
-      { name: 'onClose', type: '() => void', description: 'Providing this prop renders a close (✕) button; called when it is pressed. The chip animates out before calling this' },
-      { name: 'onPress', type: '() => void', description: 'Called when the chip body is pressed' },
+      {
+        name: 'onClose',
+        type: '() => void',
+        description:
+          'Providing this prop renders a close (✕) button; called when it is pressed. The chip animates out before calling this',
+      },
+      {
+        name: 'onPress',
+        type: '() => void',
+        description: 'Called when the chip body is pressed',
+      },
     ],
     examples: [
       {
@@ -2190,7 +3759,8 @@ export function SizesExample() {
       },
       {
         title: 'Closable',
-        description: 'Providing onClose renders a close button; the chip animates out when pressed.',
+        description:
+          'Providing onClose renders a close button; the chip animates out when pressed.',
         code: `import { useState } from 'react'
 import { Chip } from '@xaui/native/chip'
 import { Row } from '@xaui/native/view'
@@ -2309,34 +3879,142 @@ export function MultipleSelectionExample() {
       {
         name: 'ChipGroup',
         props: [
-          { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'ChipItem children — use ChipItem instead of Chip inside a group' },
-          { name: 'isSelectable', type: 'boolean', defaultValue: 'false', description: 'Enable selection. When true, chips toggle between their variant and a dimmed unselected style' },
-          { name: 'selectMode', type: '"single" | "multiple"', defaultValue: '"single"', description: 'single allows one selection at a time; multiple allows toggling any number of chips' },
-          { name: 'selectedValues', type: 'string[]', defaultValue: '-', description: 'Controlled array of selected ChipItem values' },
-          { name: 'defaultSelectedValues', type: 'string[]', defaultValue: '-', description: 'Initial selection for uncontrolled usage' },
-          { name: 'variant', type: 'ChipVariant', defaultValue: '"solid"', description: 'Default variant applied to all ChipItems' },
-          { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"default"', description: 'Default color applied to all ChipItems' },
-          { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Size applied to all ChipItems' },
-          { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"full"', description: 'Border radius applied to all ChipItems' },
-          { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable all chips in the group' },
-          { name: 'spacing', type: 'number', defaultValue: '8', description: 'Gap between chips in px' },
+          {
+            name: 'children',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description:
+              'ChipItem children — use ChipItem instead of Chip inside a group',
+          },
+          {
+            name: 'isSelectable',
+            type: 'boolean',
+            defaultValue: 'false',
+            description:
+              'Enable selection. When true, chips toggle between their variant and a dimmed unselected style',
+          },
+          {
+            name: 'selectMode',
+            type: '"single" | "multiple"',
+            defaultValue: '"single"',
+            description:
+              'single allows one selection at a time; multiple allows toggling any number of chips',
+          },
+          {
+            name: 'selectedValues',
+            type: 'string[]',
+            defaultValue: '-',
+            description: 'Controlled array of selected ChipItem values',
+          },
+          {
+            name: 'defaultSelectedValues',
+            type: 'string[]',
+            defaultValue: '-',
+            description: 'Initial selection for uncontrolled usage',
+          },
+          {
+            name: 'variant',
+            type: 'ChipVariant',
+            defaultValue: '"solid"',
+            description: 'Default variant applied to all ChipItems',
+          },
+          {
+            name: 'themeColor',
+            type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+            defaultValue: '"default"',
+            description: 'Default color applied to all ChipItems',
+          },
+          {
+            name: 'size',
+            type: '"sm" | "md" | "lg"',
+            defaultValue: '"md"',
+            description: 'Size applied to all ChipItems',
+          },
+          {
+            name: 'radius',
+            type: '"none" | "sm" | "md" | "lg" | "full"',
+            defaultValue: '"full"',
+            description: 'Border radius applied to all ChipItems',
+          },
+          {
+            name: 'isDisabled',
+            type: 'boolean',
+            defaultValue: 'false',
+            description: 'Disable all chips in the group',
+          },
+          {
+            name: 'spacing',
+            type: 'number',
+            defaultValue: '8',
+            description: 'Gap between chips in px',
+          },
         ],
         events: [
-          { name: 'onSelectionChange', type: '(values: string[]) => void', description: 'Called with the full array of currently selected values on each toggle' },
+          {
+            name: 'onSelectionChange',
+            type: '(values: string[]) => void',
+            description:
+              'Called with the full array of currently selected values on each toggle',
+          },
         ],
       },
       {
         name: 'ChipItem',
         props: [
-          { name: 'value', type: 'string', defaultValue: '-', description: 'Unique key within the group used to track selection' },
-          { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Chip label content' },
-          { name: 'variant', type: 'ChipVariant', defaultValue: '-', description: 'Per-item variant override (inherits from ChipGroup)' },
-          { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '-', description: 'Per-item color override (inherits from ChipGroup)' },
-          { name: 'avatar', type: 'ReactNode', defaultValue: '-', description: 'Avatar at leading edge' },
-          { name: 'startContent', type: 'ReactNode', defaultValue: '-', description: 'Custom leading content' },
-          { name: 'endContent', type: 'ReactNode', defaultValue: '-', description: 'Custom trailing content' },
-          { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Per-item disabled override' },
-          { name: 'customAppearance', type: 'ChipCustomAppearance', defaultValue: '-', description: 'Fine-grained style overrides' },
+          {
+            name: 'value',
+            type: 'string',
+            defaultValue: '-',
+            description: 'Unique key within the group used to track selection',
+          },
+          {
+            name: 'children',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Chip label content',
+          },
+          {
+            name: 'variant',
+            type: 'ChipVariant',
+            defaultValue: '-',
+            description: 'Per-item variant override (inherits from ChipGroup)',
+          },
+          {
+            name: 'themeColor',
+            type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+            defaultValue: '-',
+            description: 'Per-item color override (inherits from ChipGroup)',
+          },
+          {
+            name: 'avatar',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Avatar at leading edge',
+          },
+          {
+            name: 'startContent',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Custom leading content',
+          },
+          {
+            name: 'endContent',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Custom trailing content',
+          },
+          {
+            name: 'isDisabled',
+            type: 'boolean',
+            defaultValue: 'false',
+            description: 'Per-item disabled override',
+          },
+          {
+            name: 'customAppearance',
+            type: 'ChipCustomAppearance',
+            defaultValue: '-',
+            description: 'Fine-grained style overrides',
+          },
         ],
       },
     ],
@@ -2344,63 +4022,274 @@ export function MultipleSelectionExample() {
 
   datepicker: {
     props: [
-      { name: 'value', type: 'Date | null', defaultValue: '-', description: 'Controlled selected date' },
-      { name: 'defaultValue', type: 'Date', defaultValue: '-', description: 'Default date (uncontrolled)' },
-      { name: 'variant', type: '"outlined" | "flat" | "light" | "faded" | "underlined"', defaultValue: '"outlined"', description: 'Visual style variant' },
-      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
-      { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Component size' },
-      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Border radius' },
-      { name: 'label', type: 'ReactNode', defaultValue: '-', description: 'Field label' },
-      { name: 'placeholder', type: 'string', defaultValue: '-', description: 'Placeholder text' },
-      { name: 'description', type: 'ReactNode', defaultValue: '-', description: 'Helper text' },
-      { name: 'errorMessage', type: 'ReactNode', defaultValue: '-', description: 'Error message when invalid' },
-      { name: 'labelPlacement', type: '"inside" | "outside" | "outside-left" | "outside-top"', defaultValue: '"inside"', description: 'Label position' },
-      { name: 'locale', type: 'string', defaultValue: '"en-US"', description: 'Locale for date formatting' },
-      { name: 'minDate', type: 'Date', defaultValue: '-', description: 'Minimum selectable date' },
-      { name: 'maxDate', type: 'Date', defaultValue: '-', description: 'Maximum selectable date' },
-      { name: 'firstDayOfWeek', type: '0 | 1', defaultValue: '0', description: 'First day of week (0=Sun, 1=Mon)' },
-      { name: 'fullWidth', type: 'boolean', defaultValue: 'false', description: 'Expand to full container width' },
-      { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable interaction' },
-      { name: 'isInvalid', type: 'boolean', defaultValue: 'false', description: 'Mark as invalid' },
-      { name: 'isClearable', type: 'boolean', defaultValue: 'false', description: 'Show clear button' },
-      { name: 'calendarIcon', type: 'ReactNode', defaultValue: '-', description: 'Custom calendar icon' },
-      { name: 'customAppearance', type: 'DatePickerCustomAppearance', defaultValue: '-', description: 'Custom style overrides' },
+      {
+        name: 'value',
+        type: 'Date | null',
+        defaultValue: '-',
+        description: 'Controlled selected date',
+      },
+      {
+        name: 'defaultValue',
+        type: 'Date',
+        defaultValue: '-',
+        description: 'Default date (uncontrolled)',
+      },
+      {
+        name: 'variant',
+        type: '"outlined" | "flat" | "light" | "faded" | "underlined"',
+        defaultValue: '"outlined"',
+        description: 'Visual style variant',
+      },
+      {
+        name: 'themeColor',
+        type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+        defaultValue: '"primary"',
+        description: 'Color theme',
+      },
+      {
+        name: 'size',
+        type: '"sm" | "md" | "lg"',
+        defaultValue: '"md"',
+        description: 'Component size',
+      },
+      {
+        name: 'radius',
+        type: '"none" | "sm" | "md" | "lg" | "full"',
+        defaultValue: '"md"',
+        description: 'Border radius',
+      },
+      {
+        name: 'label',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Field label',
+      },
+      {
+        name: 'placeholder',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Placeholder text',
+      },
+      {
+        name: 'description',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Helper text',
+      },
+      {
+        name: 'errorMessage',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Error message when invalid',
+      },
+      {
+        name: 'labelPlacement',
+        type: '"inside" | "outside" | "outside-left" | "outside-top"',
+        defaultValue: '"inside"',
+        description: 'Label position',
+      },
+      {
+        name: 'locale',
+        type: 'string',
+        defaultValue: '"en-US"',
+        description: 'Locale for date formatting',
+      },
+      {
+        name: 'minDate',
+        type: 'Date',
+        defaultValue: '-',
+        description: 'Minimum selectable date',
+      },
+      {
+        name: 'maxDate',
+        type: 'Date',
+        defaultValue: '-',
+        description: 'Maximum selectable date',
+      },
+      {
+        name: 'firstDayOfWeek',
+        type: '0 | 1',
+        defaultValue: '0',
+        description: 'First day of week (0=Sun, 1=Mon)',
+      },
+      {
+        name: 'fullWidth',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Expand to full container width',
+      },
+      {
+        name: 'isDisabled',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Disable interaction',
+      },
+      {
+        name: 'isInvalid',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Mark as invalid',
+      },
+      {
+        name: 'isClearable',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Show clear button',
+      },
+      {
+        name: 'calendarIcon',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Custom calendar icon',
+      },
+      {
+        name: 'customAppearance',
+        type: 'DatePickerCustomAppearance',
+        defaultValue: '-',
+        description: 'Custom style overrides',
+      },
     ],
     events: [
-      { name: 'onChange', type: '(date: Date | null) => void', description: 'Called when a date is selected' },
-      { name: 'onOpen', type: '() => void', description: 'Called when calendar opens' },
-      { name: 'onClose', type: '() => void', description: 'Called when calendar closes' },
-      { name: 'onOpenChange', type: '(isOpen: boolean) => void', description: 'Called when open state changes' },
+      {
+        name: 'onChange',
+        type: '(date: Date | null) => void',
+        description: 'Called when a date is selected',
+      },
+      {
+        name: 'onOpen',
+        type: '() => void',
+        description: 'Called when calendar opens',
+      },
+      {
+        name: 'onClose',
+        type: '() => void',
+        description: 'Called when calendar closes',
+      },
+      {
+        name: 'onOpenChange',
+        type: '(isOpen: boolean) => void',
+        description: 'Called when open state changes',
+      },
     ],
   },
 
   divider: {
     props: [
-      { name: 'orientation', type: '"horizontal" | "vertical"', defaultValue: '"horizontal"', description: 'Divider orientation' },
-      { name: 'size', type: 'number', defaultValue: '1', description: 'Thickness of the divider' },
-      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '-', description: 'Color theme' },
-      { name: 'color', type: 'string', defaultValue: '-', description: 'Custom color override' },
+      {
+        name: 'orientation',
+        type: '"horizontal" | "vertical"',
+        defaultValue: '"horizontal"',
+        description: 'Divider orientation',
+      },
+      {
+        name: 'size',
+        type: 'number',
+        defaultValue: '1',
+        description: 'Thickness of the divider',
+      },
+      {
+        name: 'themeColor',
+        type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+        defaultValue: '-',
+        description: 'Color theme',
+      },
+      {
+        name: 'color',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Custom color override',
+      },
     ],
   },
 
   dialog: {
     props: [
-      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Dialog content composed with DialogHeader, DialogBody, and DialogFooter' },
-      { name: 'isOpen', type: 'boolean', defaultValue: 'false', description: 'Controls dialog visibility' },
-      { name: 'size', type: '"sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Dialog size preset' },
-      { name: 'placement', type: '"top" | "center" | "bottom"', defaultValue: '"center"', description: 'Vertical placement on screen' },
-      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"lg"', description: 'Border radius of the dialog container' },
-      { name: 'backdrop', type: '"transparent" | "blurred" | "opaque"', defaultValue: '"opaque"', description: 'Backdrop intensity style' },
-      { name: 'closeOnBackdropPress', type: 'boolean', defaultValue: 'true', description: 'Close dialog when backdrop is pressed' },
-      { name: 'hideBackdrop', type: 'boolean', defaultValue: 'false', description: 'Hide the backdrop layer' },
-      { name: 'animationType', type: '"none" | "slide" | "fade"', defaultValue: '"fade"', description: 'Modal animation style' },
-      { name: 'disableAnimation', type: 'boolean', defaultValue: 'false', description: 'Disable opening/closing animation' },
-      { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Additional style for the dialog container' },
-      { name: 'customAppearance', type: 'DialogCustomAppearance', defaultValue: '-', description: 'Style overrides for backdrop, container, header, body, footer, and text' },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description:
+          'Dialog content composed with DialogHeader, DialogBody, and DialogFooter',
+      },
+      {
+        name: 'isOpen',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Controls dialog visibility',
+      },
+      {
+        name: 'size',
+        type: '"sm" | "md" | "lg" | "full"',
+        defaultValue: '"md"',
+        description: 'Dialog size preset',
+      },
+      {
+        name: 'placement',
+        type: '"top" | "center" | "bottom"',
+        defaultValue: '"center"',
+        description: 'Vertical placement on screen',
+      },
+      {
+        name: 'radius',
+        type: '"none" | "sm" | "md" | "lg" | "full"',
+        defaultValue: '"lg"',
+        description: 'Border radius of the dialog container',
+      },
+      {
+        name: 'backdrop',
+        type: '"transparent" | "blurred" | "opaque"',
+        defaultValue: '"opaque"',
+        description: 'Backdrop intensity style',
+      },
+      {
+        name: 'closeOnBackdropPress',
+        type: 'boolean',
+        defaultValue: 'true',
+        description: 'Close dialog when backdrop is pressed',
+      },
+      {
+        name: 'hideBackdrop',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Hide the backdrop layer',
+      },
+      {
+        name: 'animationType',
+        type: '"none" | "slide" | "fade"',
+        defaultValue: '"fade"',
+        description: 'Modal animation style',
+      },
+      {
+        name: 'disableAnimation',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Disable opening/closing animation',
+      },
+      {
+        name: 'style',
+        type: 'ViewStyle',
+        defaultValue: '-',
+        description: 'Additional style for the dialog container',
+      },
+      {
+        name: 'customAppearance',
+        type: 'DialogCustomAppearance',
+        defaultValue: '-',
+        description:
+          'Style overrides for backdrop, container, header, body, footer, and text',
+      },
     ],
     events: [
-      { name: 'onClose', type: '() => void', description: 'Called when dialog requests to close' },
-      { name: 'onOpenChange', type: '(isOpen: boolean) => void', description: 'Called when open state changes' },
+      {
+        name: 'onClose',
+        type: '() => void',
+        description: 'Called when dialog requests to close',
+      },
+      {
+        name: 'onOpenChange',
+        type: '(isOpen: boolean) => void',
+        description: 'Called when open state changes',
+      },
     ],
     examples: [
       {
@@ -2493,25 +4382,70 @@ export function ControlledDialogExample() {
       {
         name: 'DialogHeader',
         props: [
-          { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Header content or title text' },
-          { name: 'isClosable', type: 'boolean', defaultValue: 'false', description: 'Show a close button in the header' },
-          { name: 'closeButton', type: 'ReactNode', defaultValue: '-', description: 'Custom close button element' },
-          { name: 'onClose', type: '() => void', defaultValue: '-', description: 'Close handler override for this header' },
-          { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Custom style for the header container' },
+          {
+            name: 'children',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Header content or title text',
+          },
+          {
+            name: 'isClosable',
+            type: 'boolean',
+            defaultValue: 'false',
+            description: 'Show a close button in the header',
+          },
+          {
+            name: 'closeButton',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Custom close button element',
+          },
+          {
+            name: 'onClose',
+            type: '() => void',
+            defaultValue: '-',
+            description: 'Close handler override for this header',
+          },
+          {
+            name: 'style',
+            type: 'ViewStyle',
+            defaultValue: '-',
+            description: 'Custom style for the header container',
+          },
         ],
       },
       {
         name: 'DialogBody',
         props: [
-          { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Body content' },
-          { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Custom style for the body container' },
+          {
+            name: 'children',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Body content',
+          },
+          {
+            name: 'style',
+            type: 'ViewStyle',
+            defaultValue: '-',
+            description: 'Custom style for the body container',
+          },
         ],
       },
       {
         name: 'DialogFooter',
         props: [
-          { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Footer content, typically actions' },
-          { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Custom style for the footer container' },
+          {
+            name: 'children',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Footer content, typically actions',
+          },
+          {
+            name: 'style',
+            type: 'ViewStyle',
+            defaultValue: '-',
+            description: 'Custom style for the footer container',
+          },
         ],
       },
     ],
@@ -2519,18 +4453,67 @@ export function ControlledDialogExample() {
 
   drawer: {
     props: [
-      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Drawer content' },
-      { name: 'isOpen', type: 'boolean', defaultValue: '-', description: 'Controls whether drawer is open' },
-      { name: 'position', type: '"top" | "left" | "bottom" | "right"', defaultValue: '"left"', description: 'Slide-in direction' },
-      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"default"', description: 'Color theme for the drawer background' },
-      { name: 'width', type: 'number', defaultValue: '280', description: 'Drawer width for left/right positions' },
-      { name: 'height', type: 'number', defaultValue: '280', description: 'Drawer height for top/bottom positions' },
-      { name: 'showOverlay', type: 'boolean', defaultValue: 'true', description: 'Show semi-transparent backdrop' },
-      { name: 'disableAnimation', type: 'boolean', defaultValue: 'false', description: 'Skip slide-in/out animation' },
-      { name: 'customStyle', type: 'ViewStyle', defaultValue: '-', description: 'Custom styles applied to the drawer panel' },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Drawer content',
+      },
+      {
+        name: 'isOpen',
+        type: 'boolean',
+        defaultValue: '-',
+        description: 'Controls whether drawer is open',
+      },
+      {
+        name: 'position',
+        type: '"top" | "left" | "bottom" | "right"',
+        defaultValue: '"left"',
+        description: 'Slide-in direction',
+      },
+      {
+        name: 'themeColor',
+        type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+        defaultValue: '"default"',
+        description: 'Color theme for the drawer background',
+      },
+      {
+        name: 'width',
+        type: 'number',
+        defaultValue: '280',
+        description: 'Drawer width for left/right positions',
+      },
+      {
+        name: 'height',
+        type: 'number',
+        defaultValue: '280',
+        description: 'Drawer height for top/bottom positions',
+      },
+      {
+        name: 'showOverlay',
+        type: 'boolean',
+        defaultValue: 'true',
+        description: 'Show semi-transparent backdrop',
+      },
+      {
+        name: 'disableAnimation',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Skip slide-in/out animation',
+      },
+      {
+        name: 'customStyle',
+        type: 'ViewStyle',
+        defaultValue: '-',
+        description: 'Custom styles applied to the drawer panel',
+      },
     ],
     events: [
-      { name: 'onClose', type: '() => void', description: 'Called when the backdrop is tapped or back is pressed' },
+      {
+        name: 'onClose',
+        type: '() => void',
+        description: 'Called when the backdrop is tapped or back is pressed',
+      },
     ],
     examples: [
       {
@@ -2625,40 +4608,162 @@ export function DrawerCustomSizeExample() {
 
   fab: {
     props: [
-      { name: 'icon', type: 'ReactNode', defaultValue: '-', description: 'Icon element for the FAB' },
-      { name: 'label', type: 'ReactNode', defaultValue: '-', description: 'Optional text label beside the icon' },
-      { name: 'variant', type: '"solid" | "flat" | "outlined"', defaultValue: '"solid"', description: 'Visual style variant' },
-      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
-      { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'FAB size' },
-      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"full"', description: 'Border radius' },
-      { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable interaction' },
-      { name: 'isLoading', type: 'boolean', defaultValue: 'false', description: 'Show loading spinner' },
-      { name: 'elevation', type: '0 | 1 | 2 | 3 | 4', defaultValue: '2', description: 'Shadow elevation level' },
-      { name: 'customAppearance', type: '{ container?: ViewStyle; fab?: ViewStyle }', defaultValue: '-', description: 'Custom style overrides' },
+      {
+        name: 'icon',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Icon element for the FAB',
+      },
+      {
+        name: 'label',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Optional text label beside the icon',
+      },
+      {
+        name: 'variant',
+        type: '"solid" | "flat" | "outlined"',
+        defaultValue: '"solid"',
+        description: 'Visual style variant',
+      },
+      {
+        name: 'themeColor',
+        type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+        defaultValue: '"primary"',
+        description: 'Color theme',
+      },
+      {
+        name: 'size',
+        type: '"sm" | "md" | "lg"',
+        defaultValue: '"md"',
+        description: 'FAB size',
+      },
+      {
+        name: 'radius',
+        type: '"none" | "sm" | "md" | "lg" | "full"',
+        defaultValue: '"full"',
+        description: 'Border radius',
+      },
+      {
+        name: 'isDisabled',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Disable interaction',
+      },
+      {
+        name: 'isLoading',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Show loading spinner',
+      },
+      {
+        name: 'elevation',
+        type: '0 | 1 | 2 | 3 | 4',
+        defaultValue: '2',
+        description: 'Shadow elevation level',
+      },
+      {
+        name: 'customAppearance',
+        type: '{ container?: ViewStyle; fab?: ViewStyle }',
+        defaultValue: '-',
+        description: 'Custom style overrides',
+      },
     ],
     events: [
-      { name: 'onPress', type: '(event: GestureResponderEvent) => void', description: 'Called when FAB is pressed' },
-      { name: 'onLongPress', type: '(event: GestureResponderEvent) => void', description: 'Called on long press' },
+      {
+        name: 'onPress',
+        type: '(event: GestureResponderEvent) => void',
+        description: 'Called when FAB is pressed',
+      },
+      {
+        name: 'onLongPress',
+        type: '(event: GestureResponderEvent) => void',
+        description: 'Called on long press',
+      },
     ],
   },
 
   'fab-menu': {
     props: [
-      { name: 'icon', type: 'ReactNode', defaultValue: '-', description: 'Toggle icon when collapsed' },
-      { name: 'label', type: 'ReactNode', defaultValue: '-', description: 'Optional extended-FAB label on the toggle' },
-      { name: 'expandedIcon', type: 'ReactNode', defaultValue: '-', description: 'Alternate toggle icon when expanded' },
-      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'FabMenuItem children rendered in the expanded list' },
-      { name: 'variant', type: '"solid" | "flat" | "outlined"', defaultValue: '"solid"', description: 'Visual style variant of the toggle FAB' },
-      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Theme color shared by toggle and item defaults' },
-      { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Toggle FAB size' },
-      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '-', description: 'Border radius override for the toggle FAB' },
-      { name: 'isExpanded', type: 'boolean', defaultValue: '-', description: 'Controlled expanded state (uncontrolled if omitted)' },
-      { name: 'showOverlay', type: 'boolean', defaultValue: 'true', description: 'Show dismissible backdrop while expanded' },
-      { name: 'elevation', type: '0 | 1 | 2 | 3 | 4', defaultValue: '0', description: 'Android shadow elevation for the toggle FAB' },
-      { name: 'customAppearance', type: 'FabMenuCustomAppearance', defaultValue: '-', description: 'Style overrides for container, overlay, toggle, and item rows' },
+      {
+        name: 'icon',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Toggle icon when collapsed',
+      },
+      {
+        name: 'label',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Optional extended-FAB label on the toggle',
+      },
+      {
+        name: 'expandedIcon',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Alternate toggle icon when expanded',
+      },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'FabMenuItem children rendered in the expanded list',
+      },
+      {
+        name: 'variant',
+        type: '"solid" | "flat" | "outlined"',
+        defaultValue: '"solid"',
+        description: 'Visual style variant of the toggle FAB',
+      },
+      {
+        name: 'themeColor',
+        type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+        defaultValue: '"primary"',
+        description: 'Theme color shared by toggle and item defaults',
+      },
+      {
+        name: 'size',
+        type: '"sm" | "md" | "lg"',
+        defaultValue: '"md"',
+        description: 'Toggle FAB size',
+      },
+      {
+        name: 'radius',
+        type: '"none" | "sm" | "md" | "lg" | "full"',
+        defaultValue: '-',
+        description: 'Border radius override for the toggle FAB',
+      },
+      {
+        name: 'isExpanded',
+        type: 'boolean',
+        defaultValue: '-',
+        description: 'Controlled expanded state (uncontrolled if omitted)',
+      },
+      {
+        name: 'showOverlay',
+        type: 'boolean',
+        defaultValue: 'true',
+        description: 'Show dismissible backdrop while expanded',
+      },
+      {
+        name: 'elevation',
+        type: '0 | 1 | 2 | 3 | 4',
+        defaultValue: '0',
+        description: 'Android shadow elevation for the toggle FAB',
+      },
+      {
+        name: 'customAppearance',
+        type: 'FabMenuCustomAppearance',
+        defaultValue: '-',
+        description: 'Style overrides for container, overlay, toggle, and item rows',
+      },
     ],
     events: [
-      { name: 'onToggle', type: '(expanded: boolean) => void', description: 'Called when the menu opens or closes' },
+      {
+        name: 'onToggle',
+        type: '(expanded: boolean) => void',
+        description: 'Called when the menu opens or closes',
+      },
     ],
     examples: [
       {
@@ -2746,13 +4851,37 @@ export function CustomAppearanceFabMenuExample() {
       {
         name: 'FabMenuItem',
         props: [
-          { name: 'icon', type: 'ReactNode', defaultValue: '-', description: 'Item icon content' },
-          { name: 'label', type: 'string', defaultValue: '-', description: 'Text label shown in the item row' },
-          { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Item theme override (inherits parent when omitted)' },
-          { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable this item' },
+          {
+            name: 'icon',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Item icon content',
+          },
+          {
+            name: 'label',
+            type: 'string',
+            defaultValue: '-',
+            description: 'Text label shown in the item row',
+          },
+          {
+            name: 'themeColor',
+            type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+            defaultValue: '"primary"',
+            description: 'Item theme override (inherits parent when omitted)',
+          },
+          {
+            name: 'isDisabled',
+            type: 'boolean',
+            defaultValue: 'false',
+            description: 'Disable this item',
+          },
         ],
         events: [
-          { name: 'onPress', type: '(event: GestureResponderEvent) => void', description: 'Called when item is pressed' },
+          {
+            name: 'onPress',
+            type: '(event: GestureResponderEvent) => void',
+            description: 'Called when item is pressed',
+          },
         ],
       },
     ],
@@ -2760,22 +4889,91 @@ export function CustomAppearanceFabMenuExample() {
 
   'feature-discovery': {
     props: [
-      { name: 'isVisible', type: 'boolean', defaultValue: '-', description: 'Controls whether the discovery overlay is visible' },
-      { name: 'targetRef', type: 'RefObject<MeasurableNode | null>', defaultValue: '-', description: 'Ref to the target element to measure and highlight' },
-      { name: 'title', type: 'ReactNode', defaultValue: '-', description: 'Primary message shown near the spotlight' },
-      { name: 'description', type: 'ReactNode', defaultValue: '-', description: 'Optional supporting text under the title' },
-      { name: 'actionText', type: 'ReactNode', defaultValue: '-', description: 'Optional action label (for example “Got it”)' },
-      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Accent color used by spotlight visuals' },
-      { name: 'overlayColor', type: 'string', defaultValue: '-', description: 'Custom backdrop color behind the spotlight' },
-      { name: 'spotlightPadding', type: 'number', defaultValue: '14', description: 'Extra space around the highlighted target bounds' },
-      { name: 'circleScale', type: 'number', defaultValue: '1.65', description: 'Multiplier applied to spotlight circle diameter' },
-      { name: 'dismissOnBackdropPress', type: 'boolean', defaultValue: 'true', description: 'Whether tapping outside the message closes the overlay' },
-      { name: 'highlightContent', type: 'ReactNode', defaultValue: '-', description: 'Custom content rendered over the highlighted target area' },
-      { name: 'customAppearance', type: 'FeatureDiscoveryCustomAppearance', defaultValue: '-', description: 'Style overrides for root, container, title, description, actionText and highlight wrappers' },
+      {
+        name: 'isVisible',
+        type: 'boolean',
+        defaultValue: '-',
+        description: 'Controls whether the discovery overlay is visible',
+      },
+      {
+        name: 'targetRef',
+        type: 'RefObject<MeasurableNode | null>',
+        defaultValue: '-',
+        description: 'Ref to the target element to measure and highlight',
+      },
+      {
+        name: 'title',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Primary message shown near the spotlight',
+      },
+      {
+        name: 'description',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Optional supporting text under the title',
+      },
+      {
+        name: 'actionText',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Optional action label (for example “Got it”)',
+      },
+      {
+        name: 'themeColor',
+        type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+        defaultValue: '"primary"',
+        description: 'Accent color used by spotlight visuals',
+      },
+      {
+        name: 'overlayColor',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Custom backdrop color behind the spotlight',
+      },
+      {
+        name: 'spotlightPadding',
+        type: 'number',
+        defaultValue: '14',
+        description: 'Extra space around the highlighted target bounds',
+      },
+      {
+        name: 'circleScale',
+        type: 'number',
+        defaultValue: '1.65',
+        description: 'Multiplier applied to spotlight circle diameter',
+      },
+      {
+        name: 'dismissOnBackdropPress',
+        type: 'boolean',
+        defaultValue: 'true',
+        description: 'Whether tapping outside the message closes the overlay',
+      },
+      {
+        name: 'highlightContent',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Custom content rendered over the highlighted target area',
+      },
+      {
+        name: 'customAppearance',
+        type: 'FeatureDiscoveryCustomAppearance',
+        defaultValue: '-',
+        description:
+          'Style overrides for root, container, title, description, actionText and highlight wrappers',
+      },
     ],
     events: [
-      { name: 'onActionPress', type: '() => void', description: 'Called when the action label is pressed' },
-      { name: 'onDismiss', type: '() => void', description: 'Called when the overlay requests to close (backdrop/action)' },
+      {
+        name: 'onActionPress',
+        type: '() => void',
+        description: 'Called when the action label is pressed',
+      },
+      {
+        name: 'onDismiss',
+        type: '() => void',
+        description: 'Called when the overlay requests to close (backdrop/action)',
+      },
     ],
     examples: [
       {
@@ -2890,14 +5088,54 @@ export function CustomHighlightFeatureDiscoveryExample() {
 
   indicator: {
     props: [
-      { name: 'variant', type: '"linear" | "circular"', defaultValue: '"circular"', description: 'Indicator style' },
-      { name: 'size', type: 'number', defaultValue: '4 (linear), 40 (circular)', description: 'Indicator size (height for linear, diameter for circular)' },
-      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
-      { name: 'color', type: 'string', defaultValue: '-', description: 'Custom color override' },
-      { name: 'backgroundColor', type: 'string', defaultValue: '-', description: 'Track background color' },
-      { name: 'borderRadius', type: 'number', defaultValue: '-', description: 'Custom border radius for indicator/track' },
-      { name: 'showTrack', type: 'boolean', defaultValue: 'false', description: 'Show background track' },
-      { name: 'disableAnimation', type: 'boolean', defaultValue: 'false', description: 'Disable spin animation' },
+      {
+        name: 'variant',
+        type: '"linear" | "circular"',
+        defaultValue: '"circular"',
+        description: 'Indicator style',
+      },
+      {
+        name: 'size',
+        type: 'number',
+        defaultValue: '4 (linear), 40 (circular)',
+        description: 'Indicator size (height for linear, diameter for circular)',
+      },
+      {
+        name: 'themeColor',
+        type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+        defaultValue: '"primary"',
+        description: 'Color theme',
+      },
+      {
+        name: 'color',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Custom color override',
+      },
+      {
+        name: 'backgroundColor',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Track background color',
+      },
+      {
+        name: 'borderRadius',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Custom border radius for indicator/track',
+      },
+      {
+        name: 'showTrack',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Show background track',
+      },
+      {
+        name: 'disableAnimation',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Disable spin animation',
+      },
     ],
     examples: [
       {
@@ -2996,29 +5234,133 @@ export function DisableAnimationExample() {
 
   input: {
     props: [
-      { name: 'value', type: 'string', defaultValue: '-', description: 'Controlled input value' },
-      { name: 'defaultValue', type: 'string', defaultValue: '-', description: 'Default value (uncontrolled)' },
-      { name: 'label', type: 'ReactNode', defaultValue: '-', description: 'Field label' },
-      { name: 'labelPlacement', type: '"outside" | "inside"', defaultValue: '"inside"', description: 'Label position' },
-      { name: 'description', type: 'ReactNode', defaultValue: '-', description: 'Helper text below field' },
-      { name: 'errorMessage', type: 'ReactNode', defaultValue: '-', description: 'Error message when invalid' },
-      { name: 'startContent', type: 'ReactNode', defaultValue: '-', description: 'Element at start of input' },
-      { name: 'endContent', type: 'ReactNode', defaultValue: '-', description: 'Element at end of input' },
-      { name: 'variant', type: '"flat" | "faded" | "bordered" | "underlined"', defaultValue: '"flat"', description: 'Visual style variant' },
-      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
-      { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Input size' },
-      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Border radius' },
-      { name: 'isSecured', type: 'boolean', defaultValue: 'false', description: 'Mask input (password mode)' },
-      { name: 'isClearable', type: 'boolean', defaultValue: 'false', description: 'Show clear button' },
-      { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable interaction' },
-      { name: 'isReadOnly', type: 'boolean', defaultValue: 'false', description: 'Read-only mode' },
-      { name: 'isInvalid', type: 'boolean', defaultValue: 'false', description: 'Mark as invalid' },
-      { name: 'fullWidth', type: 'boolean', defaultValue: 'false', description: 'Expand to full container width' },
-      { name: 'inputMode', type: '"none" | "text" | "decimal" | "numeric" | "tel" | "search" | "email" | "url"', defaultValue: '"text"', description: 'Keyboard type hint for the mobile soft keyboard' },
-      { name: 'customAppearance', type: 'TextInputCustomAppearance', defaultValue: '-', description: 'Custom style overrides' },
+      {
+        name: 'value',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Controlled input value',
+      },
+      {
+        name: 'defaultValue',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Default value (uncontrolled)',
+      },
+      {
+        name: 'label',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Field label',
+      },
+      {
+        name: 'labelPlacement',
+        type: '"outside" | "inside"',
+        defaultValue: '"inside"',
+        description: 'Label position',
+      },
+      {
+        name: 'description',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Helper text below field',
+      },
+      {
+        name: 'errorMessage',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Error message when invalid',
+      },
+      {
+        name: 'startContent',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Element at start of input',
+      },
+      {
+        name: 'endContent',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Element at end of input',
+      },
+      {
+        name: 'variant',
+        type: '"flat" | "faded" | "bordered" | "underlined"',
+        defaultValue: '"flat"',
+        description: 'Visual style variant',
+      },
+      {
+        name: 'themeColor',
+        type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+        defaultValue: '"primary"',
+        description: 'Color theme',
+      },
+      {
+        name: 'size',
+        type: '"sm" | "md" | "lg"',
+        defaultValue: '"md"',
+        description: 'Input size',
+      },
+      {
+        name: 'radius',
+        type: '"none" | "sm" | "md" | "lg" | "full"',
+        defaultValue: '"md"',
+        description: 'Border radius',
+      },
+      {
+        name: 'isSecured',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Mask input (password mode)',
+      },
+      {
+        name: 'isClearable',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Show clear button',
+      },
+      {
+        name: 'isDisabled',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Disable interaction',
+      },
+      {
+        name: 'isReadOnly',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Read-only mode',
+      },
+      {
+        name: 'isInvalid',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Mark as invalid',
+      },
+      {
+        name: 'fullWidth',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Expand to full container width',
+      },
+      {
+        name: 'inputMode',
+        type: '"none" | "text" | "decimal" | "numeric" | "tel" | "search" | "email" | "url"',
+        defaultValue: '"text"',
+        description: 'Keyboard type hint for the mobile soft keyboard',
+      },
+      {
+        name: 'customAppearance',
+        type: 'TextInputCustomAppearance',
+        defaultValue: '-',
+        description: 'Custom style overrides',
+      },
     ],
     events: [
-      { name: 'onValueChange', type: '(value: string) => void', description: 'Called when the input value changes' },
+      {
+        name: 'onValueChange',
+        type: '(value: string) => void',
+        description: 'Called when the input value changes',
+      },
     ],
     examples: [
       {
@@ -3228,26 +5570,115 @@ export function CustomAppearanceExample() {
 
   textarea: {
     props: [
-      { name: 'value', type: 'string', defaultValue: '-', description: 'Controlled value' },
-      { name: 'defaultValue', type: 'string', defaultValue: '-', description: 'Default value (uncontrolled)' },
-      { name: 'label', type: 'ReactNode', defaultValue: '-', description: 'Field label' },
-      { name: 'labelPlacement', type: '"outside" | "inside"', defaultValue: '"outside"', description: 'Label position' },
-      { name: 'placeholder', type: 'string', defaultValue: '-', description: 'Placeholder text' },
-      { name: 'description', type: 'ReactNode', defaultValue: '-', description: 'Helper text below the field' },
-      { name: 'errorMessage', type: 'ReactNode', defaultValue: '-', description: 'Error message when invalid' },
-      { name: 'numberOfLines', type: 'number', defaultValue: '4', description: 'Visible line count' },
-      { name: 'variant', type: '"flat" | "faded" | "bordered" | "underlined"', defaultValue: '"flat"', description: 'Visual style variant' },
-      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
-      { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Input size' },
-      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Border radius' },
-      { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable interaction' },
-      { name: 'isReadOnly', type: 'boolean', defaultValue: 'false', description: 'Read-only mode' },
-      { name: 'isInvalid', type: 'boolean', defaultValue: 'false', description: 'Mark as invalid' },
-      { name: 'fullWidth', type: 'boolean', defaultValue: 'false', description: 'Expand to full container width' },
-      { name: 'customAppearance', type: 'TextAreaCustomAppearance', defaultValue: '-', description: 'Custom style overrides' },
+      {
+        name: 'value',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Controlled value',
+      },
+      {
+        name: 'defaultValue',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Default value (uncontrolled)',
+      },
+      {
+        name: 'label',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Field label',
+      },
+      {
+        name: 'labelPlacement',
+        type: '"outside" | "inside"',
+        defaultValue: '"outside"',
+        description: 'Label position',
+      },
+      {
+        name: 'placeholder',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Placeholder text',
+      },
+      {
+        name: 'description',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Helper text below the field',
+      },
+      {
+        name: 'errorMessage',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Error message when invalid',
+      },
+      {
+        name: 'numberOfLines',
+        type: 'number',
+        defaultValue: '4',
+        description: 'Visible line count',
+      },
+      {
+        name: 'variant',
+        type: '"flat" | "faded" | "bordered" | "underlined"',
+        defaultValue: '"flat"',
+        description: 'Visual style variant',
+      },
+      {
+        name: 'themeColor',
+        type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+        defaultValue: '"primary"',
+        description: 'Color theme',
+      },
+      {
+        name: 'size',
+        type: '"sm" | "md" | "lg"',
+        defaultValue: '"md"',
+        description: 'Input size',
+      },
+      {
+        name: 'radius',
+        type: '"none" | "sm" | "md" | "lg" | "full"',
+        defaultValue: '"md"',
+        description: 'Border radius',
+      },
+      {
+        name: 'isDisabled',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Disable interaction',
+      },
+      {
+        name: 'isReadOnly',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Read-only mode',
+      },
+      {
+        name: 'isInvalid',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Mark as invalid',
+      },
+      {
+        name: 'fullWidth',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Expand to full container width',
+      },
+      {
+        name: 'customAppearance',
+        type: 'TextAreaCustomAppearance',
+        defaultValue: '-',
+        description: 'Custom style overrides',
+      },
     ],
     events: [
-      { name: 'onValueChange', type: '(value: string) => void', description: 'Called when value changes' },
+      {
+        name: 'onValueChange',
+        type: '(value: string) => void',
+        description: 'Called when value changes',
+      },
     ],
     examples: [
       {
@@ -3331,25 +5762,110 @@ export function StatesExample() {
 
   'date-input': {
     props: [
-      { name: 'value', type: 'string', defaultValue: '-', description: 'Controlled value — formatted string matching dateOrder and separator (e.g. "25/01/2024" for DMY + "/")' },
-      { name: 'label', type: 'ReactNode', defaultValue: '-', description: 'Field label' },
-      { name: 'labelPlacement', type: '"outside" | "inside"', defaultValue: '"inside"', description: 'Label position' },
-      { name: 'description', type: 'ReactNode', defaultValue: '-', description: 'Helper text below field' },
-      { name: 'errorMessage', type: 'ReactNode', defaultValue: '-', description: 'Error message when invalid' },
-      { name: 'separator', type: '"-" | "/" | "."', defaultValue: '"-"', description: 'Separator between date segments' },
-      { name: 'dateOrder', type: '"YMD" | "DMY" | "MDY"', defaultValue: '-', description: 'Date segment order (auto-detected from locale if omitted)' },
-      { name: 'locale', type: 'string', defaultValue: '"en-US"', description: 'Locale used for automatic date-order detection' },
-      { name: 'variant', type: '"flat" | "faded" | "bordered" | "underlined"', defaultValue: '"flat"', description: 'Visual style variant' },
-      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
-      { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Input size' },
-      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Border radius' },
-      { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable interaction' },
-      { name: 'isReadOnly', type: 'boolean', defaultValue: 'false', description: 'Read-only mode' },
-      { name: 'isInvalid', type: 'boolean', defaultValue: 'false', description: 'Mark as invalid' },
-      { name: 'fullWidth', type: 'boolean', defaultValue: 'false', description: 'Expand to full container width' },
+      {
+        name: 'value',
+        type: 'string',
+        defaultValue: '-',
+        description:
+          'Controlled value — formatted string matching dateOrder and separator (e.g. "25/01/2024" for DMY + "/")',
+      },
+      {
+        name: 'label',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Field label',
+      },
+      {
+        name: 'labelPlacement',
+        type: '"outside" | "inside"',
+        defaultValue: '"inside"',
+        description: 'Label position',
+      },
+      {
+        name: 'description',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Helper text below field',
+      },
+      {
+        name: 'errorMessage',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Error message when invalid',
+      },
+      {
+        name: 'separator',
+        type: '"-" | "/" | "."',
+        defaultValue: '"-"',
+        description: 'Separator between date segments',
+      },
+      {
+        name: 'dateOrder',
+        type: '"YMD" | "DMY" | "MDY"',
+        defaultValue: '-',
+        description: 'Date segment order (auto-detected from locale if omitted)',
+      },
+      {
+        name: 'locale',
+        type: 'string',
+        defaultValue: '"en-US"',
+        description: 'Locale used for automatic date-order detection',
+      },
+      {
+        name: 'variant',
+        type: '"flat" | "faded" | "bordered" | "underlined"',
+        defaultValue: '"flat"',
+        description: 'Visual style variant',
+      },
+      {
+        name: 'themeColor',
+        type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+        defaultValue: '"primary"',
+        description: 'Color theme',
+      },
+      {
+        name: 'size',
+        type: '"sm" | "md" | "lg"',
+        defaultValue: '"md"',
+        description: 'Input size',
+      },
+      {
+        name: 'radius',
+        type: '"none" | "sm" | "md" | "lg" | "full"',
+        defaultValue: '"md"',
+        description: 'Border radius',
+      },
+      {
+        name: 'isDisabled',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Disable interaction',
+      },
+      {
+        name: 'isReadOnly',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Read-only mode',
+      },
+      {
+        name: 'isInvalid',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Mark as invalid',
+      },
+      {
+        name: 'fullWidth',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Expand to full container width',
+      },
     ],
     events: [
-      { name: 'onValueChange', type: '(value: string) => void', description: 'Called when the date value changes' },
+      {
+        name: 'onValueChange',
+        type: '(value: string) => void',
+        description: 'Called when the date value changes',
+      },
     ],
     examples: [
       {
@@ -3415,7 +5931,8 @@ export function ControlledExample() {
       },
       {
         title: 'Convert value to Date',
-        description: 'Use dateInputValueToDate to parse the formatted string into a Date object (time set to 00:00:00.000).',
+        description:
+          'Use dateInputValueToDate to parse the formatted string into a Date object (time set to 00:00:00.000).',
         code: `import { dateInputValueToDate } from '@xaui/native/input'
 
 const date = dateInputValueToDate('25/01/2024', 'DMY', '/')
@@ -3426,7 +5943,8 @@ const invalid = dateInputValueToDate('31/02/2024', 'DMY', '/')
       },
       {
         title: 'Convert Date to value',
-        description: 'Use dateToDateInputValue to format a Date or ISO string into the value format expected by DateInput.',
+        description:
+          'Use dateToDateInputValue to format a Date or ISO string into the value format expected by DateInput.',
         code: `import { dateToDateInputValue } from '@xaui/native/input'
 
 dateToDateInputValue(new Date(2024, 0, 25), 'DMY', '/')
@@ -3443,24 +5961,104 @@ dateToDateInputValue('2024-01-25T00:00:00.000Z', 'MDY', '.')
 
   'time-input': {
     props: [
-      { name: 'value', type: 'string', defaultValue: '-', description: 'Controlled value — formatted string matching hourCycle and granularity (e.g. "14:30" for 24h, "02:30 PM" for 12h)' },
-      { name: 'label', type: 'ReactNode', defaultValue: '-', description: 'Field label' },
-      { name: 'labelPlacement', type: '"outside" | "inside"', defaultValue: '"inside"', description: 'Label position' },
-      { name: 'description', type: 'ReactNode', defaultValue: '-', description: 'Helper text below field' },
-      { name: 'errorMessage', type: 'ReactNode', defaultValue: '-', description: 'Error message when invalid' },
-      { name: 'granularity', type: '"minute" | "second"', defaultValue: '"minute"', description: 'Smallest displayed time unit' },
-      { name: 'hourCycle', type: '12 | 24', defaultValue: '24', description: '12-hour or 24-hour format' },
-      { name: 'variant', type: '"flat" | "faded" | "bordered" | "underlined"', defaultValue: '"flat"', description: 'Visual style variant' },
-      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
-      { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Input size' },
-      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Border radius' },
-      { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable interaction' },
-      { name: 'isReadOnly', type: 'boolean', defaultValue: 'false', description: 'Read-only mode' },
-      { name: 'isInvalid', type: 'boolean', defaultValue: 'false', description: 'Mark as invalid' },
-      { name: 'fullWidth', type: 'boolean', defaultValue: 'false', description: 'Expand to full container width' },
+      {
+        name: 'value',
+        type: 'string',
+        defaultValue: '-',
+        description:
+          'Controlled value — formatted string matching hourCycle and granularity (e.g. "14:30" for 24h, "02:30 PM" for 12h)',
+      },
+      {
+        name: 'label',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Field label',
+      },
+      {
+        name: 'labelPlacement',
+        type: '"outside" | "inside"',
+        defaultValue: '"inside"',
+        description: 'Label position',
+      },
+      {
+        name: 'description',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Helper text below field',
+      },
+      {
+        name: 'errorMessage',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Error message when invalid',
+      },
+      {
+        name: 'granularity',
+        type: '"minute" | "second"',
+        defaultValue: '"minute"',
+        description: 'Smallest displayed time unit',
+      },
+      {
+        name: 'hourCycle',
+        type: '12 | 24',
+        defaultValue: '24',
+        description: '12-hour or 24-hour format',
+      },
+      {
+        name: 'variant',
+        type: '"flat" | "faded" | "bordered" | "underlined"',
+        defaultValue: '"flat"',
+        description: 'Visual style variant',
+      },
+      {
+        name: 'themeColor',
+        type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+        defaultValue: '"primary"',
+        description: 'Color theme',
+      },
+      {
+        name: 'size',
+        type: '"sm" | "md" | "lg"',
+        defaultValue: '"md"',
+        description: 'Input size',
+      },
+      {
+        name: 'radius',
+        type: '"none" | "sm" | "md" | "lg" | "full"',
+        defaultValue: '"md"',
+        description: 'Border radius',
+      },
+      {
+        name: 'isDisabled',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Disable interaction',
+      },
+      {
+        name: 'isReadOnly',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Read-only mode',
+      },
+      {
+        name: 'isInvalid',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Mark as invalid',
+      },
+      {
+        name: 'fullWidth',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Expand to full container width',
+      },
     ],
     events: [
-      { name: 'onValueChange', type: '(value: string) => void', description: 'Called when the time value changes' },
+      {
+        name: 'onValueChange',
+        type: '(value: string) => void',
+        description: 'Called when the time value changes',
+      },
     ],
     examples: [
       {
@@ -3524,7 +6122,8 @@ export function ControlledExample() {
       },
       {
         title: 'Convert value to Date',
-        description: 'Use timeInputValueToDate to parse the formatted time string into a Date set to today at that time.',
+        description:
+          'Use timeInputValueToDate to parse the formatted time string into a Date set to today at that time.',
         code: `import { timeInputValueToDate } from '@xaui/native/input'
 
 timeInputValueToDate('14:30')
@@ -3538,7 +6137,8 @@ timeInputValueToDate('14:30:45', { granularity: 'second' })
       },
       {
         title: 'Convert Date to value',
-        description: 'Use dateToTimeInputValue to format a Date or ISO string into the value format expected by TimeInput.',
+        description:
+          'Use dateToTimeInputValue to format a Date or ISO string into the value format expected by TimeInput.',
         code: `import { dateToTimeInputValue } from '@xaui/native/input'
 
 dateToTimeInputValue(new Date(2024, 0, 1, 14, 30, 0))
@@ -3555,27 +6155,122 @@ dateToTimeInputValue(new Date(2024, 0, 1, 14, 30, 45), { granularity: 'second' }
 
   'datetime-input': {
     props: [
-      { name: 'value', type: 'string', defaultValue: '-', description: 'Controlled value — formatted string combining date and time segments (e.g. "25/01/2024 14:30" for DMY + "/" + 24h)' },
-      { name: 'label', type: 'ReactNode', defaultValue: '-', description: 'Field label' },
-      { name: 'labelPlacement', type: '"outside" | "inside"', defaultValue: '"inside"', description: 'Label position' },
-      { name: 'description', type: 'ReactNode', defaultValue: '-', description: 'Helper text below field' },
-      { name: 'errorMessage', type: 'ReactNode', defaultValue: '-', description: 'Error message when invalid' },
-      { name: 'separator', type: '"-" | "/" | "."', defaultValue: '"-"', description: 'Separator between date segments' },
-      { name: 'dateOrder', type: '"YMD" | "DMY" | "MDY"', defaultValue: '-', description: 'Date segment order (auto-detected from locale if omitted)' },
-      { name: 'locale', type: 'string', defaultValue: '"en-US"', description: 'Locale used for automatic date-order detection' },
-      { name: 'granularity', type: '"minute" | "second"', defaultValue: '"minute"', description: 'Smallest displayed time unit' },
-      { name: 'hourCycle', type: '12 | 24', defaultValue: '24', description: '12-hour or 24-hour format' },
-      { name: 'variant', type: '"flat" | "faded" | "bordered" | "underlined"', defaultValue: '"flat"', description: 'Visual style variant' },
-      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
-      { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Input size' },
-      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Border radius' },
-      { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable interaction' },
-      { name: 'isReadOnly', type: 'boolean', defaultValue: 'false', description: 'Read-only mode' },
-      { name: 'isInvalid', type: 'boolean', defaultValue: 'false', description: 'Mark as invalid' },
-      { name: 'fullWidth', type: 'boolean', defaultValue: 'false', description: 'Expand to full container width' },
+      {
+        name: 'value',
+        type: 'string',
+        defaultValue: '-',
+        description:
+          'Controlled value — formatted string combining date and time segments (e.g. "25/01/2024 14:30" for DMY + "/" + 24h)',
+      },
+      {
+        name: 'label',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Field label',
+      },
+      {
+        name: 'labelPlacement',
+        type: '"outside" | "inside"',
+        defaultValue: '"inside"',
+        description: 'Label position',
+      },
+      {
+        name: 'description',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Helper text below field',
+      },
+      {
+        name: 'errorMessage',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Error message when invalid',
+      },
+      {
+        name: 'separator',
+        type: '"-" | "/" | "."',
+        defaultValue: '"-"',
+        description: 'Separator between date segments',
+      },
+      {
+        name: 'dateOrder',
+        type: '"YMD" | "DMY" | "MDY"',
+        defaultValue: '-',
+        description: 'Date segment order (auto-detected from locale if omitted)',
+      },
+      {
+        name: 'locale',
+        type: 'string',
+        defaultValue: '"en-US"',
+        description: 'Locale used for automatic date-order detection',
+      },
+      {
+        name: 'granularity',
+        type: '"minute" | "second"',
+        defaultValue: '"minute"',
+        description: 'Smallest displayed time unit',
+      },
+      {
+        name: 'hourCycle',
+        type: '12 | 24',
+        defaultValue: '24',
+        description: '12-hour or 24-hour format',
+      },
+      {
+        name: 'variant',
+        type: '"flat" | "faded" | "bordered" | "underlined"',
+        defaultValue: '"flat"',
+        description: 'Visual style variant',
+      },
+      {
+        name: 'themeColor',
+        type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+        defaultValue: '"primary"',
+        description: 'Color theme',
+      },
+      {
+        name: 'size',
+        type: '"sm" | "md" | "lg"',
+        defaultValue: '"md"',
+        description: 'Input size',
+      },
+      {
+        name: 'radius',
+        type: '"none" | "sm" | "md" | "lg" | "full"',
+        defaultValue: '"md"',
+        description: 'Border radius',
+      },
+      {
+        name: 'isDisabled',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Disable interaction',
+      },
+      {
+        name: 'isReadOnly',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Read-only mode',
+      },
+      {
+        name: 'isInvalid',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Mark as invalid',
+      },
+      {
+        name: 'fullWidth',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Expand to full container width',
+      },
     ],
     events: [
-      { name: 'onValueChange', type: '(value: string) => void', description: 'Called when the datetime value changes' },
+      {
+        name: 'onValueChange',
+        type: '(value: string) => void',
+        description: 'Called when the datetime value changes',
+      },
     ],
     examples: [
       {
@@ -3644,7 +6339,8 @@ export function ControlledExample() {
       },
       {
         title: 'Convert value to Date',
-        description: 'Use dateTimeInputValueToDate to parse the formatted string into a Date object.',
+        description:
+          'Use dateTimeInputValueToDate to parse the formatted string into a Date object.',
         code: `import { dateTimeInputValueToDate } from '@xaui/native/input'
 
 dateTimeInputValueToDate('25/01/2024 14:30', 'DMY', { separator: '/' })
@@ -3658,7 +6354,8 @@ dateTimeInputValueToDate('31/02/2024 10:00', 'DMY', { separator: '/' })
       },
       {
         title: 'Convert Date to value',
-        description: 'Use dateToDateTimeInputValue to format a Date or ISO string into the value format expected by DateTimeInput.',
+        description:
+          'Use dateToDateTimeInputValue to format a Date or ISO string into the value format expected by DateTimeInput.',
         code: `import { dateToDateTimeInputValue } from '@xaui/native/input'
 
 dateToDateTimeInputValue(new Date(2024, 0, 25, 14, 30, 0), 'DMY', { separator: '/' })
@@ -3676,19 +6373,73 @@ dateToDateTimeInputValue(new Date(2024, 0, 25, 14, 30, 45), 'YMD', {
 
   list: {
     props: [
-      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'ListItem children' },
-      { name: 'selectionMode', type: '"single" | "multiple" | "none"', defaultValue: '"none"', description: 'Selection behavior' },
-      { name: 'selectedKeys', type: 'string[]', defaultValue: '-', description: 'Controlled selected keys' },
-      { name: 'defaultSelectedKeys', type: 'string[]', defaultValue: '-', description: 'Default selected keys (uncontrolled)' },
-      { name: 'showDivider', type: 'boolean', defaultValue: 'false', description: 'Show dividers between items' },
-      { name: 'isPressable', type: 'boolean', defaultValue: 'true', description: 'Make items pressable' },
-      { name: 'isSelectable', type: 'boolean', defaultValue: 'false', description: 'Allow items to be selected' },
-      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
-      { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Item size' },
-      { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Additional container styles' },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'ListItem children',
+      },
+      {
+        name: 'selectionMode',
+        type: '"single" | "multiple" | "none"',
+        defaultValue: '"none"',
+        description: 'Selection behavior',
+      },
+      {
+        name: 'selectedKeys',
+        type: 'string[]',
+        defaultValue: '-',
+        description: 'Controlled selected keys',
+      },
+      {
+        name: 'defaultSelectedKeys',
+        type: 'string[]',
+        defaultValue: '-',
+        description: 'Default selected keys (uncontrolled)',
+      },
+      {
+        name: 'showDivider',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Show dividers between items',
+      },
+      {
+        name: 'isPressable',
+        type: 'boolean',
+        defaultValue: 'true',
+        description: 'Make items pressable',
+      },
+      {
+        name: 'isSelectable',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Allow items to be selected',
+      },
+      {
+        name: 'themeColor',
+        type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+        defaultValue: '"primary"',
+        description: 'Color theme',
+      },
+      {
+        name: 'size',
+        type: '"sm" | "md" | "lg"',
+        defaultValue: '"md"',
+        description: 'Item size',
+      },
+      {
+        name: 'style',
+        type: 'ViewStyle',
+        defaultValue: '-',
+        description: 'Additional container styles',
+      },
     ],
     events: [
-      { name: 'onSelectionChange', type: '(keys: string[]) => void', description: 'Called when selection changes' },
+      {
+        name: 'onSelectionChange',
+        type: '(keys: string[]) => void',
+        description: 'Called when selection changes',
+      },
     ],
     examples: [
       {
@@ -3804,17 +6555,61 @@ export function CustomContentListExample() {
       {
         name: 'ListItem',
         props: [
-          { name: 'itemKey', type: 'string', defaultValue: '-', description: 'Unique key for this item' },
-          { name: 'title', type: 'ReactNode', defaultValue: '-', description: 'Item title' },
-          { name: 'description', type: 'ReactNode', defaultValue: '-', description: 'Item description text' },
-          { name: 'startContent', type: 'ReactNode', defaultValue: '-', description: 'Element at start of item' },
-          { name: 'endContent', type: 'ReactNode', defaultValue: '-', description: 'Element at end of item' },
-          { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable this item' },
-          { name: 'isSelected', type: 'boolean', defaultValue: 'false', description: 'Whether this item is selected' },
-          { name: 'customAppearance', type: 'ListItemCustomAppearance', defaultValue: '-', description: 'Custom style overrides' },
+          {
+            name: 'itemKey',
+            type: 'string',
+            defaultValue: '-',
+            description: 'Unique key for this item',
+          },
+          {
+            name: 'title',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Item title',
+          },
+          {
+            name: 'description',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Item description text',
+          },
+          {
+            name: 'startContent',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Element at start of item',
+          },
+          {
+            name: 'endContent',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Element at end of item',
+          },
+          {
+            name: 'isDisabled',
+            type: 'boolean',
+            defaultValue: 'false',
+            description: 'Disable this item',
+          },
+          {
+            name: 'isSelected',
+            type: 'boolean',
+            defaultValue: 'false',
+            description: 'Whether this item is selected',
+          },
+          {
+            name: 'customAppearance',
+            type: 'ListItemCustomAppearance',
+            defaultValue: '-',
+            description: 'Custom style overrides',
+          },
         ],
         events: [
-          { name: 'onPress', type: '(event: GestureResponderEvent) => void', description: 'Called when item is pressed' },
+          {
+            name: 'onPress',
+            type: '(event: GestureResponderEvent) => void',
+            description: 'Called when item is pressed',
+          },
         ],
       },
     ],
@@ -3822,22 +6617,93 @@ export function CustomContentListExample() {
 
   'list-builder': {
     props: [
-      { name: 'data', type: 'T[]', defaultValue: '-', description: 'Array of data items to render' },
-      { name: 'keyExtractor', type: '(item: T, index: number) => string', defaultValue: '-', description: 'Function to extract unique key from each item' },
-      { name: 'renderItem', type: '(item: T, index: number) => ReactNode', defaultValue: '-', description: 'Function to render each item — receives the typed item and its index' },
-      { name: 'selectionMode', type: '"single" | "multiple" | "none"', defaultValue: '"none"', description: 'Selection behavior' },
-      { name: 'selectedKeys', type: 'string[]', defaultValue: '-', description: 'Controlled selected keys' },
-      { name: 'defaultSelectedKeys', type: 'string[]', defaultValue: '[]', description: 'Default selected keys (uncontrolled)' },
-      { name: 'showDivider', type: 'boolean', defaultValue: 'false', description: 'Show dividers between items' },
-      { name: 'isPressable', type: 'boolean', defaultValue: 'true', description: 'Make items pressable' },
-      { name: 'isSelectable', type: 'boolean', defaultValue: 'false', description: 'Allow items to be selected' },
-      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme for selected items' },
-      { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Item size' },
-      { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Additional container styles' },
-      { name: 'flatListProps', type: 'Omit<FlatListProps<T>, "data" | "renderItem" | "keyExtractor">', defaultValue: '-', description: 'Extra FlatList props passed through (e.g. refreshing, onEndReached)' },
+      {
+        name: 'data',
+        type: 'T[]',
+        defaultValue: '-',
+        description: 'Array of data items to render',
+      },
+      {
+        name: 'keyExtractor',
+        type: '(item: T, index: number) => string',
+        defaultValue: '-',
+        description: 'Function to extract unique key from each item',
+      },
+      {
+        name: 'renderItem',
+        type: '(item: T, index: number) => ReactNode',
+        defaultValue: '-',
+        description:
+          'Function to render each item — receives the typed item and its index',
+      },
+      {
+        name: 'selectionMode',
+        type: '"single" | "multiple" | "none"',
+        defaultValue: '"none"',
+        description: 'Selection behavior',
+      },
+      {
+        name: 'selectedKeys',
+        type: 'string[]',
+        defaultValue: '-',
+        description: 'Controlled selected keys',
+      },
+      {
+        name: 'defaultSelectedKeys',
+        type: 'string[]',
+        defaultValue: '[]',
+        description: 'Default selected keys (uncontrolled)',
+      },
+      {
+        name: 'showDivider',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Show dividers between items',
+      },
+      {
+        name: 'isPressable',
+        type: 'boolean',
+        defaultValue: 'true',
+        description: 'Make items pressable',
+      },
+      {
+        name: 'isSelectable',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Allow items to be selected',
+      },
+      {
+        name: 'themeColor',
+        type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+        defaultValue: '"primary"',
+        description: 'Color theme for selected items',
+      },
+      {
+        name: 'size',
+        type: '"sm" | "md" | "lg"',
+        defaultValue: '"md"',
+        description: 'Item size',
+      },
+      {
+        name: 'style',
+        type: 'ViewStyle',
+        defaultValue: '-',
+        description: 'Additional container styles',
+      },
+      {
+        name: 'flatListProps',
+        type: 'Omit<FlatListProps<T>, "data" | "renderItem" | "keyExtractor">',
+        defaultValue: '-',
+        description:
+          'Extra FlatList props passed through (e.g. refreshing, onEndReached)',
+      },
     ],
     events: [
-      { name: 'onSelectionChange', type: '(keys: string[]) => void', description: 'Called when selection changes' },
+      {
+        name: 'onSelectionChange',
+        type: '(keys: string[]) => void',
+        description: 'Called when selection changes',
+      },
     ],
     examples: [
       {
@@ -3988,16 +6854,54 @@ export function ControlledListBuilderExample() {
 
   menu: {
     props: [
-      { name: 'visible', type: 'boolean', defaultValue: '-', description: 'Controls menu visibility' },
-      { name: 'trigger', type: 'ReactNode', defaultValue: '-', description: 'Element that anchors the menu' },
-      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'MenuItem children' },
-      { name: 'position', type: '"top" | "bottom"', defaultValue: '"bottom"', description: 'Menu placement relative to trigger' },
-      { name: 'maxHeight', type: 'number', defaultValue: '280', description: 'Maximum menu height before scrolling' },
-      { name: 'customAppearance', type: 'MenuCustomAppearance', defaultValue: '-', description: 'Custom style overrides' },
+      {
+        name: 'visible',
+        type: 'boolean',
+        defaultValue: '-',
+        description: 'Controls menu visibility',
+      },
+      {
+        name: 'trigger',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Element that anchors the menu',
+      },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'MenuItem children',
+      },
+      {
+        name: 'position',
+        type: '"top" | "bottom"',
+        defaultValue: '"bottom"',
+        description: 'Menu placement relative to trigger',
+      },
+      {
+        name: 'maxHeight',
+        type: 'number',
+        defaultValue: '280',
+        description: 'Maximum menu height before scrolling',
+      },
+      {
+        name: 'customAppearance',
+        type: 'MenuCustomAppearance',
+        defaultValue: '-',
+        description: 'Custom style overrides',
+      },
     ],
     events: [
-      { name: 'onDismiss', type: '() => void', description: 'Called when menu is dismissed' },
-      { name: 'onItemPress', type: '(itemKey: string) => void', description: 'Called when a MenuItem with itemKey is pressed' },
+      {
+        name: 'onDismiss',
+        type: '() => void',
+        description: 'Called when menu is dismissed',
+      },
+      {
+        name: 'onItemPress',
+        type: '(itemKey: string) => void',
+        description: 'Called when a MenuItem with itemKey is pressed',
+      },
     ],
     examples: [
       {
@@ -4100,14 +7004,43 @@ export function RichMenuExample() {
       {
         name: 'MenuItem',
         props: [
-          { name: 'itemKey', type: 'string', defaultValue: '-', description: 'Optional key emitted via Menu onItemPress' },
-          { name: 'title', type: 'ReactNode', defaultValue: '-', description: 'Item title' },
-          { name: 'startContent', type: 'ReactNode', defaultValue: '-', description: 'Element at start' },
-          { name: 'endContent', type: 'ReactNode', defaultValue: '-', description: 'Element at end' },
-          { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable this item' },
+          {
+            name: 'itemKey',
+            type: 'string',
+            defaultValue: '-',
+            description: 'Optional key emitted via Menu onItemPress',
+          },
+          {
+            name: 'title',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Item title',
+          },
+          {
+            name: 'startContent',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Element at start',
+          },
+          {
+            name: 'endContent',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Element at end',
+          },
+          {
+            name: 'isDisabled',
+            type: 'boolean',
+            defaultValue: 'false',
+            description: 'Disable this item',
+          },
         ],
         events: [
-          { name: 'onPress', type: '(event: GestureResponderEvent) => void', description: 'Called when item is pressed' },
+          {
+            name: 'onPress',
+            type: '(event: GestureResponderEvent) => void',
+            description: 'Called when item is pressed',
+          },
         ],
       },
     ],
@@ -4115,13 +7048,48 @@ export function RichMenuExample() {
 
   menubox: {
     props: [
-      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'MenuBoxItem children' },
-      { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Item size' },
-      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"lg"', description: 'Border radius' },
-      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"default"', description: 'Color theme' },
-      { name: 'spacing', type: 'number', defaultValue: '0', description: 'Gap between items' },
-      { name: 'backgroundColor', type: 'string', defaultValue: '-', description: 'Custom background color' },
-      { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Additional container styles' },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'MenuBoxItem children',
+      },
+      {
+        name: 'size',
+        type: '"sm" | "md" | "lg"',
+        defaultValue: '"md"',
+        description: 'Item size',
+      },
+      {
+        name: 'radius',
+        type: '"none" | "sm" | "md" | "lg" | "full"',
+        defaultValue: '"lg"',
+        description: 'Border radius',
+      },
+      {
+        name: 'themeColor',
+        type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+        defaultValue: '"default"',
+        description: 'Color theme',
+      },
+      {
+        name: 'spacing',
+        type: 'number',
+        defaultValue: '0',
+        description: 'Gap between items',
+      },
+      {
+        name: 'backgroundColor',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Custom background color',
+      },
+      {
+        name: 'style',
+        type: 'ViewStyle',
+        defaultValue: '-',
+        description: 'Additional container styles',
+      },
     ],
     examples: [
       {
@@ -4207,16 +7175,55 @@ export function CustomAppearanceMenuBoxExample() {
       {
         name: 'MenuBoxItem',
         props: [
-          { name: 'itemKey', type: 'string', defaultValue: '-', description: 'Unique key for this item' },
-          { name: 'title', type: 'ReactNode', defaultValue: '-', description: 'Item title' },
-          { name: 'description', type: 'ReactNode', defaultValue: '-', description: 'Item description' },
-          { name: 'startContent', type: 'ReactNode', defaultValue: '-', description: 'Element at start' },
-          { name: 'endContent', type: 'ReactNode', defaultValue: '-', description: 'Element at end' },
-          { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable this item' },
-          { name: 'customAppearance', type: 'MenuBoxItemCustomAppearance', defaultValue: '-', description: 'Custom style overrides' },
+          {
+            name: 'itemKey',
+            type: 'string',
+            defaultValue: '-',
+            description: 'Unique key for this item',
+          },
+          {
+            name: 'title',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Item title',
+          },
+          {
+            name: 'description',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Item description',
+          },
+          {
+            name: 'startContent',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Element at start',
+          },
+          {
+            name: 'endContent',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Element at end',
+          },
+          {
+            name: 'isDisabled',
+            type: 'boolean',
+            defaultValue: 'false',
+            description: 'Disable this item',
+          },
+          {
+            name: 'customAppearance',
+            type: 'MenuBoxItemCustomAppearance',
+            defaultValue: '-',
+            description: 'Custom style overrides',
+          },
         ],
         events: [
-          { name: 'onPress', type: '(event: GestureResponderEvent) => void', description: 'Called when item is pressed' },
+          {
+            name: 'onPress',
+            type: '(event: GestureResponderEvent) => void',
+            description: 'Called when item is pressed',
+          },
         ],
       },
     ],
@@ -4224,18 +7231,67 @@ export function CustomAppearanceMenuBoxExample() {
 
   pager: {
     props: [
-      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'PagerItem children' },
-      { name: 'page', type: 'number', defaultValue: '-', description: 'Controlled current page index' },
-      { name: 'defaultPage', type: 'number', defaultValue: '0', description: 'Default page index (uncontrolled)' },
-      { name: 'swipeEnabled', type: 'boolean', defaultValue: 'true', description: 'Enable swipe to navigate' },
-      { name: 'showIndicator', type: 'boolean', defaultValue: 'true', description: 'Show page indicator' },
-      { name: 'renderIndicator', type: '(state: PagerIndicatorRenderState) => ReactNode', defaultValue: '-', description: 'Custom indicator renderer' },
-      { name: 'isFullscreen', type: 'boolean', defaultValue: 'false', description: 'Expand to fill screen' },
-      { name: 'isfullscreen', type: 'boolean', defaultValue: 'false', description: 'Alias of isFullscreen' },
-      { name: 'customAppearance', type: 'PagerCustomAppearance', defaultValue: '-', description: 'Custom style overrides' },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'PagerItem children',
+      },
+      {
+        name: 'page',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Controlled current page index',
+      },
+      {
+        name: 'defaultPage',
+        type: 'number',
+        defaultValue: '0',
+        description: 'Default page index (uncontrolled)',
+      },
+      {
+        name: 'swipeEnabled',
+        type: 'boolean',
+        defaultValue: 'true',
+        description: 'Enable swipe to navigate',
+      },
+      {
+        name: 'showIndicator',
+        type: 'boolean',
+        defaultValue: 'true',
+        description: 'Show page indicator',
+      },
+      {
+        name: 'renderIndicator',
+        type: '(state: PagerIndicatorRenderState) => ReactNode',
+        defaultValue: '-',
+        description: 'Custom indicator renderer',
+      },
+      {
+        name: 'isFullscreen',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Expand to fill screen',
+      },
+      {
+        name: 'isfullscreen',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Alias of isFullscreen',
+      },
+      {
+        name: 'customAppearance',
+        type: 'PagerCustomAppearance',
+        defaultValue: '-',
+        description: 'Custom style overrides',
+      },
     ],
     events: [
-      { name: 'onPageChange', type: '(page: number) => void', description: 'Called when the active page changes' },
+      {
+        name: 'onPageChange',
+        type: '(page: number) => void',
+        description: 'Called when the active page changes',
+      },
     ],
     examples: [
       {
@@ -4354,7 +7410,12 @@ export function FullscreenPagerExample() {
       {
         name: 'PagerItem',
         props: [
-          { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Page content' },
+          {
+            name: 'children',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Page content',
+          },
         ],
       },
     ],
@@ -4362,14 +7423,54 @@ export function FullscreenPagerExample() {
 
   progress: {
     props: [
-      { name: 'value', type: 'number', defaultValue: '-', description: 'Progress value (0–1)' },
-      { name: 'variant', type: '"linear" | "circular"', defaultValue: '"linear"', description: 'Progress style' },
-      { name: 'size', type: 'number', defaultValue: '4 (linear), 40 (circular)', description: 'Track thickness (linear) or diameter (circular)' },
-      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
-      { name: 'color', type: 'string', defaultValue: '-', description: 'Custom fill color override' },
-      { name: 'backgroundColor', type: 'string', defaultValue: '-', description: 'Track background color override' },
-      { name: 'borderRadius', type: 'number', defaultValue: '-', description: 'Custom border radius for linear variant' },
-      { name: 'disableAnimation', type: 'boolean', defaultValue: 'false', description: 'Disable fill animation' },
+      {
+        name: 'value',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Progress value (0–1)',
+      },
+      {
+        name: 'variant',
+        type: '"linear" | "circular"',
+        defaultValue: '"linear"',
+        description: 'Progress style',
+      },
+      {
+        name: 'size',
+        type: 'number',
+        defaultValue: '4 (linear), 40 (circular)',
+        description: 'Track thickness (linear) or diameter (circular)',
+      },
+      {
+        name: 'themeColor',
+        type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+        defaultValue: '"primary"',
+        description: 'Color theme',
+      },
+      {
+        name: 'color',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Custom fill color override',
+      },
+      {
+        name: 'backgroundColor',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Track background color override',
+      },
+      {
+        name: 'borderRadius',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Custom border radius for linear variant',
+      },
+      {
+        name: 'disableAnimation',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Disable fill animation',
+      },
     ],
     examples: [
       {
@@ -4454,20 +7555,79 @@ export function CustomProgressExample() {
 
   radio: {
     props: [
-      { name: 'label', type: 'string', defaultValue: '-', description: 'Radio label text' },
-      { name: 'value', type: 'string', defaultValue: '-', description: 'Value for group selection' },
-      { name: 'isChecked', type: 'boolean', defaultValue: 'false', description: 'Controlled checked state' },
-      { name: 'defaultChecked', type: 'boolean', defaultValue: 'false', description: 'Default checked (uncontrolled)' },
-      { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable interaction' },
-      { name: 'variant', type: '"filled" | "light"', defaultValue: '"filled"', description: 'Visual style variant' },
-      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
-      { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Radio size' },
-      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"full"', description: 'Border radius' },
-      { name: 'labelAlignment', type: '"left" | "right" | "justify-left" | "justify-right"', defaultValue: '"right"', description: 'Label position' },
-      { name: 'fullWidth', type: 'boolean', defaultValue: 'false', description: 'Expand to full width' },
+      {
+        name: 'label',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Radio label text',
+      },
+      {
+        name: 'value',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Value for group selection',
+      },
+      {
+        name: 'isChecked',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Controlled checked state',
+      },
+      {
+        name: 'defaultChecked',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Default checked (uncontrolled)',
+      },
+      {
+        name: 'isDisabled',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Disable interaction',
+      },
+      {
+        name: 'variant',
+        type: '"filled" | "light"',
+        defaultValue: '"filled"',
+        description: 'Visual style variant',
+      },
+      {
+        name: 'themeColor',
+        type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+        defaultValue: '"primary"',
+        description: 'Color theme',
+      },
+      {
+        name: 'size',
+        type: '"sm" | "md" | "lg"',
+        defaultValue: '"md"',
+        description: 'Radio size',
+      },
+      {
+        name: 'radius',
+        type: '"none" | "sm" | "md" | "lg" | "full"',
+        defaultValue: '"full"',
+        description: 'Border radius',
+      },
+      {
+        name: 'labelAlignment',
+        type: '"left" | "right" | "justify-left" | "justify-right"',
+        defaultValue: '"right"',
+        description: 'Label position',
+      },
+      {
+        name: 'fullWidth',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Expand to full width',
+      },
     ],
     events: [
-      { name: 'onValueChange', type: '(isChecked: boolean) => void', description: 'Called when checked state changes' },
+      {
+        name: 'onValueChange',
+        type: '(isChecked: boolean) => void',
+        description: 'Called when checked state changes',
+      },
     ],
     examples: [
       {
@@ -4555,15 +7715,49 @@ export function RadioThemeColorsExample() {
       {
         name: 'RadioGroup',
         props: [
-          { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Radio children' },
-          { name: 'value', type: 'string', defaultValue: '-', description: 'Controlled selected value' },
-          { name: 'defaultValue', type: 'string', defaultValue: '-', description: 'Default selected value (uncontrolled)' },
-          { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable all radios' },
-          { name: 'orientation', type: '"vertical" | "horizontal"', defaultValue: '"vertical"', description: 'Layout direction' },
-          { name: 'gap', type: 'number', defaultValue: '8', description: 'Gap between radio items' },
+          {
+            name: 'children',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Radio children',
+          },
+          {
+            name: 'value',
+            type: 'string',
+            defaultValue: '-',
+            description: 'Controlled selected value',
+          },
+          {
+            name: 'defaultValue',
+            type: 'string',
+            defaultValue: '-',
+            description: 'Default selected value (uncontrolled)',
+          },
+          {
+            name: 'isDisabled',
+            type: 'boolean',
+            defaultValue: 'false',
+            description: 'Disable all radios',
+          },
+          {
+            name: 'orientation',
+            type: '"vertical" | "horizontal"',
+            defaultValue: '"vertical"',
+            description: 'Layout direction',
+          },
+          {
+            name: 'gap',
+            type: 'number',
+            defaultValue: '8',
+            description: 'Gap between radio items',
+          },
         ],
         events: [
-          { name: 'onValueChange', type: '(value: string) => void', description: 'Called when selection changes' },
+          {
+            name: 'onValueChange',
+            type: '(value: string) => void',
+            description: 'Called when selection changes',
+          },
         ],
       },
     ],
@@ -4571,22 +7765,91 @@ export function RadioThemeColorsExample() {
 
   'segment-button': {
     props: [
-      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'SegmentButtonItem children' },
-      { name: 'selected', type: 'string | string[]', defaultValue: '-', description: 'Controlled selected value(s)' },
-      { name: 'defaultSelected', type: 'string | string[]', defaultValue: '-', description: 'Default selected (uncontrolled)' },
-      { name: 'selectionMode', type: '"single" | "multiple"', defaultValue: '"single"', description: 'Selection behavior' },
-      { name: 'variant', type: '"outlined" | "flat" | "light" | "faded"', defaultValue: '"outlined"', description: 'Visual style variant' },
-      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
-      { name: 'size', type: '"xs" | "sm" | "md" | "lg"', defaultValue: '"md"', description: 'Component size' },
-      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"full"', description: 'Border radius' },
-      { name: 'fullWidth', type: 'boolean', defaultValue: 'false', description: 'Expand to full container width' },
-      { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable all segments' },
-      { name: 'showCheckmark', type: 'boolean', defaultValue: 'true', description: 'Show checkmark on selected item' },
-      { name: 'elevation', type: '0 | 1 | 2 | 3 | 4', defaultValue: '0', description: 'Shadow elevation level (flat/faded variants only)' },
-      { name: 'customAppearance', type: '{ container?: ViewStyle }', defaultValue: '-', description: 'Custom style overrides for the outer container' },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'SegmentButtonItem children',
+      },
+      {
+        name: 'selected',
+        type: 'string | string[]',
+        defaultValue: '-',
+        description: 'Controlled selected value(s)',
+      },
+      {
+        name: 'defaultSelected',
+        type: 'string | string[]',
+        defaultValue: '-',
+        description: 'Default selected (uncontrolled)',
+      },
+      {
+        name: 'selectionMode',
+        type: '"single" | "multiple"',
+        defaultValue: '"single"',
+        description: 'Selection behavior',
+      },
+      {
+        name: 'variant',
+        type: '"outlined" | "flat" | "light" | "faded"',
+        defaultValue: '"outlined"',
+        description: 'Visual style variant',
+      },
+      {
+        name: 'themeColor',
+        type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+        defaultValue: '"primary"',
+        description: 'Color theme',
+      },
+      {
+        name: 'size',
+        type: '"xs" | "sm" | "md" | "lg"',
+        defaultValue: '"md"',
+        description: 'Component size',
+      },
+      {
+        name: 'radius',
+        type: '"none" | "sm" | "md" | "lg" | "full"',
+        defaultValue: '"full"',
+        description: 'Border radius',
+      },
+      {
+        name: 'fullWidth',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Expand to full container width',
+      },
+      {
+        name: 'isDisabled',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Disable all segments',
+      },
+      {
+        name: 'showCheckmark',
+        type: 'boolean',
+        defaultValue: 'true',
+        description: 'Show checkmark on selected item',
+      },
+      {
+        name: 'elevation',
+        type: '0 | 1 | 2 | 3 | 4',
+        defaultValue: '0',
+        description: 'Shadow elevation level (flat/faded variants only)',
+      },
+      {
+        name: 'customAppearance',
+        type: '{ container?: ViewStyle }',
+        defaultValue: '-',
+        description: 'Custom style overrides for the outer container',
+      },
     ],
     events: [
-      { name: 'onSelectionChange', type: '(selected: string | string[]) => void', description: 'Called when selection changes' },
+      {
+        name: 'onSelectionChange',
+        type: '(selected: string | string[]) => void',
+        description: 'Called when selection changes',
+      },
     ],
     examples: [
       {
@@ -4695,7 +7958,8 @@ export function SegmentButtonSizeThemeExample() {
       },
       {
         title: 'States and Custom Content',
-        description: 'Disable segments, hide checkmarks, and attach start/end content.',
+        description:
+          'Disable segments, hide checkmarks, and attach start/end content.',
         code: `import { SegmentButton, SegmentButtonItem } from '@xaui/native/segment-button'
 import { Typography } from '@xaui/native/typography'
 
@@ -4732,13 +7996,48 @@ export function SegmentButtonStatesExample() {
       {
         name: 'SegmentButtonItem',
         props: [
-          { name: 'itemKey', type: 'string', defaultValue: '-', description: 'Unique key for this segment item' },
-          { name: 'label', type: 'string', defaultValue: '-', description: 'Label text for the segment' },
-          { name: 'startContent', type: 'ReactNode', defaultValue: '-', description: 'Element at start of segment' },
-          { name: 'endContent', type: 'ReactNode', defaultValue: '-', description: 'Element at end of segment' },
-          { name: 'checkIndicator', type: 'ReactNode', defaultValue: '-', description: 'Custom indicator shown when segment is selected' },
-          { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable this segment item' },
-          { name: 'customAppearance', type: 'SegmentButtonItemCustomAppearance', defaultValue: '-', description: 'Custom style overrides for this item' },
+          {
+            name: 'itemKey',
+            type: 'string',
+            defaultValue: '-',
+            description: 'Unique key for this segment item',
+          },
+          {
+            name: 'label',
+            type: 'string',
+            defaultValue: '-',
+            description: 'Label text for the segment',
+          },
+          {
+            name: 'startContent',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Element at start of segment',
+          },
+          {
+            name: 'endContent',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Element at end of segment',
+          },
+          {
+            name: 'checkIndicator',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Custom indicator shown when segment is selected',
+          },
+          {
+            name: 'isDisabled',
+            type: 'boolean',
+            defaultValue: 'false',
+            description: 'Disable this segment item',
+          },
+          {
+            name: 'customAppearance',
+            type: 'SegmentButtonItemCustomAppearance',
+            defaultValue: '-',
+            description: 'Custom style overrides for this item',
+          },
         ],
       },
     ],
@@ -4746,31 +8045,143 @@ export function SegmentButtonStatesExample() {
 
   select: {
     props: [
-      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'SelectItem children' },
-      { name: 'selectedKeys', type: 'string[]', defaultValue: '-', description: 'Controlled selected keys' },
-      { name: 'defaultSelectedKeys', type: 'string[]', defaultValue: '-', description: 'Default selected keys (uncontrolled)' },
-      { name: 'disabledKeys', type: 'string[]', defaultValue: '-', description: 'Keys of disabled items' },
-      { name: 'selectionMode', type: '"single" | "multiple"', defaultValue: '"single"', description: 'Selection behavior' },
-      { name: 'variant', type: '"outlined" | "flat" | "light" | "faded" | "underlined"', defaultValue: '"outlined"', description: 'Visual style variant' },
-      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
-      { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Component size' },
-      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Border radius' },
-      { name: 'placeholder', type: 'string', defaultValue: '-', description: 'Placeholder text' },
-      { name: 'label', type: 'ReactNode', defaultValue: '-', description: 'Field label' },
-      { name: 'labelPlacement', type: '"inside" | "outside" | "outside-left" | "outside-top"', defaultValue: '"inside"', description: 'Label position' },
-      { name: 'hint', type: 'ReactNode', defaultValue: '-', description: 'Helper text below field' },
-      { name: 'errorMessage', type: 'ReactNode', defaultValue: '-', description: 'Error message when invalid' },
-      { name: 'startContent', type: 'ReactNode', defaultValue: '-', description: 'Element at start of trigger' },
-      { name: 'endContent', type: 'ReactNode', defaultValue: '-', description: 'Element at end of trigger' },
-      { name: 'maxListboxHeight', type: 'number', defaultValue: '-', description: 'Maximum dropdown height' },
-      { name: 'fullWidth', type: 'boolean', defaultValue: 'false', description: 'Expand to full container width' },
-      { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable interaction' },
-      { name: 'isInvalid', type: 'boolean', defaultValue: 'false', description: 'Mark as invalid' },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'SelectItem children',
+      },
+      {
+        name: 'selectedKeys',
+        type: 'string[]',
+        defaultValue: '-',
+        description: 'Controlled selected keys',
+      },
+      {
+        name: 'defaultSelectedKeys',
+        type: 'string[]',
+        defaultValue: '-',
+        description: 'Default selected keys (uncontrolled)',
+      },
+      {
+        name: 'disabledKeys',
+        type: 'string[]',
+        defaultValue: '-',
+        description: 'Keys of disabled items',
+      },
+      {
+        name: 'selectionMode',
+        type: '"single" | "multiple"',
+        defaultValue: '"single"',
+        description: 'Selection behavior',
+      },
+      {
+        name: 'variant',
+        type: '"outlined" | "flat" | "light" | "faded" | "underlined"',
+        defaultValue: '"outlined"',
+        description: 'Visual style variant',
+      },
+      {
+        name: 'themeColor',
+        type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+        defaultValue: '"primary"',
+        description: 'Color theme',
+      },
+      {
+        name: 'size',
+        type: '"sm" | "md" | "lg"',
+        defaultValue: '"md"',
+        description: 'Component size',
+      },
+      {
+        name: 'radius',
+        type: '"none" | "sm" | "md" | "lg" | "full"',
+        defaultValue: '"md"',
+        description: 'Border radius',
+      },
+      {
+        name: 'placeholder',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Placeholder text',
+      },
+      {
+        name: 'label',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Field label',
+      },
+      {
+        name: 'labelPlacement',
+        type: '"inside" | "outside" | "outside-left" | "outside-top"',
+        defaultValue: '"inside"',
+        description: 'Label position',
+      },
+      {
+        name: 'hint',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Helper text below field',
+      },
+      {
+        name: 'errorMessage',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Error message when invalid',
+      },
+      {
+        name: 'startContent',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Element at start of trigger',
+      },
+      {
+        name: 'endContent',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Element at end of trigger',
+      },
+      {
+        name: 'maxListboxHeight',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Maximum dropdown height',
+      },
+      {
+        name: 'fullWidth',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Expand to full container width',
+      },
+      {
+        name: 'isDisabled',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Disable interaction',
+      },
+      {
+        name: 'isInvalid',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Mark as invalid',
+      },
     ],
     events: [
-      { name: 'onSelectionChange', type: '(keys: string[]) => void', description: 'Called when selection changes' },
-      { name: 'onOpenChange', type: '(isOpen: boolean) => void', description: 'Called when dropdown opens or closes' },
-      { name: 'onClear', type: '() => void', description: 'Called when selection is cleared' },
+      {
+        name: 'onSelectionChange',
+        type: '(keys: string[]) => void',
+        description: 'Called when selection changes',
+      },
+      {
+        name: 'onOpenChange',
+        type: '(isOpen: boolean) => void',
+        description: 'Called when dropdown opens or closes',
+      },
+      {
+        name: 'onClear',
+        type: '() => void',
+        description: 'Called when selection is cleared',
+      },
     ],
     examples: [
       {
@@ -4852,15 +8263,49 @@ export function ItemDescriptionExample() {
       {
         name: 'SelectItem',
         props: [
-          { name: 'label', type: 'ReactNode', defaultValue: '-', description: 'Item display label' },
-          { name: 'value', type: 'string', defaultValue: '-', description: 'Unique item value' },
-          { name: 'description', type: 'ReactNode', defaultValue: '-', description: 'Secondary description text' },
-          { name: 'startContent', type: 'ReactNode', defaultValue: '-', description: 'Element at start' },
-          { name: 'endContent', type: 'ReactNode', defaultValue: '-', description: 'Element at end' },
-          { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable this item' },
+          {
+            name: 'label',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Item display label',
+          },
+          {
+            name: 'value',
+            type: 'string',
+            defaultValue: '-',
+            description: 'Unique item value',
+          },
+          {
+            name: 'description',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Secondary description text',
+          },
+          {
+            name: 'startContent',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Element at start',
+          },
+          {
+            name: 'endContent',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Element at end',
+          },
+          {
+            name: 'isDisabled',
+            type: 'boolean',
+            defaultValue: 'false',
+            description: 'Disable this item',
+          },
         ],
         events: [
-          { name: 'onSelected', type: '() => void', description: 'Called when item is selected' },
+          {
+            name: 'onSelected',
+            type: '() => void',
+            description: 'Called when item is selected',
+          },
         ],
       },
     ],
@@ -4868,14 +8313,54 @@ export function ItemDescriptionExample() {
 
   skeleton: {
     props: [
-      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Actual content shown when loaded' },
-      { name: 'isLoaded', type: 'boolean', defaultValue: '-', description: 'Whether the content is ready' },
-      { name: 'width', type: 'DimensionValue', defaultValue: '-', description: 'Skeleton width' },
-      { name: 'height', type: 'DimensionValue', defaultValue: '-', description: 'Skeleton height' },
-      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Skeleton border radius' },
-      { name: 'skeletonColor', type: 'ColorValue', defaultValue: '-', description: 'Custom shimmer color' },
-      { name: 'disableAnimation', type: 'boolean', defaultValue: 'false', description: 'Disable shimmer animation' },
-      { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Additional container styles' },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Actual content shown when loaded',
+      },
+      {
+        name: 'isLoaded',
+        type: 'boolean',
+        defaultValue: '-',
+        description: 'Whether the content is ready',
+      },
+      {
+        name: 'width',
+        type: 'DimensionValue',
+        defaultValue: '-',
+        description: 'Skeleton width',
+      },
+      {
+        name: 'height',
+        type: 'DimensionValue',
+        defaultValue: '-',
+        description: 'Skeleton height',
+      },
+      {
+        name: 'radius',
+        type: '"none" | "sm" | "md" | "lg" | "full"',
+        defaultValue: '"md"',
+        description: 'Skeleton border radius',
+      },
+      {
+        name: 'skeletonColor',
+        type: 'ColorValue',
+        defaultValue: '-',
+        description: 'Custom shimmer color',
+      },
+      {
+        name: 'disableAnimation',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Disable shimmer animation',
+      },
+      {
+        name: 'style',
+        type: 'StyleProp<ViewStyle>',
+        defaultValue: '-',
+        description: 'Additional container styles',
+      },
     ],
     examples: [
       {
@@ -5012,28 +8497,126 @@ export function SkeletonCustomStyleExample() {
 
   slider: {
     props: [
-      { name: 'value', type: 'number', defaultValue: '-', description: 'Controlled slider value' },
-      { name: 'defaultValue', type: 'number', defaultValue: '0', description: 'Default value (uncontrolled)' },
-      { name: 'minValue', type: 'number', defaultValue: '0', description: 'Minimum value' },
-      { name: 'maxValue', type: 'number', defaultValue: '100', description: 'Maximum value' },
-      { name: 'step', type: 'number', defaultValue: '1', description: 'Step increment' },
-      { name: 'label', type: 'ReactNode', defaultValue: '-', description: 'Slider label' },
-      { name: 'showValueLabel', type: 'boolean', defaultValue: 'true', description: 'Show current value' },
-      { name: 'marks', type: 'SliderMark[]', defaultValue: '-', description: 'Custom tick marks' },
-      { name: 'showSteps', type: 'boolean', defaultValue: 'false', description: 'Show step marks on track' },
-      { name: 'orientation', type: '"horizontal" | "vertical"', defaultValue: '"horizontal"', description: 'Slider orientation' },
-      { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Track thickness' },
-      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
-      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"full"', description: 'Thumb and track radius' },
-      { name: 'startContent', type: 'ReactNode', defaultValue: '-', description: 'Element at start of slider' },
-      { name: 'endContent', type: 'ReactNode', defaultValue: '-', description: 'Element at end of slider' },
-      { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable interaction' },
-      { name: 'isReadOnly', type: 'boolean', defaultValue: 'false', description: 'Read-only mode' },
-      { name: 'trackLength', type: 'number', defaultValue: '-', description: 'Fixed track length in pixels' },
+      {
+        name: 'value',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Controlled slider value',
+      },
+      {
+        name: 'defaultValue',
+        type: 'number',
+        defaultValue: '0',
+        description: 'Default value (uncontrolled)',
+      },
+      {
+        name: 'minValue',
+        type: 'number',
+        defaultValue: '0',
+        description: 'Minimum value',
+      },
+      {
+        name: 'maxValue',
+        type: 'number',
+        defaultValue: '100',
+        description: 'Maximum value',
+      },
+      {
+        name: 'step',
+        type: 'number',
+        defaultValue: '1',
+        description: 'Step increment',
+      },
+      {
+        name: 'label',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Slider label',
+      },
+      {
+        name: 'showValueLabel',
+        type: 'boolean',
+        defaultValue: 'true',
+        description: 'Show current value',
+      },
+      {
+        name: 'marks',
+        type: 'SliderMark[]',
+        defaultValue: '-',
+        description: 'Custom tick marks',
+      },
+      {
+        name: 'showSteps',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Show step marks on track',
+      },
+      {
+        name: 'orientation',
+        type: '"horizontal" | "vertical"',
+        defaultValue: '"horizontal"',
+        description: 'Slider orientation',
+      },
+      {
+        name: 'size',
+        type: '"sm" | "md" | "lg"',
+        defaultValue: '"md"',
+        description: 'Track thickness',
+      },
+      {
+        name: 'themeColor',
+        type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+        defaultValue: '"primary"',
+        description: 'Color theme',
+      },
+      {
+        name: 'radius',
+        type: '"none" | "sm" | "md" | "lg" | "full"',
+        defaultValue: '"full"',
+        description: 'Thumb and track radius',
+      },
+      {
+        name: 'startContent',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Element at start of slider',
+      },
+      {
+        name: 'endContent',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Element at end of slider',
+      },
+      {
+        name: 'isDisabled',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Disable interaction',
+      },
+      {
+        name: 'isReadOnly',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Read-only mode',
+      },
+      {
+        name: 'trackLength',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Fixed track length in pixels',
+      },
     ],
     events: [
-      { name: 'onChange', type: '(value: number) => void', description: 'Called while dragging' },
-      { name: 'onChangeEnd', type: '(value: number) => void', description: 'Called when drag ends' },
+      {
+        name: 'onChange',
+        type: '(value: number) => void',
+        description: 'Called while dragging',
+      },
+      {
+        name: 'onChangeEnd',
+        type: '(value: number) => void',
+        description: 'Called when drag ends',
+      },
     ],
     examples: [
       {
@@ -5094,20 +8677,79 @@ export function StepMarksExample() {
 
   stepper: {
     props: [
-      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'StepperItem children' },
-      { name: 'activeKey', type: 'string', defaultValue: '-', description: 'Controlled active step key' },
-      { name: 'defaultActiveKey', type: 'string', defaultValue: '-', description: 'Default active key (uncontrolled)' },
-      { name: 'direction', type: '"horizontal" | "vertical"', defaultValue: '"horizontal"', description: 'Layout direction' },
-      { name: 'showLines', type: 'boolean', defaultValue: 'true', description: 'Show connector lines between steps' },
-      { name: 'lineDisplayMode', type: '"progress" | "all"', defaultValue: '"progress"', description: 'Which lines to highlight' },
-      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
-      { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Step indicator size' },
-      { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable all steps' },
-      { name: 'customAppearance', type: 'StepperCustomAppearance', defaultValue: '-', description: 'Custom style overrides' },
-      { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Additional container styles' },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'StepperItem children',
+      },
+      {
+        name: 'activeKey',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Controlled active step key',
+      },
+      {
+        name: 'defaultActiveKey',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Default active key (uncontrolled)',
+      },
+      {
+        name: 'direction',
+        type: '"horizontal" | "vertical"',
+        defaultValue: '"horizontal"',
+        description: 'Layout direction',
+      },
+      {
+        name: 'showLines',
+        type: 'boolean',
+        defaultValue: 'true',
+        description: 'Show connector lines between steps',
+      },
+      {
+        name: 'lineDisplayMode',
+        type: '"progress" | "all"',
+        defaultValue: '"progress"',
+        description: 'Which lines to highlight',
+      },
+      {
+        name: 'themeColor',
+        type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+        defaultValue: '"primary"',
+        description: 'Color theme',
+      },
+      {
+        name: 'size',
+        type: '"sm" | "md" | "lg"',
+        defaultValue: '"md"',
+        description: 'Step indicator size',
+      },
+      {
+        name: 'isDisabled',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Disable all steps',
+      },
+      {
+        name: 'customAppearance',
+        type: 'StepperCustomAppearance',
+        defaultValue: '-',
+        description: 'Custom style overrides',
+      },
+      {
+        name: 'style',
+        type: 'StyleProp<ViewStyle>',
+        defaultValue: '-',
+        description: 'Additional container styles',
+      },
     ],
     events: [
-      { name: 'onStepChange', type: '(key: string) => void', description: 'Called when active step changes' },
+      {
+        name: 'onStepChange',
+        type: '(key: string) => void',
+        description: 'Called when active step changes',
+      },
     ],
     examples: [
       {
@@ -5237,17 +8879,61 @@ export function DisabledStepperExample() {
       {
         name: 'StepperItem',
         props: [
-          { name: 'itemKey', type: 'string', defaultValue: '-', description: 'Unique key for this step' },
-          { name: 'title', type: 'ReactNode', defaultValue: '-', description: 'Step title' },
-          { name: 'description', type: 'ReactNode', defaultValue: '-', description: 'Step description' },
-          { name: 'indicator', type: 'ReactNode | ((state: StepperItemIndicatorState) => ReactNode)', defaultValue: '-', description: 'Custom step indicator' },
-          { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Content shown below step header' },
-          { name: 'isLocked', type: 'boolean', defaultValue: 'false', description: 'Prevent navigating to this step' },
-          { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable this step' },
-          { name: 'customAppearance', type: 'StepperItemCustomAppearance', defaultValue: '-', description: 'Custom style overrides' },
+          {
+            name: 'itemKey',
+            type: 'string',
+            defaultValue: '-',
+            description: 'Unique key for this step',
+          },
+          {
+            name: 'title',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Step title',
+          },
+          {
+            name: 'description',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Step description',
+          },
+          {
+            name: 'indicator',
+            type: 'ReactNode | ((state: StepperItemIndicatorState) => ReactNode)',
+            defaultValue: '-',
+            description: 'Custom step indicator',
+          },
+          {
+            name: 'children',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Content shown below step header',
+          },
+          {
+            name: 'isLocked',
+            type: 'boolean',
+            defaultValue: 'false',
+            description: 'Prevent navigating to this step',
+          },
+          {
+            name: 'isDisabled',
+            type: 'boolean',
+            defaultValue: 'false',
+            description: 'Disable this step',
+          },
+          {
+            name: 'customAppearance',
+            type: 'StepperItemCustomAppearance',
+            defaultValue: '-',
+            description: 'Custom style overrides',
+          },
         ],
         events: [
-          { name: 'onPress', type: '(itemKey: string) => void', description: 'Called when step is pressed' },
+          {
+            name: 'onPress',
+            type: '(itemKey: string) => void',
+            description: 'Called when step is pressed',
+          },
         ],
       },
     ],
@@ -5255,20 +8941,79 @@ export function DisabledStepperExample() {
 
   switch: {
     props: [
-      { name: 'label', type: 'string', defaultValue: '-', description: 'Switch label text' },
-      { name: 'isSelected', type: 'boolean', defaultValue: 'false', description: 'Controlled on/off state' },
-      { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable interaction' },
-      { name: 'variant', type: '"inside" | "overlap"', defaultValue: '"inside"', description: 'Visual style variant' },
-      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
-      { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Switch size' },
-      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"full"', description: 'Border radius' },
-      { name: 'labelAlignment', type: '"left" | "right" | "justify-left" | "justify-right"', defaultValue: '"right"', description: 'Label position' },
-      { name: 'fullWidth', type: 'boolean', defaultValue: 'false', description: 'Expand to full width' },
-      { name: 'labelStyle', type: 'TextStyle', defaultValue: '-', description: 'Custom label styles' },
-      { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Additional container styles' },
+      {
+        name: 'label',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Switch label text',
+      },
+      {
+        name: 'isSelected',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Controlled on/off state',
+      },
+      {
+        name: 'isDisabled',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Disable interaction',
+      },
+      {
+        name: 'variant',
+        type: '"inside" | "overlap"',
+        defaultValue: '"inside"',
+        description: 'Visual style variant',
+      },
+      {
+        name: 'themeColor',
+        type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+        defaultValue: '"primary"',
+        description: 'Color theme',
+      },
+      {
+        name: 'size',
+        type: '"sm" | "md" | "lg"',
+        defaultValue: '"md"',
+        description: 'Switch size',
+      },
+      {
+        name: 'radius',
+        type: '"none" | "sm" | "md" | "lg" | "full"',
+        defaultValue: '"full"',
+        description: 'Border radius',
+      },
+      {
+        name: 'labelAlignment',
+        type: '"left" | "right" | "justify-left" | "justify-right"',
+        defaultValue: '"right"',
+        description: 'Label position',
+      },
+      {
+        name: 'fullWidth',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Expand to full width',
+      },
+      {
+        name: 'labelStyle',
+        type: 'TextStyle',
+        defaultValue: '-',
+        description: 'Custom label styles',
+      },
+      {
+        name: 'style',
+        type: 'ViewStyle',
+        defaultValue: '-',
+        description: 'Additional container styles',
+      },
     ],
     events: [
-      { name: 'onValueChange', type: '(isSelected: boolean) => void', description: 'Called when toggle state changes' },
+      {
+        name: 'onValueChange',
+        type: '(isSelected: boolean) => void',
+        description: 'Called when toggle state changes',
+      },
     ],
     examples: [
       {
@@ -5401,22 +9146,91 @@ export function StyledSwitchExample() {
 
   tabs: {
     props: [
-      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Tab children' },
-      { name: 'selectedKey', type: 'string', defaultValue: '-', description: 'Controlled selected tab key' },
-      { name: 'defaultSelectedKey', type: 'string', defaultValue: '-', description: 'Default selected key (uncontrolled)' },
-      { name: 'disabledKeys', type: 'string[]', defaultValue: '-', description: 'Keys of disabled tabs' },
-      { name: 'variant', type: '"solid" | "bordered" | "light" | "underlined"', defaultValue: '"solid"', description: 'Visual style variant' },
-      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
-      { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Tab bar size' },
-      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Border radius' },
-      { name: 'fullWidth', type: 'boolean', defaultValue: 'false', description: 'Expand tabs to full width' },
-      { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable all tabs' },
-      { name: 'disableAnimation', type: 'boolean', defaultValue: 'false', description: 'Disable transition animation' },
-      { name: 'content', type: 'ReactNode | ((state: RenderChildrenState) => ReactNode)', defaultValue: '-', description: 'Content area below tabs' },
-      { name: 'customAppearance', type: 'TabsCustomAppearance', defaultValue: '-', description: 'Custom style overrides' },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Tab children',
+      },
+      {
+        name: 'selectedKey',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Controlled selected tab key',
+      },
+      {
+        name: 'defaultSelectedKey',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Default selected key (uncontrolled)',
+      },
+      {
+        name: 'disabledKeys',
+        type: 'string[]',
+        defaultValue: '-',
+        description: 'Keys of disabled tabs',
+      },
+      {
+        name: 'variant',
+        type: '"solid" | "bordered" | "light" | "underlined"',
+        defaultValue: '"solid"',
+        description: 'Visual style variant',
+      },
+      {
+        name: 'themeColor',
+        type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+        defaultValue: '"primary"',
+        description: 'Color theme',
+      },
+      {
+        name: 'size',
+        type: '"sm" | "md" | "lg"',
+        defaultValue: '"md"',
+        description: 'Tab bar size',
+      },
+      {
+        name: 'radius',
+        type: '"none" | "sm" | "md" | "lg" | "full"',
+        defaultValue: '"md"',
+        description: 'Border radius',
+      },
+      {
+        name: 'fullWidth',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Expand tabs to full width',
+      },
+      {
+        name: 'isDisabled',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Disable all tabs',
+      },
+      {
+        name: 'disableAnimation',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Disable transition animation',
+      },
+      {
+        name: 'content',
+        type: 'ReactNode | ((state: RenderChildrenState) => ReactNode)',
+        defaultValue: '-',
+        description: 'Content area below tabs',
+      },
+      {
+        name: 'customAppearance',
+        type: 'TabsCustomAppearance',
+        defaultValue: '-',
+        description: 'Custom style overrides',
+      },
     ],
     events: [
-      { name: 'onSelectionChange', type: '(key: string) => void', description: 'Called when active tab changes' },
+      {
+        name: 'onSelectionChange',
+        type: '(key: string) => void',
+        description: 'Called when active tab changes',
+      },
     ],
     examples: [
       {
@@ -5536,11 +9350,36 @@ export function FullWidthExample() {
       {
         name: 'Tab',
         props: [
-          { name: 'title', type: 'ReactNode', defaultValue: '-', description: 'Tab title' },
-          { name: 'startContent', type: 'ReactNode', defaultValue: '-', description: 'Element at start of tab' },
-          { name: 'endContent', type: 'ReactNode', defaultValue: '-', description: 'Element at end of tab' },
-          { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable this tab' },
-          { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Tab panel content' },
+          {
+            name: 'title',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Tab title',
+          },
+          {
+            name: 'startContent',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Element at start of tab',
+          },
+          {
+            name: 'endContent',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Element at end of tab',
+          },
+          {
+            name: 'isDisabled',
+            type: 'boolean',
+            defaultValue: 'false',
+            description: 'Disable this tab',
+          },
+          {
+            name: 'children',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Tab panel content',
+          },
         ],
       },
     ],
@@ -5548,15 +9387,49 @@ export function FullWidthExample() {
 
   timepicker: {
     props: [
-      { name: 'value', type: 'TimeValue', defaultValue: '-', description: 'Controlled time value { hours, minutes }' },
-      { name: 'is24Hour', type: 'boolean', defaultValue: 'false', description: 'Use 24-hour format' },
-      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
-      { name: 'minTime', type: 'TimeValue', defaultValue: '-', description: 'Minimum selectable time' },
-      { name: 'maxTime', type: 'TimeValue', defaultValue: '-', description: 'Maximum selectable time' },
-      { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Additional container styles' },
+      {
+        name: 'value',
+        type: 'TimeValue',
+        defaultValue: '-',
+        description: 'Controlled time value { hours, minutes }',
+      },
+      {
+        name: 'is24Hour',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Use 24-hour format',
+      },
+      {
+        name: 'themeColor',
+        type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+        defaultValue: '"primary"',
+        description: 'Color theme',
+      },
+      {
+        name: 'minTime',
+        type: 'TimeValue',
+        defaultValue: '-',
+        description: 'Minimum selectable time',
+      },
+      {
+        name: 'maxTime',
+        type: 'TimeValue',
+        defaultValue: '-',
+        description: 'Maximum selectable time',
+      },
+      {
+        name: 'style',
+        type: 'StyleProp<ViewStyle>',
+        defaultValue: '-',
+        description: 'Additional container styles',
+      },
     ],
     events: [
-      { name: 'onChange', type: '(time: TimeValue) => void', description: 'Called when time changes' },
+      {
+        name: 'onChange',
+        type: '(time: TimeValue) => void',
+        description: 'Called when time changes',
+      },
     ],
     examples: [
       {
@@ -5672,35 +9545,129 @@ export function TimePickerTriggerExample() {
       {
         name: 'TimePickerDialog',
         props: [
-          { name: 'isOpen', type: 'boolean', defaultValue: '-', description: 'Controls dialog visibility' },
-          { name: 'value', type: 'TimeValue', defaultValue: '-', description: 'Controlled time value' },
-          { name: 'is24Hour', type: 'boolean', defaultValue: 'false', description: 'Use 24-hour format' },
-          { name: 'title', type: 'ReactNode', defaultValue: '-', description: 'Dialog title' },
-          { name: 'confirmText', type: 'string', defaultValue: '"OK"', description: 'Confirm button text' },
-          { name: 'cancelText', type: 'string', defaultValue: '"Cancel"', description: 'Cancel button text' },
-          { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
+          {
+            name: 'isOpen',
+            type: 'boolean',
+            defaultValue: '-',
+            description: 'Controls dialog visibility',
+          },
+          {
+            name: 'value',
+            type: 'TimeValue',
+            defaultValue: '-',
+            description: 'Controlled time value',
+          },
+          {
+            name: 'is24Hour',
+            type: 'boolean',
+            defaultValue: 'false',
+            description: 'Use 24-hour format',
+          },
+          {
+            name: 'title',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Dialog title',
+          },
+          {
+            name: 'confirmText',
+            type: 'string',
+            defaultValue: '"OK"',
+            description: 'Confirm button text',
+          },
+          {
+            name: 'cancelText',
+            type: 'string',
+            defaultValue: '"Cancel"',
+            description: 'Cancel button text',
+          },
+          {
+            name: 'themeColor',
+            type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+            defaultValue: '"primary"',
+            description: 'Color theme',
+          },
         ],
         events: [
-          { name: 'onClose', type: '() => void', description: 'Called when dialog is closed' },
-          { name: 'onChange', type: '(time: TimeValue) => void', description: 'Called when time changes' },
-          { name: 'onConfirm', type: '(time: TimeValue) => void', description: 'Called when confirm is pressed' },
-          { name: 'onCancel', type: '() => void', description: 'Called when cancel is pressed' },
+          {
+            name: 'onClose',
+            type: '() => void',
+            description: 'Called when dialog is closed',
+          },
+          {
+            name: 'onChange',
+            type: '(time: TimeValue) => void',
+            description: 'Called when time changes',
+          },
+          {
+            name: 'onConfirm',
+            type: '(time: TimeValue) => void',
+            description: 'Called when confirm is pressed',
+          },
+          {
+            name: 'onCancel',
+            type: '() => void',
+            description: 'Called when cancel is pressed',
+          },
         ],
       },
       {
         name: 'TimePickerTrigger',
         props: [
-          { name: 'value', type: 'TimeValue', defaultValue: '-', description: 'Time to display' },
-          { name: 'placeholder', type: 'string', defaultValue: '"Select time"', description: 'Placeholder text' },
-          { name: 'is24Hour', type: 'boolean', defaultValue: 'false', description: 'Use 24-hour format' },
-          { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable interaction' },
-          { name: 'isClearable', type: 'boolean', defaultValue: 'true', description: 'Show clear button' },
-          { name: 'icon', type: 'ReactNode', defaultValue: '-', description: 'Custom icon element' },
-          { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
+          {
+            name: 'value',
+            type: 'TimeValue',
+            defaultValue: '-',
+            description: 'Time to display',
+          },
+          {
+            name: 'placeholder',
+            type: 'string',
+            defaultValue: '"Select time"',
+            description: 'Placeholder text',
+          },
+          {
+            name: 'is24Hour',
+            type: 'boolean',
+            defaultValue: 'false',
+            description: 'Use 24-hour format',
+          },
+          {
+            name: 'isDisabled',
+            type: 'boolean',
+            defaultValue: 'false',
+            description: 'Disable interaction',
+          },
+          {
+            name: 'isClearable',
+            type: 'boolean',
+            defaultValue: 'true',
+            description: 'Show clear button',
+          },
+          {
+            name: 'icon',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Custom icon element',
+          },
+          {
+            name: 'themeColor',
+            type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+            defaultValue: '"primary"',
+            description: 'Color theme',
+          },
         ],
         events: [
-          { name: 'onPress', type: '() => void', description: 'Called when trigger is pressed' },
-          { name: 'onClear', type: '() => void', description: 'Called when clear button is pressed' },
+          {
+            name: 'onPress',
+            type: '() => void',
+            description: 'Called when trigger is pressed',
+          },
+          {
+            name: 'onClear',
+            type: '() => void',
+            description: 'Called when clear button is pressed',
+          },
         ],
       },
     ],
@@ -5708,15 +9675,60 @@ export function TimePickerTriggerExample() {
 
   toolbar: {
     props: [
-      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'ToolbarAction children' },
-      { name: 'variant', type: '"floating" | "docked" | "vertical"', defaultValue: '"docked"', description: 'Layout variant' },
-      { name: 'position', type: '"top" | "bottom" | "left" | "right"', defaultValue: '"top"', description: 'Screen position (left/right only for vertical variant)' },
-      { name: 'isVisible', type: 'boolean', defaultValue: 'true', description: 'Controls toolbar visibility' },
-      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
-      { name: 'showDivider', type: 'boolean', defaultValue: 'false', description: 'Show a divider line on docked layout' },
-      { name: 'isElevated', type: 'boolean', defaultValue: '-', description: 'Apply shadow elevation (uses variant default when omitted)' },
-      { name: 'customAppearance', type: 'ToolbarCustomAppearance', defaultValue: '-', description: 'Custom style overrides' },
-      { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Additional container styles' },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'ToolbarAction children',
+      },
+      {
+        name: 'variant',
+        type: '"floating" | "docked" | "vertical"',
+        defaultValue: '"docked"',
+        description: 'Layout variant',
+      },
+      {
+        name: 'position',
+        type: '"top" | "bottom" | "left" | "right"',
+        defaultValue: '"top"',
+        description: 'Screen position (left/right only for vertical variant)',
+      },
+      {
+        name: 'isVisible',
+        type: 'boolean',
+        defaultValue: 'true',
+        description: 'Controls toolbar visibility',
+      },
+      {
+        name: 'themeColor',
+        type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+        defaultValue: '"primary"',
+        description: 'Color theme',
+      },
+      {
+        name: 'showDivider',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Show a divider line on docked layout',
+      },
+      {
+        name: 'isElevated',
+        type: 'boolean',
+        defaultValue: '-',
+        description: 'Apply shadow elevation (uses variant default when omitted)',
+      },
+      {
+        name: 'customAppearance',
+        type: 'ToolbarCustomAppearance',
+        defaultValue: '-',
+        description: 'Custom style overrides',
+      },
+      {
+        name: 'style',
+        type: 'StyleProp<ViewStyle>',
+        defaultValue: '-',
+        description: 'Additional container styles',
+      },
     ],
     examples: [
       {
@@ -5832,14 +9844,42 @@ export function ToolbarCustomAppearanceExample() {
       {
         name: 'ToolbarAction',
         props: [
-          { name: 'icon', type: 'ReactNode | ((params: ToolbarActionRenderParams) => ReactNode)', defaultValue: '-', description: 'Action icon' },
-          { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable this action' },
-          { name: 'accessibilityLabel', type: 'string', defaultValue: '-', description: 'Accessibility label' },
-          { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Additional styles' },
+          {
+            name: 'icon',
+            type: 'ReactNode | ((params: ToolbarActionRenderParams) => ReactNode)',
+            defaultValue: '-',
+            description: 'Action icon',
+          },
+          {
+            name: 'isDisabled',
+            type: 'boolean',
+            defaultValue: 'false',
+            description: 'Disable this action',
+          },
+          {
+            name: 'accessibilityLabel',
+            type: 'string',
+            defaultValue: '-',
+            description: 'Accessibility label',
+          },
+          {
+            name: 'style',
+            type: 'StyleProp<ViewStyle>',
+            defaultValue: '-',
+            description: 'Additional styles',
+          },
         ],
         events: [
-          { name: 'onPress', type: '(event: GestureResponderEvent) => void', description: 'Called when action is pressed' },
-          { name: 'onLongPress', type: '(event: GestureResponderEvent) => void', description: 'Called on long press' },
+          {
+            name: 'onPress',
+            type: '(event: GestureResponderEvent) => void',
+            description: 'Called when action is pressed',
+          },
+          {
+            name: 'onLongPress',
+            type: '(event: GestureResponderEvent) => void',
+            description: 'Called on long press',
+          },
         ],
       },
     ],
@@ -5847,13 +9887,49 @@ export function ToolbarCustomAppearanceExample() {
 
   typography: {
     props: [
-      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Text content' },
-      { name: 'variant', type: '"displayLarge" | "displayMedium" | "displaySmall" | "headlineLarge" | "headlineMedium" | "headlineSmall" | "subtitleLarge" | "subtitleMedium" | "subtitleSmall" | "bodyLarge" | "bodyMedium" | "bodySmall" | "caption" | string', defaultValue: '"bodyMedium"', description: 'Typographic style variant — also accepts a custom string for theme-extended variants' },
-      { name: 'align', type: '"left" | "center" | "right" | "justify"', defaultValue: '-', description: 'Text alignment' },
-      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"default"', description: 'Color theme for the text' },
-      { name: 'maxLines', type: 'number', defaultValue: '-', description: 'Maximum number of lines before truncation' },
-      { name: 'overflow', type: '"clip" | "ellipsis"', defaultValue: '"clip"', description: 'Overflow handling when maxLines is set' },
-      { name: 'style', type: 'StyleProp<TextStyle>', defaultValue: '-', description: 'Additional text styles' },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Text content',
+      },
+      {
+        name: 'variant',
+        type: '"displayLarge" | "displayMedium" | "displaySmall" | "headlineLarge" | "headlineMedium" | "headlineSmall" | "subtitleLarge" | "subtitleMedium" | "subtitleSmall" | "bodyLarge" | "bodyMedium" | "bodySmall" | "caption" | string',
+        defaultValue: '"bodyMedium"',
+        description:
+          'Typographic style variant — also accepts a custom string for theme-extended variants',
+      },
+      {
+        name: 'align',
+        type: '"left" | "center" | "right" | "justify"',
+        defaultValue: '-',
+        description: 'Text alignment',
+      },
+      {
+        name: 'themeColor',
+        type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+        defaultValue: '"default"',
+        description: 'Color theme for the text',
+      },
+      {
+        name: 'maxLines',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Maximum number of lines before truncation',
+      },
+      {
+        name: 'overflow',
+        type: '"clip" | "ellipsis"',
+        defaultValue: '"clip"',
+        description: 'Overflow handling when maxLines is set',
+      },
+      {
+        name: 'style',
+        type: 'StyleProp<TextStyle>',
+        defaultValue: '-',
+        description: 'Additional text styles',
+      },
     ],
     examples: [
       {
@@ -5935,15 +10011,60 @@ export function TypographyAlignmentExample() {
 
   'text-span': {
     props: [
-      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Content to render inside the span container' },
-      { name: 'color', type: 'TextStyle["color"]', defaultValue: '-', description: 'Inherited text color for nested Typography children' },
-      { name: 'fontWeight', type: 'TextStyle["fontWeight"]', defaultValue: '-', description: 'Inherited font weight for nested Typography children' },
-      { name: 'fontStyle', type: 'TextStyle["fontStyle"]', defaultValue: '-', description: 'Inherited font style for nested Typography children' },
-      { name: 'textTransform', type: 'TextStyle["textTransform"]', defaultValue: '-', description: 'Inherited text transform for nested Typography children' },
-      { name: 'spacing', type: 'number', defaultValue: '-', description: 'Gap between direct children' },
-      { name: 'align', type: '"left" | "center" | "right" | "justify"', defaultValue: '-', description: 'Text alignment for grouped text' },
-      { name: 'backgroundColor', type: 'ViewStyle["backgroundColor"]', defaultValue: '-', description: 'Background color of the text span container' },
-      { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Additional container styles' },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Content to render inside the span container',
+      },
+      {
+        name: 'color',
+        type: 'TextStyle["color"]',
+        defaultValue: '-',
+        description: 'Inherited text color for nested Typography children',
+      },
+      {
+        name: 'fontWeight',
+        type: 'TextStyle["fontWeight"]',
+        defaultValue: '-',
+        description: 'Inherited font weight for nested Typography children',
+      },
+      {
+        name: 'fontStyle',
+        type: 'TextStyle["fontStyle"]',
+        defaultValue: '-',
+        description: 'Inherited font style for nested Typography children',
+      },
+      {
+        name: 'textTransform',
+        type: 'TextStyle["textTransform"]',
+        defaultValue: '-',
+        description: 'Inherited text transform for nested Typography children',
+      },
+      {
+        name: 'spacing',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Gap between direct children',
+      },
+      {
+        name: 'align',
+        type: '"left" | "center" | "right" | "justify"',
+        defaultValue: '-',
+        description: 'Text alignment for grouped text',
+      },
+      {
+        name: 'backgroundColor',
+        type: 'ViewStyle["backgroundColor"]',
+        defaultValue: '-',
+        description: 'Background color of the text span container',
+      },
+      {
+        name: 'style',
+        type: 'StyleProp<ViewStyle>',
+        defaultValue: '-',
+        description: 'Additional container styles',
+      },
     ],
     examples: [
       {
@@ -5979,13 +10100,42 @@ export function TextSpanInheritedStyleExample() {
 
   column: {
     props: [
-      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Content to arrange vertically' },
-      { name: 'mainAxisAlignment', type: '"start" | "center" | "end" | "space-between" | "space-around" | "space-evenly"', defaultValue: '"start"', description: 'Vertical alignment of children' },
-      { name: 'crossAxisAlignment', type: '"start" | "center" | "end" | "stretch" | "baseline"', defaultValue: '"start"', description: 'Horizontal alignment of children' },
-      { name: 'spacing', type: 'number', defaultValue: '0', description: 'Gap between children' },
-      { name: 'reverse', type: 'boolean', defaultValue: 'false', description: 'Reverse the order of children' },
-      { name: 'fullWidth', type: 'boolean', defaultValue: 'false', description: 'Expand to full available width' },
-      { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Additional styles' },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Content to arrange vertically',
+      },
+      {
+        name: 'mainAxisAlignment',
+        type: '"start" | "center" | "end" | "space-between" | "space-around" | "space-evenly"',
+        defaultValue: '"start"',
+        description: 'Vertical alignment of children',
+      },
+      {
+        name: 'crossAxisAlignment',
+        type: '"start" | "center" | "end" | "stretch" | "baseline"',
+        defaultValue: '"start"',
+        description: 'Horizontal alignment of children',
+      },
+      {
+        name: 'spacing',
+        type: 'number',
+        defaultValue: '0',
+        description: 'Gap between children',
+      },
+      {
+        name: 'reverse',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Reverse the order of children',
+      },
+      {
+        name: 'style',
+        type: 'ViewStyle',
+        defaultValue: '-',
+        description: 'Additional styles',
+      },
     ],
     examples: [
       {
@@ -6028,7 +10178,7 @@ import { Typography } from '@xaui/native/typography'
 
 export function CrossAxisExample() {
   return (
-    <Column crossAxisAlignment="center" fullWidth spacing={8}>
+    <Column crossAxisAlignment="center" spacing={8}>
       <Typography>Centered item</Typography>
       <Typography>Another centered item</Typography>
     </Column>
@@ -6040,13 +10190,48 @@ export function CrossAxisExample() {
 
   row: {
     props: [
-      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Content to arrange horizontally' },
-      { name: 'mainAxisAlignment', type: '"start" | "center" | "end" | "space-between" | "space-around" | "space-evenly"', defaultValue: '"start"', description: 'Horizontal alignment of children' },
-      { name: 'crossAxisAlignment', type: '"start" | "center" | "end" | "stretch" | "baseline"', defaultValue: '"start"', description: 'Vertical alignment of children' },
-      { name: 'spacing', type: 'number', defaultValue: '0', description: 'Gap between children' },
-      { name: 'reverse', type: 'boolean', defaultValue: 'false', description: 'Reverse the order of children' },
-      { name: 'fullWidth', type: 'boolean', defaultValue: 'false', description: 'Expand to full available width' },
-      { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Additional styles' },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Content to arrange horizontally',
+      },
+      {
+        name: 'mainAxisAlignment',
+        type: '"start" | "center" | "end" | "space-between" | "space-around" | "space-evenly"',
+        defaultValue: '"start"',
+        description: 'Horizontal alignment of children',
+      },
+      {
+        name: 'crossAxisAlignment',
+        type: '"start" | "center" | "end" | "stretch" | "baseline"',
+        defaultValue: '"start"',
+        description: 'Vertical alignment of children',
+      },
+      {
+        name: 'spacing',
+        type: 'number',
+        defaultValue: '0',
+        description: 'Gap between children',
+      },
+      {
+        name: 'reverse',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Reverse the order of children',
+      },
+      {
+        name: 'fullWidth',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Expand to full available width',
+      },
+      {
+        name: 'style',
+        type: 'ViewStyle',
+        defaultValue: '-',
+        description: 'Additional styles',
+      },
     ],
     examples: [
       {
@@ -6101,8 +10286,18 @@ export function VerticalCenterExample() {
 
   spacer: {
     props: [
-      { name: 'flex', type: 'number', defaultValue: '1', description: 'Flex factor for space distribution' },
-      { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Additional styles' },
+      {
+        name: 'flex',
+        type: 'number',
+        defaultValue: '1',
+        description: 'Flex factor for space distribution',
+      },
+      {
+        name: 'style',
+        type: 'StyleProp<ViewStyle>',
+        defaultValue: '-',
+        description: 'Additional styles',
+      },
     ],
     examples: [
       {
@@ -6142,18 +10337,104 @@ export function WeightedSpacerExample() {
     ],
   },
 
+  center: {
+    props: [
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Content to center inside the container',
+      },
+      {
+        name: 'style',
+        type: 'StyleProp<ViewStyle>',
+        defaultValue: '-',
+        description: 'Additional styles',
+      },
+    ],
+    examples: [
+      {
+        title: 'Centered Content',
+        description: 'Center an element both vertically and horizontally.',
+        code: `import { Center } from '@xaui/native/view'
+import { Typography } from '@xaui/native/typography'
+
+export function CenterBasicExample() {
+  return (
+    <Center style={{ minHeight: 180 }}>
+      <Typography>Perfectly centered</Typography>
+    </Center>
+  )
+}`,
+      },
+      {
+        title: 'Centered Card',
+        description: 'Use custom style to center content in a colored surface.',
+        code: `import { Center } from '@xaui/native/view'
+import { Typography } from '@xaui/native/typography'
+
+export function CenterCardExample() {
+  return (
+    <Center style={{ minHeight: 140, backgroundColor: '#e0f2fe', borderRadius: 12 }}>
+      <Typography style={{ fontWeight: '600' }}>Centered card content</Typography>
+    </Center>
+  )
+}`,
+      },
+    ],
+  },
+
   padding: {
     props: [
-      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Content to wrap with padding' },
-      { name: 'all', type: 'number', defaultValue: '-', description: 'Uniform padding on all sides' },
-      { name: 'horizontal', type: 'number', defaultValue: '-', description: 'Horizontal padding (left + right)' },
-      { name: 'vertical', type: 'number', defaultValue: '-', description: 'Vertical padding (top + bottom)' },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Content to wrap with padding',
+      },
+      {
+        name: 'all',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Uniform padding on all sides',
+      },
+      {
+        name: 'horizontal',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Horizontal padding (left + right)',
+      },
+      {
+        name: 'vertical',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Vertical padding (top + bottom)',
+      },
       { name: 'top', type: 'number', defaultValue: '-', description: 'Top padding' },
-      { name: 'right', type: 'number', defaultValue: '-', description: 'Right padding' },
-      { name: 'bottom', type: 'number', defaultValue: '-', description: 'Bottom padding' },
-      { name: 'left', type: 'number', defaultValue: '-', description: 'Left padding' },
-      { name: 'fullWidth', type: 'boolean', defaultValue: 'false', description: 'Expand to full available width' },
-      { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Additional styles' },
+      {
+        name: 'right',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Right padding',
+      },
+      {
+        name: 'bottom',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Bottom padding',
+      },
+      {
+        name: 'left',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Left padding',
+      },
+      {
+        name: 'style',
+        type: 'StyleProp<ViewStyle>',
+        defaultValue: '-',
+        description: 'Additional styles',
+      },
     ],
     examples: [
       {
@@ -6189,16 +10470,55 @@ export function DirectionalPaddingExample() {
 
   margin: {
     props: [
-      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Content to wrap with margin' },
-      { name: 'all', type: 'number', defaultValue: '-', description: 'Uniform margin on all sides' },
-      { name: 'horizontal', type: 'number', defaultValue: '-', description: 'Horizontal margin (left + right)' },
-      { name: 'vertical', type: 'number', defaultValue: '-', description: 'Vertical margin (top + bottom)' },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Content to wrap with margin',
+      },
+      {
+        name: 'all',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Uniform margin on all sides',
+      },
+      {
+        name: 'horizontal',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Horizontal margin (left + right)',
+      },
+      {
+        name: 'vertical',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Vertical margin (top + bottom)',
+      },
       { name: 'top', type: 'number', defaultValue: '-', description: 'Top margin' },
-      { name: 'right', type: 'number', defaultValue: '-', description: 'Right margin' },
-      { name: 'bottom', type: 'number', defaultValue: '-', description: 'Bottom margin' },
-      { name: 'left', type: 'number', defaultValue: '-', description: 'Left margin' },
-      { name: 'fullWidth', type: 'boolean', defaultValue: 'false', description: 'Expand to full available width' },
-      { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Additional styles' },
+      {
+        name: 'right',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Right margin',
+      },
+      {
+        name: 'bottom',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Bottom margin',
+      },
+      {
+        name: 'left',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Left margin',
+      },
+      {
+        name: 'style',
+        type: 'StyleProp<ViewStyle>',
+        defaultValue: '-',
+        description: 'Additional styles',
+      },
     ],
     examples: [
       {
@@ -6234,10 +10554,30 @@ export function DirectionalMarginExample() {
 
   'sized-box': {
     props: [
-      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Optional content' },
-      { name: 'width', type: 'number', defaultValue: '-', description: 'Fixed width in pixels' },
-      { name: 'height', type: 'number', defaultValue: '-', description: 'Fixed height in pixels' },
-      { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Additional styles' },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Optional content',
+      },
+      {
+        name: 'width',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Fixed width in pixels',
+      },
+      {
+        name: 'height',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Fixed height in pixels',
+      },
+      {
+        name: 'style',
+        type: 'StyleProp<ViewStyle>',
+        defaultValue: '-',
+        description: 'Additional styles',
+      },
     ],
     examples: [
       {
@@ -6275,13 +10615,48 @@ export function FixedContainerExample() {
 
   'positioned-view': {
     props: [
-      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Content to position absolutely' },
-      { name: 'top', type: 'number', defaultValue: '-', description: 'Distance from top' },
-      { name: 'right', type: 'number', defaultValue: '-', description: 'Distance from right' },
-      { name: 'bottom', type: 'number', defaultValue: '-', description: 'Distance from bottom' },
-      { name: 'left', type: 'number', defaultValue: '-', description: 'Distance from left' },
-      { name: 'zIndex', type: 'number', defaultValue: '-', description: 'Stack order' },
-      { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Additional styles' },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Content to position absolutely',
+      },
+      {
+        name: 'top',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Distance from top',
+      },
+      {
+        name: 'right',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Distance from right',
+      },
+      {
+        name: 'bottom',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Distance from bottom',
+      },
+      {
+        name: 'left',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Distance from left',
+      },
+      {
+        name: 'zIndex',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Stack order',
+      },
+      {
+        name: 'style',
+        type: 'StyleProp<ViewStyle>',
+        defaultValue: '-',
+        description: 'Additional styles',
+      },
     ],
     examples: [
       {
@@ -6324,11 +10699,36 @@ export function BottomLabelExample() {
 
   'blur-view': {
     props: [
-      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Content displayed over the blur' },
-      { name: 'intensity', type: 'number', defaultValue: '50', description: 'Blur intensity (0–100)' },
-      { name: 'unlockable', type: 'boolean', defaultValue: 'false', description: 'Enable unlock/reveal interaction' },
-      { name: 'overlayColor', type: 'ColorValue', defaultValue: '-', description: 'Color overlay tint' },
-      { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Additional styles' },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Content displayed over the blur',
+      },
+      {
+        name: 'intensity',
+        type: 'number',
+        defaultValue: '50',
+        description: 'Blur intensity (0–100)',
+      },
+      {
+        name: 'unlockable',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Enable unlock/reveal interaction',
+      },
+      {
+        name: 'overlayColor',
+        type: 'ColorValue',
+        defaultValue: '-',
+        description: 'Color overlay tint',
+      },
+      {
+        name: 'style',
+        type: 'StyleProp<ViewStyle>',
+        defaultValue: '-',
+        description: 'Additional styles',
+      },
     ],
     examples: [
       {
@@ -6364,19 +10764,84 @@ export function UnlockableBlurExample() {
 
   'rounded-view': {
     props: [
-      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Content to wrap' },
-      { name: 'all', type: 'number', defaultValue: '-', description: 'Uniform border radius on all corners' },
-      { name: 'top', type: 'number', defaultValue: '-', description: 'Top corners radius' },
-      { name: 'bottom', type: 'number', defaultValue: '-', description: 'Bottom corners radius' },
-      { name: 'left', type: 'number', defaultValue: '-', description: 'Left corners radius' },
-      { name: 'right', type: 'number', defaultValue: '-', description: 'Right corners radius' },
-      { name: 'topLeft', type: 'number', defaultValue: '-', description: 'Top-left corner radius' },
-      { name: 'topRight', type: 'number', defaultValue: '-', description: 'Top-right corner radius' },
-      { name: 'bottomLeft', type: 'number', defaultValue: '-', description: 'Bottom-left corner radius' },
-      { name: 'bottomRight', type: 'number', defaultValue: '-', description: 'Bottom-right corner radius' },
-      { name: 'fullWidth', type: 'boolean', defaultValue: 'false', description: 'Expand to full available width' },
-      { name: 'backgroundColor', type: 'string', defaultValue: '-', description: 'Background color' },
-      { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Additional styles' },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Content to wrap',
+      },
+      {
+        name: 'all',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Uniform border radius on all corners',
+      },
+      {
+        name: 'top',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Top corners radius',
+      },
+      {
+        name: 'bottom',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Bottom corners radius',
+      },
+      {
+        name: 'left',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Left corners radius',
+      },
+      {
+        name: 'right',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Right corners radius',
+      },
+      {
+        name: 'topLeft',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Top-left corner radius',
+      },
+      {
+        name: 'topRight',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Top-right corner radius',
+      },
+      {
+        name: 'bottomLeft',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Bottom-left corner radius',
+      },
+      {
+        name: 'bottomRight',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Bottom-right corner radius',
+      },
+      {
+        name: 'fullWidth',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Expand to full available width',
+      },
+      {
+        name: 'backgroundColor',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Background color',
+      },
+      {
+        name: 'style',
+        type: 'ViewStyle',
+        defaultValue: '-',
+        description: 'Additional styles',
+      },
     ],
     examples: [
       {
@@ -6412,11 +10877,36 @@ export function AsymmetricRadiusExample() {
 
   surface: {
     props: [
-      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Content rendered inside the surface' },
-      { name: 'themeColor', type: '"primary" | "secondary" | "tertiary" | "danger" | "warning" | "success" | "default" | "background" | "foreground"', defaultValue: '"background"', description: 'Theme color key used for the surface background' },
-      { name: 'padding', type: 'number', defaultValue: '-', description: 'Uniform internal padding' },
-      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Border radius token' },
-      { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Additional container styles' },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Content rendered inside the surface',
+      },
+      {
+        name: 'themeColor',
+        type: '"primary" | "secondary" | "tertiary" | "danger" | "warning" | "success" | "default" | "background" | "foreground"',
+        defaultValue: '"background"',
+        description: 'Theme color key used for the surface background',
+      },
+      {
+        name: 'padding',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Uniform internal padding',
+      },
+      {
+        name: 'radius',
+        type: '"none" | "sm" | "md" | "lg" | "full"',
+        defaultValue: '"md"',
+        description: 'Border radius token',
+      },
+      {
+        name: 'style',
+        type: 'StyleProp<ViewStyle>',
+        defaultValue: '-',
+        description: 'Additional container styles',
+      },
     ],
     examples: [
       {
@@ -6480,9 +10970,24 @@ export function SurfaceCardExample() {
 
   'aspect-ratio': {
     props: [
-      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Content to constrain' },
-      { name: 'ratio', type: 'number', defaultValue: '-', description: 'Aspect ratio (width / height), e.g. 16/9' },
-      { name: 'style', type: 'ViewStyle', defaultValue: '-', description: 'Additional styles' },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Content to constrain',
+      },
+      {
+        name: 'ratio',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Aspect ratio (width / height), e.g. 16/9',
+      },
+      {
+        name: 'style',
+        type: 'ViewStyle',
+        defaultValue: '-',
+        description: 'Additional styles',
+      },
     ],
     examples: [
       {
@@ -6522,13 +11027,48 @@ export function SquareExample() {
 
   grid: {
     props: [
-      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'GridItem children' },
-      { name: 'columns', type: 'number', defaultValue: '2', description: 'Number of columns' },
-      { name: 'spacing', type: 'number', defaultValue: '0', description: 'Gap between items (row and column)' },
-      { name: 'rowSpacing', type: 'number', defaultValue: '-', description: 'Vertical gap between rows' },
-      { name: 'columnSpacing', type: 'number', defaultValue: '-', description: 'Horizontal gap between columns' },
-      { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Container styles' },
-      { name: 'itemStyle', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Applied to each grid cell' },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'GridItem children',
+      },
+      {
+        name: 'columns',
+        type: 'number',
+        defaultValue: '2',
+        description: 'Number of columns',
+      },
+      {
+        name: 'spacing',
+        type: 'number',
+        defaultValue: '0',
+        description: 'Gap between items (row and column)',
+      },
+      {
+        name: 'rowSpacing',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Vertical gap between rows',
+      },
+      {
+        name: 'columnSpacing',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Horizontal gap between columns',
+      },
+      {
+        name: 'style',
+        type: 'StyleProp<ViewStyle>',
+        defaultValue: '-',
+        description: 'Container styles',
+      },
+      {
+        name: 'itemStyle',
+        type: 'StyleProp<ViewStyle>',
+        defaultValue: '-',
+        description: 'Applied to each grid cell',
+      },
     ],
     examples: [
       {
@@ -6586,22 +11126,77 @@ export function DynamicGridExample() {
       {
         name: 'GridItem',
         props: [
-          { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Cell content' },
-          { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Additional cell styles' },
+          {
+            name: 'children',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Cell content',
+          },
+          {
+            name: 'style',
+            type: 'StyleProp<ViewStyle>',
+            defaultValue: '-',
+            description: 'Additional cell styles',
+          },
         ],
       },
       {
         name: 'GridBuilder',
         props: [
-          { name: 'data', type: 'T[]', defaultValue: '-', description: 'Array of items to render' },
-          { name: 'keyExtractor', type: '(item: T, index: number) => string', defaultValue: '-', description: 'Unique key extractor' },
-          { name: 'renderItem', type: '(item: T, index: number) => ReactNode', defaultValue: '-', description: 'Item renderer' },
-          { name: 'columns', type: 'number', defaultValue: '2', description: 'Number of columns' },
-          { name: 'spacing', type: 'number', defaultValue: '0', description: 'Gap between items' },
-          { name: 'rowSpacing', type: 'number', defaultValue: '-', description: 'Vertical gap between rows' },
-          { name: 'columnSpacing', type: 'number', defaultValue: '-', description: 'Horizontal gap between columns' },
-          { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Container styles' },
-          { name: 'itemStyle', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Applied to each grid cell' },
+          {
+            name: 'data',
+            type: 'T[]',
+            defaultValue: '-',
+            description: 'Array of items to render',
+          },
+          {
+            name: 'keyExtractor',
+            type: '(item: T, index: number) => string',
+            defaultValue: '-',
+            description: 'Unique key extractor',
+          },
+          {
+            name: 'renderItem',
+            type: '(item: T, index: number) => ReactNode',
+            defaultValue: '-',
+            description: 'Item renderer',
+          },
+          {
+            name: 'columns',
+            type: 'number',
+            defaultValue: '2',
+            description: 'Number of columns',
+          },
+          {
+            name: 'spacing',
+            type: 'number',
+            defaultValue: '0',
+            description: 'Gap between items',
+          },
+          {
+            name: 'rowSpacing',
+            type: 'number',
+            defaultValue: '-',
+            description: 'Vertical gap between rows',
+          },
+          {
+            name: 'columnSpacing',
+            type: 'number',
+            defaultValue: '-',
+            description: 'Horizontal gap between columns',
+          },
+          {
+            name: 'style',
+            type: 'StyleProp<ViewStyle>',
+            defaultValue: '-',
+            description: 'Container styles',
+          },
+          {
+            name: 'itemStyle',
+            type: 'StyleProp<ViewStyle>',
+            defaultValue: '-',
+            description: 'Applied to each grid cell',
+          },
         ],
       },
     ],
@@ -6609,18 +11204,54 @@ export function DynamicGridExample() {
 
   'masonry-grid': {
     props: [
-      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'MasonryGridItem children' },
-      { name: 'columns', type: 'number', defaultValue: '2', description: 'Number of columns' },
-      { name: 'spacing', type: 'number', defaultValue: '0', description: 'Gap between items' },
-      { name: 'rowSpacing', type: 'number', defaultValue: '-', description: 'Vertical gap' },
-      { name: 'columnSpacing', type: 'number', defaultValue: '-', description: 'Horizontal gap' },
-      { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Container styles' },
-      { name: 'columnStyle', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Applied to each column' },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'MasonryGridItem children',
+      },
+      {
+        name: 'columns',
+        type: 'number',
+        defaultValue: '2',
+        description: 'Number of columns',
+      },
+      {
+        name: 'spacing',
+        type: 'number',
+        defaultValue: '0',
+        description: 'Gap between items',
+      },
+      {
+        name: 'rowSpacing',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Vertical gap',
+      },
+      {
+        name: 'columnSpacing',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Horizontal gap',
+      },
+      {
+        name: 'style',
+        type: 'StyleProp<ViewStyle>',
+        defaultValue: '-',
+        description: 'Container styles',
+      },
+      {
+        name: 'columnStyle',
+        type: 'StyleProp<ViewStyle>',
+        defaultValue: '-',
+        description: 'Applied to each column',
+      },
     ],
     examples: [
       {
         title: 'Static Masonry',
-        description: 'Items of varying heights placed in masonry columns using MasonryGridItem.',
+        description:
+          'Items of varying heights placed in masonry columns using MasonryGridItem.',
         code: `import { MasonryGrid, MasonryGridItem } from '@xaui/native/view'
 import { Typography } from '@xaui/native/typography'
 import { View } from 'react-native'
@@ -6672,20 +11303,65 @@ export function DynamicMasonryExample() {
       {
         name: 'MasonryGridItem',
         props: [
-          { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Cell content' },
-          { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Additional cell styles' },
+          {
+            name: 'children',
+            type: 'ReactNode',
+            defaultValue: '-',
+            description: 'Cell content',
+          },
+          {
+            name: 'style',
+            type: 'StyleProp<ViewStyle>',
+            defaultValue: '-',
+            description: 'Additional cell styles',
+          },
         ],
       },
       {
         name: 'MasonryGridBuilder',
         props: [
-          { name: 'data', type: 'T[]', defaultValue: '-', description: 'Array of items to render' },
-          { name: 'keyExtractor', type: '(item: T, index: number) => string', defaultValue: '-', description: 'Unique key extractor' },
-          { name: 'renderItem', type: '(item: T, index: number) => ReactNode', defaultValue: '-', description: 'Item renderer' },
-          { name: 'columns', type: 'number', defaultValue: '2', description: 'Number of columns' },
-          { name: 'spacing', type: 'number', defaultValue: '0', description: 'Gap between items' },
-          { name: 'style', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Container styles' },
-          { name: 'columnStyle', type: 'StyleProp<ViewStyle>', defaultValue: '-', description: 'Applied to each column' },
+          {
+            name: 'data',
+            type: 'T[]',
+            defaultValue: '-',
+            description: 'Array of items to render',
+          },
+          {
+            name: 'keyExtractor',
+            type: '(item: T, index: number) => string',
+            defaultValue: '-',
+            description: 'Unique key extractor',
+          },
+          {
+            name: 'renderItem',
+            type: '(item: T, index: number) => ReactNode',
+            defaultValue: '-',
+            description: 'Item renderer',
+          },
+          {
+            name: 'columns',
+            type: 'number',
+            defaultValue: '2',
+            description: 'Number of columns',
+          },
+          {
+            name: 'spacing',
+            type: 'number',
+            defaultValue: '0',
+            description: 'Gap between items',
+          },
+          {
+            name: 'style',
+            type: 'StyleProp<ViewStyle>',
+            defaultValue: '-',
+            description: 'Container styles',
+          },
+          {
+            name: 'columnStyle',
+            type: 'StyleProp<ViewStyle>',
+            defaultValue: '-',
+            description: 'Applied to each column',
+          },
         ],
       },
     ],
@@ -6693,25 +11369,107 @@ export function DynamicMasonryExample() {
 
   snackbar: {
     props: [
-      { name: 'message', type: 'ReactNode', defaultValue: '-', description: 'Message content shown inside the snackbar' },
-      { name: 'isVisible', type: 'boolean', defaultValue: 'true', description: 'Controls snackbar visibility' },
-      { name: 'duration', type: 'number', defaultValue: '4000', description: 'Auto-dismiss delay in ms. Set to 0 to disable' },
-      { name: 'position', type: '"top" | "bottom"', defaultValue: '"bottom"', description: 'Position on screen' },
-      { name: 'actionLabel', type: 'ReactNode', defaultValue: '-', description: 'Action content displayed at the end' },
-      { name: 'closeOnActionPress', type: 'boolean', defaultValue: 'true', description: 'Dismiss when action is pressed' },
-      { name: 'showCloseAffordance', type: 'boolean', defaultValue: 'false', description: 'Show a close icon button' },
-      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"default"', description: 'Color theme. Default uses Material 3 inverse surface' },
-      { name: 'numberOfLines', type: 'number', defaultValue: '2', description: 'Max lines for the message text' },
-      { name: 'insetHorizontal', type: 'number', defaultValue: '16', description: 'Horizontal inset from screen edges' },
-      { name: 'insetVertical', type: 'number', defaultValue: '16', description: 'Vertical inset from screen edge' },
-      { name: 'maxWidth', type: 'number', defaultValue: '640', description: 'Maximum width of the snackbar surface' },
-      { name: 'usePortal', type: 'boolean', defaultValue: 'true', description: 'Render in a portal overlay' },
-      { name: 'customAppearance', type: '{ container?: ViewStyle; message?: TextStyle; action?: TextStyle; closeButton?: ViewStyle }', defaultValue: '-', description: 'Custom style overrides for snackbar parts' },
+      {
+        name: 'message',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Message content shown inside the snackbar',
+      },
+      {
+        name: 'isVisible',
+        type: 'boolean',
+        defaultValue: 'true',
+        description: 'Controls snackbar visibility',
+      },
+      {
+        name: 'duration',
+        type: 'number',
+        defaultValue: '4000',
+        description: 'Auto-dismiss delay in ms. Set to 0 to disable',
+      },
+      {
+        name: 'position',
+        type: '"top" | "bottom"',
+        defaultValue: '"bottom"',
+        description: 'Position on screen',
+      },
+      {
+        name: 'actionLabel',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Action content displayed at the end',
+      },
+      {
+        name: 'closeOnActionPress',
+        type: 'boolean',
+        defaultValue: 'true',
+        description: 'Dismiss when action is pressed',
+      },
+      {
+        name: 'showCloseAffordance',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Show a close icon button',
+      },
+      {
+        name: 'themeColor',
+        type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+        defaultValue: '"default"',
+        description: 'Color theme. Default uses Material 3 inverse surface',
+      },
+      {
+        name: 'numberOfLines',
+        type: 'number',
+        defaultValue: '2',
+        description: 'Max lines for the message text',
+      },
+      {
+        name: 'insetHorizontal',
+        type: 'number',
+        defaultValue: '16',
+        description: 'Horizontal inset from screen edges',
+      },
+      {
+        name: 'insetVertical',
+        type: 'number',
+        defaultValue: '16',
+        description: 'Vertical inset from screen edge',
+      },
+      {
+        name: 'maxWidth',
+        type: 'number',
+        defaultValue: '640',
+        description: 'Maximum width of the snackbar surface',
+      },
+      {
+        name: 'usePortal',
+        type: 'boolean',
+        defaultValue: 'true',
+        description: 'Render in a portal overlay',
+      },
+      {
+        name: 'customAppearance',
+        type: '{ container?: ViewStyle; message?: TextStyle; action?: TextStyle; closeButton?: ViewStyle }',
+        defaultValue: '-',
+        description: 'Custom style overrides for snackbar parts',
+      },
     ],
     events: [
-      { name: 'onActionPress', type: '() => void', description: 'Called when the action label is pressed' },
-      { name: 'onClose', type: '() => void', description: 'Called when the snackbar is dismissed' },
-      { name: 'onVisibleChange', type: '(isVisible: boolean) => void', description: 'Called when visibility changes' },
+      {
+        name: 'onActionPress',
+        type: '() => void',
+        description: 'Called when the action label is pressed',
+      },
+      {
+        name: 'onClose',
+        type: '() => void',
+        description: 'Called when the snackbar is dismissed',
+      },
+      {
+        name: 'onVisibleChange',
+        type: '(isVisible: boolean) => void',
+        description: 'Called when visibility changes',
+      },
     ],
     examples: [
       {
@@ -6819,47 +11577,177 @@ export function StackExample() {
       {
         name: 'SnackbarStack',
         props: [
-          { name: 'items', type: 'SnackbarItem[]', defaultValue: '-', description: 'Snackbar items to render in a vertical stack' },
-          { name: 'position', type: '"top" | "bottom"', defaultValue: '"bottom"', description: 'Position of the stacked snackbars' },
-          { name: 'spacing', type: 'number', defaultValue: '8', description: 'Space between stacked snackbars' },
-          { name: 'defaultDuration', type: 'number', defaultValue: '4000', description: 'Default auto-dismiss duration for items without duration' },
-          { name: 'insetHorizontal', type: 'number', defaultValue: '16', description: 'Horizontal inset from screen edges' },
-          { name: 'insetVertical', type: 'number', defaultValue: '16', description: 'Vertical inset from screen edge' },
-          { name: 'maxWidth', type: 'number', defaultValue: '640', description: 'Maximum width of each snackbar surface' },
-          { name: 'usePortal', type: 'boolean', defaultValue: 'true', description: 'Render stack in a portal overlay' },
-          { name: 'customAppearance', type: '{ container?: ViewStyle; content?: ViewStyle }', defaultValue: '-', description: 'Custom style overrides for the stack container' },
+          {
+            name: 'items',
+            type: 'SnackbarItem[]',
+            defaultValue: '-',
+            description: 'Snackbar items to render in a vertical stack',
+          },
+          {
+            name: 'position',
+            type: '"top" | "bottom"',
+            defaultValue: '"bottom"',
+            description: 'Position of the stacked snackbars',
+          },
+          {
+            name: 'spacing',
+            type: 'number',
+            defaultValue: '8',
+            description: 'Space between stacked snackbars',
+          },
+          {
+            name: 'defaultDuration',
+            type: 'number',
+            defaultValue: '4000',
+            description: 'Default auto-dismiss duration for items without duration',
+          },
+          {
+            name: 'insetHorizontal',
+            type: 'number',
+            defaultValue: '16',
+            description: 'Horizontal inset from screen edges',
+          },
+          {
+            name: 'insetVertical',
+            type: 'number',
+            defaultValue: '16',
+            description: 'Vertical inset from screen edge',
+          },
+          {
+            name: 'maxWidth',
+            type: 'number',
+            defaultValue: '640',
+            description: 'Maximum width of each snackbar surface',
+          },
+          {
+            name: 'usePortal',
+            type: 'boolean',
+            defaultValue: 'true',
+            description: 'Render stack in a portal overlay',
+          },
+          {
+            name: 'customAppearance',
+            type: '{ container?: ViewStyle; content?: ViewStyle }',
+            defaultValue: '-',
+            description: 'Custom style overrides for the stack container',
+          },
         ],
         events: [
-          { name: 'onDismiss', type: '(id: string) => void', description: 'Called when an item requests dismissal' },
+          {
+            name: 'onDismiss',
+            type: '(id: string) => void',
+            description: 'Called when an item requests dismissal',
+          },
         ],
       },
     ],
   },
   snippet: {
     props: [
-      { name: 'value', type: 'string', defaultValue: '-', description: 'Text value displayed inside the snippet' },
-      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Theme color used by snippet and copy button styles' },
-      { name: 'variant', type: '"outlined" | "flat" | "light"', defaultValue: '"outlined"', description: 'Visual style variant' },
-      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Border radius' },
-      { name: 'copyButtonPosition', type: '"top-left" | "top-right" | "bottom-left" | "bottom-right" | "inline-left" | "inline-right"', defaultValue: '"top-right"', description: 'Position of the copy button — corner positions are absolute, inline positions place the button beside the text' },
-      { name: 'copyLabel', type: 'string', defaultValue: '"Copy"', description: 'Label shown before copy success' },
-      { name: 'copiedLabel', type: 'string', defaultValue: '"Copied"', description: 'Label shown after successful copy' },
-      { name: 'hideCopyLabel', type: 'boolean', defaultValue: 'false', description: 'Hide the text label on the copy button, showing only the icon' },
-      { name: 'copyResetDelay', type: 'number', defaultValue: '1500', description: 'Delay (ms) before resetting copied state' },
-      { name: 'fullWidth', type: 'boolean', defaultValue: 'true', description: 'Expand snippet to full width' },
-      { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable copy interaction and dim the snippet' },
-      { name: 'numberOfLines', type: 'number', defaultValue: '-', description: 'Optional max line clamp for snippet text' },
-      { name: 'fontSize', type: 'number', defaultValue: '14', description: 'Font size of the snippet text' },
-      { name: 'fontWeight', type: 'TextStyle["fontWeight"]', defaultValue: '"400"', description: 'Font weight of the snippet text' },
-      { name: 'customAppearance', type: '{ container?: ViewStyle; content?: ViewStyle; text?: TextStyle; copyButton?: ViewStyle; copyButtonText?: TextStyle }', defaultValue: '-', description: 'Custom style overrides' },
+      {
+        name: 'value',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Text value displayed inside the snippet',
+      },
+      {
+        name: 'themeColor',
+        type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+        defaultValue: '"primary"',
+        description: 'Theme color used by snippet and copy button styles',
+      },
+      {
+        name: 'variant',
+        type: '"outlined" | "flat" | "light"',
+        defaultValue: '"outlined"',
+        description: 'Visual style variant',
+      },
+      {
+        name: 'radius',
+        type: '"none" | "sm" | "md" | "lg" | "full"',
+        defaultValue: '"md"',
+        description: 'Border radius',
+      },
+      {
+        name: 'copyButtonPosition',
+        type: '"top-left" | "top-right" | "bottom-left" | "bottom-right" | "inline-left" | "inline-right"',
+        defaultValue: '"top-right"',
+        description:
+          'Position of the copy button — corner positions are absolute, inline positions place the button beside the text',
+      },
+      {
+        name: 'copyLabel',
+        type: 'string',
+        defaultValue: '"Copy"',
+        description: 'Label shown before copy success',
+      },
+      {
+        name: 'copiedLabel',
+        type: 'string',
+        defaultValue: '"Copied"',
+        description: 'Label shown after successful copy',
+      },
+      {
+        name: 'hideCopyLabel',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Hide the text label on the copy button, showing only the icon',
+      },
+      {
+        name: 'copyResetDelay',
+        type: 'number',
+        defaultValue: '1500',
+        description: 'Delay (ms) before resetting copied state',
+      },
+      {
+        name: 'fullWidth',
+        type: 'boolean',
+        defaultValue: 'true',
+        description: 'Expand snippet to full width',
+      },
+      {
+        name: 'isDisabled',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Disable copy interaction and dim the snippet',
+      },
+      {
+        name: 'numberOfLines',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Optional max line clamp for snippet text',
+      },
+      {
+        name: 'fontSize',
+        type: 'number',
+        defaultValue: '14',
+        description: 'Font size of the snippet text',
+      },
+      {
+        name: 'fontWeight',
+        type: 'TextStyle["fontWeight"]',
+        defaultValue: '"400"',
+        description: 'Font weight of the snippet text',
+      },
+      {
+        name: 'customAppearance',
+        type: '{ container?: ViewStyle; content?: ViewStyle; text?: TextStyle; copyButton?: ViewStyle; copyButtonText?: TextStyle }',
+        defaultValue: '-',
+        description: 'Custom style overrides',
+      },
     ],
     events: [
-      { name: 'onCopy', type: '(value: string, isSuccess: boolean) => void', description: 'Called after a copy attempt' },
+      {
+        name: 'onCopy',
+        type: '(value: string, isSuccess: boolean) => void',
+        description: 'Called after a copy attempt',
+      },
     ],
     examples: [
       {
         title: 'Basic',
-        description: 'Simple snippet with default copy action in the top-right corner.',
+        description:
+          'Simple snippet with default copy action in the top-right corner.',
         code: `import { Snippet } from '@xaui/native/snippet'
 
 export function BasicExample() {
@@ -6967,10 +11855,30 @@ export function TypographyExample() {
   },
   'conditional-view': {
     props: [
-      { name: 'children', type: 'ReactNode', defaultValue: '-', description: 'Content to conditionally render' },
-      { name: 'isVisible', type: 'boolean', defaultValue: '-', description: 'Controls visibility' },
-      { name: 'animation', type: '"fade" | "scale"', defaultValue: '"fade"', description: 'Transition animation type' },
-      { name: 'disableAnimation', type: 'boolean', defaultValue: 'false', description: 'Disable transition animation' },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Content to conditionally render',
+      },
+      {
+        name: 'isVisible',
+        type: 'boolean',
+        defaultValue: '-',
+        description: 'Controls visibility',
+      },
+      {
+        name: 'animation',
+        type: '"fade" | "scale"',
+        defaultValue: '"fade"',
+        description: 'Transition animation type',
+      },
+      {
+        name: 'disableAnimation',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Disable transition animation',
+      },
     ],
     examples: [
       {
@@ -7019,25 +11927,109 @@ export function ScaleExample() {
   },
   'input-trigger': {
     props: [
-      { name: 'value', type: 'ReactNode', defaultValue: '-', description: 'Content displayed inside the trigger' },
-      { name: 'placeholder', type: 'string', defaultValue: '"Select..."', description: 'Text shown when no value is set' },
-      { name: 'label', type: 'ReactNode', defaultValue: '-', description: 'Label displayed above or inside the trigger' },
-      { name: 'labelPlacement', type: '"outside" | "inside"', defaultValue: '"outside"', description: 'Position of the label' },
-      { name: 'description', type: 'ReactNode', defaultValue: '-', description: 'Helper text below the trigger' },
-      { name: 'errorMessage', type: 'ReactNode', defaultValue: '-', description: 'Error text when isInvalid is true' },
-      { name: 'startContent', type: 'ReactNode', defaultValue: '-', description: 'Content at the start of the trigger' },
-      { name: 'endContent', type: 'ReactNode', defaultValue: '-', description: 'Content at the end of the trigger' },
-      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme for focus/active states' },
-      { name: 'variant', type: '"flat" | "faded" | "bordered" | "underlined"', defaultValue: '"flat"', description: 'Visual style variant' },
-      { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Size of the trigger' },
-      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Border radius' },
-      { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable the trigger' },
-      { name: 'isInvalid', type: 'boolean', defaultValue: 'false', description: 'Show invalid state styling' },
-      { name: 'fullWidth', type: 'boolean', defaultValue: 'true', description: 'Take the full available width' },
-      { name: 'customAppearance', type: 'InputTriggerCustomAppearance', defaultValue: '-', description: 'Custom style overrides for trigger parts' },
+      {
+        name: 'value',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Content displayed inside the trigger',
+      },
+      {
+        name: 'placeholder',
+        type: 'string',
+        defaultValue: '"Select..."',
+        description: 'Text shown when no value is set',
+      },
+      {
+        name: 'label',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Label displayed above or inside the trigger',
+      },
+      {
+        name: 'labelPlacement',
+        type: '"outside" | "inside"',
+        defaultValue: '"outside"',
+        description: 'Position of the label',
+      },
+      {
+        name: 'description',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Helper text below the trigger',
+      },
+      {
+        name: 'errorMessage',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Error text when isInvalid is true',
+      },
+      {
+        name: 'startContent',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Content at the start of the trigger',
+      },
+      {
+        name: 'endContent',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Content at the end of the trigger',
+      },
+      {
+        name: 'themeColor',
+        type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+        defaultValue: '"primary"',
+        description: 'Color theme for focus/active states',
+      },
+      {
+        name: 'variant',
+        type: '"flat" | "faded" | "bordered" | "underlined"',
+        defaultValue: '"flat"',
+        description: 'Visual style variant',
+      },
+      {
+        name: 'size',
+        type: '"sm" | "md" | "lg"',
+        defaultValue: '"md"',
+        description: 'Size of the trigger',
+      },
+      {
+        name: 'radius',
+        type: '"none" | "sm" | "md" | "lg" | "full"',
+        defaultValue: '"md"',
+        description: 'Border radius',
+      },
+      {
+        name: 'isDisabled',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Disable the trigger',
+      },
+      {
+        name: 'isInvalid',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Show invalid state styling',
+      },
+      {
+        name: 'fullWidth',
+        type: 'boolean',
+        defaultValue: 'true',
+        description: 'Take the full available width',
+      },
+      {
+        name: 'customAppearance',
+        type: 'InputTriggerCustomAppearance',
+        defaultValue: '-',
+        description: 'Custom style overrides for trigger parts',
+      },
     ],
     events: [
-      { name: 'onPress', type: '() => void', description: 'Called when the trigger is pressed' },
+      {
+        name: 'onPress',
+        type: '() => void',
+        description: 'Called when the trigger is pressed',
+      },
     ],
     examples: [
       {
@@ -7075,29 +12067,131 @@ export function VariantsExample() {
   },
   picker: {
     props: [
-      { name: 'options', type: 'PickerOption[]', defaultValue: '-', description: 'Array of selectable options' },
-      { name: 'value', type: 'string', defaultValue: '-', description: 'Currently selected value (controlled)' },
-      { name: 'placeholder', type: 'string', defaultValue: '"Select an option..."', description: 'Placeholder when no value is selected' },
-      { name: 'label', type: 'ReactNode', defaultValue: '-', description: 'Label for the trigger' },
-      { name: 'labelPlacement', type: '"outside" | "inside"', defaultValue: '"outside"', description: 'Label position' },
-      { name: 'description', type: 'ReactNode', defaultValue: '-', description: 'Helper text below the trigger' },
-      { name: 'errorMessage', type: 'ReactNode', defaultValue: '-', description: 'Error text when isInvalid is true' },
-      { name: 'sheetTitle', type: 'string', defaultValue: '-', description: 'Title shown inside the bottom sheet' },
-      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme' },
-      { name: 'variant', type: '"flat" | "faded" | "bordered" | "underlined"', defaultValue: '"flat"', description: 'Trigger visual variant' },
-      { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Trigger size' },
-      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Border radius' },
-      { name: 'isOpened', type: 'boolean', defaultValue: '-', description: 'Controlled open state' },
-      { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable the picker' },
-      { name: 'isInvalid', type: 'boolean', defaultValue: 'false', description: 'Show invalid state' },
-      { name: 'fullWidth', type: 'boolean', defaultValue: 'true', description: 'Take full available width' },
-      { name: 'sheetStyle', type: 'ViewStyle', defaultValue: '-', description: 'Custom style for the bottom sheet' },
-      { name: 'endContent', type: 'ReactNode', defaultValue: '-', description: 'Custom end content replacing the chevron' },
+      {
+        name: 'options',
+        type: 'PickerOption[]',
+        defaultValue: '-',
+        description: 'Array of selectable options',
+      },
+      {
+        name: 'value',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Currently selected value (controlled)',
+      },
+      {
+        name: 'placeholder',
+        type: 'string',
+        defaultValue: '"Select an option..."',
+        description: 'Placeholder when no value is selected',
+      },
+      {
+        name: 'label',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Label for the trigger',
+      },
+      {
+        name: 'labelPlacement',
+        type: '"outside" | "inside"',
+        defaultValue: '"outside"',
+        description: 'Label position',
+      },
+      {
+        name: 'description',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Helper text below the trigger',
+      },
+      {
+        name: 'errorMessage',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Error text when isInvalid is true',
+      },
+      {
+        name: 'sheetTitle',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Title shown inside the bottom sheet',
+      },
+      {
+        name: 'themeColor',
+        type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+        defaultValue: '"primary"',
+        description: 'Color theme',
+      },
+      {
+        name: 'variant',
+        type: '"flat" | "faded" | "bordered" | "underlined"',
+        defaultValue: '"flat"',
+        description: 'Trigger visual variant',
+      },
+      {
+        name: 'size',
+        type: '"sm" | "md" | "lg"',
+        defaultValue: '"md"',
+        description: 'Trigger size',
+      },
+      {
+        name: 'radius',
+        type: '"none" | "sm" | "md" | "lg" | "full"',
+        defaultValue: '"md"',
+        description: 'Border radius',
+      },
+      {
+        name: 'isOpened',
+        type: 'boolean',
+        defaultValue: '-',
+        description: 'Controlled open state',
+      },
+      {
+        name: 'isDisabled',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Disable the picker',
+      },
+      {
+        name: 'isInvalid',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Show invalid state',
+      },
+      {
+        name: 'fullWidth',
+        type: 'boolean',
+        defaultValue: 'true',
+        description: 'Take full available width',
+      },
+      {
+        name: 'sheetStyle',
+        type: 'ViewStyle',
+        defaultValue: '-',
+        description: 'Custom style for the bottom sheet',
+      },
+      {
+        name: 'endContent',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Custom end content replacing the chevron',
+      },
     ],
     events: [
-      { name: 'onValueChange', type: '(value: string) => void', description: 'Called when the selected value changes' },
-      { name: 'onOpenChange', type: '(isOpen: boolean) => void', description: 'Called when the sheet opens or closes' },
-      { name: 'onClose', type: '() => void', description: 'Called when the sheet closes' },
+      {
+        name: 'onValueChange',
+        type: '(value: string) => void',
+        description: 'Called when the selected value changes',
+      },
+      {
+        name: 'onOpenChange',
+        type: '(isOpen: boolean) => void',
+        description: 'Called when the sheet opens or closes',
+      },
+      {
+        name: 'onClose',
+        type: '() => void',
+        description: 'Called when the sheet closes',
+      },
     ],
     examples: [
       {
@@ -7151,29 +12245,131 @@ export function SheetTitleExample() {
   },
   'color-picker': {
     props: [
-      { name: 'value', type: 'string', defaultValue: '-', description: 'Currently selected hex color string' },
-      { name: 'placeholder', type: 'string', defaultValue: '"Pick a color..."', description: 'Placeholder text when no color is selected' },
-      { name: 'label', type: 'ReactNode', defaultValue: '-', description: 'Label for the trigger' },
-      { name: 'labelPlacement', type: '"outside" | "inside"', defaultValue: '"outside"', description: 'Label position' },
-      { name: 'description', type: 'ReactNode', defaultValue: '-', description: 'Helper text below the trigger' },
-      { name: 'errorMessage', type: 'ReactNode', defaultValue: '-', description: 'Error text when isInvalid is true' },
-      { name: 'colorGroups', type: 'ColorGroup[]', defaultValue: 'defaultColorGroups', description: 'Custom color groups (name + colors array)' },
-      { name: 'sheetTitle', type: 'string', defaultValue: '"Pick a color"', description: 'Title shown at the top of the sheet' },
-      { name: 'themeColor', type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"', defaultValue: '"primary"', description: 'Color theme for the trigger and selection highlight' },
-      { name: 'variant', type: '"flat" | "faded" | "bordered" | "underlined"', defaultValue: '"flat"', description: 'Trigger visual variant' },
-      { name: 'size', type: '"sm" | "md" | "lg"', defaultValue: '"md"', description: 'Trigger size' },
-      { name: 'radius', type: '"none" | "sm" | "md" | "lg" | "full"', defaultValue: '"md"', description: 'Border radius' },
-      { name: 'isOpened', type: 'boolean', defaultValue: '-', description: 'Controlled open state' },
-      { name: 'isDisabled', type: 'boolean', defaultValue: 'false', description: 'Disable the color picker' },
-      { name: 'isInvalid', type: 'boolean', defaultValue: 'false', description: 'Show invalid state' },
-      { name: 'fullWidth', type: 'boolean', defaultValue: 'true', description: 'Take full available width' },
-      { name: 'sheetStyle', type: 'ViewStyle', defaultValue: '-', description: 'Custom style for the bottom sheet' },
-      { name: 'swatchSize', type: 'number', defaultValue: '28', description: 'Size in pixels of each color swatch' },
+      {
+        name: 'value',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Currently selected hex color string',
+      },
+      {
+        name: 'placeholder',
+        type: 'string',
+        defaultValue: '"Pick a color..."',
+        description: 'Placeholder text when no color is selected',
+      },
+      {
+        name: 'label',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Label for the trigger',
+      },
+      {
+        name: 'labelPlacement',
+        type: '"outside" | "inside"',
+        defaultValue: '"outside"',
+        description: 'Label position',
+      },
+      {
+        name: 'description',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Helper text below the trigger',
+      },
+      {
+        name: 'errorMessage',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Error text when isInvalid is true',
+      },
+      {
+        name: 'colorGroups',
+        type: 'ColorGroup[]',
+        defaultValue: 'defaultColorGroups',
+        description: 'Custom color groups (name + colors array)',
+      },
+      {
+        name: 'sheetTitle',
+        type: 'string',
+        defaultValue: '"Pick a color"',
+        description: 'Title shown at the top of the sheet',
+      },
+      {
+        name: 'themeColor',
+        type: '\"default\" | \"primary\" | \"secondary\" | \"tertiary\" | \"danger\" | \"warning\" | \"success\"',
+        defaultValue: '"primary"',
+        description: 'Color theme for the trigger and selection highlight',
+      },
+      {
+        name: 'variant',
+        type: '"flat" | "faded" | "bordered" | "underlined"',
+        defaultValue: '"flat"',
+        description: 'Trigger visual variant',
+      },
+      {
+        name: 'size',
+        type: '"sm" | "md" | "lg"',
+        defaultValue: '"md"',
+        description: 'Trigger size',
+      },
+      {
+        name: 'radius',
+        type: '"none" | "sm" | "md" | "lg" | "full"',
+        defaultValue: '"md"',
+        description: 'Border radius',
+      },
+      {
+        name: 'isOpened',
+        type: 'boolean',
+        defaultValue: '-',
+        description: 'Controlled open state',
+      },
+      {
+        name: 'isDisabled',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Disable the color picker',
+      },
+      {
+        name: 'isInvalid',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Show invalid state',
+      },
+      {
+        name: 'fullWidth',
+        type: 'boolean',
+        defaultValue: 'true',
+        description: 'Take full available width',
+      },
+      {
+        name: 'sheetStyle',
+        type: 'ViewStyle',
+        defaultValue: '-',
+        description: 'Custom style for the bottom sheet',
+      },
+      {
+        name: 'swatchSize',
+        type: 'number',
+        defaultValue: '28',
+        description: 'Size in pixels of each color swatch',
+      },
     ],
     events: [
-      { name: 'onColorChange', type: '(color: string) => void', description: 'Called when a color is selected' },
-      { name: 'onOpenChange', type: '(isOpen: boolean) => void', description: 'Called when the sheet opens or closes' },
-      { name: 'onClose', type: '() => void', description: 'Called when the sheet closes' },
+      {
+        name: 'onColorChange',
+        type: '(color: string) => void',
+        description: 'Called when a color is selected',
+      },
+      {
+        name: 'onOpenChange',
+        type: '(isOpen: boolean) => void',
+        description: 'Called when the sheet opens or closes',
+      },
+      {
+        name: 'onClose',
+        type: '() => void',
+        description: 'Called when the sheet closes',
+      },
     ],
     examples: [
       {

@@ -7,11 +7,6 @@ export type CenterProps = {
    */
   children: ReactNode
   /**
-   * Force the container to take the full width.
-   * @default false
-   */
-  fullWidth?: boolean
-  /**
    * Additional style for the container.
    */
   style?: StyleProp<ViewStyle>

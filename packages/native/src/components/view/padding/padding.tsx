@@ -1,6 +1,5 @@
 import React from 'react'
 import { View } from 'react-native'
-import type { ViewStyle } from 'react-native'
 import type { PaddingProps } from './padding.type'
 
 export const Padding: React.FC<PaddingProps> = ({
@@ -12,17 +11,13 @@ export const Padding: React.FC<PaddingProps> = ({
   right,
   bottom,
   left,
-  fullWidth,
   style,
 }) => {
-  const fullWidthStyle = fullWidth
-    ? ({ flexGrow: 1, flexShrink: 1, flexBasis: 'auto', width: '100%' } as ViewStyle)
-    : { flexGrow: 1 }
-
   return (
     <View
       style={[
         {
+          flex: 1,
           padding: all,
           paddingHorizontal: horizontal,
           paddingVertical: vertical,
@@ -31,7 +26,6 @@ export const Padding: React.FC<PaddingProps> = ({
           paddingBottom: bottom,
           paddingLeft: left,
         },
-        fullWidthStyle,
         style,
       ]}
     >
