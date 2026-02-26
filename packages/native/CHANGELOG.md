@@ -1,5 +1,11 @@
 # @xaui/mobile
 
+## 0.1.2
+
+### Patch Changes
+
+- d334507: Simplify native view layout primitives by removing `fullWidth` from `Column`, `Padding`, `Margin`, and `Center`, and make these components default to `flex: 1` for consistent space usage in vertical layouts.
+
 ## 0.1.1
 
 ### Patch Changes
