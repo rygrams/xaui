@@ -11,8 +11,11 @@ export const Margin: React.FC<MarginProps> = ({
   right,
   bottom,
   left,
+  fullWidth,
   style,
 }) => {
+  const fullWidthStyle = fullWidth ? { width: '100%' as const } : undefined
+
   return (
     <View
       style={[
@@ -26,6 +29,7 @@ export const Margin: React.FC<MarginProps> = ({
           marginBottom: bottom,
           marginLeft: left,
         },
+        fullWidthStyle,
         style,
       ]}
     >

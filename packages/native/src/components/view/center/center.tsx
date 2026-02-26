@@ -2,7 +2,9 @@ import React from 'react'
 import { View } from 'react-native'
 import type { CenterProps } from './center.type'
 
-export const Center: React.FC<CenterProps> = ({ children, style }) => {
+export const Center: React.FC<CenterProps> = ({ children, fullWidth, style }) => {
+  const fullWidthStyle = fullWidth ? { width: '100%' as const } : undefined
+
   return (
     <View
       style={[
@@ -11,6 +13,7 @@ export const Center: React.FC<CenterProps> = ({ children, style }) => {
           alignItems: 'center',
           justifyContent: 'center',
         },
+        fullWidthStyle,
         style,
       ]}
     >

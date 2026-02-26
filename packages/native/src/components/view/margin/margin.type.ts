@@ -35,6 +35,11 @@ export type MarginProps = {
    */
   left?: number
   /**
+   * Whether the margin container should take the full width of its parent.
+   * @default false
+   */
+  fullWidth?: boolean
+  /**
    * Custom style for the margin container.
    */
   style?: StyleProp<ViewStyle>

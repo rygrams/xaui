@@ -7,6 +7,11 @@ export type CenterProps = {
    */
   children: ReactNode
   /**
+   * Whether the centered container should take the full width of its parent.
+   * @default false
+   */
+  fullWidth?: boolean
+  /**
    * Additional style for the container.
    */
   style?: StyleProp<ViewStyle>

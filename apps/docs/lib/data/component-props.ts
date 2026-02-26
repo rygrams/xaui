@@ -10131,6 +10131,12 @@ export function TextSpanInheritedStyleExample() {
         description: 'Reverse the order of children',
       },
       {
+        name: 'fullWidth',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Expand to full available width',
+      },
+      {
         name: 'style',
         type: 'ViewStyle',
         defaultValue: '-',
@@ -10346,6 +10352,12 @@ export function WeightedSpacerExample() {
         description: 'Content to center inside the container',
       },
       {
+        name: 'fullWidth',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Expand to full available width',
+      },
+      {
         name: 'style',
         type: 'StyleProp<ViewStyle>',
         defaultValue: '-',
@@ -10430,6 +10442,12 @@ export function CenterCardExample() {
         description: 'Left padding',
       },
       {
+        name: 'fullWidth',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Expand to full available width',
+      },
+      {
         name: 'style',
         type: 'StyleProp<ViewStyle>',
         defaultValue: '-',
@@ -10512,6 +10530,12 @@ export function DirectionalPaddingExample() {
         type: 'number',
         defaultValue: '-',
         description: 'Left margin',
+      },
+      {
+        name: 'fullWidth',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Expand to full available width',
       },
       {
         name: 'style',
