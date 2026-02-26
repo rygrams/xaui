@@ -46,4 +46,4 @@ export type RowProps = {
   style?: ViewStyle
 }
 
-export type ColumnProps = RowProps
+export type ColumnProps = Omit<RowProps, 'fullWidth'>

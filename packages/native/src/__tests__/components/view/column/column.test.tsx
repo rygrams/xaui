@@ -9,7 +9,6 @@ describe('Column Types', () => {
       crossAxisAlignment: 'center',
       spacing: 8,
       reverse: false,
-      fullWidth: true,
     }
 
     expect(props).toBeDefined()

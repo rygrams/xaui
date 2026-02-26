@@ -63,7 +63,8 @@ export const components: Component[] = [
   {
     id: 'avatar',
     name: 'Avatar',
-    description: 'User identity component with image, initials, icon, and custom fallback.',
+    description:
+      'User identity component with image, initials, icon, and custom fallback.',
     category: 'Data Display',
     href: '/docs/components/avatar',
     status: 'stable',
@@ -356,7 +357,8 @@ export const components: Component[] = [
   {
     id: 'textarea',
     name: 'TextArea',
-    description: 'Multi-line text input with configurable line count and disabled state.',
+    description:
+      'Multi-line text input with configurable line count and disabled state.',
     category: 'Inputs',
     href: '/docs/components/textarea',
     status: 'stable',
@@ -373,7 +375,12 @@ export const components: Component[] = [
     href: '/docs/components/date-input',
     status: 'stable',
     importPath: '@xaui/native/input',
-    exports: ['DateInput', 'getDateOrder', 'dateInputValueToDate', 'dateToDateInputValue'],
+    exports: [
+      'DateInput',
+      'getDateOrder',
+      'dateInputValueToDate',
+      'dateToDateInputValue',
+    ],
     types: ['DateInputProps'],
   },
   {
@@ -396,7 +403,12 @@ export const components: Component[] = [
     href: '/docs/components/datetime-input',
     status: 'stable',
     importPath: '@xaui/native/input',
-    exports: ['DateTimeInput', 'getDateOrder', 'dateTimeInputValueToDate', 'dateToDateTimeInputValue'],
+    exports: [
+      'DateTimeInput',
+      'getDateOrder',
+      'dateTimeInputValueToDate',
+      'dateToDateTimeInputValue',
+    ],
     types: ['DateTimeInputProps', 'DateTimeInputConvertOptions'],
   },
   {
@@ -437,7 +449,8 @@ export const components: Component[] = [
   {
     id: 'list-builder',
     name: 'ListBuilder',
-    description: 'Data-driven list using FlatList with selection, dividers and generic item rendering.',
+    description:
+      'Data-driven list using FlatList with selection, dividers and generic item rendering.',
     category: 'Data Display',
     href: '/docs/components/list-builder',
     status: 'beta',
@@ -543,7 +556,12 @@ export const components: Component[] = [
     status: 'beta',
     importPath: '@xaui/native/snackbar',
     exports: ['Snackbar', 'SnackbarStack'],
-    types: ['SnackbarProps', 'SnackbarStackProps', 'SnackbarItem', 'SnackbarPosition'],
+    types: [
+      'SnackbarProps',
+      'SnackbarStackProps',
+      'SnackbarItem',
+      'SnackbarPosition',
+    ],
   },
   {
     id: 'snippet',
@@ -712,13 +730,26 @@ export const components: Component[] = [
   {
     id: 'spacer',
     name: 'Spacer',
-    description: 'Flexible spacer that fills available space inside a Row or Column.',
+    description:
+      'Flexible spacer that fills available space inside a Row or Column.',
     category: 'Layout',
     href: '/docs/components/spacer',
     status: 'beta',
     importPath: '@xaui/native/view',
     exports: ['Spacer'],
     types: ['SpacerProps'],
+  },
+  {
+    id: 'center',
+    name: 'Center',
+    description:
+      'Centers children horizontally and vertically within available space.',
+    category: 'Layout',
+    href: '/docs/components/center',
+    status: 'beta',
+    importPath: '@xaui/native/view',
+    exports: ['Center'],
+    types: ['CenterProps'],
   },
   {
     id: 'padding',
@@ -745,7 +776,8 @@ export const components: Component[] = [
   {
     id: 'sized-box',
     name: 'SizedBox',
-    description: 'Fixed-size container, useful as a spacer with explicit dimensions.',
+    description:
+      'Fixed-size container, useful as a spacer with explicit dimensions.',
     category: 'Layout',
     href: '/docs/components/sized-box',
     status: 'beta',
@@ -756,7 +788,8 @@ export const components: Component[] = [
   {
     id: 'positioned-view',
     name: 'PositionedView',
-    description: 'Absolutely positions its child within a relative parent container.',
+    description:
+      'Absolutely positions its child within a relative parent container.',
     category: 'Layout',
     href: '/docs/components/positioned-view',
     status: 'beta',
@@ -789,7 +822,8 @@ export const components: Component[] = [
   {
     id: 'surface',
     name: 'Surface',
-    description: 'Theme-aware container with configurable background, radius, and padding.',
+    description:
+      'Theme-aware container with configurable background, radius, and padding.',
     category: 'Layout',
     href: '/docs/components/surface',
     status: 'beta',
@@ -800,7 +834,8 @@ export const components: Component[] = [
   {
     id: 'aspect-ratio',
     name: 'AspectRatio',
-    description: 'Constrains a child to a fixed aspect ratio regardless of available width.',
+    description:
+      'Constrains a child to a fixed aspect ratio regardless of available width.',
     category: 'Layout',
     href: '/docs/components/aspect-ratio',
     status: 'beta',
@@ -833,7 +868,8 @@ export const components: Component[] = [
   {
     id: 'conditional-view',
     name: 'ConditionalView',
-    description: 'Conditionally shows or hides content with an optional animated transition.',
+    description:
+      'Conditionally shows or hides content with an optional animated transition.',
     category: 'Layout',
     href: '/docs/components/conditional-view',
     status: 'beta',

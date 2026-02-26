@@ -5,11 +5,9 @@ describe('Center Types', () => {
   it('exports CenterProps type', () => {
     const props: CenterProps = {
       children: 'Center',
-      fullWidth: true,
     }
 
     expect(props).toBeDefined()
-    expect(props.fullWidth).toBe(true)
   })
 
   it('accepts style props', () => {

@@ -38,7 +38,6 @@ export const Surface: React.FC<SurfaceProps> = ({
           flexShrink: 1,
           flexBasis: 'auto',
           width: '100%',
-          flexGrow: 1,
         },
         {
           backgroundColor: background,
