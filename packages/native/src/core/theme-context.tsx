@@ -45,7 +45,7 @@ export function XUIProvider({ children, theme }: XUIProviderProps) {
       },
       palette: colors,
     } as XUITheme
-  }, [colorScheme])
+  }, [colorScheme, theme])
 
   return (
     <XUIThemeContext.Provider value={appTheme}>

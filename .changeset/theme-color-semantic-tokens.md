@@ -15,3 +15,6 @@ semantically named tokens aligned with Material Design 3:
 All native components have been updated to use the new token names
 across all variants (solid, flat, faded, bordered, light).
 Documentation and theme examples updated accordingly.
+
+`XUIProvider` now documents a single `theme` override object; stale `darkTheme`
+examples were removed from docs.

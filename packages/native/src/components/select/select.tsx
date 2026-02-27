@@ -56,7 +56,7 @@ export const Select: React.FC<SelectProps> = ({
   startContent,
   endContent,
   selectorIcon,
-  maxListboxHeight: _maxListboxHeight = 280,
+  maxListboxHeight = 280,
   fullWidth = false,
   isOpened,
   isDisabled = false,
@@ -187,7 +187,7 @@ export const Select: React.FC<SelectProps> = ({
   const shouldShowHelper = Boolean(hint || errorMessage)
   const helperContent = isInvalid && errorMessage ? errorMessage : hint
   const dialogWidth = screenWidth * 0.9
-  const dialogMaxHeight = screenHeight * 0.6
+  const dialogMaxHeight = Math.min(screenHeight * 0.6, maxListboxHeight)
 
   const listItems = items.map(item => {
     const itemProps = item.element.props

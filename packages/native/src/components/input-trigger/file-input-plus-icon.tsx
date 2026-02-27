@@ -8,7 +8,7 @@ type FileInputPlusIconProps = {
 
 export const FileInputPlusIcon: React.FC<FileInputPlusIconProps> = ({
   size = 16,
-  color = 'currentColor',
+  color = '#111827',
 }) => {
   return (
     <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
