@@ -12129,6 +12129,256 @@ export function VariantsExample() {
       },
     ],
   },
+  'file-input-trigger': {
+    props: [
+      {
+        name: 'value',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Content displayed in the center area',
+      },
+      {
+        name: 'placeholder',
+        type: 'string',
+        defaultValue: '"Select files"',
+        description: 'Text shown when no value is provided',
+      },
+      {
+        name: 'label',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Label displayed above or inside the trigger',
+      },
+      {
+        name: 'labelPlacement',
+        type: '"outside" | "inside"',
+        defaultValue: '"outside"',
+        description: 'Position of the label',
+      },
+      {
+        name: 'description',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Helper text below the trigger',
+      },
+      {
+        name: 'errorMessage',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Error text when isInvalid is true',
+      },
+      {
+        name: 'themeColor',
+        type: '"default" | "primary" | "secondary" | "tertiary" | "danger" | "warning" | "success"',
+        defaultValue: '"primary"',
+        description: 'Color theme for icon and accents',
+      },
+      {
+        name: 'variant',
+        type: '"colored" | "light" | "bordered" | "underlined"',
+        defaultValue: '"colored"',
+        description: 'Visual style variant',
+      },
+      {
+        name: 'size',
+        type: '"sm" | "md" | "lg"',
+        defaultValue: '"md"',
+        description: 'Size of the trigger',
+      },
+      {
+        name: 'radius',
+        type: '"none" | "sm" | "md" | "lg" | "full"',
+        defaultValue: '"md"',
+        description: 'Border radius',
+      },
+      {
+        name: 'isDisabled',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Disable interactions',
+      },
+      {
+        name: 'isInvalid',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Show invalid state styling',
+      },
+      {
+        name: 'fullWidth',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Take full available width',
+      },
+      {
+        name: 'centerContent',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Custom centered content replacing value/placeholder text',
+      },
+      {
+        name: 'selectedContent',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Selected preview content (image/video/custom node)',
+      },
+      {
+        name: 'customAppearance',
+        type: 'FileInputTriggerCustomAppearance',
+        defaultValue: '-',
+        description: 'Custom style overrides for trigger parts',
+      },
+    ],
+    events: [
+      {
+        name: 'onPress',
+        type: '() => void',
+        description: 'Called when the trigger is pressed',
+      },
+    ],
+    examples: [
+      {
+        title: 'Basic',
+        code: `import { FileInputTrigger } from '@xaui/native/input-trigger'
+
+export function BasicExample() {
+  return (
+    <FileInputTrigger
+      label="Attachments"
+      placeholder="Tap to choose files"
+      onPress={() => {}}
+    />
+  )
+}`,
+      },
+      {
+        title: 'Selected Preview',
+        code: `import { Image } from 'react-native'
+import { FileInputTrigger } from '@xaui/native/input-trigger'
+
+export function SelectedPreviewExample() {
+  return (
+    <FileInputTrigger
+      label="Avatar"
+      radius="full"
+      selectedContent={
+        <Image
+          source={{ uri: 'https://picsum.photos/160' }}
+          style={{ width: 96, height: 96, borderRadius: 48 }}
+        />
+      }
+      onPress={() => {}}
+    />
+  )
+}`,
+      },
+      {
+        title: 'Variants',
+        code: `import { FileInputTrigger } from '@xaui/native/input-trigger'
+import { Column } from '@xaui/native/view'
+
+export function VariantsExample() {
+  return (
+    <Column gap={12}>
+      <FileInputTrigger label="Colored" variant="colored" onPress={() => {}} />
+      <FileInputTrigger label="Light" variant="light" onPress={() => {}} />
+      <FileInputTrigger label="Bordered" variant="bordered" onPress={() => {}} />
+      <FileInputTrigger label="Underlined" variant="underlined" onPress={() => {}} />
+    </Column>
+  )
+}`,
+      },
+    ],
+  },
+  'refresh-control': {
+    props: [
+      {
+        name: 'refreshing',
+        type: 'boolean',
+        defaultValue: '-',
+        description: 'Whether the refresh indicator is active',
+      },
+      {
+        name: 'onRefresh',
+        type: '() => void | Promise<void>',
+        defaultValue: '-',
+        description: 'Called when pull-to-refresh is triggered',
+      },
+      {
+        name: 'enabled',
+        type: 'boolean',
+        defaultValue: 'true',
+        description: 'Enable or disable pull-to-refresh',
+      },
+      {
+        name: 'themeColor',
+        type: '"default" | "primary" | "secondary" | "tertiary" | "danger" | "warning" | "success"',
+        defaultValue: '"primary"',
+        description: 'Color used by the refresh indicator',
+      },
+      {
+        name: 'color',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Custom indicator color',
+      },
+      {
+        name: 'title',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Text displayed near the native indicator',
+      },
+      {
+        name: 'titleColor',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Color for the title text',
+      },
+      {
+        name: 'progressViewOffset',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Top offset for Android refresh indicator',
+      },
+      {
+        name: 'children',
+        type: 'ReactElement',
+        defaultValue: '-',
+        description: 'Scrollable child receiving the refreshControl prop',
+      },
+      {
+        name: 'refreshControlProps',
+        type: 'RefreshControlProps (partial)',
+        defaultValue: '-',
+        description: 'Additional native RefreshControl props',
+      },
+    ],
+    examples: [
+      {
+        title: 'Basic',
+        code: `import { useState } from 'react'
+import { ScrollView, Text } from 'react-native'
+import { PullToRefresh } from '@xaui/native/refresh-control'
+
+export function BasicExample() {
+  const [refreshing, setRefreshing] = useState(false)
+
+  const handleRefresh = async () => {
+    setRefreshing(true)
+    await new Promise(resolve => setTimeout(resolve, 1000))
+    setRefreshing(false)
+  }
+
+  return (
+    <PullToRefresh refreshing={refreshing} onRefresh={handleRefresh}>
+      <ScrollView contentContainerStyle={{ padding: 16, gap: 12 }}>
+        <Text>Pull down to refresh</Text>
+      </ScrollView>
+    </PullToRefresh>
+  )
+}`,
+      },
+    ],
+  },
   picker: {
     props: [
       {

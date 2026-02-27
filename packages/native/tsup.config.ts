@@ -48,6 +48,7 @@ const entries = {
   'picker/index': 'src/components/picker/index.ts',
   'color-picker/index': 'src/components/color-picker/index.ts',
   'snippet/index': 'src/components/snippet/index.ts',
+  'refresh-control/index': 'src/components/refresh-control/index.ts',
 } as const
 
 const sharedConfig = {

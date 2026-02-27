@@ -106,6 +106,18 @@ export default function RootLayout() {
             <Stack.Screen name="menubox" options={{ title: 'Menubox Examples' }} />
             <Stack.Screen name="slider" options={{ title: 'Slider Examples' }} />
             <Stack.Screen name="surface" options={{ title: 'Surface Examples' }} />
+            <Stack.Screen
+              name="input-trigger"
+              options={{ title: 'InputTrigger Examples' }}
+            />
+            <Stack.Screen
+              name="file-input-trigger"
+              options={{ title: 'FileInputTrigger Examples' }}
+            />
+            <Stack.Screen
+              name="refresh-control"
+              options={{ title: 'RefreshControl Examples' }}
+            />
             <Stack.Screen name="chart" options={{ title: 'Chart Examples' }} />
           </Stack>
         </XUIProvider>

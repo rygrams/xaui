@@ -18,6 +18,26 @@ export const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
+  fileTrigger: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  filePlusButton: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  fileContent: {
+    textAlign: 'center',
+  },
+  fileCustomContent: {
+    alignItems: 'center',
+  },
+  fileSelectedContent: {
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    overflow: 'hidden',
+  },
   underlinedWrapper: {
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 0,

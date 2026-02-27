@@ -474,6 +474,16 @@ export default function HomeScreen() {
         <GridItem>
           <Button
             size="sm"
+            onPress={() => router.push('/file-input-trigger')}
+            variant="bordered"
+            themeColor="secondary"
+          >
+            FileInputTrigger
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
             onPress={() => router.push('/picker')}
             variant="bordered"
             themeColor="secondary"
@@ -489,6 +499,16 @@ export default function HomeScreen() {
             themeColor="primary"
           >
             ColorPicker
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/refresh-control')}
+            variant="bordered"
+            themeColor="secondary"
+          >
+            RefreshControl
           </Button>
         </GridItem>
       </Grid>
