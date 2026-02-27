@@ -3,6 +3,7 @@ import type { LayoutChangeEvent, TextStyle, ViewStyle } from 'react-native'
 import { Pressable, Text, TouchableOpacity, View } from 'react-native'
 import { CalendarIcon } from '@xaui/icons/calendar'
 import { CloseIcon } from '@xaui/icons/close'
+import type { DatePickerVariant } from './datepicker.type'
 
 import { styles } from './datepicker.style'
 
@@ -17,6 +18,7 @@ type DatePickerTriggerProps = {
     paddingVertical: number
     fontSize: number
   }
+  variant: DatePickerVariant
   radiusStyles: ViewStyle
   variantStyles: ViewStyle
   theme: {
@@ -42,6 +44,7 @@ export const DatePickerTrigger: React.FC<DatePickerTriggerProps> = ({
   hasValue,
   displayValue,
   sizeStyles,
+  variant,
   radiusStyles,
   variantStyles,
   theme,
@@ -71,7 +74,7 @@ export const DatePickerTrigger: React.FC<DatePickerTriggerProps> = ({
           paddingHorizontal: sizeStyles.paddingHorizontal,
           paddingVertical: sizeStyles.paddingVertical,
         },
-        radiusStyles,
+        variant === 'underlined' ? { borderRadius: 0 } : radiusStyles,
         variantStyles,
         isDisabled && styles.disabled,
         style,

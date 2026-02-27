@@ -127,6 +127,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
       hasValue={!!selectedDate}
       displayValue={displayValue}
       sizeStyles={sizeStyles}
+      variant={variant}
       radiusStyles={radiusStyles}
       variantStyles={variantStyles}
       theme={theme}
