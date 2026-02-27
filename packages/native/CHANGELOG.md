@@ -1,5 +1,30 @@
 # @xaui/mobile
 
+## 0.2.0
+
+### Minor Changes
+
+- 89103b9: refactor: update ColorScheme to semantic color tokens
+
+  Replace `background` and `foreground` properties on `ColorScheme` with
+  semantically named tokens aligned with Material Design 3:
+  - `background` → `container` (lighter surface for component backgrounds)
+  - `foreground` → `onMain` (content color on top of `main`)
+  - new: `onContainer` (content color on top of `container`)
+
+  All native components have been updated to use the new token names
+  across all variants (solid, flat, faded, bordered, light).
+  Documentation and theme examples updated accordingly.
+
+  `XUIProvider` now documents a single `theme` override object; stale `darkTheme`
+  examples were removed from docs.
+
+### Patch Changes
+
+- Updated dependencies [89103b9]
+  - @xaui/core@0.2.0
+  - @xaui/icons@0.0.9
+
 ## 0.1.5
 
 ### Patch Changes
