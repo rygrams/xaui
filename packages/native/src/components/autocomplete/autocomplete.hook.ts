@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { getSafeThemeColor } from '@xaui/core'
+import { getSafeThemeColor, withOpacity } from '@xaui/core'
 import { colors } from '@xaui/core/palette'
 import { useXUITheme } from '../../core'
 import type { Radius, Size, ThemeColor } from '../../types'
@@ -114,7 +114,7 @@ export const useAutocompleteVariantStyles = (
         borderColor,
       },
       flat: {
-        backgroundColor: colorScheme.background,
+        backgroundColor: colorScheme.container,
         borderWidth: 0,
       },
       light: {
@@ -122,7 +122,7 @@ export const useAutocompleteVariantStyles = (
         borderWidth: 0,
       },
       faded: {
-        backgroundColor: `${colorScheme.background}90`,
+        backgroundColor: withOpacity(colorScheme.container, 0.56),
         borderWidth: theme.borderWidth.md,
         borderColor,
       },

@@ -95,6 +95,7 @@ export const useInputTriggerVariantStyles = ({
   const colorScheme = theme.colors[safeThemeColor]
 
   return useMemo(() => {
+    const isDark = theme.mode === 'dark'
     const neutralBorder = withOpacity(theme.colors.foreground, 0.1)
     const textColor = isDisabled
       ? withOpacity(theme.colors.foreground, 0.55)
@@ -142,7 +143,7 @@ export const useInputTriggerVariantStyles = ({
     if (variant === 'faded') {
       return {
         container: {
-          backgroundColor: withOpacity(colorScheme.background, 0.68),
+          backgroundColor: withOpacity(colorScheme.container, isDark ? 0.18 : 0.5),
           borderColor: isInvalid ? theme.colors.danger.main : 'transparent',
           borderWidth: isInvalid ? theme.borderWidth.md : 0,
         },
@@ -156,7 +157,7 @@ export const useInputTriggerVariantStyles = ({
 
     return {
       container: {
-        backgroundColor: colorScheme.background,
+        backgroundColor: withOpacity(colorScheme.container, isDark ? 0.25 : 0.6),
         borderColor: isInvalid
           ? withPaletteNumber(theme.colors.danger.main, 500)
           : 'transparent',

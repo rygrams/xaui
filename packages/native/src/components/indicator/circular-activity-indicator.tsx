@@ -48,7 +48,7 @@ export const CircularActivityIndicator: React.FC<ActivityIndicatorProps> = ({
   const colorScheme = theme.colors[safeThemeColor]
   const mainColor = color || colorScheme.main
   const trackColor = showTrack
-    ? (backgroundColor ?? colorScheme.background)
+    ? (backgroundColor ?? colorScheme.container)
     : 'transparent'
 
   const strokeWidth = size * 0.1

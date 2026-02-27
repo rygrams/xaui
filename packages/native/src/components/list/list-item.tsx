@@ -34,7 +34,7 @@ export const ListItem: React.FC<ListItemProps> = ({
   const safeThemeColor = getSafeThemeColor(themeColor)
   const colorScheme = theme.colors[safeThemeColor]
 
-  const backgroundColor = isSelected ? colorScheme.background : 'transparent'
+  const backgroundColor = isSelected ? colorScheme.container : 'transparent'
   const titleColor = isDisabled
     ? theme.colors.foreground + '50'
     : theme.colors.foreground

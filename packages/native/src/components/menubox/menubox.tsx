@@ -33,7 +33,7 @@ export const MenuBox: React.FC<MenuBoxProps> = ({
   const getItemIndex = (itemKey: string): number => {
     return itemKeys.indexOf(itemKey)
   }
-  const bgColor = backgroundColor ?? theme.colors.default.background
+  const bgColor = backgroundColor ?? theme.colors.default.container
 
   const contextValue = useMemo(
     () => ({

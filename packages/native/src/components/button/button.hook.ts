@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { useXUITheme } from '../../core'
 import type { ButtonVariant, ElevationLevel } from './button.type'
 import type { Size, ThemeColor } from '../../types'
-import { getSafeThemeColor, withOpacity } from '@xaui/core'
+import { getSafeThemeColor } from '@xaui/core'
 
 type ButtonSizeStyles = {
   paddingHorizontal: number
@@ -18,10 +18,11 @@ export const useTextStyles = (themeColor: ThemeColor, variant: ButtonVariant) =>
   const colorScheme = theme.colors[safeThemeColor]
 
   const textColor = useMemo(() => {
-    if (variant === 'solid') return colorScheme.foreground
+    if (variant === 'solid') return colorScheme.onMain
+    if (variant === 'flat' || variant === 'faded') return colorScheme.onContainer
 
     return colorScheme.main
-  }, [variant, colorScheme, theme])
+  }, [variant, colorScheme])
 
   return {
     textColor,
@@ -87,10 +88,9 @@ export function useVariantSizesStyles(
   const colorScheme = theme.colors[safeThemeColor]
 
   const variantStyles = useMemo(() => {
-    const isDark = theme.mode === 'dark'
     const styles = {
       solid: {
-        backgroundColor: isDark ? colorScheme.background : colorScheme.main,
+        backgroundColor: colorScheme.main,
         borderWidth: 0,
       },
       bordered: {
@@ -99,9 +99,7 @@ export function useVariantSizesStyles(
         borderColor: colorScheme.main,
       },
       flat: {
-        backgroundColor: isDark
-          ? withOpacity(colorScheme.background, 0.5)
-          : colorScheme.background,
+        backgroundColor: colorScheme.container,
         borderWidth: 0,
       },
       light: {
@@ -109,14 +107,9 @@ export function useVariantSizesStyles(
         borderWidth: 0,
       },
       faded: {
-        backgroundColor: isDark
-          ? withOpacity(colorScheme.background, 0.5)
-          : colorScheme.background,
+        backgroundColor: colorScheme.container,
         borderWidth: theme.borderWidth.md,
-        borderColor: withOpacity(
-          isDark ? colorScheme.background : colorScheme.main,
-          0.75
-        ),
+        borderColor: colorScheme.main,
       },
     } as const
 

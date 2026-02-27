@@ -68,13 +68,15 @@ const customLightTheme = {
   colors: {
     primary: {
       main: '#2563EB',
-      foreground: '#FFFFFF',
-      background: '#DBEAFE',
+      onMain: '#FFFFFF',
+      container: '#DBEAFE',
+      onContainer: '#1E40AF',
     },
     secondary: {
       main: '#0EA5E9',
-      foreground: '#FFFFFF',
-      background: '#E0F2FE',
+      onMain: '#FFFFFF',
+      container: '#E0F2FE',
+      onContainer: '#0369A1',
     },
     background: '#FFFFFF',
     foreground: '#0F172A',
@@ -89,8 +91,9 @@ const customDarkTheme = {
   colors: {
     primary: {
       main: '#60A5FA',
-      foreground: '#0B1220',
-      background: '#1E3A8A',
+      onMain: '#0B1220',
+      container: '#1E3A8A',
+      onContainer: '#60A5FA',
     },
     background: '#020617',
     foreground: '#E2E8F0',
@@ -107,7 +110,7 @@ export default function App() {
           />
           <p className="text-sm text-muted-foreground">
             Tip: Start by overriding only
-            <span className="font-mono text-xs"> colors.primary </span>and
+            <span className="font-mono text-xs"> colors.primary </span>(main, onMain, container, onContainer) and
             <span className="font-mono text-xs"> colors.background </span>
             to quickly align Xaui with your brand, then extend to spacing and
             typography if needed.

@@ -370,7 +370,7 @@ export default function DialogScreen() {
         <DialogHeader>Payment Successful</DialogHeader>
         <DialogBody>
           <View style={styles.successContent}>
-            <View style={[styles.successIcon, { backgroundColor: theme.colors.success.background }]}>
+            <View style={[styles.successIcon, { backgroundColor: theme.colors.success.container }]}>
               <Text style={[styles.successEmoji, { color: theme.colors.success.main }]}>✓</Text>
             </View>
             <Text style={[styles.successAmount, { color: colors.foreground }]}>$129.00</Text>

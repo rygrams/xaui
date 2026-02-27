@@ -88,7 +88,7 @@ export type MenuBoxProps = {
   style?: ViewStyle
   /**
    * Background color for MenuBox items
-   * Uses `theme.colors.default.background` by default
+   * Uses `theme.colors.default.container` by default
    */
   backgroundColor?: string
 }

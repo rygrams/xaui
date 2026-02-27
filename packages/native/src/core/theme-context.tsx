@@ -1,6 +1,6 @@
 import React, { createContext, ReactNode } from 'react'
 import { useColorScheme } from 'react-native'
-import { defaultTheme, XUITheme } from '@xaui/core/theme'
+import { defaultDarkTheme, defaultTheme, XUITheme } from '@xaui/core/theme'
 import { colors } from '@xaui/core/palette'
 import { PortalHost } from './portal'
 
@@ -13,50 +13,42 @@ export type DeepPartial<T> = {
 export interface XUIProviderProps {
   children: ReactNode
   theme?: DeepPartial<XUITheme>
-  darkTheme?: DeepPartial<XUITheme>
 }
 
-export function XUIProvider({
-  children,
-  theme: lightTheme,
-  darkTheme,
-}: XUIProviderProps) {
+export function XUIProvider({ children, theme }: XUIProviderProps) {
   const colorScheme = useColorScheme() ?? 'light'
 
-  const theme = React.useMemo(() => {
-    if (!darkTheme && !lightTheme) return defaultTheme
+  const appTheme = React.useMemo(() => {
+    const isDarkMode = colorScheme === 'dark'
 
-    const activeTheme = colorScheme === 'dark' && darkTheme ? darkTheme : lightTheme
-    const mode = colorScheme === 'dark' && darkTheme ? 'dark' : 'light'
-
-    if (!activeTheme) return defaultTheme
+    if (!theme) return isDarkMode ? defaultDarkTheme : defaultTheme
 
     return {
       ...defaultTheme,
-      ...activeTheme,
-      mode,
+      ...theme,
+      mode: colorScheme,
       colors: {
         ...defaultTheme.colors,
-        ...activeTheme.colors,
+        ...theme?.colors,
       },
       fontFamilies: {
         ...defaultTheme.fontFamilies,
-        ...activeTheme.fontFamilies,
+        ...theme?.fontFamilies,
       },
       fontSizes: {
         ...defaultTheme.fontSizes,
-        ...activeTheme.fontSizes,
+        ...theme?.fontSizes,
       },
       componentSizes: {
         ...defaultTheme.componentSizes,
-        ...activeTheme.componentSizes,
+        ...theme?.componentSizes,
       },
       palette: colors,
     } as XUITheme
-  }, [lightTheme, darkTheme, colorScheme])
+  }, [colorScheme])
 
   return (
-    <XUIThemeContext.Provider value={theme}>
+    <XUIThemeContext.Provider value={appTheme}>
       <PortalHost>{children}</PortalHost>
     </XUIThemeContext.Provider>
   )

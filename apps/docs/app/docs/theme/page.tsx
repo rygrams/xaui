@@ -12,8 +12,9 @@ const customLightTheme = {
   colors: {
     primary: {
       main: '#2563EB',
-      foreground: '#FFFFFF',
-      background: '#DBEAFE',
+      onMain: '#FFFFFF',
+      container: '#DBEAFE',
+      onContainer: '#1E40AF',
     },
     background: '#FFFFFF',
     foreground: '#0F172A',
@@ -28,8 +29,9 @@ const customDarkTheme = {
   colors: {
     primary: {
       main: '#60A5FA',
-      foreground: '#0B1220',
-      background: '#1E3A8A',
+      onMain: '#0B1220',
+      container: '#1E3A8A',
+      onContainer: '#60A5FA',
     },
     background: '#020617',
     foreground: '#E2E8F0',
@@ -124,7 +126,7 @@ export default function ThemePage() {
       <section className="space-y-4">
         <h2 className="text-xl font-semibold md:text-2xl">Recommended Customization Order</h2>
         <ol className="list-decimal pl-6 text-muted-foreground space-y-1">
-          <li>Set core brand colors: primary, background, and foreground.</li>
+          <li>Set core brand colors: primary (main, onMain, container, onContainer), background, and foreground.</li>
           <li>Tune border radius and spacing to match your product identity.</li>
           <li>Adjust typography tokens only when needed for readability.</li>
           <li>Validate both light and dark modes on real screens.</li>

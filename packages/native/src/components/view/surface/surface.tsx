@@ -15,7 +15,7 @@ const resolveBackgroundColor = (
 
   const safeColor = getSafeThemeColor(color)
 
-  return theme.colors[safeColor].background
+  return theme.colors[safeColor].container
 }
 
 export const Surface: React.FC<SurfaceProps> = ({

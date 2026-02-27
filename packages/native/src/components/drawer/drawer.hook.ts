@@ -18,11 +18,11 @@ export const useDrawerStyles = (
     const colorScheme = theme.colors[safeThemeColor]
     const isDefaultThemeColor = safeThemeColor === 'default'
     const defaultBackgroundColor =
-      theme.mode === 'dark' ? theme.colors.default.background : '#FFFFFF'
+      theme.mode === 'dark' ? theme.colors.default.container : '#FFFFFF'
 
     const backgroundColor = isDefaultThemeColor
       ? defaultBackgroundColor
-      : colorScheme.background
+      : colorScheme.container
 
     const sizeStyle: ViewStyle =
       position === 'left' || position === 'right' ? { width } : { height }

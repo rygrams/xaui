@@ -15,18 +15,21 @@ vi.mock('../../../core', () => ({
     colors: {
       primary: {
         main: '#1976d2',
-        background: '#e3f2fd',
-        foreground: '#ffffff',
+        container: '#e3f2fd',
+        onMain: '#ffffff',
+        onContainer: '#1976d2',
       },
       secondary: {
         main: '#9c27b0',
-        background: '#f3e5f5',
-        foreground: '#ffffff',
+        container: '#f3e5f5',
+        onMain: '#ffffff',
+        onContainer: '#9c27b0',
       },
       default: {
         main: '#616161',
-        background: '#f5f5f5',
-        foreground: '#ffffff',
+        container: '#f5f5f5',
+        onMain: '#ffffff',
+        onContainer: '#616161',
       },
     },
     spacing: {

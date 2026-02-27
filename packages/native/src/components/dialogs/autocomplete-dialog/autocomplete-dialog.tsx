@@ -69,7 +69,7 @@ export const AutocompleteDialog: React.FC<AutocompleteDialogProps> = ({
   )
 
   const checkmarkColor = theme.colors[themeColor].main
-  const checkmarkBackgroundColor = theme.colors[themeColor].background
+  const checkmarkBackgroundColor = theme.colors[themeColor].container
 
   useAutocompleteDialogAnimation({ visible, fadeAnim, slideAnim, scaleAnim })
 

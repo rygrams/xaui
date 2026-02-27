@@ -47,8 +47,8 @@ function Banner() {
   const mode = useColorMode()
 
   return (
-    <View style={{ backgroundColor: theme.colors.primary.background }}>
-      <Text style={{ color: theme.colors.primary.foreground }}>
+    <View style={{ backgroundColor: theme.colors.primary.container }}>
+      <Text style={{ color: theme.colors.primary.onContainer }}>
         Current mode: {mode}
       </Text>
     </View>

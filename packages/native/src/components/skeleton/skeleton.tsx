@@ -18,8 +18,8 @@ export const Skeleton: React.FC<SkeletonProps> = ({
   const opacity = useRef(new Animated.Value(0.6)).current
 
   const resolvedColor = useMemo(
-    () => skeletonColor ?? theme.colors.default.background,
-    [skeletonColor, theme.colors.default.background]
+    () => skeletonColor ?? theme.colors.default.container,
+    [skeletonColor, theme.colors.default.container]
   )
   const resolvedRadius = useMemo(
     () => theme.borderRadius[radius],

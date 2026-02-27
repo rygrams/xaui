@@ -74,7 +74,7 @@ export function useCheckmarkColors(
   const checkmarkColors = useMemo(() => {
     if (variant === 'filled') {
       return {
-        checked: colorScheme.foreground,
+        checked: colorScheme.onMain,
         unchecked: undefined,
       }
     }
@@ -88,14 +88,14 @@ export function useCheckmarkColors(
 
     if (themeColor !== 'default') {
       return {
-        checked: colorScheme.foreground,
-        unchecked: colorScheme.background,
+        checked: colorScheme.onMain,
+        unchecked: colorScheme.container,
       }
     }
 
     return {
       checked: theme.colors.foreground,
-      unchecked: colorScheme.background,
+      unchecked: colorScheme.container,
     }
   }, [variant, colorScheme, isActive, themeColor, theme.colors])
 
@@ -114,7 +114,7 @@ export function useVariantStyles(
   const variantStyles = useMemo(() => {
     if (variant === 'filled') {
       return {
-        backgroundColor: 'transparent',
+        backgroundColor: isActive ? colorScheme.main : 'transparent',
         borderWidth: isActive ? 0 : theme.borderWidth.md,
         borderColor: isActive ? 'transparent' : colorScheme.main,
       }

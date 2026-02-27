@@ -25,7 +25,7 @@ export default function MenuBoxScreen() {
   const colors = useXUIColors()
   const theme = useXUITheme()
   const cardBackground =
-    theme.mode === 'dark' ? theme.colors.default.background : '#f5f5f5'
+    theme.mode === 'dark' ? theme.colors.default.container : '#f5f5f5'
 
   const iconContainerStyle = (bgColor: string) => ({
     width: 32,

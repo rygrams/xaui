@@ -73,7 +73,7 @@ export const AutocompleteDialogHeader: React.FC<AutocompleteDialogHeaderProps> =
             style={[
               styles.input,
               {
-                backgroundColor: theme.colors.default.background,
+                backgroundColor: theme.colors.default.container,
                 color: theme.colors.foreground,
               },
               inputTextStyle,

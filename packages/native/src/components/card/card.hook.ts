@@ -15,7 +15,7 @@ export const useCardContainerStyles = (
     const colorScheme = theme.colors[safeThemeColor]
     const isDefaultThemeColor = safeThemeColor === 'default'
     const defaultBackgroundColor =
-      theme.mode === 'dark' ? theme.colors.default.background : '#FFFFFF'
+      theme.mode === 'dark' ? theme.colors.default.container : '#FFFFFF'
 
     return {
       backgroundColor: isBlurred
@@ -24,7 +24,7 @@ export const useCardContainerStyles = (
           : 'rgba(255, 255, 255, 0.82)'
         : isDefaultThemeColor
           ? defaultBackgroundColor
-          : colorScheme.background,
+          : colorScheme.container,
       borderColor: withOpacity(colorScheme.main, 0.05),
     }
   }, [isBlurred, theme, themeColor])

@@ -32,7 +32,7 @@ export const MenuBoxItem: React.FC<MenuBoxItemProps> = props => {
   const itemBackgroundColor =
     context?.backgroundColor ??
     (theme.mode === 'dark'
-      ? theme.colors.default.background
+      ? theme.colors.default.container
       : theme.colors.background)
   const spacing = context?.spacing ?? 0
   const itemCount = context?.itemCount ?? 1

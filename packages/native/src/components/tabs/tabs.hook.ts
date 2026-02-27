@@ -72,13 +72,13 @@ export function useTabsVariantStyles(
   return useMemo(() => {
     const variants: Record<TabsVariant, TabsVariantStyles> = {
       solid: {
-        listBackgroundColor: palette.background,
+        listBackgroundColor: palette.container,
         listBorderColor: 'transparent',
         listBorderWidth: 0,
         listPaddingHorizontal: 4,
         cursorColor: cursorSolidColor,
         textColor: palette.main,
-        selectedTextColor: palette.foreground,
+        selectedTextColor: palette.onMain,
         cursorHeight: undefined,
         cursorTop: 4,
         cursorBottom: 4,
@@ -91,7 +91,7 @@ export function useTabsVariantStyles(
         listPaddingHorizontal: 0,
         cursorColor: cursorSolidColor,
         textColor: palette.main,
-        selectedTextColor: palette.foreground,
+        selectedTextColor: palette.onMain,
         cursorHeight: undefined,
         cursorTop: 0,
         cursorBottom: 0,

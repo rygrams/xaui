@@ -197,7 +197,7 @@ export const FeatureDiscovery: React.FC<FeatureDiscoveryProps> = ({
             <View style={styles.messageTitleWrapper}>
               {renderContent(title, [
                 styles.title,
-                { color: colorScheme.foreground },
+                { color: colorScheme.onMain },
                 { textAlign: isTargetOnLeft ? 'left' : 'right' },
                 customAppearance?.title,
               ])}
@@ -208,7 +208,7 @@ export const FeatureDiscovery: React.FC<FeatureDiscoveryProps> = ({
               style={styles.closeButton}
               accessibilityRole="button"
             >
-              <Text style={[styles.closeIcon, { color: colorScheme.foreground }]}>
+              <Text style={[styles.closeIcon, { color: colorScheme.onMain }]}>
                 ✕
               </Text>
             </Pressable>
@@ -217,7 +217,7 @@ export const FeatureDiscovery: React.FC<FeatureDiscoveryProps> = ({
           {description
             ? renderContent(description, [
                 styles.description,
-                { color: withOpacity(colorScheme.foreground, 0.9) },
+                { color: withOpacity(colorScheme.onMain, 0.9) },
                 { textAlign: isTargetOnLeft ? 'left' : 'right' },
                 customAppearance?.description,
               ])
@@ -234,7 +234,7 @@ export const FeatureDiscovery: React.FC<FeatureDiscoveryProps> = ({
             >
               {renderContent(actionText, [
                 styles.actionText,
-                { color: colorScheme.foreground },
+                { color: colorScheme.onMain },
                 customAppearance?.actionText,
               ])}
             </Pressable>

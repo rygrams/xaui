@@ -22,7 +22,7 @@ export const Progress: React.FC<ProgressIndicatorProps> = props => {
 
   const colorScheme = theme.colors[themeColor]
   const mainColor = color ?? colorScheme.main
-  const trackColor = backgroundColor ?? colorScheme.background
+  const trackColor = backgroundColor ?? colorScheme.container
   const clampedValue = clampProgress(value)
   const accessibilityValue = {
     min: 0,

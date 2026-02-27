@@ -13,7 +13,9 @@ export default function RootLayout() {
   return (
     <ThemeProvider value={colorScheme === 'light' ? DefaultTheme : DarkTheme}>
       <GestureHandlerRootView style={{ flex: 1 }}>
-        <XUIProvider theme={defaultTheme} darkTheme={defaultDarkTheme}>
+        <XUIProvider
+          theme={colorScheme === 'light' ? defaultTheme : defaultDarkTheme}
+        >
           <Stack>
             <Stack.Screen
               name="index"

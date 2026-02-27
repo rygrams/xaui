@@ -99,6 +99,7 @@ export const useTextInputVariantStyles = ({
   const colorScheme = theme.colors[safeThemeColor]
 
   return useMemo(() => {
+    const isDark = theme.mode === 'dark'
     const focusColor = isInvalid ? theme.colors.danger.main : colorScheme.main
     const neutralBorder = withOpacity(theme.colors.foreground, 0.1)
     const textColor = isDisabled
@@ -149,7 +150,7 @@ export const useTextInputVariantStyles = ({
     if (variant === 'faded') {
       return {
         container: {
-          backgroundColor: withOpacity(colorScheme.background, 0.68),
+          backgroundColor: withOpacity(colorScheme.container, isDark ? 0.18 : 0.5),
           borderColor: isFocused || isInvalid ? focusColor : 'transparent',
           borderWidth: isFocused || isInvalid ? theme.borderWidth.md : 0,
         },
@@ -164,7 +165,7 @@ export const useTextInputVariantStyles = ({
 
     return {
       container: {
-        backgroundColor: colorScheme.background,
+        backgroundColor: withOpacity(colorScheme.container, isDark ? 0.25 : 0.6),
         borderColor:
           isFocused || isInvalid
             ? withPaletteNumber(focusColor, 500)
