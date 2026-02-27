@@ -131,9 +131,9 @@ export const useSwitchTrackStyles = ({
   const trackStyles = useMemo(() => {
     const backgroundColor = isSelected
       ? variant === 'overlap'
-        ? colorScheme.background
+        ? colorScheme.container
         : colorScheme.main
-      : theme.colors.default.background
+      : theme.colors.default.container
 
     return {
       width: sizeStyles.trackWidth,

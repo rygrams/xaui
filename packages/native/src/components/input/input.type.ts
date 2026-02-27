@@ -7,7 +7,7 @@ import type {
 } from 'react-native'
 import type { Radius, ThemeColor } from '../../types'
 
-export type TextInputVariant = 'flat' | 'faded' | 'bordered' | 'underlined'
+export type TextInputVariant = 'colored' | 'light' | 'bordered' | 'underlined'
 export type TextInputSize = 'sm' | 'md' | 'lg'
 export type TextInputLabelPlacement = 'outside' | 'inside'
 
@@ -68,7 +68,7 @@ export type TextInputProps = Omit<
   themeColor?: ThemeColor
   /**
    * Visual style variant.
-   * @default 'flat'
+   * @default 'colored'
    */
   variant?: TextInputVariant
   /**

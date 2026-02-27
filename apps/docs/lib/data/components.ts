@@ -897,6 +897,37 @@ export const components: Component[] = [
     ],
   },
   {
+    id: 'file-input-trigger',
+    name: 'FileInputTrigger',
+    description:
+      'A file-upload style trigger with dashed border and centered plus icon, designed for custom file picker implementations.',
+    category: 'Inputs',
+    href: '/docs/components/file-input-trigger',
+    status: 'beta',
+    importPath: '@xaui/native/input-trigger',
+    exports: ['FileInputTrigger'],
+    types: [
+      'FileInputTriggerProps',
+      'InputTriggerEvents',
+      'InputTriggerVariant',
+      'InputTriggerSize',
+      'InputTriggerLabelPlacement',
+      'FileInputTriggerCustomAppearance',
+    ],
+  },
+  {
+    id: 'refresh-control',
+    name: 'PullToRefresh',
+    description:
+      'Headless pull-to-refresh wrapper that injects a native RefreshControl into any compatible scrollable component.',
+    category: 'Feedback',
+    href: '/docs/components/refresh-control',
+    status: 'beta',
+    importPath: '@xaui/native/refresh-control',
+    exports: ['PullToRefresh'],
+    types: ['PullToRefreshProps'],
+  },
+  {
     id: 'picker',
     name: 'Picker',
     description:

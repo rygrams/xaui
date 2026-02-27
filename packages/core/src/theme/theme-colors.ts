@@ -2,8 +2,9 @@ import { colors } from '../tokens'
 
 export type ColorScheme = {
   main: string
-  foreground: string
-  background: string
+  onMain: string
+  container: string
+  onContainer: string
 }
 
 export type ThemeColors = {
@@ -20,41 +21,47 @@ export type ThemeColors = {
 
 export const themeColors: ThemeColors = {
   primary: {
-    main: colors.purple[800],
-    foreground: colors.white,
-    background: colors.purple[200],
+    main: colors.purple[500],
+    onMain: colors.purple[50],
+    container: colors.purple[200],
+    onContainer: colors.purple[800],
   },
   secondary: {
-    main: colors.zinc[500],
-    foreground: colors.white,
-    background: colors.zinc[200],
+    main: colors.pink[500],
+    onMain: colors.pink[50],
+    container: colors.pink[200],
+    onContainer: colors.pink[700],
   },
   tertiary: {
     main: colors.stone[500],
-    foreground: colors.white,
-    background: colors.stone[100],
+    onMain: colors.white,
+    container: colors.stone[100],
+    onContainer: colors.stone[700],
   },
   danger: {
     main: colors.red[700],
-    foreground: colors.white,
-    background: colors.rose[200],
+    onMain: colors.white,
+    container: colors.rose[200],
+    onContainer: colors.red[700],
   },
   warning: {
     main: colors.amber[600],
-    foreground: colors.gray[900],
-    background: colors.amber[100],
+    onMain: colors.gray[900],
+    container: colors.amber[100],
+    onContainer: colors.amber[600],
   },
   success: {
     main: colors.green[600],
-    foreground: colors.white,
-    background: colors.green[100],
+    onMain: colors.white,
+    container: colors.green[100],
+    onContainer: colors.green[600],
   },
   default: {
-    main: colors.zinc[900],
-    foreground: colors.white,
-    background: colors.zinc[200],
+    main: colors.gray[700],
+    onMain: colors.gray[50],
+    container: colors.gray[200],
+    onContainer: colors.gray[800],
   },
-
   background: colors.white,
   foreground: colors.zinc[900],
 }
@@ -62,38 +69,45 @@ export const themeColors: ThemeColors = {
 export const darkThemeColors: ThemeColors = {
   primary: {
     main: colors.purple[300],
-    foreground: colors.purple[950],
-    background: colors.purple[900],
+    onMain: colors.purple[950],
+    container: colors.purple[900],
+    onContainer: colors.purple[300],
   },
   secondary: {
-    main: colors.zinc[300],
-    foreground: colors.zinc[700],
-    background: colors.zinc[600],
+    main: colors.pink[300],
+    onMain: colors.pink[950],
+    container: colors.pink[900],
+    onContainer: colors.pink[300],
   },
   tertiary: {
-    main: colors.red[200],
-    foreground: colors.pink[950],
-    background: colors.stone[600],
+    main: colors.stone[300],
+    onMain: colors.stone[950],
+    container: colors.stone[900],
+    onContainer: colors.stone[300],
   },
   danger: {
     main: colors.red[300],
-    foreground: colors.rose[950],
-    background: colors.red[800],
+    onMain: colors.red[950],
+    container: colors.red[800],
+    onContainer: colors.red[300],
   },
   warning: {
     main: colors.amber[400],
-    foreground: colors.gray[50],
-    background: colors.amber[900],
+    onMain: colors.gray[950],
+    container: colors.amber[900],
+    onContainer: colors.amber[400],
   },
   success: {
     main: colors.green[400],
-    foreground: colors.gray[50],
-    background: colors.green[900],
+    onMain: colors.gray[950],
+    container: colors.green[900],
+    onContainer: colors.green[400],
   },
   default: {
-    main: colors.stone[200],
-    foreground: colors.zinc[900],
-    background: colors.zinc[700],
+    main: colors.gray[300],
+    onMain: colors.gray[900],
+    container: colors.gray[800],
+    onContainer: colors.gray[300],
   },
   background: colors.zinc[900],
   foreground: colors.stone[200],

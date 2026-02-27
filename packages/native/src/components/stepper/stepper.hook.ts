@@ -60,7 +60,7 @@ export const useStepperColors = (themeColor: ThemeColor) => {
     () => ({
       activeIndicatorBackground: scheme.main,
       activeIndicatorBorder: scheme.main,
-      activeIndicatorText: scheme.foreground,
+      activeIndicatorText: scheme.onMain,
       completedIndicatorBackground: withOpacity(scheme.main, 0.2),
       completedIndicatorBorder: scheme.main,
       completedIndicatorText: scheme.main,

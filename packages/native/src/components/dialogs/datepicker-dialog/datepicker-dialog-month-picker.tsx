@@ -19,7 +19,7 @@ export const DatePickerDialogMonthPicker: React.FC<
   const colorScheme = theme.colors[themeColor] ?? theme.colors.primary
   const isDefault = themeColor === 'default'
   const accentColor = isDefault ? theme.colors.foreground : colorScheme.main
-  const accentFg = isDefault ? theme.colors.background : colorScheme.foreground
+  const accentFg = isDefault ? theme.colors.background : colorScheme.onMain
 
   const months = useMemo(() => getMonthNames(locale), [locale])
   const currentMonth = viewDate.getMonth()

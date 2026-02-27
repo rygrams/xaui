@@ -55,7 +55,7 @@ export default function SnackbarScreen() {
           </Text>
           <View style={[styles.buttonGroup, { gap: theme.spacing.sm }]}>
             <Button
-              variant="outlined"
+              variant="bordered"
               themeColor="primary"
               size="sm"
               onPress={() =>
@@ -67,7 +67,7 @@ export default function SnackbarScreen() {
               Single-line
             </Button>
             <Button
-              variant="outlined"
+              variant="bordered"
               themeColor="primary"
               size="sm"
               onPress={() =>
@@ -80,7 +80,7 @@ export default function SnackbarScreen() {
               With Close
             </Button>
             <Button
-              variant="outlined"
+              variant="bordered"
               themeColor="secondary"
               size="sm"
               onPress={() =>
@@ -108,7 +108,7 @@ export default function SnackbarScreen() {
           </Text>
           <View style={[styles.buttonGroup, { gap: theme.spacing.sm }]}>
             <Button
-              variant="outlined"
+              variant="bordered"
               themeColor="secondary"
               size="sm"
               onPress={() =>
@@ -121,7 +121,7 @@ export default function SnackbarScreen() {
               2 Lines
             </Button>
             <Button
-              variant="outlined"
+              variant="bordered"
               themeColor="secondary"
               size="sm"
               onPress={() =>
@@ -136,7 +136,7 @@ export default function SnackbarScreen() {
               2 Lines + Action + Close
             </Button>
             <Button
-              variant="outlined"
+              variant="bordered"
               themeColor="secondary"
               size="sm"
               onPress={() =>
@@ -159,7 +159,7 @@ export default function SnackbarScreen() {
           </Text>
           <View style={[styles.buttonGroup, { gap: theme.spacing.sm }]}>
             <Button
-              variant="outlined"
+              variant="bordered"
               themeColor="success"
               size="sm"
               onPress={() =>
@@ -173,7 +173,7 @@ export default function SnackbarScreen() {
               Success (2s)
             </Button>
             <Button
-              variant="outlined"
+              variant="bordered"
               themeColor="warning"
               size="sm"
               onPress={() =>
@@ -188,7 +188,7 @@ export default function SnackbarScreen() {
               Warning (5s)
             </Button>
             <Button
-              variant="outlined"
+              variant="bordered"
               themeColor="danger"
               size="sm"
               onPress={() =>
@@ -211,7 +211,7 @@ export default function SnackbarScreen() {
           </Text>
           <View style={[styles.buttonGroup, { gap: theme.spacing.sm }]}>
             <Button
-              variant="outlined"
+              variant="bordered"
               themeColor="primary"
               size="sm"
               onPress={() =>
@@ -224,7 +224,7 @@ export default function SnackbarScreen() {
               Add Bottom
             </Button>
             <Button
-              variant="outlined"
+              variant="bordered"
               themeColor="primary"
               size="sm"
               onPress={() =>

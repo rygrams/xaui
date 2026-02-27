@@ -6,6 +6,7 @@ import {
   TextInput as RNTextInput,
   View,
 } from 'react-native'
+import { withOpacity } from '@xaui/core'
 import type { OTPInputProps } from './otp-input.type'
 import { useOTPInputState, useOTPSegmentSizeStyles } from './otp-input.hook'
 import { useTextInputRadiusStyles, useTextInputVariantStyles } from './input.hook'
@@ -45,6 +46,7 @@ const OTPSegment = ({
   onPress: () => void
 }) => {
   const borderAnimation = useRef(new Animated.Value(0)).current
+  const isUnderlined = variantStyles.container.borderBottomWidth !== undefined
 
   useEffect(() => {
     Animated.timing(borderAnimation, {
@@ -53,6 +55,15 @@ const OTPSegment = ({
       useNativeDriver: false,
     }).start()
   }, [borderAnimation, isActive])
+
+  const unfocusedLineColor = isUnderlined
+    ? withOpacity(variantStyles.focusedBorderColor, 0.35)
+    : variantStyles.unfocusedBorderColor
+
+  const animatedBorderColor = borderAnimation.interpolate({
+    inputRange: [0, 1],
+    outputRange: [unfocusedLineColor, variantStyles.focusedBorderColor],
+  })
 
   return (
     <Pressable
@@ -70,15 +81,9 @@ const OTPSegment = ({
             width: sizeStyles.width,
             height: sizeStyles.height,
             backgroundColor: variantStyles.container.backgroundColor,
-            borderWidth: variantStyles.container.borderWidth ?? 0,
-            borderRadius: radiusStyles.borderRadius,
-            borderColor: borderAnimation.interpolate({
-              inputRange: [0, 1],
-              outputRange: [
-                variantStyles.unfocusedBorderColor,
-                variantStyles.focusedBorderColor,
-              ],
-            }),
+            borderRadius: isUnderlined ? 0 : radiusStyles.borderRadius,
+            borderWidth: isUnderlined ? 0 : (variantStyles.container.borderWidth ?? 0),
+            borderColor: isUnderlined ? undefined : animatedBorderColor,
           },
           customSegment?.segment,
         ]}
@@ -117,6 +122,17 @@ const OTPSegment = ({
           editable={!isDisabled}
           caretHidden
         />
+        {isUnderlined && (
+          <Animated.View
+            style={[
+              otpStyles.underline,
+              {
+                height: variantStyles.container.borderBottomWidth ?? 1,
+                backgroundColor: animatedBorderColor,
+              },
+            ]}
+          />
+        )}
       </Animated.View>
     </Pressable>
   )
@@ -128,7 +144,7 @@ export const OTPInput = ({
   defaultValue,
   onValueChange,
   onComplete,
-  variant = 'flat',
+  variant = 'colored',
   size = 'md',
   radius = 'md',
   themeColor = 'primary',

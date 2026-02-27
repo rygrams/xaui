@@ -18,7 +18,7 @@ export const InputTrigger: React.FC<InputTriggerProps> = ({
   startContent,
   endContent,
   themeColor = 'primary',
-  variant = 'flat',
+  variant = 'colored',
   size = 'md',
   radius = 'md',
   isDisabled = false,

@@ -1,5 +1,6 @@
 import { describe, it, expect, vi } from 'vitest'
 import { renderHook } from '@testing-library/react'
+import { withOpacity } from '@xaui/core'
 import {
   useSegmentSizeStyles,
   useSegmentVariantStyles,
@@ -19,18 +20,21 @@ vi.mock('../../../core', () => ({
     colors: {
       primary: {
         main: '#1976d2',
-        background: '#e3f2fd',
-        foreground: '#ffffff',
+        container: '#e3f2fd',
+        onMain: '#ffffff',
+        onContainer: '#1976d2',
       },
       secondary: {
         main: '#9c27b0',
-        background: '#f3e5f5',
-        foreground: '#ffffff',
+        container: '#f3e5f5',
+        onMain: '#ffffff',
+        onContainer: '#9c27b0',
       },
       default: {
         main: '#616161',
-        background: '#f5f5f5',
-        foreground: '#ffffff',
+        container: '#f5f5f5',
+        onMain: '#ffffff',
+        onContainer: '#616161',
       },
     },
     spacing: {
@@ -159,7 +163,7 @@ describe('useSegmentVariantStyles', () => {
   it('returns correct styles for faded variant', () => {
     const { result } = renderHook(() => useSegmentVariantStyles('primary', 'faded'))
 
-    expect(result.current.containerBackground).toBe('#e3f2fd95')
+    expect(result.current.containerBackground).toBe(withOpacity('#e3f2fd', 0.58))
     expect(result.current.containerBorderWidth).toBe(2)
     expect(result.current.containerBorderColor).toBe('#1976d290')
     expect(result.current.selectedBackground).toBe('#1976d233')

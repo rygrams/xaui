@@ -28,7 +28,7 @@ describe('InputTrigger Types', () => {
       startContent: null,
       endContent: null,
       themeColor: 'primary',
-      variant: 'flat',
+      variant: 'colored',
       size: 'md',
       radius: 'md',
       isDisabled: false,
@@ -39,13 +39,18 @@ describe('InputTrigger Types', () => {
 
     expect(props.value).toBe('Selected')
     expect(props.themeColor).toBe('primary')
-    expect(props.variant).toBe('flat')
+    expect(props.variant).toBe('colored')
     expect(props.size).toBe('md')
     expect(props.radius).toBe('md')
   })
 
   it('accepts all variants', () => {
-    const variants: InputTriggerVariant[] = ['flat', 'faded', 'bordered', 'underlined']
+    const variants: InputTriggerVariant[] = [
+      'colored',
+      'light',
+      'bordered',
+      'underlined',
+    ]
 
     variants.forEach(variant => {
       const props: InputTriggerProps = { variant, onPress: () => {} }

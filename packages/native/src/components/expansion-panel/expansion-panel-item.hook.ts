@@ -114,7 +114,7 @@ export const useBaseStyles = (variant: string, isDisabled: boolean) => {
 
     if (variant === 'splitted') {
       base.paddingHorizontal = theme.spacing.md
-      base.backgroundColor = withOpacity(theme.colors.default.background, 0.5)
+      base.backgroundColor = withOpacity(theme.colors.default.container, 0.5)
       base.borderRadius = theme.borderRadius.md
       base.marginBottom = theme.spacing.xs
     } else if (variant === 'bordered') {

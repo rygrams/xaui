@@ -23,19 +23,13 @@ export const useAlertContainerStyles = (
   const { theme, colorScheme, isDefault } = useAlertColorScheme(themeColor)
 
   const containerStyles = useMemo(() => {
-    const isDark = theme.mode === 'dark'
-
     const backgroundColor =
       variant === 'solid'
-        ? isDark
-          ? colorScheme.background
-          : colorScheme.main
+        ? colorScheme.main
         : variant === 'flat'
-          ? isDark
-            ? withOpacity(colorScheme.background, 0.5)
-            : colorScheme.background
+          ? colorScheme.container
           : variant === 'faded'
-            ? withOpacity(colorScheme.background, 0.75)
+            ? withOpacity(colorScheme.container, 0.75)
             : 'transparent'
 
     const borderWidth =
@@ -67,11 +61,9 @@ export const useAlertIconWrapperStyles = (
   const { theme, colorScheme, isDefault } = useAlertColorScheme(themeColor)
 
   const iconWrapperStyles = useMemo(() => {
-    const isDark = theme.mode === 'dark'
-
     const backgroundColor =
       variant === 'solid'
-        ? withOpacity(isDark ? colorScheme.main : colorScheme.foreground, 0.16)
+        ? withOpacity(colorScheme.onMain, 0.16)
         : withOpacity(isDefault ? theme.colors.foreground : colorScheme.main, 0.12)
 
     const borderWidth =
@@ -99,16 +91,16 @@ export const useAlertTextStyles = (
   const { theme, colorScheme, isDefault } = useAlertColorScheme(themeColor)
 
   const textStyles = useMemo(() => {
-    const isDark = theme.mode === 'dark'
-
     const baseTextColor =
       variant === 'solid'
-        ? isDark
-          ? colorScheme.main
-          : colorScheme.foreground
-        : isDefault
-          ? theme.colors.foreground
-          : colorScheme.main
+        ? colorScheme.onMain
+        : variant === 'flat' || variant === 'faded'
+          ? isDefault
+            ? theme.colors.foreground
+            : colorScheme.onContainer
+          : isDefault
+            ? theme.colors.foreground
+            : colorScheme.main
 
     return {
       titleStyles: {

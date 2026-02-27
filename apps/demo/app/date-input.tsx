@@ -198,7 +198,7 @@ export default function DateInputScreen() {
             dateOrder="YMD"
             defaultValue="2024-01-15"
             isDisabled
-            variant="flat"
+            variant="colored"
           />
         </View>
       </View>

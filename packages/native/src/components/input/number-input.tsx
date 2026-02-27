@@ -29,7 +29,7 @@ export const NumberInput = forwardRef<
       errorMessage,
       placeholder,
       themeColor = 'primary',
-      variant = 'flat',
+      variant = 'colored',
       size = 'md',
       radius = 'md',
       isDisabled = false,

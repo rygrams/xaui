@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { useXUITheme } from '../../core'
 import type { ButtonVariant, ElevationLevel } from './button.type'
 import type { Size, ThemeColor } from '../../types'
-import { getSafeThemeColor, withOpacity } from '@xaui/core'
+import { getSafeThemeColor } from '@xaui/core'
 
 type ButtonSizeStyles = {
   paddingHorizontal: number
@@ -18,12 +18,11 @@ export const useTextStyles = (themeColor: ThemeColor, variant: ButtonVariant) =>
   const colorScheme = theme.colors[safeThemeColor]
 
   const textColor = useMemo(() => {
-    const isDark = theme.mode === 'dark'
-    if (variant === 'solid') {
-      return isDark ? colorScheme.main : colorScheme.foreground
-    }
+    if (variant === 'solid') return colorScheme.onMain
+    if (variant === 'flat' || variant === 'faded') return colorScheme.onContainer
+
     return colorScheme.main
-  }, [variant, colorScheme, theme])
+  }, [variant, colorScheme])
 
   return {
     textColor,
@@ -89,21 +88,18 @@ export function useVariantSizesStyles(
   const colorScheme = theme.colors[safeThemeColor]
 
   const variantStyles = useMemo(() => {
-    const isDark = theme.mode === 'dark'
     const styles = {
       solid: {
-        backgroundColor: isDark ? colorScheme.background : colorScheme.main,
+        backgroundColor: colorScheme.main,
         borderWidth: 0,
       },
-      outlined: {
+      bordered: {
         backgroundColor: 'transparent',
         borderWidth: theme.borderWidth.md,
         borderColor: colorScheme.main,
       },
       flat: {
-        backgroundColor: isDark
-          ? withOpacity(colorScheme.background, 0.5)
-          : colorScheme.background,
+        backgroundColor: colorScheme.container,
         borderWidth: 0,
       },
       light: {
@@ -111,14 +107,14 @@ export function useVariantSizesStyles(
         borderWidth: 0,
       },
       faded: {
-        backgroundColor: `${colorScheme.background}95`,
+        backgroundColor: colorScheme.container,
         borderWidth: theme.borderWidth.md,
-        borderColor: `${colorScheme.main}90`,
+        borderColor: colorScheme.main,
       },
     } as const
 
     const baseStyle = styles[variant]
-    const shouldApplyElevation = variant !== 'outlined' && variant !== 'light'
+    const shouldApplyElevation = variant !== 'bordered' && variant !== 'light'
 
     const shadowStyles =
       elevation === 0

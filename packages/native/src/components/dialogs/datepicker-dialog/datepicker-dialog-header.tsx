@@ -48,11 +48,11 @@ export const DatePickerDialogHeader: React.FC<DatePickerDialogHeaderProps> = ({
   return (
     <>
       <View style={[styles.header, { backgroundColor: colorScheme.main }]}>
-        <Text style={[styles.headerLabel, { color: colorScheme.foreground }]}>
+        <Text style={[styles.headerLabel, { color: colorScheme.onMain }]}>
           {selectDateLabel}
         </Text>
         <View style={styles.headerDateRow}>
-          <Text style={[styles.headerDate, { color: colorScheme.foreground }]}>
+          <Text style={[styles.headerDate, { color: colorScheme.onMain }]}>
             {dateText}
           </Text>
           {selectedDate ? (
@@ -62,7 +62,7 @@ export const DatePickerDialogHeader: React.FC<DatePickerDialogHeaderProps> = ({
               accessibilityLabel="Clear date"
               accessibilityRole="button"
             >
-              <CloseIcon size={20} color={colorScheme.foreground} />
+              <CloseIcon size={20} color={colorScheme.onMain} />
             </Pressable>
           ) : null}
         </View>

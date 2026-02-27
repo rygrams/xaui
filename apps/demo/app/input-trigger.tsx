@@ -16,21 +16,21 @@ export default function InputTriggerScreen() {
           Variants
         </Text>
         <InputTrigger
-          label="Flat (default)"
+          label="Colored (default)"
           placeholder="Pick a value..."
-          variant="flat"
+          variant="colored"
+          onPress={() => {}}
+        />
+        <InputTrigger
+          label="Light"
+          placeholder="Pick a value..."
+          variant="light"
           onPress={() => {}}
         />
         <InputTrigger
           label="Bordered"
           placeholder="Pick a value..."
           variant="bordered"
-          onPress={() => {}}
-        />
-        <InputTrigger
-          label="Faded"
-          placeholder="Pick a value..."
-          variant="faded"
           onPress={() => {}}
         />
         <InputTrigger
@@ -48,7 +48,7 @@ export default function InputTriggerScreen() {
         <InputTrigger
           label="Country"
           value="France"
-          variant="flat"
+          variant="colored"
           onPress={() => {}}
         />
         <InputTrigger

@@ -76,7 +76,7 @@ export const useToolbarColors = (themeColor: ThemeColor) => {
     return {
       background:
         theme.mode === 'dark'
-          ? theme.colors.default.background
+          ? theme.colors.default.container
           : theme.colors.background,
       divider: withOpacity(theme.colors.foreground, 0.1),
       title: theme.colors.foreground,

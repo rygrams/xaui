@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 import type { StyleProp, TextStyle, ViewStyle } from 'react-native'
 import type { Radius, ThemeColor } from '../../types'
 
-export type InputTriggerVariant = 'flat' | 'faded' | 'bordered' | 'underlined'
+export type InputTriggerVariant = 'colored' | 'light' | 'bordered' | 'underlined'
 export type InputTriggerSize = 'sm' | 'md' | 'lg'
 export type InputTriggerLabelPlacement = 'outside' | 'inside'
 
@@ -56,7 +56,7 @@ export type InputTriggerProps = {
   themeColor?: ThemeColor
   /**
    * Visual style variant.
-   * @default 'flat'
+   * @default 'colored'
    */
   variant?: InputTriggerVariant
   /**
@@ -96,3 +96,88 @@ export type InputTriggerEvents = {
    */
   onPress?: () => void
 }
+
+export type FileInputTriggerCustomAppearance = {
+  container?: StyleProp<ViewStyle>
+  inputContainer?: StyleProp<ViewStyle>
+  inputWrapper?: StyleProp<ViewStyle>
+  plusButton?: StyleProp<ViewStyle>
+  label?: StyleProp<TextStyle>
+  content?: StyleProp<TextStyle>
+  helperText?: StyleProp<TextStyle>
+}
+
+export type FileInputTriggerProps = {
+  /**
+   * Value rendered in the center content area.
+   */
+  value?: ReactNode
+  /**
+   * Placeholder text shown when value is empty.
+   */
+  placeholder?: string
+  /**
+   * Label displayed above or inside the trigger.
+   */
+  label?: ReactNode
+  /**
+   * Position of the label relative to the trigger.
+   * @default 'outside'
+   */
+  labelPlacement?: InputTriggerLabelPlacement
+  /**
+   * Optional helper text below the trigger.
+   */
+  description?: ReactNode
+  /**
+   * Error text shown when isInvalid is true.
+   */
+  errorMessage?: ReactNode
+  /**
+   * Theme color for the trigger.
+   * @default 'primary'
+   */
+  themeColor?: ThemeColor
+  /**
+   * Visual style variant.
+   * @default 'colored'
+   */
+  variant?: InputTriggerVariant
+  /**
+   * Size of the trigger.
+   * @default 'md'
+   */
+  size?: InputTriggerSize
+  /**
+   * Border radius.
+   * @default 'md'
+   */
+  radius?: Radius
+  /**
+   * Whether the trigger is disabled.
+   * @default false
+   */
+  isDisabled?: boolean
+  /**
+   * Whether the trigger is invalid.
+   * @default false
+   */
+  isInvalid?: boolean
+  /**
+   * Whether the component takes full width.
+   * @default false
+   */
+  fullWidth?: boolean
+  /**
+   * Optional fully custom center content.
+   */
+  centerContent?: ReactNode
+  /**
+   * Content shown when a file is selected (for image/video preview).
+   */
+  selectedContent?: ReactNode
+  /**
+   * Custom style overrides for file trigger parts.
+   */
+  customAppearance?: FileInputTriggerCustomAppearance
+} & InputTriggerEvents

@@ -21,8 +21,8 @@ export default function ButtonsScreen() {
           <Button themeColor="primary" variant="solid">
             Solid
           </Button>
-          <Button themeColor="primary" variant="outlined">
-            Outlined
+          <Button themeColor="primary" variant="bordered">
+            Bordered
           </Button>
           <Button themeColor="primary" variant="flat">
             Flat
@@ -44,16 +44,16 @@ export default function ButtonsScreen() {
           Sizes
         </Text>
         <View style={{ gap: theme.spacing.md }}>
-          <Button size="xs" variant="outlined">
+          <Button size="xs" variant="bordered">
             Extra Small
           </Button>
-          <Button size="sm" variant="outlined">
+          <Button size="sm" variant="bordered">
             Small
           </Button>
-          <Button size="md" variant="outlined">
+          <Button size="md" variant="bordered">
             Medium
           </Button>
-          <Button size="lg" variant="outlined">
+          <Button size="lg" variant="bordered">
             Large
           </Button>
         </View>
@@ -92,7 +92,7 @@ export default function ButtonsScreen() {
           >
             {isLoading ? 'Loading...' : 'Tap to Load'}
           </Button>
-          <Button fullWidth variant="outlined" themeColor="secondary">
+          <Button fullWidth variant="bordered" themeColor="secondary">
             Full Width Button
           </Button>
         </View>
@@ -119,9 +119,9 @@ export default function ButtonsScreen() {
           </Button>
           <Button
             themeColor="success"
-            variant="outlined"
-            startContent={<Text style={styles.iconOutlined}>✓</Text>}
-            endContent={<Text style={styles.iconOutlined}>↗</Text>}
+            variant="bordered"
+            startContent={<Text style={styles.iconBordered}>✓</Text>}
+            endContent={<Text style={styles.iconBordered}>↗</Text>}
           >
             Both Sides
           </Button>
@@ -191,7 +191,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     fontWeight: 'bold',
   },
-  iconOutlined: {
+  iconBordered: {
     fontSize: 14,
     fontWeight: 'bold',
   },

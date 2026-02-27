@@ -3,7 +3,7 @@ import { StyleSheet, View, ScrollView, Text } from 'react-native'
 import { useState } from 'react'
 import { NumberInput } from '@xaui/native/input'
 
-const variants = ['flat', 'faded', 'bordered', 'underlined'] as const
+const variants = ['colored', 'light', 'bordered', 'underlined'] as const
 const themeColors = [
   'default',
   'primary',
@@ -154,7 +154,7 @@ export default function NumberInputScreen() {
               label={themeColor}
               defaultValue={0}
               themeColor={themeColor}
-              variant="faded"
+              variant="light"
             />
           ))}
         </View>
@@ -178,7 +178,7 @@ export default function NumberInputScreen() {
             label="Disabled"
             defaultValue={42}
             isDisabled
-            variant="flat"
+            variant="colored"
           />
         </View>
       </View>

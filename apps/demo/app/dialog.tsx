@@ -54,7 +54,7 @@ export default function DialogScreen() {
             → {deleteStatus}
           </Text>
         )}
-        <Button themeColor="danger" variant="outlined" onPress={() => setDeleteOpen(true)}>
+        <Button themeColor="danger" variant="bordered" onPress={() => setDeleteOpen(true)}>
           Delete Account
         </Button>
       </View>
@@ -81,7 +81,7 @@ export default function DialogScreen() {
           <Button
             size="sm"
             themeColor="primary"
-            variant="outlined"
+            variant="bordered"
             onPress={() => setPlacementOpen('top')}
           >
             Top
@@ -89,7 +89,7 @@ export default function DialogScreen() {
           <Button
             size="sm"
             themeColor="primary"
-            variant="outlined"
+            variant="bordered"
             onPress={() => setPlacementOpen('bottom')}
           >
             Bottom
@@ -106,7 +106,7 @@ export default function DialogScreen() {
           <Button
             size="sm"
             themeColor="secondary"
-            variant="outlined"
+            variant="bordered"
             onPress={() => setBackdropOpen('blurred')}
           >
             Blurred
@@ -114,7 +114,7 @@ export default function DialogScreen() {
           <Button
             size="sm"
             themeColor="secondary"
-            variant="outlined"
+            variant="bordered"
             onPress={() => setBackdropOpen('transparent')}
           >
             Transparent
@@ -131,7 +131,7 @@ export default function DialogScreen() {
           <Button
             size="sm"
             themeColor="tertiary"
-            variant="outlined"
+            variant="bordered"
             onPress={() => setSizeOpen('sm')}
           >
             Small
@@ -139,7 +139,7 @@ export default function DialogScreen() {
           <Button
             size="sm"
             themeColor="tertiary"
-            variant="outlined"
+            variant="bordered"
             onPress={() => setSizeOpen('lg')}
           >
             Large
@@ -147,7 +147,7 @@ export default function DialogScreen() {
           <Button
             size="sm"
             themeColor="tertiary"
-            variant="outlined"
+            variant="bordered"
             onPress={() => setSizeOpen('full')}
           >
             Full
@@ -370,7 +370,7 @@ export default function DialogScreen() {
         <DialogHeader>Payment Successful</DialogHeader>
         <DialogBody>
           <View style={styles.successContent}>
-            <View style={[styles.successIcon, { backgroundColor: theme.colors.success.background }]}>
+            <View style={[styles.successIcon, { backgroundColor: theme.colors.success.container }]}>
               <Text style={[styles.successEmoji, { color: theme.colors.success.main }]}>✓</Text>
             </View>
             <Text style={[styles.successAmount, { color: colors.foreground }]}>$129.00</Text>

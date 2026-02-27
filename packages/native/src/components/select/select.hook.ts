@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { getSafeThemeColor } from '@xaui/core'
+import { getSafeThemeColor, withOpacity } from '@xaui/core'
 import { colors } from '@xaui/core/palette'
 import { useXUITheme } from '../../core'
 import type { Radius, Size, ThemeColor } from '../../types'
@@ -100,31 +100,23 @@ export const useSelectVariantStyles = (
   return useMemo(() => {
     let borderColor = isInvalid ? theme.colors.danger.main : colorScheme.main
 
-    if (
-      (variant === 'outlined' || variant === 'faded') &&
-      themeColor === 'default'
-    ) {
+    if (variant === 'bordered' && themeColor === 'default') {
       borderColor = colors.gray[300]
     }
 
     const styles = {
-      outlined: {
+      bordered: {
         backgroundColor: 'transparent',
         borderWidth: theme.borderWidth.md,
         borderColor,
       },
-      flat: {
-        backgroundColor: colorScheme.background,
+      colored: {
+        backgroundColor: withOpacity(colorScheme.container, 0.5),
         borderWidth: 0,
       },
       light: {
         backgroundColor: 'transparent',
         borderWidth: 0,
-      },
-      faded: {
-        backgroundColor: `${colorScheme.background}90`,
-        borderWidth: theme.borderWidth.md,
-        borderColor,
       },
       underlined: {
         backgroundColor: 'transparent',

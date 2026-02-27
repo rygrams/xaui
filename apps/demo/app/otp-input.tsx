@@ -3,7 +3,7 @@ import { StyleSheet, View, ScrollView, Text } from 'react-native'
 import { useState } from 'react'
 import { OTPInput } from '@xaui/native/input'
 
-const variants = ['flat', 'faded', 'bordered', 'underlined'] as const
+const variants = ['colored', 'light', 'bordered', 'underlined'] as const
 const sizes = ['sm', 'md', 'lg'] as const
 const themeColors = [
   'default',
@@ -101,7 +101,7 @@ export default function OTPInputScreen() {
               key={themeColor}
               label={themeColor}
               themeColor={themeColor}
-              variant="faded"
+              variant="colored"
             />
           ))}
         </View>
@@ -151,7 +151,7 @@ export default function OTPInputScreen() {
             variant="bordered"
             themeColor="danger"
           />
-          <OTPInput label="Disabled" defaultValue="12" isDisabled variant="flat" />
+          <OTPInput label="Disabled" defaultValue="12" isDisabled variant="colored" />
         </View>
       </View>
 

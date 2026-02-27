@@ -22,7 +22,7 @@ export const LinearActivityIndicator: React.FC<ActivityIndicatorProps> = ({
   const colorScheme = theme.colors[themeColor]
   const mainColor = color || colorScheme.main
   const trackColor = showTrack
-    ? (backgroundColor ?? colorScheme.background)
+    ? (backgroundColor ?? colorScheme.container)
     : 'transparent'
 
   const barStyle = {

@@ -31,7 +31,7 @@ type ItemData = {
 
 export const Autocomplete: React.FC<AutocompleteProps> = ({
   children,
-  variant = 'flat',
+  variant = 'colored',
   themeColor = 'default',
   size = 'md',
   radius = 'md',

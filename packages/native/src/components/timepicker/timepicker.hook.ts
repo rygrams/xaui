@@ -85,7 +85,7 @@ export const useTimePickerColors = (themeColor: ThemeColor) => {
       background: theme.colors.background,
       surface: withOpacity(colorScheme.main, 0.12),
       primary: colorScheme.main,
-      onPrimary: colorScheme.foreground,
+      onPrimary: colorScheme.onMain,
       text: theme.colors.foreground,
       textSecondary: withOpacity(theme.colors.foreground, 0.6),
       border: withOpacity(theme.colors.foreground, 0.12),
@@ -94,7 +94,7 @@ export const useTimePickerColors = (themeColor: ThemeColor) => {
     }
   }, [
     colorScheme.main,
-    colorScheme.foreground,
+    colorScheme.onMain,
     theme.colors.background,
     theme.colors.foreground,
   ])

@@ -36,7 +36,7 @@ export function useFabMenuItemStyles(themeColor: ThemeColor) {
 
   const itemStyles = useMemo(() => {
     const chipStyles = {
-      backgroundColor: colorScheme.background,
+      backgroundColor: colorScheme.container,
       borderRadius: theme.borderRadius.full,
       color: colorScheme.main,
       fontSize: theme.fontSizes.md,

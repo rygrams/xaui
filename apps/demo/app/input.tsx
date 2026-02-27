@@ -3,7 +3,7 @@ import { StyleSheet, View, ScrollView, Text } from 'react-native'
 import { useState } from 'react'
 import { TextInput } from '@xaui/native/input'
 
-const variants = ['flat', 'faded', 'bordered', 'underlined'] as const
+const variants = ['colored', 'light', 'bordered', 'underlined'] as const
 const sizes = ['sm', 'md', 'lg'] as const
 const themeColors = [
   'default',
@@ -75,7 +75,7 @@ export default function InputScreen() {
               labelPlacement="inside"
               placeholder={`${themeColor} themed input`}
               themeColor={themeColor}
-              variant="faded"
+              variant="light"
             />
           ))}
         </View>
@@ -140,7 +140,7 @@ export default function InputScreen() {
             label="Disabled"
             defaultValue="Cannot edit this field"
             isDisabled
-            variant="flat"
+            variant="colored"
           />
         </View>
       </View>
@@ -155,7 +155,7 @@ export default function InputScreen() {
             placeholder="Type to search"
             value={customValue}
             onValueChange={setCustomValue}
-            variant="faded"
+            variant="light"
             radius="full"
             isClearable
             startContent={

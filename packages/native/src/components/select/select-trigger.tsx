@@ -82,7 +82,7 @@ export const SelectTrigger: React.FC<SelectTriggerProps> = ({
         accessibilityState={{ disabled: isDisabled, expanded: isOpen }}
         style={[
           styles.trigger,
-          radiusStyles,
+          variant === 'underlined' ? { borderRadius: 0 } : radiusStyles,
           variantStyles,
           {
             minHeight: sizeStyles.minHeight,

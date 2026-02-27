@@ -83,20 +83,20 @@ export default function App() {
 The `XUIProvider` automatically switches between light and dark themes based on the system's color scheme:
 
 ```typescript
-import { XUIProvider, theme, darkTheme } from '@xaui/core/theme'
+import { XUIProvider, theme } from '@xaui/core/theme'
 
 export default function App() {
   return (
-    <XUIProvider theme={theme} darkTheme={darkTheme}>
+    <XUIProvider theme={theme}>
       {/* Your app content will automatically switch between light and dark themes */}
     </XUIProvider>
   )
 }
 ```
 
-### Custom Light and Dark Themes
+### Custom Theme Overrides
 
-You can provide custom themes for both light and dark modes:
+You can provide a single partial theme override:
 
 ```typescript
 import { XUIProvider } from '@xaui/core/theme'
@@ -113,22 +113,10 @@ const customLightTheme = {
   },
 }
 
-const customDarkTheme = {
-  colors: {
-    primary: {
-      main: '#60A5FA',
-      foreground: '#1F2937',
-      background: '#1E3A8A',
-    },
-    background: '#000000',
-    foreground: '#FFFFFF',
-  },
-}
-
 export default function App() {
   return (
-    <XUIProvider theme={customLightTheme} darkTheme={customDarkTheme}>
-      {/* Automatically switches between custom light and dark themes */}
+    <XUIProvider theme={customLightTheme}>
+      {/* Theme overrides merged with defaults */}
     </XUIProvider>
   )
 }

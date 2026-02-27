@@ -146,10 +146,9 @@ export const useTextInputVariantStyles = ({
       }
     }
 
-    if (variant === 'faded') {
+    if (variant === 'light') {
       return {
         container: {
-          backgroundColor: withOpacity(colorScheme.background, 0.68),
           borderColor: isFocused || isInvalid ? focusColor : 'transparent',
           borderWidth: isFocused || isInvalid ? theme.borderWidth.md : 0,
         },
@@ -164,7 +163,7 @@ export const useTextInputVariantStyles = ({
 
     return {
       container: {
-        backgroundColor: colorScheme.background,
+        backgroundColor: withOpacity(colorScheme.container, 0.5),
         borderColor:
           isFocused || isInvalid
             ? withPaletteNumber(focusColor, 500)

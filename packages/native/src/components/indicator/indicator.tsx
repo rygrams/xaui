@@ -23,7 +23,7 @@ export const ActivityIndicator: React.FC<ActivityIndicatorProps> = props => {
   const colorScheme = theme.colors[themeColor]
   const mainColor = color ?? colorScheme.main
   const trackColor =
-    backgroundColor ?? (showTrack ? colorScheme.background : 'transparent')
+    backgroundColor ?? (showTrack ? colorScheme.container : 'transparent')
 
   if (variant === 'circular') {
     const circleSize = size ?? 40

@@ -65,15 +65,15 @@ export function useAvatarColors(themeColor: ThemeColor, isDisabled: boolean) {
     if (isDisabled) {
       return theme.colors.background
     }
-    return colorScheme.background
-  }, [colorScheme.background, isDisabled, theme.colors.background])
+    return colorScheme.container
+  }, [colorScheme.container, isDisabled, theme.colors.background])
 
   const textColor = useMemo(() => {
     if (safeThemeColor === 'default') {
       return theme.colors.foreground
     }
-    return colorScheme.main
-  }, [safeThemeColor, colorScheme.main, theme.colors.foreground])
+    return colorScheme.onContainer
+  }, [safeThemeColor, colorScheme.onContainer, theme.colors.foreground])
 
   return {
     backgroundColor,

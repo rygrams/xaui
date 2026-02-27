@@ -40,9 +40,9 @@ export const useSnackbarColors = (themeColor: ThemeColor = 'default') => {
     const colorScheme = theme.colors[safeThemeColor]
     return {
       containerColor: colorScheme.main,
-      textColor: colorScheme.foreground,
-      actionColor: withOpacity(colorScheme.foreground, 0.82),
-      pressedOverlayColor: withOpacity(colorScheme.foreground, 0.16),
+      textColor: colorScheme.onMain,
+      actionColor: withOpacity(colorScheme.onMain, 0.82),
+      pressedOverlayColor: withOpacity(colorScheme.onMain, 0.16),
     }
   }, [safeThemeColor, theme])
 }

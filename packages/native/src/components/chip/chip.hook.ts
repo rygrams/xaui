@@ -72,33 +72,33 @@ export function useChipVariantStyles(themeColor: ThemeColor, variant: ChipVarian
         }
       case 'flat':
         return {
-          backgroundColor: colorScheme.background,
-          color: colorScheme.main,
+          backgroundColor: colorScheme.container,
+          color: colorScheme.onContainer,
         }
       case 'faded':
         return {
-          backgroundColor: withOpacity(colorScheme.background, 0.7),
-          color: colorScheme.main,
+          backgroundColor: withOpacity(colorScheme.container, 0.7),
+          color: colorScheme.onContainer,
           borderWidth: 1,
           borderColor: withOpacity(colorScheme.main, 0.3),
         }
       case 'shadow':
         return {
           backgroundColor: colorScheme.main,
-          color: colorScheme.foreground,
+          color: colorScheme.onMain,
           shadow: theme.shadows.sm,
         }
       case 'dot':
         return {
-          backgroundColor: colorScheme.background,
-          color: colorScheme.main,
+          backgroundColor: colorScheme.container,
+          color: colorScheme.onContainer,
           dotColor: colorScheme.main,
         }
       case 'solid':
       default:
         return {
           backgroundColor: colorScheme.main,
-          color: colorScheme.foreground,
+          color: colorScheme.onMain,
         }
     }
   }, [colorScheme, theme, variant])

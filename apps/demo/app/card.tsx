@@ -47,7 +47,7 @@ export default function CardScreen() {
             <Button size="sm" themeColor="primary" variant="solid">
               Explore
             </Button>
-            <Button size="sm" variant="outlined">
+            <Button size="sm" variant="bordered">
               Save
             </Button>
           </CardFooter>
@@ -138,7 +138,7 @@ export default function CardScreen() {
             <Button size="sm" themeColor="primary" variant="solid">
               Follow
             </Button>
-            <Button size="sm" variant="outlined">
+            <Button size="sm" variant="bordered">
               Message
             </Button>
           </CardFooter>
@@ -157,7 +157,7 @@ export default function CardScreen() {
             </CardDescription>
           </CardBody>
           <CardFooter>
-            <Button size="sm" variant="outlined">
+            <Button size="sm" variant="bordered">
               Learn more
             </Button>
           </CardFooter>
@@ -240,7 +240,7 @@ export default function CardScreen() {
             </CardDescription>
           </CardBody>
           <CardFooter>
-            <Button size="sm" variant="outlined">
+            <Button size="sm" variant="bordered">
               Action
             </Button>
           </CardFooter>

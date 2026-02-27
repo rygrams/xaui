@@ -12,8 +12,9 @@ const customLightTheme = {
   colors: {
     primary: {
       main: '#2563EB',
-      foreground: '#FFFFFF',
-      background: '#DBEAFE',
+      onMain: '#FFFFFF',
+      container: '#DBEAFE',
+      onContainer: '#1E40AF',
     },
     background: '#FFFFFF',
     foreground: '#0F172A',
@@ -24,21 +25,9 @@ const customLightTheme = {
   },
 }
 
-const customDarkTheme = {
-  colors: {
-    primary: {
-      main: '#60A5FA',
-      foreground: '#0B1220',
-      background: '#1E3A8A',
-    },
-    background: '#020617',
-    foreground: '#E2E8F0',
-  },
-}
-
 export default function App() {
   return (
-    <XUIProvider theme={customLightTheme} darkTheme={customDarkTheme}>
+    <XUIProvider theme={customLightTheme}>
       <YourApp />
     </XUIProvider>
   )
@@ -73,11 +62,13 @@ export default function ThemePage() {
   return (
     <div className="space-y-8">
       <div className="space-y-4">
-        <h1 className="text-3xl font-bold tracking-tight md:text-4xl">Theme Customization</h1>
+        <h1 className="text-3xl font-bold tracking-tight md:text-4xl">
+          Theme Customization
+        </h1>
         <p className="text-base text-muted-foreground max-w-3xl md:text-xl">
           Customize Xaui to match your brand by overriding only the tokens you need.
-          You can define separate light and dark themes while keeping all defaults for
-          tokens you do not override.
+          Provide partial overrides and keep defaults for everything you do not
+          specify.
         </p>
       </div>
 
@@ -87,12 +78,7 @@ export default function ThemePage() {
           <li>
             Pass a partial object to
             <span className="font-mono text-xs"> theme </span>
-            for light mode.
-          </li>
-          <li>
-            Pass a partial object to
-            <span className="font-mono text-xs"> darkTheme </span>
-            for dark mode.
+            to override tokens.
           </li>
           <li>
             Xaui merges your overrides with defaults, so you only customize what you
@@ -104,8 +90,7 @@ export default function ThemePage() {
       <section className="space-y-4">
         <h2 className="text-xl font-semibold md:text-2xl">Provider Setup</h2>
         <p className="text-muted-foreground">
-          Start by configuring your app-level provider with custom light and dark
-          tokens.
+          Start by configuring your app-level provider with partial custom tokens.
         </p>
         <CodeBlock code={providerCode} />
       </section>
@@ -122,9 +107,14 @@ export default function ThemePage() {
       </section>
 
       <section className="space-y-4">
-        <h2 className="text-xl font-semibold md:text-2xl">Recommended Customization Order</h2>
+        <h2 className="text-xl font-semibold md:text-2xl">
+          Recommended Customization Order
+        </h2>
         <ol className="list-decimal pl-6 text-muted-foreground space-y-1">
-          <li>Set core brand colors: primary, background, and foreground.</li>
+          <li>
+            Set core brand colors: primary (main, onMain, container, onContainer),
+            background, and foreground.
+          </li>
           <li>Tune border radius and spacing to match your product identity.</li>
           <li>Adjust typography tokens only when needed for readability.</li>
           <li>Validate both light and dark modes on real screens.</li>

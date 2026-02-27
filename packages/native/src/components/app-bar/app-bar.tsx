@@ -27,11 +27,11 @@ export const AppBar: React.FC<AppBarProps> = ({
 
   const backgroundColor = isDefaultThemeColor
     ? theme.mode === 'dark'
-      ? theme.colors.default.background
+      ? theme.colors.default.container
       : isFloating
         ? theme.palette.gray[200]
         : '#FFFFFF'
-    : colorScheme.background
+    : colorScheme.container
 
   const borderBottomColor = isDefaultThemeColor
     ? theme.mode === 'dark'

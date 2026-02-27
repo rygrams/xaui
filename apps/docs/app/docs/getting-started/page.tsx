@@ -13,7 +13,9 @@ export default function GettingStartedPage() {
   return (
     <div className="space-y-8">
       <div className="space-y-4">
-        <h1 className="text-3xl font-bold tracking-tight md:text-4xl">Getting Started</h1>
+        <h1 className="text-3xl font-bold tracking-tight md:text-4xl">
+          Getting Started
+        </h1>
         <p className="text-base text-muted-foreground md:text-xl">
           Learn how to set up Xaui in your React Native project and start building
           beautiful user interfaces.
@@ -46,7 +48,9 @@ export default function GettingStartedPage() {
         </section>
 
         <section className="space-y-4">
-          <h2 className="text-xl font-semibold md:text-2xl">2. Theme Customization</h2>
+          <h2 className="text-xl font-semibold md:text-2xl">
+            2. Theme Customization
+          </h2>
           <p className="text-muted-foreground">
             Xaui lets you override only the parts of the theme you need. You can
             customize brand colors, surface colors, text colors, typography tokens,
@@ -54,10 +58,8 @@ export default function GettingStartedPage() {
           </p>
           <ul className="list-disc pl-6 text-muted-foreground space-y-1">
             <li>
-              Use <span className="font-mono text-xs">theme</span> for light mode.
-            </li>
-            <li>
-              Use <span className="font-mono text-xs">darkTheme</span> for dark mode.
+              Use <span className="font-mono text-xs">theme</span> to override
+              tokens.
             </li>
             <li>Pass partial objects: non-overridden tokens keep default values.</li>
           </ul>
@@ -68,13 +70,15 @@ const customLightTheme = {
   colors: {
     primary: {
       main: '#2563EB',
-      foreground: '#FFFFFF',
-      background: '#DBEAFE',
+      onMain: '#FFFFFF',
+      container: '#DBEAFE',
+      onContainer: '#1E40AF',
     },
     secondary: {
       main: '#0EA5E9',
-      foreground: '#FFFFFF',
-      background: '#E0F2FE',
+      onMain: '#FFFFFF',
+      container: '#E0F2FE',
+      onContainer: '#0369A1',
     },
     background: '#FFFFFF',
     foreground: '#0F172A',
@@ -85,21 +89,9 @@ const customLightTheme = {
   },
 }
 
-const customDarkTheme = {
-  colors: {
-    primary: {
-      main: '#60A5FA',
-      foreground: '#0B1220',
-      background: '#1E3A8A',
-    },
-    background: '#020617',
-    foreground: '#E2E8F0',
-  },
-}
-
 export default function App() {
   return (
-    <XUIProvider theme={customLightTheme} darkTheme={customDarkTheme}>
+    <XUIProvider theme={customLightTheme}>
       <YourApp />
     </XUIProvider>
   )
@@ -107,7 +99,8 @@ export default function App() {
           />
           <p className="text-sm text-muted-foreground">
             Tip: Start by overriding only
-            <span className="font-mono text-xs"> colors.primary </span>and
+            <span className="font-mono text-xs"> colors.primary </span>(main, onMain,
+            container, onContainer) and
             <span className="font-mono text-xs"> colors.background </span>
             to quickly align Xaui with your brand, then extend to spacing and
             typography if needed.

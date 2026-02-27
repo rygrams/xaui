@@ -55,7 +55,7 @@ export const useSelectItemBackgroundColor = (
 
   return useMemo(() => {
     if (isSelected) {
-      return colorScheme.background
+      return colorScheme.container
     }
 
     return 'transparent'

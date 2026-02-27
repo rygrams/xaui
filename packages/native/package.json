@@ -251,6 +251,11 @@
       "types": "./dist/snippet/index.d.ts",
       "import": "./dist/snippet/index.js",
       "require": "./dist/snippet/index.js"
+    },
+    "./refresh-control": {
+      "types": "./dist/refresh-control/index.d.ts",
+      "import": "./dist/refresh-control/index.js",
+      "require": "./dist/refresh-control/index.js"
     }
   },
   "files": [

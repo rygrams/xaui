@@ -76,8 +76,8 @@ export default function ColorPickerScreen() {
           onColorChange={setBgColor}
         />
         <ColorPicker
-          label="Faded"
-          variant="faded"
+          label="Colored"
+          variant="colored"
           themeColor="success"
           value={bgColor}
           onColorChange={setBgColor}

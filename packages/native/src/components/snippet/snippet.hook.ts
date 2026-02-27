@@ -34,7 +34,7 @@ export const useSnippetColors = (
 
     if (variant === 'flat') {
       return {
-        containerBackground: colorScheme.background,
+        containerBackground: colorScheme.container,
         containerBorder: 'transparent',
         text: textColor,
         copyButtonBackground: withOpacity(colorScheme.main, isDark ? 0.2 : 0.14),

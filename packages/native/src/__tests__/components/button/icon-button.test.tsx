@@ -36,7 +36,7 @@ describe('IconButton Types', () => {
   it('accepts all variants', () => {
     const variants: Array<IconButtonProps['variant']> = [
       'solid',
-      'outlined',
+      'bordered',
       'flat',
       'light',
       'faded',

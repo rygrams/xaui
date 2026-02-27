@@ -79,7 +79,7 @@ export function useDotColors(
 
     if (variant === 'filled') {
       return {
-        checked: colorScheme.foreground,
+        checked: colorScheme.onMain,
       }
     }
 
@@ -103,7 +103,7 @@ export function useVariantStyles(
   const variantStyles = useMemo(() => {
     if (variant === 'filled') {
       return {
-        backgroundColor: 'transparent',
+        backgroundColor: isActive ? colorScheme.main : 'transparent',
         borderWidth: isActive ? 0 : theme.borderWidth.md,
         borderColor: isActive ? 'transparent' : colorScheme.main,
       }

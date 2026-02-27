@@ -30,7 +30,7 @@ export const Badge: React.FC<BadgeProps> = ({
     return null
   }
 
-  const forceOneChar = isOneChar || radius === 'full'
+  const forceOneChar = isOneChar
   const sizeStyles = useBadgeSizeStyles(size, isDot, forceOneChar)
   const variantStyles = useBadgeVariantStyles(themeColor, variant)
   const radiusStyles = useBadgeRadiusStyles(radius, sizeStyles.height)

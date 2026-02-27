@@ -43,7 +43,7 @@ describe('Button Types', () => {
   it('accepts all variants', () => {
     const variants: Array<ButtonProps['variant']> = [
       'solid',
-      'outlined',
+      'bordered',
       'flat',
       'light',
       'faded',

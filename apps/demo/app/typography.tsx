@@ -95,7 +95,7 @@ export default function TypographyScreen() {
             textTransform="uppercase"
             spacing={6}
             align="center"
-            backgroundColor={colors.primary.background}
+            backgroundColor={colors.primary.container}
           >
             <Typography>Voici un texte avec</Typography>
             <Typography letterSpacing={0.5}>une portion stylée</Typography>

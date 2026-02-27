@@ -153,7 +153,7 @@ export default function FeatureDiscoveryScreen() {
               style={[
                 styles.listItem,
                 {
-                  backgroundColor: theme.colors.default.background,
+                  backgroundColor: theme.colors.default.container,
                   borderColor: 'rgba(0, 0, 0, 0.08)',
                 },
               ]}
@@ -178,7 +178,7 @@ export default function FeatureDiscoveryScreen() {
             ]}
           >
             <Text
-              style={[styles.fabText, { color: theme.colors.primary.foreground }]}
+              style={[styles.fabText, { color: theme.colors.primary.onMain }]}
             >
               +1
             </Text>
@@ -198,7 +198,7 @@ export default function FeatureDiscoveryScreen() {
             ]}
           >
             <Text
-              style={[styles.fabText, { color: theme.colors.danger.foreground }]}
+              style={[styles.fabText, { color: theme.colors.danger.onMain }]}
             >
               -1
             </Text>
@@ -220,7 +220,7 @@ export default function FeatureDiscoveryScreen() {
             style={[
               styles.discoveryFab,
               {
-                backgroundColor: theme.colors[currentThemeColor].foreground,
+                backgroundColor: theme.colors[currentThemeColor].onMain,
               },
             ]}
           >

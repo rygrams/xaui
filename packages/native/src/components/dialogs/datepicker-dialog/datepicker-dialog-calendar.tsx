@@ -54,7 +54,7 @@ const AnimatedDayCell: React.FC<AnimatedDayCellProps> = ({
   const colorScheme = theme.colors[themeColor] ?? theme.colors.primary
   const isDefault = themeColor === 'default'
   const accentColor = isDefault ? theme.colors.foreground : colorScheme.main
-  const accentFg = isDefault ? theme.colors.background : colorScheme.foreground
+  const accentFg = isDefault ? theme.colors.background : colorScheme.onMain
   const scaleAnim = useRef(new Animated.Value(isSelected ? 1 : 0)).current
 
   useEffect(() => {
