@@ -84,13 +84,9 @@ export const useDatePickerVariantStyles = (
   const { theme, colorScheme } = useDatePickerColorScheme(themeColor)
 
   return useMemo(() => {
-    const isDark = theme.mode === 'dark'
     let borderColor = isInvalid ? theme.colors.danger.main : colorScheme.main
 
-    if (
-      variant === 'bordered' &&
-      themeColor === 'default'
-    ) {
+    if (variant === 'bordered' && themeColor === 'default') {
       borderColor = colors.gray[300]
     }
 
@@ -101,7 +97,7 @@ export const useDatePickerVariantStyles = (
         borderColor,
       },
       colored: {
-        backgroundColor: withOpacity(colorScheme.container, isDark ? 0.25 : 0.45),
+        backgroundColor: withOpacity(colorScheme.container, 0.5),
         borderWidth: 0,
       },
       light: {

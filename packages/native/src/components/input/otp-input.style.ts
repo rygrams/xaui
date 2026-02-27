@@ -40,4 +40,10 @@ export const otpStyles = StyleSheet.create({
   disabled: {
     opacity: 0.6,
   },
+  underline: {
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
+  },
 })

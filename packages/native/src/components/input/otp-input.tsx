@@ -45,6 +45,7 @@ const OTPSegment = ({
   onPress: () => void
 }) => {
   const borderAnimation = useRef(new Animated.Value(0)).current
+  const isUnderlined = variantStyles.container.borderBottomWidth !== undefined
 
   useEffect(() => {
     Animated.timing(borderAnimation, {
@@ -53,6 +54,11 @@ const OTPSegment = ({
       useNativeDriver: false,
     }).start()
   }, [borderAnimation, isActive])
+
+  const animatedBorderColor = borderAnimation.interpolate({
+    inputRange: [0, 1],
+    outputRange: [variantStyles.unfocusedBorderColor, variantStyles.focusedBorderColor],
+  })
 
   return (
     <Pressable
@@ -70,15 +76,9 @@ const OTPSegment = ({
             width: sizeStyles.width,
             height: sizeStyles.height,
             backgroundColor: variantStyles.container.backgroundColor,
-            borderWidth: variantStyles.container.borderWidth ?? 0,
-            borderRadius: radiusStyles.borderRadius,
-            borderColor: borderAnimation.interpolate({
-              inputRange: [0, 1],
-              outputRange: [
-                variantStyles.unfocusedBorderColor,
-                variantStyles.focusedBorderColor,
-              ],
-            }),
+            borderWidth: isUnderlined ? 0 : (variantStyles.container.borderWidth ?? 0),
+            borderRadius: isUnderlined ? 0 : radiusStyles.borderRadius,
+            borderColor: isUnderlined ? undefined : animatedBorderColor,
           },
           customSegment?.segment,
         ]}
@@ -117,6 +117,19 @@ const OTPSegment = ({
           editable={!isDisabled}
           caretHidden
         />
+        {isUnderlined && (
+          <Animated.View
+            style={[
+              otpStyles.underline,
+              {
+                height: isActive
+                  ? variantStyles.container.borderBottomWidth
+                  : 1,
+                backgroundColor: animatedBorderColor,
+              },
+            ]}
+          />
+        )}
       </Animated.View>
     </Pressable>
   )

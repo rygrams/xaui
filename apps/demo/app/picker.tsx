@@ -82,9 +82,9 @@ export default function PickerScreen() {
           onValueChange={setSize}
         />
         <Picker
-          label="Faded"
+          label="Colored"
           placeholder="Select a plan..."
-          variant="faded"
+          variant="colored"
           themeColor="secondary"
           options={[
             { label: 'Free', value: 'free' },
