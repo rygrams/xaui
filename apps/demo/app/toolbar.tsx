@@ -38,7 +38,7 @@ export default function ToolbarScreen() {
         </Text>
         <Button
           size="sm"
-          variant="outlined"
+          variant="bordered"
           themeColor="primary"
           onPress={() => setIsFloatingBottomVisible(prev => !prev)}
         >
@@ -84,7 +84,7 @@ export default function ToolbarScreen() {
         </Text>
         <Button
           size="sm"
-          variant="outlined"
+          variant="bordered"
           themeColor="secondary"
           onPress={() => setIsDockedTopVisible(prev => !prev)}
         >
@@ -197,7 +197,7 @@ export default function ToolbarScreen() {
         </Text>
         <Button
           size="sm"
-          variant="outlined"
+          variant="bordered"
           themeColor="success"
           onPress={() => setIsVerticalVisible(prev => !prev)}
         >

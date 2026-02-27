@@ -18,10 +18,8 @@ export const useTextStyles = (themeColor: ThemeColor, variant: ButtonVariant) =>
   const colorScheme = theme.colors[safeThemeColor]
 
   const textColor = useMemo(() => {
-    const isDark = theme.mode === 'dark'
-    if (variant === 'solid') {
-      return isDark ? colorScheme.main : colorScheme.foreground
-    }
+    if (variant === 'solid') return colorScheme.foreground
+
     return colorScheme.main
   }, [variant, colorScheme, theme])
 
@@ -95,7 +93,7 @@ export function useVariantSizesStyles(
         backgroundColor: isDark ? colorScheme.background : colorScheme.main,
         borderWidth: 0,
       },
-      outlined: {
+      bordered: {
         backgroundColor: 'transparent',
         borderWidth: theme.borderWidth.md,
         borderColor: colorScheme.main,
@@ -111,14 +109,19 @@ export function useVariantSizesStyles(
         borderWidth: 0,
       },
       faded: {
-        backgroundColor: `${colorScheme.background}95`,
+        backgroundColor: isDark
+          ? withOpacity(colorScheme.background, 0.5)
+          : colorScheme.background,
         borderWidth: theme.borderWidth.md,
-        borderColor: `${colorScheme.main}90`,
+        borderColor: withOpacity(
+          isDark ? colorScheme.background : colorScheme.main,
+          0.75
+        ),
       },
     } as const
 
     const baseStyle = styles[variant]
-    const shouldApplyElevation = variant !== 'outlined' && variant !== 'light'
+    const shouldApplyElevation = variant !== 'bordered' && variant !== 'light'
 
     const shadowStyles =
       elevation === 0

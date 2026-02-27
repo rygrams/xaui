@@ -2088,7 +2088,7 @@ export default function TabLayout() {
       },
       {
         name: 'variant',
-        type: '"solid" | "outlined" | "flat" | "light" | "faded"',
+        type: '"solid" | "bordered" | "flat" | "light" | "faded"',
         defaultValue: '"solid"',
         description: 'Visual style variant',
       },
@@ -2192,7 +2192,7 @@ export function VariantsExample() {
   return (
     <Column gap={8}>
       <Button variant="solid">Solid</Button>
-      <Button variant="outlined">Outlined</Button>
+      <Button variant="bordered">Bordered</Button>
       <Button variant="flat">Flat</Button>
       <Button variant="light">Light</Button>
       <Button variant="faded">Faded</Button>
@@ -2311,7 +2311,7 @@ export function IconButtonExample() {
           },
           {
             name: 'variant',
-            type: '"solid" | "outlined" | "flat" | "light" | "faded"',
+            type: '"solid" | "bordered" | "flat" | "light" | "faded"',
             defaultValue: '"solid"',
             description: 'Visual style variant',
           },
@@ -6923,7 +6923,7 @@ export function BasicMenuExample() {
         setVisible(false)
       }}
       trigger={
-        <Button variant="outlined" onPress={() => setVisible(true)}>
+        <Button variant="bordered" onPress={() => setVisible(true)}>
           Open menu
         </Button>
       }
@@ -7338,9 +7338,9 @@ export function ControlledPagerExample() {
   return (
     <Column gap={10}>
       <Row spacing={8}>
-        <Button size="sm" variant="outlined" onPress={() => setPage(0)}>1</Button>
-        <Button size="sm" variant="outlined" onPress={() => setPage(1)}>2</Button>
-        <Button size="sm" variant="outlined" onPress={() => setPage(2)}>3</Button>
+        <Button size="sm" variant="bordered" onPress={() => setPage(0)}>1</Button>
+        <Button size="sm" variant="bordered" onPress={() => setPage(1)}>2</Button>
+        <Button size="sm" variant="bordered" onPress={() => setPage(2)}>3</Button>
       </Row>
 
       <Pager page={page} onPageChange={setPage}>
@@ -8451,7 +8451,7 @@ export function SkeletonLoadedStateExample() {
 
   return (
     <Column gap={10}>
-      <Button size="sm" variant="outlined" onPress={() => setIsLoaded(v => !v)}>
+      <Button size="sm" variant="bordered" onPress={() => setIsLoaded(v => !v)}>
         {isLoaded ? 'Show Skeleton' : 'Show Loaded Content'}
       </Button>
       <Skeleton isLoaded={isLoaded} width="100%" height={18}>
@@ -9801,7 +9801,7 @@ export function ToolbarStateExample() {
 
   return (
     <Column gap={10}>
-      <Button size="sm" variant="outlined" onPress={() => setVisible(v => !v)}>
+      <Button size="sm" variant="bordered" onPress={() => setVisible(v => !v)}>
         {visible ? 'Hide' : 'Show'} Toolbar
       </Button>
       <Toolbar isVisible={visible} variant="floating" position="bottom">

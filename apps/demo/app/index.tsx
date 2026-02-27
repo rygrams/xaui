@@ -25,7 +25,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/chart')}
-            variant="outlined"
+            variant="bordered"
             themeColor="secondary"
           >
             Chart
@@ -35,7 +35,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/expansion-panel')}
-            variant="outlined"
+            variant="bordered"
             themeColor="primary"
           >
             Expansion Panel
@@ -45,7 +45,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/alerts')}
-            variant="outlined"
+            variant="bordered"
             themeColor="secondary"
           >
             Alert
@@ -55,7 +55,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/avatars')}
-            variant="outlined"
+            variant="bordered"
             themeColor="secondary"
           >
             Avatar
@@ -65,7 +65,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/badges')}
-            variant="outlined"
+            variant="bordered"
             themeColor="primary"
           >
             Badge
@@ -75,7 +75,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/bottom-sheet')}
-            variant="outlined"
+            variant="bordered"
             themeColor="secondary"
           >
             Bottom Sheet
@@ -85,7 +85,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/bottom-tab-bar')}
-            variant="outlined"
+            variant="bordered"
             themeColor="primary"
           >
             BottomTabBar
@@ -95,7 +95,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/app-bar')}
-            variant="outlined"
+            variant="bordered"
             themeColor="primary"
           >
             AppBar
@@ -105,7 +105,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/buttons')}
-            variant="outlined"
+            variant="bordered"
             themeColor="secondary"
           >
             Button
@@ -115,7 +115,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/card')}
-            variant="outlined"
+            variant="bordered"
             themeColor="primary"
           >
             Card
@@ -125,7 +125,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/carousel')}
-            variant="outlined"
+            variant="bordered"
             themeColor="secondary"
           >
             Carousel
@@ -135,7 +135,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/checkbox')}
-            variant="outlined"
+            variant="bordered"
             themeColor="primary"
           >
             Checkbox
@@ -145,7 +145,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/chips')}
-            variant="outlined"
+            variant="bordered"
             themeColor="primary"
           >
             Chip
@@ -155,7 +155,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/dialog')}
-            variant="outlined"
+            variant="bordered"
             themeColor="secondary"
           >
             Dialog
@@ -165,7 +165,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/drawer')}
-            variant="outlined"
+            variant="bordered"
             themeColor="secondary"
           >
             Drawer
@@ -175,7 +175,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/datepicker')}
-            variant="outlined"
+            variant="bordered"
             themeColor="secondary"
           >
             Datepicker
@@ -185,7 +185,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/select')}
-            variant="outlined"
+            variant="bordered"
             themeColor="primary"
           >
             Select
@@ -195,7 +195,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/autocomplete')}
-            variant="outlined"
+            variant="bordered"
             themeColor="secondary"
           >
             Autocomplete
@@ -205,7 +205,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/fab')}
-            variant="outlined"
+            variant="bordered"
             themeColor="primary"
           >
             FAB
@@ -215,7 +215,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/feature-discovery')}
-            variant="outlined"
+            variant="bordered"
             themeColor="secondary"
           >
             FeatureDiscovery
@@ -225,7 +225,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/indicator')}
-            variant="outlined"
+            variant="bordered"
             themeColor="secondary"
           >
             Indicator
@@ -235,7 +235,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/input')}
-            variant="outlined"
+            variant="bordered"
             themeColor="primary"
           >
             Input
@@ -245,7 +245,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/date-input')}
-            variant="outlined"
+            variant="bordered"
             themeColor="secondary"
           >
             Date/Time Input
@@ -255,7 +255,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/otp-input')}
-            variant="outlined"
+            variant="bordered"
             themeColor="primary"
           >
             OTP Input
@@ -265,7 +265,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/number-input')}
-            variant="outlined"
+            variant="bordered"
             themeColor="secondary"
           >
             Number Input
@@ -275,7 +275,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/radio')}
-            variant="outlined"
+            variant="bordered"
             themeColor="primary"
           >
             Radio
@@ -285,7 +285,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/menus')}
-            variant="outlined"
+            variant="bordered"
             themeColor="secondary"
           >
             Menu
@@ -295,7 +295,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/list')}
-            variant="outlined"
+            variant="bordered"
             themeColor="primary"
           >
             List
@@ -305,7 +305,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/progress')}
-            variant="outlined"
+            variant="bordered"
             themeColor="primary"
           >
             Progress
@@ -315,7 +315,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/pager')}
-            variant="outlined"
+            variant="bordered"
             themeColor="secondary"
           >
             Pager
@@ -325,7 +325,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/segment-buttons')}
-            variant="outlined"
+            variant="bordered"
             themeColor="primary"
           >
             Segment Button
@@ -335,7 +335,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/skeleton')}
-            variant="outlined"
+            variant="bordered"
             themeColor="secondary"
           >
             Skeleton
@@ -345,7 +345,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/stepper')}
-            variant="outlined"
+            variant="bordered"
             themeColor="primary"
           >
             Stepper
@@ -355,7 +355,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/snackbar')}
-            variant="outlined"
+            variant="bordered"
             themeColor="primary"
           >
             Snackbar
@@ -365,7 +365,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/snippet')}
-            variant="outlined"
+            variant="bordered"
             themeColor="secondary"
           >
             Snippet
@@ -375,7 +375,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/switch')}
-            variant="outlined"
+            variant="bordered"
             themeColor="secondary"
           >
             Switch
@@ -385,7 +385,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/textarea')}
-            variant="outlined"
+            variant="bordered"
             themeColor="primary"
           >
             TextArea
@@ -395,7 +395,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/toolbar')}
-            variant="outlined"
+            variant="bordered"
             themeColor="secondary"
           >
             Toolbar
@@ -405,7 +405,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/timepicker')}
-            variant="outlined"
+            variant="bordered"
             themeColor="secondary"
           >
             Time Picker
@@ -415,7 +415,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/menubox')}
-            variant="outlined"
+            variant="bordered"
             themeColor="secondary"
           >
             MenuBox
@@ -425,7 +425,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/slider')}
-            variant="outlined"
+            variant="bordered"
             themeColor="secondary"
           >
             Slider
@@ -435,7 +435,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/surface')}
-            variant="outlined"
+            variant="bordered"
             themeColor="primary"
           >
             Surface
@@ -445,7 +445,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/tabs')}
-            variant="outlined"
+            variant="bordered"
             themeColor="primary"
           >
             Tabs
@@ -455,7 +455,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/typography')}
-            variant="outlined"
+            variant="bordered"
             themeColor="secondary"
           >
             Typography
@@ -465,7 +465,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/input-trigger')}
-            variant="outlined"
+            variant="bordered"
             themeColor="primary"
           >
             InputTrigger
@@ -475,7 +475,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/picker')}
-            variant="outlined"
+            variant="bordered"
             themeColor="secondary"
           >
             Picker
@@ -485,7 +485,7 @@ export default function HomeScreen() {
           <Button
             size="sm"
             onPress={() => router.push('/color-picker')}
-            variant="outlined"
+            variant="bordered"
             themeColor="primary"
           >
             ColorPicker

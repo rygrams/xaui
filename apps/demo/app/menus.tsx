@@ -39,7 +39,7 @@ export default function MenusScreen() {
               trigger={
                 <Button
                   size="sm"
-                  variant="outlined"
+                  variant="bordered"
                   themeColor="primary"
                   onPress={() => setBasicMenuVisible(true)}
                 >
@@ -83,7 +83,7 @@ export default function MenusScreen() {
               trigger={
                 <Button
                   size="sm"
-                  variant="outlined"
+                  variant="bordered"
                   themeColor="primary"
                   onPress={() => setPositionTopVisible(true)}
                 >
@@ -112,7 +112,7 @@ export default function MenusScreen() {
               trigger={
                 <Button
                   size="sm"
-                  variant="outlined"
+                  variant="bordered"
                   themeColor="success"
                   onPress={() => setPositionBottomVisible(true)}
                 >
@@ -149,7 +149,7 @@ export default function MenusScreen() {
               trigger={
                 <Button
                   size="sm"
-                  variant="outlined"
+                  variant="bordered"
                   themeColor="primary"
                   onPress={() => setWithIconsVisible(true)}
                 >
@@ -222,7 +222,7 @@ export default function MenusScreen() {
               trigger={
                 <Button
                   size="sm"
-                  variant="outlined"
+                  variant="bordered"
                   themeColor="primary"
                   onPress={() => setDenseMenuVisible(true)}
                 >
@@ -267,7 +267,7 @@ export default function MenusScreen() {
               trigger={
                 <Button
                   size="sm"
-                  variant="outlined"
+                  variant="bordered"
                   themeColor="primary"
                   onPress={() => setDisabledItemsVisible(true)}
                 >
@@ -312,7 +312,7 @@ export default function MenusScreen() {
               trigger={
                 <Button
                   size="sm"
-                  variant="outlined"
+                  variant="bordered"
                   themeColor="primary"
                   onPress={() => setCustomStylesVisible(true)}
                 >
@@ -364,7 +364,7 @@ export default function MenusScreen() {
               trigger={
                 <Button
                   size="sm"
-                  variant="outlined"
+                  variant="bordered"
                   themeColor="primary"
                   onPress={() => setScrollableVisible(true)}
                 >

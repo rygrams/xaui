@@ -16,7 +16,7 @@ import {
 import { styles } from './input.style'
 
 export const TextInput = forwardRef<
-  React.ElementRef<typeof RNTextInput>,
+  React.ComponentRef<typeof RNTextInput>,
   TextInputProps
 >(
   (

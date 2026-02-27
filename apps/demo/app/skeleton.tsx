@@ -19,7 +19,7 @@ export default function SkeletonScreen() {
           Interactive
         </Text>
         <Button
-          variant="outlined"
+          variant="bordered"
           onPress={() => setIsLoaded(prev => !prev)}
           themeColor="secondary"
         >

@@ -40,7 +40,7 @@ export type IconButtonProps = {
   isLoading?: boolean
   /**
    * Android elevation level from 0 to 4.
-   * Does not apply to `outlined` and `light` variants.
+   * Does not apply to `bordered` and `light` variants.
    * @default 0
    */
   elevation?: ElevationLevel

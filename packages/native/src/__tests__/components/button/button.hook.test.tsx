@@ -118,8 +118,8 @@ describe('button hook styles', () => {
     expect(result.current.borderWidth).toBe(0)
   })
 
-  it('returns correct variant styles for outlined variant', () => {
-    const { result } = renderHook(() => useVariantSizesStyles('primary', 'outlined'))
+  it('returns correct variant styles for bordered variant', () => {
+    const { result } = renderHook(() => useVariantSizesStyles('primary', 'bordered'))
 
     expect(result.current.backgroundColor).toBe('transparent')
     expect(result.current.borderWidth).toBe(1)
@@ -134,8 +134,8 @@ describe('button hook styles', () => {
     expect(result.current.textColor).toBe('#ffffff')
   })
 
-  it('returns correct text color for outlined variant', () => {
-    const { result } = renderHook(() => useTextStyles('primary', 'outlined'))
+  it('returns correct text color for bordered variant', () => {
+    const { result } = renderHook(() => useTextStyles('primary', 'bordered'))
 
     expect(result.current.textColor).toBe('#1976d2')
   })
