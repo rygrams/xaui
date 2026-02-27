@@ -34,7 +34,7 @@ export const TextInput = forwardRef<
       startContent,
       endContent,
       themeColor = 'primary',
-      variant = 'flat',
+      variant = 'colored',
       size = 'md',
       radius = 'md',
       isSecured = false,

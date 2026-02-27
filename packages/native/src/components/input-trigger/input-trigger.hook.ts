@@ -140,10 +140,9 @@ export const useInputTriggerVariantStyles = ({
       }
     }
 
-    if (variant === 'faded') {
+    if (variant === 'light') {
       return {
         container: {
-          backgroundColor: withOpacity(colorScheme.container, isDark ? 0.18 : 0.5),
           borderColor: isInvalid ? theme.colors.danger.main : 'transparent',
           borderWidth: isInvalid ? theme.borderWidth.md : 0,
         },
@@ -157,7 +156,7 @@ export const useInputTriggerVariantStyles = ({
 
     return {
       container: {
-        backgroundColor: withOpacity(colorScheme.container, isDark ? 0.25 : 0.6),
+        backgroundColor: withOpacity(colorScheme.container, isDark ? 0.25 : 0.4),
         borderColor: isInvalid
           ? withPaletteNumber(theme.colors.danger.main, 500)
           : 'transparent',

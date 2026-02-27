@@ -44,7 +44,7 @@ export const Select: React.FC<SelectProps> = ({
   selectedKeys,
   disabledKeys,
   defaultSelectedKeys,
-  variant = 'flat',
+  variant = 'colored',
   themeColor = 'default',
   size = 'md',
   radius = 'md',

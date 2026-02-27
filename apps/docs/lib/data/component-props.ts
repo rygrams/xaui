@@ -430,8 +430,8 @@ export function ElevationExample() {
       },
       {
         name: 'variant',
-        type: '"outlined" | "flat" | "light" | "faded" | "underlined"',
-        defaultValue: '"outlined"',
+        type: '"bordered" | "colored" | "light" | "underlined"',
+        defaultValue: '"colored"',
         description: 'Visual style variant',
       },
       {
@@ -4036,8 +4036,8 @@ export function MultipleSelectionExample() {
       },
       {
         name: 'variant',
-        type: '"outlined" | "flat" | "light" | "faded" | "underlined"',
-        defaultValue: '"outlined"',
+        type: '"bordered" | "colored" | "light" | "underlined"',
+        defaultValue: '"colored"',
         description: 'Visual style variant',
       },
       {
@@ -5284,8 +5284,8 @@ export function DisableAnimationExample() {
       },
       {
         name: 'variant',
-        type: '"flat" | "faded" | "bordered" | "underlined"',
-        defaultValue: '"flat"',
+        type: '"colored" | "light" | "bordered" | "underlined"',
+        defaultValue: '"colored"',
         description: 'Visual style variant',
       },
       {
@@ -5381,8 +5381,8 @@ import { Column } from '@xaui/native/view'
 export function VariantsExample() {
   return (
     <Column gap={8}>
-      <TextInput variant="flat" label="Flat" />
-      <TextInput variant="faded" label="Faded" />
+      <TextInput variant="colored" label="Colored" />
+      <TextInput variant="light" label="Light" />
       <TextInput variant="bordered" label="Bordered" />
       <TextInput variant="underlined" label="Underlined" />
     </Column>
@@ -5620,8 +5620,8 @@ export function CustomAppearanceExample() {
       },
       {
         name: 'variant',
-        type: '"flat" | "faded" | "bordered" | "underlined"',
-        defaultValue: '"flat"',
+        type: '"colored" | "light" | "bordered" | "underlined"',
+        defaultValue: '"colored"',
         description: 'Visual style variant',
       },
       {
@@ -5718,8 +5718,8 @@ import { Column } from '@xaui/native/view'
 export function VariantsExample() {
   return (
     <Column gap={8}>
-      <TextArea variant="flat" label="Flat" />
-      <TextArea variant="faded" label="Faded" />
+      <TextArea variant="colored" label="Colored" />
+      <TextArea variant="light" label="Light" />
       <TextArea variant="bordered" label="Bordered" />
       <TextArea variant="underlined" label="Underlined" />
     </Column>
@@ -5813,8 +5813,8 @@ export function StatesExample() {
       },
       {
         name: 'variant',
-        type: '"flat" | "faded" | "bordered" | "underlined"',
-        defaultValue: '"flat"',
+        type: '"colored" | "light" | "bordered" | "underlined"',
+        defaultValue: '"colored"',
         description: 'Visual style variant',
       },
       {
@@ -6006,8 +6006,8 @@ dateToDateInputValue('2024-01-25T00:00:00.000Z', 'MDY', '.')
       },
       {
         name: 'variant',
-        type: '"flat" | "faded" | "bordered" | "underlined"',
-        defaultValue: '"flat"',
+        type: '"colored" | "light" | "bordered" | "underlined"',
+        defaultValue: '"colored"',
         description: 'Visual style variant',
       },
       {
@@ -6218,8 +6218,8 @@ dateToTimeInputValue(new Date(2024, 0, 1, 14, 30, 45), { granularity: 'second' }
       },
       {
         name: 'variant',
-        type: '"flat" | "faded" | "bordered" | "underlined"',
-        defaultValue: '"flat"',
+        type: '"colored" | "light" | "bordered" | "underlined"',
+        defaultValue: '"colored"',
         description: 'Visual style variant',
       },
       {
@@ -8077,8 +8077,8 @@ export function SegmentButtonStatesExample() {
       },
       {
         name: 'variant',
-        type: '"outlined" | "flat" | "light" | "faded" | "underlined"',
-        defaultValue: '"outlined"',
+        type: '"bordered" | "colored" | "light" | "underlined"',
+        defaultValue: '"colored"',
         description: 'Visual style variant',
       },
       {
@@ -12047,8 +12047,8 @@ export function ScaleExample() {
       },
       {
         name: 'variant',
-        type: '"flat" | "faded" | "bordered" | "underlined"',
-        defaultValue: '"flat"',
+        type: '"colored" | "light" | "bordered" | "underlined"',
+        defaultValue: '"colored"',
         description: 'Visual style variant',
       },
       {
@@ -12119,9 +12119,9 @@ import { Column } from '@xaui/native/view'
 export function VariantsExample() {
   return (
     <Column gap={12}>
-      <InputTrigger label="Flat" variant="flat" value="Selected value" onPress={() => {}} />
+      <InputTrigger label="Colored" variant="colored" value="Selected value" onPress={() => {}} />
+      <InputTrigger label="Light" variant="light" value="Selected value" onPress={() => {}} />
       <InputTrigger label="Bordered" variant="bordered" value="Selected value" onPress={() => {}} />
-      <InputTrigger label="Faded" variant="faded" value="Selected value" onPress={() => {}} />
       <InputTrigger label="Underlined" variant="underlined" value="Selected value" onPress={() => {}} />
     </Column>
   )
@@ -12187,8 +12187,8 @@ export function VariantsExample() {
       },
       {
         name: 'variant',
-        type: '"flat" | "faded" | "bordered" | "underlined"',
-        defaultValue: '"flat"',
+        type: '"colored" | "light" | "bordered" | "underlined"',
+        defaultValue: '"colored"',
         description: 'Trigger visual variant',
       },
       {
@@ -12365,8 +12365,8 @@ export function SheetTitleExample() {
       },
       {
         name: 'variant',
-        type: '"flat" | "faded" | "bordered" | "underlined"',
-        defaultValue: '"flat"',
+        type: '"colored" | "light" | "bordered" | "underlined"',
+        defaultValue: '"colored"',
         description: 'Trigger visual variant',
       },
       {

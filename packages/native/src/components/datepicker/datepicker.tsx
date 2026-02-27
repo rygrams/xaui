@@ -23,7 +23,7 @@ export const DatePicker: React.FC<DatePickerProps> = ({
   minDate,
   maxDate,
   firstDayOfWeek: firstDayOfWeekProp,
-  variant = 'flat',
+  variant = 'colored',
   themeColor = 'default',
   size = 'md',
   radius = 'md',

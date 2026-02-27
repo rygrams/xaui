@@ -87,7 +87,7 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
   colorGroups = defaultColorGroups,
   sheetTitle = 'Pick a color',
   themeColor = 'primary',
-  variant = 'flat',
+  variant = 'colored',
   size = 'md',
   radius = 'md',
   isOpened,

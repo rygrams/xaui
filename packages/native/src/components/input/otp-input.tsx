@@ -128,7 +128,7 @@ export const OTPInput = ({
   defaultValue,
   onValueChange,
   onComplete,
-  variant = 'flat',
+  variant = 'colored',
   size = 'md',
   radius = 'md',
   themeColor = 'primary',

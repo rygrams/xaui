@@ -3,10 +3,9 @@ import type { TextStyle, ViewStyle } from 'react-native'
 import type { Radius, Size, ThemeColor } from '../../types'
 
 export type AutocompleteVariant =
-  | 'outlined'
-  | 'flat'
+  | 'bordered'
+  | 'colored'
   | 'light'
-  | 'faded'
   | 'underlined'
 
 export type AutocompleteLabelPlacement =

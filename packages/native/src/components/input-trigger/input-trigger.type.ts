@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 import type { StyleProp, TextStyle, ViewStyle } from 'react-native'
 import type { Radius, ThemeColor } from '../../types'
 
-export type InputTriggerVariant = 'flat' | 'faded' | 'bordered' | 'underlined'
+export type InputTriggerVariant = 'colored' | 'light' | 'bordered' | 'underlined'
 export type InputTriggerSize = 'sm' | 'md' | 'lg'
 export type InputTriggerLabelPlacement = 'outside' | 'inside'
 
@@ -56,7 +56,7 @@ export type InputTriggerProps = {
   themeColor?: ThemeColor
   /**
    * Visual style variant.
-   * @default 'flat'
+   * @default 'colored'
    */
   variant?: InputTriggerVariant
   /**

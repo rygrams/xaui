@@ -99,7 +99,7 @@ export const Picker: React.FC<PickerProps> = ({
   errorMessage,
   sheetTitle,
   themeColor = 'primary',
-  variant = 'flat',
+  variant = 'colored',
   size = 'md',
   radius = 'md',
   isOpened,

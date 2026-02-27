@@ -3,7 +3,7 @@ import { StyleSheet, View, ScrollView, Text } from 'react-native'
 import { useState } from 'react'
 import { Select, SelectItem } from '@xaui/native/select'
 
-const variants = ['outlined', 'flat', 'light', 'faded', 'underlined'] as const
+const variants = ['bordered', 'colored', 'light', 'underlined'] as const
 
 export default function SelectScreen() {
   const colors = useXUIColors()

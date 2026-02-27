@@ -49,10 +49,9 @@ export default function DatePickerScreen() {
           Variants
         </Text>
         <View style={{ gap: theme.spacing.md }}>
-          <DatePicker label="Outlined" variant="outlined" themeColor="primary" />
-          <DatePicker label="Flat" variant="flat" themeColor="primary" />
+          <DatePicker label="Bordered" variant="bordered" themeColor="primary" />
+          <DatePicker label="Colored" variant="colored" themeColor="primary" />
           <DatePicker label="Light" variant="light" themeColor="primary" />
-          <DatePicker label="Faded" variant="faded" themeColor="primary" />
           <DatePicker label="Underlined" variant="underlined" themeColor="primary" />
         </View>
       </View>

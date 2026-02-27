@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 import type { TextStyle, ViewStyle } from 'react-native'
 import type { Radius, Size, ThemeColor } from '../../types'
 
-export type SelectVariant = 'outlined' | 'flat' | 'light' | 'faded' | 'underlined'
+export type SelectVariant = 'bordered' | 'colored' | 'light' | 'underlined'
 
 export type SelectLabelPlacement =
   | 'inside'
@@ -35,7 +35,7 @@ export type SelectProps = {
   defaultSelectedKeys?: string[]
   /**
    * Variant of the select trigger.
-   * @default 'flat'
+   * @default 'colored'
    */
   variant?: SelectVariant
   /**

@@ -98,33 +98,29 @@ export const useSelectVariantStyles = (
   const { theme, colorScheme } = useSelectColorScheme(themeColor)
 
   return useMemo(() => {
+    const isDark = theme.mode === 'dark'
     let borderColor = isInvalid ? theme.colors.danger.main : colorScheme.main
 
     if (
-      (variant === 'outlined' || variant === 'faded') &&
+      variant === 'bordered' &&
       themeColor === 'default'
     ) {
       borderColor = colors.gray[300]
     }
 
     const styles = {
-      outlined: {
+      bordered: {
         backgroundColor: 'transparent',
         borderWidth: theme.borderWidth.md,
         borderColor,
       },
-      flat: {
-        backgroundColor: colorScheme.container,
+      colored: {
+        backgroundColor: withOpacity(colorScheme.container, isDark ? 0.25 : 0.45),
         borderWidth: 0,
       },
       light: {
         backgroundColor: 'transparent',
         borderWidth: 0,
-      },
-      faded: {
-        backgroundColor: withOpacity(colorScheme.container, 0.56),
-        borderWidth: theme.borderWidth.md,
-        borderColor,
       },
       underlined: {
         backgroundColor: 'transparent',

@@ -3,7 +3,7 @@ import { StyleSheet, View, ScrollView, Text } from 'react-native'
 import { useState } from 'react'
 import { TextArea } from '@xaui/native/input'
 
-const variants = ['flat', 'faded', 'bordered', 'underlined'] as const
+const variants = ['colored', 'light', 'bordered', 'underlined'] as const
 const themeColors = [
   'default',
   'primary',
@@ -53,7 +53,7 @@ export default function TextAreaScreen() {
               key={themeColor}
               label={themeColor}
               placeholder={`Textarea with ${themeColor} color`}
-              variant="faded"
+              variant="light"
               themeColor={themeColor}
             />
           ))}
