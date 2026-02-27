@@ -6,6 +6,7 @@ import {
   TextInput as RNTextInput,
   View,
 } from 'react-native'
+import { withOpacity } from '@xaui/core'
 import type { OTPInputProps } from './otp-input.type'
 import { useOTPInputState, useOTPSegmentSizeStyles } from './otp-input.hook'
 import { useTextInputRadiusStyles, useTextInputVariantStyles } from './input.hook'
@@ -55,9 +56,13 @@ const OTPSegment = ({
     }).start()
   }, [borderAnimation, isActive])
 
+  const unfocusedLineColor = isUnderlined
+    ? withOpacity(variantStyles.focusedBorderColor, 0.35)
+    : variantStyles.unfocusedBorderColor
+
   const animatedBorderColor = borderAnimation.interpolate({
     inputRange: [0, 1],
-    outputRange: [variantStyles.unfocusedBorderColor, variantStyles.focusedBorderColor],
+    outputRange: [unfocusedLineColor, variantStyles.focusedBorderColor],
   })
 
   return (
@@ -76,8 +81,8 @@ const OTPSegment = ({
             width: sizeStyles.width,
             height: sizeStyles.height,
             backgroundColor: variantStyles.container.backgroundColor,
-            borderWidth: isUnderlined ? 0 : (variantStyles.container.borderWidth ?? 0),
             borderRadius: isUnderlined ? 0 : radiusStyles.borderRadius,
+            borderWidth: isUnderlined ? 0 : (variantStyles.container.borderWidth ?? 0),
             borderColor: isUnderlined ? undefined : animatedBorderColor,
           },
           customSegment?.segment,
@@ -122,9 +127,7 @@ const OTPSegment = ({
             style={[
               otpStyles.underline,
               {
-                height: isActive
-                  ? variantStyles.container.borderBottomWidth
-                  : 1,
+                height: variantStyles.container.borderBottomWidth ?? 1,
                 backgroundColor: animatedBorderColor,
               },
             ]}

@@ -58,13 +58,15 @@ export const styles = StyleSheet.create({
   },
   overlay: {
     flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.25)',
+    backgroundColor: 'rgba(0, 0, 0, 0.70)',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   listbox: {
     overflow: 'hidden',
   },
   listboxContent: {
-    flex: 1,
+    minWidth: '100%',
   },
   dialogTitle: {
     fontWeight: '600',

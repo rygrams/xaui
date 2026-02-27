@@ -31,6 +31,12 @@ export const otpStyles = StyleSheet.create({
     height: 1,
     opacity: 0,
   },
+  underline: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    bottom: 0,
+  },
   label: {
     fontWeight: '500',
   },
@@ -39,11 +45,5 @@ export const otpStyles = StyleSheet.create({
   },
   disabled: {
     opacity: 0.6,
-  },
-  underline: {
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
   },
 })

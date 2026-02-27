@@ -1,12 +1,12 @@
 import React, { useCallback, useMemo } from 'react'
 import {
   Animated,
-  Dimensions,
   Modal,
   Pressable,
   ScrollView,
   Text,
   View,
+  useWindowDimensions,
 } from 'react-native'
 import { SelectContext } from './select-context'
 import type { SelectItemProps, SelectProps } from './select.type'
@@ -56,7 +56,7 @@ export const Select: React.FC<SelectProps> = ({
   startContent,
   endContent,
   selectorIcon,
-  maxListboxHeight = 280,
+  maxListboxHeight: _maxListboxHeight = 280,
   fullWidth = false,
   isOpened,
   isDisabled = false,
@@ -82,9 +82,9 @@ export const Select: React.FC<SelectProps> = ({
       onSelectionChange,
       onClear,
     })
-  const { triggerRef, triggerWidth, triggerPosition, handleTriggerLayout } =
-    useSelectTriggerMeasurements(isOpen)
+  const { triggerRef, handleTriggerLayout } = useSelectTriggerMeasurements(isOpen)
   const { animationOpacity, animationScale } = useSelectListboxAnimation(isOpen)
+  const { width: screenWidth, height: screenHeight } = useWindowDimensions()
 
   const disabledKeySet = useMemo(() => {
     return new Set(disabledKeys ?? [])
@@ -186,25 +186,8 @@ export const Select: React.FC<SelectProps> = ({
 
   const shouldShowHelper = Boolean(hint || errorMessage)
   const helperContent = isInvalid && errorMessage ? errorMessage : hint
-
-  const listboxWidth = fullWidth
-    ? (triggerWidth ?? triggerPosition?.width ?? 200)
-    : 280
-
-  const screenWidth = Dimensions.get('window').width
-  const listboxPosition = useMemo(() => {
-    if (!triggerPosition) {
-      return { top: 0, left: 0 }
-    }
-
-    const listWidth = listboxWidth || 0
-    const centeredLeft =
-      triggerPosition.x + triggerPosition.width / 2 - listWidth / 2
-    const left = Math.max(12, Math.min(centeredLeft, screenWidth - listWidth - 12))
-    const top = Math.max(12, triggerPosition.y)
-
-    return { top, left }
-  }, [triggerPosition, listboxWidth, screenWidth])
+  const dialogWidth = screenWidth * 0.9
+  const dialogMaxHeight = screenHeight * 0.6
 
   const listItems = items.map(item => {
     const itemProps = item.element.props
@@ -296,11 +279,8 @@ export const Select: React.FC<SelectProps> = ({
             style={[
               styles.listbox,
               {
-                width: listboxWidth,
-                maxHeight: maxListboxHeight,
-                position: 'absolute',
-                top: listboxPosition.top,
-                left: listboxPosition.left,
+                width: dialogWidth,
+                maxHeight: dialogMaxHeight,
                 borderRadius: listboxRadius,
                 backgroundColor: theme.colors.background,
                 opacity: animationOpacity,
@@ -311,10 +291,12 @@ export const Select: React.FC<SelectProps> = ({
           >
             <Pressable
               onPress={event => event.stopPropagation()}
-              style={{ flex: 1 }}
+              style={{ maxHeight: dialogMaxHeight }}
             >
               <SelectContext.Provider value={{ size, themeColor, isDisabled }}>
-                <View style={styles.listboxContent}>
+                <View
+                  style={[styles.listboxContent, { maxHeight: dialogMaxHeight }]}
+                >
                   {dialogTitle ? (
                     <Text
                       style={[
@@ -325,7 +307,7 @@ export const Select: React.FC<SelectProps> = ({
                       {dialogTitle}
                     </Text>
                   ) : null}
-                  <ScrollView style={{ maxHeight: maxListboxHeight }}>
+                  <ScrollView style={{ maxHeight: dialogMaxHeight }}>
                     {listItems}
                   </ScrollView>
                 </View>
