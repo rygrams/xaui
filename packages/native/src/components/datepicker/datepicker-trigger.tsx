@@ -60,6 +60,10 @@ export const DatePickerTrigger: React.FC<DatePickerTriggerProps> = ({
   onLayout: handleTriggerLayout,
 }) => {
   const renderLabel = isLabelInside && label
+  const horizontalPadding =
+    variant === 'light' || variant === 'underlined'
+      ? 0
+      : sizeStyles.paddingHorizontal
 
   return (
     <Pressable
@@ -71,7 +75,7 @@ export const DatePickerTrigger: React.FC<DatePickerTriggerProps> = ({
         styles.trigger,
         {
           minHeight: sizeStyles.minHeight,
-          paddingHorizontal: sizeStyles.paddingHorizontal,
+          paddingHorizontal: horizontalPadding,
           paddingVertical: sizeStyles.paddingVertical,
         },
         variant === 'underlined' ? { borderRadius: 0 } : radiusStyles,
