@@ -18,7 +18,6 @@ export type TypographyVariant =
   | 'bodyLarge'
   | 'bodyMedium'
   | 'bodySmall'
-  | string
 
 export type TypographyProps = {
   /**
