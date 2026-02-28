@@ -36,7 +36,7 @@ export const RoundedView: React.FC<RoundedViewProps> = ({
       style={[
         borderRadiusStyle,
         fullWidth && styles.fullWidth,
-        noGrowth ? undefined : { flex: 1 },
+        fullWidth && !noGrowth ? { flex: 1 } : undefined,
         backgroundColor && { backgroundColor },
         style,
       ]}
