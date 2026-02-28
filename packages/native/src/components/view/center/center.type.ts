@@ -12,6 +12,11 @@ export type CenterProps = {
    */
   fullWidth?: boolean
   /**
+   * If true, the centered container will grow to fill available space.
+   * @default false
+   */
+  noGrowth?: boolean
+  /**
    * Additional style for the container.
    */
   style?: StyleProp<ViewStyle>

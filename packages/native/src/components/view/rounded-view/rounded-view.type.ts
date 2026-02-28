@@ -52,6 +52,11 @@ export type RoundedViewProps = {
    */
   backgroundColor?: string
   /**
+   * If true, the view will grow to fill available space.
+   * @default false
+   */
+  noGrowth?: boolean
+  /**
    * Custom style for the view
    */
   style?: ViewStyle

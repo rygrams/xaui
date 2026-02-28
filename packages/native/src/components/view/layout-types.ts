@@ -41,6 +41,11 @@ export type RowProps = {
    */
   fullWidth?: boolean
   /**
+   * If true, the container will grow to fill available space.
+   * @default false
+   */
+  noGrowth?: boolean
+  /**
    * Custom style for the row container.
    */
   style?: ViewStyle

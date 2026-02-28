@@ -11,6 +11,7 @@ export const Column: React.FC<ColumnProps> = ({
   reverse = false,
   fullWidth,
   style,
+  noGrowth = false,
 }) => {
   const gapStyle = spacing === undefined ? undefined : { gap: spacing }
   const fullWidthStyle = fullWidth ? { width: '100%' as const } : undefined
@@ -19,7 +20,7 @@ export const Column: React.FC<ColumnProps> = ({
     <View
       style={[
         {
-          flex: 1,
+          flex: noGrowth ? undefined : 1,
           flexDirection: reverse ? 'column-reverse' : 'column',
           justifyContent: resolveMainAxisAlignment(mainAxisAlignment),
           alignItems: resolveCrossAxisAlignment(crossAxisAlignment),

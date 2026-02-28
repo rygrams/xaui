@@ -13,6 +13,7 @@ export const Margin: React.FC<MarginProps> = ({
   left,
   fullWidth,
   style,
+  noGrowth = false,
 }) => {
   const fullWidthStyle = fullWidth ? { width: '100%' as const } : undefined
 
@@ -20,7 +21,7 @@ export const Margin: React.FC<MarginProps> = ({
     <View
       style={[
         {
-          flex: 1,
+          flex: noGrowth ? undefined : 1,
           margin: all,
           marginHorizontal: horizontal,
           marginVertical: vertical,
