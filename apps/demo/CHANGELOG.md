@@ -1,5 +1,12 @@
 # demo
 
+## 1.0.61
+
+### Patch Changes
+
+- Updated dependencies [d570b05]
+  - @xaui/native@0.2.2
+
 ## 1.0.60
 
 ### Patch Changes
