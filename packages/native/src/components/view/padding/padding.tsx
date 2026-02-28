@@ -13,6 +13,7 @@ export const Padding: React.FC<PaddingProps> = ({
   left,
   fullWidth,
   style,
+  noGrowth = false,
 }) => {
   const fullWidthStyle = fullWidth ? { width: '100%' as const } : undefined
 
@@ -20,7 +21,7 @@ export const Padding: React.FC<PaddingProps> = ({
     <View
       style={[
         {
-          flex: 1,
+          flex: noGrowth ? undefined : 1,
           padding: all,
           paddingHorizontal: horizontal,
           paddingVertical: vertical,

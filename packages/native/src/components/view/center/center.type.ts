@@ -12,6 +12,11 @@ export type CenterProps = {
    */
   fullWidth?: boolean
   /**
+   * If true, disables automatic growth (e.g. prevents using flex: 1 to fill available space).
+   * @default false
+   */
+  noGrowth?: boolean
+  /**
    * Additional style for the container.
    */
   style?: StyleProp<ViewStyle>

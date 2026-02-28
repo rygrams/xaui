@@ -40,6 +40,11 @@ export type MarginProps = {
    */
   fullWidth?: boolean
   /**
+   * If true, the margin container will grow to fill available space.
+   * @default false
+   */
+  noGrowth?: boolean
+  /**
    * Custom style for the margin container.
    */
   style?: StyleProp<ViewStyle>
