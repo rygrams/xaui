@@ -12,7 +12,7 @@ export type CenterProps = {
    */
   fullWidth?: boolean
   /**
-   * If true, the centered container will grow to fill available space.
+   * If true, disables automatic growth (e.g. prevents using flex: 1 to fill available space).
    * @default false
    */
   noGrowth?: boolean
