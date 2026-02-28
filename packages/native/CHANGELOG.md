@@ -1,5 +1,12 @@
 # @xaui/mobile
 
+## 0.2.1
+
+### Patch Changes
+
+- a2f097e: Tighten `TypographyVariant` typing to documented variants only by removing the
+  generic `string` fallback.
+
 ## 0.2.0
 
 ### Minor Changes
