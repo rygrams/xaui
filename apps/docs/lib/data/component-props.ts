@@ -10143,6 +10143,12 @@ export function TextSpanInheritedStyleExample() {
         description: 'Expand to full available width',
       },
       {
+        name: 'noGrowth',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Disable automatic flex growth (`flex: 1`)',
+      },
+      {
         name: 'style',
         type: 'ViewStyle',
         defaultValue: '-',
@@ -10364,6 +10370,12 @@ export function WeightedSpacerExample() {
         description: 'Expand to full available width',
       },
       {
+        name: 'noGrowth',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Disable automatic flex growth (`flex: 1`)',
+      },
+      {
         name: 'style',
         type: 'StyleProp<ViewStyle>',
         defaultValue: '-',
@@ -10468,6 +10480,12 @@ export function CenterFullWidthExample() {
         description: 'Expand to full available width',
       },
       {
+        name: 'noGrowth',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Disable automatic flex growth (`flex: 1`)',
+      },
+      {
         name: 'style',
         type: 'StyleProp<ViewStyle>',
         defaultValue: '-',
@@ -10556,6 +10574,12 @@ export function DirectionalPaddingExample() {
         type: 'boolean',
         defaultValue: 'false',
         description: 'Expand to full available width',
+      },
+      {
+        name: 'noGrowth',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Disable automatic flex growth (`flex: 1`)',
       },
       {
         name: 'style',
@@ -10893,6 +10917,12 @@ export function UnlockableBlurExample() {
         type: 'boolean',
         defaultValue: 'false',
         description: 'Expand to full available width',
+      },
+      {
+        name: 'noGrowth',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Disable automatic flex growth (`flex: 1`)',
       },
       {
         name: 'backgroundColor',
