@@ -1,5 +1,5 @@
 ---
-'docs': patch
+'@xaui/native': patch
 ---
 
-docs(view): document the `noGrowth` prop for Column, Center, Padding, Margin, and RoundedView.
+native(view): document the `noGrowth` prop for Column, Center, Padding, Margin, and RoundedView.
