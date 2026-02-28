@@ -1,5 +1,11 @@
 # @xaui/mobile
 
+## 0.2.2
+
+### Patch Changes
+
+- d570b05: native(view): add `noGrowth` prop for Column, Center, Padding, Margin, and RoundedView.
+
 ## 0.2.1
 
 ### Patch Changes
