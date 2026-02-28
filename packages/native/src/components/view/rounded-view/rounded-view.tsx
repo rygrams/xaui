@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet } from 'react-native'
+import { View } from 'react-native'
 import { useRoundedViewStyle } from './rounded-view.hook'
 import type { RoundedViewProps } from './rounded-view.type'
 
@@ -35,8 +35,8 @@ export const RoundedView: React.FC<RoundedViewProps> = ({
     <View
       style={[
         borderRadiusStyle,
-        fullWidth && styles.fullWidth,
-        fullWidth && !noGrowth ? { flex: 1 } : undefined,
+        fullWidth && { width: '100%' },
+        noGrowth ? undefined : { flex: 1 },
         backgroundColor && { backgroundColor },
         style,
       ]}
@@ -45,9 +45,3 @@ export const RoundedView: React.FC<RoundedViewProps> = ({
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  fullWidth: {
-    width: '100%',
-  },
-})
