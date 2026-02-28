@@ -52,7 +52,7 @@ export type RoundedViewProps = {
    */
   backgroundColor?: string
   /**
-   * If true, the view will grow to fill available space.
+   * If true, the view will NOT automatically grow to fill available space (e.g., via flex: 1).
    * @default false
    */
   noGrowth?: boolean
