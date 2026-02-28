@@ -40,11 +40,6 @@ export type PaddingProps = {
    */
   fullWidth?: boolean
   /**
-   * If true, the padding container will grow to fill available space.
-   * @default false
-   */
-  noGrowth?: boolean
-  /**
    * Custom style for the padding container.
    */
   style?: StyleProp<ViewStyle>
