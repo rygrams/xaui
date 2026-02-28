@@ -1,7 +1,7 @@
 {
   "name": "demo",
   "main": "expo-router/entry",
-  "version": "1.0.59",
+  "version": "1.0.60",
   "scripts": {
     "dev": "expo start",
     "reset-project": "node ./scripts/reset-project.js",
