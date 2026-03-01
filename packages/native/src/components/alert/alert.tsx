@@ -8,11 +8,11 @@ import React, {
 } from 'react'
 import { Pressable, Text, View } from 'react-native'
 import Animated, {
-  useSharedValue,
   useAnimatedStyle,
+  useSharedValue,
   withTiming,
-  runOnJS,
 } from 'react-native-reanimated'
+import { scheduleOnRN } from 'react-native-worklets'
 import { styles } from './alert.style'
 import {
   useAlertContainerStyles,
@@ -83,7 +83,7 @@ export const Alert: React.FC<AlertProps> = ({
     opacity.value = withTiming(0, { duration: 250 })
     scale.value = withTiming(0.95, { duration: 250 }, finished => {
       if (finished) {
-        runOnJS(finishClosing)()
+        scheduleOnRN(finishClosing)
       }
     })
   }, [finishClosing, opacity, scale, visible])
