@@ -283,6 +283,8 @@
     "react-native": ">=0.70.0",
     "react-native-gesture-handler": ">=2.0.0",
     "react-native-reanimated": ">=4.0.0",
+    "react-native-safe-area-context": ">=4.0.0",
+    "react-native-worklets": ">=0.5.0",
     "react-native-svg": ">=15.0.0"
   },
   "devDependencies": {
@@ -292,6 +294,7 @@
     "react-native": "^0.81.5",
     "react-native-gesture-handler": "^2.28.0",
     "react-native-reanimated": "^4.0.0",
+    "react-native-worklets": "^0.5.1",
     "react-native-svg": "^15.8.0",
     "tsup": "^8.5.1",
     "typescript": "^5.9.3"
