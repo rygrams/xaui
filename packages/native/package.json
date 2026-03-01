@@ -294,6 +294,7 @@
     "react-native": "^0.81.5",
     "react-native-gesture-handler": "^2.28.0",
     "react-native-reanimated": "^4.0.0",
+    "react-native-safe-area-context": "^5.6.0",
     "react-native-worklets": "^0.5.1",
     "react-native-svg": "^15.8.0",
     "tsup": "^8.5.1",

@@ -59,6 +59,7 @@ const sharedConfig = {
     'react-native',
     'react-native-gesture-handler',
     'react-native-reanimated',
+    'react-native-worklets',
     'react-native-svg',
     '@xaui/core',
     '@xaui/core/theme',
