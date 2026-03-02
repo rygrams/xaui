@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import type { ViewStyle } from 'react-native'
+import type { StyleProp, ViewStyle } from 'react-native'
 
 export type MainAxisAlignment =
   | 'start'
@@ -44,7 +44,7 @@ export type RowProps = {
   /**
    * Custom style for the row container.
    */
-  style?: ViewStyle
+  style?: StyleProp<ViewStyle>
 }
 
 export type ColumnProps = RowProps & {

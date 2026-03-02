@@ -10,11 +10,11 @@ import React, {
 import { Modal, Pressable, Text, View } from 'react-native'
 import Animated, {
   Easing,
-  runOnJS,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated'
+import { scheduleOnRN } from 'react-native-worklets'
 import { withOpacity } from '@xaui/core'
 import { useBorderRadiusStyles, useXUITheme } from '../../core/theme-hooks'
 import { CloseIcon } from '@xaui/icons'
@@ -204,7 +204,7 @@ export const Dialog: React.FC<DialogProps> = ({
       },
       finished => {
         if (finished) {
-          runOnJS(finishClosing)()
+          scheduleOnRN(finishClosing)
         }
       }
     )
