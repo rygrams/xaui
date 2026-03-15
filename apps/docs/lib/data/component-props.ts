@@ -9242,13 +9242,13 @@ import { Typography } from '@xaui/native/typography'
 export function BasicExample() {
   return (
     <Tabs>
-      <Tab title="Home">
+      <Tab tabKey="home" title="Home">
         <Typography>Home content</Typography>
       </Tab>
-      <Tab title="Profile">
+      <Tab tabKey="profile" title="Profile">
         <Typography>Profile content</Typography>
       </Tab>
-      <Tab title="Settings">
+      <Tab tabKey="settings" title="Settings">
         <Typography>Settings content</Typography>
       </Tab>
     </Tabs>
@@ -9266,20 +9266,20 @@ export function VariantsExample() {
   return (
     <Column gap={24}>
       <Tabs variant="solid">
-        <Tab title="One"><Typography>One</Typography></Tab>
-        <Tab title="Two"><Typography>Two</Typography></Tab>
+        <Tab tabKey="one" title="One"><Typography>One</Typography></Tab>
+        <Tab tabKey="two" title="Two"><Typography>Two</Typography></Tab>
       </Tabs>
       <Tabs variant="bordered">
-        <Tab title="One"><Typography>One</Typography></Tab>
-        <Tab title="Two"><Typography>Two</Typography></Tab>
+        <Tab tabKey="one" title="One"><Typography>One</Typography></Tab>
+        <Tab tabKey="two" title="Two"><Typography>Two</Typography></Tab>
       </Tabs>
       <Tabs variant="light">
-        <Tab title="One"><Typography>One</Typography></Tab>
-        <Tab title="Two"><Typography>Two</Typography></Tab>
+        <Tab tabKey="one" title="One"><Typography>One</Typography></Tab>
+        <Tab tabKey="two" title="Two"><Typography>Two</Typography></Tab>
       </Tabs>
       <Tabs variant="underlined">
-        <Tab title="One"><Typography>One</Typography></Tab>
-        <Tab title="Two"><Typography>Two</Typography></Tab>
+        <Tab tabKey="one" title="One"><Typography>One</Typography></Tab>
+        <Tab tabKey="two" title="Two"><Typography>Two</Typography></Tab>
       </Tabs>
     </Column>
   )
@@ -9297,13 +9297,13 @@ export function ControlledExample() {
 
   return (
     <Tabs selectedKey={selected} onSelectionChange={setSelected}>
-      <Tab title="Inbox">
+      <Tab tabKey="inbox" title="Inbox">
         <Typography>Inbox items</Typography>
       </Tab>
-      <Tab title="Sent">
+      <Tab tabKey="sent" title="Sent">
         <Typography>Sent items</Typography>
       </Tab>
-      <Tab title="Drafts">
+      <Tab tabKey="drafts" title="Drafts">
         <Typography>Draft items</Typography>
       </Tab>
     </Tabs>
@@ -9319,10 +9319,10 @@ import { Typography } from '@xaui/native/typography'
 export function DisabledTabsExample() {
   return (
     <Tabs disabledKeys={['premium']}>
-      <Tab title="Free">
+      <Tab tabKey="free" title="Free">
         <Typography>Free content</Typography>
       </Tab>
-      <Tab title="Premium">
+      <Tab tabKey="premium" title="Premium">
         <Typography>Premium content</Typography>
       </Tab>
     </Tabs>
@@ -9338,9 +9338,9 @@ import { Typography } from '@xaui/native/typography'
 export function FullWidthExample() {
   return (
     <Tabs fullWidth>
-      <Tab title="Overview"><Typography>Overview</Typography></Tab>
-      <Tab title="Details"><Typography>Details</Typography></Tab>
-      <Tab title="Reviews"><Typography>Reviews</Typography></Tab>
+      <Tab tabKey="overview" title="Overview"><Typography>Overview</Typography></Tab>
+      <Tab tabKey="details" title="Details"><Typography>Details</Typography></Tab>
+      <Tab tabKey="reviews" title="Reviews"><Typography>Reviews</Typography></Tab>
     </Tabs>
   )
 }`,
@@ -9350,6 +9350,12 @@ export function FullWidthExample() {
       {
         name: 'Tab',
         props: [
+          {
+            name: 'tabKey',
+            type: 'string',
+            defaultValue: '-',
+            description: 'Unique identifier for this tab (used for selection and disabled state)',
+          },
           {
             name: 'title',
             type: 'ReactNode',

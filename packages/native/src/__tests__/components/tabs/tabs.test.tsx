@@ -14,8 +14,8 @@ describe('Tabs Types', () => {
       selectedKey: 'account',
       onSelectionChange: () => {},
       children: [
-        <Tab key="account" title="Account" />,
-        <Tab key="billing" title="Billing" />,
+        <Tab tabKey="account" title="Account" />,
+        <Tab tabKey="billing" title="Billing" />,
       ],
     }
 
@@ -25,7 +25,7 @@ describe('Tabs Types', () => {
 
   it('requires children', () => {
     const props: TabsProps = {
-      children: [<Tab key="overview" title="Overview" />],
+      children: [<Tab tabKey="overview" title="Overview" />],
     }
 
     expect(props.children).toBeDefined()
@@ -33,7 +33,7 @@ describe('Tabs Types', () => {
 
   it('accepts render function as content', () => {
     const props: TabsProps = {
-      children: [<Tab key="security" title="Security" />],
+      children: [<Tab tabKey="security" title="Security" />],
       content: ({ selectedKey }) => React.createElement('div', null, selectedKey),
     }
 
@@ -45,7 +45,7 @@ describe('Tabs Types', () => {
 
     variants.forEach(variant => {
       const props: TabsProps = {
-        children: [<Tab key="general" title="General" />],
+        children: [<Tab tabKey="general" title="General" />],
         variant,
       }
 
@@ -55,7 +55,7 @@ describe('Tabs Types', () => {
 
   it('accepts theme color, size and radius', () => {
     const props: TabsProps = {
-      children: [<Tab key="general" title="General" />],
+      children: [<Tab tabKey="general" title="General" />],
       color: 'secondary',
       size: 'lg',
       radius: 'md',
@@ -84,11 +84,13 @@ describe('Tabs Types', () => {
 
   it('accepts tab props with tab content', () => {
     const tabProps: TabProps = {
+      tabKey: 'overview',
       title: 'Overview',
       isDisabled: false,
       children: React.createElement('div'),
     }
 
+    expect(tabProps.tabKey).toBe('overview')
     expect(tabProps.title).toBe('Overview')
     expect(tabProps.children).toBeDefined()
   })
