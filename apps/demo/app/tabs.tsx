@@ -15,15 +15,15 @@ const themeColors = [
 
 function renderAccountTabs() {
   return [
-    <Tab key="profile" title="Profile" />,
-    <Tab key="security" title="Security" />,
-    <Tab key="billing" title="Billing" />,
+    <Tab key="profile" tabKey="profile" title="Profile" />,
+    <Tab key="security" tabKey="security" title="Security" />,
+    <Tab key="billing" tabKey="billing" title="Billing" />,
   ]
 }
 
 function renderAccountTabsWithContent(colors: ReturnType<typeof useXUIColors>) {
   return [
-    <Tab key="profile" title="Profile">
+    <Tab key="profile" tabKey="profile" title="Profile">
       <View
         style={[
           styles.contentBox,
@@ -41,7 +41,7 @@ function renderAccountTabsWithContent(colors: ReturnType<typeof useXUIColors>) {
         </Text>
       </View>
     </Tab>,
-    <Tab key="security" title="Security">
+    <Tab key="security" tabKey="security" title="Security">
       <View
         style={[
           styles.contentBox,
@@ -59,7 +59,7 @@ function renderAccountTabsWithContent(colors: ReturnType<typeof useXUIColors>) {
         </Text>
       </View>
     </Tab>,
-    <Tab key="billing" title="Billing">
+    <Tab key="billing" tabKey="billing" title="Billing">
       <View
         style={[
           styles.contentBox,
@@ -214,9 +214,9 @@ export default function TabsScreen() {
             </Text>
           )}
         >
-          <Tab key="all" title="All" />
-          <Tab key="active" title="Active" />
-          <Tab key="done" title="Done" />
+          <Tab key="all" tabKey="all" title="All" />
+          <Tab key="active" tabKey="active" title="Active" />
+          <Tab key="done" tabKey="done" title="Done" />
         </Tabs>
       </View>
 

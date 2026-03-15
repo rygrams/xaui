@@ -49,13 +49,14 @@ function toTabItems(children: TabsProps['children']): TabsItem[] {
       return []
     }
 
-    if (child.key == null) {
+    const tabKey = child.props.tabKey
+    if (!tabKey) {
       return []
     }
 
     return [
       {
-        key: String(child.key),
+        key: tabKey,
         title: child.props.title,
         startContent: child.props.startContent,
         endContent: child.props.endContent,

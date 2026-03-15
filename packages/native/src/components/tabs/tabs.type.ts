@@ -34,6 +34,10 @@ export type TabsItem = {
 
 export type TabProps = {
   /**
+   * Unique identifier for the tab. Used for selection, disabled state, and content rendering.
+   */
+  tabKey: string
+  /**
    * Label content for the tab trigger.
    */
   title: ReactNode
