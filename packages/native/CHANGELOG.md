@@ -1,5 +1,11 @@
 # @xaui/mobile
 
+## 0.2.4
+
+### Patch Changes
+
+- 7b0b0b7: feat(tabs): replace React key with explicit tabKey prop on Tab component
+
 ## 0.2.3
 
 ### Patch Changes
