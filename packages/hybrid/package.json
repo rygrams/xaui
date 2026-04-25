@@ -1,7 +1,7 @@
 {
   "name": "@xaui/hybrid",
   "version": "0.0.10",
-  "description": "Flutter-inspired React UI components for web and mobile webview with Tailwind CSS styling and CSS animations",
+  "description": "Flutter-inspired React UI components for web and mobile webview with styled-components and CSS animations",
   "keywords": [
     "react",
     "web",
@@ -10,7 +10,7 @@
     "ui",
     "components",
     "flutter",
-    "tailwindcss",
+    "styled-components",
     "xaui"
   ],
   "type": "module",
@@ -24,12 +24,7 @@
     "./core": {
       "types": "./dist/core/index.d.ts",
       "import": "./dist/core/index.js"
-    },
-    "./alert": {
-      "types": "./dist/alert/index.d.ts",
-      "import": "./dist/alert/index.js"
-    },
-    "./dist/index.css": "./dist/index.css"
+    }
   },
   "files": [
     "dist",
@@ -50,21 +45,20 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@xaui/core": "workspace:*",
-    "clsx": "^2.1.1",
-    "tailwind-merge": "^3.4.0",
-    "tailwind-variants": "^0.3.1"
+    "@xaui/core": "workspace:*"
   },
   "peerDependencies": {
     "react": "^18.0.0 || ^19.0.0",
     "react-dom": "^18.0.0 || ^19.0.0",
-    "tailwindcss": "^4.0.0"
+    "styled-components": "^6.1.0"
   },
   "devDependencies": {
     "@types/react": "^19.1.0",
     "@types/react-dom": "^19.1.0",
+    "@types/styled-components": "^5.1.34",
     "react": "19.1.0",
     "react-dom": "19.1.0",
+    "styled-components": "^6.1.18",
     "tsup": "^8.5.1",
     "typescript": "^5.9.3"
   },
