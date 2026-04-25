@@ -11,4 +11,12 @@ export type {
   Radius,
   SizeValues,
   RadiusValues,
+  ShadowConfig,
+  ClipBehavior,
+  LinearGradientConfig,
+  RadialGradientConfig,
+  SweepGradientConfig,
+  GradientConfig,
+  TransformConfig,
+  Alignment,
 } from './types'

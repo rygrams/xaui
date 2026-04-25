@@ -1,9 +1,10 @@
-export type EdgeInsets = {
-  top?: number
-  bottom?: number
-  left?: number
-  right?: number
-  horizontal?: number
-  vertical?: number
-  all?: number
-}
+export type EdgeInsets =
+  | number
+  | {
+      top?: number
+      bottom?: number
+      left?: number
+      right?: number
+      horizontal?: number
+      vertical?: number
+    }
