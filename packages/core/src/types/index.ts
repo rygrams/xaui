@@ -10,3 +10,4 @@ export type {
 } from './gradient'
 export type { TransformConfig } from './transform'
 export type { Alignment } from './alignment'
+export type { Border, BorderRadius, BorderSide } from './border'

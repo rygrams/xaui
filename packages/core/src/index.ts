@@ -19,4 +19,7 @@ export type {
   GradientConfig,
   TransformConfig,
   Alignment,
+  Border,
+  BorderRadius,
+  BorderSide,
 } from './types'
