@@ -92,6 +92,10 @@
     "./wrap": {
       "types": "./dist/wrap/index.d.ts",
       "import": "./dist/wrap/index.js"
+    },
+    "./alert": {
+      "types": "./dist/alert/index.d.ts",
+      "import": "./dist/alert/index.js"
     }
   },
   "files": [

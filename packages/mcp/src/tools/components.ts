@@ -16,8 +16,10 @@ import { spacerDocs } from '../data/spacer.js'
 import { aspectRatioDocs } from '../data/aspect-ratio.js'
 import { constrainedBoxDocs } from '../data/constrained-box.js'
 import { fractionallySizedBoxDocs } from '../data/fractionally-sized-box.js'
+import { alertDocs } from '../data/alert.js'
 
 const COMPONENTS: Record<string, typeof containerDocs> = {
+  alert: alertDocs,
   container: containerDocs,
   'sized-box': sizedBoxDocs,
   'aspect-ratio': aspectRatioDocs,

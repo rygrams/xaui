@@ -219,6 +219,28 @@ The project uses GitHub Actions with the following workflow:
 - Package name should be in singular form
 - dont use css file for styling use tailwind for styling or framer-motion for animations
 
+## Hybrid (@xaui/hybrid) Sizing Convention
+
+All sizing in `@xaui/hybrid` components must use **`em` units** (not `px`) so that the hybrid version scales identically to the native version. A helper `toEm(px)` function converts theme pixel values:
+
+```ts
+const toEm = (px: number) => `${px / 16}em`
+```
+
+This applies to:
+
+- **Spacing** (padding, margin, gap)
+- **Dimensions** (width, height)
+- **Border** (borderWidth, borderRadius)
+- **Typography** (fontSize)
+- **Any fixed pixel value** from the theme or native StyleSheet
+
+When porting a native component to hybrid:
+
+1. Use `toEm()` for every numeric size from `theme.spacing`, `theme.borderWidth`, `theme.fontSizes`, `theme.borderRadius`
+2. Use `toEm()` for every fixed pixel value from the native `StyleSheet` (e.g., `gap: 12` → `gap: toEm(12)`)
+3. Use CSS-valid properties only — **never** use React Native shorthand properties like `paddingVertical`, `paddingHorizontal`, `marginVertical`, `marginHorizontal`. Instead, split them into `paddingTop`/`paddingBottom`, `paddingLeft`/`paddingRight`, etc.
+
 ## Component Structure
 
 - components packages is under packages/native et packages/hybrid respectively for react native and mobile webview

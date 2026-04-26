@@ -49,7 +49,8 @@ export const Alert: React.FC<AlertProps> = ({
   hideIcon = false,
   closeButton,
   isVisible,
-  customAppearance,
+  titleStyle,
+  descriptionStyle,
   children,
   onClose,
   onVisibleChange,
@@ -129,13 +130,7 @@ export const Alert: React.FC<AlertProps> = ({
     if (content === null || content === undefined) return null
     if (typeof content === 'string' || typeof content === 'number') {
       return (
-        <Text
-          style={[
-            styles.description,
-            descriptionStyles,
-            customAppearance?.description,
-          ]}
-        >
+        <Text style={[styles.description, descriptionStyles, descriptionStyle]}>
           {content}
         </Text>
       )
@@ -146,14 +141,10 @@ export const Alert: React.FC<AlertProps> = ({
   const titleNode = useMemo(() => {
     if (title === null || title === undefined) return null
     if (typeof title === 'string' || typeof title === 'number') {
-      return (
-        <Text style={[styles.title, titleStyles, customAppearance?.title]}>
-          {title}
-        </Text>
-      )
+      return <Text style={[styles.title, titleStyles, titleStyle]}>{title}</Text>
     }
     return title
-  }, [title, customAppearance?.title, titleStyles])
+  }, [title, titleStyle, titleStyles])
 
   const descriptionNode = renderContentText(description)
 
@@ -180,13 +171,7 @@ export const Alert: React.FC<AlertProps> = ({
   return (
     <Animated.View
       accessibilityRole="alert"
-      style={[
-        styles.container,
-        containerStyles,
-        radiusStyles,
-        customAppearance?.container,
-        animatedStyle,
-      ]}
+      style={[styles.container, containerStyles, radiusStyles, animatedStyle]}
     >
       {!hideIcon && (
         <View style={[styles.iconWrapper, iconWrapperStyles]}>{renderIcon()}</View>

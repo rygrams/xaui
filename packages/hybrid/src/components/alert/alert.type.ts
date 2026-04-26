@@ -1,5 +1,4 @@
-import { ReactNode } from 'react'
-import type { TextStyle, ViewStyle } from 'react-native'
+import type { CSSProperties, ReactNode } from 'react'
 import type { ThemeColor } from '../../types'
 
 export type AlertVariant = 'solid' | 'bordered' | 'flat' | 'faded'
@@ -8,6 +7,12 @@ export type AlertRadius = 'none' | 'sm' | 'md' | 'lg' | 'full'
 export type AlertEvents = {
   onClose?: () => void
   onVisibleChange?: (isVisible: boolean) => void
+}
+
+type AlertCustomAppearance = {
+  container?: CSSProperties
+  title?: CSSProperties
+  description?: CSSProperties
 }
 
 export type AlertProps = {
@@ -21,7 +26,9 @@ export type AlertProps = {
   hideIcon?: boolean
   closeButton?: ReactNode
   isVisible?: boolean
-  titleStyle?: TextStyle
-  descriptionStyle?: TextStyle
+  customAppearance?: AlertCustomAppearance
   children?: ReactNode
+  testID?: string
+  className?: string
+  style?: CSSProperties
 } & AlertEvents

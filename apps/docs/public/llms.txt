@@ -17,3 +17,4 @@
 - [Flexible](https://ui.xtartapp.com/docs/flexible.md): Like Expanded with a fit prop — tight forces child to fill allotted space, loose allows smaller. FlexFit: 'tight' | 'loose'. Available in @xaui/native and @xaui/hybrid
 - [Wrap](https://ui.xtartapp.com/docs/wrap.md): Flex container that wraps children onto multiple lines — spacing, runSpacing, alignment, runAlignment. Flutter Wrap equivalent. Available in @xaui/native and @xaui/hybrid
 - [Spacer](https://ui.xtartapp.com/docs/spacer.md): Invisible flexible spacer that absorbs remaining space in a Row or Column. Flutter Spacer equivalent. Available in @xaui/native and @xaui/hybrid
+- [Alert](https://ui.xtartapp.com/docs/alert.md): Contextual feedback message with theme colors (default, primary, success, warning, danger), four variants (flat, solid, bordered, faded), closable behavior, and animated transitions. Available in @xaui/native and @xaui/hybrid

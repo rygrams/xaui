@@ -21,6 +21,7 @@ const entries = {
   'flexible/index': 'src/components/view/flexible/index.ts',
   'spacer/index': 'src/components/view/spacer/index.ts',
   'wrap/index': 'src/components/view/wrap/index.ts',
+  'alert/index': 'src/components/alert/index.ts',
 } as const
 
 export default defineConfig({
