@@ -1,5 +1,14 @@
 # @xaui/mobile
 
+## 0.2.6
+
+### Patch Changes
+
+- 39d97b4: Refactor SizedBox to Flutter-inspired API: replace the `fullWidth` prop with `expand` (Flutter `Expanded` equivalent) and add `shrink` (`SizedBox.shrink()` equivalent). Move `Container` and `SizedBox` into `components/view/` subfolder. Add `ConstrainedBox` and `FractionallySizedBox` components.
+- Updated dependencies [39d97b4]
+  - @xaui/core@0.2.2
+  - @xaui/icons@0.0.11
+
 ## 0.2.5
 
 ### Patch Changes
