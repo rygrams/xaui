@@ -1,5 +1,11 @@
 # @xaui/web
 
+## 0.0.13
+
+### Patch Changes
+
+- e0aab2a: Add Flex, Row, Column, Expanded, Flexible, Wrap, Spacer, Align, Center, Padding, Margin hybrid components with Flutter-inspired API, independent package exports, and interactive docs previews
+
 ## 0.0.12
 
 ### Patch Changes
