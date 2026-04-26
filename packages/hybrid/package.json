@@ -48,6 +48,14 @@
     "./aspect-ratio": {
       "types": "./dist/aspect-ratio/index.d.ts",
       "import": "./dist/aspect-ratio/index.js"
+    },
+    "./padding": {
+      "types": "./dist/padding/index.d.ts",
+      "import": "./dist/padding/index.js"
+    },
+    "./margin": {
+      "types": "./dist/margin/index.d.ts",
+      "import": "./dist/margin/index.js"
     }
   },
   "files": [

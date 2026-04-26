@@ -10,6 +10,8 @@ const entries = {
   'fractionally-sized-box/index':
     'src/components/view/fractionally-sized-box/index.ts',
   'aspect-ratio/index': 'src/components/view/aspect-ratio/index.ts',
+  'padding/index': 'src/components/view/padding/index.ts',
+  'margin/index': 'src/components/view/margin/index.ts',
 } as const
 
 export default defineConfig({
