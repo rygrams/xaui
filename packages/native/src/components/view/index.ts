@@ -3,7 +3,9 @@ export { Flex } from './flex/flex'
 export { Column } from './column/column'
 export { Row } from './row/row'
 export { Expanded } from './expanded/expanded'
+export { Flexible } from './flexible/flexible'
 export { Spacer } from './spacer/spacer'
+export { Wrap } from './wrap/wrap'
 export { Padding } from './padding/padding'
 export { Margin } from './margin/margin'
 export { SizedBox } from './sized-box/sized-box'
@@ -29,6 +31,9 @@ export type {
   FlexProps,
   ColumnProps,
   RowProps,
+  FlexibleProps,
+  FlexFit,
+  WrapProps,
   MainAxisAlignment,
   CrossAxisAlignment,
   MainAxisSize,

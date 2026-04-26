@@ -5,6 +5,12 @@ export { Row } from './row'
 export { Column } from './column'
 export { Expanded } from './expanded'
 export type { ExpandedProps } from './expanded/expanded.type'
+export { Flexible } from './flexible'
+export type { FlexibleProps, FlexFit } from './flexible/flexible.type'
+export { Spacer } from './spacer'
+export type { SpacerProps } from './spacer/spacer.type'
+export { Wrap } from './wrap'
+export type { WrapProps } from './wrap/wrap.type'
 export type {
   FlexProps,
   RowProps,

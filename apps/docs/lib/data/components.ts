@@ -770,6 +770,30 @@ export const components: Component[] = [
     types: ['ExpandedProps'],
   },
   {
+    id: 'flexible',
+    name: 'Flexible',
+    description:
+      'Like Expanded but with a fit prop — tight fills all allotted space, loose allows the child to be smaller.',
+    category: 'Layout',
+    href: '/docs/components/flexible',
+    status: 'beta',
+    importPath: '@xaui/native/view',
+    exports: ['Flexible'],
+    types: ['FlexibleProps', 'FlexFit'],
+  },
+  {
+    id: 'wrap',
+    name: 'Wrap',
+    description:
+      'Flex container that wraps children onto multiple lines with configurable spacing and run alignment.',
+    category: 'Layout',
+    href: '/docs/components/wrap',
+    status: 'beta',
+    importPath: '@xaui/native/view',
+    exports: ['Wrap'],
+    types: ['WrapProps'],
+  },
+  {
     id: 'align',
     name: 'Align',
     description:

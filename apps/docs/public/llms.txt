@@ -14,3 +14,6 @@
 - [Center](https://ui.xtartapp.com/docs/center.md): Centers a child horizontally and vertically — Align preconfigured with alignment="center". Available in @xaui/native and @xaui/hybrid
 - [Padding](https://ui.xtartapp.com/docs/padding.md): Wraps content with EdgeInsets padding — number for uniform or { top, bottom, left, right, horizontal, vertical }. Available in @xaui/native and @xaui/hybrid
 - [Margin](https://ui.xtartapp.com/docs/margin.md): Wraps content with EdgeInsets margin — number for uniform or { top, bottom, left, right, horizontal, vertical }. Available in @xaui/native and @xaui/hybrid
+- [Flexible](https://ui.xtartapp.com/docs/flexible.md): Like Expanded with a fit prop — tight forces child to fill allotted space, loose allows smaller. FlexFit: 'tight' | 'loose'. Available in @xaui/native and @xaui/hybrid
+- [Wrap](https://ui.xtartapp.com/docs/wrap.md): Flex container that wraps children onto multiple lines — spacing, runSpacing, alignment, runAlignment. Flutter Wrap equivalent. Available in @xaui/native and @xaui/hybrid
+- [Spacer](https://ui.xtartapp.com/docs/spacer.md): Invisible flexible spacer that absorbs remaining space in a Row or Column. Flutter Spacer equivalent. Available in @xaui/native and @xaui/hybrid

@@ -10637,25 +10637,24 @@ export function VerticalCenterExample() {
         name: 'flex',
         type: 'number',
         defaultValue: '1',
-        description: 'Flex factor for space distribution',
+        description: 'Flex factor — how much remaining space to absorb',
       },
       {
         name: 'style',
-        type: 'StyleProp<ViewStyle>',
+        type: 'StyleProp<ViewStyle> / CSSProperties',
         defaultValue: '-',
-        description: 'Additional styles',
+        description: 'Style override (native: StyleProp<ViewStyle>, hybrid: CSSProperties)',
       },
     ],
     examples: [
       {
-        title: 'Push Items Apart',
-        description: 'Place a Spacer between items to push them to opposite ends.',
+        title: 'Push items apart',
+        description: 'Spacer between two items pushes them to opposite ends.',
         code: `import { Row, Spacer } from '@xaui/native/view'
-import { Typography } from '@xaui/native/typography'
 
 export function SpacerExample() {
   return (
-    <Row fullWidth>
+    <Row>
       <Typography>Left</Typography>
       <Spacer />
       <Typography>Right</Typography>
@@ -10664,14 +10663,13 @@ export function SpacerExample() {
 }`,
       },
       {
-        title: 'Weighted Spacing',
-        description: 'Use flex to distribute space unevenly.',
+        title: 'Weighted spacing',
+        description: 'Distribute remaining space unevenly using flex.',
         code: `import { Row, Spacer } from '@xaui/native/view'
-import { Typography } from '@xaui/native/typography'
 
 export function WeightedSpacerExample() {
   return (
-    <Row fullWidth>
+    <Row>
       <Typography>Start</Typography>
       <Spacer flex={2} />
       <Typography>Middle</Typography>
@@ -12019,6 +12017,169 @@ export function WeightedExample() {
         <View style={{ height: 60, backgroundColor: '#38bdf8', borderRadius: 8 }} />
       </Expanded>
     </Row>
+  )
+}`,
+      },
+    ],
+  },
+
+  flexible: {
+    props: [
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Content to render inside the flexible container',
+      },
+      {
+        name: 'flex',
+        type: 'number',
+        defaultValue: '1',
+        description: 'Flex factor — how much space to claim relative to siblings',
+      },
+      {
+        name: 'fit',
+        type: '"tight" | "loose"',
+        defaultValue: '"loose"',
+        description:
+          'tight forces the child to fill all allotted space (like Expanded); loose allows the child to be at most the allotted size',
+      },
+      {
+        name: 'style',
+        type: 'StyleProp<ViewStyle> / CSSProperties',
+        defaultValue: '-',
+        description: 'Style override',
+      },
+      {
+        name: 'testID',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Test identifier for e2e tests',
+      },
+    ],
+    examples: [
+      {
+        title: 'Loose fit — child can be smaller',
+        description: 'Child takes up to its allotted share but shrinks to its content.',
+        code: `import { Row, Flexible } from '@xaui/native/view'
+import { View } from 'react-native'
+
+export function LooseFitExample() {
+  return (
+    <Row>
+      <Flexible flex={1}>
+        <View style={{ height: 40, width: 40, backgroundColor: '#6366f1', borderRadius: 8 }} />
+      </Flexible>
+      <Flexible flex={2}>
+        <View style={{ height: 40, width: 80, backgroundColor: '#8b5cf6', borderRadius: 8 }} />
+      </Flexible>
+    </Row>
+  )
+}`,
+      },
+      {
+        title: 'Tight fit — child fills allotted space',
+        description: 'Equivalent to Expanded — child stretches to fill its share.',
+        code: `import { Row, Flexible } from '@xaui/native/view'
+import { View } from 'react-native'
+
+export function TightFitExample() {
+  return (
+    <Row gap={8}>
+      <Flexible flex={1} fit="tight">
+        <View style={{ height: 60, backgroundColor: '#0ea5e9', borderRadius: 8 }} />
+      </Flexible>
+      <Flexible flex={2} fit="tight">
+        <View style={{ height: 60, backgroundColor: '#38bdf8', borderRadius: 8 }} />
+      </Flexible>
+    </Row>
+  )
+}`,
+      },
+    ],
+  },
+
+  wrap: {
+    props: [
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Content to render inside the wrap container',
+      },
+      {
+        name: 'direction',
+        type: '"horizontal" | "vertical"',
+        defaultValue: '"horizontal"',
+        description: 'Primary axis direction',
+      },
+      {
+        name: 'alignment',
+        type: '"start" | "end" | "center" | "spaceBetween" | "spaceAround" | "spaceEvenly"',
+        defaultValue: '"start"',
+        description: 'Alignment of children along the main axis within each run',
+      },
+      {
+        name: 'runAlignment',
+        type: '"start" | "end" | "center" | "spaceBetween" | "spaceAround" | "spaceEvenly"',
+        defaultValue: '"start"',
+        description: 'Alignment of runs along the cross axis',
+      },
+      {
+        name: 'spacing',
+        type: 'number',
+        defaultValue: '0',
+        description: 'Space between children along the main axis',
+      },
+      {
+        name: 'runSpacing',
+        type: 'number',
+        defaultValue: '0',
+        description: 'Space between runs along the cross axis',
+      },
+      {
+        name: 'style',
+        type: 'StyleProp<ViewStyle> / CSSProperties',
+        defaultValue: '-',
+        description: 'Style override',
+      },
+      {
+        name: 'testID',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Test identifier for e2e tests',
+      },
+    ],
+    examples: [
+      {
+        title: 'Chip list',
+        description: 'Tags that wrap onto the next line when they overflow.',
+        code: `import { Wrap } from '@xaui/native/view'
+import { Chip } from '@xaui/native/chip'
+
+const tags = ['React', 'TypeScript', 'Flutter', 'UI', 'Mobile', 'Design']
+
+export function ChipListExample() {
+  return (
+    <Wrap spacing={8} runSpacing={8}>
+      {tags.map((tag) => <Chip key={tag} label={tag} />)}
+    </Wrap>
+  )
+}`,
+      },
+      {
+        title: 'Centered wrapping row',
+        description: 'Items are centered in each run.',
+        code: `import { Wrap } from '@xaui/native/view'
+import { View } from 'react-native'
+
+export function CenteredWrapExample() {
+  return (
+    <Wrap alignment="center" spacing={12} runSpacing={12}>
+      {Array.from({ length: 7 }, (_, i) => (
+        <View key={i} style={{ width: 60, height: 60, backgroundColor: '#6366f1', borderRadius: 8 }} />
+      ))}
+    </Wrap>
   )
 }`,
       },

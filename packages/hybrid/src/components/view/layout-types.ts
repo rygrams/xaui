@@ -44,3 +44,54 @@ export type FlexProps = {
 export type RowProps = Omit<FlexProps, 'direction'>
 
 export type ColumnProps = Omit<FlexProps, 'direction'>
+
+/** Controls how a `Flexible` child sizes itself within available space. */
+export type FlexFit = 'tight' | 'loose'
+
+export type FlexibleProps = {
+  /** Content to render inside the flexible container. */
+  children?: ReactNode
+  /** Flex factor — how much space to claim relative to siblings. @default 1 */
+  flex?: number
+  /**
+   * Sizing behaviour:
+   * - `'tight'` — force the child to fill all allotted space (like `Expanded`).
+   * - `'loose'` — allow the child to be at most the allotted size but no larger.
+   * @default 'loose'
+   */
+  fit?: FlexFit
+  /** Raw CSS style override. */
+  style?: CSSProperties
+  /** Tailwind / CSS class names. */
+  className?: string
+  /** Test identifier mapped to `data-testid`. */
+  testID?: string
+}
+
+export type WrapProps = {
+  /** Content to render inside the wrap container. */
+  children?: ReactNode
+  /** Primary axis direction. @default 'horizontal' */
+  direction?: Direction
+  /** Alignment of children along the main axis within each run. @default 'start' */
+  alignment?: MainAxisAlignment
+  /** Alignment of runs along the cross axis. @default 'start' */
+  runAlignment?: MainAxisAlignment
+  /** Space between children along the main axis. @default 0 */
+  spacing?: number
+  /** Space between runs along the cross axis. @default 0 */
+  runSpacing?: number
+  /** Raw CSS style override. */
+  style?: CSSProperties
+  /** Tailwind / CSS class names. */
+  className?: string
+  /** Test identifier mapped to `data-testid`. */
+  testID?: string
+}
+
+export type SpacerProps = {
+  /** Flex factor for the spacer. @default 1 */
+  flex?: number
+  /** Raw CSS style override. */
+  style?: CSSProperties
+}

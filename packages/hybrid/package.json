@@ -80,6 +80,18 @@
     "./expanded": {
       "types": "./dist/expanded/index.d.ts",
       "import": "./dist/expanded/index.js"
+    },
+    "./flexible": {
+      "types": "./dist/flexible/index.d.ts",
+      "import": "./dist/flexible/index.js"
+    },
+    "./spacer": {
+      "types": "./dist/spacer/index.d.ts",
+      "import": "./dist/spacer/index.js"
+    },
+    "./wrap": {
+      "types": "./dist/wrap/index.d.ts",
+      "import": "./dist/wrap/index.js"
     }
   },
   "files": [

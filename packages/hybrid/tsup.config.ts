@@ -18,6 +18,9 @@ const entries = {
   'row/index': 'src/components/view/row/index.ts',
   'column/index': 'src/components/view/column/index.ts',
   'expanded/index': 'src/components/view/expanded/index.ts',
+  'flexible/index': 'src/components/view/flexible/index.ts',
+  'spacer/index': 'src/components/view/spacer/index.ts',
+  'wrap/index': 'src/components/view/wrap/index.ts',
 } as const
 
 export default defineConfig({

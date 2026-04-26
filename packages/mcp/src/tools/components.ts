@@ -10,6 +10,9 @@ import { alignDocs } from '../data/align.js'
 import { centerDocs } from '../data/center.js'
 import { paddingDocs } from '../data/padding.js'
 import { marginDocs } from '../data/margin.js'
+import { flexibleDocs } from '../data/flexible.js'
+import { wrapDocs } from '../data/wrap.js'
+import { spacerDocs } from '../data/spacer.js'
 import { aspectRatioDocs } from '../data/aspect-ratio.js'
 import { constrainedBoxDocs } from '../data/constrained-box.js'
 import { fractionallySizedBoxDocs } from '../data/fractionally-sized-box.js'
@@ -28,6 +31,9 @@ const COMPONENTS: Record<string, typeof containerDocs> = {
   center: centerDocs,
   padding: paddingDocs,
   margin: marginDocs,
+  flexible: flexibleDocs,
+  wrap: wrapDocs,
+  spacer: spacerDocs,
 }
 
 export function registerComponentTools(server: McpServer) {
