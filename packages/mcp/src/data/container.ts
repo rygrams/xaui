@@ -10,7 +10,7 @@ export const containerDocs = {
     },
     hybrid: {
       package: '@xaui/hybrid',
-      import: "import { Container } from '@xaui/hybrid/container'",
+      import: "import { Container } from '@xaui/hybrid/container' // or '@xaui/hybrid/view'",
       platform: 'React web / mobile webview — renders as div',
     },
   },

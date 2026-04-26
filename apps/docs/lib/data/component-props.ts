@@ -10977,6 +10977,24 @@ export function DirectionalMarginExample() {
         defaultValue: '-',
         description: 'Optional content to render inside the box',
       },
+      {
+        name: 'style',
+        type: 'CSSProperties',
+        defaultValue: '-',
+        description: 'Raw CSS style override (hybrid only)',
+      },
+      {
+        name: 'className',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Tailwind / CSS class names (hybrid only)',
+      },
+      {
+        name: 'testID',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Test identifier mapped to data-testid (hybrid only)',
+      },
     ],
     examples: [
       {

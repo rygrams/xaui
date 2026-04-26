@@ -14,6 +14,8 @@ import { SizedBox } from '@xaui/native/view'
 **Web / Hybrid**
 ```ts
 import { SizedBox } from '@xaui/hybrid/sized-box'
+// or from the aggregated view export
+import { SizedBox } from '@xaui/hybrid/view'
 ```
 
 ## Props
@@ -25,6 +27,9 @@ import { SizedBox } from '@xaui/hybrid/sized-box'
 | `expand` | `boolean` | `false` | Fill all available space — `flex: 1 + alignSelf: stretch` (Flutter `Expanded` equivalent) |
 | `shrink` | `boolean` | `false` | Collapse to zero size (Flutter `SizedBox.shrink()` equivalent) |
 | `children` | `ReactNode` | — | Optional content |
+| `style` | `CSSProperties` | — | Raw CSS style override **(hybrid only)** |
+| `className` | `string` | — | Tailwind / CSS class names **(hybrid only)** |
+| `testID` | `string` | — | Test identifier mapped to `data-testid` **(hybrid only)** |
 
 ## Examples
 

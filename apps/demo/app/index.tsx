@@ -174,6 +174,16 @@ export default function HomeScreen() {
         <GridItem>
           <Button
             size="sm"
+            onPress={() => router.push('/sized-box')}
+            variant="bordered"
+            themeColor="primary"
+          >
+            SizedBox
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
             onPress={() => router.push('/date-input')}
             variant="bordered"
             themeColor="secondary"

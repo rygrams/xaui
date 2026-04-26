@@ -10,7 +10,7 @@ export const sizedBoxDocs = {
     },
     hybrid: {
       package: '@xaui/hybrid',
-      import: "import { SizedBox } from '@xaui/hybrid/sized-box'",
+      import: "import { SizedBox } from '@xaui/hybrid/sized-box' // or '@xaui/hybrid/view'",
       platform: 'React web / mobile webview — renders as div',
     },
   },
@@ -30,6 +30,9 @@ export const sizedBoxDocs = {
       description: 'Collapse to zero size. Flutter SizedBox.shrink() equivalent',
     },
     { name: 'children', type: 'ReactNode', default: '-', description: 'Optional content' },
+    { name: 'style', type: 'CSSProperties', default: '-', description: 'Raw CSS style override (hybrid only)' },
+    { name: 'className', type: 'string', default: '-', description: 'Tailwind / CSS class names (hybrid only)' },
+    { name: 'testID', type: 'string', default: '-', description: 'Test identifier mapped to data-testid (hybrid only)' },
   ],
   examples: [
     {
