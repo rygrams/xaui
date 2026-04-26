@@ -10,8 +10,7 @@ export const fractionallySizedBoxDocs = {
     },
     hybrid: {
       package: '@xaui/hybrid',
-      import:
-        "import { FractionallySizedBox } from '@xaui/hybrid/fractionally-sized-box' // or '@xaui/hybrid/view'",
+      import: "import { FractionallySizedBox } from '@xaui/hybrid/view'",
       platform: 'React web / mobile webview — renders as div',
     },
   },

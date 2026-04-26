@@ -10,8 +10,7 @@ export const sizedBoxDocs = {
     },
     hybrid: {
       package: '@xaui/hybrid',
-      import:
-        "import { SizedBox } from '@xaui/hybrid/sized-box' // or '@xaui/hybrid/view'",
+      import: "import { SizedBox } from '@xaui/hybrid/view'",
       platform: 'React web / mobile webview — renders as div',
     },
   },

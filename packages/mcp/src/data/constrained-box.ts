@@ -10,8 +10,7 @@ export const constrainedBoxDocs = {
     },
     hybrid: {
       package: '@xaui/hybrid',
-      import:
-        "import { ConstrainedBox } from '@xaui/hybrid/constrained-box' // or '@xaui/hybrid/view'",
+      import: "import { ConstrainedBox } from '@xaui/hybrid/view'",
       platform: 'React web / mobile webview — renders as div',
     },
   },

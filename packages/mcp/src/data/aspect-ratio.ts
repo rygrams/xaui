@@ -10,8 +10,7 @@ export const aspectRatioDocs = {
     },
     hybrid: {
       package: '@xaui/hybrid',
-      import:
-        "import { AspectRatio } from '@xaui/hybrid/aspect-ratio' // or '@xaui/hybrid/view'",
+      import: "import { AspectRatio } from '@xaui/hybrid/view'",
       platform: 'React web / mobile webview — renders as div',
     },
   },
