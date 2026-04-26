@@ -1,7 +1,7 @@
 export const marginDocs = {
   name: 'Margin',
   description:
-    'Wraps content with configurable margin on any or all sides using Flutter\'s EdgeInsets API.',
+    "Wraps content with configurable margin on any or all sides using Flutter's EdgeInsets API.",
   packages: {
     native: {
       package: '@xaui/native',

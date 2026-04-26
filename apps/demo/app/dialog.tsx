@@ -1,11 +1,5 @@
 import { useState } from 'react'
-import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from 'react-native'
+import { ScrollView, StyleSheet, Text, TextInput, View } from 'react-native'
 import { Button } from '@xaui/native/button'
 import { useXUIColors, useXUITheme } from '@xaui/native/core'
 import { Dialog, DialogBody, DialogFooter, DialogHeader } from '@xaui/native/dialog'
@@ -18,14 +12,19 @@ export default function DialogScreen() {
   const [deleteOpen, setDeleteOpen] = useState(false)
   const [formOpen, setFormOpen] = useState(false)
   const [placementOpen, setPlacementOpen] = useState<'top' | 'bottom' | null>(null)
-  const [backdropOpen, setBackdropOpen] = useState<'blurred' | 'transparent' | null>(null)
+  const [backdropOpen, setBackdropOpen] = useState<'blurred' | 'transparent' | null>(
+    null
+  )
   const [sizeOpen, setSizeOpen] = useState<'sm' | 'lg' | 'full' | null>(null)
   const [successOpen, setSuccessOpen] = useState(false)
 
   const [deleteStatus, setDeleteStatus] = useState('')
   const [formName, setFormName] = useState('Alex Moreau')
   const [formEmail, setFormEmail] = useState('alex@example.com')
-  const [savedProfile, setSavedProfile] = useState({ name: 'Alex Moreau', email: 'alex@example.com' })
+  const [savedProfile, setSavedProfile] = useState({
+    name: 'Alex Moreau',
+    email: 'alex@example.com',
+  })
 
   return (
     <ScrollView
@@ -33,7 +32,9 @@ export default function DialogScreen() {
       contentContainerStyle={[styles.content, { gap: theme.spacing.lg }]}
     >
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Basic</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Basic
+        </Text>
         <Text style={[styles.description, { color: colors.foreground }]}>
           Simple informational dialog with a close action.
         </Text>
@@ -54,13 +55,19 @@ export default function DialogScreen() {
             → {deleteStatus}
           </Text>
         )}
-        <Button themeColor="danger" variant="bordered" onPress={() => setDeleteOpen(true)}>
+        <Button
+          themeColor="danger"
+          variant="bordered"
+          onPress={() => setDeleteOpen(true)}
+        >
           Delete Account
         </Button>
       </View>
 
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Form Dialog</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Form Dialog
+        </Text>
         <Text style={[styles.description, { color: colors.foreground }]}>
           Edit profile with form inputs inside a dialog.
         </Text>
@@ -73,7 +80,9 @@ export default function DialogScreen() {
       </View>
 
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Placement</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Placement
+        </Text>
         <Text style={[styles.description, { color: colors.foreground }]}>
           Dialog can appear at the top or bottom of the screen.
         </Text>
@@ -98,7 +107,9 @@ export default function DialogScreen() {
       </View>
 
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Backdrop</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Backdrop
+        </Text>
         <Text style={[styles.description, { color: colors.foreground }]}>
           Control the backdrop appearance behind the dialog.
         </Text>
@@ -123,7 +134,9 @@ export default function DialogScreen() {
       </View>
 
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Sizes</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Sizes
+        </Text>
         <Text style={[styles.description, { color: colors.foreground }]}>
           Three size presets: sm, lg, and full screen.
         </Text>
@@ -156,7 +169,9 @@ export default function DialogScreen() {
       </View>
 
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Success</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Success
+        </Text>
         <Text style={[styles.description, { color: colors.foreground }]}>
           Themed success notification dialog.
         </Text>
@@ -166,7 +181,11 @@ export default function DialogScreen() {
       </View>
 
       {/* Basic Dialog */}
-      <Dialog isOpen={basicOpen} onClose={() => setBasicOpen(false)} closeOnBackdropPress>
+      <Dialog
+        isOpen={basicOpen}
+        onClose={() => setBasicOpen(false)}
+        closeOnBackdropPress
+      >
         <DialogHeader isClosable onClose={() => setBasicOpen(false)}>
           What's New in v2.0
         </DialogHeader>
@@ -178,7 +197,10 @@ export default function DialogScreen() {
               '✦  Dark mode support across all components',
               '✦  Improved accessibility & screen reader support',
             ].map(line => (
-              <Text key={line} style={[styles.changelogItem, { color: colors.foreground }]}>
+              <Text
+                key={line}
+                style={[styles.changelogItem, { color: colors.foreground }]}
+              >
                 {line}
               </Text>
             ))}
@@ -192,7 +214,11 @@ export default function DialogScreen() {
       </Dialog>
 
       {/* Destructive Dialog */}
-      <Dialog isOpen={deleteOpen} onClose={() => setDeleteOpen(false)} closeOnBackdropPress>
+      <Dialog
+        isOpen={deleteOpen}
+        onClose={() => setDeleteOpen(false)}
+        closeOnBackdropPress
+      >
         <DialogHeader isClosable onClose={() => setDeleteOpen(false)}>
           Delete Account
         </DialogHeader>
@@ -201,13 +227,19 @@ export default function DialogScreen() {
             <Text style={[styles.bodyText, { color: colors.foreground }]}>
               This will permanently delete your account and all associated data:
             </Text>
-            {['All projects and files', 'Billing history', 'Team memberships', 'API keys'].map(
-              item => (
-                <Text key={item} style={[styles.bulletItem, { color: colors.foreground }]}>
-                  • {item}
-                </Text>
-              )
-            )}
+            {[
+              'All projects and files',
+              'Billing history',
+              'Team memberships',
+              'API keys',
+            ].map(item => (
+              <Text
+                key={item}
+                style={[styles.bulletItem, { color: colors.foreground }]}
+              >
+                • {item}
+              </Text>
+            ))}
             <Text style={[styles.warningText, { color: theme.colors.danger.main }]}>
               This action cannot be undone.
             </Text>
@@ -237,14 +269,20 @@ export default function DialogScreen() {
       </Dialog>
 
       {/* Form Dialog */}
-      <Dialog isOpen={formOpen} onClose={() => setFormOpen(false)} closeOnBackdropPress>
+      <Dialog
+        isOpen={formOpen}
+        onClose={() => setFormOpen(false)}
+        closeOnBackdropPress
+      >
         <DialogHeader isClosable onClose={() => setFormOpen(false)}>
           Edit Profile
         </DialogHeader>
         <DialogBody>
           <View style={{ gap: 14 }}>
             <View style={styles.fieldGroup}>
-              <Text style={[styles.fieldLabel, { color: colors.foreground }]}>Full name</Text>
+              <Text style={[styles.fieldLabel, { color: colors.foreground }]}>
+                Full name
+              </Text>
               <TextInput
                 value={formName}
                 onChangeText={setFormName}
@@ -260,7 +298,9 @@ export default function DialogScreen() {
               />
             </View>
             <View style={styles.fieldGroup}>
-              <Text style={[styles.fieldLabel, { color: colors.foreground }]}>Email</Text>
+              <Text style={[styles.fieldLabel, { color: colors.foreground }]}>
+                Email
+              </Text>
               <TextInput
                 value={formEmail}
                 onChangeText={setFormEmail}
@@ -280,7 +320,11 @@ export default function DialogScreen() {
           </View>
         </DialogBody>
         <DialogFooter style={styles.actionRow}>
-          <Button variant="flat" themeColor="secondary" onPress={() => setFormOpen(false)}>
+          <Button
+            variant="flat"
+            themeColor="secondary"
+            onPress={() => setFormOpen(false)}
+          >
             Cancel
           </Button>
           <Button
@@ -310,7 +354,11 @@ export default function DialogScreen() {
           <Text style={{ fontWeight: '700' }}>placement</Text> prop.
         </DialogBody>
         <DialogFooter>
-          <Button themeColor="primary" fullWidth onPress={() => setPlacementOpen(null)}>
+          <Button
+            themeColor="primary"
+            fullWidth
+            onPress={() => setPlacementOpen(null)}
+          >
             Close
           </Button>
         </DialogFooter>
@@ -331,7 +379,11 @@ export default function DialogScreen() {
           <Text style={{ fontWeight: '700' }}>{backdropOpen}</Text> backdrop style.
         </DialogBody>
         <DialogFooter>
-          <Button themeColor="secondary" fullWidth onPress={() => setBackdropOpen(null)}>
+          <Button
+            themeColor="secondary"
+            fullWidth
+            onPress={() => setBackdropOpen(null)}
+          >
             Close
           </Button>
         </DialogFooter>
@@ -348,8 +400,8 @@ export default function DialogScreen() {
           Size: {sizeOpen}
         </DialogHeader>
         <DialogBody>
-          This dialog uses the <Text style={{ fontWeight: '700' }}>{sizeOpen}</Text> size preset.
-          Adjust width and content area to fit your use case.
+          This dialog uses the <Text style={{ fontWeight: '700' }}>{sizeOpen}</Text>{' '}
+          size preset. Adjust width and content area to fit your use case.
         </DialogBody>
         <DialogFooter>
           <Button themeColor="tertiary" fullWidth onPress={() => setSizeOpen(null)}>
@@ -370,17 +422,33 @@ export default function DialogScreen() {
         <DialogHeader>Payment Successful</DialogHeader>
         <DialogBody>
           <View style={styles.successContent}>
-            <View style={[styles.successIcon, { backgroundColor: theme.colors.success.container }]}>
-              <Text style={[styles.successEmoji, { color: theme.colors.success.main }]}>✓</Text>
+            <View
+              style={[
+                styles.successIcon,
+                { backgroundColor: theme.colors.success.container },
+              ]}
+            >
+              <Text
+                style={[styles.successEmoji, { color: theme.colors.success.main }]}
+              >
+                ✓
+              </Text>
             </View>
-            <Text style={[styles.successAmount, { color: colors.foreground }]}>$129.00</Text>
+            <Text style={[styles.successAmount, { color: colors.foreground }]}>
+              $129.00
+            </Text>
             <Text style={[styles.successSub, { color: colors.foreground }]}>
-              Your subscription has been renewed. A receipt has been sent to your email.
+              Your subscription has been renewed. A receipt has been sent to your
+              email.
             </Text>
           </View>
         </DialogBody>
         <DialogFooter>
-          <Button themeColor="success" fullWidth onPress={() => setSuccessOpen(false)}>
+          <Button
+            themeColor="success"
+            fullWidth
+            onPress={() => setSuccessOpen(false)}
+          >
             Done
           </Button>
         </DialogFooter>

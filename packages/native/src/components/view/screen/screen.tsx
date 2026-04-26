@@ -14,7 +14,10 @@ export const Screen: React.FC<ScreenProps> = ({
 }) => {
   const theme = useXUITheme()
   const resolvedBackgroundColor = backgroundColor ?? theme.colors.background
-  const containerStyle: StyleProp<ViewStyle> = [{ flex: 1, backgroundColor: resolvedBackgroundColor, padding }, style]
+  const containerStyle: StyleProp<ViewStyle> = [
+    { flex: 1, backgroundColor: resolvedBackgroundColor, padding },
+    style,
+  ]
 
   if (safeArea) {
     return <SafeAreaView style={containerStyle}>{children}</SafeAreaView>

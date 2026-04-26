@@ -1,7 +1,7 @@
 export const expandedDocs = {
   name: 'Expanded',
   description:
-    'Expands a child to fill available space inside a Row or Column. The optional flex factor controls how much space this child claims relative to siblings — identical to Flutter\'s Expanded widget.',
+    "Expands a child to fill available space inside a Row or Column. The optional flex factor controls how much space this child claims relative to siblings — identical to Flutter's Expanded widget.",
   packages: {
     native: {
       package: '@xaui/native',
@@ -25,7 +25,8 @@ export const expandedDocs = {
       name: 'flex',
       type: 'number',
       default: '1',
-      description: 'Flex factor — how much available space to take relative to siblings',
+      description:
+        'Flex factor — how much available space to take relative to siblings',
     },
     {
       name: 'style',

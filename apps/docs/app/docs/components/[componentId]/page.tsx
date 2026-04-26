@@ -4,8 +4,14 @@ import { CodeBlock } from '@/components/ui/code-block'
 import { getComponentById, components, type Component } from '@/lib/data/components'
 import { componentPropsMap } from '@/lib/data/component-props'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { ComponentScreenshots, screenshotIds } from '@/components/screenshots/component-screenshots'
-import { ComponentHybridPreview, hybridPreviewIds } from '@/components/preview/hybrid-preview'
+import {
+  ComponentScreenshots,
+  screenshotIds,
+} from '@/components/screenshots/component-screenshots'
+import {
+  ComponentHybridPreview,
+  hybridPreviewIds,
+} from '@/components/preview/hybrid-preview'
 
 type ComponentPageProps = {
   params: Promise<{
@@ -131,7 +137,12 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
     component.category === 'Actions' ||
     component.category === 'Navigation'
   const hasCustomAppearance = searchableApi.includes('customappearance')
-  const noChildrenComponents = new Set(['spacer', 'sized-box', 'aspect-ratio', 'divider'])
+  const noChildrenComponents = new Set([
+    'spacer',
+    'sized-box',
+    'aspect-ratio',
+    'divider',
+  ])
   const needsChildren =
     (component.category === 'Layout' && !noChildrenComponents.has(component.id)) ||
     component.id === 'card' ||
@@ -158,22 +169,24 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
     <div className="space-y-8">
       <div className="space-y-4">
         <div className="flex flex-wrap items-center gap-3">
-          <h1 className="text-3xl font-bold tracking-tight md:text-4xl">{component.name}</h1>
+          <h1 className="text-3xl font-bold tracking-tight md:text-4xl">
+            {component.name}
+          </h1>
           <span className={getStatusClass(component.status)}>
             {component.status[0]?.toUpperCase()}
             {component.status.slice(1)}
           </span>
         </div>
-        <p className="text-base text-muted-foreground md:text-xl">{component.description}</p>
+        <p className="text-base text-muted-foreground md:text-xl">
+          {component.description}
+        </p>
       </div>
 
       <Tabs defaultValue="code" className="w-full">
         <TabsList>
           <TabsTrigger value="code">Code</TabsTrigger>
           <TabsTrigger value="props">Props</TabsTrigger>
-          {hasHybridPreview && (
-            <TabsTrigger value="preview">Preview</TabsTrigger>
-          )}
+          {hasHybridPreview && <TabsTrigger value="preview">Preview</TabsTrigger>}
           {hasScreenshots && (
             <TabsTrigger value="screenshots">Screenshots</TabsTrigger>
           )}
@@ -198,59 +211,59 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
             <CodeBlock code={usageCode} />
           </div>
 
-          {propsData?.examples
-            ? propsData.examples.map(example => (
-                <div key={example.title} className="space-y-4">
-                  <h3 className="text-lg font-semibold">{example.title}</h3>
-                  {example.description && (
-                    <p className="text-muted-foreground">{example.description}</p>
-                  )}
-                  <CodeBlock code={example.code} />
+          {propsData?.examples ? (
+            propsData.examples.map(example => (
+              <div key={example.title} className="space-y-4">
+                <h3 className="text-lg font-semibold">{example.title}</h3>
+                {example.description && (
+                  <p className="text-muted-foreground">{example.description}</p>
+                )}
+                <CodeBlock code={example.code} />
+              </div>
+            ))
+          ) : (
+            <>
+              {hasVariant && (
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold">Variants</h3>
+                  <p className="text-muted-foreground">
+                    Use case with multiple visual variants.
+                  </p>
+                  <CodeBlock code={variantsCode} />
                 </div>
-              ))
-            : (
-              <>
-                {hasVariant && (
-                  <div className="space-y-4">
-                    <h3 className="text-lg font-semibold">Variants</h3>
-                    <p className="text-muted-foreground">
-                      Use case with multiple visual variants.
-                    </p>
-                    <CodeBlock code={variantsCode} />
-                  </div>
-                )}
+              )}
 
-                {hasControlled && (
-                  <div className="space-y-4">
-                    <h3 className="text-lg font-semibold">Controlled State</h3>
-                    <p className="text-muted-foreground">
-                      Controlled pattern using external React state.
-                    </p>
-                    <CodeBlock code={controlledCode} />
-                  </div>
-                )}
+              {hasControlled && (
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold">Controlled State</h3>
+                  <p className="text-muted-foreground">
+                    Controlled pattern using external React state.
+                  </p>
+                  <CodeBlock code={controlledCode} />
+                </div>
+              )}
 
-                {hasDisabled && (
-                  <div className="space-y-4">
-                    <h3 className="text-lg font-semibold">Disabled State</h3>
-                    <p className="text-muted-foreground">
-                      Use case where the component should be non-interactive.
-                    </p>
-                    <CodeBlock code={disabledCode} />
-                  </div>
-                )}
+              {hasDisabled && (
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold">Disabled State</h3>
+                  <p className="text-muted-foreground">
+                    Use case where the component should be non-interactive.
+                  </p>
+                  <CodeBlock code={disabledCode} />
+                </div>
+              )}
 
-                {hasCustomAppearance && (
-                  <div className="space-y-4">
-                    <h3 className="text-lg font-semibold">Customization</h3>
-                    <p className="text-muted-foreground">
-                      Customization via the <code>customAppearance</code> API.
-                    </p>
-                    <CodeBlock code={customizationCode} />
-                  </div>
-                )}
-              </>
-            )}
+              {hasCustomAppearance && (
+                <div className="space-y-4">
+                  <h3 className="text-lg font-semibold">Customization</h3>
+                  <p className="text-muted-foreground">
+                    Customization via the <code>customAppearance</code> API.
+                  </p>
+                  <CodeBlock code={customizationCode} />
+                </div>
+              )}
+            </>
+          )}
         </TabsContent>
 
         <TabsContent value="props" className="space-y-8">
@@ -272,17 +285,25 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                         <th className="px-4 py-3 text-left font-medium">Prop</th>
                         <th className="px-4 py-3 text-left font-medium">Type</th>
                         <th className="px-4 py-3 text-left font-medium">Default</th>
-                        <th className="px-4 py-3 text-left font-medium">Description</th>
+                        <th className="px-4 py-3 text-left font-medium">
+                          Description
+                        </th>
                       </tr>
                     </thead>
                     <tbody>
                       {propsData.props.map((prop, i) => (
                         <tr
                           key={prop.name}
-                          className={i < propsData.props.length - 1 ? 'border-b' : ''}
+                          className={
+                            i < propsData.props.length - 1 ? 'border-b' : ''
+                          }
                         >
-                          <td className="px-4 py-3 font-mono text-xs">{prop.name}</td>
-                          <td className="px-4 py-3 text-muted-foreground">{prop.type}</td>
+                          <td className="px-4 py-3 font-mono text-xs">
+                            {prop.name}
+                          </td>
+                          <td className="px-4 py-3 text-muted-foreground">
+                            {prop.type}
+                          </td>
                           <td className="px-4 py-3 text-muted-foreground">
                             {prop.defaultValue}
                           </td>
@@ -305,7 +326,9 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                         <tr className="border-b bg-muted/50">
                           <th className="px-4 py-3 text-left font-medium">Event</th>
                           <th className="px-4 py-3 text-left font-medium">Type</th>
-                          <th className="px-4 py-3 text-left font-medium">Description</th>
+                          <th className="px-4 py-3 text-left font-medium">
+                            Description
+                          </th>
                         </tr>
                       </thead>
                       <tbody>
@@ -318,8 +341,12 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                                 : ''
                             }
                           >
-                            <td className="px-4 py-3 font-mono text-xs">{event.name}</td>
-                            <td className="px-4 py-3 text-muted-foreground">{event.type}</td>
+                            <td className="px-4 py-3 font-mono text-xs">
+                              {event.name}
+                            </td>
+                            <td className="px-4 py-3 text-muted-foreground">
+                              {event.type}
+                            </td>
                             <td className="px-4 py-3 text-muted-foreground">
                               {event.description}
                             </td>
@@ -341,8 +368,12 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                           <tr className="border-b bg-muted/50">
                             <th className="px-4 py-3 text-left font-medium">Prop</th>
                             <th className="px-4 py-3 text-left font-medium">Type</th>
-                            <th className="px-4 py-3 text-left font-medium">Default</th>
-                            <th className="px-4 py-3 text-left font-medium">Description</th>
+                            <th className="px-4 py-3 text-left font-medium">
+                              Default
+                            </th>
+                            <th className="px-4 py-3 text-left font-medium">
+                              Description
+                            </th>
                           </tr>
                         </thead>
                         <tbody>
@@ -351,8 +382,12 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                               key={prop.name}
                               className={i < sub.props.length - 1 ? 'border-b' : ''}
                             >
-                              <td className="px-4 py-3 font-mono text-xs">{prop.name}</td>
-                              <td className="px-4 py-3 text-muted-foreground">{prop.type}</td>
+                              <td className="px-4 py-3 font-mono text-xs">
+                                {prop.name}
+                              </td>
+                              <td className="px-4 py-3 text-muted-foreground">
+                                {prop.type}
+                              </td>
                               <td className="px-4 py-3 text-muted-foreground">
                                 {prop.defaultValue}
                               </td>
@@ -373,9 +408,15 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                         <table className="w-full text-sm">
                           <thead>
                             <tr className="border-b bg-muted/50">
-                              <th className="px-4 py-3 text-left font-medium">Event</th>
-                              <th className="px-4 py-3 text-left font-medium">Type</th>
-                              <th className="px-4 py-3 text-left font-medium">Description</th>
+                              <th className="px-4 py-3 text-left font-medium">
+                                Event
+                              </th>
+                              <th className="px-4 py-3 text-left font-medium">
+                                Type
+                              </th>
+                              <th className="px-4 py-3 text-left font-medium">
+                                Description
+                              </th>
                             </tr>
                           </thead>
                           <tbody>
@@ -383,10 +424,14 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                               <tr
                                 key={event.name}
                                 className={
-                                  sub.events && i < sub.events.length - 1 ? 'border-b' : ''
+                                  sub.events && i < sub.events.length - 1
+                                    ? 'border-b'
+                                    : ''
                                 }
                               >
-                                <td className="px-4 py-3 font-mono text-xs">{event.name}</td>
+                                <td className="px-4 py-3 font-mono text-xs">
+                                  {event.name}
+                                </td>
                                 <td className="px-4 py-3 text-muted-foreground">
                                   {event.type}
                                 </td>
@@ -418,7 +463,9 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
                     {component.exports.map((exportName, i) => (
                       <tr
                         key={exportName}
-                        className={i < component.exports.length - 1 ? 'border-b' : ''}
+                        className={
+                          i < component.exports.length - 1 ? 'border-b' : ''
+                        }
                       >
                         <td className="px-4 py-3 font-mono text-xs">{exportName}</td>
                         <td className="px-4 py-3 font-mono text-xs text-muted-foreground">

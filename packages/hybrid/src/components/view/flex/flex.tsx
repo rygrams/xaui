@@ -21,9 +21,14 @@ export const Flex: React.FC<FlexProps> = ({
   className,
   testID,
 }) => {
-  const flexDir = direction === 'horizontal'
-    ? (reversed ? 'row-reverse' : 'row')
-    : (reversed ? 'column-reverse' : 'column')
+  const flexDir =
+    direction === 'horizontal'
+      ? reversed
+        ? 'row-reverse'
+        : 'row'
+      : reversed
+        ? 'column-reverse'
+        : 'column'
 
   return (
     <div

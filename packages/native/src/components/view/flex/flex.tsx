@@ -20,9 +20,14 @@ export const Flex: React.FC<FlexProps> = ({
   style,
   testID,
 }) => {
-  const flexDir = direction === 'horizontal'
-    ? (reversed ? 'row-reverse' : 'row')
-    : (reversed ? 'column-reverse' : 'column')
+  const flexDir =
+    direction === 'horizontal'
+      ? reversed
+        ? 'row-reverse'
+        : 'row'
+      : reversed
+        ? 'column-reverse'
+        : 'column'
 
   return (
     <View

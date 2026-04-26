@@ -141,7 +141,11 @@ export default function PickerScreen() {
           options={[
             { label: 'Free', value: 'free' },
             { label: 'Pro', value: 'pro' },
-            { label: 'Enterprise (contact us)', value: 'enterprise', disabled: true },
+            {
+              label: 'Enterprise (contact us)',
+              value: 'enterprise',
+              disabled: true,
+            },
           ]}
           value={plan}
           onValueChange={setPlan}

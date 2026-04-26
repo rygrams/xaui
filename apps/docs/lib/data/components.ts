@@ -727,7 +727,13 @@ export const components: Component[] = [
     status: 'beta',
     importPath: '@xaui/native/view',
     exports: ['Flex'],
-    types: ['FlexProps', 'Direction', 'MainAxisAlignment', 'CrossAxisAlignment', 'MainAxisSize'],
+    types: [
+      'FlexProps',
+      'Direction',
+      'MainAxisAlignment',
+      'CrossAxisAlignment',
+      'MainAxisSize',
+    ],
   },
   {
     id: 'row',

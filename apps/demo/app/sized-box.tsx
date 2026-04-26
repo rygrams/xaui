@@ -28,7 +28,14 @@ export default function SizedBoxScreen() {
           <SizedBox width={16} />
           <View style={[styles.block, { backgroundColor: colors.success.main }]} />
         </View>
-        <Text style={{ color: colors.foreground, opacity: 0.55, fontSize: 12, marginTop: 6 }}>
+        <Text
+          style={{
+            color: colors.foreground,
+            opacity: 0.55,
+            fontSize: 12,
+            marginTop: 6,
+          }}
+        >
           width=32 between first and second, width=16 between second and third
         </Text>
       </View>
@@ -39,15 +46,30 @@ export default function SizedBoxScreen() {
           Fixed Height Spacer
         </Text>
         <View>
-          <View style={[styles.hBlock, { backgroundColor: colors.primary.container }]}>
-            <Text style={{ color: colors.primary.onContainer, fontSize: 13 }}>Section A</Text>
+          <View
+            style={[styles.hBlock, { backgroundColor: colors.primary.container }]}
+          >
+            <Text style={{ color: colors.primary.onContainer, fontSize: 13 }}>
+              Section A
+            </Text>
           </View>
           <SizedBox height={24} />
-          <View style={[styles.hBlock, { backgroundColor: colors.secondary.container }]}>
-            <Text style={{ color: colors.secondary.onContainer, fontSize: 13 }}>Section B</Text>
+          <View
+            style={[styles.hBlock, { backgroundColor: colors.secondary.container }]}
+          >
+            <Text style={{ color: colors.secondary.onContainer, fontSize: 13 }}>
+              Section B
+            </Text>
           </View>
         </View>
-        <Text style={{ color: colors.foreground, opacity: 0.55, fontSize: 12, marginTop: 6 }}>
+        <Text
+          style={{
+            color: colors.foreground,
+            opacity: 0.55,
+            fontSize: 12,
+            marginTop: 6,
+          }}
+        >
           height=24 vertical gap
         </Text>
       </View>
@@ -69,7 +91,13 @@ export default function SizedBoxScreen() {
                   alignItems: 'center',
                 }}
               >
-                <Text style={{ color: colors.primary.onMain, fontSize: 10, fontWeight: '600' }}>
+                <Text
+                  style={{
+                    color: colors.primary.onMain,
+                    fontSize: 10,
+                    fontWeight: '600',
+                  }}
+                >
                   {size}
                 </Text>
               </View>
@@ -93,7 +121,9 @@ export default function SizedBoxScreen() {
               alignItems: 'center',
             }}
           >
-            <Text style={{ color: colors.secondary.onMain, fontSize: 10 }}>48px</Text>
+            <Text style={{ color: colors.secondary.onMain, fontSize: 10 }}>
+              48px
+            </Text>
           </View>
           <SizedBox expand>
             <View
@@ -105,11 +135,20 @@ export default function SizedBoxScreen() {
                 alignItems: 'center',
               }}
             >
-              <Text style={{ color: colors.primary.onContainer, fontSize: 12 }}>expand</Text>
+              <Text style={{ color: colors.primary.onContainer, fontSize: 12 }}>
+                expand
+              </Text>
             </View>
           </SizedBox>
         </View>
-        <Text style={{ color: colors.foreground, opacity: 0.55, fontSize: 12, marginTop: 6 }}>
+        <Text
+          style={{
+            color: colors.foreground,
+            opacity: 0.55,
+            fontSize: 12,
+            marginTop: 6,
+          }}
+        >
           SizedBox expand fills all remaining space in the row
         </Text>
       </View>
@@ -146,7 +185,14 @@ export default function SizedBoxScreen() {
             <Text style={{ color: colors.success.onMain, fontSize: 10 }}>B</Text>
           </View>
         </View>
-        <Text style={{ color: colors.foreground, opacity: 0.55, fontSize: 12, marginTop: 6 }}>
+        <Text
+          style={{
+            color: colors.foreground,
+            opacity: 0.55,
+            fontSize: 12,
+            marginTop: 6,
+          }}
+        >
           SizedBox shrink takes no space — A and B are adjacent
         </Text>
       </View>

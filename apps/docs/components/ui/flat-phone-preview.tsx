@@ -8,7 +8,10 @@ type FlatPhonePreviewProps = {
   colorScheme?: 'light' | 'dark'
 }
 
-export function FlatPhonePreview({ children, colorScheme = 'light' }: FlatPhonePreviewProps) {
+export function FlatPhonePreview({
+  children,
+  colorScheme = 'light',
+}: FlatPhonePreviewProps) {
   const isDark = colorScheme === 'dark'
 
   return (
@@ -29,8 +32,18 @@ export function FlatPhonePreview({ children, colorScheme = 'light' }: FlatPhoneP
             <div className="flex-1 overflow-y-auto">
               <HybridProvider colorScheme={colorScheme}>{children}</HybridProvider>
             </div>
-            <div className={['flex justify-center py-2', isDark ? 'bg-zinc-800' : 'bg-white'].join(' ')}>
-              <div className={['h-1 w-16 rounded-full', isDark ? 'bg-zinc-700' : 'bg-zinc-300'].join(' ')} />
+            <div
+              className={[
+                'flex justify-center py-2',
+                isDark ? 'bg-zinc-800' : 'bg-white',
+              ].join(' ')}
+            >
+              <div
+                className={[
+                  'h-1 w-16 rounded-full',
+                  isDark ? 'bg-zinc-700' : 'bg-zinc-300',
+                ].join(' ')}
+              />
             </div>
           </div>
           <div className="pt-[7px]" />

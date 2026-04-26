@@ -26,7 +26,11 @@ describe('SizedBox', () => {
   })
 
   it('renders children', () => {
-    render(<SizedBox testID="box"><span>hello</span></SizedBox>)
+    render(
+      <SizedBox testID="box">
+        <span>hello</span>
+      </SizedBox>
+    )
     expect(screen.getByTestId('box').textContent).toBe('hello')
   })
 })

@@ -3,7 +3,13 @@ import React from 'react'
 import type { PaddingProps } from './padding.type'
 import { resolveEdgeInsets } from '../container/container.utils'
 
-export const Padding: React.FC<PaddingProps> = ({ children, padding, style, className, testID }) => (
+export const Padding: React.FC<PaddingProps> = ({
+  children,
+  padding,
+  style,
+  className,
+  testID,
+}) => (
   <div
     data-testid={testID}
     className={className}

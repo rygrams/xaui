@@ -148,4 +148,3 @@ export type DialogFooterProps = {
    */
   style?: ViewStyle
 }
-

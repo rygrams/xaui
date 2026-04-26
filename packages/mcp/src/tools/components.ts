@@ -43,7 +43,7 @@ export function registerComponentTools(server: McpServer) {
             .join('\n'),
         },
       ],
-    }),
+    })
   )
 
   server.registerTool(
@@ -51,7 +51,9 @@ export function registerComponentTools(server: McpServer) {
     {
       description:
         'Get full documentation for a XAUI component including props, examples, and package info',
-      inputSchema: { component: z.string().describe('Component id, e.g. "container"') },
+      inputSchema: {
+        component: z.string().describe('Component id, e.g. "container"'),
+      },
     },
     ({ component }) => {
       const doc = COMPONENTS[component.toLowerCase()]
@@ -67,11 +69,13 @@ export function registerComponentTools(server: McpServer) {
       }
 
       const propsTable = doc.props
-        .map((p) => `| \`${p.name}\` | \`${p.type}\` | ${p.default} | ${p.description} |`)
+        .map(
+          p => `| \`${p.name}\` | \`${p.type}\` | ${p.default} | ${p.description} |`
+        )
         .join('\n')
 
       const examples = doc.examples
-        .map((e) => `### ${e.title}\n\`\`\`tsx\n${e.code}\n\`\`\``)
+        .map(e => `### ${e.title}\n\`\`\`tsx\n${e.code}\n\`\`\``)
         .join('\n\n')
 
       const text = `
@@ -105,14 +109,16 @@ ${examples}
 `.trim()
 
       return { content: [{ type: 'text', text }] }
-    },
+    }
   )
 
   server.registerTool(
     'get_component_examples',
     {
       description: 'Get usage examples for a XAUI component',
-      inputSchema: { component: z.string().describe('Component id, e.g. "container"') },
+      inputSchema: {
+        component: z.string().describe('Component id, e.g. "container"'),
+      },
     },
     ({ component }) => {
       const doc = COMPONENTS[component.toLowerCase()]
@@ -128,10 +134,10 @@ ${examples}
       }
 
       const text = doc.examples
-        .map((e) => `### ${e.title}\n\`\`\`tsx\n${e.code}\n\`\`\``)
+        .map(e => `### ${e.title}\n\`\`\`tsx\n${e.code}\n\`\`\``)
         .join('\n\n')
 
       return { content: [{ type: 'text', text }] }
-    },
+    }
   )
 }

@@ -15,7 +15,9 @@ describe('Flex', () => {
   })
 
   it('applies spaceBetween justifyContent', () => {
-    render(<Flex direction="horizontal" mainAxisAlignment="spaceBetween" testID="box" />)
+    render(
+      <Flex direction="horizontal" mainAxisAlignment="spaceBetween" testID="box" />
+    )
     expect(screen.getByTestId('box').style.justifyContent).toBe('space-between')
   })
 
@@ -40,7 +42,11 @@ describe('Flex', () => {
   })
 
   it('renders children', () => {
-    render(<Flex direction="horizontal" testID="box"><span>hi</span></Flex>)
+    render(
+      <Flex direction="horizontal" testID="box">
+        <span>hi</span>
+      </Flex>
+    )
     expect(screen.getByTestId('box').textContent).toBe('hi')
   })
 })

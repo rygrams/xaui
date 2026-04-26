@@ -36,8 +36,10 @@ import { Center } from '@xaui/hybrid/view'
 import { Center } from '@xaui/native/view'
 import { View } from 'react-native'
 
-<Center>
-  <View style={{ width: 80, height: 80, backgroundColor: '#6366f1', borderRadius: 40 }} />
+;<Center>
+  <View
+    style={{ width: 80, height: 80, backgroundColor: '#6366f1', borderRadius: 40 }}
+  />
 </Center>
 ```
 
@@ -47,7 +49,7 @@ import { View } from 'react-native'
 import { Center } from '@xaui/native/view'
 import { ActivityIndicator } from 'react-native'
 
-<Center>
+;<Center>
   <ActivityIndicator size="large" />
 </Center>
 ```
@@ -57,7 +59,7 @@ import { ActivityIndicator } from 'react-native'
 ```tsx
 import { Center, Column } from '@xaui/native/view'
 
-<Center>
+;<Center>
   <Column crossAxisAlignment="center" gap={12}>
     <EmptyIcon />
     <Typography>Nothing here yet</Typography>

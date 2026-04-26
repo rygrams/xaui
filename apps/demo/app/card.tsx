@@ -146,7 +146,9 @@ export default function CardScreen() {
       </View>
 
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Basic</Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
+          Basic
+        </Text>
         <Card elevation={2}>
           <CardHeader>
             <CardTitle>Card Header</CardTitle>

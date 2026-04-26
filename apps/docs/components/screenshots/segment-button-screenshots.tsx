@@ -1,8 +1,14 @@
 import Image from 'next/image'
 
 const screenshots = [
-  { src: '/screenshots/segment-button-1.jpg', alt: 'SegmentButton preview light mode' },
-  { src: '/screenshots/segment-button-2.jpg', alt: 'SegmentButton preview dark mode' },
+  {
+    src: '/screenshots/segment-button-1.jpg',
+    alt: 'SegmentButton preview light mode',
+  },
+  {
+    src: '/screenshots/segment-button-2.jpg',
+    alt: 'SegmentButton preview dark mode',
+  },
 ] as const
 
 export function SegmentButtonScreenshots() {
@@ -11,7 +17,10 @@ export function SegmentButtonScreenshots() {
       <h2 className="text-xl font-semibold tracking-tight md:text-2xl">Preview</h2>
       <div className="flex flex-col items-center md:items-start md:flex-row gap-4 overflow-x-auto">
         {screenshots.map(item => (
-          <div key={item.src} className="overflow-hidden rounded-2xl shrink-0 border-4 border-gray-200">
+          <div
+            key={item.src}
+            className="overflow-hidden rounded-2xl shrink-0 border-4 border-gray-200"
+          >
             <Image
               src={item.src}
               alt={item.alt}

@@ -63,4 +63,3 @@ describe('Dialog Types', () => {
     expect(footerProps.children).toBe('Footer')
   })
 })
-

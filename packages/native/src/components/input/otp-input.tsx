@@ -82,7 +82,9 @@ const OTPSegment = ({
             height: sizeStyles.height,
             backgroundColor: variantStyles.container.backgroundColor,
             borderRadius: isUnderlined ? 0 : radiusStyles.borderRadius,
-            borderWidth: isUnderlined ? 0 : (variantStyles.container.borderWidth ?? 0),
+            borderWidth: isUnderlined
+              ? 0
+              : (variantStyles.container.borderWidth ?? 0),
             borderColor: isUnderlined ? undefined : animatedBorderColor,
           },
           customSegment?.segment,

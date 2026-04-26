@@ -11715,7 +11715,8 @@ export function CenteredExample() {
         name: 'style',
         type: 'StyleProp<ViewStyle> / CSSProperties',
         defaultValue: '-',
-        description: 'Style override (native: StyleProp<ViewStyle>, hybrid: CSSProperties)',
+        description:
+          'Style override (native: StyleProp<ViewStyle>, hybrid: CSSProperties)',
       },
       {
         name: 'testID',
@@ -11966,7 +11967,8 @@ export function CenteredColumnExample() {
         name: 'flex',
         type: 'number',
         defaultValue: '1',
-        description: 'Flex factor — how much available space to take relative to siblings',
+        description:
+          'Flex factor — how much available space to take relative to siblings',
       },
       {
         name: 'style',

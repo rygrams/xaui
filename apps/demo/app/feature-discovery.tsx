@@ -177,9 +177,7 @@ export default function FeatureDiscoveryScreen() {
               },
             ]}
           >
-            <Text
-              style={[styles.fabText, { color: theme.colors.primary.onMain }]}
-            >
+            <Text style={[styles.fabText, { color: theme.colors.primary.onMain }]}>
               +1
             </Text>
           </Pressable>
@@ -197,9 +195,7 @@ export default function FeatureDiscoveryScreen() {
               },
             ]}
           >
-            <Text
-              style={[styles.fabText, { color: theme.colors.danger.onMain }]}
-            >
+            <Text style={[styles.fabText, { color: theme.colors.danger.onMain }]}>
               -1
             </Text>
           </Pressable>

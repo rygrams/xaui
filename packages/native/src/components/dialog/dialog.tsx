@@ -241,12 +241,7 @@ export const Dialog: React.FC<DialogProps> = ({
   if (!shouldRender) return null
 
   return (
-    <Modal
-      visible
-      transparent
-      animationType="none"
-      onRequestClose={requestClose}
-    >
+    <Modal visible transparent animationType="none" onRequestClose={requestClose}>
       <View style={styles.root}>
         {!hideBackdrop && (
           <AnimatedPressable

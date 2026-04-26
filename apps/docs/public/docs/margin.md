@@ -22,11 +22,11 @@ import { Margin } from '@xaui/hybrid/view'
 
 ## Props
 
-| Prop       | Type                                     | Default | Description                                                                                     |
-| ---------- | ---------------------------------------- | ------- | ----------------------------------------------------------------------------------------------- |
-| `margin`   | `EdgeInsets`                             | —       | Margin — number for uniform or `{ top, bottom, left, right, horizontal, vertical }` (required)  |
-| `children` | `ReactNode`                              | —       | Content to render inside the margin container                                                   |
-| `style`    | `StyleProp<ViewStyle>` / `CSSProperties` | —       | Style override (native: `StyleProp<ViewStyle>`, hybrid: `CSSProperties`)                        |
+| Prop       | Type                                     | Default | Description                                                                                    |
+| ---------- | ---------------------------------------- | ------- | ---------------------------------------------------------------------------------------------- |
+| `margin`   | `EdgeInsets`                             | —       | Margin — number for uniform or `{ top, bottom, left, right, horizontal, vertical }` (required) |
+| `children` | `ReactNode`                              | —       | Content to render inside the margin container                                                  |
+| `style`    | `StyleProp<ViewStyle>` / `CSSProperties` | —       | Style override (native: `StyleProp<ViewStyle>`, hybrid: `CSSProperties`)                       |
 
 ### EdgeInsets
 
@@ -50,7 +50,7 @@ type EdgeInsets =
 ```tsx
 import { Margin } from '@xaui/native/view'
 
-<Margin margin={16}>
+;<Margin margin={16}>
   <Card />
 </Margin>
 ```
@@ -60,7 +60,7 @@ import { Margin } from '@xaui/native/view'
 ```tsx
 import { Margin } from '@xaui/native/view'
 
-<Margin margin={{ vertical: 20 }}>
+;<Margin margin={{ vertical: 20 }}>
   <Divider />
 </Margin>
 ```
@@ -70,7 +70,7 @@ import { Margin } from '@xaui/native/view'
 ```tsx
 import { Margin } from '@xaui/native/view'
 
-<Margin margin={{ top: 8, bottom: 24, left: 0, right: 0 }}>
+;<Margin margin={{ top: 8, bottom: 24, left: 0, right: 0 }}>
   <Section title="Details" />
 </Margin>
 ```

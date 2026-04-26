@@ -19,7 +19,8 @@ export const flexDocs = {
       name: 'direction',
       type: '"horizontal" | "vertical"',
       default: '-',
-      description: 'Axis direction — horizontal for row, vertical for column (required)',
+      description:
+        'Axis direction — horizontal for row, vertical for column (required)',
     },
     {
       name: 'children',

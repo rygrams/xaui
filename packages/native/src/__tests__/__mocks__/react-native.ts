@@ -31,7 +31,10 @@ const extractAccessibilityProps = (props: Record<string, unknown>) => {
     | undefined
 
   return {
-    domProps: { ...domProps, ...(testID !== undefined && { 'data-testid': testID }) },
+    domProps: {
+      ...domProps,
+      ...(testID !== undefined && { 'data-testid': testID }),
+    },
     accessibilityRole,
     accessibilityLabel,
     accValue,

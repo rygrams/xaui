@@ -27,7 +27,13 @@ function SidebarNav({ onSearchOpen, stars }: SidebarNavProps) {
     <div className="flex h-full flex-col">
       <div className="flex h-14 items-center justify-between border-b px-4">
         <Link href="/" className="flex items-center gap-2 font-semibold">
-          <Image src="/logo.svg" alt="Xaui" width={32} height={32} className="rounded-lg" />
+          <Image
+            src="/logo.svg"
+            alt="Xaui"
+            width={32}
+            height={32}
+            className="rounded-lg"
+          />
           <span>Xaui</span>
         </Link>
         <div className="flex items-center gap-1.5">
@@ -75,7 +81,9 @@ function SidebarNav({ onSearchOpen, stars }: SidebarNavProps) {
         >
           <Search className="h-4 w-4" />
           <span>Search...</span>
-          <kbd className="ml-auto rounded bg-background px-1.5 py-0.5 text-xs">⌘K</kbd>
+          <kbd className="ml-auto rounded bg-background px-1.5 py-0.5 text-xs">
+            ⌘K
+          </kbd>
         </button>
       </div>
 
@@ -162,7 +170,13 @@ export function Sidebar() {
           </SheetContent>
         </Sheet>
         <Link href="/" className="flex items-center gap-2 font-semibold">
-          <Image src="/logo.svg" alt="Xaui" width={32} height={32} className="rounded-lg" />
+          <Image
+            src="/logo.svg"
+            alt="Xaui"
+            width={32}
+            height={32}
+            className="rounded-lg"
+          />
           <span>Xaui</span>
         </Link>
       </header>

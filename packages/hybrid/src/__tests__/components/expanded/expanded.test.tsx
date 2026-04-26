@@ -15,7 +15,11 @@ describe('Expanded', () => {
   })
 
   it('renders children', () => {
-    render(<Expanded testID="box"><span>hello</span></Expanded>)
+    render(
+      <Expanded testID="box">
+        <span>hello</span>
+      </Expanded>
+    )
     expect(screen.getByTestId('box').textContent).toBe('hello')
   })
 })

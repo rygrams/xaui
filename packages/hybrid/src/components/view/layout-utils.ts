@@ -1,7 +1,15 @@
 import type { CSSProperties } from 'react'
-import type { CrossAxisAlignment, Direction, MainAxisAlignment, MainAxisSize } from './layout-types'
+import type {
+  CrossAxisAlignment,
+  Direction,
+  MainAxisAlignment,
+  MainAxisSize,
+} from './layout-types'
 
-const MAIN_AXIS_JUSTIFY_MAP: Record<MainAxisAlignment, CSSProperties['justifyContent']> = {
+const MAIN_AXIS_JUSTIFY_MAP: Record<
+  MainAxisAlignment,
+  CSSProperties['justifyContent']
+> = {
   start: 'flex-start',
   center: 'center',
   end: 'flex-end',
@@ -10,12 +18,13 @@ const MAIN_AXIS_JUSTIFY_MAP: Record<MainAxisAlignment, CSSProperties['justifyCon
   spaceEvenly: 'space-evenly',
 }
 
-const CROSS_AXIS_ALIGN_MAP: Record<CrossAxisAlignment, CSSProperties['alignItems']> = {
-  start: 'flex-start',
-  center: 'center',
-  end: 'flex-end',
-  stretch: 'stretch',
-}
+const CROSS_AXIS_ALIGN_MAP: Record<CrossAxisAlignment, CSSProperties['alignItems']> =
+  {
+    start: 'flex-start',
+    center: 'center',
+    end: 'flex-end',
+    stretch: 'stretch',
+  }
 
 export const resolveMainAxisAlignment = (alignment?: MainAxisAlignment) =>
   MAIN_AXIS_JUSTIFY_MAP[alignment ?? 'start']

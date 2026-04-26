@@ -3,7 +3,8 @@ import { CodeBlock } from '@/components/ui/code-block'
 
 export const metadata: Metadata = {
   title: 'MCP Server - Xaui',
-  description: 'Add XAUI knowledge to your AI assistant with the official MCP server',
+  description:
+    'Add XAUI knowledge to your AI assistant with the official MCP server',
 }
 
 export default function McpPage() {
@@ -32,9 +33,9 @@ export default function McpPage() {
       <div className="space-y-4">
         <h1 className="text-3xl font-bold tracking-tight md:text-4xl">MCP Server</h1>
         <p className="text-base text-muted-foreground md:text-xl">
-          The official XAUI MCP (Model Context Protocol) server gives your AI assistant
-          full knowledge of XAUI components, props, and usage patterns — no copy-pasting
-          docs required.
+          The official XAUI MCP (Model Context Protocol) server gives your AI
+          assistant full knowledge of XAUI components, props, and usage patterns — no
+          copy-pasting docs required.
         </p>
       </div>
 
@@ -43,9 +44,9 @@ export default function McpPage() {
           <h2 className="text-xl font-semibold md:text-2xl">What is MCP?</h2>
           <p className="text-muted-foreground">
             MCP (Model Context Protocol) is an open standard that lets AI assistants
-            connect to external tools and data sources. Adding the XAUI MCP server means
-            your AI can look up component props, get usage examples, and understand the
-            difference between{' '}
+            connect to external tools and data sources. Adding the XAUI MCP server
+            means your AI can look up component props, get usage examples, and
+            understand the difference between{' '}
             <code className="rounded bg-muted px-1 py-0.5 text-sm font-mono">
               @xaui/native
             </code>{' '}
@@ -120,10 +121,14 @@ export default function McpPage() {
                 name: 'get_mcp_setup',
                 description: 'Get instructions to add XAUI MCP to an AI assistant',
               },
-            ].map((tool) => (
+            ].map(tool => (
               <div key={tool.name} className="px-4 py-3 flex gap-4 items-start">
-                <code className="text-sm font-mono text-primary shrink-0">{tool.name}</code>
-                <span className="text-sm text-muted-foreground">{tool.description}</span>
+                <code className="text-sm font-mono text-primary shrink-0">
+                  {tool.name}
+                </code>
+                <span className="text-sm text-muted-foreground">
+                  {tool.description}
+                </span>
               </div>
             ))}
           </div>
@@ -137,8 +142,8 @@ export default function McpPage() {
           </p>
           <CodeBlock code="https://ui.xtartapp.com/llm.txt" language="bash" />
           <p className="text-sm text-muted-foreground">
-            You can paste this URL into any AI assistant that accepts URLs, or download
-            it into your project as a local context file.
+            You can paste this URL into any AI assistant that accepts URLs, or
+            download it into your project as a local context file.
           </p>
         </section>
       </div>

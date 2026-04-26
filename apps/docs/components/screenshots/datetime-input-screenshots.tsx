@@ -1,7 +1,10 @@
 import Image from 'next/image'
 
 const screenshots = [
-  { src: '/screenshots/datetime-input-1.jpg', alt: 'DateTimeInput preview dark mode - time and datetime inputs' },
+  {
+    src: '/screenshots/datetime-input-1.jpg',
+    alt: 'DateTimeInput preview dark mode - time and datetime inputs',
+  },
 ] as const
 
 export function DateTimeInputScreenshots() {
@@ -10,7 +13,10 @@ export function DateTimeInputScreenshots() {
       <h2 className="text-xl font-semibold tracking-tight md:text-2xl">Preview</h2>
       <div className="flex flex-col items-center md:items-start md:flex-row gap-4 overflow-x-auto">
         {screenshots.map(item => (
-          <div key={item.src} className="overflow-hidden rounded-2xl shrink-0 border-4 border-gray-200">
+          <div
+            key={item.src}
+            className="overflow-hidden rounded-2xl shrink-0 border-4 border-gray-200"
+          >
             <Image
               src={item.src}
               alt={item.alt}

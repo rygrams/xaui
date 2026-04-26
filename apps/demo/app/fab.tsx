@@ -178,9 +178,7 @@ export default function FabScreen() {
         <View style={styles.fabMenuContainer}>
           <FabMenu
             icon={<PencilIcon size={24} color={colors.secondary.onMain} />}
-            expandedIcon={
-              <CloseIcon size={24} color={colors.secondary.onMain} />
-            }
+            expandedIcon={<CloseIcon size={24} color={colors.secondary.onMain} />}
             themeColor="secondary"
             variant="solid"
             label="Expand Menu"

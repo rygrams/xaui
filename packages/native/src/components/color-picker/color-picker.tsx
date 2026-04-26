@@ -102,8 +102,7 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState(isOpened ?? false)
   const theme = useXUITheme()
-  const sheetBackground =
-    theme.mode === 'dark' ? theme.colors.background : '#ffffff'
+  const sheetBackground = theme.mode === 'dark' ? theme.colors.background : '#ffffff'
 
   useEffect(() => {
     if (isOpened !== undefined) {
@@ -207,10 +206,7 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
                   ]}
                 />
                 <Text
-                  style={[
-                    styles.hexLabel,
-                    { color: withOpacity(foreground, 0.7) },
-                  ]}
+                  style={[styles.hexLabel, { color: withOpacity(foreground, 0.7) }]}
                 >
                   {value.toUpperCase()}
                 </Text>

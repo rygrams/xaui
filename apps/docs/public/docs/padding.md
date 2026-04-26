@@ -22,11 +22,11 @@ import { Padding } from '@xaui/hybrid/view'
 
 ## Props
 
-| Prop       | Type                                     | Default | Description                                                                                       |
-| ---------- | ---------------------------------------- | ------- | ------------------------------------------------------------------------------------------------- |
-| `padding`  | `EdgeInsets`                             | —       | Padding — number for uniform or `{ top, bottom, left, right, horizontal, vertical }` (required)  |
-| `children` | `ReactNode`                              | —       | Content to render inside the padding container                                                    |
-| `style`    | `StyleProp<ViewStyle>` / `CSSProperties` | —       | Style override (native: `StyleProp<ViewStyle>`, hybrid: `CSSProperties`)                          |
+| Prop       | Type                                     | Default | Description                                                                                     |
+| ---------- | ---------------------------------------- | ------- | ----------------------------------------------------------------------------------------------- |
+| `padding`  | `EdgeInsets`                             | —       | Padding — number for uniform or `{ top, bottom, left, right, horizontal, vertical }` (required) |
+| `children` | `ReactNode`                              | —       | Content to render inside the padding container                                                  |
+| `style`    | `StyleProp<ViewStyle>` / `CSSProperties` | —       | Style override (native: `StyleProp<ViewStyle>`, hybrid: `CSSProperties`)                        |
 
 ### EdgeInsets
 
@@ -50,7 +50,7 @@ type EdgeInsets =
 ```tsx
 import { Padding } from '@xaui/native/view'
 
-<Padding padding={16}>
+;<Padding padding={16}>
   <Card />
 </Padding>
 ```
@@ -60,7 +60,7 @@ import { Padding } from '@xaui/native/view'
 ```tsx
 import { Padding } from '@xaui/native/view'
 
-<Padding padding={{ horizontal: 24, vertical: 12 }}>
+;<Padding padding={{ horizontal: 24, vertical: 12 }}>
   <Button label="Submit" onPress={handleSubmit} />
 </Padding>
 ```
@@ -70,7 +70,7 @@ import { Padding } from '@xaui/native/view'
 ```tsx
 import { Padding } from '@xaui/native/view'
 
-<Padding padding={{ top: 8, bottom: 16, left: 12, right: 12 }}>
+;<Padding padding={{ top: 8, bottom: 16, left: 12, right: 12 }}>
   <ListItem title="Settings" />
 </Padding>
 ```

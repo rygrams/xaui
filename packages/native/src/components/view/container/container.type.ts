@@ -1,5 +1,10 @@
 import type { ReactNode } from 'react'
-import type { AccessibilityRole, AccessibilityState, StyleProp, ViewStyle } from 'react-native'
+import type {
+  AccessibilityRole,
+  AccessibilityState,
+  StyleProp,
+  ViewStyle,
+} from 'react-native'
 import type {
   EdgeInsets,
   Alignment,

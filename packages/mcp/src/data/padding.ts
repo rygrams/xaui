@@ -1,7 +1,7 @@
 export const paddingDocs = {
   name: 'Padding',
   description:
-    'Wraps content with configurable padding on any or all sides using Flutter\'s EdgeInsets API.',
+    "Wraps content with configurable padding on any or all sides using Flutter's EdgeInsets API.",
   packages: {
     native: {
       package: '@xaui/native',

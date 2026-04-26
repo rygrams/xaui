@@ -112,7 +112,12 @@ export const Snippet: React.FC<SnippetProps> = ({
       disabled={isDisabled}
       style={
         isInline
-          ? [styles.inlineCopyButton, radiusStyles, copyButtonColors, customAppearance?.copyButton]
+          ? [
+              styles.inlineCopyButton,
+              radiusStyles,
+              copyButtonColors,
+              customAppearance?.copyButton,
+            ]
           : [
               styles.copyButton,
               radiusStyles,
