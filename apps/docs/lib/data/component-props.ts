@@ -11655,6 +11655,581 @@ export function CenteredExample() {
     ],
   },
 
+  flex: {
+    props: [
+      {
+        name: 'direction',
+        type: '"horizontal" | "vertical"',
+        defaultValue: '-',
+        description: 'Axis direction — horizontal for row, vertical for column',
+      },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Content to render inside the flex container',
+      },
+      {
+        name: 'mainAxisAlignment',
+        type: '"start" | "end" | "center" | "spaceBetween" | "spaceAround" | "spaceEvenly"',
+        defaultValue: '"start"',
+        description: 'How to place children along the main axis',
+      },
+      {
+        name: 'crossAxisAlignment',
+        type: '"start" | "end" | "center" | "stretch"',
+        defaultValue: '"center"',
+        description: 'How to place children along the cross axis',
+      },
+      {
+        name: 'mainAxisSize',
+        type: '"min" | "max"',
+        defaultValue: '"max"',
+        description: 'Whether the container takes max or min space in the main axis',
+      },
+      {
+        name: 'gap',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Gap in logical pixels between children',
+      },
+      {
+        name: 'wrap',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Wrap children onto multiple lines when they overflow',
+      },
+      {
+        name: 'reversed',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Reverse the layout direction',
+      },
+      {
+        name: 'flex',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Flex factor applied to the container itself',
+      },
+      {
+        name: 'style',
+        type: 'StyleProp<ViewStyle> / CSSProperties',
+        defaultValue: '-',
+        description: 'Style override (native: StyleProp<ViewStyle>, hybrid: CSSProperties)',
+      },
+      {
+        name: 'testID',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Test identifier for e2e tests',
+      },
+    ],
+    examples: [
+      {
+        title: 'Row with space between',
+        description: 'Horizontal flex with items spread evenly.',
+        code: `import { Flex } from '@xaui/native/view'
+import { View } from 'react-native'
+
+export function SpaceBetweenExample() {
+  return (
+    <Flex direction="horizontal" mainAxisAlignment="spaceBetween" gap={8}>
+      <View style={{ width: 60, height: 60, backgroundColor: '#6366f1', borderRadius: 8 }} />
+      <View style={{ width: 60, height: 60, backgroundColor: '#8b5cf6', borderRadius: 8 }} />
+      <View style={{ width: 60, height: 60, backgroundColor: '#a855f7', borderRadius: 8 }} />
+    </Flex>
+  )
+}`,
+      },
+      {
+        title: 'Vertical stack centered',
+        description: 'Column direction with centered cross axis.',
+        code: `import { Flex } from '@xaui/native/view'
+import { View } from 'react-native'
+
+export function VerticalCenterExample() {
+  return (
+    <Flex direction="vertical" crossAxisAlignment="center" gap={12}>
+      <View style={{ width: 120, height: 40, backgroundColor: '#0ea5e9', borderRadius: 8 }} />
+      <View style={{ width: 80, height: 40, backgroundColor: '#38bdf8', borderRadius: 8 }} />
+    </Flex>
+  )
+}`,
+      },
+    ],
+  },
+
+  row: {
+    props: [
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Content to render inside the row',
+      },
+      {
+        name: 'mainAxisAlignment',
+        type: '"start" | "end" | "center" | "spaceBetween" | "spaceAround" | "spaceEvenly"',
+        defaultValue: '"start"',
+        description: 'How to place children along the horizontal axis',
+      },
+      {
+        name: 'crossAxisAlignment',
+        type: '"start" | "end" | "center" | "stretch"',
+        defaultValue: '"center"',
+        description: 'How to place children along the vertical axis',
+      },
+      {
+        name: 'mainAxisSize',
+        type: '"min" | "max"',
+        defaultValue: '"max"',
+        description: 'Whether the row takes max or min horizontal space',
+      },
+      {
+        name: 'gap',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Gap between children in logical pixels',
+      },
+      {
+        name: 'wrap',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Wrap children onto multiple lines when they overflow',
+      },
+      {
+        name: 'reversed',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Reverse the row direction (right to left)',
+      },
+      {
+        name: 'flex',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Flex factor applied to the row itself',
+      },
+      {
+        name: 'style',
+        type: 'StyleProp<ViewStyle> / CSSProperties',
+        defaultValue: '-',
+        description: 'Style override',
+      },
+      {
+        name: 'testID',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Test identifier for e2e tests',
+      },
+    ],
+    examples: [
+      {
+        title: 'Basic row',
+        description: 'Horizontal layout with a gap between items.',
+        code: `import { Row } from '@xaui/native/view'
+import { View } from 'react-native'
+
+export function BasicRowExample() {
+  return (
+    <Row gap={12} crossAxisAlignment="center">
+      <View style={{ width: 48, height: 48, backgroundColor: '#6366f1', borderRadius: 24 }} />
+      <View style={{ flex: 1, height: 16, backgroundColor: '#e2e8f0', borderRadius: 8 }} />
+    </Row>
+  )
+}`,
+      },
+      {
+        title: 'Spaced row',
+        description: 'Items pushed to opposite ends.',
+        code: `import { Row } from '@xaui/native/view'
+import { View } from 'react-native'
+
+export function SpacedRowExample() {
+  return (
+    <Row mainAxisAlignment="spaceBetween" crossAxisAlignment="center">
+      <View style={{ width: 80, height: 32, backgroundColor: '#0ea5e9', borderRadius: 6 }} />
+      <View style={{ width: 80, height: 32, backgroundColor: '#f43f5e', borderRadius: 6 }} />
+    </Row>
+  )
+}`,
+      },
+    ],
+  },
+
+  column: {
+    props: [
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Content to render inside the column',
+      },
+      {
+        name: 'mainAxisAlignment',
+        type: '"start" | "end" | "center" | "spaceBetween" | "spaceAround" | "spaceEvenly"',
+        defaultValue: '"start"',
+        description: 'How to place children along the vertical axis',
+      },
+      {
+        name: 'crossAxisAlignment',
+        type: '"start" | "end" | "center" | "stretch"',
+        defaultValue: '"center"',
+        description: 'How to place children along the horizontal axis',
+      },
+      {
+        name: 'mainAxisSize',
+        type: '"min" | "max"',
+        defaultValue: '"max"',
+        description: 'Whether the column takes max or min vertical space',
+      },
+      {
+        name: 'gap',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Gap between children in logical pixels',
+      },
+      {
+        name: 'wrap',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Wrap children when they overflow vertically',
+      },
+      {
+        name: 'reversed',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Reverse the column direction (bottom to top)',
+      },
+      {
+        name: 'flex',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Flex factor applied to the column itself',
+      },
+      {
+        name: 'style',
+        type: 'StyleProp<ViewStyle> / CSSProperties',
+        defaultValue: '-',
+        description: 'Style override',
+      },
+      {
+        name: 'testID',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Test identifier for e2e tests',
+      },
+    ],
+    examples: [
+      {
+        title: 'Basic column',
+        description: 'Vertical stack with a gap between items.',
+        code: `import { Column } from '@xaui/native/view'
+import { View } from 'react-native'
+
+export function BasicColumnExample() {
+  return (
+    <Column gap={12} crossAxisAlignment="stretch">
+      <View style={{ height: 48, backgroundColor: '#6366f1', borderRadius: 8 }} />
+      <View style={{ height: 48, backgroundColor: '#8b5cf6', borderRadius: 8 }} />
+      <View style={{ height: 48, backgroundColor: '#a855f7', borderRadius: 8 }} />
+    </Column>
+  )
+}`,
+      },
+      {
+        title: 'Centered column',
+        description: 'Children centered both horizontally and vertically.',
+        code: `import { Column } from '@xaui/native/view'
+import { View } from 'react-native'
+
+export function CenteredColumnExample() {
+  return (
+    <Column mainAxisAlignment="center" crossAxisAlignment="center" gap={16}>
+      <View style={{ width: 80, height: 80, backgroundColor: '#0ea5e9', borderRadius: 40 }} />
+      <View style={{ width: 120, height: 16, backgroundColor: '#e2e8f0', borderRadius: 8 }} />
+    </Column>
+  )
+}`,
+      },
+    ],
+  },
+
+  expanded: {
+    props: [
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Content to render inside the expanded container',
+      },
+      {
+        name: 'flex',
+        type: 'number',
+        defaultValue: '1',
+        description: 'Flex factor — how much available space to take relative to siblings',
+      },
+      {
+        name: 'style',
+        type: 'StyleProp<ViewStyle> / CSSProperties',
+        defaultValue: '-',
+        description: 'Style override',
+      },
+      {
+        name: 'testID',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Test identifier for e2e tests',
+      },
+    ],
+    examples: [
+      {
+        title: 'Equal distribution',
+        description: 'Two children sharing space equally inside a Row.',
+        code: `import { Row, Expanded } from '@xaui/native/view'
+import { View } from 'react-native'
+
+export function EqualShareExample() {
+  return (
+    <Row>
+      <Expanded>
+        <View style={{ height: 60, backgroundColor: '#6366f1', borderRadius: 8 }} />
+      </Expanded>
+      <Expanded>
+        <View style={{ height: 60, backgroundColor: '#8b5cf6', borderRadius: 8 }} />
+      </Expanded>
+    </Row>
+  )
+}`,
+      },
+      {
+        title: 'Weighted distribution',
+        description: 'Second child takes twice as much space.',
+        code: `import { Row, Expanded } from '@xaui/native/view'
+import { View } from 'react-native'
+
+export function WeightedExample() {
+  return (
+    <Row gap={8}>
+      <Expanded flex={1}>
+        <View style={{ height: 60, backgroundColor: '#0ea5e9', borderRadius: 8 }} />
+      </Expanded>
+      <Expanded flex={2}>
+        <View style={{ height: 60, backgroundColor: '#38bdf8', borderRadius: 8 }} />
+      </Expanded>
+    </Row>
+  )
+}`,
+      },
+    ],
+  },
+
+  align: {
+    props: [
+      {
+        name: 'alignment',
+        type: 'Alignment',
+        defaultValue: '-',
+        description:
+          'Where to place the child — named ("center", "topLeft", "bottomRight"…) or coordinate { x, y } from 0 to 1',
+      },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Content to align inside the container',
+      },
+      {
+        name: 'style',
+        type: 'StyleProp<ViewStyle> / CSSProperties',
+        defaultValue: '-',
+        description: 'Style override',
+      },
+      {
+        name: 'testID',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Test identifier (hybrid only)',
+      },
+    ],
+    examples: [
+      {
+        title: 'Top-right alignment',
+        description: 'Child anchored to the top-right corner.',
+        code: `import { Align } from '@xaui/native/view'
+import { View } from 'react-native'
+
+export function TopRightExample() {
+  return (
+    <Align alignment="topRight">
+      <View style={{ width: 60, height: 60, backgroundColor: '#6366f1', borderRadius: 8 }} />
+    </Align>
+  )
+}`,
+      },
+      {
+        title: 'Centered',
+        description: 'Child centered inside available space.',
+        code: `import { Align } from '@xaui/native/view'
+import { View } from 'react-native'
+
+export function CenteredExample() {
+  return (
+    <Align alignment="center">
+      <View style={{ width: 80, height: 80, backgroundColor: '#0ea5e9', borderRadius: 40 }} />
+    </Align>
+  )
+}`,
+      },
+    ],
+  },
+
+  center: {
+    props: [
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Content to center',
+      },
+      {
+        name: 'style',
+        type: 'StyleProp<ViewStyle> / CSSProperties',
+        defaultValue: '-',
+        description: 'Style override',
+      },
+      {
+        name: 'testID',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Test identifier (hybrid only)',
+      },
+    ],
+    examples: [
+      {
+        title: 'Centered child',
+        description: 'Child centered horizontally and vertically.',
+        code: `import { Center } from '@xaui/native/view'
+import { View } from 'react-native'
+
+export function CenteredChildExample() {
+  return (
+    <Center>
+      <View style={{ width: 80, height: 80, backgroundColor: '#6366f1', borderRadius: 40 }} />
+    </Center>
+  )
+}`,
+      },
+    ],
+  },
+
+  padding: {
+    props: [
+      {
+        name: 'padding',
+        type: 'EdgeInsets',
+        defaultValue: '-',
+        description:
+          'Padding applied to all sides — number for uniform or { top, bottom, left, right, horizontal, vertical }',
+      },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Content to render inside the padding container',
+      },
+      {
+        name: 'style',
+        type: 'StyleProp<ViewStyle> / CSSProperties',
+        defaultValue: '-',
+        description: 'Style override',
+      },
+    ],
+    examples: [
+      {
+        title: 'Uniform padding',
+        description: '16px padding on all sides.',
+        code: `import { Padding } from '@xaui/native/view'
+import { View } from 'react-native'
+
+export function UniformPaddingExample() {
+  return (
+    <Padding padding={16}>
+      <View style={{ backgroundColor: '#6366f1', borderRadius: 8, height: 60 }} />
+    </Padding>
+  )
+}`,
+      },
+      {
+        title: 'Asymmetric padding',
+        description: 'Different padding on each axis.',
+        code: `import { Padding } from '@xaui/native/view'
+import { View } from 'react-native'
+
+export function AsymmetricPaddingExample() {
+  return (
+    <Padding padding={{ horizontal: 24, vertical: 12 }}>
+      <View style={{ backgroundColor: '#0ea5e9', borderRadius: 8, height: 60 }} />
+    </Padding>
+  )
+}`,
+      },
+    ],
+  },
+
+  margin: {
+    props: [
+      {
+        name: 'margin',
+        type: 'EdgeInsets',
+        defaultValue: '-',
+        description:
+          'Margin applied to all sides — number for uniform or { top, bottom, left, right, horizontal, vertical }',
+      },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Content to render inside the margin container',
+      },
+      {
+        name: 'style',
+        type: 'StyleProp<ViewStyle> / CSSProperties',
+        defaultValue: '-',
+        description: 'Style override',
+      },
+    ],
+    examples: [
+      {
+        title: 'Uniform margin',
+        description: '16px margin on all sides.',
+        code: `import { Margin } from '@xaui/native/view'
+import { View } from 'react-native'
+
+export function UniformMarginExample() {
+  return (
+    <Margin margin={16}>
+      <View style={{ backgroundColor: '#6366f1', borderRadius: 8, height: 60 }} />
+    </Margin>
+  )
+}`,
+      },
+      {
+        title: 'Vertical margin',
+        description: 'Top and bottom margin only.',
+        code: `import { Margin } from '@xaui/native/view'
+import { View } from 'react-native'
+
+export function VerticalMarginExample() {
+  return (
+    <Margin margin={{ vertical: 20 }}>
+      <View style={{ backgroundColor: '#0ea5e9', borderRadius: 8, height: 60 }} />
+    </Margin>
+  )
+}`,
+      },
+    ],
+  },
+
   grid: {
     props: [
       {

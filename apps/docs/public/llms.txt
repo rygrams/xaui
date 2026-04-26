@@ -6,3 +6,11 @@
 
 - [Container](https://ui.xtartapp.com/docs/container.md): Flutter-style layout container — dimensions, spacing, alignment, border, shadow, clip, transform, press handling
 - [SizedBox](https://ui.xtartapp.com/docs/sized-box.md): Flutter-style fixed-size box — width, height, expand (Expanded equivalent), shrink (SizedBox.shrink equivalent). Available in @xaui/native and @xaui/hybrid
+- [Flex](https://ui.xtartapp.com/docs/flex.md): Generic Flutter-inspired flex container — direction, mainAxisAlignment, crossAxisAlignment, mainAxisSize, gap, wrap, reversed. Available in @xaui/native and @xaui/hybrid
+- [Row](https://ui.xtartapp.com/docs/row.md): Horizontal flex layout — Flex with direction="horizontal" pre-set. mainAxisAlignment, crossAxisAlignment, gap, wrap, reversed, mainAxisSize. Available in @xaui/native and @xaui/hybrid
+- [Column](https://ui.xtartapp.com/docs/column.md): Vertical flex layout — Flex with direction="vertical" pre-set. mainAxisAlignment, crossAxisAlignment, gap, wrap, reversed, mainAxisSize. Available in @xaui/native and @xaui/hybrid
+- [Expanded](https://ui.xtartapp.com/docs/expanded.md): Expands a child to fill available space in a Row or Column with an optional flex factor. Available in @xaui/native and @xaui/hybrid
+- [Align](https://ui.xtartapp.com/docs/align.md): Aligns a child within available space using named positions (topLeft, center, bottomRight…) or fractional { x, y } coordinates. Available in @xaui/native and @xaui/hybrid
+- [Center](https://ui.xtartapp.com/docs/center.md): Centers a child horizontally and vertically — Align preconfigured with alignment="center". Available in @xaui/native and @xaui/hybrid
+- [Padding](https://ui.xtartapp.com/docs/padding.md): Wraps content with EdgeInsets padding — number for uniform or { top, bottom, left, right, horizontal, vertical }. Available in @xaui/native and @xaui/hybrid
+- [Margin](https://ui.xtartapp.com/docs/margin.md): Wraps content with EdgeInsets margin — number for uniform or { top, bottom, left, right, horizontal, vertical }. Available in @xaui/native and @xaui/hybrid
