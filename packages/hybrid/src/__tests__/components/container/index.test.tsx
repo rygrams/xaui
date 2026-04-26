@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest'
-import type { ContainerProps } from '../../../components/container'
+import type { ContainerProps } from '../../../components/view/container'
 import {
   resolveEdgeInsets,
   resolveAlignment,
@@ -7,7 +7,7 @@ import {
   resolveBorder,
   resolveShadow,
   resolveTransform,
-} from '../../../components/container/container.utils'
+} from '../../../components/view/container/container.utils'
 
 describe('ContainerProps types', () => {
   it('accepts dimension props', () => {

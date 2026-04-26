@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest'
 import { render, screen } from '@testing-library/react'
 import React from 'react'
-import { SizedBox } from '../../../components/sized-box'
+import { SizedBox } from '../../../components/view/sized-box'
 
 describe('SizedBox', () => {
   it('renders with explicit width and height', () => {

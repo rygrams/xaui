@@ -182,11 +182,6 @@
       "import": "./dist/card/index.js",
       "require": "./dist/card/index.js"
     },
-    "./container": {
-      "types": "./dist/container/index.d.ts",
-      "import": "./dist/container/index.js",
-      "require": "./dist/container/index.js"
-    },
     "./input": {
       "types": "./dist/input/index.d.ts",
       "import": "./dist/input/index.js",
