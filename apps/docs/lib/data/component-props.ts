@@ -130,7 +130,8 @@ export const componentPropsMap: Record<string, ComponentPropsData> = {
         name: 'shadow',
         type: 'ShadowConfig',
         defaultValue: '-',
-        description: 'Drop shadow — { color, offset: { x, y }, blur, spread, opacity, elevation }',
+        description:
+          'Drop shadow — { color, offset: { x, y }, blur, spread, opacity, elevation }',
       },
       {
         name: 'clip',
@@ -185,7 +186,8 @@ export const componentPropsMap: Record<string, ComponentPropsData> = {
         name: 'style',
         type: 'StyleProp<ViewStyle>',
         defaultValue: '-',
-        description: 'Escape-hatch for raw style overrides applied after computed styles',
+        description:
+          'Escape-hatch for raw style overrides applied after computed styles',
       },
     ],
     events: [
@@ -215,7 +217,7 @@ export const componentPropsMap: Record<string, ComponentPropsData> = {
       {
         title: 'Shadow Card',
         description: 'Raised card effect using the shadow prop.',
-        code: `import { Container } from '@xaui/native/container'
+        code: `import { Container } from '@xaui/native/view'
 import { Text } from 'react-native'
 
 export function ShadowCard() {
@@ -237,7 +239,7 @@ export function ShadowCard() {
       {
         title: 'Alignment',
         description: 'Center children using the Flutter-style alignment prop.',
-        code: `import { Container } from '@xaui/native/container'
+        code: `import { Container } from '@xaui/native/view'
 import { Text } from 'react-native'
 
 export function CenteredContainer() {
@@ -258,7 +260,7 @@ export function CenteredContainer() {
       {
         title: 'EdgeInsets Spacing',
         description: 'Fine-grained padding and margin using the EdgeInsets format.',
-        code: `import { Container } from '@xaui/native/container'
+        code: `import { Container } from '@xaui/native/view'
 import { Text } from 'react-native'
 
 export function SpacingExample() {
@@ -278,7 +280,7 @@ export function SpacingExample() {
         title: 'Pressable Container',
         description:
           'Any press handler automatically switches View to Pressable. No extra wrapper needed.',
-        code: `import { Container } from '@xaui/native/container'
+        code: `import { Container } from '@xaui/native/view'
 import { Text } from 'react-native'
 
 export function PressableCard() {
@@ -297,8 +299,9 @@ export function PressableCard() {
       },
       {
         title: 'Per-side Border',
-        description: 'Apply borders to specific sides using the directional border format.',
-        code: `import { Container } from '@xaui/native/container'
+        description:
+          'Apply borders to specific sides using the directional border format.',
+        code: `import { Container } from '@xaui/native/view'
 import { Text } from 'react-native'
 
 export function BorderExample() {
@@ -318,7 +321,7 @@ export function BorderExample() {
       {
         title: 'Flex Layout',
         description: 'Distribute space between containers with the flex prop.',
-        code: `import { Container } from '@xaui/native/container'
+        code: `import { Container } from '@xaui/native/view'
 import { View, Text } from 'react-native'
 
 export function FlexLayout() {
@@ -9673,7 +9676,8 @@ export function FullWidthExample() {
             name: 'tabKey',
             type: 'string',
             defaultValue: '-',
-            description: 'Unique identifier for this tab (used for selection and disabled state)',
+            description:
+              'Unique identifier for this tab (used for selection and disabled state)',
           },
           {
             name: 'title',
@@ -10948,40 +10952,54 @@ export function DirectionalMarginExample() {
   'sized-box': {
     props: [
       {
-        name: 'children',
-        type: 'ReactNode',
-        defaultValue: '-',
-        description: 'Optional content',
-      },
-      {
         name: 'width',
-        type: 'number | string',
+        type: 'number',
         defaultValue: '-',
-        description: 'Width value (number in px or string, e.g. "100%")',
+        description: 'Width in logical pixels',
       },
       {
         name: 'height',
-        type: 'number | string',
+        type: 'number',
         defaultValue: '-',
-        description: 'Height value (number in px or string, e.g. "50%")',
+        description: 'Height in logical pixels',
       },
       {
-        name: 'fullWidth',
+        name: 'expand',
         type: 'boolean',
         defaultValue: 'false',
-        description: 'Expand to full available width',
+        description:
+          'Fill all available space — flex: 1 + alignSelf: stretch (Flutter Expanded equivalent)',
+      },
+      {
+        name: 'shrink',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Collapse to zero size — Flutter SizedBox.shrink() equivalent',
+      },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Optional content to render inside the box',
       },
       {
         name: 'style',
-        type: 'StyleProp<ViewStyle>',
+        type: 'StyleProp<ViewStyle> / CSSProperties',
         defaultValue: '-',
-        description: 'Additional styles',
+        description:
+          'Style override (native: StyleProp<ViewStyle>, hybrid: CSSProperties)',
+      },
+      {
+        name: 'testID',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Test identifier (native: testID, hybrid: data-testid)',
       },
     ],
     examples: [
       {
-        title: 'Fixed Spacer',
-        description: 'Use SizedBox as a blank space between items.',
+        title: 'Fixed spacer',
+        description: 'Use SizedBox as blank space between items.',
         code: `import { Column, SizedBox } from '@xaui/native/view'
 import { Typography } from '@xaui/native/typography'
 
@@ -10996,7 +11014,7 @@ export function SizedBoxSpacerExample() {
 }`,
       },
       {
-        title: 'Fixed-Size Container',
+        title: 'Fixed-size container',
         description: 'Constrain a child to an exact size.',
         code: `import { SizedBox } from '@xaui/native/view'
 import { View } from 'react-native'
@@ -11010,16 +11028,112 @@ export function FixedContainerExample() {
 }`,
       },
       {
-        title: 'String Dimensions and Full Width',
-        description: 'Use string dimensions and fullWidth for responsive sizing.',
-        code: `import { SizedBox } from '@xaui/native/view'
-import { View } from 'react-native'
+        title: 'Expanded (fill remaining space)',
+        description:
+          'Equivalent to Flutter Expanded — takes all available space in its parent flex container.',
+        code: `import { Row, SizedBox } from '@xaui/native/view'
 
-export function SizedBoxResponsiveExample() {
+export function ExpandedExample() {
   return (
-    <SizedBox fullWidth height="40%">
-      <View style={{ flex: 1, backgroundColor: '#e0e7ff', borderRadius: 8 }} />
-    </SizedBox>
+    <Row>
+      <SizedBox width={48} height={48} />
+      <SizedBox expand>
+        {/* fills remaining row space */}
+      </SizedBox>
+    </Row>
+  )
+}`,
+      },
+      {
+        title: 'Shrink (zero size)',
+        description: 'Collapses to nothing — Flutter SizedBox.shrink() equivalent.',
+        code: `import { SizedBox } from '@xaui/native/view'
+
+export function ShrinkExample() {
+  return <SizedBox shrink />
+}`,
+      },
+    ],
+  },
+
+  'constrained-box': {
+    props: [
+      {
+        name: 'constraints',
+        type: 'BoxConstraints',
+        defaultValue: '-',
+        description:
+          'Size constraints — { minWidth?, maxWidth?, minHeight?, maxHeight? }',
+      },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Content to render inside the box',
+      },
+      {
+        name: 'style',
+        type: 'StyleProp<ViewStyle> / CSSProperties',
+        defaultValue: '-',
+        description:
+          'Style override (native: StyleProp<ViewStyle>, hybrid: CSSProperties)',
+      },
+      {
+        name: 'testID',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Test identifier (native: testID, hybrid: data-testid)',
+      },
+    ],
+    examples: [
+      {
+        title: 'Minimum width',
+        description: 'Prevent a child from shrinking below a certain width.',
+        code: `import { ConstrainedBox } from '@xaui/native/view'
+
+export function MinWidthExample() {
+  return (
+    <ConstrainedBox constraints={{ minWidth: 200 }}>
+      <View style={{ backgroundColor: '#6b21a8', height: 40, borderRadius: 8 }} />
+    </ConstrainedBox>
+  )
+}`,
+      },
+      {
+        title: 'Maximum width',
+        description:
+          'Cap how wide a child can grow — useful for readable text blocks.',
+        code: `import { ConstrainedBox } from '@xaui/native/view'
+import { Typography } from '@xaui/native/typography'
+
+export function MaxWidthExample() {
+  return (
+    <ConstrainedBox constraints={{ maxWidth: 300 }}>
+      <Typography>
+        This text will wrap instead of stretching across the full screen.
+      </Typography>
+    </ConstrainedBox>
+  )
+}`,
+      },
+      {
+        title: 'Combined min/max constraints',
+        description:
+          'Bind a child within both lower and upper bounds — Flutter BoxConstraints equivalent.',
+        code: `import { ConstrainedBox } from '@xaui/native/view'
+
+export function CombinedExample() {
+  return (
+    <ConstrainedBox
+      constraints={{
+        minWidth: 100,
+        maxWidth: 250,
+        minHeight: 60,
+        maxHeight: 120,
+      }}
+    >
+      <View style={{ flex: 1, backgroundColor: '#0891b2', borderRadius: 8 }} />
+    </ConstrainedBox>
   )
 }`,
       },
@@ -11390,22 +11504,42 @@ export function SurfaceCardExample() {
   'aspect-ratio': {
     props: [
       {
-        name: 'children',
-        type: 'ReactNode',
-        defaultValue: '-',
-        description: 'Content to constrain',
-      },
-      {
         name: 'ratio',
         type: 'number',
         defaultValue: '-',
         description: 'Aspect ratio (width / height), e.g. 16/9',
       },
       {
-        name: 'style',
-        type: 'ViewStyle',
+        name: 'alignment',
+        type: 'Alignment',
         defaultValue: '-',
-        description: 'Additional styles',
+        description:
+          'How to align the child within the container (topLeft, center, bottomRight, etc.)',
+      },
+      {
+        name: 'clip',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Whether to clip content that overflows the container',
+      },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Content to constrain',
+      },
+      {
+        name: 'style',
+        type: 'StyleProp<ViewStyle> / CSSProperties',
+        defaultValue: '-',
+        description:
+          'Style override (native: StyleProp<ViewStyle>, hybrid: CSSProperties)',
+      },
+      {
+        name: 'testID',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Test identifier (native: testID, hybrid: data-testid)',
       },
     ],
     examples: [
@@ -11438,6 +11572,83 @@ export function SquareExample() {
     <AspectRatio ratio={1} style={{ width: 80 }}>
       <View style={{ flex: 1, backgroundColor: '#f59e0b', borderRadius: 8 }} />
     </AspectRatio>
+  )
+}`,
+      },
+    ],
+  },
+
+  'fractionally-sized-box': {
+    props: [
+      {
+        name: 'widthFactor',
+        type: 'number',
+        defaultValue: '-',
+        description:
+          'Fraction of the parent width (0–1). When undefined, child chooses its own width.',
+      },
+      {
+        name: 'heightFactor',
+        type: 'number',
+        defaultValue: '-',
+        description:
+          'Fraction of the parent height (0–1). When undefined, child chooses its own height.',
+      },
+      {
+        name: 'alignment',
+        type: 'Alignment',
+        defaultValue: '-',
+        description: 'How to align the child within the remaining space',
+      },
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Content to render inside the box',
+      },
+      {
+        name: 'style',
+        type: 'StyleProp<ViewStyle> / CSSProperties',
+        defaultValue: '-',
+        description:
+          'Style override (native: StyleProp<ViewStyle>, hybrid: CSSProperties)',
+      },
+      {
+        name: 'testID',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Test identifier (native: testID, hybrid: data-testid)',
+      },
+    ],
+    examples: [
+      {
+        title: 'Half-width box',
+        description: 'Child takes 50% of the parent width.',
+        code: `import { FractionallySizedBox } from '@xaui/native/view'
+import { View } from 'react-native'
+
+export function HalfWidthExample() {
+  return (
+    <FractionallySizedBox widthFactor={0.5}>
+      <View style={{ backgroundColor: '#6b21a8', height: 40, borderRadius: 8 }} />
+    </FractionallySizedBox>
+  )
+}`,
+      },
+      {
+        title: 'Centered fraction',
+        description: '50% width, 50% height, centered within the parent.',
+        code: `import { FractionallySizedBox } from '@xaui/native/view'
+
+export function CenteredExample() {
+  return (
+    <FractionallySizedBox
+      widthFactor={0.5}
+      heightFactor={0.5}
+      alignment="center"
+    >
+      <View style={{ flex: 1, backgroundColor: '#0891b2', borderRadius: 8 }} />
+    </FractionallySizedBox>
   )
 }`,
       },

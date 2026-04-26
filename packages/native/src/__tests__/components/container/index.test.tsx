@@ -1,8 +1,8 @@
 import { describe, it, expect, vi } from 'vitest'
 import { render, screen, fireEvent } from '@testing-library/react'
 import React from 'react'
-import { Container } from '../../../components/container'
-import type { ContainerProps } from '../../../components/container'
+import { Container } from '../../../components/view/container'
+import type { ContainerProps } from '../../../components/view/container'
 import {
   resolveEdgeInsets,
   resolveAlignment,
@@ -10,7 +10,7 @@ import {
   resolveBorder,
   resolveShadow,
   resolveTransform,
-} from '../../../components/container/container.utils'
+} from '../../../components/view/container/container.utils'
 
 describe('ContainerProps types', () => {
   it('accepts dimension props', () => {

@@ -78,7 +78,7 @@ A Flutter-inspired layout primitive. Handles sizing, spacing, alignment, decorat
 ### Import
 ```ts
 // React Native
-import { Container } from '@xaui/native/container'
+import { Container } from '@xaui/native/view'
 
 // Web / WebView
 import { Container } from '@xaui/hybrid/container'
@@ -121,7 +121,7 @@ import { Container } from '@xaui/hybrid/container'
 
 #### Basic colored box
 ```tsx
-import { Container } from '@xaui/native/container'
+import { Container } from '@xaui/native/view'
 
 <Container
   width={200}
@@ -134,7 +134,7 @@ import { Container } from '@xaui/native/container'
 
 #### Card with shadow
 ```tsx
-import { Container } from '@xaui/native/container'
+import { Container } from '@xaui/native/view'
 
 <Container
   padding={{ horizontal: 16, vertical: 12 }}
@@ -148,7 +148,7 @@ import { Container } from '@xaui/native/container'
 
 #### Pressable container
 ```tsx
-import { Container } from '@xaui/native/container'
+import { Container } from '@xaui/native/view'
 
 <Container
   onPress={() => {}}
@@ -162,7 +162,7 @@ import { Container } from '@xaui/native/container'
 
 #### Flex row with border
 ```tsx
-import { Container } from '@xaui/native/container'
+import { Container } from '@xaui/native/view'
 
 <Container
   flex={1}
@@ -197,7 +197,7 @@ import { Container } from '@xaui/hybrid/container'
 
 ### Build a screen with XAUI Container (native)
 ```
-Use @xaui/native/container for layout. Container is XAUI's layout primitive — use it instead of View for all boxes that need padding, margin, color, borderRadius, shadow, or press handlers. Import: import { Container } from '@xaui/native/container'
+Use @xaui/native/view for layout. Container is XAUI's layout primitive — use it instead of View for all boxes that need padding, margin, color, borderRadius, shadow, or press handlers. Import: import { Container } from '@xaui/native/view'
 ```
 
 ### Build a web component with XAUI Container (hybrid)
@@ -207,5 +207,5 @@ Use @xaui/hybrid/container for layout. Container is XAUI's layout primitive — 
 
 ### General XAUI skill
 ```
-This project uses XAUI — a Flutter-inspired UI library. @xaui/native is for React Native (iOS/Android), @xaui/hybrid is for web/webview. Both share the same component API. Each component is a separate subpath import: import { Button } from '@xaui/native/button', import { Container } from '@xaui/native/container', etc. Use Container as the primary layout building block.
+This project uses XAUI — a Flutter-inspired UI library. @xaui/native is for React Native (iOS/Android), @xaui/hybrid is for web/webview. Both share the same component API. Each component is a separate subpath import: import { Button } from '@xaui/native/button', import { Container } from '@xaui/native/view', etc. Use Container as the primary layout building block.
 ```

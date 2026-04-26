@@ -1,23 +1,19 @@
 import { describe, it, expect } from 'vitest'
 import type { CenterProps } from '../../../../components/view/center/center.type'
 
-describe('Center Types', () => {
-  it('exports CenterProps type', () => {
-    const props: CenterProps = {
-      children: 'Center',
-      fullWidth: true,
-    }
-
-    expect(props).toBeDefined()
-    expect(props.fullWidth).toBe(true)
+describe('CenterProps types', () => {
+  it('accepts children as optional', () => {
+    const props: CenterProps = {}
+    expect(props.children).toBeUndefined()
   })
 
-  it('accepts style props', () => {
-    const props: CenterProps = {
-      children: 'Center',
-      style: { justifyContent: 'center' },
-    }
+  it('accepts children', () => {
+    const props: CenterProps = { children: 'content' }
+    expect(props.children).toBe('content')
+  })
 
-    expect(props.style).toBeDefined()
+  it('accepts style override', () => {
+    const props: CenterProps = { style: { backgroundColor: 'blue' } }
+    expect(props.style).toEqual({ backgroundColor: 'blue' })
   })
 })

@@ -5,3 +5,4 @@
 ## Components
 
 - [Container](https://ui.xtartapp.com/docs/container.md): Flutter-style layout container — dimensions, spacing, alignment, border, shadow, clip, transform, press handling
+- [SizedBox](https://ui.xtartapp.com/docs/sized-box.md): Flutter-style fixed-size box — width, height, expand (Expanded equivalent), shrink (SizedBox.shrink equivalent). Available in @xaui/native and @xaui/hybrid

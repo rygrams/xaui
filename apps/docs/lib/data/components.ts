@@ -22,11 +22,11 @@ export const components: Component[] = [
     id: 'container',
     name: 'Container',
     description:
-      'Universal layout container with padding, margin, alignment, border, shadow, and transform support.',
+      'Flutter-inspired layout primitive for sizing, spacing, alignment, decoration, and interaction in a single composable component.',
     category: 'Layout',
     href: '/docs/components/container',
-    status: 'beta',
-    importPath: '@xaui/native/container',
+    status: 'stable',
+    importPath: '@xaui/native/view',
     exports: ['Container'],
     types: ['ContainerProps'],
   },
@@ -798,6 +798,18 @@ export const components: Component[] = [
     types: ['SizedBoxProps'],
   },
   {
+    id: 'constrained-box',
+    name: 'ConstrainedBox',
+    description:
+      'Flutter-inspired box that imposes min/max size constraints on its child — equivalent to ConstrainedBox + BoxConstraints.',
+    category: 'Layout',
+    href: '/docs/components/constrained-box',
+    status: 'beta',
+    importPath: '@xaui/native/view',
+    exports: ['ConstrainedBox'],
+    types: ['ConstrainedBoxProps', 'BoxConstraints'],
+  },
+  {
     id: 'positioned-view',
     name: 'PositionedView',
     description:
@@ -847,13 +859,25 @@ export const components: Component[] = [
     id: 'aspect-ratio',
     name: 'AspectRatio',
     description:
-      'Constrains a child to a fixed aspect ratio regardless of available width.',
+      'Constrains a child to a fixed aspect ratio with optional alignment and clipping — Flutter-inspired.',
     category: 'Layout',
     href: '/docs/components/aspect-ratio',
-    status: 'beta',
+    status: 'stable',
     importPath: '@xaui/native/view',
     exports: ['AspectRatio'],
     types: ['AspectRatioProps'],
+  },
+  {
+    id: 'fractionally-sized-box',
+    name: 'FractionallySizedBox',
+    description:
+      "Sizes its child as a fraction of the parent's dimensions — Flutter FractionallySizedBox equivalent.",
+    category: 'Layout',
+    href: '/docs/components/fractionally-sized-box',
+    status: 'beta',
+    importPath: '@xaui/native/view',
+    exports: ['FractionallySizedBox'],
+    types: ['FractionallySizedBoxProps'],
   },
   {
     id: 'grid',
@@ -958,22 +982,10 @@ export const components: Component[] = [
       'Color palette selector displayed in a bottom sheet with an input-like color swatch trigger.',
     category: 'Inputs',
     href: '/docs/components/color-picker',
-    status: 'beta',
+    status: 'stable',
     importPath: '@xaui/native/color-picker',
     exports: ['ColorPicker', 'defaultColorGroups'],
     types: ['ColorPickerProps', 'ColorPickerEvents', 'ColorGroup'],
-  },
-  {
-    id: 'container',
-    name: 'Container',
-    description:
-      'Flutter-inspired layout primitive for sizing, spacing, alignment, decoration, and interaction in a single composable component.',
-    category: 'Layout',
-    href: '/docs/components/container',
-    status: 'stable',
-    importPath: '@xaui/native/container',
-    exports: ['Container'],
-    types: ['ContainerProps'],
   },
 ]
 

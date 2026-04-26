@@ -208,6 +208,7 @@ The project uses GitHub Actions with the following workflow:
   example: `packages/core/src/components/button/index.tsx` -> `packages/core/src/__tests__/components/button/index.test.tsx`
 - **Exception:** Icon components do NOT require test files. Skip test creation for any icon in `packages/native/src/components/icon/icons/`
 - run test and lint after each component code change
+- do a code review after each component code change and simplify if needed
 
 ## Package Guidelines
 

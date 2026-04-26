@@ -1,42 +1,10 @@
 import React from 'react'
 import { View } from 'react-native'
 import type { PaddingProps } from './padding.type'
+import { resolveEdgeInsets } from '../container/container.utils'
 
-export const Padding: React.FC<PaddingProps> = ({
-  children,
-  all,
-  horizontal,
-  vertical,
-  top,
-  right,
-  bottom,
-  left,
-  fullWidth,
-  style,
-  noGrowth = false,
-}) => {
-  const fullWidthStyle = fullWidth ? { width: '100%' as const } : undefined
-
-  return (
-    <View
-      style={[
-        {
-          flex: noGrowth ? undefined : 1,
-          padding: all,
-          paddingHorizontal: horizontal,
-          paddingVertical: vertical,
-          paddingTop: top,
-          paddingRight: right,
-          paddingBottom: bottom,
-          paddingLeft: left,
-        },
-        fullWidthStyle,
-        style,
-      ]}
-    >
-      {children}
-    </View>
-  )
-}
+export const Padding: React.FC<PaddingProps> = ({ children, padding, style }) => (
+  <View style={[resolveEdgeInsets(padding, 'padding'), style]}>{children}</View>
+)
 
 Padding.displayName = 'Padding'

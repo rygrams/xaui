@@ -6,22 +6,29 @@ export const SizedBox: React.FC<SizedBoxProps> = ({
   children,
   width,
   height,
-  fullWidth,
+  expand,
+  shrink,
   style,
+  testID,
 }) => {
-  const fullWidthStyle = fullWidth ? { width: '100%' as const } : undefined
+  if (shrink) {
+    return (
+      <View testID={testID} style={[{ width: 0, height: 0, overflow: 'hidden' }, style]}>
+        {children}
+      </View>
+    )
+  }
+
+  if (expand) {
+    return (
+      <View testID={testID} style={[{ flex: 1, alignSelf: 'stretch' }, style]}>
+        {children}
+      </View>
+    )
+  }
 
   return (
-    <View
-      style={[
-        {
-          width,
-          height,
-        },
-        fullWidthStyle,
-        style,
-      ]}
-    >
+    <View testID={testID} style={[{ width, height }, style]}>
       {children}
     </View>
   )
