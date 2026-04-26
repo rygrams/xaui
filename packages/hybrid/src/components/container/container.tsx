@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import type { CSSProperties, KeyboardEvent } from 'react'
 import type { ContainerProps } from './container.type'
 import {
@@ -55,6 +55,15 @@ export const Container: React.FC<ContainerProps> = (props) => {
   const mergedStyle: CSSProperties = { ...containerStyle, ...style }
   const isInteractive = !!(onPress ?? onLongPress ?? onPressIn ?? onPressOut)
 
+  const cancelLongPress = () => {
+    if (longPressTimer.current) {
+      clearTimeout(longPressTimer.current)
+      longPressTimer.current = null
+    }
+  }
+
+  useEffect(() => cancelLongPress, [])
+
   const handlePointerDown = () => {
     onPressIn?.()
     if (onLongPress) {
@@ -66,10 +75,7 @@ export const Container: React.FC<ContainerProps> = (props) => {
 
   const handlePointerUp = () => {
     onPressOut?.()
-    if (longPressTimer.current) {
-      clearTimeout(longPressTimer.current)
-      longPressTimer.current = null
-    }
+    cancelLongPress()
   }
 
   const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
@@ -95,6 +101,8 @@ export const Container: React.FC<ContainerProps> = (props) => {
         onClick={disabled ? undefined : onPress}
         onPointerDown={disabled ? undefined : handlePointerDown}
         onPointerUp={disabled ? undefined : handlePointerUp}
+        onPointerCancel={disabled ? undefined : cancelLongPress}
+        onPointerLeave={disabled ? undefined : cancelLongPress}
         onKeyDown={disabled ? undefined : handleKeyDown}
       >
         {children}

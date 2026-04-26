@@ -1,3 +1,5 @@
+'use client'
+
 import { useContext, useMemo } from 'react'
 import { XUIThemeContext } from './theme-provider'
 import type { XUITheme } from '@xaui/core/theme'

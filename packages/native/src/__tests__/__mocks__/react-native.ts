@@ -22,6 +22,7 @@ const extractAccessibilityProps = (props: Record<string, unknown>) => {
     accessibilityLabel,
     accessibilityHint: _accessibilityHint,
     accessibilityState: _accessibilityState,
+    testID,
     ...domProps
   } = props
 
@@ -30,7 +31,7 @@ const extractAccessibilityProps = (props: Record<string, unknown>) => {
     | undefined
 
   return {
-    domProps,
+    domProps: { ...domProps, ...(testID !== undefined && { 'data-testid': testID }) },
     accessibilityRole,
     accessibilityLabel,
     accValue,

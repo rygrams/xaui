@@ -6,8 +6,13 @@ Flutter-inspired layout container. Renders `View` by default, switches to `Press
 pnpm add @xaui/native
 ```
 
+**React Native**
 ```ts
 import { Container } from '@xaui/native/container'
+```
+
+**Web / Hybrid**
+```ts
 import { Container } from '@xaui/hybrid/container'
 ```
 

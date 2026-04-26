@@ -60,27 +60,28 @@ export function XUIProvider({ children, theme }: XUIProviderProps) {
 
   const appTheme = useMemo(() => {
     const isDarkMode = colorScheme === 'dark'
+    const baseTheme = isDarkMode ? defaultDarkTheme : defaultTheme
 
-    if (!theme) return isDarkMode ? defaultDarkTheme : defaultTheme
+    if (!theme) return baseTheme
 
     return {
-      ...defaultTheme,
+      ...baseTheme,
       ...theme,
       mode: colorScheme,
       colors: {
-        ...defaultTheme.colors,
+        ...baseTheme.colors,
         ...theme?.colors,
       },
       fontFamilies: {
-        ...defaultTheme.fontFamilies,
+        ...baseTheme.fontFamilies,
         ...theme?.fontFamilies,
       },
       fontSizes: {
-        ...defaultTheme.fontSizes,
+        ...baseTheme.fontSizes,
         ...theme?.fontSizes,
       },
       componentSizes: {
-        ...defaultTheme.componentSizes,
+        ...baseTheme.componentSizes,
         ...theme?.componentSizes,
       },
       palette: colors,

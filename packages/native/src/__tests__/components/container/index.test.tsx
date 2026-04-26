@@ -1,4 +1,7 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi } from 'vitest'
+import { render, screen, fireEvent } from '@testing-library/react'
+import React from 'react'
+import { Container } from '../../../components/container'
 import type { ContainerProps } from '../../../components/container'
 import {
   resolveEdgeInsets,
@@ -92,6 +95,37 @@ describe('ContainerProps types', () => {
 
     expect(props.testID).toBe('container-test')
     expect(props.accessibilityRole).toBe('button')
+  })
+})
+
+describe('Container rendering', () => {
+  it('renders a div when no press handler is provided', () => {
+    render(<Container testID="box"><></></Container>)
+    expect(screen.getByTestId('box').tagName).toBe('DIV')
+  })
+
+  it('renders a button when onPress is provided', () => {
+    render(<Container testID="box" onPress={() => {}}><></></Container>)
+    expect(screen.getByTestId('box').tagName).toBe('BUTTON')
+  })
+
+  it('renders a button when only onLongPress is provided', () => {
+    render(<Container testID="box" onLongPress={() => {}}><></></Container>)
+    expect(screen.getByTestId('box').tagName).toBe('BUTTON')
+  })
+
+  it('does not invoke onPress when disabled', () => {
+    const onPress = vi.fn()
+    render(<Container testID="box" onPress={onPress} disabled><></></Container>)
+    fireEvent.click(screen.getByTestId('box'))
+    expect(onPress).not.toHaveBeenCalled()
+  })
+
+  it('does not invoke onLongPress when disabled', () => {
+    const onLongPress = vi.fn()
+    render(<Container testID="box" onLongPress={onLongPress} disabled><></></Container>)
+    fireEvent.click(screen.getByTestId('box'))
+    expect(onLongPress).not.toHaveBeenCalled()
   })
 })
 
