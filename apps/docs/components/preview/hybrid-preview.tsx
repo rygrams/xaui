@@ -1,7 +1,7 @@
-import { AlertHybridPreview } from './alert-hybrid-preview'
+import { ContainerHybridPreview } from './container-hybrid-preview'
 
 const hybridPreviewMap: Partial<Record<string, React.FC>> = {
-  alert: AlertHybridPreview,
+  container: ContainerHybridPreview,
 }
 
 export const hybridPreviewIds = new Set(Object.keys(hybridPreviewMap))
@@ -10,7 +10,9 @@ type ComponentHybridPreviewProps = {
   componentId: string
 }
 
-export function ComponentHybridPreview({ componentId }: ComponentHybridPreviewProps) {
+export function ComponentHybridPreview({
+  componentId,
+}: ComponentHybridPreviewProps) {
   const Preview = hybridPreviewMap[componentId]
   if (!Preview) return null
   return <Preview />

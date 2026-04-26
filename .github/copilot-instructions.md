@@ -1,24 +1,13 @@
 # Copilot Instructions
 
-XAUI is a Flutter-inspired React Native UI library built as a **Turborepo + pnpm workspace monorepo**.
+XAUI is a pnpm + Turborepo monorepo. The active workspaces are `packages/core`,
+`packages/native`, `packages/hybrid`, `packages/icons`, `apps/docs`, and
+`apps/demo`.
 
-## Packages and apps
-
-| Workspace | Description |
-|-----------|-------------|
-| `@xaui/core` | Theme config, design tokens, color palette |
-| `@xaui/native` | React Native components |
-| `@xaui/hybrid` | Mobile WebView components |
-| `@xaui/icons` | Icon components |
-| `@xaui/colors` | Tailwind-inspired color palette (20+ colors × 11 shades) |
-| `apps/docs` | Next.js documentation site |
-| `apps/demo` | Expo React Native demo |
-| `apps/mcp` | MCP server app |
-
-## Commands
+## Build, test, and lint commands
 
 ```bash
-# Root (all workspaces)
+# Root
 pnpm build
 pnpm test
 pnpm lint
@@ -27,8 +16,12 @@ pnpm format
 
 # Target a workspace
 pnpm --filter @xaui/native build
+pnpm --filter @xaui/native test
 pnpm --filter @xaui/native lint
 pnpm --filter @xaui/native type-check
+pnpm --filter docs build
+pnpm --filter docs test
+pnpm --filter demo lint
 
 # Run a single test file
 pnpm --filter @xaui/native exec vitest run src/__tests__/components/button/button.test.tsx
@@ -40,78 +33,52 @@ pnpm --filter @xaui/native exec vitest run src/__tests__/components/button/butto
 pnpm --filter @xaui/native exec eslint src/components/button/button.tsx
 ```
 
-> `pnpm test` depends on `build` (Turbo wires this automatically).
+`turbo` wires task dependencies: root `test` depends on `build`, and root
+`lint`/`type-check` depend on upstream builds. `packages/core`,
+`packages/icons`, and `apps/docs` use `passWithNoTests: true` in Vitest.
 
-## Component structure (`@xaui/native` and `@xaui/hybrid`)
+## High-level architecture
 
-Each component lives in its own folder under `src/components/<name>/`:
+- `@xaui/core` is the source of truth for tokens, palette, and theme types.
+  Both native and hybrid providers build their runtime theme from
+  `defaultTheme` / `defaultDarkTheme` in `@xaui/core/theme`.
+- `@xaui/native` is the main component surface. Public APIs are exported as deep
+  entrypoints such as `@xaui/native/button` and `@xaui/native/dialog`; the root
+  `packages/native/src/index.ts` is intentionally empty.
+- `@xaui/hybrid` mirrors the same theme model for browser and mobile-webview
+  components, with its own provider that reads `prefers-color-scheme`.
+- `apps/docs` is data-driven rather than page-per-component. The component
+  catalog lives in `apps/docs/lib/data/components.ts`, prop tables and examples
+  live in `apps/docs/lib/data/component-props.ts`, and the route page derives
+  install/import/usage snippets from that metadata.
+- `apps/demo` is the Expo app that consumes the workspace packages for manual
+  validation of native behavior.
+- Native tests run in jsdom and alias `@xaui/core/*` directly to source files.
+  They also rely on package-level mocks for `react-native`,
+  `react-native-reanimated`, and `react-native-svg`.
 
-```
-src/components/button/
-  button.type.ts      # prop types and variant types
-  button.hook.ts      # logic hooks
-  button.style.ts     # StyleSheet.create(...)
-  button.animation.ts # animation helpers (optional)
-  button.tsx          # component
-  index.ts            # re-exports
-src/__tests__/components/button/
-  button.test.tsx
-  button.hook.test.ts
-```
+## Key conventions
 
-**Every component must be added as:**
-1. An entry in `tsup.config.ts` → `'button/index': 'src/components/button/index.ts'`
-2. An export in `package.json` → `"./button": { "types": "...", "import": "...", "require": "..." }`
-
-Icon components in `packages/native/src/components/icon/icons/` do **not** need test files.
-
-## Theme system
-
-Components consume theme via hooks from `src/core/`:
-
-```ts
-import { useXUITheme, useXUIColors, useBorderRadiusStyles, useColorMode } from '../../core/theme-hooks'
-```
-
-- `XUIProvider` (from `src/core/theme-context.tsx`) wraps the app and provides the theme via context.
-- `useXUITheme()` — throws if used outside `XUIProvider`.
-- `useColorMode()` — returns `'light' | 'dark'` from native color scheme.
-- Theme tokens: `theme.borderRadius`, `theme.spacing`, `theme.fontSizes`, `theme.colors`, `theme.palette`.
-
-Shared prop types (`ThemeColor`, `Size`, `Radius`) live in `packages/native/src/types/`.
-
-```ts
-type ThemeColor = 'primary' | 'secondary' | 'tertiary' | 'danger' | 'warning' | 'success' | 'default'
-type Size = 'xs' | 'sm' | 'md' | 'lg'
-type Radius = 'none' | 'sm' | 'md' | 'lg' | 'full'
-```
-
-## Code conventions
-
-- **No** `console.log`, `console.error`, or `debugger`.
-- **No** unnecessary comments — only comment non-obvious decisions.
-- Functions must have **≤ 3 parameters**.
-- Use **early returns** to avoid deep nesting.
-- Avoid `any`; prefer explicit types.
-- Use `import type` for type-only imports.
-- Animations: use React Native's built-in `Animated` API — **do not use** `react-native-reanimated`.
-- Styles: use `StyleSheet.create` for `@xaui/native`; use Tailwind / framer-motion for `@xaui/hybrid`.
-- Prefix unused variables with `_` to satisfy the no-unused-vars rule.
-
-## Prettier settings
-
-No semicolons · single quotes · `printWidth: 85` · `tabWidth: 2` · ES5 trailing commas · `arrowParens: avoid` · LF line endings.
-
-## Release workflow (Changesets)
-
-Every PR that touches a package needs a changeset. Always use **patch** bump (project is in beta).
-
-```bash
-pnpm changeset   # creates .changeset/*.md — commit this file
-```
-
-❌ **Never** run `pnpm changeset version`, `pnpm version-packages`, or `pnpm release` locally — CI handles these.
-
-## Commit messages
-
-Use [Commitizen](https://commitizen.github.io/) conventional commit format (e.g., `feat:`, `fix:`, `chore:`).
+- Use `pnpm` only.
+- In `@xaui/native` and `@xaui/hybrid`, components live under
+  `src/components/<slug>/` and usually include `<slug>.type.ts`,
+  `<slug>.hook.ts`, `<slug>.style.ts`, optional `<slug>.animation.ts`,
+  `<slug>.tsx`, and `index.ts`. Tests mirror the source path under
+  `src/__tests__/components/<slug>/`.
+- A new public component is only fully wired when all related surfaces are
+  updated together: the component folder, the package `tsup.config.ts` entry
+  map, the package `exports` in `package.json`, and the docs catalog in
+  `apps/docs/lib/data/components.ts` when the API should appear on the site.
+- Theme access should go through the package hooks and providers:
+  `useXUITheme`, `useXUIColors`, `useXUIPalette`, `useBorderRadiusStyles`, and
+  `XUIProvider`. `useXUITheme()` throws outside a provider.
+- Match the existing package split for implementation details:
+  `@xaui/native` styles are built with `StyleSheet.create`, and animations may
+  use either React Native `Animated` or `react-native-reanimated` depending on
+  the surrounding component. `@xaui/hybrid` uses web-oriented styling and
+  browser color-scheme detection.
+- Prefer `import type` for type-only imports, and prefix intentionally unused
+  variables with `_` to satisfy the repo ESLint config.
+- Package changes require a changeset via `pnpm changeset`. Do not run
+  `pnpm changeset version`, `pnpm version-packages`, or `pnpm release`
+  locally.
