@@ -26,7 +26,7 @@ export const components: Component[] = [
     category: 'Layout',
     href: '/docs/components/container',
     status: 'stable',
-    importPath: '@xaui/native/container',
+    importPath: '@xaui/native/view',
     exports: ['Container'],
     types: ['ContainerProps'],
   },
