@@ -13,7 +13,7 @@ export const SizedBox: React.FC<SizedBoxProps> = ({
 }) => {
   if (shrink) {
     return (
-      <View testID={testID} style={[{ width: 0, height: 0 }, style]}>
+      <View testID={testID} style={[{ width: 0, height: 0, overflow: 'hidden' }, style]}>
         {children}
       </View>
     )
