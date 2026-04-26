@@ -217,7 +217,7 @@ export const componentPropsMap: Record<string, ComponentPropsData> = {
       {
         title: 'Shadow Card',
         description: 'Raised card effect using the shadow prop.',
-        code: `import { Container } from '@xaui/native/container'
+        code: `import { Container } from '@xaui/native/view'
 import { Text } from 'react-native'
 
 export function ShadowCard() {
@@ -239,7 +239,7 @@ export function ShadowCard() {
       {
         title: 'Alignment',
         description: 'Center children using the Flutter-style alignment prop.',
-        code: `import { Container } from '@xaui/native/container'
+        code: `import { Container } from '@xaui/native/view'
 import { Text } from 'react-native'
 
 export function CenteredContainer() {
@@ -260,7 +260,7 @@ export function CenteredContainer() {
       {
         title: 'EdgeInsets Spacing',
         description: 'Fine-grained padding and margin using the EdgeInsets format.',
-        code: `import { Container } from '@xaui/native/container'
+        code: `import { Container } from '@xaui/native/view'
 import { Text } from 'react-native'
 
 export function SpacingExample() {
@@ -280,7 +280,7 @@ export function SpacingExample() {
         title: 'Pressable Container',
         description:
           'Any press handler automatically switches View to Pressable. No extra wrapper needed.',
-        code: `import { Container } from '@xaui/native/container'
+        code: `import { Container } from '@xaui/native/view'
 import { Text } from 'react-native'
 
 export function PressableCard() {
@@ -301,7 +301,7 @@ export function PressableCard() {
         title: 'Per-side Border',
         description:
           'Apply borders to specific sides using the directional border format.',
-        code: `import { Container } from '@xaui/native/container'
+        code: `import { Container } from '@xaui/native/view'
 import { Text } from 'react-native'
 
 export function BorderExample() {
@@ -321,7 +321,7 @@ export function BorderExample() {
       {
         title: 'Flex Layout',
         description: 'Distribute space between containers with the flex prop.',
-        code: `import { Container } from '@xaui/native/container'
+        code: `import { Container } from '@xaui/native/view'
 import { View, Text } from 'react-native'
 
 export function FlexLayout() {

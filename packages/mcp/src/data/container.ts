@@ -5,7 +5,7 @@ export const containerDocs = {
   packages: {
     native: {
       package: '@xaui/native',
-      import: "import { Container } from '@xaui/native/container'",
+      import: "import { Container } from '@xaui/native/view'",
       platform: 'React Native — renders as View or Pressable',
     },
     hybrid: {
@@ -47,7 +47,7 @@ export const containerDocs = {
   examples: [
     {
       title: 'Basic box',
-      code: `import { Container } from '@xaui/native/container'
+      code: `import { Container } from '@xaui/native/view'
 
 <Container
   width={200}
@@ -61,7 +61,7 @@ export const containerDocs = {
     },
     {
       title: 'Card with shadow',
-      code: `import { Container } from '@xaui/native/container'
+      code: `import { Container } from '@xaui/native/view'
 
 <Container
   padding={{ horizontal: 16, vertical: 12 }}
@@ -74,7 +74,7 @@ export const containerDocs = {
     },
     {
       title: 'Pressable container',
-      code: `import { Container } from '@xaui/native/container'
+      code: `import { Container } from '@xaui/native/view'
 
 <Container
   onPress={() => console.log('pressed')}
@@ -87,7 +87,7 @@ export const containerDocs = {
     },
     {
       title: 'Full-width row with border',
-      code: `import { Container } from '@xaui/native/container'
+      code: `import { Container } from '@xaui/native/view'
 
 <Container
   flex={1}

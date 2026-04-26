@@ -8,7 +8,7 @@ pnpm add @xaui/native
 
 **React Native**
 ```ts
-import { Container } from '@xaui/native/container'
+import { Container } from '@xaui/native/view'
 ```
 
 **Web / Hybrid**
