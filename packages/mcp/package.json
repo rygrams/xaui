@@ -1,6 +1,6 @@
 {
   "name": "@xaui/ui-mcp",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "MCP server for XAUI UI components — gives AI assistants full knowledge of XAUI components, props, and usage patterns",
   "keywords": [
     "mcp",
