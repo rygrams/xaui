@@ -30,6 +30,7 @@ const entries = {
   'segment-button/index': 'src/components/segment-button/index.ts',
   'carousel/index': 'src/components/carousel/index.ts',
   'card/index': 'src/components/card/index.ts',
+  'container/index': 'src/components/container/index.ts',
   'skeleton/index': 'src/components/skeleton/index.ts',
   'input/index': 'src/components/input/index.ts',
   'list/index': 'src/components/list/index.ts',

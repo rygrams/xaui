@@ -1,5 +1,4 @@
 import type { Metadata } from 'next'
-import { AlertPlayground, AlertAllColors } from './alert-playground'
 
 export const metadata: Metadata = {
   title: 'Hybrid Playground — Xaui',
@@ -21,47 +20,6 @@ export default function PlaygroundPage() {
           library.
         </p>
       </div>
-
-      <section className="space-y-6">
-        <div className="flex items-center gap-2">
-          <h2 className="text-2xl font-semibold tracking-tight">Alert</h2>
-          <code className="rounded bg-muted px-2 py-0.5 font-mono text-xs">
-            @xaui/hybrid/alert
-          </code>
-        </div>
-        <p className="text-sm text-muted-foreground">
-          Displays contextual feedback messages. 4 variants · 7 theme colors · CSS fade animation
-          on dismiss.
-        </p>
-
-        <div className="space-y-2">
-          <h3 className="text-sm font-medium text-muted-foreground">Interactive</h3>
-          <div className="rounded-xl border p-6">
-            <AlertPlayground />
-          </div>
-        </div>
-
-        <div className="space-y-2">
-          <h3 className="text-sm font-medium text-muted-foreground">All colors — flat</h3>
-          <div className="rounded-xl border p-6 flex justify-center">
-            <AlertAllColors variant="flat" />
-          </div>
-        </div>
-
-        <div className="space-y-2">
-          <h3 className="text-sm font-medium text-muted-foreground">All colors — solid</h3>
-          <div className="rounded-xl border p-6 flex justify-center">
-            <AlertAllColors variant="solid" />
-          </div>
-        </div>
-
-        <div className="space-y-2">
-          <h3 className="text-sm font-medium text-muted-foreground">All colors — bordered</h3>
-          <div className="rounded-xl border p-6 flex justify-center">
-            <AlertAllColors variant="bordered" />
-          </div>
-        </div>
-      </section>
     </div>
   )
 }

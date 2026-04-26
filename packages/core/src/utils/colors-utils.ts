@@ -1,4 +1,5 @@
 import { colors } from '../tokens'
+import type { ThemeColor } from '../types'
 
 /**
  * Create opacity variants for a color
@@ -105,7 +106,7 @@ export function withPaletteNumber(
   return nearestPalette ? nearestPalette[paletteNumber] : color
 }
 
-const validThemeColors = [
+const validThemeColors: readonly ThemeColor[] = [
   'primary',
   'secondary',
   'tertiary',
@@ -113,12 +114,12 @@ const validThemeColors = [
   'warning',
   'success',
   'default',
-] as const
+]
 
-export function getSafeThemeColor(themeColor: string): ValidThemeColor {
-  return validThemeColors.includes(themeColor as ValidThemeColor)
-    ? (themeColor as ValidThemeColor)
+export function getSafeThemeColor(themeColor: string): ThemeColor {
+  return validThemeColors.includes(themeColor as ThemeColor)
+    ? (themeColor as ThemeColor)
     : 'primary'
 }
 
-export type ValidThemeColor = (typeof validThemeColors)[number]
+export type ValidThemeColor = ThemeColor

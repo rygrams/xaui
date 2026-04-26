@@ -1,0 +1,7 @@
+# XAUI
+
+> Flutter-inspired React Native & hybrid UI component library.
+
+## Components
+
+- [Container](https://ui.xtartapp.com/docs/container.md): Flutter-style layout container — dimensions, spacing, alignment, border, shadow, clip, transform, press handling

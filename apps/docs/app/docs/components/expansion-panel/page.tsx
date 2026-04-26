@@ -1,4 +1,4 @@
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { CodeBlock } from '@/components/ui/code-block'
 import { ExpansionPanelScreenshots } from '@/components/screenshots/expansion-panel-screenshots'

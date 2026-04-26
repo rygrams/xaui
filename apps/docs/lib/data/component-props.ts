@@ -29,6 +29,325 @@ export type ComponentPropsData = {
 }
 
 export const componentPropsMap: Record<string, ComponentPropsData> = {
+  container: {
+    props: [
+      {
+        name: 'children',
+        type: 'ReactNode',
+        defaultValue: '-',
+        description: 'Content rendered inside the container',
+      },
+      {
+        name: 'width',
+        type: 'number | `${number}%`',
+        defaultValue: '-',
+        description: 'Container width — number (dp) or percentage string',
+      },
+      {
+        name: 'height',
+        type: 'number | `${number}%`',
+        defaultValue: '-',
+        description: 'Container height — number (dp) or percentage string',
+      },
+      {
+        name: 'minWidth',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Minimum width constraint',
+      },
+      {
+        name: 'maxWidth',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Maximum width constraint',
+      },
+      {
+        name: 'minHeight',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Minimum height constraint',
+      },
+      {
+        name: 'maxHeight',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Maximum height constraint',
+      },
+      {
+        name: 'aspectRatio',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Aspect ratio (width / height) — e.g. 16/9',
+      },
+      {
+        name: 'flex',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Flex factor for distributing space in a row or column',
+      },
+      {
+        name: 'padding',
+        type: 'EdgeInsets',
+        defaultValue: '-',
+        description:
+          'Inner spacing — number for all sides, or { top, bottom, left, right, horizontal, vertical }',
+      },
+      {
+        name: 'margin',
+        type: 'EdgeInsets',
+        defaultValue: '-',
+        description:
+          'Outer spacing — number for all sides, or { top, bottom, left, right, horizontal, vertical }',
+      },
+      {
+        name: 'alignment',
+        type: 'Alignment',
+        defaultValue: '-',
+        description:
+          'Child alignment — named position ("center", "topLeft", "bottomRight"…) or { x, y } coordinates from 0 to 1',
+      },
+      {
+        name: 'color',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Background color',
+      },
+      {
+        name: 'border',
+        type: 'Border',
+        defaultValue: '-',
+        description:
+          'Border as a uniform BorderSide { width, color, style } or per-side { top, bottom, left, right }',
+      },
+      {
+        name: 'borderRadius',
+        type: 'BorderRadius',
+        defaultValue: '-',
+        description:
+          'Corner radius — number for uniform or { topLeft, topRight, bottomLeft, bottomRight }',
+      },
+      {
+        name: 'shadow',
+        type: 'ShadowConfig',
+        defaultValue: '-',
+        description: 'Drop shadow — { color, offset: { x, y }, blur, spread, opacity, elevation }',
+      },
+      {
+        name: 'clip',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Clip children to container bounds (overflow: hidden)',
+      },
+      {
+        name: 'transform',
+        type: 'TransformConfig',
+        defaultValue: '-',
+        description:
+          'Transforms — { rotate, rotateX, rotateY, scale, scaleX, scaleY, translateX, translateY, skewX, skewY }',
+      },
+      {
+        name: 'opacity',
+        type: 'number',
+        defaultValue: '-',
+        description: 'Element opacity from 0 (invisible) to 1 (fully visible)',
+      },
+      {
+        name: 'disabled',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Disables all press handlers when true',
+      },
+      {
+        name: 'accessibilityLabel',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Accessible label read by screen readers',
+      },
+      {
+        name: 'accessibilityRole',
+        type: 'AccessibilityRole',
+        defaultValue: '-',
+        description: 'ARIA-like role for accessibility (e.g. "button", "header")',
+      },
+      {
+        name: 'accessible',
+        type: 'boolean',
+        defaultValue: '-',
+        description: 'Whether the element is exposed to accessibility APIs',
+      },
+      {
+        name: 'testID',
+        type: 'string',
+        defaultValue: '-',
+        description: 'Test selector used in automated testing',
+      },
+      {
+        name: 'style',
+        type: 'StyleProp<ViewStyle>',
+        defaultValue: '-',
+        description: 'Escape-hatch for raw style overrides applied after computed styles',
+      },
+    ],
+    events: [
+      {
+        name: 'onPress',
+        type: '() => void',
+        description:
+          'Called when the container is tapped. Automatically renders a Pressable instead of View.',
+      },
+      {
+        name: 'onLongPress',
+        type: '() => void',
+        description: 'Called after a long press (500 ms hold)',
+      },
+      {
+        name: 'onPressIn',
+        type: '() => void',
+        description: 'Called when the press gesture starts',
+      },
+      {
+        name: 'onPressOut',
+        type: '() => void',
+        description: 'Called when the press gesture ends',
+      },
+    ],
+    examples: [
+      {
+        title: 'Shadow Card',
+        description: 'Raised card effect using the shadow prop.',
+        code: `import { Container } from '@xaui/native/container'
+import { Text } from 'react-native'
+
+export function ShadowCard() {
+  return (
+    <Container
+      color="#ffffff"
+      padding={16}
+      borderRadius={12}
+      shadow={{ offset: { x: 0, y: 4 }, blur: 16, opacity: 0.1 }}
+    >
+      <Text style={{ fontWeight: '600' }}>Card title</Text>
+      <Text style={{ color: '#71717a', marginTop: 4, fontSize: 13 }}>
+        Subtle shadow lifts the card off the background.
+      </Text>
+    </Container>
+  )
+}`,
+      },
+      {
+        title: 'Alignment',
+        description: 'Center children using the Flutter-style alignment prop.',
+        code: `import { Container } from '@xaui/native/container'
+import { Text } from 'react-native'
+
+export function CenteredContainer() {
+  return (
+    <Container
+      height={160}
+      color="#6b21a8"
+      borderRadius={12}
+      alignment="center"
+    >
+      <Text style={{ color: '#ffffff', fontWeight: '700', fontSize: 18 }}>
+        Centered
+      </Text>
+    </Container>
+  )
+}`,
+      },
+      {
+        title: 'EdgeInsets Spacing',
+        description: 'Fine-grained padding and margin using the EdgeInsets format.',
+        code: `import { Container } from '@xaui/native/container'
+import { Text } from 'react-native'
+
+export function SpacingExample() {
+  return (
+    <Container
+      padding={{ horizontal: 20, vertical: 12 }}
+      margin={{ top: 8, bottom: 8 }}
+      border={{ width: 1, color: '#e4e4e7' }}
+      borderRadius={8}
+    >
+      <Text>Asymmetric spacing via EdgeInsets</Text>
+    </Container>
+  )
+}`,
+      },
+      {
+        title: 'Pressable Container',
+        description:
+          'Any press handler automatically switches View to Pressable. No extra wrapper needed.',
+        code: `import { Container } from '@xaui/native/container'
+import { Text } from 'react-native'
+
+export function PressableCard() {
+  return (
+    <Container
+      color="#f3e8ff"
+      padding={16}
+      borderRadius={12}
+      shadow={{ offset: { x: 0, y: 2 }, blur: 8, opacity: 0.08 }}
+      onPress={() => alert('pressed!')}
+    >
+      <Text style={{ color: '#6b21a8', fontWeight: '600' }}>Tap me</Text>
+    </Container>
+  )
+}`,
+      },
+      {
+        title: 'Per-side Border',
+        description: 'Apply borders to specific sides using the directional border format.',
+        code: `import { Container } from '@xaui/native/container'
+import { Text } from 'react-native'
+
+export function BorderExample() {
+  return (
+    <Container
+      padding={{ left: 16, vertical: 12 }}
+      border={{ left: { width: 3, color: '#6b21a8' } }}
+    >
+      <Text style={{ fontWeight: '600' }}>Left accent border</Text>
+      <Text style={{ color: '#71717a', fontSize: 13, marginTop: 2 }}>
+        Only the left side has a border.
+      </Text>
+    </Container>
+  )
+}`,
+      },
+      {
+        title: 'Flex Layout',
+        description: 'Distribute space between containers with the flex prop.',
+        code: `import { Container } from '@xaui/native/container'
+import { View, Text } from 'react-native'
+
+export function FlexLayout() {
+  return (
+    <View style={{ flexDirection: 'row', gap: 8 }}>
+      <Container
+        flex={1}
+        padding={12}
+        borderRadius={8}
+        border={{ width: 1, color: '#e4e4e7' }}
+        alignment="center"
+      >
+        <Text>1</Text>
+      </Container>
+      <Container
+        flex={2}
+        padding={12}
+        borderRadius={8}
+        color="#f3e8ff"
+        alignment="center"
+      >
+        <Text style={{ color: '#6b21a8' }}>2</Text>
+      </Container>
+    </View>
+  )
+}`,
+      },
+    ],
+  },
   alert: {
     props: [
       {

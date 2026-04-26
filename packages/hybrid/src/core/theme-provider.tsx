@@ -1,59 +1,94 @@
 'use client'
 
-import { useEffect, type ReactNode } from 'react'
+import React, { createContext, useEffect, useMemo, useState } from 'react'
+import type { ReactNode } from 'react'
+import { defaultDarkTheme, defaultTheme } from '@xaui/core/theme'
+import type { XUITheme } from '@xaui/core/theme'
+import { colors } from '@xaui/core/palette'
 
-type ColorMode = 'light' | 'dark'
+export const XUIThemeContext = createContext<XUITheme | null>(null)
 
-type CSSVarValue = string | number
-
-export type XUIVariables = Record<`--xui-${string}`, CSSVarValue>
+export type DeepPartial<T> = {
+  [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P]
+}
 
 export interface XUIProviderProps {
   children: ReactNode
-  colorScheme?: ColorMode
-  target?: 'html' | 'body'
-  variables?: Partial<XUIVariables>
-  darkVariables?: Partial<XUIVariables>
+  theme?: DeepPartial<XUITheme>
 }
 
-const getSystemColorMode = (): ColorMode => {
-  if (typeof globalThis === 'undefined' || !globalThis.matchMedia) return 'light'
-  return globalThis.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'
+type ColorMode = 'light' | 'dark'
+
+function useSystemColorMode(): ColorMode {
+  const [mode, setMode] = useState<ColorMode>(() => {
+    if (typeof globalThis === 'undefined' || !globalThis.matchMedia) return 'light'
+    return globalThis.matchMedia('(prefers-color-scheme: dark)').matches
+      ? 'dark'
+      : 'light'
+  })
+
+  useEffect(() => {
+    if (typeof globalThis === 'undefined' || !globalThis.matchMedia) return
+    const media = globalThis.matchMedia('(prefers-color-scheme: dark)')
+    const handleChange = () => {
+      setMode(media.matches ? 'dark' : 'light')
+    }
+    handleChange()
+    if (typeof media.addEventListener === 'function') {
+      media.addEventListener('change', handleChange)
+      return () => media.removeEventListener('change', handleChange)
+    }
+    const legacy = media as {
+      addListener?: (fn: () => void) => void
+      removeListener?: (fn: () => void) => void
+    }
+    legacy.addListener?.(handleChange)
+    return () => legacy.removeListener?.(handleChange)
+  }, [])
+
+  return mode
 }
 
-export function XUIProvider({
-  children,
-  colorScheme,
-  target = 'html',
-  variables,
-  darkVariables,
-}: XUIProviderProps) {
+export function XUIProvider({ children, theme }: XUIProviderProps) {
+  const systemMode = useSystemColorMode()
+  const colorScheme = theme?.mode ?? systemMode
+
   useEffect(() => {
     if (typeof document === 'undefined') return
+    document.documentElement.dataset.colorScheme = colorScheme
+  }, [colorScheme])
 
-    const root = document.documentElement
-    const styleTarget = target === 'body' ? document.body : root
-    if (!styleTarget) return
+  const appTheme = useMemo(() => {
+    const isDarkMode = colorScheme === 'dark'
+    const baseTheme = isDarkMode ? defaultDarkTheme : defaultTheme
 
-    const resolvedMode: ColorMode = colorScheme ?? getSystemColorMode()
-    root.dataset.colorScheme = resolvedMode
+    if (!theme) return baseTheme
 
-    const activeVars = resolvedMode === 'dark' ? { ...variables, ...darkVariables } : variables
-    if (!activeVars) return
+    return {
+      ...baseTheme,
+      ...theme,
+      mode: colorScheme,
+      colors: {
+        ...baseTheme.colors,
+        ...theme?.colors,
+      },
+      fontFamilies: {
+        ...baseTheme.fontFamilies,
+        ...theme?.fontFamilies,
+      },
+      fontSizes: {
+        ...baseTheme.fontSizes,
+        ...theme?.fontSizes,
+      },
+      componentSizes: {
+        ...baseTheme.componentSizes,
+        ...theme?.componentSizes,
+      },
+      palette: colors,
+    } as XUITheme
+  }, [colorScheme, theme])
 
-    const appliedKeys: string[] = []
-    for (const [key, value] of Object.entries(activeVars)) {
-      if (value === undefined || value === null) continue
-      styleTarget.style.setProperty(key, String(value))
-      appliedKeys.push(key)
-    }
-
-    return () => {
-      for (const key of appliedKeys) {
-        styleTarget.style.removeProperty(key)
-      }
-    }
-  }, [colorScheme, darkVariables, target, variables])
-
-  return <>{children}</>
+  return (
+    <XUIThemeContext.Provider value={appTheme}>{children}</XUIThemeContext.Provider>
+  )
 }
