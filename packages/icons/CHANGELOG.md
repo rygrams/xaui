@@ -1,5 +1,12 @@
 # @xaui/icons
 
+## 0.0.10
+
+### Patch Changes
+
+- Updated dependencies [0252a82]
+  - @xaui/core@0.2.1
+
 ## 0.0.9
 
 ### Patch Changes

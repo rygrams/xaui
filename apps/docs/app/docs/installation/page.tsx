@@ -1,4 +1,4 @@
-import { Metadata } from 'next'
+import type { Metadata } from 'next'
 import { CodeBlock } from '@/components/ui/code-block'
 
 export const metadata: Metadata = {

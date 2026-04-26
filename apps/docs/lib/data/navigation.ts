@@ -31,6 +31,10 @@ export const navigation: NavSection[] = [
         title: 'Theme',
         href: '/docs/theme',
       },
+      {
+        title: 'LLMs.txt',
+        href: '/docs/llms-txt',
+      },
     ],
   },
   {

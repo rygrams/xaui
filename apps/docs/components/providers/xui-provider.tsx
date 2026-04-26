@@ -1,6 +1,7 @@
 'use client'
 
-import { useEffect, type ReactNode } from 'react'
+import { XUIProvider } from '@xaui/hybrid/core'
+import type { ReactNode } from 'react'
 
 type HybridProviderProps = {
   children: ReactNode
@@ -8,11 +9,11 @@ type HybridProviderProps = {
 }
 
 export function HybridProvider({ children, colorScheme }: HybridProviderProps) {
-  useEffect(() => {
-    if (typeof document === 'undefined') return
-    if (!colorScheme) return
-    document.documentElement.dataset.colorScheme = colorScheme
-  }, [colorScheme])
-
-  return <>{children}</>
+  return (
+    <XUIProvider
+      theme={colorScheme === 'dark' ? { mode: 'dark' as const } : undefined}
+    >
+      {children}
+    </XUIProvider>
+  )
 }

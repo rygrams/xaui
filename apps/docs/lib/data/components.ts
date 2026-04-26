@@ -19,6 +19,18 @@ export interface Component {
 
 export const components: Component[] = [
   {
+    id: 'container',
+    name: 'Container',
+    description:
+      'Universal layout container with padding, margin, alignment, border, shadow, and transform support.',
+    category: 'Layout',
+    href: '/docs/components/container',
+    status: 'beta',
+    importPath: '@xaui/native/container',
+    exports: ['Container'],
+    types: ['ContainerProps'],
+  },
+  {
     id: 'alert',
     name: 'Alert',
     description:

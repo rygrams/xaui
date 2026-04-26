@@ -24,31 +24,31 @@ export default function HomeScreen() {
         <GridItem>
           <Button
             size="sm"
-            onPress={() => router.push('/chart')}
-            variant="bordered"
-            themeColor="secondary"
-          >
-            Chart
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/expansion-panel')}
+            onPress={() => router.push('/alerts')}
             variant="bordered"
             themeColor="primary"
           >
-            Expansion Panel
+            Alert
           </Button>
         </GridItem>
         <GridItem>
           <Button
             size="sm"
-            onPress={() => router.push('/alerts')}
+            onPress={() => router.push('/app-bar')}
             variant="bordered"
             themeColor="secondary"
           >
-            Alert
+            AppBar
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/autocomplete')}
+            variant="bordered"
+            themeColor="primary"
+          >
+            Autocomplete
           </Button>
         </GridItem>
         <GridItem>
@@ -94,16 +94,6 @@ export default function HomeScreen() {
         <GridItem>
           <Button
             size="sm"
-            onPress={() => router.push('/app-bar')}
-            variant="bordered"
-            themeColor="primary"
-          >
-            AppBar
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
             onPress={() => router.push('/buttons')}
             variant="bordered"
             themeColor="secondary"
@@ -134,9 +124,19 @@ export default function HomeScreen() {
         <GridItem>
           <Button
             size="sm"
-            onPress={() => router.push('/checkbox')}
+            onPress={() => router.push('/chart')}
             variant="bordered"
             themeColor="primary"
+          >
+            Chart
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/checkbox')}
+            variant="bordered"
+            themeColor="secondary"
           >
             Checkbox
           </Button>
@@ -154,6 +154,46 @@ export default function HomeScreen() {
         <GridItem>
           <Button
             size="sm"
+            onPress={() => router.push('/color-picker')}
+            variant="bordered"
+            themeColor="secondary"
+          >
+            ColorPicker
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/container')}
+            variant="bordered"
+            themeColor="primary"
+          >
+            Container
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/date-input')}
+            variant="bordered"
+            themeColor="secondary"
+          >
+            Date/Time Input
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/datepicker')}
+            variant="bordered"
+            themeColor="primary"
+          >
+            Datepicker
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
             onPress={() => router.push('/dialog')}
             variant="bordered"
             themeColor="secondary"
@@ -166,7 +206,7 @@ export default function HomeScreen() {
             size="sm"
             onPress={() => router.push('/drawer')}
             variant="bordered"
-            themeColor="secondary"
+            themeColor="primary"
           >
             Drawer
           </Button>
@@ -174,31 +214,11 @@ export default function HomeScreen() {
         <GridItem>
           <Button
             size="sm"
-            onPress={() => router.push('/datepicker')}
+            onPress={() => router.push('/expansion-panel')}
             variant="bordered"
             themeColor="secondary"
           >
-            Datepicker
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/select')}
-            variant="bordered"
-            themeColor="primary"
-          >
-            Select
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/autocomplete')}
-            variant="bordered"
-            themeColor="secondary"
-          >
-            Autocomplete
+            Expansion Panel
           </Button>
         </GridItem>
         <GridItem>
@@ -224,6 +244,16 @@ export default function HomeScreen() {
         <GridItem>
           <Button
             size="sm"
+            onPress={() => router.push('/file-input-trigger')}
+            variant="bordered"
+            themeColor="primary"
+          >
+            FileInputTrigger
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
             onPress={() => router.push('/indicator')}
             variant="bordered"
             themeColor="secondary"
@@ -244,51 +274,11 @@ export default function HomeScreen() {
         <GridItem>
           <Button
             size="sm"
-            onPress={() => router.push('/date-input')}
+            onPress={() => router.push('/input-trigger')}
             variant="bordered"
             themeColor="secondary"
           >
-            Date/Time Input
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/otp-input')}
-            variant="bordered"
-            themeColor="primary"
-          >
-            OTP Input
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/number-input')}
-            variant="bordered"
-            themeColor="secondary"
-          >
-            Number Input
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/radio')}
-            variant="bordered"
-            themeColor="primary"
-          >
-            Radio
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/menus')}
-            variant="bordered"
-            themeColor="secondary"
-          >
-            Menu
+            InputTrigger
           </Button>
         </GridItem>
         <GridItem>
@@ -304,11 +294,41 @@ export default function HomeScreen() {
         <GridItem>
           <Button
             size="sm"
-            onPress={() => router.push('/progress')}
+            onPress={() => router.push('/menus')}
+            variant="bordered"
+            themeColor="secondary"
+          >
+            Menu
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/menubox')}
             variant="bordered"
             themeColor="primary"
           >
-            Progress
+            MenuBox
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/number-input')}
+            variant="bordered"
+            themeColor="secondary"
+          >
+            Number Input
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/otp-input')}
+            variant="bordered"
+            themeColor="primary"
+          >
+            OTP Input
           </Button>
         </GridItem>
         <GridItem>
@@ -324,6 +344,46 @@ export default function HomeScreen() {
         <GridItem>
           <Button
             size="sm"
+            onPress={() => router.push('/picker')}
+            variant="bordered"
+            themeColor="primary"
+          >
+            Picker
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/progress')}
+            variant="bordered"
+            themeColor="secondary"
+          >
+            Progress
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/radio')}
+            variant="bordered"
+            themeColor="primary"
+          >
+            Radio
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/refresh-control')}
+            variant="bordered"
+            themeColor="secondary"
+          >
+            RefreshControl
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
             onPress={() => router.push('/segment-buttons')}
             variant="bordered"
             themeColor="primary"
@@ -334,9 +394,19 @@ export default function HomeScreen() {
         <GridItem>
           <Button
             size="sm"
-            onPress={() => router.push('/skeleton')}
+            onPress={() => router.push('/select')}
             variant="bordered"
             themeColor="secondary"
+          >
+            Select
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/skeleton')}
+            variant="bordered"
+            themeColor="primary"
           >
             Skeleton
           </Button>
@@ -344,11 +414,11 @@ export default function HomeScreen() {
         <GridItem>
           <Button
             size="sm"
-            onPress={() => router.push('/stepper')}
+            onPress={() => router.push('/slider')}
             variant="bordered"
-            themeColor="primary"
+            themeColor="secondary"
           >
-            Stepper
+            Slider
           </Button>
         </GridItem>
         <GridItem>
@@ -374,11 +444,41 @@ export default function HomeScreen() {
         <GridItem>
           <Button
             size="sm"
-            onPress={() => router.push('/switch')}
+            onPress={() => router.push('/stepper')}
+            variant="bordered"
+            themeColor="primary"
+          >
+            Stepper
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/surface')}
             variant="bordered"
             themeColor="secondary"
           >
+            Surface
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/switch')}
+            variant="bordered"
+            themeColor="primary"
+          >
             Switch
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
+            onPress={() => router.push('/tabs')}
+            variant="bordered"
+            themeColor="secondary"
+          >
+            Tabs
           </Button>
         </GridItem>
         <GridItem>
@@ -394,16 +494,6 @@ export default function HomeScreen() {
         <GridItem>
           <Button
             size="sm"
-            onPress={() => router.push('/toolbar')}
-            variant="bordered"
-            themeColor="secondary"
-          >
-            Toolbar
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
             onPress={() => router.push('/timepicker')}
             variant="bordered"
             themeColor="secondary"
@@ -414,41 +504,11 @@ export default function HomeScreen() {
         <GridItem>
           <Button
             size="sm"
-            onPress={() => router.push('/menubox')}
-            variant="bordered"
-            themeColor="secondary"
-          >
-            MenuBox
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/slider')}
-            variant="bordered"
-            themeColor="secondary"
-          >
-            Slider
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/surface')}
+            onPress={() => router.push('/toolbar')}
             variant="bordered"
             themeColor="primary"
           >
-            Surface
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/tabs')}
-            variant="bordered"
-            themeColor="primary"
-          >
-            Tabs
+            Toolbar
           </Button>
         </GridItem>
         <GridItem>
@@ -459,56 +519,6 @@ export default function HomeScreen() {
             themeColor="secondary"
           >
             Typography
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/input-trigger')}
-            variant="bordered"
-            themeColor="primary"
-          >
-            InputTrigger
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/file-input-trigger')}
-            variant="bordered"
-            themeColor="secondary"
-          >
-            FileInputTrigger
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/picker')}
-            variant="bordered"
-            themeColor="secondary"
-          >
-            Picker
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/color-picker')}
-            variant="bordered"
-            themeColor="primary"
-          >
-            ColorPicker
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/refresh-control')}
-            variant="bordered"
-            themeColor="secondary"
-          >
-            RefreshControl
           </Button>
         </GridItem>
       </Grid>
