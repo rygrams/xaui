@@ -1,9 +1,11 @@
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
 import { z } from 'zod'
 import { containerDocs } from '../data/container.js'
+import { sizedBoxDocs } from '../data/sized-box.js'
 
 const COMPONENTS: Record<string, typeof containerDocs> = {
   container: containerDocs,
+  'sized-box': sizedBoxDocs,
 }
 
 export function registerComponentTools(server: McpServer) {

@@ -10948,40 +10948,40 @@ export function DirectionalMarginExample() {
   'sized-box': {
     props: [
       {
-        name: 'children',
-        type: 'ReactNode',
-        defaultValue: '-',
-        description: 'Optional content',
-      },
-      {
         name: 'width',
-        type: 'number | string',
+        type: 'number',
         defaultValue: '-',
-        description: 'Width value (number in px or string, e.g. "100%")',
+        description: 'Width in logical pixels',
       },
       {
         name: 'height',
-        type: 'number | string',
+        type: 'number',
         defaultValue: '-',
-        description: 'Height value (number in px or string, e.g. "50%")',
+        description: 'Height in logical pixels',
       },
       {
-        name: 'fullWidth',
+        name: 'expand',
         type: 'boolean',
         defaultValue: 'false',
-        description: 'Expand to full available width',
+        description: 'Fill all available space — flex: 1 + alignSelf: stretch (Flutter Expanded equivalent)',
       },
       {
-        name: 'style',
-        type: 'StyleProp<ViewStyle>',
+        name: 'shrink',
+        type: 'boolean',
+        defaultValue: 'false',
+        description: 'Collapse to zero size — Flutter SizedBox.shrink() equivalent',
+      },
+      {
+        name: 'children',
+        type: 'ReactNode',
         defaultValue: '-',
-        description: 'Additional styles',
+        description: 'Optional content to render inside the box',
       },
     ],
     examples: [
       {
-        title: 'Fixed Spacer',
-        description: 'Use SizedBox as a blank space between items.',
+        title: 'Fixed spacer',
+        description: 'Use SizedBox as blank space between items.',
         code: `import { Column, SizedBox } from '@xaui/native/view'
 import { Typography } from '@xaui/native/typography'
 
@@ -10996,7 +10996,7 @@ export function SizedBoxSpacerExample() {
 }`,
       },
       {
-        title: 'Fixed-Size Container',
+        title: 'Fixed-size container',
         description: 'Constrain a child to an exact size.',
         code: `import { SizedBox } from '@xaui/native/view'
 import { View } from 'react-native'
@@ -11010,17 +11010,28 @@ export function FixedContainerExample() {
 }`,
       },
       {
-        title: 'String Dimensions and Full Width',
-        description: 'Use string dimensions and fullWidth for responsive sizing.',
-        code: `import { SizedBox } from '@xaui/native/view'
-import { View } from 'react-native'
+        title: 'Expanded (fill remaining space)',
+        description: 'Equivalent to Flutter Expanded — takes all available space in its parent flex container.',
+        code: `import { Row, SizedBox } from '@xaui/native/view'
 
-export function SizedBoxResponsiveExample() {
+export function ExpandedExample() {
   return (
-    <SizedBox fullWidth height="40%">
-      <View style={{ flex: 1, backgroundColor: '#e0e7ff', borderRadius: 8 }} />
-    </SizedBox>
+    <Row>
+      <SizedBox width={48} height={48} />
+      <SizedBox expand>
+        {/* fills remaining row space */}
+      </SizedBox>
+    </Row>
   )
+}`,
+      },
+      {
+        title: 'Shrink (zero size)',
+        description: 'Collapses to nothing — Flutter SizedBox.shrink() equivalent.',
+        code: `import { SizedBox } from '@xaui/native/view'
+
+export function ShrinkExample() {
+  return <SizedBox shrink />
 }`,
       },
     ],
