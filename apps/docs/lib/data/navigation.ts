@@ -31,10 +31,6 @@ export const navigation: NavSection[] = [
         title: 'Theme',
         href: '/docs/theme',
       },
-      {
-        title: 'LLMs.txt',
-        href: '/docs/llms-txt',
-      },
     ],
   },
   {
@@ -51,8 +47,12 @@ export const navigation: NavSection[] = [
     ],
   },
   {
-    title: 'AI & MCP',
+    title: 'AI & Tools',
     items: [
+      {
+        title: 'LLMs.txt',
+        href: '/docs/llms-txt',
+      },
       {
         title: 'MCP Server',
         href: '/docs/mcp',
