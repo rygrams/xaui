@@ -951,6 +951,18 @@ export const components: Component[] = [
     exports: ['ColorPicker', 'defaultColorGroups'],
     types: ['ColorPickerProps', 'ColorPickerEvents', 'ColorGroup'],
   },
+  {
+    id: 'container',
+    name: 'Container',
+    description:
+      'Flutter-inspired layout primitive for sizing, spacing, alignment, decoration, and interaction in a single composable component.',
+    category: 'Layout',
+    href: '/docs/components/container',
+    status: 'stable',
+    importPath: '@xaui/native/container',
+    exports: ['Container'],
+    types: ['ContainerProps'],
+  },
 ]
 
 export const categories = Array.from(new Set(components.map(c => c.category))).sort()

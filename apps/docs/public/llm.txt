@@ -1,0 +1,211 @@
+# XAUI — LLM Reference
+
+XAUI is a Flutter-inspired React Native UI library available as two packages:
+
+- **@xaui/native** — React Native components for iOS and Android
+- **@xaui/hybrid** — React web/webview components with Tailwind CSS
+
+---
+
+## @xaui/native vs @xaui/hybrid
+
+| Feature         | @xaui/native                     | @xaui/hybrid                          |
+|-----------------|----------------------------------|---------------------------------------|
+| Target          | iOS / Android                    | Web browser / mobile webview          |
+| Renderer        | React Native (native views)      | React DOM (HTML elements)             |
+| Styling         | StyleSheet / inline styles       | Tailwind CSS v4                       |
+| Animations      | React Native Reanimated          | CSS transitions / Framer Motion       |
+| Import prefix   | @xaui/native/<component>         | @xaui/hybrid/<component>              |
+
+Choose **@xaui/native** for React Native (Expo or RN CLI) apps.
+Choose **@xaui/hybrid** for web apps or webviews inside mobile apps.
+
+Both packages share the same component API so switching is minimal.
+
+---
+
+## Installation
+
+### @xaui/native (Expo)
+```bash
+npx expo install @xaui/native
+```
+
+Required peer dependencies: react-native-reanimated, react-native-gesture-handler, react-native-safe-area-context, react-native-svg
+
+```js
+// babel.config.js — required for Reanimated
+module.exports = {
+  presets: ['babel-preset-expo'],
+  plugins: ['react-native-reanimated/plugin'],
+}
+```
+
+### @xaui/hybrid (web)
+```bash
+npm install @xaui/hybrid
+```
+
+Required peer dependencies: tailwindcss (v4+)
+
+---
+
+## Add XAUI to your AI assistant (MCP)
+
+### Claude Code
+```bash
+claude mcp add xaui -- npx -y @xaui/ui-mcp@latest
+```
+
+### MCP config (claude_desktop_config.json / .cursor/mcp.json)
+```json
+{
+  "mcpServers": {
+    "xaui": {
+      "command": "npx",
+      "args": ["-y", "@xaui/ui-mcp@latest"]
+    }
+  }
+}
+```
+
+---
+
+## Component: Container
+
+A Flutter-inspired layout primitive. Handles sizing, spacing, alignment, decoration (color, border, borderRadius, shadow), transforms, and interaction (press handlers) in a single composable component.
+
+### Import
+```ts
+// React Native
+import { Container } from '@xaui/native/container'
+
+// Web / WebView
+import { Container } from '@xaui/hybrid/container'
+```
+
+### Props
+
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `children` | `ReactNode` | — | Child content |
+| `width` | `number \| "${number}%"` | — | Width (dp or %) |
+| `height` | `number \| "${number}%"` | — | Height (dp or %) |
+| `minWidth` | `number` | — | Minimum width |
+| `maxWidth` | `number` | — | Maximum width |
+| `minHeight` | `number` | — | Minimum height |
+| `maxHeight` | `number` | — | Maximum height |
+| `aspectRatio` | `number` | — | Width/height ratio |
+| `flex` | `number` | — | Flex factor |
+| `padding` | `EdgeInsets` | — | Inner spacing — `number` or `{ top, bottom, left, right, horizontal, vertical }` |
+| `margin` | `EdgeInsets` | — | Outer spacing — same shape |
+| `alignment` | `Alignment` | — | Child alignment — `"center"` \| `"topLeft"` \| `"bottomRight"` \| … \| `{ x, y }` |
+| `color` | `string` | — | Background color |
+| `border` | `Border` | — | `{ color, width, style? }` |
+| `borderRadius` | `BorderRadius` | — | `number` or `{ topLeft, topRight, bottomLeft, bottomRight }` |
+| `shadow` | `ShadowConfig` | — | `{ color, offset: { x, y }, blur, opacity, elevation }` |
+| `clip` | `boolean` | `false` | Clip children (overflow hidden) |
+| `transform` | `TransformConfig` | — | `{ rotate, scale, scaleX, scaleY, translateX, translateY, skewX, skewY }` |
+| `opacity` | `number` | — | 0–1 opacity |
+| `onPress` | `() => void` | — | Tap — makes container interactive |
+| `onLongPress` | `() => void` | — | Long press |
+| `onPressIn` | `() => void` | — | Pointer/touch down |
+| `onPressOut` | `() => void` | — | Pointer/touch up |
+| `disabled` | `boolean` | `false` | Suppress press handlers |
+| `accessibilityLabel` | `string` | — | Screen reader label |
+| `testID` | `string` | — | Test identifier |
+| `style` | `StyleProp<ViewStyle>` | — | Raw style override |
+| `className` | `string` | — | Tailwind classes (hybrid only) |
+
+### Examples
+
+#### Basic colored box
+```tsx
+import { Container } from '@xaui/native/container'
+
+<Container
+  width={200}
+  height={100}
+  color="#6366f1"
+  borderRadius={12}
+  alignment="center"
+/>
+```
+
+#### Card with shadow
+```tsx
+import { Container } from '@xaui/native/container'
+
+<Container
+  padding={{ horizontal: 16, vertical: 12 }}
+  color="#ffffff"
+  borderRadius={16}
+  shadow={{ color: '#000', offset: { x: 0, y: 4 }, blur: 12, opacity: 0.08, elevation: 4 }}
+>
+  {/* card content */}
+</Container>
+```
+
+#### Pressable container
+```tsx
+import { Container } from '@xaui/native/container'
+
+<Container
+  onPress={() => {}}
+  padding={16}
+  color="#f3f4f6"
+  borderRadius={8}
+>
+  {/* tappable content */}
+</Container>
+```
+
+#### Flex row with border
+```tsx
+import { Container } from '@xaui/native/container'
+
+<Container
+  flex={1}
+  padding={{ horizontal: 16, vertical: 8 }}
+  border={{ color: '#e5e7eb', width: 1 }}
+  borderRadius={8}
+>
+  {/* row content */}
+</Container>
+```
+
+#### Hybrid (web) usage
+```tsx
+import { Container } from '@xaui/hybrid/container'
+
+<Container
+  width="100%"
+  maxWidth={480}
+  padding={{ horizontal: 24, vertical: 16 }}
+  color="#ffffff"
+  borderRadius={12}
+  shadow={{ blur: 16, opacity: 0.1 }}
+  className="mx-auto"
+>
+  {/* web content */}
+</Container>
+```
+
+---
+
+## Skills — copy-paste prompts for AI assistants
+
+### Build a screen with XAUI Container (native)
+```
+Use @xaui/native/container for layout. Container is XAUI's layout primitive — use it instead of View for all boxes that need padding, margin, color, borderRadius, shadow, or press handlers. Import: import { Container } from '@xaui/native/container'
+```
+
+### Build a web component with XAUI Container (hybrid)
+```
+Use @xaui/hybrid/container for layout. Container is XAUI's layout primitive — use it instead of div for boxes that need padding, margin, color, borderRadius, shadow, or click handlers. You can also pass className for Tailwind utilities. Import: import { Container } from '@xaui/hybrid/container'
+```
+
+### General XAUI skill
+```
+This project uses XAUI — a Flutter-inspired UI library. @xaui/native is for React Native (iOS/Android), @xaui/hybrid is for web/webview. Both share the same component API. Each component is a separate subpath import: import { Button } from '@xaui/native/button', import { Container } from '@xaui/native/container', etc. Use Container as the primary layout building block.
+```

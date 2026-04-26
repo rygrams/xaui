@@ -46,4 +46,13 @@ export const navigation: NavSection[] = [
       },
     ],
   },
+  {
+    title: 'AI & MCP',
+    items: [
+      {
+        title: 'MCP Server',
+        href: '/docs/mcp',
+      },
+    ],
+  },
 ]
