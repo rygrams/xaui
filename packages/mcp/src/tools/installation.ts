@@ -77,15 +77,18 @@ ${doc.setup}
 `.trim()
 
       return { content: [{ type: 'text', text }] }
-    },
+    }
   )
 
   server.registerTool(
     'get_native_vs_hybrid',
-    { description: 'Explain the difference between @xaui/native and @xaui/hybrid packages' },
+    {
+      description:
+        'Explain the difference between @xaui/native and @xaui/hybrid packages',
+    },
     () => ({
       content: [{ type: 'text', text: installationDocs.nativeVsHybrid }],
-    }),
+    })
   )
 
   server.registerTool(
@@ -93,6 +96,6 @@ ${doc.setup}
     { description: 'Get instructions to add XAUI MCP to an AI assistant' },
     () => ({
       content: [{ type: 'text', text: installationDocs.mcpSetup }],
-    }),
+    })
   )
 }

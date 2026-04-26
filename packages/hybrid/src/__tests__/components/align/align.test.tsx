@@ -26,12 +26,18 @@ describe('Align', () => {
   })
 
   it('merges custom style', () => {
-    render(<Align alignment="center" style={{ backgroundColor: 'red' }} testID="box" />)
+    render(
+      <Align alignment="center" style={{ backgroundColor: 'red' }} testID="box" />
+    )
     expect(screen.getByTestId('box').style.backgroundColor).toBe('red')
   })
 
   it('renders children', () => {
-    render(<Align alignment="center" testID="box"><span>hello</span></Align>)
+    render(
+      <Align alignment="center" testID="box">
+        <span>hello</span>
+      </Align>
+    )
     expect(screen.getByTestId('box').textContent).toBe('hello')
   })
 })

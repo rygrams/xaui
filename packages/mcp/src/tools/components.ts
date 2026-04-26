@@ -2,10 +2,38 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js'
 import { z } from 'zod'
 import { containerDocs } from '../data/container.js'
 import { sizedBoxDocs } from '../data/sized-box.js'
+import { flexDocs } from '../data/flex.js'
+import { rowDocs } from '../data/row.js'
+import { columnDocs } from '../data/column.js'
+import { expandedDocs } from '../data/expanded.js'
+import { alignDocs } from '../data/align.js'
+import { centerDocs } from '../data/center.js'
+import { paddingDocs } from '../data/padding.js'
+import { marginDocs } from '../data/margin.js'
+import { flexibleDocs } from '../data/flexible.js'
+import { wrapDocs } from '../data/wrap.js'
+import { spacerDocs } from '../data/spacer.js'
+import { aspectRatioDocs } from '../data/aspect-ratio.js'
+import { constrainedBoxDocs } from '../data/constrained-box.js'
+import { fractionallySizedBoxDocs } from '../data/fractionally-sized-box.js'
 
 const COMPONENTS: Record<string, typeof containerDocs> = {
   container: containerDocs,
   'sized-box': sizedBoxDocs,
+  'aspect-ratio': aspectRatioDocs,
+  'constrained-box': constrainedBoxDocs,
+  'fractionally-sized-box': fractionallySizedBoxDocs,
+  flex: flexDocs,
+  row: rowDocs,
+  column: columnDocs,
+  expanded: expandedDocs,
+  align: alignDocs,
+  center: centerDocs,
+  padding: paddingDocs,
+  margin: marginDocs,
+  flexible: flexibleDocs,
+  wrap: wrapDocs,
+  spacer: spacerDocs,
 }
 
 export function registerComponentTools(server: McpServer) {
@@ -21,7 +49,7 @@ export function registerComponentTools(server: McpServer) {
             .join('\n'),
         },
       ],
-    }),
+    })
   )
 
   server.registerTool(
@@ -29,7 +57,9 @@ export function registerComponentTools(server: McpServer) {
     {
       description:
         'Get full documentation for a XAUI component including props, examples, and package info',
-      inputSchema: { component: z.string().describe('Component id, e.g. "container"') },
+      inputSchema: {
+        component: z.string().describe('Component id, e.g. "container"'),
+      },
     },
     ({ component }) => {
       const doc = COMPONENTS[component.toLowerCase()]
@@ -45,11 +75,13 @@ export function registerComponentTools(server: McpServer) {
       }
 
       const propsTable = doc.props
-        .map((p) => `| \`${p.name}\` | \`${p.type}\` | ${p.default} | ${p.description} |`)
+        .map(
+          p => `| \`${p.name}\` | \`${p.type}\` | ${p.default} | ${p.description} |`
+        )
         .join('\n')
 
       const examples = doc.examples
-        .map((e) => `### ${e.title}\n\`\`\`tsx\n${e.code}\n\`\`\``)
+        .map(e => `### ${e.title}\n\`\`\`tsx\n${e.code}\n\`\`\``)
         .join('\n\n')
 
       const text = `
@@ -83,14 +115,16 @@ ${examples}
 `.trim()
 
       return { content: [{ type: 'text', text }] }
-    },
+    }
   )
 
   server.registerTool(
     'get_component_examples',
     {
       description: 'Get usage examples for a XAUI component',
-      inputSchema: { component: z.string().describe('Component id, e.g. "container"') },
+      inputSchema: {
+        component: z.string().describe('Component id, e.g. "container"'),
+      },
     },
     ({ component }) => {
       const doc = COMPONENTS[component.toLowerCase()]
@@ -106,10 +140,10 @@ ${examples}
       }
 
       const text = doc.examples
-        .map((e) => `### ${e.title}\n\`\`\`tsx\n${e.code}\n\`\`\``)
+        .map(e => `### ${e.title}\n\`\`\`tsx\n${e.code}\n\`\`\``)
         .join('\n\n')
 
       return { content: [{ type: 'text', text }] }
-    },
+    }
   )
 }

@@ -29,10 +29,12 @@ const buildStyle = (props: ContainerProps): ViewStyle => ({
   ...(props.borderRadius !== undefined && resolveBorderRadius(props.borderRadius)),
   ...(props.border !== undefined && resolveBorder(props.border)),
   ...(props.shadow !== undefined && resolveShadow(props.shadow)),
-  ...(props.transform !== undefined && { transform: resolveTransform(props.transform) }),
+  ...(props.transform !== undefined && {
+    transform: resolveTransform(props.transform),
+  }),
 })
 
-export const Container: React.FC<ContainerProps> = (props) => {
+export const Container: React.FC<ContainerProps> = props => {
   const {
     children,
     onPress,

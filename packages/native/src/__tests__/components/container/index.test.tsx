@@ -100,30 +100,50 @@ describe('ContainerProps types', () => {
 
 describe('Container rendering', () => {
   it('renders a div when no press handler is provided', () => {
-    render(<Container testID="box"><></></Container>)
+    render(
+      <Container testID="box">
+        <></>
+      </Container>
+    )
     expect(screen.getByTestId('box').tagName).toBe('DIV')
   })
 
   it('renders a button when onPress is provided', () => {
-    render(<Container testID="box" onPress={() => {}}><></></Container>)
+    render(
+      <Container testID="box" onPress={() => {}}>
+        <></>
+      </Container>
+    )
     expect(screen.getByTestId('box').tagName).toBe('BUTTON')
   })
 
   it('renders a button when only onLongPress is provided', () => {
-    render(<Container testID="box" onLongPress={() => {}}><></></Container>)
+    render(
+      <Container testID="box" onLongPress={() => {}}>
+        <></>
+      </Container>
+    )
     expect(screen.getByTestId('box').tagName).toBe('BUTTON')
   })
 
   it('does not invoke onPress when disabled', () => {
     const onPress = vi.fn()
-    render(<Container testID="box" onPress={onPress} disabled><></></Container>)
+    render(
+      <Container testID="box" onPress={onPress} disabled>
+        <></>
+      </Container>
+    )
     fireEvent.click(screen.getByTestId('box'))
     expect(onPress).not.toHaveBeenCalled()
   })
 
   it('does not invoke onLongPress when disabled', () => {
     const onLongPress = vi.fn()
-    render(<Container testID="box" onLongPress={onLongPress} disabled><></></Container>)
+    render(
+      <Container testID="box" onLongPress={onLongPress} disabled>
+        <></>
+      </Container>
+    )
     fireEvent.click(screen.getByTestId('box'))
     expect(onLongPress).not.toHaveBeenCalled()
   })
@@ -136,8 +156,16 @@ describe('resolveEdgeInsets', () => {
   })
 
   it('resolves object to individual padding sides', () => {
-    const result = resolveEdgeInsets({ top: 8, bottom: 16, left: 4, right: 4 }, 'padding')
-    expect(result).toEqual({ paddingTop: 8, paddingBottom: 16, paddingLeft: 4, paddingRight: 4 })
+    const result = resolveEdgeInsets(
+      { top: 8, bottom: 16, left: 4, right: 4 },
+      'padding'
+    )
+    expect(result).toEqual({
+      paddingTop: 8,
+      paddingBottom: 16,
+      paddingLeft: 4,
+      paddingRight: 4,
+    })
   })
 
   it('resolves horizontal and vertical shortcuts', () => {
@@ -198,7 +226,11 @@ describe('resolveBorderRadius', () => {
 describe('resolveBorder', () => {
   it('resolves uniform border side', () => {
     const result = resolveBorder({ width: 1, color: '#000', style: 'solid' })
-    expect(result).toEqual({ borderWidth: 1, borderColor: '#000', borderStyle: 'solid' })
+    expect(result).toEqual({
+      borderWidth: 1,
+      borderColor: '#000',
+      borderStyle: 'solid',
+    })
   })
 
   it('resolves directional border', () => {

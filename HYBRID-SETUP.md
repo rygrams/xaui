@@ -110,9 +110,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body>
-        <HybridProvider>
-          {/* ... sidebar + main */}
-        </HybridProvider>
+        <HybridProvider>{/* ... sidebar + main */}</HybridProvider>
       </body>
     </html>
   )
@@ -120,6 +118,7 @@ export default function RootLayout({ children }) {
 ```
 
 **What this wrapper does in hybrid:**
+
 - Optionally sets `document.documentElement.dataset.colorScheme = 'light' | 'dark'`
 - Leaves token resolution to CSS variables in `xui.css`
 - No React theme context provider is required for hybrid components
@@ -144,7 +143,7 @@ components/ui/browser-preview.tsx   — browser frame wrapper
 // Usage
 import { BrowserPreview } from '@/components/ui/browser-preview'
 
-<BrowserPreview url="localhost">
+;<BrowserPreview url="localhost">
   <div className="p-4">
     <Alert title="Hello" themeColor="primary" />
   </div>
@@ -176,6 +175,7 @@ apps/docs/app/playground/
 The playground is also accessible from the sidebar under **Hybrid (Web) → Playground**.
 
 Structure on the page:
+
 - **Interactive** — controls (variant, color, closable, hideIcon) + live preview in browser frame
 - **All colors — flat** — grid of all 6 colors in flat variant inside browser frame
 - **All colors — solid** — grid in solid variant
@@ -199,17 +199,33 @@ toggled via a `data-xui-state` attribute:
 ```css
 /* dist/index.css — generated from src/styles/xui.css */
 @keyframes xui-fade-in {
-  from { opacity: 0; transform: scale(0.95); }
-  to   { opacity: 1; transform: scale(1); }
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 @keyframes xui-fade-out {
-  from { opacity: 1; transform: scale(1); }
-  to   { opacity: 0; transform: scale(0.95); }
+  from {
+    opacity: 1;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(0.95);
+  }
 }
 
-[data-xui-state='open']   { animation: xui-fade-in  250ms ease forwards; }
-[data-xui-state='closed'] { animation: xui-fade-out 250ms ease forwards; }
+[data-xui-state='open'] {
+  animation: xui-fade-in 250ms ease forwards;
+}
+[data-xui-state='closed'] {
+  animation: xui-fade-out 250ms ease forwards;
+}
 ```
 
 Components set `data-xui-state` and listen to `onAnimationEnd` to unmount after the exit
@@ -223,13 +239,14 @@ Users can override any `--xui-*` variable in their CSS to customize the theme:
 
 ```css
 :root {
-  --xui-primary: #0ea5e9;       /* sky-500 */
+  --xui-primary: #0ea5e9; /* sky-500 */
   --xui-primary-fg: #ffffff;
   --xui-primary-bg: #e0f2fe;
 }
 ```
 
 Dark mode is handled by CSS:
+
 - `[data-color-scheme='dark']` for explicit dark mode
 - `@media (prefers-color-scheme: dark)` fallback when the attribute is absent (SSR/no-JS safe)
 
@@ -239,13 +256,13 @@ Users can still switch themes programmatically by setting `data-color-scheme` on
 
 ## Summary
 
-| Step | File |
-|------|------|
-| Dependency | `apps/docs/package.json` |
-| Transpile | `apps/docs/next.config.ts` |
-| CSS import | `apps/docs/app/globals.css` |
-| Optional scheme wrapper | `apps/docs/components/providers/xui-provider.tsx` |
-| Layout | `apps/docs/app/layout.tsx` |
-| Browser frame | `apps/docs/components/ui/browser-preview.tsx` |
-| Playground | `apps/docs/app/playground/page.tsx` + `alert-playground.tsx` |
-| Navigation | `apps/docs/lib/data/navigation.ts` |
+| Step                    | File                                                         |
+| ----------------------- | ------------------------------------------------------------ |
+| Dependency              | `apps/docs/package.json`                                     |
+| Transpile               | `apps/docs/next.config.ts`                                   |
+| CSS import              | `apps/docs/app/globals.css`                                  |
+| Optional scheme wrapper | `apps/docs/components/providers/xui-provider.tsx`            |
+| Layout                  | `apps/docs/app/layout.tsx`                                   |
+| Browser frame           | `apps/docs/components/ui/browser-preview.tsx`                |
+| Playground              | `apps/docs/app/playground/page.tsx` + `alert-playground.tsx` |
+| Navigation              | `apps/docs/lib/data/navigation.ts`                           |

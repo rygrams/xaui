@@ -8,4 +8,3 @@ export type {
   DialogPlacement,
   DialogBackdrop,
 } from './dialog.type'
-

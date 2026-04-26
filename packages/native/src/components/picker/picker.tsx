@@ -34,7 +34,9 @@ const ChevronDownIcon: React.FC<{ color: string; size: number }> = ({
 )
 
 const CheckIcon: React.FC<{ color: string }> = ({ color }) => (
-  <View style={{ width: 20, height: 20, alignItems: 'center', justifyContent: 'center' }}>
+  <View
+    style={{ width: 20, height: 20, alignItems: 'center', justifyContent: 'center' }}
+  >
     <View
       style={{
         width: 6,
@@ -77,10 +79,7 @@ const OptionItem: React.FC<OptionItemProps> = ({
       disabled={option.disabled}
     >
       <Text
-        style={[
-          styles.optionLabel,
-          { color: isSelected ? themeColor : foreground },
-        ]}
+        style={[styles.optionLabel, { color: isSelected ? themeColor : foreground }]}
       >
         {option.label}
       </Text>
@@ -116,8 +115,7 @@ export const Picker: React.FC<PickerProps> = ({
   const isControlled = isOpened !== undefined
   const isOpen = isControlled ? Boolean(isOpened) : internalIsOpen
   const theme = useXUITheme()
-  const sheetBackground =
-    theme.mode === 'dark' ? theme.colors.background : '#ffffff'
+  const sheetBackground = theme.mode === 'dark' ? theme.colors.background : '#ffffff'
   const safeThemeColor = getSafeThemeColor(themeColor)
   const colorScheme = theme.colors[safeThemeColor]
 
@@ -173,9 +171,7 @@ export const Picker: React.FC<PickerProps> = ({
         isDisabled={isDisabled}
         isInvalid={isInvalid}
         fullWidth={fullWidth}
-        endContent={
-          endContent ?? <ChevronDownIcon color={chevronColor} size={20} />
-        }
+        endContent={endContent ?? <ChevronDownIcon color={chevronColor} size={20} />}
         onPress={handleOpen}
       />
 
@@ -188,9 +184,7 @@ export const Picker: React.FC<PickerProps> = ({
       >
         <View style={styles.sheetContent}>
           {sheetTitle ? (
-            <Text
-              style={[styles.sheetTitle, { color: theme.colors.foreground }]}
-            >
+            <Text style={[styles.sheetTitle, { color: theme.colors.foreground }]}>
               {sheetTitle}
             </Text>
           ) : null}
@@ -209,10 +203,7 @@ export const Picker: React.FC<PickerProps> = ({
                     style={[
                       styles.divider,
                       {
-                        backgroundColor: withOpacity(
-                          theme.colors.foreground,
-                          0.06
-                        ),
+                        backgroundColor: withOpacity(theme.colors.foreground, 0.06),
                       },
                     ]}
                   />

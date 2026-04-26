@@ -1,5 +1,9 @@
 import { describe, it, expect } from 'vitest'
-import type { PickerProps, PickerEvents, PickerOption } from '../../../components/picker'
+import type {
+  PickerProps,
+  PickerEvents,
+  PickerOption,
+} from '../../../components/picker'
 
 describe('Picker Types', () => {
   it('creates props with required fields', () => {

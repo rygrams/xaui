@@ -50,18 +50,45 @@ export const resolveEdgeInsets = (
   return style
 }
 
-type AlignmentResult = Pick<CSSProperties, 'justifyContent' | 'alignItems' | 'display'>
+type AlignmentResult = Pick<
+  CSSProperties,
+  'justifyContent' | 'alignItems' | 'display'
+>
 
 const ALIGNMENT_MAP: Record<string, AlignmentResult> = {
-  topLeft: { display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start' },
+  topLeft: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+  },
   topCenter: { display: 'flex', justifyContent: 'flex-start', alignItems: 'center' },
-  topRight: { display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-end' },
-  centerLeft: { display: 'flex', justifyContent: 'center', alignItems: 'flex-start' },
+  topRight: {
+    display: 'flex',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-end',
+  },
+  centerLeft: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+  },
   center: { display: 'flex', justifyContent: 'center', alignItems: 'center' },
   centerRight: { display: 'flex', justifyContent: 'center', alignItems: 'flex-end' },
-  bottomLeft: { display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-start' },
-  bottomCenter: { display: 'flex', justifyContent: 'flex-end', alignItems: 'center' },
-  bottomRight: { display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end' },
+  bottomLeft: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-start',
+  },
+  bottomCenter: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+  },
+  bottomRight: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    alignItems: 'flex-end',
+  },
 }
 
 const toFlexPosition = (v: number): CSSProperties['justifyContent'] => {
@@ -79,7 +106,13 @@ export const resolveAlignment = (value: Alignment): AlignmentResult => {
     }
   }
 
-  return ALIGNMENT_MAP[value] ?? { display: 'flex', justifyContent: 'flex-start', alignItems: 'flex-start' }
+  return (
+    ALIGNMENT_MAP[value] ?? {
+      display: 'flex',
+      justifyContent: 'flex-start',
+      alignItems: 'flex-start',
+    }
+  )
 }
 
 export const resolveBorderRadius = (value: BorderRadius): CSSProperties => {
@@ -91,7 +124,8 @@ export const resolveBorderRadius = (value: BorderRadius): CSSProperties => {
   if (value.topLeft !== undefined) style.borderTopLeftRadius = value.topLeft
   if (value.topRight !== undefined) style.borderTopRightRadius = value.topRight
   if (value.bottomLeft !== undefined) style.borderBottomLeftRadius = value.bottomLeft
-  if (value.bottomRight !== undefined) style.borderBottomRightRadius = value.bottomRight
+  if (value.bottomRight !== undefined)
+    style.borderBottomRightRadius = value.bottomRight
   return style
 }
 

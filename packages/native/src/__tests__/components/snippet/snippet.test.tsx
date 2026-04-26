@@ -25,11 +25,7 @@ describe('Snippet Types', () => {
   })
 
   it('accepts all variants', () => {
-    const variants: Array<SnippetProps['variant']> = [
-      'outlined',
-      'flat',
-      'light',
-    ]
+    const variants: Array<SnippetProps['variant']> = ['outlined', 'flat', 'light']
 
     variants.forEach(variant => {
       const props: SnippetProps = { value: 'echo hello', variant }

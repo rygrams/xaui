@@ -223,8 +223,7 @@ export const useBottomSheetStyles = (themeColor: ThemeColor, radius: Radius) => 
 
   const sheetStyles = useMemo(
     () => ({
-      backgroundColor:
-        colorScheme.container ?? theme.colors.background ?? '#ffffff',
+      backgroundColor: colorScheme.container ?? theme.colors.background ?? '#ffffff',
       borderTopLeftRadius: theme.borderRadius[radius],
       borderTopRightRadius: theme.borderRadius[radius],
     }),

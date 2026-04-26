@@ -107,7 +107,11 @@ describe('resolveBorderRadius', () => {
 describe('resolveBorder', () => {
   it('resolves uniform border', () => {
     const result = resolveBorder({ width: 1, color: '#ccc', style: 'solid' })
-    expect(result).toEqual({ borderWidth: 1, borderColor: '#ccc', borderStyle: 'solid' })
+    expect(result).toEqual({
+      borderWidth: 1,
+      borderColor: '#ccc',
+      borderStyle: 'solid',
+    })
   })
 
   it('resolves directional border with per-side styles', () => {
@@ -122,7 +126,12 @@ describe('resolveBorder', () => {
 
 describe('resolveShadow', () => {
   it('builds a box-shadow string', () => {
-    const result = resolveShadow({ color: '#667eea', blur: 20, opacity: 0.4, offset: { x: 0, y: 8 } })
+    const result = resolveShadow({
+      color: '#667eea',
+      blur: 20,
+      opacity: 0.4,
+      offset: { x: 0, y: 8 },
+    })
     expect(result.boxShadow).toContain('0px 8px 20px')
     expect(result.boxShadow).toContain('#667eea')
   })

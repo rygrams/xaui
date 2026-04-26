@@ -62,15 +62,38 @@ function SlideIllustration({ slide, isDark }: { slide: Slide; isDark: boolean })
 
   return (
     <View style={[styles.illustrationWrapper, { backgroundColor: bg }]}>
-      <View style={[styles.circle, styles.circleOuter, { borderColor: slide.accent, opacity: 0.12 }]} />
-      <View style={[styles.circle, styles.circleMid, { borderColor: slide.accent, opacity: 0.22 }]} />
-      <View style={[styles.circle, styles.circleInner, { backgroundColor: slide.accent, opacity: 0.14 }]} />
+      <View
+        style={[
+          styles.circle,
+          styles.circleOuter,
+          { borderColor: slide.accent, opacity: 0.12 },
+        ]}
+      />
+      <View
+        style={[
+          styles.circle,
+          styles.circleMid,
+          { borderColor: slide.accent, opacity: 0.22 },
+        ]}
+      />
+      <View
+        style={[
+          styles.circle,
+          styles.circleInner,
+          { backgroundColor: slide.accent, opacity: 0.14 },
+        ]}
+      />
       <Text style={styles.emoji}>{slide.emoji}</Text>
     </View>
   )
 }
 
-function PillIndicator({ index, isActive, total, accent }: PagerIndicatorRenderState & { accent: string }) {
+function PillIndicator({
+  index,
+  isActive,
+  total,
+  accent,
+}: PagerIndicatorRenderState & { accent: string }) {
   return (
     <View
       key={`dot-${String(index)}-${String(total)}`}
@@ -127,7 +150,9 @@ export default function PagerScreen() {
               <View style={styles.slide}>
                 <SlideIllustration slide={s} isDark={isDark} />
                 <View style={styles.copy}>
-                  <Text style={[styles.title, { color: colors.foreground }]}>{s.title}</Text>
+                  <Text style={[styles.title, { color: colors.foreground }]}>
+                    {s.title}
+                  </Text>
                   <Text style={[styles.description, { color: colors.foreground }]}>
                     {s.description}
                   </Text>

@@ -1,28 +1,24 @@
 import { describe, it, expect } from 'vitest'
 import type { ColumnProps } from '../../../../components/view/layout-types'
 
-describe('Column Types', () => {
-  it('exports ColumnProps type', () => {
-    const props: ColumnProps = {
-      children: 'Column',
-      mainAxisAlignment: 'start',
-      crossAxisAlignment: 'center',
-      spacing: 8,
-      reverse: false,
-      fullWidth: true,
-    }
-
-    expect(props).toBeDefined()
-    expect(props.spacing).toBe(8)
-    expect(props.fullWidth).toBe(true)
+describe('ColumnProps types', () => {
+  it('accepts mainAxisAlignment', () => {
+    const props: ColumnProps = { mainAxisAlignment: 'center' }
+    expect(props.mainAxisAlignment).toBe('center')
   })
 
-  it('accepts style props', () => {
-    const props: ColumnProps = {
-      children: 'Column',
-      style: { flexDirection: 'column' },
-    }
+  it('accepts mainAxisSize min', () => {
+    const props: ColumnProps = { mainAxisSize: 'min' }
+    expect(props.mainAxisSize).toBe('min')
+  })
 
-    expect(props.style).toBeDefined()
+  it('accepts gap', () => {
+    const props: ColumnProps = { gap: 16 }
+    expect(props.gap).toBe(16)
+  })
+
+  it('accepts flex factor', () => {
+    const props: ColumnProps = { flex: 1 }
+    expect(props.flex).toBe(1)
   })
 })

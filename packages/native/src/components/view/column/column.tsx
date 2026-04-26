@@ -1,36 +1,9 @@
 import React from 'react'
-import { View } from 'react-native'
+import { Flex } from '../flex/flex'
 import type { ColumnProps } from '../layout-types'
-import { resolveCrossAxisAlignment, resolveMainAxisAlignment } from '../layout-utils'
 
-export const Column: React.FC<ColumnProps> = ({
-  children,
-  mainAxisAlignment,
-  crossAxisAlignment,
-  spacing,
-  reverse = false,
-  fullWidth,
-  style,
-  noGrowth = false,
-}) => {
-  const gapStyle = spacing === undefined ? undefined : { gap: spacing }
-  const fullWidthStyle = fullWidth ? { width: '100%' as const } : undefined
+export const Column: React.FC<ColumnProps> = props => (
+  <Flex {...props} direction="vertical" />
+)
 
-  return (
-    <View
-      style={[
-        {
-          flex: noGrowth ? undefined : 1,
-          flexDirection: reverse ? 'column-reverse' : 'column',
-          justifyContent: resolveMainAxisAlignment(mainAxisAlignment),
-          alignItems: resolveCrossAxisAlignment(crossAxisAlignment),
-        },
-        fullWidthStyle,
-        gapStyle,
-        style,
-      ]}
-    >
-      {children}
-    </View>
-  )
-}
+Column.displayName = 'Column'

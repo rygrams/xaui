@@ -224,19 +224,27 @@ describe('dateInputValueToDate', () => {
 
 describe('dateToDateInputValue', () => {
   it('formats Date to DMY with slash', () => {
-    expect(dateToDateInputValue(new Date(2024, 0, 25), 'DMY', '/')).toBe('25/01/2024')
+    expect(dateToDateInputValue(new Date(2024, 0, 25), 'DMY', '/')).toBe(
+      '25/01/2024'
+    )
   })
 
   it('formats Date to YMD with dash', () => {
-    expect(dateToDateInputValue(new Date(2024, 0, 25), 'YMD', '-')).toBe('2024-01-25')
+    expect(dateToDateInputValue(new Date(2024, 0, 25), 'YMD', '-')).toBe(
+      '2024-01-25'
+    )
   })
 
   it('formats Date to MDY with dot', () => {
-    expect(dateToDateInputValue(new Date(2024, 0, 25), 'MDY', '.')).toBe('01.25.2024')
+    expect(dateToDateInputValue(new Date(2024, 0, 25), 'MDY', '.')).toBe(
+      '01.25.2024'
+    )
   })
 
   it('accepts an ISO string', () => {
-    expect(dateToDateInputValue('2024-01-25T00:00:00.000Z', 'YMD', '-')).toMatch(/2024-01-2[45]/)
+    expect(dateToDateInputValue('2024-01-25T00:00:00.000Z', 'YMD', '-')).toMatch(
+      /2024-01-2[45]/
+    )
   })
 
   it('returns empty string for invalid date', () => {
@@ -300,23 +308,35 @@ describe('dateToTimeInputValue', () => {
   })
 
   it('formats 24h second', () => {
-    expect(dateToTimeInputValue(new Date(2024, 0, 1, 14, 30, 45), { granularity: 'second' })).toBe('14:30:45')
+    expect(
+      dateToTimeInputValue(new Date(2024, 0, 1, 14, 30, 45), {
+        granularity: 'second',
+      })
+    ).toBe('14:30:45')
   })
 
   it('formats 12h PM minute', () => {
-    expect(dateToTimeInputValue(new Date(2024, 0, 1, 14, 30, 0), { hourCycle: 12 })).toBe('02:30 PM')
+    expect(
+      dateToTimeInputValue(new Date(2024, 0, 1, 14, 30, 0), { hourCycle: 12 })
+    ).toBe('02:30 PM')
   })
 
   it('formats 12h AM minute', () => {
-    expect(dateToTimeInputValue(new Date(2024, 0, 1, 2, 30, 0), { hourCycle: 12 })).toBe('02:30 AM')
+    expect(
+      dateToTimeInputValue(new Date(2024, 0, 1, 2, 30, 0), { hourCycle: 12 })
+    ).toBe('02:30 AM')
   })
 
   it('formats noon as 12 PM', () => {
-    expect(dateToTimeInputValue(new Date(2024, 0, 1, 12, 0, 0), { hourCycle: 12 })).toBe('12:00 PM')
+    expect(
+      dateToTimeInputValue(new Date(2024, 0, 1, 12, 0, 0), { hourCycle: 12 })
+    ).toBe('12:00 PM')
   })
 
   it('formats midnight as 12 AM', () => {
-    expect(dateToTimeInputValue(new Date(2024, 0, 1, 0, 0, 0), { hourCycle: 12 })).toBe('12:00 AM')
+    expect(
+      dateToTimeInputValue(new Date(2024, 0, 1, 0, 0, 0), { hourCycle: 12 })
+    ).toBe('12:00 AM')
   })
 
   it('returns empty string for invalid date', () => {
@@ -334,7 +354,9 @@ describe('dateToTimeInputValue', () => {
 
 describe('dateTimeInputValueToDate', () => {
   it('parses DMY slash 24h', () => {
-    const date = dateTimeInputValueToDate('25/01/2024 14:30', 'DMY', { separator: '/' })
+    const date = dateTimeInputValueToDate('25/01/2024 14:30', 'DMY', {
+      separator: '/',
+    })
     expect(date?.getFullYear()).toBe(2024)
     expect(date?.getMonth()).toBe(0)
     expect(date?.getDate()).toBe(25)
@@ -343,29 +365,42 @@ describe('dateTimeInputValueToDate', () => {
   })
 
   it('parses YMD dash 12h PM', () => {
-    const date = dateTimeInputValueToDate('2024-01-25 02:30 PM', 'YMD', { separator: '-', hourCycle: 12 })
+    const date = dateTimeInputValueToDate('2024-01-25 02:30 PM', 'YMD', {
+      separator: '-',
+      hourCycle: 12,
+    })
     expect(date?.getHours()).toBe(14)
     expect(date?.getMinutes()).toBe(30)
   })
 
   it('returns null when date part is invalid', () => {
-    expect(dateTimeInputValueToDate('31/02/2024 10:00', 'DMY', { separator: '/' })).toBeNull()
+    expect(
+      dateTimeInputValueToDate('31/02/2024 10:00', 'DMY', { separator: '/' })
+    ).toBeNull()
   })
 
   it('returns null when no space separator', () => {
-    expect(dateTimeInputValueToDate('25/01/2024', 'DMY', { separator: '/' })).toBeNull()
+    expect(
+      dateTimeInputValueToDate('25/01/2024', 'DMY', { separator: '/' })
+    ).toBeNull()
   })
 })
 
 describe('dateToDateTimeInputValue', () => {
   it('formats DMY slash 24h minute', () => {
     const d = new Date(2024, 0, 25, 14, 30, 0)
-    expect(dateToDateTimeInputValue(d, 'DMY', { separator: '/' })).toBe('25/01/2024 14:30')
+    expect(dateToDateTimeInputValue(d, 'DMY', { separator: '/' })).toBe(
+      '25/01/2024 14:30'
+    )
   })
 
   it('formats YMD dash 12h second', () => {
     const d = new Date(2024, 0, 25, 14, 30, 45)
-    const value = dateToDateTimeInputValue(d, 'YMD', { separator: '-', granularity: 'second', hourCycle: 12 })
+    const value = dateToDateTimeInputValue(d, 'YMD', {
+      separator: '-',
+      granularity: 'second',
+      hourCycle: 12,
+    })
     expect(value).toBe('2024-01-25 02:30:45 PM')
   })
 
@@ -375,7 +410,11 @@ describe('dateToDateTimeInputValue', () => {
 
   it('round-trips with dateTimeInputValueToDate', () => {
     const original = new Date(2024, 5, 15, 9, 45, 0)
-    const opts = { separator: '/' as const, granularity: 'minute' as const, hourCycle: 24 as const }
+    const opts = {
+      separator: '/' as const,
+      granularity: 'minute' as const,
+      hourCycle: 24 as const,
+    }
     const value = dateToDateTimeInputValue(original, 'DMY', opts)
     const parsed = dateTimeInputValueToDate(value, 'DMY', opts)
     expect(parsed?.getFullYear()).toBe(2024)

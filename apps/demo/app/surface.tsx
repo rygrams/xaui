@@ -21,7 +21,9 @@ export default function SurfaceScreen() {
       contentContainerStyle={styles.content}
     >
       <View style={styles.section}>
-        <Text style={[styles.title, { color: theme.colors.foreground }]}>Default</Text>
+        <Text style={[styles.title, { color: theme.colors.foreground }]}>
+          Default
+        </Text>
         <Surface padding={16}>
           <Text style={{ color: theme.colors.foreground }}>
             Surface uses theme background by default.
@@ -35,17 +37,18 @@ export default function SurfaceScreen() {
         </Text>
         <Column spacing={10}>
           {semanticColors.map(color => (
-            <Surface
-              key={color}
-              themeColor={color}
-              padding={12}
-              radius="sm"
-            >
-              <Row mainAxisAlignment="space-between" crossAxisAlignment="center" fullWidth>
+            <Surface key={color} themeColor={color} padding={12} radius="sm">
+              <Row
+                mainAxisAlignment="space-between"
+                crossAxisAlignment="center"
+                fullWidth
+              >
                 <Text style={{ color: theme.colors.foreground, fontWeight: '600' }}>
                   {color}
                 </Text>
-                <Text style={{ color: theme.colors.foreground }}>background tone</Text>
+                <Text style={{ color: theme.colors.foreground }}>
+                  background tone
+                </Text>
               </Row>
             </Surface>
           ))}
@@ -58,10 +61,14 @@ export default function SurfaceScreen() {
         </Text>
         <Column spacing={10}>
           <Surface themeColor="secondary" padding={10} radius="none">
-            <Text style={{ color: theme.colors.foreground }}>radius=none / padding=10</Text>
+            <Text style={{ color: theme.colors.foreground }}>
+              radius=none / padding=10
+            </Text>
           </Surface>
           <Surface themeColor="primary" padding={16} radius="md">
-            <Text style={{ color: theme.colors.foreground }}>radius=md / padding=16</Text>
+            <Text style={{ color: theme.colors.foreground }}>
+              radius=md / padding=16
+            </Text>
           </Surface>
           <Surface themeColor="success" padding={22} radius="lg">
             <Text style={{ color: theme.colors.foreground }}>radius=lg</Text>

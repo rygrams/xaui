@@ -17,7 +17,11 @@ describe('Center', () => {
   })
 
   it('renders children', () => {
-    render(<Center testID="box"><span>hello</span></Center>)
+    render(
+      <Center testID="box">
+        <span>hello</span>
+      </Center>
+    )
     expect(screen.getByTestId('box').textContent).toBe('hello')
   })
 })

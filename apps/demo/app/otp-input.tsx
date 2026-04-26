@@ -151,7 +151,12 @@ export default function OTPInputScreen() {
             variant="bordered"
             themeColor="danger"
           />
-          <OTPInput label="Disabled" defaultValue="12" isDisabled variant="colored" />
+          <OTPInput
+            label="Disabled"
+            defaultValue="12"
+            isDisabled
+            variant="colored"
+          />
         </View>
       </View>
 

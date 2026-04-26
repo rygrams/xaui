@@ -10,7 +10,9 @@ export default function InstallationPage() {
   return (
     <div className="space-y-8">
       <div className="space-y-4">
-        <h1 className="text-3xl font-bold tracking-tight md:text-4xl">Installation</h1>
+        <h1 className="text-3xl font-bold tracking-tight md:text-4xl">
+          Installation
+        </h1>
         <p className="text-base text-muted-foreground md:text-xl">
           Detailed installation instructions for the Xaui native package and its
           dependencies.
@@ -28,7 +30,9 @@ export default function InstallationPage() {
         </section>
 
         <section className="space-y-4">
-          <h2 className="text-xl font-semibold md:text-2xl">Expo Installation (Recommended)</h2>
+          <h2 className="text-xl font-semibold md:text-2xl">
+            Expo Installation (Recommended)
+          </h2>
           <p className="text-muted-foreground">
             Xaui works seamlessly with Expo. We recommend using Expo for the best
             development experience:
@@ -43,7 +47,9 @@ export default function InstallationPage() {
         </section>
 
         <section className="space-y-4">
-          <h2 className="text-xl font-semibold md:text-2xl">React Native CLI Installation</h2>
+          <h2 className="text-xl font-semibold md:text-2xl">
+            React Native CLI Installation
+          </h2>
           <p className="text-muted-foreground">
             For React Native CLI projects, install the core packages:
           </p>

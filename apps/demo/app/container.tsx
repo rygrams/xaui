@@ -30,7 +30,14 @@ export default function ContainerScreen() {
           <Text style={{ color: colors.foreground, fontWeight: '600' }}>
             Shadow Card
           </Text>
-          <Text style={{ color: colors.foreground, opacity: 0.6, marginTop: 4, fontSize: 13 }}>
+          <Text
+            style={{
+              color: colors.foreground,
+              opacity: 0.6,
+              marginTop: 4,
+              fontSize: 13,
+            }}
+          >
             padding, borderRadius, border, shadow
           </Text>
         </Container>
@@ -59,7 +66,10 @@ export default function ContainerScreen() {
               key={align}
               height={56}
               borderRadius={8}
-              border={{ width: 1, color: theme.mode === 'dark' ? '#3f3f46' : '#e4e4e7' }}
+              border={{
+                width: 1,
+                color: theme.mode === 'dark' ? '#3f3f46' : '#e4e4e7',
+              }}
               alignment={align}
               color={theme.mode === 'dark' ? '#27272a' : '#fafafa'}
             >
@@ -137,29 +147,17 @@ export default function ContainerScreen() {
           Border Radius
         </Text>
         <View style={{ gap: 8 }}>
-          <Container
-            color={colors.primary.main}
-            padding={14}
-            borderRadius={4}
-          >
+          <Container color={colors.primary.main} padding={14} borderRadius={4}>
             <Text style={{ color: colors.primary.onMain, fontSize: 13 }}>
               borderRadius=4
             </Text>
           </Container>
-          <Container
-            color={colors.primary.main}
-            padding={14}
-            borderRadius={16}
-          >
+          <Container color={colors.primary.main} padding={14} borderRadius={16}>
             <Text style={{ color: colors.primary.onMain, fontSize: 13 }}>
               borderRadius=16
             </Text>
           </Container>
-          <Container
-            color={colors.primary.main}
-            padding={14}
-            borderRadius={9999}
-          >
+          <Container color={colors.primary.main} padding={14} borderRadius={9999}>
             <Text style={{ color: colors.primary.onMain, fontSize: 13 }}>
               borderRadius=9999 (pill)
             </Text>
@@ -167,7 +165,12 @@ export default function ContainerScreen() {
           <Container
             color={colors.secondary.main}
             padding={14}
-            borderRadius={{ topLeft: 24, topRight: 24, bottomLeft: 0, bottomRight: 0 }}
+            borderRadius={{
+              topLeft: 24,
+              topRight: 24,
+              bottomLeft: 0,
+              bottomRight: 0,
+            }}
           >
             <Text style={{ color: colors.secondary.onMain, fontSize: 13 }}>
               Per-corner: topLeft/topRight=24, bottom=0
@@ -204,9 +207,7 @@ export default function ContainerScreen() {
 
       {/* Clip */}
       <View style={styles.section}>
-        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
-          Clip
-        </Text>
+        <Text style={[styles.sectionTitle, { color: colors.foreground }]}>Clip</Text>
         <Container
           color={theme.mode === 'dark' ? '#27272a' : '#f4f4f5'}
           height={100}
@@ -311,7 +312,10 @@ export default function ContainerScreen() {
               flex={1}
               padding={12}
               borderRadius={8}
-              border={{ width: 1, color: theme.mode === 'dark' ? '#3f3f46' : '#e4e4e7' }}
+              border={{
+                width: 1,
+                color: theme.mode === 'dark' ? '#3f3f46' : '#e4e4e7',
+              }}
               alignment="center"
             >
               <Text style={{ color: colors.foreground, fontSize: 12 }}>flex=1</Text>
@@ -361,7 +365,10 @@ export default function ContainerScreen() {
         <View style={{ gap: 8 }}>
           <Container
             padding={16}
-            border={{ width: 1, color: theme.mode === 'dark' ? '#3f3f46' : '#e4e4e7' }}
+            border={{
+              width: 1,
+              color: theme.mode === 'dark' ? '#3f3f46' : '#e4e4e7',
+            }}
             borderRadius={8}
           >
             <Text style={{ color: colors.foreground, fontSize: 13 }}>
@@ -370,7 +377,10 @@ export default function ContainerScreen() {
           </Container>
           <Container
             padding={{ horizontal: 24, vertical: 8 }}
-            border={{ width: 1, color: theme.mode === 'dark' ? '#3f3f46' : '#e4e4e7' }}
+            border={{
+              width: 1,
+              color: theme.mode === 'dark' ? '#3f3f46' : '#e4e4e7',
+            }}
             borderRadius={8}
           >
             <Text style={{ color: colors.foreground, fontSize: 13 }}>
@@ -379,7 +389,10 @@ export default function ContainerScreen() {
           </Container>
           <Container
             padding={{ top: 20, bottom: 4, left: 16, right: 8 }}
-            border={{ width: 1, color: theme.mode === 'dark' ? '#3f3f46' : '#e4e4e7' }}
+            border={{
+              width: 1,
+              color: theme.mode === 'dark' ? '#3f3f46' : '#e4e4e7',
+            }}
             borderRadius={8}
           >
             <Text style={{ color: colors.foreground, fontSize: 13 }}>
@@ -405,13 +418,26 @@ export default function ContainerScreen() {
             <Text style={{ color: colors.foreground, fontWeight: '600' }}>
               Tap me
             </Text>
-            <Text style={{ color: colors.foreground, opacity: 0.6, fontSize: 13, marginTop: 4 }}>
+            <Text
+              style={{
+                color: colors.foreground,
+                opacity: 0.6,
+                fontSize: 13,
+                marginTop: 4,
+              }}
+            >
               onPress — renders Pressable automatically
             </Text>
           </Container>
 
           <Container
-            color={liked ? colors.primary.main : theme.mode === 'dark' ? '#27272a' : '#ffffff'}
+            color={
+              liked
+                ? colors.primary.main
+                : theme.mode === 'dark'
+                  ? '#27272a'
+                  : '#ffffff'
+            }
             padding={16}
             borderRadius={12}
             border={{
@@ -480,9 +506,7 @@ export default function ContainerScreen() {
                   {label}
                 </Text>
                 {selected === idx && (
-                  <Text style={{ color: colors.primary.main, fontSize: 16 }}>
-                    ✓
-                  </Text>
+                  <Text style={{ color: colors.primary.main, fontSize: 16 }}>✓</Text>
                 )}
               </View>
             </Container>
@@ -528,7 +552,14 @@ export default function ContainerScreen() {
               <Text style={{ color: colors.foreground, fontWeight: '600' }}>
                 Nested Layout
               </Text>
-              <Text style={{ color: colors.foreground, opacity: 0.55, fontSize: 12, marginTop: 2 }}>
+              <Text
+                style={{
+                  color: colors.foreground,
+                  opacity: 0.55,
+                  fontSize: 12,
+                  marginTop: 2,
+                }}
+              >
                 Avatar + content using nested containers
               </Text>
             </View>
@@ -537,7 +568,13 @@ export default function ContainerScreen() {
               borderRadius={99}
               color={colors.success.container}
             >
-              <Text style={{ color: colors.success.onContainer, fontSize: 11, fontWeight: '600' }}>
+              <Text
+                style={{
+                  color: colors.success.onContainer,
+                  fontSize: 11,
+                  fontWeight: '600',
+                }}
+              >
                 New
               </Text>
             </Container>

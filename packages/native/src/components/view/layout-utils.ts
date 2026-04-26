@@ -1,4 +1,9 @@
-import type { CrossAxisAlignment, MainAxisAlignment } from './layout-types'
+import type {
+  CrossAxisAlignment,
+  Direction,
+  MainAxisAlignment,
+  MainAxisSize,
+} from './layout-types'
 import type { ViewStyle } from 'react-native'
 
 const MAIN_AXIS_JUSTIFY_MAP: Record<MainAxisAlignment, ViewStyle['justifyContent']> =
@@ -6,9 +11,9 @@ const MAIN_AXIS_JUSTIFY_MAP: Record<MainAxisAlignment, ViewStyle['justifyContent
     start: 'flex-start',
     center: 'center',
     end: 'flex-end',
-    'space-between': 'space-between',
-    'space-around': 'space-around',
-    'space-evenly': 'space-evenly',
+    spaceBetween: 'space-between',
+    spaceAround: 'space-around',
+    spaceEvenly: 'space-evenly',
   }
 
 const CROSS_AXIS_ALIGN_MAP: Record<CrossAxisAlignment, ViewStyle['alignItems']> = {
@@ -16,13 +21,18 @@ const CROSS_AXIS_ALIGN_MAP: Record<CrossAxisAlignment, ViewStyle['alignItems']> 
   center: 'center',
   end: 'flex-end',
   stretch: 'stretch',
-  baseline: 'baseline',
 }
 
-export const resolveMainAxisAlignment = (alignment?: MainAxisAlignment) => {
-  return MAIN_AXIS_JUSTIFY_MAP[alignment ?? 'start']
-}
+export const resolveMainAxisAlignment = (alignment?: MainAxisAlignment) =>
+  MAIN_AXIS_JUSTIFY_MAP[alignment ?? 'start']
 
-export const resolveCrossAxisAlignment = (alignment?: CrossAxisAlignment) => {
-  return CROSS_AXIS_ALIGN_MAP[alignment ?? 'center']
+export const resolveCrossAxisAlignment = (alignment?: CrossAxisAlignment) =>
+  CROSS_AXIS_ALIGN_MAP[alignment ?? 'center']
+
+export const resolveMainAxisSize = (
+  size: MainAxisSize = 'max',
+  direction: Direction
+): ViewStyle => {
+  if (size === 'min') return {}
+  return direction === 'vertical' ? { flex: 1 } : { width: '100%' }
 }

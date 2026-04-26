@@ -59,13 +59,27 @@ function label(
 
 function SectionTitle({ text, color }: { text: string; color: string }) {
   return (
-    <p style={{ fontSize: 11, fontWeight: 700, color, textTransform: 'uppercase', letterSpacing: 0.6, margin: '14px 0 8px' }}>
+    <p
+      style={{
+        fontSize: 11,
+        fontWeight: 700,
+        color,
+        textTransform: 'uppercase',
+        letterSpacing: 0.6,
+        margin: '14px 0 8px',
+      }}
+    >
       {text}
     </p>
   )
 }
 
-function StyleDemo({ isDark, textColor, cardBg, borderColor }: {
+function StyleDemo({
+  isDark,
+  textColor,
+  cardBg,
+  borderColor,
+}: {
   isDark: boolean
   textColor: string
   cardBg: string
@@ -82,21 +96,41 @@ function StyleDemo({ isDark, textColor, cardBg, borderColor }: {
         shadow={{ offset: { x: 0, y: 2 }, blur: 12, color: 'rgba(0,0,0,0.08)' }}
       >
         {label('Shadow Card', textColor, { weight: 600 })}
-        {label('padding, borderRadius, border, shadow', textColor, { size: 11, mt: 3, opacity: 0.6 })}
+        {label('padding, borderRadius, border, shadow', textColor, {
+          size: 11,
+          mt: 3,
+          opacity: 0.6,
+        })}
       </Container>
 
       <SectionTitle text="Border" color={textColor} />
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-        <Container padding={12} borderRadius={8} border={{ width: 2, color: PRIMARY, style: 'solid' }}>
+        <Container
+          padding={12}
+          borderRadius={8}
+          border={{ width: 2, color: PRIMARY, style: 'solid' }}
+        >
           {label('Uniform border — solid', textColor, { size: 12 })}
         </Container>
-        <Container padding={12} borderRadius={8} border={{ width: 2, color: SECONDARY, style: 'dashed' }}>
+        <Container
+          padding={12}
+          borderRadius={8}
+          border={{ width: 2, color: SECONDARY, style: 'dashed' }}
+        >
           {label('Uniform border — dashed', textColor, { size: 12 })}
         </Container>
-        <Container padding={12} borderRadius={8} border={{ top: { width: 3, color: PRIMARY } }}>
+        <Container
+          padding={12}
+          borderRadius={8}
+          border={{ top: { width: 3, color: PRIMARY } }}
+        >
           {label('Top border only', textColor, { size: 12 })}
         </Container>
-        <Container padding={12} borderRadius={8} border={{ left: { width: 4, color: SUCCESS } }}>
+        <Container
+          padding={12}
+          borderRadius={8}
+          border={{ left: { width: 4, color: SUCCESS } }}
+        >
           {label('Left accent border', textColor, { size: 12 })}
         </Container>
       </div>
@@ -149,15 +183,43 @@ function StyleDemo({ isDark, textColor, cardBg, borderColor }: {
         border={{ width: 1, color: borderColor }}
         style={{ position: 'relative', overflow: 'hidden' }}
       >
-        <div style={{ position: 'absolute', top: -30, right: -30, width: 110, height: 110, borderRadius: 55, background: `${PRIMARY}33` }} />
-        <div style={{ position: 'absolute', bottom: -20, left: -20, width: 80, height: 80, borderRadius: 40, background: `${SECONDARY}26` }} />
-        {label('clip=true — circles hidden at bounds', textColor, { weight: 600, size: 12 })}
+        <div
+          style={{
+            position: 'absolute',
+            top: -30,
+            right: -30,
+            width: 110,
+            height: 110,
+            borderRadius: 55,
+            background: `${PRIMARY}33`,
+          }}
+        />
+        <div
+          style={{
+            position: 'absolute',
+            bottom: -20,
+            left: -20,
+            width: 80,
+            height: 80,
+            borderRadius: 40,
+            background: `${SECONDARY}26`,
+          }}
+        />
+        {label('clip=true — circles hidden at bounds', textColor, {
+          weight: 600,
+          size: 12,
+        })}
       </Container>
     </div>
   )
 }
 
-function InteractiveDemo({ textColor, mutedColor, cardBg, borderColor }: {
+function InteractiveDemo({
+  textColor,
+  mutedColor,
+  cardBg,
+  borderColor,
+}: {
   textColor: string
   mutedColor: string
   cardBg: string
@@ -176,13 +238,30 @@ function InteractiveDemo({ textColor, mutedColor, cardBg, borderColor }: {
         shadow={{ offset: { x: 0, y: 2 }, blur: 8, color: 'rgba(0,0,0,0.08)' }}
         onPress={() => setCount(c => c + 1)}
       >
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}
+        >
           {label('Tap me', textColor, { weight: 600 })}
-          <span style={{ fontSize: 18, fontWeight: 700, color: PRIMARY, minWidth: 32, textAlign: 'right' }}>
+          <span
+            style={{
+              fontSize: 18,
+              fontWeight: 700,
+              color: PRIMARY,
+              minWidth: 32,
+              textAlign: 'right',
+            }}
+          >
             {count}
           </span>
         </div>
-        {label('onPress — renders a button automatically', mutedColor, { size: 11, mt: 3 })}
+        {label('onPress — renders a button automatically', mutedColor, {
+          size: 11,
+          mt: 3,
+        })}
       </Container>
 
       <Container
@@ -199,11 +278,9 @@ function InteractiveDemo({ textColor, mutedColor, cardBg, borderColor }: {
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
           <span style={{ fontSize: 16 }}>{liked ? '❤️' : '🤍'}</span>
-          {label(
-            liked ? 'Liked!' : 'Like this card',
-            liked ? '#fff' : textColor,
-            { weight: 600 }
-          )}
+          {label(liked ? 'Liked!' : 'Like this card', liked ? '#fff' : textColor, {
+            weight: 600,
+          })}
         </div>
       </Container>
 
@@ -220,7 +297,13 @@ function InteractiveDemo({ textColor, mutedColor, cardBg, borderColor }: {
           }}
           onPress={() => setSelected(idx)}
         >
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+            }}
+          >
             <span
               style={{
                 fontSize: 13,
@@ -230,7 +313,9 @@ function InteractiveDemo({ textColor, mutedColor, cardBg, borderColor }: {
             >
               {opt}
             </span>
-            {selected === idx && <span style={{ fontSize: 13, color: PRIMARY }}>✓</span>}
+            {selected === idx && (
+              <span style={{ fontSize: 13, color: PRIMARY }}>✓</span>
+            )}
           </div>
         </Container>
       ))}
@@ -249,7 +334,12 @@ function InteractiveDemo({ textColor, mutedColor, cardBg, borderColor }: {
   )
 }
 
-function LayoutDemo({ textColor, mutedColor, cardBg, borderColor }: {
+function LayoutDemo({
+  textColor,
+  mutedColor,
+  cardBg,
+  borderColor,
+}: {
   textColor: string
   mutedColor: string
   cardBg: string
@@ -260,7 +350,17 @@ function LayoutDemo({ textColor, mutedColor, cardBg, borderColor }: {
       <SectionTitle text="Alignment" color={textColor} />
       <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
         {(
-          ['topLeft', 'topCenter', 'topRight', 'centerLeft', 'center', 'centerRight', 'bottomLeft', 'bottomCenter', 'bottomRight'] as const
+          [
+            'topLeft',
+            'topCenter',
+            'topRight',
+            'centerLeft',
+            'center',
+            'centerRight',
+            'bottomLeft',
+            'bottomCenter',
+            'bottomRight',
+          ] as const
         ).map(align => (
           <Container
             key={align}
@@ -270,8 +370,14 @@ function LayoutDemo({ textColor, mutedColor, cardBg, borderColor }: {
             alignment={align}
             color={cardBg}
           >
-            <div style={{ width: 8, height: 8, borderRadius: 4, background: PRIMARY }} />
-            <span style={{ color: textColor, fontSize: 9, opacity: 0.5, marginLeft: 5 }}>{align}</span>
+            <div
+              style={{ width: 8, height: 8, borderRadius: 4, background: PRIMARY }}
+            />
+            <span
+              style={{ color: textColor, fontSize: 9, opacity: 0.5, marginLeft: 5 }}
+            >
+              {align}
+            </span>
           </Container>
         ))}
       </div>
@@ -288,13 +394,26 @@ function LayoutDemo({ textColor, mutedColor, cardBg, borderColor }: {
         >
           {label('flex=1', textColor, { size: 11, weight: 600 })}
         </Container>
-        <Container flex={2} padding={10} borderRadius={8} color={PRIMARY} alignment="center">
+        <Container
+          flex={2}
+          padding={10}
+          borderRadius={8}
+          color={PRIMARY}
+          alignment="center"
+        >
           {label('flex=2', '#fff', { size: 11, weight: 600 })}
         </Container>
       </div>
       <div style={{ display: 'flex', gap: 8 }}>
         {[PRIMARY, SECONDARY, SUCCESS].map((color, i) => (
-          <Container key={i} flex={1} height={40} borderRadius={8} color={color} alignment="center">
+          <Container
+            key={i}
+            flex={1}
+            height={40}
+            borderRadius={8}
+            color={color}
+            alignment="center"
+          >
             {label(String(i + 1), '#fff', { size: 11, weight: 600 })}
           </Container>
         ))}
@@ -302,29 +421,63 @@ function LayoutDemo({ textColor, mutedColor, cardBg, borderColor }: {
 
       <SectionTitle text="EdgeInsets" color={textColor} />
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-        <Container padding={16} border={{ width: 1, color: borderColor }} borderRadius={8}>
+        <Container
+          padding={16}
+          border={{ width: 1, color: borderColor }}
+          borderRadius={8}
+        >
           {label('padding=16 (uniform)', textColor, { size: 12 })}
         </Container>
-        <Container padding={{ horizontal: 24, vertical: 8 }} border={{ width: 1, color: borderColor }} borderRadius={8}>
+        <Container
+          padding={{ horizontal: 24, vertical: 8 }}
+          border={{ width: 1, color: borderColor }}
+          borderRadius={8}
+        >
           {label('padding { horizontal: 24, vertical: 8 }', textColor, { size: 12 })}
         </Container>
-        <Container padding={{ top: 20, bottom: 4, left: 16, right: 8 }} border={{ width: 1, color: borderColor }} borderRadius={8}>
-          {label('padding { top:20, bottom:4, left:16, right:8 }', textColor, { size: 12 })}
+        <Container
+          padding={{ top: 20, bottom: 4, left: 16, right: 8 }}
+          border={{ width: 1, color: borderColor }}
+          borderRadius={8}
+        >
+          {label('padding { top:20, bottom:4, left:16, right:8 }', textColor, {
+            size: 12,
+          })}
         </Container>
       </div>
 
       <SectionTitle text="Opacity & Transform" color={textColor} />
       <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-        <Container color={PRIMARY_CONTAINER} padding={12} borderRadius={8} opacity={1}>
+        <Container
+          color={PRIMARY_CONTAINER}
+          padding={12}
+          borderRadius={8}
+          opacity={1}
+        >
           {label('opacity=1', PRIMARY_ON_CONTAINER, { size: 12 })}
         </Container>
-        <Container color={PRIMARY_CONTAINER} padding={12} borderRadius={8} opacity={0.5}>
+        <Container
+          color={PRIMARY_CONTAINER}
+          padding={12}
+          borderRadius={8}
+          opacity={0.5}
+        >
           {label('opacity=0.5', PRIMARY_ON_CONTAINER, { size: 12 })}
         </Container>
-        <Container color={SECONDARY_CONTAINER} padding={12} borderRadius={8} transform={{ rotate: '-2deg' }}>
+        <Container
+          color={SECONDARY_CONTAINER}
+          padding={12}
+          borderRadius={8}
+          transform={{ rotate: '-2deg' }}
+        >
           {label('transform rotate(-2deg)', SECONDARY_ON_CONTAINER, { size: 12 })}
         </Container>
-        <Container color={SECONDARY_CONTAINER} padding={12} borderRadius={8} transform={{ scale: 0.92 }}>
+        <Container
+          color={SECONDARY_CONTAINER}
+          padding={12}
+          borderRadius={8}
+          transform={{ scale: 0.92 }}
+        >
           {label('transform scale(0.92)', SECONDARY_ON_CONTAINER, { size: 12 })}
         </Container>
       </div>
@@ -337,14 +490,27 @@ function LayoutDemo({ textColor, mutedColor, cardBg, borderColor }: {
         shadow={{ offset: { x: 0, y: 4 }, blur: 16, color: 'rgba(0,0,0,0.08)' }}
       >
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <Container width={44} height={44} borderRadius={22} color={PRIMARY_CONTAINER} alignment="center">
+          <Container
+            width={44}
+            height={44}
+            borderRadius={22}
+            color={PRIMARY_CONTAINER}
+            alignment="center"
+          >
             <span style={{ fontSize: 20 }}>🧩</span>
           </Container>
           <div style={{ flex: 1 }}>
             {label('Nested Layout', textColor, { weight: 600 })}
-            {label('Avatar + content using nested containers', mutedColor, { size: 11, mt: 2 })}
+            {label('Avatar + content using nested containers', mutedColor, {
+              size: 11,
+              mt: 2,
+            })}
           </div>
-          <Container padding={{ horizontal: 10, vertical: 4 }} borderRadius={99} color={SUCCESS_CONTAINER}>
+          <Container
+            padding={{ horizontal: 10, vertical: 4 }}
+            borderRadius={99}
+            color={SUCCESS_CONTAINER}
+          >
             {label('New', SUCCESS_ON_CONTAINER, { size: 11, weight: 600 })}
           </Container>
         </div>
@@ -404,7 +570,9 @@ export function ContainerHybridPreview() {
               />
               <div className="min-w-0">
                 <p className="text-sm font-medium leading-tight">{opt.title}</p>
-                <p className="mt-0.5 text-xs text-muted-foreground">{opt.description}</p>
+                <p className="mt-0.5 text-xs text-muted-foreground">
+                  {opt.description}
+                </p>
               </div>
             </label>
           ))}
@@ -422,7 +590,12 @@ export function ContainerHybridPreview() {
             style={{ background: isDark ? '#18181b' : '#f4f4f5', minHeight: '100%' }}
           >
             {scenario === 'style' && (
-              <StyleDemo isDark={isDark} textColor={textColor} cardBg={cardBg} borderColor={borderColor} />
+              <StyleDemo
+                isDark={isDark}
+                textColor={textColor}
+                cardBg={cardBg}
+                borderColor={borderColor}
+              />
             )}
             {scenario === 'interactive' && (
               <InteractiveDemo

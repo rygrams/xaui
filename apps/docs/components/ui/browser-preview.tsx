@@ -8,7 +8,10 @@ type BrowserPreviewProps = {
   url?: string
 }
 
-export function BrowserPreview({ children, url = 'localhost' }: BrowserPreviewProps) {
+export function BrowserPreview({
+  children,
+  url = 'localhost',
+}: BrowserPreviewProps) {
   return (
     <div className="flex justify-center py-4">
       <div

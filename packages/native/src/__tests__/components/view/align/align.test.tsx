@@ -9,9 +9,15 @@ describe('AlignProps types', () => {
 
   it('accepts all named alignments', () => {
     const alignments: AlignProps['alignment'][] = [
-      'topLeft', 'topCenter', 'topRight',
-      'centerLeft', 'center', 'centerRight',
-      'bottomLeft', 'bottomCenter', 'bottomRight',
+      'topLeft',
+      'topCenter',
+      'topRight',
+      'centerLeft',
+      'center',
+      'centerRight',
+      'bottomLeft',
+      'bottomCenter',
+      'bottomRight',
     ]
     alignments.forEach(alignment => {
       const props: AlignProps = { alignment }
@@ -30,7 +36,10 @@ describe('AlignProps types', () => {
   })
 
   it('accepts style override', () => {
-    const props: AlignProps = { alignment: 'center', style: { backgroundColor: 'red' } }
+    const props: AlignProps = {
+      alignment: 'center',
+      style: { backgroundColor: 'red' },
+    }
     expect(props.style).toEqual({ backgroundColor: 'red' })
   })
 })

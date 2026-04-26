@@ -2,11 +2,7 @@ import type { ReactNode } from 'react'
 import type { TextStyle, ViewStyle } from 'react-native'
 import type { Radius, Size, ThemeColor } from '../../types'
 
-export type AutocompleteVariant =
-  | 'bordered'
-  | 'colored'
-  | 'light'
-  | 'underlined'
+export type AutocompleteVariant = 'bordered' | 'colored' | 'light' | 'underlined'
 
 export type AutocompleteLabelPlacement =
   | 'inside'

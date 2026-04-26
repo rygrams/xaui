@@ -1,5 +1,25 @@
 export { Container } from './container'
 export type { ContainerProps } from './container/container.type'
+export { Flex } from './flex'
+export { Row } from './row'
+export { Column } from './column'
+export { Expanded } from './expanded'
+export type { ExpandedProps } from './expanded/expanded.type'
+export { Flexible } from './flexible'
+export type { FlexibleProps, FlexFit } from './flexible/flexible.type'
+export { Spacer } from './spacer'
+export type { SpacerProps } from './spacer/spacer.type'
+export { Wrap } from './wrap'
+export type { WrapProps } from './wrap/wrap.type'
+export type {
+  FlexProps,
+  RowProps,
+  ColumnProps,
+  MainAxisAlignment,
+  CrossAxisAlignment,
+  MainAxisSize,
+  Direction,
+} from './layout-types'
 export { SizedBox } from './sized-box'
 export type { SizedBoxProps } from './sized-box/sized-box.type'
 export { ConstrainedBox } from './constrained-box'

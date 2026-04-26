@@ -34,7 +34,7 @@ const buildStyle = (props: ContainerProps): CSSProperties => ({
   boxSizing: 'border-box',
 })
 
-export const Container: React.FC<ContainerProps> = (props) => {
+export const Container: React.FC<ContainerProps> = props => {
   const {
     children,
     onPress,

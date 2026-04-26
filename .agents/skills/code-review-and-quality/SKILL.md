@@ -94,12 +94,12 @@ Small, focused changes are easier to review, faster to merge, and safer to deplo
 
 **Splitting strategies when a change is too large:**
 
-| Strategy | How | When |
-|----------|-----|------|
-| **Stack** | Submit a small change, start the next one based on it | Sequential dependencies |
-| **By file group** | Separate changes for groups needing different reviewers | Cross-cutting concerns |
-| **Horizontal** | Create shared code/stubs first, then consumers | Layered architecture |
-| **Vertical** | Break into smaller full-stack slices of the feature | Feature work |
+| Strategy          | How                                                     | When                    |
+| ----------------- | ------------------------------------------------------- | ----------------------- |
+| **Stack**         | Submit a small change, start the next one based on it   | Sequential dependencies |
+| **By file group** | Separate changes for groups needing different reviewers | Cross-cutting concerns  |
+| **Horizontal**    | Create shared code/stubs first, then consumers          | Layered architecture    |
+| **Vertical**      | Break into smaller full-stack slices of the feature     | Feature work            |
 
 **When large changes are acceptable:** Complete file deletions and automated refactoring where the reviewer only needs to verify intent, not every line.
 
@@ -156,13 +156,13 @@ For each file changed:
 
 Label every comment with its severity so the author knows what's required vs optional:
 
-| Prefix | Meaning | Author Action |
-|--------|---------|---------------|
-| *(no prefix)* | Required change | Must address before merge |
-| **Critical:** | Blocks merge | Security vulnerability, data loss, broken functionality |
-| **Nit:** | Minor, optional | Author may ignore — formatting, style preferences |
-| **Optional:** / **Consider:** | Suggestion | Worth considering but not required |
-| **FYI** | Informational only | No action needed — context for future reference |
+| Prefix                        | Meaning            | Author Action                                           |
+| ----------------------------- | ------------------ | ------------------------------------------------------- |
+| _(no prefix)_                 | Required change    | Must address before merge                               |
+| **Critical:**                 | Blocks merge       | Security vulnerability, data loss, broken functionality |
+| **Nit:**                      | Minor, optional    | Author may ignore — formatting, style preferences       |
+| **Optional:** / **Consider:** | Suggestion         | Worth considering but not required                      |
+| **FYI**                       | Informational only | No action needed — context for future reference         |
 
 This prevents authors from treating all feedback as mandatory and wasting time on optional suggestions.
 
@@ -198,6 +198,7 @@ Human makes the final call
 This catches issues that a single model might miss — different models have different blind spots.
 
 **Example prompt for a review agent:**
+
 ```
 Review this code change for correctness, security, and adherence to
 our project conventions. The spec says [X]. The change should [Y].
@@ -257,6 +258,7 @@ When reviewing code — whether written by you, another agent, or a human:
 Part of code review is dependency review:
 
 **Before adding any dependency:**
+
 1. Does the existing stack solve this? (Often it does.)
 2. How large is the dependency? (Check bundle impact.)
 3. Is it actively maintained? (Check last commit, open issues.)
@@ -271,25 +273,30 @@ Part of code review is dependency review:
 ## Review: [PR/Change title]
 
 ### Context
+
 - [ ] I understand what this change does and why
 
 ### Correctness
+
 - [ ] Change matches spec/task requirements
 - [ ] Edge cases handled
 - [ ] Error paths handled
 - [ ] Tests cover the change adequately
 
 ### Readability
+
 - [ ] Names are clear and consistent
 - [ ] Logic is straightforward
 - [ ] No unnecessary complexity
 
 ### Architecture
+
 - [ ] Follows existing patterns
 - [ ] No unnecessary coupling or dependencies
 - [ ] Appropriate abstraction level
 
 ### Security
+
 - [ ] No secrets in code
 - [ ] Input validated at boundaries
 - [ ] No injection vulnerabilities
@@ -297,19 +304,23 @@ Part of code review is dependency review:
 - [ ] External data sources treated as untrusted
 
 ### Performance
+
 - [ ] No N+1 patterns
 - [ ] No unbounded operations
 - [ ] Pagination on list endpoints
 
 ### Verification
+
 - [ ] Tests pass
 - [ ] Build succeeds
 - [ ] Manual verification done (if applicable)
 
 ### Verdict
+
 - [ ] **Approve** — Ready to merge
 - [ ] **Request changes** — Issues must be addressed
 ```
+
 ## See Also
 
 - For detailed security review guidance, see `references/security-checklist.md`
@@ -317,13 +328,13 @@ Part of code review is dependency review:
 
 ## Common Rationalizations
 
-| Rationalization | Reality |
-|---|---|
-| "It works, that's good enough" | Working code that's unreadable, insecure, or architecturally wrong creates debt that compounds. |
-| "I wrote it, so I know it's correct" | Authors are blind to their own assumptions. Every change benefits from another set of eyes. |
-| "We'll clean it up later" | Later never comes. The review is the quality gate — use it. Require cleanup before merge, not after. |
-| "AI-generated code is probably fine" | AI code needs more scrutiny, not less. It's confident and plausible, even when wrong. |
-| "The tests pass, so it's good" | Tests are necessary but not sufficient. They don't catch architecture problems, security issues, or readability concerns. |
+| Rationalization                      | Reality                                                                                                                   |
+| ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------- |
+| "It works, that's good enough"       | Working code that's unreadable, insecure, or architecturally wrong creates debt that compounds.                           |
+| "I wrote it, so I know it's correct" | Authors are blind to their own assumptions. Every change benefits from another set of eyes.                               |
+| "We'll clean it up later"            | Later never comes. The review is the quality gate — use it. Require cleanup before merge, not after.                      |
+| "AI-generated code is probably fine" | AI code needs more scrutiny, not less. It's confident and plausible, even when wrong.                                     |
+| "The tests pass, so it's good"       | Tests are necessary but not sufficient. They don't catch architecture problems, security issues, or readability concerns. |
 
 ## Red Flags
 

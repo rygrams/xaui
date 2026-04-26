@@ -13,8 +13,8 @@ export default function LlmsTxtPage() {
       <div className="space-y-3">
         <h1 className="text-3xl font-bold tracking-tight">LLMs.txt</h1>
         <p className="text-base text-muted-foreground max-w-2xl">
-          Xaui exposes machine-readable documentation so AI assistants can understand the
-          library and generate accurate component code.
+          Xaui exposes machine-readable documentation so AI assistants can understand
+          the library and generate accurate component code.
         </p>
       </div>
 
@@ -71,13 +71,15 @@ export default function LlmsTxtPage() {
           >
             llmstxt.org
           </a>{' '}
-          is an open standard that helps AI assistants discover and consume documentation.
-          A short index file at <code className="rounded bg-muted px-1.5 py-0.5 text-sm">/llms.txt</code> links
-          to per-component markdown files that LLMs fetch on demand.
+          is an open standard that helps AI assistants discover and consume
+          documentation. A short index file at{' '}
+          <code className="rounded bg-muted px-1.5 py-0.5 text-sm">/llms.txt</code>{' '}
+          links to per-component markdown files that LLMs fetch on demand.
         </p>
         <p className="text-muted-foreground">
-          This lets tools like Claude, Cursor, or Copilot understand the exact API surface
-          of each component and generate accurate, idiomatic code without hallucinating prop names.
+          This lets tools like Claude, Cursor, or Copilot understand the exact API
+          surface of each component and generate accurate, idiomatic code without
+          hallucinating prop names.
         </p>
       </div>
 
@@ -96,12 +98,13 @@ Fetch the linked markdown files to get props and examples before generating code
       <div className="space-y-4">
         <h2 className="text-xl font-semibold">Usage in Cursor</h2>
         <p className="text-muted-foreground">
-          Add the following to <code className="rounded bg-muted px-1.5 py-0.5 text-sm">.cursorrules</code> or your Cursor docs index:
+          Add the following to{' '}
+          <code className="rounded bg-muted px-1.5 py-0.5 text-sm">
+            .cursorrules
+          </code>{' '}
+          or your Cursor docs index:
         </p>
-        <CodeBlock
-          language="text"
-          code={`@docs https://ui.xtartapp.com/llms.txt`}
-        />
+        <CodeBlock language="text" code={`@docs https://ui.xtartapp.com/llms.txt`} />
       </div>
     </div>
   )

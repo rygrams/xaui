@@ -86,13 +86,12 @@ export const InputTrigger: React.FC<InputTriggerProps> = ({
                 gap: sizeStyles.slotGap,
                 backgroundColor: variantStyles.container.backgroundColor,
                 borderWidth:
-                  variant === 'underlined'
-                    ? 0
-                    : variantStyles.container.borderWidth,
+                  variant === 'underlined' ? 0 : variantStyles.container.borderWidth,
                 ...(variant === 'underlined' && {
                   borderBottomWidth: variantStyles.container.borderBottomWidth,
                 }),
-                borderRadius: variant === 'underlined' ? 0 : radiusStyles.borderRadius,
+                borderRadius:
+                  variant === 'underlined' ? 0 : radiusStyles.borderRadius,
                 borderColor:
                   variant === 'underlined'
                     ? variantStyles.container.borderColor

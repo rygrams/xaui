@@ -8,7 +8,11 @@ import React, {
 } from 'react'
 import { Animated, Easing, Pressable, Text, View } from 'react-native'
 import { Portal } from '../../core'
-import type { SnackbarItem, SnackbarProps, SnackbarStackProps } from './snackbar.type'
+import type {
+  SnackbarItem,
+  SnackbarProps,
+  SnackbarStackProps,
+} from './snackbar.type'
 import {
   SNACKBAR_DEFAULT_DURATION,
   SNACKBAR_DEFAULT_HORIZONTAL_INSET,
@@ -135,7 +139,11 @@ const SnackbarSurface: React.FC<{
     if (typeof message === 'string' || typeof message === 'number') {
       return (
         <Text
-          style={[styles.messageText, { color: textColor }, customAppearance?.message]}
+          style={[
+            styles.messageText,
+            { color: textColor },
+            customAppearance?.message,
+          ]}
           numberOfLines={numberOfLines}
         >
           {message}
@@ -151,7 +159,13 @@ const SnackbarSurface: React.FC<{
 
     if (typeof actionLabel === 'string' || typeof actionLabel === 'number') {
       return (
-        <Text style={[styles.actionText, { color: actionColor }, customAppearance?.action]}>
+        <Text
+          style={[
+            styles.actionText,
+            { color: actionColor },
+            customAppearance?.action,
+          ]}
+        >
           {actionLabel}
         </Text>
       )
@@ -295,7 +309,9 @@ export const Snackbar: React.FC<SnackbarProps> = ({
   const [internalVisible, setInternalVisible] = useState(isVisible ?? true)
   const isControlled = typeof isVisible === 'boolean'
   const visible = isControlled ? isVisible : internalVisible
-  const idRef = useRef(`snackbar-${Date.now()}-${Math.random().toString(16).slice(2)}`)
+  const idRef = useRef(
+    `snackbar-${Date.now()}-${Math.random().toString(16).slice(2)}`
+  )
 
   const dismiss = useCallback(() => {
     if (!isControlled) {

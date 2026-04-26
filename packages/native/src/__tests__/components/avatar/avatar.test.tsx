@@ -6,13 +6,48 @@ import { Avatar } from '../../../components/avatar'
 vi.mock('../../../core', () => ({
   useXUITheme: () => ({
     colors: {
-      primary: { main: '#1976d2', onMain: '#ffffff', container: '#e3f2fd', onContainer: '#1976d2' },
-      secondary: { main: '#9c27b0', onMain: '#ffffff', container: '#f3e5f5', onContainer: '#9c27b0' },
-      tertiary: { main: '#00796b', onMain: '#ffffff', container: '#e0f2f1', onContainer: '#00796b' },
-      danger: { main: '#d32f2f', onMain: '#ffffff', container: '#ffebee', onContainer: '#d32f2f' },
-      warning: { main: '#f57c00', onMain: '#000000', container: '#fff3e0', onContainer: '#f57c00' },
-      success: { main: '#388e3c', onMain: '#ffffff', container: '#e8f5e9', onContainer: '#388e3c' },
-      default: { main: '#ffffff', onMain: '#111827', container: '#f5f5f5', onContainer: '#111827' },
+      primary: {
+        main: '#1976d2',
+        onMain: '#ffffff',
+        container: '#e3f2fd',
+        onContainer: '#1976d2',
+      },
+      secondary: {
+        main: '#9c27b0',
+        onMain: '#ffffff',
+        container: '#f3e5f5',
+        onContainer: '#9c27b0',
+      },
+      tertiary: {
+        main: '#00796b',
+        onMain: '#ffffff',
+        container: '#e0f2f1',
+        onContainer: '#00796b',
+      },
+      danger: {
+        main: '#d32f2f',
+        onMain: '#ffffff',
+        container: '#ffebee',
+        onContainer: '#d32f2f',
+      },
+      warning: {
+        main: '#f57c00',
+        onMain: '#000000',
+        container: '#fff3e0',
+        onContainer: '#f57c00',
+      },
+      success: {
+        main: '#388e3c',
+        onMain: '#ffffff',
+        container: '#e8f5e9',
+        onContainer: '#388e3c',
+      },
+      default: {
+        main: '#ffffff',
+        onMain: '#111827',
+        container: '#f5f5f5',
+        onContainer: '#111827',
+      },
       background: '#ffffff',
       foreground: '#111827',
     },
