@@ -1,5 +1,18 @@
 # @xaui/web
 
+## 0.0.11
+
+### Patch Changes
+
+- 0252a82: feat: add Container component to native and hybrid packages
+
+  Flutter-inspired Container widget with full support for dimensions, spacing (EdgeInsets), alignment, background color, borders (uniform and per-side), border radius, shadows, clip, transforms, opacity, and interactive press handlers.
+
+  Also exports Border, BorderRadius, BorderSide types from @xaui/core.
+
+- Updated dependencies [0252a82]
+  - @xaui/core@0.2.1
+
 ## 0.0.10
 
 ### Patch Changes
