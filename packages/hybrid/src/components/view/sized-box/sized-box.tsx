@@ -11,7 +11,6 @@ export const SizedBox: React.FC<SizedBoxProps> = ({
   expand,
   shrink,
   style,
-  className,
   testID,
 }) => {
   let resolvedStyle: CSSProperties
@@ -30,7 +29,6 @@ export const SizedBox: React.FC<SizedBoxProps> = ({
   return (
     <div
       data-testid={testID}
-      className={className}
       style={{ boxSizing: 'border-box', ...resolvedStyle, ...style }}
     >
       {children}

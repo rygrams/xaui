@@ -23,9 +23,19 @@ describe('SizedBox Types', () => {
     expect(props.children).toBe('content')
   })
 
-  it('does not expose fullWidth or style', () => {
+  it('accepts style as StyleProp<ViewStyle>', () => {
+    const props: SizedBoxProps = { style: { backgroundColor: 'red' } }
+    expect(props.style).toEqual({ backgroundColor: 'red' })
+  })
+
+  it('accepts testID', () => {
+    const props: SizedBoxProps = { testID: 'my-box' }
+    expect(props.testID).toBe('my-box')
+  })
+
+  it('does not expose fullWidth or className', () => {
     const props: SizedBoxProps = {}
     expect('fullWidth' in props).toBe(false)
-    expect('style' in props).toBe(false)
+    expect('className' in props).toBe(false)
   })
 })

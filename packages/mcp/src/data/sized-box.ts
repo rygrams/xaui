@@ -10,18 +10,30 @@ export const sizedBoxDocs = {
     },
     hybrid: {
       package: '@xaui/hybrid',
-      import: "import { SizedBox } from '@xaui/hybrid/sized-box' // or '@xaui/hybrid/view'",
+      import:
+        "import { SizedBox } from '@xaui/hybrid/sized-box' // or '@xaui/hybrid/view'",
       platform: 'React web / mobile webview — renders as div',
     },
   },
   props: [
-    { name: 'width', type: 'number', default: '-', description: 'Width in logical pixels' },
-    { name: 'height', type: 'number', default: '-', description: 'Height in logical pixels' },
+    {
+      name: 'width',
+      type: 'number',
+      default: '-',
+      description: 'Width in logical pixels',
+    },
+    {
+      name: 'height',
+      type: 'number',
+      default: '-',
+      description: 'Height in logical pixels',
+    },
     {
       name: 'expand',
       type: 'boolean',
       default: 'false',
-      description: 'Fill all available space — flex: 1 + alignSelf: stretch. Flutter Expanded equivalent',
+      description:
+        'Fill all available space — flex: 1 + alignSelf: stretch. Flutter Expanded equivalent',
     },
     {
       name: 'shrink',
@@ -29,10 +41,25 @@ export const sizedBoxDocs = {
       default: 'false',
       description: 'Collapse to zero size. Flutter SizedBox.shrink() equivalent',
     },
-    { name: 'children', type: 'ReactNode', default: '-', description: 'Optional content' },
-    { name: 'style', type: 'CSSProperties', default: '-', description: 'Raw CSS style override (hybrid only)' },
-    { name: 'className', type: 'string', default: '-', description: 'Tailwind / CSS class names (hybrid only)' },
-    { name: 'testID', type: 'string', default: '-', description: 'Test identifier mapped to data-testid (hybrid only)' },
+    {
+      name: 'children',
+      type: 'ReactNode',
+      default: '-',
+      description: 'Optional content',
+    },
+    {
+      name: 'style',
+      type: 'StyleProp<ViewStyle> | CSSProperties',
+      default: '-',
+      description:
+        'Style override (native: StyleProp<ViewStyle>, hybrid: CSSProperties)',
+    },
+    {
+      name: 'testID',
+      type: 'string',
+      default: '-',
+      description: 'Test identifier (native: testID, hybrid: data-testid)',
+    },
   ],
   examples: [
     {

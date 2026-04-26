@@ -22,10 +22,10 @@ export const components: Component[] = [
     id: 'container',
     name: 'Container',
     description:
-      'Universal layout container with padding, margin, alignment, border, shadow, and transform support.',
+      'Flutter-inspired layout primitive for sizing, spacing, alignment, decoration, and interaction in a single composable component.',
     category: 'Layout',
     href: '/docs/components/container',
-    status: 'beta',
+    status: 'stable',
     importPath: '@xaui/native/container',
     exports: ['Container'],
     types: ['ContainerProps'],
@@ -958,22 +958,10 @@ export const components: Component[] = [
       'Color palette selector displayed in a bottom sheet with an input-like color swatch trigger.',
     category: 'Inputs',
     href: '/docs/components/color-picker',
-    status: 'beta',
+    status: 'stable',
     importPath: '@xaui/native/color-picker',
     exports: ['ColorPicker', 'defaultColorGroups'],
     types: ['ColorPickerProps', 'ColorPickerEvents', 'ColorGroup'],
-  },
-  {
-    id: 'container',
-    name: 'Container',
-    description:
-      'Flutter-inspired layout primitive for sizing, spacing, alignment, decoration, and interaction in a single composable component.',
-    category: 'Layout',
-    href: '/docs/components/container',
-    status: 'stable',
-    importPath: '@xaui/native/container',
-    exports: ['Container'],
-    types: ['ContainerProps'],
   },
 ]
 

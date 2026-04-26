@@ -24,6 +24,5 @@ export type SizedBoxProps = {
    */
   children?: ReactNode
   style?: CSSProperties
-  className?: string
   testID?: string
 }

@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react'
+import type { StyleProp, ViewStyle } from 'react-native'
 
 export type SizedBoxProps = {
   /**
@@ -23,4 +24,12 @@ export type SizedBoxProps = {
    * Content to render inside the box.
    */
   children?: ReactNode
+  /**
+   * Style override applied to the underlying View.
+   */
+  style?: StyleProp<ViewStyle>
+  /**
+   * Test identifier for e2e tests.
+   */
+  testID?: string
 }
