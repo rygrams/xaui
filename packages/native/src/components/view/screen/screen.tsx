@@ -13,22 +13,13 @@ export const Screen: React.FC<ScreenProps> = ({
 }) => {
   const theme = useXUITheme()
   const resolvedBackgroundColor = backgroundColor ?? theme.colors.background
-  const Container = safeArea ? SafeAreaView : View
+  const containerStyle = [{ flex: 1, backgroundColor: resolvedBackgroundColor, padding }, style]
 
-  return (
-    <Container
-      style={[
-        {
-          flex: 1,
-          backgroundColor: resolvedBackgroundColor,
-          padding,
-        },
-        style,
-      ]}
-    >
-      {children}
-    </Container>
-  )
+  if (safeArea) {
+    return <SafeAreaView style={containerStyle}>{children}</SafeAreaView>
+  }
+
+  return <View style={containerStyle}>{children}</View>
 }
 
 Screen.displayName = 'Screen'
