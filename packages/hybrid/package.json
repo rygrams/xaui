@@ -64,6 +64,22 @@
     "./center": {
       "types": "./dist/center/index.d.ts",
       "import": "./dist/center/index.js"
+    },
+    "./flex": {
+      "types": "./dist/flex/index.d.ts",
+      "import": "./dist/flex/index.js"
+    },
+    "./row": {
+      "types": "./dist/row/index.d.ts",
+      "import": "./dist/row/index.js"
+    },
+    "./column": {
+      "types": "./dist/column/index.d.ts",
+      "import": "./dist/column/index.js"
+    },
+    "./expanded": {
+      "types": "./dist/expanded/index.d.ts",
+      "import": "./dist/expanded/index.js"
     }
   },
   "files": [

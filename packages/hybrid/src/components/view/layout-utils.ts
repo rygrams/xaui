@@ -1,7 +1,7 @@
+import type { CSSProperties } from 'react'
 import type { CrossAxisAlignment, Direction, MainAxisAlignment, MainAxisSize } from './layout-types'
-import type { ViewStyle } from 'react-native'
 
-const MAIN_AXIS_JUSTIFY_MAP: Record<MainAxisAlignment, ViewStyle['justifyContent']> = {
+const MAIN_AXIS_JUSTIFY_MAP: Record<MainAxisAlignment, CSSProperties['justifyContent']> = {
   start: 'flex-start',
   center: 'center',
   end: 'flex-end',
@@ -10,7 +10,7 @@ const MAIN_AXIS_JUSTIFY_MAP: Record<MainAxisAlignment, ViewStyle['justifyContent
   spaceEvenly: 'space-evenly',
 }
 
-const CROSS_AXIS_ALIGN_MAP: Record<CrossAxisAlignment, ViewStyle['alignItems']> = {
+const CROSS_AXIS_ALIGN_MAP: Record<CrossAxisAlignment, CSSProperties['alignItems']> = {
   start: 'flex-start',
   center: 'center',
   end: 'flex-end',
@@ -26,7 +26,7 @@ export const resolveCrossAxisAlignment = (alignment?: CrossAxisAlignment) =>
 export const resolveMainAxisSize = (
   size: MainAxisSize = 'max',
   direction: Direction
-): ViewStyle => {
+): CSSProperties => {
   if (size === 'min') return {}
   return direction === 'vertical' ? { flex: 1 } : { width: '100%' }
 }

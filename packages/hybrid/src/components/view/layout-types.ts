@@ -1,5 +1,4 @@
-import type { ReactNode } from 'react'
-import type { StyleProp, ViewStyle } from 'react-native'
+import type { CSSProperties, ReactNode } from 'react'
 
 export type MainAxisAlignment =
   | 'start'
@@ -11,7 +10,6 @@ export type MainAxisAlignment =
 
 export type CrossAxisAlignment = 'start' | 'end' | 'center' | 'stretch'
 
-/** Controls how much space the flex widget occupies in its main axis. */
 export type MainAxisSize = 'min' | 'max'
 
 export type Direction = 'horizontal' | 'vertical'
@@ -29,15 +27,17 @@ export type FlexProps = {
   mainAxisSize?: MainAxisSize
   /** Wrap children onto multiple lines when they overflow. @default false */
   wrap?: boolean
-  /** Gap in logical pixels between children. */
+  /** Gap in pixels between children. */
   gap?: number
   /** Reverse the layout direction. @default false */
   reversed?: boolean
   /** Flex factor applied to the container itself. */
   flex?: number
-  /** Raw style override applied to the underlying View. */
-  style?: StyleProp<ViewStyle>
-  /** Test identifier for e2e tests. */
+  /** Raw CSS style override. */
+  style?: CSSProperties
+  /** Tailwind / CSS class names. */
+  className?: string
+  /** Test identifier mapped to `data-testid`. */
   testID?: string
 }
 

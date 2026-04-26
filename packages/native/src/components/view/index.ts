@@ -1,6 +1,8 @@
 export { Container } from './container/container'
+export { Flex } from './flex/flex'
 export { Column } from './column/column'
 export { Row } from './row/row'
+export { Expanded } from './expanded/expanded'
 export { Spacer } from './spacer/spacer'
 export { Padding } from './padding/padding'
 export { Margin } from './margin/margin'
@@ -24,11 +26,15 @@ export { MasonryGridItem } from './masonry-grid/masonry-grid-item'
 export { MasonryGridBuilder } from './masonry-grid/masonry-grid-builder'
 
 export type {
+  FlexProps,
   ColumnProps,
   RowProps,
   MainAxisAlignment,
   CrossAxisAlignment,
+  MainAxisSize,
+  Direction,
 } from './layout-types'
+export type { ExpandedProps } from './expanded/expanded.type'
 export type { SpacerProps } from './spacer/spacer.type'
 export type { PaddingProps } from './padding/padding.type'
 export type { MarginProps } from './margin/margin.type'

@@ -1,3 +1,4 @@
+'use client'
 import React from 'react'
 import { Flex } from '../flex/flex'
 import type { ColumnProps } from '../layout-types'

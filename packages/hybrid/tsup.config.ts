@@ -13,6 +13,10 @@ const entries = {
   'margin/index': 'src/components/view/margin/index.ts',
   'align/index': 'src/components/view/align/index.ts',
   'center/index': 'src/components/view/center/index.ts',
+  'flex/index': 'src/components/view/flex/index.ts',
+  'row/index': 'src/components/view/row/index.ts',
+  'column/index': 'src/components/view/column/index.ts',
+  'expanded/index': 'src/components/view/expanded/index.ts',
 } as const
 
 export default defineConfig({
