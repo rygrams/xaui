@@ -2,3 +2,12 @@ export { Container } from './container'
 export type { ContainerProps } from './container/container.type'
 export { SizedBox } from './sized-box'
 export type { SizedBoxProps } from './sized-box/sized-box.type'
+export { ConstrainedBox } from './constrained-box'
+export type {
+  ConstrainedBoxProps,
+  BoxConstraints,
+} from './constrained-box/constrained-box.type'
+export { FractionallySizedBox } from './fractionally-sized-box'
+export type { FractionallySizedBoxProps } from './fractionally-sized-box/fractionally-sized-box.type'
+export { AspectRatio } from './aspect-ratio'
+export type { AspectRatioProps } from './aspect-ratio/aspect-ratio.type'

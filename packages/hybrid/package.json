@@ -36,6 +36,18 @@
     "./sized-box": {
       "types": "./dist/sized-box/index.d.ts",
       "import": "./dist/sized-box/index.js"
+    },
+    "./constrained-box": {
+      "types": "./dist/constrained-box/index.d.ts",
+      "import": "./dist/constrained-box/index.js"
+    },
+    "./fractionally-sized-box": {
+      "types": "./dist/fractionally-sized-box/index.d.ts",
+      "import": "./dist/fractionally-sized-box/index.js"
+    },
+    "./aspect-ratio": {
+      "types": "./dist/aspect-ratio/index.d.ts",
+      "import": "./dist/aspect-ratio/index.js"
     }
   },
   "files": [

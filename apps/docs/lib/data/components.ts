@@ -798,6 +798,18 @@ export const components: Component[] = [
     types: ['SizedBoxProps'],
   },
   {
+    id: 'constrained-box',
+    name: 'ConstrainedBox',
+    description:
+      'Flutter-inspired box that imposes min/max size constraints on its child — equivalent to ConstrainedBox + BoxConstraints.',
+    category: 'Layout',
+    href: '/docs/components/constrained-box',
+    status: 'beta',
+    importPath: '@xaui/native/view',
+    exports: ['ConstrainedBox'],
+    types: ['ConstrainedBoxProps', 'BoxConstraints'],
+  },
+  {
     id: 'positioned-view',
     name: 'PositionedView',
     description:
@@ -847,13 +859,25 @@ export const components: Component[] = [
     id: 'aspect-ratio',
     name: 'AspectRatio',
     description:
-      'Constrains a child to a fixed aspect ratio regardless of available width.',
+      'Constrains a child to a fixed aspect ratio with optional alignment and clipping — Flutter-inspired.',
     category: 'Layout',
     href: '/docs/components/aspect-ratio',
-    status: 'beta',
+    status: 'stable',
     importPath: '@xaui/native/view',
     exports: ['AspectRatio'],
     types: ['AspectRatioProps'],
+  },
+  {
+    id: 'fractionally-sized-box',
+    name: 'FractionallySizedBox',
+    description:
+      "Sizes its child as a fraction of the parent's dimensions — Flutter FractionallySizedBox equivalent.",
+    category: 'Layout',
+    href: '/docs/components/fractionally-sized-box',
+    status: 'beta',
+    importPath: '@xaui/native/view',
+    exports: ['FractionallySizedBox'],
+    types: ['FractionallySizedBoxProps'],
   },
   {
     id: 'grid',
