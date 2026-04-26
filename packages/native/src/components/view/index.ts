@@ -1,3 +1,4 @@
+export { Container } from './container/container'
 export { Column } from './column/column'
 export { Row } from './row/row'
 export { Spacer } from './spacer/spacer'
@@ -28,6 +29,7 @@ export type {
 export type { SpacerProps } from './spacer/spacer.type'
 export type { PaddingProps } from './padding/padding.type'
 export type { MarginProps } from './margin/margin.type'
+export type { ContainerProps } from './container/container.type'
 export type { SizedBoxProps } from './sized-box/sized-box.type'
 export type { PositionedViewProps } from './positioned-view/positioned-view.type'
 export type { BlurViewProps } from './blur-view/blur-view.type'

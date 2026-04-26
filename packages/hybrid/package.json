@@ -28,6 +28,10 @@
     "./container": {
       "types": "./dist/container/index.d.ts",
       "import": "./dist/container/index.js"
+    },
+    "./sized-box": {
+      "types": "./dist/sized-box/index.d.ts",
+      "import": "./dist/sized-box/index.js"
     }
   },
   "files": [

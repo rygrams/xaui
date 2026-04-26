@@ -1,12 +1,12 @@
-import type { ReactNode } from 'react'
+import type { CSSProperties, ReactNode } from 'react'
 
 export type SizedBoxProps = {
   /**
-   * Width in logical pixels.
+   * Width in pixels.
    */
   width?: number
   /**
-   * Height in logical pixels.
+   * Height in pixels.
    */
   height?: number
   /**
@@ -23,4 +23,7 @@ export type SizedBoxProps = {
    * Content to render inside the box.
    */
   children?: ReactNode
+  style?: CSSProperties
+  className?: string
+  testID?: string
 }
