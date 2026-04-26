@@ -56,6 +56,14 @@
     "./margin": {
       "types": "./dist/margin/index.d.ts",
       "import": "./dist/margin/index.js"
+    },
+    "./align": {
+      "types": "./dist/align/index.d.ts",
+      "import": "./dist/align/index.js"
+    },
+    "./center": {
+      "types": "./dist/center/index.d.ts",
+      "import": "./dist/center/index.js"
     }
   },
   "files": [
