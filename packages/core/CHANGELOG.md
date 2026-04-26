@@ -1,5 +1,11 @@
 # @xaui/core
 
+## 0.2.2
+
+### Patch Changes
+
+- 39d97b4: Add new shared types: `GradientConfig`, `VisualConfig`, `TransformConfig`, `SizingConfig`. Reorganize type exports for better tree-shaking.
+
 ## 0.2.1
 
 ### Patch Changes
