@@ -1,5 +1,14 @@
 # docs
 
+## 0.1.42
+
+### Patch Changes
+
+- Updated dependencies [b7e401a]
+- Updated dependencies [b7e401a]
+  - @xaui/hybrid@0.0.14
+  - @xaui/native@0.2.8
+
 ## 0.1.41
 
 ### Patch Changes
