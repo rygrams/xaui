@@ -1,5 +1,11 @@
 # @xaui/web
 
+## 0.0.14
+
+### Patch Changes
+
+- b7e401a: Add Alert component to `@xaui/hybrid` with full feature parity to native: solid, bordered, flat, faded, and glass variants; controlled visibility; closable button; and em-unit sizing.
+
 ## 0.0.13
 
 ### Patch Changes
