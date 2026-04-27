@@ -48,15 +48,14 @@ describe('AlertProps types', () => {
     expect(typeof _props.onVisibleChange).toBe('function')
   })
 
-  it('accepts customAppearance', () => {
+  it('accepts style overrides', () => {
     const _props: AlertProps = {
-      customAppearance: {
-        container: { backgroundColor: 'red' },
-        title: { color: 'blue' },
-        description: { fontSize: 14 },
-      },
+      style: { backgroundColor: 'red' },
+      titleStyle: { color: 'blue' },
+      descriptionStyle: { fontSize: 14 },
     }
-    expect(_props.customAppearance?.container?.backgroundColor).toBe('red')
+    expect(_props.style?.backgroundColor).toBe('red')
+    expect(_props.titleStyle?.color).toBe('blue')
   })
 
   it('accepts full props', () => {
@@ -69,7 +68,6 @@ describe('AlertProps types', () => {
       isClosable: true,
       isVisible: true,
       testID: 'my-alert',
-      className: 'alert',
       style: { marginTop: 8 },
     }
     expect(_props.title).toBe('Title')

@@ -49,6 +49,7 @@ export const Alert: React.FC<AlertProps> = ({
   hideIcon = false,
   closeButton,
   isVisible,
+  style,
   titleStyle,
   descriptionStyle,
   children,
@@ -171,7 +172,7 @@ export const Alert: React.FC<AlertProps> = ({
   return (
     <Animated.View
       accessibilityRole="alert"
-      style={[styles.container, containerStyles, radiusStyles, animatedStyle]}
+      style={[styles.container, containerStyles, radiusStyles, style, animatedStyle]}
     >
       {!hideIcon && (
         <View style={[styles.iconWrapper, iconWrapperStyles]}>{renderIcon()}</View>

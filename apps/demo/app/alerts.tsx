@@ -185,19 +185,17 @@ export default function AlertsScreen() {
             title="Custom Styled Alert"
             description="This alert has custom styling applied."
             themeColor="primary"
-            customAppearance={{
-              container: {
-                borderWidth: 2,
-                borderColor: colors.primary.main,
-              },
-              title: {
-                fontSize: 18,
-                fontWeight: 'bold',
-              },
-              description: {
-                fontSize: 14,
-                fontStyle: 'italic',
-              },
+            style={{
+              borderWidth: 2,
+              borderColor: colors.primary.main,
+            }}
+            titleStyle={{
+              fontSize: 18,
+              fontWeight: 'bold',
+            }}
+            descriptionStyle={{
+              fontSize: 14,
+              fontStyle: 'italic',
             }}
           />
         </View>

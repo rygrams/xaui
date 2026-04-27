@@ -48,12 +48,12 @@ export const Alert: React.FC<AlertProps> = ({
   hideIcon = false,
   closeButton,
   isVisible,
-  customAppearance,
+  titleStyle,
+  descriptionStyle,
   children,
   onClose,
   onVisibleChange,
   testID,
-  className,
   style,
 }) => {
   const [internalVisible, setInternalVisible] = useState(isVisible ?? true)
@@ -127,7 +127,7 @@ export const Alert: React.FC<AlertProps> = ({
         <span
           style={{
             ...descriptionStyles,
-            ...customAppearance?.description,
+            ...descriptionStyle,
           }}
         >
           {content}
@@ -144,7 +144,7 @@ export const Alert: React.FC<AlertProps> = ({
         <span
           style={{
             ...titleStyles,
-            ...customAppearance?.title,
+            ...titleStyle,
           }}
         >
           {title}
@@ -152,7 +152,7 @@ export const Alert: React.FC<AlertProps> = ({
       )
     }
     return title
-  }, [title, customAppearance?.title, titleStyles])
+  }, [title, titleStyle, titleStyles])
 
   const descriptionNode = renderContentText(description)
   const childrenNode = renderContentText(children)
@@ -183,7 +183,6 @@ export const Alert: React.FC<AlertProps> = ({
     gap: toEm(12),
     ...containerStyles,
     ...(borderRadiusEm !== undefined ? { borderRadius: borderRadiusEm } : {}),
-    ...customAppearance?.container,
     opacity: animatedOpacity,
     transform: `scale(${animatedScale})`,
     transition: 'opacity 250ms ease, transform 250ms ease',
@@ -192,7 +191,7 @@ export const Alert: React.FC<AlertProps> = ({
   }
 
   return (
-    <div role="alert" data-testid={testID} className={className} style={mergedStyle}>
+    <div role="alert" data-testid={testID} style={mergedStyle}>
       {!hideIcon && (
         <div
           style={{

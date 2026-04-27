@@ -27,7 +27,7 @@ const SCENARIOS: { value: Scenario; title: string; description: string }[] = [
 ]
 
 function ColorsDemo({ isDark }: { isDark: boolean }) {
-  const bg = isDark ? '#18181b' : '#f4f4f5'
+  const bg = isDark ? '#18181b' : '#ffffff'
 
   return (
     <div
@@ -37,6 +37,7 @@ function ColorsDemo({ isDark }: { isDark: boolean }) {
         flexDirection: 'column',
         gap: 10,
         background: bg,
+        fontSize: '0.9em',
       }}
     >
       <Alert
@@ -74,7 +75,7 @@ function ColorsDemo({ isDark }: { isDark: boolean }) {
 }
 
 function VariantsDemo({ isDark }: { isDark: boolean }) {
-  const bg = isDark ? '#18181b' : '#f4f4f5'
+  const bg = isDark ? '#18181b' : '#ffffff'
 
   return (
     <div
@@ -84,6 +85,7 @@ function VariantsDemo({ isDark }: { isDark: boolean }) {
         flexDirection: 'column',
         gap: 10,
         background: bg,
+        fontSize: '0.9em',
       }}
     >
       <p
@@ -203,7 +205,7 @@ function VariantsDemo({ isDark }: { isDark: boolean }) {
 }
 
 function ClosableDemo({ isDark }: { isDark: boolean }) {
-  const bg = isDark ? '#18181b' : '#f4f4f5'
+  const bg = isDark ? '#18181b' : '#ffffff'
   const [alerts, setAlerts] = useState({
     info: true,
     success: true,
@@ -227,6 +229,7 @@ function ClosableDemo({ isDark }: { isDark: boolean }) {
         flexDirection: 'column',
         gap: 10,
         background: bg,
+        fontSize: '0.9em',
       }}
     >
       <button

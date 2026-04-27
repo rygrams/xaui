@@ -9,12 +9,6 @@ export type AlertEvents = {
   onVisibleChange?: (isVisible: boolean) => void
 }
 
-type AlertCustomAppearance = {
-  container?: CSSProperties
-  title?: CSSProperties
-  description?: CSSProperties
-}
-
 export type AlertProps = {
   title?: ReactNode
   description?: ReactNode
@@ -26,9 +20,9 @@ export type AlertProps = {
   hideIcon?: boolean
   closeButton?: ReactNode
   isVisible?: boolean
-  customAppearance?: AlertCustomAppearance
+  titleStyle?: CSSProperties
+  descriptionStyle?: CSSProperties
   children?: ReactNode
   testID?: string
-  className?: string
   style?: CSSProperties
 } & AlertEvents

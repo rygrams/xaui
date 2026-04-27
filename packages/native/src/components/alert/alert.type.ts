@@ -21,6 +21,7 @@ export type AlertProps = {
   hideIcon?: boolean
   closeButton?: ReactNode
   isVisible?: boolean
+  style?: ViewStyle
   titleStyle?: TextStyle
   descriptionStyle?: TextStyle
   children?: ReactNode

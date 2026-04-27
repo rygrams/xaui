@@ -10,9 +10,17 @@ type ColorScheme = 'light' | 'dark'
 type Scenario = 'named' | 'center' | 'coordinates'
 
 const SCENARIOS: { value: Scenario; title: string; description: string }[] = [
-  { value: 'named', title: 'Named alignment', description: 'topLeft, center, bottomRight…' },
+  {
+    value: 'named',
+    title: 'Named alignment',
+    description: 'topLeft, center, bottomRight…',
+  },
   { value: 'center', title: 'Center', description: 'Centered children' },
-  { value: 'coordinates', title: 'Coordinates', description: '{ x, y } fractional placement' },
+  {
+    value: 'coordinates',
+    title: 'Coordinates',
+    description: '{ x, y } fractional placement',
+  },
 ]
 
 const NAMED_ALIGNMENTS: { value: string; label: string }[] = [
@@ -40,11 +48,11 @@ function Dot({ color = '#6366f1', size = 28 }: { color?: string; size?: number }
   )
 }
 
-function NamedDemo({ muted }: { muted: string }) {
+function NamedDemo({ muted, isDark }: { muted: string; isDark: boolean }) {
+  const boxBg = isDark ? '#27272a' : '#e2e8f0'
+  const boxBorder = isDark ? '#3f3f46' : '#cbd5e1'
   return (
-    <div
-      style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 12 }}
-    >
+    <div style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 12 }}>
       <div
         style={{
           display: 'grid',
@@ -53,18 +61,25 @@ function NamedDemo({ muted }: { muted: string }) {
         }}
       >
         {NAMED_ALIGNMENTS.map(({ value, label }) => (
-          <div key={value} style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+          <div
+            key={value}
+            style={{ display: 'flex', flexDirection: 'column', gap: 4 }}
+          >
             <div
               style={{
                 width: '100%',
                 height: 60,
-                background: '#f1f5f9',
+                background: boxBg,
+                border: `1px solid ${boxBorder}`,
                 borderRadius: 8,
                 position: 'relative',
                 overflow: 'hidden',
               }}
             >
-              <Align alignment={value as never} style={{ position: 'absolute', inset: 0 }}>
+              <Align
+                alignment={value as never}
+                style={{ position: 'absolute', inset: 0 }}
+              >
                 <Dot size={16} color="#6366f1" />
               </Align>
             </div>
@@ -85,11 +100,11 @@ function NamedDemo({ muted }: { muted: string }) {
   )
 }
 
-function CenterDemo({ muted }: { muted: string }) {
+function CenterDemo({ muted, isDark }: { muted: string; isDark: boolean }) {
+  const boxBg = isDark ? '#27272a' : '#e2e8f0'
+  const boxBorder = isDark ? '#3f3f46' : '#cbd5e1'
   return (
-    <div
-      style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 16 }}
-    >
+    <div style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 16 }}>
       <div>
         <p
           style={{
@@ -103,7 +118,15 @@ function CenterDemo({ muted }: { muted: string }) {
         >
           Single child
         </p>
-        <div style={{ height: 100, background: '#f1f5f9', borderRadius: 10, position: 'relative' }}>
+        <div
+          style={{
+            height: 100,
+            background: boxBg,
+            border: `1px solid ${boxBorder}`,
+            borderRadius: 10,
+            position: 'relative',
+          }}
+        >
           <Center style={{ position: 'absolute', inset: 0 }}>
             <Dot color="#6366f1" size={40} />
           </Center>
@@ -123,7 +146,15 @@ function CenterDemo({ muted }: { muted: string }) {
         >
           Empty state
         </p>
-        <div style={{ height: 120, background: '#f1f5f9', borderRadius: 10, position: 'relative' }}>
+        <div
+          style={{
+            height: 120,
+            background: boxBg,
+            border: `1px solid ${boxBorder}`,
+            borderRadius: 10,
+            position: 'relative',
+          }}
+        >
           <Center style={{ position: 'absolute', inset: 0 }}>
             <div style={{ textAlign: 'center' }}>
               <div
@@ -164,11 +195,11 @@ const COORD_EXAMPLES = [
   { x: 1, y: 1, label: '{1,1}' },
 ]
 
-function CoordinatesDemo({ muted }: { muted: string }) {
+function CoordinatesDemo({ muted, isDark }: { muted: string; isDark: boolean }) {
+  const boxBg = isDark ? '#27272a' : '#e2e8f0'
+  const boxBorder = isDark ? '#3f3f46' : '#cbd5e1'
   return (
-    <div
-      style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 12 }}
-    >
+    <div style={{ padding: 16, display: 'flex', flexDirection: 'column', gap: 12 }}>
       <div
         style={{
           display: 'grid',
@@ -177,12 +208,16 @@ function CoordinatesDemo({ muted }: { muted: string }) {
         }}
       >
         {COORD_EXAMPLES.map(({ x, y, label }) => (
-          <div key={label} style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+          <div
+            key={label}
+            style={{ display: 'flex', flexDirection: 'column', gap: 4 }}
+          >
             <div
               style={{
                 width: '100%',
                 height: 60,
-                background: '#f1f5f9',
+                background: boxBg,
+                border: `1px solid ${boxBorder}`,
                 borderRadius: 8,
                 position: 'relative',
                 overflow: 'hidden',
@@ -276,9 +311,11 @@ export function AlignHybridPreview() {
             transition={{ duration: 0.2, ease: 'easeInOut' }}
             style={{ background: isDark ? '#18181b' : '#f4f4f5', minHeight: '100%' }}
           >
-            {scenario === 'named' && <NamedDemo muted={muted} />}
-            {scenario === 'center' && <CenterDemo muted={muted} />}
-            {scenario === 'coordinates' && <CoordinatesDemo muted={muted} />}
+            {scenario === 'named' && <NamedDemo muted={muted} isDark={isDark} />}
+            {scenario === 'center' && <CenterDemo muted={muted} isDark={isDark} />}
+            {scenario === 'coordinates' && (
+              <CoordinatesDemo muted={muted} isDark={isDark} />
+            )}
           </motion.div>
         </AnimatePresence>
       </DeviceFrame>

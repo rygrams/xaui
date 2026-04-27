@@ -79,10 +79,22 @@ export const alertDocs = {
         'Controlled visibility. Omit for uncontrolled (auto-visible) behavior',
     },
     {
-      name: 'customAppearance',
-      type: '{ container?, title?, description? }',
+      name: 'style',
+      type: 'ViewStyle',
       default: '-',
-      description: 'Custom style overrides for container, title, and description',
+      description: 'Custom style for the alert container',
+    },
+    {
+      name: 'titleStyle',
+      type: 'TextStyle',
+      default: '-',
+      description: 'Custom style for the alert title',
+    },
+    {
+      name: 'descriptionStyle',
+      type: 'TextStyle',
+      default: '-',
+      description: 'Custom style for the alert description',
     },
     {
       name: 'children',
