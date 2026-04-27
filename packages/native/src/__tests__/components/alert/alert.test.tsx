@@ -55,15 +55,9 @@ describe('Alert Types', () => {
     })
   })
 
-  it('accepts all radius options', () => {
-    const radii: Array<AlertProps['radius']> = ['none', 'sm', 'md', 'lg', 'full']
-
-    radii.forEach(radius => {
-      const props: AlertProps = {
-        radius,
-      }
-      expect(props.radius).toBe(radius)
-    })
+  it('accepts a numeric radius', () => {
+    const props: AlertProps = { radius: 12 }
+    expect(props.radius).toBe(12)
   })
 
   it('accepts events', () => {
@@ -76,17 +70,15 @@ describe('Alert Types', () => {
     expect(props.onVisibleChange).toBeDefined()
   })
 
-  it('accepts customAppearance with style props', () => {
+  it('accepts style overrides', () => {
     const props: AlertProps = {
-      customAppearance: {
-        container: { backgroundColor: 'red' },
-        title: { fontSize: 18 },
-        description: { fontSize: 14 },
-      },
+      style: { backgroundColor: 'red' },
+      titleStyle: { fontSize: 18 },
+      descriptionStyle: { fontSize: 14 },
     }
 
-    expect(props.customAppearance?.container).toEqual({ backgroundColor: 'red' })
-    expect(props.customAppearance?.title).toEqual({ fontSize: 18 })
-    expect(props.customAppearance?.description).toEqual({ fontSize: 14 })
+    expect(props.style).toEqual({ backgroundColor: 'red' })
+    expect(props.titleStyle).toEqual({ fontSize: 18 })
+    expect(props.descriptionStyle).toEqual({ fontSize: 14 })
   })
 })

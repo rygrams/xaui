@@ -1,5 +1,4 @@
-import { ReactNode } from 'react'
-import type { TextStyle, ViewStyle } from 'react-native'
+import type { CSSProperties, ReactNode } from 'react'
 import type { ThemeColor } from '../../types'
 
 /** Visual style of the alert container. */
@@ -23,8 +22,8 @@ export type AlertProps = {
   themeColor?: ThemeColor
   /** Visual style variant. Defaults to `'flat'`. */
   variant?: AlertVariant
-  /** Border radius in pixels. Defaults to `8`. */
-  radius?: number
+  /** Border radius — number in pixels (e.g. `8`) or any CSS value (e.g. `"50%"`). Defaults to `8`. */
+  radius?: number | string
   /** Whether to display a close button. */
   isClosable?: boolean
   /** Hide the leading icon. */
@@ -33,12 +32,14 @@ export type AlertProps = {
   closeButton?: ReactNode
   /** Controls visibility externally (controlled mode). */
   isVisible?: boolean
-  /** Override styles for the container. */
-  style?: ViewStyle
   /** Override styles for the title text. */
-  titleStyle?: TextStyle
+  titleStyle?: CSSProperties
   /** Override styles for the description text. */
-  descriptionStyle?: TextStyle
+  descriptionStyle?: CSSProperties
   /** Additional content rendered below the description. */
   children?: ReactNode
+  /** Test identifier for automated testing. */
+  testID?: string
+  /** Override styles for the container. */
+  style?: CSSProperties
 } & AlertEvents

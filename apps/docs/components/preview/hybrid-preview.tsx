@@ -8,6 +8,7 @@ import { ExpandedHybridPreview } from './expanded-hybrid-preview'
 import { WrapHybridPreview } from './wrap-hybrid-preview'
 import { AlignHybridPreview } from './align-hybrid-preview'
 import { PaddingHybridPreview } from './padding-hybrid-preview'
+import { AlertHybridPreview } from './alert-hybrid-preview'
 
 const hybridPreviewMap: Partial<Record<string, React.FC>> = {
   container: ContainerHybridPreview,
@@ -26,6 +27,7 @@ const hybridPreviewMap: Partial<Record<string, React.FC>> = {
   center: AlignHybridPreview,
   padding: PaddingHybridPreview,
   margin: PaddingHybridPreview,
+  alert: AlertHybridPreview,
 }
 
 export const hybridPreviewIds = new Set(Object.keys(hybridPreviewMap))

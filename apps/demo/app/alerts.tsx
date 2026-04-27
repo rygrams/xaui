@@ -3,6 +3,15 @@ import { StyleSheet, View, ScrollView, Text } from 'react-native'
 import { useState } from 'react'
 import { Alert } from '@xaui/native/alert'
 import { Button } from '@xaui/native/button'
+import { Stack } from 'expo-router'
+
+const AlertHeader = () => {
+  return (
+    <>
+      <Stack.Screen.Title>Alertons</Stack.Screen.Title>
+    </>
+  )
+}
 
 export default function AlertsScreen() {
   const colors = useXUIColors()
@@ -14,6 +23,7 @@ export default function AlertsScreen() {
       style={[styles.container, { backgroundColor: colors.background }]}
       contentContainerStyle={[styles.content, { gap: theme.spacing.lg }]}
     >
+      <AlertHeader />
       <View style={styles.section}>
         <Text style={[styles.sectionTitle, { color: colors.foreground }]}>
           Theme Colors
@@ -87,31 +97,31 @@ export default function AlertsScreen() {
           <Alert
             title="No Radius"
             description="Alert with no border radius."
-            radius="none"
+            radius={0}
             themeColor="primary"
           />
           <Alert
             title="Small Radius"
             description="Alert with small border radius."
-            radius="sm"
+            radius={4}
             themeColor="primary"
           />
           <Alert
             title="Medium Radius"
             description="Alert with medium border radius."
-            radius="md"
+            radius={8}
             themeColor="primary"
           />
           <Alert
             title="Large Radius"
             description="Alert with large border radius."
-            radius="lg"
+            radius={12}
             themeColor="primary"
           />
           <Alert
             title="Full Radius"
             description="Alert with full border radius."
-            radius="full"
+            radius={9999}
             themeColor="primary"
           />
         </View>
@@ -185,19 +195,17 @@ export default function AlertsScreen() {
             title="Custom Styled Alert"
             description="This alert has custom styling applied."
             themeColor="primary"
-            customAppearance={{
-              container: {
-                borderWidth: 2,
-                borderColor: colors.primary.main,
-              },
-              title: {
-                fontSize: 18,
-                fontWeight: 'bold',
-              },
-              description: {
-                fontSize: 14,
-                fontStyle: 'italic',
-              },
+            style={{
+              borderWidth: 2,
+              borderColor: colors.primary.main,
+            }}
+            titleStyle={{
+              fontSize: 18,
+              fontWeight: 'bold',
+            }}
+            descriptionStyle={{
+              fontSize: 14,
+              fontStyle: 'italic',
             }}
           />
         </View>

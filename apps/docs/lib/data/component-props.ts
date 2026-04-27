@@ -414,16 +414,28 @@ export function FlexLayout() {
         description: 'Controlled visibility',
       },
       {
+        name: 'style',
+        type: 'ViewStyle',
+        defaultValue: '-',
+        description: 'Custom style for the alert container',
+      },
+      {
+        name: 'titleStyle',
+        type: 'TextStyle',
+        defaultValue: '-',
+        description: 'Custom style for the alert title',
+      },
+      {
+        name: 'descriptionStyle',
+        type: 'TextStyle',
+        defaultValue: '-',
+        description: 'Custom style for the alert description',
+      },
+      {
         name: 'children',
         type: 'ReactNode',
         defaultValue: '-',
         description: 'Additional content inside the alert',
-      },
-      {
-        name: 'customAppearance',
-        type: '{ container?: ViewStyle; title?: TextStyle; description?: TextStyle }',
-        defaultValue: '-',
-        description: 'Custom style overrides',
       },
     ],
     events: [
@@ -11546,7 +11558,8 @@ export function WeightedExample() {
     examples: [
       {
         title: 'Loose fit — child can be smaller',
-        description: 'Child takes up to its allotted share but shrinks to its content.',
+        description:
+          'Child takes up to its allotted share but shrinks to its content.',
         code: `import { Row, Flexible } from '@xaui/native/view'
 import { View } from 'react-native'
 

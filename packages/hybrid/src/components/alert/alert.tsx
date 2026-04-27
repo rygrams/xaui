@@ -1,33 +1,31 @@
+'use client'
+
 import React, {
   cloneElement,
-  isValidElement,
   useCallback,
   useEffect,
   useMemo,
   useState,
+  isValidElement,
 } from 'react'
-import { Pressable, Text, View } from 'react-native'
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-  withTiming,
-} from 'react-native-reanimated'
-import { scheduleOnRN } from 'react-native-worklets'
-import { styles } from './alert.style'
+import type { CSSProperties } from 'react'
 import {
   useAlertContainerStyles,
   useAlertIconWrapperStyles,
   useAlertTextStyles,
 } from './alert.hook'
+import {
+  CloseIcon,
+  DangerIcon,
+  InfoIcon,
+  SuccessIcon,
+  WarningIcon,
+} from './alert-icons'
 import type { AlertProps } from './alert.type'
-import { DangerIcon, InfoIcon, SuccessIcon, WarningIcon } from './alert-icons'
-import { CloseIcon } from '@xaui/icons'
 import type { ThemeColor } from '../../types'
+import { toEm } from '../../utils/to-em'
 
-const iconMap: Record<
-  ThemeColor,
-  React.ComponentType<{ color: string; size: number }>
-> = {
+const iconMap: Record<ThemeColor, React.FC<{ color: string; size: number }>> = {
   default: InfoIcon,
   primary: InfoIcon,
   secondary: InfoIcon,
@@ -48,20 +46,20 @@ export const Alert: React.FC<AlertProps> = ({
   hideIcon = false,
   closeButton,
   isVisible,
-  style,
   titleStyle,
   descriptionStyle,
   children,
   onClose,
   onVisibleChange,
+  testID,
+  style,
 }) => {
   const [internalVisible, setInternalVisible] = useState(isVisible ?? true)
   const [shouldRender, setShouldRender] = useState(isVisible ?? true)
+  const [animatedOpacity, setAnimatedOpacity] = useState(1)
+  const [animatedScale, setAnimatedScale] = useState(1)
   const isControlled = typeof isVisible === 'boolean'
   const visible = isControlled ? isVisible : internalVisible
-
-  const opacity = useSharedValue(1)
-  const scale = useSharedValue(1)
 
   const containerStyles = useAlertContainerStyles(themeColor, variant)
   const iconWrapperStyles = useAlertIconWrapperStyles(themeColor, variant)
@@ -79,34 +77,27 @@ export const Alert: React.FC<AlertProps> = ({
 
   const handleClose = useCallback(() => {
     if (!visible) return
-
-    opacity.value = withTiming(0, { duration: 250 })
-    scale.value = withTiming(0.95, { duration: 250 }, finished => {
-      if (finished) {
-        scheduleOnRN(finishClosing)
-      }
-    })
-  }, [finishClosing, opacity, scale, visible])
+    setAnimatedOpacity(0)
+    setAnimatedScale(0.95)
+    setTimeout(finishClosing, 250)
+  }, [finishClosing, visible])
 
   useEffect(() => {
     if (visible && !shouldRender) {
       setShouldRender(true)
-      opacity.value = 0
-      scale.value = 0.95
-      opacity.value = withTiming(1, { duration: 250 })
-      scale.value = withTiming(1, { duration: 250 })
+      setAnimatedOpacity(0)
+      setAnimatedScale(0.95)
+      requestAnimationFrame(() => {
+        setAnimatedOpacity(1)
+        setAnimatedScale(1)
+      })
       return
     }
 
     if (!visible && shouldRender) {
       handleClose()
     }
-  }, [visible, shouldRender, opacity, scale, handleClose])
-
-  const animatedStyle = useAnimatedStyle(() => ({
-    opacity: opacity.value,
-    transform: [{ scale: scale.value }],
-  }))
+  }, [visible, shouldRender, handleClose])
 
   const IconComponent = iconMap[themeColor] ?? InfoIcon
 
@@ -115,12 +106,12 @@ export const Alert: React.FC<AlertProps> = ({
   const renderIcon = () => {
     if (hideIcon) return null
     if (icon && isValidElement(icon)) {
-      return cloneElement(icon, { color: iconColor, size: 22 } as never)
+      return cloneElement(icon, { color: iconColor, size: 18 } as never)
     }
     if (icon) {
-      return <Text style={[styles.iconText, { color: iconColor }]}>{icon}</Text>
+      return <span style={{ fontWeight: 600, color: iconColor }}>{icon}</span>
     }
-    return <IconComponent color={iconColor} size={22} />
+    return <IconComponent color={iconColor} size={18} />
   }
 
   const renderContentText = (
@@ -129,9 +120,14 @@ export const Alert: React.FC<AlertProps> = ({
     if (content === null || content === undefined) return null
     if (typeof content === 'string' || typeof content === 'number') {
       return (
-        <Text style={[styles.description, descriptionStyles, descriptionStyle]}>
+        <span
+          style={{
+            ...descriptionStyles,
+            ...descriptionStyle,
+          }}
+        >
           {content}
-        </Text>
+        </span>
       )
     }
     return content
@@ -140,26 +136,34 @@ export const Alert: React.FC<AlertProps> = ({
   const titleNode = useMemo(() => {
     if (title === null || title === undefined) return null
     if (typeof title === 'string' || typeof title === 'number') {
-      return <Text style={[styles.title, titleStyles, titleStyle]}>{title}</Text>
+      return (
+        <span
+          style={{
+            ...titleStyles,
+            ...titleStyle,
+          }}
+        >
+          {title}
+        </span>
+      )
     }
     return title
   }, [title, titleStyle, titleStyles])
 
   const descriptionNode = renderContentText(description)
-
   const childrenNode = renderContentText(children)
 
   const closeButtonNode = useMemo(() => {
     if (!closeButton) return null
     if (!isValidElement(closeButton)) return closeButton
 
-    const existingOnPress = (
-      closeButton.props as { onPress?: (event: unknown) => void }
-    ).onPress
+    const existingOnClick = (
+      closeButton.props as { onClick?: (event: unknown) => void }
+    ).onClick
 
     return cloneElement(closeButton, {
-      onPress: (event: unknown) => {
-        existingOnPress?.(event)
+      onClick: (event: unknown) => {
+        existingOnClick?.(event)
         handleClose()
       },
     } as never)
@@ -167,33 +171,70 @@ export const Alert: React.FC<AlertProps> = ({
 
   if (!shouldRender) return null
 
+  const mergedStyle: CSSProperties = {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    width: '100%',
+    gap: toEm(12),
+    ...containerStyles,
+    borderRadius: typeof radius === 'number' ? toEm(radius) : radius,
+    opacity: animatedOpacity,
+    transform: `scale(${animatedScale})`,
+    transition: 'opacity 250ms ease, transform 250ms ease',
+    boxSizing: 'border-box',
+    ...style,
+  }
+
   return (
-    <Animated.View
-      accessibilityRole="alert"
-      style={[styles.container, containerStyles, { borderRadius: radius }, style, animatedStyle]}
-    >
+    <div role="alert" data-testid={testID} style={mergedStyle}>
       {!hideIcon && (
-        <View style={[styles.iconWrapper, iconWrapperStyles]}>{renderIcon()}</View>
+        <div
+          style={{
+            width: toEm(30),
+            height: toEm(30),
+            borderRadius: toEm(15),
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexShrink: 0,
+            ...iconWrapperStyles,
+          }}
+        >
+          {renderIcon()}
+        </div>
       )}
-      <View style={styles.mainWrapper}>
+      <div
+        style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: toEm(2) }}
+      >
         {titleNode}
         {descriptionNode}
-        {childrenNode && <View style={styles.extraContent}>{childrenNode}</View>}
-      </View>
+        {childrenNode && <div style={{ marginTop: toEm(4) }}>{childrenNode}</div>}
+      </div>
       {shouldShowClose && (
-        <View>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
           {closeButtonNode ?? (
-            <Pressable
-              accessibilityRole="button"
-              accessibilityLabel="Close"
-              onPress={handleClose}
-              style={styles.closeButton}
+            <button
+              type="button"
+              aria-label="Close"
+              onClick={handleClose}
+              style={{
+                background: 'none',
+                border: 'none',
+                padding: toEm(4),
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
             >
-              <CloseIcon size={20} color={closeButtonColor} />
-            </Pressable>
+              <CloseIcon size={16} color={closeButtonColor} />
+            </button>
           )}
-        </View>
+        </div>
       )}
-    </Animated.View>
+    </div>
   )
 }
+
+Alert.displayName = 'Alert'

@@ -31,7 +31,7 @@ export default function HomeScreen() {
             Alert
           </Button>
         </GridItem>
-        <GridItem>
+        {/* <GridItem>
           <Button
             size="sm"
             onPress={() => router.push('/app-bar')}
@@ -530,7 +530,7 @@ export default function HomeScreen() {
           >
             Typography
           </Button>
-        </GridItem>
+        </GridItem> */}
       </Grid>
     </ScrollView>
   )
