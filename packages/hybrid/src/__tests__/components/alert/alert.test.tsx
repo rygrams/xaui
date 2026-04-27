@@ -2,7 +2,6 @@ import { describe, it, expect } from 'vitest'
 import type {
   AlertProps,
   AlertVariant,
-  AlertRadius,
 } from '../../../components/alert/alert.type'
 import type { ThemeColor } from '../../../types'
 
@@ -31,12 +30,9 @@ describe('AlertProps types', () => {
     })
   })
 
-  it('accepts all radii', () => {
-    const radii: AlertRadius[] = ['none', 'sm', 'md', 'lg', 'full']
-    radii.forEach(radius => {
-      const _props: AlertProps = { radius }
-      expect(_props.radius).toBeDefined()
-    })
+  it('accepts a numeric radius', () => {
+    const _props: AlertProps = { radius: 12 }
+    expect(_props.radius).toBe(12)
   })
 
   it('accepts event callbacks', () => {

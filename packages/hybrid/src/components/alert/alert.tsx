@@ -22,8 +22,8 @@ import {
   WarningIcon,
 } from './alert-icons'
 import type { AlertProps } from './alert.type'
-import { useBorderRadiusStyles } from '../../core'
 import type { ThemeColor } from '../../types'
+import { toEm } from '../../utils/to-em'
 
 const iconMap: Record<ThemeColor, React.FC<{ color: string; size: number }>> = {
   default: InfoIcon,
@@ -35,15 +35,13 @@ const iconMap: Record<ThemeColor, React.FC<{ color: string; size: number }>> = {
   danger: DangerIcon,
 }
 
-const toEm = (px: number) => `${px / 16}em`
-
 export const Alert: React.FC<AlertProps> = ({
   title,
   description,
   icon,
   themeColor = 'default',
   variant = 'flat',
-  radius = 'md',
+  radius = 8,
   isClosable = false,
   hideIcon = false,
   closeButton,
@@ -63,8 +61,6 @@ export const Alert: React.FC<AlertProps> = ({
   const isControlled = typeof isVisible === 'boolean'
   const visible = isControlled ? isVisible : internalVisible
 
-  const radiusStyles = useBorderRadiusStyles(radius)
-  const borderRadiusEm = radiusStyles ? toEm(radiusStyles.borderRadius) : undefined
   const containerStyles = useAlertContainerStyles(themeColor, variant)
   const iconWrapperStyles = useAlertIconWrapperStyles(themeColor, variant)
   const { titleStyles, descriptionStyles, iconColor, closeButtonColor } =
@@ -182,7 +178,7 @@ export const Alert: React.FC<AlertProps> = ({
     width: '100%',
     gap: toEm(12),
     ...containerStyles,
-    ...(borderRadiusEm !== undefined ? { borderRadius: borderRadiusEm } : {}),
+    borderRadius: typeof radius === 'number' ? toEm(radius) : radius,
     opacity: animatedOpacity,
     transform: `scale(${animatedScale})`,
     transition: 'opacity 250ms ease, transform 250ms ease',
@@ -216,7 +212,7 @@ export const Alert: React.FC<AlertProps> = ({
         {childrenNode && <div style={{ marginTop: toEm(4) }}>{childrenNode}</div>}
       </div>
       {shouldShowClose && (
-        <div style={{ alignSelf: 'flex-start' }}>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
           {closeButtonNode ?? (
             <button
               type="button"

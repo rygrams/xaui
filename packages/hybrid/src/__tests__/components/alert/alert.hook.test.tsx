@@ -6,6 +6,7 @@ import {
   useAlertTextStyles,
 } from '../../../components/alert/alert.hook'
 import { withOpacity } from '@xaui/core'
+import { toEm } from '../../../utils/to-em'
 
 vi.mock('../../../core', () => ({
   useXUITheme: () => ({
@@ -104,10 +105,10 @@ describe('alert hook styles', () => {
 
     expect(containerResult.current.backgroundColor).toBe('#1976d2')
     expect(containerResult.current.borderWidth).toBe(0)
-    expect(containerResult.current.paddingTop).toBe('0.5em')
-    expect(containerResult.current.paddingLeft).toBe('0.8em')
+    expect(containerResult.current.paddingTop).toBe(toEm(8))
+    expect(containerResult.current.paddingLeft).toBe(toEm(16))
     expect(textResult.current.titleStyles.color).toBe('#ffffff')
-    expect(textResult.current.titleStyles.fontSize).toBe('0.8125em')
+    expect(textResult.current.titleStyles.fontSize).toBe(toEm(14))
     expect(textResult.current.iconColor).toBe('#ffffff')
   })
 
@@ -117,7 +118,7 @@ describe('alert hook styles', () => {
     )
 
     expect(result.current.backgroundColor).toBe('transparent')
-    expect(result.current.borderWidth).toBe('0.125em')
+    expect(result.current.borderWidth).toBe(toEm(2))
     expect(result.current.borderStyle).toBe('solid')
     expect(result.current.borderColor).toBe(withOpacity('#f57c00', 0.75))
   })
@@ -126,7 +127,7 @@ describe('alert hook styles', () => {
     const { result } = renderHook(() => useAlertContainerStyles('success', 'faded'))
 
     expect(result.current.backgroundColor).toBe(withOpacity('#e8f5e9', 0.75))
-    expect(result.current.borderWidth).toBe('0.125em')
+    expect(result.current.borderWidth).toBe(toEm(2))
   })
 
   it('uses foreground color for default theme in flat variant', () => {
@@ -134,7 +135,7 @@ describe('alert hook styles', () => {
 
     expect(result.current.titleStyles.color).toBe('#111111')
     expect(result.current.descriptionStyles.color).toBe(withOpacity('#111111', 0.75))
-    expect(result.current.descriptionStyles.fontSize).toBe('0.75em')
+    expect(result.current.descriptionStyles.fontSize).toBe(toEm(12))
   })
 
   it('returns icon wrapper styles', () => {

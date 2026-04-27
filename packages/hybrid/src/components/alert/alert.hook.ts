@@ -5,8 +5,7 @@ import { getSafeThemeColor, withOpacity } from '@xaui/core'
 import { useXUITheme } from '../../core'
 import type { ThemeColor } from '../../types'
 import type { AlertVariant } from './alert.type'
-
-const toEm = (px: number) => `${px / 16}em`
+import { toEm } from '../../utils/to-em'
 
 export const useAlertColorScheme = (themeColor: ThemeColor) => {
   const theme = useXUITheme()
@@ -52,8 +51,8 @@ export const useAlertContainerStyles = (
       borderStyle: borderWidth !== 0 ? ('solid' as const) : undefined,
       paddingTop: toEm(theme.spacing.sm),
       paddingBottom: toEm(theme.spacing.sm),
-      paddingLeft: '0.8em',
-      paddingRight: '0.8em',
+      paddingLeft: toEm(theme.spacing.md),
+      paddingRight: toEm(theme.spacing.md),
     }
   }, [colorScheme, isDefault, theme, variant])
 }
@@ -108,7 +107,7 @@ export const useAlertTextStyles = (
     return {
       titleStyles: {
         color: baseTextColor,
-        fontSize: toEm(theme.fontSizes.sm - 1),
+        fontSize: toEm(theme.fontSizes.sm),
         fontWeight: theme.fontWeights.semibold,
       },
       descriptionStyles: {

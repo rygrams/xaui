@@ -1,7 +1,7 @@
 export const alertDocs = {
   name: 'Alert',
   description:
-    'Displays contextual feedback messages for success, info, warning, or error states. Supports four variants (solid, bordered, flat, faded), theme colors, closable behavior, and animated open/close transitions. Available in @xaui/native and @xaui/hybrid.',
+    'Displays contextual feedback messages for success, info, warning, or error states. Supports five variants (solid, bordered, flat, faded, glass), theme colors, closable behavior, and animated open/close transitions. Available in @xaui/native and @xaui/hybrid.',
   packages: {
     native: {
       package: '@xaui/native',
@@ -45,13 +45,13 @@ export const alertDocs = {
       name: 'variant',
       type: 'AlertVariant',
       default: "'flat'",
-      description: "Visual style — 'solid' | 'bordered' | 'flat' | 'faded'",
+      description: "Visual style — 'solid' | 'bordered' | 'flat' | 'faded' | 'glass'",
     },
     {
       name: 'radius',
-      type: 'AlertRadius',
-      default: "'md'",
-      description: "Border radius — 'none' | 'sm' | 'md' | 'lg' | 'full'",
+      type: 'number | string',
+      default: '8',
+      description: "Border radius — number in pixels (e.g. 8) or any CSS value (e.g. '50%'). Strings only supported in @xaui/hybrid.",
     },
     {
       name: 'isClosable',
@@ -133,7 +133,8 @@ export const alertDocs = {
 <Alert title="Flat" description="Subtle container background." themeColor="primary" variant="flat" />
 <Alert title="Solid" description="Strong filled background." themeColor="primary" variant="solid" />
 <Alert title="Bordered" description="Outlined with a colored border." themeColor="primary" variant="bordered" />
-<Alert title="Faded" description="Semi-transparent background." themeColor="primary" variant="faded" />`,
+<Alert title="Faded" description="Semi-transparent background." themeColor="primary" variant="faded" />
+<Alert title="Glass" description="Frosted glass effect." themeColor="primary" variant="glass" />`,
     },
     {
       title: 'Closable alert',
@@ -161,7 +162,7 @@ const [visible, setVisible] = useState(true)
   description="You have successfully signed in."
   themeColor="success"
   variant="flat"
-  radius="lg"
+  radius={12}
   isClosable
   onClose={() => console.log('closed')}
 />`,

@@ -20,7 +20,6 @@ import {
   useAlertTextStyles,
 } from './alert.hook'
 import type { AlertProps } from './alert.type'
-import { useBorderRadiusStyles } from '../../core/theme-hooks'
 import { DangerIcon, InfoIcon, SuccessIcon, WarningIcon } from './alert-icons'
 import { CloseIcon } from '@xaui/icons'
 import type { ThemeColor } from '../../types'
@@ -44,7 +43,7 @@ export const Alert: React.FC<AlertProps> = ({
   icon,
   themeColor = 'default',
   variant = 'flat',
-  radius = 'md',
+  radius = 8,
   isClosable = false,
   hideIcon = false,
   closeButton,
@@ -64,7 +63,6 @@ export const Alert: React.FC<AlertProps> = ({
   const opacity = useSharedValue(1)
   const scale = useSharedValue(1)
 
-  const radiusStyles = useBorderRadiusStyles(radius)
   const containerStyles = useAlertContainerStyles(themeColor, variant)
   const iconWrapperStyles = useAlertIconWrapperStyles(themeColor, variant)
   const { titleStyles, descriptionStyles, iconColor, closeButtonColor } =
@@ -172,7 +170,7 @@ export const Alert: React.FC<AlertProps> = ({
   return (
     <Animated.View
       accessibilityRole="alert"
-      style={[styles.container, containerStyles, radiusStyles, style, animatedStyle]}
+      style={[styles.container, containerStyles, { borderRadius: radius }, style, animatedStyle]}
     >
       {!hideIcon && (
         <View style={[styles.iconWrapper, iconWrapperStyles]}>{renderIcon()}</View>

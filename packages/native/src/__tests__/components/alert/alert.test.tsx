@@ -55,15 +55,9 @@ describe('Alert Types', () => {
     })
   })
 
-  it('accepts all radius options', () => {
-    const radii: Array<AlertProps['radius']> = ['none', 'sm', 'md', 'lg', 'full']
-
-    radii.forEach(radius => {
-      const props: AlertProps = {
-        radius,
-      }
-      expect(props.radius).toBe(radius)
-    })
+  it('accepts a numeric radius', () => {
+    const props: AlertProps = { radius: 12 }
+    expect(props.radius).toBe(12)
   })
 
   it('accepts events', () => {

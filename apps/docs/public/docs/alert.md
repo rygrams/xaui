@@ -1,6 +1,6 @@
 # Alert
 
-Displays contextual feedback messages for success, info, warning, or error states. Supports four variants (solid, bordered, flat, faded), theme colors, closable behavior, and animated open/close transitions.
+Displays contextual feedback messages for success, info, warning, or error states. Supports five variants (solid, bordered, flat, faded, glass), theme colors, closable behavior, and animated open/close transitions.
 
 ```bash
 pnpm add @xaui/native
@@ -26,8 +26,8 @@ import { Alert } from '@xaui/hybrid/alert'
 | `description`      | `ReactNode`                    | —           | Description content                                                                         |
 | `icon`             | `ReactNode`                    | —           | Custom icon (auto-selected by themeColor if omitted)                                        |
 | `themeColor`       | `ThemeColor`                   | `'default'` | `'default' \| 'primary' \| 'secondary' \| 'tertiary' \| 'success' \| 'warning' \| 'danger'` |
-| `variant`          | `AlertVariant`                 | `'flat'`    | `'solid' \| 'bordered' \| 'flat' \| 'faded'`                                                |
-| `radius`           | `AlertRadius`                  | `'md'`      | `'none' \| 'sm' \| 'md' \| 'lg' \| 'full'`                                                  |
+| `variant`          | `AlertVariant`                 | `'flat'`    | `'solid' \| 'bordered' \| 'flat' \| 'faded' \| 'glass'`                                     |
+| `radius`           | `number \| string`             | `8`         | Border radius — number in pixels or any CSS value (e.g. `"50%"`) — hybrid only for strings |
 | `isClosable`       | `boolean`                      | `false`     | Show close button                                                                           |
 | `hideIcon`         | `boolean`                      | `false`     | Hide the icon                                                                               |
 | `closeButton`      | `ReactNode`                    | —           | Custom close button                                                                         |
@@ -62,6 +62,7 @@ import { Alert } from '@xaui/native/alert'
 <Alert title="Solid" description="Strong filled background." themeColor="primary" variant="solid" />
 <Alert title="Bordered" description="Outlined with a colored border." themeColor="primary" variant="bordered" />
 <Alert title="Faded" description="Semi-transparent background." themeColor="primary" variant="faded" />
+<Alert title="Glass" description="Frosted glass effect." themeColor="primary" variant="glass" />
 ```
 
 ### Closable alert
@@ -91,6 +92,7 @@ import { Alert } from '@xaui/native/alert'
   title="Custom Styled"
   description="With custom title and description styles."
   themeColor="primary"
+  radius={12}
   style={{ borderWidth: 2, borderColor: '#a855f7' }}
   titleStyle={{ fontSize: 18, fontWeight: 'bold' }}
   descriptionStyle={{ fontStyle: 'italic' }}
