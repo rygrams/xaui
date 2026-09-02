@@ -4,69 +4,87 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-XAUI is a modern React Native UI library inspired by Flutter, built as a Turborepo monorepo. The library focuses on Flutter-like APIs, smooth animations using React Native Reanimated, and a complete design system with a Tailwind-inspired color palette.
+XAUI is a React Native UI library built as a Turborepo monorepo: composition-first components,
+animations on the UI thread with Reanimated, and a semantic token system.
 
-## Project Direction — legacy vs v1
+The library is being rebuilt on the **v1 API**. Everything below describes v1 — that is what
+every new line of code follows. The plan of record is `.project-specs/XAUI-V1-PLAN.md`, and the
+skills in `.agents/skills/` encode it by task type.
 
-The library is being rebuilt. **Two API generations coexist**, and every task must say which
-one it belongs to before any code is written. The plan of record is
-`.project-specs/XAUI-V1-PLAN.md`; the `xaui-flow` skill situates a task in its phasing.
+Migration work on the frozen previous generation is out of scope here: it lives entirely in the
+`xaui-legacy-migration` skill, and nothing from that API is written in new code.
 
-### Legacy — frozen, migration artefact only
+## The v1 API
 
-| What | Becomes |
-| --- | --- |
-| `@xaui/native` as published today (v0.2.8, 47 components) | republished as-is under `@xaui/native-legacy@0.2.8` |
-| `@xaui/core` | dissolved — tokens become `theme/` in each package, shared types are copied over |
-| `@xaui/icons` | deleted — replaced by a single `Icon` primitive in `system/` that adapts any third-party icon library |
-| `@xaui/mcp` | deleted — its hand-written docs are regenerated from the single docs source and served as `llms.txt` |
-| `@xaui/hybrid` | frozen from P0 to P4, then resumes on the v1 API |
-
-Rules for anything under `packages/native-legacy`:
-
-- **Bug fixes only.** No new component, no new prop, no refactor.
-- Its tests stay as they are — they protect the migration.
-- Its RN legacy `Animated` code stays; do not modernise it.
-- It contains **no theme code** and declares `@xaui/native` as a peer dependency — exactly
-  one `XAUIProvider` may be loaded at runtime.
-- Each component whose v1 equivalent exists gets an `@deprecated` pointing at it.
-- Deprecated on npm at parity, folder deleted in v2.
-
-Legacy API vocabulary — **never write this in new code**: `customAppearance`, `themeColor`,
-`variant="solid|flat|bordered|light|faded"`, `startContent` / `endContent`, `fullWidth`,
-the Material typography scale (`displayLarge` … `bodySmall`), deep view nesting.
-
-### v1 — the new vision, what every new line of code follows
-
-Two published packages, `@xaui/native` (rebuilt from scratch, `0.9.0-beta.x` → `1.0.0`) and
-`@xaui/hybrid`, sharing one API.
+Two published packages, `@xaui/native` and `@xaui/hybrid`, sharing one API.
 
 - **Composition, not configuration** — a `forwardRef` root plus dot-notation slots
   (`<Button.Icon>`, `<Button.Label>`), `asChild` on every root, an exported context hook per
   compound, namespaced `displayName`. The thirteen rules are in the `xaui-component` skill.
-- **Two appearance props, no more** — `variant` (flat union of ten sanctioned values) and
+- **Two appearance props, no more** — `variant` (a flat union of ten sanctioned values) and
   `color` (a raw tint). Everything else goes through the slot's own `style`.
 - **A recipe engine with a style cache** in `system/` — variants name tokens, styles resolve
   once at the root, slots receive stable `StyleSheet` references.
 - **A two-layer theme** — a small hand-written source layer, ~30 tokens derived from it in
-  OKLab. `createTheme` at module level, controlled `colorMode`, tokens generated into
-  `.gen.ts` files that are never edited by hand.
-- **100% Reanimated**, with one shared `PressableFeedback` primitive instead of a per-component
-  animation file. `react-native-reanimated` and `react-native-worklets` are **required** peer
-  dependencies in v1 — this supersedes the older "use the built-in Animated" guidance below,
-  which now applies to legacy only.
+  OKLab. `createTheme` at module level, controlled `colorMode`, tokens generated into `.gen.ts`
+  files that are never edited by hand.
+- **100% Reanimated** — `react-native-reanimated` and `react-native-worklets` are required peer
+  dependencies. Touch feedback comes from one shared `PressableFeedback` primitive, never a
+  per-component animation file.
 - **Zero runtime dependencies**; `gesture-handler`, `svg` and `safe-area-context` are optional
-  peers imported only by the components that use them.
+  peers, imported only by the components that use them.
+- **RTL-safe styles** — `paddingStart` / `paddingEnd`, `marginStart` / `marginEnd`, `start` /
+  `end`. Never `left` / `right`.
 - **A fifteen-component core** for 1.0. Everything else waits for `1.x`.
+
+## Skills
+
+Agent skills live in `.agents/skills/<name>/SKILL.md` — that is the source of truth, shared
+by every agent.
+
+`.claude/skills/<name>/` holds a **copy** of each skill, never a symlink: symlinked skills are
+not resolved reliably. So when a skill is added or edited in `.agents/skills/`, copy the folder
+across in the same commit:
+
+```bash
+cp -R .agents/skills/<name> .claude/skills/<name>
+```
+
+| Skill | Use it for |
+| --- | --- |
+| `xaui-flow` | Start here on any non-trivial task — situates it in the v1 phasing and routes it |
+| `xaui-component` | Writing a `@xaui/native` v1 component |
+| `xaui-system` | `system/` primitives: recipe engine, style cache, slots, `PressableFeedback`, `Portal`, `Icon` |
+| `xaui-theme` | Tokens, OKLab colour derivation, `createTheme`, provider, token generation |
+| `xaui-hybrid` | Porting to `@xaui/hybrid` and the `em` sizing convention |
+| `xaui-docs` | Docs pages, demo screens, generated prop tables, `llms.txt` |
+| `xaui-legacy-migration` | The frozen tree, `core-shim`, codemods, `@deprecated` |
+| `xaui-review` | Reviewing a diff against the v1 rules — run before every PR |
+
+The plan these skills encode is `.project-specs/XAUI-V1-PLAN.md`, with the runnable token
+references alongside it (`source.mjs`, `derive.mjs`, `oklab.mjs`, `tokens.json`).
 
 ## Monorepo Architecture
 
 This is a **Turborepo monorepo** using **pnpm workspaces**:
 
-- `apps/*` - Application packages (e.g., documentation site built with Next.js)
-- `packages/*` - Shared packages (e.g., UI component library, design tokens, utilities)
+- `apps/*` - Application packages (docs site, Expo demo)
+- `packages/*` - Published packages
 
 All workspace packages are managed through the root `package.json` and built/tested via Turborepo's task orchestration.
+
+**Workspaces:**
+
+- `@xaui/native` - React Native component library
+- `@xaui/hybrid` - the same API rendered for mobile webviews
+- `demo` - Expo React Native demo application
+- `docs` - Next.js documentation site
+
+**Package configurations:**
+
+- Library packages (`@xaui/*`) use **tsup** for building with dual CJS/ESM output
+- All packages have individual test configurations with Vitest
+- Apps without tests should use `passWithNoTests: true` in vitest.config.ts to prevent CI failures
 
 ## Development Commands
 
@@ -86,9 +104,160 @@ pnpm format           # Format code with Prettier
 
 ```bash
 pnpm --filter <workspace-name> <command>   # Run command in specific workspace
-pnpm --filter @xaui/core dev                # Example: dev mode for core package
+pnpm --filter @xaui/native dev              # Example: dev mode for the native package
 pnpm --filter docs test                    # Example: test docs app
 ```
+
+## Component Structure
+
+Components live under `packages/native` and `packages/hybrid`, for React Native and mobile
+webview respectively. `packages/<pkg>/src` has six top-level folders:
+
+```
+src/
+├── theme/        # tokens and their access — generated .gen.ts files are never hand-edited
+├── provider/     # what wraps the app once
+├── system/       # what third parties need to build THEIR own XAUI component — public
+├── hooks/        # React hooks shared by ≥ 2 components
+├── utils/        # pure, React-free, internal — private
+├── types/        # types used by ≥ 2 components
+├── components/   # one folder per component
+└── __tests__/    # exact mirror of the tree above
+```
+
+A file used by a single component stays in that component's folder; promotion happens at the
+second use, never by anticipation. `system/` is public and follows semver, `utils/` is private
+and can change at any time — a helper that becomes useful outside **moves**, it is not
+re-exported.
+
+A component folder:
+
+```
+components/button/
+├── button.recipe.ts     # variants → tokens. Source of truth for style, no hardcoded values
+├── button.context.ts    # slot context carrying RESOLVED values + the exported useButton hook
+├── button.type.ts       # ButtonProps, ButtonLabelProps…
+├── button.hook.ts       # non-visual logic — only if there is any
+├── button.style.ts      # static StyleSheet only — often tiny, often absent
+├── button.tsx           # the root
+├── button-label.tsx     # one file per slot
+├── button-icon.tsx
+└── index.ts             # Object.assign(ButtonRoot, { Label, Icon })
+```
+
+**No empty file "to respect the convention."** A component without slots has no `.context.ts`;
+without animation, no `.animation.ts`.
+
+Each component is an independent subpath export — `@xaui/native/button`, `@xaui/hybrid/button` —
+declared in `package.json` and in `tsup.config.ts`:
+
+```jsonc
+"exports": {
+  "./button": {
+    "types": "./dist/button/index.d.ts",
+    "import": "./dist/button/index.js",
+    "require": "./dist/button/index.js"
+  }
+}
+```
+
+Full detail, including the thirteen rules and the per-component loop: the `xaui-component` skill.
+
+## Hybrid (@xaui/hybrid) Sizing Convention
+
+All sizing in `@xaui/hybrid` components must use **`em` units** (not `px`) so that the hybrid version scales identically to the native version. A helper `toEm(px)` function converts theme pixel values:
+
+```ts
+const toEm = (px: number) => `${px / 16}em`
+```
+
+This applies to:
+
+- **Spacing** (padding, margin, gap)
+- **Dimensions** (width, height)
+- **Border** (borderWidth, borderRadius)
+- **Typography** (fontSize)
+- **Any fixed pixel value** from the theme or native StyleSheet
+
+When porting a native component to hybrid:
+
+1. Use `toEm()` for every numeric size from `theme.spacing`, `theme.borderWidth`, `theme.fontSizes`, `theme.borderRadius`
+2. Use `toEm()` for every fixed pixel value from the native `StyleSheet` (e.g., `gap: 12` → `gap: toEm(12)`)
+3. Use CSS-valid properties only — **never** use React Native shorthand properties like `paddingVertical`, `paddingHorizontal`, `marginVertical`, `marginHorizontal`. Instead, split them into `paddingTop`/`paddingBottom`, `paddingLeft`/`paddingRight`, etc.
+
+See the `xaui-hybrid` skill.
+
+## Testing
+
+**Run tests:**
+
+```bash
+pnpm test                          # Run all tests in monorepo
+pnpm --filter @xaui/native test    # Run tests for specific package
+pnpm --filter @xaui/native test:ui # Run tests with Vitest UI
+pnpm --filter @xaui/native test:coverage # Run tests with coverage
+```
+
+**Test configuration:**
+
+- Vitest is installed at root level and inherited by workspaces
+- Packages with tests use standard Vitest config (e.g., `packages/native/vitest.config.ts`)
+- Apps without tests must include `passWithNoTests: true` to avoid CI failures (e.g., `apps/docs/vitest.config.ts`)
+
+**Important:** Turborepo runs `test` tasks with `dependsOn: ["build"]`, so builds happen automatically before tests run.
+
+## Code Style
+
+**Prettier** is configured with these key settings:
+
+- No semicolons
+- Single quotes
+- 90 character line width
+- 2 space indentation
+- ES5 trailing commas
+- function must not have more than 3 parameters
+
+Run `pnpm format` to auto-format code.
+
+## Technology Stack
+
+- **TypeScript**: Fully typed codebase
+- **React Native**: Mobile UI framework
+- **React Native Reanimated**: Native animations
+- **Next.js**: Documentation site
+- **Vitest**: Testing framework
+- **Turborepo**: Build system and task runner
+- **Changesets**: Version management and publishing
+- **tsup**: Package bundler for library packages
+
+## Requirements
+
+- Node.js >= 20
+- pnpm 10.28.0+
+
+## Code Best Practices
+
+- Dont add any console.log or console.error
+- Dont add any debugger statements
+- Dont add any comments that are not needed
+- Avoid deep code nesting like if (condition) { if (condition) { if (condition) { } } } or for (let i = 0; i < 10; i++) { if (condition) { if (condition) { if (condition) { } } } }
+- Use early returns to avoid deep code nesting
+- Avoid any type as much as possible
+- create a test file for each component in `/__tests__` with same path as component
+  example: `packages/native/src/components/button/button.tsx` -> `packages/native/src/__tests__/components/button/button.test.tsx`
+- run test and lint after each component code change
+- do a code review after each component code change and simplify if needed — use the
+  `xaui-review` skill
+
+## Package Guidelines
+
+- Use pnpm for package management
+- Use workspace: \* for dependencies
+- `react-native-reanimated` and `react-native-worklets` are required peer dependencies; all
+  animation goes through them, never RN's built-in `Animated`
+- Add test for each component you code or update
+- Package name should be in singular form
+- dont use css file for styling use tailwind for styling or framer-motion for animations
 
 ## Release Process
 
@@ -136,88 +305,6 @@ These commands are handled automatically by the CI/CD pipeline.
 
 The entire process is automated - you only need to create and commit changeset files.
 
-## Code Style
-
-**Prettier** is configured with these key settings:
-
-- No semicolons
-- Single quotes
-- 90 character line width
-- 2 space indentation
-- ES5 trailing commas
-- function must not have more than 3 parameters
-
-Run `pnpm format` to auto-format code.
-
-## Technology Stack
-
-- **TypeScript**: Fully typed codebase
-- **React Native**: Mobile UI framework
-- **React Native Reanimated**: Native animations
-- **Next.js**: Documentation site
-- **Vitest**: Testing framework
-- **Turborepo**: Build system and task runner
-- **Changesets**: Version management and publishing
-- **tsup**: Package bundler for library packages
-
-## Architecture Guidelines
-
-**v1 — composition API**: a `forwardRef` root plus dot-notation slots, following the thirteen
-rules of `.project-specs/XAUI-V1-PLAN.md` §1. Layout belongs to the root; each slot carries its
-own `style`. See the `xaui-component` skill.
-
-**Legacy — Flutter-inspired props**: the frozen tree follows Flutter's compositional patterns
-with props like `padding`, `margin`, `borderRadius`. Do not extend it; do not carry that style
-into v1 code.
-
-**Design System**: v1 uses flat semantic tokens — a hand-written source layer plus an
-OKLab-derived layer (`accent`, `dangerSoft`, `surfacePressed`…), not a raw Tailwind palette. The
-palette exists but sits outside the theme. See the `xaui-theme` skill.
-
-**Animation-first**: all v1 animation is Reanimated on the UI thread, through the shared
-`PressableFeedback` primitive for touch feedback.
-
-## Requirements
-
-- Node.js >= 20
-- pnpm 10.28.0+
-
-## Workspace Structure
-
-**Current workspaces:**
-
-- `@xaui/native` - React Native component library — being rebuilt on the v1 API
-- `@xaui/hybrid` - the same API rendered for mobile webviews (frozen until 1.0)
-- `@xaui/core`, `@xaui/icons`, `@xaui/mcp` - legacy, slated for removal (see
-  *Project Direction*)
-- `demo` - Expo React Native demo application
-- `docs` - Next.js documentation site
-
-**Package configurations:**
-
-- Library packages (`@xaui/*`) use **tsup** for building with dual CJS/ESM output
-- All packages have individual test configurations with Vitest
-- Apps without tests should use `passWithNoTests: true` in vitest.config.ts to prevent CI failures
-
-## Testing
-
-**Run tests:**
-
-```bash
-pnpm test                          # Run all tests in monorepo
-pnpm --filter @xaui/colors test    # Run tests for specific package
-pnpm --filter @xaui/colors test:ui # Run tests with Vitest UI
-pnpm --filter @xaui/colors test:coverage # Run tests with coverage
-```
-
-**Test configuration:**
-
-- Vitest is installed at root level and inherited by workspaces
-- Packages with tests use standard Vitest config (e.g., `packages/colors/vitest.config.ts`)
-- Apps without tests must include `passWithNoTests: true` to avoid CI failures (e.g., `apps/docs/vitest.config.ts`)
-
-**Important:** Turborepo runs `test` tasks with `dependsOn: ["build"]`, so builds happen automatically before tests run.
-
 ## CI/CD
 
 The project uses GitHub Actions with the following workflow:
@@ -229,33 +316,6 @@ The project uses GitHub Actions with the following workflow:
 2. **Publish Pipeline** (on push to main):
    - Uses Changesets action to create release PRs or publish to npm
    - Only builds `@xaui/*` scoped packages before publishing
-
-## Skills
-
-Agent skills live in `.agents/skills/<name>/SKILL.md` — that is the source of truth, shared
-by every agent.
-
-`.claude/skills/<name>/` holds a **copy** of each skill, never a symlink: symlinked skills are
-not resolved reliably. So when a skill is added or edited in `.agents/skills/`, copy the folder
-across in the same commit:
-
-```bash
-cp -R .agents/skills/<name> .claude/skills/<name>
-```
-
-| Skill | Use it for |
-| --- | --- |
-| `xaui-flow` | Start here on any non-trivial task — situates it in the v1 phasing and routes it |
-| `xaui-component` | Writing or converting a `@xaui/native` v1 component |
-| `xaui-system` | `system/` primitives: recipe engine, style cache, slots, `PressableFeedback`, `Portal`, `Icon` |
-| `xaui-theme` | Tokens, OKLab colour derivation, `createTheme`, provider, token generation |
-| `xaui-hybrid` | Porting to `@xaui/hybrid` and the `em` sizing convention |
-| `xaui-docs` | Docs pages, demo screens, generated prop tables, `llms.txt` |
-| `xaui-legacy-migration` | `@xaui/native-legacy`, `core-shim`, codemods, `@deprecated` |
-| `xaui-review` | Reviewing a diff against the v1 rules — run before every PR |
-
-The v1 plan these skills encode is `.project-specs/XAUI-V1-PLAN.md`, with the runnable
-token references alongside it (`source.mjs`, `derive.mjs`, `oklab.mjs`, `tokens.json`).
 
 ## Commit Message Guidelines
 
@@ -277,6 +337,7 @@ token references alongside it (`source.mjs`, `derive.mjs`, `oklab.mjs`, `tokens.
 2. **Commit the `.changeset/*.md` files** with your changes
 3. ❌ **DO NOT** run `pnpm changeset version` - the CI handles this
 4. Run `pnpm lint`, `pnpm type-check`, and `pnpm test` to verify all checks pass
+5. Run the `xaui-review` skill on the diff
 
 **Creating the PR:**
 
@@ -289,85 +350,3 @@ token references alongside it (`source.mjs`, `derive.mjs`, `oklab.mjs`, `tokens.
 
 - Changesets Action will automatically create/update a "Version Packages" PR
 - When that PR is merged, packages are published to npm automatically
-
-## Code Best Practices
-
-- Dont add any console.log or console.error
-- Dont add any debugger statements
-- Dont add any comments that are not needed
-- Avoid deep code nesting like if (condition) { if (condition) { if (condition) { } } } or for (let i = 0; i < 10; i++) { if (condition) { if (condition) { if (condition) { } } } }
-- Use early returns to avoid deep code nesting
-- Use early returns to avoid deep code nesting
-- Avoid any type as much as possible
-- create a test file for each component in `/__tests__` with same path as component
-  example: `packages/core/src/components/button/index.tsx` -> `packages/core/src/__tests__/components/button/index.test.tsx`
-- **Exception:** Icon components do NOT require test files. Skip test creation for any icon in `packages/native/src/components/icon/icons/`
-- run test and lint after each component code change
-- do a code review after each component code change and simplify if needed
-
-## Package Guidelines
-
-- Use pnpm for package management
-- Use workspace: \* for dependencies
-- Dont use react-native-reanimated, use built-in Reanimated from react-native
-- Add test for each component you code or update (except icon components - icons do not need tests)
-- Package name should be in singular form
-- dont use css file for styling use tailwind for styling or framer-motion for animations
-
-## Hybrid (@xaui/hybrid) Sizing Convention
-
-All sizing in `@xaui/hybrid` components must use **`em` units** (not `px`) so that the hybrid version scales identically to the native version. A helper `toEm(px)` function converts theme pixel values:
-
-```ts
-const toEm = (px: number) => `${px / 16}em`
-```
-
-This applies to:
-
-- **Spacing** (padding, margin, gap)
-- **Dimensions** (width, height)
-- **Border** (borderWidth, borderRadius)
-- **Typography** (fontSize)
-- **Any fixed pixel value** from the theme or native StyleSheet
-
-When porting a native component to hybrid:
-
-1. Use `toEm()` for every numeric size from `theme.spacing`, `theme.borderWidth`, `theme.fontSizes`, `theme.borderRadius`
-2. Use `toEm()` for every fixed pixel value from the native `StyleSheet` (e.g., `gap: 12` → `gap: toEm(12)`)
-3. Use CSS-valid properties only — **never** use React Native shorthand properties like `paddingVertical`, `paddingHorizontal`, `marginVertical`, `marginHorizontal`. Instead, split them into `paddingTop`/`paddingBottom`, `paddingLeft`/`paddingRight`, etc.
-
-## Component Structure
-
-- components packages is under packages/native et packages/hybrid respectively for react native and mobile webview
-
-Example of component structure:
-
-- packages/
-  - native|hy\
-  - hooks\ -- all shared hooks
-  - types\ -- all shared types
-  - utils\ -- components utils
-  - components\
-    - button\
-    - \_\_tests\_\_\
-      - button.test.tsx --button tests
-      - button.hook.test.ts --button tests
-    - button.type.ts --button types
-    - button.hook.ts --button hooks
-    - button.style.ts --button styles
-    - button.tsx --button component
-    - index.ts --button exports
-
-- run test and lint after each component code change
-- export component as @xaui/native/button , @xaui/hybrid/button so improve tsup.config.ts based on component development
-- each component should be exports in package.json as independent export
-
-example :
-
-exports : {
-"./button" : {
-"types" : "./button/index.tsx"
-"import" : "./button/index.tsx",
-"require" : "./button/index.tsx",
-}
-}

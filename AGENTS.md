@@ -6,6 +6,8 @@ Practical guidance for agentic coding assistants in this monorepo.
 
 - Applies repository-wide unless a deeper instruction file overrides it.
 - Follow `CLAUDE.md` in addition to this file.
+- The library follows the **v1 API** described in `.project-specs/XAUI-V1-PLAN.md`. Load the
+  skill that owns the task before writing code — see *Skills* below.
 
 ## Cursor/Copilot rules
 
@@ -18,8 +20,22 @@ Practical guidance for agentic coding assistants in this monorepo.
 
 - Turborepo + pnpm workspace monorepo.
 - Workspaces: `apps/*`, `packages/*`.
-- Main libraries: `@xaui/core`, `@xaui/native`, `@xaui/hybrid`, `@xaui/icons`.
+- Published libraries: `@xaui/native` (React Native), `@xaui/hybrid` (mobile webview).
 - Apps: `docs` (Next.js), `demo` (Expo).
+
+## Skills
+
+Source of truth in `.agents/skills/<name>/SKILL.md`, copied (never symlinked) into
+`.claude/skills/`.
+
+- `xaui-flow` — start here on any non-trivial task; it routes to the others
+- `xaui-component` — writing a component
+- `xaui-system` — recipe engine, style cache, slots, `PressableFeedback`, `Portal`, `Icon`
+- `xaui-theme` — tokens, OKLab derivation, `createTheme`, provider
+- `xaui-hybrid` — porting to the web renderer, `em` units
+- `xaui-docs` — docs pages, demo screens, generated tables
+- `xaui-legacy-migration` — the frozen tree and its codemods
+- `xaui-review` — run on the diff before every PR
 
 ## Environment
 
@@ -53,7 +69,7 @@ Examples:
 ```bash
 pnpm --filter @xaui/native build
 pnpm --filter @xaui/hybrid lint
-pnpm --filter @xaui/core test
+pnpm --filter @xaui/native test
 pnpm --filter docs dev
 ```
 
@@ -120,9 +136,9 @@ pnpm --filter @xaui/native exec eslint src/components/button/button.tsx
 
 - React component identifiers: PascalCase (`Button`, `Alert`).
 - Component folder/file slugs: commonly kebab-case (`bottom-sheet`).
-- Types frequently live in `*.type.ts`.
-- Hooks frequently live in `*.hook.ts` or `*.hook.tsx`.
-- Styles frequently live in `*.style.ts`.
+- Types live in `*.type.ts`, hooks in `*.hook.ts`, static styles in `*.style.ts`.
+- Style variants live in `*.recipe.ts`, slot context in `*.context.ts`.
+- One file per slot, named `<component>-<slot>.tsx`.
 - Keep naming aligned with neighboring modules.
 
 ## Testing conventions
@@ -130,7 +146,8 @@ pnpm --filter @xaui/native exec eslint src/components/button/button.tsx
 - Add/update tests for behavioral changes.
 - Mirror source paths under `src/__tests__/...`.
 - Common suffixes: `*.test.tsx`, `*.hook.test.ts`, `*.utils.test.ts`.
-- Exception: icon components do not require dedicated tests.
+- Cover: each slot renders, the context hook throws by name outside its parent, `asChild`,
+  and style reference stability.
 
 ## Error handling and control flow
 
