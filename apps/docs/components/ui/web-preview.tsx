@@ -1,13 +1,14 @@
 'use client'
 
 import { type ReactNode, useEffect, useState } from 'react'
+import { createTheme } from '@xaui/native/theme'
 import { XUIProvider } from '@xaui/native-legacy/core'
 
 const GEIST = 'var(--font-geist-sans, system-ui, sans-serif)'
 
-const geistTheme = {
-  fontFamilies: { body: GEIST, heading: GEIST, default: GEIST },
-}
+const geistTheme = createTheme({
+  fontFamilies: { body: GEIST, heading: GEIST, mono: GEIST },
+})
 
 type WebPreviewProps = {
   children: ReactNode

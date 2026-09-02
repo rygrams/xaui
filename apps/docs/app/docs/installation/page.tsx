@@ -53,7 +53,10 @@ export default function InstallationPage() {
           <p className="text-muted-foreground">
             For React Native CLI projects, install the core packages:
           </p>
-          <CodeBlock code="npm install @xaui/native-legacy @xaui/core" language="bash" />
+          <CodeBlock
+            code="npm install @xaui/native @xaui/native-legacy@0.2.8 --save-exact"
+            language="bash"
+          />
         </section>
 
         <section className="space-y-4">
