@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { getSafeThemeColor, withOpacity, withPaletteNumber } from '@xaui/core'
+import { getSafeThemeColor, withOpacity, withPaletteNumber } from '../../core-shim'
 import { useXUITheme } from '../../core'
 import type { Radius, ThemeColor } from '../../types'
 import type { TextInputSize, TextInputVariant } from './input.type'

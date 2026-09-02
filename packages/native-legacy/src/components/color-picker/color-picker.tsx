@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Pressable, ScrollView, Text, View } from 'react-native'
-import { withOpacity } from '@xaui/core'
+import { withOpacity } from '../../core-shim'
 import { useXUITheme } from '../../core'
 import { BottomSheet } from '../bottom-sheet/bottom-sheet'
 import { InputTrigger } from '../input-trigger/input-trigger'

@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import { useXUITheme } from '../../../core'
 import { useBorderRadiusStyles } from '../../../core/theme-hooks'
 import type { SurfaceThemeColor, SurfaceProps } from './surface.type'
-import { getSafeThemeColor } from '@xaui/core'
+import { getSafeThemeColor } from '../../../core-shim'
 
 const resolveBackgroundColor = (
   color: SurfaceThemeColor,

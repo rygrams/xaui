@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { useXUITheme } from '../../core'
 import type { ThemeColor } from '../../types'
 import type { DividerOrientation } from './divider.type'
-import { getSafeThemeColor } from '@xaui/core'
+import { getSafeThemeColor } from '../../core-shim'
 
 export const useDividerColor = (
   themeColor: ThemeColor,

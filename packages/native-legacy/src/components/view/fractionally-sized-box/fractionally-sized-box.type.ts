@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import type { StyleProp, ViewStyle } from 'react-native'
-import type { Alignment } from '@xaui/core'
+import type { Alignment } from '../../../types'
 
 export type FractionallySizedBoxProps = {
   /**

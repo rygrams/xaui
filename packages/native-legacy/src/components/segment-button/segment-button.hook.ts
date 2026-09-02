@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { useXUITheme } from '../../core'
-import { getSafeThemeColor, withOpacity, withPaletteNumber } from '@xaui/core'
+import { getSafeThemeColor, withOpacity, withPaletteNumber } from '../../core-shim'
 import type { SegmentButtonVariant, ElevationLevel } from './segment-button.type'
 import type { Size, ThemeColor } from '../../types'
 

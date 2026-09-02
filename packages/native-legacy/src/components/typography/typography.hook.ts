@@ -3,7 +3,7 @@ import type { TextStyle } from 'react-native'
 import { useXUITheme } from '../../core'
 import type { ThemeColor } from '../../types'
 import type { TypographyVariant } from './typography.type'
-import { getSafeThemeColor } from '@xaui/core'
+import { getSafeThemeColor } from '../../core-shim'
 
 type KnownVariant =
   | 'displayLarge'

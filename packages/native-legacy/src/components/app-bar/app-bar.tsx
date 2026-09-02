@@ -1,6 +1,6 @@
 import React from 'react'
 import { View } from 'react-native'
-import { getSafeThemeColor } from '@xaui/core'
+import { getSafeThemeColor } from '../../core-shim'
 import { useXUITheme } from '../../core'
 import { useAppBarElevationStyles } from './app-bar.hook'
 import { styles } from './app-bar.style'
