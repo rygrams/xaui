@@ -6,6 +6,59 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 XAUI is a modern React Native UI library inspired by Flutter, built as a Turborepo monorepo. The library focuses on Flutter-like APIs, smooth animations using React Native Reanimated, and a complete design system with a Tailwind-inspired color palette.
 
+## Project Direction — legacy vs v1
+
+The library is being rebuilt. **Two API generations coexist**, and every task must say which
+one it belongs to before any code is written. The plan of record is
+`.project-specs/XAUI-V1-PLAN.md`; the `xaui-flow` skill situates a task in its phasing.
+
+### Legacy — frozen, migration artefact only
+
+| What | Becomes |
+| --- | --- |
+| `@xaui/native` as published today (v0.2.8, 47 components) | republished as-is under `@xaui/native-legacy@0.2.8` |
+| `@xaui/core` | dissolved — tokens become `theme/` in each package, shared types are copied over |
+| `@xaui/icons` | deleted — replaced by a single `Icon` primitive in `system/` that adapts any third-party icon library |
+| `@xaui/mcp` | deleted — its hand-written docs are regenerated from the single docs source and served as `llms.txt` |
+| `@xaui/hybrid` | frozen from P0 to P4, then resumes on the v1 API |
+
+Rules for anything under `packages/native-legacy`:
+
+- **Bug fixes only.** No new component, no new prop, no refactor.
+- Its tests stay as they are — they protect the migration.
+- Its RN legacy `Animated` code stays; do not modernise it.
+- It contains **no theme code** and declares `@xaui/native` as a peer dependency — exactly
+  one `XAUIProvider` may be loaded at runtime.
+- Each component whose v1 equivalent exists gets an `@deprecated` pointing at it.
+- Deprecated on npm at parity, folder deleted in v2.
+
+Legacy API vocabulary — **never write this in new code**: `customAppearance`, `themeColor`,
+`variant="solid|flat|bordered|light|faded"`, `startContent` / `endContent`, `fullWidth`,
+the Material typography scale (`displayLarge` … `bodySmall`), deep view nesting.
+
+### v1 — the new vision, what every new line of code follows
+
+Two published packages, `@xaui/native` (rebuilt from scratch, `0.9.0-beta.x` → `1.0.0`) and
+`@xaui/hybrid`, sharing one API.
+
+- **Composition, not configuration** — a `forwardRef` root plus dot-notation slots
+  (`<Button.Icon>`, `<Button.Label>`), `asChild` on every root, an exported context hook per
+  compound, namespaced `displayName`. The thirteen rules are in the `xaui-component` skill.
+- **Two appearance props, no more** — `variant` (flat union of ten sanctioned values) and
+  `color` (a raw tint). Everything else goes through the slot's own `style`.
+- **A recipe engine with a style cache** in `system/` — variants name tokens, styles resolve
+  once at the root, slots receive stable `StyleSheet` references.
+- **A two-layer theme** — a small hand-written source layer, ~30 tokens derived from it in
+  OKLab. `createTheme` at module level, controlled `colorMode`, tokens generated into
+  `.gen.ts` files that are never edited by hand.
+- **100% Reanimated**, with one shared `PressableFeedback` primitive instead of a per-component
+  animation file. `react-native-reanimated` and `react-native-worklets` are **required** peer
+  dependencies in v1 — this supersedes the older "use the built-in Animated" guidance below,
+  which now applies to legacy only.
+- **Zero runtime dependencies**; `gesture-handler`, `svg` and `safe-area-context` are optional
+  peers imported only by the components that use them.
+- **A fifteen-component core** for 1.0. Everything else waits for `1.x`.
+
 ## Monorepo Architecture
 
 This is a **Turborepo monorepo** using **pnpm workspaces**:
@@ -109,11 +162,20 @@ Run `pnpm format` to auto-format code.
 
 ## Architecture Guidelines
 
-**Flutter-inspired API**: Components should follow Flutter's compositional patterns with props like `padding`, `margin`, `borderRadius`, etc., rather than traditional React Native style objects where appropriate.
+**v1 — composition API**: a `forwardRef` root plus dot-notation slots, following the thirteen
+rules of `.project-specs/XAUI-V1-PLAN.md` §1. Layout belongs to the root; each slot carries its
+own `style`. See the `xaui-component` skill.
 
-**Design System**: The library includes a comprehensive color system inspired by Tailwind (20+ colors with 11 shades each). Use these design tokens consistently across components.
+**Legacy — Flutter-inspired props**: the frozen tree follows Flutter's compositional patterns
+with props like `padding`, `margin`, `borderRadius`. Do not extend it; do not carry that style
+into v1 code.
 
-**Animation-first**: Leverage React Native Reanimated for all animations to ensure native performance.
+**Design System**: v1 uses flat semantic tokens — a hand-written source layer plus an
+OKLab-derived layer (`accent`, `dangerSoft`, `surfacePressed`…), not a raw Tailwind palette. The
+palette exists but sits outside the theme. See the `xaui-theme` skill.
+
+**Animation-first**: all v1 animation is Reanimated on the UI thread, through the shared
+`PressableFeedback` primitive for touch feedback.
 
 ## Requirements
 
@@ -124,7 +186,10 @@ Run `pnpm format` to auto-format code.
 
 **Current workspaces:**
 
-- `@xaui/colors` - Tailwind-inspired color palette package with 20+ colors × 11 shades
+- `@xaui/native` - React Native component library — being rebuilt on the v1 API
+- `@xaui/hybrid` - the same API rendered for mobile webviews (frozen until 1.0)
+- `@xaui/core`, `@xaui/icons`, `@xaui/mcp` - legacy, slated for removal (see
+  *Project Direction*)
 - `demo` - Expo React Native demo application
 - `docs` - Next.js documentation site
 
@@ -167,18 +232,9 @@ The project uses GitHub Actions with the following workflow:
 
 ## Skills
 
-Agent skills live in `.agents/skills/<name>/SKILL.md` — that is the source of truth, shared
-by every agent (Claude, Gemini, Codex).
-
-`.claude/skills/<name>/` holds a **copy** of each skill, never a symlink. Symlinks are not
-resolved reliably, so when a skill is added or edited in `.agents/skills/`, copy the folder
-across in the same commit:
-
-```bash
-cp -R .agents/skills/<name> .claude/skills/<name>
-```
-
-**Project skills:**
+Agent skills live in `.claude/skills/<name>/SKILL.md` — real files, **never symlinks**;
+symlinked skills are not resolved reliably. A skill is added or edited in place, in that
+folder, and committed with the change it documents.
 
 | Skill | Use it for |
 | --- | --- |
