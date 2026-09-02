@@ -11,8 +11,13 @@ const clamp01 = (n: number) => Math.min(1, Math.max(0, n))
 
 const HEX = /^#?(?:[0-9a-f]{3}|[0-9a-f]{6})$/i
 
+/** Callers that can give a better error than `hexToRgb`'s test the value first. */
+export function isHex(value: string): boolean {
+  return HEX.test(value)
+}
+
 export function hexToRgb(hex: string): Rgb {
-  if (!HEX.test(hex)) {
+  if (!isHex(hex)) {
     throw new Error(
       `XAUI: "${hex}" is not a hex colour. Tokens that feed mix() and alpha() must be ` +
         '#rgb or #rrggbb — named colours and rgb()/rgba() values cannot be blended.'
