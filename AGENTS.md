@@ -133,8 +133,8 @@ Commits follow commitizen. **No Claude co-author line.** Commit progressively �
 per coherent unit as the work lands, not one at the end.
 
 Before the PR: create a changeset per touched package (`pnpm changeset`, always **patch**,
-we are in beta), commit the `.changeset/*.md`, run `pnpm lint && pnpm type-check && pnpm
-test`, and run the `xaui-review` skill on the diff.
+we are on the `alpha` line — see §Release), commit the `.changeset/*.md`, run `pnpm lint &&
+pnpm type-check && pnpm test`, and run the `xaui-review` skill on the diff.
 
 ```bash
 gh pr create --assignee @me --label documentation
@@ -151,6 +151,28 @@ gh pr create --assignee @me --label documentation
 Changesets, fully automated. **Never run `pnpm changeset version`, `pnpm version-packages`
 or `pnpm release` locally** — merging to `main` opens or updates a "Version Packages" PR,
 and merging that one publishes.
+
+### The `alpha` line
+
+The repo is in changesets **pre mode** with the tag `alpha` (`.changeset/pre.json`), so
+`@xaui/native` and `@xaui/hybrid` are versioned `0.9.x-alpha.x` and published on the
+`alpha` dist-tag. `latest` keeps pointing at `@xaui/native@0.2.8` and `@xaui/hybrid@0.0.14`
+— the last releases that carry components — because v1's `src/` is still the theme layer
+alone. `pnpm add @xaui/native@alpha` is how you get it.
+
+Three consequences, all of them load-bearing:
+
+- **Never `changeset pre exit`** unless the task says to. It graduates both packages onto
+  `latest`, which today means handing every `npm i @xaui/native` a package with no
+  components. It is required exactly once, right before `1.0.0`.
+- **Pre mode is repo-wide.** A changeset on `@xaui/native-legacy` versions it `-alpha.x`
+  too. Legacy is frozen so this is rare, but a genuine `0.2.x` fix needs pre mode exited
+  for that release.
+- **A package that has never been published must not have its first publish under pre
+  mode.** `getReleaseTag` gives the pre tag to any package whose `publishedState` is not
+  `"only-pre"`, and `"never"` is not `"only-pre"` — so it would go out tagged `alpha` with
+  no `latest` tag at all, and `npm i <pkg>` would fail to resolve. `@xaui/native-legacy` is
+  the one package this still applies to.
 
 CI on PRs to `main`/`dev`: tokens check → lint → type check → test → build, plus CodeQL.
 The release workflow runs on push to `main`.
