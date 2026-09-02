@@ -1,4 +1,4 @@
-# @xaui/native
+# @xaui/hybrid
 
 ## 0.9.1-alpha.0
 
@@ -15,9 +15,3 @@
   `pnpm add @xaui/native@alpha` is the opt-in. At this point it exports the theme layer only
   (`createTheme`, `XAUIProvider`, the token and colour utilities) — the components land from
   P2 on, one at a time, which is exactly what the tag announces.
-
-## 0.9.0
-
-### Patch Changes
-
-- 1f09f09: Add an ESLint rule (R13) that forbids directional style properties (`left`, `right`, `paddingLeft`, `marginRight`, `borderLeftWidth`…) in `packages/native/src` — use the Start/End equivalents instead so React Native mirrors layout correctly under RTL.
