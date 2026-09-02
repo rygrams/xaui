@@ -66,6 +66,14 @@ export default function PressableFeedbackScreen() {
       <Section title="A styled overlay — variant 'scale', slot rendered by hand">
         <StyledOverlayTile />
       </Section>
+
+      <Section title="asChild — the feedback must survive the merge">
+        <AsChildTile />
+      </Section>
+
+      <Section title="animation per slot — same variant, slower and stronger">
+        <SlowHighlightTile />
+      </Section>
     </ScrollView>
   )
 }
@@ -151,6 +159,69 @@ function StyledOverlayTile() {
       />
       <Text style={{ color: theme.colors.surfaceForeground }}>
         scale + a Highlight tinted by the slot&apos;s own style
+      </Text>
+    </PressableFeedback>
+  )
+}
+
+/**
+ * The case that would break silently if `asChild` went around `PressableFeedback`
+ * instead of through it: the child must scale and wash exactly like a plain tile.
+ */
+function AsChildTile() {
+  const theme = useXAUITheme()
+  const [isPressed, setIsPressed] = useState(false)
+
+  return (
+    <PressableFeedback
+      asChild
+      isPressed={isPressed}
+      feedbackVariant="scale-highlight"
+      onPressIn={() => setIsPressed(true)}
+      onPressOut={() => setIsPressed(false)}
+      accessibilityRole="button"
+    >
+      <View
+        style={{
+          height: theme.controlHeights.lg,
+          justifyContent: 'center',
+          paddingHorizontal: theme.spacing(4),
+          borderRadius: theme.radius.md,
+          overflow: 'hidden',
+          backgroundColor: theme.colors.success,
+        }}
+      >
+        <Text style={{ color: theme.colors.successForeground }}>
+          asChild — merged into this View, feedback intact
+        </Text>
+      </View>
+    </PressableFeedback>
+  )
+}
+
+function SlowHighlightTile() {
+  const theme = useXAUITheme()
+  const [isPressed, setIsPressed] = useState(false)
+
+  return (
+    <PressableFeedback
+      isPressed={isPressed}
+      feedbackVariant="scale"
+      onPressIn={() => setIsPressed(true)}
+      onPressOut={() => setIsPressed(false)}
+      accessibilityRole="button"
+      style={{
+        height: theme.controlHeights.lg,
+        justifyContent: 'center',
+        paddingHorizontal: theme.spacing(4),
+        borderRadius: theme.radius.md,
+        overflow: 'hidden',
+        backgroundColor: theme.colors.warning,
+      }}
+    >
+      <PressableFeedback.Highlight animation={{ duration: 600, opacity: 0.35 }} />
+      <Text style={{ color: theme.colors.warningForeground }}>
+        Highlight with animation={'{'} duration: 600, opacity: 0.35 {'}'}
       </Text>
     </PressableFeedback>
   )

@@ -10,11 +10,15 @@ import { useFeedback } from './pressable-feedback-context'
 import {
   RIPPLE_DURATION,
   RIPPLE_OPACITY,
+  resolveSlotAnimation,
   rippleRadius,
 } from './pressable-feedback.animation'
+import type { SlotAnimation } from './pressable-feedback.type'
 
 export type PressableFeedbackRippleProps = {
   style?: StyleProp<ViewStyle>
+  /** Overrides the blanket `animation` on the root, for this overlay only. */
+  animation?: SlotAnimation
 }
 
 /**
@@ -25,22 +29,43 @@ export type PressableFeedbackRippleProps = {
  * is a coloured disc sitting on the control, which reads as a defect rather than as
  * reduced motion.
  */
-export function PressableFeedbackRipple({ style }: PressableFeedbackRippleProps) {
+export function PressableFeedbackRipple({
+  style,
+  animation: override,
+}: PressableFeedbackRippleProps) {
   const { animation, progress, origin, size } = useFeedback()
   const theme = useXAUITheme()
 
-  if (!progress || !origin || !size || !animation.ripple) return null
+  const settings = resolveSlotAnimation(
+    override,
+    animation.ripple,
+    RIPPLE_OPACITY,
+    RIPPLE_DURATION
+  )
 
-  return <AnimatedRipple color={theme.colors.foreground} style={style} />
+  if (!progress || !origin || !size || !settings.enabled) return null
+
+  return (
+    <AnimatedRipple
+      color={theme.colors.foreground}
+      duration={settings.duration}
+      opacity={settings.opacity}
+      style={style}
+    />
+  )
 }
 
 PressableFeedbackRipple.displayName = 'XAUI.PressableFeedback.Ripple'
 
 function AnimatedRipple({
   color,
+  duration,
+  opacity,
   style,
 }: {
   color: string
+  duration: number
+  opacity: number
   style?: StyleProp<ViewStyle>
 }) {
   const { isPressed, origin, size } = useFeedback()
@@ -53,8 +78,8 @@ function AnimatedRipple({
   useEffect(() => {
     if (!isPressed) return
     grown.value = 0
-    grown.value = withTiming(1, { duration: RIPPLE_DURATION })
-  }, [isPressed, grown])
+    grown.value = withTiming(1, { duration })
+  }, [isPressed, grown, duration])
 
   const animatedStyle = useAnimatedStyle(() => {
     const at = origin?.value ?? { x: 0, y: 0 }
@@ -67,7 +92,7 @@ function AnimatedRipple({
       width: radius * 2,
       height: radius * 2,
       borderRadius: radius,
-      opacity: (1 - grown.value) * RIPPLE_OPACITY,
+      opacity: (1 - grown.value) * opacity,
       transform: [{ scale: grown.value }],
     }
   })

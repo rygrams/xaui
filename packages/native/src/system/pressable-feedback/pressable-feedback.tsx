@@ -19,6 +19,7 @@ import {
 } from './pressable-feedback-context'
 import { PressableFeedbackHighlight } from './pressable-feedback-highlight'
 import { PressableFeedbackRipple } from './pressable-feedback-ripple'
+import { Slot } from '../slot/slot'
 import {
   PRESS_DURATION,
   PRESS_SCALE,
@@ -32,6 +33,14 @@ import type {
 } from './pressable-feedback.type'
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
+
+/**
+ * `asChild` has to go through *this* component, not around it. A root doing
+ * `asChild ? Slot : PressableFeedback` would render the child with no feedback at all —
+ * a `<Button asChild>` wrapping a navigation `Link` would silently stop reacting to
+ * touch. Merging here keeps R12 and the feedback in the same branch.
+ */
+const AnimatedSlot = Animated.createAnimatedComponent(Slot)
 
 /**
  * The pressable root every pressable component renders — `Button`, `Chip`, a clickable
@@ -83,24 +92,36 @@ type BranchProps = Omit<PressableFeedbackProps, 'animation'> & {
 }
 
 const StaticFeedback = forwardRef<View, BranchProps>(function StaticFeedback(
-  { isPressed = false, animation, feedbackVariant, children, style, ...rest },
+  {
+    isPressed = false,
+    isDisabled,
+    asChild = false,
+    animation,
+    feedbackVariant,
+    children,
+    style,
+    ...rest
+  },
   ref
 ) {
   const context = useMemo(() => ({ isPressed, animation }), [isPressed, animation])
+  const Root = asChild ? Slot : Pressable
 
   return (
-    <Pressable ref={ref} style={style} {...rest}>
+    <Root ref={ref} style={style} disabled={isDisabled} {...rest}>
       <FeedbackProvider value={context}>
         <DefaultOverlay variant={feedbackVariant} />
         {children}
       </FeedbackProvider>
-    </Pressable>
+    </Root>
   )
 })
 
 const AnimatedFeedback = forwardRef<View, BranchProps>(function AnimatedFeedback(
   {
     isPressed = false,
+    isDisabled,
+    asChild = false,
     animation,
     feedbackVariant,
     children,
@@ -150,10 +171,13 @@ const AnimatedFeedback = forwardRef<View, BranchProps>(function AnimatedFeedback
   const clip: StyleProp<ViewStyle> =
     feedbackVariant === 'scale-ripple' ? { overflow: 'hidden' } : null
 
+  const Root = asChild ? AnimatedSlot : AnimatedPressable
+
   return (
-    <AnimatedPressable
+    <Root
       ref={ref}
       style={[clip, style, animatedStyle]}
+      disabled={isDisabled}
       onPressIn={handlePressIn}
       onLayout={handleLayout}
       {...rest}
@@ -162,7 +186,7 @@ const AnimatedFeedback = forwardRef<View, BranchProps>(function AnimatedFeedback
         <DefaultOverlay variant={feedbackVariant} />
         {children}
       </FeedbackProvider>
-    </AnimatedPressable>
+    </Root>
   )
 })
 

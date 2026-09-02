@@ -16,6 +16,7 @@ export {
   RIPPLE_DURATION,
   RIPPLE_OPACITY,
   resolveAnimation,
+  resolveSlotAnimation,
 } from './pressable-feedback.animation'
 export type { PressableFeedbackHighlightProps } from './pressable-feedback-highlight'
 export type { PressableFeedbackRippleProps } from './pressable-feedback-ripple'
@@ -26,4 +27,5 @@ export type {
   FeedbackVariant,
   PressableFeedbackProps,
   ResolvedAnimation,
+  SlotAnimation,
 } from './pressable-feedback.type'

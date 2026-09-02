@@ -11,8 +11,13 @@ because its recipe resolves on that value and needs it before rendering.
 `scale`, `none`) and mounts the matching overlay; `PressableFeedback.Highlight` and
 `.Ripple` are slots a root can render itself when it wants to style one.
 
-`animation` accepts `false`, `'disabled'`, `'disable-all'` or an object switching
-sub-animations off one at a time. Turning animations off renders a different component
+`asChild` goes **through** this component rather than around it: a root swapping it for a
+bare `Slot` would render the child with no touch feedback at all. `isDisabled` replaces
+React Native's `disabled` (R8), and each overlay takes its own `animation` — `false`, or a
+`duration` and `opacity` — over the blanket one on the root.
+
+`animation` on the root accepts `false`, `'disabled'`, `'disable-all'` or an object
+switching sub-animations off one at a time. Turning animations off renders a different component
 rather than the same one with a branch inside, so no Reanimated hook is reached and no
 worklet is mounted. `'disable-all'` reaches descendants through context, so a long list
 disables every row's worklets with one prop.

@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import {
   resolveAnimation,
+  resolveSlotAnimation,
   rippleRadius,
 } from '../../../system/pressable-feedback/pressable-feedback.animation'
 
@@ -78,5 +79,43 @@ describe('rippleRadius', () => {
 
   it('is zero before the root has been laid out', () => {
     expect(rippleRadius({ x: 0, y: 0 }, { width: 0, height: 0 })).toBe(0)
+  })
+})
+
+describe('resolveSlotAnimation', () => {
+  const ROOT_ON = true
+  const ROOT_OFF = false
+
+  it('falls back to the root and the defaults when the slot says nothing', () => {
+    expect(resolveSlotAnimation(undefined, ROOT_ON, 0.08, 100)).toEqual({
+      enabled: true,
+      duration: 100,
+      opacity: 0.08,
+    })
+  })
+
+  it('lets a slot switch itself off while the root stays on', () => {
+    expect(resolveSlotAnimation(false, ROOT_ON, 0.08).enabled).toBe(false)
+  })
+
+  it('cannot switch itself back on once the root turned everything off', () => {
+    // `animation="disable-all"` on an ancestor is not negotiable from an overlay.
+    expect(resolveSlotAnimation(true, ROOT_OFF, 0.08).enabled).toBe(false)
+    expect(resolveSlotAnimation({ duration: 20 }, ROOT_OFF, 0.08).enabled).toBe(
+      false
+    )
+  })
+
+  it('overrides one knob and keeps the default for the other', () => {
+    expect(resolveSlotAnimation({ duration: 400 }, ROOT_ON, 0.08, 100)).toEqual({
+      enabled: true,
+      duration: 400,
+      opacity: 0.08,
+    })
+    expect(resolveSlotAnimation({ opacity: 0.5 }, ROOT_ON, 0.08, 100)).toEqual({
+      enabled: true,
+      duration: 100,
+      opacity: 0.5,
+    })
   })
 })

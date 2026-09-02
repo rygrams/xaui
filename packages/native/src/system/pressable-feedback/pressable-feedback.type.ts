@@ -34,9 +34,20 @@ export type ResolvedAnimation = {
   disableAll: boolean
 }
 
-export type PressableFeedbackProps = Omit<PressableProps, 'style' | 'children'> & {
+export type PressableFeedbackProps = Omit<
+  PressableProps,
+  'style' | 'children' | 'disabled'
+> & {
   /** Controlled: the root owns the state, because its recipe resolves on it (R5). */
   isPressed?: boolean
+  /** R8: `disabled` is not part of the public vocabulary, `isX` is. */
+  isDisabled?: boolean
+  /**
+   * Merge into the single child instead of rendering a pressable (R12) — **keeping the
+   * feedback**. Swapping this component out for a bare `Slot` would silently drop the
+   * touch feedback of every `asChild` control.
+   */
+  asChild?: boolean
   feedbackVariant?: FeedbackVariant
   animation?: AnimationProp
   style?: StyleProp<ViewStyle>
@@ -47,6 +58,21 @@ export type PressableFeedbackProps = Omit<PressableProps, 'style' | 'children'> 
    */
   children?: ReactNode
 }
+
+/**
+ * A slot's own animation, overriding the blanket one on the root. `false` switches that
+ * slot off; the object tunes it. Deliberately two knobs rather than a full timing
+ * surface — anything past this is a different animation, and that is a component's job,
+ * not a prop's.
+ */
+export type SlotAnimation =
+  | boolean
+  | {
+      /** Milliseconds. Falls back to the shared press timing. */
+      duration?: number
+      /** How far the overlay goes at full press, 0 to 1. */
+      opacity?: number
+    }
 
 export type FeedbackContext = {
   isPressed: boolean

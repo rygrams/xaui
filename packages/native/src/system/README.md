@@ -144,3 +144,12 @@ render a different component, not the same one with a branch inside, because hoo
 be conditional and "mounts no worklet" is only true if the Reanimated hooks are never
 reached. `'disable-all'` does the same and passes it to descendants through context, so a
 long list kills every row's worklets with one prop.
+
+`asChild` goes **through** `PressableFeedback`, not around it. A root that did
+`asChild ? Slot : PressableFeedback` would render its child with no touch feedback at all
+— so the merge happens here, and R12 and the feedback stay in the same branch.
+
+Each overlay also takes its own `animation` — `false` to switch that one off, or a
+`duration` and an `opacity` — which wins over the blanket prop on the root, except when
+the root switched everything off. Two knobs, deliberately: past that it is a different
+animation, and that is a component's job rather than a prop's.

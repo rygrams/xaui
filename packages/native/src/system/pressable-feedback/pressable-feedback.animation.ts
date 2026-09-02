@@ -1,4 +1,8 @@
-import type { AnimationProp, ResolvedAnimation } from './pressable-feedback.type'
+import type {
+  AnimationProp,
+  ResolvedAnimation,
+  SlotAnimation,
+} from './pressable-feedback.type'
 
 /**
  * The values the v0 tree shipped with (`Animated.spring` to `0.975`, `bounciness: 0`,
@@ -63,6 +67,39 @@ export function resolveAnimation(
     ripple,
     none: !scale && !highlight && !ripple,
     disableAll: false,
+  }
+}
+
+export type ResolvedSlotAnimation = {
+  enabled: boolean
+  duration: number
+  opacity: number
+}
+
+/**
+ * A slot's own `animation` over the root's blanket one, with the root winning when it
+ * switched everything off — `animation="disable-all"` on an ancestor cannot be undone by
+ * an overlay that asks nicely.
+ */
+export function resolveSlotAnimation(
+  override: SlotAnimation | undefined,
+  enabledByRoot: boolean,
+  defaultOpacity: number,
+  defaultDuration = PRESS_DURATION
+): ResolvedSlotAnimation {
+  const fallback = {
+    enabled: enabledByRoot,
+    duration: defaultDuration,
+    opacity: defaultOpacity,
+  }
+
+  if (override === undefined || override === true) return fallback
+  if (override === false) return { ...fallback, enabled: false }
+
+  return {
+    enabled: enabledByRoot,
+    duration: override.duration ?? defaultDuration,
+    opacity: override.opacity ?? defaultOpacity,
   }
 }
 
