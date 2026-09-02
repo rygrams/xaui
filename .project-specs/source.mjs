@@ -1,0 +1,52 @@
+// Couche SOURCE — la seule surface écrite à la main. Palette XAUI (Tailwind).
+const p = {
+  white:'#ffffff', black:'#000000',
+  snow:'#fafafa', eclipse:'#18181b',
+  zinc:{50:'#fafafa',100:'#f4f4f5',200:'#e4e4e7',300:'#d4d4d8',400:'#a1a1aa',500:'#71717a',600:'#52525b',700:'#3f3f46',800:'#27272a',900:'#18181b',950:'#09090b'},
+  purple:{50:'#faf5ff',100:'#f3e8ff',200:'#e9d5ff',400:'#c084fc',500:'#a855f7',600:'#9333ea',700:'#7e22ce'},
+  green:{500:'#22c55e',600:'#16a34a',700:'#15803d'},
+  amber:{400:'#fbbf24',500:'#f59e0b',600:'#d97706'},
+  red:{400:'#f87171',500:'#ef4444',600:'#dc2626',700:'#b91c1c'},
+}
+export const primitives = { white:p.white, black:p.black, snow:p.snow, eclipse:p.eclipse }
+
+export const source = {
+  light: {
+    background:'#fafafa',          foreground:'#18181b',
+    surface:'#ffffff',             surfaceForeground:'#18181b',
+    surfaceSecondary:'#f4f4f5',    surfaceSecondaryForeground:'#18181b',
+    surfaceTertiary:'#e4e4e7',     surfaceTertiaryForeground:'#18181b',
+    overlay:'#ffffff',             overlayForeground:'#18181b',
+    backdrop:'rgba(0, 0, 0, 0.2)',
+    muted:'#71717a',
+    default:'#f4f4f5',             defaultForeground:'#18181b',
+    accent:'#9333ea',              accentForeground:'#faf5ff',
+    fieldBackground:'#ffffff',     fieldForeground:'#18181b',
+    fieldPlaceholder:'#71717a',    fieldBorder:'#e4e4e7',
+    success:'#15803d',             successForeground:'#fafafa',
+    warning:'#b45309',             warningForeground:'#fafafa',
+    danger:'#dc2626',              dangerForeground:'#fafafa',
+    segment:'#ffffff',             segmentForeground:'#18181b',
+    border:'#e4e4e7',              separator:'#d4d4d8',
+    focus:'#9333ea',               link:'#18181b',
+  },
+  dark: {
+    background:'#09090b',          foreground:'#fafafa',
+    surface:'#18181b',             surfaceForeground:'#fafafa',
+    surfaceSecondary:'#27272a',    surfaceSecondaryForeground:'#fafafa',
+    surfaceTertiary:'#3f3f46',     surfaceTertiaryForeground:'#fafafa',
+    overlay:'#18181b',             overlayForeground:'#fafafa',
+    backdrop:'rgba(0, 0, 0, 0.5)',
+    muted:'#a1a1aa',
+    default:'#27272a',             defaultForeground:'#fafafa',
+    accent:'#c084fc',              accentForeground:'#18181b',
+    fieldBackground:'#18181b',     fieldForeground:'#fafafa',
+    fieldPlaceholder:'#a1a1aa',    fieldBorder:'#3f3f46',
+    success:'#4ade80',             successForeground:'#18181b',
+    warning:'#fbbf24',             warningForeground:'#18181b',
+    danger:'#f87171',              dangerForeground:'#18181b',
+    segment:'#3f3f46',             segmentForeground:'#fafafa',
+    border:'#27272a',              separator:'#52525b',
+    focus:'#c084fc',               link:'#fafafa',
+  },
+}
