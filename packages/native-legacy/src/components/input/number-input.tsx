@@ -1,6 +1,6 @@
 import React, { forwardRef } from 'react'
 import { Pressable, TextInput as RNTextInput, View } from 'react-native'
-import { AddIcon, RemoveIcon } from '@xaui/icons'
+import { AddIcon, RemoveIcon } from '../../icons'
 import { withOpacity } from '../../core-shim'
 import { useXUITheme } from '../../core'
 import { TextInput } from './input'

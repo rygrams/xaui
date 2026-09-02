@@ -17,7 +17,7 @@ import Animated, {
 import { scheduleOnRN } from 'react-native-worklets'
 import { withOpacity } from '../../core-shim'
 import { useBorderRadiusStyles, useXUITheme } from '../../core/theme-hooks'
-import { CloseIcon } from '@xaui/icons'
+import { CloseIcon } from '../../icons'
 import { styles } from './dialog.style'
 import type {
   DialogBackdrop,

@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo, useRef } from 'react'
 import { Animated, Pressable, Text, View } from 'react-native'
-import { CheckmarkIcon, LockClosedIcon } from '@xaui/icons'
+import { CheckmarkIcon, LockClosedIcon } from '../../icons'
 import { useStepperContext } from './stepper-context'
 import { useStepperColors, useStepperSizeStyles } from './stepper.hook'
 import { styles } from './stepper.style'

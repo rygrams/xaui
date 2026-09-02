@@ -63,7 +63,6 @@ const sharedConfig = {
     'react-native-svg',
     '@xaui/native',
     '@xaui/native/theme',
-    '@xaui/icons',
   ],
   target: 'es2020',
 }
