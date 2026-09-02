@@ -81,6 +81,9 @@ components/button/
 └── index.ts             # Object.assign(ButtonRoot, { Label, Icon, Spinner })
 ```
 
+Each top-level folder of `src/` carries a `README.md` stating what belongs in it, what does
+not, and how it is used — added with the folder, updated when the boundary moves.
+
 **No empty file "to respect the convention."** A component without slots has no
 `.context.ts`; without animation, no `.animation.ts`. Everything that depends on a token or
 a variant lives in the recipe, not in `.style.ts`.
