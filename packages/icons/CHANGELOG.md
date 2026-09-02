@@ -1,5 +1,13 @@
 # @xaui/icons
 
+## 0.0.12
+
+### Patch Changes
+
+- 56957d2: Drop the `@xaui/core` dependency. Nothing under `src/` ever imported it — it only sat in
+  `package.json` and in two tsup `external` lists, pulling a package into every consumer's
+  tree for nothing.
+
 ## 0.0.11
 
 ### Patch Changes
