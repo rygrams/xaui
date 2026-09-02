@@ -22,6 +22,13 @@ describe('hexToRgb', () => {
   it('round-trips through rgbToHex', () => {
     expect(rgbToHex(hexToRgb('#dc2626'))).toBe('#dc2626')
   })
+
+  it('rejects a value it cannot blend, by name', () => {
+    // Without this, 'red' silently yields rgba(NaN, 238, 221, 0.15).
+    expect(() => hexToRgb('red')).toThrow(/not a hex colour/)
+    expect(() => hexToRgb('rgba(0, 0, 0, 0.2)')).toThrow(/not a hex colour/)
+    expect(() => hexToRgb('#12345')).toThrow(/not a hex colour/)
+  })
 })
 
 describe('mix', () => {
