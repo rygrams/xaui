@@ -156,7 +156,8 @@ pnpm --filter @xaui/native exec eslint src/components/button/button.tsx
 
 - Open with `gh pr create`, never as a draft unless asked.
 - **Always assign to the authenticated `gh` user**: `--assignee @me`.
-- **No labels** — the changeset carries the release information.
+- **Always add at least one label**: `--label <name>`, chosen from the repository's
+  existing labels (`bug`, `documentation`, `enhancement`, …).
 - Body covers What, Why and How.
 
 ## Error handling and control flow
