@@ -14,7 +14,7 @@ Task detail lives in `XAUI-V1-PLAN.md`.
 | P0.7  | `XAUIProvider`                                           | done   |
 | P0.8  | Legacy `core-shim.ts`                                    | done   |
 | P0.9  | Package hygiene and optional peers                       | done   |
-| P0.10 | ESLint rule for R13                                      | todo   |
+| P0.10 | ESLint rule for R13                                      | done   |
 | P0.11 | Publish `@xaui/native-legacy@0.2.8` and the codemod      | todo   |
 | P0.12 | Delete `@xaui/core` and `@xaui/icons`                     | done   |
 | P1    | `system/` — recipe, slots, feedback, portal, icon, hooks | todo   |
