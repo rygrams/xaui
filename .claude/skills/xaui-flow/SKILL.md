@@ -88,7 +88,12 @@ standards (naming, function shape, duplication, comments, failure behaviour), an
 `code-simplification` and `code-review-and-quality` when the change is substantial. Fix what
 it finds, or state plainly what you left and why.
 
-## 6. Changeset
+## 6. Record the task
+
+Update the `Roadmap status` table in `CLAUDE.md` — one line, ref, title, status. It is the
+only place progress is recorded, and it moves in the same commit as the work.
+
+## 7. Changeset
 
 One per touched package, **always `patch`** while we're in beta:
 
@@ -99,7 +104,7 @@ pnpm changeset
 Commit the generated `.changeset/*.md` with the change. Commit messages follow commitizen
 (`feat:`, `fix:`, `chore:`, `refactor:`), and carry no Claude co-author line.
 
-## 7. PR
+## 8. PR
 
 ```bash
 gh pr create --assignee @me --label documentation

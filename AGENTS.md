@@ -23,6 +23,11 @@ Practical guidance for agentic coding assistants in this monorepo.
 - Published libraries: `@xaui/native` (React Native), `@xaui/hybrid` (mobile webview).
 - Apps: `docs` (Next.js), `demo` (Expo).
 
+## Roadmap status
+
+- Tracked in the `Roadmap status` table of `CLAUDE.md` — one line per task: ref, title, status.
+- Update the status there when a task lands; it is the only place that records progress.
+
 ## Skills
 
 Source of truth in `.agents/skills/<name>/SKILL.md`, copied (never symlinked) into
