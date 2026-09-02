@@ -80,11 +80,15 @@ They live in `tooling/codemods/` — `legacy-imports`, `variant-map`, `slots`.
 User-side migration is one dependency plus a scope change:
 
 ```diff
-+ pnpm add @xaui/native-legacy
++ pnpm add --save-exact @xaui/native-legacy@0.2.8
 
 - import { Button } from '@xaui/native/button'
 + import { Button } from '@xaui/native-legacy/button'
 ```
+
+**Always document the pinned form.** The package is frozen, so a range buys nothing and is
+how an unattended `pnpm update` pulls in a change nobody asked for. Every install snippet —
+README, docs, migration guide — uses `--save-exact` and an explicit version.
 
 `pnpm xaui-codemod legacy-imports` does it across a project. A codemod must be idempotent
 and must leave a comment (or fail loudly) on any case it cannot transform mechanically —

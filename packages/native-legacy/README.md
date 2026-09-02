@@ -13,9 +13,25 @@ React Native components and hooks that extend the core `@xaui/core` theme system
 
 ## Installation
 
+**Pin an exact version.** This package is frozen, so there is nothing to gain from a range —
+and a range is how an unattended `pnpm update` pulls in a change you did not ask for.
+
 ```bash
-pnpm add @xaui/native-legacy
+pnpm add --save-exact @xaui/native-legacy@0.2.8
 ```
+
+That writes the version without a range operator, which is what keeps it pinned:
+
+```jsonc
+{
+  "dependencies": {
+    "@xaui/native-legacy": "0.2.8"   // not "^0.2.8", not "~0.2.8"
+  }
+}
+```
+
+Bumping it should be a decision: read the changelog, then change the number by hand. The
+same applies to `npm i --save-exact` and `yarn add --exact`.
 
 ### Peer dependencies
 
