@@ -232,9 +232,16 @@ The project uses GitHub Actions with the following workflow:
 
 ## Skills
 
-Agent skills live in `.claude/skills/<name>/SKILL.md` — real files, **never symlinks**;
-symlinked skills are not resolved reliably. A skill is added or edited in place, in that
-folder, and committed with the change it documents.
+Agent skills live in `.agents/skills/<name>/SKILL.md` — that is the source of truth, shared
+by every agent.
+
+`.claude/skills/<name>/` holds a **copy** of each skill, never a symlink: symlinked skills are
+not resolved reliably. So when a skill is added or edited in `.agents/skills/`, copy the folder
+across in the same commit:
+
+```bash
+cp -R .agents/skills/<name> .claude/skills/<name>
+```
 
 | Skill | Use it for |
 | --- | --- |
