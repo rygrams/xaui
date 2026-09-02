@@ -7,7 +7,7 @@ import type {
   Border,
   BorderRadius,
   BorderSide,
-} from '@xaui/core'
+} from '../../../types'
 
 export const resolveEdgeInsets = (
   value: EdgeInsets,

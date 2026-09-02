@@ -3,10 +3,12 @@ import { Pressable, Text, View } from 'react-native'
 import { useXUITheme } from '../../../core'
 import type { ThemeColor } from '../../../types'
 import { formatDate, getMonthName } from '../../datepicker/datepicker.utils'
-import { ChevronDownIcon } from '@xaui/icons/chevron-down'
-import { ChevronLeftIcon } from '@xaui/icons/chevron-left'
-import { ChevronRightIcon } from '@xaui/icons/chevron-right'
-import { CloseIcon } from '@xaui/icons/close'
+import {
+  ChevronDownIcon,
+  ChevronLeftIcon,
+  ChevronRightIcon,
+  CloseIcon,
+} from '../../../icons'
 import { styles } from './datepicker-dialog.style'
 
 type DatePickerDialogHeaderProps = {

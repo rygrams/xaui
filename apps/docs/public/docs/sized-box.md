@@ -6,18 +6,8 @@ Flutter-inspired fixed-size box. Use it to constrain dimensions, add blank spaci
 pnpm add @xaui/native-legacy
 ```
 
-**React Native**
-
 ```ts
 import { SizedBox } from '@xaui/native-legacy/view'
-```
-
-**Web / Hybrid**
-
-```ts
-import { SizedBox } from '@xaui/hybrid-legacy/sized-box'
-// or from the aggregated view export
-import { SizedBox } from '@xaui/hybrid-legacy/view'
 ```
 
 ## Props

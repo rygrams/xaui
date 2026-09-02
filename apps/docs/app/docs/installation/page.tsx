@@ -39,7 +39,11 @@ export default function InstallationPage() {
           </p>
           <CodeBlock code="npx create-expo-app@latest my-app" language="bash" />
           <p className="text-muted-foreground">Then install Xaui packages:</p>
-          <CodeBlock code="npx expo install @xaui/native-legacy" language="bash" />
+          <CodeBlock
+            code={`npx expo install @xaui/native
+npm install --save-exact @xaui/native-legacy@0.2.8`}
+            language="bash"
+          />
           <p className="text-sm text-muted-foreground">
             Expo handles the native configuration automatically. No additional iOS or
             Android setup required.
@@ -53,7 +57,10 @@ export default function InstallationPage() {
           <p className="text-muted-foreground">
             For React Native CLI projects, install the core packages:
           </p>
-          <CodeBlock code="npm install @xaui/native-legacy @xaui/core" language="bash" />
+          <CodeBlock
+            code="npm install @xaui/native @xaui/native-legacy@0.2.8 --save-exact"
+            language="bash"
+          />
         </section>
 
         <section className="space-y-4">

@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useRef, useState } from 'react'
 import { Animated, useWindowDimensions } from 'react-native'
 import type { RefObject } from 'react'
-import { getSafeThemeColor, withOpacity } from '@xaui/core'
+import { getSafeThemeColor, withOpacity } from '../../core-shim'
 import { useXUITheme } from '../../core'
 import type { ThemeColor } from '../../types'
 

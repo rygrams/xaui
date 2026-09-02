@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useRef, useState } from 'react'
 import { Animated, Pressable, Text } from 'react-native'
-import { getSafeThemeColor } from '@xaui/core'
+import { getSafeThemeColor } from '../../core-shim'
 import { useXUITheme } from '../../core'
 import type { RadioProps } from './radio.type'
 import { RadioGroupContext } from './radio-context'

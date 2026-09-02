@@ -105,6 +105,8 @@ export const Pressable: React.FC<ViewProps> = ({ style, ...props }) => {
   })
 }
 
+export const useColorScheme = (): 'light' | 'dark' | null => 'light'
+
 export const StyleSheet = {
   create: <T extends Record<string, React.CSSProperties>>(styles: T): T => styles,
 }

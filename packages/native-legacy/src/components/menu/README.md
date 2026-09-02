@@ -57,7 +57,6 @@ const MyComponent = () => {
 ### With Icons
 
 ```tsx
-import { SettingsIcon, PersonIcon } from '@xaui/icons'
 ;<Menu visible={visible} onDismiss={handleDismiss} trigger={trigger}>
   <MenuItem
     title="Settings"

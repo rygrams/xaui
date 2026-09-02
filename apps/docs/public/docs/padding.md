@@ -6,18 +6,8 @@ Wraps content with configurable padding on any or all sides using Flutter's `Edg
 pnpm add @xaui/native-legacy
 ```
 
-**React Native**
-
 ```ts
 import { Padding } from '@xaui/native-legacy/view'
-```
-
-**Web / Hybrid**
-
-```ts
-import { Padding } from '@xaui/hybrid-legacy/padding'
-// or from the aggregated view export
-import { Padding } from '@xaui/hybrid-legacy/view'
 ```
 
 ## Props

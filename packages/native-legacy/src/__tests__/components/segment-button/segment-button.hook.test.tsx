@@ -1,13 +1,13 @@
 import { describe, it, expect, vi } from 'vitest'
 import { renderHook } from '@testing-library/react'
-import { withOpacity } from '@xaui/core'
+import { withOpacity } from '../../../core-shim'
 import {
   useSegmentSizeStyles,
   useSegmentVariantStyles,
 } from '../../../components/segment-button/segment-button.hook'
 
-vi.mock('@xaui/core', async importActual => {
-  const actual = await importActual<typeof import('@xaui/core')>()
+vi.mock('../../../core-shim', async importActual => {
+  const actual = await importActual<typeof import('../../../core-shim')>()
   return {
     ...actual,
     withPaletteNumber: (color: string) => color,

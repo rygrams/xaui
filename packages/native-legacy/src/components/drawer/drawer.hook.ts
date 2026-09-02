@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import type { ViewStyle } from 'react-native'
-import { getSafeThemeColor } from '@xaui/core'
+import { getSafeThemeColor } from '../../core-shim'
 import { useXUITheme } from '../../core'
 import type { ThemeColor } from '../../types'
 import type { DrawerPosition } from './drawer.type'

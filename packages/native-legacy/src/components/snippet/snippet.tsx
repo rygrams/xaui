@@ -1,6 +1,6 @@
 import React from 'react'
 import { Pressable, Text, View, NativeModules } from 'react-native'
-import { CopyIcon } from '@xaui/icons'
+import { CopyIcon } from '../../icons'
 import { useBorderRadiusStyles } from '../../core/theme-hooks'
 import { styles } from './snippet.style'
 import { useCopyButtonPositionStyles, useSnippetColors } from './snippet.hook'

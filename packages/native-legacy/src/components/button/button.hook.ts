@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { useXUITheme } from '../../core'
 import type { ButtonVariant, ElevationLevel } from './button.type'
 import type { Size, ThemeColor } from '../../types'
-import { getSafeThemeColor } from '@xaui/core'
+import { getSafeThemeColor } from '../../core-shim'
 
 type ButtonSizeStyles = {
   paddingHorizontal: number

@@ -6,18 +6,8 @@ Flutter-inspired vertical flex layout. `Column` is `Flex` with `direction="verti
 pnpm add @xaui/native-legacy
 ```
 
-**React Native**
-
 ```ts
 import { Column } from '@xaui/native-legacy/view'
-```
-
-**Web / Hybrid**
-
-```ts
-import { Column } from '@xaui/hybrid-legacy/column'
-// or from the aggregated view export
-import { Column } from '@xaui/hybrid-legacy/view'
 ```
 
 ## Props

@@ -1,6 +1,5 @@
 import { useMemo } from 'react'
-import { getSafeThemeColor, withOpacity } from '@xaui/core'
-import { colors } from '@xaui/core/palette'
+import { colors, getSafeThemeColor, withOpacity } from '../../core-shim'
 import { useXUITheme } from '../../core'
 import type { Radius, Size, ThemeColor } from '../../types'
 import type { AutocompleteVariant } from './autocomplete.type'

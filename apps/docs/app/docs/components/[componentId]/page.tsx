@@ -8,10 +8,6 @@ import {
   ComponentScreenshots,
   screenshotIds,
 } from '@/components/screenshots/component-screenshots'
-import {
-  ComponentHybridPreview,
-  hybridPreviewIds,
-} from '@/components/preview/hybrid-preview'
 
 type ComponentPageProps = {
   params: Promise<{
@@ -162,7 +158,6 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
     component.types && component.types.length > 0
       ? `import type { ${component.types.join(', ')} } from '${component.importPath}'`
       : null
-  const hasHybridPreview = hybridPreviewIds.has(component.id)
   const hasScreenshots = screenshotIds.has(component.id)
 
   return (
@@ -186,7 +181,6 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
         <TabsList>
           <TabsTrigger value="code">Code</TabsTrigger>
           <TabsTrigger value="props">Props</TabsTrigger>
-          {hasHybridPreview && <TabsTrigger value="preview">Preview</TabsTrigger>}
           {hasScreenshots && (
             <TabsTrigger value="screenshots">Screenshots</TabsTrigger>
           )}
@@ -479,19 +473,6 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
             </div>
           )}
         </TabsContent>
-
-        {hasHybridPreview && (
-          <TabsContent value="preview" className="space-y-4">
-            <p className="text-sm text-muted-foreground">
-              Live web preview rendered via{' '}
-              <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
-                @xaui/hybrid-legacy
-              </code>
-              — Tailwind v4, CSS animations, no animation library.
-            </p>
-            <ComponentHybridPreview componentId={component.id} />
-          </TabsContent>
-        )}
 
         {hasScreenshots && (
           <TabsContent value="screenshots">

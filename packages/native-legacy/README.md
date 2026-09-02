@@ -7,7 +7,9 @@
 >
 > New projects should use [`@xaui/native`](https://www.npmjs.com/package/@xaui/native).
 
-React Native components and hooks that extend the core `@xaui/core` theme system. This mobile layer ships animated primitives (buttons, indicators, hooks) ready to use with `XUIProvider`.
+React Native components and hooks that read their tokens from `@xaui/native`. This package
+carries **no theme of its own**: there is one `XAUIProvider` for both trees, which is what
+makes a screen-by-screen migration possible.
 
 **[Full documentation → ui.xtartapp.com](https://ui.xtartapp.com)**
 
@@ -17,8 +19,12 @@ React Native components and hooks that extend the core `@xaui/core` theme system
 and a range is how an unattended `pnpm update` pulls in a change you did not ask for.
 
 ```bash
+pnpm add @xaui/native
 pnpm add --save-exact @xaui/native-legacy@0.2.8
 ```
+
+`@xaui/native` is a peer dependency, not a copy: two versions in the resolution tree would
+mean two React contexts, and a legacy component under the v1 provider would throw.
 
 That writes the version without a range operator, which is what keeps it pinned:
 
@@ -39,21 +45,30 @@ same applies to `npm i --save-exact` and `yarn add --exact`.
 - `react-native` >=0.70.0
 - `react-native-reanimated` >=4.0.0
 - `react-native-svg` >=13.0.0
-
-The package also relies on `@xaui/core/theme` for the shared tokens.
+- `@xaui/native` >=0.9.0-beta.0 — the theme and the single provider live there
 
 ## Quick start
 
-1. Wrap your tree with `XUIProvider` to expose the tokens and follow the system color scheme:
+1. Wrap your tree with `XAUIProvider` from `@xaui/native` — it themes both trees at once:
 
 ```tsx
-import { XUIProvider } from '@xaui/native-legacy/core'
-import { theme } from '@xaui/core/theme'
+import { XAUIProvider, createTheme } from '@xaui/native/theme'
+import { PortalHost } from '@xaui/native-legacy/core'
+
+const theme = createTheme({ colors: { light: { accent: '#3b82f6' } } })
 
 export default function App() {
-  return <XUIProvider theme={theme}>{/* your screens */}</XUIProvider>
+  return (
+    <XAUIProvider theme={theme}>
+      <PortalHost>{/* your screens */}</PortalHost>
+    </XAUIProvider>
+  )
 }
 ```
+
+`XUIProvider` is still exported from `@xaui/native-legacy/core` as a deprecated wrapper
+around the same provider. It is **not** prop-compatible with v0: `theme` now takes the set
+returned by `createTheme`, and TypeScript flags the old `DeepPartial<XUITheme>` shape.
 
 2. Consume the theme inside your components via `useXUITheme` or `useColorMode`:
 
@@ -81,7 +96,7 @@ This table lists all public components exported by `@xaui/native-legacy` and the
 
 | Name                   | Description                                                                 | Usage                                                               |
 | ---------------------- | --------------------------------------------------------------------------- | ------------------------------------------------------------------- |
-| `XUIProvider`          | Theme provider for all XAUI native components.                              | `import { XUIProvider } from '@xaui/native-legacy/core'`                   |
+| `XUIProvider`          | **Deprecated** — wraps `XAUIProvider` from `@xaui/native` plus a `PortalHost`. | `import { XUIProvider } from '@xaui/native-legacy/core'`                   |
 | `Portal`               | Renders content in a portal host layer.                                     | `import { Portal } from '@xaui/native-legacy/core'`                        |
 | `PortalHost`           | Host container for portal content.                                          | `import { PortalHost } from '@xaui/native-legacy/core'`                    |
 | `Button`               | Pressable button with variants, sizes, and loading state.                   | `import { Button } from '@xaui/native-legacy/button'`                      |
@@ -186,10 +201,19 @@ This table lists all public components exported by `@xaui/native-legacy` and the
 
 ## Theme hooks & utilities
 
-- `useXUITheme()` must be used within `XUIProvider`; it throws if the provider is missing.
+- `useXUITheme()` must be used within `XAUIProvider`; it throws if the provider is missing.
+  It returns the v1 theme projected onto the MD3 shape (`{ main, onMain, container,
+  onContainer }`) the frozen components read — by role, so re-theming `accent` moves
+  `primary` with it.
 - `useXUIColors()` is a shortcut for reading just the color tokens.
-- `useColorMode()` returns `light` or `dark` based on React Native's `useColorScheme()`.
-- `XUIProvider` accepts a single `theme` object (`DeepPartial<XUITheme>`) for partial token overrides.
+- `useColorMode()` returns the mode the v1 provider resolved, so `colorMode="dark"` reaches
+  legacy screens too.
+- Theme overrides go through `createTheme` from `@xaui/native`, not through a prop on the
+  legacy provider.
+
+`secondary` and `tertiary` had no v1 equivalent — they were surface levels dressed as
+colours — so they project onto `surfaceSecondary` and `surfaceTertiary` rather than onto
+invented hues.
 
 ## Testing & build
 

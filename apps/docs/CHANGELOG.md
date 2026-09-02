@@ -1,5 +1,32 @@
 # docs
 
+## 0.1.46
+
+### Patch Changes
+
+- Updated dependencies [c29159f]
+  - @xaui/native-legacy@0.2.11
+
+## 0.1.45
+
+### Patch Changes
+
+- f7cfc9f: Remove the MCP docs page and the "Add XAUI to your AI assistant (MCP)" section from
+  llm.txt, following the removal of the unpublished `@xaui/ui-mcp` package.
+
+## 0.1.44
+
+### Patch Changes
+
+- @xaui/native-legacy@0.2.10
+
+## 0.1.43
+
+### Patch Changes
+
+- Updated dependencies [f455c83]
+  - @xaui/native-legacy@0.2.9
+
 ## 0.1.42
 
 ### Patch Changes

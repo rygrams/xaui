@@ -61,9 +61,8 @@ const sharedConfig = {
     'react-native-reanimated',
     'react-native-worklets',
     'react-native-svg',
-    '@xaui/core',
-    '@xaui/core/theme',
-    '@xaui/icons',
+    '@xaui/native',
+    '@xaui/native/theme',
   ],
   target: 'es2020',
 }

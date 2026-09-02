@@ -1,6 +1,6 @@
+import Ionicons from '@expo/vector-icons/Ionicons'
 import { useMemo, useState } from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import { HomeIcon, SearchIcon, PersonIcon, SettingsIcon } from '@xaui/icons'
 import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
 import { BottomTabBar, BottomTabBarItem } from '@xaui/native-legacy/bottom-tab-bar'
 
@@ -25,7 +25,7 @@ export default function BottomTabBarScreen() {
         options: {
           title: 'Home',
           tabBarIcon: ({ color, size }: { color: string; size: number }) => (
-            <HomeIcon size={size} color={color} variant="filled" />
+            <Ionicons name="home" size={size} color={color} variant="filled" />
           ),
         },
       },
@@ -33,7 +33,7 @@ export default function BottomTabBarScreen() {
         options: {
           title: 'Search',
           tabBarIcon: ({ color, size }: { color: string; size: number }) => (
-            <SearchIcon size={size} color={color} variant="filled" />
+            <Ionicons name="search" size={size} color={color} variant="filled" />
           ),
           tabBarBadge: (
             <View style={styles.badge}>
@@ -46,7 +46,7 @@ export default function BottomTabBarScreen() {
         options: {
           title: 'Profile',
           tabBarIcon: ({ color, size }: { color: string; size: number }) => (
-            <PersonIcon size={size} color={color} variant="filled" />
+            <Ionicons name="person" size={size} color={color} variant="filled" />
           ),
         },
       },
@@ -78,14 +78,14 @@ export default function BottomTabBarScreen() {
               itemKey="home"
               label="Home"
               icon={({ color, size }) => (
-                <HomeIcon size={size} color={color} variant="filled" />
+                <Ionicons name="home" size={size} color={color} variant="filled" />
               )}
             />
             <BottomTabBarItem
               itemKey="search"
               label="Search"
               icon={({ color, size }) => (
-                <SearchIcon size={size} color={color} variant="filled" />
+                <Ionicons name="search" size={size} color={color} variant="filled" />
               )}
               badge={
                 <View style={styles.badge}>
@@ -97,7 +97,12 @@ export default function BottomTabBarScreen() {
               itemKey="settings"
               label="Settings"
               icon={({ color, size }) => (
-                <SettingsIcon size={size} color={color} variant="filled" />
+                <Ionicons
+                  name="settings"
+                  size={size}
+                  color={color}
+                  variant="filled"
+                />
               )}
             />
           </BottomTabBar>
@@ -125,21 +130,26 @@ export default function BottomTabBarScreen() {
               itemKey="home"
               label="Home"
               icon={({ color, size }) => (
-                <HomeIcon size={size} color={color} variant="filled" />
+                <Ionicons name="home" size={size} color={color} variant="filled" />
               )}
             />
             <BottomTabBarItem
               itemKey="search"
               label="Search"
               icon={({ color, size }) => (
-                <SearchIcon size={size} color={color} variant="filled" />
+                <Ionicons name="search" size={size} color={color} variant="filled" />
               )}
             />
             <BottomTabBarItem
               itemKey="settings"
               label="Settings"
               icon={({ color, size }) => (
-                <SettingsIcon size={size} color={color} variant="filled" />
+                <Ionicons
+                  name="settings"
+                  size={size}
+                  color={color}
+                  variant="filled"
+                />
               )}
             />
           </BottomTabBar>
@@ -164,21 +174,26 @@ export default function BottomTabBarScreen() {
               itemKey="home"
               label="Home"
               icon={({ color, size }) => (
-                <HomeIcon size={size} color={color} variant="filled" />
+                <Ionicons name="home" size={size} color={color} variant="filled" />
               )}
             />
             <BottomTabBarItem
               itemKey="search"
               label="Search"
               icon={({ color, size }) => (
-                <SearchIcon size={size} color={color} variant="filled" />
+                <Ionicons name="search" size={size} color={color} variant="filled" />
               )}
             />
             <BottomTabBarItem
               itemKey="settings"
               label="Settings"
               icon={({ color, size }) => (
-                <SettingsIcon size={size} color={color} variant="filled" />
+                <Ionicons
+                  name="settings"
+                  size={size}
+                  color={color}
+                  variant="filled"
+                />
               )}
             />
           </BottomTabBar>

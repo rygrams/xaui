@@ -1,24 +1,21 @@
-import { useContext, useMemo } from 'react'
-import { useColorScheme } from 'react-native'
-import { XUIThemeContext } from './theme-context'
+import { useMemo } from 'react'
+import { useXAUITheme } from '@xaui/native/theme'
+import { toLegacyTheme } from '../shim/to-legacy-theme'
+import type { XUITheme } from '../shim/legacy-theme'
 import { Radius } from '../types'
-import { XUITheme } from '@xaui/core/theme'
 
 type ColorMode = 'light' | 'dark'
 
+/**
+ * The resolved mode of the single v1 provider — no longer a second read of
+ * `useColorScheme`, so `<XAUIProvider colorMode="dark">` now darkens legacy screens too.
+ */
 export function useColorMode(): ColorMode {
-  const nativeScheme = useColorScheme()
-  return (nativeScheme as ColorMode) ?? 'light'
+  return useXAUITheme().mode
 }
 
 export function useXUITheme(): XUITheme {
-  const theme = useContext(XUIThemeContext)
-
-  if (!theme) {
-    throw new Error('useXUITheme must be used within XUIProvider')
-  }
-
-  return theme
+  return toLegacyTheme(useXAUITheme())
 }
 
 export function useXUIColors(): XUITheme['colors'] {

@@ -1,16 +1,6 @@
+import Ionicons from '@expo/vector-icons/Ionicons'
 import { useState } from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import {
-  ArrowBackIcon,
-  SearchIcon,
-  StarIcon,
-  EllipsisVerticalIcon,
-  ShareIcon,
-  DownloadIcon,
-  PencilIcon,
-  TrashIcon,
-  AddIcon,
-} from '@xaui/icons'
 import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
 import { Button } from '@xaui/native-legacy/button'
 import { Toolbar, ToolbarAction } from '@xaui/native-legacy/toolbar'
@@ -56,17 +46,23 @@ export default function ToolbarScreen() {
             themeColor="primary"
           >
             <ToolbarAction
-              icon={({ color, size }) => <ShareIcon size={size} color={color} />}
-            />
-            <ToolbarAction
-              icon={({ color, size }) => <DownloadIcon size={size} color={color} />}
-            />
-            <ToolbarAction
-              icon={({ color, size }) => <PencilIcon size={size} color={color} />}
+              icon={({ color, size }) => (
+                <Ionicons name="share" size={size} color={color} />
+              )}
             />
             <ToolbarAction
               icon={({ color, size }) => (
-                <EllipsisVerticalIcon size={size} color={color} />
+                <Ionicons name="download" size={size} color={color} />
+              )}
+            />
+            <ToolbarAction
+              icon={({ color, size }) => (
+                <Ionicons name="pencil" size={size} color={color} />
+              )}
+            />
+            <ToolbarAction
+              icon={({ color, size }) => (
+                <Ionicons name="ellipsis-vertical" size={size} color={color} />
               )}
             />
           </Toolbar>
@@ -103,13 +99,19 @@ export default function ToolbarScreen() {
             showDivider
           >
             <ToolbarAction
-              icon={({ color, size }) => <ArrowBackIcon size={size} color={color} />}
+              icon={({ color, size }) => (
+                <Ionicons name="arrow-back" size={size} color={color} />
+              )}
             />
             <ToolbarAction
-              icon={({ color, size }) => <SearchIcon size={size} color={color} />}
+              icon={({ color, size }) => (
+                <Ionicons name="search" size={size} color={color} />
+              )}
             />
             <ToolbarAction
-              icon={({ color, size }) => <StarIcon size={size} color={color} />}
+              icon={({ color, size }) => (
+                <Ionicons name="star" size={size} color={color} />
+              )}
             />
           </Toolbar>
         </View>
@@ -136,17 +138,23 @@ export default function ToolbarScreen() {
             isElevated
           >
             <ToolbarAction
-              icon={({ color, size }) => <ShareIcon size={size} color={color} />}
-            />
-            <ToolbarAction
-              icon={({ color, size }) => <PencilIcon size={size} color={color} />}
-            />
-            <ToolbarAction
-              icon={({ color, size }) => <AddIcon size={size} color={color} />}
+              icon={({ color, size }) => (
+                <Ionicons name="share" size={size} color={color} />
+              )}
             />
             <ToolbarAction
               icon={({ color, size }) => (
-                <EllipsisVerticalIcon size={size} color={color} />
+                <Ionicons name="pencil" size={size} color={color} />
+              )}
+            />
+            <ToolbarAction
+              icon={({ color, size }) => (
+                <Ionicons name="add" size={size} color={color} />
+              )}
+            />
+            <ToolbarAction
+              icon={({ color, size }) => (
+                <Ionicons name="ellipsis-vertical" size={size} color={color} />
               )}
             />
           </Toolbar>
@@ -169,17 +177,23 @@ export default function ToolbarScreen() {
           </Text>
           <Toolbar variant="docked" position="bottom" themeColor="warning">
             <ToolbarAction
-              icon={({ color, size }) => <DownloadIcon size={size} color={color} />}
-            />
-            <ToolbarAction
-              icon={({ color, size }) => <TrashIcon size={size} color={color} />}
-            />
-            <ToolbarAction
-              icon={({ color, size }) => <ShareIcon size={size} color={color} />}
+              icon={({ color, size }) => (
+                <Ionicons name="download" size={size} color={color} />
+              )}
             />
             <ToolbarAction
               icon={({ color, size }) => (
-                <EllipsisVerticalIcon size={size} color={color} />
+                <Ionicons name="trash" size={size} color={color} />
+              )}
+            />
+            <ToolbarAction
+              icon={({ color, size }) => (
+                <Ionicons name="share" size={size} color={color} />
+              )}
+            />
+            <ToolbarAction
+              icon={({ color, size }) => (
+                <Ionicons name="ellipsis-vertical" size={size} color={color} />
               )}
             />
           </Toolbar>
@@ -215,16 +229,24 @@ export default function ToolbarScreen() {
             themeColor="success"
           >
             <ToolbarAction
-              icon={({ color, size }) => <ShareIcon size={size} color={color} />}
+              icon={({ color, size }) => (
+                <Ionicons name="share" size={size} color={color} />
+              )}
             />
             <ToolbarAction
-              icon={({ color, size }) => <DownloadIcon size={size} color={color} />}
+              icon={({ color, size }) => (
+                <Ionicons name="download" size={size} color={color} />
+              )}
             />
             <ToolbarAction
-              icon={({ color, size }) => <PencilIcon size={size} color={color} />}
+              icon={({ color, size }) => (
+                <Ionicons name="pencil" size={size} color={color} />
+              )}
             />
             <ToolbarAction
-              icon={({ color, size }) => <TrashIcon size={size} color={color} />}
+              icon={({ color, size }) => (
+                <Ionicons name="trash" size={size} color={color} />
+              )}
             />
           </Toolbar>
         </View>
@@ -246,13 +268,19 @@ export default function ToolbarScreen() {
           </Text>
           <Toolbar variant="vertical" position="right" themeColor="danger">
             <ToolbarAction
-              icon={({ color, size }) => <AddIcon size={size} color={color} />}
+              icon={({ color, size }) => (
+                <Ionicons name="add" size={size} color={color} />
+              )}
             />
             <ToolbarAction
-              icon={({ color, size }) => <SearchIcon size={size} color={color} />}
+              icon={({ color, size }) => (
+                <Ionicons name="search" size={size} color={color} />
+              )}
             />
             <ToolbarAction
-              icon={({ color, size }) => <StarIcon size={size} color={color} />}
+              icon={({ color, size }) => (
+                <Ionicons name="star" size={size} color={color} />
+              )}
             />
           </Toolbar>
         </View>

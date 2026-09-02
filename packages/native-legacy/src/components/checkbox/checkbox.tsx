@@ -17,7 +17,7 @@ import {
   runPressOutAnimation,
 } from './checkbox.animation'
 import { useXUITheme } from '../../core'
-import { getSafeThemeColor } from '@xaui/core'
+import { getSafeThemeColor } from '../../core-shim'
 
 export const Checkbox: React.FC<CheckboxProps> = ({
   label,
