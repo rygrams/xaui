@@ -3,7 +3,7 @@ import { deriveColors } from '../../theme/derive-colors'
 import { tokens } from '../../theme/tokens.gen'
 import type { XAUISourceColors } from '../../theme/theme.type'
 
-const light = tokens.light as unknown as XAUISourceColors
+const light: XAUISourceColors = tokens.light
 
 describe('deriveColors', () => {
   it('derives the pressed states from the source pair', () => {
