@@ -809,7 +809,7 @@ L'ancien tree ne devient **pas** un sous-chemin de `@xaui/native`. Il est republ
 
 | Package | Contenu | Version |
 |---|---|---|
-| `@xaui/native-legacy` | les 47 composants actuels, figés | `0.2.8` — le même numéro que la dernière release réelle, pour que la correspondance soit évidente |
+| `@xaui/native-legacy` | les 47 composants actuels, figés | `0.2.11` — le dernier numéro que le package a réellement porté avant sa publication (le `0.2.8` visé à l'origine a été dépassé par les trois patchs de P0 : core-shim, icônes inlinées) |
 | `@xaui/native` | l'API v1, repart de zéro | `1.0.0` |
 | `@xaui/hybrid` | gelé pendant P0–P4 | `0.9.x-alpha.x` — thème seulement, publié sur le tag `alpha` ; `latest` reste sur `0.0.14` |
 
@@ -902,7 +902,7 @@ startContent={<I/>} / endContent={<I/>}     → <X.Icon/> placé dans l'ordre vo
 
 | Package | Version | Contenu |
 |---|---|---|
-| `@xaui/native-legacy` | `0.2.8` | publié une fois, figé. Correctifs en `0.2.x` |
+| `@xaui/native-legacy` | `0.2.11` | publié une fois, figé — et figé pour de bon : le package est dans `ignore` (`.changeset/config.json`), donc changesets ne le versionne plus. Un correctif `0.2.x` demande de le sortir de la liste |
 | `@xaui/native` | `0.9.x-alpha.x` | le noyau arrive composant par composant, API instable et annoncée comme telle |
 | `@xaui/native` | `1.0.0` | noyau de 15 composants + doc complète |
 | `@xaui/native` | `1.x` | les 32 composants restants |
@@ -910,10 +910,10 @@ startContent={<I/>} / endContent={<I/>}     → <X.Icon/> placé dans l'ordre vo
 
 Les préversions `0.9.x-alpha` remplacent les `0.4.x – 0.9.x` du modèle précédent : comme `@xaui/native` repart de zéro, publier des mineures qui ne contiennent que deux ou trois composants donnerait un package inutilisable sous un numéro qui promet le contraire. Un tag `alpha` dit la vérité.
 
-Concrètement, le dépôt est en **pre mode changesets** (`.changeset/pre.json`, tag `alpha`) : `changeset publish` pousse `native` et `hybrid` sous le dist-tag `alpha`, et `latest` reste sur les dernières releases qui portent réellement des composants — `@xaui/native@0.2.8` et `@xaui/hybrid@0.0.14`. Un `npm i @xaui/native` continue donc de renvoyer `0.2.8` ; l'opt-in est `@xaui/native@alpha`. Deux conséquences à garder en tête :
+Concrètement, le dépôt est en **pre mode changesets** (`.changeset/pre.json`, tag `alpha`) : `changeset publish` pousse `native` et `hybrid` sous le dist-tag `alpha`, et `latest` reste sur les dernières releases qui portent réellement des composants — `@xaui/native@0.2.8` et `@xaui/hybrid@0.0.14`. Un `npm i @xaui/native` continue donc de renvoyer `0.2.8` ; l'opt-in est `@xaui/native@alpha`. Trois conséquences à garder en tête :
 
-- **Le pre mode est global au dépôt.** Un changeset sur `@xaui/native-legacy` pendant cette fenêtre le versionnerait aussi en `-alpha.x`. Legacy est figé, donc le cas est rare — mais un correctif `0.2.x` réel demande de sortir du pre mode (`changeset pre exit`) le temps de la release.
-- **La première publication d'un package jamais publié doit se faire hors pre mode.** `getReleaseTag` (`@changesets/cli`) donne le tag pre à tout package dont `publishedState !== "only-pre"`, ce qui inclut `"never"` : un premier publish sous pre mode sortirait taggé `alpha` sans tag `latest`, et `npm i <pkg>` échouerait. C'est le cas de `@xaui/native-legacy` (§7).
+- **Le pre mode est global au dépôt, et il contamine les dépendants.** Il n'y a même pas besoin d'un changeset sur `@xaui/native-legacy` : comme il déclare `@xaui/native` en peer dep, la release `0.9.1-alpha.0` l'a bumpé en `0.2.12-alpha.0` au passage. C'est pour ça que legacy est dans `ignore` (`.changeset/config.json`) — sinon chaque alpha de `native` lui collerait un numéro d'alpha alors qu'il est figé. `demo` et `docs` y sont aussi, parce que changesets exige que tout dépendant d'un package ignoré le soit également.
+- **Le tag d'un premier publish ne se négocie pas en pre mode.** `getReleaseTag` (`@changesets/cli`) donne le tag pre à tout package dont `publishedState !== "only-pre"`, ce qui inclut `"never"` : un package jamais publié sort donc taggé `alpha`, sans tag `latest` du tout. Et il n'y a pas d'échappatoire propre — `changeset publish --tag` est refusé en pre mode, et `changeset pre exit` ne suffit pas (le `preState` est passé au publish quel que soit son mode ; seul le `changeset version` suivant supprime `pre.json`, en graduant `native` et `hybrid` sur `latest` au passage). La sortie de secours est en aval : publier sous `alpha`, puis `npm dist-tag add <pkg>@<version> latest`. C'est ce qui a été fait pour `@xaui/native-legacy@0.2.11`.
 - **`changeset pre exit` avant `1.0.0`**, sinon la version stable n'atteindrait jamais le tag `latest`.
 
 ---
@@ -1043,7 +1043,7 @@ Renommer le package npm casse par définition. La phase se termine par une publi
    → `npm i @xaui/native` sur un projet nu n'émet aucun warning de peer manquante.
 10. **Règle ESLint R13.** `left`, `right`, `paddingLeft`… interdits dans `packages/native/src`.
     → La règle est active et `pnpm lint` passe.
-11. **Publier `@xaui/native-legacy@0.2.8`** + le codemod `legacy-imports`.
+11. **Publier `@xaui/native-legacy@0.2.11`** + le codemod `legacy-imports`.
     → Un projet témoin migre ses imports et compile.
 
 > **Deux tâches ont disparu de cette liste** : « `forwardRef` sur tous les roots » et « `style`/`testID`/a11y sur tous les roots ». Elles visaient les 47 composants quand legacy et v1 partageaient un tree. Legacy est maintenant figé et déprécié — les rétrofiter serait du travail mort. Pour la v1, ce ne sont pas des tâches mais les règles R9 et R12, appliquées à l'écriture de chaque composant.
@@ -1184,4 +1184,4 @@ L'ordre de P0 n'est pas indicatif : le `git mv` vient en premier, sinon tout le 
 4. `theme/create-theme.ts` puis `provider/xaui-provider.tsx`
 5. `native-legacy/core-shim.ts` — premier point de vérification réel : un `Button` legacy doit rendre sous le nouveau provider
 
-Fin de la première session. `@xaui/native-legacy@0.2.8` peut être publié ici ; `@xaui/native` attend d'avoir un composant, en P2.
+Fin de la première session. `@xaui/native-legacy@0.2.11` peut être publié ici ; `@xaui/native` attend d'avoir un composant, en P2.
