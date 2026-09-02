@@ -48,7 +48,7 @@ export default function McpPage() {
             means your AI can look up component props, get usage examples, and
             understand the difference between{' '}
             <code className="rounded bg-muted px-1 py-0.5 text-sm font-mono">
-              @xaui/native
+              @xaui/native-legacy
             </code>{' '}
             and{' '}
             <code className="rounded bg-muted px-1 py-0.5 text-sm font-mono">
@@ -111,7 +111,7 @@ export default function McpPage() {
               {
                 name: 'get_installation',
                 description:
-                  'Get installation instructions for @xaui/native, @xaui/hybrid, or both',
+                  'Get installation instructions for @xaui/native-legacy, @xaui/hybrid, or both',
               },
               {
                 name: 'get_native_vs_hybrid',

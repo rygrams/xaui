@@ -1,7 +1,7 @@
-import { useXUIColors, useXUITheme } from '@xaui/native/core'
+import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import { useState } from 'react'
-import { Picker } from '@xaui/native/picker'
+import { Picker } from '@xaui/native-legacy/picker'
 
 const countries = [
   { label: 'France', value: 'fr' },

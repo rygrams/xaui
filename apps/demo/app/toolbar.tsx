@@ -11,9 +11,9 @@ import {
   TrashIcon,
   AddIcon,
 } from '@xaui/icons'
-import { useXUIColors, useXUITheme } from '@xaui/native/core'
-import { Button } from '@xaui/native/button'
-import { Toolbar, ToolbarAction } from '@xaui/native/toolbar'
+import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
+import { Button } from '@xaui/native-legacy/button'
+import { Toolbar, ToolbarAction } from '@xaui/native-legacy/toolbar'
 
 export default function ToolbarScreen() {
   const colors = useXUIColors()

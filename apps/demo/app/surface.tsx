@@ -1,6 +1,6 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import { Surface, Column, Row } from '@xaui/native/view'
-import { useXUITheme } from '@xaui/native/core'
+import { Surface, Column, Row } from '@xaui/native-legacy/view'
+import { useXUITheme } from '@xaui/native-legacy/core'
 
 const semanticColors = [
   'primary',

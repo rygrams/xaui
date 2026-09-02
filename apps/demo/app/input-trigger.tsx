@@ -1,6 +1,6 @@
-import { useXUIColors, useXUITheme } from '@xaui/native/core'
+import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import { InputTrigger } from '@xaui/native/input-trigger'
+import { InputTrigger } from '@xaui/native-legacy/input-trigger'
 
 export default function InputTriggerScreen() {
   const colors = useXUIColors()

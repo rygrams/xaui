@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { ScrollView, StyleSheet, Text, TextInput, View } from 'react-native'
-import { Button } from '@xaui/native/button'
-import { useXUIColors, useXUITheme } from '@xaui/native/core'
-import { Dialog, DialogBody, DialogFooter, DialogHeader } from '@xaui/native/dialog'
+import { Button } from '@xaui/native-legacy/button'
+import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
+import { Dialog, DialogBody, DialogFooter, DialogHeader } from '@xaui/native-legacy/dialog'
 
 export default function DialogScreen() {
   const colors = useXUIColors()

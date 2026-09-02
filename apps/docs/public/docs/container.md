@@ -3,13 +3,13 @@
 Flutter-inspired layout container. Renders `View` by default, switches to `Pressable` automatically when a press handler is provided.
 
 ```bash
-pnpm add @xaui/native
+pnpm add @xaui/native-legacy
 ```
 
 **React Native**
 
 ```ts
-import { Container } from '@xaui/native/view'
+import { Container } from '@xaui/native-legacy/view'
 ```
 
 **Web / Hybrid**

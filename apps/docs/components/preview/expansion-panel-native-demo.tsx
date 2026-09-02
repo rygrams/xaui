@@ -1,7 +1,7 @@
 'use client'
 
 import { Text, View } from 'react-native'
-import { ExpansionPanel, ExpansionPanelItem } from '@xaui/native/expansion-panel'
+import { ExpansionPanel, ExpansionPanelItem } from '@xaui/native-legacy/expansion-panel'
 import { WebPreview } from '@/components/ui/web-preview'
 
 const itemAppearance = {
@@ -33,7 +33,7 @@ export function ExpansionPanelNativeDemo() {
             customAppearance={itemAppearance}
           >
             <Text style={itemBodyText}>
-              Install @xaui/native, wrap your app with XUIProvider, and start
+              Install @xaui/native-legacy, wrap your app with XUIProvider, and start
               building.
             </Text>
           </ExpansionPanelItem>
@@ -62,7 +62,7 @@ export function ExpansionPanelNativeDemo() {
               customAppearance={itemAppearance}
             >
               <Text style={itemBodyText}>
-                Install @xaui/native, wrap your app with XUIProvider, and start
+                Install @xaui/native-legacy, wrap your app with XUIProvider, and start
                 building.
               </Text>
             </ExpansionPanelItem>

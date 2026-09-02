@@ -1,7 +1,7 @@
-import { useXUIColors, useXUITheme } from '@xaui/native/core'
+import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
 import { StyleSheet, View, ScrollView, Text } from 'react-native'
 import { useState } from 'react'
-import { DateInput, TimeInput, DateTimeInput } from '@xaui/native/input'
+import { DateInput, TimeInput, DateTimeInput } from '@xaui/native-legacy/input'
 
 export default function DateInputScreen() {
   const colors = useXUIColors()

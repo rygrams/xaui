@@ -5,7 +5,7 @@ const nextConfig: NextConfig = {
   images: { unoptimized: true },
   transpilePackages: [
     '@xaui/hybrid',
-    '@xaui/native',
+    '@xaui/native-legacy',
     '@xaui/core',
     '@xaui/icons',
     'react-native-web',

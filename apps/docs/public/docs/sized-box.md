@@ -3,13 +3,13 @@
 Flutter-inspired fixed-size box. Use it to constrain dimensions, add blank spacing between elements, fill remaining space (`expand`), or collapse to nothing (`shrink`).
 
 ```bash
-pnpm add @xaui/native
+pnpm add @xaui/native-legacy
 ```
 
 **React Native**
 
 ```ts
-import { SizedBox } from '@xaui/native/view'
+import { SizedBox } from '@xaui/native-legacy/view'
 ```
 
 **Web / Hybrid**

@@ -1,7 +1,7 @@
-import { useXUIColors, useXUITheme } from '@xaui/native/core'
+import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
 import { StyleSheet, View, ScrollView, Text } from 'react-native'
 import { useState } from 'react'
-import { DatePicker } from '@xaui/native/datepicker'
+import { DatePicker } from '@xaui/native-legacy/datepicker'
 
 export default function DatePickerScreen() {
   const colors = useXUIColors()

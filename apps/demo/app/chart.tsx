@@ -4,8 +4,8 @@ import {
   LineChartCard,
   PieChartCard,
   VerticalBarChartCard,
-} from '@xaui/native/chart'
-import { useXUIColors, useXUITheme } from '@xaui/native/core'
+} from '@xaui/native-legacy/chart'
+import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 
 const sampleData = [

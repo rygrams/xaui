@@ -1,7 +1,7 @@
 'use client'
 
 import { type ReactNode, useEffect, useState } from 'react'
-import { XUIProvider } from '@xaui/native/core'
+import { XUIProvider } from '@xaui/native-legacy/core'
 
 const GEIST = 'var(--font-geist-sans, system-ui, sans-serif)'
 

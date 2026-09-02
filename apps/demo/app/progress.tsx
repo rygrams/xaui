@@ -1,7 +1,7 @@
-import { useXUIColors, useXUITheme } from '@xaui/native/core'
+import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
 import { StyleSheet, View, ScrollView, Text } from 'react-native'
 import { useEffect, useState } from 'react'
-import { Progress } from '@xaui/native/progress'
+import { Progress } from '@xaui/native-legacy/progress'
 
 export default function ProgressScreen() {
   const colors = useXUIColors()

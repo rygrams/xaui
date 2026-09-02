@@ -1,9 +1,9 @@
 import { useMemo, useRef, useState } from 'react'
 import { Pressable, ScrollView, StyleSheet, Text, View } from 'react-native'
-import { Button } from '@xaui/native/button'
-import { useXUIColors, useXUITheme } from '@xaui/native/core'
-import { FeatureDiscovery } from '@xaui/native/feature-discovery'
-import type { ThemeColor } from '@xaui/native/types'
+import { Button } from '@xaui/native-legacy/button'
+import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
+import { FeatureDiscovery } from '@xaui/native-legacy/feature-discovery'
+import type { ThemeColor } from '@xaui/native-legacy/types'
 
 const WORD_PARTS_A = [
   'Deep',

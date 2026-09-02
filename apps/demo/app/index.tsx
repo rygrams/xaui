@@ -1,8 +1,8 @@
-import { useXUIColors } from '@xaui/native/core'
+import { useXUIColors } from '@xaui/native-legacy/core'
 import { ScrollView } from 'react-native'
-import { Button } from '@xaui/native/button'
+import { Button } from '@xaui/native-legacy/button'
 import { useRouter } from 'expo-router'
-import { Grid, GridItem } from '@xaui/native/view'
+import { Grid, GridItem } from '@xaui/native-legacy/view'
 
 export default function HomeScreen() {
   const colors = useXUIColors()

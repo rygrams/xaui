@@ -1,8 +1,8 @@
-import { useXUIColors, useXUITheme } from '@xaui/native/core'
+import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
 import { StyleSheet, View, ScrollView, Text } from 'react-native'
 import { useState } from 'react'
-import { Alert } from '@xaui/native/alert'
-import { Button } from '@xaui/native/button'
+import { Alert } from '@xaui/native-legacy/alert'
+import { Button } from '@xaui/native-legacy/button'
 import { Stack } from 'expo-router'
 
 const AlertHeader = () => {

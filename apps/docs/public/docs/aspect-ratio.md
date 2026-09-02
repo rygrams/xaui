@@ -3,13 +3,13 @@
 Flutter-inspired box that forces its child to a specific aspect ratio — equivalent to `AspectRatio`. Set `ratio={16/9}` for a 16:9 container, `ratio={1}` for a perfect square.
 
 ```bash
-pnpm add @xaui/native
+pnpm add @xaui/native-legacy
 ```
 
 **React Native**
 
 ```ts
-import { AspectRatio } from '@xaui/native/view'
+import { AspectRatio } from '@xaui/native-legacy/view'
 ```
 
 **Web / Hybrid**

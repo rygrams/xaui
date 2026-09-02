@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import { Stepper, StepperItem } from '@xaui/native/stepper'
-import { useXUIColors, useXUITheme } from '@xaui/native/core'
+import { Stepper, StepperItem } from '@xaui/native-legacy/stepper'
+import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
 
 export default function StepperScreen() {
   const colors = useXUIColors()

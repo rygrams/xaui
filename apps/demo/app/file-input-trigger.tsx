@@ -1,5 +1,5 @@
-import { useXUIColors, useXUITheme } from '@xaui/native/core'
-import { FileInputTrigger } from '@xaui/native/input-trigger'
+import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
+import { FileInputTrigger } from '@xaui/native-legacy/input-trigger'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 
 export default function FileInputTriggerScreen() {

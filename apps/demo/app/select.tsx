@@ -1,7 +1,7 @@
-import { useXUIColors, useXUITheme } from '@xaui/native/core'
+import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
 import { StyleSheet, View, ScrollView, Text } from 'react-native'
 import { useState } from 'react'
-import { Select, SelectItem } from '@xaui/native/select'
+import { Select, SelectItem } from '@xaui/native-legacy/select'
 
 const variants = ['bordered', 'colored', 'light', 'underlined'] as const
 

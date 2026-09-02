@@ -1,7 +1,7 @@
-import { useXUIColors, useXUITheme } from '@xaui/native/core'
+import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import { useState } from 'react'
-import { ColorPicker } from '@xaui/native/color-picker'
+import { ColorPicker } from '@xaui/native-legacy/color-picker'
 
 const brandColors = [
   {

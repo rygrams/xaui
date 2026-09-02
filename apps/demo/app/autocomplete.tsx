@@ -1,7 +1,7 @@
-import { useXUIColors, useXUITheme } from '@xaui/native/core'
+import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
 import { StyleSheet, View, ScrollView, Text } from 'react-native'
 import { useState } from 'react'
-import { Autocomplete, AutocompleteItem } from '@xaui/native/autocomplete'
+import { Autocomplete, AutocompleteItem } from '@xaui/native-legacy/autocomplete'
 
 export default function AutocompleteScreen() {
   const colors = useXUIColors()

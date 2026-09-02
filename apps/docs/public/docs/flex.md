@@ -3,13 +3,13 @@
 Flutter-inspired generic flex container. Use `Flex` when you need full control over direction, alignment, gap, and wrapping. For the common cases use `Row` or `Column` directly.
 
 ```bash
-pnpm add @xaui/native
+pnpm add @xaui/native-legacy
 ```
 
 **React Native**
 
 ```ts
-import { Flex } from '@xaui/native/view'
+import { Flex } from '@xaui/native-legacy/view'
 ```
 
 **Web / Hybrid**
@@ -41,7 +41,7 @@ import { Flex } from '@xaui/hybrid/view'
 ### Row with space between
 
 ```tsx
-import { Flex } from '@xaui/native/view'
+import { Flex } from '@xaui/native-legacy/view'
 import { View } from 'react-native'
 
 ;<Flex direction="horizontal" mainAxisAlignment="spaceBetween" gap={8}>
@@ -60,7 +60,7 @@ import { View } from 'react-native'
 ### Vertical stack centered
 
 ```tsx
-import { Flex } from '@xaui/native/view'
+import { Flex } from '@xaui/native-legacy/view'
 import { View } from 'react-native'
 
 ;<Flex direction="vertical" crossAxisAlignment="center" gap={12}>
@@ -76,7 +76,7 @@ import { View } from 'react-native'
 ### Wrapping chips
 
 ```tsx
-import { Flex } from '@xaui/native/view'
+import { Flex } from '@xaui/native-legacy/view'
 
 ;<Flex direction="horizontal" wrap gap={8}>
   {tags.map(tag => (

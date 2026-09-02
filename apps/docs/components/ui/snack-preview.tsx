@@ -15,7 +15,7 @@ type SnackPreviewProps = {
 }
 
 const XAUI_DEPS: Record<string, string> = {
-  '@xaui/native': '0.0.27',
+  '@xaui/native-legacy': '0.0.27',
   'react-native-svg': '15.8.0',
 }
 

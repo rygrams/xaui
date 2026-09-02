@@ -1,7 +1,7 @@
-import { useXUIColors, useXUITheme } from '@xaui/native/core'
+import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
 import { StyleSheet, View, ScrollView, Text } from 'react-native'
-import { Badge } from '@xaui/native/badge'
-import { Button } from '@xaui/native/button'
+import { Badge } from '@xaui/native-legacy/badge'
+import { Button } from '@xaui/native-legacy/button'
 
 export default function BadgesScreen() {
   const colors = useXUIColors()

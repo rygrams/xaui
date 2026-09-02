@@ -1,8 +1,8 @@
 import { useMemo, useState } from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import { HomeIcon, SearchIcon, PersonIcon, SettingsIcon } from '@xaui/icons'
-import { useXUIColors, useXUITheme } from '@xaui/native/core'
-import { BottomTabBar, BottomTabBarItem } from '@xaui/native/bottom-tab-bar'
+import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
+import { BottomTabBar, BottomTabBarItem } from '@xaui/native-legacy/bottom-tab-bar'
 
 export default function BottomTabBarScreen() {
   const colors = useXUIColors()

@@ -3,13 +3,13 @@
 Flex container that automatically wraps children onto the next line when they overflow — identical to Flutter's `Wrap` widget. Use it for tag lists, chip groups, and any collection that needs to reflow.
 
 ```bash
-pnpm add @xaui/native
+pnpm add @xaui/native-legacy
 ```
 
 **React Native**
 
 ```ts
-import { Wrap } from '@xaui/native/view'
+import { Wrap } from '@xaui/native-legacy/view'
 ```
 
 **Web / Hybrid**
@@ -38,8 +38,8 @@ import { Wrap } from '@xaui/hybrid/view'
 ### Chip list
 
 ```tsx
-import { Wrap } from '@xaui/native/view'
-import { Chip } from '@xaui/native/chip'
+import { Wrap } from '@xaui/native-legacy/view'
+import { Chip } from '@xaui/native-legacy/chip'
 
 const tags = ['React', 'TypeScript', 'Flutter', 'UI', 'Mobile']
 
@@ -51,7 +51,7 @@ const tags = ['React', 'TypeScript', 'Flutter', 'UI', 'Mobile']
 ### Centered tags
 
 ```tsx
-import { Wrap } from '@xaui/native/view'
+import { Wrap } from '@xaui/native-legacy/view'
 import { View } from 'react-native'
 
 <Wrap alignment="center" spacing={12} runSpacing={12}>
@@ -64,7 +64,7 @@ import { View } from 'react-native'
 ### Space-between runs
 
 ```tsx
-import { Wrap } from '@xaui/native/view'
+import { Wrap } from '@xaui/native-legacy/view'
 
 <Wrap spacing={8} runSpacing={16} runAlignment="spaceBetween">
   {skills.map((s) => <Badge key={s} label={s} />)}

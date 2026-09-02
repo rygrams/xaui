@@ -1,7 +1,7 @@
-import { useXUIColors, useXUITheme } from '@xaui/native/core'
+import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
 import { StyleSheet, View, ScrollView, Text } from 'react-native'
 import { useState } from 'react'
-import { TextArea } from '@xaui/native/input'
+import { TextArea } from '@xaui/native-legacy/input'
 
 const variants = ['colored', 'light', 'bordered', 'underlined'] as const
 const themeColors = [

@@ -1,8 +1,8 @@
 import { useCallback, useState } from 'react'
 import { StyleSheet, ScrollView, Text, View } from 'react-native'
-import { useXUIColors, useXUITheme } from '@xaui/native/core'
-import { Button } from '@xaui/native/button'
-import { SnackbarStack, type SnackbarItem } from '@xaui/native/snackbar'
+import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
+import { Button } from '@xaui/native-legacy/button'
+import { SnackbarStack, type SnackbarItem } from '@xaui/native-legacy/snackbar'
 
 const createSnackbarId = () =>
   `snackbar-${Date.now()}-${Math.random().toString(16).slice(2)}`

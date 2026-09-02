@@ -1,6 +1,6 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import { AspectRatio } from '@xaui/native/view'
-import { useXUIColors, useXUITheme } from '@xaui/native/core'
+import { AspectRatio } from '@xaui/native-legacy/view'
+import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
 
 export default function AspectRatioScreen() {
   const colors = useXUIColors()

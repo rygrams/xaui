@@ -32,17 +32,17 @@ export default function GettingStartedPage() {
             <div>
               <p className="text-sm text-muted-foreground mb-2">With npm:</p>
               <CodeBlock
-                code="npm install @xaui/native @xaui/icons"
+                code="npm install @xaui/native-legacy @xaui/icons"
                 language="bash"
               />
             </div>
             <div>
               <p className="text-sm text-muted-foreground mb-2">Or with yarn:</p>
-              <CodeBlock code="yarn add @xaui/native @xaui/icons" language="bash" />
+              <CodeBlock code="yarn add @xaui/native-legacy @xaui/icons" language="bash" />
             </div>
             <div>
               <p className="text-sm text-muted-foreground mb-2">Or with pnpm:</p>
-              <CodeBlock code="pnpm add @xaui/native @xaui/icons" language="bash" />
+              <CodeBlock code="pnpm add @xaui/native-legacy @xaui/icons" language="bash" />
             </div>
           </div>
         </section>
@@ -64,7 +64,7 @@ export default function GettingStartedPage() {
             <li>Pass partial objects: non-overridden tokens keep default values.</li>
           </ul>
           <CodeBlock
-            code={`import { XUIProvider } from '@xaui/native/core'
+            code={`import { XUIProvider } from '@xaui/native-legacy/core'
 
 const customLightTheme = {
   colors: {
@@ -113,7 +113,7 @@ export default function App() {
             Wrap your app with the XUIProvider to enable theming and context:
           </p>
           <CodeBlock
-            code={`import { XUIProvider } from '@xaui/native/core'
+            code={`import { XUIProvider } from '@xaui/native-legacy/core'
 
 export default function App() {
   return (
@@ -131,7 +131,7 @@ export default function App() {
             Start using components in your application:
           </p>
           <CodeBlock
-            code={`import { Button } from '@xaui/native/button'
+            code={`import { Button } from '@xaui/native-legacy/button'
 
 export function MyComponent() {
   return (

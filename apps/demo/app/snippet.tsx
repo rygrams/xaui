@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import { Snippet } from '@xaui/native/snippet'
-import { useXUIColors, useXUITheme } from '@xaui/native/core'
+import { Snippet } from '@xaui/native-legacy/snippet'
+import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
 
 const variants = ['outlined', 'flat', 'light'] as const
 const themeColors = [
@@ -34,7 +34,7 @@ export default function SnippetScreen() {
           {variants.map(variant => (
             <Snippet
               key={variant}
-              value={`pnpm --filter @xaui/native build -- ${variant}`}
+              value={`pnpm --filter @xaui/native-legacy build -- ${variant}`}
               variant={variant}
             />
           ))}
@@ -103,19 +103,19 @@ export default function SnippetScreen() {
         </Text>
         <View style={{ gap: theme.spacing.md }}>
           <Snippet
-            value="pnpm --filter @xaui/native test"
+            value="pnpm --filter @xaui/native-legacy test"
             fontSize={13}
             fontWeight="400"
             themeColor="default"
           />
           <Snippet
-            value="pnpm --filter @xaui/native test"
+            value="pnpm --filter @xaui/native-legacy test"
             fontSize={16}
             fontWeight="600"
             themeColor="secondary"
           />
           <Snippet
-            value="pnpm --filter @xaui/native test"
+            value="pnpm --filter @xaui/native-legacy test"
             fontSize={18}
             fontWeight="700"
             themeColor="primary"

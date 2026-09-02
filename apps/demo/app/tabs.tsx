@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import { Tab, Tabs } from '@xaui/native/tabs'
-import { useXUIColors, useXUITheme } from '@xaui/native/core'
+import { Tab, Tabs } from '@xaui/native-legacy/tabs'
+import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
 
 const themeColors = [
   'primary',
