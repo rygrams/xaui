@@ -4,9 +4,7 @@ const nextConfig: NextConfig = {
   output: 'export',
   images: { unoptimized: true },
   transpilePackages: [
-    '@xaui/hybrid-legacy',
     '@xaui/native-legacy',
-    '@xaui/core',
     '@xaui/native',
     '@xaui/icons',
     'react-native-web',

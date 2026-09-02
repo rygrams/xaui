@@ -6,18 +6,8 @@ Flex container that automatically wraps children onto the next line when they ov
 pnpm add @xaui/native-legacy
 ```
 
-**React Native**
-
 ```ts
 import { Wrap } from '@xaui/native-legacy/view'
-```
-
-**Web / Hybrid**
-
-```ts
-import { Wrap } from '@xaui/hybrid-legacy/wrap'
-// or from the aggregated view export
-import { Wrap } from '@xaui/hybrid-legacy/view'
 ```
 
 ## Props

@@ -6,18 +6,8 @@ Expands a child to fill the available space inside a `Row` or `Column`. The opti
 pnpm add @xaui/native-legacy
 ```
 
-**React Native**
-
 ```ts
 import { Expanded } from '@xaui/native-legacy/view'
-```
-
-**Web / Hybrid**
-
-```ts
-import { Expanded } from '@xaui/hybrid-legacy/expanded'
-// or from the aggregated view export
-import { Expanded } from '@xaui/hybrid-legacy/view'
 ```
 
 ## Props

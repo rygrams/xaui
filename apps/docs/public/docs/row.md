@@ -6,18 +6,8 @@ Flutter-inspired horizontal flex layout. `Row` is `Flex` with `direction="horizo
 pnpm add @xaui/native-legacy
 ```
 
-**React Native**
-
 ```ts
 import { Row } from '@xaui/native-legacy/view'
-```
-
-**Web / Hybrid**
-
-```ts
-import { Row } from '@xaui/hybrid-legacy/row'
-// or from the aggregated view export
-import { Row } from '@xaui/hybrid-legacy/view'
 ```
 
 ## Props

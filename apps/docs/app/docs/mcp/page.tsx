@@ -45,14 +45,9 @@ export default function McpPage() {
           <p className="text-muted-foreground">
             MCP (Model Context Protocol) is an open standard that lets AI assistants
             connect to external tools and data sources. Adding the XAUI MCP server
-            means your AI can look up component props, get usage examples, and
-            understand the difference between{' '}
+            means your AI can look up component props and get usage examples for{' '}
             <code className="rounded bg-muted px-1 py-0.5 text-sm font-mono">
               @xaui/native-legacy
-            </code>{' '}
-            and{' '}
-            <code className="rounded bg-muted px-1 py-0.5 text-sm font-mono">
-              @xaui/hybrid-legacy
             </code>{' '}
             without you explaining it.
           </p>
@@ -110,12 +105,7 @@ export default function McpPage() {
               },
               {
                 name: 'get_installation',
-                description:
-                  'Get installation instructions for @xaui/native-legacy, @xaui/hybrid-legacy, or both',
-              },
-              {
-                name: 'get_native_vs_hybrid',
-                description: 'Explain the difference between the two packages',
+                description: 'Get installation instructions for @xaui/native-legacy',
               },
               {
                 name: 'get_mcp_setup',
