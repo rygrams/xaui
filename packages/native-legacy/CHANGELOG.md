@@ -1,11 +1,4 @@
-# @xaui/mobile
-
-## 0.2.12-alpha.0
-
-### Patch Changes
-
-- Updated dependencies [88c692a]
-  - @xaui/native@0.9.1-alpha.0
+# @xaui/native-legacy
 
 ## 0.2.11
 
