@@ -22,7 +22,7 @@ import {
   styles,
 } from './snackbar.style'
 import { useSnackbarColors, useSnackbarStackPositionStyles } from './snackbar.hook'
-import { CloseIcon } from '@xaui/icons/close'
+import { CloseIcon } from '../../icons'
 
 const ENTER_ANIMATION_DURATION = 220
 const EXIT_ANIMATION_DURATION = 180

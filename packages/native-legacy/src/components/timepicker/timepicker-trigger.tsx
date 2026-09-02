@@ -1,7 +1,7 @@
 import React, { useMemo } from 'react'
 import type { TextStyle, ViewStyle } from 'react-native'
 import { Pressable, Text, TouchableOpacity, View } from 'react-native'
-import { CloseIcon, TimeIcon } from '@xaui/icons'
+import { CloseIcon, TimeIcon } from '../../icons'
 import { useXUITheme } from '../../core'
 import { useTimePickerColors } from './timepicker.hook'
 import { styles } from './timepicker.style'

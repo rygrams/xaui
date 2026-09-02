@@ -1,12 +1,9 @@
+import Ionicons from '@expo/vector-icons/Ionicons'
 import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
 import { StyleSheet, View, ScrollView, Text } from 'react-native'
 import { Menu, MenuItem } from '@xaui/native-legacy/menu'
 import { Button, IconButton } from '@xaui/native-legacy/button'
 import { Margin } from '@xaui/native-legacy/view'
-import { CloseIcon } from '@xaui/icons/close'
-import { CheckmarkIcon } from '@xaui/icons/checkmark'
-import { ArrowBackIcon } from '@xaui/icons/arrow-back'
-import { EllipsisVerticalIcon } from '@xaui/icons/ellipsis-vertical'
 import { useState } from 'react'
 
 export default function MenusScreen() {
@@ -404,7 +401,9 @@ export default function MenusScreen() {
                   variant="light"
                   themeColor="secondary"
                   radius="md"
-                  icon={<EllipsisVerticalIcon size={20} color="#333333" />}
+                  icon={
+                    <Ionicons name="ellipsis-vertical" size={20} color="#333333" />
+                  }
                   onPress={() => setComplexMenuVisible(true)}
                 />
               }
@@ -412,7 +411,7 @@ export default function MenusScreen() {
               <MenuItem
                 title="Edit"
                 startContent={
-                  <CheckmarkIcon size={20} color={colors.primary.main} />
+                  <Ionicons name="checkmark" size={20} color={colors.primary.main} />
                 }
                 endContent={
                   <Text style={{ color: colors.foreground, opacity: 0.5 }}>⌘E</Text>
@@ -422,7 +421,11 @@ export default function MenusScreen() {
               <MenuItem
                 title="Duplicate"
                 startContent={
-                  <ArrowBackIcon size={20} color={colors.success.main} />
+                  <Ionicons
+                    name="arrow-back"
+                    size={20}
+                    color={colors.success.main}
+                  />
                 }
                 endContent={
                   <Text style={{ color: colors.foreground, opacity: 0.5 }}>⌘D</Text>
@@ -446,7 +449,9 @@ export default function MenusScreen() {
               <MenuItem title="Share" isDisabled />
               <MenuItem
                 title="Delete"
-                startContent={<CloseIcon size={20} color={colors.danger.main} />}
+                startContent={
+                  <Ionicons name="close" size={20} color={colors.danger.main} />
+                }
                 customAppearance={{
                   title: {
                     color: colors.danger.main,

@@ -1,8 +1,7 @@
 import React from 'react'
 import type { LayoutChangeEvent, TextStyle, ViewStyle } from 'react-native'
 import { Pressable, Text, TouchableOpacity, View } from 'react-native'
-import { CalendarIcon } from '@xaui/icons/calendar'
-import { CloseIcon } from '@xaui/icons/close'
+import { CalendarIcon, CloseIcon } from '../../icons'
 import type { DatePickerVariant } from './datepicker.type'
 
 import { styles } from './datepicker.style'
