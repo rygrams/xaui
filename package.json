@@ -16,6 +16,7 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "tokens:generate": "tsx tooling/tokens/generate.ts",
     "tokens:check": "tsx tooling/tokens/generate.ts --check",
+    "xaui-codemod": "tsx tooling/codemods/cli.ts",
     "changeset": "changeset",
     "version-packages": "changeset version",
     "version": "changeset version",
