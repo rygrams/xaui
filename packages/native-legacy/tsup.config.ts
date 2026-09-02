@@ -1,0 +1,96 @@
+import { defineConfig } from 'tsup'
+
+const entries = {
+  index: 'src/index.ts',
+  'core/index': 'src/core/index.ts',
+  'button/index': 'src/components/button/index.ts',
+  'checkbox/index': 'src/components/checkbox/index.ts',
+  'expansion-panel/index': 'src/components/expansion-panel/index.ts',
+  'progress/index': 'src/components/progress/index.ts',
+  'indicator/index': 'src/components/indicator/index.ts',
+  'switch/index': 'src/components/switch/index.ts',
+  'select/index': 'src/components/select/index.ts',
+  'dialog/index': 'src/components/dialog/index.ts',
+  'divider/index': 'src/components/divider/index.ts',
+  'drawer/index': 'src/components/drawer/index.ts',
+  'avatar/index': 'src/components/avatar/index.ts',
+  'badge/index': 'src/components/badge/index.ts',
+  'alert/index': 'src/components/alert/index.ts',
+  'autocomplete/index': 'src/components/autocomplete/index.ts',
+  'datepicker/index': 'src/components/datepicker/index.ts',
+  'typography/index': 'src/components/typography/index.ts',
+  'view/index': 'src/components/view/index.ts',
+  'chip/index': 'src/components/chip/index.ts',
+  'bottom-sheet/index': 'src/components/bottom-sheet/index.ts',
+  'bottom-tab-bar/index': 'src/components/bottom-tab-bar/index.ts',
+  'menu/index': 'src/components/menu/index.ts',
+  'fab/index': 'src/components/fab/index.ts',
+  'fab-menu/index': 'src/components/fab-menu/index.ts',
+  'feature-discovery/index': 'src/components/feature-discovery/index.ts',
+  'segment-button/index': 'src/components/segment-button/index.ts',
+  'carousel/index': 'src/components/carousel/index.ts',
+  'card/index': 'src/components/card/index.ts',
+  'skeleton/index': 'src/components/skeleton/index.ts',
+  'input/index': 'src/components/input/index.ts',
+  'list/index': 'src/components/list/index.ts',
+  'radio/index': 'src/components/radio/index.ts',
+  'toolbar/index': 'src/components/toolbar/index.ts',
+  'app-bar/index': 'src/components/app-bar/index.ts',
+  'timepicker/index': 'src/components/timepicker/index.ts',
+  'stepper/index': 'src/components/stepper/index.ts',
+  'menubox/index': 'src/components/menubox/index.ts',
+  'slider/index': 'src/components/slider/index.ts',
+  'tabs/index': 'src/components/tabs/index.ts',
+  'pager/index': 'src/components/pager/index.ts',
+  'chart/index': 'src/components/chart/index.ts',
+  'snackbar/index': 'src/components/snackbar/index.ts',
+  'input-trigger/index': 'src/components/input-trigger/index.ts',
+  'picker/index': 'src/components/picker/index.ts',
+  'color-picker/index': 'src/components/color-picker/index.ts',
+  'snippet/index': 'src/components/snippet/index.ts',
+  'refresh-control/index': 'src/components/refresh-control/index.ts',
+} as const
+
+const sharedConfig = {
+  format: ['cjs', 'esm'] as ('cjs' | 'esm')[],
+  clean: false,
+  external: [
+    'react',
+    'react-native',
+    'react-native-gesture-handler',
+    'react-native-reanimated',
+    'react-native-worklets',
+    'react-native-svg',
+    '@xaui/core',
+    '@xaui/core/theme',
+    '@xaui/icons',
+  ],
+  target: 'es2020',
+}
+
+export default defineConfig(() => {
+  const entryList = Object.entries(entries)
+  const groupSize = 10
+  const entryGroups = Array.from(
+    { length: Math.ceil(entryList.length / groupSize) },
+    (_, index) =>
+      Object.fromEntries(entryList.slice(index * groupSize, (index + 1) * groupSize))
+  )
+
+  const jsBuilds = [
+    {
+      ...sharedConfig,
+      entry: entries,
+      splitting: true,
+      dts: false,
+    },
+  ]
+
+  const dtsBuilds = entryGroups.map(entry => ({
+    ...sharedConfig,
+    entry,
+    dts: { only: true },
+  }))
+
+  return [...jsBuilds, ...dtsBuilds]
+})
