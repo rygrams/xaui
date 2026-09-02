@@ -1,5 +1,18 @@
 # docs
 
+## 0.1.44
+
+### Patch Changes
+
+- @xaui/native-legacy@0.2.10
+
+## 0.1.43
+
+### Patch Changes
+
+- Updated dependencies [f455c83]
+  - @xaui/native-legacy@0.2.9
+
 ## 0.1.42
 
 ### Patch Changes

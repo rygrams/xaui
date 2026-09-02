@@ -26,23 +26,36 @@ export default function GettingStartedPage() {
         <section className="space-y-4">
           <h2 className="text-xl font-semibold md:text-2xl">1. Installation</h2>
           <p className="text-muted-foreground">
-            Install the core packages using your preferred package manager:
+            Install the core packages using your preferred package manager.
+            <span className="font-mono text-xs"> @xaui/native </span>carries the
+            theme and the provider, so it is a required peer of the frozen
+            <span className="font-mono text-xs"> @xaui/native-legacy </span>tree —
+            pin that one to an exact version.
           </p>
           <div className="space-y-4">
             <div>
               <p className="text-sm text-muted-foreground mb-2">With npm:</p>
               <CodeBlock
-                code="npm install @xaui/native @xaui/native-legacy@0.2.8"
+                code={`npm install @xaui/native
+npm install --save-exact @xaui/native-legacy@0.2.8`}
                 language="bash"
               />
             </div>
             <div>
               <p className="text-sm text-muted-foreground mb-2">Or with yarn:</p>
-              <CodeBlock code="yarn add @xaui/native @xaui/native-legacy@0.2.8" language="bash" />
+              <CodeBlock
+                code={`yarn add @xaui/native
+yarn add --exact @xaui/native-legacy@0.2.8`}
+                language="bash"
+              />
             </div>
             <div>
               <p className="text-sm text-muted-foreground mb-2">Or with pnpm:</p>
-              <CodeBlock code="pnpm add @xaui/native @xaui/native-legacy@0.2.8" language="bash" />
+              <CodeBlock
+                code={`pnpm add @xaui/native
+pnpm add --save-exact @xaui/native-legacy@0.2.8`}
+                language="bash"
+              />
             </div>
           </div>
         </section>
@@ -52,77 +65,88 @@ export default function GettingStartedPage() {
             2. Theme Customization
           </h2>
           <p className="text-muted-foreground">
-            Xaui lets you override only the parts of the theme you need. You can
-            customize brand colors, surface colors, text colors, typography tokens,
-            spacing, radius, and more without rewriting the full theme.
+            Xaui lets you override only the parts of the theme you need. Build the
+            theme set once with
+            <span className="font-mono text-xs"> createTheme() </span>and customize
+            brand colors, typography tokens, spacing, radius, and more without
+            rewriting the full theme.
           </p>
           <ul className="list-disc pl-6 text-muted-foreground space-y-1">
             <li>
-              Use <span className="font-mono text-xs">theme</span> to override
-              tokens.
+              Override source colors per mode: non-overridden tokens keep their
+              default values.
             </li>
-            <li>Pass partial objects: non-overridden tokens keep default values.</li>
+            <li>
+              The derived steps —
+              <span className="font-mono text-xs"> accentSoft </span>,
+              <span className="font-mono text-xs"> accentPressed </span>, and the
+              rest — are recomputed from what you set.
+            </li>
           </ul>
           <CodeBlock
-            code={`import { XUIProvider } from '@xaui/native-legacy/core'
+            code={`// theme.ts
+import { createTheme } from '@xaui/native/theme'
 
-const customLightTheme = {
+// Build it once, at module level: a literal object passed to the provider
+// changes identity on every parent render and rebuilds every style in the app.
+export const appTheme = createTheme({
   colors: {
-    primary: {
-      main: '#2563EB',
-      onMain: '#FFFFFF',
-      container: '#DBEAFE',
-      onContainer: '#1E40AF',
+    light: {
+      accent: '#2563EB',
+      accentForeground: '#FFFFFF',
+      background: '#FFFFFF',
+      foreground: '#0F172A',
     },
-    secondary: {
-      main: '#0EA5E9',
-      onMain: '#FFFFFF',
-      container: '#E0F2FE',
-      onContainer: '#0369A1',
+    dark: {
+      accent: '#60A5FA',
+      accentForeground: '#0F172A',
     },
-    background: '#FFFFFF',
-    foreground: '#0F172A',
   },
-  borderRadius: {
-    md: 12,
-    lg: 16,
-  },
-}
-
-export default function App() {
-  return (
-    <XUIProvider theme={customLightTheme}>
-      <YourApp />
-    </XUIProvider>
-  )
-}`}
+  radius: 16,
+})`}
           />
           <p className="text-sm text-muted-foreground">
             Tip: Start by overriding only
-            <span className="font-mono text-xs"> colors.primary </span>(main, onMain,
-            container, onContainer) and
-            <span className="font-mono text-xs"> colors.background </span>
-            to quickly align Xaui with your brand, then extend to spacing and
-            typography if needed.
+            <span className="font-mono text-xs"> accent </span>and
+            <span className="font-mono text-xs"> accentForeground </span>
+            to quickly align Xaui with your brand, then extend to
+            <span className="font-mono text-xs"> background </span>, spacing and
+            typography if needed. Frozen components read the same values —
+            <span className="font-mono text-xs"> accent </span>is what they call
+            <span className="font-mono text-xs"> colors.primary.main </span>.
           </p>
         </section>
 
         <section className="space-y-4">
           <h2 className="text-xl font-semibold md:text-2xl">3. Setup Provider</h2>
           <p className="text-muted-foreground">
-            Wrap your app with the XUIProvider to enable theming and context:
+            Wrap your app with the XAUIProvider to enable theming and context. One
+            provider themes both trees, so v1 and legacy screens can sit side by
+            side:
           </p>
           <CodeBlock
-            code={`import { XUIProvider } from '@xaui/native-legacy/core'
+            code={`import { XAUIProvider } from '@xaui/native/theme'
+import { PortalHost } from '@xaui/native-legacy/core'
+import { appTheme } from './theme'
 
 export default function App() {
   return (
-    <XUIProvider>
-      <YourApp />
-    </XUIProvider>
+    <XAUIProvider theme={appTheme}>
+      <PortalHost>
+        <YourApp />
+      </PortalHost>
+    </XAUIProvider>
   )
 }`}
           />
+          <p className="text-sm text-muted-foreground">
+            <span className="font-mono text-xs">XUIProvider</span> from
+            <span className="font-mono text-xs"> @xaui/native-legacy/core </span>
+            still works as a deprecated wrapper around the same provider, but it is
+            no longer prop-compatible with v0:
+            <span className="font-mono text-xs"> theme </span>now takes the set
+            returned by <span className="font-mono text-xs">createTheme</span>.
+          </p>
         </section>
 
         <section className="space-y-4">
