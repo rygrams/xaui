@@ -98,3 +98,74 @@ export type XAUIPrimitiveColors = {
 export type XAUIColors = XAUISourceColors & XAUIDerivedColors & XAUIPrimitiveColors
 
 export type ColorMode = 'light' | 'dark'
+
+export type Size = 'xs' | 'sm' | 'md' | 'lg'
+
+export type RadiusKey =
+  | 'xs'
+  | 'sm'
+  | 'md'
+  | 'lg'
+  | 'xl'
+  | '2xl'
+  | '3xl'
+  | '4xl'
+  | 'field'
+  | 'full'
+
+export type FontSizeKey = Size | 'xl' | '2xl' | '3xl' | '4xl'
+export type FontWeightKey = 'regular' | 'medium' | 'semibold' | 'bold'
+
+export type XAUIRadius = Record<RadiusKey, number>
+
+export type XAUIShadow = {
+  shadowColor: string
+  shadowOffset: { width: number; height: number }
+  shadowOpacity: number
+  shadowRadius: number
+  elevation: number
+}
+
+export type XAUITheme = {
+  id: string
+  mode: ColorMode
+  colors: XAUIColors
+  /** Base 4 — `spacing(3) === 12`. A function, so there is no "what do we call 12px". */
+  spacing: (steps: number) => number
+  radius: XAUIRadius
+  borderWidth: { default: number; field: number }
+  fontSizes: Record<FontSizeKey, number>
+  lineHeights: Record<FontSizeKey, number>
+  fontWeights: Record<FontWeightKey, string>
+  fontFamilies: { body: string; heading: string; mono: string }
+  /** Semantic roles, not a scale: dark mode drops the surface shadow entirely. */
+  shadows: { surface: XAUIShadow; overlay: XAUIShadow; field: XAUIShadow }
+  opacity: { disabled: number }
+  controlHeights: Record<Size, number>
+}
+
+export type XAUIThemeConfig = {
+  colors?: {
+    light?: Partial<XAUISourceColors & XAUIDerivedColors>
+    dark?: Partial<XAUISourceColors & XAUIDerivedColors>
+  }
+  /** The single base the whole radius scale derives from. */
+  radius?: number
+  spacingUnit?: number
+  borderWidth?: Partial<XAUITheme['borderWidth']>
+  fontSizes?: Partial<XAUITheme['fontSizes']>
+  lineHeights?: Partial<XAUITheme['lineHeights']>
+  fontWeights?: Partial<XAUITheme['fontWeights']>
+  fontFamilies?: Partial<XAUITheme['fontFamilies']>
+  /** Per role, and `shadowOffset` is replaced whole — a half-set offset is not a shadow. */
+  shadows?: { [K in keyof XAUITheme['shadows']]?: Partial<XAUIShadow> }
+  opacity?: Partial<XAUITheme['opacity']>
+  controlHeights?: Partial<XAUITheme['controlHeights']>
+}
+
+/** What `createTheme` returns: both modes, resolved, sharing one id. */
+export type XAUIThemeSet = {
+  id: string
+  light: XAUITheme
+  dark: XAUITheme
+}
