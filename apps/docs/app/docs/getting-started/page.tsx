@@ -32,17 +32,17 @@ export default function GettingStartedPage() {
             <div>
               <p className="text-sm text-muted-foreground mb-2">With npm:</p>
               <CodeBlock
-                code="npm install @xaui/native-legacy @xaui/icons"
+                code="npm install @xaui/native @xaui/native-legacy@0.2.8"
                 language="bash"
               />
             </div>
             <div>
               <p className="text-sm text-muted-foreground mb-2">Or with yarn:</p>
-              <CodeBlock code="yarn add @xaui/native-legacy @xaui/icons" language="bash" />
+              <CodeBlock code="yarn add @xaui/native @xaui/native-legacy@0.2.8" language="bash" />
             </div>
             <div>
               <p className="text-sm text-muted-foreground mb-2">Or with pnpm:</p>
-              <CodeBlock code="pnpm add @xaui/native-legacy @xaui/icons" language="bash" />
+              <CodeBlock code="pnpm add @xaui/native @xaui/native-legacy@0.2.8" language="bash" />
             </div>
           </div>
         </section>

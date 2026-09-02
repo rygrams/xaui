@@ -6,7 +6,6 @@ const nextConfig: NextConfig = {
   transpilePackages: [
     '@xaui/native-legacy',
     '@xaui/native',
-    '@xaui/icons',
     'react-native-web',
     'react-native-svg',
   ],
