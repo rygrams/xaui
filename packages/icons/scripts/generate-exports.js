@@ -120,7 +120,7 @@ export default defineConfig(options => {
     format: ['cjs', 'esm'] as const,
     dts: true,
     clean: !options.watch && index === 0,
-    external: ['react', 'react-native', 'react-native-svg', '@xaui/core'],
+    external: ['react', 'react-native', 'react-native-svg'],
     target: 'es2020',
   }))
 })
