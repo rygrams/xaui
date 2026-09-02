@@ -67,7 +67,11 @@ export function oklabToRgb([L, a, b]: Oklab): Rgb {
 }
 
 /** `oklch()` from the design source, converted once — React Native cannot parse it. */
-export function oklchToHex(lightness: number, chroma: number, hueDeg: number): string {
+export function oklchToHex(
+  lightness: number,
+  chroma: number,
+  hueDeg: number
+): string {
   const h = (hueDeg * Math.PI) / 180
   return rgbToHex(
     oklabToRgb([lightness, chroma * Math.cos(h), chroma * Math.sin(h)])

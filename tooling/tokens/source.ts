@@ -1,4 +1,7 @@
-import type { XAUIPrimitiveColors, XAUISourceColors } from '../../packages/native/src/theme/theme.type'
+import type {
+  XAUIPrimitiveColors,
+  XAUISourceColors,
+} from '../../packages/native/src/theme/theme.type'
 
 /** The raw palette. It sits outside the theme — components never read it. */
 const p = {
