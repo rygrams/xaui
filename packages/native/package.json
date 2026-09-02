@@ -22,6 +22,11 @@
       "import": "./dist/index.js",
       "require": "./dist/index.js"
     },
+    "./system": {
+      "types": "./dist/system/index.d.ts",
+      "import": "./dist/system/index.js",
+      "require": "./dist/system/index.js"
+    },
     "./theme": {
       "types": "./dist/theme/index.d.ts",
       "import": "./dist/theme/index.js",

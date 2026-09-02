@@ -18,7 +18,13 @@ Task detail lives in `XAUI-V1-PLAN.md`.
 | P0.11 | Publish `@xaui/native-legacy@0.2.8` and the codemod      | todo   |
 | P0.12 | Delete `@xaui/core` and `@xaui/icons`                     | done   |
 | P0.13 | Publish `native` and `hybrid` on the `alpha` tag          | done   |
-| P1    | `system/` — recipe, slots, feedback, portal, icon, hooks | todo   |
+| P1.1  | `system/recipe/` — engine, cache, tint                   | done   |
+| P1.2  | `system/slot/` — context, `childrenToString`, merges     | todo   |
+| P1.3  | `system/pressable-feedback/`                             | todo   |
+| P1.4  | `system/portal/`                                         | todo   |
+| P1.5  | `system/icon/`                                           | todo   |
+| P1.6  | Shared hooks                                             | todo   |
+| P1.7  | `pnpm pack` uniqueness check on both packages            | todo   |
 | P2    | Reference `Button`, perf baseline, API review            | todo   |
 | P3    | The fifteen-component core                               | todo   |
 | P4    | Docs, generated tables, `1.0.0`                          | todo   |
