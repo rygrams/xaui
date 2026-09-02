@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import { useXUITheme } from '../../core'
-import { getSafeThemeColor } from '@xaui/core'
+import { getSafeThemeColor } from '../../core-shim'
 import type { FabVariant, FabSize } from './fab.type'
 import type { ThemeColor } from '../../types'
 import type { ButtonRadius, ElevationLevel } from '../button/button.type'

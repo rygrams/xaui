@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { getSafeThemeColor, withOpacity } from '@xaui/core'
+import { getSafeThemeColor, withOpacity } from '../../core-shim'
 import { useXUITheme } from '../../core'
 import type { CopyButtonPosition, SnippetVariant } from './snippet.type'
 import type { ThemeColor } from '../../types'

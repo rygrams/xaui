@@ -8,7 +8,7 @@ import {
   type StyleProp,
   type TextStyle,
 } from 'react-native'
-import { withOpacity } from '@xaui/core'
+import { withOpacity } from '../../core-shim'
 import type { FeatureDiscoveryProps } from './feature-discovery.type'
 import { styles } from './feature-discovery.style'
 import {

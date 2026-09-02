@@ -15,7 +15,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated'
 import { scheduleOnRN } from 'react-native-worklets'
-import { withOpacity } from '@xaui/core'
+import { withOpacity } from '../../core-shim'
 import { useBorderRadiusStyles, useXUITheme } from '../../core/theme-hooks'
 import { CloseIcon } from '@xaui/icons'
 import { styles } from './dialog.style'

@@ -6,32 +6,33 @@ export const metadata: Metadata = {
   description: 'Learn how to customize Xaui theme tokens and color modes',
 }
 
-const providerCode = `import { XUIProvider } from '@xaui/native-legacy/core'
+const providerCode = `import { XAUIProvider, createTheme } from '@xaui/native/theme'
+import { PortalHost } from '@xaui/native-legacy/core'
 
-const customLightTheme = {
+// Build the set once, at module level. A literal object passed to the provider
+// changes identity on every parent render and rebuilds every style in the app.
+const theme = createTheme({
   colors: {
-    primary: {
-      main: '#2563EB',
-      onMain: '#FFFFFF',
-      container: '#DBEAFE',
-      onContainer: '#1E40AF',
-    },
-    background: '#FFFFFF',
-    foreground: '#0F172A',
+    light: { accent: '#2563EB', accentForeground: '#FFFFFF' },
+    dark: { accent: '#60A5FA', accentForeground: '#0F172A' },
   },
-  borderRadius: {
-    md: 12,
-    lg: 16,
-  },
-}
+  radius: 16,
+})
 
 export default function App() {
   return (
-    <XUIProvider theme={customLightTheme}>
-      <YourApp />
-    </XUIProvider>
+    <XAUIProvider theme={theme}>
+      <PortalHost>
+        <YourApp />
+      </PortalHost>
+    </XAUIProvider>
   )
 }`
+
+const colorModeCode = `// 'system' follows the device; pass 'light' or 'dark' to control it yourself.
+<XAUIProvider theme={theme} colorMode="dark">
+  <YourApp />
+</XAUIProvider>`
 
 const consumeThemeCode = `import { View, Text } from 'react-native'
 import { useXUITheme, useColorMode } from '@xaui/native-legacy/core'
@@ -76,13 +77,24 @@ export default function ThemePage() {
         <h2 className="text-xl font-semibold md:text-2xl">How It Works</h2>
         <ul className="list-disc pl-6 text-muted-foreground space-y-1">
           <li>
-            Pass a partial object to
-            <span className="font-mono text-xs"> theme </span>
-            to override tokens.
+            Build the theme with
+            <span className="font-mono text-xs"> createTheme() </span>and pass the
+            result to
+            <span className="font-mono text-xs"> theme </span>. It returns both color
+            modes resolved, so the provider only selects one.
           </li>
           <li>
-            Xaui merges your overrides with defaults, so you only customize what you
-            need.
+            Override only the source colors you need, per mode. Everything else —
+            including the derived
+            <span className="font-mono text-xs"> Soft </span>and
+            <span className="font-mono text-xs"> Pressed </span>steps — is recomputed
+            for you.
+          </li>
+          <li>
+            One provider themes both trees:
+            <span className="font-mono text-xs"> colors.light.accent </span>is what
+            the frozen components read as
+            <span className="font-mono text-xs"> colors.primary.main </span>.
           </li>
         </ul>
       </section>
@@ -90,9 +102,19 @@ export default function ThemePage() {
       <section className="space-y-4">
         <h2 className="text-xl font-semibold md:text-2xl">Provider Setup</h2>
         <p className="text-muted-foreground">
-          Start by configuring your app-level provider with partial custom tokens.
+          Configure your app-level provider with the theme set you built.
         </p>
         <CodeBlock code={providerCode} />
+      </section>
+
+      <section className="space-y-4">
+        <h2 className="text-xl font-semibold md:text-2xl">Color Mode</h2>
+        <p className="text-muted-foreground">
+          The provider follows the device scheme by default. Pass
+          <span className="font-mono text-xs"> colorMode </span>to control it — the
+          library owns neither the state nor its persistence.
+        </p>
+        <CodeBlock code={colorModeCode} />
       </section>
 
       <section className="space-y-4">
@@ -104,6 +126,12 @@ export default function ThemePage() {
           <span className="font-mono text-xs"> useColorMode() </span>.
         </p>
         <CodeBlock code={consumeThemeCode} />
+        <p className="text-sm text-muted-foreground">
+          These hooks return the MD3 shape the frozen components read, projected from
+          the same provider. On the v1 tree, read the tokens directly with
+          <span className="font-mono text-xs"> useXAUITheme() </span>from
+          <span className="font-mono text-xs"> @xaui/native/theme </span>.
+        </p>
       </section>
 
       <section className="space-y-4">
@@ -112,11 +140,27 @@ export default function ThemePage() {
         </h2>
         <ol className="list-decimal pl-6 text-muted-foreground space-y-1">
           <li>
-            Set core brand colors: primary (main, onMain, container, onContainer),
-            background, and foreground.
+            Set your brand color: <span className="font-mono text-xs">accent</span>{' '}
+            and <span className="font-mono text-xs">accentForeground</span>, in both
+            <span className="font-mono text-xs"> light </span>and
+            <span className="font-mono text-xs"> dark </span>.
           </li>
-          <li>Tune border radius and spacing to match your product identity.</li>
-          <li>Adjust typography tokens only when needed for readability.</li>
+          <li>
+            Then <span className="font-mono text-xs">background</span>,
+            <span className="font-mono text-xs"> foreground </span>and the
+            <span className="font-mono text-xs"> surface </span>levels.
+          </li>
+          <li>
+            Tune <span className="font-mono text-xs">radius</span> — one base the
+            whole scale derives from — and
+            <span className="font-mono text-xs"> spacingUnit </span>to match your
+            product identity.
+          </li>
+          <li>
+            Adjust <span className="font-mono text-xs">fontFamilies</span> and
+            <span className="font-mono text-xs"> fontSizes </span>only when needed
+            for readability.
+          </li>
           <li>Validate both light and dark modes on real screens.</li>
         </ol>
       </section>

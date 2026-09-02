@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react'
 import { Pressable, TextInput as RNTextInput, View } from 'react-native'
 import { AddIcon, RemoveIcon } from '@xaui/icons'
-import { withOpacity } from '@xaui/core'
+import { withOpacity } from '../../core-shim'
 import { useXUITheme } from '../../core'
 import { TextInput } from './input'
 import type { NumberInputProps } from './number-input.type'

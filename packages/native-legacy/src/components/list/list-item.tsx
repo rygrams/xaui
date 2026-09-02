@@ -4,7 +4,7 @@ import { ListContext } from './list-context'
 import type { ListItemProps } from './list.type'
 import { styles } from './list.style'
 import { useListItemSizeStyles } from './list.hook'
-import { getSafeThemeColor } from '@xaui/core'
+import { getSafeThemeColor } from '../../core-shim'
 import { useXUITheme } from '../../core'
 
 export const ListItem: React.FC<ListItemProps> = ({

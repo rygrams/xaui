@@ -3,7 +3,7 @@ import { Animated, Easing, Platform, View } from 'react-native'
 import { useXUITheme } from '../../core'
 import { styles } from './indicator.style'
 import type { ActivityIndicatorProps } from './indicator.type'
-import { getSafeThemeColor } from '@xaui/core'
+import { getSafeThemeColor } from '../../core-shim'
 
 const DURATION = 1800
 

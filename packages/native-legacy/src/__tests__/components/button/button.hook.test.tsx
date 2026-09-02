@@ -7,8 +7,7 @@ import {
   useVariantSizesStyles,
 } from '../../../components/button/button.hook'
 import { useBorderRadiusStyles } from '../../../core/theme-hooks'
-import { XUIThemeContext } from '../../../core/theme-context'
-import { defaultTheme } from '@xaui/core/theme'
+import { XAUIProvider } from '@xaui/native/theme'
 
 vi.mock('../../../core', () => ({
   useXUITheme: () => ({
@@ -149,11 +148,7 @@ describe('button hook styles', () => {
 
   it('returns correct radius styles', () => {
     const { result } = renderHook(() => useBorderRadiusStyles('lg'), {
-      wrapper: ({ children }) => (
-        <XUIThemeContext.Provider value={defaultTheme}>
-          {children}
-        </XUIThemeContext.Provider>
-      ),
+      wrapper: ({ children }) => <XAUIProvider>{children}</XAUIProvider>,
     })
 
     expect(result.current.borderRadius).toBe(12)

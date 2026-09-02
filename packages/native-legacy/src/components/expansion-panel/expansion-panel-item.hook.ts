@@ -7,8 +7,7 @@ import {
   type ViewStyle,
 } from 'react-native'
 import { useXUITheme } from '../../core'
-import { colors as palette } from '@xaui/core/palette'
-import { withOpacity } from '@xaui/core'
+import { colors as palette, withOpacity } from '../../core-shim'
 import { useExpansionPanelContext } from './expansion-panel-context'
 
 export const useExpansionPanelItemState = (itemKey?: string) => {

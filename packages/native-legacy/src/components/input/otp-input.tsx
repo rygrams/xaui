@@ -6,7 +6,7 @@ import {
   TextInput as RNTextInput,
   View,
 } from 'react-native'
-import { withOpacity } from '@xaui/core'
+import { withOpacity } from '../../core-shim'
 import type { OTPInputProps } from './otp-input.type'
 import { useOTPInputState, useOTPSegmentSizeStyles } from './otp-input.hook'
 import { useTextInputRadiusStyles, useTextInputVariantStyles } from './input.hook'

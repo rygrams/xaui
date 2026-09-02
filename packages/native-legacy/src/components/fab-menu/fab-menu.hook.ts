@@ -1,6 +1,6 @@
 import { useMemo, useState, useCallback } from 'react'
 import { useXUITheme } from '../../core'
-import { getSafeThemeColor } from '@xaui/core'
+import { getSafeThemeColor } from '../../core-shim'
 import type { ThemeColor } from '../../types'
 
 export function useFabMenuState(

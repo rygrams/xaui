@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import type { StyleProp, ViewStyle } from 'react-native'
-import type { EdgeInsets } from '@xaui/core'
+import type { EdgeInsets } from '../../../types'
 
 export type PaddingProps = {
   /** Content to render inside the padding container. */

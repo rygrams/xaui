@@ -1,5 +1,5 @@
 import { useMemo } from 'react'
-import { getSafeThemeColor, withPaletteNumber } from '@xaui/core'
+import { getSafeThemeColor, withPaletteNumber } from '../../core-shim'
 import { useXUITheme } from '../../core'
 import type { Size, ThemeColor } from '../../types'
 

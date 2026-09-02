@@ -5,7 +5,7 @@ import {
   useTabsVariantStyles,
 } from '../../../components/tabs/tabs.hook'
 
-vi.mock('@xaui/core', () => ({
+vi.mock('../../../core-shim', () => ({
   withPaletteNumber: (color: string) => color,
   getSafeThemeColor: (color: string) => color,
 }))

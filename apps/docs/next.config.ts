@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
     '@xaui/hybrid-legacy',
     '@xaui/native-legacy',
     '@xaui/core',
+    '@xaui/native',
     '@xaui/icons',
     'react-native-web',
     'react-native-svg',
