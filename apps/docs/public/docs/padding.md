@@ -3,21 +3,21 @@
 Wraps content with configurable padding on any or all sides using Flutter's `EdgeInsets` API.
 
 ```bash
-pnpm add @xaui/native
+pnpm add @xaui/native-legacy
 ```
 
 **React Native**
 
 ```ts
-import { Padding } from '@xaui/native/view'
+import { Padding } from '@xaui/native-legacy/view'
 ```
 
 **Web / Hybrid**
 
 ```ts
-import { Padding } from '@xaui/hybrid/padding'
+import { Padding } from '@xaui/hybrid-legacy/padding'
 // or from the aggregated view export
-import { Padding } from '@xaui/hybrid/view'
+import { Padding } from '@xaui/hybrid-legacy/view'
 ```
 
 ## Props
@@ -48,7 +48,7 @@ type EdgeInsets =
 ### Uniform padding
 
 ```tsx
-import { Padding } from '@xaui/native/view'
+import { Padding } from '@xaui/native-legacy/view'
 
 ;<Padding padding={16}>
   <Card />
@@ -58,7 +58,7 @@ import { Padding } from '@xaui/native/view'
 ### Asymmetric padding
 
 ```tsx
-import { Padding } from '@xaui/native/view'
+import { Padding } from '@xaui/native-legacy/view'
 
 ;<Padding padding={{ horizontal: 24, vertical: 12 }}>
   <Button label="Submit" onPress={handleSubmit} />
@@ -68,7 +68,7 @@ import { Padding } from '@xaui/native/view'
 ### Per-side padding
 
 ```tsx
-import { Padding } from '@xaui/native/view'
+import { Padding } from '@xaui/native-legacy/view'
 
 ;<Padding padding={{ top: 8, bottom: 16, left: 12, right: 12 }}>
   <ListItem title="Settings" />

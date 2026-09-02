@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Alert } from '@xaui/hybrid/alert'
+import { Alert } from '@xaui/hybrid-legacy/alert'
 import { DeviceFrame } from '@/components/ui/device-frame'
 
 type ColorScheme = 'light' | 'dark'

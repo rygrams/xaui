@@ -1,5 +1,5 @@
-import { PullToRefresh } from '@xaui/native/refresh-control'
-import { useXUIColors, useXUITheme } from '@xaui/native/core'
+import { PullToRefresh } from '@xaui/native-legacy/refresh-control'
+import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
 import { useCallback, useMemo, useState } from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 

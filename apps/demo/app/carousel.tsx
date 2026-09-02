@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import { Carousel } from '@xaui/native/carousel'
-import { useXUIColors, useXUITheme } from '@xaui/native/core'
+import { Carousel } from '@xaui/native-legacy/carousel'
+import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
 
 type Slide = {
   id: string

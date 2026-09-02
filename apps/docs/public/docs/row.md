@@ -3,21 +3,21 @@
 Flutter-inspired horizontal flex layout. `Row` is `Flex` with `direction="horizontal"` pre-set.
 
 ```bash
-pnpm add @xaui/native
+pnpm add @xaui/native-legacy
 ```
 
 **React Native**
 
 ```ts
-import { Row } from '@xaui/native/view'
+import { Row } from '@xaui/native-legacy/view'
 ```
 
 **Web / Hybrid**
 
 ```ts
-import { Row } from '@xaui/hybrid/row'
+import { Row } from '@xaui/hybrid-legacy/row'
 // or from the aggregated view export
-import { Row } from '@xaui/hybrid/view'
+import { Row } from '@xaui/hybrid-legacy/view'
 ```
 
 ## Props
@@ -40,7 +40,7 @@ import { Row } from '@xaui/hybrid/view'
 ### Basic row with gap
 
 ```tsx
-import { Row } from '@xaui/native/view'
+import { Row } from '@xaui/native-legacy/view'
 import { View } from 'react-native'
 
 ;<Row gap={12} crossAxisAlignment="center">
@@ -56,7 +56,7 @@ import { View } from 'react-native'
 ### Space between
 
 ```tsx
-import { Row } from '@xaui/native/view'
+import { Row } from '@xaui/native-legacy/view'
 
 ;<Row mainAxisAlignment="spaceBetween" crossAxisAlignment="center">
   <Typography>Label</Typography>
@@ -67,7 +67,7 @@ import { Row } from '@xaui/native/view'
 ### Reversed row
 
 ```tsx
-import { Row } from '@xaui/native/view'
+import { Row } from '@xaui/native-legacy/view'
 
 ;<Row gap={8} reversed>
   {items.map(item => (

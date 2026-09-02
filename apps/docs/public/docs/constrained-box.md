@@ -3,21 +3,21 @@
 Flutter-inspired box that imposes min/max size constraints on its child — equivalent to `ConstrainedBox` + `BoxConstraints`. Use it to set lower and upper bounds on width and height without fixing an exact size.
 
 ```bash
-pnpm add @xaui/native
+pnpm add @xaui/native-legacy
 ```
 
 **React Native**
 
 ```ts
-import { ConstrainedBox } from '@xaui/native/view'
+import { ConstrainedBox } from '@xaui/native-legacy/view'
 ```
 
 **Web / Hybrid**
 
 ```ts
-import { ConstrainedBox } from '@xaui/hybrid/constrained-box'
+import { ConstrainedBox } from '@xaui/hybrid-legacy/constrained-box'
 // or from the aggregated view export
-import { ConstrainedBox } from '@xaui/hybrid/view'
+import { ConstrainedBox } from '@xaui/hybrid-legacy/view'
 ```
 
 ## Props

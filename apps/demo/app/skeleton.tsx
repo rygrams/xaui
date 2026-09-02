@@ -1,8 +1,8 @@
-import { useXUIColors, useXUITheme } from '@xaui/native/core'
+import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
 import { StyleSheet, View, ScrollView, Text } from 'react-native'
 import { useState } from 'react'
-import { Button } from '@xaui/native/button'
-import { Skeleton } from '@xaui/native/skeleton'
+import { Button } from '@xaui/native-legacy/button'
+import { Skeleton } from '@xaui/native-legacy/skeleton'
 
 export default function SkeletonScreen() {
   const colors = useXUIColors()

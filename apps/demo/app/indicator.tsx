@@ -1,6 +1,6 @@
-import { useXUIColors, useXUITheme } from '@xaui/native/core'
+import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
 import { StyleSheet, View, ScrollView, Text } from 'react-native'
-import { ActivityIndicator } from '@xaui/native/indicator'
+import { ActivityIndicator } from '@xaui/native-legacy/indicator'
 
 export default function IndicatorScreen() {
   const colors = useXUIColors()

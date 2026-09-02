@@ -5,13 +5,13 @@ import {
   EllipsisVerticalIcon,
   SearchIcon,
 } from '@xaui/icons'
-import { useXUIColors, useXUITheme } from '@xaui/native/core'
+import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
 import {
   AppBar,
   AppBarContent,
   AppBarEndContent,
   AppBarStartContent,
-} from '@xaui/native/app-bar'
+} from '@xaui/native-legacy/app-bar'
 
 export default function AppBarScreen() {
   const colors = useXUIColors()

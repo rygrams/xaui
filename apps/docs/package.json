@@ -11,8 +11,8 @@
   },
   "dependencies": {
     "@next/third-parties": "^16.1.6",
-    "@xaui/hybrid": "workspace:*",
-    "@xaui/native": "workspace:*",
+    "@xaui/hybrid-legacy": "workspace:*",
+    "@xaui/native-legacy": "workspace:*",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.28.1",

@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Wrap } from '@xaui/hybrid/wrap'
+import { Wrap } from '@xaui/hybrid-legacy/wrap'
 import { DeviceFrame } from '@/components/ui/device-frame'
 
 type ColorScheme = 'light' | 'dark'

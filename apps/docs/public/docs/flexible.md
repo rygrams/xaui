@@ -3,21 +3,21 @@
 Like `Expanded`, but with a `fit` prop that controls whether the child must fill its allotted space (`tight`) or can be smaller (`loose`) — identical to Flutter's `Flexible` widget.
 
 ```bash
-pnpm add @xaui/native
+pnpm add @xaui/native-legacy
 ```
 
 **React Native**
 
 ```ts
-import { Flexible } from '@xaui/native/view'
+import { Flexible } from '@xaui/native-legacy/view'
 ```
 
 **Web / Hybrid**
 
 ```ts
-import { Flexible } from '@xaui/hybrid/flexible'
+import { Flexible } from '@xaui/hybrid-legacy/flexible'
 // or from the aggregated view export
-import { Flexible } from '@xaui/hybrid/view'
+import { Flexible } from '@xaui/hybrid-legacy/view'
 ```
 
 ## Props
@@ -42,7 +42,7 @@ import { Flexible } from '@xaui/hybrid/view'
 ### Loose fit — child can be smaller
 
 ```tsx
-import { Row, Flexible } from '@xaui/native/view'
+import { Row, Flexible } from '@xaui/native-legacy/view'
 import { View } from 'react-native'
 
 <Row>
@@ -60,7 +60,7 @@ import { View } from 'react-native'
 Equivalent to `Expanded`:
 
 ```tsx
-import { Row, Flexible } from '@xaui/native/view'
+import { Row, Flexible } from '@xaui/native-legacy/view'
 import { View } from 'react-native'
 
 <Row gap={8}>
@@ -78,7 +78,7 @@ import { View } from 'react-native'
 One fixed-width child, one flexible:
 
 ```tsx
-import { Row, Flexible } from '@xaui/native/view'
+import { Row, Flexible } from '@xaui/native-legacy/view'
 
 <Row>
   <Avatar size={40} />

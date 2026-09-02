@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: 'Learn how to customize Xaui theme tokens and color modes',
 }
 
-const providerCode = `import { XUIProvider } from '@xaui/native/core'
+const providerCode = `import { XUIProvider } from '@xaui/native-legacy/core'
 
 const customLightTheme = {
   colors: {
@@ -34,7 +34,7 @@ export default function App() {
 }`
 
 const consumeThemeCode = `import { View, Text } from 'react-native'
-import { useXUITheme, useColorMode } from '@xaui/native/core'
+import { useXUITheme, useColorMode } from '@xaui/native-legacy/core'
 
 export function ThemeExample() {
   const theme = useXUITheme()

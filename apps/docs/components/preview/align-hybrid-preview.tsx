@@ -2,8 +2,8 @@
 
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Align } from '@xaui/hybrid/align'
-import { Center } from '@xaui/hybrid/center'
+import { Align } from '@xaui/hybrid-legacy/align'
+import { Center } from '@xaui/hybrid-legacy/center'
 import { DeviceFrame } from '@/components/ui/device-frame'
 
 type ColorScheme = 'light' | 'dark'

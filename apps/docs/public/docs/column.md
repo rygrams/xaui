@@ -3,21 +3,21 @@
 Flutter-inspired vertical flex layout. `Column` is `Flex` with `direction="vertical"` pre-set.
 
 ```bash
-pnpm add @xaui/native
+pnpm add @xaui/native-legacy
 ```
 
 **React Native**
 
 ```ts
-import { Column } from '@xaui/native/view'
+import { Column } from '@xaui/native-legacy/view'
 ```
 
 **Web / Hybrid**
 
 ```ts
-import { Column } from '@xaui/hybrid/column'
+import { Column } from '@xaui/hybrid-legacy/column'
 // or from the aggregated view export
-import { Column } from '@xaui/hybrid/view'
+import { Column } from '@xaui/hybrid-legacy/view'
 ```
 
 ## Props
@@ -40,7 +40,7 @@ import { Column } from '@xaui/hybrid/view'
 ### Basic column
 
 ```tsx
-import { Column } from '@xaui/native/view'
+import { Column } from '@xaui/native-legacy/view'
 import { View } from 'react-native'
 
 ;<Column gap={12} crossAxisAlignment="stretch">
@@ -53,7 +53,7 @@ import { View } from 'react-native'
 ### Column centered on screen
 
 ```tsx
-import { Column } from '@xaui/native/view'
+import { Column } from '@xaui/native-legacy/view'
 
 ;<Column mainAxisAlignment="center" crossAxisAlignment="center" gap={16}>
   <Logo />
@@ -65,7 +65,7 @@ import { Column } from '@xaui/native/view'
 ### Min-size column (wraps content)
 
 ```tsx
-import { Column } from '@xaui/native/view'
+import { Column } from '@xaui/native-legacy/view'
 
 ;<Column mainAxisSize="min" gap={8}>
   <Label>Option A</Label>

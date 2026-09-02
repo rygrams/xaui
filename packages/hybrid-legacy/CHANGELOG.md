@@ -4,7 +4,7 @@
 
 ### Patch Changes
 
-- b7e401a: Add Alert component to `@xaui/hybrid` with full feature parity to native: solid, bordered, flat, faded, and glass variants; controlled visibility; closable button; and em-unit sizing.
+- b7e401a: Add Alert component to `@xaui/hybrid-legacy` with full feature parity to native: solid, bordered, flat, faded, and glass variants; controlled visibility; closable button; and em-unit sizing.
 
 ## 0.0.13
 
@@ -16,7 +16,7 @@
 
 ### Patch Changes
 
-- 39d97b4: Add `SizedBox`, `ConstrainedBox`, and `FractionallySizedBox` components. Reorganize `Container` and `SizedBox` into `components/view/` subfolder mirroring native structure. Add `@xaui/hybrid/view`, `@xaui/hybrid/sized-box`, `@xaui/hybrid/container` named exports.
+- 39d97b4: Add `SizedBox`, `ConstrainedBox`, and `FractionallySizedBox` components. Reorganize `Container` and `SizedBox` into `components/view/` subfolder mirroring native structure. Add `@xaui/hybrid-legacy/view`, `@xaui/hybrid-legacy/sized-box`, `@xaui/hybrid-legacy/container` named exports.
 - Updated dependencies [39d97b4]
   - @xaui/core@0.2.2
 

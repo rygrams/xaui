@@ -3,19 +3,19 @@
 Displays contextual feedback messages for success, info, warning, or error states. Supports five variants (solid, bordered, flat, faded, glass), theme colors, closable behavior, and animated open/close transitions.
 
 ```bash
-pnpm add @xaui/native
+pnpm add @xaui/native-legacy
 ```
 
 **React Native**
 
 ```ts
-import { Alert } from '@xaui/native/alert'
+import { Alert } from '@xaui/native-legacy/alert'
 ```
 
 **Web / Hybrid**
 
 ```ts
-import { Alert } from '@xaui/hybrid/alert'
+import { Alert } from '@xaui/hybrid-legacy/alert'
 ```
 
 ## Props
@@ -44,7 +44,7 @@ import { Alert } from '@xaui/hybrid/alert'
 ### Theme colors
 
 ```tsx
-import { Alert } from '@xaui/native/alert'
+import { Alert } from '@xaui/native-legacy/alert'
 
 <Alert title="Default" description="A default message." themeColor="default" />
 <Alert title="Primary" description="Important info." themeColor="primary" />
@@ -56,7 +56,7 @@ import { Alert } from '@xaui/native/alert'
 ### Variants
 
 ```tsx
-import { Alert } from '@xaui/native/alert'
+import { Alert } from '@xaui/native-legacy/alert'
 
 <Alert title="Flat" description="Subtle container background." themeColor="primary" variant="flat" />
 <Alert title="Solid" description="Strong filled background." themeColor="primary" variant="solid" />
@@ -68,7 +68,7 @@ import { Alert } from '@xaui/native/alert'
 ### Closable alert
 
 ```tsx
-import { Alert } from '@xaui/native/alert'
+import { Alert } from '@xaui/native-legacy/alert'
 
 const [visible, setVisible] = useState(true)
 
@@ -86,7 +86,7 @@ const [visible, setVisible] = useState(true)
 ### Custom styles
 
 ```tsx
-import { Alert } from '@xaui/native/alert'
+import { Alert } from '@xaui/native-legacy/alert'
 
 ;<Alert
   title="Custom Styled"

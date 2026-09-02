@@ -9,10 +9,10 @@ export const metadata: Metadata = {
     'A vertically stacked set of interactive headings that each reveal a section of content.',
 }
 
-const installationCode = `npm install @xaui/native`
+const installationCode = `npm install @xaui/native-legacy`
 
-const usageCode = `import { ExpansionPanel, ExpansionPanelItem } from '@xaui/native/expansion-panel'
-import { Typography } from '@xaui/native/typography'
+const usageCode = `import { ExpansionPanel, ExpansionPanelItem } from '@xaui/native-legacy/expansion-panel'
+import { Typography } from '@xaui/native-legacy/typography'
 
 export function MyComponent() {
   return (
@@ -83,8 +83,8 @@ const selectionModeCode = `// Toggle Mode - Only one item expanded at a time (de
 </ExpansionPanel>`
 
 const eventsCode = `import { useState } from 'react'
-import { ExpansionPanel, ExpansionPanelItem } from '@xaui/native/expansion-panel'
-import { Typography } from '@xaui/native/typography'
+import { ExpansionPanel, ExpansionPanelItem } from '@xaui/native-legacy/expansion-panel'
+import { Typography } from '@xaui/native-legacy/typography'
 
 export function ControlledExample() {
   const [expandedKeys, setExpandedKeys] = useState<string[]>(['item1'])

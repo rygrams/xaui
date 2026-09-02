@@ -2,8 +2,8 @@
 
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Padding } from '@xaui/hybrid/padding'
-import { Margin } from '@xaui/hybrid/margin'
+import { Padding } from '@xaui/hybrid-legacy/padding'
+import { Margin } from '@xaui/hybrid-legacy/margin'
 import { DeviceFrame } from '@/components/ui/device-frame'
 
 type ColorScheme = 'light' | 'dark'

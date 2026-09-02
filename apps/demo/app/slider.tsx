@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import { Slider } from '@xaui/native/slider'
-import { useXUIColors, useXUITheme } from '@xaui/native/core'
+import { Slider } from '@xaui/native-legacy/slider'
+import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
 
 export default function SliderScreen() {
   const colors = useXUIColors()

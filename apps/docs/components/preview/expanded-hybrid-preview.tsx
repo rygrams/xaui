@@ -2,9 +2,9 @@
 
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Expanded } from '@xaui/hybrid/expanded'
-import { Flexible } from '@xaui/hybrid/flexible'
-import { Spacer } from '@xaui/hybrid/spacer'
+import { Expanded } from '@xaui/hybrid-legacy/expanded'
+import { Flexible } from '@xaui/hybrid-legacy/flexible'
+import { Spacer } from '@xaui/hybrid-legacy/spacer'
 import { DeviceFrame } from '@/components/ui/device-frame'
 
 type ColorScheme = 'light' | 'dark'

@@ -3,21 +3,21 @@
 Invisible flexible spacer that absorbs remaining space inside a `Row` or `Column`. It is equivalent to Flutter's `Spacer` widget — a shorthand for `Expanded` with no visible child.
 
 ```bash
-pnpm add @xaui/native
+pnpm add @xaui/native-legacy
 ```
 
 **React Native**
 
 ```ts
-import { Spacer } from '@xaui/native/view'
+import { Spacer } from '@xaui/native-legacy/view'
 ```
 
 **Web / Hybrid**
 
 ```ts
-import { Spacer } from '@xaui/hybrid/spacer'
+import { Spacer } from '@xaui/hybrid-legacy/spacer'
 // or from the aggregated view export
-import { Spacer } from '@xaui/hybrid/view'
+import { Spacer } from '@xaui/hybrid-legacy/view'
 ```
 
 ## Props
@@ -32,7 +32,7 @@ import { Spacer } from '@xaui/hybrid/view'
 ### Push items to opposite ends
 
 ```tsx
-import { Row, Spacer } from '@xaui/native/view'
+import { Row, Spacer } from '@xaui/native-legacy/view'
 
 <Row>
   <Typography>Left</Typography>
@@ -44,7 +44,7 @@ import { Row, Spacer } from '@xaui/native/view'
 ### Weighted spacing
 
 ```tsx
-import { Row, Spacer } from '@xaui/native/view'
+import { Row, Spacer } from '@xaui/native-legacy/view'
 
 <Row>
   <Typography>Start</Typography>
@@ -58,7 +58,7 @@ import { Row, Spacer } from '@xaui/native/view'
 ### Vertical padding between sections
 
 ```tsx
-import { Column, Spacer } from '@xaui/native/view'
+import { Column, Spacer } from '@xaui/native-legacy/view'
 
 <Column>
   <Header />

@@ -3,21 +3,21 @@
 Expands a child to fill the available space inside a `Row` or `Column`. The optional `flex` factor controls how much space this child claims relative to its siblings — identical to Flutter's `Expanded` widget.
 
 ```bash
-pnpm add @xaui/native
+pnpm add @xaui/native-legacy
 ```
 
 **React Native**
 
 ```ts
-import { Expanded } from '@xaui/native/view'
+import { Expanded } from '@xaui/native-legacy/view'
 ```
 
 **Web / Hybrid**
 
 ```ts
-import { Expanded } from '@xaui/hybrid/expanded'
+import { Expanded } from '@xaui/hybrid-legacy/expanded'
 // or from the aggregated view export
-import { Expanded } from '@xaui/hybrid/view'
+import { Expanded } from '@xaui/hybrid-legacy/view'
 ```
 
 ## Props
@@ -36,7 +36,7 @@ import { Expanded } from '@xaui/hybrid/view'
 Two children share available space equally inside a `Row`.
 
 ```tsx
-import { Row, Expanded } from '@xaui/native/view'
+import { Row, Expanded } from '@xaui/native-legacy/view'
 import { View } from 'react-native'
 
 ;<Row>
@@ -54,7 +54,7 @@ import { View } from 'react-native'
 Second child takes twice as much space (`flex={2}` vs `flex={1}`).
 
 ```tsx
-import { Row, Expanded } from '@xaui/native/view'
+import { Row, Expanded } from '@xaui/native-legacy/view'
 import { View } from 'react-native'
 
 ;<Row gap={8}>
@@ -70,7 +70,7 @@ import { View } from 'react-native'
 ### Fill vertical space in a Column
 
 ```tsx
-import { Column, Expanded } from '@xaui/native/view'
+import { Column, Expanded } from '@xaui/native-legacy/view'
 
 ;<Column>
   <Header />

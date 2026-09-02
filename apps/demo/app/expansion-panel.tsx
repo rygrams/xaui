@@ -1,6 +1,6 @@
-import { useXUIColors, useXUITheme } from '@xaui/native/core'
+import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
 import { StyleSheet, View, ScrollView, Text } from 'react-native'
-import { ExpansionPanel, ExpansionPanelItem } from '@xaui/native/expansion-panel'
+import { ExpansionPanel, ExpansionPanelItem } from '@xaui/native-legacy/expansion-panel'
 
 export default function ExpansionPanelScreen() {
   const colors = useXUIColors()

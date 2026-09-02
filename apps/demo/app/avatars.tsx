@@ -1,6 +1,6 @@
-import { useXUIColors, useXUITheme } from '@xaui/native/core'
+import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
 import { StyleSheet, View, ScrollView, Text } from 'react-native'
-import { Avatar, AvatarGroup } from '@xaui/native/avatar'
+import { Avatar, AvatarGroup } from '@xaui/native-legacy/avatar'
 
 export default function AvatarsScreen() {
   const colors = useXUIColors()

@@ -1,0 +1,307 @@
+{
+  "name": "@xaui/native-legacy",
+  "version": "0.2.8",
+  "private": true,
+  "description": "Frozen @xaui/native v0.2.x components, republished for migration to @xaui/native v1",
+  "keywords": [
+    "react-native",
+    "mobile",
+    "native",
+    "ui",
+    "components",
+    "flutter",
+    "reanimated",
+    "animations",
+    "xaui"
+  ],
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.js"
+    },
+    "./core": {
+      "types": "./dist/core/index.d.ts",
+      "import": "./dist/core/index.js",
+      "require": "./dist/core/index.js"
+    },
+    "./button": {
+      "types": "./dist/button/index.d.ts",
+      "import": "./dist/button/index.js",
+      "require": "./dist/button/index.js"
+    },
+    "./checkbox": {
+      "types": "./dist/checkbox/index.d.ts",
+      "import": "./dist/checkbox/index.js",
+      "require": "./dist/checkbox/index.js"
+    },
+    "./expansion-panel": {
+      "types": "./dist/expansion-panel/index.d.ts",
+      "import": "./dist/expansion-panel/index.js",
+      "require": "./dist/expansion-panel/index.js"
+    },
+    "./progress": {
+      "types": "./dist/progress/index.d.ts",
+      "import": "./dist/progress/index.js",
+      "require": "./dist/progress/index.js"
+    },
+    "./indicator": {
+      "types": "./dist/indicator/index.d.ts",
+      "import": "./dist/indicator/index.js",
+      "require": "./dist/indicator/index.js"
+    },
+    "./switch": {
+      "types": "./dist/switch/index.d.ts",
+      "import": "./dist/switch/index.js",
+      "require": "./dist/switch/index.js"
+    },
+    "./slider": {
+      "types": "./dist/slider/index.d.ts",
+      "import": "./dist/slider/index.js",
+      "require": "./dist/slider/index.js"
+    },
+    "./select": {
+      "types": "./dist/select/index.d.ts",
+      "import": "./dist/select/index.js",
+      "require": "./dist/select/index.js"
+    },
+    "./dialog": {
+      "types": "./dist/dialog/index.d.ts",
+      "import": "./dist/dialog/index.js",
+      "require": "./dist/dialog/index.js"
+    },
+    "./divider": {
+      "types": "./dist/divider/index.d.ts",
+      "import": "./dist/divider/index.js",
+      "require": "./dist/divider/index.js"
+    },
+    "./drawer": {
+      "types": "./dist/drawer/index.d.ts",
+      "import": "./dist/drawer/index.js",
+      "require": "./dist/drawer/index.js"
+    },
+    "./skeleton": {
+      "types": "./dist/skeleton/index.d.ts",
+      "import": "./dist/skeleton/index.js",
+      "require": "./dist/skeleton/index.js"
+    },
+    "./avatar": {
+      "types": "./dist/avatar/index.d.ts",
+      "import": "./dist/avatar/index.js",
+      "require": "./dist/avatar/index.js"
+    },
+    "./badge": {
+      "types": "./dist/badge/index.d.ts",
+      "import": "./dist/badge/index.js",
+      "require": "./dist/badge/index.js"
+    },
+    "./alert": {
+      "types": "./dist/alert/index.d.ts",
+      "import": "./dist/alert/index.js",
+      "require": "./dist/alert/index.js"
+    },
+    "./autocomplete": {
+      "types": "./dist/autocomplete/index.d.ts",
+      "import": "./dist/autocomplete/index.js",
+      "require": "./dist/autocomplete/index.js"
+    },
+    "./datepicker": {
+      "types": "./dist/datepicker/index.d.ts",
+      "import": "./dist/datepicker/index.js",
+      "require": "./dist/datepicker/index.js"
+    },
+    "./typography": {
+      "types": "./dist/typography/index.d.ts",
+      "import": "./dist/typography/index.js",
+      "require": "./dist/typography/index.js"
+    },
+    "./view": {
+      "types": "./dist/view/index.d.ts",
+      "import": "./dist/view/index.js",
+      "require": "./dist/view/index.js"
+    },
+    "./carousel": {
+      "types": "./dist/carousel/index.d.ts",
+      "import": "./dist/carousel/index.js",
+      "require": "./dist/carousel/index.js"
+    },
+    "./segment-button": {
+      "types": "./dist/segment-button/index.d.ts",
+      "import": "./dist/segment-button/index.js",
+      "require": "./dist/segment-button/index.js"
+    },
+    "./tabs": {
+      "types": "./dist/tabs/index.d.ts",
+      "import": "./dist/tabs/index.js",
+      "require": "./dist/tabs/index.js"
+    },
+    "./pager": {
+      "types": "./dist/pager/index.d.ts",
+      "import": "./dist/pager/index.js",
+      "require": "./dist/pager/index.js"
+    },
+    "./chip": {
+      "types": "./dist/chip/index.d.ts",
+      "import": "./dist/chip/index.js",
+      "require": "./dist/chip/index.js"
+    },
+    "./bottom-sheet": {
+      "types": "./dist/bottom-sheet/index.d.ts",
+      "import": "./dist/bottom-sheet/index.js",
+      "require": "./dist/bottom-sheet/index.js"
+    },
+    "./bottom-tab-bar": {
+      "types": "./dist/bottom-tab-bar/index.d.ts",
+      "import": "./dist/bottom-tab-bar/index.js",
+      "require": "./dist/bottom-tab-bar/index.js"
+    },
+    "./menu": {
+      "types": "./dist/menu/index.d.ts",
+      "import": "./dist/menu/index.js",
+      "require": "./dist/menu/index.js"
+    },
+    "./fab": {
+      "types": "./dist/fab/index.d.ts",
+      "import": "./dist/fab/index.js",
+      "require": "./dist/fab/index.js"
+    },
+    "./fab-menu": {
+      "types": "./dist/fab-menu/index.d.ts",
+      "import": "./dist/fab-menu/index.js",
+      "require": "./dist/fab-menu/index.js"
+    },
+    "./feature-discovery": {
+      "types": "./dist/feature-discovery/index.d.ts",
+      "import": "./dist/feature-discovery/index.js",
+      "require": "./dist/feature-discovery/index.js"
+    },
+    "./card": {
+      "types": "./dist/card/index.d.ts",
+      "import": "./dist/card/index.js",
+      "require": "./dist/card/index.js"
+    },
+    "./input": {
+      "types": "./dist/input/index.d.ts",
+      "import": "./dist/input/index.js",
+      "require": "./dist/input/index.js"
+    },
+    "./list": {
+      "types": "./dist/list/index.d.ts",
+      "import": "./dist/list/index.js",
+      "require": "./dist/list/index.js"
+    },
+    "./radio": {
+      "types": "./dist/radio/index.d.ts",
+      "import": "./dist/radio/index.js",
+      "require": "./dist/radio/index.js"
+    },
+    "./toolbar": {
+      "types": "./dist/toolbar/index.d.ts",
+      "import": "./dist/toolbar/index.js",
+      "require": "./dist/toolbar/index.js"
+    },
+    "./app-bar": {
+      "types": "./dist/app-bar/index.d.ts",
+      "import": "./dist/app-bar/index.js",
+      "require": "./dist/app-bar/index.js"
+    },
+    "./timepicker": {
+      "types": "./dist/timepicker/index.d.ts",
+      "import": "./dist/timepicker/index.js",
+      "require": "./dist/timepicker/index.js"
+    },
+    "./stepper": {
+      "types": "./dist/stepper/index.d.ts",
+      "import": "./dist/stepper/index.js",
+      "require": "./dist/stepper/index.js"
+    },
+    "./menubox": {
+      "types": "./dist/menubox/index.d.ts",
+      "import": "./dist/menubox/index.js",
+      "require": "./dist/menubox/index.js"
+    },
+    "./chart": {
+      "types": "./dist/chart/index.d.ts",
+      "import": "./dist/chart/index.js",
+      "require": "./dist/chart/index.js"
+    },
+    "./snackbar": {
+      "types": "./dist/snackbar/index.d.ts",
+      "import": "./dist/snackbar/index.js",
+      "require": "./dist/snackbar/index.js"
+    },
+    "./input-trigger": {
+      "types": "./dist/input-trigger/index.d.ts",
+      "import": "./dist/input-trigger/index.js",
+      "require": "./dist/input-trigger/index.js"
+    },
+    "./picker": {
+      "types": "./dist/picker/index.d.ts",
+      "import": "./dist/picker/index.js",
+      "require": "./dist/picker/index.js"
+    },
+    "./color-picker": {
+      "types": "./dist/color-picker/index.d.ts",
+      "import": "./dist/color-picker/index.js",
+      "require": "./dist/color-picker/index.js"
+    },
+    "./snippet": {
+      "types": "./dist/snippet/index.d.ts",
+      "import": "./dist/snippet/index.js",
+      "require": "./dist/snippet/index.js"
+    },
+    "./refresh-control": {
+      "types": "./dist/refresh-control/index.d.ts",
+      "import": "./dist/refresh-control/index.js",
+      "require": "./dist/refresh-control/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "package.json"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rygrams/xaui.git",
+    "directory": "packages/native"
+  },
+  "scripts": {
+    "build": "rm -rf dist && NODE_OPTIONS=--max-old-space-size=4096 tsup --config tsup.config.ts",
+    "dev": "NODE_OPTIONS=--max-old-space-size=4096 tsup --config tsup.config.ts --watch",
+    "test": "vitest",
+    "lint": "eslint src/",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@xaui/core": "workspace:*",
+    "@xaui/icons": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-native": ">=0.70.0",
+    "react-native-gesture-handler": ">=2.0.0",
+    "react-native-reanimated": ">=4.0.0",
+    "react-native-safe-area-context": ">=4.0.0",
+    "react-native-worklets": ">=0.5.0",
+    "react-native-svg": ">=15.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.0",
+    "react": "19.1.0",
+    "react-native": "0.83.6",
+    "react-native-gesture-handler": "^2.28.0",
+    "react-native-reanimated": "^4.0.0",
+    "react-native-safe-area-context": "^5.6.0",
+    "react-native-worklets": "^0.5.1",
+    "react-native-svg": "^15.8.0",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3"
+  },
+  "homepage": "https://ui.xtartapp.com/docs/introduction",
+  "publishConfig": {
+    "access": "public"
+  }
+}

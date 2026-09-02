@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import { useXUIColors, useXUITheme } from '@xaui/native/core'
-import { Button } from '@xaui/native/button'
+import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
+import { Button } from '@xaui/native-legacy/button'
 import {
   TimePicker,
   TimePickerDialog,
   TimePickerTrigger,
   type TimeValue,
-} from '@xaui/native/timepicker'
+} from '@xaui/native-legacy/timepicker'
 
 export default function TimePickerScreen() {
   const colors = useXUIColors()

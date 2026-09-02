@@ -1,7 +1,7 @@
-import { useXUIColors, useXUITheme } from '@xaui/native/core'
+import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
 import { StyleSheet, View, ScrollView, Text } from 'react-native'
 import { useState } from 'react'
-import { Switch } from '@xaui/native/switch'
+import { Switch } from '@xaui/native-legacy/switch'
 
 export default function SwitchScreen() {
   const colors = useXUIColors()

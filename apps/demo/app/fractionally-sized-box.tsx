@@ -1,6 +1,6 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import { FractionallySizedBox } from '@xaui/native/view'
-import { useXUIColors, useXUITheme } from '@xaui/native/core'
+import { FractionallySizedBox } from '@xaui/native-legacy/view'
+import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
 
 export default function FractionallySizedBoxScreen() {
   const colors = useXUIColors()

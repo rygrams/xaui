@@ -76,7 +76,7 @@ export default function IntroductionPage() {
         <p className="text-muted-foreground">
           Install Xaui in your React Native project and start building:
         </p>
-        <CodeBlock code="npm install @xaui/native" language="bash" />
+        <CodeBlock code="npm install @xaui/native-legacy" language="bash" />
         <Link href="/docs/installation">
           <Button variant="outline" className="mt-2">
             View Installation Guide

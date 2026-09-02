@@ -1,8 +1,8 @@
-import { useXUIColors, useXUITheme } from '@xaui/native/core'
+import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
 import { StyleSheet, View, ScrollView, Text } from 'react-native'
 import { useState } from 'react'
-import { BottomSheet } from '@xaui/native/bottom-sheet'
-import { Button } from '@xaui/native/button'
+import { BottomSheet } from '@xaui/native-legacy/bottom-sheet'
+import { Button } from '@xaui/native-legacy/button'
 
 export default function BottomSheetScreen() {
   const colors = useXUIColors()

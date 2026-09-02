@@ -5,14 +5,14 @@
 ### Patch Changes
 
 - Updated dependencies [b7e401a]
-  - @xaui/native@0.2.8
+  - @xaui/native-legacy@0.2.8
 
 ## 1.0.66
 
 ### Patch Changes
 
 - Updated dependencies [e0aab2a]
-  - @xaui/native@0.2.7
+  - @xaui/native-legacy@0.2.7
 
 ## 1.0.65
 
@@ -21,7 +21,7 @@
 - Updated dependencies [39d97b4]
 - Updated dependencies [39d97b4]
   - @xaui/core@0.2.2
-  - @xaui/native@0.2.6
+  - @xaui/native-legacy@0.2.6
   - @xaui/icons@0.0.11
 
 ## 1.0.64
@@ -29,7 +29,7 @@
 ### Patch Changes
 
 - Updated dependencies [0252a82]
-  - @xaui/native@0.2.5
+  - @xaui/native-legacy@0.2.5
   - @xaui/core@0.2.1
   - @xaui/icons@0.0.10
 
@@ -38,28 +38,28 @@
 ### Patch Changes
 
 - Updated dependencies [7b0b0b7]
-  - @xaui/native@0.2.4
+  - @xaui/native-legacy@0.2.4
 
 ## 1.0.62
 
 ### Patch Changes
 
 - Updated dependencies [b9a3d5f]
-  - @xaui/native@0.2.3
+  - @xaui/native-legacy@0.2.3
 
 ## 1.0.61
 
 ### Patch Changes
 
 - Updated dependencies [d570b05]
-  - @xaui/native@0.2.2
+  - @xaui/native-legacy@0.2.2
 
 ## 1.0.60
 
 ### Patch Changes
 
 - Updated dependencies [a2f097e]
-  - @xaui/native@0.2.1
+  - @xaui/native-legacy@0.2.1
 
 ## 1.0.59
 
@@ -67,7 +67,7 @@
 
 - Updated dependencies [89103b9]
   - @xaui/core@0.2.0
-  - @xaui/native@0.2.0
+  - @xaui/native-legacy@0.2.0
   - @xaui/icons@0.0.9
 
 ## 1.0.58
@@ -75,56 +75,56 @@
 ### Patch Changes
 
 - Updated dependencies [3c14a26]
-  - @xaui/native@0.1.5
+  - @xaui/native-legacy@0.1.5
 
 ## 1.0.57
 
 ### Patch Changes
 
 - Updated dependencies [c255280]
-  - @xaui/native@0.1.4
+  - @xaui/native-legacy@0.1.4
 
 ## 1.0.56
 
 ### Patch Changes
 
 - Updated dependencies [3e55120]
-  - @xaui/native@0.1.3
+  - @xaui/native-legacy@0.1.3
 
 ## 1.0.55
 
 ### Patch Changes
 
 - Updated dependencies [d334507]
-  - @xaui/native@0.1.2
+  - @xaui/native-legacy@0.1.2
 
 ## 1.0.54
 
 ### Patch Changes
 
 - Updated dependencies [2bb61bb]
-  - @xaui/native@0.1.1
+  - @xaui/native-legacy@0.1.1
 
 ## 1.0.53
 
 ### Patch Changes
 
 - Updated dependencies [d7c5ee1]
-  - @xaui/native@0.1.0
+  - @xaui/native-legacy@0.1.0
 
 ## 1.0.52
 
 ### Patch Changes
 
 - Updated dependencies [b948048]
-  - @xaui/native@0.0.41
+  - @xaui/native-legacy@0.0.41
 
 ## 1.0.51
 
 ### Patch Changes
 
 - Updated dependencies [136cb4c]
-  - @xaui/native@0.0.40
+  - @xaui/native-legacy@0.0.40
 
 ## 1.0.50
 
@@ -132,7 +132,7 @@
 
 - Updated dependencies [23e3c1c]
   - @xaui/core@0.1.11
-  - @xaui/native@0.0.39
+  - @xaui/native-legacy@0.0.39
   - @xaui/icons@0.0.8
 
 ## 1.0.49
@@ -140,14 +140,14 @@
 ### Patch Changes
 
 - Updated dependencies [6aadb0a]
-  - @xaui/native@0.0.38
+  - @xaui/native-legacy@0.0.38
 
 ## 1.0.48
 
 ### Patch Changes
 
 - Updated dependencies [e6bc9e4]
-  - @xaui/native@0.0.37
+  - @xaui/native-legacy@0.0.37
 
 ## 1.0.47
 
@@ -156,7 +156,7 @@
 - Updated dependencies [53408ce]
   - @xaui/core@0.1.10
   - @xaui/icons@0.0.7
-  - @xaui/native@0.0.36
+  - @xaui/native-legacy@0.0.36
 
 ## 1.0.46
 
@@ -165,21 +165,21 @@
 - Updated dependencies [d16bad0]
   - @xaui/core@0.1.9
   - @xaui/icons@0.0.6
-  - @xaui/native@0.0.35
+  - @xaui/native-legacy@0.0.35
 
 ## 1.0.45
 
 ### Patch Changes
 
 - Updated dependencies [5a56007]
-  - @xaui/native@0.0.34
+  - @xaui/native-legacy@0.0.34
 
 ## 1.0.44
 
 ### Patch Changes
 
 - Updated dependencies [7495b04]
-  - @xaui/native@0.0.33
+  - @xaui/native-legacy@0.0.33
 
 ## 1.0.43
 
@@ -187,7 +187,7 @@
 
 - Updated dependencies [8b56cf4]
 - Updated dependencies [d6fc9e7]
-  - @xaui/native@0.0.32
+  - @xaui/native-legacy@0.0.32
 
 ## 1.0.42
 
@@ -195,7 +195,7 @@
 
 - Updated dependencies [04252c6]
   - @xaui/core@0.1.8
-  - @xaui/native@0.0.31
+  - @xaui/native-legacy@0.0.31
   - @xaui/icons@0.0.5
 
 ## 1.0.41
@@ -203,49 +203,49 @@
 ### Patch Changes
 
 - Updated dependencies [8583808]
-  - @xaui/native@0.0.30
+  - @xaui/native-legacy@0.0.30
 
 ## 1.0.40
 
 ### Patch Changes
 
 - Updated dependencies [cb3c3ff]
-  - @xaui/native@0.0.29
+  - @xaui/native-legacy@0.0.29
 
 ## 1.0.39
 
 ### Patch Changes
 
 - Updated dependencies [ce8b7f4]
-  - @xaui/native@0.0.28
+  - @xaui/native-legacy@0.0.28
 
 ## 1.0.38
 
 ### Patch Changes
 
 - Updated dependencies [5830945]
-  - @xaui/native@0.0.27
+  - @xaui/native-legacy@0.0.27
 
 ## 1.0.37
 
 ### Patch Changes
 
 - Updated dependencies [d6e0b03]
-  - @xaui/native@0.0.26
+  - @xaui/native-legacy@0.0.26
 
 ## 1.0.36
 
 ### Patch Changes
 
 - Updated dependencies [1b66f47]
-  - @xaui/native@0.0.25
+  - @xaui/native-legacy@0.0.25
 
 ## 1.0.35
 
 ### Patch Changes
 
 - Updated dependencies [0b79534]
-  - @xaui/native@0.0.24
+  - @xaui/native-legacy@0.0.24
   - @xaui/icons@0.0.4
 
 ## 1.0.34
@@ -253,7 +253,7 @@
 ### Patch Changes
 
 - Updated dependencies [b0e37dd]
-  - @xaui/native@0.0.23
+  - @xaui/native-legacy@0.0.23
 
 ## 1.0.33
 
@@ -261,35 +261,35 @@
 
 - Updated dependencies [84b49e1]
 - Updated dependencies [6098b6d]
-  - @xaui/native@0.0.22
+  - @xaui/native-legacy@0.0.22
 
 ## 1.0.32
 
 ### Patch Changes
 
 - Updated dependencies [2d6c4eb]
-  - @xaui/native@0.0.21
+  - @xaui/native-legacy@0.0.21
 
 ## 1.0.31
 
 ### Patch Changes
 
 - Updated dependencies [624b6d4]
-  - @xaui/native@0.0.20
+  - @xaui/native-legacy@0.0.20
 
 ## 1.0.30
 
 ### Patch Changes
 
 - Updated dependencies [407a5a2]
-  - @xaui/native@0.0.19
+  - @xaui/native-legacy@0.0.19
 
 ## 1.0.29
 
 ### Patch Changes
 
 - Updated dependencies [e0e7bdd]
-  - @xaui/native@0.0.18
+  - @xaui/native-legacy@0.0.18
 
 ## 1.0.28
 
@@ -298,21 +298,21 @@
 - Updated dependencies [bfa9f19]
 - Updated dependencies [ff4c396]
 - Updated dependencies [4bce937]
-  - @xaui/native@0.0.17
+  - @xaui/native-legacy@0.0.17
 
 ## 1.0.27
 
 ### Patch Changes
 
 - Updated dependencies [726393d]
-  - @xaui/native@0.0.16
+  - @xaui/native-legacy@0.0.16
 
 ## 1.0.26
 
 ### Patch Changes
 
 - Updated dependencies [339c150]
-  - @xaui/native@0.0.15
+  - @xaui/native-legacy@0.0.15
 
 ## 1.0.25
 
@@ -320,7 +320,7 @@
 
 - Updated dependencies [5ac3865]
 - Updated dependencies
-  - @xaui/native@0.0.14
+  - @xaui/native-legacy@0.0.14
   - @xaui/icons@0.0.3
 
 ## 1.0.24
@@ -330,7 +330,7 @@
 - Updated dependencies [395b05b]
 - Updated dependencies [9cba698]
 - Updated dependencies [cb50e8a]
-  - @xaui/native@0.0.13
+  - @xaui/native-legacy@0.0.13
   - @xaui/icons@0.0.2
 
 ## 1.0.23
@@ -338,7 +338,7 @@
 ### Patch Changes
 
 - Updated dependencies [fcfccbf]
-  - @xaui/native@0.0.12
+  - @xaui/native-legacy@0.0.12
 
 ## 1.0.22
 
@@ -346,21 +346,21 @@
 
 - Updated dependencies [eb4820e]
 - Updated dependencies [2295a7f]
-  - @xaui/native@0.0.11
+  - @xaui/native-legacy@0.0.11
 
 ## 1.0.21
 
 ### Patch Changes
 
 - Updated dependencies [64d76ca]
-  - @xaui/native@0.0.10
+  - @xaui/native-legacy@0.0.10
 
 ## 1.0.20
 
 ### Patch Changes
 
 - Updated dependencies [a4b7b3e]
-  - @xaui/native@0.0.9
+  - @xaui/native-legacy@0.0.9
 
 ## 1.0.19
 
@@ -369,21 +369,21 @@
 - Updated dependencies [976cea6]
 - Updated dependencies [7c8dde8]
 - Updated dependencies [dbbd7bc]
-  - @xaui/native@0.0.8
+  - @xaui/native-legacy@0.0.8
 
 ## 1.0.18
 
 ### Patch Changes
 
 - Updated dependencies [d4859cb]
-  - @xaui/native@0.0.7
+  - @xaui/native-legacy@0.0.7
 
 ## 1.0.17
 
 ### Patch Changes
 
 - Updated dependencies [88fea0e]
-  - @xaui/native@0.0.6
+  - @xaui/native-legacy@0.0.6
 
 ## 1.0.16
 
@@ -391,7 +391,7 @@
 
 - Updated dependencies [3c21e3f]
 - Updated dependencies [d05a489]
-  - @xaui/native@0.0.5
+  - @xaui/native-legacy@0.0.5
   - @xaui/core@0.1.7
 
 ## 1.0.15
@@ -399,7 +399,7 @@
 ### Patch Changes
 
 - Updated dependencies [876281e]
-  - @xaui/native@0.0.4
+  - @xaui/native-legacy@0.0.4
 
 ## 1.0.14
 
@@ -407,7 +407,7 @@
 
 - Updated dependencies [c09ae37]
   - @xaui/core@0.1.6
-  - @xaui/native@0.0.3
+  - @xaui/native-legacy@0.0.3
 
 ## 1.0.13
 
@@ -415,7 +415,7 @@
 
 - Updated dependencies
 - Updated dependencies
-  - @xaui/native@0.0.2
+  - @xaui/native-legacy@0.0.2
 
 ## 1.0.12
 
@@ -423,7 +423,7 @@
 
 - Update demo app to showcase Button, Progress, and ActivityIndicator components with diverse configurations
 - Updated dependencies
-  - @xaui/native@0.0.1
+  - @xaui/native-legacy@0.0.1
 
 ## 1.0.11
 

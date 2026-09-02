@@ -7,9 +7,9 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@xaui/native/card'
-import { Button } from '@xaui/native/button'
-import { useXUIColors, useXUITheme } from '@xaui/native/core'
+} from '@xaui/native-legacy/card'
+import { Button } from '@xaui/native-legacy/button'
+import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
 
 const IMG_MOUNTAIN = 'https://picsum.photos/id/1043/800/400'
 const IMG_FOREST = 'https://picsum.photos/id/1018/800/440'

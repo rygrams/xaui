@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import { Pressable, SafeAreaView, StyleSheet, Text, View } from 'react-native'
-import { Pager, PagerItem } from '@xaui/native/pager'
-import type { PagerIndicatorRenderState } from '@xaui/native/pager'
-import { useXUIColors, useXUITheme } from '@xaui/native/core'
+import { Pager, PagerItem } from '@xaui/native-legacy/pager'
+import type { PagerIndicatorRenderState } from '@xaui/native-legacy/pager'
+import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
 
 type Slide = {
   key: string

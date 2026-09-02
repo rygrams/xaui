@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { AspectRatio } from '@xaui/hybrid/aspect-ratio'
+import { AspectRatio } from '@xaui/hybrid-legacy/aspect-ratio'
 import { DeviceFrame } from '@/components/ui/device-frame'
 
 type ColorScheme = 'light' | 'dark'

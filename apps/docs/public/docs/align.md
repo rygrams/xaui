@@ -3,21 +3,21 @@
 Aligns a child within available space using a named position or fractional `{ x, y }` coordinates — identical to Flutter's `Align` widget. `Center` is `Align` preconfigured with `alignment="center"`.
 
 ```bash
-pnpm add @xaui/native
+pnpm add @xaui/native-legacy
 ```
 
 **React Native**
 
 ```ts
-import { Align } from '@xaui/native/view'
+import { Align } from '@xaui/native-legacy/view'
 ```
 
 **Web / Hybrid**
 
 ```ts
-import { Align } from '@xaui/hybrid/align'
+import { Align } from '@xaui/hybrid-legacy/align'
 // or from the aggregated view export
-import { Align } from '@xaui/hybrid/view'
+import { Align } from '@xaui/hybrid-legacy/view'
 ```
 
 ## Props
@@ -48,7 +48,7 @@ import { Align } from '@xaui/hybrid/view'
 ### Top-right alignment
 
 ```tsx
-import { Align } from '@xaui/native/view'
+import { Align } from '@xaui/native-legacy/view'
 import { View } from 'react-native'
 
 ;<Align alignment="topRight">
@@ -63,7 +63,7 @@ import { View } from 'react-native'
 Child placed at 25% from left and 75% from top.
 
 ```tsx
-import { Align } from '@xaui/native/view'
+import { Align } from '@xaui/native-legacy/view'
 import { View } from 'react-native'
 
 ;<Align alignment={{ x: 0.25, y: 0.75 }}>
@@ -76,7 +76,7 @@ import { View } from 'react-native'
 ### Badge overlay
 
 ```tsx
-import { Align } from '@xaui/native/view'
+import { Align } from '@xaui/native-legacy/view'
 
 ;<Align alignment="topRight">
   <Badge count={3} />

@@ -4,7 +4,7 @@ import 'react-native-reanimated'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { useColorScheme } from '@/hooks/use-color-scheme'
 import { defaultDarkTheme, defaultTheme } from '@xaui/core/theme'
-import { XUIProvider } from '@xaui/native/core'
+import { XUIProvider } from '@xaui/native-legacy/core'
 import { StatusBar } from 'react-native'
 
 export default function RootLayout() {

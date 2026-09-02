@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import { Container } from '@xaui/native/view'
-import { useXUIColors, useXUITheme } from '@xaui/native/core'
+import { Container } from '@xaui/native-legacy/view'
+import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
 
 export default function ContainerScreen() {
   const colors = useXUIColors()

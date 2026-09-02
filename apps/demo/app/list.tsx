@@ -1,7 +1,7 @@
-import { useXUIColors, useXUITheme } from '@xaui/native/core'
+import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
 import { StyleSheet, View, ScrollView, Text } from 'react-native'
-import { List, ListItem } from '@xaui/native/list'
-import { Margin } from '@xaui/native/view'
+import { List, ListItem } from '@xaui/native-legacy/list'
+import { Margin } from '@xaui/native-legacy/view'
 import { useState } from 'react'
 
 export default function ListScreen() {

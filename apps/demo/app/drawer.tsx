@@ -1,5 +1,5 @@
-import { Button } from '@xaui/native/button'
-import { Drawer } from '@xaui/native/drawer'
+import { Button } from '@xaui/native-legacy/button'
+import { Drawer } from '@xaui/native-legacy/drawer'
 import React, { useState } from 'react'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
 

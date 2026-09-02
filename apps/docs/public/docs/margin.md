@@ -3,21 +3,21 @@
 Wraps content with configurable margin on any or all sides using Flutter's `EdgeInsets` API.
 
 ```bash
-pnpm add @xaui/native
+pnpm add @xaui/native-legacy
 ```
 
 **React Native**
 
 ```ts
-import { Margin } from '@xaui/native/view'
+import { Margin } from '@xaui/native-legacy/view'
 ```
 
 **Web / Hybrid**
 
 ```ts
-import { Margin } from '@xaui/hybrid/margin'
+import { Margin } from '@xaui/hybrid-legacy/margin'
 // or from the aggregated view export
-import { Margin } from '@xaui/hybrid/view'
+import { Margin } from '@xaui/hybrid-legacy/view'
 ```
 
 ## Props
@@ -48,7 +48,7 @@ type EdgeInsets =
 ### Uniform margin
 
 ```tsx
-import { Margin } from '@xaui/native/view'
+import { Margin } from '@xaui/native-legacy/view'
 
 ;<Margin margin={16}>
   <Card />
@@ -58,7 +58,7 @@ import { Margin } from '@xaui/native/view'
 ### Vertical margin only
 
 ```tsx
-import { Margin } from '@xaui/native/view'
+import { Margin } from '@xaui/native-legacy/view'
 
 ;<Margin margin={{ vertical: 20 }}>
   <Divider />
@@ -68,7 +68,7 @@ import { Margin } from '@xaui/native/view'
 ### Per-side margin
 
 ```tsx
-import { Margin } from '@xaui/native/view'
+import { Margin } from '@xaui/native-legacy/view'
 
 ;<Margin margin={{ top: 8, bottom: 24, left: 0, right: 0 }}>
   <Section title="Details" />

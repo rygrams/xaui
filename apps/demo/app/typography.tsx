@@ -1,5 +1,5 @@
-import { useXUIColors, useXUITheme } from '@xaui/native/core'
-import { TextSpan, Typography } from '@xaui/native/typography'
+import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
+import { TextSpan, Typography } from '@xaui/native-legacy/typography'
 import { ScrollView, StyleSheet, View } from 'react-native'
 
 export default function TypographyScreen() {

@@ -1,7 +1,7 @@
-import { useXUIColors, useXUITheme } from '@xaui/native/core'
+import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
 import { StyleSheet, View, ScrollView, Text } from 'react-native'
-import { MenuBox, MenuBoxItem } from '@xaui/native/menubox'
-import { Margin } from '@xaui/native/view'
+import { MenuBox, MenuBoxItem } from '@xaui/native-legacy/menubox'
+import { Margin } from '@xaui/native-legacy/view'
 import {
   PersonCircleIcon,
   ColorPaletteIcon,

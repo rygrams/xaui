@@ -1,6 +1,6 @@
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import { SizedBox } from '@xaui/native/view'
-import { useXUIColors, useXUITheme } from '@xaui/native/core'
+import { SizedBox } from '@xaui/native-legacy/view'
+import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
 
 export default function SizedBoxScreen() {
   const colors = useXUIColors()

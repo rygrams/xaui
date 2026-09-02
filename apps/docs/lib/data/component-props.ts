@@ -217,7 +217,7 @@ export const componentPropsMap: Record<string, ComponentPropsData> = {
       {
         title: 'Shadow Card',
         description: 'Raised card effect using the shadow prop.',
-        code: `import { Container } from '@xaui/native/view'
+        code: `import { Container } from '@xaui/native-legacy/view'
 import { Text } from 'react-native'
 
 export function ShadowCard() {
@@ -239,7 +239,7 @@ export function ShadowCard() {
       {
         title: 'Alignment',
         description: 'Center children using the Flutter-style alignment prop.',
-        code: `import { Container } from '@xaui/native/view'
+        code: `import { Container } from '@xaui/native-legacy/view'
 import { Text } from 'react-native'
 
 export function CenteredContainer() {
@@ -260,7 +260,7 @@ export function CenteredContainer() {
       {
         title: 'EdgeInsets Spacing',
         description: 'Fine-grained padding and margin using the EdgeInsets format.',
-        code: `import { Container } from '@xaui/native/view'
+        code: `import { Container } from '@xaui/native-legacy/view'
 import { Text } from 'react-native'
 
 export function SpacingExample() {
@@ -280,7 +280,7 @@ export function SpacingExample() {
         title: 'Pressable Container',
         description:
           'Any press handler automatically switches View to Pressable. No extra wrapper needed.',
-        code: `import { Container } from '@xaui/native/view'
+        code: `import { Container } from '@xaui/native-legacy/view'
 import { Text } from 'react-native'
 
 export function PressableCard() {
@@ -301,7 +301,7 @@ export function PressableCard() {
         title: 'Per-side Border',
         description:
           'Apply borders to specific sides using the directional border format.',
-        code: `import { Container } from '@xaui/native/view'
+        code: `import { Container } from '@xaui/native-legacy/view'
 import { Text } from 'react-native'
 
 export function BorderExample() {
@@ -321,7 +321,7 @@ export function BorderExample() {
       {
         title: 'Flex Layout',
         description: 'Distribute space between containers with the flex prop.',
-        code: `import { Container } from '@xaui/native/view'
+        code: `import { Container } from '@xaui/native-legacy/view'
 import { View, Text } from 'react-native'
 
 export function FlexLayout() {
@@ -454,8 +454,8 @@ export function FlexLayout() {
       {
         title: 'Theme Colors',
         description: 'Use themeColor to convey semantic meaning.',
-        code: `import { Alert } from '@xaui/native/alert'
-import { Column } from '@xaui/native/view'
+        code: `import { Alert } from '@xaui/native-legacy/alert'
+import { Column } from '@xaui/native-legacy/view'
 
 export function ThemeColorsExample() {
   return (
@@ -472,8 +472,8 @@ export function ThemeColorsExample() {
       {
         title: 'Variants',
         description: 'All visual styles combined with a theme color.',
-        code: `import { Alert } from '@xaui/native/alert'
-import { Column } from '@xaui/native/view'
+        code: `import { Alert } from '@xaui/native-legacy/alert'
+import { Column } from '@xaui/native-legacy/view'
 
 export function VariantsExample() {
   return (
@@ -490,7 +490,7 @@ export function VariantsExample() {
         title: 'Closable Alert',
         description: 'Let users dismiss the alert.',
         code: `import { useState } from 'react'
-import { Alert } from '@xaui/native/alert'
+import { Alert } from '@xaui/native-legacy/alert'
 
 export function ClosableExample() {
   const [visible, setVisible] = useState(true)
@@ -510,8 +510,8 @@ export function ClosableExample() {
       {
         title: 'With Custom Icon',
         description: 'Replace the default icon with a custom element.',
-        code: `import { Alert } from '@xaui/native/alert'
-import { Typography } from '@xaui/native/typography'
+        code: `import { Alert } from '@xaui/native-legacy/alert'
+import { Typography } from '@xaui/native-legacy/typography'
 
 export function CustomIconExample() {
   return (
@@ -568,9 +568,9 @@ export function CustomIconExample() {
       {
         title: 'Basic',
         description: 'Title centred with a back button on the left.',
-        code: `import { AppBar, AppBarStartContent, AppBarContent } from '@xaui/native/app-bar'
-import { IconButton } from '@xaui/native/button'
-import { Typography } from '@xaui/native/typography'
+        code: `import { AppBar, AppBarStartContent, AppBarContent } from '@xaui/native-legacy/app-bar'
+import { IconButton } from '@xaui/native-legacy/button'
+import { Typography } from '@xaui/native-legacy/typography'
 import { ArrowBackIcon } from '@xaui/icons/arrow-back'
 
 export function BasicExample() {
@@ -589,9 +589,9 @@ export function BasicExample() {
       {
         title: 'With End Actions',
         description: 'Action buttons on the right using AppBarEndContent.',
-        code: `import { AppBar, AppBarStartContent, AppBarContent, AppBarEndContent } from '@xaui/native/app-bar'
-import { IconButton } from '@xaui/native/button'
-import { Typography } from '@xaui/native/typography'
+        code: `import { AppBar, AppBarStartContent, AppBarContent, AppBarEndContent } from '@xaui/native-legacy/app-bar'
+import { IconButton } from '@xaui/native-legacy/button'
+import { Typography } from '@xaui/native-legacy/typography'
 import { MenuIcon } from '@xaui/icons/menu'
 import { NotificationsIcon } from '@xaui/icons/notifications'
 import { SettingsIcon } from '@xaui/icons/settings'
@@ -616,9 +616,9 @@ export function WithActionsExample() {
       {
         title: 'Floating Variant',
         description: 'Detached pill-shaped bar with an elevation shadow.',
-        code: `import { AppBar, AppBarStartContent, AppBarContent, AppBarEndContent } from '@xaui/native/app-bar'
-import { IconButton } from '@xaui/native/button'
-import { Typography } from '@xaui/native/typography'
+        code: `import { AppBar, AppBarStartContent, AppBarContent, AppBarEndContent } from '@xaui/native-legacy/app-bar'
+import { IconButton } from '@xaui/native-legacy/button'
+import { Typography } from '@xaui/native-legacy/typography'
 import { ArrowBackIcon } from '@xaui/icons/arrow-back'
 import { SearchIcon } from '@xaui/icons/search'
 
@@ -641,11 +641,11 @@ export function FloatingExample() {
       {
         title: 'Theme Colors',
         description: 'Use themeColor to apply a branded background.',
-        code: `import { AppBar, AppBarStartContent, AppBarContent } from '@xaui/native/app-bar'
-import { IconButton } from '@xaui/native/button'
-import { Typography } from '@xaui/native/typography'
+        code: `import { AppBar, AppBarStartContent, AppBarContent } from '@xaui/native-legacy/app-bar'
+import { IconButton } from '@xaui/native-legacy/button'
+import { Typography } from '@xaui/native-legacy/typography'
 import { ArrowBackIcon } from '@xaui/icons/arrow-back'
-import { Column } from '@xaui/native/view'
+import { Column } from '@xaui/native-legacy/view'
 
 export function ThemeColorsExample() {
   const colors = ['primary', 'secondary', 'success', 'danger', 'warning'] as const
@@ -671,9 +671,9 @@ export function ThemeColorsExample() {
       {
         title: 'Elevation Levels',
         description: 'Increase elevation to add progressively stronger shadows.',
-        code: `import { AppBar, AppBarContent } from '@xaui/native/app-bar'
-import { Typography } from '@xaui/native/typography'
-import { Column } from '@xaui/native/view'
+        code: `import { AppBar, AppBarContent } from '@xaui/native-legacy/app-bar'
+import { Typography } from '@xaui/native-legacy/typography'
+import { Column } from '@xaui/native-legacy/view'
 
 export function ElevationExample() {
   return (
@@ -931,7 +931,7 @@ export function ElevationExample() {
       {
         title: 'Basic Autocomplete',
         description: 'Autocomplete with a list of items.',
-        code: `import { Autocomplete, AutocompleteItem } from '@xaui/native/autocomplete'
+        code: `import { Autocomplete, AutocompleteItem } from '@xaui/native-legacy/autocomplete'
 
 export function BasicExample() {
   return (
@@ -948,7 +948,7 @@ export function BasicExample() {
         title: 'Controlled Selection',
         description: 'Track the selected value with state.',
         code: `import { useState } from 'react'
-import { Autocomplete, AutocompleteItem } from '@xaui/native/autocomplete'
+import { Autocomplete, AutocompleteItem } from '@xaui/native-legacy/autocomplete'
 
 const fruits = [
   { value: 'apple', label: 'Apple' },
@@ -974,7 +974,7 @@ export function ControlledExample() {
       {
         title: 'With Description & Error',
         description: 'Provide helper text and validation feedback.',
-        code: `import { Autocomplete, AutocompleteItem } from '@xaui/native/autocomplete'
+        code: `import { Autocomplete, AutocompleteItem } from '@xaui/native-legacy/autocomplete'
 
 export function ValidationExample() {
   return (
@@ -994,7 +994,7 @@ export function ValidationExample() {
       {
         title: 'Items with Description',
         description: 'Show secondary text inside each item.',
-        code: `import { Autocomplete, AutocompleteItem } from '@xaui/native/autocomplete'
+        code: `import { Autocomplete, AutocompleteItem } from '@xaui/native-legacy/autocomplete'
 
 export function ItemDescriptionExample() {
   return (
@@ -1022,7 +1022,7 @@ export function ItemDescriptionExample() {
       {
         title: 'Allows Custom Value',
         description: 'Let users type values not present in the list.',
-        code: `import { Autocomplete, AutocompleteItem } from '@xaui/native/autocomplete'
+        code: `import { Autocomplete, AutocompleteItem } from '@xaui/native-legacy/autocomplete'
 
 export function CustomValueExample() {
   return (
@@ -1166,7 +1166,7 @@ export function CustomValueExample() {
       {
         title: 'With image',
         description: 'Use `src` to display a remote image.',
-        code: `import { Avatar } from '@xaui/native/avatar'
+        code: `import { Avatar } from '@xaui/native-legacy/avatar'
 
 export function AvatarImageExample() {
   return (
@@ -1181,8 +1181,8 @@ export function AvatarImageExample() {
         title: 'Initials fallback',
         description:
           'When `src` is absent, `name` generates initials automatically.',
-        code: `import { Avatar } from '@xaui/native/avatar'
-import { Row } from '@xaui/native/view'
+        code: `import { Avatar } from '@xaui/native-legacy/avatar'
+import { Row } from '@xaui/native-legacy/view'
 
 export function AvatarInitialsExample() {
   return (
@@ -1197,7 +1197,7 @@ export function AvatarInitialsExample() {
       {
         title: 'Custom initials',
         description: 'Override the default initials logic with `getInitials`.',
-        code: `import { Avatar } from '@xaui/native/avatar'
+        code: `import { Avatar } from '@xaui/native-legacy/avatar'
 
 export function AvatarCustomInitialsExample() {
   return (
@@ -1211,8 +1211,8 @@ export function AvatarCustomInitialsExample() {
       {
         title: 'Sizes',
         description: 'Use `size` preset or pass a custom number.',
-        code: `import { Avatar } from '@xaui/native/avatar'
-import { Row } from '@xaui/native/view'
+        code: `import { Avatar } from '@xaui/native-legacy/avatar'
+import { Row } from '@xaui/native-legacy/view'
 
 export function AvatarSizesExample() {
   return (
@@ -1228,8 +1228,8 @@ export function AvatarSizesExample() {
       {
         title: 'Radius',
         description: 'Control the shape with `radius`.',
-        code: `import { Avatar } from '@xaui/native/avatar'
-import { Row } from '@xaui/native/view'
+        code: `import { Avatar } from '@xaui/native-legacy/avatar'
+import { Row } from '@xaui/native-legacy/view'
 
 export function AvatarRadiusExample() {
   return (
@@ -1246,8 +1246,8 @@ export function AvatarRadiusExample() {
       {
         title: 'Bordered',
         description: 'Add a ring with `isBordered`.',
-        code: `import { Avatar } from '@xaui/native/avatar'
-import { Row } from '@xaui/native/view'
+        code: `import { Avatar } from '@xaui/native-legacy/avatar'
+import { Row } from '@xaui/native-legacy/view'
 
 export function AvatarBorderedExample() {
   return (
@@ -1262,7 +1262,7 @@ export function AvatarBorderedExample() {
       {
         title: 'Icon fallback',
         description: 'Use `icon` when you have no image and no name.',
-        code: `import { Avatar } from '@xaui/native/avatar'
+        code: `import { Avatar } from '@xaui/native-legacy/avatar'
 import { UserIcon } from 'lucide-react-native'
 
 export function AvatarIconFallbackExample() {
@@ -1278,7 +1278,7 @@ export function AvatarIconFallbackExample() {
       {
         title: 'Custom fallback',
         description: 'Provide any ReactNode as fallback with `fallback`.',
-        code: `import { Avatar } from '@xaui/native/avatar'
+        code: `import { Avatar } from '@xaui/native-legacy/avatar'
 
 export function AvatarCustomFallbackExample() {
   return (
@@ -1296,7 +1296,7 @@ export function AvatarCustomFallbackExample() {
       {
         title: 'Disabled',
         description: 'Apply a disabled appearance with `isDisabled`.',
-        code: `import { Avatar } from '@xaui/native/avatar'
+        code: `import { Avatar } from '@xaui/native-legacy/avatar'
 
 export function AvatarDisabledExample() {
   return (
@@ -1310,7 +1310,7 @@ export function AvatarDisabledExample() {
       {
         title: 'Custom appearance',
         description: 'Fine-tune styles for the container, image, or text.',
-        code: `import { Avatar } from '@xaui/native/avatar'
+        code: `import { Avatar } from '@xaui/native-legacy/avatar'
 
 export function AvatarCustomAppearanceExample() {
   return (
@@ -1401,7 +1401,7 @@ export function AvatarCustomAppearanceExample() {
       {
         title: 'Basic stacked group',
         description: 'Default stacked layout with overlapping avatars.',
-        code: `import { Avatar, AvatarGroup } from '@xaui/native/avatar'
+        code: `import { Avatar, AvatarGroup } from '@xaui/native-legacy/avatar'
 
 export function AvatarGroupBasicExample() {
   return (
@@ -1418,7 +1418,7 @@ export function AvatarGroupBasicExample() {
         title: 'Max — overflow count',
         description:
           'Limit visible avatars with `max`. The rest shows as a count badge.',
-        code: `import { Avatar, AvatarGroup } from '@xaui/native/avatar'
+        code: `import { Avatar, AvatarGroup } from '@xaui/native-legacy/avatar'
 
 export function AvatarGroupMaxExample() {
   return (
@@ -1435,7 +1435,7 @@ export function AvatarGroupMaxExample() {
       {
         title: 'Total — custom count',
         description: 'Override the overflow number shown with `total`.',
-        code: `import { Avatar, AvatarGroup } from '@xaui/native/avatar'
+        code: `import { Avatar, AvatarGroup } from '@xaui/native-legacy/avatar'
 
 export function AvatarGroupTotalExample() {
   return (
@@ -1450,7 +1450,7 @@ export function AvatarGroupTotalExample() {
       {
         title: 'Bordered group',
         description: 'Add ring borders to each avatar with `isBordered`.',
-        code: `import { Avatar, AvatarGroup } from '@xaui/native/avatar'
+        code: `import { Avatar, AvatarGroup } from '@xaui/native-legacy/avatar'
 
 export function AvatarGroupBorderedExample() {
   return (
@@ -1465,7 +1465,7 @@ export function AvatarGroupBorderedExample() {
       {
         title: 'Grid layout',
         description: 'Switch to a grid arrangement with `isGrid`.',
-        code: `import { Avatar, AvatarGroup } from '@xaui/native/avatar'
+        code: `import { Avatar, AvatarGroup } from '@xaui/native-legacy/avatar'
 
 export function AvatarGroupGridExample() {
   return (
@@ -1484,7 +1484,7 @@ export function AvatarGroupGridExample() {
         title: 'Custom overflow renderer',
         description:
           'Render the overflow badge exactly as you want with `renderCount`.',
-        code: `import { Avatar, AvatarGroup } from '@xaui/native/avatar'
+        code: `import { Avatar, AvatarGroup } from '@xaui/native-legacy/avatar'
 
 export function AvatarGroupRenderCountExample() {
   return (
@@ -1600,8 +1600,8 @@ export function AvatarGroupRenderCountExample() {
       {
         title: 'Basic Count',
         description: 'Attach a numeric badge to any element.',
-        code: `import { Badge } from '@xaui/native/badge'
-import { IconButton } from '@xaui/native/button'
+        code: `import { Badge } from '@xaui/native-legacy/badge'
+import { IconButton } from '@xaui/native-legacy/button'
 import { NotificationsIcon } from '@xaui/icons/notifications'
 
 export function BasicExample() {
@@ -1615,9 +1615,9 @@ export function BasicExample() {
       {
         title: 'Dot Indicator',
         description: 'Use isDot for a minimal status indicator with no content.',
-        code: `import { Badge } from '@xaui/native/badge'
-import { Avatar } from '@xaui/native/avatar'
-import { Row } from '@xaui/native/view'
+        code: `import { Badge } from '@xaui/native-legacy/badge'
+import { Avatar } from '@xaui/native-legacy/avatar'
+import { Row } from '@xaui/native-legacy/view'
 
 export function DotExample() {
   return (
@@ -1638,10 +1638,10 @@ export function DotExample() {
       {
         title: 'Variants',
         description: 'Four visual styles available for badges.',
-        code: `import { Badge } from '@xaui/native/badge'
-import { IconButton } from '@xaui/native/button'
+        code: `import { Badge } from '@xaui/native-legacy/badge'
+import { IconButton } from '@xaui/native-legacy/button'
 import { BellIcon } from '@xaui/icons/bell'
-import { Row } from '@xaui/native/view'
+import { Row } from '@xaui/native-legacy/view'
 
 export function VariantsExample() {
   return (
@@ -1665,9 +1665,9 @@ export function VariantsExample() {
       {
         title: 'Placements',
         description: 'Position the badge on any corner of the wrapped element.',
-        code: `import { Badge } from '@xaui/native/badge'
-import { Avatar } from '@xaui/native/avatar'
-import { Row } from '@xaui/native/view'
+        code: `import { Badge } from '@xaui/native-legacy/badge'
+import { Avatar } from '@xaui/native-legacy/avatar'
+import { Row } from '@xaui/native-legacy/view'
 
 export function PlacementsExample() {
   return (
@@ -1692,10 +1692,10 @@ export function PlacementsExample() {
         title: 'Visibility Toggle',
         description: 'Use isInvisible to conditionally hide the badge.',
         code: `import { useState } from 'react'
-import { Badge } from '@xaui/native/badge'
-import { Button, IconButton } from '@xaui/native/button'
+import { Badge } from '@xaui/native-legacy/badge'
+import { Button, IconButton } from '@xaui/native-legacy/button'
 import { NotificationsIcon } from '@xaui/icons/notifications'
-import { Row } from '@xaui/native/view'
+import { Row } from '@xaui/native-legacy/view'
 
 export function VisibilityExample() {
   const [hasNotif, setHasNotif] = useState(true)
@@ -1815,10 +1815,10 @@ export function VisibilityExample() {
         title: 'Basic',
         description: 'Open a sheet with a single snap point.',
         code: `import { useState } from 'react'
-import { BottomSheet } from '@xaui/native/bottom-sheet'
-import { Button } from '@xaui/native/button'
-import { Typography } from '@xaui/native/typography'
-import { Column, Padding } from '@xaui/native/view'
+import { BottomSheet } from '@xaui/native-legacy/bottom-sheet'
+import { Button } from '@xaui/native-legacy/button'
+import { Typography } from '@xaui/native-legacy/typography'
+import { Column, Padding } from '@xaui/native-legacy/view'
 
 export function BasicExample() {
   const [open, setOpen] = useState(false)
@@ -1845,10 +1845,10 @@ export function BasicExample() {
         title: 'Multiple Snap Points',
         description: 'Define several heights the sheet can snap to.',
         code: `import { useState } from 'react'
-import { BottomSheet } from '@xaui/native/bottom-sheet'
-import { Button } from '@xaui/native/button'
-import { Typography } from '@xaui/native/typography'
-import { Column, Padding } from '@xaui/native/view'
+import { BottomSheet } from '@xaui/native-legacy/bottom-sheet'
+import { Button } from '@xaui/native-legacy/button'
+import { Typography } from '@xaui/native-legacy/typography'
+import { Column, Padding } from '@xaui/native-legacy/view'
 
 export function MultiSnapExample() {
   const [open, setOpen] = useState(false)
@@ -1883,10 +1883,10 @@ export function MultiSnapExample() {
         title: 'Custom Handle',
         description: 'Replace the default handle with your own element.',
         code: `import { useState } from 'react'
-import { BottomSheet } from '@xaui/native/bottom-sheet'
-import { Button } from '@xaui/native/button'
-import { Typography } from '@xaui/native/typography'
-import { Column, Padding, Row } from '@xaui/native/view'
+import { BottomSheet } from '@xaui/native-legacy/bottom-sheet'
+import { Button } from '@xaui/native-legacy/button'
+import { Typography } from '@xaui/native-legacy/typography'
+import { Column, Padding, Row } from '@xaui/native-legacy/view'
 import { View } from 'react-native'
 
 export function CustomHandleExample() {
@@ -1930,10 +1930,10 @@ export function CustomHandleExample() {
         title: 'Theme Colors',
         description: 'Style the sheet surface with a theme color.',
         code: `import { useState } from 'react'
-import { BottomSheet } from '@xaui/native/bottom-sheet'
-import { Button } from '@xaui/native/button'
-import { Typography } from '@xaui/native/typography'
-import { Column, Padding } from '@xaui/native/view'
+import { BottomSheet } from '@xaui/native-legacy/bottom-sheet'
+import { Button } from '@xaui/native-legacy/button'
+import { Typography } from '@xaui/native-legacy/typography'
+import { Column, Padding } from '@xaui/native-legacy/view'
 
 export function ThemeColorsExample() {
   const [color, setColor] = useState<string | null>(null)
@@ -2068,7 +2068,7 @@ export function ThemeColorsExample() {
         title: 'Basic',
         description: 'Stacked variant with icons and labels.',
         code: `import { useState } from 'react'
-import { BottomTabBar, BottomTabBarItem } from '@xaui/native/bottom-tab-bar'
+import { BottomTabBar, BottomTabBarItem } from '@xaui/native-legacy/bottom-tab-bar'
 import { HomeIcon } from '@xaui/icons/home'
 import { SearchIcon } from '@xaui/icons/search'
 import { PersonIcon } from '@xaui/icons/person'
@@ -2089,8 +2089,8 @@ export function BasicExample() {
         title: 'Variants',
         description: 'Three layout variants: stacked, inline, and icon-only.',
         code: `import { useState } from 'react'
-import { BottomTabBar, BottomTabBarItem } from '@xaui/native/bottom-tab-bar'
-import { Column } from '@xaui/native/view'
+import { BottomTabBar, BottomTabBarItem } from '@xaui/native-legacy/bottom-tab-bar'
+import { Column } from '@xaui/native-legacy/view'
 import { HomeIcon } from '@xaui/icons/home'
 import { SearchIcon } from '@xaui/icons/search'
 import { PersonIcon } from '@xaui/icons/person'
@@ -2133,8 +2133,8 @@ export function VariantsExample() {
         title: 'Sizes',
         description: 'Three sizes control bar height and icon/label scaling.',
         code: `import { useState } from 'react'
-import { BottomTabBar, BottomTabBarItem } from '@xaui/native/bottom-tab-bar'
-import { Column } from '@xaui/native/view'
+import { BottomTabBar, BottomTabBarItem } from '@xaui/native-legacy/bottom-tab-bar'
+import { Column } from '@xaui/native-legacy/view'
 import { HomeIcon } from '@xaui/icons/home'
 import { SearchIcon } from '@xaui/icons/search'
 import { PersonIcon } from '@xaui/icons/person'
@@ -2164,8 +2164,8 @@ export function SizesExample() {
         title: 'Theme Colors',
         description: 'Apply a design system color to the active indicator.',
         code: `import { useState } from 'react'
-import { BottomTabBar, BottomTabBarItem } from '@xaui/native/bottom-tab-bar'
-import { Column } from '@xaui/native/view'
+import { BottomTabBar, BottomTabBarItem } from '@xaui/native-legacy/bottom-tab-bar'
+import { Column } from '@xaui/native-legacy/view'
 import { HomeIcon } from '@xaui/icons/home'
 import { SearchIcon } from '@xaui/icons/search'
 import { PersonIcon } from '@xaui/icons/person'
@@ -2195,8 +2195,8 @@ export function ThemeColorsExample() {
         title: 'Badge on Item',
         description: 'Attach a Badge component to any tab item.',
         code: `import { useState } from 'react'
-import { BottomTabBar, BottomTabBarItem } from '@xaui/native/bottom-tab-bar'
-import { Badge } from '@xaui/native/badge'
+import { BottomTabBar, BottomTabBarItem } from '@xaui/native-legacy/bottom-tab-bar'
+import { Badge } from '@xaui/native-legacy/badge'
 import { HomeIcon } from '@xaui/icons/home'
 import { NotificationsIcon } from '@xaui/icons/notifications'
 import { PersonIcon } from '@xaui/icons/person'
@@ -2222,7 +2222,7 @@ export function BadgeExample() {
         title: 'Active Icon',
         description: 'Swap to a filled icon variant when a tab is selected.',
         code: `import { useState } from 'react'
-import { BottomTabBar, BottomTabBarItem } from '@xaui/native/bottom-tab-bar'
+import { BottomTabBar, BottomTabBarItem } from '@xaui/native-legacy/bottom-tab-bar'
 import { HomeIcon } from '@xaui/icons/home'
 import { HomeFilledIcon } from '@xaui/icons/home-filled'
 import { SearchIcon } from '@xaui/icons/search'
@@ -2256,7 +2256,7 @@ export function ActiveIconExample() {
         description:
           'Pass expo-router tab props directly to replace the default tab bar.',
         code: `import { Tabs } from 'expo-router'
-import { BottomTabBar } from '@xaui/native/bottom-tab-bar'
+import { BottomTabBar } from '@xaui/native-legacy/bottom-tab-bar'
 import { HomeIcon } from '@xaui/icons/home'
 import { SearchIcon } from '@xaui/icons/search'
 import { PersonIcon } from '@xaui/icons/person'
@@ -2519,8 +2519,8 @@ export default function TabLayout() {
       {
         title: 'Variants',
         description: 'All available visual styles.',
-        code: `import { Button } from '@xaui/native/button'
-import { Column } from '@xaui/native/view'
+        code: `import { Button } from '@xaui/native-legacy/button'
+import { Column } from '@xaui/native-legacy/view'
 
 export function VariantsExample() {
   return (
@@ -2537,8 +2537,8 @@ export function VariantsExample() {
       {
         title: 'Sizes',
         description: 'Control the button size with the size prop.',
-        code: `import { Button } from '@xaui/native/button'
-import { Row } from '@xaui/native/view'
+        code: `import { Button } from '@xaui/native-legacy/button'
+import { Row } from '@xaui/native-legacy/view'
 
 export function SizesExample() {
   return (
@@ -2554,8 +2554,8 @@ export function SizesExample() {
         title: 'With Icons',
         description:
           'Add content before or after the label using startContent / endContent.',
-        code: `import { Button } from '@xaui/native/button'
-import { Typography } from '@xaui/native/typography'
+        code: `import { Button } from '@xaui/native-legacy/button'
+import { Typography } from '@xaui/native-legacy/typography'
 
 export function WithIconsExample() {
   return (
@@ -2569,7 +2569,7 @@ export function WithIconsExample() {
         title: 'Loading State',
         description: 'Show a spinner while an async action is in progress.',
         code: `import { useState } from 'react'
-import { Button } from '@xaui/native/button'
+import { Button } from '@xaui/native-legacy/button'
 
 export function LoadingExample() {
   const [isLoading, setIsLoading] = useState(false)
@@ -2590,7 +2590,7 @@ export function LoadingExample() {
       {
         title: 'Disabled State',
         description: 'Prevent interaction with isDisabled.',
-        code: `import { Button } from '@xaui/native/button'
+        code: `import { Button } from '@xaui/native-legacy/button'
 
 export function DisabledExample() {
   return <Button isDisabled>Disabled</Button>
@@ -2599,7 +2599,7 @@ export function DisabledExample() {
       {
         title: 'Full Width',
         description: 'Stretch the button to fill its container.',
-        code: `import { Button } from '@xaui/native/button'
+        code: `import { Button } from '@xaui/native-legacy/button'
 
 export function FullWidthExample() {
   return <Button fullWidth>Full Width</Button>
@@ -2608,8 +2608,8 @@ export function FullWidthExample() {
       {
         title: 'Elevation',
         description: 'Add a shadow to give depth.',
-        code: `import { Button } from '@xaui/native/button'
-import { Column } from '@xaui/native/view'
+        code: `import { Button } from '@xaui/native-legacy/button'
+import { Column } from '@xaui/native-legacy/view'
 
 export function ElevationExample() {
   return (
@@ -2625,8 +2625,8 @@ export function ElevationExample() {
       {
         title: 'Icon Button',
         description: 'A square button that holds only an icon.',
-        code: `import { IconButton } from '@xaui/native/button'
-import { Typography } from '@xaui/native/typography'
+        code: `import { IconButton } from '@xaui/native-legacy/button'
+import { Typography } from '@xaui/native-legacy/typography'
 
 export function IconButtonExample() {
   return <IconButton icon={<Typography>🔔</Typography>} onPress={() => {}} />
@@ -2823,9 +2823,9 @@ export function IconButtonExample() {
   CardDescription,
   CardBody,
   CardFooter,
-} from '@xaui/native/card'
-import { Button } from '@xaui/native/button'
-import { Typography } from '@xaui/native/typography'
+} from '@xaui/native-legacy/card'
+import { Button } from '@xaui/native-legacy/button'
+import { Typography } from '@xaui/native-legacy/typography'
 
 export function FullCardExample() {
   return (
@@ -2849,8 +2849,8 @@ export function FullCardExample() {
         title: 'Header with Title & Description Only',
         description:
           'CardTitle and CardDescription inside CardHeader for structured headings.',
-        code: `import { Card, CardHeader, CardTitle, CardDescription, CardBody } from '@xaui/native/card'
-import { Typography } from '@xaui/native/typography'
+        code: `import { Card, CardHeader, CardTitle, CardDescription, CardBody } from '@xaui/native-legacy/card'
+import { Typography } from '@xaui/native-legacy/typography'
 
 export function HeaderExample() {
   return (
@@ -2869,8 +2869,8 @@ export function HeaderExample() {
       {
         title: 'Pressable Card',
         description: 'Make the entire card tappable.',
-        code: `import { Card, CardHeader, CardTitle, CardDescription, CardBody } from '@xaui/native/card'
-import { Typography } from '@xaui/native/typography'
+        code: `import { Card, CardHeader, CardTitle, CardDescription, CardBody } from '@xaui/native-legacy/card'
+import { Typography } from '@xaui/native-legacy/typography'
 
 export function PressableCardExample() {
   return (
@@ -2889,8 +2889,8 @@ export function PressableCardExample() {
       {
         title: 'Elevated Card',
         description: 'Add a shadow with the elevation prop.',
-        code: `import { Card, CardHeader, CardTitle, CardBody } from '@xaui/native/card'
-import { Typography } from '@xaui/native/typography'
+        code: `import { Card, CardHeader, CardTitle, CardBody } from '@xaui/native-legacy/card'
+import { Typography } from '@xaui/native-legacy/typography'
 
 export function ElevatedCardExample() {
   return (
@@ -3094,8 +3094,8 @@ export function ElevatedCardExample() {
         title: 'Basic Carousel',
         description:
           'Display a list of items with data, renderItem, and keyExtractor.',
-        code: `import { Carousel } from '@xaui/native/carousel'
-import { Typography } from '@xaui/native/typography'
+        code: `import { Carousel } from '@xaui/native-legacy/carousel'
+import { Typography } from '@xaui/native-legacy/typography'
 import { View } from 'react-native'
 
 const slides = [
@@ -3123,8 +3123,8 @@ export function BasicCarouselExample() {
       {
         title: 'Auto Play',
         description: 'Auto-scroll slides at a fixed interval.',
-        code: `import { Carousel } from '@xaui/native/carousel'
-import { Typography } from '@xaui/native/typography'
+        code: `import { Carousel } from '@xaui/native-legacy/carousel'
+import { Typography } from '@xaui/native-legacy/typography'
 import { View } from 'react-native'
 
 const banners = [
@@ -3154,8 +3154,8 @@ export function AutoPlayExample() {
       {
         title: 'Hero Layout',
         description: 'Full-width hero carousel with a large focal item.',
-        code: `import { Carousel } from '@xaui/native/carousel'
-import { Typography } from '@xaui/native/typography'
+        code: `import { Carousel } from '@xaui/native-legacy/carousel'
+import { Typography } from '@xaui/native-legacy/typography'
 import { View } from 'react-native'
 
 const items = [
@@ -3237,7 +3237,7 @@ export function HeroCarouselExample() {
         title: 'Donut Chart',
         description:
           'Ring chart with a centre label, legend, and configurable stroke width.',
-        code: `import { DonutChartCard } from '@xaui/native/chart'
+        code: `import { DonutChartCard } from '@xaui/native-legacy/chart'
 
 export function DonutExample() {
   return (
@@ -3258,7 +3258,7 @@ export function DonutExample() {
       {
         title: 'Pie Chart',
         description: 'Filled pie chart with optional legend.',
-        code: `import { PieChartCard } from '@xaui/native/chart'
+        code: `import { PieChartCard } from '@xaui/native-legacy/chart'
 
 export function PieExample() {
   return (
@@ -3279,7 +3279,7 @@ export function PieExample() {
         title: 'Line Chart',
         description:
           'Smooth or direct line chart with optional area fill and data point markers.',
-        code: `import { LineChartCard } from '@xaui/native/chart'
+        code: `import { LineChartCard } from '@xaui/native-legacy/chart'
 
 export function LineExample() {
   return (
@@ -3304,7 +3304,7 @@ export function LineExample() {
         title: 'Vertical Bar Chart',
         description:
           'Bar chart with per-bar colour, axis labels, and optional full legend.',
-        code: `import { VerticalBarChartCard } from '@xaui/native/chart'
+        code: `import { VerticalBarChartCard } from '@xaui/native-legacy/chart'
 
 export function BarExample() {
   return (
@@ -3328,7 +3328,7 @@ export function BarExample() {
         title: 'Heatmap Chart',
         description:
           'Grid heatmap interpolating between two colours based on cell intensity.',
-        code: `import { HeatmapChartCard } from '@xaui/native/chart'
+        code: `import { HeatmapChartCard } from '@xaui/native-legacy/chart'
 
 export function HeatmapExample() {
   return (
@@ -3837,7 +3837,7 @@ export function HeatmapExample() {
       {
         title: 'Basic',
         description: 'A simple labeled checkbox.',
-        code: `import { Checkbox } from '@xaui/native/checkbox'
+        code: `import { Checkbox } from '@xaui/native-legacy/checkbox'
 
 export function BasicExample() {
   return <Checkbox label="Accept terms and conditions" />
@@ -3847,8 +3847,8 @@ export function BasicExample() {
         title: 'Variants',
         description:
           'Filled has a solid background; light keeps a transparent background with a coloured border.',
-        code: `import { Checkbox } from '@xaui/native/checkbox'
-import { Column } from '@xaui/native/view'
+        code: `import { Checkbox } from '@xaui/native-legacy/checkbox'
+import { Column } from '@xaui/native-legacy/view'
 
 export function VariantsExample() {
   return (
@@ -3862,8 +3862,8 @@ export function VariantsExample() {
       {
         title: 'Sizes',
         description: 'Four sizes from extra-small to large.',
-        code: `import { Checkbox } from '@xaui/native/checkbox'
-import { Column } from '@xaui/native/view'
+        code: `import { Checkbox } from '@xaui/native-legacy/checkbox'
+import { Column } from '@xaui/native-legacy/view'
 
 export function SizesExample() {
   return (
@@ -3880,7 +3880,7 @@ export function SizesExample() {
         title: 'Controlled',
         description: 'Drive the checked state from React.',
         code: `import { useState } from 'react'
-import { Checkbox } from '@xaui/native/checkbox'
+import { Checkbox } from '@xaui/native-legacy/checkbox'
 
 export function ControlledExample() {
   const [checked, setChecked] = useState(false)
@@ -3898,8 +3898,8 @@ export function ControlledExample() {
         title: 'Select All with Indeterminate',
         description: 'Drive a parent checkbox from a list of children.',
         code: `import { useState } from 'react'
-import { Checkbox } from '@xaui/native/checkbox'
-import { Column } from '@xaui/native/view'
+import { Checkbox } from '@xaui/native-legacy/checkbox'
+import { Column } from '@xaui/native-legacy/view'
 
 const items = ['Option A', 'Option B', 'Option C']
 
@@ -3940,8 +3940,8 @@ export function IndeterminateExample() {
         title: 'Label Alignment',
         description:
           'Place the label on either side or use justify variants to push them apart.',
-        code: `import { Checkbox } from '@xaui/native/checkbox'
-import { Column } from '@xaui/native/view'
+        code: `import { Checkbox } from '@xaui/native-legacy/checkbox'
+import { Column } from '@xaui/native-legacy/view'
 
 export function LabelAlignmentExample() {
   return (
@@ -3957,8 +3957,8 @@ export function LabelAlignmentExample() {
       {
         title: 'Theme Colors',
         description: 'Apply any design system color.',
-        code: `import { Checkbox } from '@xaui/native/checkbox'
-import { Column } from '@xaui/native/view'
+        code: `import { Checkbox } from '@xaui/native-legacy/checkbox'
+import { Column } from '@xaui/native-legacy/view'
 
 export function ThemeColorsExample() {
   return (
@@ -4058,8 +4058,8 @@ export function ThemeColorsExample() {
       {
         title: 'Variants',
         description: 'All seven visual styles.',
-        code: `import { Chip } from '@xaui/native/chip'
-import { Row } from '@xaui/native/view'
+        code: `import { Chip } from '@xaui/native-legacy/chip'
+import { Row } from '@xaui/native-legacy/view'
 
 export function VariantsExample() {
   return (
@@ -4078,8 +4078,8 @@ export function VariantsExample() {
       {
         title: 'Sizes',
         description: 'Three sizes: sm (32px), md (40px), lg (44px).',
-        code: `import { Chip } from '@xaui/native/chip'
-import { Row } from '@xaui/native/view'
+        code: `import { Chip } from '@xaui/native-legacy/chip'
+import { Row } from '@xaui/native-legacy/view'
 
 export function SizesExample() {
   return (
@@ -4096,8 +4096,8 @@ export function SizesExample() {
         description:
           'Providing onClose renders a close button; the chip animates out when pressed.',
         code: `import { useState } from 'react'
-import { Chip } from '@xaui/native/chip'
-import { Row } from '@xaui/native/view'
+import { Chip } from '@xaui/native-legacy/chip'
+import { Row } from '@xaui/native-legacy/view'
 
 const TAGS = ['React Native', 'TypeScript', 'Expo', 'Tailwind']
 
@@ -4122,9 +4122,9 @@ export function ClosableExample() {
       {
         title: 'With Avatar',
         description: 'Show an avatar at the leading edge.',
-        code: `import { Chip } from '@xaui/native/chip'
-import { Avatar } from '@xaui/native/avatar'
-import { Row } from '@xaui/native/view'
+        code: `import { Chip } from '@xaui/native-legacy/chip'
+import { Avatar } from '@xaui/native-legacy/avatar'
+import { Row } from '@xaui/native-legacy/view'
 
 export function WithAvatarExample() {
   return (
@@ -4142,8 +4142,8 @@ export function WithAvatarExample() {
       {
         title: 'Theme Colors',
         description: 'Apply any design system color.',
-        code: `import { Chip } from '@xaui/native/chip'
-import { Row } from '@xaui/native/view'
+        code: `import { Chip } from '@xaui/native-legacy/chip'
+import { Row } from '@xaui/native-legacy/view'
 
 export function ThemeColorsExample() {
   return (
@@ -4161,7 +4161,7 @@ export function ThemeColorsExample() {
         title: 'Single Selection (ChipGroup)',
         description: 'Use ChipGroup with isSelectable and selectMode="single".',
         code: `import { useState } from 'react'
-import { ChipGroup, ChipItem } from '@xaui/native/chip'
+import { ChipGroup, ChipItem } from '@xaui/native-legacy/chip'
 
 export function SingleSelectionExample() {
   const [selected, setSelected] = useState<string[]>(['react-native'])
@@ -4186,7 +4186,7 @@ export function SingleSelectionExample() {
         title: 'Multiple Selection (ChipGroup)',
         description: 'Allow any number of chips to be selected simultaneously.',
         code: `import { useState } from 'react'
-import { ChipGroup, ChipItem } from '@xaui/native/chip'
+import { ChipGroup, ChipItem } from '@xaui/native-legacy/chip'
 
 export function MultipleSelectionExample() {
   const [selected, setSelected] = useState<string[]>([])
@@ -4630,9 +4630,9 @@ export function MultipleSelectionExample() {
         title: 'Basic Dialog',
         description: 'Open and close a modal with header, body, and footer actions.',
         code: `import { useState } from 'react'
-import { Dialog, DialogBody, DialogFooter, DialogHeader } from '@xaui/native/dialog'
-import { Button } from '@xaui/native/button'
-import { Column } from '@xaui/native/view'
+import { Dialog, DialogBody, DialogFooter, DialogHeader } from '@xaui/native-legacy/dialog'
+import { Button } from '@xaui/native-legacy/button'
+import { Column } from '@xaui/native-legacy/view'
 
 export function BasicDialogExample() {
   const [isOpen, setIsOpen] = useState(false)
@@ -4658,9 +4658,9 @@ export function BasicDialogExample() {
         title: 'Size and Placement',
         description: 'Control where the dialog appears and how wide it is.',
         code: `import { useState } from 'react'
-import { Dialog, DialogBody, DialogFooter, DialogHeader } from '@xaui/native/dialog'
-import { Button } from '@xaui/native/button'
-import { Row } from '@xaui/native/view'
+import { Dialog, DialogBody, DialogFooter, DialogHeader } from '@xaui/native-legacy/dialog'
+import { Button } from '@xaui/native-legacy/button'
+import { Row } from '@xaui/native-legacy/view'
 
 export function DialogPlacementExample() {
   const [isOpen, setIsOpen] = useState(false)
@@ -4691,9 +4691,9 @@ export function DialogPlacementExample() {
         title: 'Controlled Open State',
         description: 'Use onOpenChange to sync dialog state with external state.',
         code: `import { useState } from 'react'
-import { Dialog, DialogBody, DialogHeader } from '@xaui/native/dialog'
-import { Button } from '@xaui/native/button'
-import { Column } from '@xaui/native/view'
+import { Dialog, DialogBody, DialogHeader } from '@xaui/native-legacy/dialog'
+import { Button } from '@xaui/native-legacy/button'
+import { Column } from '@xaui/native-legacy/view'
 
 export function ControlledDialogExample() {
   const [isOpen, setIsOpen] = useState(false)
@@ -4855,9 +4855,9 @@ export function ControlledDialogExample() {
         description: 'Toggle a left-side navigation drawer with a button.',
         code: `import { useState } from 'react'
 import { View } from 'react-native'
-import { Drawer } from '@xaui/native/drawer'
-import { Button } from '@xaui/native/button'
-import { Typography } from '@xaui/native/typography'
+import { Drawer } from '@xaui/native-legacy/drawer'
+import { Button } from '@xaui/native-legacy/button'
+import { Typography } from '@xaui/native-legacy/typography'
 
 export function BasicDrawerExample() {
   const [isOpen, setIsOpen] = useState(false)
@@ -4880,9 +4880,9 @@ export function BasicDrawerExample() {
         description: 'Drawer can slide in from any edge using the position prop.',
         code: `import { useState } from 'react'
 import { View } from 'react-native'
-import { Drawer } from '@xaui/native/drawer'
-import { Button } from '@xaui/native/button'
-import { Typography } from '@xaui/native/typography'
+import { Drawer } from '@xaui/native-legacy/drawer'
+import { Button } from '@xaui/native-legacy/button'
+import { Typography } from '@xaui/native-legacy/typography'
 
 type Position = 'left' | 'right' | 'top' | 'bottom'
 
@@ -4913,9 +4913,9 @@ export function DrawerPositionsExample() {
         description: 'Set a custom width and hide the backdrop.',
         code: `import { useState } from 'react'
 import { View } from 'react-native'
-import { Drawer } from '@xaui/native/drawer'
-import { Button } from '@xaui/native/button'
-import { Typography } from '@xaui/native/typography'
+import { Drawer } from '@xaui/native-legacy/drawer'
+import { Button } from '@xaui/native-legacy/button'
+import { Typography } from '@xaui/native-legacy/typography'
 
 export function DrawerCustomSizeExample() {
   const [isOpen, setIsOpen] = useState(false)
@@ -5103,7 +5103,7 @@ export function DrawerCustomSizeExample() {
       {
         title: 'Basic Menu',
         description: 'Uncontrolled menu with three actions.',
-        code: `import { FabMenu, FabMenuItem } from '@xaui/native/fab-menu'
+        code: `import { FabMenu, FabMenuItem } from '@xaui/native-legacy/fab-menu'
 import { AddIcon } from '@xaui/icons/add'
 import { CloseIcon } from '@xaui/icons/close'
 import { CameraIcon } from '@xaui/icons/camera'
@@ -5129,7 +5129,7 @@ export function BasicFabMenuExample() {
         title: 'Controlled State',
         description: 'Control open/close state with isExpanded and onToggle.',
         code: `import { useState } from 'react'
-import { FabMenu, FabMenuItem } from '@xaui/native/fab-menu'
+import { FabMenu, FabMenuItem } from '@xaui/native-legacy/fab-menu'
 import { AddIcon } from '@xaui/icons/add'
 import { CloseIcon } from '@xaui/icons/close'
 import { PencilIcon } from '@xaui/icons/pencil'
@@ -5157,7 +5157,7 @@ export function ControlledFabMenuExample() {
       {
         title: 'Custom Appearance',
         description: 'Tune overlay, list spacing, and toggle container styles.',
-        code: `import { FabMenu, FabMenuItem } from '@xaui/native/fab-menu'
+        code: `import { FabMenu, FabMenuItem } from '@xaui/native-legacy/fab-menu'
 import { AddIcon } from '@xaui/icons/add'
 import { CameraIcon } from '@xaui/icons/camera'
 import { ImageIcon } from '@xaui/icons/image'
@@ -5315,7 +5315,7 @@ export function CustomAppearanceFabMenuExample() {
         description: 'Show a spotlight around a referenced element.',
         code: `import { useRef, useState } from 'react'
 import { Pressable, Text, View } from 'react-native'
-import { FeatureDiscovery } from '@xaui/native/feature-discovery'
+import { FeatureDiscovery } from '@xaui/native-legacy/feature-discovery'
 
 export function BasicFeatureDiscoveryExample() {
   const [visible, setVisible] = useState(true)
@@ -5347,8 +5347,8 @@ export function BasicFeatureDiscoveryExample() {
         description: 'Open the overlay from a dedicated trigger button.',
         code: `import { useRef, useState } from 'react'
 import { View } from 'react-native'
-import { Button } from '@xaui/native/button'
-import { FeatureDiscovery } from '@xaui/native/feature-discovery'
+import { Button } from '@xaui/native-legacy/button'
+import { FeatureDiscovery } from '@xaui/native-legacy/feature-discovery'
 
 export function TriggeredFeatureDiscoveryExample() {
   const [visible, setVisible] = useState(false)
@@ -5380,7 +5380,7 @@ export function TriggeredFeatureDiscoveryExample() {
         description: 'Render custom highlight UI and styling over the target.',
         code: `import { useRef, useState } from 'react'
 import { Text, View } from 'react-native'
-import { FeatureDiscovery } from '@xaui/native/feature-discovery'
+import { FeatureDiscovery } from '@xaui/native-legacy/feature-discovery'
 
 export function CustomHighlightFeatureDiscoveryExample() {
   const [visible, setVisible] = useState(true)
@@ -5475,8 +5475,8 @@ export function CustomHighlightFeatureDiscoveryExample() {
       {
         title: 'Variants',
         description: 'Use circular or linear indicators.',
-        code: `import { ActivityIndicator } from '@xaui/native/indicator'
-import { Column } from '@xaui/native/view'
+        code: `import { ActivityIndicator } from '@xaui/native-legacy/indicator'
+import { Column } from '@xaui/native-legacy/view'
 
 export function VariantsExample() {
   return (
@@ -5490,8 +5490,8 @@ export function VariantsExample() {
       {
         title: 'Theme Colors',
         description: 'Apply semantic theme colors.',
-        code: `import { ActivityIndicator } from '@xaui/native/indicator'
-import { Row } from '@xaui/native/view'
+        code: `import { ActivityIndicator } from '@xaui/native-legacy/indicator'
+import { Row } from '@xaui/native-legacy/view'
 
 export function ThemeColorsExample() {
   return (
@@ -5507,8 +5507,8 @@ export function ThemeColorsExample() {
       {
         title: 'Sizes',
         description: 'Adjust indicator size per context.',
-        code: `import { ActivityIndicator } from '@xaui/native/indicator'
-import { Row } from '@xaui/native/view'
+        code: `import { ActivityIndicator } from '@xaui/native-legacy/indicator'
+import { Row } from '@xaui/native-legacy/view'
 
 export function SizesExample() {
   return (
@@ -5523,8 +5523,8 @@ export function SizesExample() {
       {
         title: 'Track and Custom Colors',
         description: 'Show track and override both foreground/background colors.',
-        code: `import { ActivityIndicator } from '@xaui/native/indicator'
-import { Column } from '@xaui/native/view'
+        code: `import { ActivityIndicator } from '@xaui/native-legacy/indicator'
+import { Column } from '@xaui/native-legacy/view'
 
 export function TrackAndColorExample() {
   return (
@@ -5551,8 +5551,8 @@ export function TrackAndColorExample() {
       {
         title: 'Disable Animation',
         description: 'Render a static indicator state (useful for previews/tests).',
-        code: `import { ActivityIndicator } from '@xaui/native/indicator'
-import { Row } from '@xaui/native/view'
+        code: `import { ActivityIndicator } from '@xaui/native-legacy/indicator'
+import { Row } from '@xaui/native-legacy/view'
 
 export function DisableAnimationExample() {
   return (
@@ -5700,7 +5700,7 @@ export function DisableAnimationExample() {
       {
         title: 'Basic Input',
         description: 'A simple text input with a label.',
-        code: `import { TextInput } from '@xaui/native/input'
+        code: `import { TextInput } from '@xaui/native-legacy/input'
 
 export function BasicExample() {
   return <TextInput label="Name" placeholder="Enter your name" />
@@ -5709,8 +5709,8 @@ export function BasicExample() {
       {
         title: 'Variants',
         description: 'All available visual styles.',
-        code: `import { TextInput } from '@xaui/native/input'
-import { Column } from '@xaui/native/view'
+        code: `import { TextInput } from '@xaui/native-legacy/input'
+import { Column } from '@xaui/native-legacy/view'
 
 export function VariantsExample() {
   return (
@@ -5727,7 +5727,7 @@ export function VariantsExample() {
         title: 'Controlled Input',
         description: 'Manage the value with React state.',
         code: `import { useState } from 'react'
-import { TextInput } from '@xaui/native/input'
+import { TextInput } from '@xaui/native-legacy/input'
 
 export function ControlledExample() {
   const [value, setValue] = useState('')
@@ -5744,7 +5744,7 @@ export function ControlledExample() {
       {
         title: 'Password Input',
         description: 'Hide input text with isSecured.',
-        code: `import { TextInput } from '@xaui/native/input'
+        code: `import { TextInput } from '@xaui/native-legacy/input'
 
 export function PasswordExample() {
   return <TextInput label="Password" isSecured placeholder="••••••••" />
@@ -5753,7 +5753,7 @@ export function PasswordExample() {
       {
         title: 'With Validation',
         description: 'Show an error message when the field is invalid.',
-        code: `import { TextInput } from '@xaui/native/input'
+        code: `import { TextInput } from '@xaui/native-legacy/input'
 
 export function ValidationExample() {
   return (
@@ -5769,8 +5769,8 @@ export function ValidationExample() {
       {
         title: 'With Start & End Content',
         description: 'Add icons or labels inside the input.',
-        code: `import { TextInput } from '@xaui/native/input'
-import { Typography } from '@xaui/native/typography'
+        code: `import { TextInput } from '@xaui/native-legacy/input'
+import { Typography } from '@xaui/native-legacy/typography'
 
 export function WithContentExample() {
   return (
@@ -5787,7 +5787,7 @@ export function WithContentExample() {
         title: 'Clearable Input',
         description: 'Show a clear button to reset the value.',
         code: `import { useState } from 'react'
-import { TextInput } from '@xaui/native/input'
+import { TextInput } from '@xaui/native-legacy/input'
 
 export function ClearableExample() {
   const [value, setValue] = useState('Hello world')
@@ -5805,8 +5805,8 @@ export function ClearableExample() {
       {
         title: 'Label Placement',
         description: 'Switch label rendering between inside and outside.',
-        code: `import { TextInput } from '@xaui/native/input'
-import { Column } from '@xaui/native/view'
+        code: `import { TextInput } from '@xaui/native-legacy/input'
+import { Column } from '@xaui/native-legacy/view'
 
 export function LabelPlacementExample() {
   return (
@@ -5828,8 +5828,8 @@ export function LabelPlacementExample() {
       {
         title: 'Sizes and Radius',
         description: 'Tune field density and shape.',
-        code: `import { TextInput } from '@xaui/native/input'
-import { Column } from '@xaui/native/view'
+        code: `import { TextInput } from '@xaui/native-legacy/input'
+import { Column } from '@xaui/native-legacy/view'
 
 export function SizesAndRadiusExample() {
   return (
@@ -5844,8 +5844,8 @@ export function SizesAndRadiusExample() {
       {
         title: 'Disabled and Read-Only',
         description: 'Compare non-editable input states.',
-        code: `import { TextInput } from '@xaui/native/input'
-import { Column } from '@xaui/native/view'
+        code: `import { TextInput } from '@xaui/native-legacy/input'
+import { Column } from '@xaui/native-legacy/view'
 
 export function StatesExample() {
   return (
@@ -5860,8 +5860,8 @@ export function StatesExample() {
       {
         title: 'Input Mode',
         description: 'Hint the mobile keyboard type with inputMode.',
-        code: `import { TextInput } from '@xaui/native/input'
-import { Column } from '@xaui/native/view'
+        code: `import { TextInput } from '@xaui/native-legacy/input'
+import { Column } from '@xaui/native-legacy/view'
 
 export function InputModeExample() {
   return (
@@ -5877,7 +5877,7 @@ export function InputModeExample() {
       {
         title: 'Custom Appearance',
         description: 'Override field and text style tokens with customAppearance.',
-        code: `import { TextInput } from '@xaui/native/input'
+        code: `import { TextInput } from '@xaui/native-legacy/input'
 
 export function CustomAppearanceExample() {
   return (
@@ -6018,7 +6018,7 @@ export function CustomAppearanceExample() {
       {
         title: 'Basic TextArea',
         description: 'A simple multi-line text input.',
-        code: `import { TextArea } from '@xaui/native/input'
+        code: `import { TextArea } from '@xaui/native-legacy/input'
 
 export function BasicExample() {
   return <TextArea label="Notes" placeholder="Write something..." />
@@ -6028,7 +6028,7 @@ export function BasicExample() {
         title: 'Controlled TextArea',
         description: 'Manage the value with React state.',
         code: `import { useState } from 'react'
-import { TextArea } from '@xaui/native/input'
+import { TextArea } from '@xaui/native-legacy/input'
 
 export function ControlledExample() {
   const [value, setValue] = useState('')
@@ -6046,8 +6046,8 @@ export function ControlledExample() {
       {
         title: 'Variants',
         description: 'All available visual styles.',
-        code: `import { TextArea } from '@xaui/native/input'
-import { Column } from '@xaui/native/view'
+        code: `import { TextArea } from '@xaui/native-legacy/input'
+import { Column } from '@xaui/native-legacy/view'
 
 export function VariantsExample() {
   return (
@@ -6063,7 +6063,7 @@ export function VariantsExample() {
       {
         title: 'With Validation',
         description: 'Display an error message when content is invalid.',
-        code: `import { TextArea } from '@xaui/native/input'
+        code: `import { TextArea } from '@xaui/native-legacy/input'
 
 export function ValidationExample() {
   return (
@@ -6079,8 +6079,8 @@ export function ValidationExample() {
       {
         title: 'Disabled and Read-Only',
         description: 'Non-editable states.',
-        code: `import { TextArea } from '@xaui/native/input'
-import { Column } from '@xaui/native/view'
+        code: `import { TextArea } from '@xaui/native-legacy/input'
+import { Column } from '@xaui/native-legacy/view'
 
 export function StatesExample() {
   return (
@@ -6205,7 +6205,7 @@ export function StatesExample() {
       {
         title: 'Basic Date Input',
         description: 'Date field with default locale-based ordering.',
-        code: `import { DateInput } from '@xaui/native/input'
+        code: `import { DateInput } from '@xaui/native-legacy/input'
 
 export function BasicExample() {
   return <DateInput label="Birth date" />
@@ -6214,8 +6214,8 @@ export function BasicExample() {
       {
         title: 'Custom Order and Separator',
         description: 'Explicit segment order and separator character.',
-        code: `import { DateInput } from '@xaui/native/input'
-import { Column } from '@xaui/native/view'
+        code: `import { DateInput } from '@xaui/native-legacy/input'
+import { Column } from '@xaui/native-legacy/view'
 
 export function FormatExample() {
   return (
@@ -6230,8 +6230,8 @@ export function FormatExample() {
       {
         title: 'Locale Auto-detection',
         description: 'Let the locale determine the date order automatically.',
-        code: `import { DateInput } from '@xaui/native/input'
-import { Column } from '@xaui/native/view'
+        code: `import { DateInput } from '@xaui/native-legacy/input'
+import { Column } from '@xaui/native-legacy/view'
 
 export function LocaleExample() {
   return (
@@ -6247,7 +6247,7 @@ export function LocaleExample() {
         title: 'Controlled Date Input',
         description: 'Manage the date value with React state.',
         code: `import { useState } from 'react'
-import { DateInput } from '@xaui/native/input'
+import { DateInput } from '@xaui/native-legacy/input'
 
 export function ControlledExample() {
   const [date, setDate] = useState('')
@@ -6267,7 +6267,7 @@ export function ControlledExample() {
         title: 'Convert value to Date',
         description:
           'Use dateInputValueToDate to parse the formatted string into a Date object (time set to 00:00:00.000).',
-        code: `import { dateInputValueToDate } from '@xaui/native/input'
+        code: `import { dateInputValueToDate } from '@xaui/native-legacy/input'
 
 const date = dateInputValueToDate('25/01/2024', 'DMY', '/')
 // → Date { 2024-01-25T00:00:00.000 }
@@ -6279,7 +6279,7 @@ const invalid = dateInputValueToDate('31/02/2024', 'DMY', '/')
         title: 'Convert Date to value',
         description:
           'Use dateToDateInputValue to format a Date or ISO string into the value format expected by DateInput.',
-        code: `import { dateToDateInputValue } from '@xaui/native/input'
+        code: `import { dateToDateInputValue } from '@xaui/native-legacy/input'
 
 dateToDateInputValue(new Date(2024, 0, 25), 'DMY', '/')
 // → "25/01/2024"
@@ -6398,7 +6398,7 @@ dateToDateInputValue('2024-01-25T00:00:00.000Z', 'MDY', '.')
       {
         title: 'Basic Time Input',
         description: 'Time field with 24-hour format and minute granularity.',
-        code: `import { TimeInput } from '@xaui/native/input'
+        code: `import { TimeInput } from '@xaui/native-legacy/input'
 
 export function BasicExample() {
   return <TimeInput label="Start time" />
@@ -6407,8 +6407,8 @@ export function BasicExample() {
       {
         title: '12-hour and 24-hour Format',
         description: 'Switch between 12h and 24h hour cycles.',
-        code: `import { TimeInput } from '@xaui/native/input'
-import { Column } from '@xaui/native/view'
+        code: `import { TimeInput } from '@xaui/native-legacy/input'
+import { Column } from '@xaui/native-legacy/view'
 
 export function HourCycleExample() {
   return (
@@ -6422,8 +6422,8 @@ export function HourCycleExample() {
       {
         title: 'Granularity',
         description: 'Include seconds in the time field.',
-        code: `import { TimeInput } from '@xaui/native/input'
-import { Column } from '@xaui/native/view'
+        code: `import { TimeInput } from '@xaui/native-legacy/input'
+import { Column } from '@xaui/native-legacy/view'
 
 export function GranularityExample() {
   return (
@@ -6438,7 +6438,7 @@ export function GranularityExample() {
         title: 'Controlled Time Input',
         description: 'Manage the time value with React state.',
         code: `import { useState } from 'react'
-import { TimeInput } from '@xaui/native/input'
+import { TimeInput } from '@xaui/native-legacy/input'
 
 export function ControlledExample() {
   const [time, setTime] = useState('')
@@ -6458,7 +6458,7 @@ export function ControlledExample() {
         title: 'Convert value to Date',
         description:
           'Use timeInputValueToDate to parse the formatted time string into a Date set to today at that time.',
-        code: `import { timeInputValueToDate } from '@xaui/native/input'
+        code: `import { timeInputValueToDate } from '@xaui/native-legacy/input'
 
 timeInputValueToDate('14:30')
 // → today at 14:30:00.000
@@ -6473,7 +6473,7 @@ timeInputValueToDate('14:30:45', { granularity: 'second' })
         title: 'Convert Date to value',
         description:
           'Use dateToTimeInputValue to format a Date or ISO string into the value format expected by TimeInput.',
-        code: `import { dateToTimeInputValue } from '@xaui/native/input'
+        code: `import { dateToTimeInputValue } from '@xaui/native-legacy/input'
 
 dateToTimeInputValue(new Date(2024, 0, 1, 14, 30, 0))
 // → "14:30"
@@ -6610,7 +6610,7 @@ dateToTimeInputValue(new Date(2024, 0, 1, 14, 30, 45), { granularity: 'second' }
       {
         title: 'Basic DateTimeInput',
         description: 'Combined date and time entry in a single field.',
-        code: `import { DateTimeInput } from '@xaui/native/input'
+        code: `import { DateTimeInput } from '@xaui/native-legacy/input'
 
 export function BasicExample() {
   return <DateTimeInput label="Appointment" />
@@ -6619,7 +6619,7 @@ export function BasicExample() {
       {
         title: 'Custom Format',
         description: 'Set date order, separator, hour cycle, and granularity.',
-        code: `import { DateTimeInput } from '@xaui/native/input'
+        code: `import { DateTimeInput } from '@xaui/native-legacy/input'
 
 export function FormatExample() {
   return (
@@ -6636,7 +6636,7 @@ export function FormatExample() {
       {
         title: 'With Seconds',
         description: 'Include the seconds segment for precise time entry.',
-        code: `import { DateTimeInput } from '@xaui/native/input'
+        code: `import { DateTimeInput } from '@xaui/native-legacy/input'
 
 export function WithSecondsExample() {
   return (
@@ -6654,7 +6654,7 @@ export function WithSecondsExample() {
         title: 'Controlled DateTimeInput',
         description: 'Manage the combined value with React state.',
         code: `import { useState } from 'react'
-import { DateTimeInput } from '@xaui/native/input'
+import { DateTimeInput } from '@xaui/native-legacy/input'
 
 export function ControlledExample() {
   const [value, setValue] = useState('')
@@ -6675,7 +6675,7 @@ export function ControlledExample() {
         title: 'Convert value to Date',
         description:
           'Use dateTimeInputValueToDate to parse the formatted string into a Date object.',
-        code: `import { dateTimeInputValueToDate } from '@xaui/native/input'
+        code: `import { dateTimeInputValueToDate } from '@xaui/native-legacy/input'
 
 dateTimeInputValueToDate('25/01/2024 14:30', 'DMY', { separator: '/' })
 // → Date { 2024-01-25T14:30:00.000 }
@@ -6690,7 +6690,7 @@ dateTimeInputValueToDate('31/02/2024 10:00', 'DMY', { separator: '/' })
         title: 'Convert Date to value',
         description:
           'Use dateToDateTimeInputValue to format a Date or ISO string into the value format expected by DateTimeInput.',
-        code: `import { dateToDateTimeInputValue } from '@xaui/native/input'
+        code: `import { dateToDateTimeInputValue } from '@xaui/native-legacy/input'
 
 dateToDateTimeInputValue(new Date(2024, 0, 25, 14, 30, 0), 'DMY', { separator: '/' })
 // → "25/01/2024 14:30"
@@ -6779,7 +6779,7 @@ dateToDateTimeInputValue(new Date(2024, 0, 25, 14, 30, 45), 'YMD', {
       {
         title: 'Basic List',
         description: 'Simple composable list using List and ListItem.',
-        code: `import { List, ListItem } from '@xaui/native/list'
+        code: `import { List, ListItem } from '@xaui/native-legacy/list'
 
 export function BasicListExample() {
   return (
@@ -6795,8 +6795,8 @@ export function BasicListExample() {
         title: 'Single Selection (Controlled)',
         description: 'Drive selected state externally with selectedKeys.',
         code: `import { useState } from 'react'
-import { List, ListItem } from '@xaui/native/list'
-import { Typography } from '@xaui/native/typography'
+import { List, ListItem } from '@xaui/native-legacy/list'
+import { Typography } from '@xaui/native-legacy/typography'
 
 export function ControlledSingleSelectionListExample() {
   const [selected, setSelected] = useState<string[]>(['weekly'])
@@ -6822,7 +6822,7 @@ export function ControlledSingleSelectionListExample() {
         title: 'Multiple Selection with Dividers',
         description: 'Enable multi-select and separators between rows.',
         code: `import { useState } from 'react'
-import { List, ListItem } from '@xaui/native/list'
+import { List, ListItem } from '@xaui/native-legacy/list'
 
 export function MultiSelectionListExample() {
   const [selected, setSelected] = useState<string[]>(['docs'])
@@ -6846,7 +6846,7 @@ export function MultiSelectionListExample() {
       {
         title: 'Disabled Item',
         description: 'Prevent selection and press interaction for specific rows.',
-        code: `import { List, ListItem } from '@xaui/native/list'
+        code: `import { List, ListItem } from '@xaui/native-legacy/list'
 
 export function DisabledItemListExample() {
   return (
@@ -6861,9 +6861,9 @@ export function DisabledItemListExample() {
       {
         title: 'Custom Item Content',
         description: 'Use startContent, endContent, and customAppearance on rows.',
-        code: `import { List, ListItem } from '@xaui/native/list'
-import { Typography } from '@xaui/native/typography'
-import { Badge } from '@xaui/native/badge'
+        code: `import { List, ListItem } from '@xaui/native-legacy/list'
+import { Typography } from '@xaui/native-legacy/typography'
+import { Badge } from '@xaui/native-legacy/badge'
 
 export function CustomContentListExample() {
   return (
@@ -7043,8 +7043,8 @@ export function CustomContentListExample() {
       {
         title: 'Basic List',
         description: 'Render a typed array with renderItem and keyExtractor.',
-        code: `import { ListBuilder } from '@xaui/native/list'
-import { ListItem } from '@xaui/native/list'
+        code: `import { ListBuilder } from '@xaui/native-legacy/list'
+import { ListItem } from '@xaui/native-legacy/list'
 
 type Fruit = { id: string; name: string; emoji: string }
 
@@ -7074,8 +7074,8 @@ export function BasicListBuilderExample() {
         title: 'Single Selection',
         description: 'Enable item selection with selectionMode and isSelectable.',
         code: `import { useState } from 'react'
-import { ListBuilder, ListItem } from '@xaui/native/list'
-import { Typography } from '@xaui/native/typography'
+import { ListBuilder, ListItem } from '@xaui/native-legacy/list'
+import { Typography } from '@xaui/native-legacy/typography'
 
 type Language = { id: string; label: string }
 
@@ -7113,7 +7113,7 @@ export function SingleSelectionExample() {
         title: 'Multiple Selection with Dividers',
         description: 'Allow multi-select and show dividers between items.',
         code: `import { useState } from 'react'
-import { ListBuilder, ListItem } from '@xaui/native/list'
+import { ListBuilder, ListItem } from '@xaui/native-legacy/list'
 
 type Tag = { id: string; label: string; color: string }
 
@@ -7148,8 +7148,8 @@ export function MultiSelectionExample() {
         description: 'Drive selection state externally with selectedKeys.',
         code: `import { useState } from 'react'
 import { View } from 'react-native'
-import { ListBuilder, ListItem } from '@xaui/native/list'
-import { Button } from '@xaui/native/button'
+import { ListBuilder, ListItem } from '@xaui/native-legacy/list'
+import { Button } from '@xaui/native-legacy/button'
 
 type Item = { id: string; label: string }
 
@@ -7242,8 +7242,8 @@ export function ControlledListBuilderExample() {
         title: 'Basic Menu',
         description: 'Controlled open/close state with simple items.',
         code: `import { useState } from 'react'
-import { Button } from '@xaui/native/button'
-import { Menu, MenuItem } from '@xaui/native/menu'
+import { Button } from '@xaui/native-legacy/button'
+import { Menu, MenuItem } from '@xaui/native-legacy/menu'
 
 export function BasicMenuExample() {
   const [visible, setVisible] = useState(false)
@@ -7273,8 +7273,8 @@ export function BasicMenuExample() {
         title: 'Position and Max Height',
         description: 'Open above trigger and constrain long menus.',
         code: `import { useState } from 'react'
-import { Button } from '@xaui/native/button'
-import { Menu, MenuItem } from '@xaui/native/menu'
+import { Button } from '@xaui/native-legacy/button'
+import { Menu, MenuItem } from '@xaui/native-legacy/menu'
 
 const actions = Array.from({ length: 12 }, (_, i) => \`Action \${i + 1}\`)
 
@@ -7300,9 +7300,9 @@ export function PositionedMenuExample() {
         title: 'Start/End Content and Disabled Item',
         description: 'Attach icons/shortcuts and disable unavailable actions.',
         code: `import { useState } from 'react'
-import { Button } from '@xaui/native/button'
-import { Menu, MenuItem } from '@xaui/native/menu'
-import { Typography } from '@xaui/native/typography'
+import { Button } from '@xaui/native-legacy/button'
+import { Menu, MenuItem } from '@xaui/native-legacy/menu'
+import { Typography } from '@xaui/native-legacy/typography'
 
 export function RichMenuExample() {
   const [visible, setVisible] = useState(false)
@@ -7429,8 +7429,8 @@ export function RichMenuExample() {
       {
         title: 'Basic Settings MenuBox',
         description: 'Group navigation-like actions in a compact settings card.',
-        code: `import { MenuBox, MenuBoxItem } from '@xaui/native/menubox'
-import { Typography } from '@xaui/native/typography'
+        code: `import { MenuBox, MenuBoxItem } from '@xaui/native-legacy/menubox'
+import { Typography } from '@xaui/native-legacy/typography'
 
 export function BasicMenuBoxExample() {
   return (
@@ -7445,8 +7445,8 @@ export function BasicMenuBoxExample() {
       {
         title: 'Descriptions and Disabled Item',
         description: 'Show secondary text and disable unavailable rows.',
-        code: `import { MenuBox, MenuBoxItem } from '@xaui/native/menubox'
-import { Typography } from '@xaui/native/typography'
+        code: `import { MenuBox, MenuBoxItem } from '@xaui/native-legacy/menubox'
+import { Typography } from '@xaui/native-legacy/typography'
 
 export function DescriptiveMenuBoxExample() {
   return (
@@ -7475,8 +7475,8 @@ export function DescriptiveMenuBoxExample() {
       {
         title: 'Custom Appearance',
         description: 'Control spacing, radius, and per-item text styling.',
-        code: `import { MenuBox, MenuBoxItem } from '@xaui/native/menubox'
-import { Typography } from '@xaui/native/typography'
+        code: `import { MenuBox, MenuBoxItem } from '@xaui/native-legacy/menubox'
+import { Typography } from '@xaui/native-legacy/typography'
 
 export function CustomAppearanceMenuBoxExample() {
   return (
@@ -7631,8 +7631,8 @@ export function CustomAppearanceMenuBoxExample() {
       {
         title: 'Basic Pager',
         description: 'Swipe between simple pages with default indicators.',
-        code: `import { Pager, PagerItem } from '@xaui/native/pager'
-import { Typography } from '@xaui/native/typography'
+        code: `import { Pager, PagerItem } from '@xaui/native-legacy/pager'
+import { Typography } from '@xaui/native-legacy/typography'
 import { View } from 'react-native'
 
 export function BasicPagerExample() {
@@ -7661,10 +7661,10 @@ export function BasicPagerExample() {
         title: 'Controlled Page',
         description: 'Drive active page externally and react to page changes.',
         code: `import { useState } from 'react'
-import { Button } from '@xaui/native/button'
-import { Pager, PagerItem } from '@xaui/native/pager'
-import { Column, Row } from '@xaui/native/view'
-import { Typography } from '@xaui/native/typography'
+import { Button } from '@xaui/native-legacy/button'
+import { Pager, PagerItem } from '@xaui/native-legacy/pager'
+import { Column, Row } from '@xaui/native-legacy/view'
+import { Typography } from '@xaui/native-legacy/typography'
 
 export function ControlledPagerExample() {
   const [page, setPage] = useState(0)
@@ -7689,9 +7689,9 @@ export function ControlledPagerExample() {
       {
         title: 'Custom Indicator',
         description: 'Replace default dots with a custom renderer.',
-        code: `import { Pager, PagerItem } from '@xaui/native/pager'
-import type { PagerIndicatorRenderState } from '@xaui/native/pager'
-import { Typography } from '@xaui/native/typography'
+        code: `import { Pager, PagerItem } from '@xaui/native-legacy/pager'
+import type { PagerIndicatorRenderState } from '@xaui/native-legacy/pager'
+import { Typography } from '@xaui/native-legacy/typography'
 import { View } from 'react-native'
 
 export function CustomIndicatorPagerExample() {
@@ -7720,8 +7720,8 @@ export function CustomIndicatorPagerExample() {
       {
         title: 'Fullscreen and Swipe Control',
         description: 'Use fullscreen mode and disable swipe for guided flows.',
-        code: `import { Pager, PagerItem } from '@xaui/native/pager'
-import { Typography } from '@xaui/native/typography'
+        code: `import { Pager, PagerItem } from '@xaui/native-legacy/pager'
+import { Typography } from '@xaui/native-legacy/typography'
 import { View } from 'react-native'
 
 export function FullscreenPagerExample() {
@@ -7810,8 +7810,8 @@ export function FullscreenPagerExample() {
       {
         title: 'Linear Progress',
         description: 'Default linear progress bar with fractional values.',
-        code: `import { Progress } from '@xaui/native/progress'
-import { Column } from '@xaui/native/view'
+        code: `import { Progress } from '@xaui/native-legacy/progress'
+import { Column } from '@xaui/native-legacy/view'
 
 export function LinearProgressExample() {
   return (
@@ -7826,8 +7826,8 @@ export function LinearProgressExample() {
       {
         title: 'Circular Progress',
         description: 'Use circular variant for compact progress indicators.',
-        code: `import { Progress } from '@xaui/native/progress'
-import { Row } from '@xaui/native/view'
+        code: `import { Progress } from '@xaui/native-legacy/progress'
+import { Row } from '@xaui/native-legacy/view'
 
 export function CircularProgressExample() {
   return (
@@ -7842,8 +7842,8 @@ export function CircularProgressExample() {
       {
         title: 'Theme Colors and Size',
         description: 'Apply semantic colors and adjust thickness/diameter.',
-        code: `import { Progress } from '@xaui/native/progress'
-import { Column, Row } from '@xaui/native/view'
+        code: `import { Progress } from '@xaui/native-legacy/progress'
+import { Column, Row } from '@xaui/native-legacy/view'
 
 export function ThemedProgressExample() {
   return (
@@ -7861,8 +7861,8 @@ export function ThemedProgressExample() {
       {
         title: 'Custom Colors and Static Mode',
         description: 'Override colors manually and disable animation.',
-        code: `import { Progress } from '@xaui/native/progress'
-import { Column } from '@xaui/native/view'
+        code: `import { Progress } from '@xaui/native-legacy/progress'
+import { Column } from '@xaui/native-legacy/view'
 
 export function CustomProgressExample() {
   return (
@@ -7967,7 +7967,7 @@ export function CustomProgressExample() {
       {
         title: 'Basic Radio',
         description: 'A standalone radio button.',
-        code: `import { Radio } from '@xaui/native/radio'
+        code: `import { Radio } from '@xaui/native-legacy/radio'
 
 export function BasicExample() {
   return <Radio label="Option A" />
@@ -7977,7 +7977,7 @@ export function BasicExample() {
         title: 'Radio Group',
         description: 'Group multiple radios with single-selection behavior.',
         code: `import { useState } from 'react'
-import { Radio, RadioGroup } from '@xaui/native/radio'
+import { Radio, RadioGroup } from '@xaui/native-legacy/radio'
 
 export function GroupExample() {
   const [value, setValue] = useState('monthly')
@@ -7994,7 +7994,7 @@ export function GroupExample() {
       {
         title: 'Horizontal Layout',
         description: 'Display radios side by side.',
-        code: `import { Radio, RadioGroup } from '@xaui/native/radio'
+        code: `import { Radio, RadioGroup } from '@xaui/native-legacy/radio'
 
 export function HorizontalExample() {
   return (
@@ -8008,8 +8008,8 @@ export function HorizontalExample() {
       {
         title: 'Sizes',
         description: 'Use sm, md, and lg radio sizes.',
-        code: `import { Radio } from '@xaui/native/radio'
-import { Column } from '@xaui/native/view'
+        code: `import { Radio } from '@xaui/native-legacy/radio'
+import { Column } from '@xaui/native-legacy/view'
 
 export function RadioSizesExample() {
   return (
@@ -8025,8 +8025,8 @@ export function RadioSizesExample() {
         title: 'Theme Colors',
         description: 'Apply semantic theme colors on radios and groups.',
         code: `import { useState } from 'react'
-import { Radio, RadioGroup } from '@xaui/native/radio'
-import { Column } from '@xaui/native/view'
+import { Radio, RadioGroup } from '@xaui/native-legacy/radio'
+import { Column } from '@xaui/native-legacy/view'
 
 export function RadioThemeColorsExample() {
   const [value, setValue] = useState('secondary')
@@ -8190,8 +8190,8 @@ export function RadioThemeColorsExample() {
         title: 'Single Selection (Controlled)',
         description: 'Control the selected segment with string state.',
         code: `import { useState } from 'react'
-import { SegmentButton, SegmentButtonItem } from '@xaui/native/segment-button'
-import { Typography } from '@xaui/native/typography'
+import { SegmentButton, SegmentButtonItem } from '@xaui/native-legacy/segment-button'
+import { Typography } from '@xaui/native-legacy/typography'
 
 export function SingleControlledSegmentButtonExample() {
   const [value, setValue] = useState('week')
@@ -8216,7 +8216,7 @@ export function SingleControlledSegmentButtonExample() {
         title: 'Multiple Selection',
         description: 'Use selectionMode="multiple" with string[] state.',
         code: `import { useState } from 'react'
-import { SegmentButton, SegmentButtonItem } from '@xaui/native/segment-button'
+import { SegmentButton, SegmentButtonItem } from '@xaui/native-legacy/segment-button'
 
 export function MultiSelectSegmentButtonExample() {
   const [keys, setKeys] = useState<string[]>(['new', 'popular'])
@@ -8239,8 +8239,8 @@ export function MultiSelectSegmentButtonExample() {
       {
         title: 'Variants and Elevation',
         description: 'Compare visual variants and use elevation where supported.',
-        code: `import { SegmentButton, SegmentButtonItem } from '@xaui/native/segment-button'
-import { Column } from '@xaui/native/view'
+        code: `import { SegmentButton, SegmentButtonItem } from '@xaui/native-legacy/segment-button'
+import { Column } from '@xaui/native-legacy/view'
 
 export function SegmentButtonVariantsExample() {
   return (
@@ -8268,8 +8268,8 @@ export function SegmentButtonVariantsExample() {
       {
         title: 'Size and Theme Color',
         description: 'Tune density and semantic color.',
-        code: `import { SegmentButton, SegmentButtonItem } from '@xaui/native/segment-button'
-import { Column } from '@xaui/native/view'
+        code: `import { SegmentButton, SegmentButtonItem } from '@xaui/native-legacy/segment-button'
+import { Column } from '@xaui/native-legacy/view'
 
 export function SegmentButtonSizeThemeExample() {
   return (
@@ -8294,8 +8294,8 @@ export function SegmentButtonSizeThemeExample() {
         title: 'States and Custom Content',
         description:
           'Disable segments, hide checkmarks, and attach start/end content.',
-        code: `import { SegmentButton, SegmentButtonItem } from '@xaui/native/segment-button'
-import { Typography } from '@xaui/native/typography'
+        code: `import { SegmentButton, SegmentButtonItem } from '@xaui/native-legacy/segment-button'
+import { Typography } from '@xaui/native-legacy/typography'
 
 export function SegmentButtonStatesExample() {
   return (
@@ -8521,7 +8521,7 @@ export function SegmentButtonStatesExample() {
       {
         title: 'Basic Select',
         description: 'Single-selection dropdown with a list of items.',
-        code: `import { Select, SelectItem } from '@xaui/native/select'
+        code: `import { Select, SelectItem } from '@xaui/native-legacy/select'
 
 export function BasicExample() {
   return (
@@ -8537,7 +8537,7 @@ export function BasicExample() {
         title: 'Controlled Single Select',
         description: 'Track the selected key in state.',
         code: `import { useState } from 'react'
-import { Select, SelectItem } from '@xaui/native/select'
+import { Select, SelectItem } from '@xaui/native-legacy/select'
 
 const languages = [
   { value: 'js', label: 'JavaScript' },
@@ -8564,7 +8564,7 @@ export function ControlledExample() {
       {
         title: 'Multi Select',
         description: 'Allow selecting multiple items at once.',
-        code: `import { Select, SelectItem } from '@xaui/native/select'
+        code: `import { Select, SelectItem } from '@xaui/native-legacy/select'
 
 export function MultiSelectExample() {
   return (
@@ -8580,7 +8580,7 @@ export function MultiSelectExample() {
       {
         title: 'Items with Description',
         description: 'Provide secondary text for each option.',
-        code: `import { Select, SelectItem } from '@xaui/native/select'
+        code: `import { Select, SelectItem } from '@xaui/native-legacy/select'
 
 export function ItemDescriptionExample() {
   return (
@@ -8700,9 +8700,9 @@ export function ItemDescriptionExample() {
       {
         title: 'Text Lines',
         description: 'Use multiple line placeholders for text content.',
-        code: `import { Skeleton } from '@xaui/native/skeleton'
-import { Column } from '@xaui/native/view'
-import { Typography } from '@xaui/native/typography'
+        code: `import { Skeleton } from '@xaui/native-legacy/skeleton'
+import { Column } from '@xaui/native-legacy/view'
+import { Typography } from '@xaui/native-legacy/typography'
 
 export function SkeletonTextLinesExample() {
   const isLoaded = false
@@ -8725,9 +8725,9 @@ export function SkeletonTextLinesExample() {
       {
         title: 'Avatar Row',
         description: 'Compose circle + text skeletons for list items.',
-        code: `import { Skeleton } from '@xaui/native/skeleton'
-import { Row, Column } from '@xaui/native/view'
-import { Typography } from '@xaui/native/typography'
+        code: `import { Skeleton } from '@xaui/native-legacy/skeleton'
+import { Row, Column } from '@xaui/native-legacy/view'
+import { Typography } from '@xaui/native-legacy/typography'
 import { View } from 'react-native'
 
 export function SkeletonAvatarRowExample() {
@@ -8753,8 +8753,8 @@ export function SkeletonAvatarRowExample() {
       {
         title: 'Card Placeholder',
         description: 'Build a full loading card with mixed block shapes.',
-        code: `import { Skeleton } from '@xaui/native/skeleton'
-import { Column } from '@xaui/native/view'
+        code: `import { Skeleton } from '@xaui/native-legacy/skeleton'
+import { Column } from '@xaui/native-legacy/view'
 
 export function SkeletonCardExample() {
   const isLoaded = false
@@ -8775,10 +8775,10 @@ export function SkeletonCardExample() {
         title: 'Loaded State Toggle',
         description: 'Swap skeleton to real content using isLoaded.',
         code: `import { useState } from 'react'
-import { Button } from '@xaui/native/button'
-import { Skeleton } from '@xaui/native/skeleton'
-import { Column } from '@xaui/native/view'
-import { Typography } from '@xaui/native/typography'
+import { Button } from '@xaui/native-legacy/button'
+import { Skeleton } from '@xaui/native-legacy/skeleton'
+import { Column } from '@xaui/native-legacy/view'
+import { Typography } from '@xaui/native-legacy/typography'
 
 export function SkeletonLoadedStateExample() {
   const [isLoaded, setIsLoaded] = useState(false)
@@ -8798,8 +8798,8 @@ export function SkeletonLoadedStateExample() {
       {
         title: 'Custom Color and Static',
         description: 'Customize skeleton color and disable animation.',
-        code: `import { Skeleton } from '@xaui/native/skeleton'
-import { Column } from '@xaui/native/view'
+        code: `import { Skeleton } from '@xaui/native-legacy/skeleton'
+import { Column } from '@xaui/native-legacy/view'
 
 export function SkeletonCustomStyleExample() {
   return (
@@ -8956,7 +8956,7 @@ export function SkeletonCustomStyleExample() {
       {
         title: 'Basic Slider',
         description: 'A slider with min, max, and a label.',
-        code: `import { Slider } from '@xaui/native/slider'
+        code: `import { Slider } from '@xaui/native-legacy/slider'
 
 export function BasicExample() {
   return (
@@ -8973,7 +8973,7 @@ export function BasicExample() {
         title: 'Controlled Slider',
         description: 'Sync the slider value with external state.',
         code: `import { useState } from 'react'
-import { Slider } from '@xaui/native/slider'
+import { Slider } from '@xaui/native-legacy/slider'
 
 export function ControlledExample() {
   const [value, setValue] = useState(50)
@@ -8992,7 +8992,7 @@ export function ControlledExample() {
       {
         title: 'With Step Marks',
         description: 'Show visual marks for each step.',
-        code: `import { Slider } from '@xaui/native/slider'
+        code: `import { Slider } from '@xaui/native-legacy/slider'
 
 export function StepMarksExample() {
   return (
@@ -9090,8 +9090,8 @@ export function StepMarksExample() {
         title: 'Basic Horizontal',
         description: 'Horizontal stepper with a controlled active step.',
         code: `import { useState } from 'react'
-import { Stepper, StepperItem } from '@xaui/native/stepper'
-import { Typography } from '@xaui/native/typography'
+import { Stepper, StepperItem } from '@xaui/native-legacy/stepper'
+import { Typography } from '@xaui/native-legacy/typography'
 
 export function BasicStepperExample() {
   const [activeKey, setActiveKey] = useState('details')
@@ -9112,8 +9112,8 @@ export function BasicStepperExample() {
       {
         title: 'Vertical and Line Display',
         description: 'Use vertical direction and control connector visibility.',
-        code: `import { Stepper, StepperItem } from '@xaui/native/stepper'
-import { Column } from '@xaui/native/view'
+        code: `import { Stepper, StepperItem } from '@xaui/native-legacy/stepper'
+import { Column } from '@xaui/native-legacy/view'
 
 export function VerticalStepperExample() {
   return (
@@ -9136,8 +9136,8 @@ export function VerticalStepperExample() {
       {
         title: 'Sizes and Theme Colors',
         description: 'Scale step indicators and apply semantic colors.',
-        code: `import { Stepper, StepperItem } from '@xaui/native/stepper'
-import { Column } from '@xaui/native/view'
+        code: `import { Stepper, StepperItem } from '@xaui/native-legacy/stepper'
+import { Column } from '@xaui/native-legacy/view'
 
 export function StepperSizeThemeExample() {
   return (
@@ -9160,8 +9160,8 @@ export function StepperSizeThemeExample() {
       {
         title: 'Custom Indicator',
         description: 'Render indicator content from item state.',
-        code: `import { Stepper, StepperItem } from '@xaui/native/stepper'
-import { Typography } from '@xaui/native/typography'
+        code: `import { Stepper, StepperItem } from '@xaui/native-legacy/stepper'
+import { Typography } from '@xaui/native-legacy/typography'
 
 export function CustomIndicatorStepperExample() {
   return (
@@ -9188,8 +9188,8 @@ export function CustomIndicatorStepperExample() {
       {
         title: 'Disabled States',
         description: 'Disable the whole stepper or individual items.',
-        code: `import { Stepper, StepperItem } from '@xaui/native/stepper'
-import { Column } from '@xaui/native/view'
+        code: `import { Stepper, StepperItem } from '@xaui/native-legacy/stepper'
+import { Column } from '@xaui/native-legacy/view'
 
 export function DisabledStepperExample() {
   return (
@@ -9353,7 +9353,7 @@ export function DisabledStepperExample() {
       {
         title: 'Basic Switch',
         description: 'A labeled toggle switch.',
-        code: `import { Switch } from '@xaui/native/switch'
+        code: `import { Switch } from '@xaui/native-legacy/switch'
 
 export function BasicExample() {
   return <Switch label="Enable notifications" />
@@ -9363,7 +9363,7 @@ export function BasicExample() {
         title: 'Controlled Switch',
         description: 'Manage on/off state with React.',
         code: `import { useState } from 'react'
-import { Switch } from '@xaui/native/switch'
+import { Switch } from '@xaui/native-legacy/switch'
 
 export function ControlledExample() {
   const [enabled, setEnabled] = useState(false)
@@ -9380,8 +9380,8 @@ export function ControlledExample() {
       {
         title: 'Sizes',
         description: 'Adjust the toggle size.',
-        code: `import { Switch } from '@xaui/native/switch'
-import { Column } from '@xaui/native/view'
+        code: `import { Switch } from '@xaui/native-legacy/switch'
+import { Column } from '@xaui/native-legacy/view'
 
 export function SizesExample() {
   return (
@@ -9396,8 +9396,8 @@ export function SizesExample() {
       {
         title: 'Variants',
         description: 'Compare inside and overlap visual variants.',
-        code: `import { Switch } from '@xaui/native/switch'
-import { Column } from '@xaui/native/view'
+        code: `import { Switch } from '@xaui/native-legacy/switch'
+import { Column } from '@xaui/native-legacy/view'
 
 export function VariantsExample() {
   return (
@@ -9411,8 +9411,8 @@ export function VariantsExample() {
       {
         title: 'Theme Colors',
         description: 'Apply semantic colors to communicate context.',
-        code: `import { Switch } from '@xaui/native/switch'
-import { Column } from '@xaui/native/view'
+        code: `import { Switch } from '@xaui/native-legacy/switch'
+import { Column } from '@xaui/native-legacy/view'
 
 export function ThemeColorsExample() {
   return (
@@ -9428,8 +9428,8 @@ export function ThemeColorsExample() {
       {
         title: 'Label Alignment and Full Width',
         description: 'Change label position and stretch rows when needed.',
-        code: `import { Switch } from '@xaui/native/switch'
-import { Column } from '@xaui/native/view'
+        code: `import { Switch } from '@xaui/native-legacy/switch'
+import { Column } from '@xaui/native-legacy/view'
 
 export function AlignmentExample() {
   return (
@@ -9445,8 +9445,8 @@ export function AlignmentExample() {
       {
         title: 'Radius and Disabled State',
         description: 'Control shape and disable interaction.',
-        code: `import { Switch } from '@xaui/native/switch'
-import { Column } from '@xaui/native/view'
+        code: `import { Switch } from '@xaui/native-legacy/switch'
+import { Column } from '@xaui/native-legacy/view'
 
 export function RadiusDisabledExample() {
   return (
@@ -9462,7 +9462,7 @@ export function RadiusDisabledExample() {
       {
         title: 'Custom Label Style and Container Style',
         description: 'Apply style overrides for text and row container.',
-        code: `import { Switch } from '@xaui/native/switch'
+        code: `import { Switch } from '@xaui/native-legacy/switch'
 
 export function StyledSwitchExample() {
   return (
@@ -9570,8 +9570,8 @@ export function StyledSwitchExample() {
       {
         title: 'Basic Tabs',
         description: 'Tabs with inline content per panel.',
-        code: `import { Tabs, Tab } from '@xaui/native/tabs'
-import { Typography } from '@xaui/native/typography'
+        code: `import { Tabs, Tab } from '@xaui/native-legacy/tabs'
+import { Typography } from '@xaui/native-legacy/typography'
 
 export function BasicExample() {
   return (
@@ -9592,9 +9592,9 @@ export function BasicExample() {
       {
         title: 'Variants',
         description: 'Switch between tab bar visual styles.',
-        code: `import { Tabs, Tab } from '@xaui/native/tabs'
-import { Column } from '@xaui/native/view'
-import { Typography } from '@xaui/native/typography'
+        code: `import { Tabs, Tab } from '@xaui/native-legacy/tabs'
+import { Column } from '@xaui/native-legacy/view'
+import { Typography } from '@xaui/native-legacy/typography'
 
 export function VariantsExample() {
   return (
@@ -9623,8 +9623,8 @@ export function VariantsExample() {
         title: 'Controlled Selection',
         description: 'Drive the active tab from external state.',
         code: `import { useState } from 'react'
-import { Tabs, Tab } from '@xaui/native/tabs'
-import { Typography } from '@xaui/native/typography'
+import { Tabs, Tab } from '@xaui/native-legacy/tabs'
+import { Typography } from '@xaui/native-legacy/typography'
 
 export function ControlledExample() {
   const [selected, setSelected] = useState('inbox')
@@ -9647,8 +9647,8 @@ export function ControlledExample() {
       {
         title: 'Disabled Tabs',
         description: 'Disable specific tabs by passing their keys.',
-        code: `import { Tabs, Tab } from '@xaui/native/tabs'
-import { Typography } from '@xaui/native/typography'
+        code: `import { Tabs, Tab } from '@xaui/native-legacy/tabs'
+import { Typography } from '@xaui/native-legacy/typography'
 
 export function DisabledTabsExample() {
   return (
@@ -9666,8 +9666,8 @@ export function DisabledTabsExample() {
       {
         title: 'Full Width',
         description: 'Stretch tabs to fill the available width.',
-        code: `import { Tabs, Tab } from '@xaui/native/tabs'
-import { Typography } from '@xaui/native/typography'
+        code: `import { Tabs, Tab } from '@xaui/native-legacy/tabs'
+import { Typography } from '@xaui/native-legacy/typography'
 
 export function FullWidthExample() {
   return (
@@ -9777,9 +9777,9 @@ export function FullWidthExample() {
         title: 'Basic Time Picker (12-hour)',
         description: 'Controlled 12-hour picker with AM/PM selection.',
         code: `import { useState } from 'react'
-import { TimePicker, type TimeValue } from '@xaui/native/timepicker'
-import { Typography } from '@xaui/native/typography'
-import { Column } from '@xaui/native/view'
+import { TimePicker, type TimeValue } from '@xaui/native-legacy/timepicker'
+import { Typography } from '@xaui/native-legacy/typography'
+import { Column } from '@xaui/native-legacy/view'
 
 export function BasicTimePickerExample() {
   const [time, setTime] = useState<TimeValue>({ hours: 9, minutes: 30 })
@@ -9796,7 +9796,7 @@ export function BasicTimePickerExample() {
         title: '24-hour and Bounds',
         description: 'Use 24-hour mode and clamp selection with min/max.',
         code: `import { useState } from 'react'
-import { TimePicker, type TimeValue } from '@xaui/native/timepicker'
+import { TimePicker, type TimeValue } from '@xaui/native-legacy/timepicker'
 
 export function BoundedTimePickerExample() {
   const [time, setTime] = useState<TimeValue>({ hours: 14, minutes: 0 })
@@ -9817,9 +9817,9 @@ export function BoundedTimePickerExample() {
         title: 'Dialog Picker',
         description: 'Open a modal dialog and confirm/cancel selection.',
         code: `import { useState } from 'react'
-import { Button } from '@xaui/native/button'
-import { TimePickerDialog, type TimeValue } from '@xaui/native/timepicker'
-import { Column } from '@xaui/native/view'
+import { Button } from '@xaui/native-legacy/button'
+import { TimePickerDialog, type TimeValue } from '@xaui/native-legacy/timepicker'
+import { Column } from '@xaui/native-legacy/view'
 
 export function TimePickerDialogExample() {
   const [isOpen, setIsOpen] = useState(false)
@@ -9852,7 +9852,7 @@ import {
   TimePickerDialog,
   TimePickerTrigger,
   type TimeValue,
-} from '@xaui/native/timepicker'
+} from '@xaui/native-legacy/timepicker'
 
 export function TimePickerTriggerExample() {
   const [isOpen, setIsOpen] = useState(false)
@@ -10075,7 +10075,7 @@ export function TimePickerTriggerExample() {
       {
         title: 'Floating Bottom',
         description: 'Rounded floating toolbar positioned at the bottom.',
-        code: `import { Toolbar, ToolbarAction } from '@xaui/native/toolbar'
+        code: `import { Toolbar, ToolbarAction } from '@xaui/native-legacy/toolbar'
 import { ShareIcon } from '@xaui/icons/share'
 import { PencilIcon } from '@xaui/icons/pencil'
 import { TrashIcon } from '@xaui/icons/trash'
@@ -10093,7 +10093,7 @@ export function FloatingBottomToolbarExample() {
       {
         title: 'Docked Top with Divider',
         description: 'Fixed top toolbar with optional divider.',
-        code: `import { Toolbar, ToolbarAction } from '@xaui/native/toolbar'
+        code: `import { Toolbar, ToolbarAction } from '@xaui/native-legacy/toolbar'
 import { ArrowBackIcon } from '@xaui/icons/arrow-back'
 import { SearchIcon } from '@xaui/icons/search'
 import { EllipsisVerticalIcon } from '@xaui/icons/ellipsis-vertical'
@@ -10111,7 +10111,7 @@ export function DockedTopToolbarExample() {
       {
         title: 'Vertical Toolbar',
         description: 'Side-mounted vertical toolbar, centered on screen.',
-        code: `import { Toolbar, ToolbarAction } from '@xaui/native/toolbar'
+        code: `import { Toolbar, ToolbarAction } from '@xaui/native-legacy/toolbar'
 import { AddIcon } from '@xaui/icons/add'
 import { SearchIcon } from '@xaui/icons/search'
 import { StarIcon } from '@xaui/icons/star'
@@ -10130,12 +10130,12 @@ export function VerticalToolbarExample() {
         title: 'Visibility and Disabled Action',
         description: 'Control toolbar visibility and disable specific actions.',
         code: `import { useState } from 'react'
-import { Button } from '@xaui/native/button'
-import { Toolbar, ToolbarAction } from '@xaui/native/toolbar'
+import { Button } from '@xaui/native-legacy/button'
+import { Toolbar, ToolbarAction } from '@xaui/native-legacy/toolbar'
 import { ShareIcon } from '@xaui/icons/share'
 import { DownloadIcon } from '@xaui/icons/download'
 import { TrashIcon } from '@xaui/icons/trash'
-import { Column } from '@xaui/native/view'
+import { Column } from '@xaui/native-legacy/view'
 
 export function ToolbarStateExample() {
   const [visible, setVisible] = useState(true)
@@ -10157,7 +10157,7 @@ export function ToolbarStateExample() {
       {
         title: 'Custom Appearance',
         description: 'Override container and action row styles.',
-        code: `import { Toolbar, ToolbarAction } from '@xaui/native/toolbar'
+        code: `import { Toolbar, ToolbarAction } from '@xaui/native-legacy/toolbar'
 import { AddIcon } from '@xaui/icons/add'
 import { SearchIcon } from '@xaui/icons/search'
 import { StarIcon } from '@xaui/icons/star'
@@ -10282,7 +10282,7 @@ export function ToolbarCustomAppearanceExample() {
       {
         title: 'Variants',
         description: 'Use variant to apply the correct typographic scale.',
-        code: `import { Typography } from '@xaui/native/typography'
+        code: `import { Typography } from '@xaui/native-legacy/typography'
 import { View } from 'react-native'
 
 export function TypographyVariantsExample() {
@@ -10308,7 +10308,7 @@ export function TypographyVariantsExample() {
       {
         title: 'Theme Colors',
         description: 'Apply a theme color to the text.',
-        code: `import { Typography } from '@xaui/native/typography'
+        code: `import { Typography } from '@xaui/native-legacy/typography'
 import { View } from 'react-native'
 
 export function TypographyColorsExample() {
@@ -10325,7 +10325,7 @@ export function TypographyColorsExample() {
       {
         title: 'Text Truncation',
         description: 'Limit lines and control overflow behavior.',
-        code: `import { Typography } from '@xaui/native/typography'
+        code: `import { Typography } from '@xaui/native-legacy/typography'
 
 export function TypographyTruncationExample() {
   return (
@@ -10339,7 +10339,7 @@ export function TypographyTruncationExample() {
       {
         title: 'Alignment',
         description: 'Control text alignment within the container.',
-        code: `import { Typography } from '@xaui/native/typography'
+        code: `import { Typography } from '@xaui/native-legacy/typography'
 import { View } from 'react-native'
 
 export function TypographyAlignmentExample() {
@@ -10417,7 +10417,7 @@ export function TypographyAlignmentExample() {
       {
         title: 'Basic',
         description: 'Group text nodes and keep consistent spacing/alignment.',
-        code: `import { TextSpan, Typography } from '@xaui/native/typography'
+        code: `import { TextSpan, Typography } from '@xaui/native-legacy/typography'
 
 export function TextSpanBasicExample() {
   return (
@@ -10431,7 +10431,7 @@ export function TextSpanBasicExample() {
       {
         title: 'Inherited Text Styles',
         description: 'Apply shared text styles to nested Typography elements.',
-        code: `import { TextSpan, Typography } from '@xaui/native/typography'
+        code: `import { TextSpan, Typography } from '@xaui/native-legacy/typography'
 
 export function TextSpanInheritedStyleExample() {
   return (
@@ -10496,8 +10496,8 @@ export function TextSpanInheritedStyleExample() {
       {
         title: 'Fixed spacer',
         description: 'Use SizedBox as blank space between items.',
-        code: `import { Column, SizedBox } from '@xaui/native/view'
-import { Typography } from '@xaui/native/typography'
+        code: `import { Column, SizedBox } from '@xaui/native-legacy/view'
+import { Typography } from '@xaui/native-legacy/typography'
 
 export function SizedBoxSpacerExample() {
   return (
@@ -10512,7 +10512,7 @@ export function SizedBoxSpacerExample() {
       {
         title: 'Fixed-size container',
         description: 'Constrain a child to an exact size.',
-        code: `import { SizedBox } from '@xaui/native/view'
+        code: `import { SizedBox } from '@xaui/native-legacy/view'
 import { View } from 'react-native'
 
 export function FixedContainerExample() {
@@ -10527,7 +10527,7 @@ export function FixedContainerExample() {
         title: 'Expanded (fill remaining space)',
         description:
           'Equivalent to Flutter Expanded — takes all available space in its parent flex container.',
-        code: `import { Row, SizedBox } from '@xaui/native/view'
+        code: `import { Row, SizedBox } from '@xaui/native-legacy/view'
 
 export function ExpandedExample() {
   return (
@@ -10543,7 +10543,7 @@ export function ExpandedExample() {
       {
         title: 'Shrink (zero size)',
         description: 'Collapses to nothing — Flutter SizedBox.shrink() equivalent.',
-        code: `import { SizedBox } from '@xaui/native/view'
+        code: `import { SizedBox } from '@xaui/native-legacy/view'
 
 export function ShrinkExample() {
   return <SizedBox shrink />
@@ -10585,7 +10585,7 @@ export function ShrinkExample() {
       {
         title: 'Minimum width',
         description: 'Prevent a child from shrinking below a certain width.',
-        code: `import { ConstrainedBox } from '@xaui/native/view'
+        code: `import { ConstrainedBox } from '@xaui/native-legacy/view'
 
 export function MinWidthExample() {
   return (
@@ -10599,8 +10599,8 @@ export function MinWidthExample() {
         title: 'Maximum width',
         description:
           'Cap how wide a child can grow — useful for readable text blocks.',
-        code: `import { ConstrainedBox } from '@xaui/native/view'
-import { Typography } from '@xaui/native/typography'
+        code: `import { ConstrainedBox } from '@xaui/native-legacy/view'
+import { Typography } from '@xaui/native-legacy/typography'
 
 export function MaxWidthExample() {
   return (
@@ -10616,7 +10616,7 @@ export function MaxWidthExample() {
         title: 'Combined min/max constraints',
         description:
           'Bind a child within both lower and upper bounds — Flutter BoxConstraints equivalent.',
-        code: `import { ConstrainedBox } from '@xaui/native/view'
+        code: `import { ConstrainedBox } from '@xaui/native-legacy/view'
 
 export function CombinedExample() {
   return (
@@ -10685,8 +10685,8 @@ export function CombinedExample() {
       {
         title: 'Badge Overlay',
         description: 'Position a badge absolutely over a parent element.',
-        code: `import { PositionedView } from '@xaui/native/view'
-import { Typography } from '@xaui/native/typography'
+        code: `import { PositionedView } from '@xaui/native-legacy/view'
+import { Typography } from '@xaui/native-legacy/typography'
 import { View } from 'react-native'
 
 export function BadgeOverlayExample() {
@@ -10703,8 +10703,8 @@ export function BadgeOverlayExample() {
       {
         title: 'Bottom Label',
         description: 'Anchor a label to the bottom of a container.',
-        code: `import { PositionedView } from '@xaui/native/view'
-import { Typography } from '@xaui/native/typography'
+        code: `import { PositionedView } from '@xaui/native-legacy/view'
+import { Typography } from '@xaui/native-legacy/typography'
 import { View } from 'react-native'
 
 export function BottomLabelExample() {
@@ -10757,8 +10757,8 @@ export function BottomLabelExample() {
       {
         title: 'Frosted Glass Effect',
         description: 'Blur the background behind the children.',
-        code: `import { BlurView } from '@xaui/native/view'
-import { Typography } from '@xaui/native/typography'
+        code: `import { BlurView } from '@xaui/native-legacy/view'
+import { Typography } from '@xaui/native-legacy/typography'
 
 export function FrostedGlassExample() {
   return (
@@ -10771,8 +10771,8 @@ export function FrostedGlassExample() {
       {
         title: 'Unlockable Blur',
         description: 'Hide premium content behind a blur that the user can reveal.',
-        code: `import { BlurView } from '@xaui/native/view'
-import { Typography } from '@xaui/native/typography'
+        code: `import { BlurView } from '@xaui/native-legacy/view'
+import { Typography } from '@xaui/native-legacy/typography'
 
 export function UnlockableBlurExample() {
   return (
@@ -10876,8 +10876,8 @@ export function UnlockableBlurExample() {
       {
         title: 'Uniform Radius',
         description: 'Round all corners equally.',
-        code: `import { RoundedView } from '@xaui/native/view'
-import { Typography } from '@xaui/native/typography'
+        code: `import { RoundedView } from '@xaui/native-legacy/view'
+import { Typography } from '@xaui/native-legacy/typography'
 
 export function UniformRadiusExample() {
   return (
@@ -10890,8 +10890,8 @@ export function UniformRadiusExample() {
       {
         title: 'Asymmetric Radius',
         description: 'Round only specific corners for a custom shape.',
-        code: `import { RoundedView } from '@xaui/native/view'
-import { Typography } from '@xaui/native/typography'
+        code: `import { RoundedView } from '@xaui/native-legacy/view'
+import { Typography } from '@xaui/native-legacy/typography'
 
 export function AsymmetricRadiusExample() {
   return (
@@ -10941,8 +10941,8 @@ export function AsymmetricRadiusExample() {
       {
         title: 'Default Surface',
         description: 'Uses the current theme background color by default.',
-        code: `import { Surface } from '@xaui/native/view'
-import { Typography } from '@xaui/native/typography'
+        code: `import { Surface } from '@xaui/native-legacy/view'
+import { Typography } from '@xaui/native-legacy/typography'
 
 export function DefaultSurfaceExample() {
   return (
@@ -10955,8 +10955,8 @@ export function DefaultSurfaceExample() {
       {
         title: 'Semantic Background Colors',
         description: 'Use theme color keys to apply semantic background tones.',
-        code: `import { Column, Surface } from '@xaui/native/view'
-import { Typography } from '@xaui/native/typography'
+        code: `import { Column, Surface } from '@xaui/native-legacy/view'
+import { Typography } from '@xaui/native-legacy/typography'
 
 export function SurfaceThemeColorsExample() {
   return (
@@ -10977,8 +10977,8 @@ export function SurfaceThemeColorsExample() {
       {
         title: 'Full Width Card Surface',
         description: 'Use radius and padding for card-like sections.',
-        code: `import { Surface } from '@xaui/native/view'
-import { Typography } from '@xaui/native/typography'
+        code: `import { Surface } from '@xaui/native-legacy/view'
+import { Typography } from '@xaui/native-legacy/typography'
 
 export function SurfaceCardExample() {
   return (
@@ -11042,7 +11042,7 @@ export function SurfaceCardExample() {
       {
         title: '16:9 Video Thumbnail',
         description: 'Keep an image in a 16:9 ratio regardless of screen width.',
-        code: `import { AspectRatio } from '@xaui/native/view'
+        code: `import { AspectRatio } from '@xaui/native-legacy/view'
 import { Image } from 'react-native'
 
 export function VideoThumbnailExample() {
@@ -11060,7 +11060,7 @@ export function VideoThumbnailExample() {
       {
         title: 'Square Avatar',
         description: 'Force a 1:1 ratio for a perfect square.',
-        code: `import { AspectRatio } from '@xaui/native/view'
+        code: `import { AspectRatio } from '@xaui/native-legacy/view'
 import { View } from 'react-native'
 
 export function SquareExample() {
@@ -11120,7 +11120,7 @@ export function SquareExample() {
       {
         title: 'Half-width box',
         description: 'Child takes 50% of the parent width.',
-        code: `import { FractionallySizedBox } from '@xaui/native/view'
+        code: `import { FractionallySizedBox } from '@xaui/native-legacy/view'
 import { View } from 'react-native'
 
 export function HalfWidthExample() {
@@ -11134,7 +11134,7 @@ export function HalfWidthExample() {
       {
         title: 'Centered fraction',
         description: '50% width, 50% height, centered within the parent.',
-        code: `import { FractionallySizedBox } from '@xaui/native/view'
+        code: `import { FractionallySizedBox } from '@xaui/native-legacy/view'
 
 export function CenteredExample() {
   return (
@@ -11225,7 +11225,7 @@ export function CenteredExample() {
       {
         title: 'Row with space between',
         description: 'Horizontal flex with items spread evenly.',
-        code: `import { Flex } from '@xaui/native/view'
+        code: `import { Flex } from '@xaui/native-legacy/view'
 import { View } from 'react-native'
 
 export function SpaceBetweenExample() {
@@ -11241,7 +11241,7 @@ export function SpaceBetweenExample() {
       {
         title: 'Vertical stack centered',
         description: 'Column direction with centered cross axis.',
-        code: `import { Flex } from '@xaui/native/view'
+        code: `import { Flex } from '@xaui/native-legacy/view'
 import { View } from 'react-native'
 
 export function VerticalCenterExample() {
@@ -11323,7 +11323,7 @@ export function VerticalCenterExample() {
       {
         title: 'Basic row',
         description: 'Horizontal layout with a gap between items.',
-        code: `import { Row } from '@xaui/native/view'
+        code: `import { Row } from '@xaui/native-legacy/view'
 import { View } from 'react-native'
 
 export function BasicRowExample() {
@@ -11338,7 +11338,7 @@ export function BasicRowExample() {
       {
         title: 'Spaced row',
         description: 'Items pushed to opposite ends.',
-        code: `import { Row } from '@xaui/native/view'
+        code: `import { Row } from '@xaui/native-legacy/view'
 import { View } from 'react-native'
 
 export function SpacedRowExample() {
@@ -11420,7 +11420,7 @@ export function SpacedRowExample() {
       {
         title: 'Basic column',
         description: 'Vertical stack with a gap between items.',
-        code: `import { Column } from '@xaui/native/view'
+        code: `import { Column } from '@xaui/native-legacy/view'
 import { View } from 'react-native'
 
 export function BasicColumnExample() {
@@ -11436,7 +11436,7 @@ export function BasicColumnExample() {
       {
         title: 'Centered column',
         description: 'Children centered both horizontally and vertically.',
-        code: `import { Column } from '@xaui/native/view'
+        code: `import { Column } from '@xaui/native-legacy/view'
 import { View } from 'react-native'
 
 export function CenteredColumnExample() {
@@ -11483,7 +11483,7 @@ export function CenteredColumnExample() {
       {
         title: 'Equal distribution',
         description: 'Two children sharing space equally inside a Row.',
-        code: `import { Row, Expanded } from '@xaui/native/view'
+        code: `import { Row, Expanded } from '@xaui/native-legacy/view'
 import { View } from 'react-native'
 
 export function EqualShareExample() {
@@ -11502,7 +11502,7 @@ export function EqualShareExample() {
       {
         title: 'Weighted distribution',
         description: 'Second child takes twice as much space.',
-        code: `import { Row, Expanded } from '@xaui/native/view'
+        code: `import { Row, Expanded } from '@xaui/native-legacy/view'
 import { View } from 'react-native'
 
 export function WeightedExample() {
@@ -11560,7 +11560,7 @@ export function WeightedExample() {
         title: 'Loose fit — child can be smaller',
         description:
           'Child takes up to its allotted share but shrinks to its content.',
-        code: `import { Row, Flexible } from '@xaui/native/view'
+        code: `import { Row, Flexible } from '@xaui/native-legacy/view'
 import { View } from 'react-native'
 
 export function LooseFitExample() {
@@ -11579,7 +11579,7 @@ export function LooseFitExample() {
       {
         title: 'Tight fit — child fills allotted space',
         description: 'Equivalent to Expanded — child stretches to fill its share.',
-        code: `import { Row, Flexible } from '@xaui/native/view'
+        code: `import { Row, Flexible } from '@xaui/native-legacy/view'
 import { View } from 'react-native'
 
 export function TightFitExample() {
@@ -11653,8 +11653,8 @@ export function TightFitExample() {
       {
         title: 'Chip list',
         description: 'Tags that wrap onto the next line when they overflow.',
-        code: `import { Wrap } from '@xaui/native/view'
-import { Chip } from '@xaui/native/chip'
+        code: `import { Wrap } from '@xaui/native-legacy/view'
+import { Chip } from '@xaui/native-legacy/chip'
 
 const tags = ['React', 'TypeScript', 'Flutter', 'UI', 'Mobile', 'Design']
 
@@ -11669,7 +11669,7 @@ export function ChipListExample() {
       {
         title: 'Centered wrapping row',
         description: 'Items are centered in each run.',
-        code: `import { Wrap } from '@xaui/native/view'
+        code: `import { Wrap } from '@xaui/native-legacy/view'
 import { View } from 'react-native'
 
 export function CenteredWrapExample() {
@@ -11717,7 +11717,7 @@ export function CenteredWrapExample() {
       {
         title: 'Top-right alignment',
         description: 'Child anchored to the top-right corner.',
-        code: `import { Align } from '@xaui/native/view'
+        code: `import { Align } from '@xaui/native-legacy/view'
 import { View } from 'react-native'
 
 export function TopRightExample() {
@@ -11731,7 +11731,7 @@ export function TopRightExample() {
       {
         title: 'Centered',
         description: 'Child centered inside available space.',
-        code: `import { Align } from '@xaui/native/view'
+        code: `import { Align } from '@xaui/native-legacy/view'
 import { View } from 'react-native'
 
 export function CenteredExample() {
@@ -11770,7 +11770,7 @@ export function CenteredExample() {
       {
         title: 'Centered child',
         description: 'Child centered horizontally and vertically.',
-        code: `import { Center } from '@xaui/native/view'
+        code: `import { Center } from '@xaui/native-legacy/view'
 import { View } from 'react-native'
 
 export function CenteredChildExample() {
@@ -11810,7 +11810,7 @@ export function CenteredChildExample() {
       {
         title: 'Uniform padding',
         description: '16px padding on all sides.',
-        code: `import { Padding } from '@xaui/native/view'
+        code: `import { Padding } from '@xaui/native-legacy/view'
 import { View } from 'react-native'
 
 export function UniformPaddingExample() {
@@ -11824,7 +11824,7 @@ export function UniformPaddingExample() {
       {
         title: 'Asymmetric padding',
         description: 'Different padding on each axis.',
-        code: `import { Padding } from '@xaui/native/view'
+        code: `import { Padding } from '@xaui/native-legacy/view'
 import { View } from 'react-native'
 
 export function AsymmetricPaddingExample() {
@@ -11864,7 +11864,7 @@ export function AsymmetricPaddingExample() {
       {
         title: 'Uniform margin',
         description: '16px margin on all sides.',
-        code: `import { Margin } from '@xaui/native/view'
+        code: `import { Margin } from '@xaui/native-legacy/view'
 import { View } from 'react-native'
 
 export function UniformMarginExample() {
@@ -11878,7 +11878,7 @@ export function UniformMarginExample() {
       {
         title: 'Vertical margin',
         description: 'Top and bottom margin only.',
-        code: `import { Margin } from '@xaui/native/view'
+        code: `import { Margin } from '@xaui/native-legacy/view'
 import { View } from 'react-native'
 
 export function VerticalMarginExample() {
@@ -11941,8 +11941,8 @@ export function VerticalMarginExample() {
       {
         title: 'Static Grid with GridItem',
         description: 'Lay out a fixed set of cells using GridItem.',
-        code: `import { Grid, GridItem } from '@xaui/native/view'
-import { Typography } from '@xaui/native/typography'
+        code: `import { Grid, GridItem } from '@xaui/native-legacy/view'
+import { Typography } from '@xaui/native-legacy/typography'
 import { View } from 'react-native'
 
 export function StaticGridExample() {
@@ -11961,8 +11961,8 @@ export function StaticGridExample() {
       {
         title: 'Dynamic Grid with GridBuilder',
         description: 'Render a data array into a grid using GridBuilder.',
-        code: `import { GridBuilder } from '@xaui/native/view'
-import { Typography } from '@xaui/native/typography'
+        code: `import { GridBuilder } from '@xaui/native-legacy/view'
+import { Typography } from '@xaui/native-legacy/typography'
 import { View } from 'react-native'
 
 const products = [
@@ -12119,8 +12119,8 @@ export function DynamicGridExample() {
         title: 'Static Masonry',
         description:
           'Items of varying heights placed in masonry columns using MasonryGridItem.',
-        code: `import { MasonryGrid, MasonryGridItem } from '@xaui/native/view'
-import { Typography } from '@xaui/native/typography'
+        code: `import { MasonryGrid, MasonryGridItem } from '@xaui/native-legacy/view'
+import { Typography } from '@xaui/native-legacy/typography'
 import { View } from 'react-native'
 
 export function StaticMasonryExample() {
@@ -12138,8 +12138,8 @@ export function StaticMasonryExample() {
       {
         title: 'Dynamic Masonry with MasonryGridBuilder',
         description: 'Render variable-height items from a data array.',
-        code: `import { MasonryGridBuilder } from '@xaui/native/view'
-import { Typography } from '@xaui/native/typography'
+        code: `import { MasonryGridBuilder } from '@xaui/native-legacy/view'
+import { Typography } from '@xaui/native-legacy/typography'
 import { View } from 'react-native'
 
 const photos = [
@@ -12343,8 +12343,8 @@ export function DynamicMasonryExample() {
         title: 'Basic',
         description: 'A simple snackbar with a message.',
         code: `import { useState } from 'react'
-import { Snackbar } from '@xaui/native/snackbar'
-import { Button } from '@xaui/native/button'
+import { Snackbar } from '@xaui/native-legacy/snackbar'
+import { Button } from '@xaui/native-legacy/button'
 
 export function BasicExample() {
   const [visible, setVisible] = useState(false)
@@ -12365,8 +12365,8 @@ export function BasicExample() {
         title: 'With Action',
         description: 'Snackbar with an action label the user can tap.',
         code: `import { useState } from 'react'
-import { Snackbar } from '@xaui/native/snackbar'
-import { Button } from '@xaui/native/button'
+import { Snackbar } from '@xaui/native-legacy/snackbar'
+import { Button } from '@xaui/native-legacy/button'
 
 export function WithActionExample() {
   const [visible, setVisible] = useState(false)
@@ -12389,9 +12389,9 @@ export function WithActionExample() {
         title: 'Theme Colors',
         description: 'Use themeColor to convey semantic meaning.',
         code: `import { useState } from 'react'
-import { Snackbar } from '@xaui/native/snackbar'
-import { Button } from '@xaui/native/button'
-import { Column } from '@xaui/native/view'
+import { Snackbar } from '@xaui/native-legacy/snackbar'
+import { Button } from '@xaui/native-legacy/button'
+import { Column } from '@xaui/native-legacy/view'
 
 export function ThemeColorsExample() {
   const [color, setColor] = useState<string | null>(null)
@@ -12415,9 +12415,9 @@ export function ThemeColorsExample() {
         title: 'Stack',
         description: 'Show multiple snackbars at once with SnackbarStack.',
         code: `import { useState } from 'react'
-import { SnackbarStack } from '@xaui/native/snackbar'
-import type { SnackbarItem } from '@xaui/native/snackbar'
-import { Button } from '@xaui/native/button'
+import { SnackbarStack } from '@xaui/native-legacy/snackbar'
+import type { SnackbarItem } from '@xaui/native-legacy/snackbar'
+import { Button } from '@xaui/native-legacy/button'
 
 export function StackExample() {
   const [items, setItems] = useState<SnackbarItem[]>([])
@@ -12615,20 +12615,20 @@ export function StackExample() {
         title: 'Basic',
         description:
           'Simple snippet with default copy action in the top-right corner.',
-        code: `import { Snippet } from '@xaui/native/snippet'
+        code: `import { Snippet } from '@xaui/native-legacy/snippet'
 
 export function BasicExample() {
-  return <Snippet value="pnpm add @xaui/native" />
+  return <Snippet value="pnpm add @xaui/native-legacy" />
 }`,
       },
       {
         title: 'Variants',
         description: 'Outlined, flat, and light styles.',
-        code: `import { Snippet } from '@xaui/native/snippet'
-import { Column } from '@xaui/native/view'
+        code: `import { Snippet } from '@xaui/native-legacy/snippet'
+import { Column } from '@xaui/native-legacy/view'
 
 export function VariantsExample() {
-  const command = 'pnpm add @xaui/native'
+  const command = 'pnpm add @xaui/native-legacy'
 
   return (
     <Column gap={10}>
@@ -12642,8 +12642,8 @@ export function VariantsExample() {
       {
         title: 'Theme Colors',
         description: 'Use semantic colors with the same variant.',
-        code: `import { Snippet } from '@xaui/native/snippet'
-import { Column } from '@xaui/native/view'
+        code: `import { Snippet } from '@xaui/native-legacy/snippet'
+import { Column } from '@xaui/native-legacy/view'
 
 export function ThemeColorsExample() {
   const colors = ['primary', 'secondary', 'success', 'warning', 'danger', 'default'] as const
@@ -12665,8 +12665,8 @@ export function ThemeColorsExample() {
       {
         title: 'Copy Button Positions',
         description: 'Place the copy button on any corner using copyButtonPosition.',
-        code: `import { Snippet } from '@xaui/native/snippet'
-import { Column } from '@xaui/native/view'
+        code: `import { Snippet } from '@xaui/native-legacy/snippet'
+import { Column } from '@xaui/native-legacy/view'
 
 export function PositionsExample() {
   const value = 'npm run build'
@@ -12686,11 +12686,11 @@ export function PositionsExample() {
       {
         title: 'Hide Copy Label',
         description: 'Show only the icon on the copy button with hideCopyLabel.',
-        code: `import { Snippet } from '@xaui/native/snippet'
-import { Column } from '@xaui/native/view'
+        code: `import { Snippet } from '@xaui/native-legacy/snippet'
+import { Column } from '@xaui/native-legacy/view'
 
 export function HideCopyLabelExample() {
-  const value = 'pnpm add @xaui/native'
+  const value = 'pnpm add @xaui/native-legacy'
 
   return (
     <Column gap={10}>
@@ -12703,11 +12703,11 @@ export function HideCopyLabelExample() {
       {
         title: 'Typography Control',
         description: 'Tune snippet text rendering with fontSize and fontWeight.',
-        code: `import { Snippet } from '@xaui/native/snippet'
-import { Column } from '@xaui/native/view'
+        code: `import { Snippet } from '@xaui/native-legacy/snippet'
+import { Column } from '@xaui/native-legacy/view'
 
 export function TypographyExample() {
-  const command = 'pnpm --filter @xaui/native build'
+  const command = 'pnpm --filter @xaui/native-legacy build'
 
   return (
     <Column gap={10}>
@@ -12752,9 +12752,9 @@ export function TypographyExample() {
         title: 'Fade In/Out',
         description: 'Toggle content visibility with a fade animation.',
         code: `import { useState } from 'react'
-import { ConditionalView } from '@xaui/native/view'
-import { Button } from '@xaui/native/button'
-import { Typography } from '@xaui/native/typography'
+import { ConditionalView } from '@xaui/native-legacy/view'
+import { Button } from '@xaui/native-legacy/button'
+import { Typography } from '@xaui/native-legacy/typography'
 
 export function FadeExample() {
   const [visible, setVisible] = useState(false)
@@ -12773,9 +12773,9 @@ export function FadeExample() {
         title: 'Scale Animation',
         description: 'Show/hide with a scale transition.',
         code: `import { useState } from 'react'
-import { ConditionalView } from '@xaui/native/view'
-import { Button } from '@xaui/native/button'
-import { Typography } from '@xaui/native/typography'
+import { ConditionalView } from '@xaui/native-legacy/view'
+import { Button } from '@xaui/native-legacy/button'
+import { Typography } from '@xaui/native-legacy/typography'
 
 export function ScaleExample() {
   const [visible, setVisible] = useState(false)
@@ -12902,7 +12902,7 @@ export function ScaleExample() {
       {
         title: 'Basic',
         description: 'A simple trigger styled like an input.',
-        code: `import { InputTrigger } from '@xaui/native/input-trigger'
+        code: `import { InputTrigger } from '@xaui/native-legacy/input-trigger'
 
 export function BasicExample() {
   return (
@@ -12916,8 +12916,8 @@ export function BasicExample() {
       },
       {
         title: 'Variants',
-        code: `import { InputTrigger } from '@xaui/native/input-trigger'
-import { Column } from '@xaui/native/view'
+        code: `import { InputTrigger } from '@xaui/native-legacy/input-trigger'
+import { Column } from '@xaui/native-legacy/view'
 
 export function VariantsExample() {
   return (
@@ -13041,7 +13041,7 @@ export function VariantsExample() {
     examples: [
       {
         title: 'Basic',
-        code: `import { FileInputTrigger } from '@xaui/native/input-trigger'
+        code: `import { FileInputTrigger } from '@xaui/native-legacy/input-trigger'
 
 export function BasicExample() {
   return (
@@ -13056,7 +13056,7 @@ export function BasicExample() {
       {
         title: 'Selected Preview',
         code: `import { Image } from 'react-native'
-import { FileInputTrigger } from '@xaui/native/input-trigger'
+import { FileInputTrigger } from '@xaui/native-legacy/input-trigger'
 
 export function SelectedPreviewExample() {
   return (
@@ -13076,8 +13076,8 @@ export function SelectedPreviewExample() {
       },
       {
         title: 'Variants',
-        code: `import { FileInputTrigger } from '@xaui/native/input-trigger'
-import { Column } from '@xaui/native/view'
+        code: `import { FileInputTrigger } from '@xaui/native-legacy/input-trigger'
+import { Column } from '@xaui/native-legacy/view'
 
 export function VariantsExample() {
   return (
@@ -13160,7 +13160,7 @@ export function VariantsExample() {
         title: 'Basic',
         code: `import { useState } from 'react'
 import { ScrollView, Text } from 'react-native'
-import { PullToRefresh } from '@xaui/native/refresh-control'
+import { PullToRefresh } from '@xaui/native-legacy/refresh-control'
 
 export function BasicExample() {
   const [refreshing, setRefreshing] = useState(false)
@@ -13314,7 +13314,7 @@ export function BasicExample() {
       {
         title: 'Basic',
         code: `import { useState } from 'react'
-import { Picker } from '@xaui/native/picker'
+import { Picker } from '@xaui/native-legacy/picker'
 
 export function BasicExample() {
   const [value, setValue] = useState('')
@@ -13338,7 +13338,7 @@ export function BasicExample() {
       {
         title: 'With sheet title',
         code: `import { useState } from 'react'
-import { Picker } from '@xaui/native/picker'
+import { Picker } from '@xaui/native-legacy/picker'
 
 export function SheetTitleExample() {
   const [value, setValue] = useState('')
@@ -13492,7 +13492,7 @@ export function SheetTitleExample() {
       {
         title: 'Basic',
         code: `import { useState } from 'react'
-import { ColorPicker } from '@xaui/native/color-picker'
+import { ColorPicker } from '@xaui/native-legacy/color-picker'
 
 export function BasicExample() {
   const [color, setColor] = useState('')
@@ -13509,7 +13509,7 @@ export function BasicExample() {
       {
         title: 'Custom palette',
         code: `import { useState } from 'react'
-import { ColorPicker } from '@xaui/native/color-picker'
+import { ColorPicker } from '@xaui/native-legacy/color-picker'
 
 const brandColors = [
   {
