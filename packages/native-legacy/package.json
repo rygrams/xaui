@@ -276,10 +276,10 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "@xaui/core": "workspace:*",
     "@xaui/icons": "workspace:*"
   },
   "peerDependencies": {
+    "@xaui/native": ">=0.9.0-beta.0",
     "react": "^18.0.0 || ^19.0.0",
     "react-native": ">=0.70.0",
     "react-native-gesture-handler": ">=2.0.0",
@@ -290,13 +290,14 @@
   },
   "devDependencies": {
     "@types/react": "^19.1.0",
+    "@xaui/native": "workspace:*",
     "react": "19.1.0",
     "react-native": "0.83.6",
     "react-native-gesture-handler": "^2.28.0",
     "react-native-reanimated": "^4.0.0",
     "react-native-safe-area-context": "^5.6.0",
-    "react-native-worklets": "^0.5.1",
     "react-native-svg": "^15.8.0",
+    "react-native-worklets": "^0.5.1",
     "tsup": "^8.5.1",
     "typescript": "^5.9.3"
   },

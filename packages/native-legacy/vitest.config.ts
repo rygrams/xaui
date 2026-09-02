@@ -7,18 +7,13 @@ export default defineConfig({
       // Resolve workspace sources directly in tests (CI may not have built dist/)
       // eslint-disable-next-line no-undef
       {
-        find: '@xaui/core/theme',
-        replacement: path.resolve(__dirname, '../core/src/theme/index.ts'),
+        find: '@xaui/native/theme',
+        replacement: path.resolve(__dirname, '../native/src/theme/index.ts'),
       },
       // eslint-disable-next-line no-undef
       {
-        find: '@xaui/core/palette',
-        replacement: path.resolve(__dirname, '../core/src/tokens/index.ts'),
-      },
-      // eslint-disable-next-line no-undef
-      {
-        find: '@xaui/core',
-        replacement: path.resolve(__dirname, '../core/src/index.ts'),
+        find: '@xaui/native',
+        replacement: path.resolve(__dirname, '../native/src/index.ts'),
       },
       // eslint-disable-next-line no-undef
       {
@@ -46,6 +41,9 @@ export default defineConfig({
       },
     ],
   },
+  // The v1 sources pulled in through `@xaui/native` use the automatic JSX runtime; this
+  // package's tsconfig says `react-native`, which esbuild reads as the classic one.
+  esbuild: { jsx: 'automatic' },
   test: {
     globals: true,
     environment: 'jsdom',
