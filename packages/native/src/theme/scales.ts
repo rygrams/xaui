@@ -1,7 +1,6 @@
 import type {
   ColorMode,
   FontSizeKey,
-  FontWeightKey,
   Size,
   XAUIRadius,
   XAUIShadow,
@@ -56,7 +55,7 @@ export const lineHeights: Record<FontSizeKey, number> = {
   '4xl': 40,
 }
 
-export const fontWeights: Record<FontWeightKey, string> = {
+export const fontWeights: XAUITheme['fontWeights'] = {
   regular: '400',
   medium: '500',
   semibold: '600',

@@ -20,7 +20,7 @@ Task detail lives in `XAUI-V1-PLAN.md`.
 | P0.13 | Publish `native` and `hybrid` on the `alpha` tag          | done   |
 | P1.1  | `system/recipe/` — engine, cache, tint                   | done   |
 | P1.2  | `system/slot/` — context, `childrenToString`, merges     | done   |
-| P1.3  | `system/pressable-feedback/`                             | todo   |
+| P1.3  | `system/pressable-feedback/`                             | done   |
 | P1.4  | `system/portal/`                                         | todo   |
 | P1.5  | `system/icon/`                                           | todo   |
 | P1.6  | Shared hooks                                             | todo   |

@@ -1,0 +1,82 @@
+import { describe, expect, it } from 'vitest'
+import {
+  resolveAnimation,
+  rippleRadius,
+} from '../../../system/pressable-feedback/pressable-feedback.animation'
+
+describe('resolveAnimation', () => {
+  it('animates everything when the prop is absent or true', () => {
+    for (const prop of [undefined, true] as const) {
+      expect(resolveAnimation(prop)).toEqual({
+        scale: true,
+        highlight: true,
+        ripple: true,
+        none: false,
+        disableAll: false,
+      })
+    }
+  })
+
+  it('treats false and "disabled" the same, and only for this component', () => {
+    for (const prop of [false, 'disabled'] as const) {
+      expect(resolveAnimation(prop)).toEqual({
+        scale: false,
+        highlight: false,
+        ripple: false,
+        none: true,
+        disableAll: false,
+      })
+    }
+  })
+
+  it('marks "disable-all" so descendants inherit it', () => {
+    expect(resolveAnimation('disable-all')).toEqual({
+      scale: false,
+      highlight: false,
+      ripple: false,
+      none: true,
+      disableAll: true,
+    })
+  })
+
+  it('switches sub-animations off one at a time, the rest staying on', () => {
+    expect(resolveAnimation({ scale: false })).toMatchObject({
+      scale: false,
+      highlight: true,
+      ripple: true,
+      none: false,
+    })
+  })
+
+  it('reports `none` only when every sub-animation is off', () => {
+    expect(resolveAnimation({ scale: false, highlight: false }).none).toBe(false)
+    expect(
+      resolveAnimation({ scale: false, highlight: false, ripple: false }).none
+    ).toBe(true)
+  })
+
+  it('lets an ancestor win over anything the component asked for', () => {
+    // A list that switched its rows' animations off cannot be overridden by a row.
+    expect(resolveAnimation(true, true)).toMatchObject({
+      none: true,
+      disableAll: true,
+    })
+    expect(resolveAnimation({ scale: true }, true)).toMatchObject({ scale: false })
+  })
+})
+
+describe('rippleRadius', () => {
+  it('reaches the furthest corner from where the finger landed', () => {
+    // A press dead centre of a 6×8 box: half-diagonal, 3-4-5 scaled.
+    expect(rippleRadius({ x: 3, y: 4 }, { width: 6, height: 8 })).toBe(5)
+  })
+
+  it('covers the whole box when the press lands in a corner', () => {
+    expect(rippleRadius({ x: 0, y: 0 }, { width: 3, height: 4 })).toBe(5)
+    expect(rippleRadius({ x: 3, y: 4 }, { width: 3, height: 4 })).toBe(5)
+  })
+
+  it('is zero before the root has been laid out', () => {
+    expect(rippleRadius({ x: 0, y: 0 }, { width: 0, height: 0 })).toBe(0)
+  })
+})

@@ -102,3 +102,45 @@ everything else.
 
 `asChild` has to be uniform from the very first component: retrofitting it changes the
 ref signature of all fifteen core components at once.
+
+## `pressable-feedback/` in one page
+
+What a control does under the finger, written once instead of forty-seven times. Every
+pressable component renders it — `Button`, `Chip`, a clickable `Card`, `ListItem`,
+`MenuItem`, `SegmentButton`.
+
+```tsx
+const [isPressed, setIsPressed] = useState(false)
+const styles = recipe.resolve({ theme, selection, states: { pressed: isPressed } })
+
+<PressableFeedback
+  ref={ref}
+  isPressed={isPressed}
+  feedbackVariant="scale-highlight"
+  animation={animation}
+  style={[styles.root, tint?.root, style]}
+  onPressIn={() => setIsPressed(true)}
+  onPressOut={() => setIsPressed(false)}
+>
+  <Button.Label />
+</PressableFeedback>
+```
+
+**It is controlled.** The root above owns `isPressed`, because its recipe resolves on it
+(R5) and it needs the value before it renders. `PressableFeedback` applies that value; it
+does not decide it.
+
+**`feedbackVariant` mounts the overlay.** `scale-highlight` and `scale-ripple` add theirs;
+`scale` adds none, which is what a root picks when it renders
+`<PressableFeedback.Highlight style={…}>` itself — no prop here reaches into another
+component's insides (R1).
+
+**Pick one pressed treatment, not both.** The `Highlight` is a _neutral_ wash. A component
+uses it, **or** a `pressed` state in its recipe swapping `bg` for `bgPressed` — never
+both, or a pressed control darkens twice.
+
+**`animation` off means no worklet.** `false`, `'disabled'` and `feedbackVariant="none"`
+render a different component, not the same one with a branch inside, because hooks cannot
+be conditional and "mounts no worklet" is only true if the Reanimated hooks are never
+reached. `'disable-all'` does the same and passes it to descendants through context, so a
+long list kills every row's worklets with one prop.
