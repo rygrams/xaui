@@ -116,6 +116,20 @@ has **What / Why / How** sections. All CI checks green before requesting review.
 merge, the Changesets action opens or updates the "Version Packages" PR; merging that one
 publishes. Nothing else to do by hand.
 
+## 9. Close the loop on review comments
+
+Address each comment, then resolve its thread:
+
+```bash
+gh api graphql -f query='{ repository(owner:"rygrams", name:"xaui")
+  { pullRequest(number: N) { reviewThreads(first:20)
+    { nodes { id isResolved comments(first:1){ nodes { path body } } } } } } }'
+```
+
+then `resolveReviewThread(input: {threadId: "..."})` for each one you acted on. A thread
+left open reads as unanswered work. One you disagreed with stays open, with a reply saying
+why — resolving it would hide the disagreement rather than settle it.
+
 ## Definition of done — per component
 
 `pnpm lint && pnpm type-check && pnpm test` pass · the demo screen renders correctly in

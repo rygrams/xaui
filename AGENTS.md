@@ -170,6 +170,8 @@ pnpm --filter @xaui/native exec eslint src/components/button/button.tsx
 - **Always add at least one label**: `--label <name>`, chosen from the repository's
   existing labels (`bug`, `documentation`, `enhancement`, …).
 - Body covers What, Why and How.
+- Resolve each review thread once its comment is addressed; leave open only what you
+  deliberately did not act on, with a reply explaining why.
 
 ## Error handling and control flow
 

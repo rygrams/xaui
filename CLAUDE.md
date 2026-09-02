@@ -403,6 +403,13 @@ When a task turns out to cover two unrelated things, it is two branches and two 
 - Reference the last commit for global implementation description
 - Ensure all CI checks pass before requesting review
 
+**Answering review comments:**
+
+- Address each comment, then **resolve its thread** — a thread left open reads as
+  unanswered work
+- Resolve only what you actually acted on; a comment you disagreed with stays open with a
+  reply saying why
+
 **After PR is merged to main:**
 
 - Changesets Action will automatically create/update a "Version Packages" PR
