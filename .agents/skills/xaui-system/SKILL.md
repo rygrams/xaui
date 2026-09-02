@@ -149,6 +149,8 @@ Zero runtime dependencies in the package.
 
 - [ ] Public API of `system/` is intentional — everything exported is something a third
       party genuinely needs.
-- [ ] Mirror tests in `src/__tests__/system/…`.
+- [ ] Mirror tests in `src/__tests__/system/…` for the **pure** modules — recipe
+      resolution, style cache, `childrenToString`, `mergeProps` / `mergeRefs`. The
+      component-shaped primitives (`PressableFeedback`, `Icon`, `Portal`) get none.
 - [ ] Reference-stability test for anything touching the cache.
 - [ ] `pnpm lint && pnpm type-check && pnpm test`.

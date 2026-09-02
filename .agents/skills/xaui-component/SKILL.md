@@ -157,9 +157,9 @@ feedback comes from `system/pressable-feedback/` — never a per-component anima
 3. root in `forwardRef` with `asChild`, a11y, function-form `style`, namespaced
    `displayName` (R9, R11, R12)
 4. one file per slot, no margin of its own (R4)
-5. mirror test in `src/__tests__/components/<name>/` — slots, hook outside parent,
-   `asChild`, and **style reference stability**
-6. a screen in `apps/demo`
+5. **no test file** — components are not unit-tested (see CLAUDE.md). Logic worth pinning
+   down is extracted into a pure function under `utils/`, and *that* is tested
+6. a screen in `apps/demo` — this is how the component is verified
 7. a doc page per the `xaui-docs` skill
 8. a subpath export in `package.json` + `tsup.config.ts` (`@xaui/native/<name>`)
 

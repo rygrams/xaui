@@ -122,7 +122,7 @@ src/
 ├── utils/        # pure, React-free, internal — private
 ├── types/        # types used by ≥ 2 components
 ├── components/   # one folder per component
-└── __tests__/    # exact mirror of the tree above
+└── __tests__/    # mirrors the tree above — utility functions only
 ```
 
 A file used by a single component stays in that component's folder; promotion happens at the
@@ -198,6 +198,19 @@ pnpm --filter @xaui/native test:ui # Run tests with Vitest UI
 pnpm --filter @xaui/native test:coverage # Run tests with coverage
 ```
 
+**What gets a test file — utility functions only.**
+
+Tests cover pure, deterministic code: everything in `utils/`, the colour engine and
+`deriveColors`, `createTheme`, recipe resolution and the style cache, `childrenToString`,
+`mergeProps` / `mergeRefs`, token generation.
+
+**Components, slots and their hooks get no test file.** They are verified by their demo
+screen and their docs preview, in light and dark. When a component holds logic worth
+pinning down, extract that logic into a pure function under `utils/` — and test that.
+
+Test files mirror the source path: `src/utils/colors.ts` →
+`src/__tests__/utils/colors.test.ts`.
+
 **Test configuration:**
 
 - Vitest is installed at root level and inherited by workspaces
@@ -243,9 +256,8 @@ Run `pnpm format` to auto-format code.
 - Avoid deep code nesting like if (condition) { if (condition) { if (condition) { } } } or for (let i = 0; i < 10; i++) { if (condition) { if (condition) { if (condition) { } } } }
 - Use early returns to avoid deep code nesting
 - Avoid any type as much as possible
-- create a test file for each component in `/__tests__` with same path as component
-  example: `packages/native/src/components/button/button.tsx` -> `packages/native/src/__tests__/components/button/button.test.tsx`
-- run test and lint after each component code change
+- **test utility functions only, never components** — see *Testing* above
+- run test and lint after each code change
 - do a code review after each component code change and simplify if needed — use the
   `xaui-review` skill
 
@@ -255,7 +267,6 @@ Run `pnpm format` to auto-format code.
 - Use workspace: \* for dependencies
 - `react-native-reanimated` and `react-native-worklets` are required peer dependencies; all
   animation goes through them, never RN's built-in `Animated`
-- Add test for each component you code or update
 - Package name should be in singular form
 - dont use css file for styling use tailwind for styling or framer-motion for animations
 

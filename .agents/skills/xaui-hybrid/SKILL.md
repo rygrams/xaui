@@ -10,7 +10,7 @@ no new component, no API change — so that no decision has to be paid for twice
 stabilises. Work here resumes after `@xaui/native@1.0.0` (plan §9/P6). If a task asks for a
 hybrid component while the native v1 core is unfinished, say so before starting.
 
-Once it resumes: same folder tree, same file names, same tests as native. Only `.style.ts`
+Once it resumes: same folder tree, same file names, same testing rule as native. Only `.style.ts`
 and the renderer differ — `createRecipe` is taken as-is, it is pure resolution and the
 renderer only comes in at the very end.
 
@@ -39,7 +39,8 @@ coming from the theme or from the native `StyleSheet`.
    `paddingHorizontal`, `marginVertical`, `marginHorizontal` — split them into
    `paddingTop`/`paddingBottom`, `paddingLeft`/`paddingRight`, etc. The token generator
    does this split automatically for generated tokens; hand-written styles are on you.
-5. Keep the same test file names and cases as native, in the mirror `__tests__/` path.
+5. No component test file — same rule as native. Only pure helpers are tested, in the
+   mirror `__tests__/` path.
 6. Same subpath export shape: `@xaui/hybrid/<component>`.
 
 Styling uses Tailwind or framer-motion for animation — **no CSS files** (CLAUDE.md).
@@ -57,5 +58,5 @@ build when native and hybrid drift apart.
 - [ ] No RN shorthand property.
 - [ ] No CSS file added.
 - [ ] Same component API as native — props, slots, `variant` values, `asChild`.
-- [ ] Tests mirror the native ones.
+- [ ] Any pure helper added has a test; the component itself has none.
 - [ ] `pnpm lint && pnpm type-check && pnpm test` pass.

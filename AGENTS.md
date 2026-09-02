@@ -79,17 +79,17 @@ Use Vitest directly for exact targeting:
 
 ```bash
 # run one test file
-pnpm --filter @xaui/native exec vitest run src/__tests__/components/button/button.test.tsx
+pnpm --filter @xaui/native exec vitest run src/__tests__/utils/colors.test.ts
 # run one named test in a file
-pnpm --filter @xaui/native exec vitest run src/__tests__/components/button/button.test.tsx -t "renders default button"
+pnpm --filter @xaui/native exec vitest run src/__tests__/utils/colors.test.ts -t "mix in oklab"
 # watch one test file
-pnpm --filter @xaui/native exec vitest src/__tests__/components/button/button.test.tsx
+pnpm --filter @xaui/native exec vitest src/__tests__/utils/colors.test.ts
 ```
 
 Alternative passthrough form:
 
 ```bash
-pnpm --filter @xaui/native test -- src/__tests__/components/button/button.test.tsx
+pnpm --filter @xaui/native test -- src/__tests__/utils/colors.test.ts
 ```
 
 ## Lint, type-check, and build targeting
@@ -143,11 +143,14 @@ pnpm --filter @xaui/native exec eslint src/components/button/button.tsx
 
 ## Testing conventions
 
-- Add/update tests for behavioral changes.
-- Mirror source paths under `src/__tests__/...`.
-- Common suffixes: `*.test.tsx`, `*.hook.test.ts`, `*.utils.test.ts`.
-- Cover: each slot renders, the context hook throws by name outside its parent, `asChild`,
-  and style reference stability.
+- **Utility functions only.** Pure, deterministic code gets a test file: `utils/`, the
+  colour engine, `deriveColors`, `createTheme`, recipe resolution, the style cache,
+  `childrenToString`, `mergeProps` / `mergeRefs`, token generation.
+- **No test file for components, slots or their hooks.** They are verified by the demo
+  screen and the docs preview, in light and dark.
+- Logic in a component that deserves pinning down is extracted to a pure function under
+  `utils/`, and that function is tested.
+- Mirror source paths under `src/__tests__/...`; suffix `*.test.ts`.
 
 ## Error handling and control flow
 

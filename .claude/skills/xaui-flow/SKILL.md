@@ -68,8 +68,9 @@ git checkout -b refactor/alert        # rework of an existing component
 
 Follow the routed skill. Two constants regardless of the area:
 
-- **Run `pnpm lint` and `pnpm test` after each component change** (CLAUDE.md), not once at
-  the end.
+- **Run `pnpm lint` and `pnpm test` after each change** (CLAUDE.md), not once at the end.
+- **Tests cover utility functions only** — never components, slots or their hooks. Logic
+  worth pinning down is extracted into a pure function and tested there.
 - **Never** run `pnpm changeset version`, `pnpm version-packages` or `pnpm release`
   locally — CI owns those.
 
@@ -110,8 +111,9 @@ publishes. Nothing else to do by hand.
 ## Definition of done — per component
 
 `pnpm lint && pnpm type-check && pnpm test` pass · the demo screen renders correctly in
-light and dark · the doc page follows the eight-section structure · the legacy equivalent
-carries `@deprecated` pointing at the replacement · a changeset is committed.
+light and dark — that is how a component is verified, not a test file · the doc page follows
+the eight-section structure · the legacy equivalent carries `@deprecated` pointing at the
+replacement · a changeset is committed.
 
 ## When to stop and ask
 

@@ -92,10 +92,14 @@ files edited by hand — these are the ones that are unfixable or expensive late
 
 ## 6. Tests
 
-- [ ] Mirror path: `src/__tests__/components/<name>/<name>.test.tsx`.
-- [ ] Covers: each slot renders, the context hook throws by name outside its parent,
-      `asChild` merges props and refs, style reference stability, disabled/loading states.
-- [ ] Icons are the only exemption from the one-test-per-component rule.
+- [ ] **Utility functions only.** A new pure function — in `utils/`, the colour engine,
+      recipe resolution, the style cache, slot helpers, token generation — has a mirrored
+      test at `src/__tests__/<same path>.test.ts`.
+- [ ] **No test file was added for a component, a slot or a component hook.** Flag one if
+      it appears; components are verified by their demo screen and docs preview.
+- [ ] Logic worth pinning down was extracted into a pure function rather than left
+      untestable inside the component.
+- [ ] Cache behaviour has a reference-stability test.
 
 ## 7. Gates
 
