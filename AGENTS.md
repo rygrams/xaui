@@ -152,6 +152,12 @@ pnpm --filter @xaui/native exec eslint src/components/button/button.tsx
   `utils/`, and that function is tested.
 - Mirror source paths under `src/__tests__/...`; suffix `*.test.ts`.
 
+## Branching
+
+- **Always branch before starting an implementation**, before the first line of code.
+- Never commit to `main`.
+- One branch per coherent unit of work: `feat/`, `fix/`, `refactor/`, `chore/`.
+
 ## Pull requests
 
 - Open with `gh pr create`, never as a draft unless asked.
