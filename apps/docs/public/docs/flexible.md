@@ -6,18 +6,8 @@ Like `Expanded`, but with a `fit` prop that controls whether the child must fill
 pnpm add @xaui/native-legacy
 ```
 
-**React Native**
-
 ```ts
 import { Flexible } from '@xaui/native-legacy/view'
-```
-
-**Web / Hybrid**
-
-```ts
-import { Flexible } from '@xaui/hybrid-legacy/flexible'
-// or from the aggregated view export
-import { Flexible } from '@xaui/hybrid-legacy/view'
 ```
 
 ## Props

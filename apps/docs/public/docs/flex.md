@@ -6,18 +6,8 @@ Flutter-inspired generic flex container. Use `Flex` when you need full control o
 pnpm add @xaui/native-legacy
 ```
 
-**React Native**
-
 ```ts
 import { Flex } from '@xaui/native-legacy/view'
-```
-
-**Web / Hybrid**
-
-```ts
-import { Flex } from '@xaui/hybrid-legacy/flex'
-// or from the aggregated view export
-import { Flex } from '@xaui/hybrid-legacy/view'
 ```
 
 ## Props
