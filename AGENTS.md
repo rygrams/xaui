@@ -25,8 +25,9 @@ Practical guidance for agentic coding assistants in this monorepo.
 
 ## Roadmap status
 
-- Tracked in the `Roadmap status` table of `CLAUDE.md` — one line per task: ref, title, status.
+- Tracked in `.project-specs/ROADMAP.md` — one line per task: ref, title, status.
 - Update the status there when a task lands; it is the only place that records progress.
+- Do not restate the table anywhere else; two copies drift.
 
 ## Skills
 

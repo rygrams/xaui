@@ -90,8 +90,8 @@ it finds, or state plainly what you left and why.
 
 ## 6. Record the task
 
-Update the `Roadmap status` table in `CLAUDE.md` — one line, ref, title, status. It is the
-only place progress is recorded, and it moves in the same commit as the work.
+Update `.project-specs/ROADMAP.md` — one line, ref, title, status. It is the only place
+progress is recorded, and it moves in the same commit as the work.
 
 ## 7. Changeset
 
