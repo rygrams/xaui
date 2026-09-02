@@ -54,6 +54,8 @@ The rules behind each line live in `xaui-component`, `xaui-system` and `xaui-the
   `hooks/`, `utils/`, `types/` — plus `components/` and a mirrored `__tests__/`.
   **`system/` is public and follows semver; `utils/` is private.** A file used by one
   component stays with it; promotion happens at the second use. See `xaui-component`.
+- **Each top-level `src/` folder carries a `README.md`** saying what belongs in it, what does
+  not, and how it is used. Add it with the folder, update it when the boundary moves.
 - Each component is an independent subpath export (`@xaui/native/button`), declared in
   `package.json` **and** `tsup.config.ts`.
 
