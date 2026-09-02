@@ -50,27 +50,6 @@ Required peer dependencies: tailwindcss (v4+)
 
 ---
 
-## Add XAUI to your AI assistant (MCP)
-
-### Claude Code
-```bash
-claude mcp add xaui -- npx -y @xaui/ui-mcp@latest
-```
-
-### MCP config (claude_desktop_config.json / .cursor/mcp.json)
-```json
-{
-  "mcpServers": {
-    "xaui": {
-      "command": "npx",
-      "args": ["-y", "@xaui/ui-mcp@latest"]
-    }
-  }
-}
-```
-
----
-
 ## Component: Container
 
 A Flutter-inspired layout primitive. Handles sizing, spacing, alignment, decoration (color, border, borderRadius, shadow), transforms, and interaction (press handlers) in a single composable component.
