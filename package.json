@@ -14,6 +14,8 @@
     "test": "turbo run test",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "tokens:generate": "tsx tooling/tokens/generate.ts",
+    "tokens:check": "tsx tooling/tokens/generate.ts --check",
     "changeset": "changeset",
     "version-packages": "changeset version",
     "version": "changeset version",
@@ -35,6 +37,7 @@
     "prettier": "^3.7.4",
     "react": "19.1.0",
     "react-dom": "19.1.0",
+    "tsx": "^4.23.13",
     "turbo": "^2.7.3",
     "typescript": "^5.9.3",
     "vitest": "^4.0.16"
