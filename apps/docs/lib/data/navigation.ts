@@ -1,5 +1,3 @@
-import { components } from './components'
-
 export interface NavItem {
   title: string
   href: string
@@ -9,6 +7,7 @@ export interface NavItem {
 export interface NavSection {
   title: string
   items: NavItem[]
+  note?: string
 }
 
 export const navigation: NavSection[] = [
@@ -19,44 +18,11 @@ export const navigation: NavSection[] = [
         title: 'Introduction',
         href: '/docs/introduction',
       },
-      {
-        title: 'Getting Started',
-        href: '/docs/getting-started',
-      },
-      {
-        title: 'Installation',
-        href: '/docs/installation',
-      },
-      {
-        title: 'Theme',
-        href: '/docs/theme',
-      },
     ],
   },
   {
-    title: 'Components',
-    items: [
-      {
-        title: 'All Components',
-        href: '/docs/components',
-        items: components.map(component => ({
-          title: component.name,
-          href: component.href,
-        })),
-      },
-    ],
-  },
-  {
-    title: 'AI & Tools',
-    items: [
-      {
-        title: 'LLMs.txt',
-        href: '/docs/llms-txt',
-      },
-      {
-        title: 'MCP Server',
-        href: '/docs/mcp',
-      },
-    ],
+    title: 'Work in progress',
+    items: [],
+    note: 'The component, theme and tooling pages are offline while XAUI is rebuilt on the v1 API. They come back one at a time as each component lands.',
   },
 ]
