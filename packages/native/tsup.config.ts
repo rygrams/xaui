@@ -3,6 +3,7 @@ import { defineConfig } from 'tsup'
 const entries = {
   index: 'src/index.ts',
   'theme/index': 'src/theme/index.ts',
+  'provider/index': 'src/provider/index.ts',
 }
 
 export default defineConfig({

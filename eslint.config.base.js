@@ -27,6 +27,9 @@ export default [
         },
       ],
       '@typescript-eslint/no-explicit-any': 'warn',
+      // The core rule counts a TypeScript overload signature as a redeclaration.
+      'no-redeclare': 'off',
+      '@typescript-eslint/no-redeclare': 'error',
     },
   },
   eslintConfigPrettier,

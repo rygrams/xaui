@@ -10,8 +10,8 @@ Task detail lives in `XAUI-V1-PLAN.md`.
 | P0.3  | OKLab colour engine                                      | done   |
 | P0.4  | Derived colour layer                                     | done   |
 | P0.5  | Contrast guard in CI                                     | done   |
-| P0.6  | `createTheme`                                            | todo   |
-| P0.7  | `XAUIProvider`                                           | todo   |
+| P0.6  | `createTheme`                                            | done   |
+| P0.7  | `XAUIProvider`                                           | done   |
 | P0.8  | Legacy `core-shim.ts`                                    | todo   |
 | P0.9  | Package hygiene and optional peers                       | done   |
 | P0.10 | ESLint rule for R13                                      | todo   |
