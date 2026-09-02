@@ -1,8 +1,10 @@
 # `provider/`
 
-What wraps the application, once.
+What wraps the application, once. Exported from `@xaui/native/theme` — the provider only
+publishes the theme, so a second subpath for it bought nothing.
 
 ```tsx
+import { XAUIProvider } from '@xaui/native/theme'
 import { appTheme } from './theme'
 
 <XAUIProvider theme={appTheme}>

@@ -27,11 +27,6 @@
       "types": "./dist/theme/index.d.ts",
       "import": "./dist/theme/index.js",
       "require": "./dist/theme/index.js"
-    },
-    "./provider": {
-      "types": "./dist/provider/index.d.ts",
-      "import": "./dist/provider/index.js",
-      "require": "./dist/provider/index.js"
     }
   },
   "files": [

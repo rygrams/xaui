@@ -15,6 +15,9 @@ The design values and how components read them.
 | `theme-context.ts` | The bare React context |
 | `theme-hooks.ts` | `useXAUITheme`, `useThemeColor`, `useColorMode` |
 
+`XAUIProvider` lives in `provider/` but is exported from here — one import path for
+everything theme-related.
+
 ## The two layers
 
 A source layer of ~32 colours per mode is written by hand in `tooling/tokens/source.ts`.
