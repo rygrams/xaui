@@ -165,10 +165,42 @@ The project uses GitHub Actions with the following workflow:
    - Uses Changesets action to create release PRs or publish to npm
    - Only builds `@xaui/*` scoped packages before publishing
 
+## Skills
+
+Agent skills live in `.agents/skills/<name>/SKILL.md` — that is the source of truth, shared
+by every agent (Claude, Gemini, Codex).
+
+`.claude/skills/<name>/` holds a **copy** of each skill, never a symlink. Symlinks are not
+resolved reliably, so when a skill is added or edited in `.agents/skills/`, copy the folder
+across in the same commit:
+
+```bash
+cp -R .agents/skills/<name> .claude/skills/<name>
+```
+
+**Project skills:**
+
+| Skill | Use it for |
+| --- | --- |
+| `xaui-flow` | Start here on any non-trivial task — situates it in the v1 phasing and routes it |
+| `xaui-component` | Writing or converting a `@xaui/native` v1 component |
+| `xaui-system` | `system/` primitives: recipe engine, style cache, slots, `PressableFeedback`, `Portal`, `Icon` |
+| `xaui-theme` | Tokens, OKLab colour derivation, `createTheme`, provider, token generation |
+| `xaui-hybrid` | Porting to `@xaui/hybrid` and the `em` sizing convention |
+| `xaui-docs` | Docs pages, demo screens, generated prop tables, `llms.txt` |
+| `xaui-legacy-migration` | `@xaui/native-legacy`, `core-shim`, codemods, `@deprecated` |
+| `xaui-review` | Reviewing a diff against the v1 rules — run before every PR |
+
+The v1 plan these skills encode is `.project-specs/XAUI-V1-PLAN.md`, with the runnable
+token references alongside it (`source.mjs`, `derive.mjs`, `oklab.mjs`, `tokens.json`).
+
 ## Commit Message Guidelines
 
 - generate a commit message with commitizen specification
 - dont add co authored with claude in commit message
+- commit progressively: one commit per coherent unit of work, as the work lands, not one
+  big commit at the end
+- always open the PR once the work is committed (`gh pr create`)
 
 ## Pull Request Guidelines
 
