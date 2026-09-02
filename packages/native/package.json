@@ -1,6 +1,6 @@
 {
   "name": "@xaui/native",
-  "version": "0.9.0-beta.0",
+  "version": "0.9.0",
   "private": true,
   "description": "Composition-first React Native UI components with native animations powered by Reanimated",
   "keywords": [
