@@ -6,7 +6,7 @@ import {
   View,
   Animated,
 } from 'react-native'
-import { CloseIcon } from '@xaui/icons'
+import { CloseIcon } from '../../icons'
 import type { TextInputProps } from './input.type'
 import {
   useTextInputRadiusStyles,

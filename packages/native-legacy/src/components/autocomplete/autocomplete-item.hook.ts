@@ -1,5 +1,5 @@
 import { useContext, useMemo } from 'react'
-import { getSafeThemeColor } from '@xaui/core'
+import { getSafeThemeColor } from '../../core-shim'
 import { useXUITheme } from '../../core'
 import type { Size, ThemeColor } from '../../types'
 import { AutocompleteContext } from './autocomplete-context'

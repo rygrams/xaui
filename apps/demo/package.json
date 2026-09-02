@@ -1,7 +1,7 @@
 {
   "name": "demo",
   "main": "expo-router/entry",
-  "version": "1.0.67",
+  "version": "1.0.71",
   "scripts": {
     "dev": "expo start",
     "reset-project": "node ./scripts/reset-project.js",
@@ -37,9 +37,8 @@
     "react-native-screens": "~4.23.0",
     "react-native-svg": "~15.15.3",
     "react-native-web": "~0.21.0",
-    "@xaui/core": "workspace:*",
     "@xaui/native-legacy": "workspace:*",
-    "@xaui/icons": "workspace:*"
+    "@xaui/native": "workspace:*"
   },
   "devDependencies": {
     "@types/react": "~19.1.0",

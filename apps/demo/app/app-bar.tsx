@@ -1,10 +1,5 @@
+import Ionicons from '@expo/vector-icons/Ionicons'
 import { ScrollView, StyleSheet, Text, View } from 'react-native'
-import {
-  ArrowBackIcon,
-  CloseCircleIcon,
-  EllipsisVerticalIcon,
-  SearchIcon,
-} from '@xaui/icons'
 import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
 import {
   AppBar,
@@ -36,7 +31,7 @@ export default function AppBarScreen() {
           <View style={styles.stack}>
             <AppBar variant="docked" elevation={1}>
               <AppBarStartContent>
-                <ArrowBackIcon size={18} color={colors.foreground} />
+                <Ionicons name="arrow-back" size={18} color={colors.foreground} />
               </AppBarStartContent>
               <AppBarContent alignment="start">
                 <Text style={[styles.title, { color: colors.foreground }]}>
@@ -52,7 +47,7 @@ export default function AppBarScreen() {
 
             <AppBar variant="docked" elevation={2}>
               <AppBarStartContent>
-                <ArrowBackIcon size={22} color={colors.foreground} />
+                <Ionicons name="arrow-back" size={22} color={colors.foreground} />
               </AppBarStartContent>
               <AppBarContent alignment="center">
                 <Text style={[styles.title, { color: colors.foreground }]}>
@@ -60,7 +55,7 @@ export default function AppBarScreen() {
                 </Text>
               </AppBarContent>
               <AppBarEndContent>
-                <CloseCircleIcon size={22} color={colors.foreground} />
+                <Ionicons name="close-circle" size={22} color={colors.foreground} />
               </AppBarEndContent>
             </AppBar>
           </View>
@@ -81,7 +76,7 @@ export default function AppBarScreen() {
           <View style={styles.stack}>
             <AppBar variant="floating" elevation={1}>
               <AppBarStartContent>
-                <ArrowBackIcon size={22} color={colors.foreground} />
+                <Ionicons name="arrow-back" size={22} color={colors.foreground} />
               </AppBarStartContent>
               <AppBarContent alignment="center">
                 <Text style={[styles.title, { color: colors.foreground }]}>
@@ -89,13 +84,17 @@ export default function AppBarScreen() {
                 </Text>
               </AppBarContent>
               <AppBarEndContent>
-                <SearchIcon size={22} color={colors.foreground} />
+                <Ionicons name="search" size={22} color={colors.foreground} />
               </AppBarEndContent>
             </AppBar>
 
             <AppBar variant="floating" themeColor="primary">
               <AppBarStartContent>
-                <ArrowBackIcon size={22} color={theme.colors.primary.main} />
+                <Ionicons
+                  name="arrow-back"
+                  size={22}
+                  color={theme.colors.primary.main}
+                />
               </AppBarStartContent>
               <AppBarContent alignment="center">
                 <Text style={[styles.title, { color: theme.colors.primary.main }]}>
@@ -103,13 +102,21 @@ export default function AppBarScreen() {
                 </Text>
               </AppBarContent>
               <AppBarEndContent>
-                <EllipsisVerticalIcon size={22} color={theme.colors.primary.main} />
+                <Ionicons
+                  name="ellipsis-vertical"
+                  size={22}
+                  color={theme.colors.primary.main}
+                />
               </AppBarEndContent>
             </AppBar>
 
             <AppBar variant="floating" elevation={1} themeColor="tertiary">
               <AppBarStartContent>
-                <ArrowBackIcon size={22} color={theme.colors.tertiary.main} />
+                <Ionicons
+                  name="arrow-back"
+                  size={22}
+                  color={theme.colors.tertiary.main}
+                />
               </AppBarStartContent>
               <AppBarContent alignment="center">
                 <Text style={[styles.title, { color: theme.colors.tertiary.main }]}>
@@ -117,7 +124,11 @@ export default function AppBarScreen() {
                 </Text>
               </AppBarContent>
               <AppBarEndContent>
-                <EllipsisVerticalIcon size={22} color={theme.colors.tertiary.main} />
+                <Ionicons
+                  name="ellipsis-vertical"
+                  size={22}
+                  color={theme.colors.tertiary.main}
+                />
               </AppBarEndContent>
             </AppBar>
           </View>

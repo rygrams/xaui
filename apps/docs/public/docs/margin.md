@@ -6,18 +6,8 @@ Wraps content with configurable margin on any or all sides using Flutter's `Edge
 pnpm add @xaui/native-legacy
 ```
 
-**React Native**
-
 ```ts
 import { Margin } from '@xaui/native-legacy/view'
-```
-
-**Web / Hybrid**
-
-```ts
-import { Margin } from '@xaui/hybrid-legacy/margin'
-// or from the aggregated view export
-import { Margin } from '@xaui/hybrid-legacy/view'
 ```
 
 ## Props

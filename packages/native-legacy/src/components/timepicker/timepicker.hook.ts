@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { getSafeThemeColor, withOpacity } from '@xaui/core'
+import { getSafeThemeColor, withOpacity } from '../../core-shim'
 import { useXUITheme } from '../../core'
 import type { ThemeColor } from '../../types'
 import type { TimePickerMode, TimePeriod, TimeValue } from './timepicker.type'

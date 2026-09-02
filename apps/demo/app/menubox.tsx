@@ -1,25 +1,8 @@
+import Ionicons from '@expo/vector-icons/Ionicons'
 import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
 import { StyleSheet, View, ScrollView, Text } from 'react-native'
 import { MenuBox, MenuBoxItem } from '@xaui/native-legacy/menubox'
 import { Margin } from '@xaui/native-legacy/view'
-import {
-  PersonCircleIcon,
-  ColorPaletteIcon,
-  SettingsIcon,
-  NotificationsIcon,
-  MicIcon,
-  ServerIcon,
-  LockClosedIcon,
-  InformationCircleIcon,
-  WifiIcon,
-  BluetoothIcon,
-  CheckmarkIcon,
-  ChevronDownIcon,
-  ChevronForwardIcon,
-  LogOutIcon,
-  SunnyIcon,
-  MoonIcon,
-} from '@xaui/icons'
 
 export default function MenuBoxScreen() {
   const colors = useXUIColors()
@@ -52,7 +35,11 @@ export default function MenuBoxScreen() {
               title="Vérification de l'âge"
               startContent={
                 <View style={iconContainerStyle(colors.primary.main + '20')}>
-                  <PersonCircleIcon size={20} color={colors.primary.main} />
+                  <Ionicons
+                    name="person-circle"
+                    size={20}
+                    color={colors.primary.main}
+                  />
                 </View>
               }
             />
@@ -72,11 +59,15 @@ export default function MenuBoxScreen() {
               description="Système (par défaut)"
               startContent={
                 <View style={iconContainerStyle(colors.warning.main + '20')}>
-                  <SunnyIcon size={20} color={colors.warning.main} />
+                  <Ionicons name="sunny" size={20} color={colors.warning.main} />
                 </View>
               }
               endContent={
-                <ChevronDownIcon size={20} color={colors.foreground + '60'} />
+                <Ionicons
+                  name="chevron-down"
+                  size={20}
+                  color={colors.foreground + '60'}
+                />
               }
             />
             <MenuBoxItem
@@ -85,11 +76,19 @@ export default function MenuBoxScreen() {
               description="Par défaut"
               startContent={
                 <View style={iconContainerStyle(colors.secondary.main + '20')}>
-                  <ColorPaletteIcon size={20} color={colors.secondary.main} />
+                  <Ionicons
+                    name="color-palette"
+                    size={20}
+                    color={colors.secondary.main}
+                  />
                 </View>
               }
               endContent={
-                <ChevronDownIcon size={20} color={colors.foreground + '60'} />
+                <Ionicons
+                  name="chevron-down"
+                  size={20}
+                  color={colors.foreground + '60'}
+                />
               }
             />
           </MenuBox>
@@ -107,11 +106,15 @@ export default function MenuBoxScreen() {
               title="Général"
               startContent={
                 <View style={iconContainerStyle(colors.primary.main + '20')}>
-                  <SettingsIcon size={20} color={colors.primary.main} />
+                  <Ionicons name="settings" size={20} color={colors.primary.main} />
                 </View>
               }
               endContent={
-                <ChevronForwardIcon size={20} color={colors.foreground + '40'} />
+                <Ionicons
+                  name="chevron-forward"
+                  size={20}
+                  color={colors.foreground + '40'}
+                />
               }
             />
             <MenuBoxItem
@@ -119,11 +122,19 @@ export default function MenuBoxScreen() {
               title="Notifications"
               startContent={
                 <View style={iconContainerStyle(colors.warning.main + '20')}>
-                  <NotificationsIcon size={20} color={colors.warning.main} />
+                  <Ionicons
+                    name="notifications"
+                    size={20}
+                    color={colors.warning.main}
+                  />
                 </View>
               }
               endContent={
-                <ChevronForwardIcon size={20} color={colors.foreground + '40'} />
+                <Ionicons
+                  name="chevron-forward"
+                  size={20}
+                  color={colors.foreground + '40'}
+                />
               }
             />
             <MenuBoxItem
@@ -131,11 +142,15 @@ export default function MenuBoxScreen() {
               title="Voix"
               startContent={
                 <View style={iconContainerStyle(colors.success.main + '20')}>
-                  <MicIcon size={20} color={colors.success.main} />
+                  <Ionicons name="mic" size={20} color={colors.success.main} />
                 </View>
               }
               endContent={
-                <ChevronForwardIcon size={20} color={colors.foreground + '40'} />
+                <Ionicons
+                  name="chevron-forward"
+                  size={20}
+                  color={colors.foreground + '40'}
+                />
               }
             />
             <MenuBoxItem
@@ -143,11 +158,15 @@ export default function MenuBoxScreen() {
               title="Gestion des données"
               startContent={
                 <View style={iconContainerStyle(colors.tertiary.main + '20')}>
-                  <ServerIcon size={20} color={colors.tertiary.main} />
+                  <Ionicons name="server" size={20} color={colors.tertiary.main} />
                 </View>
               }
               endContent={
-                <ChevronForwardIcon size={20} color={colors.foreground + '40'} />
+                <Ionicons
+                  name="chevron-forward"
+                  size={20}
+                  color={colors.foreground + '40'}
+                />
               }
             />
             <MenuBoxItem
@@ -155,11 +174,19 @@ export default function MenuBoxScreen() {
               title="Sécurité"
               startContent={
                 <View style={iconContainerStyle(colors.danger.main + '20')}>
-                  <LockClosedIcon size={20} color={colors.danger.main} />
+                  <Ionicons
+                    name="lock-closed"
+                    size={20}
+                    color={colors.danger.main}
+                  />
                 </View>
               }
               endContent={
-                <ChevronForwardIcon size={20} color={colors.foreground + '40'} />
+                <Ionicons
+                  name="chevron-forward"
+                  size={20}
+                  color={colors.foreground + '40'}
+                />
               }
             />
             <MenuBoxItem
@@ -167,11 +194,19 @@ export default function MenuBoxScreen() {
               title="À propos de"
               startContent={
                 <View style={iconContainerStyle(colors.secondary.main + '20')}>
-                  <InformationCircleIcon size={20} color={colors.secondary.main} />
+                  <Ionicons
+                    name="information-circle"
+                    size={20}
+                    color={colors.secondary.main}
+                  />
                 </View>
               }
               endContent={
-                <ChevronForwardIcon size={20} color={colors.foreground + '40'} />
+                <Ionicons
+                  name="chevron-forward"
+                  size={20}
+                  color={colors.foreground + '40'}
+                />
               }
             />
           </MenuBox>
@@ -190,10 +225,12 @@ export default function MenuBoxScreen() {
               description="Connecté à Home Network"
               startContent={
                 <View style={iconContainerStyle(colors.primary.main + '20')}>
-                  <WifiIcon size={20} color={colors.primary.main} />
+                  <Ionicons name="wifi" size={20} color={colors.primary.main} />
                 </View>
               }
-              endContent={<CheckmarkIcon size={20} color={colors.success.main} />}
+              endContent={
+                <Ionicons name="checkmark" size={20} color={colors.success.main} />
+              }
             />
             <MenuBoxItem
               itemKey="2"
@@ -201,10 +238,16 @@ export default function MenuBoxScreen() {
               description="On - 3 devices connected"
               startContent={
                 <View style={iconContainerStyle(colors.secondary.main + '20')}>
-                  <BluetoothIcon size={20} color={colors.secondary.main} />
+                  <Ionicons
+                    name="bluetooth"
+                    size={20}
+                    color={colors.secondary.main}
+                  />
                 </View>
               }
-              endContent={<CheckmarkIcon size={20} color={colors.success.main} />}
+              endContent={
+                <Ionicons name="checkmark" size={20} color={colors.success.main} />
+              }
             />
           </MenuBox>
         </View>
@@ -224,7 +267,7 @@ export default function MenuBoxScreen() {
               title="Item 1"
               startContent={
                 <View style={iconContainerStyle(colors.primary.main + '20')}>
-                  <SettingsIcon size={20} color={colors.primary.main} />
+                  <Ionicons name="settings" size={20} color={colors.primary.main} />
                 </View>
               }
             />
@@ -233,7 +276,11 @@ export default function MenuBoxScreen() {
               title="Item 2"
               startContent={
                 <View style={iconContainerStyle(colors.secondary.main + '20')}>
-                  <NotificationsIcon size={20} color={colors.secondary.main} />
+                  <Ionicons
+                    name="notifications"
+                    size={20}
+                    color={colors.secondary.main}
+                  />
                 </View>
               }
             />
@@ -242,7 +289,7 @@ export default function MenuBoxScreen() {
               title="Item 3"
               startContent={
                 <View style={iconContainerStyle(colors.success.main + '20')}>
-                  <CheckmarkIcon size={20} color={colors.success.main} />
+                  <Ionicons name="checkmark" size={20} color={colors.success.main} />
                 </View>
               }
             />
@@ -258,7 +305,11 @@ export default function MenuBoxScreen() {
                 title="Item 1"
                 startContent={
                   <View style={iconContainerStyle(colors.primary.main + '20')}>
-                    <SettingsIcon size={20} color={colors.primary.main} />
+                    <Ionicons
+                      name="settings"
+                      size={20}
+                      color={colors.primary.main}
+                    />
                   </View>
                 }
               />
@@ -267,7 +318,11 @@ export default function MenuBoxScreen() {
                 title="Item 2"
                 startContent={
                   <View style={iconContainerStyle(colors.secondary.main + '20')}>
-                    <NotificationsIcon size={20} color={colors.secondary.main} />
+                    <Ionicons
+                      name="notifications"
+                      size={20}
+                      color={colors.secondary.main}
+                    />
                   </View>
                 }
               />
@@ -287,7 +342,7 @@ export default function MenuBoxScreen() {
               title="Active Item"
               startContent={
                 <View style={iconContainerStyle(colors.success.main + '20')}>
-                  <CheckmarkIcon size={20} color={colors.success.main} />
+                  <Ionicons name="checkmark" size={20} color={colors.success.main} />
                 </View>
               }
             />
@@ -297,7 +352,7 @@ export default function MenuBoxScreen() {
               isDisabled
               startContent={
                 <View style={iconContainerStyle(colors.default.main + '20')}>
-                  <MoonIcon size={20} color={colors.default.main} />
+                  <Ionicons name="moon" size={20} color={colors.default.main} />
                 </View>
               }
             />
@@ -319,7 +374,7 @@ export default function MenuBoxScreen() {
               title="Petit Item 1"
               startContent={
                 <View style={iconContainerStyle(colors.primary.main + '20')}>
-                  <SettingsIcon size={18} color={colors.primary.main} />
+                  <Ionicons name="settings" size={18} color={colors.primary.main} />
                 </View>
               }
             />
@@ -328,7 +383,11 @@ export default function MenuBoxScreen() {
               title="Petit Item 2"
               startContent={
                 <View style={iconContainerStyle(colors.secondary.main + '20')}>
-                  <NotificationsIcon size={18} color={colors.secondary.main} />
+                  <Ionicons
+                    name="notifications"
+                    size={18}
+                    color={colors.secondary.main}
+                  />
                 </View>
               }
             />
@@ -344,7 +403,11 @@ export default function MenuBoxScreen() {
                 title="Grand Item 1"
                 startContent={
                   <View style={iconContainerStyle(colors.primary.main + '20')}>
-                    <SettingsIcon size={24} color={colors.primary.main} />
+                    <Ionicons
+                      name="settings"
+                      size={24}
+                      color={colors.primary.main}
+                    />
                   </View>
                 }
               />
@@ -353,7 +416,11 @@ export default function MenuBoxScreen() {
                 title="Grand Item 2"
                 startContent={
                   <View style={iconContainerStyle(colors.secondary.main + '20')}>
-                    <NotificationsIcon size={24} color={colors.secondary.main} />
+                    <Ionicons
+                      name="notifications"
+                      size={24}
+                      color={colors.secondary.main}
+                    />
                   </View>
                 }
               />
@@ -397,7 +464,7 @@ export default function MenuBoxScreen() {
             title="Se déconnecter"
             startContent={
               <View style={iconContainerStyle(colors.danger.main + '20')}>
-                <LogOutIcon size={20} color={colors.danger.main} />
+                <Ionicons name="log-out" size={20} color={colors.danger.main} />
               </View>
             }
             customAppearance={{

@@ -571,13 +571,13 @@ export function CustomIconExample() {
         code: `import { AppBar, AppBarStartContent, AppBarContent } from '@xaui/native-legacy/app-bar'
 import { IconButton } from '@xaui/native-legacy/button'
 import { Typography } from '@xaui/native-legacy/typography'
-import { ArrowBackIcon } from '@xaui/icons/arrow-back'
+import Ionicons from '@expo/vector-icons/Ionicons'
 
 export function BasicExample() {
   return (
     <AppBar>
       <AppBarStartContent>
-        <IconButton icon={<ArrowBackIcon />} onPress={() => {}} />
+        <IconButton icon={<Ionicons name="arrow-back" />} onPress={() => {}} />
       </AppBarStartContent>
       <AppBarContent>
         <Typography variant="titleMedium">Home</Typography>
@@ -592,22 +592,20 @@ export function BasicExample() {
         code: `import { AppBar, AppBarStartContent, AppBarContent, AppBarEndContent } from '@xaui/native-legacy/app-bar'
 import { IconButton } from '@xaui/native-legacy/button'
 import { Typography } from '@xaui/native-legacy/typography'
-import { MenuIcon } from '@xaui/icons/menu'
-import { NotificationsIcon } from '@xaui/icons/notifications'
-import { SettingsIcon } from '@xaui/icons/settings'
+import Ionicons from '@expo/vector-icons/Ionicons'
 
 export function WithActionsExample() {
   return (
     <AppBar>
       <AppBarStartContent>
-        <IconButton icon={<MenuIcon />} onPress={() => {}} />
+        <IconButton icon={<Ionicons name="menu" />} onPress={() => {}} />
       </AppBarStartContent>
       <AppBarContent>
         <Typography variant="titleMedium">Dashboard</Typography>
       </AppBarContent>
       <AppBarEndContent>
-        <IconButton icon={<NotificationsIcon />} onPress={() => {}} />
-        <IconButton icon={<SettingsIcon />} onPress={() => {}} />
+        <IconButton icon={<Ionicons name="notifications" />} onPress={() => {}} />
+        <IconButton icon={<Ionicons name="settings" />} onPress={() => {}} />
       </AppBarEndContent>
     </AppBar>
   )
@@ -619,20 +617,19 @@ export function WithActionsExample() {
         code: `import { AppBar, AppBarStartContent, AppBarContent, AppBarEndContent } from '@xaui/native-legacy/app-bar'
 import { IconButton } from '@xaui/native-legacy/button'
 import { Typography } from '@xaui/native-legacy/typography'
-import { ArrowBackIcon } from '@xaui/icons/arrow-back'
-import { SearchIcon } from '@xaui/icons/search'
+import Ionicons from '@expo/vector-icons/Ionicons'
 
 export function FloatingExample() {
   return (
     <AppBar variant="floating" elevation={2}>
       <AppBarStartContent>
-        <IconButton icon={<ArrowBackIcon />} onPress={() => {}} />
+        <IconButton icon={<Ionicons name="arrow-back" />} onPress={() => {}} />
       </AppBarStartContent>
       <AppBarContent>
         <Typography variant="titleMedium">Search</Typography>
       </AppBarContent>
       <AppBarEndContent>
-        <IconButton icon={<SearchIcon />} onPress={() => {}} />
+        <IconButton icon={<Ionicons name="search" />} onPress={() => {}} />
       </AppBarEndContent>
     </AppBar>
   )
@@ -644,7 +641,7 @@ export function FloatingExample() {
         code: `import { AppBar, AppBarStartContent, AppBarContent } from '@xaui/native-legacy/app-bar'
 import { IconButton } from '@xaui/native-legacy/button'
 import { Typography } from '@xaui/native-legacy/typography'
-import { ArrowBackIcon } from '@xaui/icons/arrow-back'
+import Ionicons from '@expo/vector-icons/Ionicons'
 import { Column } from '@xaui/native-legacy/view'
 
 export function ThemeColorsExample() {
@@ -655,7 +652,7 @@ export function ThemeColorsExample() {
       {colors.map(color => (
         <AppBar key={color} themeColor={color}>
           <AppBarStartContent>
-            <IconButton icon={<ArrowBackIcon />} onPress={() => {}} />
+            <IconButton icon={<Ionicons name="arrow-back" />} onPress={() => {}} />
           </AppBarStartContent>
           <AppBarContent>
             <Typography variant="titleMedium" style={{ textTransform: 'capitalize' }}>
@@ -1602,12 +1599,12 @@ export function AvatarGroupRenderCountExample() {
         description: 'Attach a numeric badge to any element.',
         code: `import { Badge } from '@xaui/native-legacy/badge'
 import { IconButton } from '@xaui/native-legacy/button'
-import { NotificationsIcon } from '@xaui/icons/notifications'
+import Ionicons from '@expo/vector-icons/Ionicons'
 
 export function BasicExample() {
   return (
     <Badge content={3}>
-      <IconButton icon={<NotificationsIcon />} onPress={() => {}} />
+      <IconButton icon={<Ionicons name="notifications" />} onPress={() => {}} />
     </Badge>
   )
 }`,
@@ -1640,23 +1637,23 @@ export function DotExample() {
         description: 'Four visual styles available for badges.',
         code: `import { Badge } from '@xaui/native-legacy/badge'
 import { IconButton } from '@xaui/native-legacy/button'
-import { BellIcon } from '@xaui/icons/bell'
+import Ionicons from '@expo/vector-icons/Ionicons'
 import { Row } from '@xaui/native-legacy/view'
 
 export function VariantsExample() {
   return (
     <Row gap={24}>
       <Badge content={4} variant="solid" themeColor="primary">
-        <IconButton icon={<BellIcon />} onPress={() => {}} />
+        <IconButton icon={<Ionicons name="notifications" />} onPress={() => {}} />
       </Badge>
       <Badge content={4} variant="flat" themeColor="primary">
-        <IconButton icon={<BellIcon />} onPress={() => {}} />
+        <IconButton icon={<Ionicons name="notifications" />} onPress={() => {}} />
       </Badge>
       <Badge content={4} variant="faded" themeColor="primary">
-        <IconButton icon={<BellIcon />} onPress={() => {}} />
+        <IconButton icon={<Ionicons name="notifications" />} onPress={() => {}} />
       </Badge>
       <Badge content={4} variant="shadow" themeColor="primary">
-        <IconButton icon={<BellIcon />} onPress={() => {}} />
+        <IconButton icon={<Ionicons name="notifications" />} onPress={() => {}} />
       </Badge>
     </Row>
   )
@@ -1694,7 +1691,7 @@ export function PlacementsExample() {
         code: `import { useState } from 'react'
 import { Badge } from '@xaui/native-legacy/badge'
 import { Button, IconButton } from '@xaui/native-legacy/button'
-import { NotificationsIcon } from '@xaui/icons/notifications'
+import Ionicons from '@expo/vector-icons/Ionicons'
 import { Row } from '@xaui/native-legacy/view'
 
 export function VisibilityExample() {
@@ -1703,7 +1700,7 @@ export function VisibilityExample() {
   return (
     <Row gap={16} alignItems="center">
       <Badge content={5} isInvisible={!hasNotif}>
-        <IconButton icon={<NotificationsIcon />} onPress={() => {}} />
+        <IconButton icon={<Ionicons name="notifications" />} onPress={() => {}} />
       </Badge>
       <Button onPress={() => setHasNotif(v => !v)}>
         {hasNotif ? 'Clear' : 'Notify'}
@@ -2069,18 +2066,16 @@ export function ThemeColorsExample() {
         description: 'Stacked variant with icons and labels.',
         code: `import { useState } from 'react'
 import { BottomTabBar, BottomTabBarItem } from '@xaui/native-legacy/bottom-tab-bar'
-import { HomeIcon } from '@xaui/icons/home'
-import { SearchIcon } from '@xaui/icons/search'
-import { PersonIcon } from '@xaui/icons/person'
+import Ionicons from '@expo/vector-icons/Ionicons'
 
 export function BasicExample() {
   const [selected, setSelected] = useState('home')
 
   return (
     <BottomTabBar selectedKey={selected} onSelectionChange={setSelected}>
-      <BottomTabBarItem itemKey="home" label="Home" icon={<HomeIcon />} />
-      <BottomTabBarItem itemKey="search" label="Search" icon={<SearchIcon />} />
-      <BottomTabBarItem itemKey="profile" label="Profile" icon={<PersonIcon />} />
+      <BottomTabBarItem itemKey="home" label="Home" icon={<Ionicons name="home-outline" />} />
+      <BottomTabBarItem itemKey="search" label="Search" icon={<Ionicons name="search" />} />
+      <BottomTabBarItem itemKey="profile" label="Profile" icon={<Ionicons name="person-outline" />} />
     </BottomTabBar>
   )
 }`,
@@ -2091,16 +2086,13 @@ export function BasicExample() {
         code: `import { useState } from 'react'
 import { BottomTabBar, BottomTabBarItem } from '@xaui/native-legacy/bottom-tab-bar'
 import { Column } from '@xaui/native-legacy/view'
-import { HomeIcon } from '@xaui/icons/home'
-import { SearchIcon } from '@xaui/icons/search'
-import { PersonIcon } from '@xaui/icons/person'
-import { BookmarkIcon } from '@xaui/icons/bookmark'
+import Ionicons from '@expo/vector-icons/Ionicons'
 
 const items = [
-  { key: 'home', label: 'Home', icon: <HomeIcon /> },
-  { key: 'search', label: 'Search', icon: <SearchIcon /> },
-  { key: 'saved', label: 'Saved', icon: <BookmarkIcon /> },
-  { key: 'profile', label: 'Profile', icon: <PersonIcon /> },
+  { key: 'home', label: 'Home', icon: <Ionicons name="home-outline" /> },
+  { key: 'search', label: 'Search', icon: <Ionicons name="search" /> },
+  { key: 'saved', label: 'Saved', icon: <Ionicons name="bookmark" /> },
+  { key: 'profile', label: 'Profile', icon: <Ionicons name="person-outline" /> },
 ]
 
 export function VariantsExample() {
@@ -2135,9 +2127,7 @@ export function VariantsExample() {
         code: `import { useState } from 'react'
 import { BottomTabBar, BottomTabBarItem } from '@xaui/native-legacy/bottom-tab-bar'
 import { Column } from '@xaui/native-legacy/view'
-import { HomeIcon } from '@xaui/icons/home'
-import { SearchIcon } from '@xaui/icons/search'
-import { PersonIcon } from '@xaui/icons/person'
+import Ionicons from '@expo/vector-icons/Ionicons'
 
 export function SizesExample() {
   const [selected, setSelected] = useState('home')
@@ -2151,9 +2141,9 @@ export function SizesExample() {
           selectedKey={selected}
           onSelectionChange={setSelected}
         >
-          <BottomTabBarItem itemKey="home" label="Home" icon={<HomeIcon />} />
-          <BottomTabBarItem itemKey="search" label="Search" icon={<SearchIcon />} />
-          <BottomTabBarItem itemKey="profile" label="Profile" icon={<PersonIcon />} />
+          <BottomTabBarItem itemKey="home" label="Home" icon={<Ionicons name="home-outline" />} />
+          <BottomTabBarItem itemKey="search" label="Search" icon={<Ionicons name="search" />} />
+          <BottomTabBarItem itemKey="profile" label="Profile" icon={<Ionicons name="person-outline" />} />
         </BottomTabBar>
       ))}
     </Column>
@@ -2166,9 +2156,7 @@ export function SizesExample() {
         code: `import { useState } from 'react'
 import { BottomTabBar, BottomTabBarItem } from '@xaui/native-legacy/bottom-tab-bar'
 import { Column } from '@xaui/native-legacy/view'
-import { HomeIcon } from '@xaui/icons/home'
-import { SearchIcon } from '@xaui/icons/search'
-import { PersonIcon } from '@xaui/icons/person'
+import Ionicons from '@expo/vector-icons/Ionicons'
 
 export function ThemeColorsExample() {
   const [selected, setSelected] = useState('home')
@@ -2182,9 +2170,9 @@ export function ThemeColorsExample() {
           selectedKey={selected}
           onSelectionChange={setSelected}
         >
-          <BottomTabBarItem itemKey="home" label="Home" icon={<HomeIcon />} />
-          <BottomTabBarItem itemKey="search" label="Search" icon={<SearchIcon />} />
-          <BottomTabBarItem itemKey="profile" label="Profile" icon={<PersonIcon />} />
+          <BottomTabBarItem itemKey="home" label="Home" icon={<Ionicons name="home-outline" />} />
+          <BottomTabBarItem itemKey="search" label="Search" icon={<Ionicons name="search" />} />
+          <BottomTabBarItem itemKey="profile" label="Profile" icon={<Ionicons name="person-outline" />} />
         </BottomTabBar>
       ))}
     </Column>
@@ -2197,23 +2185,21 @@ export function ThemeColorsExample() {
         code: `import { useState } from 'react'
 import { BottomTabBar, BottomTabBarItem } from '@xaui/native-legacy/bottom-tab-bar'
 import { Badge } from '@xaui/native-legacy/badge'
-import { HomeIcon } from '@xaui/icons/home'
-import { NotificationsIcon } from '@xaui/icons/notifications'
-import { PersonIcon } from '@xaui/icons/person'
+import Ionicons from '@expo/vector-icons/Ionicons'
 
 export function BadgeExample() {
   const [selected, setSelected] = useState('home')
 
   return (
     <BottomTabBar selectedKey={selected} onSelectionChange={setSelected}>
-      <BottomTabBarItem itemKey="home" label="Home" icon={<HomeIcon />} />
+      <BottomTabBarItem itemKey="home" label="Home" icon={<Ionicons name="home-outline" />} />
       <BottomTabBarItem
         itemKey="notifications"
         label="Alerts"
-        icon={<NotificationsIcon />}
+        icon={<Ionicons name="notifications" />}
         badge={<Badge content={5} size="sm" />}
       />
-      <BottomTabBarItem itemKey="profile" label="Profile" icon={<PersonIcon />} />
+      <BottomTabBarItem itemKey="profile" label="Profile" icon={<Ionicons name="person-outline" />} />
     </BottomTabBar>
   )
 }`,
@@ -2223,11 +2209,7 @@ export function BadgeExample() {
         description: 'Swap to a filled icon variant when a tab is selected.',
         code: `import { useState } from 'react'
 import { BottomTabBar, BottomTabBarItem } from '@xaui/native-legacy/bottom-tab-bar'
-import { HomeIcon } from '@xaui/icons/home'
-import { HomeFilledIcon } from '@xaui/icons/home-filled'
-import { SearchIcon } from '@xaui/icons/search'
-import { PersonIcon } from '@xaui/icons/person'
-import { PersonFilledIcon } from '@xaui/icons/person-filled'
+import Ionicons from '@expo/vector-icons/Ionicons'
 
 export function ActiveIconExample() {
   const [selected, setSelected] = useState('home')
@@ -2237,15 +2219,15 @@ export function ActiveIconExample() {
       <BottomTabBarItem
         itemKey="home"
         label="Home"
-        icon={<HomeIcon />}
-        activeIcon={<HomeFilledIcon />}
+        icon={<Ionicons name="home-outline" />}
+        activeIcon={<Ionicons name="home" />}
       />
-      <BottomTabBarItem itemKey="search" label="Search" icon={<SearchIcon />} />
+      <BottomTabBarItem itemKey="search" label="Search" icon={<Ionicons name="search" />} />
       <BottomTabBarItem
         itemKey="profile"
         label="Profile"
-        icon={<PersonIcon />}
-        activeIcon={<PersonFilledIcon />}
+        icon={<Ionicons name="person-outline" />}
+        activeIcon={<Ionicons name="person" />}
       />
     </BottomTabBar>
   )
@@ -2257,9 +2239,7 @@ export function ActiveIconExample() {
           'Pass expo-router tab props directly to replace the default tab bar.',
         code: `import { Tabs } from 'expo-router'
 import { BottomTabBar } from '@xaui/native-legacy/bottom-tab-bar'
-import { HomeIcon } from '@xaui/icons/home'
-import { SearchIcon } from '@xaui/icons/search'
-import { PersonIcon } from '@xaui/icons/person'
+import Ionicons from '@expo/vector-icons/Ionicons'
 
 export default function TabLayout() {
   return (
@@ -2270,21 +2250,21 @@ export default function TabLayout() {
         name="index"
         options={{
           title: 'Home',
-          tabBarIcon: ({ color, size }) => <HomeIcon color={color} size={size} />,
+          tabBarIcon: ({ color, size }) => <Ionicons name="home-outline" color={color} size={size} />,
         }}
       />
       <Tabs.Screen
         name="search"
         options={{
           title: 'Search',
-          tabBarIcon: ({ color, size }) => <SearchIcon color={color} size={size} />,
+          tabBarIcon: ({ color, size }) => <Ionicons name="search" color={color} size={size} />,
         }}
       />
       <Tabs.Screen
         name="profile"
         options={{
           title: 'Profile',
-          tabBarIcon: ({ color, size }) => <PersonIcon color={color} size={size} />,
+          tabBarIcon: ({ color, size }) => <Ionicons name="person-outline" color={color} size={size} />,
         }}
       />
     </Tabs>
@@ -5104,23 +5084,19 @@ export function DrawerCustomSizeExample() {
         title: 'Basic Menu',
         description: 'Uncontrolled menu with three actions.',
         code: `import { FabMenu, FabMenuItem } from '@xaui/native-legacy/fab-menu'
-import { AddIcon } from '@xaui/icons/add'
-import { CloseIcon } from '@xaui/icons/close'
-import { CameraIcon } from '@xaui/icons/camera'
-import { ImageIcon } from '@xaui/icons/image'
-import { ShareIcon } from '@xaui/icons/share'
+import Ionicons from '@expo/vector-icons/Ionicons'
 
 export function BasicFabMenuExample() {
   return (
     <FabMenu
-      icon={<AddIcon size={24} />}
-      expandedIcon={<CloseIcon size={24} />}
+      icon={<Ionicons name="add" size={24} />}
+      expandedIcon={<Ionicons name="close" size={24} />}
       themeColor="primary"
       showOverlay
     >
-      <FabMenuItem icon={<CameraIcon size={20} />} label="Take photo" />
-      <FabMenuItem icon={<ImageIcon size={20} />} label="Gallery" />
-      <FabMenuItem icon={<ShareIcon size={20} />} label="Share" />
+      <FabMenuItem icon={<Ionicons name="camera" size={20} />} label="Take photo" />
+      <FabMenuItem icon={<Ionicons name="image" size={20} />} label="Gallery" />
+      <FabMenuItem icon={<Ionicons name="share" size={20} />} label="Share" />
     </FabMenu>
   )
 }`,
@@ -5130,26 +5106,23 @@ export function BasicFabMenuExample() {
         description: 'Control open/close state with isExpanded and onToggle.',
         code: `import { useState } from 'react'
 import { FabMenu, FabMenuItem } from '@xaui/native-legacy/fab-menu'
-import { AddIcon } from '@xaui/icons/add'
-import { CloseIcon } from '@xaui/icons/close'
-import { PencilIcon } from '@xaui/icons/pencil'
-import { StarIcon } from '@xaui/icons/star'
+import Ionicons from '@expo/vector-icons/Ionicons'
 
 export function ControlledFabMenuExample() {
   const [expanded, setExpanded] = useState(false)
 
   return (
     <FabMenu
-      icon={<AddIcon size={24} />}
-      expandedIcon={<CloseIcon size={24} />}
+      icon={<Ionicons name="add" size={24} />}
+      expandedIcon={<Ionicons name="close" size={24} />}
       isExpanded={expanded}
       onToggle={setExpanded}
       label="Actions"
       themeColor="secondary"
       radius="full"
     >
-      <FabMenuItem icon={<PencilIcon size={20} />} label="Edit" />
-      <FabMenuItem icon={<StarIcon size={20} />} label="Favorite" />
+      <FabMenuItem icon={<Ionicons name="pencil" size={20} />} label="Edit" />
+      <FabMenuItem icon={<Ionicons name="star" size={20} />} label="Favorite" />
     </FabMenu>
   )
 }`,
@@ -5158,14 +5131,12 @@ export function ControlledFabMenuExample() {
         title: 'Custom Appearance',
         description: 'Tune overlay, list spacing, and toggle container styles.',
         code: `import { FabMenu, FabMenuItem } from '@xaui/native-legacy/fab-menu'
-import { AddIcon } from '@xaui/icons/add'
-import { CameraIcon } from '@xaui/icons/camera'
-import { ImageIcon } from '@xaui/icons/image'
+import Ionicons from '@expo/vector-icons/Ionicons'
 
 export function CustomAppearanceFabMenuExample() {
   return (
     <FabMenu
-      icon={<AddIcon size={24} />}
+      icon={<Ionicons name="add" size={24} />}
       themeColor="tertiary"
       customAppearance={{
         overlay: { backgroundColor: 'rgba(15, 23, 42, 0.45)' },
@@ -5174,8 +5145,8 @@ export function CustomAppearanceFabMenuExample() {
         fab: { borderWidth: 1, borderColor: '#00000022' },
       }}
     >
-      <FabMenuItem icon={<CameraIcon size={20} />} label="Camera" />
-      <FabMenuItem icon={<ImageIcon size={20} />} label="Library" isDisabled />
+      <FabMenuItem icon={<Ionicons name="camera" size={20} />} label="Camera" />
+      <FabMenuItem icon={<Ionicons name="image" size={20} />} label="Library" isDisabled />
     </FabMenu>
   )
 }`,
@@ -10076,16 +10047,14 @@ export function TimePickerTriggerExample() {
         title: 'Floating Bottom',
         description: 'Rounded floating toolbar positioned at the bottom.',
         code: `import { Toolbar, ToolbarAction } from '@xaui/native-legacy/toolbar'
-import { ShareIcon } from '@xaui/icons/share'
-import { PencilIcon } from '@xaui/icons/pencil'
-import { TrashIcon } from '@xaui/icons/trash'
+import Ionicons from '@expo/vector-icons/Ionicons'
 
 export function FloatingBottomToolbarExample() {
   return (
     <Toolbar variant="floating" position="bottom" themeColor="primary">
-      <ToolbarAction icon={({ color, size }) => <ShareIcon size={size} color={color} />} />
-      <ToolbarAction icon={({ color, size }) => <PencilIcon size={size} color={color} />} />
-      <ToolbarAction icon={({ color, size }) => <TrashIcon size={size} color={color} />} />
+      <ToolbarAction icon={({ color, size }) => <Ionicons name="share" size={size} color={color} />} />
+      <ToolbarAction icon={({ color, size }) => <Ionicons name="pencil" size={size} color={color} />} />
+      <ToolbarAction icon={({ color, size }) => <Ionicons name="trash" size={size} color={color} />} />
     </Toolbar>
   )
 }`,
@@ -10094,16 +10063,14 @@ export function FloatingBottomToolbarExample() {
         title: 'Docked Top with Divider',
         description: 'Fixed top toolbar with optional divider.',
         code: `import { Toolbar, ToolbarAction } from '@xaui/native-legacy/toolbar'
-import { ArrowBackIcon } from '@xaui/icons/arrow-back'
-import { SearchIcon } from '@xaui/icons/search'
-import { EllipsisVerticalIcon } from '@xaui/icons/ellipsis-vertical'
+import Ionicons from '@expo/vector-icons/Ionicons'
 
 export function DockedTopToolbarExample() {
   return (
     <Toolbar variant="docked" position="top" showDivider themeColor="secondary">
-      <ToolbarAction icon={({ color, size }) => <ArrowBackIcon size={size} color={color} />} />
-      <ToolbarAction icon={({ color, size }) => <SearchIcon size={size} color={color} />} />
-      <ToolbarAction icon={({ color, size }) => <EllipsisVerticalIcon size={size} color={color} />} />
+      <ToolbarAction icon={({ color, size }) => <Ionicons name="arrow-back" size={size} color={color} />} />
+      <ToolbarAction icon={({ color, size }) => <Ionicons name="search" size={size} color={color} />} />
+      <ToolbarAction icon={({ color, size }) => <Ionicons name="ellipsis-vertical" size={size} color={color} />} />
     </Toolbar>
   )
 }`,
@@ -10112,16 +10079,14 @@ export function DockedTopToolbarExample() {
         title: 'Vertical Toolbar',
         description: 'Side-mounted vertical toolbar, centered on screen.',
         code: `import { Toolbar, ToolbarAction } from '@xaui/native-legacy/toolbar'
-import { AddIcon } from '@xaui/icons/add'
-import { SearchIcon } from '@xaui/icons/search'
-import { StarIcon } from '@xaui/icons/star'
+import Ionicons from '@expo/vector-icons/Ionicons'
 
 export function VerticalToolbarExample() {
   return (
     <Toolbar variant="vertical" position="right" themeColor="success">
-      <ToolbarAction icon={({ color, size }) => <AddIcon size={size} color={color} />} />
-      <ToolbarAction icon={({ color, size }) => <SearchIcon size={size} color={color} />} />
-      <ToolbarAction icon={({ color, size }) => <StarIcon size={size} color={color} />} />
+      <ToolbarAction icon={({ color, size }) => <Ionicons name="add" size={size} color={color} />} />
+      <ToolbarAction icon={({ color, size }) => <Ionicons name="search" size={size} color={color} />} />
+      <ToolbarAction icon={({ color, size }) => <Ionicons name="star" size={size} color={color} />} />
     </Toolbar>
   )
 }`,
@@ -10132,9 +10097,7 @@ export function VerticalToolbarExample() {
         code: `import { useState } from 'react'
 import { Button } from '@xaui/native-legacy/button'
 import { Toolbar, ToolbarAction } from '@xaui/native-legacy/toolbar'
-import { ShareIcon } from '@xaui/icons/share'
-import { DownloadIcon } from '@xaui/icons/download'
-import { TrashIcon } from '@xaui/icons/trash'
+import Ionicons from '@expo/vector-icons/Ionicons'
 import { Column } from '@xaui/native-legacy/view'
 
 export function ToolbarStateExample() {
@@ -10146,9 +10109,9 @@ export function ToolbarStateExample() {
         {visible ? 'Hide' : 'Show'} Toolbar
       </Button>
       <Toolbar isVisible={visible} variant="floating" position="bottom">
-        <ToolbarAction icon={({ color, size }) => <ShareIcon size={size} color={color} />} />
-        <ToolbarAction icon={({ color, size }) => <DownloadIcon size={size} color={color} />} isDisabled />
-        <ToolbarAction icon={({ color, size }) => <TrashIcon size={size} color={color} />} />
+        <ToolbarAction icon={({ color, size }) => <Ionicons name="share" size={size} color={color} />} />
+        <ToolbarAction icon={({ color, size }) => <Ionicons name="download" size={size} color={color} />} isDisabled />
+        <ToolbarAction icon={({ color, size }) => <Ionicons name="trash" size={size} color={color} />} />
       </Toolbar>
     </Column>
   )
@@ -10158,9 +10121,7 @@ export function ToolbarStateExample() {
         title: 'Custom Appearance',
         description: 'Override container and action row styles.',
         code: `import { Toolbar, ToolbarAction } from '@xaui/native-legacy/toolbar'
-import { AddIcon } from '@xaui/icons/add'
-import { SearchIcon } from '@xaui/icons/search'
-import { StarIcon } from '@xaui/icons/star'
+import Ionicons from '@expo/vector-icons/Ionicons'
 
 export function ToolbarCustomAppearanceExample() {
   return (
@@ -10173,9 +10134,9 @@ export function ToolbarCustomAppearanceExample() {
       }}
       style={{ borderWidth: 1, borderColor: '#e2e8f0' }}
     >
-      <ToolbarAction icon={({ color, size }) => <AddIcon size={size} color={color} />} />
-      <ToolbarAction icon={({ color, size }) => <SearchIcon size={size} color={color} />} />
-      <ToolbarAction icon={({ color, size }) => <StarIcon size={size} color={color} />} />
+      <ToolbarAction icon={({ color, size }) => <Ionicons name="add" size={size} color={color} />} />
+      <ToolbarAction icon={({ color, size }) => <Ionicons name="search" size={size} color={color} />} />
+      <ToolbarAction icon={({ color, size }) => <Ionicons name="star" size={size} color={color} />} />
     </Toolbar>
   )
 }`,

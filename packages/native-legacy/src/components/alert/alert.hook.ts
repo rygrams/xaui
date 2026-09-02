@@ -1,6 +1,6 @@
 import { useMemo } from 'react'
 import type { TextStyle } from 'react-native'
-import { getSafeThemeColor, withOpacity } from '@xaui/core'
+import { getSafeThemeColor, withOpacity } from '../../core-shim'
 import { useXUITheme } from '../../core'
 import type { ThemeColor } from '../../types'
 import type { AlertVariant } from './alert.type'

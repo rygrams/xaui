@@ -1,5 +1,42 @@
 # @xaui/mobile
 
+## 0.2.11
+
+### Patch Changes
+
+- c29159f: Inline the twelve icons the components draw, and drop the `@xaui/icons` dependency.
+
+  `@xaui/icons` shipped 200+ icons in seven variants each so that this package could use one
+  variant of twelve of them. Those twelve now live in `src/icons/`, traced on the same
+  Ionicons 512 grid, so nothing shifts on screen. They are internal — an app picks its own
+  icon set.
+
+  `@xaui/native-legacy` now has **zero runtime dependencies**.
+
+## 0.2.10
+
+### Patch Changes
+
+- Updated dependencies [56957d2]
+  - @xaui/icons@0.0.12
+
+## 0.2.9
+
+### Patch Changes
+
+- f455c83: Read the theme from `@xaui/native` instead of `@xaui/core`.
+
+  `@xaui/core` is dissolved: its palette now lives in `@xaui/native/theme`, its declarative
+  types are copied into this package, and its MD3 colour object is gone. `core-shim.ts`
+  re-exports that surface under the old names and projects the v1 theme onto the MD3 shape
+  the 47 frozen components read — by role, so `createTheme({ colors: { light: { accent } } })`
+  re-skins both trees at once.
+
+  `@xaui/native` is now a **peer dependency**: there is exactly one `XAUIProvider` at runtime,
+  which is what makes a screen-by-screen migration possible. `XUIProvider` stays exported from
+  `@xaui/native-legacy/core` as a deprecated wrapper around it, and is no longer prop-compatible
+  with v0 — `theme` takes the set returned by `createTheme`.
+
 ## 0.2.8
 
 ### Patch Changes

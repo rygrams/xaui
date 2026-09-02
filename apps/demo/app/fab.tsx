@@ -1,15 +1,9 @@
+import Ionicons from '@expo/vector-icons/Ionicons'
 import { useXUIColors, useXUITheme } from '@xaui/native-legacy/core'
 import { StyleSheet, View, ScrollView, Text } from 'react-native'
 import { useState } from 'react'
 import { Fab } from '@xaui/native-legacy/fab'
 import { FabMenu, FabMenuItem } from '@xaui/native-legacy/fab-menu'
-import { AddIcon } from '@xaui/icons/add'
-import { PencilIcon } from '@xaui/icons/pencil'
-import { ShareIcon } from '@xaui/icons/share'
-import { CameraIcon } from '@xaui/icons/camera'
-import { CloseIcon } from '@xaui/icons/close'
-import { ImageIcon } from '@xaui/icons/image'
-import { StarIcon } from '@xaui/icons/star'
 
 export default function FabScreen() {
   const colors = useXUIColors()
@@ -27,22 +21,22 @@ export default function FabScreen() {
         </Text>
         <View style={[styles.row, { gap: theme.spacing.md }]}>
           <Fab
-            icon={<AddIcon size={24} color={colors.primary.onMain} />}
+            icon={<Ionicons name="add" size={24} color={colors.primary.onMain} />}
             variant="solid"
             themeColor="primary"
           />
           <Fab
-            icon={<AddIcon size={24} color={colors.primary.main} />}
+            icon={<Ionicons name="add" size={24} color={colors.primary.main} />}
             variant="flat"
             themeColor="primary"
           />
           <Fab
-            icon={<AddIcon size={24} color={colors.primary.main} />}
+            icon={<Ionicons name="add" size={24} color={colors.primary.main} />}
             variant="outlined"
             themeColor="primary"
           />
           <Fab
-            icon={<AddIcon size={24} color={colors.primary.main} />}
+            icon={<Ionicons name="add" size={24} color={colors.primary.main} />}
             variant="flat"
             elevation={2}
             themeColor="primary"
@@ -56,17 +50,17 @@ export default function FabScreen() {
         </Text>
         <View style={[styles.row, { gap: theme.spacing.md, alignItems: 'center' }]}>
           <Fab
-            icon={<AddIcon size={24} color={colors.secondary.onMain} />}
+            icon={<Ionicons name="add" size={24} color={colors.secondary.onMain} />}
             size="sm"
             themeColor="secondary"
           />
           <Fab
-            icon={<AddIcon size={24} color={colors.secondary.onMain} />}
+            icon={<Ionicons name="add" size={24} color={colors.secondary.onMain} />}
             size="md"
             themeColor="secondary"
           />
           <Fab
-            icon={<AddIcon size={36} color={colors.secondary.onMain} />}
+            icon={<Ionicons name="add" size={36} color={colors.secondary.onMain} />}
             size="lg"
             themeColor="secondary"
           />
@@ -79,19 +73,19 @@ export default function FabScreen() {
         </Text>
         <View style={[styles.row, { gap: theme.spacing.md }]}>
           <Fab
-            icon={<AddIcon size={24} color={colors.primary.onMain} />}
+            icon={<Ionicons name="add" size={24} color={colors.primary.onMain} />}
             themeColor="primary"
           />
           <Fab
-            icon={<AddIcon size={24} color={colors.secondary.onMain} />}
+            icon={<Ionicons name="add" size={24} color={colors.secondary.onMain} />}
             themeColor="secondary"
           />
           <Fab
-            icon={<AddIcon size={24} color={colors.success.onMain} />}
+            icon={<Ionicons name="add" size={24} color={colors.success.onMain} />}
             themeColor="success"
           />
           <Fab
-            icon={<AddIcon size={24} color={colors.danger.onMain} />}
+            icon={<Ionicons name="add" size={24} color={colors.danger.onMain} />}
             themeColor="danger"
           />
         </View>
@@ -103,18 +97,18 @@ export default function FabScreen() {
         </Text>
         <View style={{ gap: theme.spacing.md }}>
           <Fab
-            icon={<PencilIcon size={24} color={colors.primary.onMain} />}
+            icon={<Ionicons name="pencil" size={24} color={colors.primary.onMain} />}
             label="Compose"
             themeColor="primary"
           />
           <Fab
-            icon={<CameraIcon size={24} color={colors.tertiary.main} />}
+            icon={<Ionicons name="camera" size={24} color={colors.tertiary.main} />}
             label="Take Photo"
             themeColor="tertiary"
             variant="flat"
           />
           <Fab
-            icon={<ShareIcon size={24} color={colors.secondary.main} />}
+            icon={<Ionicons name="share" size={24} color={colors.secondary.main} />}
             label="Share"
             themeColor="secondary"
             variant="outlined"
@@ -128,12 +122,12 @@ export default function FabScreen() {
         </Text>
         <View style={[styles.row, { gap: theme.spacing.md }]}>
           <Fab
-            icon={<AddIcon size={24} color={colors.primary.onMain} />}
+            icon={<Ionicons name="add" size={24} color={colors.primary.onMain} />}
             isDisabled
             themeColor="primary"
           />
           <Fab
-            icon={<AddIcon size={24} color={colors.primary.onMain} />}
+            icon={<Ionicons name="add" size={24} color={colors.primary.onMain} />}
             isLoading
             themeColor="primary"
           />
@@ -146,24 +140,26 @@ export default function FabScreen() {
         </Text>
         <View style={styles.fabMenuContainer}>
           <FabMenu
-            icon={<AddIcon size={24} color={colors.primary.onMain} />}
-            expandedIcon={<CloseIcon size={24} color={colors.primary.onMain} />}
+            icon={<Ionicons name="add" size={24} color={colors.primary.onMain} />}
+            expandedIcon={
+              <Ionicons name="close" size={24} color={colors.primary.onMain} />
+            }
             themeColor="primary"
             variant="solid"
             elevation={2}
           >
             <FabMenuItem
-              icon={<CameraIcon size={20} />}
+              icon={<Ionicons name="camera" size={20} />}
               label="Take Photo"
               themeColor="primary"
             />
             <FabMenuItem
-              icon={<ImageIcon size={20} />}
+              icon={<Ionicons name="image" size={20} />}
               label="Gallery"
               themeColor="secondary"
             />
             <FabMenuItem
-              icon={<ShareIcon size={20} />}
+              icon={<Ionicons name="share" size={20} />}
               label="Share"
               themeColor="default"
             />
@@ -177,8 +173,12 @@ export default function FabScreen() {
         </Text>
         <View style={styles.fabMenuContainer}>
           <FabMenu
-            icon={<PencilIcon size={24} color={colors.secondary.onMain} />}
-            expandedIcon={<CloseIcon size={24} color={colors.secondary.onMain} />}
+            icon={
+              <Ionicons name="pencil" size={24} color={colors.secondary.onMain} />
+            }
+            expandedIcon={
+              <Ionicons name="close" size={24} color={colors.secondary.onMain} />
+            }
             themeColor="secondary"
             variant="solid"
             label="Expand Menu"
@@ -187,17 +187,17 @@ export default function FabScreen() {
             onToggle={setControlledExpanded}
           >
             <FabMenuItem
-              icon={<StarIcon size={20} />}
+              icon={<Ionicons name="star" size={20} />}
               label="Favorite"
               themeColor="warning"
             />
             <FabMenuItem
-              icon={<PencilIcon size={20} />}
+              icon={<Ionicons name="pencil" size={20} />}
               label="Edit"
               themeColor="secondary"
             />
             <FabMenuItem
-              icon={<ShareIcon size={20} />}
+              icon={<Ionicons name="share" size={20} />}
               label="Share"
               themeColor="default"
               isDisabled

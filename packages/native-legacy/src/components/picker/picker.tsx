@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Pressable, ScrollView, Text, View } from 'react-native'
-import { getSafeThemeColor, withOpacity } from '@xaui/core'
+import { getSafeThemeColor, withOpacity } from '../../core-shim'
 import { useXUITheme } from '../../core'
 import { BottomSheet } from '../bottom-sheet/bottom-sheet'
 import { InputTrigger } from '../input-trigger/input-trigger'

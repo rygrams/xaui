@@ -21,7 +21,7 @@ import {
 } from './alert.hook'
 import type { AlertProps } from './alert.type'
 import { DangerIcon, InfoIcon, SuccessIcon, WarningIcon } from './alert-icons'
-import { CloseIcon } from '@xaui/icons'
+import { CloseIcon } from '../../icons'
 import type { ThemeColor } from '../../types'
 
 const iconMap: Record<

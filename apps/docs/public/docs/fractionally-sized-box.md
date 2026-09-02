@@ -6,18 +6,8 @@ Flutter-inspired box that sizes its child as a fraction of the parent's dimensio
 pnpm add @xaui/native-legacy
 ```
 
-**React Native**
-
 ```ts
 import { FractionallySizedBox } from '@xaui/native-legacy/view'
-```
-
-**Web / Hybrid**
-
-```ts
-import { FractionallySizedBox } from '@xaui/hybrid-legacy/fractionally-sized-box'
-// or from the aggregated view export
-import { FractionallySizedBox } from '@xaui/hybrid-legacy/view'
 ```
 
 ## Props

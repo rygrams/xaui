@@ -1,6 +1,6 @@
 # XAUI Library
 
-XAUI is a Flutter-inspired component system targeting React Native and hybrid web/native experiences within a Turborepo monorepo. The thematic core (`@xaui/core`) centralises tokens, dynamic theming, and motion primitives. Platform-specific packages build on that foundation to deliver native-ready components.
+XAUI is a Flutter-inspired component system targeting React Native and hybrid web/native experiences within a Turborepo monorepo. `@xaui/native` holds the tokens, the theme and the single provider; `@xaui/native-legacy` is the frozen v0 tree, kept only until the v1 API reaches parity.
 
 **[Documentation → ui.xtartapp.com](https://ui.xtartapp.com)**
 
@@ -14,9 +14,8 @@ XAUI is a Flutter-inspired component system targeting React Native and hybrid we
 
 ### Packages
 
-- `@xaui/core` — shared theme tokens (colors, spacing, typography, shadows) plus hooks like `useXUITheme` and `useColorMode`. It is the source of truth for all downstream packages.
-- `@xaui/native` — React Native components (animated buttons, circular/linear indicators, hooks, `XUIProvider`) that leverage `@xaui/core` while exposing mobile-first helpers (variants, spinner, lightweight animation states powered by Reanimated).
-- `@xaui/icons` — 520+ icon components with individual exports for optimal tree-shaking. Supports multiple variants (baseline, filled, duotone, outlined).
+- `@xaui/native` — the v1 API: design tokens, the OKLab colour engine, `createTheme` and `XAUIProvider`, with the component tree being rebuilt on top of them.
+- `@xaui/native-legacy` — the 47 frozen v0 components. It carries no theme of its own and reads `@xaui/native`'s provider.
 
 ### Applications
 
@@ -54,9 +53,7 @@ Release automation relies on `@changesets/cli`:
 ## Documentation
 
 - **Component docs** — [ui.xtartapp.com](https://ui.xtartapp.com)
-- `@xaui/core` — [packages/core/README.md](./packages/core/README.md) — Theme system, tokens, and shared APIs.
 - `@xaui/native` — [packages/native/README.md](./packages/native/README.md) — React Native components, hooks, and providers.
-- `@xaui/icons` — [packages/icons/README.md](./packages/icons/README.md) — Icon components and usage patterns.
 
 ## License
 

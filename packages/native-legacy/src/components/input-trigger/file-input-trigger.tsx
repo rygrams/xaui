@@ -1,5 +1,5 @@
 import React from 'react'
-import { getSafeThemeColor, withOpacity } from '@xaui/core'
+import { getSafeThemeColor, withOpacity } from '../../core-shim'
 import { Pressable, Text, View } from 'react-native'
 import { useXUITheme } from '../../core'
 import type { FileInputTriggerProps } from './input-trigger.type'

@@ -5,7 +5,7 @@ import {
   useAlertIconWrapperStyles,
   useAlertTextStyles,
 } from '../../../components/alert/alert.hook'
-import { withOpacity } from '@xaui/core'
+import { withOpacity } from '../../../core-shim'
 
 vi.mock('../../../core', () => ({
   useXUITheme: () => ({

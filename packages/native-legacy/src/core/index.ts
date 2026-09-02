@@ -1,6 +1,12 @@
-export { XUIProvider } from './theme-context'
-export { useColorMode, useXUITheme, useXUIColors } from './theme-hooks'
-export { defaultDarkTheme, defaultTheme } from '@xaui/core/theme'
-export type { PartialXUITheme as XUITheme } from '@xaui/core/theme'
-export { colors as palette } from '@xaui/core/palette'
+export { XUIProvider } from './xui-provider'
+export type { XUIProviderProps } from './xui-provider'
+export {
+  useBorderRadiusStyles,
+  useColorMode,
+  useXUIColors,
+  useXUIPalette,
+  useXUITheme,
+} from './theme-hooks'
+export { colors as palette, defaultDarkTheme, defaultTheme } from '../core-shim'
+export type { PartialXUITheme as XUITheme } from '../core-shim'
 export { Portal, PortalHost } from './portal'

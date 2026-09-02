@@ -12,7 +12,7 @@ import type {
   TransformConfig,
   Border,
   BorderRadius,
-} from '@xaui/core'
+} from '../../../types'
 
 export type ContainerProps = {
   /** Content to render inside the container. */

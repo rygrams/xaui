@@ -6,16 +6,8 @@ Displays contextual feedback messages for success, info, warning, or error state
 pnpm add @xaui/native-legacy
 ```
 
-**React Native**
-
 ```ts
 import { Alert } from '@xaui/native-legacy/alert'
-```
-
-**Web / Hybrid**
-
-```ts
-import { Alert } from '@xaui/hybrid-legacy/alert'
 ```
 
 ## Props

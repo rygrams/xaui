@@ -1,5 +1,35 @@
 # demo
 
+## 1.0.71
+
+### Patch Changes
+
+- Updated dependencies [1f09f09]
+  - @xaui/native@0.9.0
+  - @xaui/native-legacy@0.2.11
+
+## 1.0.70
+
+### Patch Changes
+
+- Updated dependencies [c29159f]
+  - @xaui/native-legacy@0.2.11
+
+## 1.0.69
+
+### Patch Changes
+
+- Updated dependencies [56957d2]
+  - @xaui/icons@0.0.12
+  - @xaui/native-legacy@0.2.10
+
+## 1.0.68
+
+### Patch Changes
+
+- Updated dependencies [f455c83]
+  - @xaui/native-legacy@0.2.9
+
 ## 1.0.67
 
 ### Patch Changes

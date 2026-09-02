@@ -5,7 +5,7 @@ import {
   useSliderSizeStyles,
 } from '../../../components/slider/slider.hook'
 
-vi.mock('@xaui/core', () => ({
+vi.mock('../../../core-shim', () => ({
   withPaletteNumber: (color: string) => color,
   getSafeThemeColor: (color: string) => color,
 }))

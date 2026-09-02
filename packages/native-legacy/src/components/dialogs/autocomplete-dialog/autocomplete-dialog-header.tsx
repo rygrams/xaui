@@ -9,9 +9,9 @@ import {
   TextStyle,
 } from 'react-native'
 import { useXUITheme } from '../../../core'
-import { ArrowBackIcon, CloseIcon } from '@xaui/icons'
+import { ArrowBackIcon, CloseIcon } from '../../../icons'
 import { styles } from './autocomplete-dialog.style'
-import { withOpacity } from '@xaui/core'
+import { withOpacity } from '../../../core-shim'
 
 type AutocompleteDialogHeaderProps = {
   title?: string

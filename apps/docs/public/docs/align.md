@@ -6,18 +6,8 @@ Aligns a child within available space using a named position or fractional `{ x,
 pnpm add @xaui/native-legacy
 ```
 
-**React Native**
-
 ```ts
 import { Align } from '@xaui/native-legacy/view'
-```
-
-**Web / Hybrid**
-
-```ts
-import { Align } from '@xaui/hybrid-legacy/align'
-// or from the aggregated view export
-import { Align } from '@xaui/hybrid-legacy/view'
 ```
 
 ## Props

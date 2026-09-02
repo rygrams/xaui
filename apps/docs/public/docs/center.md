@@ -6,18 +6,8 @@ Centers a child horizontally and vertically within available space. `Center` is 
 pnpm add @xaui/native-legacy
 ```
 
-**React Native**
-
 ```ts
 import { Center } from '@xaui/native-legacy/view'
-```
-
-**Web / Hybrid**
-
-```ts
-import { Center } from '@xaui/hybrid-legacy/center'
-// or from the aggregated view export
-import { Center } from '@xaui/hybrid-legacy/view'
 ```
 
 ## Props

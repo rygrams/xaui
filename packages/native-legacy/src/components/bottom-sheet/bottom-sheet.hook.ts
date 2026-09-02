@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { Animated, Dimensions, PanResponder } from 'react-native'
 import { useXUITheme } from '../../core'
-import { getSafeThemeColor } from '@xaui/core'
+import { getSafeThemeColor } from '../../core-shim'
 import {
   runCloseAnimation,
   runOpenAnimation,

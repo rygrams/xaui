@@ -7,9 +7,8 @@ Merci de contribuer a XAUI. Ce document formalise les specs, l'architecture et l
 - Stack principale: TypeScript, React Native, Reanimated, Next.js, Vitest.
 - Mode repo: monorepo Turborepo avec workspaces `pnpm`.
 - Packages coeur:
-- `@xaui/core`: tokens et theming (`useXUITheme`, `useColorMode`).
+- `@xaui/native`: tokens, moteur de couleurs, `createTheme` et `XAUIProvider`.
 - `@xaui/native`: composants React Native (API inspiree Flutter).
-- `@xaui/icons`: bibliotheque d'icones tree-shakable.
 - Applications:
 - `apps/demo`: bac a sable Expo.
 - `apps/docs`: site de documentation Next.js.
