@@ -1,5 +1,7 @@
 export { createTheme, defaultTheme } from './create-theme'
 export { deriveColors } from './derive-colors'
+export { palette, primitives } from './palette'
+export type { PaletteFamily, PaletteShade } from './palette'
 export { buildRadius, buildShadows } from './scales'
 export { sourceKeys, tokens } from './tokens.gen'
 export { ThemeContext } from './theme-context'
