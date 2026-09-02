@@ -328,6 +328,22 @@ The project uses GitHub Actions with the following workflow:
    - Uses Changesets action to create release PRs or publish to npm
    - Only builds `@xaui/*` scoped packages before publishing
 
+## Branching
+
+**Always create a branch before starting an implementation** — before the first line of
+code, not once the work is underway. Never commit to `main`.
+
+One branch per coherent unit of work, named by intent:
+
+```bash
+git checkout -b feat/button-v1        # new component or feature
+git checkout -b fix/style-cache-key   # bug fix
+git checkout -b refactor/alert        # rework of existing code
+git checkout -b chore/ai-setup        # tooling, config, docs
+```
+
+When a task turns out to cover two unrelated things, it is two branches and two PRs.
+
 ## Commit Message Guidelines
 
 - generate a commit message with commitizen specification
