@@ -15,9 +15,9 @@ import { Padding } from '@xaui/native-legacy/view'
 **Web / Hybrid**
 
 ```ts
-import { Padding } from '@xaui/hybrid/padding'
+import { Padding } from '@xaui/hybrid-legacy/padding'
 // or from the aggregated view export
-import { Padding } from '@xaui/hybrid/view'
+import { Padding } from '@xaui/hybrid-legacy/view'
 ```
 
 ## Props

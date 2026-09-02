@@ -1,7 +1,7 @@
 'use client'
 
 import { type ReactNode } from 'react'
-import { XUIProvider } from '@xaui/hybrid/core'
+import { XUIProvider } from '@xaui/hybrid-legacy/core'
 
 type DeviceFrameProps = {
   children: ReactNode

@@ -1,6 +1,6 @@
 'use client'
 
-import { XUIProvider } from '@xaui/hybrid/core'
+import { XUIProvider } from '@xaui/hybrid-legacy/core'
 import type { ReactNode } from 'react'
 
 type HybridProviderProps = {

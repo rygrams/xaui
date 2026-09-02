@@ -15,9 +15,9 @@ import { FractionallySizedBox } from '@xaui/native-legacy/view'
 **Web / Hybrid**
 
 ```ts
-import { FractionallySizedBox } from '@xaui/hybrid/fractionally-sized-box'
+import { FractionallySizedBox } from '@xaui/hybrid-legacy/fractionally-sized-box'
 // or from the aggregated view export
-import { FractionallySizedBox } from '@xaui/hybrid/view'
+import { FractionallySizedBox } from '@xaui/hybrid-legacy/view'
 ```
 
 ## Props

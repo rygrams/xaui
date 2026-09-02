@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { FractionallySizedBox } from '@xaui/hybrid/fractionally-sized-box'
+import { FractionallySizedBox } from '@xaui/hybrid-legacy/fractionally-sized-box'
 import { DeviceFrame } from '@/components/ui/device-frame'
 
 type ColorScheme = 'light' | 'dark'

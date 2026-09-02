@@ -15,9 +15,9 @@ import { ConstrainedBox } from '@xaui/native-legacy/view'
 **Web / Hybrid**
 
 ```ts
-import { ConstrainedBox } from '@xaui/hybrid/constrained-box'
+import { ConstrainedBox } from '@xaui/hybrid-legacy/constrained-box'
 // or from the aggregated view export
-import { ConstrainedBox } from '@xaui/hybrid/view'
+import { ConstrainedBox } from '@xaui/hybrid-legacy/view'
 ```
 
 ## Props

@@ -15,9 +15,9 @@ import { SizedBox } from '@xaui/native-legacy/view'
 **Web / Hybrid**
 
 ```ts
-import { SizedBox } from '@xaui/hybrid/sized-box'
+import { SizedBox } from '@xaui/hybrid-legacy/sized-box'
 // or from the aggregated view export
-import { SizedBox } from '@xaui/hybrid/view'
+import { SizedBox } from '@xaui/hybrid-legacy/view'
 ```
 
 ## Props

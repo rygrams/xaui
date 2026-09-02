@@ -15,9 +15,9 @@ import { Column } from '@xaui/native-legacy/view'
 **Web / Hybrid**
 
 ```ts
-import { Column } from '@xaui/hybrid/column'
+import { Column } from '@xaui/hybrid-legacy/column'
 // or from the aggregated view export
-import { Column } from '@xaui/hybrid/view'
+import { Column } from '@xaui/hybrid-legacy/view'
 ```
 
 ## Props

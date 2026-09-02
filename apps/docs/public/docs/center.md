@@ -15,9 +15,9 @@ import { Center } from '@xaui/native-legacy/view'
 **Web / Hybrid**
 
 ```ts
-import { Center } from '@xaui/hybrid/center'
+import { Center } from '@xaui/hybrid-legacy/center'
 // or from the aggregated view export
-import { Center } from '@xaui/hybrid/view'
+import { Center } from '@xaui/hybrid-legacy/view'
 ```
 
 ## Props

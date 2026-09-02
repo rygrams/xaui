@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { SizedBox } from '@xaui/hybrid/sized-box'
+import { SizedBox } from '@xaui/hybrid-legacy/sized-box'
 import { DeviceFrame } from '@/components/ui/device-frame'
 
 type ColorScheme = 'light' | 'dark'

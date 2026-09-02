@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { ConstrainedBox } from '@xaui/hybrid/constrained-box'
+import { ConstrainedBox } from '@xaui/hybrid-legacy/constrained-box'
 import { DeviceFrame } from '@/components/ui/device-frame'
 
 type ColorScheme = 'light' | 'dark'

@@ -15,9 +15,9 @@ import { Container } from '@xaui/native-legacy/view'
 **Web / Hybrid**
 
 ```ts
-import { Container } from '@xaui/hybrid/container'
+import { Container } from '@xaui/hybrid-legacy/container'
 // or from the aggregated view export
-import { Container } from '@xaui/hybrid/view'
+import { Container } from '@xaui/hybrid-legacy/view'
 ```
 
 ## Props

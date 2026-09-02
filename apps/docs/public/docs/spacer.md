@@ -15,9 +15,9 @@ import { Spacer } from '@xaui/native-legacy/view'
 **Web / Hybrid**
 
 ```ts
-import { Spacer } from '@xaui/hybrid/spacer'
+import { Spacer } from '@xaui/hybrid-legacy/spacer'
 // or from the aggregated view export
-import { Spacer } from '@xaui/hybrid/view'
+import { Spacer } from '@xaui/hybrid-legacy/view'
 ```
 
 ## Props

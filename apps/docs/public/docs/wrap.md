@@ -15,9 +15,9 @@ import { Wrap } from '@xaui/native-legacy/view'
 **Web / Hybrid**
 
 ```ts
-import { Wrap } from '@xaui/hybrid/wrap'
+import { Wrap } from '@xaui/hybrid-legacy/wrap'
 // or from the aggregated view export
-import { Wrap } from '@xaui/hybrid/view'
+import { Wrap } from '@xaui/hybrid-legacy/view'
 ```
 
 ## Props

@@ -15,7 +15,7 @@ import { Alert } from '@xaui/native-legacy/alert'
 **Web / Hybrid**
 
 ```ts
-import { Alert } from '@xaui/hybrid/alert'
+import { Alert } from '@xaui/hybrid-legacy/alert'
 ```
 
 ## Props

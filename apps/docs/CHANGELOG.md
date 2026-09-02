@@ -6,7 +6,7 @@
 
 - Updated dependencies [b7e401a]
 - Updated dependencies [b7e401a]
-  - @xaui/hybrid@0.0.14
+  - @xaui/hybrid-legacy@0.0.14
   - @xaui/native-legacy@0.2.8
 
 ## 0.1.41
@@ -15,7 +15,7 @@
 
 - Updated dependencies [e0aab2a]
 - Updated dependencies [e0aab2a]
-  - @xaui/hybrid@0.0.13
+  - @xaui/hybrid-legacy@0.0.13
   - @xaui/native-legacy@0.2.7
 
 ## 0.1.40
@@ -24,7 +24,7 @@
 
 - Updated dependencies [39d97b4]
 - Updated dependencies [39d97b4]
-  - @xaui/hybrid@0.0.12
+  - @xaui/hybrid-legacy@0.0.12
   - @xaui/native-legacy@0.2.6
 
 ## 0.1.39
@@ -33,7 +33,7 @@
 
 - Updated dependencies [0252a82]
   - @xaui/native-legacy@0.2.5
-  - @xaui/hybrid@0.0.11
+  - @xaui/hybrid-legacy@0.0.11
 
 ## 0.1.38
 
@@ -69,7 +69,7 @@
 
 - Updated dependencies [89103b9]
   - @xaui/native-legacy@0.2.0
-  - @xaui/hybrid@0.0.10
+  - @xaui/hybrid-legacy@0.0.10
 
 ## 0.1.33
 
@@ -124,8 +124,8 @@
 
 ### Patch Changes
 
-- 9ac6807: feat(docs): integrate @xaui/hybrid with playground, BrowserPreview, and component Preview tab
-  - Install `@xaui/hybrid` as workspace dependency and add to `transpilePackages`
+- 9ac6807: feat(docs): integrate @xaui/hybrid-legacy with playground, BrowserPreview, and component Preview tab
+  - Install `@xaui/hybrid-legacy` as workspace dependency and add to `transpilePackages`
   - Import `dist/index.css` before tailwindcss in globals.css to preserve shadcn color priority
   - Add `HybridProvider` client wrapper and wrap root layout
   - Create `BrowserPreview` component (browser chrome with traffic lights + URL bar)
@@ -139,7 +139,7 @@
 - Updated dependencies [136cb4c]
 - Updated dependencies [9ac6807]
   - @xaui/native-legacy@0.0.40
-  - @xaui/hybrid@0.0.9
+  - @xaui/hybrid-legacy@0.0.9
 
 ## 0.1.25
 
@@ -252,7 +252,7 @@
 
 - Updated dependencies [d05a489]
   - @xaui/core@0.1.7
-  - @xaui/hybrid@0.0.4
+  - @xaui/hybrid-legacy@0.0.4
 
 ## 0.1.9
 
@@ -260,7 +260,7 @@
 
 - Updated dependencies [c09ae37]
   - @xaui/core@0.1.6
-  - @xaui/hybrid@0.0.3
+  - @xaui/hybrid-legacy@0.0.3
 
 ## 0.1.8
 
@@ -268,7 +268,7 @@
 
 - Fix TypeScript errors in button hook tests and resolve linting issues
 - Updated dependencies
-  - @xaui/hybrid@0.0.2
+  - @xaui/hybrid-legacy@0.0.2
 
 ## 0.1.7
 
@@ -276,7 +276,7 @@
 
 - Rewrite documentation to detail monorepo architecture and expand package usage instructions
 - Updated dependencies
-  - @xaui/hybrid@0.0.1
+  - @xaui/hybrid-legacy@0.0.1
 
 ## 0.1.6
 

@@ -15,9 +15,9 @@ import { Flex } from '@xaui/native-legacy/view'
 **Web / Hybrid**
 
 ```ts
-import { Flex } from '@xaui/hybrid/flex'
+import { Flex } from '@xaui/hybrid-legacy/flex'
 // or from the aggregated view export
-import { Flex } from '@xaui/hybrid/view'
+import { Flex } from '@xaui/hybrid-legacy/view'
 ```
 
 ## Props

@@ -15,9 +15,9 @@ import { Align } from '@xaui/native-legacy/view'
 **Web / Hybrid**
 
 ```ts
-import { Align } from '@xaui/hybrid/align'
+import { Align } from '@xaui/hybrid-legacy/align'
 // or from the aggregated view export
-import { Align } from '@xaui/hybrid/view'
+import { Align } from '@xaui/hybrid-legacy/view'
 ```
 
 ## Props

@@ -15,9 +15,9 @@ import { Margin } from '@xaui/native-legacy/view'
 **Web / Hybrid**
 
 ```ts
-import { Margin } from '@xaui/hybrid/margin'
+import { Margin } from '@xaui/hybrid-legacy/margin'
 // or from the aggregated view export
-import { Margin } from '@xaui/hybrid/view'
+import { Margin } from '@xaui/hybrid-legacy/view'
 ```
 
 ## Props

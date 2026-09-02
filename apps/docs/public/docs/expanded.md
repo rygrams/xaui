@@ -15,9 +15,9 @@ import { Expanded } from '@xaui/native-legacy/view'
 **Web / Hybrid**
 
 ```ts
-import { Expanded } from '@xaui/hybrid/expanded'
+import { Expanded } from '@xaui/hybrid-legacy/expanded'
 // or from the aggregated view export
-import { Expanded } from '@xaui/hybrid/view'
+import { Expanded } from '@xaui/hybrid-legacy/view'
 ```
 
 ## Props

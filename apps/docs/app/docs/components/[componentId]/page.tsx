@@ -485,7 +485,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
             <p className="text-sm text-muted-foreground">
               Live web preview rendered via{' '}
               <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
-                @xaui/hybrid
+                @xaui/hybrid-legacy
               </code>
               — Tailwind v4, CSS animations, no animation library.
             </p>

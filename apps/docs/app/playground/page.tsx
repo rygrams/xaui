@@ -3,7 +3,7 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = {
   title: 'Hybrid Playground — Xaui',
   description:
-    'Interactive playground for @xaui/hybrid web components with Tailwind v4.',
+    'Interactive playground for @xaui/hybrid-legacy web components with Tailwind v4.',
 }
 
 export default function PlaygroundPage() {
@@ -15,7 +15,7 @@ export default function PlaygroundPage() {
             Hybrid Playground
           </h1>
           <span className="rounded-full bg-purple-100 px-2.5 py-0.5 text-xs font-medium text-purple-700 dark:bg-purple-900 dark:text-purple-300">
-            @xaui/hybrid
+            @xaui/hybrid-legacy
           </span>
         </div>
         <p className="text-base text-muted-foreground md:text-xl">

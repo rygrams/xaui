@@ -1,0 +1,141 @@
+{
+  "name": "@xaui/hybrid-legacy",
+  "version": "0.0.14",
+  "private": true,
+  "description": "Frozen @xaui/hybrid-legacy v0.0.x components, republished for migration to @xaui/hybrid-legacy v1",
+  "keywords": [
+    "react",
+    "web",
+    "webview",
+    "hybrid",
+    "ui",
+    "components",
+    "flutter",
+    "styled-components",
+    "xaui"
+  ],
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./core": {
+      "types": "./dist/core/index.d.ts",
+      "import": "./dist/core/index.js"
+    },
+    "./view": {
+      "types": "./dist/view/index.d.ts",
+      "import": "./dist/view/index.js"
+    },
+    "./container": {
+      "types": "./dist/container/index.d.ts",
+      "import": "./dist/container/index.js"
+    },
+    "./sized-box": {
+      "types": "./dist/sized-box/index.d.ts",
+      "import": "./dist/sized-box/index.js"
+    },
+    "./constrained-box": {
+      "types": "./dist/constrained-box/index.d.ts",
+      "import": "./dist/constrained-box/index.js"
+    },
+    "./fractionally-sized-box": {
+      "types": "./dist/fractionally-sized-box/index.d.ts",
+      "import": "./dist/fractionally-sized-box/index.js"
+    },
+    "./aspect-ratio": {
+      "types": "./dist/aspect-ratio/index.d.ts",
+      "import": "./dist/aspect-ratio/index.js"
+    },
+    "./padding": {
+      "types": "./dist/padding/index.d.ts",
+      "import": "./dist/padding/index.js"
+    },
+    "./margin": {
+      "types": "./dist/margin/index.d.ts",
+      "import": "./dist/margin/index.js"
+    },
+    "./align": {
+      "types": "./dist/align/index.d.ts",
+      "import": "./dist/align/index.js"
+    },
+    "./center": {
+      "types": "./dist/center/index.d.ts",
+      "import": "./dist/center/index.js"
+    },
+    "./flex": {
+      "types": "./dist/flex/index.d.ts",
+      "import": "./dist/flex/index.js"
+    },
+    "./row": {
+      "types": "./dist/row/index.d.ts",
+      "import": "./dist/row/index.js"
+    },
+    "./column": {
+      "types": "./dist/column/index.d.ts",
+      "import": "./dist/column/index.js"
+    },
+    "./expanded": {
+      "types": "./dist/expanded/index.d.ts",
+      "import": "./dist/expanded/index.js"
+    },
+    "./flexible": {
+      "types": "./dist/flexible/index.d.ts",
+      "import": "./dist/flexible/index.js"
+    },
+    "./spacer": {
+      "types": "./dist/spacer/index.d.ts",
+      "import": "./dist/spacer/index.js"
+    },
+    "./wrap": {
+      "types": "./dist/wrap/index.d.ts",
+      "import": "./dist/wrap/index.js"
+    },
+    "./alert": {
+      "types": "./dist/alert/index.d.ts",
+      "import": "./dist/alert/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "package.json"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rygrams/xaui.git",
+    "directory": "packages/hybrid"
+  },
+  "scripts": {
+    "build": "tsup --config tsup.config.ts",
+    "dev": "tsup --config tsup.config.ts --watch",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "test:coverage": "vitest --coverage",
+    "lint": "eslint src/",
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@xaui/core": "workspace:*"
+  },
+  "peerDependencies": {
+    "react": "^18.0.0 || ^19.0.0",
+    "react-dom": "^18.0.0 || ^19.0.0",
+    "styled-components": "^6.1.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.1.0",
+    "@types/react-dom": "^19.1.0",
+    "@types/styled-components": "^5.1.34",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
+    "styled-components": "^6.1.18",
+    "tsup": "^8.5.1",
+    "typescript": "^5.9.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

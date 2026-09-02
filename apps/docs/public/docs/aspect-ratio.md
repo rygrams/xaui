@@ -15,9 +15,9 @@ import { AspectRatio } from '@xaui/native-legacy/view'
 **Web / Hybrid**
 
 ```ts
-import { AspectRatio } from '@xaui/hybrid/aspect-ratio'
+import { AspectRatio } from '@xaui/hybrid-legacy/aspect-ratio'
 // or from the aggregated view export
-import { AspectRatio } from '@xaui/hybrid/view'
+import { AspectRatio } from '@xaui/hybrid-legacy/view'
 ```
 
 ## Props

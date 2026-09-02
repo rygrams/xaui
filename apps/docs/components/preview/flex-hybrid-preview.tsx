@@ -2,9 +2,9 @@
 
 import { useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Flex } from '@xaui/hybrid/flex'
-import { Row } from '@xaui/hybrid/row'
-import { Column } from '@xaui/hybrid/column'
+import { Flex } from '@xaui/hybrid-legacy/flex'
+import { Row } from '@xaui/hybrid-legacy/row'
+import { Column } from '@xaui/hybrid-legacy/column'
 import { DeviceFrame } from '@/components/ui/device-frame'
 
 type ColorScheme = 'light' | 'dark'

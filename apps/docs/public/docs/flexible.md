@@ -15,9 +15,9 @@ import { Flexible } from '@xaui/native-legacy/view'
 **Web / Hybrid**
 
 ```ts
-import { Flexible } from '@xaui/hybrid/flexible'
+import { Flexible } from '@xaui/hybrid-legacy/flexible'
 // or from the aggregated view export
-import { Flexible } from '@xaui/hybrid/view'
+import { Flexible } from '@xaui/hybrid-legacy/view'
 ```
 
 ## Props
