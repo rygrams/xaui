@@ -169,7 +169,7 @@ pnpm lint && pnpm type-check && pnpm test
 - [ ] All three green — paste the real result, never "should pass".
 - [ ] Demo screen renders in light **and** dark.
 - [ ] Legacy equivalent carries `@deprecated` pointing at the replacement.
-- [ ] A changeset exists (`patch` — we are in beta) for every touched package.
+- [ ] A changeset exists (`patch` — we are on the `alpha` line) for every touched package.
 
 ## The one blocking review of the project
 

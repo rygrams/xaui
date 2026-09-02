@@ -95,7 +95,7 @@ progress is recorded, and it moves in the same commit as the work.
 
 ## 7. Changeset
 
-One per touched package, **always `patch`** while we're in beta:
+One per touched package, **always `patch`** while we're on the `alpha` line:
 
 ```bash
 pnpm changeset
