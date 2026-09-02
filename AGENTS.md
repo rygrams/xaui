@@ -1,181 +1,154 @@
 # AGENTS.md
 
-Practical guidance for agentic coding assistants in this monorepo.
+Instructions for every agent working in this monorepo. `CLAUDE.md` only points here.
 
-## Scope and precedence
+XAUI is a React Native UI library: composition-first components, animations on the UI thread
+with Reanimated, and a semantic token system. TypeScript, Turborepo + pnpm, Vitest, tsup,
+Changesets, Next.js docs, Expo demo.
 
-- Applies repository-wide unless a deeper instruction file overrides it.
-- Follow `CLAUDE.md` in addition to this file.
-- The library follows the **v1 API** described in `.project-specs/XAUI-V1-PLAN.md`. Load the
-  skill that owns the task before writing code — see *Skills* below.
+## Before writing code
 
-## Cursor/Copilot rules
-
-- `.cursor/rules/`: none found.
-- `.cursorrules`: not present.
-- `.github/copilot-instructions.md`: not present.
-- Re-check these paths if new tooling files are added.
-
-## Project layout
-
-- Turborepo + pnpm workspace monorepo.
-- Workspaces: `apps/*`, `packages/*`.
-- Published libraries: `@xaui/native` (React Native), `@xaui/hybrid` (mobile webview).
-- Apps: `docs` (Next.js), `demo` (Expo).
+- The library follows the **v1 API** of `.project-specs/XAUI-V1-PLAN.md`. The skills encode
+  it by task type — **load the one that owns the task first.**
+- Task status: `.project-specs/ROADMAP.md`. One line per task: ref, title, status. Update it
+  when a task lands, in the same commit. It is the only place progress is recorded.
 
 ## Skills
 
-Source of truth in `.agents/skills/<name>/SKILL.md`, copied (never symlinked) into
-`.claude/skills/`.
+Source of truth in `.agents/skills/<name>/SKILL.md`, copied — never symlinked — into
+`.claude/skills/`. Edit both in the same commit.
 
-- `xaui-flow` — start here on any non-trivial task; it routes to the others
-- `xaui-component` — writing a component
-- `xaui-system` — recipe engine, style cache, slots, `PressableFeedback`, `Portal`, `Icon`
-- `xaui-theme` — tokens, OKLab derivation, `createTheme`, provider
-- `xaui-hybrid` — porting to the web renderer, `em` units
-- `xaui-docs` — docs pages, demo screens, generated tables
-- `xaui-legacy-migration` — the frozen tree and its codemods
-- `xaui-review` — run on the diff before every PR
+| Skill | Owns |
+| --- | --- |
+| `xaui-flow` | Start here on any non-trivial task; routes to the others |
+| `xaui-component` | Writing a component — the thirteen rules, folder shape, per-component loop |
+| `xaui-system` | Recipe engine, style cache, slots, `PressableFeedback`, `Portal`, `Icon` |
+| `xaui-theme` | Tokens, OKLab derivation, `createTheme`, provider, generation |
+| `xaui-hybrid` | The web renderer and the `em` sizing convention |
+| `xaui-docs` | Docs pages, demo screens, generated tables |
+| `xaui-legacy-migration` | The frozen tree, `core-shim`, codemods |
+| `xaui-review` | Run on the diff before every PR — v1 rules and clean code |
 
-## Environment
+## The v1 API
 
-- Use `pnpm` only.
-- Node 20+ preferred.
-- Package manager pin: `pnpm@10.28.0`.
+- **Composition, not configuration** — a `forwardRef` root plus dot-notation slots,
+  `asChild` on every root, an exported context hook per compound, namespaced `displayName`.
+- **Two appearance props** — `variant` (ten sanctioned values) and `color` (a raw tint).
+  Everything else goes through the slot's own `style`.
+- **A recipe engine with a style cache** — variants name tokens, styles resolve once at the
+  root, slots receive stable `StyleSheet` references.
+- **A two-layer theme** — a hand-written source layer, ~32 tokens derived from it in OKLab.
+  `.gen.ts` files are never hand-edited.
+- **100% Reanimated**, touch feedback through one shared `PressableFeedback`.
+- **RTL-safe styles** — `paddingStart` / `paddingEnd`, `start` / `end`. Never `left` / `right`.
+- **A fifteen-component core** for 1.0. Everything else waits for `1.x`.
 
-## Root scripts
+The rules behind each line live in `xaui-component`, `xaui-system` and `xaui-theme`.
 
-Run from repo root:
+## Layout
 
-```bash
-pnpm dev
-pnpm build
-pnpm test
-pnpm lint
-pnpm type-check
-pnpm format
-```
+- Turborepo + pnpm workspaces: `apps/*`, `packages/*`.
+- `@xaui/native` (React Native) and `@xaui/hybrid` (mobile webview) are the published
+  libraries; `*-legacy` are the frozen trees. Apps: `docs` (Next.js), `demo` (Expo).
+- `packages/<pkg>/src` has six top-level folders — `theme/`, `provider/`, `system/`,
+  `hooks/`, `utils/`, `types/` — plus `components/` and a mirrored `__tests__/`.
+  **`system/` is public and follows semver; `utils/` is private.** A file used by one
+  component stays with it; promotion happens at the second use. See `xaui-component`.
+- Each component is an independent subpath export (`@xaui/native/button`), declared in
+  `package.json` **and** `tsup.config.ts`.
 
-## Workspace scripts
+## Environment and commands
 
-General form:
-
-```bash
-pnpm --filter <workspace> <script>
-```
-
-Examples:
-
-```bash
-pnpm --filter @xaui/native build
-pnpm --filter @xaui/hybrid lint
-pnpm --filter @xaui/native test
-pnpm --filter docs dev
-```
-
-## Single test commands (most important)
-
-Use Vitest directly for exact targeting:
+`pnpm` only, Node 20+, pinned to `pnpm@10.28.0`.
 
 ```bash
-# run one test file
+pnpm dev | build | test | lint | type-check | format
+pnpm tokens:generate    # rewrite tokens.gen.ts from tooling/tokens/source.ts
+pnpm tokens:check       # regenerate, diff, key parity, contrast — CI runs this
+
+pnpm --filter @xaui/native <script>
 pnpm --filter @xaui/native exec vitest run src/__tests__/utils/colors.test.ts
-# run one named test in a file
-pnpm --filter @xaui/native exec vitest run src/__tests__/utils/colors.test.ts -t "mix in oklab"
-# watch one test file
-pnpm --filter @xaui/native exec vitest src/__tests__/utils/colors.test.ts
+pnpm --filter @xaui/native exec vitest run <file> -t "mix in oklab"
+pnpm --filter @xaui/native exec eslint src/theme/derive-colors.ts
 ```
 
-Alternative passthrough form:
+`pnpm format` rewrites every `.ts`/`.tsx`/`.md` in the repo — run it on your files, not on
+the tree, or you bury the change in unrelated churn. Turbo runs `test` after `build`.
+
+## Testing
+
+**Utility functions only.** Pure, deterministic code gets a test file: `utils/`, the colour
+engine, `deriveColors`, `createTheme`, recipe resolution, the style cache, slot helpers,
+token generation.
+
+**Components, slots and their hooks get none.** They are verified by their demo screen and
+docs preview, in light and dark. Logic worth pinning down is extracted into a pure function
+and tested there.
+
+- Mirror the source path: `src/utils/colors.ts` → `src/__tests__/utils/colors.test.ts`.
+- A workspace without tests needs `passWithNoTests: true`, or CI fails.
+
+## Style and conventions
+
+Prettier: no semicolons, single quotes, print width 85, 2 spaces, ES5 trailing commas,
+`arrowParens: avoid`, `endOfLine: lf`.
+
+- TS strict. `@typescript-eslint/no-unused-vars` errors (`_` prefix allowed);
+  `no-explicit-any` warns — avoid `any` outright.
+- Components PascalCase; files and folders kebab-case.
+- `*.type.ts`, `*.hook.ts`, `*.style.ts`, `*.recipe.ts`, `*.context.ts`, and
+  `<component>-<slot>.tsx` for slot files.
+- Imports grouped external-then-internal, `import type` for types, none left unused.
+- Prefer package entrypoints over deep import paths.
+- Early returns over nesting. Validate external input, clamp it, give safe defaults.
+- Errors are explicit and named — never `undefined is not a function`, never a silent
+  fallback that hides the cause.
+
+## Never
+
+- `console.log`, `console.error`, `debugger` in committed code.
+- A comment restating the code. Comment the non-obvious decision instead.
+- `any`; a function with more than 3 parameters; deep nesting.
+- An unrelated refactor inside a focused change.
+- A CSS file — Tailwind for styling, framer-motion for web animation.
+- A hand-edited `.gen.ts`.
+- An empty file created to satisfy a convention.
+
+## Packages
+
+- `workspace:*` for internal dependencies; package names singular; tsup builds dual CJS/ESM.
+- `react-native-reanimated` and `react-native-worklets` are required peers — all animation
+  goes through them, never RN's built-in `Animated`.
+- `gesture-handler`, `svg` and `safe-area-context` are optional peers, imported only by the
+  components that use them.
+
+## Branch, commit, PR
+
+**Always branch before the first line of code.** Never commit to `main`. One branch per
+coherent unit of work: `feat/`, `fix/`, `refactor/`, `chore/`.
+
+Commits follow commitizen. **No Claude co-author line.** Commit progressively — one commit
+per coherent unit as the work lands, not one at the end.
+
+Before the PR: create a changeset per touched package (`pnpm changeset`, always **patch**,
+we are in beta), commit the `.changeset/*.md`, run `pnpm lint && pnpm type-check && pnpm
+test`, and run the `xaui-review` skill on the diff.
 
 ```bash
-pnpm --filter @xaui/native test -- src/__tests__/utils/colors.test.ts
+gh pr create --assignee @me --label documentation
 ```
 
-## Lint, type-check, and build targeting
-
-- Monorepo lint: `pnpm lint`
-- Monorepo type-check: `pnpm type-check`
-- Workspace lint: `pnpm --filter @xaui/native lint`
-- Workspace type-check: `pnpm --filter @xaui/native type-check`
-- Lint one file directly:
-
-```bash
-pnpm --filter @xaui/native exec eslint src/components/button/button.tsx
-```
-
-- Turbo note: root `test` depends on `build`.
-
-## Formatting rules (Prettier)
-
-- No semicolons.
-- Single quotes.
-- Trailing commas: ES5.
-- Print width: 85.
-- Tab width: 2 spaces.
-- `arrowParens: avoid`.
-- `endOfLine: lf`.
-
-## ESLint and TypeScript rules
-
-- Base ESLint config: `eslint.config.base.js`.
-- TS linting enabled for `*.ts` and `*.tsx`.
-- `@typescript-eslint/no-unused-vars`: error (allow `_`-prefixed names).
-- `@typescript-eslint/no-explicit-any`: warn; avoid `any` unless necessary.
-- TS strict mode is enabled (`tsconfig.base.json`).
-
-## Import guidelines
-
-- Keep imports grouped: external first, internal second.
-- Prefer `import type` for type-only imports.
-- Remove unused imports quickly.
-- Prefer package entrypoints over brittle deep import paths.
-- Match the style of nearby files when uncertain.
-
-## Naming and file conventions
-
-- React component identifiers: PascalCase (`Button`, `Alert`).
-- Component folder/file slugs: commonly kebab-case (`bottom-sheet`).
-- Types live in `*.type.ts`, hooks in `*.hook.ts`, static styles in `*.style.ts`.
-- Style variants live in `*.recipe.ts`, slot context in `*.context.ts`.
-- One file per slot, named `<component>-<slot>.tsx`.
-- Keep naming aligned with neighboring modules.
-
-## Testing conventions
-
-- **Utility functions only.** Pure, deterministic code gets a test file: `utils/`, the
-  colour engine, `deriveColors`, `createTheme`, recipe resolution, the style cache,
-  `childrenToString`, `mergeProps` / `mergeRefs`, token generation.
-- **No test file for components, slots or their hooks.** They are verified by the demo
-  screen and the docs preview, in light and dark.
-- Logic in a component that deserves pinning down is extracted to a pure function under
-  `utils/`, and that function is tested.
-- Mirror source paths under `src/__tests__/...`; suffix `*.test.ts`.
-
-## Branching
-
-- **Always branch before starting an implementation**, before the first line of code.
-- Never commit to `main`.
-- One branch per coherent unit of work: `feat/`, `fix/`, `refactor/`, `chore/`.
-
-## Pull requests
-
-- Open with `gh pr create`, never as a draft unless asked.
-- **Always assign to the authenticated `gh` user**: `--assignee @me`.
-- **Always add at least one label**: `--label <name>`, chosen from the repository's
-  existing labels (`bug`, `documentation`, `enhancement`, …).
+- Always assign to the authenticated `gh` user; always add at least one existing label
+  (`bug`, `documentation`, `enhancement`, …).
 - Body covers What, Why and How.
+- Resolve each review thread once its comment is addressed. One you deliberately did not act
+  on stays open, with a reply saying why.
 
-## Error handling and control flow
+## Release
 
-- Use early returns to avoid deep nesting.
-- Validate/clamp external inputs and provide safe defaults.
-- Keep utility logic deterministic and side-effect light.
-- Do not hide failures behind silent behavior changes.
+Changesets, fully automated. **Never run `pnpm changeset version`, `pnpm version-packages`
+or `pnpm release` locally** — merging to `main` opens or updates a "Version Packages" PR,
+and merging that one publishes.
 
-## Prohibited patterns
-
-- No `console.log`, `console.error`, or `debugger` in committed code.
-- Avoid unnecessary comments; comment only non-obvious decisions.
-- Avoid broad `any` usage.
-- Avoid unrelated refactors in focused changes.
+CI on PRs to `main`/`dev`: tokens check → lint → type check → test → build, plus CodeQL.
+The release workflow runs on push to `main`.

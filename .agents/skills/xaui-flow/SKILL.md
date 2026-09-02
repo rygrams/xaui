@@ -5,8 +5,8 @@ description: The end-to-end XAUI workflow — situate a task in the v1 phasing, 
 
 # XAUI v1 — Working flow
 
-Start here for any non-trivial task on this repo. This skill decides *what kind of work
-this is*, hands off to the skill that owns it, and closes the loop.
+Start here for any non-trivial task on this repo. This skill decides _what kind of work
+this is_, hands off to the skill that owns it, and closes the loop.
 
 Plan of record: `.project-specs/XAUI-V1-PLAN.md`. Runnable references:
 `.project-specs/source.mjs`, `derive.mjs`, `oklab.mjs`, `tokens.json`.
@@ -16,16 +16,16 @@ Plan of record: `.project-specs/XAUI-V1-PLAN.md`. Runnable references:
 The v1 phasing, in order. Each phase's **first line unblocks the rest**; within a phase the
 remaining items can be ordered freely.
 
-| Phase | What | Ships |
-|---|---|---|
-| **P0** | Package split, token source, OKLab engine, derived layer, contrast guard, `createTheme`, provider, legacy shim, peer-dep hygiene, ESLint R13 | `@xaui/native-legacy@0.2.8` |
-| **P1** | `system/` — recipe + cache, slots, `PressableFeedback`, `Portal`, `Icon`, shared hooks | nothing (a UI package with no component makes no sense on npm) |
-| **P2** | The reference `Button` + a perf baseline + **the blocking API review** | `@xaui/native@0.9.0-beta.1` |
-| **P3** | The fifteen-component core, in the plan's order | betas |
-| **P4** | Docs, generated prop tables, migration guide, `llms.txt` | `@xaui/native@1.0.0` |
-| **P5** | The remaining 32, then the parity milestone | `1.x` |
-| **P6** | `@xaui/hybrid` resumes | — |
-| **P7** | Delete `native-legacy` | `2.0.0` |
+| Phase  | What                                                                                                                                         | Ships                                                          |
+| ------ | -------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------- |
+| **P0** | Package split, token source, OKLab engine, derived layer, contrast guard, `createTheme`, provider, legacy shim, peer-dep hygiene, ESLint R13 | `@xaui/native-legacy@0.2.8`                                    |
+| **P1** | `system/` — recipe + cache, slots, `PressableFeedback`, `Portal`, `Icon`, shared hooks                                                       | nothing (a UI package with no component makes no sense on npm) |
+| **P2** | The reference `Button` + a perf baseline + **the blocking API review**                                                                       | `@xaui/native@0.9.0-beta.1`                                    |
+| **P3** | The fifteen-component core, in the plan's order                                                                                              | betas                                                          |
+| **P4** | Docs, generated prop tables, migration guide, `llms.txt`                                                                                     | `@xaui/native@1.0.0`                                           |
+| **P5** | The remaining 32, then the parity milestone                                                                                                  | `1.x`                                                          |
+| **P6** | `@xaui/hybrid` resumes                                                                                                                       | —                                                              |
+| **P7** | Delete `native-legacy`                                                                                                                       | `2.0.0`                                                        |
 
 Two consequences worth stating out loud when a request cuts across them:
 
@@ -40,15 +40,15 @@ components, everything else waits for `1.x` (plan §10).
 
 ## 2. Route to the owning skill
 
-| The task is about | Skill |
-|---|---|
-| A component: new, new slot, legacy → v1 conversion | `xaui-component` |
-| Tokens, OKLab, `deriveColors`, `createTheme`, provider, `tokens:check` | `xaui-theme` |
-| `system/` — recipe, style cache, slots, `asChild`, `PressableFeedback`, `Portal`, `Icon` | `xaui-system` |
-| `packages/hybrid`, `em` units, web renderer | `xaui-hybrid` |
-| `apps/docs`, `apps/demo`, prop tables, `llms.txt` | `xaui-docs` |
-| `native-legacy`, `core-shim`, codemods, `@deprecated` | `xaui-legacy-migration` |
-| Checking work against the v1 rules | `xaui-review` |
+| The task is about                                                                        | Skill                   |
+| ---------------------------------------------------------------------------------------- | ----------------------- |
+| A component: new, new slot, legacy → v1 conversion                                       | `xaui-component`        |
+| Tokens, OKLab, `deriveColors`, `createTheme`, provider, `tokens:check`                   | `xaui-theme`            |
+| `system/` — recipe, style cache, slots, `asChild`, `PressableFeedback`, `Portal`, `Icon` | `xaui-system`           |
+| `packages/hybrid`, `em` units, web renderer                                              | `xaui-hybrid`           |
+| `apps/docs`, `apps/demo`, prop tables, `llms.txt`                                        | `xaui-docs`             |
+| `native-legacy`, `core-shim`, codemods, `@deprecated`                                    | `xaui-legacy-migration` |
+| Checking work against the v1 rules                                                       | `xaui-review`           |
 
 A task that touches several areas is done area by area, in dependency order, not all at
 once — the review at the end covers all of them.
@@ -88,7 +88,12 @@ standards (naming, function shape, duplication, comments, failure behaviour), an
 `code-simplification` and `code-review-and-quality` when the change is substantial. Fix what
 it finds, or state plainly what you left and why.
 
-## 6. Changeset
+## 6. Record the task
+
+Update `.project-specs/ROADMAP.md` — one line, ref, title, status. It is the only place
+progress is recorded, and it moves in the same commit as the work.
+
+## 7. Changeset
 
 One per touched package, **always `patch`** while we're in beta:
 
@@ -99,7 +104,7 @@ pnpm changeset
 Commit the generated `.changeset/*.md` with the change. Commit messages follow commitizen
 (`feat:`, `fix:`, `chore:`, `refactor:`), and carry no Claude co-author line.
 
-## 7. PR
+## 8. PR
 
 ```bash
 gh pr create --assignee @me --label documentation
@@ -110,6 +115,20 @@ picked from the repository's existing set (`bug`, `documentation`, `enhancement`
 has **What / Why / How** sections. All CI checks green before requesting review. After
 merge, the Changesets action opens or updates the "Version Packages" PR; merging that one
 publishes. Nothing else to do by hand.
+
+## 9. Close the loop on review comments
+
+Address each comment, then resolve its thread:
+
+```bash
+gh api graphql -f query='{ repository(owner:"rygrams", name:"xaui")
+  { pullRequest(number: N) { reviewThreads(first:20)
+    { nodes { id isResolved comments(first:1){ nodes { path body } } } } } } }'
+```
+
+then `resolveReviewThread(input: {threadId: "..."})` for each one you acted on. A thread
+left open reads as unanswered work. One you disagreed with stays open, with a reply saying
+why — resolving it would hide the disagreement rather than settle it.
 
 ## Definition of done — per component
 
