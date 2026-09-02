@@ -225,7 +225,7 @@ Test files mirror the source path: `src/utils/colors.ts` →
 
 - No semicolons
 - Single quotes
-- 90 character line width
+- 85 character line width
 - 2 space indentation
 - ES5 trailing commas
 - function must not have more than 3 parameters

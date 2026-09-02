@@ -123,16 +123,23 @@ export const ButtonRoot = forwardRef<View, ButtonProps>(function Button(
     ...pressableProps,                 // caller props first…
     onPressIn: press.onPressIn,        // …then the composed handlers, which call them
     onPressOut: press.onPressOut,
-    style: [styles.root, styles.tint?.root, isIconOnly && sheet.iconOnly, style],
   }
+
+  // R9 — `style` may be Pressable's function form, so resolve it per state
+  const rootStyle = (state: PressableStateCallbackType) => [
+    styles.root, styles.tint?.root, isIconOnly && sheet.iconOnly,
+    typeof style === 'function' ? style(state) : style,
+  ]
 
   return (
     <ButtonContext.Provider value={context}>
       {asChild ? (
         // R12 — mergeProps + mergeRefs into the caller's element
-        <Slot ref={ref} {...rootProps}>{children}</Slot>
+        <Slot ref={ref} {...rootProps} style={rootStyle({ pressed: press.isPressed })}>
+          {children}
+        </Slot>
       ) : (
-        <PressableFeedback ref={ref} {...rootProps}>
+        <PressableFeedback ref={ref} {...rootProps} style={rootStyle}>
           {text !== null ? <ButtonLabel>{text}</ButtonLabel> : children}
         </PressableFeedback>
       )}
@@ -140,10 +147,12 @@ export const ButtonRoot = forwardRef<View, ButtonProps>(function Button(
   )
 })
 
+ButtonRoot.displayName = 'XAUI.Button.Root'          // R11 — on the root AND every slot
+
 export const Button = Object.assign(ButtonRoot, { Label, Icon, Spinner })
 ```
 
-Six things to note:
+Eight things to note:
 
 - **`childrenToString`** (in `system/slot/`) implements R3 once for the whole library.
 - **The context carries `styles.label`**, a stable `StyleSheet` id — not tokens to re-resolve.
@@ -154,6 +163,10 @@ Six things to note:
 - **Prop order in `rootProps` matters.** Caller props are spread *before* the press handlers,
   and `usePressState` composes rather than replaces them. Spreading `...pressableProps` last
   would let a caller's `onPressIn` silently kill the pressed state.
+- **`style` is resolved through a function**, because R9 requires accepting `Pressable`'s
+  `(state) => style` form. Dropping a caller's function into a style array silently breaks it.
+- **`displayName` is assigned**, on the root and on every slot file. Without it the DevTools
+  tree shows twenty anonymous `Label`s.
 - **View depth is one**, not four: `PressableFeedback > (Text | Icon)`.
 
 A slot is three lines — read the resolved style from the context, merge the local `style`:
@@ -165,6 +178,8 @@ export const ButtonLabel = forwardRef<Text, ButtonLabelProps>(function ButtonLab
   const ctx = useButtonContext('Button.Label')   // named throw when used outside
   return <Text ref={ref} style={[ctx.labelStyle, style]} {...rest}>{children}</Text>
 })
+
+ButtonLabel.displayName = 'XAUI.Button.Label'
 ```
 
 Keep the view depth minimal: `Pressable > (Text | Icon)`, not four nested views. Touch

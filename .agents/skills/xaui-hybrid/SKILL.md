@@ -31,8 +31,9 @@ coming from the theme or from the native `StyleSheet`.
 
 1. Copy the folder shape verbatim: `.recipe.ts`, `.context.ts`, `.type.ts`, `.hook.ts`,
    `.style.ts`, root, one file per slot, `index.ts`.
-2. Wrap every numeric size from `theme.spacing`, `theme.borderWidth`, `theme.fontSizes`,
-   `theme.borderRadius` in `toEm()`.
+2. Use `toEm()` on the **number** a theme lookup produces — `toEm(theme.spacing(2))`,
+   `toEm(theme.borderWidth.default)`, `toEm(theme.fontSizes.md)`, `toEm(theme.radius.md)`.
+   `spacing` is a function, not a table, so `toEm(theme.spacing)` yields `NaNem`.
 3. Wrap every hardcoded pixel value from the native `StyleSheet` too — `gap: 12` becomes
    `gap: toEm(12)`.
 4. **Use CSS-valid properties only.** Never RN shorthands: no `paddingVertical`,
