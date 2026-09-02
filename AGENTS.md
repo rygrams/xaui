@@ -152,6 +152,13 @@ pnpm --filter @xaui/native exec eslint src/components/button/button.tsx
   `utils/`, and that function is tested.
 - Mirror source paths under `src/__tests__/...`; suffix `*.test.ts`.
 
+## Pull requests
+
+- Open with `gh pr create`, never as a draft unless asked.
+- **Always assign to the authenticated `gh` user**: `--assignee @me`.
+- **No labels** — the changeset carries the release information.
+- Body covers What, Why and How.
+
 ## Error handling and control flow
 
 - Use early returns to avoid deep nesting.

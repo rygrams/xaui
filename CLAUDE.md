@@ -353,6 +353,9 @@ The project uses GitHub Actions with the following workflow:
 **Creating the PR:**
 
 - Use `gh pr create` to create the pull request
+- **Always assign the PR to the authenticated `gh` user** — pass `--assignee @me`
+- **No labels.** The changeset already carries the release information; a label would
+  duplicate it
 - Include What, Why, How sections with implementation details
 - Reference the last commit for global implementation description
 - Ensure all CI checks pass before requesting review

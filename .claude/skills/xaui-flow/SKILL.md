@@ -101,10 +101,11 @@ Commit the generated `.changeset/*.md` with the change. Commit messages follow c
 ## 7. PR
 
 ```bash
-gh pr create
+gh pr create --assignee @me
 ```
 
-Body has **What / Why / How** sections. All CI checks green before requesting review. After
+**Always assign the PR to the authenticated `gh` user; never add labels** — the changeset
+already carries the release information. Body has **What / Why / How** sections. All CI checks green before requesting review. After
 merge, the Changesets action opens or updates the "Version Packages" PR; merging that one
 publishes. Nothing else to do by hand.
 
