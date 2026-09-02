@@ -17,6 +17,7 @@ Task detail lives in `XAUI-V1-PLAN.md`.
 | P0.10 | ESLint rule for R13                                      | done   |
 | P0.11 | Publish `@xaui/native-legacy@0.2.8` and the codemod      | todo   |
 | P0.12 | Delete `@xaui/core` and `@xaui/icons`                     | done   |
+| P0.13 | Publish `native` and `hybrid` on the `alpha` tag          | done   |
 | P1    | `system/` — recipe, slots, feedback, portal, icon, hooks | todo   |
 | P2    | Reference `Button`, perf baseline, API review            | todo   |
 | P3    | The fifteen-component core                               | todo   |

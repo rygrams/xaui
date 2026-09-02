@@ -11,7 +11,7 @@ npm name.
 | Package | Content | Version |
 |---|---|---|
 | `@xaui/native-legacy` | the 47 current components, frozen | `0.2.8` — same number as the last real release |
-| `@xaui/native` | the v1 API, from scratch | `0.9.0-beta.x` → `1.0.0` |
+| `@xaui/native` | the v1 API, from scratch | `0.9.x-alpha.x` → `1.0.0` |
 | `@xaui/hybrid` | frozen during P0–P4 | unchanged |
 
 Source of truth: `.project-specs/XAUI-V1-PLAN.md` §7.
