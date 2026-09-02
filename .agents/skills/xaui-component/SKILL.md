@@ -96,15 +96,16 @@ second use, never by anticipation.
 export const ButtonRoot = forwardRef<View, ButtonProps>(function Button(
   { children, variant = 'primary', size = 'md', radius = 'md',
     isDisabled = false, isLoading = false, isIconOnly = false,
-    asChild = false, color, style, ...pressableProps },
+    asChild = false, color, style, onPressIn, onPressOut, ...pressableProps },
   ref
 ) {
   const theme = useXAUITheme()
-  const [isPressed, setIsPressed] = useState(false)
+  // composes the caller's handlers — never replaces them
+  const press = usePressState({ onPressIn, onPressOut })
 
   const styles = buttonRecipe.resolve(theme, {
     variant, size, radius,
-    states: { disabled: isDisabled || isLoading, pressed: isPressed },
+    states: { disabled: isDisabled || isLoading, pressed: press.isPressed },
     tint: color,
   })
 
@@ -115,26 +116,45 @@ export const ButtonRoot = forwardRef<View, ButtonProps>(function Button(
     [styles.label, styles.icon, size, isDisabled, isLoading]
   )
 
+  const rootProps = {
+    accessibilityRole: 'button',
+    accessibilityState: { disabled: isDisabled, busy: isLoading },
+    disabled: isDisabled || isLoading,
+    ...pressableProps,                 // caller props first…
+    onPressIn: press.onPressIn,        // …then the composed handlers, which call them
+    onPressOut: press.onPressOut,
+    style: [styles.root, styles.tint?.root, isIconOnly && sheet.iconOnly, style],
+  }
+
   return (
     <ButtonContext.Provider value={context}>
-      <Pressable
-        ref={ref}
-        accessibilityRole="button"
-        accessibilityState={{ disabled: isDisabled, busy: isLoading }}
-        disabled={isDisabled || isLoading}
-        onPressIn={() => setIsPressed(true)}
-        onPressOut={() => setIsPressed(false)}
-        style={[styles.root, styles.tint?.root, isIconOnly && sheet.iconOnly, style]}
-        {...pressableProps}
-      >
-        {text !== null ? <ButtonLabel>{text}</ButtonLabel> : children}
-      </Pressable>
+      {asChild ? (
+        // R12 — mergeProps + mergeRefs into the caller's element
+        <Slot ref={ref} {...rootProps}>{children}</Slot>
+      ) : (
+        <PressableFeedback ref={ref} {...rootProps}>
+          {text !== null ? <ButtonLabel>{text}</ButtonLabel> : children}
+        </PressableFeedback>
+      )}
     </ButtonContext.Provider>
   )
 })
 
 export const Button = Object.assign(ButtonRoot, { Label, Icon, Spinner })
 ```
+
+Six things to note:
+
+- **`childrenToString`** (in `system/slot/`) implements R3 once for the whole library.
+- **The context carries `styles.label`**, a stable `StyleSheet` id — not tokens to re-resolve.
+- **The root element is `PressableFeedback`**, not a raw `Pressable`. Touch feedback is shared
+  (`system/pressable-feedback/`), never re-implemented per component.
+- **`asChild` renders `Slot`**, which merges props and refs into the caller's element. It is a
+  real branch, not a prop that is destructured and forgotten — R12 is unfixable after 1.0.
+- **Prop order in `rootProps` matters.** Caller props are spread *before* the press handlers,
+  and `usePressState` composes rather than replaces them. Spreading `...pressableProps` last
+  would let a caller's `onPressIn` silently kill the pressed state.
+- **View depth is one**, not four: `PressableFeedback > (Text | Icon)`.
 
 A slot is three lines — read the resolved style from the context, merge the local `style`:
 
@@ -168,6 +188,17 @@ correctly in light and dark, and the legacy equivalent carries an `@deprecated` 
 the replacement.
 
 Then run the `xaui-review` skill before opening a PR.
+
+## Where this supersedes the plan
+
+`.project-specs/XAUI-V1-PLAN.md` is the plan of record, but two of its code samples predate
+decisions taken elsewhere in the same document or in CLAUDE.md. This skill wins:
+
+- **Fixed `height`, never `minHeight`.** The `createRecipe` sample in the plan's §3 uses
+  `minHeight`, contradicting the sizing decision in its own §1 bis.
+- **No mirrored component tests.** The per-component loop in the plan's §9 asks for tests
+  covering slots, the out-of-parent hook and `asChild`. The repository's convention is
+  utility functions only — components are verified by their demo screen and docs preview.
 
 ## Pitfalls
 

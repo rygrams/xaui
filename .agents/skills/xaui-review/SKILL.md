@@ -44,7 +44,10 @@ files edited by hand — these are the ones that are unfixable or expensive late
       form**, `testID`, a11y props; `accessibilityRole` defaults but stays overridable.
 - [ ] **R10** — the context hook is exported (`export { useButton }`).
 - [ ] **R11** — `displayName` namespaced `'XAUI.<Component>.<Slot>'`.
-- [ ] **R12** *(blocking)* — `asChild` on the root, via `mergeProps` + `mergeRefs`.
+- [ ] **R12** *(blocking)* — `asChild` is a real render branch through `Slot` /
+      `mergeProps` + `mergeRefs`, not a prop that is destructured and then ignored.
+- [ ] Caller props are spread **before** the internal press handlers, and those handlers
+      compose the caller's `onPressIn` / `onPressOut` rather than replacing them.
 - [ ] **R13** — no `left` / `right` / `paddingLeft` … anywhere in `src/`; RTL-safe
       `start` / `end` forms only.
 
