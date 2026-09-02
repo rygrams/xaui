@@ -1,13 +1,14 @@
 ---
 name: xaui-review
-description: Review an XAUI change against the v1 architecture rules — the thirteen principles, API vocabulary, style-cache correctness, accessibility, tests and package hygiene. Use after writing or modifying any component, system primitive, theme or hybrid code, and before opening a PR.
+description: Review an XAUI change against the v1 architecture rules and against clean-code standards — the thirteen principles, API vocabulary, style-cache correctness, accessibility, readability, naming, duplication, tests and package hygiene. Use after writing or modifying any component, system primitive, theme or hybrid code, and before opening a PR.
 ---
 
 # XAUI v1 — Review
 
 Run this after **every** component or system change, before `git commit` and before
-`gh pr create`. It complements the generic `code-review-and-quality` skill; that one asks
-whether the code is good, this one asks whether it is **XAUI**.
+`gh pr create`. It asks two questions in one pass: is this code **XAUI** (sections 1–5), and
+is it **good code** (section 6). Neither passes on its own — a component that honours all
+thirteen rules and is unreadable still fails review.
 
 Rules referenced here are defined in `.project-specs/XAUI-V1-PLAN.md` §1 and detailed in
 the `xaui-component`, `xaui-system` and `xaui-theme` skills.
@@ -79,9 +80,9 @@ files edited by hand — these are the ones that are unfixable or expensive late
 - [ ] Disabled and busy states reach `accessibilityState`.
 - [ ] Slot text is reachable by screen readers; icon-only controls carry a label.
 
-## 5. Structure and hygiene
+## 5. Structure and packaging
 
-- [ ] File layout matches the convention; **no empty file created "for the convention"**.
+- [ ] File layout matches the convention.
 - [ ] A new shared file is in the folder §2 bis dictates — `system/` is public, `utils/` is
       private, promotion happens at the second use.
 - [ ] Nothing re-exported from `utils/` to the outside.
@@ -90,10 +91,65 @@ files edited by hand — these are the ones that are unfixable or expensive late
       missing.
 - [ ] `.gen.ts` files not hand-edited.
 - [ ] Subpath export added to `package.json` **and** `tsup.config.ts`.
-- [ ] No `console.log`, no `debugger`, no needless comment (CLAUDE.md).
-- [ ] No function with more than 3 parameters; early returns instead of deep nesting.
 
-## 6. Tests
+## 6. Clean code and readability
+
+Correct and idiomatic is not enough — the code has to be readable by someone who did not
+write it. Judge each point by its failure: what does a future reader get wrong because of
+this?
+
+**Naming**
+
+- [ ] Names state intent, not mechanism: `isPressed`, not `flag`; `deriveTint`, not `helper2`.
+- [ ] Repo conventions held: PascalCase components, kebab-case files and folders,
+      `*.type.ts` / `*.hook.ts` / `*.style.ts` / `*.recipe.ts` / `*.context.ts`,
+      `<component>-<slot>.tsx` for slot files.
+- [ ] No abbreviation a reader has to decode, and no name that lies about what the thing does.
+
+**Shape**
+
+- [ ] A function does one thing, at one level of abstraction. If explaining it needs an
+      "and", it is two functions.
+- [ ] **At most 3 parameters** (CLAUDE.md). Beyond that, pass an options object.
+- [ ] **Early returns** instead of nesting. No `if` inside `if` inside `if`.
+- [ ] No function so long the reader must scroll to hold it in their head — in this codebase,
+      a component root that exceeds the reference Button by much is doing too much.
+
+**Types**
+
+- [ ] No `any`. A precise type, `unknown` with narrowing, or a generic — in that order.
+- [ ] `import type` for type-only imports; imports grouped external-then-internal; no unused
+      import left behind.
+- [ ] Public props are documented by their types, not by a comment restating the type.
+
+**Duplication and dead weight**
+
+- [ ] Nothing copied a third time — extract at the second use, never by anticipation (§2 bis).
+- [ ] No dead code, no commented-out block, no leftover scaffolding.
+- [ ] No file created empty to satisfy a convention.
+
+**Comments**
+
+- [ ] Comments explain **why**, never **what** — the code says what. A comment restating the
+      line below it is noise and drifts out of date.
+- [ ] The non-obvious decision *is* commented: a resolution order that must not change, a
+      prop spread whose position is load-bearing, a memo that exists for a specific bug.
+- [ ] No `console.log`, no `console.error`, no `debugger`.
+
+**Failure behaviour**
+
+- [ ] Errors are explicit and named — a missing optional peer, a slot hook used outside its
+      parent. Never `undefined is not a function` and never a silent fallback that hides the
+      cause.
+- [ ] External input is validated or clamped; defaults are safe.
+
+**When the change is substantial**
+
+- [ ] Ran the `code-simplification` skill — is any part heavier than it needs to be?
+- [ ] Ran the `code-review-and-quality` skill for the broader axes (design, security,
+      maintainability) that this checklist does not cover.
+
+## 7. Tests
 
 - [ ] **Utility functions only.** A new pure function — in `utils/`, the colour engine,
       recipe resolution, the style cache, slot helpers, token generation — has a mirrored
@@ -104,7 +160,7 @@ files edited by hand — these are the ones that are unfixable or expensive late
       untestable inside the component.
 - [ ] Cache behaviour has a reference-stability test.
 
-## 7. Gates
+## 8. Gates
 
 ```bash
 pnpm lint && pnpm type-check && pnpm test

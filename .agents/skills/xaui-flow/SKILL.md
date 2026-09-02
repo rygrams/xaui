@@ -83,9 +83,10 @@ pnpm lint && pnpm type-check && pnpm test
 
 ## 5. Review
 
-Run the `xaui-review` skill on the diff, then the generic `code-review-and-quality` /
-`code-simplification` skills if the change is substantial. Fix what it finds, or state
-plainly what you left and why.
+Run the `xaui-review` skill on the diff — it covers both the v1 rules and clean-code
+standards (naming, function shape, duplication, comments, failure behaviour), and points at
+`code-simplification` and `code-review-and-quality` when the change is substantial. Fix what
+it finds, or state plainly what you left and why.
 
 ## 6. Changeset
 
