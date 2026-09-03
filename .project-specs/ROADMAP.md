@@ -26,7 +26,7 @@ Task detail lives in `XAUI-V1-PLAN.md`.
 | P1.6  | Shared hooks                                            | done   |
 | P1.7  | `pnpm pack` uniqueness check on both packages           | done   |
 | P2.1  | The reference `Button`                                  | done   |
-| P2.2  | Perf baseline — 200 buttons, re-renders and allocations | todo   |
+| P2.2  | Perf baseline — 200 buttons, re-renders and allocations | done   |
 | P2.3  | API review — blocking, nothing starts in P3 before it   | todo   |
 | P2.4  | Publish `@xaui/native` on the `alpha` tag               | todo   |
 | P3    | The fifteen-component core                              | todo   |

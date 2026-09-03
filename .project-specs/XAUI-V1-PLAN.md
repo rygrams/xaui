@@ -33,7 +33,7 @@ On n'inspecte pas le premier enfant : on tente de **stringifier récursivement**
 **R4 — Le layout appartient au root.**
 `gap`, `alignItems`, `flexDirection` sont sur le root. **Les slots n'ont aucune marge propre.** Corollaire : l'ordre JSX est l'ordre à l'écran, donc `startContent` / `endContent` disparaissent.
 
-**R5 — Le contexte porte des valeurs résolues.** *(divergence assumée — voir §1 ter)*
+**R5 — Le contexte porte des valeurs résolues.** _(divergence assumée — voir §1 ter)_
 Le root résout `variant × size × état` (plus la teinte `color` si fournie) une fois et publie la couleur finale. Les slots ne re-résolvent rien. Valeur memoizée. HeroUI publie les props brutes et laisse chaque slot re-résoudre — c'est gratuit chez eux grâce au cache de `tv()`, ça ne l'est pas sans moteur de classes.
 
 **R6 — Tokens dans les props, valeurs arbitraires dans `style`.**
@@ -77,10 +77,16 @@ Fusionner les props dans l'enfant au lieu de rendre son propre élément — c'e
 
 ```ts
 type Variant =
-  | 'primary' | 'secondary' | 'tertiary' | 'ghost'   // emphase, teinte accent
-  | 'success' | 'success-soft'
-  | 'warning' | 'warning-soft'
-  | 'danger'  | 'danger-soft'
+  | 'primary'
+  | 'secondary'
+  | 'tertiary'
+  | 'ghost' // emphase, teinte accent
+  | 'success'
+  | 'success-soft'
+  | 'warning'
+  | 'warning-soft'
+  | 'danger'
+  | 'danger-soft'
 ```
 
 Dix valeurs sanctionnées. Le suffixe `-soft` est le niveau d'emphase faible d'une intention — c'est ce que HeroUI a dû ajouter à la main pour `danger` seul, généralisé ici aux trois intentions.
@@ -89,18 +95,18 @@ Dix valeurs sanctionnées. Le suffixe `-soft` est le niveau d'emphase faible d'u
 
 Avec des tokens sémantiques plats (§4), il n'y a **pas de matrice à résoudre** : chaque variante désigne directement deux ou trois tokens.
 
-| `variant` | fond | bordure | texte |
-|---|---|---|---|
-| `primary` | `accent` | — | `accentForeground` |
-| `secondary` | `default` | — | `defaultForeground` |
-| `tertiary` | transparent | `border` | `foreground` |
-| `ghost` | transparent | — | `foreground` |
-| `success` | `success` | — | `successForeground` |
-| `success-soft` | `successSoft` | — | `successSoftForeground` |
-| `warning` | `warning` | — | `warningForeground` |
-| `warning-soft` | `warningSoft` | — | `warningSoftForeground` |
-| `danger` | `danger` | — | `dangerForeground` |
-| `danger-soft` | `dangerSoft` | — | `dangerSoftForeground` |
+| `variant`      | fond          | bordure  | texte                   |
+| -------------- | ------------- | -------- | ----------------------- |
+| `primary`      | `accent`      | —        | `accentForeground`      |
+| `secondary`    | `default`     | —        | `defaultForeground`     |
+| `tertiary`     | transparent   | `border` | `foreground`            |
+| `ghost`        | transparent   | —        | `foreground`            |
+| `success`      | `success`     | —        | `successForeground`     |
+| `success-soft` | `successSoft` | —        | `successSoftForeground` |
+| `warning`      | `warning`     | —        | `warningForeground`     |
+| `warning-soft` | `warningSoft` | —        | `warningSoftForeground` |
+| `danger`       | `danger`      | —        | `dangerForeground`      |
+| `danger-soft`  | `dangerSoft`  | —        | `dangerSoftForeground`  |
 
 Dix lignes de table, aucune logique de peinture dupliquée : ce sont les tokens qui portent l'information. Le fichier `parse-variant.ts` prévu au §2 devient inutile — il est remplacé par `variant-map.ts`, une simple constante.
 
@@ -109,8 +115,16 @@ Dix lignes de table, aucune logique de peinture dupliquée : ce sont les tokens 
 Vérifié dans la source de HeroUI Native (`src/styles/components/button.css`) : le root du bouton déclare `flex-direction`, `align-items`, `justify-content`, `border-width` — **et aucune largeur**. `size` ne fixe que la hauteur, le padding horizontal, le `gap` et le rayon.
 
 ```css
-.button__root--size-md { height: 48px; padding-inline: 16px; gap: 8px; border-radius: … }
-.button__root--is-icon-only { padding: 0; aspect-ratio: 1; }
+.button__root--size-md {
+  height: 48px;
+  padding-inline: 16px;
+  gap: 8px;
+  border-radius: …;
+}
+.button__root--is-icon-only {
+  padding: 0;
+  aspect-ratio: 1;
+}
 ```
 
 Conséquence, en React Native : `alignItems` vaut `stretch` par défaut, donc **un bouton sans largeur remplit son parent en `Column` et épouse son contenu en `Row`**. HeroUI n'a pas de prop `fullWidth` — le comportement natif suffit, et `className="self-start"` sert d'échappatoire.
@@ -118,7 +132,7 @@ Conséquence, en React Native : `alignItems` vaut `stretch` par défaut, donc **
 **Trois décisions pour XAUI :**
 
 1. **Aucune largeur dans le recipe.** Le comportement par défaut est celui de RN, pas une invention de la lib.
-2. **`fullWidth` est supprimé.** Dans le code actuel il ajoute `width: '100%'` — quasiment sans effet en `Column` (le bouton y est *déjà* pleine largeur) et utile seulement en `Row`. Une prop dont le nom décrit le comportement par défaut est un piège. Pour resserrer un bouton, on compose : `<Row><Button/></Row>`, ou `style={{ alignSelf: 'flex-start' }}`.
+2. **`fullWidth` est supprimé.** Dans le code actuel il ajoute `width: '100%'` — quasiment sans effet en `Column` (le bouton y est _déjà_ pleine largeur) et utile seulement en `Row`. Une prop dont le nom décrit le comportement par défaut est un piège. Pour resserrer un bouton, on compose : `<Row><Button/></Row>`, ou `style={{ alignSelf: 'flex-start' }}`.
 3. **`height` fixe, pas `minHeight`.** Le code actuel utilise `minHeight`, ce qui laisse un bouton grandir si son label passe à la ligne. Un contrôle a une hauteur, pas une hauteur minimale ; un label trop long doit être tronqué, pas déformer le bouton.
 
 Corollaire : `isIconOnly` n'a pas besoin de calcul de largeur — `padding: 0` + `aspectRatio: 1` sur une hauteur fixe donne un carré.
@@ -131,9 +145,15 @@ Les 13 variantes actuelles (`displayLarge` … `bodySmall`) sont le dernier morc
 
 ```ts
 type TextVariant =
-  | 'display-sm' | 'display-md' | 'display-lg'
-  | 'heading-sm' | 'heading-md' | 'heading-lg'
-  | 'body-sm'    | 'body-md'    | 'body-lg'
+  | 'display-sm'
+  | 'display-md'
+  | 'display-lg'
+  | 'heading-sm'
+  | 'heading-md'
+  | 'heading-lg'
+  | 'body-sm'
+  | 'body-md'
+  | 'body-lg'
   | 'caption'
 ```
 
@@ -163,10 +183,10 @@ Une variante consomme quatre rôles : la couleur pleine, son texte contrasté, s
 
 ```ts
 const deriveTint = (tint: string, t: XAUITheme) => ({
-  base:       tint,
-  foreground: contrastOn(tint),               // snow ou eclipse selon la luminance
-  soft:       alpha(tint, 0.15),
-  pressed:    mix(tint, contrastOn(tint), 0.10),
+  base: tint,
+  foreground: contrastOn(tint), // snow ou eclipse selon la luminance
+  soft: alpha(tint, 0.15),
+  pressed: mix(tint, contrastOn(tint), 0.1),
 })
 ```
 
@@ -188,17 +208,17 @@ Vérifié dans leur source (`heroui-inc/heroui-native`), pas dans leur doc.
 
 ### Repris à l'identique
 
-| Point | Chez eux | Chez nous |
-|---|---|---|
-| Compound + `Object.assign` | `Object.assign(ButtonRoot, { Label, Background })` | identique |
-| `forwardRef` sur root **et** slots | oui | identique |
-| Contexte strict, erreur nommée | `createContext({ name, strict })` + `Error.captureStackTrace` | identique |
-| Auto-wrap des children | `childrenToString` récursif | identique (R3) |
-| Hook de contexte exporté | `export { useButton }` | identique (R10) |
-| `displayName` namespacé | `'HeroUINative.Button.Root'` | `'XAUI.Button.Root'` (R11) |
-| `size` = hauteur, jamais largeur | aucune largeur au root | identique (§1 bis) |
-| Aucune prop de style profonde | `className` par slot seulement | `style` par slot (R2) |
-| Tokens sémantiques plats | `--color-accent`, `--color-danger-soft` | identique (§4) |
+| Point                              | Chez eux                                                      | Chez nous                  |
+| ---------------------------------- | ------------------------------------------------------------- | -------------------------- |
+| Compound + `Object.assign`         | `Object.assign(ButtonRoot, { Label, Background })`            | identique                  |
+| `forwardRef` sur root **et** slots | oui                                                           | identique                  |
+| Contexte strict, erreur nommée     | `createContext({ name, strict })` + `Error.captureStackTrace` | identique                  |
+| Auto-wrap des children             | `childrenToString` récursif                                   | identique (R3)             |
+| Hook de contexte exporté           | `export { useButton }`                                        | identique (R10)            |
+| `displayName` namespacé            | `'HeroUINative.Button.Root'`                                  | `'XAUI.Button.Root'` (R11) |
+| `size` = hauteur, jamais largeur   | aucune largeur au root                                        | identique (§1 bis)         |
+| Aucune prop de style profonde      | `className` par slot seulement                                | `style` par slot (R2)      |
+| Tokens sémantiques plats           | `--color-accent`, `--color-danger-soft`                       | identique (§4)             |
 
 ### Divergences assumées — et pourquoi
 
@@ -209,7 +229,7 @@ Leur contexte est `{ size, variant, isDisabled }` et chaque slot rappelle `butto
 Leurs tokens `accent-hover`, `danger-hover`, `danger-soft-hover` alimentent en réalité **l'overlay de press** (`PressableFeedback.Highlight`). Le nom est un vestige de leur version web ; ce qu'il désigne est l'état pressé. On le nomme pour ce qu'il fait.
 
 **3. Pas de `Background` ni de `GlassView`.**
-Leur `Button.Background` est une couche absolue qui héberge le flou du thème *glass*. C'est une fonctionnalité de thème à part entière, pas un principe d'API. Hors périmètre 1.0 — à reconsidérer plus tard, l'emplacement du slot reste disponible.
+Leur `Button.Background` est une couche absolue qui héberge le flou du thème _glass_. C'est une fonctionnalité de thème à part entière, pas un principe d'API. Hors périmètre 1.0 — à reconsidérer plus tard, l'emplacement du slot reste disponible.
 
 **4. `variant` étend `-soft` aux trois intentions.**
 Ils n'ont que `danger-soft`, ajouté à la main. On généralise à `success-soft` et `warning-soft` (§1 bis).
@@ -361,15 +381,15 @@ Un composant sans slot (`Divider`, `Skeleton`) n'a ni `.context.ts` ni fichiers 
 
 Sans cette règle, tout finit dans `utils/` en six mois.
 
-| Question | Réponse | Dossier |
-|---|---|---|
-| C'est une valeur de design (couleur, espacement, rayon) ? | oui | `theme/` |
-| C'est ce qui enveloppe l'app une seule fois ? | oui | `provider/` |
-| Un développeur tiers en aurait-il besoin pour écrire **son** composant XAUI ? | oui | `system/` |
-| C'est un hook React réutilisé par ≥ 2 composants ? | oui | `hooks/` |
-| C'est une fonction pure, sans React, interne ? | oui | `utils/` |
-| C'est un type utilisé par ≥ 2 composants ? | oui | `types/` |
-| Sinon | — | dans le dossier du composant |
+| Question                                                                      | Réponse | Dossier                      |
+| ----------------------------------------------------------------------------- | ------- | ---------------------------- |
+| C'est une valeur de design (couleur, espacement, rayon) ?                     | oui     | `theme/`                     |
+| C'est ce qui enveloppe l'app une seule fois ?                                 | oui     | `provider/`                  |
+| Un développeur tiers en aurait-il besoin pour écrire **son** composant XAUI ? | oui     | `system/`                    |
+| C'est un hook React réutilisé par ≥ 2 composants ?                            | oui     | `hooks/`                     |
+| C'est une fonction pure, sans React, interne ?                                | oui     | `utils/`                     |
+| C'est un type utilisé par ≥ 2 composants ?                                    | oui     | `types/`                     |
+| Sinon                                                                         | —       | dans le dossier du composant |
 
 Deux frontières à tenir :
 
@@ -378,14 +398,14 @@ Deux frontières à tenir :
 
 ### Exports
 
-| Sous-chemin | Contenu |
-|---|---|
-| `@xaui/native` | provider + theme + system + tous les composants v1 |
-| `@xaui/native/button` | un composant v1 |
-| `@xaui/native/provider` | `XAUIProvider` seul — pour le fichier racine de l'app |
-| `@xaui/native/theme` | `createTheme`, `useXAUITheme`, `useThemeColor`, `useColorMode`, `palette` |
-| `@xaui/native/system` | `createRecipe`, `createSlotContext`, `Portal`, `Icon` — pour écrire ses propres composants |
-| `@xaui/native-legacy/button` | un composant legacy — **autre package** (§7) |
+| Sous-chemin                  | Contenu                                                                                    |
+| ---------------------------- | ------------------------------------------------------------------------------------------ |
+| `@xaui/native`               | provider + theme + system + tous les composants v1                                         |
+| `@xaui/native/button`        | un composant v1                                                                            |
+| `@xaui/native/provider`      | `XAUIProvider` seul — pour le fichier racine de l'app                                      |
+| `@xaui/native/theme`         | `createTheme`, `useXAUITheme`, `useThemeColor`, `useColorMode`, `palette`                  |
+| `@xaui/native/system`        | `createRecipe`, `createSlotContext`, `Portal`, `Icon` — pour écrire ses propres composants |
+| `@xaui/native-legacy/button` | un composant legacy — **autre package** (§7)                                               |
 
 > **Bug actuel à corriger** : `packages/native/src/index.ts` contient `export {}`. Un `import { Button } from '@xaui/native'` rend `undefined` sans erreur lisible. Le root doit réexporter le tree v1.
 
@@ -393,13 +413,13 @@ Deux frontières à tenir :
 
 Les six peer deps actuelles sont **toutes obligatoires** (`peerDependenciesMeta` est vide), donc `npm i @xaui/native` réclame cinq paquets natifs même pour un simple `Button`. La v1 sépare le socle du reste.
 
-| Paquet | Statut | Pourquoi |
-|---|---|---|
-| `react`, `react-native` | requis | — |
+| Paquet                                             | Statut     | Pourquoi                                                                                                  |
+| -------------------------------------------------- | ---------- | --------------------------------------------------------------------------------------------------------- |
+| `react`, `react-native`                            | requis     | —                                                                                                         |
 | `react-native-reanimated`, `react-native-worklets` | **requis** | `PressableFeedback` en dépend, et le retour au toucher sur le thread UI est un argument central de la lib |
-| `react-native-gesture-handler` | optionnel | `Slider`, `BottomSheet`, `Drawer`, `Carousel` |
-| `react-native-svg` | optionnel | `Icon` en mode SVG, `Chart`, `Progress` circulaire |
-| `react-native-safe-area-context` | optionnel | `Screen`, `AppBar`, `BottomTabBar` |
+| `react-native-gesture-handler`                     | optionnel  | `Slider`, `BottomSheet`, `Drawer`, `Carousel`                                                             |
+| `react-native-svg`                                 | optionnel  | `Icon` en mode SVG, `Chart`, `Progress` circulaire                                                        |
+| `react-native-safe-area-context`                   | optionnel  | `Screen`, `AppBar`, `BottomTabBar`                                                                        |
 
 Les optionnelles sont déclarées dans `peerDependenciesMeta` et importées **uniquement** par les composants qui les utilisent — un import au niveau du barrel racine annulerait l'intérêt. Chaque composant concerné lève une erreur explicite en dev si son paquet manque, plutôt qu'un `undefined is not a function`.
 
@@ -425,7 +445,10 @@ Conséquence sur le code existant : **45 fichiers utilisent encore l'`Animated` 
 
 ```tsx
 // XAUIProvider — le memo est invalidé à chaque render du parent
-const appTheme = React.useMemo(() => ({ ...defaultTheme, ...theme, /* … */ }), [colorScheme, theme])
+const appTheme = React.useMemo(
+  () => ({ ...defaultTheme, ...theme /* … */ }),
+  [colorScheme, theme]
+)
 ```
 
 Un `<XAUIProvider theme={{ colors: {...} }}>` avec un objet littéral recrée le thème à chaque render, ce qui recrée tous les styles de tous les composants de l'app. **Bug de perf réel, corrigeable en une heure** — et prérequis de tout le reste.
@@ -440,32 +463,41 @@ Le provider calcule un `themeId` stable (hash du thème résolu, recalculé seul
 // system/recipe.ts
 export const buttonRecipe = createRecipe({
   slots: ['root', 'label', 'icon', 'spinner'],
-  base: (t) => ({
-    root:  { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: t.spacing.sm, overflow: 'hidden' },
+  base: t => ({
+    root: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: t.spacing.sm,
+      overflow: 'hidden',
+    },
     label: { fontWeight: '500', textAlign: 'center' },
   }),
   // `variant` nomme des tokens (§1 bis) — aucune logique de peinture ici.
   variantTokens: {
-    primary:        { bg: 'accent',      fg: 'accentForeground' },
-    secondary:      { bg: 'default',     fg: 'defaultForeground' },
-    tertiary:       { border: 'border',  fg: 'foreground' },
-    ghost:          { fg: 'foreground' },
-    success:        { bg: 'success',     fg: 'successForeground' },
+    primary: { bg: 'accent', fg: 'accentForeground' },
+    secondary: { bg: 'default', fg: 'defaultForeground' },
+    tertiary: { border: 'border', fg: 'foreground' },
+    ghost: { fg: 'foreground' },
+    success: { bg: 'success', fg: 'successForeground' },
     'success-soft': { bg: 'successSoft', fg: 'success' },
-    warning:        { bg: 'warning',     fg: 'warningForeground' },
+    warning: { bg: 'warning', fg: 'warningForeground' },
     'warning-soft': { bg: 'warningSoft', fg: 'warning' },
-    danger:         { bg: 'danger',      fg: 'dangerForeground' },
-    'danger-soft':  { bg: 'dangerSoft',  fg: 'danger' },
+    danger: { bg: 'danger', fg: 'dangerForeground' },
+    'danger-soft': { bg: 'dangerSoft', fg: 'danger' },
   },
   variants: {
     size: {
-      xs: (t) => ({ root: { paddingHorizontal: t.spacing.sm, minHeight: t.controlHeights.xs }, label: { fontSize: t.fontSizes.xs } }),
+      xs: t => ({
+        root: { paddingHorizontal: t.spacing.sm, minHeight: t.controlHeights.xs },
+        label: { fontSize: t.fontSizes.xs },
+      }),
       // sm, md, lg…
     },
   },
   states: {
     disabled: () => ({ root: { opacity: 0.5 }, label: { opacity: 0.7 } }),
-    pressed:  () => ({ root: { opacity: 0.9 } }),
+    pressed: () => ({ root: { opacity: 0.9 } }),
   },
   defaultVariants: { variant: 'primary', size: 'md', radius: 'md' },
 })
@@ -511,18 +543,30 @@ Une petite allocation, seulement quand la prop est passée. La table de cache re
 
 HeroUI n'écrit pas tous ses tokens. Il en écrit **une petite couche source**, et **dérive tout le reste** par calcul :
 
-| Fichier | Rôle | Volume |
-|---|---|---|
-| `styles/variables.css` | tokens **sources**, écrits à la main, par mode | ~25 par mode |
-| `styles/theme.css` | tokens **dérivés**, calculés en `color-mix(in oklab, …)` | ~30 |
+| Fichier                | Rôle                                                     | Volume       |
+| ---------------------- | -------------------------------------------------------- | ------------ |
+| `styles/variables.css` | tokens **sources**, écrits à la main, par mode           | ~25 par mode |
+| `styles/theme.css`     | tokens **dérivés**, calculés en `color-mix(in oklab, …)` | ~30          |
 
 ```css
 /* dérivé — personne n'écrit ces valeurs */
---color-accent-hover:          color-mix(in oklab, var(--accent) 90%, var(--accent-foreground) 10%);
---color-accent-soft:           color-mix(in oklab, var(--accent) 15%, transparent);
---color-accent-soft-foreground: color-mix(in oklab, var(--accent) 80%, var(--foreground) 20%);
---color-background-secondary:  color-mix(in oklab, var(--background) 96%, var(--foreground) 4%);
---radius-xl:                   calc(var(--radius) * 1.5);
+--color-accent-hover: color-mix(
+  in oklab,
+  var(--accent) 90%,
+  var(--accent-foreground) 10%
+);
+--color-accent-soft: color-mix(in oklab, var(--accent) 15%, transparent);
+--color-accent-soft-foreground: color-mix(
+  in oklab,
+  var(--accent) 80%,
+  var(--foreground) 20%
+);
+--color-background-secondary: color-mix(
+  in oklab,
+  var(--background) 96%,
+  var(--foreground) 4%
+);
+--radius-xl: calc(var(--radius) * 1.5);
 ```
 
 **C'est le vrai avantage DX du système**, et je l'avais manqué : on surcharge `accent`, et `accentPressed`, `accentSoft`, `accentSoftForeground` suivent tout seuls. Avec la liste plate que je proposais avant, changer la couleur de marque demandait douze valeurs à la main.
@@ -540,19 +584,25 @@ type XAUISourceColors = {
   foreground: string
 
   // Surface — composants non flottants : cartes, accordéons
-  surface: string;           surfaceForeground: string
-  surfaceSecondary: string;  surfaceSecondaryForeground: string
-  surfaceTertiary: string;   surfaceTertiaryForeground: string
+  surface: string
+  surfaceForeground: string
+  surfaceSecondary: string
+  surfaceSecondaryForeground: string
+  surfaceTertiary: string
+  surfaceTertiaryForeground: string
 
   // Overlay — composants flottants : dialogs, popovers, menus
-  overlay: string;  overlayForeground: string
+  overlay: string
+  overlayForeground: string
   backdrop: string
 
   muted: string
 
   // Neutre et marque
-  default: string;  defaultForeground: string
-  accent: string;   accentForeground: string
+  default: string
+  defaultForeground: string
+  accent: string
+  accentForeground: string
 
   // Champs de saisie
   fieldBackground: string
@@ -561,12 +611,16 @@ type XAUISourceColors = {
   fieldBorder: string
 
   // Intentions
-  success: string;  successForeground: string
-  warning: string;  warningForeground: string
-  danger: string;   dangerForeground: string
+  success: string
+  successForeground: string
+  warning: string
+  warningForeground: string
+  danger: string
+  dangerForeground: string
 
   // Segment — contrôles segmentés
-  segment: string;  segmentForeground: string
+  segment: string
+  segmentForeground: string
 
   // Divers
   border: string
@@ -628,10 +682,10 @@ Deux contraintes natives :
 ```ts
 type XAUITheme = {
   mode: 'light' | 'dark'
-  colors: XAUIColors               // source + dérivé, aplati
+  colors: XAUIColors // source + dérivé, aplati
 
-  spacing: (n: number) => number  // base 4 — spacing(3) === 12
-  radius: XAUIRadius              // dérivé d'une base unique
+  spacing: (n: number) => number // base 4 — spacing(3) === 12
+  radius: XAUIRadius // dérivé d'une base unique
   borderWidth: { default: number; field: number }
 
   fontSizes: Record<FontSizeKey, number>
@@ -649,8 +703,18 @@ type XAUITheme = {
 **Le rayon découle d'une base unique.** Une valeur à changer pour redessiner toute la lib :
 
 ```ts
-radius = { xs: r*0.25, sm: r*0.5, md: r*0.75, lg: r, xl: r*1.5,
-           '2xl': r*2, '3xl': r*3, '4xl': r*4, field: r*1.75, full: 9999 }
+radius = {
+  xs: r * 0.25,
+  sm: r * 0.5,
+  md: r * 0.75,
+  lg: r,
+  xl: r * 1.5,
+  '2xl': r * 2,
+  '3xl': r * 3,
+  '4xl': r * 4,
+  field: r * 1.75,
+  full: 9999,
+}
 ```
 
 **Les ombres sont sémantiques, pas une échelle.** Trois rôles — `surface`, `overlay`, `field` — et non `sm | md | lg | xl`. Corollaire important : en mode sombre HeroUI **supprime** l'ombre de surface et remplace celle d'overlay par un liseré interne clair. Une échelle `sm→xl` ne peut pas exprimer ça ; trois rôles, si.
@@ -670,9 +734,9 @@ import { createTheme } from '@xaui/native/theme'
 export const appTheme = createTheme({
   colors: {
     light: { accent: '#3b82f6' },
-    dark:  { accent: '#60a5fa' },
+    dark: { accent: '#60a5fa' },
   },
-  radius: 8,                                   // base — toute l'échelle en découle
+  radius: 8, // base — toute l'échelle en découle
   fontFamilies: { body: 'Inter', heading: 'Inter-SemiBold' },
   controlHeights: { md: 48 },
 })
@@ -682,7 +746,7 @@ export const appTheme = createTheme({
 // app/_layout.tsx
 import { appTheme } from './theme'
 
-<XAUIProvider theme={appTheme}>
+;<XAUIProvider theme={appTheme}>
   <App />
 </XAUIProvider>
 ```
@@ -704,7 +768,7 @@ createTheme({
   colors: {
     light: {
       accent: '#3b82f6',
-      accentSoft: 'rgba(59,130,246,0.22)',   // la dérivation à 15 % était trop pâle ici
+      accentSoft: 'rgba(59,130,246,0.22)', // la dérivation à 15 % était trop pâle ici
     },
   },
 })
@@ -724,8 +788,8 @@ L'ordre est : défaut → source de l'utilisateur → `deriveColors` → surchar
 #### Lire le thème
 
 ```ts
-const theme = useXAUITheme()                 // l'objet complet, résolu
-const accent = useThemeColor('accent')      // un token
+const theme = useXAUITheme() // l'objet complet, résolu
+const accent = useThemeColor('accent') // un token
 const [bg, fg] = useThemeColor(['background', 'foreground'])
 ```
 
@@ -755,7 +819,6 @@ tooling/tokens/source.ts     →  packages/native/src/theme/tokens.gen.ts   (nom
 1. `pnpm tokens:check` régénère et compare — un diff fait échouer le build.
 2. Les clés de `light` et `dark` doivent être identiques — un token présent d'un seul côté est une erreur de build, pas un `undefined` en production.
 3. Les couples `X` / `XForeground` doivent atteindre un contraste minimum dans les deux modes. C'est le test qui rattrape une surcharge de marque mal choisie.
-
 
 ## 5. Le primitif `Icon`
 
@@ -807,11 +870,11 @@ La même source alimente `llms.txt` (route déjà présente). Un fichier de doc 
 
 L'ancien tree ne devient **pas** un sous-chemin de `@xaui/native`. Il est republié tel quel sous un **nouveau nom npm** :
 
-| Package | Contenu | Version |
-|---|---|---|
+| Package               | Contenu                          | Version                                                                                                                                                                                 |
+| --------------------- | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `@xaui/native-legacy` | les 47 composants actuels, figés | `0.2.11` — le dernier numéro que le package a réellement porté avant sa publication (le `0.2.8` visé à l'origine a été dépassé par les trois patchs de P0 : core-shim, icônes inlinées) |
-| `@xaui/native` | l'API v1, repart de zéro | `1.0.0` |
-| `@xaui/hybrid` | gelé pendant P0–P4 | `0.9.x-alpha.x` — thème seulement, publié sur le tag `alpha` ; `latest` reste sur `0.0.14` |
+| `@xaui/native`        | l'API v1, repart de zéro         | `1.0.0`                                                                                                                                                                                 |
+| `@xaui/hybrid`        | gelé pendant P0–P4               | `0.9.x-alpha.x` — thème seulement, publié sur le tag `alpha` ; `latest` reste sur `0.0.14`                                                                                              |
 
 C'est plus propre que le sous-chemin sur trois points concrets :
 
@@ -831,8 +894,9 @@ Donc `@xaui/native-legacy` **ne contient aucun code de thème** et déclare `@xa
   "name": "@xaui/native-legacy",
   "peerDependencies": {
     "@xaui/native": ">=1.0.0",
-    "react": "…", "react-native": "…"
-  }
+    "react": "…",
+    "react-native": "…",
+  },
 }
 ```
 
@@ -900,13 +964,13 @@ startContent={<I/>} / endContent={<I/>}     → <X.Icon/> placé dans l'ordre vo
 
 ### Versions
 
-| Package | Version | Contenu |
-|---|---|---|
-| `@xaui/native-legacy` | `0.2.11` | publié une fois, figé — et figé pour de bon : le package est dans `ignore` (`.changeset/config.json`), donc changesets ne le versionne plus. Un correctif `0.2.x` demande de le sortir de la liste |
-| `@xaui/native` | `0.9.x-alpha.x` | le noyau arrive composant par composant, API instable et annoncée comme telle |
-| `@xaui/native` | `1.0.0` | noyau de 15 composants + doc complète |
-| `@xaui/native` | `1.x` | les 32 composants restants |
-| `@xaui/native` | `2.0.0` | plus rien à voir avec legacy — `native-legacy` est déprécié bien avant |
+| Package               | Version         | Contenu                                                                                                                                                                                            |
+| --------------------- | --------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `@xaui/native-legacy` | `0.2.11`        | publié une fois, figé — et figé pour de bon : le package est dans `ignore` (`.changeset/config.json`), donc changesets ne le versionne plus. Un correctif `0.2.x` demande de le sortir de la liste |
+| `@xaui/native`        | `0.9.x-alpha.x` | le noyau arrive composant par composant, API instable et annoncée comme telle                                                                                                                      |
+| `@xaui/native`        | `1.0.0`         | noyau de 15 composants + doc complète                                                                                                                                                              |
+| `@xaui/native`        | `1.x`           | les 32 composants restants                                                                                                                                                                         |
+| `@xaui/native`        | `2.0.0`         | plus rien à voir avec legacy — `native-legacy` est déprécié bien avant                                                                                                                             |
 
 Les préversions `0.9.x-alpha` remplacent les `0.4.x – 0.9.x` du modèle précédent : comme `@xaui/native` repart de zéro, publier des mineures qui ne contiennent que deux ou trois composants donnerait un package inutilisable sous un numéro qui promet le contraire. Un tag `alpha` dit la vérité.
 
@@ -938,25 +1002,43 @@ components/button/
 
 ```tsx
 export const ButtonRoot = forwardRef<View, ButtonProps>(function Button(
-  { children, variant = 'primary', size = 'md', radius = 'md',
-    isDisabled = false, isLoading = false, isIconOnly = false,
-    asChild = false, color, style, ...pressableProps },
+  {
+    children,
+    variant = 'primary',
+    size = 'md',
+    radius = 'md',
+    isDisabled = false,
+    isLoading = false,
+    isIconOnly = false,
+    asChild = false,
+    color,
+    style,
+    ...pressableProps
+  },
   ref
 ) {
   const theme = useXAUITheme()
   const [isPressed, setIsPressed] = useState(false)
 
   const styles = buttonRecipe.resolve(theme, {
-    variant, size, radius,
+    variant,
+    size,
+    radius,
     states: { disabled: isDisabled || isLoading, pressed: isPressed },
-    tint: color,          // hors cache — voir §3
+    tint: color, // hors cache — voir §3
   })
 
   // R3 — stringification récursive, pas une inspection du premier enfant
   const text = childrenToString(children)
 
   const context = useMemo(
-    () => ({ labelStyle: styles.label, iconStyle: styles.icon, size, isDisabled, isLoading }),
+    () => ({
+      labelStyle: styles.label,
+      iconStyle: styles.icon,
+      size,
+      isDisabled,
+      isLoading,
+    }),
     [styles.label, styles.icon, size, isDisabled, isLoading]
   )
 
@@ -996,10 +1078,15 @@ Quatre choses à noter :
 
 ```tsx
 export const ButtonLabel = forwardRef<Text, ButtonLabelProps>(function ButtonLabel(
-  { children, style, ...rest }, ref
+  { children, style, ...rest },
+  ref
 ) {
-  const ctx = useButtonContext('Button.Label')   // throw explicite si hors Button
-  return <Text ref={ref} style={[ctx.labelStyle, style]} {...rest}>{children}</Text>
+  const ctx = useButtonContext('Button.Label') // throw explicite si hors Button
+  return (
+    <Text ref={ref} style={[ctx.labelStyle, style]} {...rest}>
+      {children}
+    </Text>
+  )
 })
 ```
 
@@ -1067,7 +1154,7 @@ Renommer le package npm casse par définition. La phase se termine par une publi
 7. **Contrôle d'unicité.** `pnpm pack` sur les deux packages.
    → `@xaui/native` n'apparaît qu'une fois dans l'arbre de résolution — un doublon donnerait deux contextes.
 
-*Rien n'est publié en P1 : un package d'UI sans aucun composant n'a pas de sens sur npm.*
+_Rien n'est publié en P1 : un package d'UI sans aucun composant n'a pas de sens sur npm._
 
 ---
 
@@ -1092,7 +1179,7 @@ Identique pour P2, P3 et P5. C'est **la** tâche répétée 47 fois ; l'écrire 
 1. **Le composant**, selon la boucle ci-dessus et l'anatomie du §8.
    → Profondeur de vue réduite à `Pressable > (Text | Icon)` ; l'enveloppe `<View>` a disparu.
 2. **La mesure de référence.** Liste de 200 boutons : re-renders et allocations de style.
-   → Un chiffre écrit dans le plan. C'est le seuil que les 46 autres devront tenir, et la seule preuve que le cache fait ce qu'on prétend.
+   → Un chiffre écrit dans le plan. C'est le seuil que les 46 autres devront tenir, et la seule preuve que le cache fait ce qu'on prétend. **Mesuré — voir §9 bis.**
 3. **Revue d'API — bloquante.**
    → Corriger le pattern ici coûte 1 ; après le noyau, 15. Rien ne démarre en P3 avant cette revue.
 4. **Publier `@xaui/native` sur le tag `alpha`** (la ligne `0.9.x-alpha.x` est déjà ouverte, cf. §Versions).
@@ -1100,27 +1187,51 @@ Identique pour P2, P3 et P5. C'est **la** tâche répétée 47 fois ; l'écrire 
 
 ---
 
+### 9 bis. La ligne de base — mesurée sur le `Button`
+
+`pnpm perf:button` (`tooling/perf/`). Deux cents boutons, dix variantes × quatre tailles,
+soit **quarante combinaisons de tokens distinctes**. Chaque nombre est une borne haute :
+c'est le seuil que les 46 composants suivants doivent tenir.
+
+| Mesure                                                    | Chiffre                                | Ce qu'il prouve                                                                    |
+| --------------------------------------------------------- | -------------------------------------- | ---------------------------------------------------------------------------------- |
+| `StyleSheet.create` au montage de 200 boutons             | **40**                                 | Une allocation par combinaison, pas par bouton — le cache tient sa promesse        |
+| `StyleSheet.create` au second montage de la même liste    | **0**                                  | Le cache vit le temps de l'app, pas celui de l'arbre                               |
+| `StyleSheet.create` au premier appui sur une combinaison  | **1**                                  | L'état pressé est une combinaison de plus, pas un recalcul                         |
+| `StyleSheet.create` aux appuis suivants                   | **0**                                  | Un appui n'alloue rien                                                             |
+| `StyleSheet.create` avec un `color` brut, puis un second  | **0** et **0**                         | La table grandit avec les tokens, jamais avec les couleurs inventées (R7)          |
+| Composants hôtes re-rendus quand **un** bouton est pressé | **2** (sur 400)                        | L'état de press appartient au root qui le porte ; la liste au-dessus n'entend rien |
+| Composants hôtes au montage                               | **400** = 200 × (`Pressable` + `Text`) | Profondeur de vue de 1 : aucune `View` intermédiaire (§8)                          |
+
+Les deux chiffres qui comptent en une phrase : **200 boutons coûtent 40 feuilles de style,
+et un appui en coûte 0**.
+
+La mesure tourne avec `animation={false}`, qui emprunte la branche statique — aucun hook
+Reanimated n'est atteint, ce que le fichier vérifie plutôt que de le supposer.
+
+---
+
 ### P3 — Le noyau (~4 semaines)
 
 **Quinze entrées**, le lot `view/` comptant pour une. Dans cet ordre, parce que chacune s'appuie sur les précédentes :
 
-| # | Entrée | Slots | Note |
-|---|---|---|---|
-| 1 | `Typography` + `TextSpan` | — | Fixer les valeurs de l'échelle en rôles (§1 bis) ; `TextSpanContext` existe déjà |
-| 2 | `Icon` | — | Sortie de `system/`, exposé publiquement |
-| 3 | `view/` | — | `Row`, `Column`, `Container`, `Padding`, `Center`, `Spacer`, `Stack`… un lot |
-| 4 | `Card` | Header · Body · Title · Description · Footer | Les clés existent dans `CardCustomAppearance`, conversion mécanique |
-| 5 | `Chip` | Label · Dot · Avatar · Close | |
-| 6 | `Alert` | Icon · Title · Description · Close | |
-| 7 | `Input` | Label · Field · Description · Error | Premier usage réel des tokens `field*` |
-| 8 | `Checkbox` | Indicator · Label | |
-| 9 | `Radio` | Indicator · Label | |
-| 10 | `Switch` | Thumb · Track | |
-| 11 | `Avatar` | Image · Fallback | |
-| 12 | `Badge` | — | plat |
-| 13 | `Divider` | — | plat |
-| 14 | `Skeleton` | — | plat |
-| 15 | `Spinner` | — | plat ; dépendance de `Button.Spinner`, à sortir de `Indicator` |
+| #   | Entrée                    | Slots                                        | Note                                                                             |
+| --- | ------------------------- | -------------------------------------------- | -------------------------------------------------------------------------------- |
+| 1   | `Typography` + `TextSpan` | —                                            | Fixer les valeurs de l'échelle en rôles (§1 bis) ; `TextSpanContext` existe déjà |
+| 2   | `Icon`                    | —                                            | Sortie de `system/`, exposé publiquement                                         |
+| 3   | `view/`                   | —                                            | `Row`, `Column`, `Container`, `Padding`, `Center`, `Spacer`, `Stack`… un lot     |
+| 4   | `Card`                    | Header · Body · Title · Description · Footer | Les clés existent dans `CardCustomAppearance`, conversion mécanique              |
+| 5   | `Chip`                    | Label · Dot · Avatar · Close                 |                                                                                  |
+| 6   | `Alert`                   | Icon · Title · Description · Close           |                                                                                  |
+| 7   | `Input`                   | Label · Field · Description · Error          | Premier usage réel des tokens `field*`                                           |
+| 8   | `Checkbox`                | Indicator · Label                            |                                                                                  |
+| 9   | `Radio`                   | Indicator · Label                            |                                                                                  |
+| 10  | `Switch`                  | Thumb · Track                                |                                                                                  |
+| 11  | `Avatar`                  | Image · Fallback                             |                                                                                  |
+| 12  | `Badge`                   | —                                            | plat                                                                             |
+| 13  | `Divider`                 | —                                            | plat                                                                             |
+| 14  | `Skeleton`                | —                                            | plat                                                                             |
+| 15  | `Spinner`                 | —                                            | plat ; dépendance de `Button.Spinner`, à sortir de `Indicator`                   |
 
 > `Alert` utilise `style` / `titleStyle` / `descriptionStyle` là où `Button` et `Card` utilisent `customAppearance`. **Deux conventions d'échappatoire coexistent déjà** dans la lib ; la v1 les remplace toutes les deux par des slots.
 
@@ -1163,14 +1274,14 @@ Suppression du dossier `packages/native-legacy` et de son entrée dans le worksp
 
 ## 10. Risques
 
-| Risque | Parade |
-|---|---|
-| Le pattern est mauvais et se réplique 47 fois | Revue d'API bloquante en fin de P2, avant tout autre composant |
-| `react-native-web` ne rend pas certains composants | Fallback vidéo par composant ; ne pas bloquer la doc entière dessus |
-| Legacy et v1 divergent sur le thème | Un seul provider, hors des deux trees. Non négociable |
-| Les tokens divergent entre native et hybrid | Job CI `tokens:check` dès P0 |
+| Risque                                                                  | Parade                                                                   |
+| ----------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| Le pattern est mauvais et se réplique 47 fois                           | Revue d'API bloquante en fin de P2, avant tout autre composant           |
+| `react-native-web` ne rend pas certains composants                      | Fallback vidéo par composant ; ne pas bloquer la doc entière dessus      |
+| Legacy et v1 divergent sur le thème                                     | Un seul provider, hors des deux trees. Non négociable                    |
+| Les tokens divergent entre native et hybrid                             | Job CI `tokens:check` dès P0                                             |
 | Deux copies d'`@xaui/native` dans l'arbre npm → deux contextes de thème | Peer dependency stricte côté legacy, contrôle au `pnpm pack` dès P1 (§7) |
-| Le périmètre glisse et la 1.0 n'arrive jamais | Le noyau est **quinze** composants. Tout le reste attend `1.x` |
+| Le périmètre glisse et la 1.0 n'arrive jamais                           | Le noyau est **quinze** composants. Tout le reste attend `1.x`           |
 
 ---
 
