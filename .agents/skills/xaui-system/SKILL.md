@@ -154,3 +154,30 @@ Zero runtime dependencies in the package.
       component-shaped primitives (`PressableFeedback`, `Icon`, `Portal`) get none.
 - [ ] Reference-stability test for anything touching the cache.
 - [ ] `pnpm lint && pnpm type-check && pnpm test`.
+
+## `style-props/` — R14, specified, not built (P2.6)
+
+Spacing and placement are props rather than an object, and the resolver is shared:
+
+```tsx
+<Button p={4} mt={2}>Envoyer</Button>
+```
+
+`p px py pt pb ps pe` · `m mx my mt mb ms me` · `gap`. A closed set — no colour, no border,
+no typography, and **`ps`/`pe` rather than `pl`/`pr`**, because a shorthand API is exactly
+where R13 gets broken. The value is a **step on the spacing scale**: `p={4}` is
+`spacing(4)`, so changing `spacingUnit` redraws what callers wrote too.
+
+Two pieces, and the split is the point:
+
+```ts
+resolveStyleProps(props, spacing)   // utils/ — pure, mirrored test
+useStyleProps(props)                // system/style-props/ — splits shorthands from the rest
+```
+
+It resolves **outside the style cache**, in the same second pass as the tint, and lands
+after it and before the slot's `style`. Putting a style prop in the cache key is the one
+way to get this wrong: the table would then grow with caller values instead of with the
+finite combinations of tokens.
+
+Plan §2 ter has the full table and the reasoning.

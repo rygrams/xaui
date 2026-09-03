@@ -1,6 +1,6 @@
 ---
 name: xaui-review
-description: Review an XAUI change against the v1 architecture rules and against clean-code standards — the thirteen principles, API vocabulary, style-cache correctness, accessibility, readability, naming, duplication, tests and package hygiene. Use after writing or modifying any component, system primitive, theme or hybrid code, and before opening a PR.
+description: Review an XAUI change against the v1 architecture rules and against clean-code standards — the fourteen principles, API vocabulary, style-cache correctness, accessibility, readability, naming, duplication, tests and package hygiene. Use after writing or modifying any component, system primitive, theme or hybrid code, and before opening a PR.
 ---
 
 # XAUI v1 — Review
@@ -8,7 +8,7 @@ description: Review an XAUI change against the v1 architecture rules and against
 Run this after **every** component or system change, before `git commit` and before
 `gh pr create`. It asks two questions in one pass: is this code **XAUI** (sections 1–5), and
 is it **good code** (section 6). Neither passes on its own — a component that honours all
-thirteen rules and is unreadable still fails review.
+fourteen rules and is unreadable still fails review.
 
 Rules referenced here are defined in `.project-specs/XAUI-V1-PLAN.md` §1 and detailed in
 the `xaui-component`, `xaui-system` and `xaui-theme` skills.
@@ -26,7 +26,7 @@ the `xaui-component`, `xaui-system` and `xaui-theme` skills.
 Severity: **blocking** = R9, R12, cache correctness, a11y, one-provider rule, generated
 files edited by hand — these are the ones that are unfixable or expensive later.
 
-## 1. The thirteen rules
+## 1. The fourteen rules
 
 - [ ] **R1** — one `forwardRef` root + dot-notation slots. No prop styling another
       component's inside.
@@ -37,9 +37,10 @@ files edited by hand — these are the ones that are unfixable or expensive late
       slot**; no `startContent` / `endContent`.
 - [ ] **R5** — context carries resolved style IDs, memoized; no slot re-resolves the
       recipe.
-- [ ] **R6** — props take tokens only; arbitrary numbers are a type error (except `color`).
+- [ ] **R6** — props take tokens only; arbitrary numbers are a type error. Two exceptions,
+      both outside the cache: `color`, and the style props of R14.
 - [ ] **R7** — only `variant` and `color`. No `background`, no `borderColor`, no third
-      appearance prop.
+      appearance prop. R14 is not one: it places a component, it does not colour it.
 - [ ] **R8** — `isX` / `hasX`; `disabled` is not public.
 - [ ] **R9** *(blocking)* — root forwards `ref`, `style` **including `Pressable`'s function
       form**, `testID`, a11y props; `accessibilityRole` defaults but stays overridable.
@@ -51,6 +52,9 @@ files edited by hand — these are the ones that are unfixable or expensive late
       compose the caller's `onPressIn` / `onPressOut` rather than replacing them.
 - [ ] **R13** — no `left` / `right` / `paddingLeft` … anywhere in `src/`; RTL-safe
       `start` / `end` forms only.
+- [ ] **R14** — spacing and placement are props: `p px py pt pb ps pe`, `m mx my mt mb ms
+      me`, `gap`. Values are **steps on the spacing scale**, never pixels. Outside the
+      cache, after the tint, before the slot's `style`.
 
 ## 2. API vocabulary
 
@@ -60,6 +64,13 @@ files edited by hand — these are the ones that are unfixable or expensive late
 - [ ] `size` sets height / horizontal padding / gap / radius, **never width**. Fixed
       `height`, not `minHeight`. No `fullWidth` prop.
 - [ ] `color` is a raw value, never a token, and lands where the variant says.
+- [ ] **Style props (R14) are the closed set and nothing more** — no `pl` / `pr` (R13), no
+      colour, no border, no typography. A new shorthand is a plan decision, not a
+      component's.
+- [ ] Their values are **spacing steps**, resolved through `theme.spacing()`. A raw pixel in
+      one is the bug this API exists to prevent.
+- [ ] They resolve **outside the cache**, after the tint and before the slot's `style`.
+      Anything that puts them in the cache key grows the table with caller values.
 - [ ] Anything else that wanted a prop goes through `style`.
 
 ## 3. Style engine and performance

@@ -21,7 +21,7 @@ Source of truth in `.agents/skills/<name>/SKILL.md`, copied — never symlinked 
 | Skill | Owns |
 | --- | --- |
 | `xaui-flow` | Start here on any non-trivial task; routes to the others |
-| `xaui-component` | Writing a component — the thirteen rules, folder shape, per-component loop |
+| `xaui-component` | Writing a component — the fourteen rules, folder shape, per-component loop |
 | `xaui-system` | Recipe engine, style cache, slots, `PressableFeedback`, `Portal`, `Icon` |
 | `xaui-theme` | Tokens, OKLab derivation, `createTheme`, provider, generation |
 | `xaui-hybrid` | The web renderer and the `em` sizing convention |
@@ -33,8 +33,10 @@ Source of truth in `.agents/skills/<name>/SKILL.md`, copied — never symlinked 
 
 - **Composition, not configuration** — a `forwardRef` root plus dot-notation slots,
   `asChild` on every root, an exported context hook per compound, namespaced `displayName`.
-- **Two appearance props** — `variant` (ten sanctioned values) and `color` (a raw tint).
-  Everything else goes through the slot's own `style`.
+- **Two appearance props** — `variant` (ten sanctioned values) and `color` (a raw tint) —
+  plus a closed set of **style props** for spacing and placement (`p`, `px`, `mt`, `gap`…)
+  whose values are steps on the spacing scale. Everything else goes through the slot's own
+  `style`, which always wins.
 - **A recipe engine with a style cache** — variants name tokens, styles resolve once at the
   root, slots receive stable `StyleSheet` references.
 - **A two-layer theme** — a hand-written source layer, ~32 tokens derived from it in OKLab.

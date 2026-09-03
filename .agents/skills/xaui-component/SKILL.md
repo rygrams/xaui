@@ -12,7 +12,7 @@ this skill, the Button is wrong and gets fixed — not duplicated.
 Source of truth: `.project-specs/XAUI-V1-PLAN.md` §1 (rules), §1 bis (API vocabulary),
 §8 (Button anatomy), §9 (per-component loop).
 
-## The thirteen rules — non-negotiable
+## The fourteen rules — non-negotiable
 
 | # | Rule |
 |---|---|
@@ -21,14 +21,15 @@ Source of truth: `.project-specs/XAUI-V1-PLAN.md` §1 (rules), §1 bis (API voca
 | R3 | Text children are auto-wrapped through `childrenToString` (recursive stringify, returns `null` if any React element is present). |
 | R4 | Layout belongs to the root (`gap`, `alignItems`, `flexDirection`). Slots have **no margin of their own**. No `startContent` / `endContent` — JSX order is screen order. |
 | R5 | Context carries **resolved** values (style IDs), never raw props. Slots re-resolve nothing. Memoized. |
-| R6 | Tokens in props, arbitrary values in `style`. `size="md"` yes, `size={42}` is a type error. Exception: `color`. |
-| R7 | Two appearance props only: `variant` and `color`. No `background`, no `borderColor` — those go through `style`. |
+| R6 | Tokens in props, arbitrary values in `style`. `size="md"` yes, `size={42}` is a type error. Two exceptions, both **outside the cache**: `color`, and the style props of R14. |
+| R7 | Two appearance props only: `variant` and `color`. No `background`, no `borderColor` — those go through `style`, or R14, which colours nothing. |
 | R8 | Booleans are `isX` / `hasX` (`isDisabled`, `isLoading`, `hasError`). `disabled` is never public; forward it internally to `Pressable`. |
 | R9 | Every root forwards `ref`, `style` (including `Pressable`'s function form), `testID` and a11y props. `accessibilityRole` has a default but stays overridable. **Unfixable after 1.0.** |
 | R10 | Every compound exports its context hook: `export { useButton }`. |
 | R11 | `displayName` is namespaced: `'XAUI.Button.Root'`, `'XAUI.Button.Label'`. |
 | R12 | `asChild` on every root, via `mergeProps` + `mergeRefs` from `system/slot/`. |
 | R13 | No `left` / `right` in any style. Use `paddingStart` / `paddingEnd`, `marginStart` / `marginEnd`, `start` / `end`. An ESLint rule enforces it in `src/`. |
+| R14 | Spacing and placement are **props, not an object**: `p px py pt pb ps pe`, `m mx my mt mb ms me`, `gap`. The value is a **step on the spacing scale**, never a pixel — `p={4}` is `spacing(4)`. Resolved outside the cache, after the tint and **before** the slot's `style`, which still wins. |
 
 ## API vocabulary
 
@@ -63,6 +64,13 @@ union to the four emphasis levels. That's a subtype, not a different prop.
 - **`color` is the tint, in a raw value** (`'#7c3aed'`), never a token. Where it lands
   follows the variant: background for `primary`, label for `ghost`, border + label for
   `tertiary`. Resolved by `theme/derive-tint.ts`, outside the style cache.
+- **Spacing and placement are props (R14).** A closed set of shorthands whose value is a
+  **step on the spacing scale**, never a pixel — `<Button p={4} mt={2}>` is
+  `spacing(4)` / `spacing(2)`. `p px py pt pb ps pe` · `m mx my mt mb ms me` · `gap`.
+  **`ps`/`pe`, never `pl`/`pr`** — R13 applies here most of all, because a shorthand API is
+  where the mistake is easiest. They colour nothing, resolve **outside the cache** (after
+  the tint, before `style`), and `style` still wins. Adding a shorthand is a plan decision
+  — see §2 ter. *Specified, not built: P2.6.*
 - **Anything else goes through `style`.** Tinted shadow, border in a different colour than
   the background, gradient — `style`.
 

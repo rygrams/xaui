@@ -10,7 +10,7 @@
 
 ## 1. Principes
 
-Treize règles. Elles ne se négocient pas composant par composant — c'est ce qui fait qu'une lib de 47 composants reste apprenable.
+Quatorze règles. Elles ne se négocient pas composant par composant — c'est ce qui fait qu'une lib de 47 composants reste apprenable.
 
 **R1 — Composition, pas configuration.**
 Un composant = un root `forwardRef` + des slots en dot-notation. Aucune prop ne stylise l'intérieur d'un autre composant.
@@ -37,10 +37,10 @@ On n'inspecte pas le premier enfant : on tente de **stringifier récursivement**
 Le root résout `variant × size × état` (plus la teinte `color` si fournie) une fois et publie la couleur finale. Les slots ne re-résolvent rien. Valeur memoizée. HeroUI publie les props brutes et laisse chaque slot re-résoudre — c'est gratuit chez eux grâce au cache de `tv()`, ça ne l'est pas sans moteur de classes.
 
 **R6 — Tokens dans les props, valeurs arbitraires dans `style`.**
-`size="md"` passe, `size={42}` est une erreur de type. C'est ce qui permet le cache de styles (§3) — l'ouvrir tue le gain de perf. Seule exception : `color`, qui porte une valeur brute et reste explicitement hors du cache (§3).
+`size="md"` passe, `size={42}` est une erreur de type. C'est ce qui permet le cache de styles (§3) — l'ouvrir tue le gain de perf. Deux exceptions, toutes deux **hors du cache** et résolues dans une seconde passe (§3) : `color`, qui porte une teinte brute, et les **props de style** de R14.
 
 **R7 — Deux props d'apparence, pas trois.**
-`variant` = apparence sanctionnée par le design system. `color` = une teinte brute qui remplace celle du variant. Il n'existe **aucune** autre prop de couleur — pas de `background`, pas de `borderColor` ; ces cas passent par `style`.
+`variant` = apparence sanctionnée par le design system. `color` = une teinte brute qui remplace celle du variant. Il n'existe **aucune** autre prop de couleur — pas de `background`, pas de `borderColor` ; ces cas passent par `style` ou par les props de style de R14, qui ne sont pas des props d'apparence : elles ne décident ni d'une intention ni d'une emphase, elles placent le composant.
 
 **R8 — Booléens en `isX` / `hasX`.**
 `isDisabled`, `isLoading`, `hasError`. `disabled` n'est jamais public ; il est forwardé en interne au `Pressable`.
@@ -60,6 +60,24 @@ Fusionner les props dans l'enfant au lieu de rendre son propre élément — c'e
 
 **R13 — Aucun `left` / `right` dans un style.**
 `paddingStart` / `paddingEnd`, `marginStart` / `marginEnd`, `start` / `end`. RN gère le RTL tout seul avec ces propriétés et pas avec les autres. Écrire `paddingLeft` coûte zéro aujourd'hui et un audit complet le jour où quelqu'un ouvre l'app en arabe. Une règle ESLint interdit les formes directionnelles dans `src/`.
+
+**R14 — L'espacement et le placement sont des props, pas un objet.**
+Le cas courant — desserrer un bouton, le pousser d'un cran — ne doit pas demander d'ouvrir un objet `style` :
+
+```tsx
+<Button p={4} mt={2}>Envoyer</Button>          // au lieu de style={{ padding: 16, marginTop: 8 }}
+<Button px={3} gap={1} color="#7c3aed">…</Button>
+```
+
+Un **jeu fermé de raccourcis**, dont la valeur est un **pas sur l'échelle d'espacement**, jamais un pixel : `p={4}` vaut `spacing(4)`, soit 16 sur la base 4. C'est ce qui les garde dans le vocabulaire du design system au lieu d'en faire une échappatoire de plus.
+
+Trois choses les rendent compatibles avec tout le reste :
+
+- **Elles ne colorent rien.** Pas de `bg`, pas de `borderColor` — R7 tient. Une prop de style place le composant ; elle ne décide pas de son apparence.
+- **Elles sont hors du cache**, résolues dans la même seconde passe que `color` (§3). Le nombre de combinaisons de tokens reste fini ; la table ne grandit pas avec les valeurs que les gens écrivent.
+- **Elles perdent contre `style`.** L'ordre est : recette → teinte → props de style → `style` du slot. Le plus spécifique gagne, et `style` reste l'échappatoire finale.
+
+Le détail du jeu et de sa résolution est au §2 ter.
 
 ### Ce qu'on garde de l'existant
 
@@ -434,6 +452,94 @@ Conséquence sur le code existant : **45 fichiers utilisent encore l'`Animated` 
 **`@xaui/icons` → supprimé.** Les 520 SVG partent. À la place, un primitif `Icon` dans `system/` qui adapte n'importe quelle lib tierce (Ionicons, Lucide, react-native-svg) **et lit le contexte de slot pour la couleur et la taille** (§5). C'est précisément le point faible de HeroUI Native — leur doc oblige l'utilisateur à résoudre la couleur d'icône à la main via `useThemeColor`.
 
 **`@xaui/mcp` → supprimé.** Sa `src/data/` est de la doc écrite à la main, déjà dupliquée avec `apps/docs` et les README. Elle est régénérée depuis la source unique de doc (§6) et servie par le site en `llms.txt` — la route `app/docs/llms-txt` existe déjà.
+
+---
+
+## 2 ter. Les props de style
+
+R14 en détail. Le problème qu'elles règlent est banal et permanent : desserrer un contrôle,
+le pousser d'un cran, resserrer un `gap`. Aujourd'hui chacun de ces cas oblige à ouvrir un
+objet `style`, ce qui est disproportionné pour un nombre.
+
+```tsx
+<Button p={4}>Envoyer</Button>
+<Button px={3} mt={2} gap={1}>…</Button>
+<Row p={4} gap={2}>…</Row>
+```
+
+### Le jeu, fermé
+
+Espacement et placement uniquement. Pas de couleur, pas de bordure, pas de typographie —
+celles-là restent dans `variant`, `color` ou `style`.
+
+| Prop  | Style RN            | Prop | Style RN           |
+| ----- | ------------------- | ---- | ------------------ |
+| `p`   | `padding`           | `m`  | `margin`           |
+| `px`  | `paddingHorizontal` | `mx` | `marginHorizontal` |
+| `py`  | `paddingVertical`   | `my` | `marginVertical`   |
+| `pt`  | `paddingTop`        | `mt` | `marginTop`        |
+| `pb`  | `paddingBottom`     | `mb` | `marginBottom`     |
+| `ps`  | `paddingStart`      | `ms` | `marginStart`      |
+| `pe`  | `paddingEnd`        | `me` | `marginEnd`        |
+| `gap` | `gap`               |      |                    |
+
+**`ps` / `pe` et `ms` / `me`, jamais `pl` / `pr`** — R13 vaut ici comme ailleurs, et c'est
+précisément une API de raccourcis qui rendrait la faute facile.
+
+Le jeu s'arrête là **pour la 1.0**. `w`, `h`, `flex`, `alignSelf` sont des candidats
+crédibles ; ils attendent qu'un composant du noyau les demande deux fois, comme tout le
+reste (§2 bis).
+
+### La valeur est un pas, pas un pixel
+
+`p={4}` vaut `spacing(4)`, soit 16 sur la base 4. C'est ce qui garde ces props dans le
+vocabulaire du design system : changer `spacingUnit` dans le thème redessine tout, y
+compris ce que les appelants ont écrit.
+
+Les demi-pas passent — `px={3.5}` vaut 14, comme dans la recette du `Button`. Une valeur
+en pixels bruts n'a pas de raccourci : c'est `style`.
+
+### Où elles se résolvent
+
+**Hors du cache**, dans la même seconde passe que la teinte (§3). C'est la condition pour
+que R6 tienne : le cache reste indexé par un nombre fini de combinaisons de tokens, et il
+ne grandit pas avec les valeurs que les appelants écrivent.
+
+L'ordre complet, du plus général au plus spécifique :
+
+```
+base → paint → variants → compoundVariants → states → teinte → props de style → style du slot
+```
+
+`style` gagne en dernier. Une prop de style est un raccourci, pas une autorité : quand les
+deux disent quelque chose du même champ, c'est la forme explicite qui l'emporte.
+
+### Où le code vit
+
+`system/style-props/` — un résolveur partagé, pas une réimplémentation par composant. Il
+est public au même titre que le reste de `system/` : un tiers qui écrit son composant XAUI
+en a besoin pour offrir la même API.
+
+Deux fonctions, l'une pure et testée, l'autre triviale :
+
+```ts
+// utils/, pur, testé : le jeu fermé → un objet de style
+resolveStyleProps(props, spacing) // { p: 4, mt: 2 } → { padding: 16, marginTop: 8 }
+
+// system/style-props/, React : sépare les raccourcis du reste des props d'un composant
+const [styleProps, rest] = useStyleProps(props)
+```
+
+Le root applique `styleProps` entre la teinte et son `style`, et forwarde `rest`. Les slots
+les acceptent aussi — R2 dit que chaque slot porte son propre `style`, et un raccourci est
+la même chose en plus court.
+
+### Ce que ça coûte
+
+Une allocation d'objet par rendu, sur les composants dont l'appelant a écrit au moins une
+de ces props. C'est le même arbitrage que `color`, et il est mesuré au §9 bis : la ligne de
+base doit rester vraie pour un composant sans prop de style, et gagner une ligne pour un
+composant qui en porte.
 
 ---
 
