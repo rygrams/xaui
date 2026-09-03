@@ -18,7 +18,9 @@ describe('deriveTint', () => {
     expect(tint.foreground).toBe(foreground)
     expect(tint.soft).toBe(alpha(color, 0.15))
     expect(tint.softPressed).toBe(alpha(color, 0.2))
-    expect(tint.pressed).toBe(mix(color, foreground, 0.1))
+    // Towards the mode's ink, like every token pressed state (P2-API-REVIEW §E), and
+    // not towards the tint's own foreground.
+    expect(tint.pressed).toBe(mix(color, light.colors.foreground, 0.1))
     expect(tint.softForeground).toBe(mix(color, light.colors.foreground, 0.2))
   })
 

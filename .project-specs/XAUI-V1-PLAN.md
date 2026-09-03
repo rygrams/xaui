@@ -108,7 +108,7 @@ type Variant =
 
 Sept valeurs sanctionnées. L'échelle descend selon ce qu'il reste d'accent : `primary` est l'accent plein, `secondary` sa tranche `soft`, `default` abandonne l'accent pour le fond neutre, `tertiary` abandonne le fond pour une bordure, `ghost` abandonne la bordure. **`secondary` est à `primary` ce que `danger-soft` est à `danger`** — la même tranche `soft` de la même famille, ce qui lui évite toute règle propre dans la recette.
 
-**`success` et `warning` ne sont pas des variantes de bouton.** `danger` mérite sa place parce que détruire est une *action* qu'un bouton exécute ; un succès est un résultat et un avertissement est un état, et ni l'un ni l'autre ne se presse. Ce sont des variantes de ce qui *rapporte* un statut — `Alert`, `Chip`, `Badge` — et le thème garde leurs tokens pour eux. Un bouton qui a réellement besoin de ce fond passe la teinte brute : `<Button color={theme.colors.success}>`.
+**`success` et `warning` ne sont pas des variantes de bouton.** `danger` mérite sa place parce que détruire est une _action_ qu'un bouton exécute ; un succès est un résultat et un avertissement est un état, et ni l'un ni l'autre ne se presse. Ce sont des variantes de ce qui _rapporte_ un statut — `Alert`, `Chip`, `Badge` — et le thème garde leurs tokens pour eux. Un bouton qui a réellement besoin de ce fond passe la teinte brute : `<Button color={theme.colors.success}>`.
 
 ### Une variante nomme des tokens, elle ne calcule rien
 
@@ -258,7 +258,7 @@ Chez eux les deux ont le même fond (`--color-default`) et ne diffèrent que par
 **`PressableFeedback` est un composant partagé, pas un fichier d'animation par composant.**
 Ils exposent un primitif avec `.Highlight` et `.Ripple` en slots et une prop `animation` qui accepte `false`, `'disabled'`, `'disable-all'` ou un objet granulaire par sous-animation.
 
-**On a essayé de remplacer les slots par une prop `feedbackVariant` (`scale-highlight | scale-ripple | scale | none`), et on est revenu dessus.** Un nom encode un produit cartésien : l'énum pouvait dire cinq de ses six combinaisons, aucune de celles qu'un troisième overlay ajouterait, et surtout pas un lavis *et* une onde ensemble — ce que fait Material. Elle rendait aussi l'overlay impossible sous `asChild`, où l'élément de l'appelant *est* le pressable et où le primitif n'a aucun frère à injecter. Le root scale ; ce qu'on pose par-dessus se compose.
+**On a essayé de remplacer les slots par une prop `feedbackVariant` (`scale-highlight | scale-ripple | scale | none`), et on est revenu dessus.** Un nom encode un produit cartésien : l'énum pouvait dire cinq de ses six combinaisons, aucune de celles qu'un troisième overlay ajouterait, et surtout pas un lavis _et_ une onde ensemble — ce que fait Material. Elle rendait aussi l'overlay impossible sous `asChild`, où l'élément de l'appelant _est_ le pressable et où le primitif n'a aucun frère à injecter. Le root scale ; ce qu'on pose par-dessus se compose.
 
 C'est structurellement meilleur que mon `button.animation.ts` par composant : le retour au toucher est le même partout, il n'a aucune raison d'être réécrit 47 fois. **Il passe dans `system/pressable-feedback/` et devient une dépendance de tous les composants pressables** (`Button`, `Chip`, `Card` cliquable, `ListItem`, `MenuItem`, `SegmentButton`…).
 
@@ -813,13 +813,27 @@ Une fonction `deriveColors(source)` applique les formules de HeroUI, transposée
 
 ```ts
 // états de press (leurs `-hover`, renommés — voir §1 ter)
-accentPressed  = mix(accent,  accentForeground,  0.10)
-successPressed = mix(success, successForeground, 0.10)
-warningPressed = mix(warning, warningForeground, 0.10)
-dangerPressed  = mix(danger,  dangerForeground,  0.10)
+// Vers l'encre du mode, pas vers le texte de la variante : une seule direction (P2.7)
+accentPressed  = mix(accent,  foreground,        0.10)
+successPressed = mix(success, foreground,        0.10)
+warningPressed = mix(warning, foreground,        0.10)
+dangerPressed  = mix(danger,  foreground,        0.10)
 defaultPressed = mix(default, defaultForeground, 0.04)
 surfacePressed = mix(surface, surfaceForeground, 0.08)
+```
 
+**La direction du press est une décision, pas un effet de bord.** Mélanger vers le texte
+de la variante — ce que fait HeroUI — fait suivre à la direction la clarté du fond :
+`#9333ea` porte un texte quasi blanc et s'éclaircissait sous le doigt en mode clair,
+`#c084fc` porte un texte sombre et s'assombrissait en mode sombre. Même composant, geste
+opposé, personne ne l'avait choisi. Vers `foreground`, c'est une direction unique — plus
+sombre en clair, plus clair en sombre — et le contraste du label monte dans les deux modes
+au lieu de baisser dans l'un. Les remplissages neutres le faisaient déjà :
+`defaultForeground` et `surfaceForeground` _sont_ l'encre, donc seules les quatre
+intentions saturées basculaient. `deriveTint` suit la même règle, sans quoi une teinte
+brute se comporterait autrement qu'un token sous le doigt.
+
+```ts
 // variantes douces
 accentSoft            = alpha(accent, 0.15)
 accentSoftForeground  = mix(accent, foreground, 0.20)

@@ -41,7 +41,10 @@ export function deriveTint(tint: string, theme: XAUITheme): XAUITint {
     foreground,
     soft: alpha(tint, 0.15),
     softForeground: mix(tint, theme.colors.foreground, 0.2),
-    pressed: mix(tint, foreground, 0.1),
+    // Towards the mode's ink, not the tint's own foreground — the same single direction
+    // the token layer takes (P2-API-REVIEW §E). A raw tint has to behave like `accent`
+    // under the finger as much as it does at rest.
+    pressed: mix(tint, theme.colors.foreground, 0.1),
     softPressed: alpha(tint, 0.2),
   }
 
