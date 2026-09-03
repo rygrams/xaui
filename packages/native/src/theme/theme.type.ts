@@ -1,3 +1,5 @@
+import type { TextStyle } from 'react-native'
+
 /** The source layer — the only surface a consumer writes by hand, per mode. */
 export type XAUISourceColors = {
   background: string
@@ -136,7 +138,11 @@ export type XAUITheme = {
   borderWidth: { default: number; field: number }
   fontSizes: Record<FontSizeKey, number>
   lineHeights: Record<FontSizeKey, number>
-  fontWeights: Record<FontWeightKey, string>
+  /**
+   * Typed as RN's own `fontWeight` rather than `string`: a `string` does not assign to
+   * it, so every component reading `t.fontWeights.medium` would have needed a cast.
+   */
+  fontWeights: Record<FontWeightKey, TextStyle['fontWeight']>
   fontFamilies: { body: string; heading: string; mono: string }
   /** Semantic roles, not a scale: dark mode drops the surface shadow entirely. */
   shadows: { surface: XAUIShadow; overlay: XAUIShadow; field: XAUIShadow }

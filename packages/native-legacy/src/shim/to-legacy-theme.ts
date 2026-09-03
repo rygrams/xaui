@@ -1,3 +1,4 @@
+import type { TextStyle } from 'react-native'
 import { palette } from '@xaui/native/theme'
 import type { XAUIColors, XAUITheme } from '@xaui/native/theme'
 import type { ColorScheme, ThemeColors, XUITheme } from './legacy-theme'
@@ -83,12 +84,21 @@ function toBorderWidth(width: XAUITheme['borderWidth']): XUITheme['borderWidth']
 function toFontWeights(weights: XAUITheme['fontWeights']): XUITheme['fontWeights'] {
   return {
     light: '300',
-    normal: weights.regular,
-    medium: weights.medium,
-    semibold: weights.semibold,
-    bold: weights.bold,
+    normal: asWeight(weights.regular, '400'),
+    medium: asWeight(weights.medium, '500'),
+    semibold: asWeight(weights.semibold, '600'),
+    bold: asWeight(weights.bold, '700'),
     extrabold: '800',
   }
+}
+
+/**
+ * Legacy typed its weights as plain strings; v1 uses React Native's own `fontWeight`,
+ * which also admits a number and `undefined`. A theme that overrode one with `600` still
+ * has to reach legacy as `'600'`.
+ */
+function asWeight(weight: TextStyle['fontWeight'], fallback: string): string {
+  return weight === undefined ? fallback : String(weight)
 }
 
 /**

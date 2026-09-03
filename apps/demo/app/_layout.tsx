@@ -44,6 +44,10 @@ export default function RootLayout() {
               />
               <Stack.Screen name="app-bar" options={{ title: 'AppBar Examples' }} />
               <Stack.Screen name="buttons" options={{ title: 'Button Examples' }} />
+              <Stack.Screen
+                name="pressable-feedback"
+                options={{ title: 'PressableFeedback (v1)' }}
+              />
               <Stack.Screen name="card" options={{ title: 'Card Examples' }} />
               <Stack.Screen
                 name="carousel"
