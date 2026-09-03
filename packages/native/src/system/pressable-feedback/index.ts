@@ -35,5 +35,6 @@ export type {
   FeedbackVariant,
   PressableFeedbackProps,
   ResolvedAnimation,
+  RippleWave,
   SlotAnimation,
 } from './pressable-feedback.type'

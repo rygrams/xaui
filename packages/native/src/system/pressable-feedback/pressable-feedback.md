@@ -147,11 +147,12 @@ style, not the container's.
 
 ## Two things that are not obvious in the implementation
 
-**The ripple carries its own touch handlers.** `Pressable` owns the responder system — it
-decides whether a touch becomes a press — and swallows raw touch props handed to it. A
-ripple driven from the root draws _nothing at all_, silently. The handlers belong on the
-overlay's own `View`, which does not claim the responder, so the press underneath is
-untouched. This cost three rewrites to find.
+**The root drives the ripple, the overlay only draws it.** The root is the touch surface,
+and that is not a detail: touches on a component's own children — a button's label — bubble
+up to the `Pressable`, never to the overlay, which is their *sibling* rather than their
+parent. An overlay carrying its own handlers ripples on the padding and does nothing on the
+text, which looks like a rendering bug and is not one. The overlay is
+`pointerEvents="none"` and reads the waves from context.
 
 **`asChild` goes through this component, not around it.** A root doing
 `asChild ? Slot : PressableFeedback` would render its child with no touch feedback at all,

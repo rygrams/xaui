@@ -74,6 +74,16 @@ export type SlotAnimation =
       opacity?: number
     }
 
+/** One ripple wave. Two of them, so a rapid double tap does not cut the one in flight. */
+export type RippleWave = {
+  /** `0 → 1` as the circle opens. */
+  expand: SharedValue<number>
+  /** `0 → 1` as the ink arrives, on its own curve. */
+  alpha: SharedValue<number>
+  /** Where the finger landed, in the root's coordinates. */
+  origin: SharedValue<{ x: number; y: number }>
+}
+
 export type FeedbackContext = {
   isPressed: boolean
   animation: ResolvedAnimation
@@ -81,4 +91,13 @@ export type FeedbackContext = {
   progress?: SharedValue<number>
   /** How big the root is — what the scale coefficient is computed from. */
   size?: SharedValue<{ width: number; height: number }>
+  /**
+   * The two ripple waves, driven by the **root**.
+   *
+   * They belong to the root because the root is the touch surface. An overlay carrying its
+   * own handlers only hears touches that land on *it* — and it is a sibling of the label,
+   * not its parent, so pressing the text of a button would do nothing. Touches bubble to
+   * the `Pressable`, which is why the handlers live there and the waves are published down.
+   */
+  waves?: readonly [RippleWave, RippleWave]
 }

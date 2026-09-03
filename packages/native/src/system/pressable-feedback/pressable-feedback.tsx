@@ -1,12 +1,18 @@
-import { forwardRef, useContext, useEffect, useMemo } from 'react'
+import { forwardRef, useContext, useEffect, useMemo, useRef } from 'react'
 import type { ReactNode } from 'react'
 import { Pressable, View } from 'react-native'
-import type { LayoutChangeEvent, StyleProp, ViewStyle } from 'react-native'
+import type {
+  GestureResponderEvent,
+  LayoutChangeEvent,
+  StyleProp,
+  ViewStyle,
+} from 'react-native'
 import Animated, {
   Easing,
   useAnimatedStyle,
   useDerivedValue,
   useSharedValue,
+  withDelay,
   withTiming,
 } from 'react-native-reanimated'
 import {
@@ -19,6 +25,11 @@ import { PressableFeedbackRipple } from './pressable-feedback-ripple'
 import { Slot } from '../slot/slot'
 import {
   PRESS_DURATION,
+  RIPPLE_CONFIRM_DURATION,
+  RIPPLE_EXPAND_DURATION,
+  RIPPLE_FADE_IN,
+  RIPPLE_FADE_OUT,
+  RIPPLE_FADE_OUT_DELAY,
   pressScaleFor,
   resolveAnimation,
 } from './pressable-feedback.animation'
@@ -26,6 +37,7 @@ import type {
   FeedbackVariant,
   PressableFeedbackProps,
   ResolvedAnimation,
+  RippleWave,
 } from './pressable-feedback.type'
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
@@ -127,12 +139,16 @@ const AnimatedFeedback = forwardRef<View, BranchProps>(function AnimatedFeedback
     children,
     style,
     onLayout,
+    onTouchStart,
+    onTouchEnd,
     ...rest
   },
   ref
 ) {
   const progress = useSharedValue(0)
   const size = useSharedValue({ width: 0, height: 0 })
+  const waves = [useWave(), useWave()] as const
+  const nextWave = useRef(0)
 
   // One curve in both directions, eased out: a press that decelerates reads as the
   // control settling, where a linear ramp reads as it snapping.
@@ -168,9 +184,47 @@ const AnimatedFeedback = forwardRef<View, BranchProps>(function AnimatedFeedback
   }, [animation.scale, progress, pressedScale])
 
   const context = useMemo(
-    () => ({ isPressed, animation, progress, size }),
-    [isPressed, animation, progress, size]
+    () => ({ isPressed, animation, progress, size, waves }),
+    [isPressed, animation, progress, size, waves]
   )
+
+  /**
+   * The ripple starts here, on the **root**, because the root is the touch surface.
+   *
+   * The overlay cannot own this. It is an absolute-fill sibling of the component's own
+   * children, not their parent, so a touch on a button's label never reaches it — pressing
+   * the text would do nothing while pressing the padding worked. Touches bubble to the
+   * `Pressable`, so that is where they are heard.
+   */
+  const handleTouchStart = (event: GestureResponderEvent) => {
+    const wave = waves[nextWave.current]
+    nextWave.current = nextWave.current === 0 ? 1 : 0
+
+    const { locationX, locationY } = event.nativeEvent
+    wave.origin.value = { x: locationX, y: locationY }
+    wave.expand.value = 0
+    wave.expand.value = withTiming(1, {
+      duration: RIPPLE_EXPAND_DURATION,
+      easing: Easing.ease,
+    })
+    wave.alpha.value = withTiming(1, { duration: RIPPLE_FADE_IN })
+    onTouchStart?.(event)
+  }
+
+  // The wave catches up rather than being cut: the expansion finishes fast, and the ink
+  // only starts leaving once it has arrived.
+  const handleTouchEnd = (event: GestureResponderEvent) => {
+    const wave = waves[nextWave.current === 0 ? 1 : 0]
+    wave.expand.value = withTiming(1, {
+      duration: RIPPLE_CONFIRM_DURATION,
+      easing: Easing.ease,
+    })
+    wave.alpha.value = withDelay(
+      RIPPLE_FADE_OUT_DELAY,
+      withTiming(0, { duration: RIPPLE_FADE_OUT })
+    )
+    onTouchEnd?.(event)
+  }
 
   const handleLayout = (event: LayoutChangeEvent) => {
     const { width, height } = event.nativeEvent.layout
@@ -190,6 +244,9 @@ const AnimatedFeedback = forwardRef<View, BranchProps>(function AnimatedFeedback
         style={[clipFor(feedbackVariant, asChild), style, animatedStyle]}
         disabled={isDisabled}
         onLayout={handleLayout}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+        onTouchCancel={handleTouchEnd}
         {...rest}
       >
         {body(asChild, feedbackVariant, children)}
@@ -253,3 +310,11 @@ function DefaultOverlay({ variant }: { variant: FeedbackVariant }): ReactNode {
 }
 
 export { useFeedback }
+
+function useWave(): RippleWave {
+  return {
+    expand: useSharedValue(0),
+    alpha: useSharedValue(0),
+    origin: useSharedValue({ x: 0, y: 0 }),
+  }
+}
