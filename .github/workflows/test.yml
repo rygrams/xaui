@@ -2,7 +2,6 @@ name: Test Workflow
 
 on:
   pull_request:
-    branches: [main, dev]
 
 permissions:
   contents: read
@@ -34,6 +33,29 @@ jobs:
 
       - name: Tokens are generated, keys match and contrast holds
         run: pnpm tokens:check
+
+  pack:
+    name: Pack Uniqueness
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: '@xaui/native resolves once in a consumer tree'
+        run: pnpm pack:check
 
   lint:
     name: ESLint Check
