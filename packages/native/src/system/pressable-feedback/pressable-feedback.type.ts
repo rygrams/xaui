@@ -3,12 +3,18 @@ import type { PressableProps, StyleProp, ViewStyle } from 'react-native'
 import type { SharedValue } from 'react-native-reanimated'
 
 /**
- * What the root does under the finger. `scale-highlight` and `scale-ripple` mount their
- * overlay themselves; `scale` mounts none, which is what a root picks when it renders its
- * own `<PressableFeedback.Highlight>` to style it (R1: no prop reaches into another
- * component's insides).
+ * What the root does under the finger. The name is read, not matched against a table:
+ * `scale…` scales, `…highlight` or `…ripple` mounts that overlay, and the two combine —
+ * which is what lets `ripple` (a wave, no scale) and `scale-ripple` (both) coexist without
+ * a branch each.
  */
-export type FeedbackVariant = 'scale-highlight' | 'scale-ripple' | 'scale' | 'none'
+export type FeedbackVariant =
+  | 'scale'
+  | 'highlight'
+  | 'ripple'
+  | 'scale-highlight'
+  | 'scale-ripple'
+  | 'none'
 
 export type AnimationConfig = {
   scale?: boolean
@@ -48,7 +54,12 @@ export type PressableFeedbackProps = Omit<
    * touch feedback of every `asChild` control.
    */
   asChild?: boolean
-  feedbackVariant?: FeedbackVariant
+  /**
+   * What the control does under the finger. `variant` and not `feedbackVariant`: this
+   * component has one variant to name, and a component that wraps it renames what it
+   * forwards rather than making the primitive carry a longer word forever.
+   */
+  variant?: FeedbackVariant
   animation?: AnimationProp
   style?: StyleProp<ViewStyle>
   /**
@@ -85,6 +96,16 @@ export type RippleWave = {
 }
 
 export type FeedbackContext = {
+  /**
+   * The overlay's ink, resolved by the root from its own background.
+   *
+   * A wash or a wave has to contrast with what it sits on, and only the root knows that —
+   * it flattens its own `style` and reads `backgroundColor`, then takes the contrasting
+   * side the same way a tint does. Black ink at 10% on a saturated fill is close to
+   * invisible, which is the one thing a press indicator cannot be.
+   */
+  ink: string
+
   isPressed: boolean
   animation: ResolvedAnimation
   /** Absent on the static branch, where nothing animates and no worklet is mounted. */

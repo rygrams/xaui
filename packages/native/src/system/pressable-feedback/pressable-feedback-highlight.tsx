@@ -6,7 +6,6 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated'
-import { useXAUITheme } from '../../theme/theme-hooks'
 import { useFeedback } from './pressable-feedback-context'
 import {
   HIGHLIGHT_DURATION,
@@ -15,9 +14,8 @@ import {
 } from './pressable-feedback.animation'
 import type { SlotAnimation } from './pressable-feedback.type'
 
-export type PressableFeedbackHighlightProps = {
+type PressableFeedbackHighlightProps = {
   style?: StyleProp<ViewStyle>
-  /** Overrides the blanket `animation` on the root, for this overlay only. */
   animation?: SlotAnimation
 }
 
@@ -32,8 +30,7 @@ export function PressableFeedbackHighlight({
   style,
   animation: override,
 }: PressableFeedbackHighlightProps) {
-  const { isPressed, animation, progress } = useFeedback()
-  const theme = useXAUITheme()
+  const { isPressed, animation, progress, ink } = useFeedback()
 
   const settings = resolveSlotAnimation(
     override,
@@ -44,7 +41,7 @@ export function PressableFeedbackHighlight({
 
   const base: StyleProp<ViewStyle> = [
     StyleSheet.absoluteFillObject,
-    { backgroundColor: theme.colors.foreground },
+    { backgroundColor: ink },
     style,
   ]
 

@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import type { LayoutChangeEvent, StyleProp, ViewStyle } from 'react-native'
 import Animated, { useAnimatedStyle } from 'react-native-reanimated'
-import { useXAUITheme } from '../../theme/theme-hooks'
 import { useFeedback } from './pressable-feedback-context'
 import {
   RIPPLE_OPACITY,
@@ -12,15 +11,8 @@ import {
 } from './pressable-feedback.animation'
 import type { RippleWave as Wave, SlotAnimation } from './pressable-feedback.type'
 
-export type PressableFeedbackRippleProps = {
-  /**
-   * Styles the **wave**, not the container — `backgroundColor` here is how a component
-   * gives the ripple the ink its surface needs. The default is the theme's `foreground`,
-   * which reads on a neutral surface; a component knows what it is sitting on and this
-   * primitive does not.
-   */
+type PressableFeedbackRippleProps = {
   style?: StyleProp<ViewStyle>
-  /** Overrides the blanket `animation` on the root, for this overlay only. */
   animation?: SlotAnimation
 }
 
@@ -33,6 +25,9 @@ export type PressableFeedbackRippleProps = {
  * handlers works on the padding and does nothing on the text, which is the kind of bug that
  * looks like a rendering problem.
  *
+ * Its ink comes from the root, which resolves it against its own background — only the
+ * root knows what the wave sits on.
+ *
  * The motion is Material's `InkRipple`, and the parts that matter are the ones that are not
  * obvious: the ink is **independent of the expansion**, the circle **starts at 30%** of its
  * target rather than at a point, the target is **half the diagonal**, and the centre
@@ -42,8 +37,7 @@ export function PressableFeedbackRipple({
   style,
   animation: override,
 }: PressableFeedbackRippleProps) {
-  const { animation, waves } = useFeedback()
-  const theme = useXAUITheme()
+  const { animation, waves, ink } = useFeedback()
 
   const settings = resolveSlotAnimation(override, animation.ripple, RIPPLE_OPACITY)
   const [size, setSize] = useState({ width: 0, height: 0 })
@@ -73,7 +67,7 @@ export function PressableFeedbackRipple({
           wave={wave}
           radius={radius}
           center={{ x: size.width / 2, y: size.height / 2 }}
-          color={theme.colors.foreground}
+          color={ink}
           opacity={settings.opacity}
           style={style}
         />

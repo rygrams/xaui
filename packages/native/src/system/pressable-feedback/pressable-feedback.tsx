@@ -1,6 +1,6 @@
 import { forwardRef, useContext, useEffect, useMemo, useRef } from 'react'
 import type { ReactNode } from 'react'
-import { Pressable, View } from 'react-native'
+import { Pressable, StyleSheet, View } from 'react-native'
 import type {
   GestureResponderEvent,
   LayoutChangeEvent,
@@ -23,8 +23,11 @@ import {
 import { PressableFeedbackHighlight } from './pressable-feedback-highlight'
 import { PressableFeedbackRipple } from './pressable-feedback-ripple'
 import { Slot } from '../slot/slot'
+import { contrastOn, isHex } from '../../utils/colors'
+import { useXAUITheme } from '../../theme/theme-hooks'
 import {
   PRESS_DURATION,
+  feedbackParts,
   RIPPLE_CONFIRM_DURATION,
   RIPPLE_EXPAND_DURATION,
   RIPPLE_FADE_IN,
@@ -59,13 +62,14 @@ const AnimatedSlot = Animated.createAnimatedComponent(Slot)
  * (R5) and it needs the value before it renders. This applies the value; it does not
  * decide it.
  *
- * The overlay comes from `feedbackVariant`. A component that wants to style its overlay
- * picks `"scale"` and renders `<PressableFeedback.Highlight style={…}>` itself — no prop
- * here reaches into another component's insides (R1).
+ * The overlay comes from `variant`, and its ink is resolved here rather than configured:
+ * the root flattens its own `style`, reads `backgroundColor`, and takes the contrasting
+ * side. Only the root knows what the overlay sits on, so only the root can pick an ink
+ * that is visible on it.
  */
 export const PressableFeedback = forwardRef<View, PressableFeedbackProps>(
   function PressableFeedback(
-    { animation, feedbackVariant = 'scale-highlight', ...rest },
+    { animation, variant = 'scale-highlight', ...rest },
     ref
   ) {
     const inheritedDisableAll = useContext(DisableAllContext)
@@ -75,13 +79,13 @@ export const PressableFeedback = forwardRef<View, PressableFeedbackProps>(
     // "animation={false} mounts no worklet" is only true if the Reanimated hooks are
     // never reached at all.
     const Feedback =
-      resolved.none || feedbackVariant === 'none' ? StaticFeedback : AnimatedFeedback
+      resolved.none || variant === 'none' ? StaticFeedback : AnimatedFeedback
 
     const body = (
       <Feedback
         ref={ref}
         animation={resolved}
-        feedbackVariant={feedbackVariant}
+        variant={variant}
         {...rest}
       />
     )
@@ -96,7 +100,7 @@ export const PressableFeedback = forwardRef<View, PressableFeedbackProps>(
 
 type BranchProps = Omit<PressableFeedbackProps, 'animation'> & {
   animation: ResolvedAnimation
-  feedbackVariant: FeedbackVariant
+  variant: FeedbackVariant
 }
 
 const StaticFeedback = forwardRef<View, BranchProps>(function StaticFeedback(
@@ -105,25 +109,29 @@ const StaticFeedback = forwardRef<View, BranchProps>(function StaticFeedback(
     isDisabled,
     asChild = false,
     animation,
-    feedbackVariant,
+    variant,
     children,
     style,
     ...rest
   },
   ref
 ) {
-  const context = useMemo(() => ({ isPressed, animation }), [isPressed, animation])
+  const ink = useInk(style)
+  const context = useMemo(
+    () => ({ isPressed, animation, ink }),
+    [isPressed, animation, ink]
+  )
   const Root = asChild ? Slot : Pressable
 
   return (
     <FeedbackProvider value={context}>
       <Root
         ref={ref}
-        style={[clipFor(feedbackVariant, asChild), style]}
+        style={[clipFor(variant, asChild), style]}
         disabled={isDisabled}
         {...rest}
       >
-        {body(asChild, feedbackVariant, children)}
+        {body(asChild, variant, children)}
       </Root>
     </FeedbackProvider>
   )
@@ -135,7 +143,7 @@ const AnimatedFeedback = forwardRef<View, BranchProps>(function AnimatedFeedback
     isDisabled,
     asChild = false,
     animation,
-    feedbackVariant,
+    variant,
     children,
     style,
     onLayout,
@@ -149,6 +157,7 @@ const AnimatedFeedback = forwardRef<View, BranchProps>(function AnimatedFeedback
   const size = useSharedValue({ width: 0, height: 0 })
   const waves = [useWave(), useWave()] as const
   const nextWave = useRef(0)
+  const parts = feedbackParts(variant)
 
   // One curve in both directions, eased out: a press that decelerates reads as the
   // control settling, where a linear ramp reads as it snapping.
@@ -179,13 +188,14 @@ const AnimatedFeedback = forwardRef<View, BranchProps>(function AnimatedFeedback
    */
   const animatedStyle = useAnimatedStyle(() => {
     'worklet'
-    if (!animation.scale) return {}
+    if (!animation.scale || !parts.scale) return {}
     return { transform: [{ scale: 1 - (1 - pressedScale.value) * progress.value }] }
-  }, [animation.scale, progress, pressedScale])
+  }, [animation.scale, parts.scale, progress, pressedScale])
 
+  const ink = useInk(style)
   const context = useMemo(
-    () => ({ isPressed, animation, progress, size, waves }),
-    [isPressed, animation, progress, size, waves]
+    () => ({ isPressed, animation, progress, size, waves, ink }),
+    [isPressed, animation, progress, size, waves, ink]
   )
 
   /**
@@ -241,7 +251,7 @@ const AnimatedFeedback = forwardRef<View, BranchProps>(function AnimatedFeedback
         // node it forwards to, so the two do not meet. The value is a `View` at runtime,
         // which is what this component promises its callers.
         ref={ref as never}
-        style={[clipFor(feedbackVariant, asChild), style, animatedStyle]}
+        style={[clipFor(variant, asChild), style, animatedStyle]}
         disabled={isDisabled}
         onLayout={handleLayout}
         onTouchStart={handleTouchStart}
@@ -249,7 +259,7 @@ const AnimatedFeedback = forwardRef<View, BranchProps>(function AnimatedFeedback
         onTouchCancel={handleTouchEnd}
         {...rest}
       >
-        {body(asChild, feedbackVariant, children)}
+        {body(asChild, variant, children)}
       </Root>
     </FeedbackProvider>
   )
@@ -299,13 +309,14 @@ const OVERLAY_CLIP: ViewStyle = { overflow: 'hidden' }
  */
 function clipFor(variant: FeedbackVariant, asChild: boolean): StyleProp<ViewStyle> {
   if (asChild) return null
-  const mountsOverlay = variant === 'scale-highlight' || variant === 'scale-ripple'
-  return mountsOverlay ? OVERLAY_CLIP : null
+  return feedbackParts(variant).overlay ? OVERLAY_CLIP : null
 }
 
 function DefaultOverlay({ variant }: { variant: FeedbackVariant }): ReactNode {
-  if (variant === 'scale-highlight') return <PressableFeedbackHighlight />
-  if (variant === 'scale-ripple') return <PressableFeedbackRipple />
+  const { overlay } = feedbackParts(variant)
+
+  if (overlay === 'highlight') return <PressableFeedbackHighlight />
+  if (overlay === 'ripple') return <PressableFeedbackRipple />
   return null
 }
 
@@ -317,4 +328,28 @@ function useWave(): RippleWave {
     alpha: useSharedValue(0),
     origin: useSharedValue({ x: 0, y: 0 }),
   }
+}
+
+/**
+ * The ink an overlay needs to be visible on this control.
+ *
+ * A wash or a wave has to contrast with what it sits on, and the root is the only thing
+ * that knows: it can read its own `backgroundColor`. Two cases fall back to the theme's
+ * `foreground`, and both for the same reason — the control is showing what is behind it:
+ *
+ * - **No background at all**, a `ghost` or a transparent row.
+ * - **A translucent one.** Every `…Soft` token is an `rgba()`, and a luminance cannot be
+ *   read off a colour that is partly whatever is underneath. `contrastOn` throws on
+ *   anything that is not hex rather than guessing, so this asks first.
+ */
+function useInk(style: StyleProp<ViewStyle>): string {
+  const theme = useXAUITheme()
+
+  return useMemo(() => {
+    const background = StyleSheet.flatten(style)?.backgroundColor
+    if (typeof background !== 'string' || !isHex(background)) {
+      return theme.colors.foreground
+    }
+    return contrastOn(background, theme.colors.snow, theme.colors.eclipse)
+  }, [style, theme])
 }

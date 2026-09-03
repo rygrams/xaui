@@ -13,16 +13,12 @@ import { PressableFeedback } from '@xaui/native/system'
 ## Anatomy
 
 ```tsx
-<PressableFeedback>
-  <PressableFeedback.Highlight />
-  <PressableFeedback.Ripple />
-</PressableFeedback>
+<PressableFeedback variant="scale-ripple">{children}</PressableFeedback>
 ```
 
-- **`PressableFeedback`** — the pressable root. Scales under the finger, publishes the press
-  state to its overlays, and mounts the overlay `feedbackVariant` names.
-- **`PressableFeedback.Highlight`** — a flat wash fading in across the whole control.
-- **`PressableFeedback.Ripple`** — a circle washing out from where the finger landed.
+One component, one prop. There are no compound parts: the overlays are internal, and the
+one thing a caller would have wanted to set on them — the ink — is **resolved rather than
+configured**, so there is nothing left to reach in and change.
 
 ## Usage
 
@@ -38,7 +34,7 @@ const styles = recipe.resolve({ theme, selection, states: { pressed: isPressed }
 <PressableFeedback
   ref={ref}
   isPressed={isPressed}
-  feedbackVariant="scale"
+  variant="scale"
   style={[styles.root, style]}
   {...press}
 >
@@ -52,7 +48,7 @@ This is the rule that decides how a component looks under the finger, and gettin
 is not subtle:
 
 - **A `pressed` state in the recipe**, swapping `bg` for `bgPressed`. The control's own
-  colour goes down. `Button` does this, and therefore asks for `feedbackVariant="scale"`.
+  colour goes down. `Button` does this, and therefore asks for `variant="scale"`.
 - **An overlay**, `Highlight` or `Ripple`. The control keeps its colour and something is
   laid over it.
 
@@ -60,7 +56,7 @@ Both at once and they fight: two things move at the same time, often in opposite
 directions, and the eye reads neither. A fill that lightens on press under a wave that
 darkens cancels out almost exactly.
 
-### `feedbackVariant`
+### `variant`
 
 | Value             | What is mounted                                             |
 | ----------------- | ----------------------------------------------------------- |
@@ -72,13 +68,6 @@ darkens cancels out almost exactly.
 `scale` is what a component picks when it wants to style its overlay: no prop here reaches
 into another component's insides (R1), so you render the overlay yourself.
 
-```tsx
-<PressableFeedback feedbackVariant="scale">
-  <PressableFeedback.Ripple style={{ backgroundColor: theme.colors.eclipse }} />
-  <Label />
-</PressableFeedback>
-```
-
 ### `animation`
 
 ```tsx
@@ -88,7 +77,7 @@ into another component's insides (R1), so you render the overlay yourself.
 <PressableFeedback animation={{ ripple: false }} />  // one sub-animation off
 ```
 
-**Off means no worklet.** `false`, `'disabled'` and `feedbackVariant="none"` render a
+**Off means no worklet.** `false`, `'disabled'` and `variant="none"` render a
 _different component_, not the same one with a branch inside — hooks cannot be conditional,
 and "mounts no worklet" is only true if the Reanimated hooks are never reached.
 
@@ -140,16 +129,24 @@ The expansion runs a full second while the finger is down and finishes in 225ms 
 lifts — the wave catches up rather than being cut. The ink then waits 225ms and leaves over
 150ms.
 
-**Its colour is the component's job.** The default is the theme's `foreground`, which reads
-on a neutral surface and all but disappears on a saturated one. A primitive cannot know what
-it is sitting on; a component can, so it passes `style={{ backgroundColor }}` — the wave's
-style, not the container's.
+### The ink
+
+**Resolved, never configured.** The root flattens its own `style`, reads `backgroundColor`
+and takes the contrasting side — the same `contrastOn` the theme uses to derive a tint. A
+purple fill gets light ink, a pale surface gets dark ink, and a `ghost` with no background
+falls back to the theme's `foreground`, which is honest because the control is showing
+whatever is behind it.
+
+This is why there is no `Ripple` slot and no colour prop. Only the root knows what the
+overlay sits on, so only the root can pick an ink that is visible on it — and black at 10%
+over a saturated fill is close to invisible, which is the one thing a press indicator
+cannot be.
 
 ## Two things that are not obvious in the implementation
 
 **The root drives the ripple, the overlay only draws it.** The root is the touch surface,
 and that is not a detail: touches on a component's own children — a button's label — bubble
-up to the `Pressable`, never to the overlay, which is their *sibling* rather than their
+up to the `Pressable`, never to the overlay, which is their _sibling_ rather than their
 parent. An overlay carrying its own handlers ripples on the padding and does nothing on the
 text, which looks like a rendering bug and is not one. The overlay is
 `pointerEvents="none"` and reads the waves from context.
@@ -161,8 +158,8 @@ context is published _above_ the root for the same reason: a `Slot` merges into 
 child, and a provider nested inside would swallow the ref, the style and the handlers.
 
 Under `asChild` the caller's element _is_ the pressable and there is no sibling to inject,
-so the default overlay is not rendered — a caller who wants the wash puts
-`<PressableFeedback.Highlight />` among its own children.
+so the default overlay is not rendered. The scale still applies, because that is on the
+element itself.
 
 ## Props
 
@@ -170,24 +167,17 @@ so the default overlay is not rendered — a caller who wants the wash puts
 
 Everything `Pressable` accepts, minus `style`'s function form, plus:
 
-| Prop              | Type              | Default             | Notes                                             |
-| ----------------- | ----------------- | ------------------- | ------------------------------------------------- |
-| `isPressed`       | `boolean`         | `false`             | **Controlled.** The root above owns it            |
-| `isDisabled`      | `boolean`         | —                   | R8; forwarded to `Pressable` as `disabled`        |
-| `asChild`         | `boolean`         | `false`             | Merge into the single child, keeping the feedback |
-| `feedbackVariant` | `FeedbackVariant` | `'scale-highlight'` | The table above                                   |
-| `animation`       | `AnimationProp`   | —                   | `false` mounts no worklet                         |
+| Prop         | Type              | Default             | Notes                                             |
+| ------------ | ----------------- | ------------------- | ------------------------------------------------- |
+| `isPressed`  | `boolean`         | `false`             | **Controlled.** The root above owns it            |
+| `isDisabled` | `boolean`         | —                   | R8; forwarded to `Pressable` as `disabled`        |
+| `asChild`    | `boolean`         | `false`             | Merge into the single child, keeping the feedback |
+| `variant`    | `FeedbackVariant` | `'scale-highlight'` | The table above                                   |
+| `animation`  | `AnimationProp`   | —                   | `false` mounts no worklet                         |
 
 `style` is an object or an array, not `Pressable`'s function form: the root above already
 owns the press state and publishes it through context, so the function form would be a
 second, quieter source of truth.
-
-### `PressableFeedback.Highlight` · `PressableFeedback.Ripple`
-
-| Prop        | Type                   | Notes                                                      |
-| ----------- | ---------------------- | ---------------------------------------------------------- |
-| `style`     | `StyleProp<ViewStyle>` | Styles the wash / the **wave**, not the ripple's container |
-| `animation` | `SlotAnimation`        | `false`, or `{ duration, opacity }`                        |
 
 ## Testing
 

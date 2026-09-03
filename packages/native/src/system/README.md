@@ -119,7 +119,7 @@ const styles = recipe.resolve({ theme, selection, states: { pressed: isPressed }
 <PressableFeedback
   ref={ref}
   isPressed={isPressed}
-  feedbackVariant="scale-highlight"
+  variant="scale-ripple"
   animation={animation}
   style={[styles.root, tint?.root, style]}
   onPressIn={() => setIsPressed(true)}
@@ -133,16 +133,17 @@ const styles = recipe.resolve({ theme, selection, states: { pressed: isPressed }
 (R5) and it needs the value before it renders. `PressableFeedback` applies that value; it
 does not decide it.
 
-**`feedbackVariant` mounts the overlay.** `scale-highlight` and `scale-ripple` add theirs;
-`scale` adds none, which is what a root picks when it renders
-`<PressableFeedback.Highlight style={…}>` itself — no prop here reaches into another
-component's insides (R1).
+**`variant` names two independent things, read off the name.** `scale…` scales,
+`…highlight` or `…ripple` mounts that overlay, and they combine — so `ripple` is a wave with
+no scale and `scale-ripple` is both. There are no compound parts: the overlays are internal,
+and their ink is **resolved** from the root's own `backgroundColor` rather than configured,
+because only the root knows what the overlay sits on.
 
 **Pick one pressed treatment, not both.** The `Highlight` is a _neutral_ wash. A component
 uses it, **or** a `pressed` state in its recipe swapping `bg` for `bgPressed` — never
 both, or a pressed control darkens twice.
 
-**`animation` off means no worklet.** `false`, `'disabled'` and `feedbackVariant="none"`
+**`animation` off means no worklet.** `false`, `'disabled'` and `variant="none"`
 render a different component, not the same one with a branch inside, because hooks cannot
 be conditional and "mounts no worklet" is only true if the Reanimated hooks are never
 reached. `'disable-all'` does the same and passes it to descendants through context, so a
@@ -154,8 +155,8 @@ long list kills every row's worklets with one prop.
 feedback context is published **above** the root for the same reason: a `Slot` merges into
 its single child, so a provider nested inside would swallow the ref, the style and the
 handlers. Under `asChild` the caller's element is the pressable and there is no sibling to
-inject, so the default overlay is not rendered — a caller that wants the wash puts
-`<PressableFeedback.Highlight />` among its own children.
+inject, so the default overlay is not rendered; the scale still applies, because that is on
+the element itself.
 
 Each overlay also takes its own `animation` — `false` to switch that one off, or a
 `duration` and an `opacity` — which wins over the blanket prop on the root, except when

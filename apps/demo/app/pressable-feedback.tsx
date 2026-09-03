@@ -1,13 +1,16 @@
 import { useState } from 'react'
-import { ScrollView, Text, View } from 'react-native'
+import { Pressable, ScrollView, Text, View } from 'react-native'
 import { PressableFeedback } from '@xaui/native/system'
 import type { AnimationProp, FeedbackVariant } from '@xaui/native/system'
 import { useXAUITheme } from '@xaui/native/theme'
 
 /**
- * The verification screen for P1.3. `PressableFeedback` is controlled, so each tile owns
- * its press state exactly the way a component root will — which is also what makes the
- * pressed *colour* below a real stand-in for a recipe's `pressed` state.
+ * The verification screen for `PressableFeedback`. It is controlled, so each tile owns its
+ * press state exactly the way a component root does.
+ *
+ * No tile changes its own colour under the finger. That is the rule the primitive
+ * documents — a recipe's `pressed` state *or* an overlay, never both — and a screen that
+ * broke it made the overlays unreadable, which is precisely what this one used to do.
  */
 export default function PressableFeedbackScreen() {
   const theme = useXAUITheme()
@@ -17,87 +20,75 @@ export default function PressableFeedbackScreen() {
       style={{ backgroundColor: theme.colors.background }}
       contentContainerStyle={{ padding: 16, gap: 24, paddingBottom: 48 }}
     >
-      <Section title="feedbackVariant — the four values">
+      <Section title="variant — the name is read, not matched">
+        <Tile variant="scale" label="scale" />
+        <Tile variant="highlight" label="highlight — a wash, no scale" />
+        <Tile variant="ripple" label="ripple — a wave, no scale" />
         <Tile variant="scale-highlight" label="scale-highlight" />
         <Tile variant="scale-ripple" label="scale-ripple" />
-        <Tile variant="scale" label="scale" />
         <Tile variant="none" label="none" />
       </Section>
 
-      <Section title="animation — off mounts no worklet">
+      <Section title="The ink is resolved, not configured">
+        <Text style={{ color: theme.colors.muted, fontSize: theme.fontSizes.xs }}>
+          Each tile reads its own background and takes the contrasting side. Press
+          the label as well as the padding — the root is the touch surface, so both
+          work.
+        </Text>
+        <Tile variant="ripple" label="on accent" surface={theme.colors.accent} />
+        <Tile variant="ripple" label="on success" surface={theme.colors.success} />
+        <Tile variant="ripple" label="on a surface" surface={theme.colors.surface} />
         <Tile
-          variant="scale-highlight"
-          animation={false}
-          label="animation={false}"
+          variant="ripple"
+          label="on danger-soft"
+          surface={theme.colors.dangerSoft}
         />
+      </Section>
+
+      <Section title="animation — off mounts no worklet">
+        <Tile variant="scale-ripple" animation={false} label="animation={false}" />
         <Tile variant="scale-highlight" animation="disabled" label="'disabled'" />
         <Tile
-          variant="scale-highlight"
+          variant="scale-ripple"
           animation={{ scale: false }}
-          label="{ scale: false } — wash only"
+          label="{ scale: false } — the wave alone"
         />
         <Tile
           variant="scale-ripple"
           animation={{ ripple: false }}
-          label="{ ripple: false } — scale only"
+          label="{ ripple: false } — the scale alone"
         />
       </Section>
 
-      <Section title="Ripple ink — the component gives it, the primitive cannot know">
-        <ContrastRippleTile />
-      </Section>
-
       <Section title="animation='disable-all' — inherited by descendants">
-        <PressableFeedback
-          animation="disable-all"
-          feedbackVariant="none"
+        <View
           style={{
+            gap: 12,
             padding: 12,
-            gap: 8,
-            borderRadius: theme.radius.lg,
+            borderRadius: theme.radius.md,
             borderWidth: theme.borderWidth.default,
             borderColor: theme.colors.border,
           }}
         >
-          <Text style={{ color: theme.colors.foreground }}>
+          <Text style={{ color: theme.colors.muted, fontSize: theme.fontSizes.xs }}>
             Both tiles below ask for animations. Neither should move.
           </Text>
-          <Tile variant="scale-highlight" label="nested, asks for scale-highlight" />
-          <Tile variant="scale-ripple" label="nested, asks for scale-ripple" />
-        </PressableFeedback>
+          <PressableFeedback animation="disable-all" variant="none">
+            <View style={{ gap: 12 }}>
+              <Tile
+                variant="scale-highlight"
+                label="nested, asks for scale-highlight"
+              />
+              <Tile variant="scale-ripple" label="nested, asks for scale-ripple" />
+            </View>
+          </PressableFeedback>
+        </View>
       </Section>
 
-      <Section title="A styled overlay — variant 'scale', slot rendered by hand">
-        <StyledOverlayTile />
-      </Section>
-
-      <Section title="asChild — the feedback must survive the merge">
+      <Section title="asChild — the feedback goes through, not around">
         <AsChildTile />
       </Section>
-
-      <Section title="animation per slot — same variant, slower and stronger">
-        <SlowHighlightTile />
-      </Section>
     </ScrollView>
-  )
-}
-
-function Section({ title, children }: { title: string; children: React.ReactNode }) {
-  const theme = useXAUITheme()
-
-  return (
-    <View style={{ gap: 8 }}>
-      <Text
-        style={{
-          color: theme.colors.foreground,
-          fontSize: theme.fontSizes.sm,
-          fontWeight: theme.fontWeights.semibold,
-        }}
-      >
-        {title}
-      </Text>
-      {children}
-    </View>
   )
 }
 
@@ -105,18 +96,21 @@ function Tile({
   variant,
   animation,
   label,
+  surface,
 }: {
   variant: FeedbackVariant
   animation?: AnimationProp
   label: string
+  surface?: string
 }) {
   const theme = useXAUITheme()
   const [isPressed, setIsPressed] = useState(false)
+  const background = surface ?? theme.colors.accent
 
   return (
     <PressableFeedback
       isPressed={isPressed}
-      feedbackVariant={variant}
+      variant={variant}
       animation={animation}
       onPressIn={() => setIsPressed(true)}
       onPressOut={() => setIsPressed(false)}
@@ -126,52 +120,17 @@ function Tile({
         justifyContent: 'center',
         paddingHorizontal: theme.spacing(4),
         borderRadius: theme.radius.md,
-        // Deliberately **not** swapping to `accentPressed` on press. These tiles exist to
-        // show what the primitive does under the finger, and a fill that moves at the same
-        // time competes with it — with `scale-ripple` the two cancel and the wave becomes
-        // unreadable. A recipe's `pressed` state and an overlay are alternatives, never
-        // both at once; that is the rule, and this screen has to obey it too.
-        backgroundColor: theme.colors.accent,
+        backgroundColor: background,
       }}
     >
-      <Text style={{ color: theme.colors.accentForeground }}>{label}</Text>
-    </PressableFeedback>
-  )
-}
-
-function StyledOverlayTile() {
-  const theme = useXAUITheme()
-  const [isPressed, setIsPressed] = useState(false)
-
-  return (
-    <PressableFeedback
-      isPressed={isPressed}
-      feedbackVariant="scale"
-      onPressIn={() => setIsPressed(true)}
-      onPressOut={() => setIsPressed(false)}
-      accessibilityRole="button"
-      style={{
-        height: theme.controlHeights.lg,
-        justifyContent: 'center',
-        paddingHorizontal: theme.spacing(4),
-        borderRadius: theme.radius.md,
-        overflow: 'hidden',
-        backgroundColor: theme.colors.surface,
-      }}
-    >
-      <PressableFeedback.Highlight
-        style={{ backgroundColor: theme.colors.danger }}
-      />
-      <Text style={{ color: theme.colors.surfaceForeground }}>
-        scale + a Highlight tinted by the slot&apos;s own style
-      </Text>
+      <Text style={{ color: labelOn(theme, background) }}>{label}</Text>
     </PressableFeedback>
   )
 }
 
 /**
- * The case that would break silently if `asChild` went around `PressableFeedback`
- * instead of through it: the child must scale and wash exactly like a plain tile.
+ * The case that would break silently if `asChild` went around `PressableFeedback` instead
+ * of through it: the child must move under the finger exactly like a plain tile.
  */
 function AsChildTile() {
   const theme = useXAUITheme()
@@ -181,92 +140,55 @@ function AsChildTile() {
     <PressableFeedback
       asChild
       isPressed={isPressed}
-      feedbackVariant="scale-highlight"
+      variant="scale"
       onPressIn={() => setIsPressed(true)}
       onPressOut={() => setIsPressed(false)}
-      accessibilityRole="button"
     >
-      <View
+      <Pressable
+        accessibilityRole="button"
         style={{
           height: theme.controlHeights.lg,
           justifyContent: 'center',
           paddingHorizontal: theme.spacing(4),
           borderRadius: theme.radius.md,
-          overflow: 'hidden',
-          backgroundColor: theme.colors.success,
+          backgroundColor: theme.colors.accent,
         }}
       >
-        <Text style={{ color: theme.colors.successForeground }}>
-          asChild — merged into this View, feedback intact
+        <Text style={{ color: theme.colors.accentForeground }}>
+          a bare Pressable, wearing the feedback
         </Text>
-      </View>
+      </Pressable>
     </PressableFeedback>
   )
 }
 
-function SlowHighlightTile() {
-  const theme = useXAUITheme()
-  const [isPressed, setIsPressed] = useState(false)
-
-  return (
-    <PressableFeedback
-      isPressed={isPressed}
-      feedbackVariant="scale"
-      onPressIn={() => setIsPressed(true)}
-      onPressOut={() => setIsPressed(false)}
-      accessibilityRole="button"
-      style={{
-        height: theme.controlHeights.lg,
-        justifyContent: 'center',
-        paddingHorizontal: theme.spacing(4),
-        borderRadius: theme.radius.md,
-        overflow: 'hidden',
-        backgroundColor: theme.colors.warning,
-      }}
-    >
-      <PressableFeedback.Highlight animation={{ duration: 600, opacity: 0.35 }} />
-      <Text style={{ color: theme.colors.warningForeground }}>
-        Highlight with animation={'{'} duration: 600, opacity: 0.35 {'}'}
-      </Text>
-    </PressableFeedback>
-  )
+/** Enough to keep the labels legible on the four surfaces this screen uses. */
+function labelOn(
+  theme: ReturnType<typeof useXAUITheme>,
+  background: string
+): string {
+  if (background === theme.colors.success) return theme.colors.successForeground
+  if (background === theme.colors.dangerSoft)
+    return theme.colors.dangerSoftForeground
+  if (background === theme.colors.surface) return theme.colors.surfaceForeground
+  return theme.colors.accentForeground
 }
 
-/**
- * The ripple's ink, given by the component rather than guessed by the primitive.
- *
- * `PressableFeedback` cannot know what it is sitting on, so its default ink is the theme's
- * `foreground`. A component knows its surface and can say otherwise: it picks
- * `feedbackVariant="scale"` and gives the wave its own colour.
- *
- * A *lighter* ink than the fill is the Material state-layer convention, and it is the wrong
- * call here — the tile's `accentPressed` already lightens on press, so a light wave on top
- * of it washes the control out. Darker ink, one direction of travel.
- */
-function ContrastRippleTile() {
+function Section({ title, children }: { title: string; children: React.ReactNode }) {
   const theme = useXAUITheme()
-  const [isPressed, setIsPressed] = useState(false)
 
   return (
-    <PressableFeedback
-      isPressed={isPressed}
-      feedbackVariant="scale"
-      onPressIn={() => setIsPressed(true)}
-      onPressOut={() => setIsPressed(false)}
-      accessibilityRole="button"
-      style={{
-        height: theme.controlHeights.lg,
-        justifyContent: 'center',
-        paddingHorizontal: theme.spacing(4),
-        borderRadius: theme.radius.md,
-        overflow: 'hidden',
-        backgroundColor: theme.colors.accent,
-      }}
-    >
-      <PressableFeedback.Ripple style={{ backgroundColor: theme.colors.eclipse }} />
-      <Text style={{ color: theme.colors.accentForeground }}>
-        Ripple in a darker ink than the default
+    <View style={{ gap: 10 }}>
+      <Text
+        style={{
+          color: theme.colors.foreground,
+          fontSize: theme.fontSizes.md,
+          fontWeight: theme.fontWeights.semibold,
+        }}
+      >
+        {title}
       </Text>
-    </PressableFeedback>
+      {children}
+    </View>
   )
 }

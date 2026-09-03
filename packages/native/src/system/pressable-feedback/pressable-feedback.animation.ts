@@ -1,5 +1,6 @@
 import type {
   AnimationProp,
+  FeedbackVariant,
   ResolvedAnimation,
   SlotAnimation,
 } from './pressable-feedback.type'
@@ -63,6 +64,26 @@ export const RIPPLE_FADE_OUT = 150
 export function rippleRadiusFor(width: number, height: number): number {
   'worklet'
   return Math.sqrt(width * width + height * height) / 2 + 5
+}
+
+/**
+ * The two independent things a variant names, read off the name. One place decides what
+ * `scale-ripple` means, so adding `ripple` on its own cost nothing.
+ */
+export function feedbackParts(variant: FeedbackVariant): {
+  scale: boolean
+  overlay: 'highlight' | 'ripple' | null
+} {
+  if (variant === 'none') return { scale: false, overlay: null }
+
+  return {
+    scale: variant.startsWith('scale'),
+    overlay: variant.endsWith('highlight')
+      ? 'highlight'
+      : variant.endsWith('ripple')
+        ? 'ripple'
+        : null,
+  }
 }
 
 const ALL_OFF: Omit<ResolvedAnimation, 'disableAll'> = {

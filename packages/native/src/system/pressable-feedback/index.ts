@@ -1,11 +1,4 @@
-import { PressableFeedback as Root } from './pressable-feedback'
-import { PressableFeedbackHighlight } from './pressable-feedback-highlight'
-import { PressableFeedbackRipple } from './pressable-feedback-ripple'
-
-export const PressableFeedback = Object.assign(Root, {
-  Highlight: PressableFeedbackHighlight,
-  Ripple: PressableFeedbackRipple,
-})
+export { PressableFeedback } from './pressable-feedback'
 
 export { useFeedback } from './pressable-feedback-context'
 export {
@@ -21,13 +14,12 @@ export {
   RIPPLE_OPACITY,
   RIPPLE_START_SCALE,
   SCALE_REFERENCE_WIDTH,
+  feedbackParts,
   pressScaleFor,
   resolveAnimation,
   resolveSlotAnimation,
   rippleRadiusFor,
 } from './pressable-feedback.animation'
-export type { PressableFeedbackHighlightProps } from './pressable-feedback-highlight'
-export type { PressableFeedbackRippleProps } from './pressable-feedback-ripple'
 export type {
   AnimationConfig,
   AnimationProp,

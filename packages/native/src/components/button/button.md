@@ -276,9 +276,14 @@ top would darken it twice. A component picks **one** pressed treatment, never bo
 `animation={false}` renders a different component rather than the same one with a branch
 inside — no Reanimated hook is reached at all.
 
-> `feedbackVariant="scale-ripple"` currently draws nothing. It is a known defect, tracked
-> as P2.5 in the roadmap and written up in `.project-specs/P2-API-REVIEW.md` §D. No core
-> component depends on it.
+`feedbackVariant` is `PressableFeedback`'s `variant`, renamed on the way in: here that word
+already means the ten sanctioned appearances. Its six values are `scale`, `highlight`,
+`ripple`, `scale-highlight`, `scale-ripple` and `none` — the name is read, so `ripple` is a
+wave with no scale.
+
+The overlay's ink is resolved from the button's own background rather than configured, so a
+filled variant gets light ink and a `ghost` gets the theme's foreground, with nothing to
+pass.
 
 ## Extending it
 

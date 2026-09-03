@@ -118,7 +118,7 @@ export const ButtonRoot = forwardRef<View, ButtonProps>(function Button(
         isPressed={isPressed}
         isDisabled={isDisabled || isLoading}
         asChild={asChild}
-        feedbackVariant={feedbackVariant}
+        variant={feedbackVariant}
         accessibilityRole={accessibilityRole}
         // Merged, not spread over: a caller adding `expanded` or `selected` must not
         // silently drop the disabled and busy states a screen reader depends on. Their
