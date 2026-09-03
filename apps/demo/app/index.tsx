@@ -186,10 +186,37 @@ export default function ButtonScreen() {
       </Section>
 
       <Section
-        title="Escape hatches"
-        note="Everything the two appearance props do not cover goes through a slot's own style."
+        title="Style props — R14"
+        note="Full React Native names, so full React Native values: padding={16} is 16 points, never a step on a scale. They resolve after the recipe and before the slot's own style."
       >
-        <Button style={{ alignSelf: 'flex-start' }}>alignSelf, not fullWidth</Button>
+        <Button padding={24} marginTop={8}>
+          padding={'{24}'} marginTop={'{8}'}
+        </Button>
+        <Button variant="secondary" width="60%">
+          width=&quot;60%&quot; — what replaced fullWidth
+        </Button>
+        <Button variant="tertiary" height={72}>
+          height={'{72}'} beats the height size chose
+        </Button>
+        <Button variant="ghost" backgroundColor={theme.colors.warningSoft}>
+          backgroundColor — a raw fill, and it says so
+        </Button>
+        <Button>
+          <Button.Label fontSize={18} letterSpacing={2} color={theme.colors.warning}>
+            a label sizing and tinting itself
+          </Button.Label>
+        </Button>
+        <Button variant="secondary" padding={40} style={{ padding: 12 }}>
+          padding={'{40}'} with style={'{{ padding: 12 }}'} — style wins, and this one
+          is tight
+        </Button>
+      </Section>
+
+      <Section
+        title="Escape hatches"
+        note="A value has a prop; the rest is a slot's own style. It stays the last word for a transform, a per-platform shadow, or a computed object."
+      >
+        <Button alignSelf="flex-start">alignSelf, not fullWidth</Button>
         <Button variant="secondary">
           <Button.Label style={{ fontStyle: 'italic', letterSpacing: 1 }}>
             a label styling itself

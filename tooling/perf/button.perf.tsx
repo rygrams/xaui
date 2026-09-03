@@ -49,7 +49,16 @@ const COMBINATIONS = VARIANTS.length * SIZES.length
 /** One `Pressable` and one `Text` per row — what the mock counts as a host render. */
 const HOSTS_PER_BUTTON = 2
 
-function List({ tint }: { tint?: string }) {
+/** What a caller reaching for R14 writes: two style props on every row. */
+const STYLE_PROPS = { padding: 20, marginTop: 4 } as const
+
+function List({
+  tint,
+  styleProps,
+}: {
+  tint?: string
+  styleProps?: typeof STYLE_PROPS
+}) {
   return (
     <XAUIProvider colorMode="light">
       {Array.from({ length: COUNT }, (_, index) => (
@@ -62,6 +71,7 @@ function List({ tint }: { tint?: string }) {
           color={tint}
           animation={false}
           testID={`button-${index}`}
+          {...styleProps}
         >
           Row {index}
         </Button>
@@ -127,6 +137,32 @@ describe('200 buttons — style allocations', () => {
     // tokens, never with the colours users invent (R7).
     expect(first).toBe(0)
     expect(styleSheetCreateCalls()).toBe(0)
+  })
+})
+
+describe('200 buttons — style props (R14)', () => {
+  it('adds no cache entry: they resolve outside it, like a tint', () => {
+    render(<List />)
+    cleanup()
+
+    resetStyleSheetCounter()
+    render(<List styleProps={STYLE_PROPS} />)
+
+    // The same combinations, and not one more. A style prop in the cache key would make
+    // the table grow with the values callers write instead of with the tokens.
+    expect(styleSheetCreateCalls()).toBe(0)
+  })
+
+  it('costs one object per row and no extra render under the finger', () => {
+    const view = render(<List styleProps={STYLE_PROPS} />)
+    const button = view.getAllByRole('button')[0]
+
+    resetRenderCounts()
+    fireEvent.mouseDown(button)
+
+    // The object `useStyleProps` returns keeps its identity while the values do, so a
+    // press costs what it costs without style props: the two hosts of the row pressed.
+    expect(total(renderCounts())).toBe(HOSTS_PER_BUTTON)
   })
 })
 

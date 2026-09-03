@@ -1,5 +1,6 @@
 import { forwardRef } from 'react'
 import { Text } from 'react-native'
+import { useStyleProps } from '../../system/style-props'
 import { useButton } from './button.context'
 import type { ButtonLabelProps } from './button.type'
 
@@ -15,16 +16,17 @@ import type { ButtonLabelProps } from './button.type'
  * the root's, so JSX order is screen order and nothing has to be undone to reverse them.
  */
 export const ButtonLabel = forwardRef<Text, ButtonLabelProps>(function ButtonLabel(
-  { children, style, numberOfLines = 1, ...rest },
+  { children, style, numberOfLines = 1, ...props },
   ref
 ) {
   const { labelStyle } = useButton()
+  const [styleProps, rest] = useStyleProps(props)
 
   return (
     <Text
       ref={ref}
       numberOfLines={numberOfLines}
-      style={[labelStyle, style]}
+      style={[labelStyle, styleProps, style]}
       {...rest}
     >
       {children}

@@ -9,6 +9,7 @@ import Animated, {
   withRepeat,
   withTiming,
 } from 'react-native-reanimated'
+import { useStyleProps } from '../../system/style-props'
 import { useButton } from './button.context'
 import type { ButtonSpinnerProps } from './button.type'
 
@@ -25,14 +26,16 @@ const ROTATION_DURATION = 800
  * and its variant with nothing to pass. P3 extracts it into the standalone `Spinner`, and
  * this slot becomes its call site.
  */
-export function ButtonSpinner({ style, animation = true }: ButtonSpinnerProps) {
+export function ButtonSpinner({ style, animation = true, ...props }: ButtonSpinnerProps) {
   const { spinnerStyle } = useButton()
+  const [styleProps] = useStyleProps(props)
+  const ringStyle = [spinnerStyle, styleProps, style]
 
   // Two components rather than a branch inside one: hooks cannot be conditional, and
   // "no animation" is only true if the Reanimated hooks are never reached.
-  if (!animation) return <View style={[spinnerStyle, style]} />
+  if (!animation) return <View style={ringStyle} />
 
-  return <SpinningRing style={[spinnerStyle, style]} />
+  return <SpinningRing style={ringStyle} />
 }
 
 ButtonSpinner.displayName = 'XAUI.Button.Spinner'

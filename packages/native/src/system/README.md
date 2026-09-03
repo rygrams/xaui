@@ -13,8 +13,8 @@ re-exported from `utils/`.
 ## What belongs
 
 - A primitive a component author needs and cannot reasonably write themselves: the style
-  engine, slot plumbing, touch feedback, the portal, the icon, and — specified but **not
-  built yet**, see P2.6 — the style-prop splitter of R14.
+  engine, slot plumbing, touch feedback, the portal, the icon, the style-prop splitter of
+  R14.
 - Nothing component-specific. If only `Button` needs it, it lives in `components/button/`
   until a second component asks for it (§2 bis).
 - The exported surface is deliberate: an internal that `createRecipe` happens to use is
@@ -30,6 +30,7 @@ re-exported from `utils/`.
 | `pressable-feedback/` | Touch feedback: the scale, and `Highlight` / `Ripple` as composed parts |
 | `portal/`             | Render elsewhere in the tree: `Dialog`, `Sheet`, `Drawer`, `Snackbar`   |
 | `icon/`               | A third-party icon that inherits its slot's size and colour             |
+| `style-props/`        | R14: the style keys of a node, exposed as props and split back out      |
 
 ## `recipe/` in one page
 
@@ -230,3 +231,57 @@ slot's instead is the entire point of wrapping it.
 throws outside its parent, and an `Icon` has to work standalone as much as inside a
 `Button`. `react-native-svg` stays an **optional** peer — nothing here imports it, the
 raw-SVG form only clones an element the caller already made.
+
+## `style-props/` in one page
+
+R14 — a component's style is editable in props, so loosening a control or giving it a
+width does not mean opening an object:
+
+```tsx
+<Button padding={16} marginTop={8} width="100%">Envoyer</Button>
+<Button.Label fontSize={18} letterSpacing={1}>Envoyer</Button.Label>
+```
+
+**Full React Native names, and therefore full React Native values.** `padding`, not `p`;
+`padding={16}` is 16 points, exactly as `style` would be. A prop carrying the RN key's
+name while multiplying its value by a scale would be the most expensive trap in the API —
+the kind only a ruler on the screen catches. The scale stays one word away:
+`padding={t.spacing(4)}`.
+
+A component author needs two things from here — a type for its props, and the split at
+the top of its render:
+
+```tsx
+export type CardProps = CardOwnProps &
+  Omit<ViewStyleProps, keyof CardOwnProps>
+
+function Card({ variant, style, ...props }: CardProps) {
+  const [styleProps, rest] = useStyleProps(props)
+  const styles = cardRecipe.resolve({ theme, selection: { variant }, states })
+
+  return <View style={[styles.root, styleProps, style]} {...rest} />
+}
+```
+
+`ViewStyleProps` for a root or a view slot, `TextStyleProps` for a text slot,
+`ImageStyleProps` for an image one. Three rules hold it together:
+
+- **The component's own props win.** Where a name is already the component's — `size` is a
+  control's scale, `color` is R7's tint — the style prop of that name is not exposed, and
+  `Omit<…, keyof OwnProps>` is what says so. Destructuring those props before the split is
+  the runtime half of the same rule. `pointerEvents` is the one name where a style key and
+  an RN component prop collide; it stays the prop it has always been.
+- **The directional forms of R13 are not exposed at all.** Not deprecated, not warned
+  about — absent from the type, because a props API is exactly where someone writes
+  `paddingLeft` without thinking.
+- **They resolve outside the style cache**, in the same second pass as the tint, after it
+  and before the slot's `style`, which stays the last word for a `transform`, a
+  per-platform shadow or a computed object.
+
+The set is not a maintained list, it is `Omit<ViewStyle, DirectionalStyleKey>` — but the
+split needs the names at runtime, and that table lives in `utils/style-props.ts`. A
+compile-time check in `style-props.type.ts` pins the two together: a React Native upgrade
+that adds a style key fails `type-check` naming it, rather than shipping a prop that types
+fine and is dropped on the floor.
+
+Plan §2 ter has the full reasoning.
