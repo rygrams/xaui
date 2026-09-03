@@ -2,6 +2,7 @@ import { cloneElement, isValidElement } from 'react'
 import type { ReactElement } from 'react'
 import { Image } from 'react-native'
 import { useXAUITheme } from '../../theme/theme-hooks'
+import { useStyleProps } from '../style-props'
 import { useIconContext } from './icon-context'
 import type { IconProps } from './icon.type'
 
@@ -27,9 +28,11 @@ export function Icon({
   size,
   color,
   style,
+  ...props
 }: IconProps) {
   const inherited = useIconContext()
   const theme = useXAUITheme()
+  const [styleProps] = useStyleProps(props)
 
   const resolvedSize = size ?? inherited.size ?? theme.fontSizes.md
   const resolvedColor = color ?? inherited.color ?? theme.colors.foreground
@@ -55,6 +58,7 @@ export function Icon({
         source={source}
         style={[
           { width: resolvedSize, height: resolvedSize, tintColor: resolvedColor },
+          styleProps,
           style,
         ]}
       />

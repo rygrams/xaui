@@ -77,13 +77,17 @@ type ButtonBehaviourProps = Omit<
 
 /**
  * R14 — the button's own props, the press behaviour it forwards, and every `ViewStyle`
- * key the two do not already claim. `height` therefore beats the height `size` chose and
- * `width="100%"` is what replaced `fullWidth`, both because the style props resolve after
- * the recipe. That is the escape hatch, not the normal path.
+ * key its own vocabulary does not already claim. `height` therefore beats the height
+ * `size` chose and `width="100%"` is what replaced `fullWidth`, both because the style
+ * props resolve after the recipe. That is the escape hatch, not the normal path.
+ *
+ * `PressableFeedback` carries the same keys, so the third term is redundant today. It
+ * stays because it is the `Button` that owes them: a root states the rule for its own
+ * node rather than inheriting it from whatever it happens to render.
  */
 export type ButtonProps = ButtonOwnProps &
   ButtonBehaviourProps &
-  Omit<ViewStyleProps, keyof ButtonOwnProps | keyof ButtonBehaviourProps>
+  Omit<ViewStyleProps, keyof ButtonOwnProps>
 
 /** `Text`'s own props win over the `TextStyle` keys of the same name (R14). */
 export type ButtonLabelProps = TextProps &

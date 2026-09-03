@@ -73,6 +73,8 @@ Desserrer un contrôle, lui donner une largeur, changer un fond ne doit pas dema
 
 Le jeu n'est pas une liste mais un type : **les clés de style du nœud du composant** — `ViewStyle`, `TextStyle` sur un slot texte — **moins les formes directionnelles que R13 interdit**, qui ne sont pas exposées du tout.
 
+**Tout ce qui rend un nœud les expose**, sans exception par composant : un root, un slot, et les primitives de `system/` — `PressableFeedback` et ses overlays, `PortalHost`, `Icon` — au même titre. Une liste des composants « qui les ont » serait exactement la liste que cette règle dit de ne pas maintenir.
+
 Trois choses les gardent compatibles avec le reste :
 
 - **La portée s'arrête au nœud sur lequel la prop est écrite.** Jamais un descendant : R1 tient, et c'est ce qui les sépare de `customAppearance`.
@@ -525,6 +527,34 @@ comme il porte déjà son `style` (R2) :
 C'est ce qui les distingue de l'ancien `customAppearance`, qui atteignait l'intérieur d'un
 composant depuis l'extérieur : ici l'endroit où on écrit la prop est l'endroit où elle
 s'applique.
+
+### Tout ce qui rend un nœud les expose — pas seulement les roots
+
+**La règle n'a pas d'exception par composant.** Dès qu'un composant rend un nœud, il expose
+les clés de style de ce nœud : un root, un slot, et les primitives de `system/` au même
+titre. Une liste de « ceux qui les ont » serait exactement la liste que R14 dit de ne pas
+maintenir — et un appelant qui doit deviner lesquels en ont a une API à apprendre par cœur.
+
+| Ce qui rend                         | Le nœud           | Le jeu            |
+| ----------------------------------- | ----------------- | ----------------- |
+| Un root — `Button`, `Card`, `Chip`  | une vue pressable | `ViewStyleProps`  |
+| Un slot vue — `Button.Spinner`      | une vue           | `ViewStyleProps`  |
+| Un slot texte — `Button.Label`      | un `Text`         | `TextStyleProps`  |
+| `PressableFeedback` et ses overlays | un `Pressable`    | `ViewStyleProps`  |
+| `PortalHost`                        | sa vue conteneur  | `ViewStyleProps`  |
+| `Icon`                              | une `Image`       | `ImageStyleProps` |
+
+Deux cas méritent leur phrase :
+
+- **`Icon` ne rend un nœud que dans sa forme `source`.** Les deux autres — `as` et l'enfant
+  SVG — rendent le composant de quelqu'un d'autre. Ses props de style portent donc
+  exactement aussi loin que son `style`, qui a déjà cette limite, et `size` / `color`
+  restent l'échappatoire des deux autres formes. Ce n'est pas une exception à la règle :
+  la règle dit « le nœud que le composant rend », et il n'y en a qu'un sur trois.
+- **Un root les déclare pour son propre nœud**, même quand le primitif qu'il rend les porte
+  déjà. `Button` les redéclare bien que `PressableFeedback` les ait : c'est le `Button` qui
+  les doit à son appelant, et un composant ne doit pas dépendre de ce qu'il rend
+  aujourd'hui pour tenir sa promesse d'API demain.
 
 ### `color` garde son sens, et ce n'est pas une exception
 

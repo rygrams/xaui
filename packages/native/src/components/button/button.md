@@ -210,10 +210,10 @@ The set is not a list but a type — the node's style keys (`ViewStyle` on the r
 `TextStyle` on `Button.Label`) **minus the directional forms R13 bans**, which are not
 exposed at all: `paddingStart`, never `paddingLeft`.
 
-`Button.Icon` is the exception, and deliberately: two of `Icon`'s three forms have no view
-of ours to style — `as` hands its props to a third-party component, and the children form
-clones the caller's own element — so a `padding` there would apply in one form out of
-three. `size` and `color` remain its escape hatch, as they already are for `style`.
+`Button.Icon` has them too, in `ImageStyle`, and they reach the **`source` form only** —
+exactly as far as its `style` already does. The other two forms render a third-party
+component or clone the caller's element, so there is no node of ours to style, and `size`
+and `color` stay the escape hatch there.
 
 Each one styles **the node it is written on**, never a descendant — which is what separates
 this from the legacy `customAppearance`. `width="100%"` is what replaces `fullWidth`, said
@@ -269,8 +269,9 @@ Everything `Text` accepts, plus the `TextStyle` keys as props (R14) — `fontSiz
 
 ### `Button.Icon`
 
-`Icon`'s props. `size` and `color` default to what the root resolved; passing either wins.
-`style` reaches the `source` form only — the other two are not views this renders.
+`Icon`'s props, plus the `ImageStyle` keys as props (R14). `size` and `color` default to
+what the root resolved; passing either wins. Both `style` and the style props reach the
+`source` form only — the other two are not views this renders.
 
 ### `Button.Spinner`
 

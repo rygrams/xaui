@@ -1,5 +1,6 @@
 import type { ComponentType, ReactNode } from 'react'
 import type { ImageSourcePropType, ImageStyle, StyleProp } from 'react-native'
+import type { ImageStyleProps } from '../style-props'
 
 /**
  * The props Lucide, Ionicons and `react-native-vector-icons` all accept — the shape
@@ -11,7 +12,12 @@ export type IconComponentProps = {
   color?: string
 }
 
-export type IconProps = {
+/**
+ * R14 reaches the **`source` form only**, exactly like `style` below and for the same
+ * reason: it is the one of the three forms where we render the node. On the other two,
+ * `size` and `color` are what shapes the icon.
+ */
+export type IconProps = ImageStyleProps & {
   /** An icon component. `size` and `color` are injected into it. */
   as?: ComponentType<IconComponentProps>
   /** A raw `react-native-svg` element, cloned with the resolved size and colour. */

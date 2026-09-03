@@ -12,8 +12,10 @@ import {
   rippleRadiusFor,
 } from './pressable-feedback.animation'
 import type { RippleWave as Wave, SlotAnimation } from './pressable-feedback.type'
+import { useStyleProps } from '../style-props'
+import type { ViewStyleProps } from '../style-props'
 
-export type PressableFeedbackRippleProps = {
+export type PressableFeedbackRippleProps = ViewStyleProps & {
   /** Applies to the wave itself, not to the container that clips it. */
   style?: StyleProp<ViewStyle>
   animation?: SlotAnimation
@@ -62,8 +64,13 @@ export function PressableFeedbackRipple({
   style,
   animation: override,
   children,
+  ...props
 }: PressableFeedbackRippleProps) {
   const { animation, waves, ink, corners } = useFeedback()
+  const [styleProps] = useStyleProps(props)
+  // Merged once here: the wave is what a caller sees, so a style prop reaches it the same
+  // way `style` does rather than landing on the container that clips it.
+  const waveStyle = [styleProps, style]
 
   const settings = resolveSlotAnimation(override, animation.ripple, RIPPLE_OPACITY)
   const [size, setSize] = useState({ width: 0, height: 0 })
@@ -100,7 +107,7 @@ export function PressableFeedbackRipple({
             center={{ x: size.width / 2, y: size.height / 2 }}
             color={ink}
             opacity={settings.opacity}
-            style={style}
+            style={waveStyle}
           />
         ))}
       </View>

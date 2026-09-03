@@ -89,6 +89,11 @@ union to the four emphasis levels. That's a subtype, not a different prop.
   Two lines in a component: `Omit<ViewStyleProps, keyof OwnProps>` in the type — a name
   the component already uses stays the component's — and `useStyleProps` on what is left
   after destructuring, applied between the tint and `style`.
+
+  **Every node gets them, not just roots.** A slot has them like its root, a view slot in
+  `ViewStyle` and a text slot in `TextStyle`; the `system/` primitives have them too. A
+  component that renders a node and does not expose them is the defect — there is no list
+  of which components have them, because the answer is all of them.
 - **Anything else goes through `style`.** Tinted shadow, border in a different colour than
   the background, gradient — `style`.
 

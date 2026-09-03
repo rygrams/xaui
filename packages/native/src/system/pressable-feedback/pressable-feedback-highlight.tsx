@@ -15,8 +15,10 @@ import {
   resolveSlotAnimation,
 } from './pressable-feedback.animation'
 import type { SlotAnimation } from './pressable-feedback.type'
+import { useStyleProps } from '../style-props'
+import type { ViewStyleProps } from '../style-props'
 
-export type PressableFeedbackHighlightProps = {
+export type PressableFeedbackHighlightProps = ViewStyleProps & {
   style?: StyleProp<ViewStyle>
   animation?: SlotAnimation
   /**
@@ -55,8 +57,10 @@ export function PressableFeedbackHighlight({
   style,
   animation: override,
   children,
+  ...props
 }: PressableFeedbackHighlightProps) {
   const { isPressed, animation, progress, ink, corners } = useFeedback()
+  const [styleProps] = useStyleProps(props)
 
   const settings = resolveSlotAnimation(
     override,
@@ -75,6 +79,7 @@ export function PressableFeedbackHighlight({
     StyleSheet.absoluteFillObject,
     { backgroundColor: ink, pointerEvents: 'none' },
     corners,
+    styleProps,
     style,
   ]
 
