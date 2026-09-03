@@ -10,6 +10,7 @@
   },
   "changesets": [
     "publish-native-hybrid-alpha",
-    "recipe-engine"
+    "recipe-engine",
+    "slot-system"
   ]
 }
