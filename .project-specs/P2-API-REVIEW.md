@@ -164,6 +164,18 @@ ne dépend plus d'une lecture de valeur partagée dans un worklet — le rayon e
 un état React — et le problème n'était pas une durée trop courte, puisqu'une onde poussée à
 huit secondes ne se voyait pas davantage.
 
+> **Corrigé depuis, deux fois.** Les handlers sur la `View` du ripple étaient la mauvaise
+> moitié de la réponse : l'overlay est un *frère* des enfants du composant, pas leur parent,
+> donc il n'entend jamais un toucher sur le label d'un bouton — l'onde marchait sur le
+> padding et rien sur le texte. Ils sont revenus sur le `Pressable`, qui est la surface
+> tactile, et le root pilote les deux vagues et les publie.
+>
+> **L'encre n'est plus à la charge du composant.** Un primitif ne peut pas savoir sur quoi
+> il est posé, mais le *root* si : il aplatit son propre `style`, lit `backgroundColor` et
+> prend le côté contrasté — plus rien à passer. Un token `…Soft` translucide retombe sur le
+> `foreground` du thème, faute de luminance lisible ; c'est ce que le harnais de perf a
+> attrapé, `contrastOn` lançant sur les `rgba()`.
+
 ### E. `accentPressed` éclaircit en mode clair — **ouvert**
 
 Pas le ripple, mais découvert en le corrigeant, et bien plus large : **un contrôle rempli
@@ -230,8 +242,8 @@ remplace quand on le demande.
 ## Deux décisions que la revue confirme
 
 **Un seul traitement de l'état pressé.** La recette peint le token `…Pressed` de la variante
-et le root demande `feedbackVariant="scale"`. Le lavis neutre par-dessus assombrirait deux
-fois. Les 46 suivants doivent choisir de la même manière : la recette **ou** l'overlay.
+et le root ne monte aucun overlay. Le lavis neutre par-dessus assombrirait deux fois. Les 46
+suivants doivent choisir de la même manière : la recette **ou** l'overlay.
 
 **Le contexte porte des styles résolus, pas des props.** C'est la divergence 1 du §1 ter, et
 elle se paie ici : l'objet `ResolvedStyles` change d'identité à l'appui, donc le memo se

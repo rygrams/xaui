@@ -43,9 +43,6 @@ export const ButtonRoot = forwardRef<View, ButtonProps>(function Button(
     isLoading = false,
     isIconOnly = false,
     asChild = false,
-    // `scale` and not `scale-highlight`: the recipe's `pressed` state already paints the
-    // variant's own pressed colour, and a neutral wash on top would darken it twice.
-    feedbackVariant = 'scale',
     accessibilityRole = 'button',
     accessibilityState,
     style,
@@ -113,12 +110,14 @@ export const ButtonRoot = forwardRef<View, ButtonProps>(function Button(
 
   return (
     <ButtonProvider value={context}>
+      {/* No `PressableFeedback.Highlight` and no `.Ripple`, deliberately: the recipe's
+          `pressed` state already paints the variant's own pressed colour, and an overlay
+          on top of it would darken the control twice. The scale is the root's own. */}
       <PressableFeedback
         ref={ref}
         isPressed={isPressed}
         isDisabled={isDisabled || isLoading}
         asChild={asChild}
-        variant={feedbackVariant}
         accessibilityRole={accessibilityRole}
         // Merged, not spread over: a caller adding `expanded` or `selected` must not
         // silently drop the disabled and busy states a screen reader depends on. Their

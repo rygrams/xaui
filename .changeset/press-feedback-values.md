@@ -12,35 +12,72 @@ whatever the control's width — the reference width is 300pt, and `pressScaleFo
 arithmetic with a test that asserts a chip and a full-width row travel the same distance.
 The curve is 300ms eased out, in both directions, instead of 100ms in and 150ms out.
 
-The wash goes to `0.1` over 200ms, and the ripple to `0.1` over a duration proportional to
-the control's diagonal — 1000ms at a 450pt diagonal, clamped to `[750, 2000]` so neither a
-chip flickers nor a card crawls.
+The wash goes to `0.1` over 200ms. The ripple is Material's `InkRipple` rather than an
+approximation of it: full ink in 75ms held while the circle keeps growing, a circle starting
+at 30% of its target instead of at a point, a target radius of half the diagonal, and a
+centre travelling from the finger to the middle of the control. The expansion runs a second
+while the finger is down and finishes in 225ms once it lifts, so the wave catches up rather
+than being cut.
 
-**The ripple now draws.** It never did, and the cause was structural: the touch handlers
-were on the `Pressable`, which owns the responder system and swallows raw touch props. They
-belong on the ripple overlay's own `View` — that is how HeroUI does it, and it is the whole
-fix. The ripple is self-contained again: it measures itself, keeps its own two waves, and
-asks the root for nothing but the blanket `animation` setting.
+**The ripple now draws, and the waves belong to the root.** It never drew, and the first fix
+was wrong: the handlers went onto the overlay's own `View`, which only hears touches that
+land on _it_. The overlay is a sibling of the component's children, not their parent, so a
+ripple worked on a button's padding and did nothing on its label — a bug that looks like a
+rendering problem. Touches bubble to the `Pressable`, so that is where the handlers live;
+the root drives the two waves and publishes them, and the overlay only draws them.
 
-Its ink stays the component's job, because a primitive cannot know what it sits on. The
-default is the theme's `foreground` at `0.12`, which reads on a neutral surface and
-disappears on a saturated one; a component picks `feedbackVariant="scale"` and gives the
-wave the contrasted colour its variant already resolved, through `Ripple`'s `style` — which
-reaches the wave again rather than the container.
+**`feedbackVariant` is gone, and overlays are composed.** The prop named a cross-product in
+a string — `scale`, `highlight`, `ripple`, `scale-highlight`, `scale-ripple`, `none` — which
+could name five of the six combinations it had and none of the ones a third overlay would
+add. A wash and a wave together, which is what Material actually does, was unreachable.
 
-**`PressableFeedback` loses its compound parts, and `feedbackVariant` becomes `variant`.**
-The primitive has one variant to name, so it does not carry a longer word forever; a
-component that forwards it renames it, and `Button` keeps `feedbackVariant` because there
-`variant` already means the ten sanctioned appearances.
+The root scales, and anything laid over it is a part that wraps what it sits under:
 
-The variant now names two independent things, **read off the name** rather than matched
-against a table: `scale…` scales, `…highlight` or `…ripple` mounts that overlay, and they
-combine. So the set is `scale`, `highlight`, `ripple`, `scale-highlight`, `scale-ripple`
-and `none` — a wave with no scale costs one entry, not a branch.
+```tsx
+<PressableFeedback isPressed={isPressed} style={styles.root}>
+  <PressableFeedback.Ripple>
+    <Label />
+  </PressableFeedback.Ripple>
+</PressableFeedback>
+```
 
-`Highlight` and `Ripple` are internal now. They existed so a component could give the
-overlay an ink its surface needed, and that is **resolved** instead: the root flattens its
-own `style`, reads `backgroundColor` and takes the contrasting side. A purple fill gets
-light ink, a pale surface gets dark ink, and a translucent `…Soft` token or no background at
-all falls back to the theme's `foreground`, which is honest because the control is showing
-what is behind it.
+**Wrapping costs nothing**, which is the part worth knowing: the children are not boxed.
+They come back as siblings of the wave's layer in a fragment, which has no presence in the
+host tree, so the root's `flexDirection`, `gap` and `alignItems` still reach them directly
+and the rendered tree is identical to writing the overlay as a bare sibling. A real wrapping
+`View` would have been the trap — the root's layout would apply to the wrapper, the
+primitive would need to be handed the row's `gap` to give it back, and it would add the view
+depth §8 removed.
+
+Written bare, `<PressableFeedback.Ripple />` is that sibling and **order does not matter**:
+the root pulls its bare overlays out and paints them under everything else, so one written
+after the label does not end up on top of it — a 10% wash over text is subtle enough to ship
+by accident. A wrapping overlay is left where it is, since it already contains its content.
+`markOverlay` is exported, so a third party's own overlay part gets the same treatment.
+
+This is also the only shape that survives `asChild`, and that was a real hole: the caller's
+element _is_ the pressable there, so the primitive has no sibling to inject and mounted no
+overlay at all. An `asChild` control could not have one. Now the caller renders it.
+
+**`Button` drops `feedbackVariant` rather than renaming it.** It has one treatment and
+always did: the recipe's `pressed` state paints the variant's own pressed colour, so a wash
+on top would darken the control twice. It scales, and mounts nothing.
+
+**The ink and the corners are resolved, not configured.** The root flattens its own `style`
+once and publishes both: `backgroundColor` decides the contrasting ink, and the radius keys
+decide the shape an overlay clips itself to. A purple fill gets light ink, a pale surface
+gets dark ink, and a translucent `…Soft` token or no background at all falls back to the
+theme's `foreground` — honest, because the control is showing what is behind it. The perf
+harness caught that `contrastOn` throws on the `rgba()` those soft tokens carry, which would
+have crashed every soft variant on first press.
+
+Carrying the clip on the overlay rather than on the root fixes a second thing: the root no
+longer sets `overflow: 'hidden'`, so a child that legitimately overflows — a badge on a
+button's corner — is no longer cut by a decision about the press.
+
+`inkFor`, `radiusFrom` and `partitionOverlays` are pure and tested, as are `pressScaleFor`,
+`rippleRadiusFor`, `resolveAnimation` and `resolveSlotAnimation` — thirty-four assertions
+where the docs previously claimed a test that did not exist. Three carry a decision rather
+than an implementation: every control travels the same distance in points whatever its
+width, a translucent background falls back to the foreground instead of throwing, and a bare
+overlay written last comes back first while a wrapping one stays put.

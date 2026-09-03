@@ -7,10 +7,7 @@ import type {
   ViewStyle,
 } from 'react-native'
 import type { IconContextValue, IconProps } from '../../system/icon'
-import type {
-  FeedbackVariant,
-  PressableFeedbackProps,
-} from '../../system/pressable-feedback'
+import type { PressableFeedbackProps } from '../../system/pressable-feedback'
 import type { RadiusKey, Size } from '../../theme/theme.type'
 
 export type ButtonSlot = 'root' | 'label' | 'icon' | 'spinner'
@@ -37,17 +34,9 @@ export type ButtonSize = Size
 
 export type ButtonProps = Omit<
   PressableFeedbackProps,
-  'isPressed' | 'isDisabled' | 'style' | 'children' | 'variant'
+  'isPressed' | 'isDisabled' | 'style' | 'children'
 > & {
   variant?: ButtonVariant
-  /**
-   * What happens under the finger. Renamed on the way in: `PressableFeedback` calls it
-   * `variant`, and here that word already means the ten sanctioned appearances.
-   *
-   * Defaults to `'scale'` — the recipe's `pressed` state already paints the variant's own
-   * pressed colour, and an overlay on top of it would darken the control twice.
-   */
-  feedbackVariant?: FeedbackVariant
   /** Height, padding, gap, radius and type. Never width. */
   size?: ButtonSize
   /** Overrides the radius `size` chose. Unset, a button is the shape its size implies. */

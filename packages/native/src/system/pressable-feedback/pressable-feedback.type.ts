@@ -2,20 +2,6 @@ import type { ReactNode } from 'react'
 import type { PressableProps, StyleProp, ViewStyle } from 'react-native'
 import type { SharedValue } from 'react-native-reanimated'
 
-/**
- * What the root does under the finger. The name is read, not matched against a table:
- * `scale…` scales, `…highlight` or `…ripple` mounts that overlay, and the two combine —
- * which is what lets `ripple` (a wave, no scale) and `scale-ripple` (both) coexist without
- * a branch each.
- */
-export type FeedbackVariant =
-  | 'scale'
-  | 'highlight'
-  | 'ripple'
-  | 'scale-highlight'
-  | 'scale-ripple'
-  | 'none'
-
 export type AnimationConfig = {
   scale?: boolean
   highlight?: boolean
@@ -54,15 +40,13 @@ export type PressableFeedbackProps = Omit<
    * touch feedback of every `asChild` control.
    */
   asChild?: boolean
-  /**
-   * What the control does under the finger. `variant` and not `feedbackVariant`: this
-   * component has one variant to name, and a component that wraps it renames what it
-   * forwards rather than making the primitive carry a longer word forever.
-   */
-  variant?: FeedbackVariant
   animation?: AnimationProp
   style?: StyleProp<ViewStyle>
   /**
+   * The overlays are children, not a prop — `<PressableFeedback.Highlight />` or
+   * `<PressableFeedback.Ripple />`, in any order: the root paints them under everything
+   * else wherever they sit. The scale is the root's own and needs nothing rendered.
+   *
    * `Pressable`'s function form is dropped on purpose. It exists to hand the press state
    * to children; here the root above already owns that state and this publishes it
    * through context, so the function form would be a second, quieter source of truth.
@@ -95,6 +79,19 @@ export type RippleWave = {
   origin: SharedValue<{ x: number; y: number }>
 }
 
+/**
+ * The corner keys an overlay copies off the root. The `Left`/`Right` forms are absent
+ * rather than forgotten: R13 bans them, because RN mirrors only the logical ones under RTL.
+ */
+export type RadiusStyle = Pick<
+  ViewStyle,
+  | 'borderRadius'
+  | 'borderStartStartRadius'
+  | 'borderStartEndRadius'
+  | 'borderEndStartRadius'
+  | 'borderEndEndRadius'
+>
+
 export type FeedbackContext = {
   /**
    * The overlay's ink, resolved by the root from its own background.
@@ -105,6 +102,19 @@ export type FeedbackContext = {
    * invisible, which is the one thing a press indicator cannot be.
    */
   ink: string
+
+  /**
+   * The root's own corners, so an overlay rounds itself to match. `corners` and not
+   * `radius`: the ripple already has a radius, and it is a length in points rather than a
+   * shape.
+   *
+   * An absolute fill has square corners and every control here is rounded, so without this
+   * both the wash and the wave paint outside the surface at each corner. The overlay
+   * carries the clip rather than the root: clipping the root would also cut a child that
+   * legitimately overflows — a badge on a button's corner — and that child has nothing to
+   * do with the press.
+   */
+  corners: RadiusStyle
 
   isPressed: boolean
   animation: ResolvedAnimation

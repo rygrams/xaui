@@ -13,12 +13,110 @@ import { PressableFeedback } from '@xaui/native/system'
 ## Anatomy
 
 ```tsx
-<PressableFeedback variant="scale-ripple">{children}</PressableFeedback>
+<PressableFeedback>
+  <PressableFeedback.Ripple>{children}</PressableFeedback.Ripple>
+</PressableFeedback>
 ```
 
-One component, one prop. There are no compound parts: the overlays are internal, and the
-one thing a caller would have wanted to set on them — the ink — is **resolved rather than
-configured**, so there is nothing left to reach in and change.
+**The root scales; overlays are composed.** No prop names what to mount, because a name is
+a cross-product: `scale-ripple` and `scale-highlight` could say five of their six
+combinations and none of the ones a third overlay would add. A wash _and_ a wave — what
+Material actually does — was unreachable.
+
+### An overlay wraps, and it costs nothing
+
+Wrapping is the readable form: it says what the wave sits under instead of leaving a bare
+element floating among the children.
+
+It does **not** box the content. The children come back as siblings of the overlay layer in
+a fragment, which has no presence in the host tree, so the rendered result is identical to
+writing the overlay as a bare sibling:
+
+```tsx
+<PressableFeedback style={{ flexDirection: 'row', gap: 8 }}>
+  <PressableFeedback.Ripple>
+    <Icon />
+    <Label />
+  </PressableFeedback.Ripple>
+</PressableFeedback>
+```
+
+```
+Pressable          ← flexDirection, gap and alignItems live here
+├── View           ← the wave's layer, position: absolute, out of flow
+├── Icon           ← still a direct child: the gap reaches it
+└── Label
+```
+
+A real wrapping `View` would have been the trap: the root's layout would apply to the
+wrapper rather than to the icon and the label, the primitive would need to be told the
+row's `flexDirection` and `gap` to give them back, and it would add the view depth §8
+removed.
+
+### Or bare, in any order
+
+`<PressableFeedback.Ripple />` on its own is a sibling among the root's children, and
+**order does not matter** — the root pulls its bare overlays out and paints them under
+everything else, wherever they were written. Leaving that to source order would have put a
+`Ripple` written after the label on top of it — a 10% wash over text, subtle enough to ship
+by accident.
+
+Two limits, both deliberate:
+
+- A **wrapping** overlay is left where it is. It already contains what it sits under, so
+  hoisting it would drag that content ahead of the root's other children.
+- Only **direct** children are inspected. An overlay inside a `Fragment` keeps source
+  order, because lifting a fragment's children into their parent's list would re-key them
+  into a sibling fragment's range.
+
+What an overlay needs from the surface is still **resolved rather than configured** — the
+ink and the corners come from the root through context, not from props on the part.
+
+### Scale and an overlay, together
+
+The scale is the root's own transform and it is **on by default**, so a wave _and_ a
+shrink is the anatomy at the top of this page with nothing added to it:
+
+```tsx
+<PressableFeedback isPressed={isPressed} style={styles.root}>
+  <PressableFeedback.Ripple>
+    <Icon />
+    <Label />
+  </PressableFeedback.Ripple>
+</PressableFeedback>
+```
+
+Switch one off with the blanket prop — `animation={{ scale: false }}` for the wave alone,
+and no overlay at all for the shrink alone.
+
+Two overlays stack by **nesting**, and the nesting _is_ the stacking order: the outer one
+paints first, underneath.
+
+```tsx
+<PressableFeedback.Highlight>
+  <PressableFeedback.Ripple>
+    <Label />
+  </PressableFeedback.Ripple>
+</PressableFeedback.Highlight>
+```
+
+Wash, then wave over it, then the label — Material's own order, and it costs no depth:
+both overlays return fragments, so the three still land as direct children of the root.
+
+### Why there is no `PressableFeedback.Scale`
+
+The asymmetry is real rather than an oversight — the scale transforms the **surface**,
+which is the view carrying the background and the corners.
+
+A wrapping `<Scale>` could only transform its own subtree, leaving the root's fill and the
+wave's absolute-fill layer behind while the label shrank away from them — and it would
+need a real `View` to do even that, the layout box the wrapping form above exists to
+avoid. A bare `<Scale />` marker configuring the root fails somewhere else: under
+`asChild` it sits inside the caller's element, where the root cannot see it. An overlay
+reads context, and context descends; a config child would have to travel up.
+
+So the line is: **what composes is what is drawn over the surface, and what belongs to the
+surface stays a prop.**
 
 ## Usage
 
@@ -31,14 +129,24 @@ value before it renders. This applies that value; it does not decide it.
 const [isPressed, press] = usePressState(props)
 const styles = recipe.resolve({ theme, selection, states: { pressed: isPressed } })
 
+<PressableFeedback ref={ref} isPressed={isPressed} style={[styles.root, style]} {...press}>
+  <Label />
+</PressableFeedback>
+```
+
+That component mounts no overlay, which is a decision — see below. One that wants a wave
+wraps its content in it:
+
+```tsx
 <PressableFeedback
   ref={ref}
   isPressed={isPressed}
-  variant="scale"
   style={[styles.root, style]}
   {...press}
 >
-  <Label />
+  <PressableFeedback.Ripple>
+    <Label />
+  </PressableFeedback.Ripple>
 </PressableFeedback>
 ```
 
@@ -48,7 +156,7 @@ This is the rule that decides how a component looks under the finger, and gettin
 is not subtle:
 
 - **A `pressed` state in the recipe**, swapping `bg` for `bgPressed`. The control's own
-  colour goes down. `Button` does this, and therefore asks for `variant="scale"`.
+  colour goes down. `Button` does this, and therefore renders no overlay.
 - **An overlay**, `Highlight` or `Ripple`. The control keeps its colour and something is
   laid over it.
 
@@ -56,17 +164,47 @@ Both at once and they fight: two things move at the same time, often in opposite
 directions, and the eye reads neither. A fill that lightens on press under a wave that
 darkens cancels out almost exactly.
 
-### `variant`
+### The parts
 
-| Value             | What is mounted                                             |
-| ----------------- | ----------------------------------------------------------- |
-| `scale-highlight` | scale + a `Highlight`                                       |
-| `scale-ripple`    | scale + a `Ripple`                                          |
-| `scale`           | scale alone — pick this to render your own overlay, or none |
-| `none`            | nothing moves                                               |
+| Part                          | What it draws                                     |
+| ----------------------------- | ------------------------------------------------- |
+| `PressableFeedback.Highlight` | one flat neutral wash, fading in under the finger |
+| `PressableFeedback.Ripple`    | a circle washing out from where the finger landed |
 
-`scale` is what a component picks when it wants to style its overlay: no prop here reaches
-into another component's insides (R1), so you render the overlay yourself.
+Both take a `style` and their own `animation`, and both read their ink and their corners
+from the root. Neither is required — the scale is the root's own and needs nothing
+rendered.
+
+**Writing your own.** An overlay is any component that reads `useFeedback()` and paints
+under the content. `markOverlay` tags it so the root hoists it like ours:
+
+```tsx
+import { markOverlay, useFeedback } from '@xaui/native/system'
+
+export const Glow = markOverlay(function Glow() {
+  const { ink, corners, progress } = useFeedback()
+  …
+})
+```
+
+The mark is a `Symbol.for`, so two copies of the package in one tree still agree on what an
+overlay is. Without it the component still renders — it simply keeps source order, and has
+to be written before the content itself.
+
+### `asChild`
+
+Under `asChild` the caller's element _is_ the pressable, so the primitive has nowhere to
+inject a sibling. Composition is what makes an overlay possible at all here, and it is why
+the context is published above the root:
+
+```tsx
+<PressableFeedback asChild isPressed={isPressed}>
+  <Link href="/projects">
+    <PressableFeedback.Ripple />
+    <Label />
+  </Link>
+</PressableFeedback>
+```
 
 ### `animation`
 
@@ -77,9 +215,9 @@ into another component's insides (R1), so you render the overlay yourself.
 <PressableFeedback animation={{ ripple: false }} />  // one sub-animation off
 ```
 
-**Off means no worklet.** `false`, `'disabled'` and `variant="none"` render a
-_different component_, not the same one with a branch inside — hooks cannot be conditional,
-and "mounts no worklet" is only true if the Reanimated hooks are never reached.
+**Off means no worklet.** `false` and `'disabled'` render a _different component_, not the
+same one with a branch inside — hooks cannot be conditional, and "mounts no worklet" is only
+true if the Reanimated hooks are never reached.
 
 `'disable-all'` travels through context, so a long list switches off every row's worklets
 with one prop instead of threading it down.
@@ -129,18 +267,23 @@ The expansion runs a full second while the finger is down and finishes in 225ms 
 lifts — the wave catches up rather than being cut. The ink then waits 225ms and leaves over
 150ms.
 
-### The ink
+### The ink, and the corners
 
-**Resolved, never configured.** The root flattens its own `style`, reads `backgroundColor`
-and takes the contrasting side — the same `contrastOn` the theme uses to derive a tint. A
-purple fill gets light ink, a pale surface gets dark ink, and a `ghost` with no background
-falls back to the theme's `foreground`, which is honest because the control is showing
-whatever is behind it.
+**Resolved, never configured.** The root flattens its own `style` once and publishes two
+things an overlay would otherwise have to be told.
 
-This is why there is no `Ripple` slot and no colour prop. Only the root knows what the
-overlay sits on, so only the root can pick an ink that is visible on it — and black at 10%
-over a saturated fill is close to invisible, which is the one thing a press indicator
-cannot be.
+The **ink**: `backgroundColor` decides the contrasting side, through the same `contrastOn`
+the theme uses to derive a tint. A purple fill gets light ink, a pale surface gets dark ink,
+and a `ghost` with no background — or a translucent `…Soft` token, which is an `rgba()` and
+has no luminance to read — falls back to the theme's `foreground`. That is honest: the
+control is showing whatever is behind it. Only the root knows what an overlay sits on, and
+black at 10% over a saturated fill is close to invisible, which is the one thing a press
+indicator cannot be.
+
+The **corners**: an absolute fill is square and every control here is rounded, so an overlay
+copies the root's radius and clips itself to it. The clip is the overlay's rather than the
+root's on purpose — a root that set `overflow: 'hidden'` would also cut a child that
+legitimately overflows, a badge on a button's corner, over a decision about the press.
 
 ## Two things that are not obvious in the implementation
 
@@ -148,8 +291,10 @@ cannot be.
 and that is not a detail: touches on a component's own children — a button's label — bubble
 up to the `Pressable`, never to the overlay, which is their _sibling_ rather than their
 parent. An overlay carrying its own handlers ripples on the padding and does nothing on the
-text, which looks like a rendering bug and is not one. The overlay is
-`pointerEvents="none"` and reads the waves from context.
+text, which looks like a rendering bug and is not one. The overlay reads the waves from
+context and sets `pointerEvents: 'none'` **in its style** — the prop form is deprecated, and
+this is not decoration: an overlay that ate touches would claim every press meant for the
+control underneath it.
 
 **`asChild` goes through this component, not around it.** A root doing
 `asChild ? Slot : PressableFeedback` would render its child with no touch feedback at all,
@@ -157,31 +302,48 @@ so the merge happens here and R12 and the feedback stay in the same branch. The 
 context is published _above_ the root for the same reason: a `Slot` merges into its single
 child, and a provider nested inside would swallow the ref, the style and the handlers.
 
-Under `asChild` the caller's element _is_ the pressable and there is no sibling to inject,
-so the default overlay is not rendered. The scale still applies, because that is on the
-element itself.
-
 ## Props
 
 ### `PressableFeedback`
 
 Everything `Pressable` accepts, minus `style`'s function form, plus:
 
-| Prop         | Type              | Default             | Notes                                             |
-| ------------ | ----------------- | ------------------- | ------------------------------------------------- |
-| `isPressed`  | `boolean`         | `false`             | **Controlled.** The root above owns it            |
-| `isDisabled` | `boolean`         | —                   | R8; forwarded to `Pressable` as `disabled`        |
-| `asChild`    | `boolean`         | `false`             | Merge into the single child, keeping the feedback |
-| `variant`    | `FeedbackVariant` | `'scale-highlight'` | The table above                                   |
-| `animation`  | `AnimationProp`   | —                   | `false` mounts no worklet                         |
+| Prop         | Type            | Default | Notes                                             |
+| ------------ | --------------- | ------- | ------------------------------------------------- |
+| `isPressed`  | `boolean`       | `false` | **Controlled.** The root above owns it            |
+| `isDisabled` | `boolean`       | —       | R8; forwarded to `Pressable` as `disabled`        |
+| `asChild`    | `boolean`       | `false` | Merge into the single child, keeping the feedback |
+| `animation`  | `AnimationProp` | —       | `false` mounts no worklet                         |
 
 `style` is an object or an array, not `Pressable`'s function form: the root above already
 owns the press state and publishes it through context, so the function form would be a
 second, quieter source of truth.
 
+### `PressableFeedback.Highlight` and `PressableFeedback.Ripple`
+
+| Prop        | Type            | Default | Notes                                          |
+| ----------- | --------------- | ------- | ---------------------------------------------- |
+| `style`     | `ViewStyle`     | —       | On `Ripple`, the wave — not the container      |
+| `animation` | `SlotAnimation` | —       | `false`, or a `duration` and an `opacity`      |
+| `children`  | `ReactNode`     | —       | The content it sits under; siblings, not boxed |
+
+`children` survives every branch, including the disabled one. An overlay that dropped them
+when `animation={false}` switched it off would delete the control's own label.
+
+Neither takes a colour or a radius: both come from the root, which is the only thing that
+knows what the overlay sits on.
+
 ## Testing
 
-None. Not for this component, not for its overlays, not for its animation constants — it is
-verified on `apps/demo`'s **PressableFeedback (v1)** screen, in light and dark. A timing
-that is right is right on screen, not in an assertion. The two pure functions that compute a
-value, `pressScaleFor` and `rippleRadiusFor`, do have tests.
+None for the components. Not for the root, not for its overlays — they are verified on
+`apps/demo`'s **PressableFeedback (v1)** screen, in light and dark. A timing that is right
+is right on screen, not in an assertion.
+
+The pure functions are tested, in `__tests__/system/pressable-feedback/`: `pressScaleFor`,
+`rippleRadiusFor`, `resolveAnimation`, `resolveSlotAnimation`, `inkFor`, `radiusFrom` and
+`partitionOverlays`. Three assertions there carry a decision rather than an implementation:
+
+- every control travels the same distance in points whatever its width;
+- a translucent background falls back to the foreground instead of throwing;
+- an overlay written last comes back first, and a component with none keeps its children
+  untouched rather than re-keyed.
