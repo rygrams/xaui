@@ -129,34 +129,43 @@ explicitly. To tighten one, compose:
 
 ### Variants
 
-Ten values, emphasis and intention in one flat union. Each names tokens and computes
+Seven values, emphasis and intention in one flat union. Each names tokens and computes
 nothing.
 
 ```tsx
 <Button variant="primary">primary</Button>
 <Button variant="secondary">secondary</Button>
+<Button variant="default">default</Button>
 <Button variant="tertiary">tertiary</Button>
 <Button variant="ghost">ghost</Button>
-<Button variant="success">success</Button>
-<Button variant="success-soft">success-soft</Button>
-<Button variant="warning">warning</Button>
-<Button variant="warning-soft">warning-soft</Button>
 <Button variant="danger">danger</Button>
 <Button variant="danger-soft">danger-soft</Button>
 ```
 
-| `variant`      | background    | border   | label                   |
-| -------------- | ------------- | -------- | ----------------------- |
-| `primary`      | `accent`      | —        | `accentForeground`      |
-| `secondary`    | `default`     | —        | `defaultForeground`     |
-| `tertiary`     | transparent   | `border` | `foreground`            |
-| `ghost`        | transparent   | —        | `foreground`            |
-| `success`      | `success`     | —        | `successForeground`     |
-| `success-soft` | `successSoft` | —        | `successSoftForeground` |
-| `warning`      | `warning`     | —        | `warningForeground`     |
-| `warning-soft` | `warningSoft` | —        | `warningSoftForeground` |
-| `danger`       | `danger`      | —        | `dangerForeground`      |
-| `danger-soft`  | `dangerSoft`  | —        | `dangerSoftForeground`  |
+| `variant`     | background   | border   | label                  |
+| ------------- | ------------ | -------- | ---------------------- |
+| `primary`     | `accent`     | —        | `accentForeground`     |
+| `secondary`   | `accentSoft` | —        | `accentSoftForeground` |
+| `default`     | `default`    | —        | `defaultForeground`    |
+| `tertiary`    | transparent  | `border` | `foreground`           |
+| `ghost`       | transparent  | —        | `foreground`           |
+| `danger`      | `danger`     | —        | `dangerForeground`     |
+| `danger-soft` | `dangerSoft` | —        | `dangerSoftForeground` |
+
+The ladder descends by how much accent is left: `primary` is the full accent, `secondary`
+its soft slice, `default` gives up the accent for the neutral fill, `tertiary` gives up
+the fill for a border, `ghost` gives up that too. **`secondary` is to `primary` what
+`danger-soft` is to `danger`** — the same soft slice of the same family, which is also why
+a raw `color` lands on it with no rule of its own.
+
+**No `success` and no `warning`.** `danger` earns its place because destruction is an
+action a button performs; a success is an outcome and a warning is a state, and neither is
+something you press — they belong to whatever reports status (`Alert`, `Chip`, `Badge`).
+The theme keeps the tokens, so a button that genuinely needs that fill passes the tint:
+
+```tsx
+<Button color={theme.colors.success}>Valider</Button>
+```
 
 ### Colour
 

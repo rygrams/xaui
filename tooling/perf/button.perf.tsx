@@ -29,12 +29,9 @@ import {
 const VARIANTS: ButtonVariant[] = [
   'primary',
   'secondary',
+  'default',
   'tertiary',
   'ghost',
-  'success',
-  'success-soft',
-  'warning',
-  'warning-soft',
   'danger',
   'danger-soft',
 ]
@@ -43,7 +40,7 @@ const SIZES: ButtonSize[] = ['xs', 'sm', 'md', 'lg']
 
 const COUNT = 200
 
-/** 10 variants × 4 sizes = 40 distinct token combinations across the 200 rows. */
+/** 7 variants × 4 sizes = 28 distinct token combinations across the 200 rows. */
 const COMBINATIONS = VARIANTS.length * SIZES.length
 
 /** One `Pressable` and one `Text` per row — what the mock counts as a host render. */
@@ -66,7 +63,7 @@ function List({
           key={index}
           variant={VARIANTS[index % VARIANTS.length]}
           // Not `index % SIZES.length`: both cycles would advance together and the list
-          // would only ever reach 20 of the 40 combinations.
+          // would only ever reach 7 of the 28 combinations.
           size={SIZES[Math.floor(index / VARIANTS.length) % SIZES.length]}
           color={tint}
           animation={false}
@@ -87,7 +84,7 @@ describe('200 buttons — style allocations', () => {
     resetStyleSheetCounter()
     render(<List />)
 
-    // The claim in one line: 200 buttons, 40 combinations, 40 allocations.
+    // The claim in one line: 200 buttons, 28 combinations, 28 allocations.
     expect(styleSheetCreateCalls()).toBe(COMBINATIONS)
     expect(styleSheetCreateCalls()).toBeLessThan(COUNT)
   })
@@ -148,8 +145,8 @@ describe('200 buttons — style props (R14)', () => {
     resetStyleSheetCounter()
     render(<List styleProps={STYLE_PROPS} />)
 
-    // The same combinations, and not one more. A style prop in the cache key would make
-    // the table grow with the values callers write instead of with the tokens.
+    // The same 24 combinations, and no twenty-fifth. A style prop in the cache key would
+    // make the table grow with the values callers write instead of with the tokens.
     expect(styleSheetCreateCalls()).toBe(0)
   })
 

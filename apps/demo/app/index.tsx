@@ -10,12 +10,9 @@ import { useXAUITheme } from '@xaui/native/theme'
 const VARIANTS: ButtonVariant[] = [
   'primary',
   'secondary',
+  'default',
   'tertiary',
   'ghost',
-  'success',
-  'success-soft',
-  'warning',
-  'warning-soft',
   'danger',
   'danger-soft',
 ]
@@ -24,7 +21,7 @@ const VARIANTS: ButtonVariant[] = [
  * The verification screen for P2. A component is verified here and in the docs preview,
  * in light and in dark — there is no test file for it.
  *
- * What each section is actually checking is in its subtitle: the ten variants name tokens
+ * What each section is actually checking is in its subtitle: the seven variants name tokens
  * and nothing else, `size` moves the height and never the width, a raw `color` lands
  * where the variant put its tokens, and `asChild` hands the press to someone else's
  * element without losing it.
@@ -40,8 +37,8 @@ export default function ButtonScreen() {
       <OtherScreens />
 
       <Section
-        title="The ten variants"
-        note="Emphasis and intention in one flat union. Each names tokens; none computes a colour."
+        title="The seven variants"
+        note="One ladder, descending by how much accent is left: primary is the full accent, secondary its soft slice, default the neutral fill, tertiary a border, ghost nothing. No success and no warning: those are states something reports, not actions you press."
       >
         {VARIANTS.map(variant => (
           <Button key={variant} variant={variant}>
@@ -143,7 +140,7 @@ export default function ButtonScreen() {
         note="A button scales and mounts no overlay. That is the rule, not an omission: the recipe already paints the variant's pressed colour, and a wash or a wave on top would darken it twice. The PressableFeedback screen has the overlays."
       >
         <Button>the scale, adjusted for the button&apos;s width</Button>
-        <Button size="lg" variant="success">
+        <Button size="lg" variant="danger">
           <Button.Icon as={TrashIcon} />
           <Button.Label>wider, and it travels the same distance</Button.Label>
         </Button>

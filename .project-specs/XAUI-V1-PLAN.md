@@ -99,36 +99,32 @@ Le détail du jeu et de sa résolution est au §2 ter.
 type Variant =
   | 'primary'
   | 'secondary'
+  | 'default'
   | 'tertiary'
   | 'ghost' // emphase, teinte accent
-  | 'success'
-  | 'success-soft'
-  | 'warning'
-  | 'warning-soft'
   | 'danger'
   | 'danger-soft'
 ```
 
-Dix valeurs sanctionnées. Le suffixe `-soft` est le niveau d'emphase faible d'une intention — c'est ce que HeroUI a dû ajouter à la main pour `danger` seul, généralisé ici aux trois intentions.
+Sept valeurs sanctionnées. L'échelle descend selon ce qu'il reste d'accent : `primary` est l'accent plein, `secondary` sa tranche `soft`, `default` abandonne l'accent pour le fond neutre, `tertiary` abandonne le fond pour une bordure, `ghost` abandonne la bordure. **`secondary` est à `primary` ce que `danger-soft` est à `danger`** — la même tranche `soft` de la même famille, ce qui lui évite toute règle propre dans la recette.
+
+**`success` et `warning` ne sont pas des variantes de bouton.** `danger` mérite sa place parce que détruire est une *action* qu'un bouton exécute ; un succès est un résultat et un avertissement est un état, et ni l'un ni l'autre ne se presse. Ce sont des variantes de ce qui *rapporte* un statut — `Alert`, `Chip`, `Badge` — et le thème garde leurs tokens pour eux. Un bouton qui a réellement besoin de ce fond passe la teinte brute : `<Button color={theme.colors.success}>`.
 
 ### Une variante nomme des tokens, elle ne calcule rien
 
 Avec des tokens sémantiques plats (§4), il n'y a **pas de matrice à résoudre** : chaque variante désigne directement deux ou trois tokens.
 
-| `variant`      | fond          | bordure  | texte                   |
-| -------------- | ------------- | -------- | ----------------------- |
-| `primary`      | `accent`      | —        | `accentForeground`      |
-| `secondary`    | `default`     | —        | `defaultForeground`     |
-| `tertiary`     | transparent   | `border` | `foreground`            |
-| `ghost`        | transparent   | —        | `foreground`            |
-| `success`      | `success`     | —        | `successForeground`     |
-| `success-soft` | `successSoft` | —        | `successSoftForeground` |
-| `warning`      | `warning`     | —        | `warningForeground`     |
-| `warning-soft` | `warningSoft` | —        | `warningSoftForeground` |
-| `danger`       | `danger`      | —        | `dangerForeground`      |
-| `danger-soft`  | `dangerSoft`  | —        | `dangerSoftForeground`  |
+| `variant`     | fond         | bordure  | texte                  |
+| ------------- | ------------ | -------- | ---------------------- |
+| `primary`     | `accent`     | —        | `accentForeground`     |
+| `secondary`   | `accentSoft` | —        | `accentSoftForeground` |
+| `default`     | `default`    | —        | `defaultForeground`    |
+| `tertiary`    | transparent  | `border` | `foreground`           |
+| `ghost`       | transparent  | —        | `foreground`           |
+| `danger`      | `danger`     | —        | `dangerForeground`     |
+| `danger-soft` | `dangerSoft` | —        | `dangerSoftForeground` |
 
-Dix lignes de table, aucune logique de peinture dupliquée : ce sont les tokens qui portent l'information. Le fichier `parse-variant.ts` prévu au §2 devient inutile — il est remplacé par `variant-map.ts`, une simple constante.
+Sept lignes de table, aucune logique de peinture dupliquée : ce sont les tokens qui portent l'information. Le fichier `parse-variant.ts` prévu au §2 devient inutile — il est remplacé par `variant-map.ts`, une simple constante.
 
 ### `size` pilote la hauteur, jamais la largeur
 
@@ -251,11 +247,11 @@ Leurs tokens `accent-hover`, `danger-hover`, `danger-soft-hover` alimentent en r
 **3. Pas de `Background` ni de `GlassView`.**
 Leur `Button.Background` est une couche absolue qui héberge le flou du thème _glass_. C'est une fonctionnalité de thème à part entière, pas un principe d'API. Hors périmètre 1.0 — à reconsidérer plus tard, l'emplacement du slot reste disponible.
 
-**4. `variant` étend `-soft` aux trois intentions.**
-Ils n'ont que `danger-soft`, ajouté à la main. On généralise à `success-soft` et `warning-soft` (§1 bis).
+**4. `variant` garde leur jeu d'intentions : `danger` seul.**
+On avait prévu de généraliser `-soft` à `success` et `warning`. Abandonné : un bouton est une action, et ni un succès ni un avertissement n'en est une. Leurs tokens restent dans le thème pour les composants qui rapportent un statut (§1 bis).
 
 **5. `secondary` et `tertiary` ne seront pas identiques.**
-Chez eux les deux ont le même fond (`--color-default`) et ne diffèrent que par la couleur du label. Deux variantes pour une nuance de texte : on garde `secondary` comme surface neutre et `tertiary` comme contour.
+Chez eux les deux ont le même fond (`--color-default`) et ne diffèrent que par la couleur du label. Deux variantes pour une nuance de texte : chez nous `secondary` est la tranche `soft` de l'accent, `default` porte le fond neutre qu'ils appelaient `secondary`, et `tertiary` est le contour (leur `outline`).
 
 ### Ce qu'ils ont et qui manquait au plan
 
@@ -658,13 +654,10 @@ export const buttonRecipe = createRecipe({
   // `variant` nomme des tokens (§1 bis) — aucune logique de peinture ici.
   variantTokens: {
     primary: { bg: 'accent', fg: 'accentForeground' },
-    secondary: { bg: 'default', fg: 'defaultForeground' },
+    secondary: { bg: 'accentSoft', fg: 'accentSoftForeground' },
+    default: { bg: 'default', fg: 'defaultForeground' },
     tertiary: { border: 'border', fg: 'foreground' },
     ghost: { fg: 'foreground' },
-    success: { bg: 'success', fg: 'successForeground' },
-    'success-soft': { bg: 'successSoft', fg: 'success' },
-    warning: { bg: 'warning', fg: 'warningForeground' },
-    'warning-soft': { bg: 'warningSoft', fg: 'warning' },
     danger: { bg: 'danger', fg: 'dangerForeground' },
     'danger-soft': { bg: 'dangerSoft', fg: 'danger' },
   },
@@ -1033,7 +1026,7 @@ Le problème que HeroUI n'a pas résolu : une icône est un composant tiers, le 
 3. **Usage** — basique, puis composé
 4. **Props** du root — **table générée depuis les types TS** (`ts-morph` ou `react-docgen-typescript`)
 5. **Slots** — une table de props par slot
-6. **Variantes** — les dix valeurs de `variant` × les tailles, rendues
+6. **Variantes** — les sept valeurs de `variant` × les tailles, rendues
 7. **Accessibilité** — rôles, labels, ordre de focus
 8. **Migration depuis legacy** — table avant/après
 
@@ -1131,10 +1124,12 @@ variant="faded"    + themeColor="primary"   → variant="secondary"  (+ bordure 
 
 variant="solid"    + themeColor="danger"    → variant="danger"
 variant="flat"     + themeColor="danger"    → variant="danger-soft"
-… idem success, warning
+
+themeColor="success" | "warning"            → variant="primary" color={theme.colors.success}
+                                              (plus de variante dédiée : §1 bis)
 
 themeColor="secondary" | "tertiary"         → supprimé (c'étaient des niveaux, pas des couleurs)
-themeColor="default"                        → variant="secondary"
+themeColor="default"                        → variant="default"
 
 customAppearance={{ text: s }}              → <X.Label style={s}>
 customAppearance={{ container: s }}         → style={s}
@@ -1370,30 +1365,22 @@ Identique pour P2, P3 et P5. C'est **la** tâche répétée 47 fois ; l'écrire 
 
 ### 9 bis. La ligne de base — mesurée sur le `Button`
 
-`pnpm perf:button` (`tooling/perf/`). Deux cents boutons, dix variantes × quatre tailles,
-soit **quarante combinaisons de tokens distinctes**. Chaque nombre est une borne haute :
+`pnpm perf:button` (`tooling/perf/`). Deux cents boutons, sept variantes × quatre tailles,
+soit **vingt-huit combinaisons de tokens distinctes**. Chaque nombre est une borne haute :
 c'est le seuil que les 46 composants suivants doivent tenir.
 
 | Mesure                                                    | Chiffre                                | Ce qu'il prouve                                                                    |
 | --------------------------------------------------------- | -------------------------------------- | ---------------------------------------------------------------------------------- |
-| `StyleSheet.create` au montage de 200 boutons             | **40**                                 | Une allocation par combinaison, pas par bouton — le cache tient sa promesse        |
+| `StyleSheet.create` au montage de 200 boutons             | **28**                                 | Une allocation par combinaison, pas par bouton — le cache tient sa promesse        |
 | `StyleSheet.create` au second montage de la même liste    | **0**                                  | Le cache vit le temps de l'app, pas celui de l'arbre                               |
 | `StyleSheet.create` au premier appui sur une combinaison  | **1**                                  | L'état pressé est une combinaison de plus, pas un recalcul                         |
 | `StyleSheet.create` aux appuis suivants                   | **0**                                  | Un appui n'alloue rien                                                             |
 | `StyleSheet.create` avec un `color` brut, puis un second  | **0** et **0**                         | La table grandit avec les tokens, jamais avec les couleurs inventées (R7)          |
 | Composants hôtes re-rendus quand **un** bouton est pressé | **2** (sur 400)                        | L'état de press appartient au root qui le porte ; la liste au-dessus n'entend rien |
 | Composants hôtes au montage                               | **400** = 200 × (`Pressable` + `Text`) | Profondeur de vue de 1 : aucune `View` intermédiaire (§8)                          |
-| `StyleSheet.create` avec deux props de style par bouton    | **0**                                  | R14 se résout hors du cache, exactement comme la teinte (§2 ter)                   |
-| Composants hôtes re-rendus à l'appui, props de style       | **2** (sur 400)                        | La ligne de base ne bouge pas : l'objet mémoïsé garde son identité                 |
 
-Les deux chiffres qui comptent en une phrase : **200 boutons coûtent 40 feuilles de style,
+Les deux chiffres qui comptent en une phrase : **200 boutons coûtent 28 feuilles de style,
 et un appui en coûte 0**.
-
-Les props de style (§2 ter) ne déplacent aucun de ces chiffres : elles n'entrent pas dans
-la clé et `useStyleProps` mémoïse sur les valeurs, donc un appui re-rend toujours deux
-hôtes. Ce qu'elles coûtent est ailleurs et n'est pas mesurable ici — **une allocation
-d'objet par rendu**, sur les composants dont l'appelant a écrit au moins une prop de
-style. C'était l'arbitrage annoncé, et c'est le même que celui de `color`.
 
 La mesure tourne avec `animation={false}`, qui emprunte la branche statique — aucun hook
 Reanimated n'est atteint, ce que le fichier vérifie plutôt que de le supposer.

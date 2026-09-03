@@ -224,12 +224,12 @@ Deux options, à décider avant P3 puisque les quinze composants du noyau en hé
 | R12 · `asChild`                | Branche de rendu réelle, via `Slot` — après #180                                                          |
 | R13 · RTL                      | `paddingHorizontal`, aucun `left`/`right`. La règle ESLint passe                                          |
 
-**Vocabulaire.** Les dix variantes nomment des tokens et ne calculent rien ; la recette ne
+**Vocabulaire.** Les sept variantes nomment des tokens et ne calculent rien ; la recette ne
 contient ni hex ni pixel — les seuls nombres sont des _pas_ sur l'échelle d'espacement et des
 valeurs structurelles (`borderWidth: 0`, `aspectRatio: 1`). `size` pilote la hauteur et
 jamais la largeur, en `height` fixe. Pas de `fullWidth`.
 
-**Perf.** §9 bis : 200 boutons coûtent 40 feuilles de style, un appui en coûte 0, et un appui
+**Perf.** §9 bis : 200 boutons coûtent 28 feuilles de style, un appui en coûte 0, et un appui
 re-rend 2 composants hôtes sur 400.
 
 **Un écart assumé au plan.** `radius` n'a **pas** de valeur par défaut, là où l'exemple du §8
