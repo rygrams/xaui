@@ -9,6 +9,7 @@
     "@xaui/native-legacy": "0.2.11"
   },
   "changesets": [
-    "publish-native-hybrid-alpha"
+    "publish-native-hybrid-alpha",
+    "recipe-engine"
   ]
 }

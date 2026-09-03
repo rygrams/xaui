@@ -165,14 +165,21 @@ Three consequences, all of them load-bearing:
 - **Never `changeset pre exit`** unless the task says to. It graduates both packages onto
   `latest`, which today means handing every `npm i @xaui/native` a package with no
   components. It is required exactly once, right before `1.0.0`.
-- **Pre mode is repo-wide.** A changeset on `@xaui/native-legacy` versions it `-alpha.x`
-  too. Legacy is frozen so this is rare, but a genuine `0.2.x` fix needs pre mode exited
-  for that release.
-- **A package that has never been published must not have its first publish under pre
-  mode.** `getReleaseTag` gives the pre tag to any package whose `publishedState` is not
-  `"only-pre"`, and `"never"` is not `"only-pre"` — so it would go out tagged `alpha` with
-  no `latest` tag at all, and `npm i <pkg>` would fail to resolve. `@xaui/native-legacy` is
-  the one package this still applies to.
+- **Pre mode is repo-wide and reaches dependents.** No changeset on a package is needed for
+  it to catch an alpha number: `@xaui/native-legacy` peer-depends on `@xaui/native`, so
+  `0.9.1-alpha.0` bumped it to `0.2.12-alpha.0` on its own. That is why
+  `@xaui/native-legacy` sits in `ignore` (`.changeset/config.json`) — it is frozen at
+  `0.2.11` and must stay there. `demo` and `docs` are in that list too, because changesets
+  requires every dependent of an ignored package to be ignored as well. A genuine `0.2.x`
+  fix on legacy means taking it out of `ignore` for that release.
+- **The tag on a first publish cannot be chosen in pre mode.** `getReleaseTag` gives the
+  pre tag to any package whose `publishedState` is not `"only-pre"`, and `"never"` is not
+  `"only-pre"` — so a never-published package goes out tagged `alpha` with no `latest` tag
+  at all. There is no clean way out: `changeset publish --tag` is refused in pre mode, and
+  `changeset pre exit` does not help (publish reads `preState` whatever its mode; only the
+  next `changeset version` deletes `pre.json`, and it graduates `native` and `hybrid` onto
+  `latest` while doing so). Fix it downstream instead —
+  `npm dist-tag add <pkg>@<version> latest`.
 
 CI on PRs to `main`/`dev`: tokens check → lint → type check → test → build, plus CodeQL.
 The release workflow runs on push to `main`.
