@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { Pressable, ScrollView, Text, View } from 'react-native'
+import { useRouter } from 'expo-router'
 import Svg, { Path } from 'react-native-svg'
 import { Button } from '@xaui/native/button'
 import type { ButtonVariant } from '@xaui/native/button'
@@ -36,6 +37,8 @@ export default function ButtonScreen() {
       style={{ backgroundColor: theme.colors.background }}
       contentContainerStyle={{ padding: 16, gap: 28, paddingBottom: 64 }}
     >
+      <OtherScreens />
+
       <Section
         title="The ten variants"
         note="Emphasis and intention in one flat union. Each names tokens; none computes a colour."
@@ -275,5 +278,23 @@ function TrashIcon({ size, color }: IconComponentProps) {
         strokeLinecap="round"
       />
     </Svg>
+  )
+}
+
+/**
+ * The other v1 verification screens. The demo is one screen per primitive, and each one is
+ * how that primitive is verified — there is no test file for any of them.
+ */
+function OtherScreens() {
+  const router = useRouter()
+
+  return (
+    <Button
+      variant="tertiary"
+      size="sm"
+      onPress={() => router.push('/pressable-feedback')}
+    >
+      PressableFeedback →
+    </Button>
   )
 }
