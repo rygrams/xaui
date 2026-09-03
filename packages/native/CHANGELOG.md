@@ -1,5 +1,15 @@
 # @xaui/native
 
+## 0.9.1-alpha.7
+
+### Patch Changes
+
+- 824d5b6: Declare `semver` where it is used. `tooling/pack-check` checks, against the **packed**
+  manifests, that `@xaui/native` can only ever appear once in a consumer's resolution tree:
+  it is a peer and never a dependency, neither package carries a runtime dependency, no
+  `workspace:` protocol survives packing, and every peer range admits the version actually
+  shipped.
+
 ## 0.9.1-alpha.6
 
 ### Patch Changes
