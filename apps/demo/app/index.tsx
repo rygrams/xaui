@@ -137,7 +137,7 @@ export default function ButtonScreen() {
 
       <Section
         title="Under the finger — the scale, and switching it off"
-        note="A button scales and mounts no overlay. That is the rule, not an omission: the recipe already paints the variant's pressed colour, and a wash or a wave on top would darken it twice. The PressableFeedback screen has the overlays."
+        note="A button scales and mounts no overlay. That is the rule, not an omission: the recipe already paints the variant's pressed colour, and a wash or a wave on top would darken it twice. That colour moves one way — towards the ink of the mode, so darker here in light and lighter in dark. The PressableFeedback screen has the overlays."
       >
         <Button>the scale, adjusted for the button&apos;s width</Button>
         <Button size="lg" variant="danger">

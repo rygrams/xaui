@@ -165,18 +165,18 @@ un état React — et le problème n'était pas une durée trop courte, puisqu'u
 huit secondes ne se voyait pas davantage.
 
 > **Corrigé depuis, deux fois.** Les handlers sur la `View` du ripple étaient la mauvaise
-> moitié de la réponse : l'overlay est un *frère* des enfants du composant, pas leur parent,
+> moitié de la réponse : l'overlay est un _frère_ des enfants du composant, pas leur parent,
 > donc il n'entend jamais un toucher sur le label d'un bouton — l'onde marchait sur le
 > padding et rien sur le texte. Ils sont revenus sur le `Pressable`, qui est la surface
 > tactile, et le root pilote les deux vagues et les publie.
 >
 > **L'encre n'est plus à la charge du composant.** Un primitif ne peut pas savoir sur quoi
-> il est posé, mais le *root* si : il aplatit son propre `style`, lit `backgroundColor` et
+> il est posé, mais le _root_ si : il aplatit son propre `style`, lit `backgroundColor` et
 > prend le côté contrasté — plus rien à passer. Un token `…Soft` translucide retombe sur le
 > `foreground` du thème, faute de luminance lisible ; c'est ce que le harnais de perf a
 > attrapé, `contrastOn` lançant sur les `rgba()`.
 
-### E. `accentPressed` éclaircit en mode clair — **ouvert**
+### E. `accentPressed` éclaircit en mode clair — **tranché (P2.7)**
 
 Pas le ripple, mais découvert en le corrigeant, et bien plus large : **un contrôle rempli
 s'éclaircit quand on l'enfonce**, en mode clair.
@@ -202,7 +202,17 @@ Deux options, à décider avant P3 puisque les quinze composants du noyau en hé
   que fait `deriveTint` pour une teinte brute, donc ça aligne aussi les deux chemins.
 - **Assumer Material** — garder la formule et documenter que l'état pressé éclaircit.
 
-**Échéance :** avant P3. C'est une décision de la couche thème, pas d'un composant.
+**Tranché : une direction constante, vers l'encre du mode.** Les quatre intentions
+saturées mélangent maintenant vers `foreground` au lieu du texte de la variante, donc un
+contrôle rempli s'assombrit en mode clair et s'éclaircit en mode sombre — dans les deux cas
+le contraste du label monte au lieu de baisser. `#9333ea` → `#8533d3` en clair,
+`#c084fc` → `#c691fd` en sombre.
+
+Les remplissages neutres n'ont pas bougé : `defaultForeground` et `surfaceForeground`
+_sont_ déjà l'encre du mode, donc seules les quatre intentions basculaient. `deriveTint`
+suit la même règle, sans quoi une teinte brute se comporterait autrement qu'un token sous
+le doigt. Le garde-fou de contraste passe sur les 68 tokens des deux modes, et un test
+épingle la direction plutôt que les seules valeurs.
 
 ---
 
