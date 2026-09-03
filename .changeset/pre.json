@@ -9,6 +9,7 @@
     "@xaui/native-legacy": "0.2.11"
   },
   "changesets": [
+    "api-review-fixes",
     "icon",
     "pack-uniqueness",
     "portal",
