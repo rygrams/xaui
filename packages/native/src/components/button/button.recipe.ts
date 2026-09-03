@@ -6,8 +6,8 @@ import type { ButtonSlot, ButtonVariant } from './button.type'
 const SLOTS = ['root', 'label', 'icon', 'spinner'] as const
 
 /**
- * Ten lines of data. A variant **names tokens and computes nothing** — `paint` below is
- * the only place that decides where a colour lands, and it is written once for all ten.
+ * Seven lines of data. A variant **names tokens and computes nothing** — `paint` below is
+ * the only place that decides where a colour lands, and it is written once for all seven.
  *
  * The suffix on each token name is also what a raw `color` reads: `resolveTint` maps
  * `…Pressed` to the tint's pressed slice, `…Soft` to its soft one, and a bare
@@ -16,25 +16,20 @@ const SLOTS = ['root', 'label', 'icon', 'spinner'] as const
  */
 const VARIANT_TOKENS: Record<ButtonVariant, VariantTokens> = {
   primary: { bg: 'accent', bgPressed: 'accentPressed', fg: 'accentForeground' },
-  secondary: { bg: 'default', bgPressed: 'defaultPressed', fg: 'defaultForeground' },
+  // The accent's soft slice, not a second neutral: `secondary` is to `primary` what
+  // `danger-soft` is to `danger`, and it reads as the same family at lower emphasis.
+  secondary: {
+    bg: 'accentSoft',
+    bgPressed: 'accentSoftPressed',
+    fg: 'accentSoftForeground',
+  },
+  default: { bg: 'default', bgPressed: 'defaultPressed', fg: 'defaultForeground' },
   tertiary: {
     border: 'border',
     bgPressed: 'defaultSoftPressed',
     fg: 'foreground',
   },
   ghost: { bgPressed: 'defaultSoftPressed', fg: 'foreground' },
-  success: { bg: 'success', bgPressed: 'successPressed', fg: 'successForeground' },
-  'success-soft': {
-    bg: 'successSoft',
-    bgPressed: 'successSoftPressed',
-    fg: 'successSoftForeground',
-  },
-  warning: { bg: 'warning', bgPressed: 'warningPressed', fg: 'warningForeground' },
-  'warning-soft': {
-    bg: 'warningSoft',
-    bgPressed: 'warningSoftPressed',
-    fg: 'warningSoftForeground',
-  },
   danger: { bg: 'danger', bgPressed: 'dangerPressed', fg: 'dangerForeground' },
   'danger-soft': {
     bg: 'dangerSoft',

@@ -8,7 +8,7 @@ pnpm perf:button
 ```
 
 The results are written into `.project-specs/XAUI-V1-PLAN.md` §9 bis. In one sentence:
-**200 buttons cost 40 style sheets, and a press costs 0.**
+**200 buttons cost 28 style sheets, and a press costs 0.**
 
 ## Why it is not in `src/__tests__/`
 

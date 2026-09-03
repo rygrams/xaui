@@ -14,20 +14,27 @@ import type { RadiusKey, Size } from '../../theme/theme.type'
 export type ButtonSlot = 'root' | 'label' | 'icon' | 'spinner'
 
 /**
- * The ten sanctioned appearances (R7). Emphasis and intention are one flat union, which
- * is why there is no `themeColor` beside it: `primary` … `ghost` are the emphasis levels,
- * and each intention carries its own `-soft` low-emphasis level rather than one of them
- * being special-cased.
+ * The seven sanctioned appearances (R7). Emphasis and intention are one flat union, which
+ * is why there is no `themeColor` beside it.
+ *
+ * The emphasis ladder descends by how much of the accent is left: `primary` is the full
+ * accent, `secondary` its soft slice, `default` drops the accent for the neutral fill,
+ * `tertiary` drops the fill for a border, and `ghost` drops that too. `secondary` is to
+ * `primary` exactly what `danger-soft` is to `danger` — the same soft slice of the same
+ * family, which is why it needs no rule of its own in the recipe.
+ *
+ * **`success` and `warning` are deliberately not here.** A button is something you press,
+ * and neither of those is an action: a success is an outcome and a warning is a state,
+ * both of which a `Chip`, an `Alert` or a `Badge` reports. The theme keeps their tokens —
+ * a component that *does* report status reads them — and a button that genuinely needs a
+ * green fill passes the raw tint instead: `<Button color={theme.colors.success}>`.
  */
 export type ButtonVariant =
   | 'primary'
   | 'secondary'
+  | 'default'
   | 'tertiary'
   | 'ghost'
-  | 'success'
-  | 'success-soft'
-  | 'warning'
-  | 'warning-soft'
   | 'danger'
   | 'danger-soft'
 
