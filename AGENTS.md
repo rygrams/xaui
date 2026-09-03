@@ -34,9 +34,11 @@ Source of truth in `.agents/skills/<name>/SKILL.md`, copied — never symlinked 
 - **Composition, not configuration** — a `forwardRef` root plus dot-notation slots,
   `asChild` on every root, an exported context hook per compound, namespaced `displayName`.
 - **Two appearance props** — `variant` (ten sanctioned values) and `color` (a raw tint) —
-  plus a closed set of **style props** for spacing and placement (`p`, `px`, `mt`, `gap`…)
-  whose values are steps on the spacing scale. Everything else goes through the slot's own
-  `style`, which always wins.
+  as the design-system **vocabulary**, plus **style props** for raw overrides:
+  `padding={16}`, `width="100%"`, `backgroundColor="#111"`. Full RN names and RN values, no
+  abbreviations and no hidden scale; the set is the node's style type minus the directional
+  keys R13 bans. Scoped to the node the prop is written on. `style` is still the last word,
+  for `transform` and anything typed loosely.
 - **A recipe engine with a style cache** — variants name tokens, styles resolve once at the
   root, slots receive stable `StyleSheet` references.
 - **A two-layer theme** — a hand-written source layer, ~32 tokens derived from it in OKLab.

@@ -37,10 +37,10 @@ On n'inspecte pas le premier enfant : on tente de **stringifier récursivement**
 Le root résout `variant × size × état` (plus la teinte `color` si fournie) une fois et publie la couleur finale. Les slots ne re-résolvent rien. Valeur memoizée. HeroUI publie les props brutes et laisse chaque slot re-résoudre — c'est gratuit chez eux grâce au cache de `tv()`, ça ne l'est pas sans moteur de classes.
 
 **R6 — Tokens dans les props, valeurs arbitraires dans `style`.**
-`size="md"` passe, `size={42}` est une erreur de type. C'est ce qui permet le cache de styles (§3) — l'ouvrir tue le gain de perf. Deux exceptions, toutes deux **hors du cache** et résolues dans une seconde passe (§3) : `color`, qui porte une teinte brute, et les **props de style** de R14.
+`size="md"` passe, `size={42}` est une erreur de type. C'est ce qui permet le cache de styles (§3) — l'ouvrir tue le gain de perf. La règle porte sur le **vocabulaire** : `variant`, `size`, `radius`. Les valeurs brutes ont leur propre chemin, **hors du cache** et résolu dans une seconde passe (§3) : `color` et les **props de style** de R14.
 
 **R7 — Deux props d'apparence, pas trois.**
-`variant` = apparence sanctionnée par le design system. `color` = une teinte brute qui remplace celle du variant. Il n'existe **aucune** autre prop de couleur — pas de `background`, pas de `borderColor` ; ces cas passent par `style` ou par les props de style de R14, qui ne sont pas des props d'apparence : elles ne décident ni d'une intention ni d'une emphase, elles placent le composant.
+`variant` = apparence sanctionnée par le design system. `color` = une teinte brute qui remplace celle du variant. Ce sont les deux seules props du **vocabulaire** : rien d'autre ne décrit une intention ou une emphase. Les props de style de R14 — `backgroundColor`, `borderColor` — ne sont pas de ce vocabulaire, ce sont des surcharges brutes, la même catégorie que `style`. Une revue qui voit `backgroundColor` là où `variant` suffisait signale la même chose qu'avant ; ce qui change, c'est que le contournement est court et lisible au lieu d'être un objet.
 
 **R8 — Booléens en `isX` / `hasX`.**
 `isDisabled`, `isLoading`, `hasError`. `disabled` n'est jamais public ; il est forwardé en interne au `Pressable`.
@@ -61,21 +61,23 @@ Fusionner les props dans l'enfant au lieu de rendre son propre élément — c'e
 **R13 — Aucun `left` / `right` dans un style.**
 `paddingStart` / `paddingEnd`, `marginStart` / `marginEnd`, `start` / `end`. RN gère le RTL tout seul avec ces propriétés et pas avec les autres. Écrire `paddingLeft` coûte zéro aujourd'hui et un audit complet le jour où quelqu'un ouvre l'app en arabe. Une règle ESLint interdit les formes directionnelles dans `src/`.
 
-**R14 — L'espacement et le placement sont des props, pas un objet.**
-Le cas courant — desserrer un bouton, le pousser d'un cran — ne doit pas demander d'ouvrir un objet `style` :
+**R14 — Le style d'un composant se modifie en props.**
+Desserrer un contrôle, lui donner une largeur, changer un fond ne doit pas demander d'ouvrir un objet :
 
 ```tsx
-<Button p={4} mt={2}>Envoyer</Button>          // au lieu de style={{ padding: 16, marginTop: 8 }}
-<Button px={3} gap={1} color="#7c3aed">…</Button>
+<Button padding={16} marginTop={8}>Envoyer</Button>
+<Button width="100%" backgroundColor="#111">…</Button>
 ```
 
-Un **jeu fermé de raccourcis**, dont la valeur est un **pas sur l'échelle d'espacement**, jamais un pixel : `p={4}` vaut `spacing(4)`, soit 16 sur la base 4. C'est ce qui les garde dans le vocabulaire du design system au lieu d'en faire une échappatoire de plus.
+**Le nom est celui de la propriété RN, en entier** — `padding`, pas `p` ; `backgroundColor`, pas `bg`. Et donc **la valeur est celle de RN aussi** : `padding={16}` vaut 16 points. Une prop qui porte le nom exact de la clé et en multiplierait la valeur par une échelle serait le piège le plus coûteux de l'API. L'échelle reste explicite : `padding={t.spacing(4)}`.
 
-Trois choses les rendent compatibles avec tout le reste :
+Le jeu n'est pas une liste mais un type : **les clés de style du nœud du composant** — `ViewStyle`, `TextStyle` sur un slot texte — **moins les formes directionnelles que R13 interdit**, qui ne sont pas exposées du tout.
 
-- **Elles ne colorent rien.** Pas de `bg`, pas de `borderColor` — R7 tient. Une prop de style place le composant ; elle ne décide pas de son apparence.
-- **Elles sont hors du cache**, résolues dans la même seconde passe que `color` (§3). Le nombre de combinaisons de tokens reste fini ; la table ne grandit pas avec les valeurs que les gens écrivent.
-- **Elles perdent contre `style`.** L'ordre est : recette → teinte → props de style → `style` du slot. Le plus spécifique gagne, et `style` reste l'échappatoire finale.
+Trois choses les gardent compatibles avec le reste :
+
+- **La portée s'arrête au nœud sur lequel la prop est écrite.** Jamais un descendant : R1 tient, et c'est ce qui les sépare de `customAppearance`.
+- **Elles sont hors du cache**, résolues dans la même seconde passe que `color` (§3). Le nombre de combinaisons de tokens reste fini.
+- **Elles perdent contre `style`**, qui reste l'échappatoire finale pour ce qui n'a pas de prop lisible — `transform`, une ombre par plateforme, un objet calculé.
 
 Le détail du jeu et de sa résolution est au §2 ter.
 
@@ -150,7 +152,7 @@ Conséquence, en React Native : `alignItems` vaut `stretch` par défaut, donc **
 **Trois décisions pour XAUI :**
 
 1. **Aucune largeur dans le recipe.** Le comportement par défaut est celui de RN, pas une invention de la lib.
-2. **`fullWidth` est supprimé.** Dans le code actuel il ajoute `width: '100%'` — quasiment sans effet en `Column` (le bouton y est _déjà_ pleine largeur) et utile seulement en `Row`. Une prop dont le nom décrit le comportement par défaut est un piège. Pour resserrer un bouton, on compose : `<Row><Button/></Row>`, ou `style={{ alignSelf: 'flex-start' }}`.
+2. **`fullWidth` est supprimé.** Dans le code actuel il ajoute `width: '100%'` — quasiment sans effet en `Column` (le bouton y est _déjà_ pleine largeur) et utile seulement en `Row`. Une prop dont le nom décrit le comportement par défaut est un piège. Pour resserrer un bouton, on compose : `<Row><Button/></Row>`, ou `style={{ alignSelf: 'flex-start' }}`. Et le cas où la largeur _est_ voulue s'écrit maintenant `width="100%"` (R14), explicitement, plutôt que par une prop qui prétend décrire un comportement.
 3. **`height` fixe, pas `minHeight`.** Le code actuel utilise `minHeight`, ce qui laisse un bouton grandir si son label passe à la ligne. Un contrôle a une hauteur, pas une hauteur minimale ; un label trop long doit être tronqué, pas déformer le bouton.
 
 Corollaire : `isIconOnly` n'a pas besoin de calcul de largeur — `padding: 0` + `aspectRatio: 1` sur une hauteur fixe donne un carré.
@@ -458,46 +460,98 @@ Conséquence sur le code existant : **45 fichiers utilisent encore l'`Animated` 
 ## 2 ter. Les props de style
 
 R14 en détail. Le problème qu'elles règlent est banal et permanent : desserrer un contrôle,
-le pousser d'un cran, resserrer un `gap`. Aujourd'hui chacun de ces cas oblige à ouvrir un
-objet `style`, ce qui est disproportionné pour un nombre.
+lui donner une largeur, changer un fond. Chacun de ces cas oblige aujourd'hui à ouvrir un
+objet `style`, ce qui est disproportionné pour une valeur.
 
 ```tsx
-<Button p={4}>Envoyer</Button>
-<Button px={3} mt={2} gap={1}>…</Button>
-<Row p={4} gap={2}>…</Row>
+<Button padding={16} marginTop={8}>Envoyer</Button>
+<Button width="100%" borderRadius={12}>…</Button>
+<Card backgroundColor="#111" borderColor="#333">…</Card>
 ```
 
-### Le jeu, fermé
+### Le nom est celui de la propriété RN, en entier
 
-Espacement et placement uniquement. Pas de couleur, pas de bordure, pas de typographie —
-celles-là restent dans `variant`, `color` ou `style`.
+Pas d'abréviations. `padding`, pas `p` ; `marginTop`, pas `mt` ; `backgroundColor`, pas
+`bg`. Ce sont des props, elles se lisent au point d'appel, et une API de raccourcis oblige
+à apprendre une table de correspondance pour rien.
 
-| Prop  | Style RN            | Prop | Style RN           |
-| ----- | ------------------- | ---- | ------------------ |
-| `p`   | `padding`           | `m`  | `margin`           |
-| `px`  | `paddingHorizontal` | `mx` | `marginHorizontal` |
-| `py`  | `paddingVertical`   | `my` | `marginVertical`   |
-| `pt`  | `paddingTop`        | `mt` | `marginTop`        |
-| `pb`  | `paddingBottom`     | `mb` | `marginBottom`     |
-| `ps`  | `paddingStart`      | `ms` | `marginStart`      |
-| `pe`  | `paddingEnd`        | `me` | `marginEnd`        |
-| `gap` | `gap`               |      |                    |
+**La contrepartie est que la valeur doit être celle de RN aussi.** `padding={16}` vaut 16
+points, comme `style={{ padding: 16 }}`. Une prop qui porte le nom exact de la clé RN et en
+multiplie silencieusement la valeur par une échelle serait le piège le plus coûteux de
+toute l'API — celui qu'on ne voit qu'en mesurant à l'écran.
 
-**`ps` / `pe` et `ms` / `me`, jamais `pl` / `pr`** — R13 vaut ici comme ailleurs, et c'est
-précisément une API de raccourcis qui rendrait la faute facile.
+L'échelle reste accessible, explicitement :
 
-Le jeu s'arrête là **pour la 1.0**. `w`, `h`, `flex`, `alignSelf` sont des candidats
-crédibles ; ils attendent qu'un composant du noyau les demande deux fois, comme tout le
-reste (§2 bis).
+```tsx
+const t = useXAUITheme()
+<Button padding={t.spacing(4)} borderRadius={t.radius.lg}>…</Button>
+```
 
-### La valeur est un pas, pas un pixel
+C'est un mot de plus et zéro ambiguïté. Le design system continue de vivre dans `variant`,
+`size` et les tokens ; les props de style sont l'échappatoire courte, pas le vocabulaire.
 
-`p={4}` vaut `spacing(4)`, soit 16 sur la base 4. C'est ce qui garde ces props dans le
-vocabulaire du design system : changer `spacingUnit` dans le thème redessine tout, y
-compris ce que les appelants ont écrit.
+### Le jeu est le type de style, moins ce que R13 interdit
 
-Les demi-pas passent — `px={3.5}` vaut 14, comme dans la recette du `Button`. Une valeur
-en pixels bruts n'a pas de raccourci : c'est `style`.
+Il n'y a pas de liste à maintenir. Un composant expose **les clés de style de son propre
+nœud** :
+
+- un root ou un slot vue : `ViewStyle`
+- un slot texte : `TextStyle` (donc `color`, `fontSize`, `fontWeight`, `letterSpacing`…)
+- un slot image : `ImageStyle`
+
+**Moins les formes directionnelles que R13 interdit** — `left`, `right`, `paddingLeft`,
+`paddingRight`, `marginLeft`, `marginRight`, `borderLeftWidth`, `borderRightColor`,
+`borderTopLeftRadius`… Elles ne sont pas exposées du tout : `paddingStart` / `paddingEnd`,
+`start` / `end`, `borderStartWidth`. Une API de props est exactement l'endroit où quelqu'un
+écrirait `paddingLeft` sans y penser, donc le type le rend impossible plutôt que de compter
+sur une revue.
+
+```ts
+type StyleProps = Omit<ViewStyle, DirectionalStyleKey>
+```
+
+### La portée s'arrête au nœud du composant
+
+Une prop de style stylise **la boîte du composant sur lequel elle est écrite**, jamais
+celle d'un descendant — R1 tient exactement comme avant. Chaque slot porte les siennes,
+comme il porte déjà son `style` (R2) :
+
+```tsx
+<Button padding={20}>
+  <Button.Label fontSize={18} letterSpacing={1}>
+    Envoyer
+  </Button.Label>
+</Button>
+```
+
+C'est ce qui les distingue de l'ancien `customAppearance`, qui atteignait l'intérieur d'un
+composant depuis l'extérieur : ici l'endroit où on écrit la prop est l'endroit où elle
+s'applique.
+
+### `color` garde son sens, et ce n'est pas une exception
+
+Sur un **root**, `color` est la teinte de R7 : une valeur brute que le variant place — fond
+pour `primary`, label pour `ghost`, bordure pour `tertiary` (§1 bis).
+
+Sur un **slot texte**, `color` est le `color` de `TextStyle`. Les deux coïncident au lieu de
+se contredire : §1 bis dit déjà que dans un composant texte il n'y a qu'une chose à teinter.
+
+Le fond brut d'un root n'est donc pas `color` mais `backgroundColor`, qui dit ce qu'il fait.
+
+### Ce que R7 devient
+
+R7 ne disparaît pas, elle se précise. Il y a deux **vocabulaires**, et un seul est le
+design system :
+
+|                            | Rôle                                                           | Exemple                      |
+| -------------------------- | -------------------------------------------------------------- | ---------------------------- |
+| `variant`, `color`, `size` | Le vocabulaire sanctionné. Ce qu'on écrit d'habitude           | `variant="danger" size="lg"` |
+| Props de style             | Des surcharges brutes, la même catégorie que `style`           | `backgroundColor="#111"`     |
+| `style`                    | Le reste : transformations, ombres, tout ce qui est typé large | `style={{ transform: […] }}` |
+
+Une revue qui voit `backgroundColor="#7c3aed"` là où `variant="primary"` suffisait signale
+la même chose qu'avant : le design system est contourné. Ce qui change, c'est que le
+contournement est court à écrire et lisible, au lieu d'être un objet.
 
 ### Où elles se résolvent
 
@@ -511,8 +565,24 @@ L'ordre complet, du plus général au plus spécifique :
 base → paint → variants → compoundVariants → states → teinte → props de style → style du slot
 ```
 
-`style` gagne en dernier. Une prop de style est un raccourci, pas une autorité : quand les
-deux disent quelque chose du même champ, c'est la forme explicite qui l'emporte.
+`style` gagne en dernier, et reste l'échappatoire finale pour ce qui n'a pas de prop
+lisible : `transform`, une ombre plateforme par plateforme, un objet calculé.
+
+### Les props du composant l'emportent
+
+`size` est une prop du `Button`, pas `width`. Quand un nom de prop de composant existe déjà,
+c'est lui qui gagne, et le type l'exprime : la prop de style du même nom n'est pas exposée.
+La liste par composant vit dans son `.type.ts`, donc un conflit est une erreur de
+compilation et non une surprise à l'écran.
+
+Deux cas valent d'être notés :
+
+- **`height` bat la hauteur que `size` a choisie**, puisque les props de style se résolvent
+  après la recette. C'est une échappatoire, pas le chemin normal : un contrôle dont on
+  redresse la hauteur à la main est en général un contrôle dont la taille manque à
+  l'échelle.
+- **`width="100%"` remplace l'ancien `fullWidth`** (§1 bis), dit explicitement plutôt que
+  par une prop dont le nom décrit le comportement par défaut.
 
 ### Où le code vit
 
@@ -523,23 +593,27 @@ en a besoin pour offrir la même API.
 Deux fonctions, l'une pure et testée, l'autre triviale :
 
 ```ts
-// utils/, pur, testé : le jeu fermé → un objet de style
-resolveStyleProps(props, spacing) // { p: 4, mt: 2 } → { padding: 16, marginTop: 8 }
+// utils/, pur, testé : sépare les clés de style du reste, sans rien transformer
+splitStyleProps(props) // { padding: 16, onPress } → [{ padding: 16 }, { onPress }]
 
-// system/style-props/, React : sépare les raccourcis du reste des props d'un composant
+// system/style-props/, React : la même chose, memoizée sur les valeurs
 const [styleProps, rest] = useStyleProps(props)
 ```
 
-Le root applique `styleProps` entre la teinte et son `style`, et forwarde `rest`. Les slots
-les acceptent aussi — R2 dit que chaque slot porte son propre `style`, et un raccourci est
-la même chose en plus court.
+Le root applique `styleProps` entre la teinte et son `style`, et forwarde `rest`.
 
 ### Ce que ça coûte
 
-Une allocation d'objet par rendu, sur les composants dont l'appelant a écrit au moins une
-de ces props. C'est le même arbitrage que `color`, et il est mesuré au §9 bis : la ligne de
-base doit rester vraie pour un composant sans prop de style, et gagner une ligne pour un
-composant qui en porte.
+Deux choses, et aucune n'est gratuite :
+
+- **Une allocation d'objet par rendu**, sur les composants dont l'appelant a écrit au moins
+  une prop de style. Même arbitrage que `color`, et §9 bis doit gagner une ligne : la ligne
+  de base reste vraie pour un composant sans prop de style, et une seconde la mesure avec.
+- **Une surface de props large.** C'est le prix du choix, et il est assumé : le type dérive
+  de `ViewStyle` au lieu d'être écrit à la main, donc il ne dérive pas dans le temps ; mais
+  l'autocomplétion d'un composant montre désormais des dizaines d'entrées, et la
+  documentation générée (§6) doit séparer les props du composant des props de style plutôt
+  que de les lister ensemble.
 
 ---
 

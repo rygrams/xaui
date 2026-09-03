@@ -14,7 +14,7 @@ re-exported from `utils/`.
 
 - A primitive a component author needs and cannot reasonably write themselves: the style
   engine, slot plumbing, touch feedback, the portal, the icon, and — specified but **not
-  built yet**, see P2.6 — the style-prop resolver of R14.
+  built yet**, see P2.6 — the style-prop splitter of R14.
 - Nothing component-specific. If only `Button` needs it, it lives in `components/button/`
   until a second component asks for it (§2 bis).
 - The exported surface is deliberate: an internal that `createRecipe` happens to use is

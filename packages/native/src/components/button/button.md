@@ -116,7 +116,8 @@ yours.
 
 `size` drives **height, padding, gap, radius and type — never width**. A button with no
 width fills its parent in a column and hugs its content in a row, which is React Native's
-own behaviour. There is no `fullWidth` prop; to tighten one, compose:
+own behaviour. There is no `fullWidth` prop — once R14 lands the deliberate case is
+`width="100%"`, said explicitly. To tighten one, compose:
 
 ```tsx
 <Row>
@@ -172,23 +173,49 @@ in OKLab, so a free tint behaves exactly like `accent` — same ratios, same ren
 deliberately outside the style cache: letting arbitrary values into the key would grow the
 table with the colours people invent instead of with the finite combinations of tokens.
 
-### Spacing and placement — coming as props
+### Style as props — coming
 
 > **Not built yet.** R14 and §2 ter of the plan specify it; it is **P2.6** in the roadmap.
-> Until it lands, spacing goes through `style`.
+> Until it lands, everything below goes through `style`.
 
-The common case — loosen a button, push it down a notch — will not require opening a
-`style` object:
+Loosening a button, giving it a width, changing a fill will not require opening an object:
 
 ```tsx
-<Button p={4} mt={2}>Envoyer</Button>
-<Button px={3} gap={1}>…</Button>
+<Button padding={16} marginTop={8}>Envoyer</Button>
+<Button width="100%" backgroundColor="#111">…</Button>
+
+<Button>
+  <Button.Label fontSize={18} letterSpacing={1}>Envoyer</Button.Label>
+</Button>
 ```
 
-`p px py pt pb ps pe` · `m mx my mt mb ms me` · `gap`. The value is a **step on the spacing
-scale**, never a pixel: `p={4}` is `spacing(4)`, so a change to `spacingUnit` in the theme
-redraws what callers wrote too. They colour nothing, they resolve outside the style cache,
-and the slot's own `style` still wins over them.
+**Full React Native names, and therefore full React Native values.** `padding` rather than
+`p`; `padding={16}` is 16 points, exactly as `style` would be. A prop carrying the RN key's
+name while silently multiplying its value by a scale would be the most expensive trap in
+the API. The scale stays one word away:
+
+```tsx
+const t = useXAUITheme()
+<Button padding={t.spacing(4)} borderRadius={t.radius.lg}>…</Button>
+```
+
+The set is not a list but a type — the node's style keys (`ViewStyle` on the root,
+`TextStyle` on `Button.Label`) **minus the directional forms R13 bans**, which are not
+exposed at all: `paddingStart`, never `paddingLeft`.
+
+Each one styles **the node it is written on**, never a descendant — which is what separates
+this from the legacy `customAppearance`. `width="100%"` is what replaces `fullWidth`, said
+explicitly, and `height` beats the height `size` chose, because style props resolve after
+the recipe. That is an escape hatch, not the normal path: a control whose height you
+straighten by hand is usually one whose size is missing from the scale.
+
+`color` keeps its meaning here — the tint the variant places (above) on the root, and
+`TextStyle`'s `color` on `Button.Label`. Those coincide rather than conflict: in a text
+component there is only one thing to tint. A raw fill on the root is `backgroundColor`,
+which says what it does.
+
+They resolve outside the style cache, and the slot's own `style` still wins — it stays the
+last word for `transform`, a per-platform shadow, or a computed object.
 
 ### Everything else goes through `style`
 
