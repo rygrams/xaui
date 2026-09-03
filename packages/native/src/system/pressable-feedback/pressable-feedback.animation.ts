@@ -20,6 +20,12 @@ export const HIGHLIGHT_OPACITY = 0.08
 export const RIPPLE_OPACITY = 0.12
 export const RIPPLE_DURATION = 350
 
+/**
+ * The circle's radius as a multiple of the control's diagonal. Above 1 it covers from
+ * any point on the control, so where the finger landed never enters the calculation.
+ */
+export const RIPPLE_COVERAGE = 1.25
+
 const ALL_OFF: Omit<ResolvedAnimation, 'disableAll'> = {
   scale: false,
   highlight: false,
@@ -101,15 +107,4 @@ export function resolveSlotAnimation(
     duration: override.duration ?? defaultDuration,
     opacity: override.opacity ?? defaultOpacity,
   }
-}
-
-/** The radius a ripple needs to reach the furthest corner from where the finger landed. */
-export function rippleRadius(
-  origin: { x: number; y: number },
-  size: { width: number; height: number }
-): number {
-  'worklet'
-  const dx = Math.max(origin.x, size.width - origin.x)
-  const dy = Math.max(origin.y, size.height - origin.y)
-  return Math.sqrt(dx * dx + dy * dy)
 }

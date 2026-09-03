@@ -2,7 +2,6 @@ import { describe, expect, it } from 'vitest'
 import {
   resolveAnimation,
   resolveSlotAnimation,
-  rippleRadius,
 } from '../../../system/pressable-feedback/pressable-feedback.animation'
 
 describe('resolveAnimation', () => {
@@ -63,22 +62,6 @@ describe('resolveAnimation', () => {
       disableAll: true,
     })
     expect(resolveAnimation({ scale: true }, true)).toMatchObject({ scale: false })
-  })
-})
-
-describe('rippleRadius', () => {
-  it('reaches the furthest corner from where the finger landed', () => {
-    // A press dead centre of a 6×8 box: half-diagonal, 3-4-5 scaled.
-    expect(rippleRadius({ x: 3, y: 4 }, { width: 6, height: 8 })).toBe(5)
-  })
-
-  it('covers the whole box when the press lands in a corner', () => {
-    expect(rippleRadius({ x: 0, y: 0 }, { width: 3, height: 4 })).toBe(5)
-    expect(rippleRadius({ x: 3, y: 4 }, { width: 3, height: 4 })).toBe(5)
-  })
-
-  it('is zero before the root has been laid out', () => {
-    expect(rippleRadius({ x: 0, y: 0 }, { width: 0, height: 0 })).toBe(0)
   })
 })
 

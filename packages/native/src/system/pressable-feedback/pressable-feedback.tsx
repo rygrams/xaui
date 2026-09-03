@@ -133,6 +133,7 @@ const AnimatedFeedback = forwardRef<View, BranchProps>(function AnimatedFeedback
   ref
 ) {
   const progress = useSharedValue(0)
+  const pressCount = useSharedValue(0)
   const origin = useSharedValue({ x: 0, y: 0 })
   const size = useSharedValue({ width: 0, height: 0 })
 
@@ -149,14 +150,15 @@ const AnimatedFeedback = forwardRef<View, BranchProps>(function AnimatedFeedback
   )
 
   const context = useMemo(
-    () => ({ isPressed, animation, progress, origin, size }),
-    [isPressed, animation, progress, origin, size]
+    () => ({ isPressed, animation, progress, pressCount, origin, size }),
+    [isPressed, animation, progress, pressCount, origin, size]
   )
 
   // Composed, never replaced: the caller's handlers are why it passed them.
   const handlePressIn = (event: GestureResponderEvent) => {
     const { locationX, locationY } = event.nativeEvent
     origin.value = { x: locationX, y: locationY }
+    pressCount.value += 1
     onPressIn?.(event)
   }
 

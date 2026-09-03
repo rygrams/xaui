@@ -1,17 +1,19 @@
-import { useEffect } from 'react'
 import type { StyleProp, ViewStyle } from 'react-native'
 import Animated, {
+  interpolate,
+  useAnimatedReaction,
   useAnimatedStyle,
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated'
+import type { SharedValue } from 'react-native-reanimated'
 import { useXAUITheme } from '../../theme/theme-hooks'
 import { useFeedback } from './pressable-feedback-context'
 import {
+  RIPPLE_COVERAGE,
   RIPPLE_DURATION,
   RIPPLE_OPACITY,
   resolveSlotAnimation,
-  rippleRadius,
 } from './pressable-feedback.animation'
 import type { SlotAnimation } from './pressable-feedback.type'
 
@@ -21,8 +23,14 @@ export type PressableFeedbackRippleProps = {
   animation?: SlotAnimation
 }
 
+type Point = { x: number; y: number }
+
 /**
- * A circle growing from where the finger landed until it covers the root.
+ * A circle washing outwards from where the finger landed.
+ *
+ * It is a **one-shot, independent of how long the press lasts**: the wave runs its course
+ * and ends, the way a ripple in water does. Tying it to the press would leave a disc
+ * parked on the control for as long as a finger rests there.
  *
  * It needs the root to clip — `PressableFeedback` sets `overflow: 'hidden'` when it
  * mounts one — and it renders nothing on the static branch: a ripple that cannot expand
@@ -33,7 +41,7 @@ export function PressableFeedbackRipple({
   style,
   animation: override,
 }: PressableFeedbackRippleProps) {
-  const { animation, progress, origin, size } = useFeedback()
+  const { animation, progress, pressCount, origin, size } = useFeedback()
   const theme = useXAUITheme()
 
   const settings = resolveSlotAnimation(
@@ -43,7 +51,7 @@ export function PressableFeedbackRipple({
     RIPPLE_DURATION
   )
 
-  if (!progress || !origin || !size || !settings.enabled) return null
+  if (!progress || !pressCount || !origin || !size || !settings.enabled) return null
 
   return (
     <AnimatedRipple
@@ -68,32 +76,93 @@ function AnimatedRipple({
   opacity: number
   style?: StyleProp<ViewStyle>
 }) {
-  const { isPressed, origin, size } = useFeedback()
+  const { pressCount, origin, size } = useFeedback()
 
-  // Its own progress, not the root's: the root's reverses on release, and a ripple that
-  // ran backwards would shrink into the finger instead of washing outwards. This one
-  // restarts from zero on each press and only ever grows.
-  const grown = useSharedValue(0)
+  // Two layers, used in turn. A single one restarted on each press cuts the wave in
+  // flight, which reads as a blink under a rapid double tap; alternating lets the older
+  // wave finish underneath the new one.
+  const waveA = useSharedValue(0)
+  const waveB = useSharedValue(0)
+  const fromA = useSharedValue({ x: 0, y: 0 })
+  const fromB = useSharedValue({ x: 0, y: 0 })
+  const useA = useSharedValue(true)
 
-  useEffect(() => {
-    if (!isPressed) return
-    grown.value = 0
-    grown.value = withTiming(1, { duration })
-  }, [isPressed, grown, duration])
+  useAnimatedReaction(
+    () => pressCount?.value ?? 0,
+    (count, previous) => {
+      if (previous === null || count === previous) return
 
+      const wave = useA.value ? waveA : waveB
+      const from = useA.value ? fromA : fromB
+
+      from.value = origin?.value ?? { x: 0, y: 0 }
+      wave.value = 0
+      // Past 1 the circle holds its size while the colour drains, so the wave finishes
+      // on its own rather than vanishing the instant it is fully open.
+      wave.value = withTiming(2, { duration: duration * 2 })
+
+      useA.value = !useA.value
+    }
+  )
+
+  return (
+    <>
+      <RippleWave
+        wave={waveA}
+        from={fromA}
+        size={size}
+        color={color}
+        opacity={opacity}
+        style={style}
+      />
+      <RippleWave
+        wave={waveB}
+        from={fromB}
+        size={size}
+        color={color}
+        opacity={opacity}
+        style={style}
+      />
+    </>
+  )
+}
+
+function RippleWave({
+  wave,
+  from,
+  size,
+  color,
+  opacity,
+  style,
+}: {
+  wave: SharedValue<number>
+  from: SharedValue<Point>
+  size?: SharedValue<{ width: number; height: number }>
+  color: string
+  opacity: number
+  style?: StyleProp<ViewStyle>
+}) {
   const animatedStyle = useAnimatedStyle(() => {
-    const at = origin?.value ?? { x: 0, y: 0 }
     const within = size?.value ?? { width: 0, height: 0 }
-    const radius = rippleRadius(at, within)
+    // The diagonal covers the control from any point on it, so where the finger landed
+    // never has to enter the radius — one number, and no corner left unwashed.
+    const radius =
+      Math.sqrt(within.width * within.width + within.height * within.height) *
+      RIPPLE_COVERAGE
+    const at = from.value
 
     return {
-      top: at.y - radius,
-      start: at.x - radius,
       width: radius * 2,
       height: radius * 2,
       borderRadius: radius,
-      opacity: (1 - grown.value) * opacity,
-      transform: [{ scale: grown.value }],
+      // Rises as the circle opens and drains once it is open — so the wave is at its
+      // strongest when it covers the control, not when it is a dot under the finger.
+      opacity: interpolate(wave.value, [0, 1, 2], [0, opacity, 0]),
+      transform: [
+        { translateX: at.x - radius },
+        { translateY: at.y - radius },
+        { scale: interpolate(wave.value, [0, 1, 2], [0, 1, 1]) },
+      ],
     }
   })
 

@@ -79,6 +79,13 @@ export type FeedbackContext = {
   animation: ResolvedAnimation
   /** Absent on the static branch, where nothing animates and no worklet is mounted. */
   progress?: SharedValue<number>
+  /**
+   * Bumped on every press-in. The ripple starts from this rather than from a `useEffect`
+   * on `isPressed`: a one-shot driven by a boolean depends on React re-rendering between
+   * the two touch events, and starting it from the event that carries the coordinates is
+   * both simpler and impossible to miss.
+   */
+  pressCount?: SharedValue<number>
   /** Where the finger landed, and how big the root is — the ripple needs both. */
   origin?: SharedValue<{ x: number; y: number }>
   size?: SharedValue<{ width: number; height: number }>
