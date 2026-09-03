@@ -13,7 +13,8 @@ re-exported from `utils/`.
 ## What belongs
 
 - A primitive a component author needs and cannot reasonably write themselves: the style
-  engine, slot plumbing, touch feedback, the portal, the icon.
+  engine, slot plumbing, touch feedback, the portal, the icon, and — specified but **not
+  built yet**, see P2.6 — the style-prop resolver of R14.
 - Nothing component-specific. If only `Button` needs it, it lives in `components/button/`
   until a second component asks for it (§2 bis).
 - The exported surface is deliberate: an internal that `createRecipe` happens to use is
@@ -42,10 +43,12 @@ const tint = color ? buttonRecipe.tint({ theme, color, selection, states }) : un
 **Resolution order, frozen:**
 
 ```
-base → paint → variants → compoundVariants → states → slot props → slot style
+base → paint → variants → compoundVariants → states → tint → style props → slot style
 ```
 
-The last two happen at the call site, and they always win.
+The last three happen at the call site, and they always win. `tint` and the style props of
+R14 are both **outside the cache**, for the same reason: they take values a caller invents,
+and the table has to grow with the finite combinations of tokens instead.
 
 **The cache** is one `Map` per recipe, keyed by
 `${theme.id}|${theme.mode}|<axes, sorted>|<active states>`. `StyleSheet.create` runs once

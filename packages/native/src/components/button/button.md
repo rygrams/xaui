@@ -172,6 +172,24 @@ in OKLab, so a free tint behaves exactly like `accent` — same ratios, same ren
 deliberately outside the style cache: letting arbitrary values into the key would grow the
 table with the colours people invent instead of with the finite combinations of tokens.
 
+### Spacing and placement — coming as props
+
+> **Not built yet.** R14 and §2 ter of the plan specify it; it is **P2.6** in the roadmap.
+> Until it lands, spacing goes through `style`.
+
+The common case — loosen a button, push it down a notch — will not require opening a
+`style` object:
+
+```tsx
+<Button p={4} mt={2}>Envoyer</Button>
+<Button px={3} gap={1}>…</Button>
+```
+
+`p px py pt pb ps pe` · `m mx my mt mb ms me` · `gap`. The value is a **step on the spacing
+scale**, never a pixel: `p={4}` is `spacing(4)`, so a change to `spacingUnit` in the theme
+redraws what callers wrote too. They colour nothing, they resolve outside the style cache,
+and the slot's own `style` still wins over them.
+
 ### Everything else goes through `style`
 
 There are two appearance props, `variant` and `color`, and no third. A shadow, a border in
