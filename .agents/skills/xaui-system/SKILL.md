@@ -186,6 +186,11 @@ by measuring on screen. The scale stays explicit: `padding={t.spacing(4)}`.
 A style prop styles **its own node**, never a descendant (R1), which is what separates it
 from `customAppearance`.
 
+**Every component that renders a node exposes them, primitives included** —
+`PressableFeedback` and its overlays, `PortalHost`, `Icon` (its `source` form, as far as
+its `style` reaches). Adding a primitive that renders a node without them is the defect;
+there is no exception list, because the rule has no exceptions.
+
 Two pieces, and the split is the point:
 
 ```ts

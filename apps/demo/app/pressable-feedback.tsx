@@ -90,6 +90,16 @@ export default function PressableFeedbackScreen() {
         />
       </Section>
 
+      <Section title="Style props — R14, on the primitive too">
+        <Note>
+          The tile below is styled entirely in props: no <Bold>style</Bold> object
+          anywhere. It must look like the ones above — and its wash must still be
+          visible, which is the real check: the ink is computed from the surface&apos;s
+          background, and that background was written as a prop rather than in a style.
+        </Note>
+        <StylePropsTile />
+      </Section>
+
       <Section title="animation — off mounts no worklet">
         <Tile
           label="animation={false}"
@@ -203,6 +213,38 @@ function Tile({
       {overlayLast ? null : overlay}
       <Text style={{ color: labelOn(theme, background) }}>{label}</Text>
       {overlayLast ? overlay : null}
+    </PressableFeedback>
+  )
+}
+
+/**
+ * The same tile as above, written without a single `style` object — the primitive takes
+ * the style keys of the `Pressable` it renders (R14), and the overlay takes its own.
+ *
+ * What it proves is the merge order inside `PressableFeedback`: the style props land in
+ * `style` before either branch reads the surface, so the ink stays contrasted against a
+ * background the caller never put in a style object.
+ */
+function StylePropsTile() {
+  const theme = useXAUITheme()
+  const [isPressed, setIsPressed] = useState(false)
+
+  return (
+    <PressableFeedback
+      isPressed={isPressed}
+      onPressIn={() => setIsPressed(true)}
+      onPressOut={() => setIsPressed(false)}
+      accessibilityRole="button"
+      height={theme.controlHeights.lg}
+      justifyContent="center"
+      paddingHorizontal={theme.spacing(4)}
+      borderRadius={theme.radius.lg}
+      backgroundColor={theme.colors.accent}
+    >
+      <PressableFeedback.Highlight />
+      <Text style={{ color: labelOn(theme, theme.colors.accent) }}>
+        every measurement is a prop
+      </Text>
     </PressableFeedback>
   )
 }

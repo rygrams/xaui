@@ -32,6 +32,7 @@ import {
   resolveAnimation,
 } from './pressable-feedback.animation'
 import { partitionOverlays } from './pressable-feedback.overlay'
+import { useStyleProps } from '../style-props'
 import { inkFor, radiusFrom } from './pressable-feedback.surface'
 import type {
   PressableFeedbackProps,
@@ -79,16 +80,27 @@ const AnimatedSlot = Animated.createAnimatedComponent(Slot)
  * is visible on it and a shape that matches it.
  */
 export const PressableFeedback = forwardRef<View, PressableFeedbackProps>(
-  function PressableFeedback({ animation, ...rest }, ref) {
+  function PressableFeedback({ animation, style, ...props }, ref) {
     const inheritedDisableAll = useContext(DisableAllContext)
     const resolved = resolveAnimation(animation, inheritedDisableAll)
+    // R14, resolved here rather than in each branch: merged into `style` before either of
+    // them sees it, so the ink and the corners an overlay reads off the surface include a
+    // `backgroundColor` or a `borderRadius` written as a prop.
+    const [styleProps, rest] = useStyleProps(props)
 
     // Two components, not one with a branch inside: hooks cannot be conditional, and
     // "animation={false} mounts no worklet" is only true if the Reanimated hooks are
     // never reached at all.
     const Feedback = resolved.none ? StaticFeedback : AnimatedFeedback
 
-    const body = <Feedback ref={ref} animation={resolved} {...rest} />
+    const body = (
+      <Feedback
+        ref={ref}
+        animation={resolved}
+        style={[styleProps, style]}
+        {...rest}
+      />
+    )
 
     return resolved.disableAll ? (
       <DisableAllContext.Provider value={true}>{body}</DisableAllContext.Provider>

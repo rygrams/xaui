@@ -248,12 +248,21 @@ name while multiplying its value by a scale would be the most expensive trap in 
 the kind only a ruler on the screen catches. The scale stays one word away:
 `padding={t.spacing(4)}`.
 
+**Everything in this folder that renders a node takes them**, and so does everything built
+on it: `PressableFeedback` and its two overlays, `PortalHost`, `Icon`. A list of which
+primitives have them is the list R14 says not to maintain — if it renders a node, it has
+them.
+
+`Icon` carries the one nuance worth stating: its props reach the **`source` form only**,
+exactly as far as its `style` already does. The other two forms render a third-party
+component or clone the caller's element, so there is no node of ours to style, and `size`
+and `color` stay the escape hatch there.
+
 A component author needs two things from here — a type for its props, and the split at
 the top of its render:
 
 ```tsx
-export type CardProps = CardOwnProps &
-  Omit<ViewStyleProps, keyof CardOwnProps>
+export type CardProps = CardOwnProps & Omit<ViewStyleProps, keyof CardOwnProps>
 
 function Card({ variant, style, ...props }: CardProps) {
   const [styleProps, rest] = useStyleProps(props)

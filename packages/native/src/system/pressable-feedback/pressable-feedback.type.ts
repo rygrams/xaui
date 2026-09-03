@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import type { PressableProps, StyleProp, ViewStyle } from 'react-native'
 import type { SharedValue } from 'react-native-reanimated'
+import type { ViewStyleProps } from '../style-props'
 
 export type AnimationConfig = {
   scale?: boolean
@@ -26,10 +27,16 @@ export type ResolvedAnimation = {
   disableAll: boolean
 }
 
+/**
+ * R14 — it renders a `Pressable`, so it takes that node's style keys as props. The
+ * primitive every pressable component in the library is built on cannot be the one place
+ * where `padding={16}` has to become an object again.
+ */
 export type PressableFeedbackProps = Omit<
   PressableProps,
   'style' | 'children' | 'disabled'
-> & {
+> &
+  ViewStyleProps & {
   /** Controlled: the root owns the state, because its recipe resolves on it (R5). */
   isPressed?: boolean
   /** R8: `disabled` is not part of the public vocabulary, `isX` is. */
