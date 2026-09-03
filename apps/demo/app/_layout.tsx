@@ -1,155 +1,30 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native'
 import { Stack } from 'expo-router'
-import 'react-native-reanimated'
+import { useColorScheme } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import { useColorScheme } from '@/hooks/use-color-scheme'
+import 'react-native-reanimated'
+import { PortalHost } from '@xaui/native/system'
 import { XAUIProvider } from '@xaui/native/theme'
-import { PortalHost } from '@xaui/native-legacy/core'
-import { StatusBar } from 'react-native'
 
+/**
+ * The whole demo. One screen per v1 component, and nothing else in the way — the app
+ * exists to answer "does this component render correctly, in light and in dark", which is
+ * how a component is verified in this repository.
+ *
+ * `useColorScheme` comes from React Native rather than a local hook: the demo has one
+ * source of truth for the mode, and it is the one `XAUIProvider` reads.
+ */
 export default function RootLayout() {
   const colorScheme = useColorScheme()
 
   return (
-    <ThemeProvider value={colorScheme === 'light' ? DefaultTheme : DarkTheme}>
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <XAUIProvider colorMode={colorScheme === 'light' ? 'light' : 'dark'}>
-          <PortalHost>
-            <Stack>
-              <Stack.Screen
-                name="index"
-                options={{ headerShown: false, title: 'Home' }}
-              />
-              <Stack.Screen
-                name="modal"
-                options={{ presentation: 'modal', title: 'Modal' }}
-              />
-              <Stack.Screen
-                name="expansion-panel"
-                options={{
-                  title: 'Expansion Panel',
-                  headerShadowVisible: false,
-                }}
-              />
-              <Stack.Screen name="alerts" options={{ title: 'Alert Examples' }} />
-              <Stack.Screen name="avatars" options={{ title: 'Avatar Examples' }} />
-              <Stack.Screen name="badges" options={{ title: 'Badge Examples' }} />
-              <Stack.Screen
-                name="bottom-sheet"
-                options={{ title: 'Bottom Sheet Examples' }}
-              />
-              <Stack.Screen
-                name="bottom-tab-bar"
-                options={{ title: 'BottomTabBar Examples' }}
-              />
-              <Stack.Screen name="app-bar" options={{ title: 'AppBar Examples' }} />
-              <Stack.Screen name="buttons" options={{ title: 'Button Examples' }} />
-              <Stack.Screen
-                name="pressable-feedback"
-                options={{ title: 'PressableFeedback (v1)' }}
-              />
-              <Stack.Screen name="portal" options={{ title: 'Portal (v1)' }} />
-              <Stack.Screen name="icon" options={{ title: 'Icon (v1)' }} />
-              <Stack.Screen name="button" options={{ title: 'Button (v1)' }} />
-              <Stack.Screen name="card" options={{ title: 'Card Examples' }} />
-              <Stack.Screen
-                name="carousel"
-                options={{ title: 'Carousel Examples' }}
-              />
-              <Stack.Screen
-                name="checkbox"
-                options={{ title: 'Checkbox Examples' }}
-              />
-              <Stack.Screen name="chips" options={{ title: 'Chip Examples' }} />
-              <Stack.Screen name="dialog" options={{ title: 'Dialog Examples' }} />
-              <Stack.Screen
-                name="datepicker"
-                options={{ title: 'DatePicker Examples' }}
-              />
-              <Stack.Screen name="select" options={{ title: 'Select Examples' }} />
-              <Stack.Screen
-                name="autocomplete"
-                options={{ title: 'Autocomplete Examples' }}
-              />
-              <Stack.Screen name="fab" options={{ title: 'FAB Examples' }} />
-              <Stack.Screen
-                name="feature-discovery"
-                options={{ title: 'FeatureDiscovery Examples' }}
-              />
-              <Stack.Screen
-                name="indicator"
-                options={{ title: 'Indicator Examples' }}
-              />
-              <Stack.Screen name="input" options={{ title: 'Input Examples' }} />
-              <Stack.Screen
-                name="date-input"
-                options={{ title: 'Date/Time Input Examples' }}
-              />
-              <Stack.Screen
-                name="otp-input"
-                options={{ title: 'OTP Input Examples' }}
-              />
-              <Stack.Screen
-                name="number-input"
-                options={{ title: 'Number Input Examples' }}
-              />
-              <Stack.Screen name="radio" options={{ title: 'Radio Examples' }} />
-              <Stack.Screen name="menus" options={{ title: 'Menu Examples' }} />
-              <Stack.Screen
-                name="progress"
-                options={{ title: 'Progress Examples' }}
-              />
-              <Stack.Screen name="pager" options={{ title: 'Pager Examples' }} />
-              <Stack.Screen
-                name="segment-buttons"
-                options={{ title: 'Segment Button Examples' }}
-              />
-              <Stack.Screen name="stepper" options={{ title: 'Stepper Examples' }} />
-              <Stack.Screen
-                name="snackbar"
-                options={{ title: 'Snackbar Examples' }}
-              />
-              <Stack.Screen name="snippet" options={{ title: 'Snippet Examples' }} />
-              <Stack.Screen
-                name="skeleton"
-                options={{ title: 'Skeleton Examples' }}
-              />
-              <Stack.Screen name="switch" options={{ title: 'Switch Examples' }} />
-              <Stack.Screen
-                name="textarea"
-                options={{ title: 'TextArea Examples' }}
-              />
-              <Stack.Screen name="toolbar" options={{ title: 'Toolbar Examples' }} />
-              <Stack.Screen name="tabs" options={{ title: 'Tabs Examples' }} />
-              <Stack.Screen
-                name="typography"
-                options={{ title: 'Typography Examples' }}
-              />
-              <Stack.Screen name="drawer" options={{ title: 'Drawer Examples' }} />
-              <Stack.Screen name="list" options={{ title: 'List Examples' }} />
-              <Stack.Screen name="menubox" options={{ title: 'Menubox Examples' }} />
-              <Stack.Screen name="slider" options={{ title: 'Slider Examples' }} />
-              <Stack.Screen name="surface" options={{ title: 'Surface Examples' }} />
-              <Stack.Screen
-                name="input-trigger"
-                options={{ title: 'InputTrigger Examples' }}
-              />
-              <Stack.Screen
-                name="file-input-trigger"
-                options={{ title: 'FileInputTrigger Examples' }}
-              />
-              <Stack.Screen
-                name="refresh-control"
-                options={{ title: 'RefreshControl Examples' }}
-              />
-              <Stack.Screen name="chart" options={{ title: 'Chart Examples' }} />
-            </Stack>
-          </PortalHost>
-        </XAUIProvider>
-      </GestureHandlerRootView>
-      <StatusBar
-        barStyle={colorScheme === 'light' ? 'dark-content' : 'light-content'}
-      />
-    </ThemeProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <XAUIProvider colorMode={colorScheme === 'dark' ? 'dark' : 'light'}>
+        <PortalHost>
+          <Stack>
+            <Stack.Screen name="index" options={{ title: 'Button (v1)' }} />
+          </Stack>
+        </PortalHost>
+      </XAUIProvider>
+    </GestureHandlerRootView>
   )
 }

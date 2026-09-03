@@ -54,6 +54,15 @@ const entries = {
 const sharedConfig = {
   format: ['cjs', 'esm'] as ('cjs' | 'esm')[],
   clean: false,
+  /**
+   * The same defect the v1 build had. esbuild reads `tsconfig`'s `"jsx": "react-native"`
+   * as the classic runtime and emits `React.createElement`, which works only in the files
+   * that happen to `import React` — and throws "Property 'React' doesn't exist" in the
+   * ones that do not, at render time, in the published package.
+   */
+  esbuildOptions(options: { jsx?: string }) {
+    options.jsx = 'automatic'
+  },
   external: [
     'react',
     'react-native',

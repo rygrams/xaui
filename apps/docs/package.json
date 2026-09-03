@@ -20,8 +20,8 @@
     "next": "16.1.1",
     "prism-react-renderer": "^2.4.1",
     "radix-ui": "^1.4.3",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
+    "react": "19.2.0",
+    "react-dom": "19.2.0",
     "react-native-svg": "^15.15.1",
     "react-native-web": "~0.21.2",
     "tailwind-merge": "^3.4.0"
@@ -29,7 +29,7 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/node": "^20",
-    "@types/react": "^19",
+    "@types/react": "^19.2.0",
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.1.1",
