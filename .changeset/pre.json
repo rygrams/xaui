@@ -10,6 +10,7 @@
   },
   "changesets": [
     "icon",
+    "pack-uniqueness",
     "portal",
     "pressable-feedback",
     "publish-native-hybrid-alpha",
