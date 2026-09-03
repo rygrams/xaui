@@ -3,6 +3,9 @@
 One line per task: ref, title, status. No commentary — update the status when a task lands.
 Task detail lives in `XAUI-V1-PLAN.md`.
 
+Status is `done` or `todo`, plus `ci`: everything in the repository is done and the
+remaining action belongs to a workflow rather than to a commit.
+
 | Ref   | Task                                                    | Status |
 | ----- | ------------------------------------------------------- | ------ |
 | P0.1  | Split into `@xaui/native-legacy` and scaffold v1        | done   |
@@ -28,7 +31,7 @@ Task detail lives in `XAUI-V1-PLAN.md`.
 | P2.1  | The reference `Button`                                  | done   |
 | P2.2  | Perf baseline — 200 buttons, re-renders and allocations | done   |
 | P2.3  | API review — blocking, nothing starts in P3 before it   | done   |
-| P2.4  | Publish `@xaui/native` on the `alpha` tag               | todo   |
+| P2.4  | Publish `@xaui/native` on the `alpha` tag               | ci     |
 | P3    | The fifteen-component core                              | todo   |
 | P4    | Docs, generated tables, `1.0.0`                         | todo   |
 | P5    | The remaining 32 components                             | todo   |
