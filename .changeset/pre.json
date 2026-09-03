@@ -19,6 +19,7 @@
     "recipe-engine",
     "reference-button",
     "shared-hooks",
-    "slot-system"
+    "slot-system",
+    "workletized-build"
   ]
 }
