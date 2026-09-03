@@ -33,37 +33,37 @@ export const HIGHLIGHT_OPACITY = 0.1
 export const HIGHLIGHT_DURATION = 200
 
 /**
- * The wave opens over `RIPPLE_BASE_DURATION` on a control whose diagonal is
- * `RIPPLE_REFERENCE_DIAGONAL`, and scales with the diagonal from there — a wave crossing
- * a wide card should not travel at the speed of one crossing a chip. Clamped at both ends
- * so neither extreme becomes a flicker or a crawl.
+ * The ripple, taken from Material's reference implementation (`InkRipple`) rather than
+ * approximated. Four of its numbers are load-bearing and none of them is obvious:
+ *
+ * - **The opacity is not tied to the expansion.** It reaches full ink in 75ms and stays
+ *   there while the circle keeps growing. Tying the two — the obvious thing to write —
+ *   means the ink is faintest exactly when the circle is small enough to be read as a
+ *   circle, which is why such a ripple looks like nothing at all.
+ * - **The circle starts at 30% of its target**, not at a point. A wave from a dot spends
+ *   its visible life too small to see.
+ * - **The target radius is half the diagonal**, which is what covers the box. Larger and
+ *   the edge leaves the control before the eye catches it, so the effect reads as the
+ *   surface tinting rather than as something spreading.
+ * - **The centre travels** from the finger to the middle of the control as it opens, which
+ *   is what makes it settle into the control instead of flooding out of a corner.
+ *
+ * The expansion runs a full second while the finger is down, and finishes in 225ms once it
+ * lifts — the wave catches up rather than being cut.
  */
-/**
- * Material's pressed-state ink. It reads on a neutral surface; on a saturated fill the
- * component has to give the wave a contrasting colour through `Ripple`'s `style`, because
- * a primitive cannot know what it is sitting on.
- */
-export const RIPPLE_OPACITY = 0.12
-export const RIPPLE_BASE_DURATION = 1000
-export const RIPPLE_MIN_DURATION = 750
-export const RIPPLE_REFERENCE_DIAGONAL = 450
+export const RIPPLE_OPACITY = 0.1
+export const RIPPLE_START_SCALE = 0.3
+export const RIPPLE_EXPAND_DURATION = 1000
+export const RIPPLE_CONFIRM_DURATION = 225
+export const RIPPLE_FADE_IN = 75
+export const RIPPLE_FADE_OUT_DELAY = 225
+export const RIPPLE_FADE_OUT = 150
 
-/** The diagonal-adjusted duration of one wave. */
-export function rippleDurationFor(width: number, height: number): number {
+/** Half the diagonal covers the box from its centre; the 5 is Material's own overshoot. */
+export function rippleRadiusFor(width: number, height: number): number {
   'worklet'
-  const diagonal = Math.sqrt(width * width + height * height)
-  const scaled =
-    diagonal > 0
-      ? (RIPPLE_BASE_DURATION * diagonal) / RIPPLE_REFERENCE_DIAGONAL
-      : RIPPLE_BASE_DURATION
-  return Math.min(Math.max(scaled, RIPPLE_MIN_DURATION), RIPPLE_BASE_DURATION * 2)
+  return Math.sqrt(width * width + height * height) / 2 + 5
 }
-
-/**
- * The circle's radius as a multiple of the control's diagonal. Above 1 it covers from
- * any point on the control, so where the finger landed never enters the calculation.
- */
-export const RIPPLE_COVERAGE = 1.25
 
 const ALL_OFF: Omit<ResolvedAnimation, 'disableAll'> = {
   scale: false,

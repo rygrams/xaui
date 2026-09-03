@@ -85,7 +85,7 @@ Le détail du jeu et de sa résolution est au §2 ter.
 
 - **La convention de fichiers** (`.type` / `.hook` / `.style` / `.animation` / `index`), étendue avec `.recipe.ts` et `.context.ts`.
 - **Les exports par sous-chemin** (`@xaui/native/button`).
-- **Un test par composant** dans `__tests__/` en miroir.
+- **Aucun test de composant, de slot, de hook ni de constantes d'animation** — seules les fonctions pures en ont un, dans `__tests__/` en miroir.
 
 ---
 
@@ -1329,7 +1329,7 @@ Renommer le package npm casse par définition. La phase se termine par une publi
 5. **Icône.** `system/icon/` — `as`, children SVG, `source` ; taille et couleur héritées du contexte de slot.
    → Une icône Lucide et un SVG brut prennent tous deux la couleur du variant parent sans prop explicite.
 6. **Hooks partagés.** `useControllableState`, `usePressState`, `useMergedRef`.
-   → `useControllableState` couvre les deux modes et le passage de l'un à l'autre en dev.
+   → `useControllableState` couvre les deux modes et le passage de l'un à l'autre en dev — vérifié sur un écran de démo, pas par un test : un hook n'est pas testé unitairement ici.
 7. **Contrôle d'unicité.** `pnpm pack` sur les deux packages.
    → `@xaui/native` n'apparaît qu'une fois dans l'arbre de résolution — un doublon donnerait deux contextes.
 

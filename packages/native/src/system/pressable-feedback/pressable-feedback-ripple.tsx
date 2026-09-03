@@ -7,28 +7,34 @@ import type {
   ViewStyle,
 } from 'react-native'
 import Animated, {
-  interpolate,
+  Easing,
   useAnimatedStyle,
   useSharedValue,
+  withDelay,
   withTiming,
 } from 'react-native-reanimated'
 import type { SharedValue } from 'react-native-reanimated'
 import { useXAUITheme } from '../../theme/theme-hooks'
 import { useFeedback } from './pressable-feedback-context'
 import {
-  RIPPLE_COVERAGE,
+  RIPPLE_CONFIRM_DURATION,
+  RIPPLE_EXPAND_DURATION,
+  RIPPLE_FADE_IN,
+  RIPPLE_FADE_OUT,
+  RIPPLE_FADE_OUT_DELAY,
   RIPPLE_OPACITY,
+  RIPPLE_START_SCALE,
   resolveSlotAnimation,
-  rippleDurationFor,
+  rippleRadiusFor,
 } from './pressable-feedback.animation'
 import type { SlotAnimation } from './pressable-feedback.type'
 
 export type PressableFeedbackRippleProps = {
   /**
    * Styles the **wave**, not the container — `backgroundColor` here is how a component
-   * gives the ripple the ink its surface needs. A filled button wants its own contrasted
-   * foreground, not the app's: black ink at 10% over a saturated fill is close to
-   * invisible, which is the one thing a press indicator cannot be.
+   * gives the ripple the ink its surface needs. The default is the theme's `foreground`,
+   * which reads on a neutral surface; a component knows what it is sitting on and this
+   * primitive does not.
    */
   style?: StyleProp<ViewStyle>
   /** Overrides the blanket `animation` on the root, for this overlay only. */
@@ -38,20 +44,20 @@ export type PressableFeedbackRippleProps = {
 /**
  * A circle washing outwards from where the finger landed.
  *
- * **It carries its own touch handlers, and that is the whole reason it works.** `Pressable`
- * runs the responder system: it decides whether a touch becomes a press, and raw
- * `onTouchStart` handed to it never arrives — which is why a ripple driven from the root
- * draws nothing at all. The handlers belong on this overlay's own `View`, where a raw touch
- * is still a raw touch. It does not claim the responder, so the press underneath is
- * unaffected.
+ * **It carries its own touch handlers, and that is why it works at all.** `Pressable` owns
+ * the responder system — it decides whether a touch becomes a press — and swallows the raw
+ * touch props handed to it, so a ripple driven from the root draws nothing. The handlers
+ * belong on this overlay's own `View`, which does not claim the responder, so the press
+ * underneath is untouched.
  *
- * Everything else follows from owning the touch: this measures itself, keeps its own two
- * waves, and needs nothing from the root but the blanket `animation` setting.
+ * The motion is Material's `InkRipple`, and the parts that matter are the ones that are not
+ * obvious: the ink is **independent of the expansion**, the circle **starts at 30%** of its
+ * target rather than at a point, the target is **half the diagonal**, and the centre
+ * **travels** from the finger to the middle of the control. See the constants for why each
+ * one is load-bearing.
  *
- * One wave runs `0 → 1` while the finger is down and `1 → 2` once it lifts, so its life is
- * the press's plus a tail — not a one-shot that vanishes under a finger still resting on
- * the control. Two of them, used in turn, so a rapid double tap opens a fresh wave under
- * the one still finishing instead of cutting it.
+ * Two waves, used in turn, so a rapid double tap opens a fresh one under the one still
+ * finishing instead of cutting it.
  */
 export function PressableFeedbackRipple({
   style,
@@ -63,11 +69,8 @@ export function PressableFeedbackRipple({
   const settings = resolveSlotAnimation(override, animation.ripple, RIPPLE_OPACITY)
 
   const [size, setSize] = useState({ width: 0, height: 0 })
-  const waveA = useSharedValue(0)
-  const waveB = useSharedValue(0)
-  const centerA = useSharedValue({ x: 0, y: 0 })
-  const centerB = useSharedValue({ x: 0, y: 0 })
-  const onA = useRef(true)
+  const waves = [useWave(), useWave()] as const
+  const onFirst = useRef(true)
 
   const handleLayout = (event: LayoutChangeEvent) => {
     const { width, height } = event.nativeEvent.layout
@@ -79,35 +82,36 @@ export function PressableFeedbackRipple({
   }
 
   const handleTouchStart = (event: GestureResponderEvent) => {
-    const duration = rippleDurationFor(size.width, size.height)
-    const wave = onA.current ? waveA : waveB
-    const other = onA.current ? waveB : waveA
-    const center = onA.current ? centerA : centerB
-    onA.current = !onA.current
-
-    // Send the wave still in flight to its end rather than abandoning it mid-open.
-    if (other.value > 0 && other.value < 2) {
-      other.value = withTiming(2, { duration })
-    }
+    const wave = onFirst.current ? waves[0] : waves[1]
+    onFirst.current = !onFirst.current
 
     const { locationX, locationY } = event.nativeEvent
-    center.value = { x: locationX, y: locationY }
-    wave.value = 0
-    wave.value = withTiming(1, { duration })
+    wave.origin.value = { x: locationX, y: locationY }
+    wave.expand.value = 0
+    wave.expand.value = withTiming(1, {
+      duration: RIPPLE_EXPAND_DURATION,
+      easing: Easing.ease,
+    })
+    wave.alpha.value = withTiming(1, { duration: RIPPLE_FADE_IN })
   }
 
   const handleTouchEnd = () => {
-    const duration = rippleDurationFor(size.width, size.height)
-    const wave = onA.current ? waveB : waveA
-    wave.value = withTiming(2, { duration })
+    // The wave catches up rather than being cut: the expansion finishes fast, and the ink
+    // only starts leaving once it has arrived.
+    const wave = onFirst.current ? waves[1] : waves[0]
+    wave.expand.value = withTiming(1, {
+      duration: RIPPLE_CONFIRM_DURATION,
+      easing: Easing.ease,
+    })
+    wave.alpha.value = withDelay(
+      RIPPLE_FADE_OUT_DELAY,
+      withTiming(0, { duration: RIPPLE_FADE_OUT })
+    )
   }
 
   if (!settings.enabled) return null
 
-  // The diagonal covers the control from any point on it, so where the finger landed never
-  // has to enter the radius — one number, and no corner left unwashed.
-  const radius =
-    Math.sqrt(size.width * size.width + size.height * size.height) * RIPPLE_COVERAGE
+  const radius = rippleRadiusFor(size.width, size.height)
 
   return (
     <View
@@ -117,59 +121,73 @@ export function PressableFeedbackRipple({
       onTouchEnd={handleTouchEnd}
       onTouchCancel={handleTouchEnd}
     >
-      <RippleWave
-        wave={waveA}
-        center={centerA}
-        radius={radius}
-        color={theme.colors.foreground}
-        opacity={settings.opacity}
-        style={style}
-      />
-      <RippleWave
-        wave={waveB}
-        center={centerB}
-        radius={radius}
-        color={theme.colors.foreground}
-        opacity={settings.opacity}
-        style={style}
-      />
+      {waves.map((wave, index) => (
+        <RippleWave
+          key={index}
+          wave={wave}
+          radius={radius}
+          center={{ x: size.width / 2, y: size.height / 2 }}
+          color={theme.colors.foreground}
+          opacity={settings.opacity}
+          style={style}
+        />
+      ))}
     </View>
   )
 }
 
 PressableFeedbackRipple.displayName = 'XAUI.PressableFeedback.Ripple'
 
+type Wave = {
+  expand: SharedValue<number>
+  alpha: SharedValue<number>
+  origin: SharedValue<{ x: number; y: number }>
+}
+
+function useWave(): Wave {
+  return {
+    expand: useSharedValue(0),
+    alpha: useSharedValue(0),
+    origin: useSharedValue({ x: 0, y: 0 }),
+  }
+}
+
 function RippleWave({
   wave,
-  center,
   radius,
+  center,
   color,
   opacity,
   style,
 }: {
-  wave: SharedValue<number>
-  center: SharedValue<{ x: number; y: number }>
+  wave: Wave
   radius: number
+  center: { x: number; y: number }
   color: string
   opacity: number
   style?: StyleProp<ViewStyle>
 }) {
-  // Only what actually animates. The circle's size is a plain style, laid out once.
   const animatedStyle = useAnimatedStyle(() => {
     'worklet'
-    const at = center.value
+    const t = wave.expand.value
+    const from = wave.origin.value
+
+    // The circle is laid out at its target size and scaled down, so nothing re-lays out
+    // mid-wave. It never starts smaller than 30% — a wave from a dot is invisible for the
+    // part of its life where it would read as a wave.
+    const scale = RIPPLE_START_SCALE + (1 - RIPPLE_START_SCALE) * t
+
+    // Travels from the finger to the middle of the control as it opens, which is what
+    // makes it settle in rather than flood out of a corner.
+    const x = from.x + (center.x - from.x) * t
+    const y = from.y + (center.y - from.y) * t
 
     return {
-      opacity: interpolate(wave.value, [0, 1, 2], [0, opacity, 0]),
-      transform: [
-        { translateX: at.x - radius },
-        { translateY: at.y - radius },
-        // Open over the first half, then hold while the colour drains. A circle that
-        // shrank back would read as the control undoing itself.
-        { scale: interpolate(wave.value, [0, 1, 2], [0, 1, 1]) },
-      ],
+      // Its own curve, not the expansion's: full ink in 75ms, held while the circle grows.
+      opacity: wave.alpha.value * opacity,
+      transform: [{ translateX: x - radius }, { translateY: y - radius }, { scale }],
     }
-  }, [wave, center, radius, opacity])
+  }, [wave, radius, center, opacity])
 
   return (
     <Animated.View

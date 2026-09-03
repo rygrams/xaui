@@ -30,6 +30,10 @@ export function withRepeat<T>(value: T): T {
   return value
 }
 
+export function withDelay<T>(_delay: number, value: T): T {
+  return value
+}
+
 export function cancelAnimation(): void {}
 
 export function interpolate(value: number): number {

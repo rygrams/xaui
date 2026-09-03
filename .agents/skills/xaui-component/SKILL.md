@@ -217,8 +217,9 @@ feedback comes from `system/pressable-feedback/` — never a per-component anima
 3. root in `forwardRef` with `asChild`, a11y, function-form `style`, namespaced
    `displayName` (R9, R11, R12)
 4. one file per slot, no margin of its own (R4)
-5. **no test file** — components are not unit-tested (see CLAUDE.md). Logic worth pinning
-   down is extracted into a pure function under `utils/`, and *that* is tested
+5. **no test file** — not for the component, not for its slots, not for its hooks, not for
+   its animation constants. It is verified by its demo screen. Only a pure function that
+   computes a value gets a test, and it lives in `utils/`
 6. a screen in `apps/demo` — this is how the component is verified
 7. a doc page per the `xaui-docs` skill
 8. a subpath export in `package.json` + `tsup.config.ts` (`@xaui/native/<name>`)

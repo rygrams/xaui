@@ -126,11 +126,12 @@ function Tile({
         justifyContent: 'center',
         paddingHorizontal: theme.spacing(4),
         borderRadius: theme.radius.md,
-        // The pressed colour comes from a token, the way a recipe's `pressed` state
-        // gives it — so this also shows the wash and the token treatment side by side.
-        backgroundColor: isPressed
-          ? theme.colors.accentPressed
-          : theme.colors.accent,
+        // Deliberately **not** swapping to `accentPressed` on press. These tiles exist to
+        // show what the primitive does under the finger, and a fill that moves at the same
+        // time competes with it — with `scale-ripple` the two cancel and the wave becomes
+        // unreadable. A recipe's `pressed` state and an overlay are alternatives, never
+        // both at once; that is the rule, and this screen has to obey it too.
+        backgroundColor: theme.colors.accent,
       }}
     >
       <Text style={{ color: theme.colors.accentForeground }}>{label}</Text>

@@ -83,13 +83,14 @@ the tree, or you bury the change in unrelated churn. Turbo runs `test` after `bu
 
 ## Testing
 
-**Utility functions only.** Pure, deterministic code gets a test file: `utils/`, the colour
-engine, `deriveColors`, `createTheme`, recipe resolution, the style cache, slot helpers,
-token generation.
+**Pure functions only, and nothing else.** A test file exists for deterministic code that
+computes a value: `utils/`, the colour engine, `deriveColors`, `createTheme`, recipe
+resolution, the style cache, the slot helpers, token generation.
 
-**Components, slots and their hooks get none.** They are verified by their demo screen and
-docs preview, in light and dark. Logic worth pinning down is extracted into a pure function
-and tested there.
+**No tests for components, slots, hooks or animations.** Not `useControllableState`, not
+`usePressState`, not a component's own util, not a set of animation constants. All of them
+are verified by their demo screen, in light and dark — that is what the demo is for. A
+timing that is right is right on screen, not in an assertion.
 
 - Mirror the source path: `src/utils/colors.ts` → `src/__tests__/utils/colors.test.ts`.
 - A workspace without tests needs `passWithNoTests: true`, or CI fails.
