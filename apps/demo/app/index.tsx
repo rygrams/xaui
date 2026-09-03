@@ -136,6 +136,26 @@ export default function ButtonScreen() {
       </Section>
 
       <Section
+        title="feedbackVariant — what happens under the finger"
+        note="Default is `scale`: the recipe already paints the variant's pressed colour, so a wash on top would darken it twice. `scale-ripple` draws nothing yet — P2.5."
+      >
+        <Button feedbackVariant="scale">scale — the default</Button>
+        <Button feedbackVariant="scale-ripple" variant="secondary">
+          scale-ripple — a wave from where you touched
+        </Button>
+        <Button feedbackVariant="scale-ripple" variant="danger">
+          scale-ripple, on a filled variant
+        </Button>
+        <Button feedbackVariant="scale-ripple" size="lg" variant="success">
+          <Button.Icon as={TrashIcon} />
+          <Button.Label>ripple with an icon</Button.Label>
+        </Button>
+        <Button feedbackVariant="none" variant="tertiary">
+          none — nothing moves
+        </Button>
+      </Section>
+
+      <Section
         title="radius — the shape its size implies, or one you name"
         note="Unset, the radius follows the size. Set, it wins."
       >

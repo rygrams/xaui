@@ -1,6 +1,5 @@
 import type { StyleProp, ViewStyle } from 'react-native'
 import Animated, {
-  interpolate,
   useAnimatedReaction,
   useAnimatedStyle,
   useSharedValue,
@@ -28,9 +27,12 @@ type Point = { x: number; y: number }
 /**
  * A circle washing outwards from where the finger landed.
  *
- * It is a **one-shot, independent of how long the press lasts**: the wave runs its course
- * and ends, the way a ripple in water does. Tying it to the press would leave a disc
- * parked on the control for as long as a finger rests there.
+ * **Two animations, not one, and that is the whole shape of it.** The circle *expands*
+ * once per touch, from the point of contact to past the far corner. Its *opacity* follows
+ * the finger — up on press, held while the press lasts, out on release. Driving both from
+ * one curve is what makes a ripple read wrong: tie opacity to the expansion and the wave
+ * is invisible under the finger and brightest once it covers everything, which is a flash
+ * of the whole control rather than a wave leaving the touch point.
  *
  * It needs the root to clip — `PressableFeedback` sets `overflow: 'hidden'` when it
  * mounts one — and it renders nothing on the static branch: a ripple that cannot expand
@@ -101,9 +103,9 @@ function AnimatedRipple({
 
       from.value = origin?.value ?? { x: 0, y: 0 }
       wave.value = 0
-      // Past 1 the circle holds its size while the colour drains, so the wave finishes
-      // on its own rather than vanishing the instant it is fully open.
-      wave.value = withTiming(2, { duration: duration * 2 })
+      // The expansion only. Once open the circle stays open; what ends the ripple is the
+      // finger lifting, which drains the opacity below.
+      wave.value = withTiming(1, { duration })
 
       useA.value = !useA.value
     },
@@ -147,6 +149,9 @@ function RippleWave({
   opacity: number
   style?: StyleProp<ViewStyle>
 }) {
+  // The root's own press curve, which already rises on press-in and falls on release.
+  const { progress } = useFeedback()
+
   const animatedStyle = useAnimatedStyle(() => {
     'worklet'
     const within = size?.value ?? { width: 0, height: 0 }
@@ -161,16 +166,16 @@ function RippleWave({
       width: radius * 2,
       height: radius * 2,
       borderRadius: radius,
-      // Rises as the circle opens and drains once it is open — so the wave is at its
-      // strongest when it covers the control, not when it is a dot under the finger.
-      opacity: interpolate(wave.value, [0, 1, 2], [0, opacity, 0]),
+      // The press, not the expansion. The wave is at full strength the instant it is
+      // touched, stays while the finger stays, and drains when it lifts.
+      opacity: (progress?.value ?? 0) * opacity,
       transform: [
         { translateX: at.x - radius },
         { translateY: at.y - radius },
-        { scale: interpolate(wave.value, [0, 1, 2], [0, 1, 1]) },
+        { scale: wave.value },
       ],
     }
-  }, [wave, from, size, opacity])
+  }, [wave, from, size, opacity, progress])
 
   return (
     <Animated.View

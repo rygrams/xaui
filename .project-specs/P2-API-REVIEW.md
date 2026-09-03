@@ -9,8 +9,9 @@ packaging. C'est le seul moment où une correction coûte un composant plutôt q
 
 **Verdict : le pattern tient.** Les treize règles sont applicables telles quelles, la boucle
 par composant du §9 se suit sans friction, et les chiffres du §9 bis confirment que le cache
-fait ce qu'on lui prête. Neuf constats en sont sortis : **six corrigés ici**, trois
-enregistrés avec leur remède et leur échéance.
+fait ce qu'on lui prête. Dix constats en sont sortis : **six corrigés ici**, quatre
+enregistrés avec leur remède et leur échéance — dont un défaut encore ouvert, le ripple,
+qui ne bloque aucun composant du noyau.
 
 ---
 
@@ -133,6 +134,35 @@ l'échappatoire, et le type le documente maintenant.
 **Échéance :** à revoir si un composant du noyau en a réellement besoin. Sinon, c'est une
 limite assumée du fait d'envelopper un composant tiers.
 
+### D. Le ripple ne rend pas — **ouvert**
+
+`feedbackVariant="scale-ripple"` ne dessine rien sur l'appareil. Constaté sur simulateur
+iPhone 17 Pro, y compris avec un appui long d'une seconde et les durées poussées à quatre
+secondes pour laisser le temps de l'observer : le bouton se met bien à l'échelle et prend
+sa couleur pressée, l'onde n'apparaît jamais. Aucune erreur, aucun avertissement.
+
+Ce qui a été écarté : le composant est bien monté (`feedbackVariant` mène à
+`DefaultOverlay`), `animation.ripple` vaut `true`, les valeurs partagées du contexte
+existent toutes, et le clip est en place. Restent deux pistes non tranchées — le
+`useAnimatedReaction` qui déclenche l'onde sur `pressCount`, et le `size` que `onLayout`
+doit remplir, sans lequel le rayon vaut zéro et la vue n'a aucune dimension.
+
+**Le `Highlight` et le `scale` ne sont pas concernés**, et le `Button` ne dépend pas du
+ripple : il demande `feedbackVariant="scale"`, parce que sa recette peint déjà la couleur
+pressée. Aucun composant du noyau n'en dépend non plus.
+
+Une correction est en place mais **non vérifiée** : l'expansion et l'opacité étaient pilotées
+par une seule courbe, ce qui rendait l'onde invisible sous le doigt et maximale une fois
+étalée — un flash du contrôle entier plutôt qu'une onde. Elles sont maintenant séparées :
+l'expansion est un one-shot, l'opacité suit l'appui. Cela ne suffit pas à la faire
+apparaître.
+
+L'écran de démo porte la section `feedbackVariant` qui servira à la vérifier.
+
+**Échéance :** avant P3 #5, le `Chip` — le premier composant du noyau susceptible de
+choisir le ripple. Tant qu'il ne rend pas, `scale-ripple` n'est pas une valeur qu'on peut
+recommander.
+
 ---
 
 ## Ce qui a été vérifié et tient
@@ -187,6 +217,6 @@ rendus, au prix d'un invariant fragile : « aucun état ne touche un slot », vr
 ## Conclusion
 
 P3 peut démarrer. Le premier composant du noyau — `Typography` — se copie sur
-`components/button/` sans réserve, en gardant devant soi les trois points enregistrés :
-promouvoir `radiusAxis` au `Card`, ne pas s'étonner du `style` d'`Icon`, et corriger le
-packaging de legacy à sa prochaine release.
+`components/button/` sans réserve, en gardant devant soi les quatre points enregistrés :
+promouvoir `radiusAxis` au `Card`, ne pas s'étonner du `style` d'`Icon`, corriger le
+packaging de legacy à sa prochaine release, et faire rendre le ripple avant le `Chip`.

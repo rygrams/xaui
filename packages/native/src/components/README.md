@@ -18,6 +18,7 @@ button/
 ├── button.context.ts    # createSlotContext, RESOLVED values, exports useButton (R10)
 ├── button.type.ts       # the props of the root and of every slot
 ├── button.utils.ts      # pure logic, only if there is any — tested in __tests__/
+├── button.md            # the component's own page: anatomy, usage, props, migration
 ├── button.tsx           # the root
 ├── button-label.tsx     # one file per slot
 ├── button-icon.tsx
@@ -50,6 +51,8 @@ button/
 4. One file per slot, with no margin of its own (R4)
 5. Pure logic into `.utils.ts`, with a mirrored test
 6. A screen in `apps/demo` — this is how the component is verified
-7. A subpath export in `package.json` **and** `tsup.config.ts`
+7. A `.md` beside the component — the eight sections of the plan's §6, from anatomy to
+   the legacy migration table
+8. A subpath export in `package.json` **and** `tsup.config.ts`
 
 Then run the `xaui-review` skill on the diff.
