@@ -9,7 +9,9 @@
     "@xaui/native-legacy": "0.2.11"
   },
   "changesets": [
+    "pressable-feedback",
     "publish-native-hybrid-alpha",
-    "recipe-engine"
+    "recipe-engine",
+    "slot-system"
   ]
 }
