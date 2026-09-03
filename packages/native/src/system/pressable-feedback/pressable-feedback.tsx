@@ -108,12 +108,11 @@ const StaticFeedback = forwardRef<View, BranchProps>(function StaticFeedback(
   const Root = asChild ? Slot : Pressable
 
   return (
-    <Root ref={ref} style={style} disabled={isDisabled} {...rest}>
-      <FeedbackProvider value={context}>
-        <DefaultOverlay variant={feedbackVariant} />
-        {children}
-      </FeedbackProvider>
-    </Root>
+    <FeedbackProvider value={context}>
+      <Root ref={ref} style={style} disabled={isDisabled} {...rest}>
+        {body(asChild, feedbackVariant, children)}
+      </Root>
+    </FeedbackProvider>
   )
 })
 
@@ -176,21 +175,49 @@ const AnimatedFeedback = forwardRef<View, BranchProps>(function AnimatedFeedback
   const Root = asChild ? AnimatedSlot : AnimatedPressable
 
   return (
-    <Root
-      ref={ref}
-      style={[clip, style, animatedStyle]}
-      disabled={isDisabled}
-      onPressIn={handlePressIn}
-      onLayout={handleLayout}
-      {...rest}
-    >
-      <FeedbackProvider value={context}>
-        <DefaultOverlay variant={feedbackVariant} />
-        {children}
-      </FeedbackProvider>
-    </Root>
+    <FeedbackProvider value={context}>
+      <Root
+        ref={ref}
+        style={[clip, style, animatedStyle]}
+        disabled={isDisabled}
+        onPressIn={handlePressIn}
+        onLayout={handleLayout}
+        {...rest}
+      >
+        {body(asChild, feedbackVariant, children)}
+      </Root>
+    </FeedbackProvider>
   )
 })
+
+/**
+ * What goes inside the root — and the reason `FeedbackProvider` sits *above* it rather
+ * than around these children.
+ *
+ * Under `asChild` the root is a `Slot`, and a `Slot` merges its props into its single
+ * child. A provider nested inside would be that child, so every pressable prop — the
+ * ref, the style, the handlers — would land on a context provider, which ignores all of
+ * them: the caller's element would stop reacting to touch entirely, silently.
+ *
+ * The default overlay goes with it. The caller's element *is* the pressable under
+ * `asChild`, and there is nowhere to inject a sibling inside it. The context is still
+ * published, so a caller that wants the wash renders `<PressableFeedback.Highlight />`
+ * among its own children.
+ */
+function body(
+  asChild: boolean,
+  variant: FeedbackVariant,
+  children: ReactNode
+): ReactNode {
+  if (asChild) return children
+
+  return (
+    <>
+      <DefaultOverlay variant={variant} />
+      {children}
+    </>
+  )
+}
 
 function DefaultOverlay({ variant }: { variant: FeedbackVariant }): ReactNode {
   if (variant === 'scale-highlight') return <PressableFeedbackHighlight />

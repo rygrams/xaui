@@ -147,7 +147,12 @@ long list kills every row's worklets with one prop.
 
 `asChild` goes **through** `PressableFeedback`, not around it. A root that did
 `asChild ? Slot : PressableFeedback` would render its child with no touch feedback at all
-— so the merge happens here, and R12 and the feedback stay in the same branch.
+— so the merge happens here, and R12 and the feedback stay in the same branch. The
+feedback context is published **above** the root for the same reason: a `Slot` merges into
+its single child, so a provider nested inside would swallow the ref, the style and the
+handlers. Under `asChild` the caller's element is the pressable and there is no sibling to
+inject, so the default overlay is not rendered — a caller that wants the wash puts
+`<PressableFeedback.Highlight />` among its own children.
 
 Each overlay also takes its own `animation` — `false` to switch that one off, or a
 `duration` and an `opacity` — which wins over the blanket prop on the root, except when
