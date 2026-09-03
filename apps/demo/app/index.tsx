@@ -124,6 +124,16 @@ export default function HomeScreen() {
         <GridItem>
           <Button
             size="sm"
+            onPress={() => router.push('/icon')}
+            variant="solid"
+            themeColor="primary"
+          >
+            Icon v1
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
             onPress={() => router.push('/card')}
             variant="bordered"
             themeColor="primary"

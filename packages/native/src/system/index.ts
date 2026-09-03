@@ -1,3 +1,4 @@
+export * from './icon'
 export * from './portal'
 export * from './pressable-feedback'
 export * from './recipe'
