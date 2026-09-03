@@ -160,19 +160,30 @@ Zero runtime dependencies in the package.
 Spacing and placement are props rather than an object, and the resolver is shared:
 
 ```tsx
-<Button p={4} mt={2}>Envoyer</Button>
+<Button padding={16} width="100%">Envoyer</Button>
+<Button.Label fontSize={18}>Envoyer</Button.Label>
 ```
 
-`p px py pt pb ps pe` · `m mx my mt mb ms me` · `gap`. A closed set — no colour, no border,
-no typography, and **`ps`/`pe` rather than `pl`/`pr`**, because a shorthand API is exactly
-where R13 gets broken. The value is a **step on the spacing scale**: `p={4}` is
-`spacing(4)`, so changing `spacingUnit` redraws what callers wrote too.
+The set is the node's style type — `ViewStyle`, `TextStyle` on a text slot — **minus the
+directional keys R13 bans**, which are not exposed at all:
+
+```ts
+type StyleProps = Omit<ViewStyle, DirectionalStyleKey>
+```
+
+Full RN names and **full RN values**: `padding={16}` is 16 points, exactly as `style` would
+be. No abbreviations, and above all no hidden scale — a prop carrying the RN key's name and
+multiplying its value would be the most expensive trap in the API, the kind you only catch
+by measuring on screen. The scale stays explicit: `padding={t.spacing(4)}`.
+
+A style prop styles **its own node**, never a descendant (R1), which is what separates it
+from `customAppearance`.
 
 Two pieces, and the split is the point:
 
 ```ts
-resolveStyleProps(props, spacing)   // utils/ — pure, mirrored test
-useStyleProps(props)                // system/style-props/ — splits shorthands from the rest
+splitStyleProps(props) // utils/ — pure, mirrored test; splits, transforms nothing
+useStyleProps(props) // system/style-props/ — the same, memoized on the values
 ```
 
 It resolves **outside the style cache**, in the same second pass as the tint, and lands

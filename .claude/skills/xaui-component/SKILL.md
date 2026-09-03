@@ -21,15 +21,15 @@ Source of truth: `.project-specs/XAUI-V1-PLAN.md` §1 (rules), §1 bis (API voca
 | R3 | Text children are auto-wrapped through `childrenToString` (recursive stringify, returns `null` if any React element is present). |
 | R4 | Layout belongs to the root (`gap`, `alignItems`, `flexDirection`). Slots have **no margin of their own**. No `startContent` / `endContent` — JSX order is screen order. |
 | R5 | Context carries **resolved** values (style IDs), never raw props. Slots re-resolve nothing. Memoized. |
-| R6 | Tokens in props, arbitrary values in `style`. `size="md"` yes, `size={42}` is a type error. Two exceptions, both **outside the cache**: `color`, and the style props of R14. |
-| R7 | Two appearance props only: `variant` and `color`. No `background`, no `borderColor` — those go through `style`, or R14, which colours nothing. |
+| R6 | Tokens in the **vocabulary** props: `size="md"` yes, `size={42}` is a type error. Raw values have their own path, outside the cache: `color` and the style props of R14. |
+| R7 | Two appearance props in the **vocabulary**: `variant` and `color`. R14's `backgroundColor` / `borderColor` are not vocabulary — they are raw overrides, the same category as `style`. Seeing one where a `variant` would do still means the design system is being bypassed. |
 | R8 | Booleans are `isX` / `hasX` (`isDisabled`, `isLoading`, `hasError`). `disabled` is never public; forward it internally to `Pressable`. |
 | R9 | Every root forwards `ref`, `style` (including `Pressable`'s function form), `testID` and a11y props. `accessibilityRole` has a default but stays overridable. **Unfixable after 1.0.** |
 | R10 | Every compound exports its context hook: `export { useButton }`. |
 | R11 | `displayName` is namespaced: `'XAUI.Button.Root'`, `'XAUI.Button.Label'`. |
 | R12 | `asChild` on every root, via `mergeProps` + `mergeRefs` from `system/slot/`. |
 | R13 | No `left` / `right` in any style. Use `paddingStart` / `paddingEnd`, `marginStart` / `marginEnd`, `start` / `end`. An ESLint rule enforces it in `src/`. |
-| R14 | Spacing and placement are **props, not an object**: `p px py pt pb ps pe`, `m mx my mt mb ms me`, `gap`. The value is a **step on the spacing scale**, never a pixel — `p={4}` is `spacing(4)`. Resolved outside the cache, after the tint and **before** the slot's `style`, which still wins. |
+| R14 | A component's style is editable **in props**: `padding={16}`, `width="100%"`, `backgroundColor="#111"`. **Full RN names and RN values** — no abbreviations, no hidden scale (`padding={t.spacing(4)}` when you want the scale). The set is the node's style type (`ViewStyle`, `TextStyle` on a text slot) **minus the directional keys R13 bans**, which are not exposed at all. Scoped to the node the prop is written on, never a descendant. Outside the cache, after the tint, **before** `style`, which still wins. |
 
 ## API vocabulary
 
@@ -64,13 +64,27 @@ union to the four emphasis levels. That's a subtype, not a different prop.
 - **`color` is the tint, in a raw value** (`'#7c3aed'`), never a token. Where it lands
   follows the variant: background for `primary`, label for `ghost`, border + label for
   `tertiary`. Resolved by `theme/derive-tint.ts`, outside the style cache.
-- **Spacing and placement are props (R14).** A closed set of shorthands whose value is a
-  **step on the spacing scale**, never a pixel — `<Button p={4} mt={2}>` is
-  `spacing(4)` / `spacing(2)`. `p px py pt pb ps pe` · `m mx my mt mb ms me` · `gap`.
-  **`ps`/`pe`, never `pl`/`pr`** — R13 applies here most of all, because a shorthand API is
-  where the mistake is easiest. They colour nothing, resolve **outside the cache** (after
-  the tint, before `style`), and `style` still wins. Adding a shorthand is a plan decision
-  — see §2 ter. *Specified, not built: P2.6.*
+- **A component's style is editable in props (R14).** Full RN names, full RN values:
+
+  ```tsx
+  <Button padding={16} width="100%" backgroundColor="#111">Envoyer</Button>
+  <Button.Label fontSize={18} letterSpacing={1}>Envoyer</Button.Label>
+  ```
+
+  No abbreviations — `padding`, not `p`. And therefore no hidden scale: `padding={16}` is
+  16 points, exactly as `style` would be. A prop carrying the RN key's name and silently
+  multiplying its value is the most expensive trap the API could set. Reach for the scale
+  explicitly: `padding={t.spacing(4)}`.
+
+  The set is not a list but a type — the node's style type minus the directional keys R13
+  bans, which are **not exposed at all**, because a prop API is exactly where someone
+  writes `paddingLeft` without thinking.
+
+  They are scoped to the node the prop is written on, never a descendant (R1) — that is
+  what separates them from `customAppearance`. They resolve **outside the cache** (after
+  the tint, before `style`), and `style` still wins, for `transform` and anything typed
+  loosely. `color` keeps its R7 meaning on a root and is `TextStyle.color` on a text slot;
+  those coincide rather than conflict. *Specified, not built: P2.6.*
 - **Anything else goes through `style`.** Tinted shadow, border in a different colour than
   the background, gradient — `style`.
 

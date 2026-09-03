@@ -37,10 +37,10 @@ files edited by hand — these are the ones that are unfixable or expensive late
       slot**; no `startContent` / `endContent`.
 - [ ] **R5** — context carries resolved style IDs, memoized; no slot re-resolves the
       recipe.
-- [ ] **R6** — props take tokens only; arbitrary numbers are a type error. Two exceptions,
-      both outside the cache: `color`, and the style props of R14.
-- [ ] **R7** — only `variant` and `color`. No `background`, no `borderColor`, no third
-      appearance prop. R14 is not one: it places a component, it does not colour it.
+- [ ] **R6** — the **vocabulary** props take tokens only; `size={42}` is a type error. Raw
+      values go the other path: `color` and R14, both outside the cache.
+- [ ] **R7** — only `variant` and `color` in the vocabulary. R14's style props are raw
+      overrides, the same category as `style` — flag one used where a `variant` would do.
 - [ ] **R8** — `isX` / `hasX`; `disabled` is not public.
 - [ ] **R9** *(blocking)* — root forwards `ref`, `style` **including `Pressable`'s function
       form**, `testID`, a11y props; `accessibilityRole` defaults but stays overridable.
@@ -52,9 +52,12 @@ files edited by hand — these are the ones that are unfixable or expensive late
       compose the caller's `onPressIn` / `onPressOut` rather than replacing them.
 - [ ] **R13** — no `left` / `right` / `paddingLeft` … anywhere in `src/`; RTL-safe
       `start` / `end` forms only.
-- [ ] **R14** — spacing and placement are props: `p px py pt pb ps pe`, `m mx my mt mb ms
-      me`, `gap`. Values are **steps on the spacing scale**, never pixels. Outside the
-      cache, after the tint, before the slot's `style`.
+- [ ] **R14** — style props carry **full RN names and RN values**: `padding={16}` is 16
+      points. An abbreviation (`p`, `bg`) or a hidden scale is the defect.
+- [ ] The set comes from the node's **style type**, not a hand-written list, and the
+      directional keys R13 bans are **not exposed** — no `paddingLeft` prop can be written.
+- [ ] A style prop styles **its own node**, never a descendant (R1).
+- [ ] A component's own prop wins over a style prop of the same name, and the type says so.
 
 ## 2. API vocabulary
 
@@ -64,13 +67,6 @@ files edited by hand — these are the ones that are unfixable or expensive late
 - [ ] `size` sets height / horizontal padding / gap / radius, **never width**. Fixed
       `height`, not `minHeight`. No `fullWidth` prop.
 - [ ] `color` is a raw value, never a token, and lands where the variant says.
-- [ ] **Style props (R14) are the closed set and nothing more** — no `pl` / `pr` (R13), no
-      colour, no border, no typography. A new shorthand is a plan decision, not a
-      component's.
-- [ ] Their values are **spacing steps**, resolved through `theme.spacing()`. A raw pixel in
-      one is the bug this API exists to prevent.
-- [ ] They resolve **outside the cache**, after the tint and before the slot's `style`.
-      Anything that puts them in the cache key grows the table with caller values.
 - [ ] Anything else that wanted a prop goes through `style`.
 
 ## 3. Style engine and performance
