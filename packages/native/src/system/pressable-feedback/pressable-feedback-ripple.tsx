@@ -1,5 +1,17 @@
-import type { StyleProp, ViewStyle } from 'react-native'
-import Animated, { interpolate, useAnimatedStyle } from 'react-native-reanimated'
+import { useRef, useState } from 'react'
+import { StyleSheet, View } from 'react-native'
+import type {
+  GestureResponderEvent,
+  LayoutChangeEvent,
+  StyleProp,
+  ViewStyle,
+} from 'react-native'
+import Animated, {
+  interpolate,
+  useAnimatedStyle,
+  useSharedValue,
+  withTiming,
+} from 'react-native-reanimated'
 import type { SharedValue } from 'react-native-reanimated'
 import { useXAUITheme } from '../../theme/theme-hooks'
 import { useFeedback } from './pressable-feedback-context'
@@ -7,10 +19,17 @@ import {
   RIPPLE_COVERAGE,
   RIPPLE_OPACITY,
   resolveSlotAnimation,
+  rippleDurationFor,
 } from './pressable-feedback.animation'
 import type { SlotAnimation } from './pressable-feedback.type'
 
 export type PressableFeedbackRippleProps = {
+  /**
+   * Styles the **wave**, not the container — `backgroundColor` here is how a component
+   * gives the ripple the ink its surface needs. A filled button wants its own contrasted
+   * foreground, not the app's: black ink at 10% over a saturated fill is close to
+   * invisible, which is the one thing a press indicator cannot be.
+   */
   style?: StyleProp<ViewStyle>
   /** Overrides the blanket `animation` on the root, for this overlay only. */
   animation?: SlotAnimation
@@ -19,58 +38,102 @@ export type PressableFeedbackRippleProps = {
 /**
  * A circle washing outwards from where the finger landed.
  *
- * **The root drives it, this only draws it.** The wave has to start on the raw touch, and
- * the touch handlers live on the pressable — so the root owns the two waves and publishes
- * them here. An overlay starting its own wave from a shared value it watched would depend
- * on React re-rendering between the two touch events, which is precisely what fails inside
- * a `ScrollView`: the press is never granted, and the wave never leaves the finger.
+ * **It carries its own touch handlers, and that is the whole reason it works.** `Pressable`
+ * runs the responder system: it decides whether a touch becomes a press, and raw
+ * `onTouchStart` handed to it never arrives — which is why a ripple driven from the root
+ * draws nothing at all. The handlers belong on this overlay's own `View`, where a raw touch
+ * is still a raw touch. It does not claim the responder, so the press underneath is
+ * unaffected.
+ *
+ * Everything else follows from owning the touch: this measures itself, keeps its own two
+ * waves, and needs nothing from the root but the blanket `animation` setting.
  *
  * One wave runs `0 → 1` while the finger is down and `1 → 2` once it lifts, so its life is
- * the press's plus a tail — not a fixed one-shot that vanishes under a finger still resting
- * on the control. The opacity peaks at `1`, the moment the circle covers the control.
- *
- * It needs the root to clip — `PressableFeedback` sets `overflow: 'hidden'` when it mounts
- * one — and it renders nothing on the static branch: a ripple that cannot expand is a
- * coloured disc sitting on the control, which reads as a defect rather than reduced motion.
+ * the press's plus a tail — not a one-shot that vanishes under a finger still resting on
+ * the control. Two of them, used in turn, so a rapid double tap opens a fresh wave under
+ * the one still finishing instead of cutting it.
  */
 export function PressableFeedbackRipple({
   style,
   animation: override,
 }: PressableFeedbackRippleProps) {
-  const { animation, ripple } = useFeedback()
+  const { animation } = useFeedback()
   const theme = useXAUITheme()
 
   const settings = resolveSlotAnimation(override, animation.ripple, RIPPLE_OPACITY)
 
-  // Nothing to draw before the first layout: a zero-radius circle is not a ripple.
-  if (!ripple || !settings.enabled) return null
+  const [size, setSize] = useState({ width: 0, height: 0 })
+  const waveA = useSharedValue(0)
+  const waveB = useSharedValue(0)
+  const centerA = useSharedValue({ x: 0, y: 0 })
+  const centerB = useSharedValue({ x: 0, y: 0 })
+  const onA = useRef(true)
 
-  const { width, height } = ripple.measured
-  if (width === 0 || height === 0) return null
+  const handleLayout = (event: LayoutChangeEvent) => {
+    const { width, height } = event.nativeEvent.layout
+    setSize(current =>
+      current.width === width && current.height === height
+        ? current
+        : { width, height }
+    )
+  }
 
-  // The diagonal covers the control from any point on it, so where the finger landed
-  // never has to enter the radius — one number, and no corner left unwashed.
-  const radius = Math.sqrt(width * width + height * height) * RIPPLE_COVERAGE
+  const handleTouchStart = (event: GestureResponderEvent) => {
+    const duration = rippleDurationFor(size.width, size.height)
+    const wave = onA.current ? waveA : waveB
+    const other = onA.current ? waveB : waveA
+    const center = onA.current ? centerA : centerB
+    onA.current = !onA.current
+
+    // Send the wave still in flight to its end rather than abandoning it mid-open.
+    if (other.value > 0 && other.value < 2) {
+      other.value = withTiming(2, { duration })
+    }
+
+    const { locationX, locationY } = event.nativeEvent
+    center.value = { x: locationX, y: locationY }
+    wave.value = 0
+    wave.value = withTiming(1, { duration })
+  }
+
+  const handleTouchEnd = () => {
+    const duration = rippleDurationFor(size.width, size.height)
+    const wave = onA.current ? waveB : waveA
+    wave.value = withTiming(2, { duration })
+  }
+
+  if (!settings.enabled) return null
+
+  // The diagonal covers the control from any point on it, so where the finger landed never
+  // has to enter the radius — one number, and no corner left unwashed.
+  const radius =
+    Math.sqrt(size.width * size.width + size.height * size.height) * RIPPLE_COVERAGE
 
   return (
-    <>
+    <View
+      style={[StyleSheet.absoluteFill, styles.clip]}
+      onLayout={handleLayout}
+      onTouchStart={handleTouchStart}
+      onTouchEnd={handleTouchEnd}
+      onTouchCancel={handleTouchEnd}
+    >
       <RippleWave
-        wave={ripple.wave[0]}
-        center={ripple.center[0]}
+        wave={waveA}
+        center={centerA}
         radius={radius}
         color={theme.colors.foreground}
         opacity={settings.opacity}
         style={style}
       />
       <RippleWave
-        wave={ripple.wave[1]}
-        center={ripple.center[1]}
+        wave={waveB}
+        center={centerB}
         radius={radius}
         color={theme.colors.foreground}
         opacity={settings.opacity}
         style={style}
       />
-    </>
+    </View>
   )
 }
 
@@ -112,16 +175,21 @@ function RippleWave({
     <Animated.View
       pointerEvents="none"
       style={[
+        styles.wave,
         {
-          position: 'absolute',
           backgroundColor: color,
           width: radius * 2,
           height: radius * 2,
           borderRadius: radius,
         },
-        animatedStyle,
         style,
+        animatedStyle,
       ]}
     />
   )
 }
+
+const styles = StyleSheet.create({
+  clip: { overflow: 'hidden' },
+  wave: { position: 'absolute', top: 0, start: 0 },
+})

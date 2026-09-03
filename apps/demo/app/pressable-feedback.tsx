@@ -43,6 +43,10 @@ export default function PressableFeedbackScreen() {
         />
       </Section>
 
+      <Section title="Ripple ink — the component gives it, the primitive cannot know">
+        <ContrastRippleTile />
+      </Section>
+
       <Section title="animation='disable-all' — inherited by descendants">
         <PressableFeedback
           animation="disable-all"
@@ -222,6 +226,45 @@ function SlowHighlightTile() {
       <PressableFeedback.Highlight animation={{ duration: 600, opacity: 0.35 }} />
       <Text style={{ color: theme.colors.warningForeground }}>
         Highlight with animation={'{'} duration: 600, opacity: 0.35 {'}'}
+      </Text>
+    </PressableFeedback>
+  )
+}
+
+/**
+ * The ripple's ink, given by the component rather than guessed by the primitive.
+ *
+ * `PressableFeedback` cannot know what it is sitting on: the default is the theme's
+ * `foreground`, which reads on a neutral surface and all but disappears on a saturated
+ * one. A component knows its own surface, so it picks `feedbackVariant="scale"` and gives
+ * the wave the contrasted colour its variant already resolved.
+ */
+function ContrastRippleTile() {
+  const theme = useXAUITheme()
+  const [isPressed, setIsPressed] = useState(false)
+
+  return (
+    <PressableFeedback
+      isPressed={isPressed}
+      feedbackVariant="scale"
+      onPressIn={() => setIsPressed(true)}
+      onPressOut={() => setIsPressed(false)}
+      accessibilityRole="button"
+      style={{
+        height: theme.controlHeights.lg,
+        justifyContent: 'center',
+        paddingHorizontal: theme.spacing(4),
+        borderRadius: theme.radius.md,
+        overflow: 'hidden',
+        backgroundColor: theme.colors.accent,
+      }}
+    >
+      <PressableFeedback.Ripple
+        style={{ backgroundColor: theme.colors.accentForeground }}
+        animation={{ opacity: 0.3 }}
+      />
+      <Text style={{ color: theme.colors.accentForeground }}>
+        Ripple in the surface&apos;s own foreground
       </Text>
     </PressableFeedback>
   )

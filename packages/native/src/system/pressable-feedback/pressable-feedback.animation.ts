@@ -38,7 +38,12 @@ export const HIGHLIGHT_DURATION = 200
  * a wide card should not travel at the speed of one crossing a chip. Clamped at both ends
  * so neither extreme becomes a flicker or a crawl.
  */
-export const RIPPLE_OPACITY = 0.1
+/**
+ * Material's pressed-state ink. It reads on a neutral surface; on a saturated fill the
+ * component has to give the wave a contrasting colour through `Ripple`'s `style`, because
+ * a primitive cannot know what it is sitting on.
+ */
+export const RIPPLE_OPACITY = 0.12
 export const RIPPLE_BASE_DURATION = 1000
 export const RIPPLE_MIN_DURATION = 750
 export const RIPPLE_REFERENCE_DIAGONAL = 450

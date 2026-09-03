@@ -134,45 +134,35 @@ l'échappatoire, et le type le documente maintenant.
 **Échéance :** à revoir si un composant du noyau en a réellement besoin. Sinon, c'est une
 limite assumée du fait d'envelopper un composant tiers.
 
-### D. Le ripple ne rend pas — **ouvert**
+### D. Le ripple — **corrigé**
 
-`feedbackVariant="scale-ripple"` ne dessine rien sur l'appareil. Constaté sur simulateur
-iPhone 17 Pro, y compris avec un appui long d'une seconde et les durées poussées à quatre
-secondes pour laisser le temps de l'observer : le bouton se met bien à l'échelle et prend
-sa couleur pressée, l'onde n'apparaît jamais. Aucune erreur, aucun avertissement.
+`feedbackVariant="scale-ripple"` ne dessinait rien. La cause était structurelle et se lit
+directement dans la source de HeroUI : **les handlers de toucher ne sont pas sur le
+`Pressable`, ils sont sur la `View` du ripple lui-même.**
 
-**Trois mécanismes ont été essayés, aucun ne le fait apparaître.** L'implémentation a été
-refaite sur celle de HeroUI (§valeurs ci-dessous), et ce qui a été écarté au passage :
+`Pressable` porte le système de responder — il décide si un toucher devient un appui — et
+avale les props de toucher brutes qu'on lui passe. Un `onTouchStart` posé sur lui n'arrive
+jamais. Chez eux, `PressableFeedback.Ripple` rend son propre conteneur en remplissage
+absolu, et c'est **lui** qui porte `onTouchStart` / `onTouchEnd` / `onTouchCancel`. Il ne
+réclame pas le responder, donc l'appui en dessous est intact.
 
-- Les deux couches **sont montées** — vérifié dans le DOM du rendu web, deux vues absolues
-  à la couleur attendue.
-- Elles étaient à **0×0**, donc `size` restait vide : la géométrie a été sortie du worklet
-  et vient maintenant d'un état React posé par `onLayout`, ce qui supprime cette cause.
-- Le déclenchement est passé de `pressCount` + `useAnimatedReaction` à `onTouchStart` /
-  `onTouchEnd`, comme chez eux — `onPressIn` attend la négociation du responder, qui dans
-  un `ScrollView` arrive tard ou jamais.
-- Testé avec une onde poussée à **huit secondes** et un appui long d'1,5 s : toujours rien.
+Le ripple est donc redevenu autonome : il se mesure lui-même, garde ses deux vagues, et ne
+demande plus rien au root que le réglage `animation` global. Une vague va de `0 → 1` tant
+que le doigt est posé et de `1 → 2` quand il se lève — sa durée est celle de l'appui plus
+une traîne, et non un one-shot qui s'éteint sous un doigt encore posé.
 
-**Le suspect restant** est que `onTouchStart` ne traverse pas
-`Animated.createAnimatedComponent(Pressable)` — `Pressable` gère lui-même le système de
-responder et peut ne pas forwarder les handlers de toucher bruts au `View` sous-jacent. À
-vérifier en premier, en instrumentant le handler plutôt qu'en observant l'écran.
+**Ce qui reste à la charge du composant : l'encre.** Un primitif ne peut pas savoir sur
+quoi il est posé. Le défaut est le `foreground` du thème, qui se lit sur une surface neutre
+et disparaît sur une surface saturée — du noir à 12 % sur du violet n'est pas un indicateur
+d'appui. Un composant, lui, connaît sa surface : il choisit `feedbackVariant="scale"` et
+donne à l'onde la couleur contrastée que sa variante a déjà résolue, via le `style` du
+`Ripple`. L'écran de démo montre les deux côte à côte.
 
-**Le `Highlight` et le `scale` ne sont pas concernés**, et le `Button` ne dépend pas du
-ripple : il demande `feedbackVariant="scale"`, parce que sa recette peint déjà la couleur
-pressée. Aucun composant du noyau n'en dépend non plus.
-
-Les **valeurs**, elles, sont désormais celles de HeroUI et sont vérifiables sans voir
-l'onde : opacité `[0, 0.1, 0]` sur une progression `[0, 1, 2]`, échelle `[0, 1, 1]`, rayon
-égal à la diagonale × 1,25, et une durée proportionnelle à la diagonale — 1000 ms pour une
-diagonale de 450, bornée à `[750, 2000]`. Deux fonctions pures, `rippleDurationFor` et
-`pressScaleFor`, portent ces calculs et sont testées.
-
-L'écran de démo porte la section `feedbackVariant` qui servira à la vérifier.
-
-**Échéance :** avant P3 #5, le `Chip` — le premier composant du noyau susceptible de
-choisir le ripple. Tant qu'il ne rend pas, `scale-ripple` n'est pas une valeur qu'on peut
-recommander.
+Trois mécanismes avaient été essayés avant celui-là, et ce qu'ils ont écarté vaut d'être
+gardé : les couches étaient bien montées (vérifié dans le DOM du rendu web), leur géométrie
+ne dépend plus d'une lecture de valeur partagée dans un worklet — le rayon est posé depuis
+un état React — et le problème n'était pas une durée trop courte, puisqu'une onde poussée à
+huit secondes ne se voyait pas davantage.
 
 ---
 

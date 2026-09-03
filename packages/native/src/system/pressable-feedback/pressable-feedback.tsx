@@ -1,12 +1,7 @@
-import { forwardRef, useContext, useEffect, useMemo, useRef, useState } from 'react'
+import { forwardRef, useContext, useEffect, useMemo } from 'react'
 import type { ReactNode } from 'react'
 import { Pressable, View } from 'react-native'
-import type {
-  GestureResponderEvent,
-  LayoutChangeEvent,
-  StyleProp,
-  ViewStyle,
-} from 'react-native'
+import type { LayoutChangeEvent, StyleProp, ViewStyle } from 'react-native'
 import Animated, {
   Easing,
   useAnimatedStyle,
@@ -26,7 +21,6 @@ import {
   PRESS_DURATION,
   pressScaleFor,
   resolveAnimation,
-  rippleDurationFor,
 } from './pressable-feedback.animation'
 import type {
   FeedbackVariant,
@@ -133,24 +127,12 @@ const AnimatedFeedback = forwardRef<View, BranchProps>(function AnimatedFeedback
     children,
     style,
     onLayout,
-    onTouchStart,
-    onTouchEnd,
     ...rest
   },
   ref
 ) {
   const progress = useSharedValue(0)
   const size = useSharedValue({ width: 0, height: 0 })
-
-  // Two layers, used in turn, so a rapid double tap starts a fresh wave instead of
-  // cutting the one in flight — which reads as a blink.
-  const wave = [useSharedValue(0), useSharedValue(0)] as const
-  const center = [
-    useSharedValue({ x: 0, y: 0 }),
-    useSharedValue({ x: 0, y: 0 }),
-  ] as const
-  const activeWave = useRef(0)
-  const [measured, setMeasured] = useState({ width: 0, height: 0 })
 
   // One curve in both directions, eased out: a press that decelerates reads as the
   // control settling, where a linear ramp reads as it snapping.
@@ -185,65 +167,14 @@ const AnimatedFeedback = forwardRef<View, BranchProps>(function AnimatedFeedback
     return { transform: [{ scale: 1 - (1 - pressedScale.value) * progress.value }] }
   }, [animation.scale, progress, pressedScale])
 
-  const ripple = useMemo(
-    () => ({ wave, center, measured }),
-    [wave, center, measured]
-  )
-
   const context = useMemo(
-    () => ({ isPressed, animation, progress, size, ripple }),
-    [isPressed, animation, progress, size, ripple]
+    () => ({ isPressed, animation, progress, size }),
+    [isPressed, animation, progress, size]
   )
-
-  /**
-   * The wave starts on the **raw touch**, not on `onPressIn`.
-   *
-   * `onPressIn` waits for the responder negotiation to grant the press, which inside a
-   * `ScrollView` can arrive late or never — the gesture becomes a scroll and the wave that
-   * should have left the finger never starts. `onTouchStart` fires when the finger lands,
-   * which is when a ripple is supposed to leave it.
-   */
-  const handleTouchStart = (event: GestureResponderEvent) => {
-    const previous = activeWave.current
-    const next = previous === 0 ? 1 : 0
-    activeWave.current = next
-
-    const duration = rippleDurationFor(size.value.width, size.value.height)
-
-    // Send the wave still in flight to its end rather than abandoning it mid-open.
-    const inFlight = wave[previous].value
-    if (inFlight > 0 && inFlight < 2) {
-      wave[previous].value = withTiming(2, { duration })
-    }
-
-    center[next].value = {
-      x: event.nativeEvent.locationX,
-      y: event.nativeEvent.locationY,
-    }
-    wave[next].value = 0
-    wave[next].value = withTiming(1, { duration })
-
-    onTouchStart?.(event)
-  }
-
-  const handleTouchEnd = (event: GestureResponderEvent) => {
-    const duration = rippleDurationFor(size.value.width, size.value.height)
-    wave[activeWave.current].value = withTiming(2, { duration })
-    onTouchEnd?.(event)
-  }
 
   const handleLayout = (event: LayoutChangeEvent) => {
     const { width, height } = event.nativeEvent.layout
     size.value = { width, height }
-    // Also as React state. The ripple's *geometry* is laid out from this rather than
-    // computed in a worklet: a circle whose radius depends on a shared value read inside
-    // `useAnimatedStyle` is a circle that silently stays at zero if that read is ever not
-    // tracked, and zero is indistinguishable from "the ripple does not work".
-    setMeasured(current =>
-      current.width === width && current.height === height
-        ? current
-        : { width, height }
-    )
     onLayout?.(event)
   }
 
@@ -259,8 +190,6 @@ const AnimatedFeedback = forwardRef<View, BranchProps>(function AnimatedFeedback
         style={[clipFor(feedbackVariant, asChild), style, animatedStyle]}
         disabled={isDisabled}
         onLayout={handleLayout}
-        onTouchStart={handleTouchStart}
-        onTouchEnd={handleTouchEnd}
         {...rest}
       >
         {body(asChild, feedbackVariant, children)}

@@ -32,7 +32,7 @@ remaining action belongs to a workflow rather than to a commit.
 | P2.2  | Perf baseline — 200 buttons, re-renders and allocations         | done   |
 | P2.3  | API review — blocking, nothing starts in P3 before it           | done   |
 | P2.4  | Publish `@xaui/native` on the `alpha` tag                       | ci     |
-| P2.5  | Fix the ripple — it renders nothing (P2-API-REVIEW §D)          | todo   |
+| P2.5  | Fix the ripple — it renders nothing (P2-API-REVIEW §D)          | done   |
 | P2.6  | Style as props (R14) — `system/style-props/`, then the `Button` | todo   |
 | P3    | The fifteen-component core                                      | todo   |
 | P4    | Docs, generated tables, `1.0.0`                                 | todo   |

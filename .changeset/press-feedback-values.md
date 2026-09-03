@@ -16,9 +16,14 @@ The wash goes to `0.1` over 200ms, and the ripple to `0.1` over a duration propo
 the control's diagonal — 1000ms at a 450pt diagonal, clamped to `[750, 2000]` so neither a
 chip flickers nor a card crawls.
 
-The ripple itself still draws nothing (P2.5). Its geometry no longer depends on a shared
-value read inside a worklet — the radius is laid out from React state, so a zero radius can
-no longer masquerade as a broken effect — and it is driven from the raw touch rather than
-from `onPressIn`, which waits for a responder grant that never arrives inside a
-`ScrollView`. Neither made it appear; the remaining suspect is written up in
-`P2-API-REVIEW.md` §D.
+**The ripple now draws.** It never did, and the cause was structural: the touch handlers
+were on the `Pressable`, which owns the responder system and swallows raw touch props. They
+belong on the ripple overlay's own `View` — that is how HeroUI does it, and it is the whole
+fix. The ripple is self-contained again: it measures itself, keeps its own two waves, and
+asks the root for nothing but the blanket `animation` setting.
+
+Its ink stays the component's job, because a primitive cannot know what it sits on. The
+default is the theme's `foreground` at `0.12`, which reads on a neutral surface and
+disappears on a saturated one; a component picks `feedbackVariant="scale"` and gives the
+wave the contrasted colour its variant already resolved, through `Ripple`'s `style` — which
+reaches the wave again rather than the container.

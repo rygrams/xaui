@@ -74,41 +74,11 @@ export type SlotAnimation =
       opacity?: number
     }
 
-export type RippleWaves = {
-  wave: readonly [SharedValue<number>, SharedValue<number>]
-  center: readonly [
-    SharedValue<{ x: number; y: number }>,
-    SharedValue<{ x: number; y: number }>,
-  ]
-  /**
-   * The measured root, as React state rather than a shared value.
-   *
-   * The circle's radius is laid out from this, not computed in a worklet. A radius that
-   * depends on a shared value read inside `useAnimatedStyle` is a radius that stays at
-   * zero the moment that read is not tracked — and a zero-radius ripple is
-   * indistinguishable from a ripple that does not work at all.
-   */
-  measured: { width: number; height: number }
-}
-
 export type FeedbackContext = {
   isPressed: boolean
   animation: ResolvedAnimation
   /** Absent on the static branch, where nothing animates and no worklet is mounted. */
   progress?: SharedValue<number>
-  /** How big the root is. The ripple needs it for both its radius and its duration. */
+  /** How big the root is — what the scale coefficient is computed from. */
   size?: SharedValue<{ width: number; height: number }>
-  /**
-   * The two ripple waves, driven by the root from the raw touch events.
-   *
-   * The root owns them rather than the overlay because the touch handlers live on the
-   * pressable: a wave started from a shared value the overlay watches depends on React
-   * re-rendering between the two touch events, which is exactly what fails inside a
-   * `ScrollView`.
-   *
-   * Each wave runs `0 → 1` while the finger is down and `1 → 2` once it lifts. Two of
-   * them, used in turn, so a rapid double tap opens a fresh wave under the one still
-   * finishing instead of cutting it.
-   */
-  ripple?: RippleWaves
 }
