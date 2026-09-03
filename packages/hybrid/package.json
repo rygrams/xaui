@@ -1,6 +1,6 @@
 {
   "name": "@xaui/hybrid",
-  "version": "0.9.1-alpha.0",
+  "version": "0.9.1-alpha.1",
   "description": "The @xaui/native API rendered for the web and mobile webviews",
   "keywords": [
     "react",
