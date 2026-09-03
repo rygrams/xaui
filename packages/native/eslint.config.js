@@ -29,6 +29,10 @@ export default [
         clearTimeout: 'readonly',
         setInterval: 'readonly',
         clearInterval: 'readonly',
+        // `warnDev` is the one place either is allowed: a development-only warning,
+        // guarded so it never reaches a release bundle.
+        console: 'readonly',
+        __DEV__: 'readonly',
       },
     },
   },
@@ -63,6 +67,7 @@ export default [
         beforeAll: 'readonly',
         afterAll: 'readonly',
         vi: 'readonly',
+        console: 'readonly',
       },
     },
   },

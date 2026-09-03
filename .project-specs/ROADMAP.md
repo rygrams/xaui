@@ -23,7 +23,7 @@ Task detail lives in `XAUI-V1-PLAN.md`.
 | P1.3  | `system/pressable-feedback/`                             | done   |
 | P1.4  | `system/portal/`                                         | done   |
 | P1.5  | `system/icon/`                                           | done   |
-| P1.6  | Shared hooks                                             | todo   |
+| P1.6  | Shared hooks                                             | done   |
 | P1.7  | `pnpm pack` uniqueness check on both packages            | todo   |
 | P2    | Reference `Button`, perf baseline, API review            | todo   |
 | P3    | The fifteen-component core                               | todo   |
