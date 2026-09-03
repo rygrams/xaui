@@ -153,3 +153,26 @@ Each overlay also takes its own `animation` — `false` to switch that one off, 
 `duration` and an `opacity` — which wins over the blanket prop on the root, except when
 the root switched everything off. Two knobs, deliberately: past that it is a different
 animation, and that is a component's job rather than a prop's.
+
+## `portal/` in one page
+
+`Portal` renders its children into the nearest `PortalHost` instead of where it sits —
+what `Dialog`, `Sheet`, `Drawer` and `Snackbar` are built on, since an overlay has to
+escape the clipping and stacking of whatever container held the trigger.
+
+```tsx
+// once, at the root of the app, above navigation
+<XAUIProvider>
+  <PortalHost>{app}</PortalHost>
+</XAUIProvider>
+
+// anywhere below
+<Portal>
+  <Backdrop />
+</Portal>
+```
+
+Publishing happens in a layout effect, so the content lands in the same commit as the
+trigger's and an overlay never shows a frame late. Outside a host the context is `null`
+and `Portal` renders nothing rather than throwing: an app that forgot `PortalHost` should
+lose its overlays, not crash on the first `Dialog`.
