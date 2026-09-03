@@ -116,15 +116,15 @@ yours.
 
 `size` drives **height, padding, gap, radius and type — never width**. A button with no
 width fills its parent in a column and hugs its content in a row, which is React Native's
-own behaviour. There is no `fullWidth` prop — once R14 lands the deliberate case is
-`width="100%"`, said explicitly. To tighten one, compose:
+own behaviour. There is no `fullWidth` prop — the deliberate case is `width="100%"`, said
+explicitly. To tighten one, compose:
 
 ```tsx
 <Row>
   <Button>Envoyer</Button>
 </Row>
 
-<Button style={{ alignSelf: 'flex-start' }}>Envoyer</Button>
+<Button alignSelf="flex-start">Envoyer</Button>
 ```
 
 ### Variants
@@ -173,12 +173,10 @@ in OKLab, so a free tint behaves exactly like `accent` — same ratios, same ren
 deliberately outside the style cache: letting arbitrary values into the key would grow the
 table with the colours people invent instead of with the finite combinations of tokens.
 
-### Style as props — coming
+### Style as props
 
-> **Not built yet.** R14 and §2 ter of the plan specify it; it is **P2.6** in the roadmap.
-> Until it lands, everything below goes through `style`.
-
-Loosening a button, giving it a width, changing a fill will not require opening an object:
+R14 — loosening a button, giving it a width, changing a fill does not mean opening an
+object:
 
 ```tsx
 <Button padding={16} marginTop={8}>Envoyer</Button>
@@ -202,6 +200,11 @@ const t = useXAUITheme()
 The set is not a list but a type — the node's style keys (`ViewStyle` on the root,
 `TextStyle` on `Button.Label`) **minus the directional forms R13 bans**, which are not
 exposed at all: `paddingStart`, never `paddingLeft`.
+
+`Button.Icon` is the exception, and deliberately: two of `Icon`'s three forms have no view
+of ours to style — `as` hands its props to a third-party component, and the children form
+clones the caller's own element — so a `padding` there would apply in one form out of
+three. `size` and `color` remain its escape hatch, as they already are for `style`.
 
 Each one styles **the node it is written on**, never a descendant — which is what separates
 this from the legacy `customAppearance`. `width="100%"` is what replaces `fullWidth`, said
@@ -235,7 +238,7 @@ a different colour than the background, a gradient — those are a slot's own `s
 ### `Button`
 
 Everything `PressableFeedback` accepts — and therefore everything `Pressable` accepts —
-plus:
+every `ViewStyle` key those two do not already claim (R14), plus:
 
 | Prop                | Type                           | Default     | Notes                                             |
 | ------------------- | ------------------------------ | ----------- | ------------------------------------------------- |
@@ -252,7 +255,8 @@ plus:
 
 ### `Button.Label`
 
-Everything `Text` accepts. `numberOfLines` defaults to `1`.
+Everything `Text` accepts, plus the `TextStyle` keys as props (R14) — `fontSize`, `color`,
+`letterSpacing`… `numberOfLines` defaults to `1`.
 
 ### `Button.Icon`
 
@@ -260,6 +264,8 @@ Everything `Text` accepts. `numberOfLines` defaults to `1`.
 `style` reaches the `source` form only — the other two are not views this renders.
 
 ### `Button.Spinner`
+
+The `ViewStyle` keys as props (R14), plus:
 
 | Prop        | Type                   | Default | Notes                                      |
 | ----------- | ---------------------- | ------- | ------------------------------------------ |

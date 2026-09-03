@@ -4,6 +4,7 @@ import type { TextStyle, View } from 'react-native'
 import { usePressState } from '../../hooks/use-press-state'
 import { PressableFeedback } from '../../system/pressable-feedback'
 import { childrenToString } from '../../system/slot'
+import { useStyleProps } from '../../system/style-props'
 import { useXAUITheme } from '../../theme/theme-hooks'
 import { warnDev } from '../../utils/warn-dev'
 import { ButtonLabel } from './button-label'
@@ -48,11 +49,15 @@ export const ButtonRoot = forwardRef<View, ButtonProps>(function Button(
     style,
     onPressIn,
     onPressOut,
-    ...rest
+    ...props
   },
   ref
 ) {
   const theme = useXAUITheme()
+  // R14 — what is left is the press behaviour plus whatever style keys the caller wrote.
+  // The button's own vocabulary is already destructured above, which is what keeps `size`
+  // the control's scale and `color` R7's tint rather than style props of the same name.
+  const [styleProps, rest] = useStyleProps(props)
   const [isPressed, press] = usePressState({ onPressIn, onPressOut })
 
   const selection = {
@@ -87,11 +92,16 @@ export const ButtonRoot = forwardRef<View, ButtonProps>(function Button(
     }
   }, [styles, tint, isDisabled, isLoading])
 
+  // The resolution order of §2 ter, most general to most specific: the cached recipe, the
+  // uncached tint, the style props, then `style` — the last word, and the escape hatch for
+  // what has no readable prop.
+  //
   // R9 — `style` may be `Pressable`'s function form. The root owns the press state, so it
   // resolves the function here instead of forwarding it and losing the styles inside.
   const rootStyle = [
     styles.root,
     tint?.root,
+    styleProps,
     typeof style === 'function' ? style({ pressed: isPressed }) : style,
   ]
 

@@ -162,7 +162,7 @@ Zero runtime dependencies in the package.
 - [ ] Reference-stability test for anything touching the cache.
 - [ ] `pnpm lint && pnpm type-check && pnpm test`.
 
-## `style-props/` — R14, specified, not built (P2.6)
+## `style-props/` — R14
 
 Spacing and placement are props rather than an object, and the resolver is shared:
 
@@ -192,6 +192,16 @@ Two pieces, and the split is the point:
 splitStyleProps(props) // utils/ — pure, mirrored test; splits, transforms nothing
 useStyleProps(props) // system/style-props/ — the same, memoized on the values
 ```
+
+The type is `Omit<ViewStyle, DirectionalStyleKey>`, but the split needs the key *names* at
+runtime, and that table is in `utils/style-props.ts`. A compile-time check in
+`style-props.type.ts` pins the two together — an RN upgrade that adds a style key fails
+`type-check` naming it. Never edit one without the other; the check tells you which.
+
+Where a name is already the component's, the component wins and the style prop of that
+name is not exposed (`Omit<ViewStyleProps, keyof OwnProps>` in the type, destructuring
+before the split at runtime). `pointerEvents` is the single name where a style key and an
+RN component prop collide, and it is excluded from the style props for every component.
 
 It resolves **outside the style cache**, in the same second pass as the tint, and lands
 after it and before the slot's `style`. Putting a style prop in the cache key is the one

@@ -1383,9 +1383,17 @@ c'est le seuil que les 46 composants suivants doivent tenir.
 | `StyleSheet.create` avec un `color` brut, puis un second  | **0** et **0**                         | La table grandit avec les tokens, jamais avec les couleurs inventées (R7)          |
 | Composants hôtes re-rendus quand **un** bouton est pressé | **2** (sur 400)                        | L'état de press appartient au root qui le porte ; la liste au-dessus n'entend rien |
 | Composants hôtes au montage                               | **400** = 200 × (`Pressable` + `Text`) | Profondeur de vue de 1 : aucune `View` intermédiaire (§8)                          |
+| `StyleSheet.create` avec deux props de style par bouton    | **0**                                  | R14 se résout hors du cache, exactement comme la teinte (§2 ter)                   |
+| Composants hôtes re-rendus à l'appui, props de style       | **2** (sur 400)                        | La ligne de base ne bouge pas : l'objet mémoïsé garde son identité                 |
 
 Les deux chiffres qui comptent en une phrase : **200 boutons coûtent 40 feuilles de style,
 et un appui en coûte 0**.
+
+Les props de style (§2 ter) ne déplacent aucun de ces chiffres : elles n'entrent pas dans
+la clé et `useStyleProps` mémoïse sur les valeurs, donc un appui re-rend toujours deux
+hôtes. Ce qu'elles coûtent est ailleurs et n'est pas mesurable ici — **une allocation
+d'objet par rendu**, sur les composants dont l'appelant a écrit au moins une prop de
+style. C'était l'arbitrage annoncé, et c'est le même que celui de `color`.
 
 La mesure tourne avec `animation={false}`, qui emprunte la branche statique — aucun hook
 Reanimated n'est atteint, ce que le fichier vérifie plutôt que de le supposer.

@@ -84,7 +84,11 @@ union to the four emphasis levels. That's a subtype, not a different prop.
   what separates them from `customAppearance`. They resolve **outside the cache** (after
   the tint, before `style`), and `style` still wins, for `transform` and anything typed
   loosely. `color` keeps its R7 meaning on a root and is `TextStyle.color` on a text slot;
-  those coincide rather than conflict. *Specified, not built: P2.6.*
+  those coincide rather than conflict.
+
+  Two lines in a component: `Omit<ViewStyleProps, keyof OwnProps>` in the type — a name
+  the component already uses stays the component's — and `useStyleProps` on what is left
+  after destructuring, applied between the tint and `style`.
 - **Anything else goes through `style`.** Tinted shadow, border in a different colour than
   the background, gradient — `style`.
 
