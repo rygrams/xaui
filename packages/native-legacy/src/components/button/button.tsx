@@ -7,6 +7,26 @@ import type { ButtonProps } from './button.type'
 import { useBorderRadiusStyles } from '../../core/theme-hooks'
 import { runPressInAnimation, runPressOutAnimation } from './button.animation'
 
+/**
+ * @deprecated Use `Button` from `@xaui/native/button`. This tree is frozen and receives
+ * fixes only.
+ *
+ * The v1 replacement composes instead of configuring: `themeColor` and `variant` are one
+ * flat `variant` union, `customAppearance` becomes a `style` on each slot,
+ * `startContent` / `endContent` become JSX order, and `fullWidth` is gone — a button with
+ * no width already fills a column.
+ *
+ * ```tsx
+ * // legacy
+ * <Button themeColor="danger" variant="solid" startContent={<Trash />}>Supprimer</Button>
+ *
+ * // v1
+ * <Button variant="danger">
+ *   <Button.Icon as={Trash} />
+ *   <Button.Label>Supprimer</Button.Label>
+ * </Button>
+ * ```
+ */
 export const Button: React.FC<ButtonProps> = ({
   children,
   themeColor = 'primary',

@@ -50,6 +50,7 @@ export default function RootLayout() {
               />
               <Stack.Screen name="portal" options={{ title: 'Portal (v1)' }} />
               <Stack.Screen name="icon" options={{ title: 'Icon (v1)' }} />
+              <Stack.Screen name="button" options={{ title: 'Button (v1)' }} />
               <Stack.Screen name="card" options={{ title: 'Card Examples' }} />
               <Stack.Screen
                 name="carousel"

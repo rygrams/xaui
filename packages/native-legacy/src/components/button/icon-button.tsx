@@ -8,6 +8,23 @@ import type { IconButtonProps } from './icon-button.type'
 import { useBorderRadiusStyles } from '../../core/theme-hooks'
 import { runPressInAnimation, runPressOutAnimation } from './button.animation'
 
+/**
+ * @deprecated Use `Button` with `isIconOnly` from `@xaui/native/button`. This tree is
+ * frozen and receives fixes only.
+ *
+ * There is no separate icon button in v1: `isIconOnly` drops the horizontal padding and
+ * squares the button on its fixed height, so one component covers both shapes.
+ *
+ * ```tsx
+ * // legacy
+ * <IconButton icon={<Trash />} themeColor="danger" />
+ *
+ * // v1 — accessibilityLabel is required, there is no text to read
+ * <Button isIconOnly variant="danger" accessibilityLabel="Supprimer">
+ *   <Button.Icon as={Trash} />
+ * </Button>
+ * ```
+ */
 export const IconButton: React.FC<IconButtonProps> = ({
   icon,
   themeColor = 'primary',
