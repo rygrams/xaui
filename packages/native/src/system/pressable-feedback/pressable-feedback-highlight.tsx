@@ -88,10 +88,10 @@ function AnimatedHighlight({
     shown.value = withTiming(isPressed ? 1 : 0, { duration })
   }, [isPressed, shown, duration])
 
-  const animatedStyle = useAnimatedStyle(
-    () => ({ opacity: shown.value * opacity }),
-    [shown, opacity]
-  )
+  const animatedStyle = useAnimatedStyle(() => {
+    'worklet'
+    return { opacity: shown.value * opacity }
+  }, [shown, opacity])
 
   return <Animated.View pointerEvents="none" style={[base, animatedStyle]} />
 }

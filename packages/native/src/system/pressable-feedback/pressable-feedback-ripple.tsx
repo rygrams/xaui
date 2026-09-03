@@ -88,8 +88,12 @@ function AnimatedRipple({
   const useA = useSharedValue(true)
 
   useAnimatedReaction(
-    () => pressCount?.value ?? 0,
+    () => {
+      'worklet'
+      return pressCount?.value ?? 0
+    },
     (count, previous) => {
+      'worklet'
       if (previous === null || count === previous) return
 
       const wave = useA.value ? waveA : waveB
@@ -144,6 +148,7 @@ function RippleWave({
   style?: StyleProp<ViewStyle>
 }) {
   const animatedStyle = useAnimatedStyle(() => {
+    'worklet'
     const within = size?.value ?? { width: 0, height: 0 }
     // The diagonal covers the control from any point on it, so where the finger landed
     // never has to enter the radius — one number, and no corner left unwashed.

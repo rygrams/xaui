@@ -147,16 +147,22 @@ const AnimatedFeedback = forwardRef<View, BranchProps>(function AnimatedFeedback
     })
   }, [isPressed, progress])
 
-  // The dependency array is explicit on every animated hook in this package. Reanimated's
-  // Babel plugin infers one, but it runs in the *consumer's* build and does not reach a
-  // published `dist` on web — where the hook then throws instead of animating.
-  const animatedStyle = useAnimatedStyle(
-    () =>
-      animation.scale
-        ? { transform: [{ scale: 1 - (1 - PRESS_SCALE) * progress.value }] }
-        : {},
-    [animation.scale, progress]
-  )
+  /**
+   * Every animated hook in this package carries an explicit `'worklet'` directive **and**
+   * an explicit dependency array. Both exist because this code is consumed as a built
+   * `dist` rather than as source.
+   *
+   * The directive is the load-bearing one: our CJS output calls the hook as
+   * `_reactNativeReanimated.useAnimatedStyle(...)`, and the Babel plugin recognises the
+   * bare identifier, not the namespace member — so without it the function reaches the UI
+   * runtime unserialized and Reanimated aborts the process. The build runs the plugin over
+   * `dist` (`tooling/workletize/`), and the directive is what it keys off there.
+   */
+  const animatedStyle = useAnimatedStyle(() => {
+    'worklet'
+    if (!animation.scale) return {}
+    return { transform: [{ scale: 1 - (1 - PRESS_SCALE) * progress.value }] }
+  }, [animation.scale, progress])
 
   const context = useMemo(
     () => ({ isPressed, animation, progress, pressCount, origin, size }),
@@ -182,7 +188,10 @@ const AnimatedFeedback = forwardRef<View, BranchProps>(function AnimatedFeedback
   return (
     <FeedbackProvider value={context}>
       <Root
-        ref={ref}
+        // `createAnimatedComponent` types its ref as the wrapper rather than as the host
+        // node it forwards to, so the two do not meet. The value is a `View` at runtime,
+        // which is what this component promises its callers.
+        ref={ref as never}
         style={[clipFor(feedbackVariant, asChild), style, animatedStyle]}
         disabled={isDisabled}
         onPressIn={handlePressIn}

@@ -51,10 +51,10 @@ function SpinningRing({ style }: { style: StyleProp<ViewStyle> }) {
     return () => cancelAnimation(angle)
   }, [angle])
 
-  const animatedStyle = useAnimatedStyle(
-    () => ({ transform: [{ rotate: `${angle.value}deg` }] }),
-    [angle]
-  )
+  const animatedStyle = useAnimatedStyle(() => {
+    'worklet'
+    return { transform: [{ rotate: `${angle.value}deg` }] }
+  }, [angle])
 
   return <Animated.View style={[style, animatedStyle]} />
 }

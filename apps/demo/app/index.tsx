@@ -1,577 +1,259 @@
-import { useXUIColors } from '@xaui/native-legacy/core'
-import { ScrollView } from 'react-native'
-import { Button } from '@xaui/native-legacy/button'
-import { useRouter } from 'expo-router'
-import { Grid, GridItem } from '@xaui/native-legacy/view'
+import { useState } from 'react'
+import { Pressable, ScrollView, Text, View } from 'react-native'
+import Svg, { Path } from 'react-native-svg'
+import { Button } from '@xaui/native/button'
+import type { ButtonVariant } from '@xaui/native/button'
+import type { IconComponentProps } from '@xaui/native/system'
+import { useXAUITheme } from '@xaui/native/theme'
 
-export default function HomeScreen() {
-  const colors = useXUIColors()
-  const router = useRouter()
+const VARIANTS: ButtonVariant[] = [
+  'primary',
+  'secondary',
+  'tertiary',
+  'ghost',
+  'success',
+  'success-soft',
+  'warning',
+  'warning-soft',
+  'danger',
+  'danger-soft',
+]
+
+/**
+ * The verification screen for P2. A component is verified here and in the docs preview,
+ * in light and in dark — there is no test file for it.
+ *
+ * What each section is actually checking is in its subtitle: the ten variants name tokens
+ * and nothing else, `size` moves the height and never the width, a raw `color` lands
+ * where the variant put its tokens, and `asChild` hands the press to someone else's
+ * element without losing it.
+ */
+export default function ButtonScreen() {
+  const theme = useXAUITheme()
 
   return (
     <ScrollView
-      style={{
-        backgroundColor: colors.background,
-      }}
-      contentContainerStyle={{
-        paddingVertical: 55,
-        paddingHorizontal: 16,
-        gap: 12,
-        paddingBottom: 24,
-      }}
+      style={{ backgroundColor: theme.colors.background }}
+      contentContainerStyle={{ padding: 16, gap: 28, paddingBottom: 64 }}
     >
-      <Grid columns={2} spacing={5}>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/alerts')}
-            variant="bordered"
-            themeColor="primary"
-          >
-            Alert
+      <Section
+        title="The ten variants"
+        note="Emphasis and intention in one flat union. Each names tokens; none computes a colour."
+      >
+        {VARIANTS.map(variant => (
+          <Button key={variant} variant={variant}>
+            {variant}
           </Button>
-        </GridItem>
-        {/* <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/app-bar')}
-            variant="bordered"
-            themeColor="secondary"
-          >
-            AppBar
+        ))}
+      </Section>
+
+      <Section
+        title="size — height, never width"
+        note="A button with no width fills a column and hugs its content in a row. There is no fullWidth."
+      >
+        <Button size="xs">xs · 32</Button>
+        <Button size="sm">sm · 40</Button>
+        <Button size="md">md · 48</Button>
+        <Button size="lg">lg · 56</Button>
+
+        <Row>
+          <Button size="sm">in a row</Button>
+          <Button size="sm" variant="secondary">
+            hugs its content
           </Button>
-        </GridItem>
-        <GridItem>
+        </Row>
+      </Section>
+
+      <Section
+        title="Icon and label"
+        note="JSX order is screen order. The icon takes the variant's colour and the size's scale with no prop."
+      >
+        <Button>
+          <Button.Icon as={TrashIcon} />
+          <Button.Label>icon, then label</Button.Label>
+        </Button>
+
+        <Button variant="danger">
+          <Button.Label>label, then icon</Button.Label>
+          <Button.Icon as={TrashIcon} />
+        </Button>
+
+        <Row>
           <Button
+            isIconOnly
             size="sm"
-            onPress={() => router.push('/autocomplete')}
-            variant="bordered"
-            themeColor="primary"
+            variant="tertiary"
+            accessibilityLabel="Supprimer"
           >
-            Autocomplete
+            <Button.Icon as={TrashIcon} />
           </Button>
-        </GridItem>
-        <GridItem>
+          <Button isIconOnly variant="danger-soft" accessibilityLabel="Supprimer">
+            <Button.Icon as={TrashIcon} />
+          </Button>
           <Button
-            size="sm"
-            onPress={() => router.push('/avatars')}
-            variant="bordered"
-            themeColor="secondary"
+            isIconOnly
+            size="lg"
+            variant="ghost"
+            accessibilityLabel="Supprimer"
           >
-            Avatar
+            <Button.Icon as={TrashIcon} />
           </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/badges')}
-            variant="bordered"
-            themeColor="primary"
-          >
-            Badge
+          <Text style={{ color: theme.colors.foreground, alignSelf: 'center' }}>
+            isIconOnly — square on the fixed height
+          </Text>
+        </Row>
+      </Section>
+
+      <Section
+        title="isLoading"
+        note="The spinner is inserted when none is composed; composing one is how you put it after the label."
+      >
+        <Button isLoading>Envoi…</Button>
+        <Button isLoading variant="secondary">
+          <Button.Label>composed after the label</Button.Label>
+          <Button.Spinner />
+        </Button>
+        <Button isDisabled>isDisabled</Button>
+        <Button isDisabled variant="tertiary">
+          isDisabled, tertiary
+        </Button>
+      </Section>
+
+      <Section
+        title="color — one raw tint, placed by the variant"
+        note="Background for primary, label for ghost, border and label for tertiary. Derived in OKLab, like accent."
+      >
+        <Button color="#7c3aed">primary — the tint is the background</Button>
+        <Button variant="ghost" color="#7c3aed">
+          ghost — the tint is the label
+        </Button>
+        <Button variant="tertiary" color="#7c3aed">
+          tertiary — border and label
+        </Button>
+        <Button variant="danger-soft" color="#7c3aed">
+          danger-soft — the tint, softened
+        </Button>
+      </Section>
+
+      <Section
+        title="radius — the shape its size implies, or one you name"
+        note="Unset, the radius follows the size. Set, it wins."
+      >
+        <Row>
+          <Button size="sm" radius="xs">
+            xs
           </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/bottom-sheet')}
-            variant="bordered"
-            themeColor="secondary"
-          >
-            Bottom Sheet
+          <Button size="sm" radius="md">
+            md
           </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/bottom-tab-bar')}
-            variant="bordered"
-            themeColor="primary"
-          >
-            BottomTabBar
+          <Button size="sm" radius="full">
+            full
           </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/buttons')}
-            variant="bordered"
-            themeColor="secondary"
-          >
-            Button
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/pressable-feedback')}
-            variant="solid"
-            themeColor="primary"
-          >
-            Feedback v1
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/portal')}
-            variant="solid"
-            themeColor="primary"
-          >
-            Portal v1
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/icon')}
-            variant="solid"
-            themeColor="primary"
-          >
-            Icon v1
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/button')}
-            variant="solid"
-            themeColor="primary"
-          >
-            Button v1
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/card')}
-            variant="bordered"
-            themeColor="primary"
-          >
-            Card
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/carousel')}
-            variant="bordered"
-            themeColor="secondary"
-          >
-            Carousel
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/chart')}
-            variant="bordered"
-            themeColor="primary"
-          >
-            Chart
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/checkbox')}
-            variant="bordered"
-            themeColor="secondary"
-          >
-            Checkbox
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/chips')}
-            variant="bordered"
-            themeColor="primary"
-          >
-            Chip
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/color-picker')}
-            variant="bordered"
-            themeColor="secondary"
-          >
-            ColorPicker
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/container')}
-            variant="bordered"
-            themeColor="primary"
-          >
-            Container
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/sized-box')}
-            variant="bordered"
-            themeColor="primary"
-          >
-            SizedBox
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/date-input')}
-            variant="bordered"
-            themeColor="secondary"
-          >
-            Date/Time Input
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/datepicker')}
-            variant="bordered"
-            themeColor="primary"
-          >
-            Datepicker
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/dialog')}
-            variant="bordered"
-            themeColor="secondary"
-          >
-            Dialog
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/drawer')}
-            variant="bordered"
-            themeColor="primary"
-          >
-            Drawer
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/expansion-panel')}
-            variant="bordered"
-            themeColor="secondary"
-          >
-            Expansion Panel
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/fab')}
-            variant="bordered"
-            themeColor="primary"
-          >
-            FAB
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/feature-discovery')}
-            variant="bordered"
-            themeColor="secondary"
-          >
-            FeatureDiscovery
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/file-input-trigger')}
-            variant="bordered"
-            themeColor="primary"
-          >
-            FileInputTrigger
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/indicator')}
-            variant="bordered"
-            themeColor="secondary"
-          >
-            Indicator
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/input')}
-            variant="bordered"
-            themeColor="primary"
-          >
-            Input
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/input-trigger')}
-            variant="bordered"
-            themeColor="secondary"
-          >
-            InputTrigger
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/list')}
-            variant="bordered"
-            themeColor="primary"
-          >
-            List
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/menus')}
-            variant="bordered"
-            themeColor="secondary"
-          >
-            Menu
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/menubox')}
-            variant="bordered"
-            themeColor="primary"
-          >
-            MenuBox
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/number-input')}
-            variant="bordered"
-            themeColor="secondary"
-          >
-            Number Input
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/otp-input')}
-            variant="bordered"
-            themeColor="primary"
-          >
-            OTP Input
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/pager')}
-            variant="bordered"
-            themeColor="secondary"
-          >
-            Pager
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/picker')}
-            variant="bordered"
-            themeColor="primary"
-          >
-            Picker
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/progress')}
-            variant="bordered"
-            themeColor="secondary"
-          >
-            Progress
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/radio')}
-            variant="bordered"
-            themeColor="primary"
-          >
-            Radio
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/refresh-control')}
-            variant="bordered"
-            themeColor="secondary"
-          >
-            RefreshControl
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/segment-buttons')}
-            variant="bordered"
-            themeColor="primary"
-          >
-            Segment Button
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/select')}
-            variant="bordered"
-            themeColor="secondary"
-          >
-            Select
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/skeleton')}
-            variant="bordered"
-            themeColor="primary"
-          >
-            Skeleton
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/slider')}
-            variant="bordered"
-            themeColor="secondary"
-          >
-            Slider
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/snackbar')}
-            variant="bordered"
-            themeColor="primary"
-          >
-            Snackbar
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/snippet')}
-            variant="bordered"
-            themeColor="secondary"
-          >
-            Snippet
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/stepper')}
-            variant="bordered"
-            themeColor="primary"
-          >
-            Stepper
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/surface')}
-            variant="bordered"
-            themeColor="secondary"
-          >
-            Surface
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/switch')}
-            variant="bordered"
-            themeColor="primary"
-          >
-            Switch
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/tabs')}
-            variant="bordered"
-            themeColor="secondary"
-          >
-            Tabs
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/textarea')}
-            variant="bordered"
-            themeColor="primary"
-          >
-            TextArea
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/timepicker')}
-            variant="bordered"
-            themeColor="secondary"
-          >
-            Time Picker
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/toolbar')}
-            variant="bordered"
-            themeColor="primary"
-          >
-            Toolbar
-          </Button>
-        </GridItem>
-        <GridItem>
-          <Button
-            size="sm"
-            onPress={() => router.push('/typography')}
-            variant="bordered"
-            themeColor="secondary"
-          >
-            Typography
-          </Button>
-        </GridItem> */}
-      </Grid>
+        </Row>
+      </Section>
+
+      <Section
+        title="asChild — the press, handed to someone else's element"
+        note="R12. The child receives the ref, the styles and the handlers; it is the button."
+      >
+        <Button asChild>
+          <Pressable onPress={() => undefined}>
+            <Text style={{ color: theme.colors.accentForeground }}>
+              a bare Pressable, wearing the button
+            </Text>
+          </Pressable>
+        </Button>
+      </Section>
+
+      <Section
+        title="Escape hatches"
+        note="Everything the two appearance props do not cover goes through a slot's own style."
+      >
+        <Button style={{ alignSelf: 'flex-start' }}>alignSelf, not fullWidth</Button>
+        <Button variant="secondary">
+          <Button.Label style={{ fontStyle: 'italic', letterSpacing: 1 }}>
+            a label styling itself
+          </Button.Label>
+        </Button>
+        <Button>
+          a label far too long for the width it has been given, so it truncates
+          instead of deforming the control
+        </Button>
+      </Section>
+
+      <PressCounter />
     </ScrollView>
+  )
+}
+
+/** The caller's `onPress` and `onPressIn` must survive the root composing its own. */
+function PressCounter() {
+  const theme = useXAUITheme()
+  const [count, setCount] = useState(0)
+
+  return (
+    <Section
+      title="Handlers compose, they do not replace"
+      note="The root maintains its own pressed state on top of the caller's handlers."
+    >
+      <Button onPress={() => setCount(n => n + 1)}>
+        <Button.Label>pressed {count} times</Button.Label>
+      </Button>
+      <Text style={{ color: theme.colors.foreground }}>
+        the count moves, and so does the press colour
+      </Text>
+    </Section>
+  )
+}
+
+function Section({
+  title,
+  note,
+  children,
+}: {
+  title: string
+  note: string
+  children: React.ReactNode
+}) {
+  const theme = useXAUITheme()
+
+  return (
+    <View style={{ gap: 10 }}>
+      <Text
+        style={{
+          color: theme.colors.foreground,
+          fontSize: theme.fontSizes.md,
+          fontWeight: theme.fontWeights.semibold,
+        }}
+      >
+        {title}
+      </Text>
+      <Text style={{ color: theme.colors.muted, fontSize: theme.fontSizes.xs }}>
+        {note}
+      </Text>
+      {children}
+    </View>
+  )
+}
+
+function Row({ children }: { children: React.ReactNode }) {
+  return (
+    <View style={{ flexDirection: 'row', gap: 8, flexWrap: 'wrap' }}>
+      {children}
+    </View>
+  )
+}
+
+/** A third-party icon: it knows only `size` and `color`, and is told neither here. */
+function TrashIcon({ size, color }: IconComponentProps) {
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+      <Path
+        d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 002 2h6a2 2 0 002-2l1-12M9 7V4h6v3"
+        stroke={color}
+        strokeWidth={2}
+        strokeLinecap="round"
+      />
+    </Svg>
   )
 }
