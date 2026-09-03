@@ -22,9 +22,10 @@ re-exported from `utils/`.
 
 ## Current contents
 
-| Folder    | Role                                                                |
-| --------- | ------------------------------------------------------------------- |
-| `recipe/` | The style engine: variants name tokens, styles resolve once, cached |
+| Folder    | Role                                                                 |
+| --------- | -------------------------------------------------------------------- |
+| `recipe/` | The style engine: variants name tokens, styles resolve once, cached  |
+| `slot/`   | Compound plumbing: strict context, text auto-wrap, `asChild` merging |
 
 ## `recipe/` in one page
 
@@ -61,3 +62,43 @@ token names. `paint` is written once per component and says which slot takes the
 background and which takes the foreground. The tint pass reuses it, which is how `color`
 lands where the variant put its tokens with nothing further to declare: a background for
 `primary`, a label for `ghost`, a border for `tertiary`.
+
+## `slot/` in one page
+
+Four primitives, and every compound uses all four.
+
+**`createSlotContext(name)`** returns `[Provider, useSlot]`. The tuple lets each compound
+name its own hook, which R10 requires it to export:
+
+```ts
+export const [ButtonProvider, useButton] = createSlotContext<ButtonContext>('Button')
+```
+
+Reading it outside its root throws a named error pointing at the misplaced component, not
+`undefined is not an object` three frames later. The context carries values the root
+already **resolved** — style references, not tokens for the slot to resolve again (R5).
+
+**`childrenToString(children)`** implements R3 once for the whole library: the string a
+root should wrap in its default text slot, or `null` when it should render children as
+they are. It stringifies the tree recursively instead of inspecting the first child,
+which is the only way `<Button>{count} items</Button>` works — children there are the
+array `[3, ' items']`.
+
+**`Slot`** is the `asChild` render branch (R12), one line per root:
+
+```tsx
+const Root = asChild ? Slot : Pressable
+return (
+  <Root ref={ref} {...rootProps}>
+    {children}
+  </Root>
+)
+```
+
+**`mergeProps` / `mergeRefs`** are what `Slot` merges with, and are public because a root
+doing something unusual may need them directly. Event handlers compose rather than
+replace, styles stack with the child's on top, `ref`s merge, and the child wins on
+everything else.
+
+`asChild` has to be uniform from the very first component: retrofitting it changes the
+ref signature of all fifteen core components at once.
