@@ -234,10 +234,13 @@ function SlowHighlightTile() {
 /**
  * The ripple's ink, given by the component rather than guessed by the primitive.
  *
- * `PressableFeedback` cannot know what it is sitting on: the default is the theme's
- * `foreground`, which reads on a neutral surface and all but disappears on a saturated
- * one. A component knows its own surface, so it picks `feedbackVariant="scale"` and gives
- * the wave the contrasted colour its variant already resolved.
+ * `PressableFeedback` cannot know what it is sitting on, so its default ink is the theme's
+ * `foreground`. A component knows its surface and can say otherwise: it picks
+ * `feedbackVariant="scale"` and gives the wave its own colour.
+ *
+ * A *lighter* ink than the fill is the Material state-layer convention, and it is the wrong
+ * call here — the tile's `accentPressed` already lightens on press, so a light wave on top
+ * of it washes the control out. Darker ink, one direction of travel.
  */
 function ContrastRippleTile() {
   const theme = useXAUITheme()
@@ -259,12 +262,9 @@ function ContrastRippleTile() {
         backgroundColor: theme.colors.accent,
       }}
     >
-      <PressableFeedback.Ripple
-        style={{ backgroundColor: theme.colors.accentForeground }}
-        animation={{ opacity: 0.3 }}
-      />
+      <PressableFeedback.Ripple style={{ backgroundColor: theme.colors.eclipse }} />
       <Text style={{ color: theme.colors.accentForeground }}>
-        Ripple in the surface&apos;s own foreground
+        Ripple in a darker ink than the default
       </Text>
     </PressableFeedback>
   )

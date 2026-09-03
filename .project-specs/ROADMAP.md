@@ -34,6 +34,7 @@ remaining action belongs to a workflow rather than to a commit.
 | P2.4  | Publish `@xaui/native` on the `alpha` tag                       | ci     |
 | P2.5  | Fix the ripple — it renders nothing (P2-API-REVIEW §D)          | done   |
 | P2.6  | Style as props (R14) — `system/style-props/`, then the `Button` | todo   |
+| P2.7  | `*Pressed` lightens in light mode (P2-API-REVIEW §E)            | todo   |
 | P3    | The fifteen-component core                                      | todo   |
 | P4    | Docs, generated tables, `1.0.0`                                 | todo   |
 | P5    | The remaining 32 components                                     | todo   |

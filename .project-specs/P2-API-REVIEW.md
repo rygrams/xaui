@@ -164,6 +164,34 @@ ne dépend plus d'une lecture de valeur partagée dans un worklet — le rayon e
 un état React — et le problème n'était pas une durée trop courte, puisqu'une onde poussée à
 huit secondes ne se voyait pas davantage.
 
+### E. `accentPressed` éclaircit en mode clair — **ouvert**
+
+Pas le ripple, mais découvert en le corrigeant, et bien plus large : **un contrôle rempli
+s'éclaircit quand on l'enfonce**, en mode clair.
+
+```ts
+accentPressed: mix(s.accent, s.accentForeground, 0.1)
+```
+
+Le mélange va vers **le texte de la variante**, qui est quasi-blanc sur un fond saturé :
+`#9333ea` → `#9c4eee`. En mode sombre le texte est sombre, donc le résultat est correct par
+accident. Ça touche `accentPressed`, `successPressed`, `warningPressed`, `dangerPressed` —
+donc l'état pressé de toutes les variantes remplies du `Button`, pas seulement la démo.
+
+**Ce n'est pas un bug évident, c'est un arbitrage à trancher.** La couche d'état de Material
+est bien `onColor` à faible alpha — donc _plus clair_ sur un fond sombre, ce que la formule
+actuelle produit. iOS, lui, assombrit. Les deux conventions existent ; ce qui ne va pas,
+c'est que la nôtre change de direction selon le mode sans que ce soit une décision.
+
+Deux options, à décider avant P3 puisque les quinze composants du noyau en héritent :
+
+- **Une direction constante** — mélanger vers `colors.foreground` (l'encre du mode) plutôt
+  que vers le texte de la variante : plus sombre en clair, plus clair en sombre. C'est ce
+  que fait `deriveTint` pour une teinte brute, donc ça aligne aussi les deux chemins.
+- **Assumer Material** — garder la formule et documenter que l'état pressé éclaircit.
+
+**Échéance :** avant P3. C'est une décision de la couche thème, pas d'un composant.
+
 ---
 
 ## Ce qui a été vérifié et tient
