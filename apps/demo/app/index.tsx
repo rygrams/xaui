@@ -114,6 +114,16 @@ export default function HomeScreen() {
         <GridItem>
           <Button
             size="sm"
+            onPress={() => router.push('/portal')}
+            variant="solid"
+            themeColor="primary"
+          >
+            Portal v1
+          </Button>
+        </GridItem>
+        <GridItem>
+          <Button
+            size="sm"
             onPress={() => router.push('/card')}
             variant="bordered"
             themeColor="primary"

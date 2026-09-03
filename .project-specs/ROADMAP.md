@@ -21,7 +21,7 @@ Task detail lives in `XAUI-V1-PLAN.md`.
 | P1.1  | `system/recipe/` — engine, cache, tint                   | done   |
 | P1.2  | `system/slot/` — context, `childrenToString`, merges     | done   |
 | P1.3  | `system/pressable-feedback/`                             | done   |
-| P1.4  | `system/portal/`                                         | todo   |
+| P1.4  | `system/portal/`                                         | done   |
 | P1.5  | `system/icon/`                                           | todo   |
 | P1.6  | Shared hooks                                             | todo   |
 | P1.7  | `pnpm pack` uniqueness check on both packages            | todo   |
