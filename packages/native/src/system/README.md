@@ -176,3 +176,29 @@ Publishing happens in a layout effect, so the content lands in the same commit a
 trigger's and an overlay never shows a frame late. Outside a host the context is `null`
 and `Portal` renders nothing rather than throwing: an app that forgot `PortalHost` should
 lose its overlays, not crash on the first `Dialog`.
+
+## `icon/` in one page
+
+An icon is a third-party component, so a slot context never reaches it and every call site
+ends up computing the colour by hand. `Icon` closes that:
+
+```tsx
+<Button variant="danger">
+  <Button.Icon as={TrashIcon} /> {/* colour and size inherited — nothing to pass */}
+  <Button.Label>Supprimer</Button.Label>
+</Button>
+```
+
+Three forms — a component through `as` (`size` and `color` injected, which covers Lucide,
+Ionicons and vector-icons), a raw `react-native-svg` element as children, or an image
+through `source`. All three resolve the same way: an explicit prop, else what the
+surrounding slot published through `IconContext`, else the theme.
+
+For a raw SVG the resolved values **win over the element's own** `width`, `height` and
+`color`. One arriving from a design tool carries a baked-in size, and inheriting the
+slot's instead is the entire point of wrapping it.
+
+`IconContext` is a plain defaulted context rather than a `createSlotContext`: that one
+throws outside its parent, and an `Icon` has to work standalone as much as inside a
+`Button`. `react-native-svg` stays an **optional** peer — nothing here imports it, the
+raw-SVG form only clones an element the caller already made.
