@@ -14,28 +14,48 @@
   ],
   "license": "MIT",
   "type": "module",
-  "main": "./dist/index.js",
+  "main": "./dist/index.cjs",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "types": "./dist/index.d.ts",
-      "import": "./dist/index.js",
-      "require": "./dist/index.js"
+      "import": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     },
     "./button": {
-      "types": "./dist/components/button/index.d.ts",
-      "import": "./dist/components/button/index.js",
-      "require": "./dist/components/button/index.js"
+      "import": {
+        "types": "./dist/components/button/index.d.ts",
+        "default": "./dist/components/button/index.js"
+      },
+      "require": {
+        "types": "./dist/components/button/index.d.cts",
+        "default": "./dist/components/button/index.cjs"
+      }
     },
     "./system": {
-      "types": "./dist/system/index.d.ts",
-      "import": "./dist/system/index.js",
-      "require": "./dist/system/index.js"
+      "import": {
+        "types": "./dist/system/index.d.ts",
+        "default": "./dist/system/index.js"
+      },
+      "require": {
+        "types": "./dist/system/index.d.cts",
+        "default": "./dist/system/index.cjs"
+      }
     },
     "./theme": {
-      "types": "./dist/theme/index.d.ts",
-      "import": "./dist/theme/index.js",
-      "require": "./dist/theme/index.js"
+      "import": {
+        "types": "./dist/theme/index.d.ts",
+        "default": "./dist/theme/index.js"
+      },
+      "require": {
+        "types": "./dist/theme/index.d.cts",
+        "default": "./dist/theme/index.cjs"
+      }
     }
   },
   "files": [
@@ -89,5 +109,6 @@
     "react-native-worklets": "^0.5.1",
     "tsup": "^8.5.1",
     "typescript": "^5.9.3"
-  }
+  },
+  "module": "./dist/index.js"
 }

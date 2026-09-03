@@ -185,7 +185,5 @@ export const buttonRecipe = createRecipe({
     disabled: theme => ({ root: { opacity: theme.opacity.disabled } }),
   },
 
-  // Annotated, or inference reads the whole `Variant` parameter off this one literal and
-  // narrows the recipe to the single variant named here.
-  defaultVariants: { variant: 'primary' as ButtonVariant, size: 'md' },
+  defaultVariants: { variant: 'primary', size: 'md' },
 })

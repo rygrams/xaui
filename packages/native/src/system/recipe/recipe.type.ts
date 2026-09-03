@@ -63,7 +63,13 @@ export type RecipeConfig<
   variants?: A
   compoundVariants?: ReadonlyArray<CompoundVariant<Slot, Variant, A>>
   states?: Partial<Record<StateName, StyleFn<Slot>>>
-  defaultVariants?: Selection<Variant, A>
+  /**
+   * `NoInfer`, because this is the one place a single variant name appears on its own:
+   * without it, inference reads `Variant` off `{ variant: 'primary' }` and narrows the
+   * whole recipe to that one value, so every other variant becomes a type error at the
+   * call site. `variantTokens` is the declaration; this only picks a default from it.
+   */
+  defaultVariants?: Selection<NoInfer<Variant>, A>
 }
 
 /** Stable references: the same object for the same tokens, for the app's lifetime. */

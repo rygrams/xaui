@@ -47,6 +47,7 @@ export const ButtonRoot = forwardRef<View, ButtonProps>(function Button(
     // variant's own pressed colour, and a neutral wash on top would darken it twice.
     feedbackVariant = 'scale',
     accessibilityRole = 'button',
+    accessibilityState,
     style,
     onPressIn,
     onPressOut,
@@ -119,7 +120,14 @@ export const ButtonRoot = forwardRef<View, ButtonProps>(function Button(
         asChild={asChild}
         feedbackVariant={feedbackVariant}
         accessibilityRole={accessibilityRole}
-        accessibilityState={{ disabled: isDisabled, busy: isLoading }}
+        // Merged, not spread over: a caller adding `expanded` or `selected` must not
+        // silently drop the disabled and busy states a screen reader depends on. Their
+        // keys still win, because they said them.
+        accessibilityState={{
+          disabled: isDisabled,
+          busy: isLoading,
+          ...accessibilityState,
+        }}
         {...rest}
         style={rootStyle}
         // After `rest`, and composed rather than replacing: a caller's `onPressIn` runs,
