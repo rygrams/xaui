@@ -9,6 +9,7 @@
     "@xaui/native-legacy": "0.2.11"
   },
   "changesets": [
+    "icon",
     "portal",
     "pressable-feedback",
     "publish-native-hybrid-alpha",
