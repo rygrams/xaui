@@ -109,7 +109,12 @@ const StaticFeedback = forwardRef<View, BranchProps>(function StaticFeedback(
 
   return (
     <FeedbackProvider value={context}>
-      <Root ref={ref} style={style} disabled={isDisabled} {...rest}>
+      <Root
+        ref={ref}
+        style={[clipFor(feedbackVariant, asChild), style]}
+        disabled={isDisabled}
+        {...rest}
+      >
         {body(asChild, feedbackVariant, children)}
       </Root>
     </FeedbackProvider>
@@ -172,18 +177,13 @@ const AnimatedFeedback = forwardRef<View, BranchProps>(function AnimatedFeedback
     onLayout?.(event)
   }
 
-  // A ripple painting outside its control is a defect, not a style choice, so the clip
-  // goes on before the caller's style — which can still override it.
-  const clip: StyleProp<ViewStyle> =
-    feedbackVariant === 'scale-ripple' ? { overflow: 'hidden' } : null
-
   const Root = asChild ? AnimatedSlot : AnimatedPressable
 
   return (
     <FeedbackProvider value={context}>
       <Root
         ref={ref}
-        style={[clip, style, animatedStyle]}
+        style={[clipFor(feedbackVariant, asChild), style, animatedStyle]}
         disabled={isDisabled}
         onPressIn={handlePressIn}
         onLayout={handleLayout}
@@ -222,6 +222,25 @@ function body(
       {children}
     </>
   )
+}
+
+const OVERLAY_CLIP: ViewStyle = { overflow: 'hidden' }
+
+/**
+ * An overlay is an absolute fill with square corners, and every control in this library is
+ * rounded — so without a clip both the wash and the ripple paint outside the surface at
+ * each corner. That is a defect rather than a style choice, so it goes on *before* the
+ * caller's style, which can still override it.
+ *
+ * Only when a default overlay is actually mounted. Clipping a root that has none would
+ * silently cut off a child that legitimately overflows — a badge on a button's corner —
+ * and a component that renders its own overlay picked `scale` precisely to decide this
+ * for itself.
+ */
+function clipFor(variant: FeedbackVariant, asChild: boolean): StyleProp<ViewStyle> {
+  if (asChild) return null
+  const mountsOverlay = variant === 'scale-highlight' || variant === 'scale-ripple'
+  return mountsOverlay ? OVERLAY_CLIP : null
 }
 
 function DefaultOverlay({ variant }: { variant: FeedbackVariant }): ReactNode {

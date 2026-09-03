@@ -745,7 +745,6 @@ export const appTheme = createTheme({
 ```tsx
 // app/_layout.tsx
 import { appTheme } from './theme'
-
 ;<XAUIProvider theme={appTheme}>
   <App />
 </XAUIProvider>
@@ -1181,7 +1180,7 @@ Identique pour P2, P3 et P5. C'est **la** tâche répétée 47 fois ; l'écrire 
 2. **La mesure de référence.** Liste de 200 boutons : re-renders et allocations de style.
    → Un chiffre écrit dans le plan. C'est le seuil que les 46 autres devront tenir, et la seule preuve que le cache fait ce qu'on prétend. **Mesuré — voir §9 bis.**
 3. **Revue d'API — bloquante.**
-   → Corriger le pattern ici coûte 1 ; après le noyau, 15. Rien ne démarre en P3 avant cette revue.
+   → Corriger le pattern ici coûte 1 ; après le noyau, 15. Rien ne démarre en P3 avant cette revue. **Faite — `P2-API-REVIEW.md` : neuf constats, six corrigés, trois datés. Verdict : le pattern tient, P3 peut démarrer.**
 4. **Publier `@xaui/native` sur le tag `alpha`** (la ligne `0.9.x-alpha.x` est déjà ouverte, cf. §Versions).
    → La démo consomme le package publié, pas le workspace.
 

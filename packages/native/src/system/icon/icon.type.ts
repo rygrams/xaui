@@ -22,6 +22,13 @@ export type IconProps = {
   size?: number
   /** A raw value (R7), never a token. Overrides the slot's. */
   color?: string
+  /**
+   * The **`source` form only** — it is the one of the three where we render the view.
+   * `as` hands its props to a third-party component and the children form clones an
+   * element the caller made; neither is a view this can style, and wrapping them would
+   * add a level of depth to every icon in the library. `size` and `color` are the
+   * escape hatch there.
+   */
   style?: StyleProp<ImageStyle>
 }
 
