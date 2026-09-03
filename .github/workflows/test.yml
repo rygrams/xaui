@@ -54,7 +54,13 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: '@xaui/native resolves once in a consumer tree'
+      # The exports half of the check reads the packed tarball, so there has to be a
+      # build in it — a subpath declared in package.json and forgotten in tsup.config.ts
+      # is exactly what it exists to catch.
+      - name: Build the published packages
+        run: pnpm build --filter=@xaui/native --filter=@xaui/hybrid
+
+      - name: '@xaui/native resolves once, and every subpath ships'
         run: pnpm pack:check
 
   lint:

@@ -15,15 +15,30 @@ import semver from 'semver'
  * is rewritten at pack time, and it is the published shape that consumers install.
  */
 
-const PACKAGES = ['native', 'native-legacy'] as const
+const PACKAGES = ['native', 'hybrid', 'native-legacy'] as const
 const CORE = '@xaui/native'
+
+/**
+ * Whose `exports` map is held to actually shipping what it points at.
+ *
+ * `@xaui/native-legacy` is out on purpose: its 48 entries carry the same `require` defect
+ * the P2 review found in the other two, and it is frozen at `0.2.11` and listed in
+ * changesets `ignore`, so fixing it means taking it out of `ignore` for a release. Until
+ * that release, adding it here would only turn CI red over a tree nobody republishes.
+ * See `.project-specs/P2-API-REVIEW.md`, point A.
+ */
+const EXPORTS_CHECKED: ReadonlyArray<string> = ['@xaui/native', '@xaui/hybrid']
 
 type Manifest = {
   name: string
   version: string
   dependencies?: Record<string, string>
   peerDependencies?: Record<string, string>
+  exports?: Record<string, unknown>
 }
+
+/** A packed package: the manifest npm would publish, and the files beside it. */
+type Packed = { manifest: Manifest; files: ReadonlySet<string> }
 
 type Failure = { where: string; problem: string }
 
@@ -32,8 +47,12 @@ function main() {
   const out = mkdtempSync(join(tmpdir(), 'xaui-pack-'))
 
   try {
-    const manifests = PACKAGES.map(pkg => packed(workspace, pkg, out))
-    const failures = manifests.flatMap(manifest => check(manifest, manifests))
+    const packages = PACKAGES.map(pkg => packed(workspace, pkg, out))
+    const manifests = packages.map(entry => entry.manifest)
+    const failures = [
+      ...manifests.flatMap(manifest => check(manifest, manifests)),
+      ...packages.flatMap(checkExports),
+    ]
 
     for (const { where, problem } of failures) {
       console.error(`  ✗ ${where}\n    ${problem}`)
@@ -51,13 +70,17 @@ function main() {
       `✓ ${CORE} resolves once: declared as a peer only, no runtime dependencies, ` +
         'no workspace protocol left, and every peer range admits what we ship.'
     )
+    console.log(
+      `✓ every subpath of ${EXPORTS_CHECKED.join(' and ')} points at a file the ` +
+        'tarball actually contains.'
+    )
   } finally {
     rmSync(out, { recursive: true, force: true })
   }
 }
 
-/** Packs a workspace package and reads the manifest npm would actually publish. */
-function packed(workspace: string, pkg: string, out: string): Manifest {
+/** Packs a workspace package and reads what npm would actually publish. */
+function packed(workspace: string, pkg: string, out: string): Packed {
   const dir = join(workspace, 'packages', pkg)
 
   execFileSync('pnpm', ['pack', '--pack-destination', out], {
@@ -77,9 +100,49 @@ function packed(workspace: string, pkg: string, out: string): Manifest {
     tarball,
     'package/package.json',
   ]).toString()
+
+  // Read from the tarball rather than from `dist`: `files` decides what ships, and an
+  // entry point that exists on disk but is excluded from the package is the same
+  // broken install as one that was never built.
+  const listing = execFileSync('tar', ['-tf', tarball]).toString()
   execFileSync('rm', ['-f', tarball])
 
-  return JSON.parse(raw) as Manifest
+  const files = new Set(
+    listing
+      .split('\n')
+      .filter(Boolean)
+      .map(path => path.replace(/^package\//, './'))
+  )
+
+  return { manifest: JSON.parse(raw) as Manifest, files }
+}
+
+/**
+ * Every target in the `exports` map is a file the tarball contains.
+ *
+ * Two failures it catches, and both are silent until a consumer hits them: a new
+ * component declared in `package.json` and forgotten in `tsup.config.ts` — which P3 has
+ * 46 more chances to do — and a condition pointing at the wrong build, which is how
+ * `require` came to resolve to an ESM file on every subpath of every package.
+ */
+function checkExports({ manifest, files }: Packed): Failure[] {
+  if (!EXPORTS_CHECKED.includes(manifest.name)) return []
+
+  const where = `${manifest.name}@${manifest.version}`
+
+  return targetsOf(manifest.exports ?? {})
+    .filter(target => !files.has(target))
+    .map(target => ({
+      where,
+      problem: `exports "${target}", which is not in the tarball. Either the build does not emit it — check tsup.config.ts — or "files" excludes it.`,
+    }))
+}
+
+/** Every leaf of the conditions tree, which is where the paths are. */
+function targetsOf(node: unknown): string[] {
+  if (typeof node === 'string') return node.startsWith('./') ? [node] : []
+  if (node === null || typeof node !== 'object') return []
+  return Object.values(node).flatMap(targetsOf)
 }
 
 function check(manifest: Manifest, all: Manifest[]): Failure[] {

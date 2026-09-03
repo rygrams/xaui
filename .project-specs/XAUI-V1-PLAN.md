@@ -1182,7 +1182,7 @@ Identique pour P2, P3 et P5. C'est **la** tâche répétée 47 fois ; l'écrire 
 3. **Revue d'API — bloquante.**
    → Corriger le pattern ici coûte 1 ; après le noyau, 15. Rien ne démarre en P3 avant cette revue. **Faite — `P2-API-REVIEW.md` : neuf constats, six corrigés, trois datés. Verdict : le pattern tient, P3 peut démarrer.**
 4. **Publier `@xaui/native` sur le tag `alpha`** (la ligne `0.9.x-alpha.x` est déjà ouverte, cf. §Versions).
-   → La démo consomme le package publié, pas le workspace.
+   → La démo consomme le package publié, pas le workspace. **Le dépôt est prêt — voir §9 ter.**
 
 ---
 
@@ -1207,6 +1207,41 @@ et un appui en coûte 0**.
 
 La mesure tourne avec `animation={false}`, qui emprunte la branche statique — aucun hook
 Reanimated n'est atteint, ce que le fichier vérifie plutôt que de le supposer.
+
+---
+
+### 9 ter. P2.4 — ce que la publication demande, et ce qui reste après
+
+**La publication n'est pas une commande locale.** Merger vers `main` ouvre ou met à jour la
+PR « Version Packages » ; merger celle-là publie. `changeset version`, `version-packages` et
+`release` ne se lancent jamais à la main (§Release).
+
+Les changesets de P2 sont posés : le `Button`, le correctif `asChild`, et les correctifs de
+la revue d'API. En pre mode `alpha`, ils donnent `@xaui/native@0.9.2-alpha.0` sur le
+dist-tag `alpha`. `latest` ne bouge pas.
+
+**La barrière avant la publication.** `pnpm pack:check` répond maintenant à deux questions
+sur le tarball plutôt qu'une :
+
+1. `@xaui/native` ne se résout qu'une fois — un doublon donnerait deux contextes de thème
+   (P1.7, §10).
+2. **Chaque sous-chemin d'`exports` pointe sur un fichier que le tarball contient
+   réellement.** C'est ce qui attrape un composant déclaré dans `package.json` et oublié
+   dans `tsup.config.ts` — P3 aura quarante-six occasions de le faire — et c'est la classe
+   de défaut qui a fait pointer `require` sur un fichier ESM sur _chaque_ sous-chemin des
+   trois packages (revue d'API, point 1). Le job CI construit désormais avant de packer,
+   sans quoi la question n'a pas de sens.
+
+**Ce qui reste, une fois la version sur npm** — dans cet ordre, et pas avant :
+
+1. `apps/demo` passe de `workspace:*` à `@xaui/native@alpha`. C'est le critère d'acceptation
+   de P2.4 : la démo doit consommer ce que les gens installent, pas l'arbre de travail.
+   **Attention au risque du §10** : `@xaui/native-legacy` déclare `@xaui/native` en peer, et
+   la démo dépend des deux. Un range qui ne se résout pas sur la même version mettrait deux
+   copies dans l'arbre, donc deux contextes de thème. `pnpm pack:check` vérifie le range ;
+   c'est lui qui doit rester vert.
+2. Rien d'autre. `@xaui/native` a déjà un `latest` (`0.2.8`), donc le piège du premier
+   publish en pre mode décrit au §Release ne s'applique pas ici.
 
 ---
 
