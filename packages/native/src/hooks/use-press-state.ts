@@ -1,10 +1,16 @@
 import { useCallback, useRef, useState } from 'react'
 import type { GestureResponderEvent } from 'react-native'
 
+/**
+ * `null` as much as `undefined`: that is how `PressableProps` types its handlers, and a
+ * root forwarding what it was given should not have to launder them first.
+ */
 export type PressHandlers = {
-  onPressIn?: (event: GestureResponderEvent) => void
-  onPressOut?: (event: GestureResponderEvent) => void
+  onPressIn?: PressHandler | null
+  onPressOut?: PressHandler | null
 }
+
+type PressHandler = (event: GestureResponderEvent) => void
 
 /**
  * The press state a root owns, with the handlers that maintain it.
@@ -22,7 +28,7 @@ export type PressHandlers = {
  */
 export function usePressState(
   handlers: PressHandlers = {}
-): [boolean, Required<PressHandlers>] {
+): [boolean, { onPressIn: PressHandler; onPressOut: PressHandler }] {
   const [isPressed, setIsPressed] = useState(false)
 
   // Read through a ref so the handlers below never change identity, even when the caller

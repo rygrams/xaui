@@ -142,10 +142,15 @@ const AnimatedFeedback = forwardRef<View, BranchProps>(function AnimatedFeedback
     })
   }, [isPressed, progress])
 
-  const animatedStyle = useAnimatedStyle(() =>
-    animation.scale
-      ? { transform: [{ scale: 1 - (1 - PRESS_SCALE) * progress.value }] }
-      : {}
+  // The dependency array is explicit on every animated hook in this package. Reanimated's
+  // Babel plugin infers one, but it runs in the *consumer's* build and does not reach a
+  // published `dist` on web — where the hook then throws instead of animating.
+  const animatedStyle = useAnimatedStyle(
+    () =>
+      animation.scale
+        ? { transform: [{ scale: 1 - (1 - PRESS_SCALE) * progress.value }] }
+        : {},
+    [animation.scale, progress]
   )
 
   const context = useMemo(

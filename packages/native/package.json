@@ -22,6 +22,11 @@
       "import": "./dist/index.js",
       "require": "./dist/index.js"
     },
+    "./button": {
+      "types": "./dist/components/button/index.d.ts",
+      "import": "./dist/components/button/index.js",
+      "require": "./dist/components/button/index.js"
+    },
     "./system": {
       "types": "./dist/system/index.d.ts",
       "import": "./dist/system/index.js",

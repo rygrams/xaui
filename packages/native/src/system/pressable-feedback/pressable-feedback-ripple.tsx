@@ -102,7 +102,8 @@ function AnimatedRipple({
       wave.value = withTiming(2, { duration: duration * 2 })
 
       useA.value = !useA.value
-    }
+    },
+    [pressCount, origin, duration, waveA, waveB, fromA, fromB, useA]
   )
 
   return (
@@ -164,7 +165,7 @@ function RippleWave({
         { scale: interpolate(wave.value, [0, 1, 2], [0, 1, 1]) },
       ],
     }
-  })
+  }, [wave, from, size, opacity])
 
   return (
     <Animated.View
