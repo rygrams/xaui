@@ -141,21 +141,32 @@ iPhone 17 Pro, y compris avec un appui long d'une seconde et les durées poussé
 secondes pour laisser le temps de l'observer : le bouton se met bien à l'échelle et prend
 sa couleur pressée, l'onde n'apparaît jamais. Aucune erreur, aucun avertissement.
 
-Ce qui a été écarté : le composant est bien monté (`feedbackVariant` mène à
-`DefaultOverlay`), `animation.ripple` vaut `true`, les valeurs partagées du contexte
-existent toutes, et le clip est en place. Restent deux pistes non tranchées — le
-`useAnimatedReaction` qui déclenche l'onde sur `pressCount`, et le `size` que `onLayout`
-doit remplir, sans lequel le rayon vaut zéro et la vue n'a aucune dimension.
+**Trois mécanismes ont été essayés, aucun ne le fait apparaître.** L'implémentation a été
+refaite sur celle de HeroUI (§valeurs ci-dessous), et ce qui a été écarté au passage :
+
+- Les deux couches **sont montées** — vérifié dans le DOM du rendu web, deux vues absolues
+  à la couleur attendue.
+- Elles étaient à **0×0**, donc `size` restait vide : la géométrie a été sortie du worklet
+  et vient maintenant d'un état React posé par `onLayout`, ce qui supprime cette cause.
+- Le déclenchement est passé de `pressCount` + `useAnimatedReaction` à `onTouchStart` /
+  `onTouchEnd`, comme chez eux — `onPressIn` attend la négociation du responder, qui dans
+  un `ScrollView` arrive tard ou jamais.
+- Testé avec une onde poussée à **huit secondes** et un appui long d'1,5 s : toujours rien.
+
+**Le suspect restant** est que `onTouchStart` ne traverse pas
+`Animated.createAnimatedComponent(Pressable)` — `Pressable` gère lui-même le système de
+responder et peut ne pas forwarder les handlers de toucher bruts au `View` sous-jacent. À
+vérifier en premier, en instrumentant le handler plutôt qu'en observant l'écran.
 
 **Le `Highlight` et le `scale` ne sont pas concernés**, et le `Button` ne dépend pas du
 ripple : il demande `feedbackVariant="scale"`, parce que sa recette peint déjà la couleur
 pressée. Aucun composant du noyau n'en dépend non plus.
 
-Une correction est en place mais **non vérifiée** : l'expansion et l'opacité étaient pilotées
-par une seule courbe, ce qui rendait l'onde invisible sous le doigt et maximale une fois
-étalée — un flash du contrôle entier plutôt qu'une onde. Elles sont maintenant séparées :
-l'expansion est un one-shot, l'opacité suit l'appui. Cela ne suffit pas à la faire
-apparaître.
+Les **valeurs**, elles, sont désormais celles de HeroUI et sont vérifiables sans voir
+l'onde : opacité `[0, 0.1, 0]` sur une progression `[0, 1, 2]`, échelle `[0, 1, 1]`, rayon
+égal à la diagonale × 1,25, et une durée proportionnelle à la diagonale — 1000 ms pour une
+diagonale de 450, bornée à `[750, 2000]`. Deux fonctions pures, `rippleDurationFor` et
+`pressScaleFor`, portent ces calculs et sont testées.
 
 L'écran de démo porte la section `feedbackVariant` qui servira à la vérifier.
 

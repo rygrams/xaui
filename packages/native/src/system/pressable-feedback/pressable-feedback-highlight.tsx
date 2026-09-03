@@ -9,6 +9,7 @@ import Animated, {
 import { useXAUITheme } from '../../theme/theme-hooks'
 import { useFeedback } from './pressable-feedback-context'
 import {
+  HIGHLIGHT_DURATION,
   HIGHLIGHT_OPACITY,
   resolveSlotAnimation,
 } from './pressable-feedback.animation'
@@ -37,7 +38,8 @@ export function PressableFeedbackHighlight({
   const settings = resolveSlotAnimation(
     override,
     animation.highlight,
-    HIGHLIGHT_OPACITY
+    HIGHLIGHT_OPACITY,
+    HIGHLIGHT_DURATION
   )
 
   const base: StyleProp<ViewStyle> = [

@@ -36,7 +36,13 @@ export function interpolate(value: number): number {
   return value
 }
 
-export const Easing = { linear: (t: number) => t }
+const identity = (t: number) => t
+
+export const Easing = {
+  linear: identity,
+  ease: identity,
+  out: () => identity,
+}
 
 const Animated = {
   View,

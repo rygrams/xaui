@@ -1,16 +1,10 @@
 import type { StyleProp, ViewStyle } from 'react-native'
-import Animated, {
-  useAnimatedReaction,
-  useAnimatedStyle,
-  useSharedValue,
-  withTiming,
-} from 'react-native-reanimated'
+import Animated, { interpolate, useAnimatedStyle } from 'react-native-reanimated'
 import type { SharedValue } from 'react-native-reanimated'
 import { useXAUITheme } from '../../theme/theme-hooks'
 import { useFeedback } from './pressable-feedback-context'
 import {
   RIPPLE_COVERAGE,
-  RIPPLE_DURATION,
   RIPPLE_OPACITY,
   resolveSlotAnimation,
 } from './pressable-feedback.animation'
@@ -22,166 +16,109 @@ export type PressableFeedbackRippleProps = {
   animation?: SlotAnimation
 }
 
-type Point = { x: number; y: number }
-
 /**
  * A circle washing outwards from where the finger landed.
  *
- * **Two animations, not one, and that is the whole shape of it.** The circle *expands*
- * once per touch, from the point of contact to past the far corner. Its *opacity* follows
- * the finger — up on press, held while the press lasts, out on release. Driving both from
- * one curve is what makes a ripple read wrong: tie opacity to the expansion and the wave
- * is invisible under the finger and brightest once it covers everything, which is a flash
- * of the whole control rather than a wave leaving the touch point.
+ * **The root drives it, this only draws it.** The wave has to start on the raw touch, and
+ * the touch handlers live on the pressable — so the root owns the two waves and publishes
+ * them here. An overlay starting its own wave from a shared value it watched would depend
+ * on React re-rendering between the two touch events, which is precisely what fails inside
+ * a `ScrollView`: the press is never granted, and the wave never leaves the finger.
  *
- * It needs the root to clip — `PressableFeedback` sets `overflow: 'hidden'` when it
- * mounts one — and it renders nothing on the static branch: a ripple that cannot expand
- * is a coloured disc sitting on the control, which reads as a defect rather than as
- * reduced motion.
+ * One wave runs `0 → 1` while the finger is down and `1 → 2` once it lifts, so its life is
+ * the press's plus a tail — not a fixed one-shot that vanishes under a finger still resting
+ * on the control. The opacity peaks at `1`, the moment the circle covers the control.
+ *
+ * It needs the root to clip — `PressableFeedback` sets `overflow: 'hidden'` when it mounts
+ * one — and it renders nothing on the static branch: a ripple that cannot expand is a
+ * coloured disc sitting on the control, which reads as a defect rather than reduced motion.
  */
 export function PressableFeedbackRipple({
   style,
   animation: override,
 }: PressableFeedbackRippleProps) {
-  const { animation, progress, pressCount, origin, size } = useFeedback()
+  const { animation, ripple } = useFeedback()
   const theme = useXAUITheme()
 
-  const settings = resolveSlotAnimation(
-    override,
-    animation.ripple,
-    RIPPLE_OPACITY,
-    RIPPLE_DURATION
-  )
+  const settings = resolveSlotAnimation(override, animation.ripple, RIPPLE_OPACITY)
 
-  if (!progress || !pressCount || !origin || !size || !settings.enabled) return null
+  // Nothing to draw before the first layout: a zero-radius circle is not a ripple.
+  if (!ripple || !settings.enabled) return null
 
-  return (
-    <AnimatedRipple
-      color={theme.colors.foreground}
-      duration={settings.duration}
-      opacity={settings.opacity}
-      style={style}
-    />
-  )
-}
+  const { width, height } = ripple.measured
+  if (width === 0 || height === 0) return null
 
-PressableFeedbackRipple.displayName = 'XAUI.PressableFeedback.Ripple'
-
-function AnimatedRipple({
-  color,
-  duration,
-  opacity,
-  style,
-}: {
-  color: string
-  duration: number
-  opacity: number
-  style?: StyleProp<ViewStyle>
-}) {
-  const { pressCount, origin, size } = useFeedback()
-
-  // Two layers, used in turn. A single one restarted on each press cuts the wave in
-  // flight, which reads as a blink under a rapid double tap; alternating lets the older
-  // wave finish underneath the new one.
-  const waveA = useSharedValue(0)
-  const waveB = useSharedValue(0)
-  const fromA = useSharedValue({ x: 0, y: 0 })
-  const fromB = useSharedValue({ x: 0, y: 0 })
-  const useA = useSharedValue(true)
-
-  useAnimatedReaction(
-    () => {
-      'worklet'
-      return pressCount?.value ?? 0
-    },
-    (count, previous) => {
-      'worklet'
-      if (previous === null || count === previous) return
-
-      const wave = useA.value ? waveA : waveB
-      const from = useA.value ? fromA : fromB
-
-      from.value = origin?.value ?? { x: 0, y: 0 }
-      wave.value = 0
-      // The expansion only. Once open the circle stays open; what ends the ripple is the
-      // finger lifting, which drains the opacity below.
-      wave.value = withTiming(1, { duration })
-
-      useA.value = !useA.value
-    },
-    [pressCount, origin, duration, waveA, waveB, fromA, fromB, useA]
-  )
+  // The diagonal covers the control from any point on it, so where the finger landed
+  // never has to enter the radius — one number, and no corner left unwashed.
+  const radius = Math.sqrt(width * width + height * height) * RIPPLE_COVERAGE
 
   return (
     <>
       <RippleWave
-        wave={waveA}
-        from={fromA}
-        size={size}
-        color={color}
-        opacity={opacity}
+        wave={ripple.wave[0]}
+        center={ripple.center[0]}
+        radius={radius}
+        color={theme.colors.foreground}
+        opacity={settings.opacity}
         style={style}
       />
       <RippleWave
-        wave={waveB}
-        from={fromB}
-        size={size}
-        color={color}
-        opacity={opacity}
+        wave={ripple.wave[1]}
+        center={ripple.center[1]}
+        radius={radius}
+        color={theme.colors.foreground}
+        opacity={settings.opacity}
         style={style}
       />
     </>
   )
 }
 
+PressableFeedbackRipple.displayName = 'XAUI.PressableFeedback.Ripple'
+
 function RippleWave({
   wave,
-  from,
-  size,
+  center,
+  radius,
   color,
   opacity,
   style,
 }: {
   wave: SharedValue<number>
-  from: SharedValue<Point>
-  size?: SharedValue<{ width: number; height: number }>
+  center: SharedValue<{ x: number; y: number }>
+  radius: number
   color: string
   opacity: number
   style?: StyleProp<ViewStyle>
 }) {
-  // The root's own press curve, which already rises on press-in and falls on release.
-  const { progress } = useFeedback()
-
+  // Only what actually animates. The circle's size is a plain style, laid out once.
   const animatedStyle = useAnimatedStyle(() => {
     'worklet'
-    const within = size?.value ?? { width: 0, height: 0 }
-    // The diagonal covers the control from any point on it, so where the finger landed
-    // never has to enter the radius — one number, and no corner left unwashed.
-    const radius =
-      Math.sqrt(within.width * within.width + within.height * within.height) *
-      RIPPLE_COVERAGE
-    const at = from.value
+    const at = center.value
 
     return {
-      width: radius * 2,
-      height: radius * 2,
-      borderRadius: radius,
-      // The press, not the expansion. The wave is at full strength the instant it is
-      // touched, stays while the finger stays, and drains when it lifts.
-      opacity: (progress?.value ?? 0) * opacity,
+      opacity: interpolate(wave.value, [0, 1, 2], [0, opacity, 0]),
       transform: [
         { translateX: at.x - radius },
         { translateY: at.y - radius },
-        { scale: wave.value },
+        // Open over the first half, then hold while the colour drains. A circle that
+        // shrank back would read as the control undoing itself.
+        { scale: interpolate(wave.value, [0, 1, 2], [0, 1, 1]) },
       ],
     }
-  }, [wave, from, size, opacity, progress])
+  }, [wave, center, radius, opacity])
 
   return (
     <Animated.View
       pointerEvents="none"
       style={[
-        { position: 'absolute', backgroundColor: color },
+        {
+          position: 'absolute',
+          backgroundColor: color,
+          width: radius * 2,
+          height: radius * 2,
+          borderRadius: radius,
+        },
         animatedStyle,
         style,
       ]}

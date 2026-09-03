@@ -5,20 +5,54 @@ import type {
 } from './pressable-feedback.type'
 
 /**
- * The values the v0 tree shipped with (`Animated.spring` to `0.975`, `bounciness: 0`,
- * over roughly 100ms). Kept identical on purpose: the touch feedback is the part of a
- * library users feel rather than read, and changing its timing in a rewrite would be a
- * regression nobody asked for. `bounciness: 0` is why a duration replaces the spring —
- * a spring with no bounce is a curve.
+ * How far a control shrinks under the finger — **before** the width coefficient below.
+ *
+ * The v0 tree shrank everything to a flat `0.975`, which is why a wide button read as
+ * lurching: a ratio applied to a 360pt row moves nine points, and the same ratio on a
+ * 96pt chip moves two. What the eye reads is the displacement, not the ratio.
  */
-export const PRESS_SCALE = 0.975
-export const PRESS_DURATION = 100
-export const RELEASE_DURATION = 150
+export const PRESS_SCALE = 0.985
+export const PRESS_DURATION = 300
 
-/** How far the wash and the ripple go at full press. */
-export const HIGHLIGHT_OPACITY = 0.08
-export const RIPPLE_OPACITY = 0.12
-export const RIPPLE_DURATION = 350
+/**
+ * The width at which `PRESS_SCALE` is applied as written. Wider controls shrink
+ * proportionally less, narrower ones more, so the movement stays roughly constant in
+ * points across a 96pt chip and a full-width button.
+ */
+export const SCALE_REFERENCE_WIDTH = 300
+
+/** The scale a control of `width` should reach when pressed. */
+export function pressScaleFor(width: number): number {
+  'worklet'
+  const coefficient = width > 0 ? SCALE_REFERENCE_WIDTH / width : 1
+  return 1 - (1 - PRESS_SCALE) * coefficient
+}
+
+/** How far the wash goes at full press, and how long it takes to get there. */
+export const HIGHLIGHT_OPACITY = 0.1
+export const HIGHLIGHT_DURATION = 200
+
+/**
+ * The wave opens over `RIPPLE_BASE_DURATION` on a control whose diagonal is
+ * `RIPPLE_REFERENCE_DIAGONAL`, and scales with the diagonal from there — a wave crossing
+ * a wide card should not travel at the speed of one crossing a chip. Clamped at both ends
+ * so neither extreme becomes a flicker or a crawl.
+ */
+export const RIPPLE_OPACITY = 0.1
+export const RIPPLE_BASE_DURATION = 1000
+export const RIPPLE_MIN_DURATION = 750
+export const RIPPLE_REFERENCE_DIAGONAL = 450
+
+/** The diagonal-adjusted duration of one wave. */
+export function rippleDurationFor(width: number, height: number): number {
+  'worklet'
+  const diagonal = Math.sqrt(width * width + height * height)
+  const scaled =
+    diagonal > 0
+      ? (RIPPLE_BASE_DURATION * diagonal) / RIPPLE_REFERENCE_DIAGONAL
+      : RIPPLE_BASE_DURATION
+  return Math.min(Math.max(scaled, RIPPLE_MIN_DURATION), RIPPLE_BASE_DURATION * 2)
+}
 
 /**
  * The circle's radius as a multiple of the control's diagonal. Above 1 it covers from

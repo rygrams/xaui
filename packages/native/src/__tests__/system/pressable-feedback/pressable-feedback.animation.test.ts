@@ -1,7 +1,14 @@
 import { describe, expect, it } from 'vitest'
 import {
+  PRESS_SCALE,
+  RIPPLE_BASE_DURATION,
+  RIPPLE_MIN_DURATION,
+  RIPPLE_REFERENCE_DIAGONAL,
+  SCALE_REFERENCE_WIDTH,
+  pressScaleFor,
   resolveAnimation,
   resolveSlotAnimation,
+  rippleDurationFor,
 } from '../../../system/pressable-feedback/pressable-feedback.animation'
 
 describe('resolveAnimation', () => {
@@ -100,5 +107,50 @@ describe('resolveSlotAnimation', () => {
       duration: 100,
       opacity: 0.5,
     })
+  })
+})
+
+describe('pressScaleFor', () => {
+  it('applies PRESS_SCALE as written at the reference width', () => {
+    expect(pressScaleFor(SCALE_REFERENCE_WIDTH)).toBeCloseTo(PRESS_SCALE, 10)
+  })
+
+  /**
+   * The whole reason the coefficient exists: what the eye reads is the displacement, not
+   * the ratio. A flat ratio moves a full-width row several times further than a chip.
+   */
+  it('moves a control by roughly the same distance whatever its width', () => {
+    const travel = (width: number) => width * (1 - pressScaleFor(width))
+
+    expect(travel(96)).toBeCloseTo(travel(360), 6)
+    expect(travel(300)).toBeCloseTo(travel(180), 6)
+  })
+
+  it('shrinks a narrow control proportionally more than a wide one', () => {
+    expect(pressScaleFor(100)).toBeLessThan(pressScaleFor(400))
+  })
+
+  it('falls back to the plain scale before the first layout', () => {
+    expect(pressScaleFor(0)).toBeCloseTo(PRESS_SCALE, 10)
+  })
+})
+
+describe('rippleDurationFor', () => {
+  it('takes the base duration at the reference diagonal', () => {
+    const side = RIPPLE_REFERENCE_DIAGONAL / Math.SQRT2
+    expect(rippleDurationFor(side, side)).toBeCloseTo(RIPPLE_BASE_DURATION, 6)
+  })
+
+  it('gives a wider control a longer wave', () => {
+    expect(rippleDurationFor(400, 200)).toBeGreaterThan(rippleDurationFor(120, 40))
+  })
+
+  it('clamps at both ends, so neither extreme flickers nor crawls', () => {
+    expect(rippleDurationFor(10, 10)).toBe(RIPPLE_MIN_DURATION)
+    expect(rippleDurationFor(4000, 4000)).toBe(RIPPLE_BASE_DURATION * 2)
+  })
+
+  it('falls back to the base duration before the first layout', () => {
+    expect(rippleDurationFor(0, 0)).toBe(RIPPLE_BASE_DURATION)
   })
 })
