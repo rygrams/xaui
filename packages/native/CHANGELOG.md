@@ -1,5 +1,87 @@
 # @xaui/native
 
+## 0.9.1-alpha.5
+
+### Patch Changes
+
+- 60011be: Add `Icon` to `@xaui/native/system`.
+
+  An icon is a third-party component, so a slot context never reaches it and every call site
+  ends up computing the colour by hand. `Icon` closes that: three forms — a component through
+  `as` (`size` and `color` injected, covering Lucide, Ionicons and vector-icons), a raw
+  `react-native-svg` element as children, or an image through `source` — all resolving the
+  same way. An explicit prop, else what the surrounding slot published through `IconContext`,
+  else the theme.
+
+  For a raw SVG the resolved values win over the element's own `width`, `height` and `color`:
+  one arriving from a design tool carries a baked-in size, and inheriting the slot's instead
+  is the point of wrapping it. `react-native-svg` stays an optional peer — nothing here
+  imports it, the raw-SVG form only clones an element the caller already made.
+
+## 0.9.1-alpha.4
+
+### Patch Changes
+
+- 06d5069: Add `Portal` and `PortalHost` to `@xaui/native/system`.
+
+  `Portal` renders its children into the nearest `PortalHost` instead of where it sits, which
+  is what `Dialog`, `Sheet`, `Drawer` and `Snackbar` will be built on — an overlay has to
+  escape the clipping and stacking of whatever container held the trigger. Publishing happens
+  in a layout effect, so the content lands in the same commit as the trigger's and an overlay
+  never shows a frame late.
+
+  Outside a host the context is `null` and `Portal` renders nothing rather than throwing: an
+  app that forgot `PortalHost` should lose its overlays, not crash on its first dialog.
+
+## 0.9.1-alpha.3
+
+### Patch Changes
+
+- c4d26ad: Add `PressableFeedback` to `@xaui/native/system`: the touch feedback every pressable
+  component shares, instead of an animation file per component.
+
+  It renders the pressable root and is **controlled** — the component above owns `isPressed`,
+  because its recipe resolves on that value and needs it before rendering.
+  `feedbackVariant` picks what happens under the finger (`scale-highlight`, `scale-ripple`,
+  `scale`, `none`) and mounts the matching overlay; `PressableFeedback.Highlight` and
+  `.Ripple` are slots a root can render itself when it wants to style one.
+
+  `asChild` goes **through** this component rather than around it: a root swapping it for a
+  bare `Slot` would render the child with no touch feedback at all. `isDisabled` replaces
+  React Native's `disabled` (R8), and each overlay takes its own `animation` — `false`, or a
+  `duration` and `opacity` — over the blanket one on the root.
+
+  `animation` on the root accepts `false`, `'disabled'`, `'disable-all'` or an object
+  switching sub-animations off one at a time. Turning animations off renders a different component
+  rather than the same one with a branch inside, so no Reanimated hook is reached and no
+  worklet is mounted. `'disable-all'` reaches descendants through context, so a long list
+  disables every row's worklets with one prop.
+
+  Also types `XAUITheme['fontWeights']` as React Native's own `fontWeight` instead of
+  `string`, which does not assign to it — every component reading `t.fontWeights.medium`
+  would otherwise have needed a cast.
+
+## 0.9.1-alpha.2
+
+### Patch Changes
+
+- c0a6e44: Add the slot primitives to `@xaui/native/system`: `createSlotContext`,
+  `childrenToString`, `Slot`, `mergeProps` and `mergeRefs`.
+
+  `createSlotContext(name)` returns a `[Provider, useSlot]` pair, so each compound names the
+  hook it exports and a slot read outside its root throws an error naming both the hook and
+  the component instead of failing three frames later on `undefined`.
+
+  `childrenToString` implements the text auto-wrap once for the whole library. It stringifies
+  the tree recursively rather than inspecting the first child, which is what makes
+  `<Button>{count} items</Button>` — children `[3, ' items']` — resolve to `'3 items'`.
+
+  `Slot` is the `asChild` render branch: `const Root = asChild ? Slot : Pressable`. It merges
+  through `mergeProps`, which composes event handlers rather than replacing them, stacks
+  styles with the child's on top, keeps a `Pressable` state-function style callable, and
+  merges refs. `asChild` has to be uniform from the first component — retrofitting it changes
+  the ref signature of every core component at once.
+
 ## 0.9.1-alpha.1
 
 ### Patch Changes
