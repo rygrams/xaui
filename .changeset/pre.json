@@ -9,7 +9,17 @@
     "@xaui/native-legacy": "0.2.11"
   },
   "changesets": [
+    "api-review-fixes",
+    "icon",
+    "pack-uniqueness",
+    "portal",
+    "pressable-feedback-as-child",
+    "pressable-feedback",
     "publish-native-hybrid-alpha",
-    "recipe-engine"
+    "recipe-engine",
+    "reference-button",
+    "shared-hooks",
+    "slot-system",
+    "workletized-build"
   ]
 }
