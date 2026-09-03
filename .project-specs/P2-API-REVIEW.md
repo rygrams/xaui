@@ -134,34 +134,75 @@ l'échappatoire, et le type le documente maintenant.
 **Échéance :** à revoir si un composant du noyau en a réellement besoin. Sinon, c'est une
 limite assumée du fait d'envelopper un composant tiers.
 
-### D. Le ripple ne rend pas — **ouvert**
+### D. Le ripple — **corrigé**
 
-`feedbackVariant="scale-ripple"` ne dessine rien sur l'appareil. Constaté sur simulateur
-iPhone 17 Pro, y compris avec un appui long d'une seconde et les durées poussées à quatre
-secondes pour laisser le temps de l'observer : le bouton se met bien à l'échelle et prend
-sa couleur pressée, l'onde n'apparaît jamais. Aucune erreur, aucun avertissement.
+`feedbackVariant="scale-ripple"` ne dessinait rien. La cause était structurelle et se lit
+directement dans la source de HeroUI : **les handlers de toucher ne sont pas sur le
+`Pressable`, ils sont sur la `View` du ripple lui-même.**
 
-Ce qui a été écarté : le composant est bien monté (`feedbackVariant` mène à
-`DefaultOverlay`), `animation.ripple` vaut `true`, les valeurs partagées du contexte
-existent toutes, et le clip est en place. Restent deux pistes non tranchées — le
-`useAnimatedReaction` qui déclenche l'onde sur `pressCount`, et le `size` que `onLayout`
-doit remplir, sans lequel le rayon vaut zéro et la vue n'a aucune dimension.
+`Pressable` porte le système de responder — il décide si un toucher devient un appui — et
+avale les props de toucher brutes qu'on lui passe. Un `onTouchStart` posé sur lui n'arrive
+jamais. Chez eux, `PressableFeedback.Ripple` rend son propre conteneur en remplissage
+absolu, et c'est **lui** qui porte `onTouchStart` / `onTouchEnd` / `onTouchCancel`. Il ne
+réclame pas le responder, donc l'appui en dessous est intact.
 
-**Le `Highlight` et le `scale` ne sont pas concernés**, et le `Button` ne dépend pas du
-ripple : il demande `feedbackVariant="scale"`, parce que sa recette peint déjà la couleur
-pressée. Aucun composant du noyau n'en dépend non plus.
+Le ripple est donc redevenu autonome : il se mesure lui-même, garde ses deux vagues, et ne
+demande plus rien au root que le réglage `animation` global. Une vague va de `0 → 1` tant
+que le doigt est posé et de `1 → 2` quand il se lève — sa durée est celle de l'appui plus
+une traîne, et non un one-shot qui s'éteint sous un doigt encore posé.
 
-Une correction est en place mais **non vérifiée** : l'expansion et l'opacité étaient pilotées
-par une seule courbe, ce qui rendait l'onde invisible sous le doigt et maximale une fois
-étalée — un flash du contrôle entier plutôt qu'une onde. Elles sont maintenant séparées :
-l'expansion est un one-shot, l'opacité suit l'appui. Cela ne suffit pas à la faire
-apparaître.
+**Ce qui reste à la charge du composant : l'encre.** Un primitif ne peut pas savoir sur
+quoi il est posé. Le défaut est le `foreground` du thème, qui se lit sur une surface neutre
+et disparaît sur une surface saturée — du noir à 12 % sur du violet n'est pas un indicateur
+d'appui. Un composant, lui, connaît sa surface : il choisit `feedbackVariant="scale"` et
+donne à l'onde la couleur contrastée que sa variante a déjà résolue, via le `style` du
+`Ripple`. L'écran de démo montre les deux côte à côte.
 
-L'écran de démo porte la section `feedbackVariant` qui servira à la vérifier.
+Trois mécanismes avaient été essayés avant celui-là, et ce qu'ils ont écarté vaut d'être
+gardé : les couches étaient bien montées (vérifié dans le DOM du rendu web), leur géométrie
+ne dépend plus d'une lecture de valeur partagée dans un worklet — le rayon est posé depuis
+un état React — et le problème n'était pas une durée trop courte, puisqu'une onde poussée à
+huit secondes ne se voyait pas davantage.
 
-**Échéance :** avant P3 #5, le `Chip` — le premier composant du noyau susceptible de
-choisir le ripple. Tant qu'il ne rend pas, `scale-ripple` n'est pas une valeur qu'on peut
-recommander.
+> **Corrigé depuis, deux fois.** Les handlers sur la `View` du ripple étaient la mauvaise
+> moitié de la réponse : l'overlay est un *frère* des enfants du composant, pas leur parent,
+> donc il n'entend jamais un toucher sur le label d'un bouton — l'onde marchait sur le
+> padding et rien sur le texte. Ils sont revenus sur le `Pressable`, qui est la surface
+> tactile, et le root pilote les deux vagues et les publie.
+>
+> **L'encre n'est plus à la charge du composant.** Un primitif ne peut pas savoir sur quoi
+> il est posé, mais le *root* si : il aplatit son propre `style`, lit `backgroundColor` et
+> prend le côté contrasté — plus rien à passer. Un token `…Soft` translucide retombe sur le
+> `foreground` du thème, faute de luminance lisible ; c'est ce que le harnais de perf a
+> attrapé, `contrastOn` lançant sur les `rgba()`.
+
+### E. `accentPressed` éclaircit en mode clair — **ouvert**
+
+Pas le ripple, mais découvert en le corrigeant, et bien plus large : **un contrôle rempli
+s'éclaircit quand on l'enfonce**, en mode clair.
+
+```ts
+accentPressed: mix(s.accent, s.accentForeground, 0.1)
+```
+
+Le mélange va vers **le texte de la variante**, qui est quasi-blanc sur un fond saturé :
+`#9333ea` → `#9c4eee`. En mode sombre le texte est sombre, donc le résultat est correct par
+accident. Ça touche `accentPressed`, `successPressed`, `warningPressed`, `dangerPressed` —
+donc l'état pressé de toutes les variantes remplies du `Button`, pas seulement la démo.
+
+**Ce n'est pas un bug évident, c'est un arbitrage à trancher.** La couche d'état de Material
+est bien `onColor` à faible alpha — donc _plus clair_ sur un fond sombre, ce que la formule
+actuelle produit. iOS, lui, assombrit. Les deux conventions existent ; ce qui ne va pas,
+c'est que la nôtre change de direction selon le mode sans que ce soit une décision.
+
+Deux options, à décider avant P3 puisque les quinze composants du noyau en héritent :
+
+- **Une direction constante** — mélanger vers `colors.foreground` (l'encre du mode) plutôt
+  que vers le texte de la variante : plus sombre en clair, plus clair en sombre. C'est ce
+  que fait `deriveTint` pour une teinte brute, donc ça aligne aussi les deux chemins.
+- **Assumer Material** — garder la formule et documenter que l'état pressé éclaircit.
+
+**Échéance :** avant P3. C'est une décision de la couche thème, pas d'un composant.
 
 ---
 
@@ -201,8 +242,8 @@ remplace quand on le demande.
 ## Deux décisions que la revue confirme
 
 **Un seul traitement de l'état pressé.** La recette peint le token `…Pressed` de la variante
-et le root demande `feedbackVariant="scale"`. Le lavis neutre par-dessus assombrirait deux
-fois. Les 46 suivants doivent choisir de la même manière : la recette **ou** l'overlay.
+et le root ne monte aucun overlay. Le lavis neutre par-dessus assombrirait deux fois. Les 46
+suivants doivent choisir de la même manière : la recette **ou** l'overlay.
 
 **Le contexte porte des styles résolus, pas des props.** C'est la divergence 1 du §1 ter, et
 elle se paie ici : l'objet `ResolvedStyles` change d'identité à l'appui, donc le memo se

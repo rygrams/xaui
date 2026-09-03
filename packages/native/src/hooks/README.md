@@ -28,7 +28,6 @@ Anything here is a React hook by definition, which is exactly what keeps it out 
 
 ## Testing
 
-These get tests, unlike a _component's_ hook. The rule sends `useButton` to its demo
-screen because it only means something inside its component; these are library primitives
-with behaviour of their own — `useControllableState` switching modes is a stated
-acceptance criterion of P1.6.
+**None.** These are React hooks, and hooks are not unit-tested here — a hook is verified by
+the component that uses it, on its demo screen. Only pure functions that compute a value
+get a test file.

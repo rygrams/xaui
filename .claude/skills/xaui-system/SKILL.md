@@ -95,13 +95,20 @@ different `color` adds **no entry** to the cache.
 Touch feedback is **one shared primitive**, not a `.animation.ts` per component — it is the
 same everywhere and has no reason to be rewritten 47 times.
 
-- slots `.Highlight` and `.Ripple`
-- `feedbackVariant`: `'scale-highlight' | 'scale-ripple' | 'scale' | 'none'`
+- the root scales; overlays are **composed**, never named by a prop
+- slots `.Highlight` and `.Ripple`, each with its own `style` and `animation`
 - `animation`: `false | 'disabled' | 'disable-all' | { …per sub-animation }`
+- the ink and the corners are **resolved** by the root from its own `style` and published
+  through context — only the root knows what an overlay sits on, or what shape it must
+  stay inside
+
+A `feedbackVariant` enum was tried and reverted: a name encodes a cross-product, so a wash
+*and* a wave together was unreachable, and `asChild` — where the caller's element is the
+pressable and there is no sibling to inject — could have no overlay at all.
 
 Every pressable component depends on it (`Button`, `Chip`, clickable `Card`, `ListItem`,
-`MenuItem`, `SegmentButton`…). Acceptance: the four `feedbackVariant` values render, and
-`animation={false}` mounts no worklet.
+`MenuItem`, `SegmentButton`…). Acceptance: both overlays render alone and together,
+including under `asChild`, and `animation={false}` mounts no worklet.
 
 100% Reanimated (+ `react-native-worklets`) — RN's legacy `Animated` exists only in the
 frozen legacy tree.

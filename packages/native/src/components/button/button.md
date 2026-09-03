@@ -247,7 +247,6 @@ plus:
 | `isLoading`         | `boolean`                      | `false`     | Not pressable; inserts a spinner if none composed |
 | `isIconOnly`        | `boolean`                      | `false`     | No horizontal padding, square on the fixed height |
 | `asChild`           | `boolean`                      | `false`     | Merge into the single child instead of rendering  |
-| `feedbackVariant`   | `FeedbackVariant`              | `'scale'`   | See _Touch feedback_ below                        |
 | `animation`         | `AnimationProp`                | —           | `false` mounts no worklet at all                  |
 | `accessibilityRole` | `AccessibilityRole`            | `'button'`  | Overridable                                       |
 
@@ -269,16 +268,18 @@ Everything `Text` accepts. `numberOfLines` defaults to `1`.
 
 ## Touch feedback
 
-`feedbackVariant` defaults to `'scale'`, and that is a decision rather than an omission:
-the recipe already paints the variant's own `…Pressed` token under the finger, so a wash on
-top would darken it twice. A component picks **one** pressed treatment, never both.
+**A button scales, and mounts no overlay.** That is a decision rather than an omission: the
+recipe already paints the variant's own `…Pressed` token under the finger, so a wash or a
+wave on top would darken it twice. A component picks **one** pressed treatment, never both —
+and there is no prop here to pick the other, because there is nothing to pick between.
 
 `animation={false}` renders a different component rather than the same one with a branch
-inside — no Reanimated hook is reached at all.
+inside — no Reanimated hook is reached at all. `'disable-all'` does the same for every
+descendant, which is how a long list switches its rows off with one prop.
 
-> `feedbackVariant="scale-ripple"` currently draws nothing. It is a known defect, tracked
-> as P2.5 in the roadmap and written up in `.project-specs/P2-API-REVIEW.md` §D. No core
-> component depends on it.
+A button that genuinely needs a wave is a different component, not a prop away: compose it
+from `PressableFeedback` directly, with a recipe whose `pressed` state paints nothing. See
+the `PressableFeedback` page.
 
 ## Extending it
 

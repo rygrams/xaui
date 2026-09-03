@@ -23,10 +23,13 @@ re-exported from `utils/`.
 
 ## Current contents
 
-| Folder    | Role                                                                 |
-| --------- | -------------------------------------------------------------------- |
-| `recipe/` | The style engine: variants name tokens, styles resolve once, cached  |
-| `slot/`   | Compound plumbing: strict context, text auto-wrap, `asChild` merging |
+| Folder                | Role                                                                    |
+| --------------------- | ----------------------------------------------------------------------- |
+| `recipe/`             | The style engine: variants name tokens, styles resolve once, cached     |
+| `slot/`               | Compound plumbing: strict context, text auto-wrap, `asChild` merging    |
+| `pressable-feedback/` | Touch feedback: the scale, and `Highlight` / `Ripple` as composed parts |
+| `portal/`             | Render elsewhere in the tree: `Dialog`, `Sheet`, `Drawer`, `Snackbar`   |
+| `icon/`               | A third-party icon that inherits its slot's size and colour             |
 
 ## `recipe/` in one page
 
@@ -119,13 +122,14 @@ const styles = recipe.resolve({ theme, selection, states: { pressed: isPressed }
 <PressableFeedback
   ref={ref}
   isPressed={isPressed}
-  feedbackVariant="scale-highlight"
   animation={animation}
   style={[styles.root, tint?.root, style]}
   onPressIn={() => setIsPressed(true)}
   onPressOut={() => setIsPressed(false)}
 >
-  <Button.Label />
+  <PressableFeedback.Ripple>
+    <Button.Label />
+  </PressableFeedback.Ripple>
 </PressableFeedback>
 ```
 
@@ -133,29 +137,45 @@ const styles = recipe.resolve({ theme, selection, states: { pressed: isPressed }
 (R5) and it needs the value before it renders. `PressableFeedback` applies that value; it
 does not decide it.
 
-**`feedbackVariant` mounts the overlay.** `scale-highlight` and `scale-ripple` add theirs;
-`scale` adds none, which is what a root picks when it renders
-`<PressableFeedback.Highlight style={…}>` itself — no prop here reaches into another
-component's insides (R1).
+**The root scales; overlays are composed.** No prop names what to mount, because a name is
+a cross-product — `scale-highlight` and `scale-ripple` could say five of their six
+combinations and none of the ones a third overlay would add, and a wash _and_ a wave
+together was unreachable.
+
+**An overlay wraps, and it costs nothing.** `<Ripple>{children}</Ripple>` says what the wave
+sits under, and it does not box it: the children come back as siblings of the wave's layer
+in a fragment, which has no presence in the host tree — so the root's `flexDirection`, `gap`
+and `alignItems` still reach them directly. A real wrapping `View` would have made the
+root's layout apply to the wrapper instead, and added the depth §8 removed. Written bare,
+`<Ripple />` is a sibling and **order does not matter**: the root hoists its bare overlays
+under everything else. A component marks its own overlay with `markOverlay`, which is how a
+third party's part gets the same treatment.
+
+**What the overlay needs from the surface is resolved, not configured.** The root flattens
+its own `style` once and publishes the contrasting ink and its corner radii. Only the root
+knows what an overlay sits on or what shape it has to stay inside. The clip is the
+overlay's, not the root's — a root that set `overflow: 'hidden'` would also cut a badge
+sitting on its corner.
 
 **Pick one pressed treatment, not both.** The `Highlight` is a _neutral_ wash. A component
 uses it, **or** a `pressed` state in its recipe swapping `bg` for `bgPressed` — never
-both, or a pressed control darkens twice.
+both, or a pressed control darkens twice. `Button` takes the second road and mounts no
+overlay at all.
 
-**`animation` off means no worklet.** `false`, `'disabled'` and `feedbackVariant="none"`
-render a different component, not the same one with a branch inside, because hooks cannot
-be conditional and "mounts no worklet" is only true if the Reanimated hooks are never
-reached. `'disable-all'` does the same and passes it to descendants through context, so a
-long list kills every row's worklets with one prop.
+**`animation` off means no worklet.** `false` and `'disabled'` render a different component,
+not the same one with a branch inside, because hooks cannot be conditional and "mounts no
+worklet" is only true if the Reanimated hooks are never reached. `'disable-all'` does the
+same and passes it to descendants through context, so a long list kills every row's worklets
+with one prop.
 
 `asChild` goes **through** `PressableFeedback`, not around it. A root that did
 `asChild ? Slot : PressableFeedback` would render its child with no touch feedback at all
 — so the merge happens here, and R12 and the feedback stay in the same branch. The
 feedback context is published **above** the root for the same reason: a `Slot` merges into
 its single child, so a provider nested inside would swallow the ref, the style and the
-handlers. Under `asChild` the caller's element is the pressable and there is no sibling to
-inject, so the default overlay is not rendered — a caller that wants the wash puts
-`<PressableFeedback.Highlight />` among its own children.
+handlers. That placement is also what lets an `asChild` caller render an overlay among its
+own children, which is the only place one can go when the caller's element _is_ the
+pressable.
 
 Each overlay also takes its own `animation` — `false` to switch that one off, or a
 `duration` and an `opacity` — which wins over the blanket prop on the root, except when

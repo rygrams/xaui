@@ -30,13 +30,23 @@ export function withRepeat<T>(value: T): T {
   return value
 }
 
+export function withDelay<T>(_delay: number, value: T): T {
+  return value
+}
+
 export function cancelAnimation(): void {}
 
 export function interpolate(value: number): number {
   return value
 }
 
-export const Easing = { linear: (t: number) => t }
+const identity = (t: number) => t
+
+export const Easing = {
+  linear: identity,
+  ease: identity,
+  out: () => identity,
+}
 
 const Animated = {
   View,

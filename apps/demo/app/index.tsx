@@ -139,22 +139,19 @@ export default function ButtonScreen() {
       </Section>
 
       <Section
-        title="feedbackVariant — what happens under the finger"
-        note="Default is `scale`: the recipe already paints the variant's pressed colour, so a wash on top would darken it twice. `scale-ripple` draws nothing yet — P2.5."
+        title="Under the finger — the scale, and switching it off"
+        note="A button scales and mounts no overlay. That is the rule, not an omission: the recipe already paints the variant's pressed colour, and a wash or a wave on top would darken it twice. The PressableFeedback screen has the overlays."
       >
-        <Button feedbackVariant="scale">scale — the default</Button>
-        <Button feedbackVariant="scale-ripple" variant="secondary">
-          scale-ripple — a wave from where you touched
-        </Button>
-        <Button feedbackVariant="scale-ripple" variant="danger">
-          scale-ripple, on a filled variant
-        </Button>
-        <Button feedbackVariant="scale-ripple" size="lg" variant="success">
+        <Button>the scale, adjusted for the button&apos;s width</Button>
+        <Button size="lg" variant="success">
           <Button.Icon as={TrashIcon} />
-          <Button.Label>ripple with an icon</Button.Label>
+          <Button.Label>wider, and it travels the same distance</Button.Label>
         </Button>
-        <Button feedbackVariant="none" variant="tertiary">
-          none — nothing moves
+        <Button animation={false} variant="secondary">
+          animation={'{false}'} — nothing moves, no worklet
+        </Button>
+        <Button animation="disable-all" variant="tertiary">
+          &apos;disable-all&apos; — and for every descendant
         </Button>
       </Section>
 

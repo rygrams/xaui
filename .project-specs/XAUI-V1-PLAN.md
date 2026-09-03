@@ -85,7 +85,7 @@ Le détail du jeu et de sa résolution est au §2 ter.
 
 - **La convention de fichiers** (`.type` / `.hook` / `.style` / `.animation` / `index`), étendue avec `.recipe.ts` et `.context.ts`.
 - **Les exports par sous-chemin** (`@xaui/native/button`).
-- **Un test par composant** dans `__tests__/` en miroir.
+- **Aucun test de composant, de slot, de hook ni de constantes d'animation** — seules les fonctions pures en ont un, dans `__tests__/` en miroir.
 
 ---
 
@@ -260,7 +260,9 @@ Chez eux les deux ont le même fond (`--color-default`) et ne diffèrent que par
 ### Ce qu'ils ont et qui manquait au plan
 
 **`PressableFeedback` est un composant partagé, pas un fichier d'animation par composant.**
-Ils exposent un primitif avec `.Highlight` et `.Ripple` en slots, une prop `feedbackVariant` (`scale-highlight | scale-ripple | scale | none`) et une prop `animation` qui accepte `false`, `'disabled'`, `'disable-all'` ou un objet granulaire par sous-animation.
+Ils exposent un primitif avec `.Highlight` et `.Ripple` en slots et une prop `animation` qui accepte `false`, `'disabled'`, `'disable-all'` ou un objet granulaire par sous-animation.
+
+**On a essayé de remplacer les slots par une prop `feedbackVariant` (`scale-highlight | scale-ripple | scale | none`), et on est revenu dessus.** Un nom encode un produit cartésien : l'énum pouvait dire cinq de ses six combinaisons, aucune de celles qu'un troisième overlay ajouterait, et surtout pas un lavis *et* une onde ensemble — ce que fait Material. Elle rendait aussi l'overlay impossible sous `asChild`, où l'élément de l'appelant *est* le pressable et où le primitif n'a aucun frère à injecter. Le root scale ; ce qu'on pose par-dessus se compose.
 
 C'est structurellement meilleur que mon `button.animation.ts` par composant : le retour au toucher est le même partout, il n'a aucune raison d'être réécrit 47 fois. **Il passe dans `system/pressable-feedback/` et devient une dépendance de tous les composants pressables** (`Button`, `Chip`, `Card` cliquable, `ListItem`, `MenuItem`, `SegmentButton`…).
 
@@ -1322,14 +1324,14 @@ Renommer le package npm casse par définition. La phase se termine par une publi
    → Deux résolutions des mêmes tokens rendent la **même référence** d'objet ; une teinte `color` différente n'ajoute aucune entrée au cache.
 2. **Les slots.** `system/slot/` — `createSlotContext` strict, `childrenToString`, `mergeProps`, `mergeRefs`.
    → `childrenToString([3,' items'])` rend `'3 items'` ; avec un élément dedans, `null`. Un hook hors parent lève une erreur nommée.
-3. **Le retour au toucher.** `system/pressable-feedback/` — `Highlight`, `Ripple`, `feedbackVariant`, prop `animation`.
-   → Les quatre valeurs de `feedbackVariant` rendent ; `animation={false}` ne monte aucun worklet.
+3. **Le retour au toucher.** `system/pressable-feedback/` — le root qui scale, `Highlight` et `Ripple` en slots composés, prop `animation`.
+   → Les deux overlays rendent seuls et ensemble, y compris sous `asChild` ; `animation={false}` ne monte aucun worklet.
 4. **Portal.** `system/portal/` — déplacé tel quel depuis `core/portal/`.
    → Les tests existants passent sans modification.
 5. **Icône.** `system/icon/` — `as`, children SVG, `source` ; taille et couleur héritées du contexte de slot.
    → Une icône Lucide et un SVG brut prennent tous deux la couleur du variant parent sans prop explicite.
 6. **Hooks partagés.** `useControllableState`, `usePressState`, `useMergedRef`.
-   → `useControllableState` couvre les deux modes et le passage de l'un à l'autre en dev.
+   → `useControllableState` couvre les deux modes et le passage de l'un à l'autre en dev — vérifié sur un écran de démo, pas par un test : un hook n'est pas testé unitairement ici.
 7. **Contrôle d'unicité.** `pnpm pack` sur les deux packages.
    → `@xaui/native` n'apparaît qu'une fois dans l'arbre de résolution — un doublon donnerait deux contextes.
 

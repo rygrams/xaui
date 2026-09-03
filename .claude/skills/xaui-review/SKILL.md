@@ -158,13 +158,12 @@ this?
 
 ## 7. Tests
 
-- [ ] **Utility functions only.** A new pure function — in `utils/`, the colour engine,
-      recipe resolution, the style cache, slot helpers, token generation — has a mirrored
-      test at `src/__tests__/<same path>.test.ts`.
-- [ ] **No test file was added for a component, a slot or a component hook.** Flag one if
-      it appears; components are verified by their demo screen and docs preview.
-- [ ] Logic worth pinning down was extracted into a pure function rather than left
-      untestable inside the component.
+- [ ] **Pure functions only.** A new function that computes a value — in `utils/`, the
+      colour engine, recipe resolution, the style cache, slot helpers, token generation —
+      has a mirrored test at `src/__tests__/<same path>.test.ts`.
+- [ ] **No test file for a component, a slot, a hook or a set of animation constants.**
+      Flag one if it appears. Those are verified by their demo screen, and a timing that is
+      right is right on screen rather than in an assertion.
 - [ ] Cache behaviour has a reference-stability test.
 
 ## 8. Gates

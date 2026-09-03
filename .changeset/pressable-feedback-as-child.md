@@ -10,6 +10,7 @@ handlers and `disabled` all landed on a provider that ignores them: the caller's
 stopped reacting to touch entirely, with no error to say so. The provider now sits above
 the root, and the caller's element receives the props it was always meant to.
 
-The default overlay is no longer rendered under `asChild`. The caller's element _is_ the
-pressable there, so there is no sibling to inject it as; the context is still published, so
-`<PressableFeedback.Highlight />` among the caller's own children still works.
+The caller's element _is_ the pressable under `asChild`, so there is no sibling for the
+primitive to inject an overlay as. The context is published above the root, which is what
+lets `<PressableFeedback.Highlight />` work among the caller's own children — the only
+place an overlay can go here.

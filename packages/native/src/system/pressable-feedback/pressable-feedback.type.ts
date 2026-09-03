@@ -2,14 +2,6 @@ import type { ReactNode } from 'react'
 import type { PressableProps, StyleProp, ViewStyle } from 'react-native'
 import type { SharedValue } from 'react-native-reanimated'
 
-/**
- * What the root does under the finger. `scale-highlight` and `scale-ripple` mount their
- * overlay themselves; `scale` mounts none, which is what a root picks when it renders its
- * own `<PressableFeedback.Highlight>` to style it (R1: no prop reaches into another
- * component's insides).
- */
-export type FeedbackVariant = 'scale-highlight' | 'scale-ripple' | 'scale' | 'none'
-
 export type AnimationConfig = {
   scale?: boolean
   highlight?: boolean
@@ -48,10 +40,13 @@ export type PressableFeedbackProps = Omit<
    * touch feedback of every `asChild` control.
    */
   asChild?: boolean
-  feedbackVariant?: FeedbackVariant
   animation?: AnimationProp
   style?: StyleProp<ViewStyle>
   /**
+   * The overlays are children, not a prop — `<PressableFeedback.Highlight />` or
+   * `<PressableFeedback.Ripple />`, in any order: the root paints them under everything
+   * else wherever they sit. The scale is the root's own and needs nothing rendered.
+   *
    * `Pressable`'s function form is dropped on purpose. It exists to hand the press state
    * to children; here the root above already owns that state and this publishes it
    * through context, so the function form would be a second, quieter source of truth.
@@ -74,19 +69,66 @@ export type SlotAnimation =
       opacity?: number
     }
 
+/** One ripple wave. Two of them, so a rapid double tap does not cut the one in flight. */
+export type RippleWave = {
+  /** `0 → 1` as the circle opens. */
+  expand: SharedValue<number>
+  /** `0 → 1` as the ink arrives, on its own curve. */
+  alpha: SharedValue<number>
+  /** Where the finger landed, in the root's coordinates. */
+  origin: SharedValue<{ x: number; y: number }>
+}
+
+/**
+ * The corner keys an overlay copies off the root. The `Left`/`Right` forms are absent
+ * rather than forgotten: R13 bans them, because RN mirrors only the logical ones under RTL.
+ */
+export type RadiusStyle = Pick<
+  ViewStyle,
+  | 'borderRadius'
+  | 'borderStartStartRadius'
+  | 'borderStartEndRadius'
+  | 'borderEndStartRadius'
+  | 'borderEndEndRadius'
+>
+
 export type FeedbackContext = {
+  /**
+   * The overlay's ink, resolved by the root from its own background.
+   *
+   * A wash or a wave has to contrast with what it sits on, and only the root knows that —
+   * it flattens its own `style` and reads `backgroundColor`, then takes the contrasting
+   * side the same way a tint does. Black ink at 10% on a saturated fill is close to
+   * invisible, which is the one thing a press indicator cannot be.
+   */
+  ink: string
+
+  /**
+   * The root's own corners, so an overlay rounds itself to match. `corners` and not
+   * `radius`: the ripple already has a radius, and it is a length in points rather than a
+   * shape.
+   *
+   * An absolute fill has square corners and every control here is rounded, so without this
+   * both the wash and the wave paint outside the surface at each corner. The overlay
+   * carries the clip rather than the root: clipping the root would also cut a child that
+   * legitimately overflows — a badge on a button's corner — and that child has nothing to
+   * do with the press.
+   */
+  corners: RadiusStyle
+
   isPressed: boolean
   animation: ResolvedAnimation
   /** Absent on the static branch, where nothing animates and no worklet is mounted. */
   progress?: SharedValue<number>
-  /**
-   * Bumped on every press-in. The ripple starts from this rather than from a `useEffect`
-   * on `isPressed`: a one-shot driven by a boolean depends on React re-rendering between
-   * the two touch events, and starting it from the event that carries the coordinates is
-   * both simpler and impossible to miss.
-   */
-  pressCount?: SharedValue<number>
-  /** Where the finger landed, and how big the root is — the ripple needs both. */
-  origin?: SharedValue<{ x: number; y: number }>
+  /** How big the root is — what the scale coefficient is computed from. */
   size?: SharedValue<{ width: number; height: number }>
+  /**
+   * The two ripple waves, driven by the **root**.
+   *
+   * They belong to the root because the root is the touch surface. An overlay carrying its
+   * own handlers only hears touches that land on *it* — and it is a sibling of the label,
+   * not its parent, so pressing the text of a button would do nothing. Touches bubble to
+   * the `Pressable`, which is why the handlers live there and the waves are published down.
+   */
+  waves?: readonly [RippleWave, RippleWave]
 }

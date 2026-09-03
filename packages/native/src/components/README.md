@@ -35,10 +35,10 @@ button/
 
 ## What does not
 
-- A test file for the component, its slots or its hook. Those are verified by their demo
-  screen in `apps/demo` and their docs preview, in light and dark. Logic worth pinning
-  down is extracted into a pure function — `button.utils.ts` — and **that** is tested, at
-  the mirrored path under `src/__tests__/`.
+- A test file. Not for the component, not for its slots, not for its hook, not for its
+  animation constants. It is verified by its demo screen in `apps/demo`, in light and
+  dark. A timing that is right is right on screen, not in an assertion. Only a pure
+  function that computes a value gets a test, and those live in `utils/`.
 - A primitive a second component would want. That belongs in `system/`, which is the
   surface a third party builds their own component with.
 
@@ -49,7 +49,7 @@ button/
 3. The root: `forwardRef`, `asChild`, a11y, function-form `style`, namespaced
    `displayName` (R9, R11, R12)
 4. One file per slot, with no margin of its own (R4)
-5. Pure logic into `.utils.ts`, with a mirrored test
+5. Pure logic into `.utils.ts` — no test file; the demo screen is the verification
 6. A screen in `apps/demo` — this is how the component is verified
 7. A `.md` beside the component — the eight sections of the plan's §6, from anatomy to
    the legacy migration table

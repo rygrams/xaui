@@ -1,6 +1,5 @@
-import { forwardRef, useContext, useEffect, useMemo } from 'react'
-import type { ReactNode } from 'react'
-import { Pressable, View } from 'react-native'
+import { forwardRef, useContext, useEffect, useMemo, useRef } from 'react'
+import { Pressable, StyleSheet, View } from 'react-native'
 import type {
   GestureResponderEvent,
   LayoutChangeEvent,
@@ -8,8 +7,11 @@ import type {
   ViewStyle,
 } from 'react-native'
 import Animated, {
+  Easing,
   useAnimatedStyle,
+  useDerivedValue,
   useSharedValue,
+  withDelay,
   withTiming,
 } from 'react-native-reanimated'
 import {
@@ -17,19 +19,25 @@ import {
   FeedbackProvider,
   useFeedback,
 } from './pressable-feedback-context'
-import { PressableFeedbackHighlight } from './pressable-feedback-highlight'
-import { PressableFeedbackRipple } from './pressable-feedback-ripple'
 import { Slot } from '../slot/slot'
+import { useXAUITheme } from '../../theme/theme-hooks'
 import {
   PRESS_DURATION,
-  PRESS_SCALE,
-  RELEASE_DURATION,
+  RIPPLE_CONFIRM_DURATION,
+  RIPPLE_EXPAND_DURATION,
+  RIPPLE_FADE_IN,
+  RIPPLE_FADE_OUT,
+  RIPPLE_FADE_OUT_DELAY,
+  pressScaleFor,
   resolveAnimation,
 } from './pressable-feedback.animation'
+import { partitionOverlays } from './pressable-feedback.overlay'
+import { inkFor, radiusFrom } from './pressable-feedback.surface'
 import type {
-  FeedbackVariant,
   PressableFeedbackProps,
+  RadiusStyle,
   ResolvedAnimation,
+  RippleWave,
 } from './pressable-feedback.type'
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
@@ -51,32 +59,36 @@ const AnimatedSlot = Animated.createAnimatedComponent(Slot)
  * (R5) and it needs the value before it renders. This applies the value; it does not
  * decide it.
  *
- * The overlay comes from `feedbackVariant`. A component that wants to style its overlay
- * picks `"scale"` and renders `<PressableFeedback.Highlight style={…}>` itself — no prop
- * here reaches into another component's insides (R1).
+ * **The root scales; overlays are composed.** There is no prop naming what to mount — a
+ * wash or a wave is a child:
+ *
+ * ```tsx
+ * <PressableFeedback isPressed={isPressed} style={styles.root}>
+ *   <PressableFeedback.Ripple />
+ *   <Label />
+ * </PressableFeedback>
+ * ```
+ *
+ * Order does not matter: the root paints its overlays under everything else wherever they
+ * were written. Leaving that to source order would have made a `Ripple` written after the
+ * label sit on top of it — a 10% wash over text, subtle enough to ship by accident.
+ *
+ * What an overlay needs from its surface is published here rather than configured on it:
+ * the root flattens its own `style` and takes the contrasting ink and the corner radii off
+ * it. Only the root knows what an overlay sits on, so only the root can pick an ink that
+ * is visible on it and a shape that matches it.
  */
 export const PressableFeedback = forwardRef<View, PressableFeedbackProps>(
-  function PressableFeedback(
-    { animation, feedbackVariant = 'scale-highlight', ...rest },
-    ref
-  ) {
+  function PressableFeedback({ animation, ...rest }, ref) {
     const inheritedDisableAll = useContext(DisableAllContext)
     const resolved = resolveAnimation(animation, inheritedDisableAll)
 
     // Two components, not one with a branch inside: hooks cannot be conditional, and
     // "animation={false} mounts no worklet" is only true if the Reanimated hooks are
     // never reached at all.
-    const Feedback =
-      resolved.none || feedbackVariant === 'none' ? StaticFeedback : AnimatedFeedback
+    const Feedback = resolved.none ? StaticFeedback : AnimatedFeedback
 
-    const body = (
-      <Feedback
-        ref={ref}
-        animation={resolved}
-        feedbackVariant={feedbackVariant}
-        {...rest}
-      />
-    )
+    const body = <Feedback ref={ref} animation={resolved} {...rest} />
 
     return resolved.disableAll ? (
       <DisableAllContext.Provider value={true}>{body}</DisableAllContext.Provider>
@@ -88,7 +100,6 @@ export const PressableFeedback = forwardRef<View, PressableFeedbackProps>(
 
 type BranchProps = Omit<PressableFeedbackProps, 'animation'> & {
   animation: ResolvedAnimation
-  feedbackVariant: FeedbackVariant
 }
 
 const StaticFeedback = forwardRef<View, BranchProps>(function StaticFeedback(
@@ -97,25 +108,25 @@ const StaticFeedback = forwardRef<View, BranchProps>(function StaticFeedback(
     isDisabled,
     asChild = false,
     animation,
-    feedbackVariant,
     children,
     style,
     ...rest
   },
   ref
 ) {
-  const context = useMemo(() => ({ isPressed, animation }), [isPressed, animation])
+  const surface = useSurface(style)
+  const context = useMemo(
+    () => ({ isPressed, animation, ...surface }),
+    [isPressed, animation, surface]
+  )
   const Root = asChild ? Slot : Pressable
+  const { overlays, content } = partitionOverlays(children)
 
   return (
     <FeedbackProvider value={context}>
-      <Root
-        ref={ref}
-        style={[clipFor(feedbackVariant, asChild), style]}
-        disabled={isDisabled}
-        {...rest}
-      >
-        {body(asChild, feedbackVariant, children)}
+      <Root ref={ref} style={style} disabled={isDisabled} {...rest}>
+        {overlays}
+        {content}
       </Root>
     </FeedbackProvider>
   )
@@ -127,25 +138,36 @@ const AnimatedFeedback = forwardRef<View, BranchProps>(function AnimatedFeedback
     isDisabled,
     asChild = false,
     animation,
-    feedbackVariant,
     children,
     style,
-    onPressIn,
     onLayout,
+    onTouchStart,
+    onTouchEnd,
+    onTouchCancel,
     ...rest
   },
   ref
 ) {
   const progress = useSharedValue(0)
-  const pressCount = useSharedValue(0)
-  const origin = useSharedValue({ x: 0, y: 0 })
   const size = useSharedValue({ width: 0, height: 0 })
+  const waves = [useWave(), useWave()] as const
+  const nextWave = useRef(0)
 
+  // One curve in both directions, eased out: a press that decelerates reads as the
+  // control settling, where a linear ramp reads as it snapping.
   useEffect(() => {
     progress.value = withTiming(isPressed ? 1 : 0, {
-      duration: isPressed ? PRESS_DURATION : RELEASE_DURATION,
+      duration: PRESS_DURATION,
+      easing: Easing.out(Easing.ease),
     })
   }, [isPressed, progress])
+
+  /**
+   * The scale, adjusted for how wide the control is. A flat ratio moves a full-width row
+   * four times as far as a chip, and the eye reads the displacement rather than the
+   * ratio — which is what made the old flat `0.975` lurch.
+   */
+  const pressedScale = useDerivedValue(() => pressScaleFor(size.value.width))
 
   /**
    * Every animated hook in this package carries an explicit `'worklet'` directive **and**
@@ -161,20 +183,66 @@ const AnimatedFeedback = forwardRef<View, BranchProps>(function AnimatedFeedback
   const animatedStyle = useAnimatedStyle(() => {
     'worklet'
     if (!animation.scale) return {}
-    return { transform: [{ scale: 1 - (1 - PRESS_SCALE) * progress.value }] }
-  }, [animation.scale, progress])
+    return { transform: [{ scale: 1 - (1 - pressedScale.value) * progress.value }] }
+  }, [animation.scale, progress, pressedScale])
 
+  const surface = useSurface(style)
   const context = useMemo(
-    () => ({ isPressed, animation, progress, pressCount, origin, size }),
-    [isPressed, animation, progress, pressCount, origin, size]
+    () => ({ isPressed, animation, progress, size, waves, ...surface }),
+    [isPressed, animation, progress, size, waves, surface]
   )
 
-  // Composed, never replaced: the caller's handlers are why it passed them.
-  const handlePressIn = (event: GestureResponderEvent) => {
+  /**
+   * The ripple starts here, on the **root**, because the root is the touch surface.
+   *
+   * The overlay cannot own this. It is an absolute-fill sibling of the component's own
+   * children, not their parent, so a touch on a button's label never reaches it — pressing
+   * the text would do nothing while pressing the padding worked. Touches bubble to the
+   * `Pressable`, so that is where they are heard.
+   */
+  const handleTouchStart = (event: GestureResponderEvent) => {
+    const wave = waves[nextWave.current]
+    nextWave.current = nextWave.current === 0 ? 1 : 0
+
     const { locationX, locationY } = event.nativeEvent
-    origin.value = { x: locationX, y: locationY }
-    pressCount.value += 1
-    onPressIn?.(event)
+    wave.origin.value = { x: locationX, y: locationY }
+    wave.expand.value = 0
+    wave.expand.value = withTiming(1, {
+      duration: RIPPLE_EXPAND_DURATION,
+      easing: Easing.ease,
+    })
+    wave.alpha.value = withTiming(1, { duration: RIPPLE_FADE_IN })
+    onTouchStart?.(event)
+  }
+
+  // The wave catches up rather than being cut: the expansion finishes fast, and the ink
+  // only starts leaving once it has arrived.
+  const releaseWave = () => {
+    const wave = waves[nextWave.current === 0 ? 1 : 0]
+    wave.expand.value = withTiming(1, {
+      duration: RIPPLE_CONFIRM_DURATION,
+      easing: Easing.ease,
+    })
+    wave.alpha.value = withDelay(
+      RIPPLE_FADE_OUT_DELAY,
+      withTiming(0, { duration: RIPPLE_FADE_OUT })
+    )
+  }
+
+  const handleTouchEnd = (event: GestureResponderEvent) => {
+    releaseWave()
+    onTouchEnd?.(event)
+  }
+
+  /**
+   * A cancel releases the wave exactly like a lift, and it has to: a touch that turns into
+   * a scroll never fires `onTouchEnd`, so sharing the lift's handler and letting `rest`
+   * overwrite it — which it did, since `onTouchCancel` was the one touch prop not
+   * destructured — left the ink sitting on the control until the next press.
+   */
+  const handleTouchCancel = (event: GestureResponderEvent) => {
+    releaseWave()
+    onTouchCancel?.(event)
   }
 
   const handleLayout = (event: LayoutChangeEvent) => {
@@ -184,6 +252,7 @@ const AnimatedFeedback = forwardRef<View, BranchProps>(function AnimatedFeedback
   }
 
   const Root = asChild ? AnimatedSlot : AnimatedPressable
+  const { overlays, content } = partitionOverlays(children)
 
   return (
     <FeedbackProvider value={context}>
@@ -192,70 +261,52 @@ const AnimatedFeedback = forwardRef<View, BranchProps>(function AnimatedFeedback
         // node it forwards to, so the two do not meet. The value is a `View` at runtime,
         // which is what this component promises its callers.
         ref={ref as never}
-        style={[clipFor(feedbackVariant, asChild), style, animatedStyle]}
+        style={[style, animatedStyle]}
         disabled={isDisabled}
-        onPressIn={handlePressIn}
         onLayout={handleLayout}
+        onTouchStart={handleTouchStart}
+        onTouchEnd={handleTouchEnd}
+        onTouchCancel={handleTouchCancel}
         {...rest}
       >
-        {body(asChild, feedbackVariant, children)}
+        {overlays}
+        {content}
       </Root>
     </FeedbackProvider>
   )
 })
 
-/**
- * What goes inside the root — and the reason `FeedbackProvider` sits *above* it rather
- * than around these children.
- *
- * Under `asChild` the root is a `Slot`, and a `Slot` merges its props into its single
- * child. A provider nested inside would be that child, so every pressable prop — the
- * ref, the style, the handlers — would land on a context provider, which ignores all of
- * them: the caller's element would stop reacting to touch entirely, silently.
- *
- * The default overlay goes with it. The caller's element *is* the pressable under
- * `asChild`, and there is nowhere to inject a sibling inside it. The context is still
- * published, so a caller that wants the wash renders `<PressableFeedback.Highlight />`
- * among its own children.
- */
-function body(
-  asChild: boolean,
-  variant: FeedbackVariant,
-  children: ReactNode
-): ReactNode {
-  if (asChild) return children
-
-  return (
-    <>
-      <DefaultOverlay variant={variant} />
-      {children}
-    </>
-  )
-}
-
-const OVERLAY_CLIP: ViewStyle = { overflow: 'hidden' }
-
-/**
- * An overlay is an absolute fill with square corners, and every control in this library is
- * rounded — so without a clip both the wash and the ripple paint outside the surface at
- * each corner. That is a defect rather than a style choice, so it goes on *before* the
- * caller's style, which can still override it.
- *
- * Only when a default overlay is actually mounted. Clipping a root that has none would
- * silently cut off a child that legitimately overflows — a badge on a button's corner —
- * and a component that renders its own overlay picked `scale` precisely to decide this
- * for itself.
- */
-function clipFor(variant: FeedbackVariant, asChild: boolean): StyleProp<ViewStyle> {
-  if (asChild) return null
-  const mountsOverlay = variant === 'scale-highlight' || variant === 'scale-ripple'
-  return mountsOverlay ? OVERLAY_CLIP : null
-}
-
-function DefaultOverlay({ variant }: { variant: FeedbackVariant }): ReactNode {
-  if (variant === 'scale-highlight') return <PressableFeedbackHighlight />
-  if (variant === 'scale-ripple') return <PressableFeedbackRipple />
-  return null
-}
+PressableFeedback.displayName = 'XAUI.PressableFeedback'
 
 export { useFeedback }
+
+function useWave(): RippleWave {
+  return {
+    expand: useSharedValue(0),
+    alpha: useSharedValue(0),
+    origin: useSharedValue({ x: 0, y: 0 }),
+  }
+}
+
+/**
+ * What the overlays need from the surface they sit on, read off the root's own `style` in
+ * one flatten: the ink that will be visible on it, and the corners to match.
+ *
+ * Both are **resolved rather than configured**, and for the same reason — only the root
+ * knows what it looks like. An overlay is mounted by a caller who would otherwise have to
+ * re-derive the contrast and re-declare the radius its parent already set.
+ */
+function useSurface(style: StyleProp<ViewStyle>): {
+  ink: string
+  corners: RadiusStyle
+} {
+  const theme = useXAUITheme()
+
+  return useMemo(() => {
+    const flat = StyleSheet.flatten(style)
+    return {
+      ink: inkFor(flat?.backgroundColor, theme.colors),
+      corners: radiusFrom(flat),
+    }
+  }, [style, theme])
+}
