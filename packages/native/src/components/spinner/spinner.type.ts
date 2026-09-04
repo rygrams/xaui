@@ -38,6 +38,12 @@ export type SpinnerSize = Size
  * What the `Spinner` itself understands. R14 — a name in here is the component's, so the
  * style prop that shares it is not exposed: `size` is the spinner's scale and never
  * `ViewStyle`'s, and `color` is R7's tint.
+ *
+ * **No `asChild`**, and this is the one root in the library without one (R12). `Slot`
+ * merges a root's props into a single element, and that element keeps its own children —
+ * so a caller's element could become the track, but the arc is a second node it has no way
+ * to receive. Handing over the track alone would render a ring that never turns, silently.
+ * Styling is the escape hatch instead, and R14 gives every `ViewStyle` key as a prop.
  */
 type SpinnerOwnProps = {
   variant?: SpinnerVariant

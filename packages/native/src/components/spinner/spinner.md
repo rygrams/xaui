@@ -91,6 +91,16 @@ is loading, and "loading" alone is what the role already announces.
 
 ## Notes
 
+### No `asChild`
+
+The one root in the library without one (R12). `Slot` merges a root's props into a single
+element, and that element keeps its own children — so a caller's element could become the
+track, but the arc is a second node it has no way to receive. Handing over the track alone
+would render a ring that never turns, silently.
+
+Styling is the escape hatch instead: every `ViewStyle` key is a prop (R14), and `style` is
+still the last word.
+
 ### Why borders and not an SVG stroke
 
 HeroUI draws one arc fading from opaque to 55%, which needs a `linearGradient` and
