@@ -1,3 +1,6 @@
+// The module and not the barrel: a recipe is style data, and the barrel would pull
+// `CloseButton` — and therefore Reanimated — into anything that only wants the geometry.
+import { closeButtonBase } from '../../system/close-button/close-button.recipe'
 import { createRecipe, radiusAxis } from '../../system/recipe'
 import type { SlotStyles, VariantTokens } from '../../system/recipe'
 import type { FontSizeKey, XAUITheme } from '../../theme/theme.type'
@@ -188,7 +191,10 @@ const SIZES: Record<ChipSize, SizeStep> = {
 export const chipRecipe = createRecipe({
   slots: SLOTS,
 
+  // The cross's own geometry — thickness and centring — belongs to the shared
+  // `CloseButton`; what stays below is the box and bar size this component's scale sets.
   base: theme => ({
+    ...closeButtonBase(theme),
     root: {
       // A chip hugs its content where a `Button` fills its column. The difference is what
       // the two are: a button is a control the layout sizes, a chip is a token *about*
@@ -214,14 +220,6 @@ export const chipRecipe = createRecipe({
       fontWeight: theme.fontWeights.medium,
     },
     avatar: { overflow: 'hidden', alignItems: 'center', justifyContent: 'center' },
-    close: { alignItems: 'center', justifyContent: 'center' },
-    // One bar of the cross. Two of them are rendered, rotated a quarter turn apart, so
-    // only the length changes with the size.
-    closeGlyph: {
-      position: 'absolute',
-      height: theme.borderWidth.default * 1.5,
-      borderRadius: theme.borderWidth.default,
-    },
   }),
 
   variantTokens: VARIANT_TOKENS,

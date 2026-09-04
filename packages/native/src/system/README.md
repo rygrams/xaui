@@ -30,6 +30,7 @@ re-exported from `utils/`.
 | `pressable-feedback/` | Touch feedback: the scale, and `Highlight` / `Ripple` as composed parts |
 | `portal/`             | Render elsewhere in the tree: `Dialog`, `Sheet`, `Drawer`, `Snackbar`   |
 | `icon/`               | A third-party icon that inherits its slot's size and colour             |
+| `close-button/`       | The dismiss affordance: own press state, grown target, built-in cross   |
 | `style-props/`        | R14: the style keys of a node, exposed as props and split back out      |
 
 ## `recipe/` in one page

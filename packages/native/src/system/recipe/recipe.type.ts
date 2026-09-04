@@ -62,9 +62,10 @@ export type RecipeConfig<
   paint?: StyleFn<Slot>
   variants?: A
   /**
-   * `NoInfer` for the same reason as `defaultVariants` below: a `when: { variant: 'x' }`
-   * names one variant, and letting inference read `Variant` off it collapses the recipe
-   * to that single value.
+   * `NoInfer` for the same reason `defaultVariants` needs it: a `when` clause **selects**
+   * from the variants `variantTokens` declared, it does not declare one. Without it a
+   * recipe whose only compound is `{ when: { variant: 'default' } }` narrows `Variant` to
+   * that single literal, and every other variant becomes a type error at the call site.
    */
   compoundVariants?: ReadonlyArray<CompoundVariant<Slot, NoInfer<Variant>, A>>
   states?: Partial<Record<StateName, StyleFn<Slot>>>
