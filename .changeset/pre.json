@@ -24,6 +24,7 @@
     "slot-system",
     "style-props-everywhere",
     "style-props",
+    "tame-jars-argue",
     "workletized-build"
   ]
 }
