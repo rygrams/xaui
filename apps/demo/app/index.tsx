@@ -13,6 +13,7 @@ import { useXAUITheme } from '@xaui/native/theme'
  */
 const SCREENS = [
   { href: '/button', label: 'Button' },
+  { href: '/card', label: 'Card' },
   { href: '/pressable-feedback', label: 'PressableFeedback' },
   { href: '/typography', label: 'Typography' },
   { href: '/icon', label: 'Icon' },

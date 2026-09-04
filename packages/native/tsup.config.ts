@@ -3,6 +3,7 @@ import { defineConfig } from 'tsup'
 const entries = {
   index: 'src/index.ts',
   'components/button/index': 'src/components/button/index.ts',
+  'components/card/index': 'src/components/card/index.ts',
   'components/typography/index': 'src/components/typography/index.ts',
   'components/view/index': 'src/components/view/index.ts',
   'system/index': 'src/system/index.ts',

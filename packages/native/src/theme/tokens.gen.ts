@@ -7,7 +7,7 @@ export const tokens = {
     foreground: '#18181b',
     surface: '#ffffff',
     surfaceForeground: '#18181b',
-    surfaceSecondary: '#f4f4f5',
+    surfaceSecondary: '#ececee',
     surfaceSecondaryForeground: '#18181b',
     surfaceTertiary: '#e4e4e7',
     surfaceTertiaryForeground: '#18181b',

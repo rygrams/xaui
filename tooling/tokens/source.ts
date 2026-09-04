@@ -9,7 +9,13 @@ export const source: Record<'light' | 'dark', XAUISourceColors> = {
     foreground: p.zinc[900],
     surface: primitives.white,
     surfaceForeground: p.zinc[900],
-    surfaceSecondary: p.zinc[100],
+    // Not a palette step. `zinc[100]` sits so close to the `background` (`zinc[50]`)
+    // that a `secondary` card on the page reads as no card at all, and `zinc[200]` is
+    // already `surfaceTertiary` — so the level between them is the only one left. It is
+    // the OKLab midpoint of the two, which keeps it on the same ramp rather than beside
+    // it. Written here rather than added to the palette: `PaletteShade` is derived from
+    // `zinc`, so a 150 there would claim every other family has one too.
+    surfaceSecondary: '#ececee',
     surfaceSecondaryForeground: p.zinc[900],
     surfaceTertiary: p.zinc[200],
     surfaceTertiaryForeground: p.zinc[900],

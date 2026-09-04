@@ -23,6 +23,7 @@ export default function RootLayout() {
           <Stack>
             <Stack.Screen name="index" options={{ title: 'XAUI (v1)' }} />
             <Stack.Screen name="button" options={{ title: 'Button (v1)' }} />
+            <Stack.Screen name="card" options={{ title: 'Card (v1)' }} />
             <Stack.Screen
               name="pressable-feedback"
               options={{ title: 'PressableFeedback (v1)' }}

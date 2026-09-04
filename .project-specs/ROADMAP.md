@@ -42,6 +42,7 @@ remaining action belongs to a workflow rather than to a commit.
 | P3.2  | `Icon` — R14's boundary in the type, plus its demo screen          | done   |
 | P3.3  | `view/` — `Row`, `Column`, `Stack`, `Grid`; the rest dropped       | done   |
 | P3    | The fifteen-component core                                         | todo   |
+| P3.4  | `Card` — Header · Body · Title · Description · Footer              | done   |
 | P4    | Docs, generated tables, `1.0.0`                                    | todo   |
 | P5    | The remaining 32 components                                        | todo   |
 | P6    | `@xaui/hybrid` on the v1 API                                       | todo   |
