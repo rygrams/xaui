@@ -277,9 +277,21 @@ Native values, no hidden scale:
 - **`selectionColor`, `cursorColor`, `placeholderTextColor`** are `TextInput` props — write
   them on `Input.Field`. The placeholder already takes the theme's `fieldPlaceholder`; the
   prop is there to override it.
-- **A leading or trailing adornment** — a search glyph, a clear button — is not in the 1.0
-  core. Write it beside the field in a row of your own, or use `useInput()` and the
-  extension recipe below.
+- **A leading or trailing adornment** — a search glyph, a clear button, a unit — is
+  **[`InputGroup`](../input-group/input-group.md)**. It goes where the field goes and
+  replaces nothing else:
+
+  ```tsx
+  <Input>
+    <Input.Label>Recherche</Input.Label>
+    <InputGroup>
+      <InputGroup.Prefix isDecorative>
+        <InputGroup.Icon as={SearchIcon} />
+      </InputGroup.Prefix>
+      <InputGroup.Field placeholder="Rechercher…" />
+    </InputGroup>
+  </Input>
+  ```
 
 ## Props
 
@@ -372,30 +384,30 @@ than failing three frames later on an undefined style.
 
 The legacy component is `TextInput`, and its props are the ones this table names.
 
-| Legacy                                                | v1                                                                      |
-| ----------------------------------------------------- | ----------------------------------------------------------------------- |
-| `label="…"`                                           | `<Input.Label>…</Input.Label>`                                          |
-| `description="…"`                                     | `<Input.Description>…</Input.Description>`                              |
-| `errorMessage="…"`                                    | `<Input.Error>…</Input.Error>`, mounted by you, plus `isInvalid`        |
-| `value` / `defaultValue`                              | the same two props, on `<Input.Field>`                                  |
-| `onValueChange`                                       | `onChangeText` on `<Input.Field>` — RN's name. `onChange` works too     |
-| `labelPlacement="inside"`                             | `labelPlacement="inside"` — a static label, not a floating one          |
-| `variant="colored"`                                   | `variant="primary"`                                                     |
-| `variant="light"`                                     | `variant="secondary"`                                                   |
-| `variant="bordered"`                                  | `variant="tertiary"`                                                    |
-| `variant="underlined"`                                | `variant="ghost"` + `borderBottomWidth` on `<Input.Field>`              |
-| `themeColor="primary"`                                | `color={theme.colors.accent}`                                           |
-| `size="sm" \| "md" \| "lg"`                           | `size` — now `xs` … `lg`, and the legacy `sm` is the new `xs`           |
-| `radius`                                              | `radius` — a `RadiusKey` now, not the legacy `Radius`                   |
-| `isSecured`                                           | `secureTextEntry` on `<Input.Field>` — RN's own name                    |
-| `isReadOnly`                                          | `readOnly` on `<Input.Field>`                                           |
-| `isDisabled` / `isInvalid`                            | unchanged, on the root                                                  |
-| `isClearable`                                         | not in the 1.0 core — a clear button beside the field is yours to write |
-| `TextArea` with `minRows` / `maxRows`                 | `<Input.TextArea rows maxRows />` — a slot, not a component             |
-| `fullWidth`                                           | removed — that is already the default in a column                       |
-| `startContent` / `endContent`                         | a node beside the field, in a row of your own                           |
-| `customAppearance={{ container }}`                    | `style` on the root                                                     |
-| `customAppearance={{ input }}`                        | `style` on `<Input.Field>`                                              |
-| `customAppearance={{ label }}`                        | `style` on `<Input.Label>`                                              |
-| `customAppearance={{ helperText }}`                   | `style` on `<Input.Description>` / `<Input.Error>`                      |
-| `customAppearance={{ inputContainer, inputWrapper }}` | gone with the wrappers they styled                                      |
+| Legacy                                                | v1                                                                    |
+| ----------------------------------------------------- | --------------------------------------------------------------------- |
+| `label="…"`                                           | `<Input.Label>…</Input.Label>`                                        |
+| `description="…"`                                     | `<Input.Description>…</Input.Description>`                            |
+| `errorMessage="…"`                                    | `<Input.Error>…</Input.Error>`, mounted by you, plus `isInvalid`      |
+| `value` / `defaultValue`                              | the same two props, on `<Input.Field>`                                |
+| `onValueChange`                                       | `onChangeText` on `<Input.Field>` — RN's name. `onChange` works too   |
+| `labelPlacement="inside"`                             | `labelPlacement="inside"` — a static label, not a floating one        |
+| `variant="colored"`                                   | `variant="primary"`                                                   |
+| `variant="light"`                                     | `variant="secondary"`                                                 |
+| `variant="bordered"`                                  | `variant="tertiary"`                                                  |
+| `variant="underlined"`                                | `variant="ghost"` + `borderBottomWidth` on `<Input.Field>`            |
+| `themeColor="primary"`                                | `color={theme.colors.accent}`                                         |
+| `size="sm" \| "md" \| "lg"`                           | `size` — now `xs` … `lg`, and the legacy `sm` is the new `xs`         |
+| `radius`                                              | `radius` — a `RadiusKey` now, not the legacy `Radius`                 |
+| `isSecured`                                           | `secureTextEntry` on `<Input.Field>` — RN's own name                  |
+| `isReadOnly`                                          | `readOnly` on `<Input.Field>`                                         |
+| `isDisabled` / `isInvalid`                            | unchanged, on the root                                                |
+| `isClearable`                                         | a `Pressable` in an `<InputGroup.Suffix>` that sets the value to `''` |
+| `TextArea` with `minRows` / `maxRows`                 | `<Input.TextArea rows maxRows />` — a slot, not a component           |
+| `fullWidth`                                           | removed — that is already the default in a column                     |
+| `startContent` / `endContent`                         | `<InputGroup.Prefix>` / `<InputGroup.Suffix>` around the field        |
+| `customAppearance={{ container }}`                    | `style` on the root                                                   |
+| `customAppearance={{ input }}`                        | `style` on `<Input.Field>`                                            |
+| `customAppearance={{ label }}`                        | `style` on `<Input.Label>`                                            |
+| `customAppearance={{ helperText }}`                   | `style` on `<Input.Description>` / `<Input.Error>`                    |
+| `customAppearance={{ inputContainer, inputWrapper }}` | gone with the wrappers they styled                                    |

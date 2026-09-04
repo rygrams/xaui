@@ -18,6 +18,9 @@ export type InputSlot =
   | 'placeholder'
   | 'description'
   | 'error'
+  | 'prefix'
+  | 'suffix'
+  | 'icon'
 
 /**
  * The library's four emphasis levels, narrowed like the `Card`'s (§1 bis). A field
@@ -176,6 +179,19 @@ export type InputContextValue = {
   textArea: { lineHeight: number; paddingVertical: number }
   descriptionStyle: StyleProp<TextStyle>
   errorStyle: StyleProp<TextStyle>
+  /**
+   * The two decorators of an `InputGroup`, already pinned to their edge and inset by the
+   * field's own padding. They are resolved here, on the root, because the size that
+   * decides that padding is the root's — the group itself adds no axis of its own.
+   */
+  prefixStyle: StyleProp<ViewStyle>
+  suffixStyle: StyleProp<ViewStyle>
+  /**
+   * Values, not a style: an icon is a third party's component, and `size` and `color` are
+   * props it takes rather than a style it accepts. Flattened once here, the way the `Chip`
+   * and the `Alert` publish theirs.
+   */
+  icon: { size: number | undefined; color: string | undefined }
   /**
    * A value and not a style: `placeholderTextColor` is a `TextInput` prop, so the root
    * flattens its placeholder slot once here rather than in the field.
