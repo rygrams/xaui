@@ -28,6 +28,7 @@ export default function RootLayout() {
               options={{ title: 'PressableFeedback (v1)' }}
             />
             <Stack.Screen name="typography" options={{ title: 'Typography (v1)' }} />
+            <Stack.Screen name="icon" options={{ title: 'Icon (v1)' }} />
           </Stack>
         </PortalHost>
       </XAUIProvider>

@@ -15,6 +15,7 @@ const SCREENS = [
   { href: '/button', label: 'Button' },
   { href: '/pressable-feedback', label: 'PressableFeedback' },
   { href: '/typography', label: 'Typography' },
+  { href: '/icon', label: 'Icon' },
 ] as const
 
 export default function HomeScreen() {
