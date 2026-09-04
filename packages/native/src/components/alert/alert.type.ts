@@ -113,16 +113,25 @@ export type AlertDescriptionProps = AlertTextProps
  * leading — which needs a node. That node is also what lets the slot carry style props at
  * all, which the other two cannot.
  */
-type AlertIconOwnProps = Pick<
-  IconProps,
-  'as' | 'children' | 'source' | 'size' | 'color'
-> & {
+type AlertIconGlyphKey = 'as' | 'children' | 'source' | 'size' | 'color'
+
+/**
+ * `Pick`, distributed over `Icon`'s three forms rather than applied to the union as a
+ * whole. Applied as a whole it merges them into one shape where `as` and `source` are both
+ * optional — which is the boundary `IconProps` was turned into a union to keep, so
+ * `<Alert.Icon as={Check} source={png} />` would compile again and one of the two would be
+ * silently dropped.
+ */
+type AlertIconGlyphProps<T = IconProps> = T extends IconProps
+  ? Pick<T, AlertIconGlyphKey>
+  : never
+
+type AlertIconBoxProps = {
   /** The box, not the glyph — `size` and `color` are what shape the icon itself. */
   style?: StyleProp<ViewStyle>
-}
+} & Omit<ViewStyleProps, AlertIconGlyphKey | 'style'>
 
-export type AlertIconProps = AlertIconOwnProps &
-  Omit<ViewStyleProps, keyof AlertIconOwnProps>
+export type AlertIconProps = AlertIconGlyphProps & AlertIconBoxProps
 
 /**
  * Everything the shared `CloseButton` accepts, minus the three the alert supplies itself:
