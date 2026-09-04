@@ -4,7 +4,7 @@ import { useRouter } from 'expo-router'
 import Svg, { Path } from 'react-native-svg'
 import { Button } from '@xaui/native/button'
 import type { ButtonVariant } from '@xaui/native/button'
-import { PressableFeedback, type IconComponentProps } from '@xaui/native/system'
+import type { IconComponentProps } from '@xaui/native/system'
 import { useXAUITheme } from '@xaui/native/theme'
 
 const VARIANTS: ButtonVariant[] = [
@@ -116,20 +116,6 @@ export default function ButtonScreen() {
         <Button isDisabled>isDisabled</Button>
         <Button isDisabled variant="tertiary">
           isDisabled, tertiary
-        </Button>
-      </Section>
-
-      <Section
-        title="isRipple — the wave, without composing one"
-        note="A button mounts no overlay by default: the recipe's pressed state already paints the variant's own pressed colour. isRipple opts in; composing a PressableFeedback.Ripple yourself is how you give it its own style, and doing both mounts one wave, not two."
-      >
-        <Button isRipple>press me — an inserted wave</Button>
-        <Button isRipple variant="secondary">
-          <PressableFeedback.Ripple />
-          <Button.Label>composed as well — still one wave</Button.Label>
-        </Button>
-        <Button isRipple variant="tertiary" isDisabled>
-          isDisabled — no wave
         </Button>
       </Section>
 
