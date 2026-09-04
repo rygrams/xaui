@@ -44,6 +44,7 @@ remaining action belongs to a workflow rather than to a commit.
 | P3.9  | `Radio` — Indicator · Label, the `Checkbox` in a circle            | done   |
 | P3.10 | `Switch` — Track · Thumb · Label, two shapes                       | done   |
 | P3.13 | `Divider` — three separator levels, one `alignSelf` for both axes  | done   |
+| P3.14 | `Skeleton` — two fills, one pulse, sized by R14 alone              | done   |
 | P3.15 | `Spinner` — seven inks, two rings, no SVG                          | done   |
 | P4    | Docs, generated tables, `1.0.0`                                    | todo   |
 | P5    | The remaining 32 components                                        | todo   |

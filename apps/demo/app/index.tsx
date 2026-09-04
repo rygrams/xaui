@@ -325,6 +325,7 @@ const SCREENS: readonly { route: string; label: string }[] = [
   { route: '/radio', label: 'Radio' },
   { route: '/switch', label: 'Switch' },
   { route: '/divider', label: 'Divider' },
+  { route: '/skeleton', label: 'Skeleton' },
   { route: '/spinner', label: 'Spinner' },
   { route: '/pressable-feedback', label: 'PressableFeedback' },
 ]

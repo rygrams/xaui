@@ -14,6 +14,7 @@ const entries = {
   'components/text-area/index': 'src/components/text-area/index.ts',
   'components/spinner/index': 'src/components/spinner/index.ts',
   'components/divider/index': 'src/components/divider/index.ts',
+  'components/skeleton/index': 'src/components/skeleton/index.ts',
   'system/index': 'src/system/index.ts',
   'theme/index': 'src/theme/index.ts',
 }

@@ -117,6 +117,16 @@
         "default": "./dist/components/radio/index.cjs"
       }
     },
+    "./skeleton": {
+      "import": {
+        "types": "./dist/components/skeleton/index.d.ts",
+        "default": "./dist/components/skeleton/index.js"
+      },
+      "require": {
+        "types": "./dist/components/skeleton/index.d.cts",
+        "default": "./dist/components/skeleton/index.cjs"
+      }
+    },
     "./spinner": {
       "import": {
         "types": "./dist/components/spinner/index.d.ts",
