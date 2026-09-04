@@ -21,6 +21,7 @@ const SCREENS = [
   { href: '/chip', label: 'Chip' },
   { href: '/alert', label: 'Alert' },
   { href: '/input', label: 'Input' },
+  { href: '/input-otp', label: 'InputOTP' },
 ] as const
 
 export default function HomeScreen() {
