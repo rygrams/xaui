@@ -53,6 +53,12 @@ exactly what the legacy `TextSpanContext` did, and it is gone.
 <Typography variant="code">npm i @xaui/native</Typography>
 ```
 
+`code` is the one role that is a shape as well as a scale: it sits on the `default` fill,
+rounded, padded, and `alignSelf: 'flex-start'` so it hugs the word. A `Text` carrying a
+background stretches to its container otherwise, and the fill would paint a band across the
+line instead of a chip. The fill is a token and not a role, so `color` on a `code` tints
+its ink and leaves the chip neutral — see [Colour](#colour).
+
 `h1`–`h6` name a **step on the scale**, not an HTML tag — React Native has no document
 outline. Announcing a heading to a screen reader stays explicit, see
 [Accessibility](#accessibility).

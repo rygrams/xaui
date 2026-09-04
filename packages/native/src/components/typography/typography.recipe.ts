@@ -10,11 +10,13 @@ type StyleFn = (theme: XAUITheme) => Record<TypographySlot, TextStyle>
 const SLOTS = ['root'] as const
 
 /**
- * Ten lines of data. Nine roles are ink alone; `code` is the one that also names a fill,
- * because inline code reads as code by sitting on a surface rather than by its font.
+ * Ten lines of data, and every one of them is ink alone — including `code`, whose chip is
+ * painted with the role's metrics rather than declared here.
  *
- * A raw `color` reads the same `fg` role, so tinting any role tints it the same way and
- * nothing here has to know about it.
+ * That is what keeps `color` honest. The tint pass fills the roles a variant declares, so
+ * a `bg` here would make `<Typography variant="code" color="#7c3aed" />` paint the fill in
+ * the tint as well as the text — one purple on another, and the label gone. In a text
+ * component there is one thing to tint, and the chip is not it.
  */
 const VARIANT_TOKENS: Record<TypographyVariant, VariantTokens> = {
   h1: { fg: 'foreground' },
@@ -26,9 +28,7 @@ const VARIANT_TOKENS: Record<TypographyVariant, VariantTokens> = {
   body: { fg: 'foreground' },
   'body-sm': { fg: 'foreground' },
   'body-xs': { fg: 'foreground' },
-  // The one role that paints a surface as well as ink: inline code reads as code because
-  // it sits on something, and `default` is the neutral fill the rest of the library uses.
-  code: { fg: 'foreground', bg: 'default' },
+  code: { fg: 'foreground' },
 }
 
 type Role = {
@@ -41,6 +41,16 @@ type Role = {
    * reads as loose and unset at 36.
    */
   letterSpacing?: number
+  /**
+   * The chip `code` sits in: the neutral fill, rounded, padded, and hugging its word.
+   *
+   * Inline code reads as code by sitting on a surface rather than by its font, and the
+   * four keys are one decision — a `Text` carrying a `backgroundColor` stretches to its
+   * container, so a fill without `alignSelf` paints a band across the line, and one
+   * without padding paints on the glyphs. Hence a flag, not four keys nine roles would
+   * leave undefined.
+   */
+  chip?: true
 }
 
 /**
@@ -57,10 +67,10 @@ const ROLES: Record<TypographyVariant, Role> = {
   body: { step: 'md', weight: 'regular', family: 'body' },
   'body-sm': { step: 'sm', weight: 'regular', family: 'body' },
   'body-xs': { step: 'xs', weight: 'regular', family: 'body' },
-  code: { step: 'sm', weight: 'regular', family: 'mono' },
+  code: { step: 'sm', weight: 'regular', family: 'mono', chip: true },
 }
 
-function metricsOf({ step, weight, family, letterSpacing }: Role): StyleFn {
+function metricsOf({ step, weight, family, letterSpacing, chip }: Role): StyleFn {
   return theme => ({
     root: {
       fontSize: theme.fontSizes[step],
@@ -68,6 +78,15 @@ function metricsOf({ step, weight, family, letterSpacing }: Role): StyleFn {
       fontWeight: theme.fontWeights[weight],
       fontFamily: theme.fontFamilies[family],
       ...(letterSpacing === undefined ? {} : { letterSpacing }),
+      ...(chip === undefined
+        ? {}
+        : {
+            alignSelf: 'flex-start' as const,
+            backgroundColor: theme.colors.default,
+            paddingHorizontal: theme.spacing(1.5),
+            paddingVertical: theme.spacing(0.5),
+            borderRadius: theme.radius.md,
+          }),
     },
   })
 }
@@ -94,11 +113,9 @@ const ROLE_AXIS = Object.fromEntries(
 export const typographyRecipe = createRecipe({
   slots: SLOTS,
   variantTokens: VARIANT_TOKENS,
-  // `backgroundColor` is undefined for the nine roles that name no fill, which React
-  // Native reads as transparent — so one paint function covers all ten.
-  paint: (_theme, colors) => ({
-    root: { color: colors.fg, backgroundColor: colors.bg },
-  }),
+  // Ink only. The chip's fill is a token, not a role, so it belongs to the metrics above —
+  // where it also stays inside the cache key instead of being recomputed with the tint.
+  paint: (_theme, colors) => ({ root: { color: colors.fg } }),
   variants: { variant: ROLE_AXIS },
   defaultVariants: { variant: 'body' },
 })
