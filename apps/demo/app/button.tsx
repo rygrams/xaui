@@ -3,7 +3,7 @@ import { Pressable, ScrollView, Text, View } from 'react-native'
 import Svg, { Path } from 'react-native-svg'
 import { Button } from '@xaui/native/button'
 import type { ButtonVariant } from '@xaui/native/button'
-import type { IconComponentProps } from '@xaui/native/system'
+import { PressableFeedback, type IconComponentProps } from '@xaui/native/system'
 import { useXAUITheme } from '@xaui/native/theme'
 
 const VARIANTS: ButtonVariant[] = [
@@ -113,6 +113,26 @@ export default function ButtonScreen() {
         <Button isDisabled>isDisabled</Button>
         <Button isDisabled variant="tertiary">
           isDisabled, tertiary
+        </Button>
+      </Section>
+
+      <Section
+        title="A wave, composed"
+        note="A button mounts no overlay by default: the recipe's pressed state already paints the variant's own pressed colour. A PressableFeedback.Ripple among the children opts in — and being a child is what gives it its own style and animation. There is no prop naming it."
+      >
+        <Button>
+          <PressableFeedback.Ripple />
+          <Button.Label>press me — the ink is the snow of the theme</Button.Label>
+        </Button>
+        {/* The ink is picked off the surface, not off the variant: `contrastOn` reads the
+            root's own backgroundColor, so a light fill takes the dark extreme. */}
+        <Button variant="secondary">
+          <PressableFeedback.Ripple />
+          <Button.Label>secondary — a light fill, so the wave is dark</Button.Label>
+        </Button>
+        <Button variant="tertiary" isDisabled>
+          <PressableFeedback.Ripple />
+          <Button.Label>isDisabled — no wave</Button.Label>
         </Button>
       </Section>
 
