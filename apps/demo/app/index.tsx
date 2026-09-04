@@ -18,6 +18,7 @@ const SCREENS = [
   { href: '/typography', label: 'Typography' },
   { href: '/icon', label: 'Icon' },
   { href: '/view', label: 'Layout' },
+  { href: '/chip', label: 'Chip' },
 ] as const
 
 export default function HomeScreen() {

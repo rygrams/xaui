@@ -47,6 +47,16 @@
         "default": "./dist/components/card/index.cjs"
       }
     },
+    "./chip": {
+      "import": {
+        "types": "./dist/components/chip/index.d.ts",
+        "default": "./dist/components/chip/index.js"
+      },
+      "require": {
+        "types": "./dist/components/chip/index.d.cts",
+        "default": "./dist/components/chip/index.cjs"
+      }
+    },
     "./typography": {
       "import": {
         "types": "./dist/components/typography/index.d.ts",

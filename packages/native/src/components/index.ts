@@ -1,4 +1,5 @@
 export * from './button'
 export * from './card'
+export * from './chip'
 export * from './typography'
 export * from './view'
