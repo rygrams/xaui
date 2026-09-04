@@ -78,11 +78,16 @@ function sizeAxis(step: SizeStep) {
   return (theme: XAUITheme): SlotStyles<ChipSlot> => {
     const diameter = theme.spacing(avatar)
     const box = theme.fontSizes[glyph]
+    const inset = theme.spacing(padding)
+    // What the height leaves above and below the avatar. The capsule's rounded end is a
+    // circle of radius `height / 2` and the avatar is a circle of radius `diameter / 2`,
+    // so the two are concentric only when the gap is the same on every side.
+    const cap = (theme.spacing(height) - diameter) / 2
 
     return {
       root: {
         height: theme.spacing(height),
-        paddingHorizontal: theme.spacing(padding),
+        paddingHorizontal: inset,
         gap: theme.spacing(gap),
       },
       label: {
@@ -91,7 +96,19 @@ function sizeAxis(step: SizeStep) {
       },
       icon: { fontSize: box },
       dot: circle(theme.spacing(dot)),
-      avatar: circle(diameter),
+      avatar: {
+        ...circle(diameter),
+        // **The one margin on a slot in this component**, and R4 is about spacing between
+        // slots — this is not that. The root's horizontal padding is set for text, several
+        // times the gap the height leaves above the avatar, so a face sits visibly pushed
+        // into the chip while a label beside it looks right. Cancelling the difference
+        // seats it in the capsule's rounded end instead. Clamped at zero, because a theme
+        // with tighter padding than that gap needs no pull at all.
+        //
+        // R13 — `marginStart`, so it is the leading edge in RTL too. `Chip.Avatar` is a
+        // leading slot by contract, which is what makes a leading-only correction sound.
+        marginStart: -Math.max(0, inset - cap),
+      },
       // The touch target is the glyph's box; `hitSlop` on the slot is what makes it
       // reachable, because a cross big enough to hit is a cross too big to look right.
       close: { width: box, height: box },
