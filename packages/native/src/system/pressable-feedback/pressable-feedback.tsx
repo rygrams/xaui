@@ -31,7 +31,7 @@ import {
   pressScaleFor,
   resolveAnimation,
 } from './pressable-feedback.animation'
-import { partitionOverlays } from './pressable-feedback.overlay'
+import { feedbackChildren } from './pressable-feedback.overlay'
 import { useStyleProps } from '../style-props'
 import { inkFor, radiusFrom } from './pressable-feedback.surface'
 import type {
@@ -132,13 +132,11 @@ const StaticFeedback = forwardRef<View, BranchProps>(function StaticFeedback(
     [isPressed, animation, surface]
   )
   const Root = asChild ? Slot : Pressable
-  const { overlays, content } = partitionOverlays(children)
 
   return (
     <FeedbackProvider value={context}>
       <Root ref={ref} style={style} disabled={isDisabled} {...rest}>
-        {overlays}
-        {content}
+        {feedbackChildren(children, asChild)}
       </Root>
     </FeedbackProvider>
   )
@@ -264,7 +262,6 @@ const AnimatedFeedback = forwardRef<View, BranchProps>(function AnimatedFeedback
   }
 
   const Root = asChild ? AnimatedSlot : AnimatedPressable
-  const { overlays, content } = partitionOverlays(children)
 
   return (
     <FeedbackProvider value={context}>
@@ -281,8 +278,7 @@ const AnimatedFeedback = forwardRef<View, BranchProps>(function AnimatedFeedback
         onTouchCancel={handleTouchCancel}
         {...rest}
       >
-        {overlays}
-        {content}
+        {feedbackChildren(children, asChild)}
       </Root>
     </FeedbackProvider>
   )

@@ -1,4 +1,7 @@
 export * from './alert'
 export * from './button'
+export * from './card'
 export * from './chip'
 export * from './input'
+export * from './typography'
+export * from './view'

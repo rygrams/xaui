@@ -1,5 +1,166 @@
 # @xaui/native
 
+## 0.9.1-alpha.21
+
+### Patch Changes
+
+- 1555901: `Card` — the v1 surface, and the control it becomes.
+
+  A compound root with five slots — `Header`, `Body`, `Footer`, `Title`, `Description` — on
+  the same shape as the `Button`: the recipe resolves once at the root and publishes the
+  resolved styles, every node takes its own style props (R14), `asChild` merges into the
+  caller's element, and the context hook is exported so a third party can add a slot.
+
+  `variant` narrows the shared vocabulary to its four emphasis levels — `default`,
+  `secondary`, `tertiary`, `ghost` — over the theme's `surface*` family, with the surface
+  shadow on the one level that stands on the background. `size` drives padding, both gaps,
+  the radius and the type of the two text slots, and never a height: a card is as tall as
+  what it holds. `isPressable` turns the surface into a `PressableFeedback` with a press
+  wash, `accessibilityRole="button"` and the shared scale.
+
+  The rendering is HeroUI's card measured — `md` is 16pt of padding, a 24pt radius, an
+  18/28 title in `medium` over a 16/24 description, no border on a filled surface — reached
+  through our own vocabulary rather than through their utility classes, and with the gaps the
+  component owns instead of leaving to the call site.
+
+  Also fixes a `NoInfer` gap in the recipe engine: a `compoundVariants` entry naming one
+  variant used to collapse the whole recipe's variant union to that single value.
+
+  **`Card.Background`** — a photo, a gradient or a video behind the card. The root **hoists**
+  it, so JSX order does not decide stacking: a background written after the header would
+  otherwise cover it, which is the invisible ordering rule composition should not carry. It
+  reuses the marking idiom `PressableFeedback` uses for its overlays, and `markBackground` is
+  exported so a third party's layer is not a second-class citizen.
+
+  The clip lives on the layer rather than on the root: `overflow: 'hidden'` cuts the node's
+  own shadow on iOS, so clipping the card would cost a `default` one the elevation its variant
+  just gave it. `radius` therefore moves both slots together — a corner that moved only the
+  root would round the card and leave its photo square. HeroUI reaches the same feature
+  through a `background` **prop** and clips on both nodes, losing the shadow.
+
+  **The light `surfaceSecondary` moves up half a step**, `#f4f4f5` → `#ececee`. It sat so
+  close to the `background` (`#fafafa`) that a `secondary` card on the page read as no card at
+  all, and `zinc[200]` was already `surfaceTertiary` — so the level between them was the only
+  one left. It is the OKLab midpoint of the two, written in the source layer rather than added
+  to the palette: `PaletteShade` is derived from `zinc`, so a `150` there would have claimed
+  every other family has one too.
+
+## 0.9.1-alpha.20
+
+### Patch Changes
+
+- 4a14277: `Stack` and `Grid` join the layout lot
+
+  **`Stack`** overlays. The root is the containing block (`position: relative`) and
+  `Stack.Item` is a layer taken out of the flow (`position: absolute`); where a layer sits is
+  R14 — `top`, `bottom`, `start`, `end`, `zIndex`. The first child stays in the flow and gives
+  the stack its size. Overlaying is composed rather than inferred: a stack that positioned
+  every child but the first would have to guess which one sets the size, and would change
+  meaning the day a caller reordered them.
+
+  **`Grid`** lays out a fixed number of columns, wrapping, and **measures** its column width
+  rather than expressing it as a percentage. `width: '33.33%'` resolves against the content
+  box and knows nothing about the gaps, so three cells plus two gaps overflow their row. The
+  root reads its own width and publishes the exact column width; `Grid.Item span={n}` covers
+  several columns, gaps included. `gap` is the grid's own prop because the root has to read
+  it to size the cells.
+
+  `Container` and the remaining legacy `view/` entries are not planned: they are R14 or
+  `Stack`.
+
+## 0.9.1-alpha.19
+
+### Patch Changes
+
+- 5f91549: `Row` and `Column` — the two axes of a layout
+
+  Each contributes one declaration, `flexDirection`, and nothing else. `gap`, `alignItems`,
+  `justifyContent` and `padding` are `ViewStyle` keys that R14 already exposes as props on
+  every node, so these two add no vocabulary of their own — which is the change from the
+  legacy components, where `mainAxisAlignment`, `crossAxisAlignment`, `mainAxisSize`,
+  `direction` and `reversed` were words to learn for what React Native already says.
+
+  `flexDirection` is the one style prop they do not expose: it is their identity, and a `Row`
+  that could be told to lay out as a column would be a `View` with a longer name.
+
+  Three entries of the legacy `view/` lot are deliberately not ported, because R14 removed
+  their reason to exist: `Padding` is `padding={16}` on the node itself, `Center` is two
+  alignment props on the parent, and `Spacer` is `justifyContent="space-between"`. Each added
+  a view node to say what a style prop already says.
+
+## 0.9.1-alpha.18
+
+### Patch Changes
+
+- 345b3e0: `Icon`'s R14 boundary moves from a comment into the type
+
+  `IconProps` declared the style props and `style` for all three forms, but only the `source`
+  form applies them — it is the one where we render the node. So this compiled and silently
+  did nothing:
+
+  ```tsx
+  <Icon as={Trash2} marginEnd={8} />
+  ```
+
+  The props are a discriminated union now: `as`, a raw SVG child and `source` are mutually
+  exclusive, and only `source` carries R14. The call above is a compile error that points at
+  `size` and `color`, the levers the other two forms actually have.
+
+  `Icon` also gains the demo screen it never had — the three forms, the cascade from prop to
+  slot to theme, and a raw SVG having its baked-in size overridden. Not having one is why the
+  gap went unnoticed: nobody had tried writing a margin on an icon.
+
+## 0.9.1-alpha.17
+
+### Patch Changes
+
+- 863cc86: `Typography` and `TextSpan` — the first entry of the v1 core
+
+  Ten roles, aligned with HeroUI Native's `text`: `h1`–`h6`, `body`, `body-sm`, `body-xs` and
+  `code`. Each role fixes size, line height, weight and family **together**, which is why
+  there is no `size` prop and no `weight` prop — the combinations they allowed (a heading in
+  a light weight, a caption in a display size) become unwritable rather than discouraged.
+
+  `TextSpan` is a bare React Native `Text`. Nesting a `Text` inside a `Text` already inherits
+  font, size, weight and colour on both platforms, so a span needs no context to read and no
+  role to resolve: the legacy `TextSpanContext` was reimplementing the platform, and it is
+  gone. `Typography` therefore publishes no slot and does none of a span's work.
+
+  Neither alignment nor truncation gets a prop. `textAlign` is a `TextStyle` key that R14
+  already exposes, and `numberOfLines` is React Native's own — a prop of ours would be a
+  second name for the same thing.
+
+## 0.9.1-alpha.16
+
+### Patch Changes
+
+- da4bc8a: The `default` variant reads as grey rather than as near-white
+
+  Light `default` was zinc-100 on a white background — a fill faint enough to be mistaken
+  for no fill at all, where dark's zinc-800 sits clearly off its own background. One step to
+  zinc-200 balances the two modes instead of shifting one.
+
+  The derived layer follows from the single source: `defaultPressed`, `defaultSoft` and
+  `defaultSoftPressed` move with it, so `tertiary` and `ghost` keep a pressed state that
+  matches the new grey. Both packages regenerate their `tokens.gen.ts` from that source.
+
+## 0.9.1-alpha.15
+
+### Patch Changes
+
+- 7376ce5: `asChild` reached `Slot` as an array, so every pressable threw
+
+  `PressableFeedback` rendered `{overlays}{content}` — two expression children, which React
+  hands to the root as an array. Under `asChild` that root is a `Slot`, which merges into a
+  single element and threw instead, whether or not an overlay was composed: with none,
+  `partitionOverlays` returns `overlays: null` and `[null, content]` is an array all the
+  same. `<Button asChild>` was unusable, and so was every other pressable.
+
+  The root's children are now computed once, as a single node, by `feedbackChildren`.
+  `asChild` skips the partition entirely: the caller's element _is_ the pressable, so an
+  overlay written inside it belongs to it and hoisting would make it a sibling of the very
+  element it was composed into.
+
 ## 0.9.1-alpha.14
 
 ### Patch Changes

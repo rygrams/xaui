@@ -1,3 +1,4 @@
+import { Platform } from 'react-native'
 import type {
   ColorMode,
   FontSizeKey,
@@ -65,7 +66,10 @@ export const fontWeights: XAUITheme['fontWeights'] = {
 export const fontFamilies: XAUITheme['fontFamilies'] = {
   body: 'System',
   heading: 'System',
-  mono: 'monospace',
+  // `'monospace'` is an Android family name, not a generic one: iOS does not resolve it and
+  // silently falls back to the system face, so code set with it is not monospaced there.
+  // Menlo is the face iOS ships, and it is what HeroUI Native selects for the same reason.
+  mono: Platform.OS === 'ios' ? 'Menlo' : 'monospace',
 }
 
 export const borderWidth: XAUITheme['borderWidth'] = { default: 1, field: 1 }
