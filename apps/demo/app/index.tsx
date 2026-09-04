@@ -14,6 +14,7 @@ import { useXAUITheme } from '@xaui/native/theme'
 const SCREENS = [
   { href: '/button', label: 'Button' },
   { href: '/pressable-feedback', label: 'PressableFeedback' },
+  { href: '/typography', label: 'Typography' },
 ] as const
 
 export default function HomeScreen() {
