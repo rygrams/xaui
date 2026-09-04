@@ -1,4 +1,4 @@
-import { Children, isValidElement } from 'react'
+import { Children, Fragment, createElement, isValidElement } from 'react'
 import type { ReactNode } from 'react'
 
 /**
@@ -67,4 +67,34 @@ export function partitionOverlays(children: ReactNode): {
   if (overlays.length === 0) return { overlays: null, content: children }
 
   return { overlays, content: all.filter(node => !isBareOverlay(node)) }
+}
+
+/**
+ * What the root actually renders, as **one** node.
+ *
+ * Written as a single value rather than as `{overlays}{content}` in the JSX, because those
+ * are two expression children and React hands two children to the root as an *array*.
+ * Under `asChild` the root is a `Slot`, which merges into one element and has nothing to
+ * merge into an array — so every pressable's `asChild` threw, whether or not it composed
+ * an overlay: with none, `partitionOverlays` still returns `overlays: null`, and
+ * `[null, content]` is an array all the same.
+ *
+ * `asChild` also skips the partition entirely. The caller's element *is* the pressable, so
+ * there is no sibling slot to hoist an overlay into — an overlay written inside that
+ * element belongs to it, and pulling it out would make it a sibling of the very element it
+ * was composed into. It reads the feedback context, which is published above the root and
+ * descends into it regardless of where it sits.
+ */
+export function feedbackChildren(
+  children: ReactNode,
+  asChild: boolean
+): ReactNode {
+  if (asChild) return children
+
+  const { overlays, content } = partitionOverlays(children)
+  if (overlays === null) return content
+
+  // Positional children rather than an array literal: React keys an array's entries and
+  // would warn about these two, where `createElement`'s trailing arguments need none.
+  return createElement(Fragment, null, overlays, content)
 }

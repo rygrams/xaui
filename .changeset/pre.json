@@ -11,6 +11,7 @@
   "changesets": [
     "api-review-fixes",
     "icon",
+    "olive-moons-shave",
     "pack-uniqueness",
     "portal",
     "press-feedback-values",
@@ -24,6 +25,7 @@
     "slot-system",
     "style-props-everywhere",
     "style-props",
+    "tame-jars-argue",
     "workletized-build"
   ]
 }
