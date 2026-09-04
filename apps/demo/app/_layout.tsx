@@ -25,6 +25,7 @@ export default function RootLayout() {
             <Stack.Screen name="alert" options={{ title: 'Alert (v1)' }} />
             <Stack.Screen name="chip" options={{ title: 'Chip (v1)' }} />
             <Stack.Screen name="input" options={{ title: 'Input (v1)' }} />
+            <Stack.Screen name="input-otp" options={{ title: 'InputOTP (v1)' }} />
             <Stack.Screen
               name="pressable-feedback"
               options={{ title: 'PressableFeedback (v1)' }}

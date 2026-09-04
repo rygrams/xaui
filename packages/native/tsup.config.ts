@@ -6,6 +6,7 @@ const entries = {
   'components/button/index': 'src/components/button/index.ts',
   'components/chip/index': 'src/components/chip/index.ts',
   'components/input/index': 'src/components/input/index.ts',
+  'components/input-otp/index': 'src/components/input-otp/index.ts',
   'system/index': 'src/system/index.ts',
   'theme/index': 'src/theme/index.ts',
 }
