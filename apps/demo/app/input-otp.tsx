@@ -2,8 +2,11 @@ import { useRef, useState } from 'react'
 import { ScrollView, Text, View } from 'react-native'
 import { Button } from '@xaui/native/button'
 import { InputOTP, OTP_ALPHANUMERIC } from '@xaui/native/input-otp'
-import type { InputOTPHandle, InputOTPVariant } from '@xaui/native/input-otp'
-import type { InputOTPRenderState } from '@xaui/native/input-otp'
+import type {
+  InputOTPHandle,
+  InputOTPRenderState,
+  InputOTPVariant,
+} from '@xaui/native/input-otp'
 import { useXAUITheme } from '@xaui/native/theme'
 
 const VARIANTS: InputOTPVariant[] = ['primary', 'secondary', 'tertiary', 'ghost']
