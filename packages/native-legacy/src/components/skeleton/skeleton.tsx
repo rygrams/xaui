@@ -4,6 +4,15 @@ import type { SkeletonProps } from './skeleton.type'
 import { styles } from './skeleton.style'
 import { useXUITheme } from '../../core'
 
+/**
+ * @deprecated Use `Skeleton` from `@xaui/native/skeleton`. This tree is frozen and
+ * receives fixes only.
+ *
+ * The v1 replacement has no `size` and no `lines`: the block is sized by React Native's own
+ * `width` and `height` as props, and a paragraph is three of them in a `Column` — which is
+ * also where the shorter last line comes from. `isLoading={false}` renders the content the
+ * block stood in for, so it is a gate rather than a shape you mount around your own.
+ */
 export const Skeleton: React.FC<SkeletonProps> = ({
   children,
   isLoaded,

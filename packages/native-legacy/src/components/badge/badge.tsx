@@ -9,6 +9,15 @@ import {
   useBadgeVariantStyles,
 } from './badge.hook'
 
+/**
+ * @deprecated Use `Badge` from `@xaui/native/badge`. This tree is frozen and receives
+ * fixes only.
+ *
+ * The v1 replacement takes its count as children rather than a `count` prop, `dot` becomes
+ * `isDot`, and `position` becomes `placement` on the RTL-safe corners — `top-end` rather
+ * than `topRight`. It no longer wraps what it decorates: the parent does that, and the
+ * badge is placed on it.
+ */
 export const Badge: React.FC<BadgeProps> = ({
   children,
   content,

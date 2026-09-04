@@ -9,6 +9,16 @@ import {
   useAvatarSizeStyles,
 } from './avatar.hook'
 
+/**
+ * @deprecated Use `Avatar` from `@xaui/native/avatar`. This tree is frozen and receives
+ * fixes only.
+ *
+ * The v1 replacement composes instead of configuring: the photo is `Avatar.Image`, the
+ * initials are `Avatar.Fallback`, and the fallback is the layer underneath rather than a
+ * `source ?? name` branch — so a broken URL leaves the letters in place with nothing to
+ * handle. `themeColor` becomes one flat `variant` union of eleven names, `size` takes the
+ * four tokens instead of a number, and `customAppearance` becomes a `style` on each slot.
+ */
 export const Avatar: React.FC<AvatarProps> = ({
   src,
   name,

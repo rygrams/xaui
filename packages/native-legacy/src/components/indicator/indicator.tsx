@@ -6,6 +6,14 @@ import { LinearActivityIndicator } from './linear-activity-indicator'
 import { styles } from './indicator.style'
 import type { ActivityIndicatorProps } from './indicator.type'
 
+/**
+ * @deprecated Use `Spinner` from `@xaui/native/spinner`. This tree is frozen and receives
+ * fixes only.
+ *
+ * The v1 replacement takes `size` as one of the four tokens rather than a number, and a
+ * `variant` naming an ink — `primary` is the accent itself there, because a spinner has no
+ * surface for a foreground to read against.
+ */
 export const ActivityIndicator: React.FC<ActivityIndicatorProps> = props => {
   const {
     variant = 'circular',
