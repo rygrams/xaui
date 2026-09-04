@@ -332,6 +332,9 @@ function OtherScreens() {
       <Button variant="tertiary" size="sm" onPress={() => router.push('/radio')}>
         Radio →
       </Button>
+      <Button variant="tertiary" size="sm" onPress={() => router.push('/switch')}>
+        Switch →
+      </Button>
       <Button variant="tertiary" size="sm" onPress={() => router.push('/text-area')}>
         TextArea →
       </Button>
