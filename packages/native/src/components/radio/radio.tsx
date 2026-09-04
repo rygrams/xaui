@@ -107,7 +107,9 @@ export const RadioRoot = forwardRef<View, RadioProps>(function Radio(
 
   const context = useMemo(
     () => ({
-      indicatorStyle: tint ? [styles.indicator, tint.indicator] : styles.indicator,
+      // The tint never reaches the circle at rest — only the fill and the dot that say it
+      // is the chosen one. The `Checkbox` says why, at the same line.
+      indicatorStyle: styles.indicator,
       fillStyle: tint ? [styles.fill, tint.fill] : styles.fill,
       thumbStyle: tint ? [styles.thumb, tint.thumb] : styles.thumb,
       labelStyle: styles.label,
