@@ -17,14 +17,15 @@ const SLOTS = ['root', 'header', 'body', 'footer', 'title', 'description'] as co
  *
  * **No `bgPressed`.** A card takes its press as a wash rather than as a change of fill —
  * see the note on the root's overlay — so no variant here names a pressed token.
+ *
+ * **A filled card has no border.** The fill and the elevation are what separate it from
+ * the background; an edge on top of them is a third signal saying the same thing, and it
+ * is what makes a wall of cards read as a table. `tertiary` names one because there it is
+ * the *only* signal.
  */
 const VARIANT_TOKENS: Record<CardVariant, VariantTokens> = {
-  default: { bg: 'surface', border: 'border', fg: 'surfaceForeground' },
-  secondary: {
-    bg: 'surfaceSecondary',
-    border: 'border',
-    fg: 'surfaceSecondaryForeground',
-  },
+  default: { bg: 'surface', fg: 'surfaceForeground' },
+  secondary: { bg: 'surfaceSecondary', fg: 'surfaceSecondaryForeground' },
   tertiary: { border: 'border', fg: 'foreground' },
   ghost: { fg: 'foreground' },
 }
@@ -36,8 +37,12 @@ const VARIANT_TOKENS: Record<CardVariant, VariantTokens> = {
  * fixed: a `color`ed card paints its text in the tint's contrasted slice, and a grey
  * secondary text on a saturated fill is the one combination that stops being readable.
  * A fraction of whatever the title uses holds for every variant and every tint.
+ *
+ * The value is `muted` solved for: `foreground` at 60% composites to `#747476` on a light
+ * surface and `#a0a0a1` on a dark one, against the token's own `#71717a` and `#a1a1aa`.
+ * So an untinted card renders the token, and a tinted one still renders something legible.
  */
-const DESCRIPTION_OPACITY = 0.7
+const DESCRIPTION_OPACITY = 0.6
 
 /**
  * `size` drives padding, gaps, radius and type — **never a height**. A card is a surface:
@@ -83,6 +88,11 @@ type SizeStep = {
   description: FontSizeKey
 }
 
+/**
+ * `md` is the anchor, and it is HeroUI's card measured: 16pt of padding, a 24pt radius,
+ * an 18/28 title one step above a 16/24 description. Their scale has a single step; ours
+ * moves around that one, a step of type and a level of radius at a time.
+ */
 const SIZES: Record<CardSize, SizeStep> = {
   xs: {
     padding: 3,
@@ -93,28 +103,28 @@ const SIZES: Record<CardSize, SizeStep> = {
     description: 'xs',
   },
   sm: {
-    padding: 4,
-    gap: 2.5,
+    padding: 3.5,
+    gap: 3,
     contentGap: 1,
     radius: 'xl',
     title: 'md',
     description: 'sm',
   },
   md: {
-    padding: 5,
-    gap: 3,
-    contentGap: 1.5,
-    radius: 'xl',
+    padding: 4,
+    gap: 4,
+    contentGap: 1,
+    radius: '2xl',
     title: 'lg',
-    description: 'sm',
+    description: 'md',
   },
   lg: {
-    padding: 6,
-    gap: 4,
-    contentGap: 2,
-    radius: '2xl',
+    padding: 5,
+    gap: 5,
+    contentGap: 1.5,
+    radius: '3xl',
     title: 'xl',
-    description: 'md',
+    description: 'lg',
   },
 }
 
@@ -144,9 +154,12 @@ export const cardRecipe = createRecipe({
     // A footer is an action row: the one section whose common case is horizontal, so it
     // is the one section that is a row by default.
     footer: { flexDirection: 'row', alignItems: 'center' },
+    // `medium`, not `semibold`. A card's title sits in prose rather than on a control:
+    // one weight above the description is enough to rank them, and the heavier step reads
+    // as a section heading the card did not ask for.
     title: {
       fontFamily: theme.fontFamilies.heading,
-      fontWeight: theme.fontWeights.semibold,
+      fontWeight: theme.fontWeights.medium,
     },
     description: {
       fontFamily: theme.fontFamilies.body,

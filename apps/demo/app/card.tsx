@@ -25,34 +25,33 @@ export default function CardScreen() {
     >
       <Section
         title="The four levels"
-        note="One ladder, descending by how much surface is left: default is the card, secondary the level for a card inside a card, tertiary the outline, ghost nothing at all. No success and no danger — a card is what a status is reported on, not the status."
+        note="One ladder, descending by how much surface is left: default is the card, secondary the level for a card inside a card, tertiary the outline, ghost nothing at all. A filled card has no border — the fill and the elevation already separate it from the background."
       >
         {VARIANTS.map(variant => (
           <Card key={variant} variant={variant}>
-            <Card.Header>
+            <Card.Body>
               <Card.Title>{variant}</Card.Title>
               <Card.Description>
                 The title takes the variant&apos;s foreground; the description sits
                 behind it on a fraction of the same colour.
               </Card.Description>
-            </Card.Header>
+            </Card.Body>
           </Card>
         ))}
 
         <Card>
-          <Card.Header>
+          <Card.Body>
             <Card.Title>Nesting</Card.Title>
             <Card.Description>
               A secondary card inside a default one — the level above it, and no
               second shadow.
             </Card.Description>
-          </Card.Header>
-          <Card.Body>
+
             <Card variant="secondary" size="sm">
-              <Card.Header>
+              <Card.Body>
                 <Card.Title>Nested</Card.Title>
                 <Card.Description>surfaceSecondary, no elevation</Card.Description>
-              </Card.Header>
+              </Card.Body>
             </Card>
           </Card.Body>
         </Card>
@@ -60,20 +59,20 @@ export default function CardScreen() {
 
       <Section
         title="Anatomy — header, body, footer"
-        note="The root's gap separates the sections and the sections have no margin of their own, so JSX order is screen order. The header is a column pinned to the leading edge; the footer is a row, because a footer is an action row."
+        note="Nothing is spaced by hand: the root's gap separates the three sections and the body's own gap separates the title from the description. The header is a column pinned to the leading edge; the footer is a row, because a footer is an action row."
       >
         <Card>
           <Card.Header>
+            <Text style={{ color: theme.colors.muted }}>EN RETARD</Text>
+          </Card.Header>
+
+          <Card.Body>
             <Card.Title>Facture #1024</Card.Title>
             <Card.Description>
-              Émise le 3 mars, échéance le 2 avril.
+              Émise le 3 mars, échéance le 2 avril. Trois lignes, 1 240 € hors taxes.
             </Card.Description>
-          </Card.Header>
-          <Card.Body>
-            <Text style={{ color: theme.colors.surfaceForeground }}>
-              Trois lignes, 1 240 € hors taxes.
-            </Text>
           </Card.Body>
+
           <Card.Footer>
             <Button size="sm">Payer</Button>
             <Button size="sm" variant="ghost">
@@ -89,25 +88,36 @@ export default function CardScreen() {
               Voir
             </Button>
           </Card.Header>
+
+          <Card.Body>
+            <Card.Description>
+              flexDirection=&quot;row&quot; — one style prop, and the header is a
+              title-and-action bar.
+            </Card.Description>
+          </Card.Body>
+        </Card>
+
+        <Card>
+          <Card.Title>A title straight under the root</Card.Title>
           <Card.Description>
-            flexDirection=&quot;row&quot; — one style prop, and the header is a
-            title-and-action bar.
+            Every slot reads the root&apos;s context, not its parent&apos;s, so the
+            sections are a convention rather than a constraint.
           </Card.Description>
         </Card>
       </Section>
 
       <Section
         title="size — padding and type, never a height"
-        note="A card is a surface, not a control: it is as tall as what it holds. The two gaps move together — between the sections, and inside one."
+        note="A card is a surface, not a control: it is as tall as what it holds. md is HeroUI's card measured — 16pt of padding, a 24pt radius, an 18/28 title over a 16/24 description — and the other three steps move around it."
       >
         {(['xs', 'sm', 'md', 'lg'] as const).map(size => (
           <Card key={size} size={size} variant="secondary">
-            <Card.Header>
+            <Card.Body>
               <Card.Title>size=&quot;{size}&quot;</Card.Title>
               <Card.Description>
-                Padding, gaps, radius, and the type of both text slots.
+                Padding, both gaps, the radius, and the type of the two text slots.
               </Card.Description>
-            </Card.Header>
+            </Card.Body>
           </Card>
         ))}
       </Section>
@@ -117,32 +127,32 @@ export default function CardScreen() {
         note='A PressableFeedback with accessibilityRole="button", the shared scale, and a wash over the surface. The wash, and not a pressed fill: a card has no pressed token per surface level, and on an area this large a flat overlay reads better than a fill a shade darker.'
       >
         <Card isPressable onPress={() => undefined}>
-          <Card.Header>
+          <Card.Body>
             <Card.Title>Press me</Card.Title>
             <Card.Description>
               The card scales — less than a button would, because it is wider — and
               the wash rounds itself to the card&apos;s own corners.
             </Card.Description>
-          </Card.Header>
+          </Card.Body>
         </Card>
 
         <Card isPressable variant="tertiary" onPress={() => undefined}>
-          <Card.Header>
+          <Card.Body>
             <Card.Title>Pressable, outlined</Card.Title>
             <Card.Description>
               The wash contrasts with whatever the card sits on, transparent
               included.
             </Card.Description>
-          </Card.Header>
+          </Card.Body>
         </Card>
 
         <Card isPressable isDisabled onPress={() => undefined}>
-          <Card.Header>
+          <Card.Body>
             <Card.Title>isDisabled</Card.Title>
             <Card.Description>
               Dimmed, and it does not take the touch.
             </Card.Description>
-          </Card.Header>
+          </Card.Body>
         </Card>
 
         <Card
@@ -151,44 +161,46 @@ export default function CardScreen() {
           variant="secondary"
           onPress={() => undefined}
         >
-          <Card.Header>
+          <Card.Body>
             <Card.Title>animation={'{false}'}</Card.Title>
             <Card.Description>
               Nothing moves, and no worklet is mounted.
             </Card.Description>
-          </Card.Header>
+          </Card.Body>
         </Card>
       </Section>
 
       <Section
         title="color — one raw tint, placed by the variant"
-        note="The fill of a default, the border of a tertiary, the text of a ghost. Derived in OKLab, like accent — which is what keeps the title readable on the fill without a second colour being named."
+        note="The fill of a default, the border of a tertiary, the text of a ghost. Derived in OKLab, like accent — which is what keeps the title readable on the fill without a second colour being named, and the description with it."
       >
         <Card color="#7c3aed">
-          <Card.Header>
+          <Card.Body>
             <Card.Title>default — the tint is the fill</Card.Title>
             <Card.Description>
-              And the text is its contrasted slice, not the surface foreground.
+              And the text is its contrasted slice, not the surface foreground. This
+              is why the description is a fraction of the title rather than the muted
+              token.
             </Card.Description>
-          </Card.Header>
+          </Card.Body>
         </Card>
 
         <Card variant="tertiary" color="#7c3aed">
-          <Card.Header>
+          <Card.Body>
             <Card.Title>tertiary — border and text</Card.Title>
             <Card.Description>
               No fill to tint, so the edge carries it.
             </Card.Description>
-          </Card.Header>
+          </Card.Body>
         </Card>
 
         <Card variant="ghost" color="#7c3aed">
-          <Card.Header>
+          <Card.Body>
             <Card.Title>ghost — the text alone</Card.Title>
             <Card.Description>
               Neither fill nor edge; only the words.
             </Card.Description>
-          </Card.Header>
+          </Card.Body>
         </Card>
       </Section>
 
@@ -238,12 +250,12 @@ export default function CardScreen() {
         title="A card with a height — the body is what grows"
         note="flexGrow on the body, so the footer sits at the bottom with no spacer. It grows rather than flexing: flex: 1 would measure the body as empty in a card sized by its content, which is every other card on this screen."
       >
-        <Card height={220}>
+        <Card height={240}>
           <Card.Header>
-            <Card.Title>Fixed height</Card.Title>
+            <Text style={{ color: theme.colors.muted }}>FIXED HEIGHT</Text>
           </Card.Header>
           <Card.Body>
-            <Card.Description>The body takes what is left.</Card.Description>
+            <Card.Title>The body takes what is left</Card.Title>
           </Card.Body>
           <Card.Footer>
             <Button size="sm" variant="tertiary">

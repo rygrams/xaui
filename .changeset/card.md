@@ -16,5 +16,10 @@ the radius and the type of the two text slots, and never a height: a card is as 
 what it holds. `isPressable` turns the surface into a `PressableFeedback` with a press
 wash, `accessibilityRole="button"` and the shared scale.
 
+The rendering is HeroUI's card measured — `md` is 16pt of padding, a 24pt radius, an
+18/28 title in `medium` over a 16/24 description, no border on a filled surface — reached
+through our own vocabulary rather than through their utility classes, and with the gaps the
+component owns instead of leaving to the call site.
+
 Also fixes a `NoInfer` gap in the recipe engine: a `compoundVariants` entry naming one
 variant used to collapse the whole recipe's variant union to that single value.

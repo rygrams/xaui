@@ -12,11 +12,11 @@ import { Card } from '@xaui/native/card'
 
 ```tsx
 <Card>
-  <Card.Header>
+  <Card.Header />
+  <Card.Body>
     <Card.Title />
     <Card.Description />
-  </Card.Header>
-  <Card.Body />
+  </Card.Body>
   <Card.Footer />
 </Card>
 ```
@@ -24,20 +24,26 @@ import { Card } from '@xaui/native/card'
 - **`Card`** — the root. A `View`, or a `PressableFeedback` when `isPressable` is set. It
   resolves the recipe once and publishes the resolved styles to its slots. A string child
   is wrapped in a `Card.Description` automatically.
-- **`Card.Header`** — the top section: a badge, an icon, a title block. A column pinned to
-  the leading edge; `flexDirection="row"` makes it a title-and-action bar.
+- **`Card.Header`** — the top section: a badge, an icon, an eyebrow. A column pinned to the
+  leading edge; `flexDirection="row"` makes it a title-and-action bar.
 - **`Card.Body`** — the main section, and the one that grows. Given a card with a height,
   it takes what the header and the footer leave.
 - **`Card.Footer`** — the bottom section. A **row**, because a footer is an action row.
 - **`Card.Title`** — the heading. It wraps, where `Button.Label` truncates: a card has no
   fixed height to deform.
-- **`Card.Description`** — the prose. It sits behind the title on a fraction of the title's
-  own colour rather than on `muted`, which is what keeps it readable on a tinted card.
+- **`Card.Description`** — the prose. It sits behind the title at 60% of the title's own
+  colour, which composites to the `muted` token on both surfaces and still holds on a
+  tinted card, where a fixed grey would stop being readable.
+
+**Every slot reads the root's context, not its parent's.** `Card.Title` and
+`Card.Description` are children of the card, not of the body, so the tree above is a
+convention rather than a constraint — a title directly under `Card` styles identically.
+Nesting them in the body is the form to prefer, because it is the body's gap that sets
+them apart and the body that grows.
 
 **No slot carries a margin** (R4). What separates the sections is the root's `gap`, so JSX
 order is screen order and nothing has to be undone to reorder them. The sections are
-optional and independent: a card that is a title and a description needs neither a body nor
-a footer.
+optional and independent: a card that is a title and a description needs no footer.
 
 ## Usage
 
@@ -45,10 +51,10 @@ a footer.
 
 ```tsx
 <Card>
-  <Card.Header>
+  <Card.Body>
     <Card.Title>Facture #1024</Card.Title>
     <Card.Description>Émise le 3 mars, échéance le 2 avril.</Card.Description>
-  </Card.Header>
+  </Card.Body>
 </Card>
 ```
 
@@ -64,12 +70,12 @@ A stringifiable tree becomes a `Card.Description` on its own (R3) — `Descripti
 ```tsx
 <Card>
   <Card.Header>
-    <Card.Title>Facture #1024</Card.Title>
-    <Card.Description>Émise le 3 mars.</Card.Description>
+    <Chip size="sm">En retard</Chip>
   </Card.Header>
 
   <Card.Body>
-    <Text>Trois lignes, 1 240 € hors taxes.</Text>
+    <Card.Title>Facture #1024</Card.Title>
+    <Card.Description>Trois lignes, 1 240 € hors taxes.</Card.Description>
   </Card.Body>
 
   <Card.Footer>
@@ -80,6 +86,10 @@ A stringifiable tree becomes a `Card.Description` on its own (R3) — `Descripti
   </Card.Footer>
 </Card>
 ```
+
+Nothing is spaced by hand: the root's `gap` separates the three sections and the body's own
+gap separates the title from the description. That is what R4 buys — the layout is the
+component's, not a set of margin classes at the call site.
 
 The header is a column and the footer a row, which are the two common cases. Either flips
 with one style prop (R14):
@@ -146,10 +156,15 @@ or an `Alert` that carries it.
 
 | `variant`   | Surface            | Edge     | Elevation         |
 | ----------- | ------------------ | -------- | ----------------- |
-| `default`   | `surface`          | `border` | `shadows.surface` |
-| `secondary` | `surfaceSecondary` | `border` | —                 |
+| `default`   | `surface`          | —        | `shadows.surface` |
+| `secondary` | `surfaceSecondary` | —        | —                 |
 | `tertiary`  | —                  | `border` | —                 |
 | `ghost`     | —                  | —        | —                 |
+
+A filled card has **no border**: the fill and the elevation already separate it from the
+background, and an edge on top of them is a third signal saying the same thing — which is
+what makes a list of cards read as a table. `tertiary` names one because there it is the
+only signal.
 
 The elevation belongs to the one variant that is a surface standing on the background.
 `secondary` is the level for a card _inside_ a card, and `tertiary` and `ghost` have no
