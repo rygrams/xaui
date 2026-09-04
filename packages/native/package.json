@@ -37,6 +37,16 @@
         "default": "./dist/components/button/index.cjs"
       }
     },
+    "./view": {
+      "import": {
+        "types": "./dist/components/view/index.d.ts",
+        "default": "./dist/components/view/index.js"
+      },
+      "require": {
+        "types": "./dist/components/view/index.d.cts",
+        "default": "./dist/components/view/index.cjs"
+      }
+    },
     "./system": {
       "import": {
         "types": "./dist/system/index.d.ts",
