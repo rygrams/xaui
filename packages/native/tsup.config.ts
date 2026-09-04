@@ -16,6 +16,7 @@ const entries = {
   'components/divider/index': 'src/components/divider/index.ts',
   'components/skeleton/index': 'src/components/skeleton/index.ts',
   'components/avatar/index': 'src/components/avatar/index.ts',
+  'components/badge/index': 'src/components/badge/index.ts',
   'system/index': 'src/system/index.ts',
   'theme/index': 'src/theme/index.ts',
 }
