@@ -23,6 +23,7 @@ export default function RootLayout() {
           <Stack>
             <Stack.Screen name="index" options={{ title: 'Button (v1)' }} />
             <Stack.Screen name="alert" options={{ title: 'Alert (v1)' }} />
+            <Stack.Screen name="checkbox" options={{ title: 'Checkbox (v1)' }} />
             <Stack.Screen name="chip" options={{ title: 'Chip (v1)' }} />
             <Stack.Screen name="input" options={{ title: 'Input (v1)' }} />
             <Stack.Screen

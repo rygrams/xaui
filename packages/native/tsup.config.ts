@@ -4,6 +4,7 @@ const entries = {
   index: 'src/index.ts',
   'components/alert/index': 'src/components/alert/index.ts',
   'components/button/index': 'src/components/button/index.ts',
+  'components/checkbox/index': 'src/components/checkbox/index.ts',
   'components/chip/index': 'src/components/chip/index.ts',
   'components/input/index': 'src/components/input/index.ts',
   'components/input-group/index': 'src/components/input-group/index.ts',

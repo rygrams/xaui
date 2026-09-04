@@ -1,5 +1,6 @@
 export * from './alert'
 export * from './button'
+export * from './checkbox'
 export * from './chip'
 export * from './input'
 export * from './input-group'

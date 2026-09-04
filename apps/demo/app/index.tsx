@@ -314,6 +314,9 @@ function OtherScreens() {
       <Button variant="tertiary" size="sm" onPress={() => router.push('/alert')}>
         Alert →
       </Button>
+      <Button variant="tertiary" size="sm" onPress={() => router.push('/checkbox')}>
+        Checkbox →
+      </Button>
       <Button variant="tertiary" size="sm" onPress={() => router.push('/chip')}>
         Chip →
       </Button>
