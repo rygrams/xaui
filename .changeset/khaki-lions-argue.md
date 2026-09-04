@@ -17,5 +17,3 @@ gone. `Typography` therefore publishes no slot and does none of a span's work.
 Neither alignment nor truncation gets a prop. `textAlign` is a `TextStyle` key that R14
 already exposes, and `numberOfLines` is React Native's own — a prop of ours would be a
 second name for the same thing.
-
-The legacy `Typography` and `TextSpan` carry `@deprecated` pointing here.

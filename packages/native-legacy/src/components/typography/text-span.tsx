@@ -11,11 +11,6 @@ const alignToTextAlign: Record<TextSpanAlign, TextStyle['textAlign']> = {
   justify: 'justify',
 }
 
-/**
- * @deprecated Use `TextSpan` from `@xaui/native/typography`. It is a bare React Native
- * `Text` there: the inheritance this component carried through `TextSpanContext` is what
- * React Native already does for a nested `Text`. `align="left"` becomes `textAlign` (R13).
- */
 export const TextSpan: React.FC<TextSpanProps> = ({
   children,
   color,
