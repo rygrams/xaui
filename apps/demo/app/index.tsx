@@ -323,6 +323,9 @@ function OtherScreens() {
       <Button variant="tertiary" size="sm" onPress={() => router.push('/input-otp')}>
         InputOTP →
       </Button>
+      <Button variant="tertiary" size="sm" onPress={() => router.push('/text-area')}>
+        TextArea →
+      </Button>
       <Button
         variant="tertiary"
         size="sm"

@@ -43,5 +43,6 @@ remaining action belongs to a workflow rather than to a commit.
 | P4    | Docs, generated tables, `1.0.0`                                    | todo   |
 | P5    | The remaining 32 components                                        | todo   |
 | P5.1  | `InputOTP` — Group · Box · Value · Placeholder · Caret · Separator | done   |
+| P5.2  | `TextArea` — Label · Field · Description · Error, over the `Input` | done   |
 | P6    | `@xaui/hybrid` on the v1 API                                       | todo   |
 | P7    | Delete `native-legacy`                                             | todo   |

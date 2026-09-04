@@ -14,6 +14,7 @@ export type InputSlot =
   | 'root'
   | 'label'
   | 'field'
+  | 'textArea'
   | 'placeholder'
   | 'description'
   | 'error'
@@ -113,6 +114,32 @@ export type InputProps = InputOwnProps &
 export type InputFieldProps = Omit<TextInputProps, 'editable'> &
   Omit<TextStyleProps, keyof TextInputProps>
 
+type InputTextAreaOwnProps = {
+  /**
+   * How many lines tall the field starts. It is a **raw value**, not a token: it resolves
+   * outside the style cache from the line height the size chose, the same path `color`
+   * takes — which is what lets `rows={7}` exist without seven entries in the cache.
+   *
+   * @default 3
+   */
+  rows?: number
+  /**
+   * The ceiling, in lines. Past it the field stops growing and scrolls; unset, it grows
+   * with the text for as long as the text goes on.
+   */
+  maxRows?: number
+}
+
+/**
+ * `Input.Field` with the three things a multiline field needs — `multiline`, the text
+ * pinned to the top, and a height in lines rather than in points. Everything else is the
+ * field's, because it **is** the field: the same styles, the same focus plumbing, the same
+ * `isInvalid`.
+ */
+export type InputTextAreaProps = InputTextAreaOwnProps &
+  Omit<TextInputProps, 'editable' | 'multiline' | keyof InputTextAreaOwnProps> &
+  Omit<TextStyleProps, keyof TextInputProps | keyof InputTextAreaOwnProps>
+
 /** `Text`'s own props win over the `TextStyle` keys of the same name (R14). */
 type InputTextProps = TextProps &
   Omit<TextStyleProps, keyof TextProps> & {
@@ -139,6 +166,14 @@ export type FieldBlurEvent = Parameters<NonNullable<TextInputProps['onBlur']>>[0
 export type InputContextValue = {
   labelStyle: StyleProp<TextStyle>
   fieldStyle: StyleProp<TextStyle>
+  /** Layered *over* `fieldStyle` by `Input.TextArea`: only what a multiline field adds. */
+  textAreaStyle: StyleProp<TextStyle>
+  /**
+   * Values, not a style: `rows` is a raw number, so the height it implies is arithmetic
+   * the slot does — and these are the two measurements it needs, flattened once here
+   * rather than in every text area on the screen.
+   */
+  textArea: { lineHeight: number; paddingVertical: number }
   descriptionStyle: StyleProp<TextStyle>
   errorStyle: StyleProp<TextStyle>
   /**

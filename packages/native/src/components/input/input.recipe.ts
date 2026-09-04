@@ -7,6 +7,7 @@ const SLOTS = [
   'root',
   'label',
   'field',
+  'textArea',
   'placeholder',
   'description',
   'error',
@@ -74,7 +75,7 @@ const VARIANT_TOKENS: Record<InputVariant, VariantTokens> = {
  * not scale: it is an optical alignment, not a measurement.
  */
 function sizeAxis(step: SizeStep) {
-  const { control, padding, gap, field, label, help } = step
+  const { control, padding, gap, field, label, help, textAreaPadding } = step
 
   return (theme: XAUITheme): SlotStyles<InputSlot> => {
     const inset = { paddingHorizontal: theme.spacing(LABEL_INSET) }
@@ -94,6 +95,15 @@ function sizeAxis(step: SizeStep) {
         minHeight: theme.controlHeights[control],
         paddingHorizontal: theme.spacing(padding),
         fontSize: theme.fontSizes[field],
+      },
+      // Only what a multiline field *adds* — `Input.TextArea` layers this over the field's
+      // own style rather than restating it, so the colours, the border and the radius are
+      // resolved once for both. The height is not here: `rows` is a raw value, and the
+      // slot computes it from the two numbers below.
+      textArea: {
+        lineHeight: theme.lineHeights[field],
+        paddingTop: theme.spacing(textAreaPadding),
+        paddingBottom: theme.spacing(textAreaPadding),
       },
       description: { ...inset, ...helpType },
       error: { ...inset, ...helpType },
@@ -115,6 +125,12 @@ type SizeStep = {
   label: FontSizeKey
   /** `Description` and `Error` — they are the same line at a different colour. */
   help: FontSizeKey
+  /**
+   * The room above and below the text in a multiline field, in spacing steps. A single
+   * line is centred in the control height and needs none; several lines start at the top
+   * and would otherwise sit against the edge.
+   */
+  textAreaPadding: number
   /** The label once it is inside the box: one step down, because it shares the room. */
   labelInside: FontSizeKey
 }
@@ -134,6 +150,7 @@ const SIZES: Record<InputSize, SizeStep> = {
     label: 'sm',
     help: 'xs',
     labelInside: 'xs',
+    textAreaPadding: 1.5,
   },
   sm: {
     control: 'sm',
@@ -143,6 +160,7 @@ const SIZES: Record<InputSize, SizeStep> = {
     label: 'sm',
     help: 'xs',
     labelInside: 'xs',
+    textAreaPadding: 2,
   },
   md: {
     control: 'md',
@@ -152,6 +170,7 @@ const SIZES: Record<InputSize, SizeStep> = {
     label: 'md',
     help: 'sm',
     labelInside: 'xs',
+    textAreaPadding: 2,
   },
   lg: {
     control: 'lg',
@@ -161,6 +180,7 @@ const SIZES: Record<InputSize, SizeStep> = {
     label: 'lg',
     help: 'md',
     labelInside: 'sm',
+    textAreaPadding: 2.5,
   },
 }
 
@@ -204,6 +224,9 @@ function insideLabel(step: SizeStep) {
         paddingTop: block,
         paddingBottom: top,
       },
+      // The same room, because `Input.TextArea` layers its own padding over the field's
+      // and would otherwise put the first line back under the label.
+      textArea: { paddingTop: block, paddingBottom: top },
     }
   }
 }
@@ -234,6 +257,8 @@ export const inputRecipe = createRecipe({
       // Android. Saying it removes a difference nobody chose.
       textAlignVertical: 'center',
     },
+    // Several lines start at the top; only a single line is centred in its box.
+    textArea: { textAlignVertical: 'top' },
     // Not a node — the root flattens this one into `placeholderTextColor`, which is a
     // `TextInput` prop rather than a style.
     placeholder: { color: theme.colors.fieldPlaceholder },

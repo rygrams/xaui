@@ -92,10 +92,21 @@ export const InputRoot = forwardRef<View, InputProps>(function Input(
 
   const context = useMemo(() => {
     const placeholder = StyleSheet.flatten<TextStyle>(styles.placeholder)
+    // `rows` is a raw value, so the height it implies is arithmetic `Input.TextArea` does.
+    // Flattened once here rather than in every text area on the screen.
+    const textArea = StyleSheet.flatten<TextStyle>(styles.textArea)
 
     return {
       labelStyle: tint ? [styles.label, tint.label] : styles.label,
       fieldStyle: tint ? [styles.field, tint.field] : styles.field,
+      textAreaStyle: styles.textArea,
+      textArea: {
+        lineHeight: textArea.lineHeight ?? 0,
+        // `DimensionValue` also covers a percentage and `auto`, neither of which can be
+        // multiplied by a number of rows. The recipe only ever writes points here.
+        paddingVertical:
+          typeof textArea.paddingBottom === 'number' ? textArea.paddingBottom : 0,
+      },
       descriptionStyle: styles.description,
       errorStyle: styles.error,
       // `ColorValue` also covers the platform's opaque colours, which `TextInput` cannot
