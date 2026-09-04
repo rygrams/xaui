@@ -13,6 +13,7 @@ const entries = {
   'components/switch/index': 'src/components/switch/index.ts',
   'components/text-area/index': 'src/components/text-area/index.ts',
   'components/spinner/index': 'src/components/spinner/index.ts',
+  'components/divider/index': 'src/components/divider/index.ts',
   'system/index': 'src/system/index.ts',
   'theme/index': 'src/theme/index.ts',
 }
