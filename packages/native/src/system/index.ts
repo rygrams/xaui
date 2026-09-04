@@ -1,3 +1,4 @@
+export * from './close-button'
 export * from './icon'
 export * from './portal'
 export * from './pressable-feedback'

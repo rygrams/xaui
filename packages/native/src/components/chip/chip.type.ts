@@ -8,6 +8,7 @@ import type {
   ViewProps,
   ViewStyle,
 } from 'react-native'
+import type { CloseButtonProps } from '../../system/close-button'
 import type { IconContextValue, IconProps } from '../../system/icon'
 import type { PressableFeedbackProps } from '../../system/pressable-feedback'
 import type { TextStyleProps, ViewStyleProps } from '../../system/style-props'
@@ -137,22 +138,14 @@ export type ChipAvatarProps = ChipAvatarOwnProps &
   ViewProps &
   Omit<ViewStyleProps, keyof ViewProps | keyof ChipAvatarOwnProps>
 
-type ChipCloseOwnProps = {
-  /**
-   * Replaces the built-in cross — a `Chip.Icon`, or any glyph. Unset, the slot draws its
-   * own from two rotated bars, which is what makes a dismissible chip work in a project
-   * that has installed no icon set.
-   */
-  children?: ReactNode
-  /** R9 — `Pressable`'s function form as much as an object or an array. */
-  style?:
-    | StyleProp<ViewStyle>
-    | ((state: PressableStateCallbackType) => StyleProp<ViewStyle>)
-}
-
-export type ChipCloseProps = ChipCloseOwnProps &
-  Omit<PressableFeedbackProps, 'isPressed' | 'style' | 'children'> &
-  Omit<ViewStyleProps, keyof ChipCloseOwnProps>
+/**
+ * Everything the shared `CloseButton` accepts, minus the three the chip supplies itself:
+ * the warning's name and the two resolved styles its recipe already decided (R5).
+ */
+export type ChipCloseProps = Omit<
+  CloseButtonProps,
+  'name' | 'baseStyle' | 'glyphStyle'
+>
 
 /**
  * R5 — resolved styles, not props for a slot to resolve a second time. Each entry is the

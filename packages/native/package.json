@@ -27,6 +27,16 @@
         "default": "./dist/index.cjs"
       }
     },
+    "./alert": {
+      "import": {
+        "types": "./dist/components/alert/index.d.ts",
+        "default": "./dist/components/alert/index.js"
+      },
+      "require": {
+        "types": "./dist/components/alert/index.d.cts",
+        "default": "./dist/components/alert/index.cjs"
+      }
+    },
     "./button": {
       "import": {
         "types": "./dist/components/button/index.d.ts",

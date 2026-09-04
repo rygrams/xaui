@@ -61,7 +61,13 @@ export type RecipeConfig<
   /** Where the variant's colours land — written once, and it holds for every variant. */
   paint?: StyleFn<Slot>
   variants?: A
-  compoundVariants?: ReadonlyArray<CompoundVariant<Slot, Variant, A>>
+  /**
+   * `NoInfer` for the same reason `defaultVariants` needs it: a `when` clause **selects**
+   * from the variants `variantTokens` declared, it does not declare one. Without it a
+   * recipe whose only compound is `{ when: { variant: 'default' } }` narrows `Variant` to
+   * that single literal, and every other variant becomes a type error at the call site.
+   */
+  compoundVariants?: ReadonlyArray<CompoundVariant<Slot, NoInfer<Variant>, A>>
   states?: Partial<Record<StateName, StyleFn<Slot>>>
   /**
    * `NoInfer`, because this is the one place a single variant name appears on its own:

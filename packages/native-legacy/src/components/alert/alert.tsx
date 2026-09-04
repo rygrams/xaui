@@ -170,7 +170,13 @@ export const Alert: React.FC<AlertProps> = ({
   return (
     <Animated.View
       accessibilityRole="alert"
-      style={[styles.container, containerStyles, { borderRadius: radius }, style, animatedStyle]}
+      style={[
+        styles.container,
+        containerStyles,
+        { borderRadius: radius },
+        style,
+        animatedStyle,
+      ]}
     >
       {!hideIcon && (
         <View style={[styles.iconWrapper, iconWrapperStyles]}>{renderIcon()}</View>
