@@ -310,12 +310,21 @@ function OtherScreens() {
   const router = useRouter()
 
   return (
-    <Button
-      variant="tertiary"
-      size="sm"
-      onPress={() => router.push('/pressable-feedback')}
-    >
-      PressableFeedback →
-    </Button>
+    <Row>
+      <Button
+        variant="tertiary"
+        size="sm"
+        onPress={() => router.push('/pressable-feedback')}
+      >
+        PressableFeedback →
+      </Button>
+      <Button
+        variant="tertiary"
+        size="sm"
+        onPress={() => router.push('/typography')}
+      >
+        Typography →
+      </Button>
+    </Row>
   )
 }

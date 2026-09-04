@@ -5,6 +5,12 @@ import { useTextSpanInheritedStyle } from './text-span.context'
 import { useTypographyColor, useTypographyVariantStyles } from './typography.hook'
 import type { TypographyProps } from './typography.type'
 
+/**
+ * @deprecated Use `Typography` from `@xaui/native/typography`. The thirteen MD3 variants
+ * become ten roles — `displayLarge` is `h1`, `bodyMedium` is the default `body` — and the
+ * separate `size` and `weight` props are gone: a role fixes size, line height, weight and
+ * family together. See `packages/native/src/components/typography/typography.md`.
+ */
 export const Typography: React.FC<TypographyProps> = ({
   children,
   align,
