@@ -22,6 +22,7 @@ export default function RootLayout() {
         <PortalHost>
           <Stack>
             <Stack.Screen name="index" options={{ title: 'Button (v1)' }} />
+            <Stack.Screen name="card" options={{ title: 'Card (v1)' }} />
             <Stack.Screen
               name="pressable-feedback"
               options={{ title: 'PressableFeedback (v1)' }}
