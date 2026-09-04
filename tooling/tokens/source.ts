@@ -33,7 +33,12 @@ export const source: Record<'light' | 'dark', XAUISourceColors> = {
     fieldBorder: p.zinc[200],
     success: p.green[700],
     successForeground: p.zinc[50],
-    warning: p.amber[700],
+    // `orange` and not `amber`. The two families sit 11° apart at the 700 step and share
+    // a lightness, so light barely moves — but `amber[400]` is a distinctly yellow 84°,
+    // which made the dark warning read as gold rather than as a caution. Swapping the
+    // family moves both modes the same way and *narrows* the hue gap between them, from
+    // 35° to 18°.
+    warning: p.orange[700],
     warningForeground: p.zinc[50],
     danger: p.red[600],
     dangerForeground: p.zinc[50],
@@ -67,7 +72,7 @@ export const source: Record<'light' | 'dark', XAUISourceColors> = {
     fieldBorder: p.zinc[700],
     success: p.green[400],
     successForeground: p.zinc[900],
-    warning: p.amber[400],
+    warning: p.orange[400],
     warningForeground: p.zinc[900],
     danger: p.red[400],
     dangerForeground: p.zinc[900],
