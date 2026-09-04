@@ -61,7 +61,12 @@ export type RecipeConfig<
   /** Where the variant's colours land — written once, and it holds for every variant. */
   paint?: StyleFn<Slot>
   variants?: A
-  compoundVariants?: ReadonlyArray<CompoundVariant<Slot, Variant, A>>
+  /**
+   * `NoInfer` for the same reason as `defaultVariants` below: a `when: { variant: 'x' }`
+   * names one variant, and letting inference read `Variant` off it collapses the recipe
+   * to that single value.
+   */
+  compoundVariants?: ReadonlyArray<CompoundVariant<Slot, NoInfer<Variant>, A>>
   states?: Partial<Record<StateName, StyleFn<Slot>>>
   /**
    * `NoInfer`, because this is the one place a single variant name appears on its own:
