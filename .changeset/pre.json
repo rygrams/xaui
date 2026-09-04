@@ -10,6 +10,7 @@
   },
   "changesets": [
     "api-review-fixes",
+    "great-doors-search",
     "icon",
     "khaki-lions-argue",
     "olive-moons-shave",
