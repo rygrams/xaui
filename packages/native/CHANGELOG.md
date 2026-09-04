@@ -1,5 +1,91 @@
 # @xaui/native
 
+## 0.9.1-alpha.22
+
+### Patch Changes
+
+- d5461ae: feat(alert): the v1 `Alert` — P3.6
+
+  A message the interface has to make sure is read. Compound root plus five slots:
+  `Alert.Icon`, `Alert.Content`, `Alert.Title`, `Alert.Description` and `Alert.Close`, laid
+  out as a row of three columns spaced by the root's `gap` alone.
+
+  Nine variants: the `Card`'s `surface` for the neutral level — HeroUI's alert root, token
+  for token, shadow included — and the `Chip`'s status ladder for the rest, each family in
+  its full and soft slice.
+
+  Visually aligned with `heroui-native`: 12pt of padding, a 12pt gap, a 24pt radius, a 16/24
+  title above a 14/20 description and an 18pt icon at `md`. The icon's optical offset is
+  derived from the title's leading rather than hard-coded, so it stays right at all four
+  sizes.
+
+  The root is **never a control** — no `isPressable`, no press behaviour on the type. What
+  you press is `Alert.Close`, which now comes from a shared `system/close-button`: the
+  `Chip`'s close became its second use, so its press state, grown touch target, missing-label
+  warning and built-in cross are written once and both components are five-line call sites.
+
+  Also fixes an inference bug in `createRecipe`: a `compoundVariants` entry declared the
+  variant union instead of selecting from it, so a recipe whose only compound was
+  `{ when: { variant: 'default' } }` rejected every other variant at the call site.
+
+  `Alert.Icon` picks `Icon`'s forms one by one, so the union survives. `IconProps` became a
+  discriminated union of its three forms, and a non-distributive `Pick` over it merged them
+  back into a single shape where `as` and `source` are both optional — which stopped
+  type-checking the moment both changes met on `main`, and would have let
+  `<Alert.Icon as={Check} source={png} />` compile with one of the two silently dropped. The
+  type now distributes the `Pick`, and the slot renders one `<Icon>` per form in `Icon`'s own
+  runtime precedence rather than one call carrying all three.
+
+- 17993f6: feat(chip): the v1 `Chip` — P3.5
+
+  A compact token — a status, a tag, a filter, a person. Compound root plus five slots:
+  `Chip.Label`, `Chip.Icon`, `Chip.Dot`, `Chip.Avatar` and `Chip.Close`, spaced by the root
+  alone, so JSX order is screen order and there is no `startContent` / `endContent`.
+
+  Eleven flat variants replace HeroUI's `variant × color` matrix: the `Button`'s five-step
+  emphasis ladder plus the three status families it deliberately refused — a chip reports an
+  outcome, so `success`, `warning` and `danger` each land here with their soft slice.
+
+  Visually aligned with `heroui-native`: 12pt of horizontal padding, a 14/20 label and a 28pt
+  `md`, with the height fixed rather than derived from vertical padding so a chip carrying an
+  avatar still lines up with the one beside it.
+
+  `Chip.Close` is a control in its own right — its own press state, its own `hitSlop`, and a
+  cross it draws itself, so a dismissible chip needs no icon set installed.
+
+  Also extracts the `radius` axis, duplicated in every recipe that has one, into
+  `radiusAxis()` in `system/recipe/`.
+
+  `Chip.Avatar` is pulled back into the capsule's rounded end. The root's horizontal padding
+  is set for text — 12pt at `md` — while the height leaves only 3pt above and below a 22pt
+  avatar, so a face sat visibly pushed into the chip where a label beside it looked right. The
+  slot now cancels the difference, which seats it concentrically with the rounded end: the
+  capsule's cap is a circle of radius `height / 2` and the avatar is one of radius
+  `diameter / 2`, so they share a centre only when the gap is equal on every side. It is the
+  one margin on a slot in this component, and R4 is about spacing _between_ slots rather than
+  about cancelling the parent's padding — `Chip.Avatar` is a leading slot by contract, which
+  is what makes a leading-only correction sound. `marginStart`, so RTL follows (R13), and
+  clamped at zero so a theme with tighter padding needs no pull at all.
+
+- 662fdfc: `warning` moves from the `amber` family to `orange`
+
+  The dark `warning` was `amber[400]`, a distinctly yellow 84° in OKLCh, which read as gold
+  rather than as a caution — next to a green `success` and a red `danger` it looked like a
+  third decorative colour instead of the middle of a status ladder.
+
+  Swapping the family moves both modes the same way and **narrows the gap between them**: the
+  two ramps sit 35° apart today at the steps we use, and 18° after. Light barely moves at all
+  — `amber[700]` and `orange[700]` are 11° apart and share a lightness, so the change there is
+  a slight warming rather than a new colour, and the contrast against `warningForeground` goes
+  _up_, 4.81 → 4.96. Dark moves further, because that is where the yellow was.
+
+  Everything derived follows through `deriveColors`: `warningPressed`, `warningSoft`,
+  `warningSoftForeground` and `warningSoftPressed`. `pnpm tokens:check` passes on both modes.
+
+  It reaches every component with a `warning` variant — `Chip`, `Alert`, `Badge`, `Spinner`
+  and the ones still in review — which is the point of the token layer: one line in
+  `tooling/tokens/source.ts`, no component touched.
+
 ## 0.9.1-alpha.21
 
 ### Patch Changes
