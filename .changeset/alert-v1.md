@@ -1,6 +1,5 @@
 ---
 '@xaui/native': patch
-'@xaui/native-legacy': patch
 ---
 
 feat(alert): the v1 `Alert` — P3.6
