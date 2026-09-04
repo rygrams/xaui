@@ -4,7 +4,7 @@ import { useRouter } from 'expo-router'
 import Svg, { Path } from 'react-native-svg'
 import { Button } from '@xaui/native/button'
 import type { ButtonVariant } from '@xaui/native/button'
-import type { IconComponentProps } from '@xaui/native/system'
+import { PressableFeedback, type IconComponentProps } from '@xaui/native/system'
 import { useXAUITheme } from '@xaui/native/theme'
 
 const VARIANTS: ButtonVariant[] = [
@@ -120,6 +120,20 @@ export default function ButtonScreen() {
       </Section>
 
       <Section
+        title="isRipple — the wave, without composing one"
+        note="A button mounts no overlay by default: the recipe's pressed state already paints the variant's own pressed colour. isRipple opts in; composing a PressableFeedback.Ripple yourself is how you give it its own style, and doing both mounts one wave, not two."
+      >
+        <Button isRipple>press me — an inserted wave</Button>
+        <Button isRipple variant="secondary">
+          <PressableFeedback.Ripple />
+          <Button.Label>composed as well — still one wave</Button.Label>
+        </Button>
+        <Button isRipple variant="tertiary" isDisabled>
+          isDisabled — no wave
+        </Button>
+      </Section>
+
+      <Section
         title="color — one raw tint, placed by the variant"
         note="Background for primary, label for ghost, border and label for tertiary. Derived in OKLab, like accent."
       >
@@ -186,8 +200,16 @@ export default function ButtonScreen() {
         title="Style props — R14"
         note="Full React Native names, so full React Native values: padding={16} is 16 points, never a step on a scale. They resolve after the recipe and before the slot's own style."
       >
-        <Button padding={24} marginTop={8}>
-          padding={'{24}'} marginTop={'{8}'}
+        <Button paddingHorizontal={24} marginTop={8}>
+          paddingHorizontal={'{24}'} marginTop={'{8}'}
+        </Button>
+        {/* Kept, and labelled: `padding` is the one style prop that can empty a control,
+            and seeing it do so is the point. */}
+        <Button variant="tertiary" padding={24}>
+          padding={'{24}'} — no label left, the height is fixed
+        </Button>
+        <Button variant="tertiary" padding={24} height={96}>
+          padding={'{24}'} with a height that makes room for it
         </Button>
         <Button variant="secondary" width="60%">
           width=&quot;60%&quot; — what replaced fullWidth
@@ -204,8 +226,8 @@ export default function ButtonScreen() {
           </Button.Label>
         </Button>
         <Button variant="secondary" padding={40} style={{ padding: 12 }}>
-          padding={'{40}'} with style={'{{ padding: 12 }}'} — style wins, and this one
-          is tight
+          padding={'{40}'} with style={'{{ padding: 12 }}'} — style wins, and this
+          one is tight
         </Button>
       </Section>
 

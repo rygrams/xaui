@@ -43,6 +43,7 @@ export const ButtonRoot = forwardRef<View, ButtonProps>(function Button(
     isDisabled = false,
     isLoading = false,
     isIconOnly = false,
+    isRipple = false,
     asChild = false,
     accessibilityRole = 'button',
     accessibilityState,
@@ -107,6 +108,10 @@ export const ButtonRoot = forwardRef<View, ButtonProps>(function Button(
 
   const text = childrenToString(children)
   const showSpinner = isLoading && !containsElementOfType(children, ButtonSpinner)
+  // Same bargain as the spinner: the prop is the shorthand, composing one yourself is how
+  // you give it its own `style` or `animation`, and doing both must not stack two waves.
+  const showRipple =
+    isRipple && !containsElementOfType(children, PressableFeedback.Ripple)
 
   // An icon-only button has no text for a screen reader to announce, and nothing about
   // the glyph tells it what the button does. It is the one accessibility mistake this
@@ -118,11 +123,23 @@ export const ButtonRoot = forwardRef<View, ButtonProps>(function Button(
     )
   }
 
+  // `asChild` hands the whole element to the caller, so there is no sibling to insert the
+  // wave next to — it has to be composed inside that element. Silence would read as the
+  // prop being ignored for no reason.
+  if (isRipple && asChild) {
+    warnDev(
+      'Button: `isRipple` does nothing under `asChild` — the child element is the button, ' +
+        'so there is no sibling to insert the wave into. Compose a ' +
+        '`<PressableFeedback.Ripple />` inside that element instead.'
+    )
+  }
+
   return (
     <ButtonProvider value={context}>
-      {/* No `PressableFeedback.Highlight` and no `.Ripple`, deliberately: the recipe's
-          `pressed` state already paints the variant's own pressed colour, and an overlay
-          on top of it would darken the control twice. The scale is the root's own. */}
+      {/* No overlay unless one is asked for: the recipe's `pressed` state already paints
+          the variant's own pressed colour, and a wash on top of it would darken the
+          control twice. `isRipple` and a composed `.Ripple` are the two ways to opt in;
+          the scale is the root's own either way. */}
       <PressableFeedback
         ref={ref}
         isPressed={isPressed}
@@ -144,12 +161,16 @@ export const ButtonRoot = forwardRef<View, ButtonProps>(function Button(
         onPressIn={press.onPressIn}
         onPressOut={press.onPressOut}
       >
-        {/* R12 — under `asChild` the caller's element *is* the button, so neither the
-            auto-wrap nor the auto-spinner applies: there is one child, and it is theirs. */}
+        {/* R12 — under `asChild` the caller's element *is* the button, so none of the
+            auto-wrap, the auto-spinner or the auto-ripple applies: there is one child,
+            and it is theirs. */}
         {asChild ? (
           children
         ) : (
           <>
+            {/* Written first, though the root paints its overlays under the content
+                whatever the order — the order here is the reading order, not the paint. */}
+            {showRipple ? <PressableFeedback.Ripple /> : null}
             {showSpinner ? <ButtonSpinner /> : null}
             {/* R3 — a stringifiable tree becomes a label; anything else is composed slots */}
             {text !== null ? <ButtonLabel>{text}</ButtonLabel> : children}

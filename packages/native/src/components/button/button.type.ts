@@ -63,6 +63,17 @@ type ButtonOwnProps = {
   isLoading?: boolean
   /** Drops the horizontal padding and squares the button on its fixed height. */
   isIconOnly?: boolean
+  /**
+   * Inserts a `PressableFeedback.Ripple` if none is composed — the shorthand for the wave
+   * a button does not mount by default, because the recipe's `pressed` state already
+   * paints the variant's own pressed colour.
+   *
+   * Composing one yourself is still how you place it: `<PressableFeedback.Ripple />` among
+   * the children takes its own `style` and `animation`, and this prop then does nothing.
+   * It does nothing under `asChild` either — the caller's element is the button, so there
+   * is no sibling to insert, and the ripple has to be composed inside that element.
+   */
+  isRipple?: boolean
   /** R9 — `Pressable`'s function form as much as an object or an array. */
   style?:
     | StyleProp<ViewStyle>
