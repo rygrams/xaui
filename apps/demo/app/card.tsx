@@ -6,6 +6,9 @@ import { useXAUITheme } from '@xaui/native/theme'
 
 const VARIANTS: CardVariant[] = ['default', 'secondary', 'tertiary', 'ghost']
 
+/** A real remote image, so the clip and the radius are actually exercised. */
+const COVER = 'https://picsum.photos/seed/xaui/800/500'
+
 /**
  * The verification screen for the `Card`. A component is verified here and in the docs
  * preview, in light and in dark — there is no test file for it.
@@ -262,6 +265,46 @@ export default function CardScreen() {
               Pinned to the bottom
             </Button>
           </Card.Footer>
+        </Card>
+      </Section>
+      <Section
+        title="Card.Background — ce que la carte pose derrière elle"
+        note="Le root la hisse en tête quels que soient les enfants écrits avant : l'ordre JSX ne décide pas de l'empilement, comme pour les overlays de PressableFeedback. Elle porte son propre overflow et le rayon de la carte, donc le root garde son ombre — là où HeroUI clippe des deux côtés et la perd."
+      >
+        <Card variant="ghost" size="lg" height={180} justifyContent="flex-end">
+          <Card.Background source={{ uri: COVER }} />
+          <Card.Header>
+            <Card.Title color="#ffffff">Marrakech</Card.Title>
+            <Card.Description color="#ffffff">
+              Trois nuits, en médina
+            </Card.Description>
+          </Card.Header>
+        </Card>
+
+        <Card
+          variant="ghost"
+          size="lg"
+          radius="xs"
+          height={140}
+          justifyContent="flex-end"
+        >
+          <Card.Header>
+            <Card.Title color="#ffffff">Écrite en dernier</Card.Title>
+            <Card.Description color="#ffffff">
+              et pourtant peinte en premier
+            </Card.Description>
+          </Card.Header>
+          <Card.Background source={{ uri: COVER }} />
+        </Card>
+
+        <Card variant="ghost" size="lg" height={120} justifyContent="flex-end">
+          <Card.Background backgroundColor="#7c3aed" opacity={0.85} />
+          <Card.Header>
+            <Card.Title color="#ffffff">Une couche à soi</Card.Title>
+            <Card.Description color="#ffffff">
+              sans source : le calque est celui de l&apos;appelant
+            </Card.Description>
+          </Card.Header>
         </Card>
       </Section>
     </ScrollView>

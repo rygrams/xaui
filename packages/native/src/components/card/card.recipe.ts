@@ -3,7 +3,15 @@ import type { SlotStyles, VariantTokens } from '../../system/recipe'
 import type { FontSizeKey, RadiusKey, XAUITheme } from '../../theme/theme.type'
 import type { CardSize, CardSlot, CardVariant } from './card.type'
 
-const SLOTS = ['root', 'header', 'body', 'footer', 'title', 'description'] as const
+const SLOTS = [
+  'root',
+  'background',
+  'header',
+  'body',
+  'footer',
+  'title',
+  'description',
+] as const
 
 /**
  * Four lines of data. A variant **names tokens and computes nothing** — `paint` below is
@@ -62,6 +70,10 @@ function sizeAxis(step: SizeStep) {
       gap: theme.spacing(gap),
       borderRadius: theme.radius[radius],
     },
+    // The same corner as the root, because this layer is what clips the image — the root
+    // deliberately does not (see `base`), so the radius has to be repeated where the
+    // `overflow` is.
+    background: { borderRadius: theme.radius[radius] },
     header: { gap: theme.spacing(contentGap) },
     body: { gap: theme.spacing(contentGap) },
     footer: { gap: theme.spacing(contentGap) },
@@ -128,6 +140,14 @@ const SIZES: Record<CardSize, SizeStep> = {
   },
 }
 
+/** One corner, on the two slots that have to agree about it. */
+function corner(key: RadiusKey) {
+  return (theme: XAUITheme): SlotStyles<CardSlot> => ({
+    root: { borderRadius: theme.radius[key] },
+    background: { borderRadius: theme.radius[key] },
+  })
+}
+
 export const cardRecipe = createRecipe({
   slots: SLOTS,
 
@@ -142,6 +162,17 @@ export const cardRecipe = createRecipe({
       // a `default` card would lose the elevation the variant just gave it. The press
       // wash rounds itself off the root's corners and needs no clip; a caller bleeding an
       // image to the edges writes `overflow="hidden"` and takes the trade knowingly.
+    },
+    // R13 — `start` and `end`, never `left` and `right`, even at zero. `overflow` lives
+    // here rather than on the root: on iOS it clips the node's own shadow, and a `default`
+    // card would lose the elevation its variant just gave it.
+    background: {
+      position: 'absolute',
+      top: 0,
+      bottom: 0,
+      start: 0,
+      end: 0,
+      overflow: 'hidden',
     },
     // Top-aligned content — a badge, an icon, a title block. A column pinned to the
     // leading edge, which RTL mirrors on its own; `flexDirection="row"` is one prop away
@@ -194,17 +225,22 @@ export const cardRecipe = createRecipe({
       lg: sizeAxis(SIZES.lg),
     },
 
+    /**
+     * Both slots move together, always: the background layer is what clips the image, so
+     * a `radius` that moved only the root would round the card and leave its photo square
+     * in the corners.
+     */
     radius: {
-      xs: t => ({ root: { borderRadius: t.radius.xs } }),
-      sm: t => ({ root: { borderRadius: t.radius.sm } }),
-      md: t => ({ root: { borderRadius: t.radius.md } }),
-      lg: t => ({ root: { borderRadius: t.radius.lg } }),
-      xl: t => ({ root: { borderRadius: t.radius.xl } }),
-      '2xl': t => ({ root: { borderRadius: t.radius['2xl'] } }),
-      '3xl': t => ({ root: { borderRadius: t.radius['3xl'] } }),
-      '4xl': t => ({ root: { borderRadius: t.radius['4xl'] } }),
-      field: t => ({ root: { borderRadius: t.radius.field } }),
-      full: t => ({ root: { borderRadius: t.radius.full } }),
+      xs: corner('xs'),
+      sm: corner('sm'),
+      md: corner('md'),
+      lg: corner('lg'),
+      xl: corner('xl'),
+      '2xl': corner('2xl'),
+      '3xl': corner('3xl'),
+      '4xl': corner('4xl'),
+      field: corner('field'),
+      full: corner('full'),
     },
   },
 

@@ -23,3 +23,22 @@ component owns instead of leaving to the call site.
 
 Also fixes a `NoInfer` gap in the recipe engine: a `compoundVariants` entry naming one
 variant used to collapse the whole recipe's variant union to that single value.
+
+**`Card.Background`** — a photo, a gradient or a video behind the card. The root **hoists**
+it, so JSX order does not decide stacking: a background written after the header would
+otherwise cover it, which is the invisible ordering rule composition should not carry. It
+reuses the marking idiom `PressableFeedback` uses for its overlays, and `markBackground` is
+exported so a third party's layer is not a second-class citizen.
+
+The clip lives on the layer rather than on the root: `overflow: 'hidden'` cuts the node's
+own shadow on iOS, so clipping the card would cost a `default` one the elevation its variant
+just gave it. `radius` therefore moves both slots together — a corner that moved only the
+root would round the card and leave its photo square. HeroUI reaches the same feature
+through a `background` **prop** and clips on both nodes, losing the shadow.
+
+**The light `surfaceSecondary` moves up half a step**, `#f4f4f5` → `#ececee`. It sat so
+close to the `background` (`#fafafa`) that a `secondary` card on the page read as no card at
+all, and `zinc[200]` was already `surfaceTertiary` — so the level between them was the only
+one left. It is the OKLab midpoint of the two, written in the source layer rather than added
+to the palette: `PaletteShade` is derived from `zinc`, so a `150` there would have claimed
+every other family has one too.

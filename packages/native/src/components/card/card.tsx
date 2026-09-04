@@ -10,6 +10,7 @@ import { warnDev } from '../../utils/warn-dev'
 import { CardDescription } from './card-description'
 import { CardProvider } from './card.context'
 import { cardRecipe } from './card.recipe'
+import { partitionBackground } from './card.utils'
 import type { CardProps } from './card.type'
 
 /**
@@ -76,6 +77,7 @@ export const CardRoot = forwardRef<View, CardProps>(function Card(
 
   const context = useMemo(
     () => ({
+      backgroundStyle: styles.background,
       headerStyle: styles.header,
       bodyStyle: styles.body,
       footerStyle: styles.footer,
@@ -122,6 +124,20 @@ export const CardRoot = forwardRef<View, CardProps>(function Card(
     )
   }
 
+  // Hoisted, so JSX order does not decide stacking: an absolutely positioned sibling
+  // written after the header would sit over it and hide the card's own content.
+  const { background, content: body } = partitionBackground(content)
+
+  const layered =
+    background === null ? (
+      body
+    ) : (
+      <>
+        {background}
+        {body}
+      </>
+    )
+
   const surface = isPressable ? (
     <PressableFeedback
       ref={ref}
@@ -152,8 +168,9 @@ export const CardRoot = forwardRef<View, CardProps>(function Card(
         children
       ) : (
         <>
+          {background}
           <PressableFeedback.Highlight />
-          {content}
+          {body}
         </>
       )}
     </PressableFeedback>
@@ -183,7 +200,7 @@ export const CardRoot = forwardRef<View, CardProps>(function Card(
       {...(rest as ViewProps)}
       style={rootStyle}
     >
-      {content}
+      {layered}
     </View>
   )
 

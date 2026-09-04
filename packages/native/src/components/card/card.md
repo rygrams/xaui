@@ -69,6 +69,7 @@ A stringifiable tree becomes a `Card.Description` on its own (R3) — `Descripti
 
 ```tsx
 <Card>
+  <Card.Background />
   <Card.Header>
     <Chip size="sm">En retard</Chip>
   </Card.Header>
@@ -207,6 +208,32 @@ the slot that needs it. Two cases worth naming:
 - **A border in a different colour than the fill** is `borderColor` and `borderWidth` as
   style props — the variant names one token for the edge, and a second one is not a
   variant.
+
+### `Card.Background` — ce que la carte pose derrière elle
+
+```tsx
+<Card variant="ghost" height={180} justifyContent="flex-end">
+  <Card.Background source={{ uri: cover }} />
+  <Card.Header>
+    <Card.Title color="#fff">Marrakech</Card.Title>
+  </Card.Header>
+</Card>
+```
+
+**The root paints it first, wherever it is written.** JSX order decides stacking for
+absolutely positioned siblings, so a background written after the header would cover it.
+The root hoists the slot instead — the mechanism `PressableFeedback` already uses for its
+overlays — which is why it is a marked component rather than a `View` the caller positions.
+`markBackground` is exported, so a third party's gradient or video layer gets the same
+treatment.
+
+**The clip lives on the layer, not on the root.** `overflow: 'hidden'` cuts the node's own
+shadow on iOS, so putting it on the card would cost a `default` card the elevation its
+variant just gave it. This slot carries its own `overflow` and the card's radius — which is
+also why `radius` moves both slots together. HeroUI clips on both and loses the shadow.
+
+Two forms, like `Icon`: `source` renders the image, and anything else is the caller's own
+layer, already positioned and clipped.
 
 ## Props
 

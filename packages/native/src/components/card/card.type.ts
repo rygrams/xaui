@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import type {
+  ImageSourcePropType,
   PressableStateCallbackType,
   StyleProp,
   TextProps,
@@ -13,6 +14,7 @@ import type { RadiusKey, Size } from '../../theme/theme.type'
 
 export type CardSlot =
   | 'root'
+  | 'background'
   | 'header'
   | 'body'
   | 'footer'
@@ -121,6 +123,7 @@ export type CardDescriptionProps = CardTextProps
  * merges its own `style` on top and does no work of its own.
  */
 export type CardContextValue = {
+  backgroundStyle: StyleProp<ViewStyle>
   headerStyle: StyleProp<ViewStyle>
   bodyStyle: StyleProp<ViewStyle>
   footerStyle: StyleProp<ViewStyle>
@@ -128,3 +131,20 @@ export type CardContextValue = {
   descriptionStyle: StyleProp<TextStyle>
   isDisabled: boolean
 }
+
+type CardBackgroundOwnProps = {
+  /** An image, stretched to fill the layer and clipped to the card's corner. */
+  source?: ImageSourcePropType
+  /** Anything else — a gradient, a video, a blur — already positioned and clipped. */
+  children?: ReactNode
+  style?: StyleProp<ViewStyle>
+}
+
+/**
+ * `View`'s own props win over the `ViewStyle` keys of the same name (R14). `position` and
+ * the four insets stay available: a background that has to bleed past one edge is a real
+ * case, and the slot only supplies the default.
+ */
+export type CardBackgroundProps = Omit<ViewProps, 'style'> &
+  CardBackgroundOwnProps &
+  Omit<ViewStyleProps, keyof CardBackgroundOwnProps | keyof ViewProps>
