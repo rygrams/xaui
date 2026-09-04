@@ -12,6 +12,7 @@ const entries = {
   'components/radio/index': 'src/components/radio/index.ts',
   'components/switch/index': 'src/components/switch/index.ts',
   'components/text-area/index': 'src/components/text-area/index.ts',
+  'components/spinner/index': 'src/components/spinner/index.ts',
   'system/index': 'src/system/index.ts',
   'theme/index': 'src/theme/index.ts',
 }

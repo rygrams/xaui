@@ -305,46 +305,44 @@ function TrashIcon({ size, color }: IconComponentProps) {
 /**
  * The other v1 verification screens. The demo is one screen per primitive, and each one is
  * how that primitive is verified — there is no test file for any of them.
+ *
+ * A list rather than one hand-written button per screen: every component added an entry
+ * here, and a dozen adjacent edits to the same JSX block is what made it conflict on every
+ * component branch.
  */
+const SCREENS: readonly { route: string; label: string }[] = [
+  { route: '/typography', label: 'Typography' },
+  { route: '/icon', label: 'Icon' },
+  { route: '/view', label: 'Layout' },
+  { route: '/card', label: 'Card' },
+  { route: '/chip', label: 'Chip' },
+  { route: '/alert', label: 'Alert' },
+  { route: '/input', label: 'Input' },
+  { route: '/input-group', label: 'InputGroup' },
+  { route: '/input-otp', label: 'InputOTP' },
+  { route: '/text-area', label: 'TextArea' },
+  { route: '/checkbox', label: 'Checkbox' },
+  { route: '/radio', label: 'Radio' },
+  { route: '/switch', label: 'Switch' },
+  { route: '/spinner', label: 'Spinner' },
+  { route: '/pressable-feedback', label: 'PressableFeedback' },
+]
+
 function OtherScreens() {
   const router = useRouter()
 
   return (
     <Row>
-      <Button variant="tertiary" size="sm" onPress={() => router.push('/alert')}>
-        Alert →
-      </Button>
-      <Button variant="tertiary" size="sm" onPress={() => router.push('/checkbox')}>
-        Checkbox →
-      </Button>
-      <Button variant="tertiary" size="sm" onPress={() => router.push('/chip')}>
-        Chip →
-      </Button>
-      <Button variant="tertiary" size="sm" onPress={() => router.push('/input')}>
-        Input →
-      </Button>
-      <Button variant="tertiary" size="sm" onPress={() => router.push('/input-group')}>
-        InputGroup →
-      </Button>
-      <Button variant="tertiary" size="sm" onPress={() => router.push('/input-otp')}>
-        InputOTP →
-      </Button>
-      <Button variant="tertiary" size="sm" onPress={() => router.push('/radio')}>
-        Radio →
-      </Button>
-      <Button variant="tertiary" size="sm" onPress={() => router.push('/switch')}>
-        Switch →
-      </Button>
-      <Button variant="tertiary" size="sm" onPress={() => router.push('/text-area')}>
-        TextArea →
-      </Button>
-      <Button
-        variant="tertiary"
-        size="sm"
-        onPress={() => router.push('/pressable-feedback')}
-      >
-        PressableFeedback →
-      </Button>
+      {SCREENS.map(({ route, label }) => (
+        <Button
+          key={route}
+          variant="tertiary"
+          size="sm"
+          onPress={() => router.push(route)}
+        >
+          {label} →
+        </Button>
+      ))}
     </Row>
   )
 }

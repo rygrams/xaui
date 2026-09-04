@@ -25,6 +25,7 @@ Anything here is a React hook by definition, which is exactly what keeps it out 
 | `use-press-state.ts`        | The press state a root owns, plus handlers that compose the caller's and keep their identity         |
 | `use-merged-ref.ts`         | `mergeRefs` memoized for a component that renders                                                    |
 | `use-previous.ts`           | The value from the render before this one                                                            |
+| `use-rotation.ts`           | One full turn, repeating, on the UI thread — every spinner in the library                            |
 
 ## Testing
 
