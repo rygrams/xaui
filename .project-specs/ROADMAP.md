@@ -37,6 +37,7 @@ remaining action belongs to a workflow rather than to a commit.
 | P2.6  | Style as props (R14) — `system/style-props/`, then the `Button`    | done   |
 | P2.7  | `*Pressed` moves one way — towards the mode ink (P2-API-REVIEW §E) | done   |
 | P2.7b | `asChild` reached `Slot` as an array — every pressable threw       | done   |
+| P2.7c | Light `default` reads as grey, not as near-white                   | done   |
 | P3    | The fifteen-component core                                         | todo   |
 | P4    | Docs, generated tables, `1.0.0`                                    | todo   |
 | P5    | The remaining 32 components                                        | todo   |
