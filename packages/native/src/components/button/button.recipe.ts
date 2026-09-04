@@ -1,4 +1,4 @@
-import { createRecipe } from '../../system/recipe'
+import { createRecipe, radiusAxis } from '../../system/recipe'
 import type { SlotStyles, VariantTokens } from '../../system/recipe'
 import type { FontSizeKey, RadiusKey, Size, XAUITheme } from '../../theme/theme.type'
 import type { ButtonSlot, ButtonVariant } from './button.type'
@@ -149,18 +149,7 @@ export const buttonRecipe = createRecipe({
       lg: sizeAxis({ size: 'lg', padding: 5, gap: 2.5, glyph: 'xl', radius: '4xl' }),
     },
 
-    radius: {
-      xs: t => ({ root: { borderRadius: t.radius.xs } }),
-      sm: t => ({ root: { borderRadius: t.radius.sm } }),
-      md: t => ({ root: { borderRadius: t.radius.md } }),
-      lg: t => ({ root: { borderRadius: t.radius.lg } }),
-      xl: t => ({ root: { borderRadius: t.radius.xl } }),
-      '2xl': t => ({ root: { borderRadius: t.radius['2xl'] } }),
-      '3xl': t => ({ root: { borderRadius: t.radius['3xl'] } }),
-      '4xl': t => ({ root: { borderRadius: t.radius['4xl'] } }),
-      field: t => ({ root: { borderRadius: t.radius.field } }),
-      full: t => ({ root: { borderRadius: t.radius.full } }),
-    },
+    radius: radiusAxis('root'),
 
     // A square on a fixed height. No width is computed, and none needs to be.
     isIconOnly: {

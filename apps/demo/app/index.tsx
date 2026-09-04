@@ -204,8 +204,8 @@ export default function ButtonScreen() {
           </Button.Label>
         </Button>
         <Button variant="secondary" padding={40} style={{ padding: 12 }}>
-          padding={'{40}'} with style={'{{ padding: 12 }}'} — style wins, and this one
-          is tight
+          padding={'{40}'} with style={'{{ padding: 12 }}'} — style wins, and this
+          one is tight
         </Button>
       </Section>
 
@@ -310,12 +310,17 @@ function OtherScreens() {
   const router = useRouter()
 
   return (
-    <Button
-      variant="tertiary"
-      size="sm"
-      onPress={() => router.push('/pressable-feedback')}
-    >
-      PressableFeedback →
-    </Button>
+    <Row>
+      <Button variant="tertiary" size="sm" onPress={() => router.push('/chip')}>
+        Chip →
+      </Button>
+      <Button
+        variant="tertiary"
+        size="sm"
+        onPress={() => router.push('/pressable-feedback')}
+      >
+        PressableFeedback →
+      </Button>
+    </Row>
   )
 }

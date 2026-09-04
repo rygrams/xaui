@@ -37,6 +37,7 @@ remaining action belongs to a workflow rather than to a commit.
 | P2.6  | Style as props (R14) — `system/style-props/`, then the `Button`    | done   |
 | P2.7  | `*Pressed` moves one way — towards the mode ink (P2-API-REVIEW §E) | done   |
 | P3    | The fifteen-component core                                         | todo   |
+| P3.5  | `Chip` — Label · Icon · Dot · Avatar · Close                       | done   |
 | P4    | Docs, generated tables, `1.0.0`                                    | todo   |
 | P5    | The remaining 32 components                                        | todo   |
 | P6    | `@xaui/hybrid` on the v1 API                                       | todo   |

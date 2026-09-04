@@ -1,0 +1,57 @@
+import type { RadiusKey } from '../../theme/theme.type'
+import type { StyleFn } from './recipe.type'
+
+/**
+ * The `radius` axis, which is the same ten lines in every component that has one — a key
+ * of the radius scale, applied to one slot, overriding whatever `size` chose.
+ *
+ * It is written here rather than a third time in a recipe because that is the rule §2 bis
+ * states: extract at the second use, and by the end of P3 this axis exists in a dozen
+ * components. Nothing about it is component-specific except which slot carries the corner.
+ *
+ * ```ts
+ * variants: { size: { … }, radius: radiusAxis('root') }
+ * ```
+ *
+ * The return type is a full `Record<RadiusKey, …>` rather than a partial one, so
+ * `createRecipe` still infers `radius="3xl"` as the axis's value union and a typo in a
+ * caller's `radius` is a type error rather than a silently ignored key.
+ */
+export function radiusAxis<Slot extends string>(
+  slot: Slot
+): Record<RadiusKey, StyleFn<Slot>> {
+  const axis = {} as Record<RadiusKey, StyleFn<Slot>>
+
+  for (const key of RADIUS_KEYS) {
+    axis[key] = theme =>
+      ({ [slot]: { borderRadius: theme.radius[key] } }) as ReturnType<StyleFn<Slot>>
+  }
+
+  return axis
+}
+
+/**
+ * Listed rather than derived from a theme: the axis is built once at module load, before
+ * any theme exists, and `RadiusKey` is a type that no longer exists at runtime.
+ */
+const RADIUS_KEYS = [
+  'xs',
+  'sm',
+  'md',
+  'lg',
+  'xl',
+  '2xl',
+  '3xl',
+  '4xl',
+  'field',
+  'full',
+] as const satisfies readonly RadiusKey[]
+
+/**
+ * The list and the type describe the same set, and nothing but this pins them together —
+ * `satisfies` above only proves every entry is a key, not that every key is an entry. A
+ * radius added to the scale and forgotten here fails `type-check` naming it, instead of
+ * shipping a `radius` value the axis silently ignores.
+ */
+type Assert<Drift extends never> = Drift
+type _MissingFromAxis = Assert<Exclude<RadiusKey, (typeof RADIUS_KEYS)[number]>>

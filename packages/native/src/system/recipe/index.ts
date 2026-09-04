@@ -1,4 +1,5 @@
 export { createRecipe } from './create-recipe'
+export { radiusAxis } from './radius-axis'
 export type { Recipe, ResolveArgs, TintArgs } from './create-recipe'
 export type {
   Axes,
