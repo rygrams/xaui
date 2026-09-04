@@ -319,7 +319,7 @@ function OtherScreens() {
         PressableFeedback →
       </Button>
       <Button variant="tertiary" size="sm" onPress={() => router.push('/view')}>
-        Row &amp; Column →
+        Layout →
       </Button>
     </Row>
   )

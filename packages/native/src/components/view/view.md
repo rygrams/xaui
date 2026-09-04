@@ -1,17 +1,27 @@
-# Row and Column
+# Layout — Row, Column, Stack, Grid
 
-The two axes of a layout. Each contributes **one declaration**; everything else you write
-on them is R14 — React Native's own style keys, exposed as props on every node.
+Four components. `Row` and `Column` are the two axes and contribute one declaration each;
+`Stack` overlays; `Grid` lays out fixed columns. Everything else you write on them is R14 —
+React Native's own style keys, exposed as props on every node.
 
 ## Import
 
 ```tsx
-import { Column, Row } from '@xaui/native/view'
+import { Column, Grid, Row, Stack } from '@xaui/native/view'
 ```
 
 ## Anatomy
 
-Neither has a slot. There is nothing inside an axis to publish.
+`Row` and `Column` have no slot — there is nothing inside an axis to publish. The other two
+do, because in both cases a child needs something the root computed:
+
+```
+Stack            the containing block
+└── Stack.Item   a layer, taken out of the flow
+
+Grid             measures itself, publishes the column width
+└── Grid.Item    a cell covering several columns
+```
 
 ## Usage
 
@@ -102,6 +112,69 @@ told to lay out as a column would be a `View` with a longer name. A genuine reve
 through `style={{ flexDirection: 'row-reverse' }}` — and note that `row` already flips in an
 RTL layout, which is the case that usually matters.
 
+## `Stack` — things on top of each other
+
+```tsx
+<Stack>
+  <Image source={cover} />
+
+  <Stack.Item bottom={0} start={0} end={0} padding={12}>
+    <Typography color="#fff">Titre en surimpression</Typography>
+  </Stack.Item>
+
+  <Stack.Item top={8} end={8}>
+    <Button size="xs">Fermer</Button>
+  </Stack.Item>
+</Stack>
+```
+
+`Row` places children across, `Column` down, `Stack` on top of each other.
+
+- **`Stack`** declares `position: 'relative'` — the containing block. Without it an
+  absolutely positioned child resolves against a distant ancestor, often the whole screen.
+- **`Stack.Item`** declares `position: 'absolute'`. Where the layer sits is R14: `top`,
+  `bottom`, `start`, `end` and `zIndex` are `ViewStyle` keys already exposed as props.
+
+**The first child stays in the flow and gives the stack its size**; the items float over it
+without affecting it.
+
+Overlaying is composed rather than inferred. A `Stack` that absolutely positioned every
+child but the first would have to guess which one sets the size, and would change meaning
+the day a caller reordered them.
+
+Note `start` / `end` rather than `left` / `right`: R13 bans the physical pair, and these
+flip with the writing direction — which is what a caption over an image should do.
+
+## `Grid` — a fixed number of columns, wrapping
+
+```tsx
+<Grid columns={3} gap={8}>
+  <Card />
+  <Card />
+  <Grid.Item span={2}><Card /></Grid.Item>
+</Grid>
+```
+
+**The column width is measured, not expressed as a percentage.** `width: '33.33%'` resolves
+against the content box and knows nothing about the gaps between cells, so three of them
+plus two gaps overflow their row and the third wraps — the classic gutter bug. The root
+reads its own width through `onLayout` and publishes the exact column width instead.
+
+For one frame, before the measurement lands, a cell falls back to the naive percentage.
+The alternative — rendering nothing until measured — flashes an empty grid.
+
+Every child is wrapped in a one-column cell, so components are dropped straight in.
+`Grid.Item` is only needed for a span, and its width carries the gaps it swallows: two
+columns plus the gap between them line up exactly with the cells above.
+
+`gap` is `Grid`'s own prop rather than one of R14's, because the root has to **read** it to
+size the columns. It carries React Native's meaning all the same — `gap={8}` is 8 points,
+the same gap `Row` takes as a style prop.
+
+`Grid` has no `asChild`: it measures itself, so it has to be the node it renders.
+`Grid.Item` has none either — the cell *is* the layout, and merging it into a caller's
+element would hand them a width they did not ask for.
+
 ## Why `Column` exists at all
 
 It declares React Native's default, so it changes nothing on its own. It is there for what
@@ -110,8 +183,8 @@ and a `Column` keeps its own direction the moment it is composed into a `Row`.
 
 ## What is deliberately not here
 
-The legacy `view/` folder had twenty-six entries. Three of them lost their reason to exist
-when R14 landed, and are not being ported:
+The legacy `view/` folder had twenty-six entries. Four are kept — the two axes, `Stack` and
+`Grid`. Three lost their reason to exist when R14 landed, and are not being ported:
 
 | Legacy | v1 |
 | --- | --- |
@@ -121,3 +194,8 @@ when R14 landed, and are not being ported:
 
 Each of them added a view node to say what a style prop on an existing node already says,
 and view depth is exactly what the v1 `Button` set out to reduce.
+
+`Container` goes the same way: a `View` with a background is `backgroundColor` on the node
+that needed it. The rest of the legacy lot — `Flex`, `Expanded`, `Flexible`, `SizedBox`,
+`AspectRatio`, `FractionallySizedBox`, `Wrap`, `Positioned`, `Align`, `Margin` — is either
+R14 or `Stack`, and none of it is planned.
