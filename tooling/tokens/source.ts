@@ -17,7 +17,7 @@ export const source: Record<'light' | 'dark', XAUISourceColors> = {
     overlayForeground: p.zinc[900],
     backdrop: 'rgba(0, 0, 0, 0.2)',
     muted: p.zinc[500],
-    default: p.zinc[100],
+    default: p.zinc[200],
     defaultForeground: p.zinc[900],
     accent: p.purple[600],
     accentForeground: p.purple[50],
