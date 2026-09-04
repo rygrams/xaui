@@ -30,7 +30,14 @@ export default function IconScreen() {
         <Row>
           <Icon as={TrashIcon} size={28} color={theme.colors.foreground} />
           <Icon size={28} color={theme.colors.foreground}>
-            <TrashSvg />
+            <Svg width={24} height={24} viewBox="0 0 24 24" fill="none" color="#ff00ff">
+              <Path
+                d={TRASH}
+                stroke="currentColor"
+                strokeWidth={2}
+                strokeLinecap="round"
+              />
+            </Svg>
           </Icon>
         </Row>
       </Section>
@@ -55,11 +62,18 @@ export default function IconScreen() {
 
       <Section
         title="A raw SVG inherits too — its baked-in size is overridden"
-        note="An SVG pasted from a design tool carries its own width, height and colour. Inside an Icon they are replaced by the slot's, which is the entire point of wrapping it."
+        note="It has to be a raw Svg element, not a component wrapping one: cloneElement hands the resolved values to the child, and a component that declares no props drops them silently. This one is written 24px and magenta, and comes out at the button's scale in the button's colour."
       >
         <Button variant="secondary">
           <Button.Icon>
-            <TrashSvg />
+            <Svg width={24} height={24} viewBox="0 0 24 24" fill="none" color="#ff00ff">
+              <Path
+                d={TRASH}
+                stroke="currentColor"
+                strokeWidth={2}
+                strokeLinecap="round"
+              />
+            </Svg>
           </Button.Icon>
           <Button.Label>a 24px SVG, wearing the button&apos;s scale</Button.Label>
         </Button>
@@ -93,27 +107,16 @@ export default function IconScreen() {
   )
 }
 
+const TRASH =
+  'M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 002 2h6a2 2 0 002-2l1-12M9 7V4h6v3'
+
 /** The `as` form: the props Lucide, Ionicons and vector-icons all accept. */
 function TrashIcon({ size, color }: IconComponentProps) {
   return (
     <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
       <Path
-        d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 002 2h6a2 2 0 002-2l1-12M9 7V4h6v3"
+        d={TRASH}
         stroke={color}
-        strokeWidth={2}
-        strokeLinecap="round"
-      />
-    </Svg>
-  )
-}
-
-/** The children form: a bare SVG, with a size and a colour of its own to be overridden. */
-function TrashSvg() {
-  return (
-    <Svg width={24} height={24} viewBox="0 0 24 24" fill="none" color="#ff00ff">
-      <Path
-        d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 002 2h6a2 2 0 002-2l1-12M9 7V4h6v3"
-        stroke="currentColor"
         strokeWidth={2}
         strokeLinecap="round"
       />
