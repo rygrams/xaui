@@ -181,24 +181,38 @@ and not the other is how a cleared field comes back on the next keystroke.
 
 | `size` | Box     | Character | Gap |
 | ------ | ------- | --------- | --- |
-| `xs`   | 32 × 28 | 14/20     | 6   |
 | `sm`   | 40 × 36 | 16/24     | 8   |
 | `md`   | 48 × 44 | 18/28     | 8   |
 | `lg`   | 56 × 52 | 20/28     | 10  |
 
 `md` is HeroUI's OTP measured. The width is the control height less one spacing step, which
-reproduces their 48 × 44 and holds the proportion at the other three sizes.
+reproduces their 48 × 44 and holds the proportion at the other two.
+
+### The corner
+
+The box takes `lg`, 12 points — **not `field`**, which is what the rest of this family uses.
+A field is wide, so 21 on a 48-tall one reads as a rounded rectangle. A code box is very
+nearly square — 44 by 48 at `md`, 36 by 40 at `sm` — where the geometric maximum is 22, so
+the same 21 is a pill in all but name and is clamped to one outright at the small end.
+
+Twelve is where HeroUI lands for the same box from the other direction: their `field` radius
+is their `xl`, and their scale's base is 8 where ours is 12.
+
+**There is no `xs`**, where the rest of the library has four sizes. That box would be 28 by
+32, and it still has to carry an 18pt character to stay legible — 18 in 28 leaves no room
+for the two-point active ring without the digit touching it. A code is also the one field a
+user reads back to themselves character by character, which is the worst place to save eight
+points. Below `sm`, use fewer boxes rather than smaller ones.
 
 ### Variants
 
-The `Input`'s four levels, token for token — a box of a code is a field one character wide.
+Three of the `Input`'s four, token for token — a box of a code is a field one character wide.
 
 | `variant`   | Background        | Border        | Active ring | Shadow  |
 | ----------- | ----------------- | ------------- | ----------- | ------- |
 | `primary`   | `fieldBackground` | `fieldBorder` | `accent`    | `field` |
 | `secondary` | `default`         | `fieldBorder` | `accent`    | —       |
 | `tertiary`  | transparent       | `fieldBorder` | `accent`    | —       |
-| `ghost`     | transparent       | —             | `accent`    | —       |
 
 **The active box takes a two-point ring** in the accent. HeroUI uses `outline-width: 2px`;
 React Native has no `outline`, so it is a border — and two points rather than one, because a
@@ -206,10 +220,12 @@ box that gains a colour without gaining weight reads as a rendering artefact nex
 that did not. The box has a fixed width and height and centres what it holds, so the extra
 point eats into the padding rather than moving anything.
 
-**`ghost` takes the ring too**, even though it has no edge at rest: the state sets the
-width as well as the colour, so a bare code still shows where the next character lands
-without carrying four edges it did not ask for. Nothing moves when the edge appears — the
-box has a fixed width and height and centres what it holds.
+**Three levels, not the `Input`'s four.** There is no `ghost`, and the shape of the
+component is what removes it: an input is one wide field whose position the caret and the
+label already give away, so it survives having neither fill nor edge. A code is six boxes,
+and their only job before anything is typed is to say **how many characters are expected
+and where they go** — with no fill and no border there is nothing to count. It is the
+reason the `Checkbox` has no `ghost` either.
 
 ### `isInvalid`
 
@@ -233,23 +249,23 @@ the active ring — the active colour is a role like any other, so nothing extra
 
 Everything `View` accepts, every `ViewStyle` key it does not already claim (R14), plus:
 
-| Prop             | Type                           | Default       | Notes                                    |
-| ---------------- | ------------------------------ | ------------- | ---------------------------------------- |
-| `maxLength`      | `number`                       | — (required)  | How many boxes, and how long the code is |
-| `variant`        | `InputOTPVariant`              | `'secondary'` | The four levels above                    |
-| `size`           | `'xs' \| 'sm' \| 'md' \| 'lg'` | `'md'`        | The box, the character, the gaps         |
-| `radius`         | `RadiusKey`                    | —             | Overrides the theme's `field` radius     |
-| `color`          | `string`                       | —             | A hex tint, placed by the variant        |
-| `value`          | `string`                       | —             | Controlled                               |
-| `defaultValue`   | `string`                       | `''`          | Uncontrolled seed                        |
-| `onChangeText`   | `(value: string) => void`      | —             | Every change, controlled or not          |
-| `onComplete`     | `(value: string) => void`      | —             | Fires when the last box fills            |
-| `pattern`        | `string \| RegExp`             | —             | Tested against the whole value           |
-| `placeholder`    | `string`                       | —             | One per box, or one for all              |
-| `isInvalid`      | `boolean`                      | `false`       | Danger boxes, no active ring             |
-| `isDisabled`     | `boolean`                      | `false`       | Dims the row, stops the input            |
-| `inputMode`      | `TextInputProps['inputMode']`  | `'numeric'`   | The keyboard the hidden input asks for   |
-| `textInputProps` | `TextInputProps`               | —             | Anything else for the hidden input       |
+| Prop             | Type                          | Default       | Notes                                    |
+| ---------------- | ----------------------------- | ------------- | ---------------------------------------- |
+| `maxLength`      | `number`                      | — (required)  | How many boxes, and how long the code is |
+| `variant`        | `InputOTPVariant`             | `'secondary'` | The three levels above                   |
+| `size`           | `'sm' \| 'md' \| 'lg'`        | `'md'`        | The box, the character, the gaps         |
+| `radius`         | `RadiusKey`                   | —             | Overrides the theme's `lg` radius        |
+| `color`          | `string`                      | —             | A hex tint, placed by the variant        |
+| `value`          | `string`                      | —             | Controlled                               |
+| `defaultValue`   | `string`                      | `''`          | Uncontrolled seed                        |
+| `onChangeText`   | `(value: string) => void`     | —             | Every change, controlled or not          |
+| `onComplete`     | `(value: string) => void`     | —             | Fires when the last box fills            |
+| `pattern`        | `string \| RegExp`            | —             | Tested against the whole value           |
+| `placeholder`    | `string`                      | —             | One per box, or one for all              |
+| `isInvalid`      | `boolean`                     | `false`       | Danger boxes, no active ring             |
+| `isDisabled`     | `boolean`                     | `false`       | Dims the row, stops the input            |
+| `inputMode`      | `TextInputProps['inputMode']` | `'numeric'`   | The keyboard the hidden input asks for   |
+| `textInputProps` | `TextInputProps`              | —             | Anything else for the hidden input       |
 
 **No `asChild`** — the one root in the library without it. This root is not a pass-through
 container: it owns a hidden `TextInput` that has to be its own child, and `Slot` merges into
