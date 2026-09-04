@@ -20,6 +20,7 @@ const SCREENS = [
   { href: '/view', label: 'Layout' },
   { href: '/chip', label: 'Chip' },
   { href: '/alert', label: 'Alert' },
+  { href: '/input', label: 'Input' },
 ] as const
 
 export default function HomeScreen() {
