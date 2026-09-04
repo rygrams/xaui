@@ -1,7 +1,7 @@
 import { ScrollView, Text, View } from 'react-native'
 import type { ReactNode } from 'react'
 import { Button } from '@xaui/native/button'
-import { Column, Row } from '@xaui/native/view'
+import { Column, Grid, Row, Stack } from '@xaui/native/view'
 import { useXAUITheme } from '@xaui/native/theme'
 
 /**
@@ -104,6 +104,73 @@ export default function ViewScreen() {
       </Section>
 
       <Section
+        title="Stack — things on top of each other"
+        note="The first child in flow decides the size; Stack.Item overlays. Where a layer sits is R14 — top, bottom, start and end are ViewStyle keys, and start/end flip with the writing direction where left/right would not (R13)."
+      >
+        <Stack>
+          <View
+            style={{
+              height: 140,
+              borderRadius: 12,
+              backgroundColor: theme.colors.accentSoft,
+            }}
+          />
+          <Stack.Item
+            bottom={0}
+            start={0}
+            end={0}
+            padding={12}
+            backgroundColor={theme.colors.backdrop}
+            borderBottomStartRadius={12}
+            borderBottomEndRadius={12}
+          >
+            <Text
+              style={{
+                color: theme.colors.foreground,
+                fontWeight: theme.fontWeights.semibold,
+              }}
+            >
+              a caption over the surface
+            </Text>
+          </Stack.Item>
+          <Stack.Item top={8} end={8}>
+            <Button size="xs" variant="danger">
+              top end
+            </Button>
+          </Stack.Item>
+        </Stack>
+      </Section>
+
+      <Section
+        title="Grid — measured columns, not percentages"
+        note="width: '33.33%' resolves against the content box and knows nothing about the gaps, so three cells plus two gaps overflow their row. The root reads its own width and publishes the exact column width instead."
+      >
+        <Grid columns={3} gap={8}>
+          <Cell label="1" />
+          <Cell label="2" />
+          <Cell label="3" />
+          <Cell label="4" />
+          <Cell label="5" />
+        </Grid>
+      </Section>
+
+      <Section
+        title="Grid.Item — a cell that spans"
+        note="Only needed for a span: every other child is already wrapped in a one-column cell. The span carries the gaps it swallows, so two columns plus the gap between them line up exactly with the cells above."
+      >
+        <Grid columns={3} gap={8}>
+          <Grid.Item span={2}>
+            <Cell label="span 2" />
+          </Grid.Item>
+          <Cell label="1" />
+          <Cell label="1" />
+          <Grid.Item span={2}>
+            <Cell label="span 2" />
+          </Grid.Item>
+        </Grid>
+      </Section>
+
+      <Section
         title="asChild — R12"
         note="The child element becomes the axis and keeps its direction."
       >
@@ -115,6 +182,25 @@ export default function ViewScreen() {
         </Row>
       </Section>
     </ScrollView>
+  )
+}
+
+/** A visible block, so a cell's real width can be read off the screen. */
+function Cell({ label }: { label: string }) {
+  const theme = useXAUITheme()
+
+  return (
+    <View
+      style={{
+        height: 56,
+        borderRadius: 8,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: theme.colors.accentSoft,
+      }}
+    >
+      <Text style={{ color: theme.colors.accentSoftForeground }}>{label}</Text>
+    </View>
   )
 }
 

@@ -29,7 +29,7 @@ export default function RootLayout() {
             />
             <Stack.Screen name="typography" options={{ title: 'Typography (v1)' }} />
             <Stack.Screen name="icon" options={{ title: 'Icon (v1)' }} />
-            <Stack.Screen name="view" options={{ title: 'Row & Column (v1)' }} />
+            <Stack.Screen name="view" options={{ title: 'Layout (v1)' }} />
           </Stack>
         </PortalHost>
       </XAUIProvider>
