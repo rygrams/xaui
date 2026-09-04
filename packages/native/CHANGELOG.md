@@ -1,5 +1,287 @@
 # @xaui/native
 
+## 0.9.1-alpha.23
+
+### Patch Changes
+
+- 4467295: feat(input): the v1 `Input` — P3.7
+
+  A text field with the label, the hint and the error that make it usable. Compound root
+  plus four slots: `Input.Label`, `Input.Field`, `Input.Description` and `Input.Error`.
+
+  **The root is the column, not the field.** `Input.Field` is the `TextInput`, which is what
+  makes the three lines slots of one component rather than three components a form has to
+  keep in step — and why `TextInputProps` are on the field rather than on the root.
+
+  The first real use of the theme's `field*` family, derived in P0 and unread since. Four
+  variants, the library's emphasis levels narrowed like the `Card`'s, splitting HeroUI's
+  two-name `primary | secondary` by saying what each of their ends already is: `primary` is
+  their field fill plus the theme's `field` shadow, `secondary` their neutral fill and the
+  default here, `tertiary` the border alone, `ghost` neither.
+
+  Focus darkens the border towards the mode's ink — `fieldBorderFocus`, no ring and no
+  accent. `isInvalid` outranks it, so a field that is both reads as wrong rather than as busy.
+
+  `labelPlacement="inside"` lifts the label into the box. It is taken out of flow and placed
+  against the box's own padding, so the JSX is identical either way and nothing is
+  reparented; the field pays for the room and the box grows by the same amount.
+
+  Visually aligned with `heroui-native`: a 48pt minimum, 12pt of horizontal padding, a 16/24
+  label above the field and a 14/20 line below it at `md`. The height is a **minimum** rather
+  than fixed — the one place this component departs from the `Button`'s rule, because a
+  `multiline` field holds the user's own text and has to grow.
+
+  Adds a `borderFocus` role to `system/recipe`, so a state can read the variant's own focus
+  colour the way `bgPressed` lets a pressed `Button` darken its own fill — and so a raw
+  `color` follows the field into focus.
+
+## 0.9.1-alpha.22
+
+### Patch Changes
+
+- d5461ae: feat(alert): the v1 `Alert` — P3.6
+
+  A message the interface has to make sure is read. Compound root plus five slots:
+  `Alert.Icon`, `Alert.Content`, `Alert.Title`, `Alert.Description` and `Alert.Close`, laid
+  out as a row of three columns spaced by the root's `gap` alone.
+
+  Nine variants: the `Card`'s `surface` for the neutral level — HeroUI's alert root, token
+  for token, shadow included — and the `Chip`'s status ladder for the rest, each family in
+  its full and soft slice.
+
+  Visually aligned with `heroui-native`: 12pt of padding, a 12pt gap, a 24pt radius, a 16/24
+  title above a 14/20 description and an 18pt icon at `md`. The icon's optical offset is
+  derived from the title's leading rather than hard-coded, so it stays right at all four
+  sizes.
+
+  The root is **never a control** — no `isPressable`, no press behaviour on the type. What
+  you press is `Alert.Close`, which now comes from a shared `system/close-button`: the
+  `Chip`'s close became its second use, so its press state, grown touch target, missing-label
+  warning and built-in cross are written once and both components are five-line call sites.
+
+  Also fixes an inference bug in `createRecipe`: a `compoundVariants` entry declared the
+  variant union instead of selecting from it, so a recipe whose only compound was
+  `{ when: { variant: 'default' } }` rejected every other variant at the call site.
+
+  `Alert.Icon` picks `Icon`'s forms one by one, so the union survives. `IconProps` became a
+  discriminated union of its three forms, and a non-distributive `Pick` over it merged them
+  back into a single shape where `as` and `source` are both optional — which stopped
+  type-checking the moment both changes met on `main`, and would have let
+  `<Alert.Icon as={Check} source={png} />` compile with one of the two silently dropped. The
+  type now distributes the `Pick`, and the slot renders one `<Icon>` per form in `Icon`'s own
+  runtime precedence rather than one call carrying all three.
+
+- 17993f6: feat(chip): the v1 `Chip` — P3.5
+
+  A compact token — a status, a tag, a filter, a person. Compound root plus five slots:
+  `Chip.Label`, `Chip.Icon`, `Chip.Dot`, `Chip.Avatar` and `Chip.Close`, spaced by the root
+  alone, so JSX order is screen order and there is no `startContent` / `endContent`.
+
+  Eleven flat variants replace HeroUI's `variant × color` matrix: the `Button`'s five-step
+  emphasis ladder plus the three status families it deliberately refused — a chip reports an
+  outcome, so `success`, `warning` and `danger` each land here with their soft slice.
+
+  Visually aligned with `heroui-native`: 12pt of horizontal padding, a 14/20 label and a 28pt
+  `md`, with the height fixed rather than derived from vertical padding so a chip carrying an
+  avatar still lines up with the one beside it.
+
+  `Chip.Close` is a control in its own right — its own press state, its own `hitSlop`, and a
+  cross it draws itself, so a dismissible chip needs no icon set installed.
+
+  Also extracts the `radius` axis, duplicated in every recipe that has one, into
+  `radiusAxis()` in `system/recipe/`.
+
+  `Chip.Avatar` is pulled back into the capsule's rounded end. The root's horizontal padding
+  is set for text — 12pt at `md` — while the height leaves only 3pt above and below a 22pt
+  avatar, so a face sat visibly pushed into the chip where a label beside it looked right. The
+  slot now cancels the difference, which seats it concentrically with the rounded end: the
+  capsule's cap is a circle of radius `height / 2` and the avatar is one of radius
+  `diameter / 2`, so they share a centre only when the gap is equal on every side. It is the
+  one margin on a slot in this component, and R4 is about spacing _between_ slots rather than
+  about cancelling the parent's padding — `Chip.Avatar` is a leading slot by contract, which
+  is what makes a leading-only correction sound. `marginStart`, so RTL follows (R13), and
+  clamped at zero so a theme with tighter padding needs no pull at all.
+
+- 662fdfc: `warning` moves from the `amber` family to `orange`
+
+  The dark `warning` was `amber[400]`, a distinctly yellow 84° in OKLCh, which read as gold
+  rather than as a caution — next to a green `success` and a red `danger` it looked like a
+  third decorative colour instead of the middle of a status ladder.
+
+  Swapping the family moves both modes the same way and **narrows the gap between them**: the
+  two ramps sit 35° apart today at the steps we use, and 18° after. Light barely moves at all
+  — `amber[700]` and `orange[700]` are 11° apart and share a lightness, so the change there is
+  a slight warming rather than a new colour, and the contrast against `warningForeground` goes
+  _up_, 4.81 → 4.96. Dark moves further, because that is where the yellow was.
+
+  Everything derived follows through `deriveColors`: `warningPressed`, `warningSoft`,
+  `warningSoftForeground` and `warningSoftPressed`. `pnpm tokens:check` passes on both modes.
+
+  It reaches every component with a `warning` variant — `Chip`, `Alert`, `Badge`, `Spinner`
+  and the ones still in review — which is the point of the token layer: one line in
+  `tooling/tokens/source.ts`, no component touched.
+
+## 0.9.1-alpha.21
+
+### Patch Changes
+
+- 1555901: `Card` — the v1 surface, and the control it becomes.
+
+  A compound root with five slots — `Header`, `Body`, `Footer`, `Title`, `Description` — on
+  the same shape as the `Button`: the recipe resolves once at the root and publishes the
+  resolved styles, every node takes its own style props (R14), `asChild` merges into the
+  caller's element, and the context hook is exported so a third party can add a slot.
+
+  `variant` narrows the shared vocabulary to its four emphasis levels — `default`,
+  `secondary`, `tertiary`, `ghost` — over the theme's `surface*` family, with the surface
+  shadow on the one level that stands on the background. `size` drives padding, both gaps,
+  the radius and the type of the two text slots, and never a height: a card is as tall as
+  what it holds. `isPressable` turns the surface into a `PressableFeedback` with a press
+  wash, `accessibilityRole="button"` and the shared scale.
+
+  The rendering is HeroUI's card measured — `md` is 16pt of padding, a 24pt radius, an
+  18/28 title in `medium` over a 16/24 description, no border on a filled surface — reached
+  through our own vocabulary rather than through their utility classes, and with the gaps the
+  component owns instead of leaving to the call site.
+
+  Also fixes a `NoInfer` gap in the recipe engine: a `compoundVariants` entry naming one
+  variant used to collapse the whole recipe's variant union to that single value.
+
+  **`Card.Background`** — a photo, a gradient or a video behind the card. The root **hoists**
+  it, so JSX order does not decide stacking: a background written after the header would
+  otherwise cover it, which is the invisible ordering rule composition should not carry. It
+  reuses the marking idiom `PressableFeedback` uses for its overlays, and `markBackground` is
+  exported so a third party's layer is not a second-class citizen.
+
+  The clip lives on the layer rather than on the root: `overflow: 'hidden'` cuts the node's
+  own shadow on iOS, so clipping the card would cost a `default` one the elevation its variant
+  just gave it. `radius` therefore moves both slots together — a corner that moved only the
+  root would round the card and leave its photo square. HeroUI reaches the same feature
+  through a `background` **prop** and clips on both nodes, losing the shadow.
+
+  **The light `surfaceSecondary` moves up half a step**, `#f4f4f5` → `#ececee`. It sat so
+  close to the `background` (`#fafafa`) that a `secondary` card on the page read as no card at
+  all, and `zinc[200]` was already `surfaceTertiary` — so the level between them was the only
+  one left. It is the OKLab midpoint of the two, written in the source layer rather than added
+  to the palette: `PaletteShade` is derived from `zinc`, so a `150` there would have claimed
+  every other family has one too.
+
+## 0.9.1-alpha.20
+
+### Patch Changes
+
+- 4a14277: `Stack` and `Grid` join the layout lot
+
+  **`Stack`** overlays. The root is the containing block (`position: relative`) and
+  `Stack.Item` is a layer taken out of the flow (`position: absolute`); where a layer sits is
+  R14 — `top`, `bottom`, `start`, `end`, `zIndex`. The first child stays in the flow and gives
+  the stack its size. Overlaying is composed rather than inferred: a stack that positioned
+  every child but the first would have to guess which one sets the size, and would change
+  meaning the day a caller reordered them.
+
+  **`Grid`** lays out a fixed number of columns, wrapping, and **measures** its column width
+  rather than expressing it as a percentage. `width: '33.33%'` resolves against the content
+  box and knows nothing about the gaps, so three cells plus two gaps overflow their row. The
+  root reads its own width and publishes the exact column width; `Grid.Item span={n}` covers
+  several columns, gaps included. `gap` is the grid's own prop because the root has to read
+  it to size the cells.
+
+  `Container` and the remaining legacy `view/` entries are not planned: they are R14 or
+  `Stack`.
+
+## 0.9.1-alpha.19
+
+### Patch Changes
+
+- 5f91549: `Row` and `Column` — the two axes of a layout
+
+  Each contributes one declaration, `flexDirection`, and nothing else. `gap`, `alignItems`,
+  `justifyContent` and `padding` are `ViewStyle` keys that R14 already exposes as props on
+  every node, so these two add no vocabulary of their own — which is the change from the
+  legacy components, where `mainAxisAlignment`, `crossAxisAlignment`, `mainAxisSize`,
+  `direction` and `reversed` were words to learn for what React Native already says.
+
+  `flexDirection` is the one style prop they do not expose: it is their identity, and a `Row`
+  that could be told to lay out as a column would be a `View` with a longer name.
+
+  Three entries of the legacy `view/` lot are deliberately not ported, because R14 removed
+  their reason to exist: `Padding` is `padding={16}` on the node itself, `Center` is two
+  alignment props on the parent, and `Spacer` is `justifyContent="space-between"`. Each added
+  a view node to say what a style prop already says.
+
+## 0.9.1-alpha.18
+
+### Patch Changes
+
+- 345b3e0: `Icon`'s R14 boundary moves from a comment into the type
+
+  `IconProps` declared the style props and `style` for all three forms, but only the `source`
+  form applies them — it is the one where we render the node. So this compiled and silently
+  did nothing:
+
+  ```tsx
+  <Icon as={Trash2} marginEnd={8} />
+  ```
+
+  The props are a discriminated union now: `as`, a raw SVG child and `source` are mutually
+  exclusive, and only `source` carries R14. The call above is a compile error that points at
+  `size` and `color`, the levers the other two forms actually have.
+
+  `Icon` also gains the demo screen it never had — the three forms, the cascade from prop to
+  slot to theme, and a raw SVG having its baked-in size overridden. Not having one is why the
+  gap went unnoticed: nobody had tried writing a margin on an icon.
+
+## 0.9.1-alpha.17
+
+### Patch Changes
+
+- 863cc86: `Typography` and `TextSpan` — the first entry of the v1 core
+
+  Ten roles, aligned with HeroUI Native's `text`: `h1`–`h6`, `body`, `body-sm`, `body-xs` and
+  `code`. Each role fixes size, line height, weight and family **together**, which is why
+  there is no `size` prop and no `weight` prop — the combinations they allowed (a heading in
+  a light weight, a caption in a display size) become unwritable rather than discouraged.
+
+  `TextSpan` is a bare React Native `Text`. Nesting a `Text` inside a `Text` already inherits
+  font, size, weight and colour on both platforms, so a span needs no context to read and no
+  role to resolve: the legacy `TextSpanContext` was reimplementing the platform, and it is
+  gone. `Typography` therefore publishes no slot and does none of a span's work.
+
+  Neither alignment nor truncation gets a prop. `textAlign` is a `TextStyle` key that R14
+  already exposes, and `numberOfLines` is React Native's own — a prop of ours would be a
+  second name for the same thing.
+
+## 0.9.1-alpha.16
+
+### Patch Changes
+
+- da4bc8a: The `default` variant reads as grey rather than as near-white
+
+  Light `default` was zinc-100 on a white background — a fill faint enough to be mistaken
+  for no fill at all, where dark's zinc-800 sits clearly off its own background. One step to
+  zinc-200 balances the two modes instead of shifting one.
+
+  The derived layer follows from the single source: `defaultPressed`, `defaultSoft` and
+  `defaultSoftPressed` move with it, so `tertiary` and `ghost` keep a pressed state that
+  matches the new grey. Both packages regenerate their `tokens.gen.ts` from that source.
+
+## 0.9.1-alpha.15
+
+### Patch Changes
+
+- 7376ce5: `asChild` reached `Slot` as an array, so every pressable threw
+
+  `PressableFeedback` rendered `{overlays}{content}` — two expression children, which React
+  hands to the root as an array. Under `asChild` that root is a `Slot`, which merges into a
+  single element and threw instead, whether or not an overlay was composed: with none,
+  `partitionOverlays` returns `overlays: null` and `[null, content]` is an array all the
+  same. `<Button asChild>` was unusable, and so was every other pressable.
+
+  The root's children are now computed once, as a single node, by `feedbackChildren`.
+  `asChild` skips the partition entirely: the caller's element _is_ the pressable, so an
+  overlay written inside it belongs to it and hoisting would make it a sibling of the very
+  element it was composed into.
+
 ## 0.9.1-alpha.14
 
 ### Patch Changes

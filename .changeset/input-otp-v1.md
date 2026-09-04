@@ -24,3 +24,26 @@ only the hidden input can do.
 
 Fifteen tests on the pure helpers — `buildSlots`, `extractPastedCode`, `isPaste`. The
 component itself is verified by its demo screen, as every other one is.
+
+Three corrections after seeing it on a device.
+
+**The box takes the `lg` radius, 12 points, not `field`.** A field is wide, so 21 on a
+48-tall one reads as a rounded rectangle; a code box is very nearly square — 44 by 48 at
+`md`, 36 by 40 at `sm` — where the geometric maximum is 22, so the same 21 is a pill in all
+but name and is clamped to one outright at the small end. Twelve is where HeroUI lands for
+the same box from the other direction: their `field` radius is their `xl`, and their scale's
+base is 8 where ours is 12.
+
+**No `ghost`.** The `Input` has one and this does not, because the shape of the component
+is different: an input is one wide field whose position the caret and the label already
+give away, so it survives having neither fill nor edge. A code is six boxes, and their only
+job before anything is typed is to say how many characters are expected and where they go —
+with no fill and no border there is nothing to count. It is the reason the `Checkbox` has no
+`ghost` either.
+
+**No `xs`.** The box's width is the control height less one spacing step, so `xs` was 28 by
+32 — a box that small still has to carry an 18pt character to stay legible, and 18 in 28
+leaves no room for the two-point active ring without the digit touching it. A code is also
+the one field a user reads back to themselves character by character, which is the worst
+place to save eight points. `sm` is the compact size; below it, use fewer boxes rather than
+smaller ones.

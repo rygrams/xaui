@@ -9,8 +9,17 @@
     "@xaui/native-legacy": "0.2.11"
   },
   "changesets": [
+    "alert-v1",
     "api-review-fixes",
+    "card",
+    "chip-v1",
+    "great-doors-search",
     "icon",
+    "input-v1",
+    "khaki-lions-argue",
+    "lucky-hounds-jam",
+    "olive-moons-shave",
+    "olive-pugs-tap",
     "pack-uniqueness",
     "portal",
     "press-feedback-values",
@@ -24,6 +33,8 @@
     "slot-system",
     "style-props-everywhere",
     "style-props",
+    "tame-jars-argue",
+    "warning-orange",
     "workletized-build"
   ]
 }
