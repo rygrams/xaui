@@ -9,8 +9,20 @@ export type SlotStyle = ViewStyle & TextStyle
 
 export type SlotStyles<Slot extends string> = Partial<Record<Slot, SlotStyle>>
 
-/** The roles a variant consumes. The variant names tokens; `paint` says where they land. */
-export type VariantRole = 'bg' | 'bgPressed' | 'fg' | 'border'
+/**
+ * The roles a variant consumes. The variant names tokens; `paint` says where they land.
+ *
+ * A role exists once a *state* needs the variant's own colour rather than a token named
+ * in the state function — `bgPressed` is what makes a pressed `Button` darken its own
+ * fill instead of taking a neutral wash, and `borderFocus` is the same thing for a field
+ * that has focus. Both also mean a raw `color` follows into that state, because
+ * `resolveTint` maps every declared role.
+ *
+ * **A state that reads a role must find it declared on every variant.** The merge is a
+ * shallow spread, so a `borderColor: colors.borderFocus` on a variant that names no
+ * `borderFocus` writes `undefined` over the colour `paint` had set.
+ */
+export type VariantRole = 'bg' | 'bgPressed' | 'fg' | 'border' | 'borderFocus'
 
 /** Token names per role — no colour value ever appears in a recipe. */
 export type VariantTokens = Partial<Record<VariantRole, keyof XAUIColors>>

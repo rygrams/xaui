@@ -5,6 +5,7 @@ const entries = {
   'components/alert/index': 'src/components/alert/index.ts',
   'components/button/index': 'src/components/button/index.ts',
   'components/chip/index': 'src/components/chip/index.ts',
+  'components/input/index': 'src/components/input/index.ts',
   'system/index': 'src/system/index.ts',
   'theme/index': 'src/theme/index.ts',
 }

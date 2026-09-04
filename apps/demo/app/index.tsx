@@ -317,6 +317,9 @@ function OtherScreens() {
       <Button variant="tertiary" size="sm" onPress={() => router.push('/chip')}>
         Chip →
       </Button>
+      <Button variant="tertiary" size="sm" onPress={() => router.push('/input')}>
+        Input →
+      </Button>
       <Button
         variant="tertiary"
         size="sm"
