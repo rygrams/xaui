@@ -1,6 +1,5 @@
 ---
 '@xaui/native': patch
-'@xaui/native-legacy': patch
 ---
 
 feat(chip): the v1 `Chip` — P3.5
