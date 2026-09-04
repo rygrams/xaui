@@ -9,3 +9,10 @@
 export const StyleSheet = {
   create: <T extends Record<string, object>>(styles: T): T => styles,
 }
+
+/**
+ * `OS` is `'ios'` because a value has to be picked, not because anything asserts it — the
+ * only source reading it is the theme's `mono` family. A test that starts to care about
+ * the branch should set it for itself rather than depend on this default.
+ */
+export const Platform = { OS: 'ios' as const }
