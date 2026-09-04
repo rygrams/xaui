@@ -1,5 +1,98 @@
 # @xaui/native
 
+## 0.9.1-alpha.19
+
+### Patch Changes
+
+- 5f91549: `Row` and `Column` — the two axes of a layout
+
+  Each contributes one declaration, `flexDirection`, and nothing else. `gap`, `alignItems`,
+  `justifyContent` and `padding` are `ViewStyle` keys that R14 already exposes as props on
+  every node, so these two add no vocabulary of their own — which is the change from the
+  legacy components, where `mainAxisAlignment`, `crossAxisAlignment`, `mainAxisSize`,
+  `direction` and `reversed` were words to learn for what React Native already says.
+
+  `flexDirection` is the one style prop they do not expose: it is their identity, and a `Row`
+  that could be told to lay out as a column would be a `View` with a longer name.
+
+  Three entries of the legacy `view/` lot are deliberately not ported, because R14 removed
+  their reason to exist: `Padding` is `padding={16}` on the node itself, `Center` is two
+  alignment props on the parent, and `Spacer` is `justifyContent="space-between"`. Each added
+  a view node to say what a style prop already says.
+
+## 0.9.1-alpha.18
+
+### Patch Changes
+
+- 345b3e0: `Icon`'s R14 boundary moves from a comment into the type
+
+  `IconProps` declared the style props and `style` for all three forms, but only the `source`
+  form applies them — it is the one where we render the node. So this compiled and silently
+  did nothing:
+
+  ```tsx
+  <Icon as={Trash2} marginEnd={8} />
+  ```
+
+  The props are a discriminated union now: `as`, a raw SVG child and `source` are mutually
+  exclusive, and only `source` carries R14. The call above is a compile error that points at
+  `size` and `color`, the levers the other two forms actually have.
+
+  `Icon` also gains the demo screen it never had — the three forms, the cascade from prop to
+  slot to theme, and a raw SVG having its baked-in size overridden. Not having one is why the
+  gap went unnoticed: nobody had tried writing a margin on an icon.
+
+## 0.9.1-alpha.17
+
+### Patch Changes
+
+- 863cc86: `Typography` and `TextSpan` — the first entry of the v1 core
+
+  Ten roles, aligned with HeroUI Native's `text`: `h1`–`h6`, `body`, `body-sm`, `body-xs` and
+  `code`. Each role fixes size, line height, weight and family **together**, which is why
+  there is no `size` prop and no `weight` prop — the combinations they allowed (a heading in
+  a light weight, a caption in a display size) become unwritable rather than discouraged.
+
+  `TextSpan` is a bare React Native `Text`. Nesting a `Text` inside a `Text` already inherits
+  font, size, weight and colour on both platforms, so a span needs no context to read and no
+  role to resolve: the legacy `TextSpanContext` was reimplementing the platform, and it is
+  gone. `Typography` therefore publishes no slot and does none of a span's work.
+
+  Neither alignment nor truncation gets a prop. `textAlign` is a `TextStyle` key that R14
+  already exposes, and `numberOfLines` is React Native's own — a prop of ours would be a
+  second name for the same thing.
+
+## 0.9.1-alpha.16
+
+### Patch Changes
+
+- da4bc8a: The `default` variant reads as grey rather than as near-white
+
+  Light `default` was zinc-100 on a white background — a fill faint enough to be mistaken
+  for no fill at all, where dark's zinc-800 sits clearly off its own background. One step to
+  zinc-200 balances the two modes instead of shifting one.
+
+  The derived layer follows from the single source: `defaultPressed`, `defaultSoft` and
+  `defaultSoftPressed` move with it, so `tertiary` and `ghost` keep a pressed state that
+  matches the new grey. Both packages regenerate their `tokens.gen.ts` from that source.
+
+## 0.9.1-alpha.15
+
+### Patch Changes
+
+- 7376ce5: `asChild` reached `Slot` as an array, so every pressable threw
+
+  `PressableFeedback` rendered `{overlays}{content}` — two expression children, which React
+  hands to the root as an array. Under `asChild` that root is a `Slot`, which merges into a
+  single element and threw instead, whether or not an overlay was composed: with none,
+  `partitionOverlays` returns `overlays: null` and `[null, content]` is an array all the
+  same. `<Button asChild>` was unusable, and so was every other pressable.
+
+  The root's children are now computed once, as a single node, by `feedbackChildren`.
+  `asChild` skips the partition entirely: the caller's element _is_ the pressable, so an
+  overlay written inside it belongs to it and hoisting would make it a sibling of the very
+  element it was composed into.
+
 ## 0.9.1-alpha.14
 
 ### Patch Changes

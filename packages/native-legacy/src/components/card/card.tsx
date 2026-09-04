@@ -30,33 +30,6 @@ const CardContext = React.createContext<CardContextValue>({
   isFooterBlurred: false,
 })
 
-/**
- * @deprecated Use `Card` from `@xaui/native/card`. This tree is frozen and receives fixes
- * only.
- *
- * The v1 replacement composes instead of configuring: `themeColor` becomes the four-level
- * `variant` union or a raw `color`, `customAppearance` becomes a `style` on each slot,
- * `padding` and `elevation` are what `size` and `variant` already decide, and `fullWidth`
- * is gone — a card with no width already fills a column. `isHoverable`, `isBlurred` and
- * `isFooterBlurred` have no v1 equivalent: there is no hover on a touch surface, and the
- * blur is a theme rather than a card prop.
- *
- * ```tsx
- * // legacy
- * <Card themeColor="default" elevation={2} customAppearance={{ title: { fontSize: 20 } }}>
- *   <CardHeader>
- *     <CardTitle>Facture</CardTitle>
- *   </CardHeader>
- * </Card>
- *
- * // v1
- * <Card>
- *   <Card.Header>
- *     <Card.Title fontSize={20}>Facture</Card.Title>
- *   </Card.Header>
- * </Card>
- * ```
- */
 export const Card: React.FC<CardProps> = ({
   children,
   themeColor = 'default',
@@ -189,13 +162,6 @@ export const Card: React.FC<CardProps> = ({
   )
 }
 
-/**
- * @deprecated Use `Card.Header` from `@xaui/native/card`. This tree is frozen and
- * receives fixes only.
- *
- * The v1 header is a slot on the root, styled through its own `style` and style props
- * rather than through `customAppearance.header`.
- */
 export const CardHeader: React.FC<CardHeaderProps> = ({
   children,
   customAppearance,
@@ -215,13 +181,6 @@ export const CardHeader: React.FC<CardHeaderProps> = ({
   )
 }
 
-/**
- * @deprecated Use `Card.Body` from `@xaui/native/card`. This tree is frozen and receives
- * fixes only.
- *
- * The v1 body is a slot on the root, styled through its own `style` and style props
- * rather than through `customAppearance.body`.
- */
 export const CardBody: React.FC<CardBodyProps> = ({
   children,
   customAppearance,
@@ -241,13 +200,6 @@ export const CardBody: React.FC<CardBodyProps> = ({
   )
 }
 
-/**
- * @deprecated Use `Card.Footer` from `@xaui/native/card`. This tree is frozen and
- * receives fixes only.
- *
- * The v1 footer is a slot on the root and a row by default. `isFooterBlurred` has no
- * equivalent: the blur is a theme rather than a card prop.
- */
 export const CardFooter: React.FC<CardFooterProps> = ({
   children,
   customAppearance,
@@ -272,13 +224,6 @@ export const CardFooter: React.FC<CardFooterProps> = ({
   )
 }
 
-/**
- * @deprecated Use `Card.Title` from `@xaui/native/card`. This tree is frozen and receives
- * fixes only.
- *
- * The v1 title is a slot on the root, styled through its own `style` and style props
- * rather than through `customAppearance.title`.
- */
 export const CardTitle: React.FC<CardTitleProps> = ({
   children,
   customAppearance,
@@ -300,13 +245,6 @@ export const CardTitle: React.FC<CardTitleProps> = ({
   )
 }
 
-/**
- * @deprecated Use `Card.Description` from `@xaui/native/card`. This tree is frozen and
- * receives fixes only.
- *
- * The v1 description is a slot on the root, styled through its own `style` and style
- * props rather than through `customAppearance.description`.
- */
 export const CardDescription: React.FC<CardDescriptionProps> = ({
   children,
   customAppearance,
