@@ -1,8 +1,12 @@
 import { describe, expect, it } from 'vitest'
 import {
   fromFraction,
+  fromValues,
+  nearestThumb,
   snap,
   toFraction,
+  toValues,
+  withThumbAt,
 } from '../../../components/slider/slider.utils'
 
 const percent = { min: 0, max: 100, step: 1 }
@@ -76,5 +80,64 @@ describe('snap', () => {
 
   it('rounds half up, as the platform does', () => {
     expect(snap(25, { min: 0, max: 100, step: 10 })).toBe(30)
+  })
+})
+
+describe('toValues and fromValues', () => {
+  it('keeps a number a number and a pair a pair', () => {
+    expect(toValues(40, percent)).toEqual([40])
+    expect(toValues([20, 60], percent)).toEqual([20, 60])
+    expect(fromValues([40])).toBe(40)
+    expect(fromValues([20, 60])).toEqual([20, 60])
+  })
+
+  it('snaps both ends of a pair', () => {
+    expect(toValues([22, 68], { min: 0, max: 100, step: 10 })).toEqual([20, 70])
+  })
+})
+
+describe('withThumbAt', () => {
+  const range = { min: 0, max: 100, step: 1 }
+
+  it('moves the one it was given', () => {
+    expect(withThumbAt([20, 60], 0, 30, range)).toEqual([30, 60])
+    expect(withThumbAt([20, 60], 1, 80, range)).toEqual([20, 80])
+  })
+
+  it('stops the lower thumb at the upper rather than swapping them', () => {
+    // A swap loses the finger's grip mid-drag: it ends up pushing the thumb it did not
+    // pick up, and the value it was dragging runs away in the other direction.
+    expect(withThumbAt([20, 60], 0, 90, range)).toEqual([60, 60])
+  })
+
+  it('stops the upper thumb at the lower', () => {
+    expect(withThumbAt([20, 60], 1, 5, range)).toEqual([20, 20])
+  })
+
+  it('bounds a single thumb by the range itself', () => {
+    expect(withThumbAt([40], 0, 400, range)).toEqual([100])
+    expect(withThumbAt([40], 0, -400, range)).toEqual([0])
+  })
+
+  it('snaps what it lands on', () => {
+    expect(withThumbAt([20, 60], 0, 34, { min: 0, max: 100, step: 10 })).toEqual([
+      30, 60,
+    ])
+  })
+})
+
+describe('nearestThumb', () => {
+  it('picks the closer one', () => {
+    expect(nearestThumb([20, 60], 25)).toBe(0)
+    expect(nearestThumb([20, 60], 55)).toBe(1)
+  })
+
+  it('gives a tie to the lower one, every time', () => {
+    expect(nearestThumb([20, 60], 40)).toBe(0)
+    expect(nearestThumb([50, 50], 50)).toBe(0)
+  })
+
+  it('is the only thumb when there is one', () => {
+    expect(nearestThumb([40], 90)).toBe(0)
   })
 })

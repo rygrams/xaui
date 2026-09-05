@@ -6,7 +6,14 @@ import { useStyleProps } from '../../system/style-props'
 import { useXAUITheme } from '../../theme/theme-hooks'
 import { SliderProvider } from './slider.context'
 import { sliderRecipe } from './slider.recipe'
-import { fromFraction, snap, toFraction } from './slider.utils'
+import {
+  fromFraction,
+  fromValues,
+  nearestThumb,
+  toFraction,
+  toValues,
+  withThumbAt,
+} from './slider.utils'
 import type { SliderProps } from './slider.type'
 
 /**
@@ -22,19 +29,23 @@ import type { SliderProps } from './slider.type'
  * </Slider>
  * ```
  *
- * **Two callbacks, and the difference matters.** `onValueChange` fires on every step the
+ * **Two callbacks, and the difference matters.** `onValueChange` fires on every step a
  * thumb crosses, including mid-drag, and is what a live preview reads. `onValueCommit`
  * fires once, when the finger lifts — it is where a network call belongs, because the
  * first one can fire fifty times in a second.
  *
- * Horizontal only. A vertical slider is the same arithmetic on the other axis, but it is
- * also a different gesture and a different layout, and shipping it half-done is worse than
- * not shipping it.
+ * **A pair makes it a range.** `value={[20, 60]}` is two thumbs and a fill between them,
+ * and it reports a pair back; the shape the caller wrote is the shape they get. Write one
+ * `<Slider.Thumb index={0} />` per end.
+ *
+ * **`orientation="vertical"` turns the rail on its side**, counting from the bottom — a
+ * rail whose fill grew downwards would report a larger value the lower the knob sat.
  */
 export const SliderRoot = forwardRef<View, SliderProps>(function Slider(
   {
     children,
     size,
+    orientation = 'horizontal',
     radius,
     color,
     value: controlledValue,
@@ -52,21 +63,22 @@ export const SliderRoot = forwardRef<View, SliderProps>(function Slider(
 ) {
   const theme = useXAUITheme()
   const [styleProps, rest] = useStyleProps(props)
-  const [trackWidth, setTrackWidth] = useState(0)
+  const [trackLength, setTrackLength] = useState(0)
 
   const range = { min, max, step }
 
-  const [raw, setValue] = useControllableState<number>({
+  const [raw, setValue] = useControllableState({
     value: controlledValue,
     defaultValue,
     onChange: onValueChange,
   })
 
   // Snapped on the way out as well as on the way in: a caller can pass a `value` that is
-  // not on a step, and the thumb has to sit somewhere real.
-  const value = snap(raw, range)
+  // not on a step, and a thumb has to sit somewhere real. One entry or two, and the shape
+  // the caller wrote is the shape they get back.
+  const values = toValues(raw, range)
 
-  const selection = { size, radius }
+  const selection = { size, orientation, radius }
   const styles = sliderRecipe.resolve({
     theme,
     selection,
@@ -75,11 +87,31 @@ export const SliderRoot = forwardRef<View, SliderProps>(function Slider(
   const tint = color ? sliderRecipe.tint({ theme, color, selection }) : undefined
 
   const slideTo = useCallback(
-    (fraction: number) => setValue(fromFraction(fraction, { min, max, step })),
+    (index: number, fraction: number) => {
+      const at = fromFraction(fraction, { min, max, step })
+      setValue(current =>
+        fromValues(
+          withThumbAt(toValues(current, { min, max, step }), index, at, {
+            min,
+            max,
+            step,
+          })
+        )
+      )
+    },
     [max, min, setValue, step]
   )
 
-  const commit = useCallback(() => onValueCommit?.(value), [onValueCommit, value])
+  const thumbFor = useCallback(
+    (fraction: number) =>
+      nearestThumb(values, fromFraction(fraction, { min, max, step })),
+    [max, min, step, values]
+  )
+
+  const commit = useCallback(
+    () => onValueCommit?.(fromValues(values)),
+    [onValueCommit, values]
+  )
 
   const context = useMemo(() => {
     const thumb = StyleSheet.flatten<ViewStyle>([styles.thumb])
@@ -89,23 +121,37 @@ export const SliderRoot = forwardRef<View, SliderProps>(function Slider(
       trackStyle: tint ? [styles.track, tint.track] : styles.track,
       fillStyle: tint ? [styles.fill, tint.fill] : styles.fill,
       thumbStyle: tint ? [styles.thumb, tint.thumb] : styles.thumb,
-      knobStyle: tint ? [styles.knob, tint.knob] : styles.knob,
-      value,
+      orientation,
+      values,
       min,
       max,
       step,
       isDisabled,
-      fraction: toFraction(value, { min, max, step }),
-      trackWidth,
-      setTrackWidth,
-      // Read off the resolved style rather than recomputed: the thumb's width is what the
-      // track insets its travel by, and both have to be the same number or the thumb
+      fractions: values.map(v => toFraction(v, { min, max, step })),
+      trackLength,
+      setTrackLength,
+      // Read off the resolved style rather than recomputed: the knob's diameter is what
+      // the rail insets its travel by, and both have to be the same number or the knob
       // overhangs the end.
-      thumbWidth: typeof thumb.width === 'number' ? thumb.width : 0,
+      thumbSize: typeof thumb.width === 'number' ? thumb.width : 0,
       slideTo,
+      thumbFor,
       commit,
     }
-  }, [styles, tint, value, min, max, step, isDisabled, trackWidth, slideTo, commit])
+  }, [
+    styles,
+    tint,
+    values,
+    min,
+    max,
+    step,
+    isDisabled,
+    orientation,
+    trackLength,
+    slideTo,
+    thumbFor,
+    commit,
+  ])
 
   return (
     <SliderProvider value={context}>

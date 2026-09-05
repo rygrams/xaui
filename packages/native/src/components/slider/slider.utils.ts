@@ -7,6 +7,9 @@
 
 export type Range = { min: number; max: number; step: number }
 
+/** One value, or the two ends of a range. */
+export type SliderValue = number | readonly [number, number]
+
 /** Where a value sits on its track, from 0 at `min` to 1 at `max`. */
 export function toFraction(value: number, { min, max }: Range): number {
   if (max === min) return 0
@@ -57,4 +60,60 @@ function decimalsOf(step: number): number {
 
 function clamp(value: number, min: number, max: number): number {
   return Math.min(Math.max(value, min), max)
+}
+
+/** Always one or two entries, snapped, whatever shape the caller wrote. */
+export function toValues(value: SliderValue, range: Range): number[] {
+  return Array.isArray(value)
+    ? [snap(value[0], range), snap(value[1], range)]
+    : [snap(value as number, range)]
+}
+
+/** Back to the caller's shape: a number stays a number, a pair stays a pair. */
+export function fromValues(values: readonly number[]): SliderValue {
+  return values.length > 1 ? [values[0]!, values[1]!] : values[0]!
+}
+
+/**
+ * One thumb moved, with the other holding its ground.
+ *
+ * **The thumbs cannot cross.** Each is bounded by its neighbour rather than by the range,
+ * so dragging the lower one past the upper stops it dead instead of swapping the two — a
+ * swap loses the finger's grip mid-drag, and it ends up pushing the thumb it did not pick
+ * up.
+ */
+export function withThumbAt(
+  values: readonly number[],
+  index: number,
+  value: number,
+  range: Range
+): number[] {
+  const next = [...values]
+  const lower = index > 0 ? values[index - 1]! : range.min
+  const upper = index < values.length - 1 ? values[index + 1]! : range.max
+
+  next[index] = snap(Math.min(Math.max(value, lower), upper), range)
+  return next
+}
+
+/**
+ * Which thumb a press on the rail should move: the nearest one.
+ *
+ * Ties go to the **lower** thumb, arbitrarily but consistently. Two thumbs at the same
+ * value have nothing to be told apart by, and picking the same one every time at least
+ * makes the behaviour learnable.
+ */
+export function nearestThumb(values: readonly number[], value: number): number {
+  let best = 0
+  let distance = Math.abs(values[0]! - value)
+
+  for (let i = 1; i < values.length; i += 1) {
+    const d = Math.abs(values[i]! - value)
+    if (d < distance) {
+      best = i
+      distance = d
+    }
+  }
+
+  return best
 }

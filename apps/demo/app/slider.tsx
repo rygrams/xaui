@@ -25,7 +25,7 @@ export default function SliderScreen() {
     >
       <Section
         title="Drag it, or press anywhere on the track"
-        note="A press on the track moves the thumb there, which is the half of a slider people forget: dragging a narrow thumb is a fine gesture on a mouse and a poor one on a finger. The thumb grows 15% under the press rather than moving — the finger is already covering it, so the scale is what you see in the gap around it."
+        note="A thin rail with a round knob riding on it, the legacy proportions rather than HeroUI's capsule: 6 to 10 points of rail under a 16 to 24 point disc. The knob overhangs the rail by half their difference on each side, and the rail reserves that overhang as a margin — otherwise the knob spills into whatever sits above and below. A press anywhere on the rail moves it there, and it grows 15% under the press rather than moving."
       >
         <Basic />
       </Section>
@@ -48,11 +48,28 @@ export default function SliderScreen() {
 
       <Section
         title="Sizes"
-        note="size moves the track's thickness, the thumb's width and the output's type. The thumb is wider than the track is tall at every size — HeroUI's capsule rather than a circle, which is what gives a finger something to hold."
+        note="size moves the rail's thickness, the knob's diameter and the output's type — 6/16, 8/20, 10/24. The knob is always wider than the rail is thick, which is what gives a finger something to hold. The three pairs are off the spacing grid on purpose: a rail is not a gap between two things, and rounding 6 to a spacing step would put the sizes on a scale that has no bearing on how thin a line can be and still be pressable."
       >
         {SIZES.map(size => (
           <Basic key={size} size={size} />
         ))}
+      </Section>
+
+      <Section
+        title="A pair makes it a range"
+        note="value={[20, 60]} is two thumbs and a fill between them, and it reports a pair back — the shape you wrote is the shape you get. Write one Slider.Thumb per end. The thumbs cannot cross: dragging the lower one past the upper stops it dead rather than swapping the two, because a swap loses the finger's grip and it ends up pushing the thumb it did not pick up. A press on the rail moves the nearest one."
+      >
+        <Ranged />
+      </Section>
+
+      <Section
+        title="Vertical, counting from the bottom"
+        note="orientation='vertical' turns the rail on its side. It counts from the floor up: a rail whose fill grew downwards would report a larger value the lower the knob sat, which is the opposite of what a vertical control means everywhere it appears. The rail runs 220 points unless you give it a height."
+      >
+        <View style={{ flexDirection: 'row', gap: 32 }}>
+          <Vertical />
+          <Vertical defaultValue={[20, 70]} />
+        </View>
       </Section>
 
       <Section
@@ -64,7 +81,7 @@ export default function SliderScreen() {
 
       <Section
         title="A tint (R7), and disabled"
-        note="color is a raw value, never a token. It paints the fill and the thumb's capsule; the knob inside stays the tint's foreground, and the track keeps the theme's neutral — tinting the track too would leave the fill nothing to stand out against."
+        note="Three steps of the same colour: the rail is the theme's neutral, the reach is the accent softened, the knob is the accent at full strength. The eye lands on the knob, which is the value, rather than on the bar behind it, which is only how far the value has come. color moves all three at once — resolveTint maps the soft step to a raw colour's soft slice for free. Disabled drops the colour entirely rather than dimming it: a pale lavender reads as an enabled slider seen through fog, a neutral one reads as switched off."
       >
         <Basic color="#7c3aed" />
         <Basic isDisabled />
@@ -111,6 +128,38 @@ function Stepped({
         <Slider.Fill />
         <Slider.Thumb />
       </Slider.Track>
+    </Slider>
+  )
+}
+
+function Ranged() {
+  return (
+    <Slider defaultValue={[20, 60]}>
+      <Slider.Output />
+      <Slider.Track>
+        <Slider.Fill />
+        <Slider.Thumb index={0} />
+        <Slider.Thumb index={1} />
+      </Slider.Track>
+    </Slider>
+  )
+}
+
+function Vertical({
+  defaultValue = 40,
+}: {
+  defaultValue?: number | [number, number]
+}) {
+  const isRange = Array.isArray(defaultValue)
+
+  return (
+    <Slider orientation="vertical" defaultValue={defaultValue}>
+      <Slider.Track>
+        <Slider.Fill />
+        <Slider.Thumb index={0} />
+        {isRange ? <Slider.Thumb index={1} /> : null}
+      </Slider.Track>
+      <Slider.Output />
     </Slider>
   )
 }
