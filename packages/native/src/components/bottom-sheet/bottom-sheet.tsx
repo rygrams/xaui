@@ -1,8 +1,10 @@
-import { useCallback, useMemo } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useControllableState } from '../../hooks/use-controllable-state'
+import { warnDev } from '../../utils/warn-dev'
 import { useXAUITheme } from '../../theme/theme-hooks'
 import { BottomSheetProvider } from './bottom-sheet.context'
 import { bottomSheetRecipe } from './bottom-sheet.recipe'
+import { collapsedExtent } from './bottom-sheet.utils'
 import type { BottomSheetProps } from './bottom-sheet.type'
 
 /**
@@ -36,6 +38,10 @@ export function BottomSheet({
   onOpenChange,
   isDisabled = false,
   dismissThreshold = 0.35,
+  collapsedHeight,
+  isExpanded: controlledExpanded,
+  defaultExpanded = true,
+  onExpandedChange,
 }: BottomSheetProps) {
   const theme = useXAUITheme()
 
@@ -45,11 +51,51 @@ export function BottomSheet({
     onChange: onOpenChange,
   })
 
+  // A second disclosure inside the first, the way an `Accordion` row is: the sheet is
+  // either up or gone, and while it is up it is either full or reduced. Defaulting to
+  // expanded means adding `collapsedHeight` to an existing sheet changes what it can do
+  // rather than how it opens.
+  const [isExpanded, setExpanded] = useControllableState({
+    value: controlledExpanded,
+    defaultValue: defaultExpanded,
+    onChange: onExpandedChange,
+  })
+
+  // Reported by `BottomSheet.Summary` from its own layout, so a sheet gets its reduced
+  // height from where the content says to cut rather than from a number that has to be
+  // kept in step with it.
+  const [summaryExtent, setSummaryExtent] = useState<number>()
+
+  // Reported by `BottomSheet.Content` off its own resolved style, so the seam a summary
+  // measured keeps the padding the sheet ends with rather than cutting on the last line.
+  const [paddingBottom, setPaddingBottom] = useState(0)
+
+  // The slot wins. A measurement of the content is always truer than a number written
+  // beside it, and `collapsedHeight` stays for the sheet that has no natural seam.
+  const collapsed = collapsedExtent(summaryExtent, paddingBottom, collapsedHeight)
+
+  // In an effect rather than in the body: `warnDev` does not deduplicate, and the root
+  // re-renders on every open and every reduce.
+  useEffect(() => {
+    if (summaryExtent === undefined || collapsedHeight === undefined) return
+    warnDev(
+      'BottomSheet: `collapsedHeight` is ignored when a `BottomSheet.Summary` is present ' +
+        '— the summary measures where to cut. Remove one of the two.'
+    )
+  }, [collapsedHeight, summaryExtent])
+
   const styles = bottomSheetRecipe.resolve({ theme, selection: { radius } })
 
   const open = useCallback(() => setOpen(true), [setOpen])
   const close = useCallback(() => setOpen(false), [setOpen])
   const toggle = useCallback(() => setOpen(current => !current), [setOpen])
+
+  const expand = useCallback(() => setExpanded(true), [setExpanded])
+  const collapse = useCallback(() => setExpanded(false), [setExpanded])
+  const toggleExpanded = useCallback(
+    () => setExpanded(current => !current),
+    [setExpanded]
+  )
 
   const context = useMemo(
     () => ({
@@ -61,11 +107,35 @@ export function BottomSheet({
       isOpen,
       isDisabled,
       dismissThreshold,
+      collapsedHeight: collapsed,
+      setSummaryExtent,
+      setPaddingBottom,
+      // A sheet with no reduced state has none to be out of, so it reports expanded
+      // whatever the disclosure holds — a slot must not draw a chevron for a state the
+      // sheet cannot reach.
+      isExpanded: collapsed === undefined ? true : isExpanded,
+      isCollapsible: collapsed !== undefined,
       open,
       close,
       toggle,
+      expand,
+      collapse,
+      toggleExpanded,
     }),
-    [styles, isOpen, isDisabled, dismissThreshold, open, close, toggle]
+    [
+      styles,
+      isOpen,
+      isDisabled,
+      dismissThreshold,
+      collapsed,
+      isExpanded,
+      open,
+      close,
+      toggle,
+      expand,
+      collapse,
+      toggleExpanded,
+    ]
   )
 
   return <BottomSheetProvider value={context}>{children}</BottomSheetProvider>
