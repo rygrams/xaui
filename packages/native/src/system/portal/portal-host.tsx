@@ -1,6 +1,7 @@
-import { Fragment, useCallback, useMemo, useState } from 'react'
+import { Fragment, useCallback, useMemo, useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import { StyleSheet, View } from 'react-native'
+import type { LayoutChangeEvent } from 'react-native'
 import { PortalContext } from './portal-context'
 import { useStyleProps } from '../style-props'
 import type { ViewStyleProps } from '../style-props'
@@ -21,6 +22,16 @@ const styles = StyleSheet.create({
 export function PortalHost({ children, ...props }: PortalHostProps) {
   const [styleProps] = useStyleProps(props)
   const [portals, setPortals] = useState<ReadonlyMap<string, ReactNode>>(new Map())
+  const [origin, setOrigin] = useState({ x: 0, y: 0 })
+  const node = useRef<View | null>(null)
+
+  // Re-read on every layout rather than once on mount: a rotation, a keyboard, or a
+  // navigation header appearing all move this view without remounting it.
+  const measure = useCallback((_event: LayoutChangeEvent) => {
+    node.current?.measureInWindow((x, y) => {
+      setOrigin(current => (current.x === x && current.y === y ? current : { x, y }))
+    })
+  }, [])
 
   // A new Map per change rather than a mutated ref with a forced re-render: the rendered
   // list is then derived from state the way React expects, and a portal added during a
@@ -39,13 +50,13 @@ export function PortalHost({ children, ...props }: PortalHostProps) {
   }, [])
 
   const methods = useMemo(
-    () => ({ addPortal, removePortal }),
-    [addPortal, removePortal]
+    () => ({ addPortal, removePortal, origin }),
+    [addPortal, removePortal, origin]
   )
 
   return (
     <PortalContext.Provider value={methods}>
-      <View style={[styles.container, styleProps]}>
+      <View ref={node} onLayout={measure} style={[styles.container, styleProps]}>
         {children}
         {Array.from(portals, ([key, element]) => (
           <Fragment key={key}>{element}</Fragment>

@@ -1,8 +1,8 @@
-import { forwardRef, useState } from 'react'
+import { forwardRef, useContext, useState } from 'react'
 import { ScrollView, useWindowDimensions } from 'react-native'
 import type { LayoutChangeEvent, View } from 'react-native'
 import Animated from 'react-native-reanimated'
-import { Portal } from '../../system/portal'
+import { Portal, PortalContext } from '../../system/portal'
 import { useStyleProps } from '../../system/style-props'
 import { SelectProvider, useSelect } from './select.context'
 import { contentEntering, contentExiting } from './select.animation'
@@ -12,6 +12,8 @@ import type { Size2D } from './select.utils'
 
 /** HeroUI's, point for point: eight from the trigger, twelve from every screen edge. */
 const DEFAULT_OFFSET = 8
+/** No host, no offset — `Portal` renders nothing in that case anyway. */
+const ZERO = { x: 0, y: 0 }
 const DEFAULT_INSETS: Required<SelectInsets> = {
   top: 12,
   bottom: 12,
@@ -54,6 +56,9 @@ export const SelectContent = forwardRef<View, SelectContentProps>(
     const { contentStyle, isOpen, anchor } = context
     const [styleProps, rest] = useStyleProps(props)
     const window = useWindowDimensions()
+    // The panel is laid out inside the host, and the trigger reported itself against the
+    // window. The two agree only once the host's own offset is taken back out.
+    const origin = useContext(PortalContext)?.origin ?? ZERO
     const [measured, setMeasured] = useState<Size2D | null>(null)
 
     // Measured per open rather than kept: a list whose rows changed while it was closed
@@ -70,12 +75,18 @@ export const SelectContent = forwardRef<View, SelectContentProps>(
       }
     }
 
+    const local = { ...anchor, x: anchor.x - origin.x, y: anchor.y - origin.y }
+
     const position =
       measured &&
       resolvePlacement({
-        anchor,
+        anchor: local,
         content: measured,
-        window: { width: window.width, height: window.height },
+        // The window in the host's own coordinates, for the same reason as the anchor.
+        window: {
+          width: window.width - origin.x,
+          height: window.height - origin.y,
+        },
         placement,
         align,
         width,
@@ -103,7 +114,7 @@ export const SelectContent = forwardRef<View, SelectContentProps>(
               // The measuring pass: laid out at the trigger's width so the rows wrap as they
               // finally will, and invisible so the reader never sees it at the wrong place.
               position === null
-                ? { opacity: 0, top: 0, start: 0, width: anchor.width }
+                ? { opacity: 0, top: 0, start: 0, width: local.width }
                 : {
                     top: position.top,
                     start: position.start,
