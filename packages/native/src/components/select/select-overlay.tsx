@@ -5,7 +5,7 @@ import Animated from 'react-native-reanimated'
 import { Portal } from '../../system/portal'
 import { useStyleProps } from '../../system/style-props'
 import { SelectProvider, useSelect } from './select.context'
-import { overlayEntering, overlayExiting } from './select.animation'
+import { overlayEntering, overlayExiting } from '../../system/anchored'
 import type { SelectOverlayProps } from './select.type'
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable)

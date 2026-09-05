@@ -2,7 +2,8 @@ import { useCallback, useMemo, useState } from 'react'
 import { StyleSheet } from 'react-native'
 import type { TextStyle } from 'react-native'
 import { useXAUITheme } from '../../theme/theme-hooks'
-import { useControllableState, useLabelRegistry } from './select.hook'
+import { useControllableState } from '../../hooks/use-controllable-state'
+import { useLabelRegistry } from './select.hook'
 import { SelectProvider } from './select.context'
 import { selectRecipe } from './select.recipe'
 import type { SelectAnchor, SelectProps } from './select.type'
@@ -50,13 +51,13 @@ export function Select({
   const { labelFor, registerLabel } = useLabelRegistry()
   const [anchor, setAnchor] = useState<SelectAnchor | null>(null)
 
-  const [value, setValue] = useControllableState({
+  const [value, setValue] = useControllableState<string | undefined>({
     value: controlledValue,
     defaultValue,
-    onChange: onValueChange,
+    onChange: onValueChange as ((next: string | undefined) => void) | undefined,
   })
 
-  const [isOpen = false, setOpen] = useControllableState({
+  const [isOpen, setOpen] = useControllableState({
     value: controlledOpen,
     defaultValue: defaultOpen,
     onChange: onOpenChange,

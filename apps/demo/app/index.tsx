@@ -10,30 +10,37 @@ import { useXAUITheme } from '@xaui/native/theme'
  * — in light and in dark, since there is no test file for any of them. This screen only
  * points at them, so that adding a component means adding a route and one line here rather
  * than growing a screen that already scrolls for a minute.
+ *
+ * Alphabetical by label. The list was in the order the components were built, which is
+ * exactly the order nobody looking for one of them is thinking in.
  */
 const SCREENS = [
-  { href: '/button', label: 'Button' },
-  { href: '/card', label: 'Card' },
-  { href: '/pressable-feedback', label: 'PressableFeedback' },
-  { href: '/typography', label: 'Typography' },
-  { href: '/icon', label: 'Icon' },
-  { href: '/view', label: 'Layout' },
-  { href: '/chip', label: 'Chip' },
+  { href: '/accordion', label: 'Accordion' },
   { href: '/alert', label: 'Alert' },
-  { href: '/text-field', label: 'TextField' },
-  { href: '/input-otp', label: 'InputOTP' },
-  { href: '/text-area', label: 'TextArea' },
-  { href: '/field-group', label: 'FieldGroup' },
-  { href: '/checkbox', label: 'Checkbox' },
-  { href: '/radio', label: 'Radio' },
-  { href: '/switch', label: 'Switch' },
-  { href: '/slider', label: 'Slider' },
-  { href: '/spinner', label: 'Spinner' },
-  { href: '/divider', label: 'Divider' },
-  { href: '/select', label: 'Select' },
-  { href: '/skeleton', label: 'Skeleton' },
   { href: '/avatar', label: 'Avatar' },
   { href: '/badge', label: 'Badge' },
+  { href: '/button', label: 'Button' },
+  { href: '/card', label: 'Card' },
+  { href: '/checkbox', label: 'Checkbox' },
+  { href: '/chip', label: 'Chip' },
+  { href: '/divider', label: 'Divider' },
+  { href: '/field-group', label: 'FieldGroup' },
+  { href: '/icon', label: 'Icon' },
+  { href: '/input-otp', label: 'InputOTP' },
+  { href: '/view', label: 'Layout' },
+  { href: '/menu', label: 'Menu' },
+  { href: '/popover', label: 'Popover' },
+  { href: '/pressable-feedback', label: 'PressableFeedback' },
+  { href: '/radio', label: 'Radio' },
+  { href: '/select', label: 'Select' },
+  { href: '/skeleton', label: 'Skeleton' },
+  { href: '/slider', label: 'Slider' },
+  { href: '/spinner', label: 'Spinner' },
+  { href: '/switch', label: 'Switch' },
+  { href: '/tabs', label: 'Tabs' },
+  { href: '/text-area', label: 'TextArea' },
+  { href: '/text-field', label: 'TextField' },
+  { href: '/typography', label: 'Typography' },
 ] as const
 
 export default function HomeScreen() {

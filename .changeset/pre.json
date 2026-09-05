@@ -9,6 +9,7 @@
     "@xaui/native-legacy": "0.2.11"
   },
   "changesets": [
+    "accordion-v1",
     "alert-v1",
     "api-review-fixes",
     "avatar-v1",
@@ -27,10 +28,12 @@
     "input-v1",
     "khaki-lions-argue",
     "lucky-hounds-jam",
+    "menu-v1",
     "olive-moons-shave",
     "olive-pugs-tap",
     "overlay-shadow-lighter",
     "pack-uniqueness",
+    "popover-v1",
     "portal",
     "press-feedback-values",
     "pressable-feedback-as-child",
@@ -51,6 +54,7 @@
     "switch-v1",
     "tame-jars-argue",
     "text-field-rename",
+    "tsup-clean",
     "warning-orange",
     "workletized-build"
   ]

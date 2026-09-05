@@ -5,10 +5,12 @@ import Animated, {
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated'
-import { Icon } from '../../system/icon'
-import { ChevronDownIcon } from './chevron-down-icon'
+import { ChevronDownIcon, Icon } from '../../system/icon'
 import { useSelect } from './select.context'
-import { INDICATOR_ROTATION, INDICATOR_SPRING } from './select.animation'
+import {
+  INDICATOR_ROTATION,
+  INDICATOR_SPRING,
+} from '../../system/anchored/indicator-spring'
 import type { SelectIndicatorProps } from './select.type'
 
 /**
