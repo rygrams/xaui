@@ -107,6 +107,16 @@
         "default": "./dist/components/chip/index.cjs"
       }
     },
+    "./dialog": {
+      "import": {
+        "types": "./dist/components/dialog/index.d.ts",
+        "default": "./dist/components/dialog/index.js"
+      },
+      "require": {
+        "types": "./dist/components/dialog/index.d.cts",
+        "default": "./dist/components/dialog/index.cjs"
+      }
+    },
     "./divider": {
       "import": {
         "types": "./dist/components/divider/index.d.ts",

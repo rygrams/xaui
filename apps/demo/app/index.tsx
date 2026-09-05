@@ -23,6 +23,7 @@ const SCREENS = [
   { href: '/card', label: 'Card' },
   { href: '/checkbox', label: 'Checkbox' },
   { href: '/chip', label: 'Chip' },
+  { href: '/dialog', label: 'Dialog' },
   { href: '/divider', label: 'Divider' },
   { href: '/field-group', label: 'FieldGroup' },
   { href: '/icon', label: 'Icon' },
