@@ -1,6 +1,6 @@
 {
   "name": "@xaui/native",
-  "version": "0.9.1-alpha.14",
+  "version": "0.9.1-alpha.25",
   "description": "Composition-first React Native UI components with native animations powered by Reanimated",
   "keywords": [
     "react-native",
@@ -45,6 +45,16 @@
       "require": {
         "types": "./dist/components/button/index.d.cts",
         "default": "./dist/components/button/index.cjs"
+      }
+    },
+    "./card": {
+      "import": {
+        "types": "./dist/components/card/index.d.ts",
+        "default": "./dist/components/card/index.js"
+      },
+      "require": {
+        "types": "./dist/components/card/index.d.cts",
+        "default": "./dist/components/card/index.cjs"
       }
     },
     "./checkbox": {
@@ -105,6 +115,26 @@
       "require": {
         "types": "./dist/components/text-area/index.d.cts",
         "default": "./dist/components/text-area/index.cjs"
+      }
+    },
+    "./typography": {
+      "import": {
+        "types": "./dist/components/typography/index.d.ts",
+        "default": "./dist/components/typography/index.js"
+      },
+      "require": {
+        "types": "./dist/components/typography/index.d.cts",
+        "default": "./dist/components/typography/index.cjs"
+      }
+    },
+    "./view": {
+      "import": {
+        "types": "./dist/components/view/index.d.ts",
+        "default": "./dist/components/view/index.js"
+      },
+      "require": {
+        "types": "./dist/components/view/index.d.cts",
+        "default": "./dist/components/view/index.cjs"
       }
     },
     "./system": {
