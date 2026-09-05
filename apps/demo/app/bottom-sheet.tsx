@@ -45,6 +45,13 @@ export default function BottomSheetScreen() {
       </Section>
 
       <Section
+        title="A reduced state"
+        note="collapsedHeight={200} gives the sheet a second state between up and gone. Drag it down once to reduce it, again to dismiss it, up to restore it — or press the handle, which is a real control on a collapsible sheet the way an Accordion.Trigger is. The tail below 200 points slides off the bottom rather than being re-laid out, so what is cut is cut wherever the line falls."
+      >
+        <Collapsible />
+      </Section>
+
+      <Section
         title="Controlled"
         note="Pass isOpen and onOpenChange and the root stops owning it."
       >
@@ -99,6 +106,43 @@ function Sheet({
     </BottomSheet>
   )
 }
+
+/** A long sheet the reader can push most of the way out of the way without losing it. */
+function Collapsible() {
+  return (
+    <BottomSheet collapsedHeight={200} defaultExpanded={false}>
+      <BottomSheet.Trigger asChild>
+        <Button size="sm">Café des Arts</Button>
+      </BottomSheet.Trigger>
+      <BottomSheet.Overlay />
+      <BottomSheet.Content>
+        <BottomSheet.Handle accessibilityLabel="Réduire ou déplier la fiche" />
+        <BottomSheet.Title>Café des Arts</BottomSheet.Title>
+        <BottomSheet.Description>
+          ★★★★☆ · Ouvert jusqu’à 22 h
+        </BottomSheet.Description>
+        {LONG.map(line => (
+          <BottomSheet.Description key={line}>{line}</BottomSheet.Description>
+        ))}
+        <BottomSheet.Close asChild>
+          <Button variant="tertiary" size="sm">
+            Fermer
+          </Button>
+        </BottomSheet.Close>
+      </BottomSheet.Content>
+    </BottomSheet>
+  )
+}
+
+/** Enough content that the reduced state has something to hide. */
+const LONG = [
+  'Terrasse chauffée, douze places.',
+  'Torréfaction sur place le mardi.',
+  'Cuisine jusqu’à 21 h, carte courte.',
+  'Paiement sans contact uniquement.',
+  'Chiens acceptés en terrasse.',
+  '34 avis, note moyenne 4,2.',
+]
 
 function Controlled() {
   const theme = useXAUITheme()

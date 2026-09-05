@@ -1,0 +1,24 @@
+---
+'@xaui/native': patch
+---
+
+`BottomSheet` gets a reduced state.
+
+`collapsedHeight={200}` gives the sheet a second disclosure inside the first: it is either
+up or gone, and while it is up it is either full or reduced. `isExpanded`,
+`defaultExpanded` and `onExpandedChange` control it the way `isOpen` controls the other.
+
+These are not snap points — two heights, not an array of them — and the sheet is not
+re-laid out. It is the same box at its full height, moved further down, so the tail below
+`collapsedHeight` slides off the bottom of the screen and comes back untouched.
+
+A drag that was not decisive puts the sheet back. Decisive down goes one state down, unless
+the throw was aimed past the reduced notch, in which case it dismisses: dragging a sheet the
+whole way to the bottom and having it stop half open reads as a refusal. Decisive up
+expands. Without a `collapsedHeight` none of this applies and the sheet behaves exactly as
+before.
+
+`BottomSheet.Handle` becomes a real control on a collapsible sheet, the way an
+`Accordion.Trigger` is — a drag would otherwise be the only way in and out of the reduced
+state, and a drag is a gesture some people cannot perform. It warns in development without
+an `accessibilityLabel`.

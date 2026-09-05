@@ -36,6 +36,10 @@ export function BottomSheet({
   onOpenChange,
   isDisabled = false,
   dismissThreshold = 0.35,
+  collapsedHeight,
+  isExpanded: controlledExpanded,
+  defaultExpanded = true,
+  onExpandedChange,
 }: BottomSheetProps) {
   const theme = useXAUITheme()
 
@@ -45,11 +49,28 @@ export function BottomSheet({
     onChange: onOpenChange,
   })
 
+  // A second disclosure inside the first, the way an `Accordion` row is: the sheet is
+  // either up or gone, and while it is up it is either full or reduced. Defaulting to
+  // expanded means adding `collapsedHeight` to an existing sheet changes what it can do
+  // rather than how it opens.
+  const [isExpanded, setExpanded] = useControllableState({
+    value: controlledExpanded,
+    defaultValue: defaultExpanded,
+    onChange: onExpandedChange,
+  })
+
   const styles = bottomSheetRecipe.resolve({ theme, selection: { radius } })
 
   const open = useCallback(() => setOpen(true), [setOpen])
   const close = useCallback(() => setOpen(false), [setOpen])
   const toggle = useCallback(() => setOpen(current => !current), [setOpen])
+
+  const expand = useCallback(() => setExpanded(true), [setExpanded])
+  const collapse = useCallback(() => setExpanded(false), [setExpanded])
+  const toggleExpanded = useCallback(
+    () => setExpanded(current => !current),
+    [setExpanded]
+  )
 
   const context = useMemo(
     () => ({
@@ -61,11 +82,33 @@ export function BottomSheet({
       isOpen,
       isDisabled,
       dismissThreshold,
+      collapsedHeight,
+      // A sheet with no `collapsedHeight` has no reduced state to be out of, so it reports
+      // expanded whatever the disclosure holds — a slot must not draw a chevron for a
+      // state the sheet cannot reach.
+      isExpanded: collapsedHeight === undefined ? true : isExpanded,
+      isCollapsible: collapsedHeight !== undefined,
       open,
       close,
       toggle,
+      expand,
+      collapse,
+      toggleExpanded,
     }),
-    [styles, isOpen, isDisabled, dismissThreshold, open, close, toggle]
+    [
+      styles,
+      isOpen,
+      isDisabled,
+      dismissThreshold,
+      collapsedHeight,
+      isExpanded,
+      open,
+      close,
+      toggle,
+      expand,
+      collapse,
+      toggleExpanded,
+    ]
   )
 
   return <BottomSheetProvider value={context}>{children}</BottomSheetProvider>

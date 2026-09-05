@@ -115,12 +115,71 @@ flick over 900 points a second, whatever the distance. Without the second, a qui
 from the top of a tall sheet is refused however clearly it meant to throw the thing away.
 Anything short of either springs back.
 
+## A reduced state
+
+```tsx
+<BottomSheet collapsedHeight={200} defaultExpanded={false}>
+  <BottomSheet.Content>
+    <BottomSheet.Handle accessibilityLabel="Réduire ou déplier la fiche" />…
+  </BottomSheet.Content>
+</BottomSheet>
+```
+
+`collapsedHeight` gives the sheet a **second disclosure inside the first**: it is either up
+or gone, and while it is up it is either full or reduced. `isExpanded`, `defaultExpanded`
+and `onExpandedChange` control it the way `isOpen` controls the other one.
+
+**These are not snap points.** There are two heights, not an array of them, and the reduced
+one is a number you give rather than a fraction of the screen the sheet works out.
+
+**The sheet is not re-laid out.** It is the same box at its full height, moved further down,
+so the tail below `collapsedHeight` slides off the bottom of the screen and comes back
+untouched. Nothing re-measures, and what is cut is cut wherever the line happens to fall —
+that is the trade for not having to split the content in two.
+
+### Where a drag goes
+
+A drag that was not decisive puts the sheet back, whatever distance it covered. Decisive is
+past `dismissThreshold` of the sheet's height **or** faster than 900 points a second, either
+alone being enough.
+
+| from      | decisive down                                                    | decisive up |
+| --------- | ---------------------------------------------------------------- | ----------- |
+| expanded  | collapsed — or **closed**, if the throw was aimed past the notch | —           |
+| collapsed | closed                                                           | expanded    |
+
+The exception in the first row is the one thing a strict one-state-per-drag rule gets wrong:
+dragging a sheet the whole way to the bottom and having it stop half open reads as a
+refusal. Where the throw was aimed is the release point plus 0.15 s of its velocity.
+
+Without a `collapsedHeight` there is no middle row and no exception — the sheet behaves
+exactly as it always has.
+
+### The handle becomes a control
+
+On a collapsible sheet `BottomSheet.Handle` is pressable, the way an `Accordion.Trigger` is,
+and a press toggles the two heights. That is not decoration acquiring a behaviour by
+accident: a drag would otherwise be the only way in and out of the reduced state, and a drag
+is a gesture some people cannot perform. It carries `accessibilityRole="button"` and
+`accessibilityState={{ expanded }}`, and warns in development without an
+`accessibilityLabel` — a pill says nothing to someone who cannot see it.
+
+Without a `collapsedHeight` the handle stays what it was: a pill, hidden from screen
+readers, taking no touches.
+
+**The backdrop does not know about any of this.** A reduced sheet is often a persistent
+panel rather than a modal, and a dimmed page behind one reads oddly — leave
+`BottomSheet.Overlay` out, or drive its own props, if that is the sheet you are building.
+
 ## Not `@gorhom/bottom-sheet`
 
 HeroUI wraps it. A sheet that slides, springs and dismisses is a pan gesture and a shared
 value; taking a dependency for that would put a second animation library in every app that
-installs one component. What we lose is their snap points and their scroll integration —
-both worth having, and both worth their own change rather than a dependency.
+installs one component. What we lose is their scroll integration, which is worth having and
+worth its own change rather than a dependency.
+
+Their snap points we do not have and are not planning: `collapsedHeight` covers the case
+they are almost always used for, with two named states instead of an array of positions.
 
 ## Accessibility
 
