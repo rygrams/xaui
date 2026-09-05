@@ -94,7 +94,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.13  | `Menubox` — slots over the existing group context                           | todo   |
 | P5.14  | `Progress` — circular, the determinate half of legacy `Indicator`           | todo   |
 | P5.14b | `ProgressBar` — linear, over legacy `LinearProgressIndicator`               | todo   |
-| P5.15  | `Slider`                                                                    | todo   |
+| P5.15  | `Slider` — Output · Track · Fill · Thumb                                    | done   |
 | P5.16  | `Tabs`                                                                      | todo   |
 | P5.17  | `AppBar`                                                                    | todo   |
 | P5.18  | `Snackbar`                                                                  | todo   |

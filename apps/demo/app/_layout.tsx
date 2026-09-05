@@ -36,6 +36,7 @@ export default function RootLayout() {
           <Stack.Screen name="divider" options={{ title: 'Divider (v1)' }} />
           <Stack.Screen name="select" options={{ title: 'Select (v1)' }} />
           <Stack.Screen name="skeleton" options={{ title: 'Skeleton (v1)' }} />
+          <Stack.Screen name="slider" options={{ title: 'Slider (v1)' }} />
           <Stack.Screen name="spinner" options={{ title: 'Spinner (v1)' }} />
           <Stack.Screen
             name="pressable-feedback"
