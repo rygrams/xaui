@@ -29,6 +29,16 @@ const isGridItemElement = (
   return displayName === 'GridItem'
 }
 
+/**
+ * @deprecated Use `Grid` from `@xaui/native/view`. This tree is frozen and receives fixes
+ * only.
+ *
+ * `columns` and `gap` keep their names. The v1 grid measures itself through `onLayout` and
+ * publishes the cell width to its children, so a cell that spans more than one column is
+ * `Grid.Item` with a `span` — clamped to the column count rather than overflowing the row.
+ *
+ * It has no `asChild` for that reason: the root has to be the node it measures.
+ */
 export const Grid: React.FC<GridProps> = ({
   children,
   columns = 2,

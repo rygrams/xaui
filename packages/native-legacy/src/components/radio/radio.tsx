@@ -21,6 +21,30 @@ import {
   runPressOutAnimation,
 } from './radio.animation'
 
+/**
+ * @deprecated Use `Radio` from `@xaui/native/radio`. This tree is frozen and receives
+ * fixes only.
+ *
+ * The `Checkbox`'s migration, in a circle: the root is the row, `label` and `labelStyle`
+ * become `Radio.Label`, `isChecked` / `onValueChange` become `isSelected` /
+ * `onSelectedChange`, and `themeColor` plus `variant` fold into one `variant` on the
+ * `field*` tokens. `size` loses `xs`, matching the `Checkbox` it pairs with in a form.
+ *
+ * One rule differs from the `Checkbox` and it is deliberate: a radio does not turn itself
+ * off. Pressing a selected one leaves it selected, because the way out of a radio is
+ * another radio.
+ *
+ * `value`, `defaultValue` and `orientation` belonged to `RadioGroup`, which has no v1
+ * equivalent yet — drive the selected one from your own state until it lands.
+ *
+ * ```tsx
+ * // legacy
+ * <Radio isChecked={v === 'a'} onValueChange={() => set('a')} label="Option A" />
+ *
+ * // v1
+ * <Radio isSelected={v === 'a'} onSelectedChange={() => set('a')}>Option A</Radio>
+ * ```
+ */
 export const Radio: React.FC<RadioProps> = ({
   label,
   value,

@@ -30,6 +30,34 @@ const CardContext = React.createContext<CardContextValue>({
   isFooterBlurred: false,
 })
 
+/**
+ * @deprecated Use `Card` from `@xaui/native/card`. This tree is frozen and receives fixes
+ * only.
+ *
+ * `header`, `body`, `footer`, `title` and `description` become the five slots of the same
+ * names, and `customAppearance` goes with them: each slot carries its own `style` and its
+ * own style props. `themeColor` becomes the four-level emphasis `variant` or a raw `color`.
+ *
+ * `padding` and `elevation` are what `size` and `variant` already decide. `fullWidth` is
+ * gone — a card with no width already fills its column, which is React Native's own
+ * behaviour. `isHoverable`, `isBlurred` and `isFooterBlurred` have no v1 equivalent: there
+ * is no hover on a touch surface, and a blur is a theme rather than a card prop.
+ *
+ * `Card.Background` is new, and it is where a cover image goes: the root paints it first
+ * wherever it is written, and the layer carries the clip so the card keeps its shadow.
+ *
+ * ```tsx
+ * // legacy
+ * <Card themeColor="default" elevation={2} customAppearance={{ title: { fontSize: 20 } }}>
+ *   <CardHeader><CardTitle>Facture</CardTitle></CardHeader>
+ * </Card>
+ *
+ * // v1
+ * <Card>
+ *   <Card.Header><Card.Title fontSize={20}>Facture</Card.Title></Card.Header>
+ * </Card>
+ * ```
+ */
 export const Card: React.FC<CardProps> = ({
   children,
   themeColor = 'default',

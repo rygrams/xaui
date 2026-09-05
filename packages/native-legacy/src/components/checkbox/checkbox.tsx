@@ -19,6 +19,31 @@ import {
 import { useXUITheme } from '../../core'
 import { getSafeThemeColor } from '../../core-shim'
 
+/**
+ * @deprecated Use `Checkbox` from `@xaui/native/checkbox`. This tree is frozen and
+ * receives fixes only.
+ *
+ * **The root is the row there, not the box**, which is why `label` and `labelStyle`
+ * disappear: the label is `Checkbox.Label`, a slot on a pressable root, so tapping the
+ * words ticks the box. Text children become that label on their own.
+ *
+ * `isChecked` / `onValueChange` become `isSelected` / `onSelectedChange`, and the
+ * component works uncontrolled with `defaultSelected`. `isIndeterminate` survives, and a
+ * press resolves it to selected rather than toggling back into it.
+ *
+ * `themeColor` and `variant` fold into one `variant` on the `field*` tokens — three levels,
+ * not four: a box with no border and no fill is nothing at all. `size` loses `xs` for the
+ * same reason a tick drawn in sixteen points stops reading as a tick. `labelAlignment`
+ * becomes `flexDirection` on the root, and `fullWidth` is gone.
+ *
+ * ```tsx
+ * // legacy
+ * <Checkbox isChecked={on} onValueChange={setOn} label="J'accepte" themeColor="primary" />
+ *
+ * // v1
+ * <Checkbox isSelected={on} onSelectedChange={setOn}>J'accepte</Checkbox>
+ * ```
+ */
 export const Checkbox: React.FC<CheckboxProps> = ({
   label,
   labelAlignment = 'right',

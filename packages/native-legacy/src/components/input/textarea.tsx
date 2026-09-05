@@ -4,6 +4,15 @@ import { useTextInputSizeStyles } from './input.hook'
 import type { TextAreaProps } from './textarea.type'
 import { textAreaStyles } from './textarea.style'
 
+/**
+ * @deprecated Use `TextArea` from `@xaui/native/text-area`. This tree is frozen and
+ * receives fixes only.
+ *
+ * The v1 `TextArea` **is** the `Input` — it renders an `InputRoot` and adds only what a
+ * multiline field needs, so its variants, sizes, slots, `radius` and `color` are the
+ * `Input`'s and cannot drift from them. Read that component's marker for the migration;
+ * `minRows` and `maxRows` keep their names.
+ */
 export const TextArea: React.FC<TextAreaProps> = ({
   minRows = 3,
   maxRows,

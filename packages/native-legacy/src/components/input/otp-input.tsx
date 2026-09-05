@@ -140,6 +140,28 @@ const OTPSegment = ({
   )
 }
 
+/**
+ * @deprecated Use `InputOTP` from `@xaui/native/input-otp`. This tree is frozen and
+ * receives fixes only.
+ *
+ * `length` becomes `maxLength`, and the boxes become a render function, so a group of
+ * three and a dash between two groups are a matter of slicing what you are handed rather
+ * than a `groupSize` prop. `onComplete` keeps its name; `onValueChange` becomes
+ * `onChangeText`.
+ *
+ * `variant` and `themeColor` fold into three levels on the `field*` tokens — no `ghost`:
+ * six boxes with no fill and no border say nothing about how many characters are expected,
+ * which is their whole job before anything is typed. `size` loses `xs` for the same reason,
+ * a box that small cannot hold a legible character and the active ring both.
+ *
+ * ```tsx
+ * // legacy
+ * <OTPInput length={6} onComplete={submit} themeColor="primary" />
+ *
+ * // v1
+ * <InputOTP maxLength={6} onComplete={submit} />
+ * ```
+ */
 export const OTPInput = ({
   length = 4,
   value,

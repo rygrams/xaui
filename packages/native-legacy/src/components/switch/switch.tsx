@@ -17,6 +17,31 @@ import {
 import { styles } from './switch.style'
 import { useXUITheme } from '../../core'
 
+/**
+ * @deprecated Use `Switch` from `@xaui/native/switch`. This tree is frozen and receives
+ * fixes only.
+ *
+ * **The root is the row, not the track**, so `label` and `labelStyle` become
+ * `Switch.Label` — tapping the words flips the switch. Text children become that label.
+ *
+ * `isSelected` keeps its name; `onValueChange` becomes `onSelectedChange`, and
+ * `defaultSelected` makes it uncontrolled. `variant` is now a **shape** rather than a
+ * palette: `primary` rides the knob inside the track and `secondary` stands it over a
+ * thinner bar — the two the legacy component called `inside` and `overlap`.
+ *
+ * `themeColor` becomes a raw `color`, which paints the on state only: a switch that is off
+ * is off in every brand. `size` loses `xs` — the track *is* the touch target here, unlike
+ * the `Checkbox` whose row can be pressed. `labelAlignment` becomes `flexDirection`, and
+ * `fullWidth` is gone.
+ *
+ * ```tsx
+ * // legacy
+ * <Switch isSelected={on} onValueChange={setOn} label="Mode sombre" themeColor="primary" />
+ *
+ * // v1
+ * <Switch isSelected={on} onSelectedChange={setOn}>Mode sombre</Switch>
+ * ```
+ */
 export const Switch: React.FC<SwitchProps> = ({
   label,
   labelAlignment = 'right',
