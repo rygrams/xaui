@@ -80,7 +80,8 @@ you like:
 
 ```tsx
 <Typography>
-  italic, <TextSpan fontStyle="italic">
+  italic,{' '}
+  <TextSpan fontStyle="italic">
     then <TextSpan fontWeight="700">bold as well</TextSpan>
   </TextSpan>
 </Typography>
@@ -154,12 +155,12 @@ everything above.
 
 ### `Typography`
 
-| Prop | Type | Default | Notes |
-| --- | --- | --- | --- |
+| Prop      | Type                                                                                         | Default  | Notes                                                  |
+| --------- | -------------------------------------------------------------------------------------------- | -------- | ------------------------------------------------------ |
 | `variant` | `'h1' \| 'h2' \| 'h3' \| 'h4' \| 'h5' \| 'h6' \| 'body' \| 'body-sm' \| 'body-xs' \| 'code'` | `'body'` | The role: size, line height, weight and family at once |
-| `color` | `string` | — | A raw tint (`'#7c3aed'`), never a token (R7) |
-| `asChild` | `boolean` | `false` | The child element becomes the text node (R12) |
-| `style` | `StyleProp<TextStyle>` | — | Applied last, wins over the role and the style props |
+| `color`   | `string`                                                                                     | —        | A raw tint (`'#7c3aed'`), never a token (R7)           |
+| `asChild` | `boolean`                                                                                    | `false`  | The child element becomes the text node (R12)          |
+| `style`   | `StyleProp<TextStyle>`                                                                       | —        | Applied last, wins over the role and the style props   |
 
 Plus every `TextStyle` key as a prop (R14), minus the directional keys R13 bans and the
 names above, and every `TextProps` React Native defines — `numberOfLines`, `ellipsizeMode`,
@@ -167,28 +168,28 @@ names above, and every `TextProps` React Native defines — `numberOfLines`, `el
 
 ### `TextSpan`
 
-| Prop | Type | Default | Notes |
-| --- | --- | --- | --- |
-| `asChild` | `boolean` | `false` | The child element becomes the span (R12) |
-| `style` | `StyleProp<TextStyle>` | — | Applied last |
+| Prop      | Type                   | Default | Notes                                    |
+| --------- | ---------------------- | ------- | ---------------------------------------- |
+| `asChild` | `boolean`              | `false` | The child element becomes the span (R12) |
+| `style`   | `StyleProp<TextStyle>` | —       | Applied last                             |
 
 Plus every `TextStyle` key as a prop and every `TextProps`. **No `variant`, on purpose** —
 see [Anatomy](#anatomy).
 
 ## The role table
 
-| `variant` | size | line height | weight | family |
-| --- | --- | --- | --- | --- |
-| `h1` | `4xl` · 36 | 40 | bold | heading |
-| `h2` | `3xl` · 30 | 36 | bold | heading |
-| `h3` | `2xl` · 24 | 32 | bold | heading |
-| `h4` | `xl` · 20 | 28 | semibold | heading |
-| `h5` | `lg` · 18 | 28 | semibold | heading |
-| `h6` | `md` · 16 | 24 | semibold | heading |
-| `body` | `md` · 16 | 24 | regular | body |
-| `body-sm` | `sm` · 14 | 20 | regular | body |
-| `body-xs` | `xs` · 12 | 16 | regular | body |
-| `code` | `sm` · 14 | 20 | regular | mono |
+| `variant` | size       | line height | weight   | family  |
+| --------- | ---------- | ----------- | -------- | ------- |
+| `h1`      | `4xl` · 36 | 40          | bold     | heading |
+| `h2`      | `3xl` · 30 | 36          | bold     | heading |
+| `h3`      | `2xl` · 24 | 32          | bold     | heading |
+| `h4`      | `xl` · 20  | 28          | semibold | heading |
+| `h5`      | `lg` · 18  | 28          | semibold | heading |
+| `h6`      | `md` · 16  | 24          | semibold | heading |
+| `body`    | `md` · 16  | 24          | regular  | body    |
+| `body-sm` | `sm` · 14  | 20          | regular  | body    |
+| `body-xs` | `xs` · 12  | 16          | regular  | body    |
+| `code`    | `sm` · 14  | 20          | regular  | mono    |
 
 `h1`–`h3` are tracked slightly tighter than the rest: the letter spacing that keeps 14pt
 legible reads as loose and unset at 36.
@@ -205,18 +206,20 @@ Because `h1`–`h6` name a step on the scale rather than a document outline, a h
 screen reader should announce as one says so:
 
 ```tsx
-<Typography variant="h3" accessibilityRole="header">Projets</Typography>
+<Typography variant="h3" accessibilityRole="header">
+  Projets
+</Typography>
 ```
 
 ## Migration from legacy
 
-| Legacy | v1 |
-| --- | --- |
-| `<Typography variant="displayLarge">` | `<Typography variant="h1">` |
-| `<Typography variant="headlineMedium">` | `<Typography variant="h3">` |
-| `<Typography variant="bodyMedium">` | `<Typography>` |
-| `<Typography variant="bodySmall">` | `<Typography variant="body-sm">` |
-| `size` + `weight` props | the role alone — the combination is chosen, not composed |
-| `<TextSpan color fontWeight …>` | the same keys, now every `TextStyle` key (R14) |
-| `<TextSpan align="left">` | `textAlign` — `left` and `right` are gone (R13) |
-| `TextSpanContext` | removed — React Native's own `Text` inheritance does it |
+| Legacy                                  | v1                                                       |
+| --------------------------------------- | -------------------------------------------------------- |
+| `<Typography variant="displayLarge">`   | `<Typography variant="h1">`                              |
+| `<Typography variant="headlineMedium">` | `<Typography variant="h3">`                              |
+| `<Typography variant="bodyMedium">`     | `<Typography>`                                           |
+| `<Typography variant="bodySmall">`      | `<Typography variant="body-sm">`                         |
+| `size` + `weight` props                 | the role alone — the combination is chosen, not composed |
+| `<TextSpan color fontWeight …>`         | the same keys, now every `TextStyle` key (R14)           |
+| `<TextSpan align="left">`               | `textAlign` — `left` and `right` are gone (R13)          |
+| `TextSpanContext`                       | removed — React Native's own `Text` inheritance does it  |

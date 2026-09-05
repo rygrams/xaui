@@ -30,7 +30,13 @@ export default function IconScreen() {
         <Row>
           <Icon as={TrashIcon} size={28} color={theme.colors.foreground} />
           <Icon size={28} color={theme.colors.foreground}>
-            <Svg width={24} height={24} viewBox="0 0 24 24" fill="none" color="#ff00ff">
+            <Svg
+              width={24}
+              height={24}
+              viewBox="0 0 24 24"
+              fill="none"
+              color="#ff00ff"
+            >
               <Path
                 d={TRASH}
                 stroke="currentColor"
@@ -66,7 +72,13 @@ export default function IconScreen() {
       >
         <Button variant="secondary">
           <Button.Icon>
-            <Svg width={24} height={24} viewBox="0 0 24 24" fill="none" color="#ff00ff">
+            <Svg
+              width={24}
+              height={24}
+              viewBox="0 0 24 24"
+              fill="none"
+              color="#ff00ff"
+            >
               <Path
                 d={TRASH}
                 stroke="currentColor"
@@ -114,12 +126,7 @@ const TRASH =
 function TrashIcon({ size, color }: IconComponentProps) {
   return (
     <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-      <Path
-        d={TRASH}
-        stroke={color}
-        strokeWidth={2}
-        strokeLinecap="round"
-      />
+      <Path d={TRASH} stroke={color} strokeWidth={2} strokeLinecap="round" />
     </Svg>
   )
 }

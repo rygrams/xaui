@@ -8,11 +8,11 @@ description: Work on the @xaui/native-legacy transition — the package split, c
 The old tree is **not** a subpath of `@xaui/native`. It is republished as-is under a new
 npm name.
 
-| Package | Content | Version |
-|---|---|---|
+| Package               | Content                           | Version                                        |
+| --------------------- | --------------------------------- | ---------------------------------------------- |
 | `@xaui/native-legacy` | the 47 current components, frozen | `0.2.8` — same number as the last real release |
-| `@xaui/native` | the v1 API, from scratch | `0.9.x-alpha.x` → `1.0.0` |
-| `@xaui/hybrid` | frozen during P0–P4 | unchanged |
+| `@xaui/native`        | the v1 API, from scratch          | `0.9.x-alpha.x` → `1.0.0`                      |
+| `@xaui/hybrid`        | frozen during P0–P4               | unchanged                                      |
 
 Source of truth: `.project-specs/XAUI-V1-PLAN.md` §7.
 
@@ -26,8 +26,14 @@ Therefore `@xaui/native-legacy` **contains no theme code at all** and declares
 `@xaui/native` as a peer dependency:
 
 ```jsonc
-{ "name": "@xaui/native-legacy",
-  "peerDependencies": { "@xaui/native": ">=1.0.0", "react": "…", "react-native": "…" } }
+{
+  "name": "@xaui/native-legacy",
+  "peerDependencies": {
+    "@xaui/native": ">=1.0.0",
+    "react": "…",
+    "react-native": "…",
+  },
+}
 ```
 
 Its `core-shim.ts` imports the flat tokens from `@xaui/native/theme` and **rebuilds the MD3

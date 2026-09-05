@@ -13,10 +13,10 @@ port those files — do not re-invent the formulas.
 
 ## Two layers, one of which is never written by hand
 
-| Layer | Where | Volume | Who writes it |
-|---|---|---|---|
-| **source** | `tooling/tokens/source.ts` | ~40 per mode | a human |
-| **derived** | `theme/derive-colors.ts` | ~30 | `deriveColors()` |
+| Layer       | Where                      | Volume       | Who writes it    |
+| ----------- | -------------------------- | ------------ | ---------------- |
+| **source**  | `tooling/tokens/source.ts` | ~40 per mode | a human          |
+| **derived** | `theme/derive-colors.ts`   | ~30          | `deriveColors()` |
 
 That is the whole DX argument: you override `accent`, and `accentPressed`, `accentSoft`,
 `accentSoftForeground` follow for free. Never add a derived token to the source layer to
@@ -57,7 +57,7 @@ type XAUITheme = {
 ```
 
 - **Radius derives from one base**: `xs: r*.25, sm: r*.5, md: r*.75, lg: r, xl: r*1.5,
-  2xl: r*2, 3xl: r*3, 4xl: r*4, field: r*1.75, full: 9999`. One value redraws the library.
+2xl: r*2, 3xl: r*3, 4xl: r*4, field: r*1.75, full: 9999`. One value redraws the library.
 - **Shadows are semantic roles, not a scale** — `surface`, `overlay`, `field`. Dark mode
   drops the surface shadow and replaces the overlay one with a light inner hairline; an
   `sm→xl` scale cannot express that.
@@ -79,7 +79,7 @@ export const appTheme = createTheme({
 ```
 
 Merge order, and it matters: **default → user source → `deriveColors` → explicit overrides
-of derived tokens**. Overrides land *after* derivation, which is what makes mixing the two
+of derived tokens**. Overrides land _after_ derivation, which is what makes mixing the two
 safe.
 
 `createTheme` computes the `themeId` once, at import. `themeId` is the first component of
@@ -100,7 +100,10 @@ Reading the theme: `useXAUITheme()`, `useThemeColor('accent')`, and the array ov
 
 ```tsx
 // current — the memo is invalidated on every parent render
-const appTheme = React.useMemo(() => ({ ...defaultTheme, ...theme }), [colorScheme, theme])
+const appTheme = React.useMemo(
+  () => ({ ...defaultTheme, ...theme }),
+  [colorScheme, theme]
+)
 ```
 
 A literal `theme={{ … }}` object changes identity on every parent render and rebuilds every

@@ -1,6 +1,7 @@
 /** JSON with keys sorted, so two equal objects always produce the same string. */
 function canonical(value: unknown): string {
-  if (value === null || typeof value !== 'object') return JSON.stringify(value) ?? 'null'
+  if (value === null || typeof value !== 'object')
+    return JSON.stringify(value) ?? 'null'
   if (Array.isArray(value)) return `[${value.map(canonical).join(',')}]`
   const entries = Object.entries(value as Record<string, unknown>)
     .filter(([, v]) => typeof v !== 'function')

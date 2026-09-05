@@ -28,7 +28,6 @@ Two children share available space equally inside a `Row`.
 ```tsx
 import { Row, Expanded } from '@xaui/native-legacy/view'
 import { View } from 'react-native'
-
 ;<Row>
   <Expanded>
     <View style={{ height: 60, backgroundColor: '#6366f1', borderRadius: 8 }} />
@@ -46,7 +45,6 @@ Second child takes twice as much space (`flex={2}` vs `flex={1}`).
 ```tsx
 import { Row, Expanded } from '@xaui/native-legacy/view'
 import { View } from 'react-native'
-
 ;<Row gap={8}>
   <Expanded flex={1}>
     <View style={{ height: 60, backgroundColor: '#0ea5e9', borderRadius: 8 }} />
@@ -61,7 +59,6 @@ import { View } from 'react-native'
 
 ```tsx
 import { Column, Expanded } from '@xaui/native-legacy/view'
-
 ;<Column>
   <Header />
   <Expanded>

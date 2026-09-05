@@ -9,7 +9,10 @@ export default defineConfig({
       {
         find: 'react-native',
         // eslint-disable-next-line no-undef
-        replacement: path.resolve(__dirname, 'src/__tests__/__mocks__/react-native.ts'),
+        replacement: path.resolve(
+          __dirname,
+          'src/__tests__/__mocks__/react-native.ts'
+        ),
       },
     ],
   },

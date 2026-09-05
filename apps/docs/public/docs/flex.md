@@ -33,7 +33,6 @@ import { Flex } from '@xaui/native-legacy/view'
 ```tsx
 import { Flex } from '@xaui/native-legacy/view'
 import { View } from 'react-native'
-
 ;<Flex direction="horizontal" mainAxisAlignment="spaceBetween" gap={8}>
   <View
     style={{ width: 60, height: 60, backgroundColor: '#6366f1', borderRadius: 8 }}
@@ -52,7 +51,6 @@ import { View } from 'react-native'
 ```tsx
 import { Flex } from '@xaui/native-legacy/view'
 import { View } from 'react-native'
-
 ;<Flex direction="vertical" crossAxisAlignment="center" gap={12}>
   <View
     style={{ width: 120, height: 40, backgroundColor: '#0ea5e9', borderRadius: 8 }}
@@ -67,7 +65,6 @@ import { View } from 'react-native'
 
 ```tsx
 import { Flex } from '@xaui/native-legacy/view'
-
 ;<Flex direction="horizontal" wrap gap={8}>
   {tags.map(tag => (
     <Chip key={tag} label={tag} />

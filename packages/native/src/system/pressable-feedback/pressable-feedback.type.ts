@@ -37,29 +37,29 @@ export type PressableFeedbackProps = Omit<
   'style' | 'children' | 'disabled'
 > &
   ViewStyleProps & {
-  /** Controlled: the root owns the state, because its recipe resolves on it (R5). */
-  isPressed?: boolean
-  /** R8: `disabled` is not part of the public vocabulary, `isX` is. */
-  isDisabled?: boolean
-  /**
-   * Merge into the single child instead of rendering a pressable (R12) — **keeping the
-   * feedback**. Swapping this component out for a bare `Slot` would silently drop the
-   * touch feedback of every `asChild` control.
-   */
-  asChild?: boolean
-  animation?: AnimationProp
-  style?: StyleProp<ViewStyle>
-  /**
-   * The overlays are children, not a prop — `<PressableFeedback.Highlight />` or
-   * `<PressableFeedback.Ripple />`, in any order: the root paints them under everything
-   * else wherever they sit. The scale is the root's own and needs nothing rendered.
-   *
-   * `Pressable`'s function form is dropped on purpose. It exists to hand the press state
-   * to children; here the root above already owns that state and this publishes it
-   * through context, so the function form would be a second, quieter source of truth.
-   */
-  children?: ReactNode
-}
+    /** Controlled: the root owns the state, because its recipe resolves on it (R5). */
+    isPressed?: boolean
+    /** R8: `disabled` is not part of the public vocabulary, `isX` is. */
+    isDisabled?: boolean
+    /**
+     * Merge into the single child instead of rendering a pressable (R12) — **keeping the
+     * feedback**. Swapping this component out for a bare `Slot` would silently drop the
+     * touch feedback of every `asChild` control.
+     */
+    asChild?: boolean
+    animation?: AnimationProp
+    style?: StyleProp<ViewStyle>
+    /**
+     * The overlays are children, not a prop — `<PressableFeedback.Highlight />` or
+     * `<PressableFeedback.Ripple />`, in any order: the root paints them under everything
+     * else wherever they sit. The scale is the root's own and needs nothing rendered.
+     *
+     * `Pressable`'s function form is dropped on purpose. It exists to hand the press state
+     * to children; here the root above already owns that state and this publishes it
+     * through context, so the function form would be a second, quieter source of truth.
+     */
+    children?: ReactNode
+  }
 
 /**
  * A slot's own animation, overriding the blanket one on the root. `false` switches that

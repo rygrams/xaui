@@ -19,7 +19,7 @@ import { Alert } from '@xaui/native-legacy/alert'
 | `icon`             | `ReactNode`                    | —           | Custom icon (auto-selected by themeColor if omitted)                                        |
 | `themeColor`       | `ThemeColor`                   | `'default'` | `'default' \| 'primary' \| 'secondary' \| 'tertiary' \| 'success' \| 'warning' \| 'danger'` |
 | `variant`          | `AlertVariant`                 | `'flat'`    | `'solid' \| 'bordered' \| 'flat' \| 'faded' \| 'glass'`                                     |
-| `radius`           | `number \| string`             | `8`         | Border radius — number in pixels or any CSS value (e.g. `"50%"`) — hybrid only for strings |
+| `radius`           | `number \| string`             | `8`         | Border radius — number in pixels or any CSS value (e.g. `"50%"`) — hybrid only for strings  |
 | `isClosable`       | `boolean`                      | `false`     | Show close button                                                                           |
 | `hideIcon`         | `boolean`                      | `false`     | Hide the icon                                                                               |
 | `closeButton`      | `ReactNode`                    | —           | Custom close button                                                                         |
@@ -79,7 +79,6 @@ const [visible, setVisible] = useState(true)
 
 ```tsx
 import { Alert } from '@xaui/native-legacy/alert'
-
 ;<Alert
   title="Custom Styled"
   description="With custom title and description styles."
