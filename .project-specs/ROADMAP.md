@@ -98,6 +98,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.24  | `Drawer`                                                                     | todo   |
 | P5.25  | `Picker`                                                                     | todo   |
 | P5.26  | `DatePicker`                                                                 | todo   |
+| P5.26b | `Calendar` — net new, no legacy equivalent                                   | todo   |
 | P5.27  | `TimePicker`                                                                 | todo   |
 | P5.28  | `ColorPicker`                                                                | todo   |
 | P5.29  | `Carousel`                                                                   | todo   |
@@ -105,7 +106,9 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.31  | `RefreshControl`                                                             | todo   |
 | P5.32  | `InputTrigger`                                                               | todo   |
 | P5.33  | `FeatureDiscovery`                                                           | todo   |
-| P5.34  | `Chart`                                                                      | todo   |
+| P5.34  | `BarChart` — over legacy `VerticalBarChartCard`                              | todo   |
+| P5.34b | `AreaChart` — net new, no legacy equivalent                                  | todo   |
+| P5.34c | `Chart` — Donut, Pie, Line and Heatmap, the legacy cards left over           | todo   |
 | P5.35  | Parity milestone — `npm deprecate @xaui/native-legacy`                       | todo   |
 | P6     | `@xaui/hybrid` on the v1 API — frozen until P4 ships                         | todo   |
 | P7     | Delete `native-legacy` — not before the P5 parity milestone                  | todo   |
