@@ -4,7 +4,7 @@ import { Accordion } from '@xaui/native/accordion'
 import type { AccordionSize, AccordionVariant } from '@xaui/native/accordion'
 import { useXAUITheme } from '@xaui/native/theme'
 
-const VARIANTS: AccordionVariant[] = ['ghost', 'primary', 'default', 'tertiary']
+const VARIANTS: AccordionVariant[] = ['ghost', 'primary', 'secondary', 'tertiary']
 const SIZES: AccordionSize[] = ['xs', 'sm', 'md', 'lg']
 
 const FAQ = [
@@ -58,7 +58,7 @@ export default function AccordionScreen() {
 
       <Section
         title="The four levels"
-        note="The Card's tokens under the Button's names: primary is the strong fill, default the neutral one. primary is HeroUI's surface variant. ghost is our default and is HeroUI's default — no container at all, only the hairlines separate the rows, and they run the full width because there is no edge to be inset from."
+        note="The Card's tokens under the Button's names: primary is the strong fill, secondary the quieter one. primary is HeroUI's surface variant. ghost is our default and is HeroUI's default — no container at all, only the hairlines separate the rows, and they run the full width because there is no edge to be inset from."
       >
         {VARIANTS.map(variant => (
           <Faq key={variant} variant={variant} only={variant} />

@@ -22,15 +22,15 @@ export type AccordionSlot =
  * Four emphasis levels, no intent — `danger` on a list of expandable rows would be
  * colouring a container rather than reporting a meaning.
  *
- * The names are the **`Button`'s**, not the `Card`'s: `primary` is the strong fill and
- * `default` the neutral one. The `Card` calls its strong level `default`, and that is the
- * `Card` being the odd one out; an accordion is written next to buttons far more often
- * than next to cards.
+ * The ladder descends without a gap: `primary` is the strong fill, `secondary` the
+ * quieter one, `tertiary` an edge with nothing behind it, `ghost` nothing at all. Neither
+ * the `Button`'s five nor the `Card`'s four read that cleanly — both put `default`
+ * somewhere in the middle of an order it does not name a position in.
  *
- * `ghost` is the default, and it is HeroUI's own `default`: rows separated by hairlines,
- * on whatever page they sit on. `primary` is HeroUI's `surface` — the same list in a card.
+ * `ghost` is the default here, and it is HeroUI's own `default`: rows separated by
+ * hairlines, on whatever page they sit on. `primary` is their `surface`.
  */
-export type AccordionVariant = 'primary' | 'default' | 'tertiary' | 'ghost'
+export type AccordionVariant = 'primary' | 'secondary' | 'tertiary' | 'ghost'
 
 export type AccordionSize = Size
 

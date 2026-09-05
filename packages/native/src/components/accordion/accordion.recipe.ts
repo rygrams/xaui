@@ -14,15 +14,16 @@ const SLOTS = [
 ] as const
 
 /**
- * The `Card`'s **tokens** under the `Button`'s **names**. An accordion in `primary` is a
- * card with rows in it, so the surface family is what it reads — two containers that look
- * alike and are declared apart drift, and the drift shows up as an accordion on a card
- * with a fill one step off it. But `primary` is what the library calls a strong fill
- * everywhere except the `Card`, so that is the name it takes.
+ * The `Card`'s surface family, named as a ladder. An accordion in `primary` **is** a card
+ * with rows in it, so it has to read the same tokens — two containers that look alike and
+ * are declared apart drift, and the drift shows up as an accordion on a card with a fill
+ * one step off it. Only the names differ, and they differ on purpose: `primary` to
+ * `ghost` descends in one direction, which `default` sitting in the middle of the `Card`'s
+ * order does not.
  */
 const VARIANT_TOKENS: Record<AccordionVariant, VariantTokens> = {
   primary: { bg: 'surface', fg: 'surfaceForeground' },
-  default: { bg: 'surfaceSecondary', fg: 'surfaceSecondaryForeground' },
+  secondary: { bg: 'surfaceSecondary', fg: 'surfaceSecondaryForeground' },
   tertiary: { border: 'border', fg: 'foreground' },
   ghost: { fg: 'foreground' },
 }
@@ -79,10 +80,15 @@ export const accordionRecipe = createRecipe({
   slots: SLOTS,
 
   base: theme => ({
-    // `overflow: 'hidden'` is what makes the height animation read as a panel unrolling
-    // rather than as content sliding out from behind the row above it.
-    root: { flexDirection: 'column', overflow: 'hidden', borderCurve: 'continuous' },
+    // No `overflow: 'hidden'` here, and that is a trade rather than an oversight: on iOS
+    // it sets `masksToBounds`, which clips the layer's own shadow along with everything
+    // else — a lifted `primary` would have no shadow at all. The clipping that matters is
+    // the row's, below, which is what contains the unrolling panel. What the root gives up
+    // is a pressed row squaring off the card's rounded corner while a finger is on it.
+    root: { flexDirection: 'column', borderCurve: 'continuous' },
     separator: { height: HAIRLINE, backgroundColor: theme.colors.separator },
+    // This one is load-bearing: it is what makes the height animation read as a panel
+    // unrolling rather than as content sliding out from behind the row above it.
     item: { flexDirection: 'column', overflow: 'hidden' },
     trigger: {
       flexDirection: 'row',
@@ -125,14 +131,28 @@ export const accordionRecipe = createRecipe({
    * A container inset from its own edge, and its separators inset with it. `ghost` has no
    * edge to be inset from, so its rows run the full width and the hairline runs with them
    * — which is the difference between a list on a page and a list in a box.
+   *
+   * `primary` is the only one lifted. It is the one that reads as a card, and HeroUI puts
+   * their `--shadow-surface` on exactly that variant. `secondary` and `tertiary` have too
+   * little fill to lift — a shadow under either would read as dirt rather than as height
+   * — and in dark mode the theme's surface shadow is already nothing (§4), which is why
+   * this names the role rather than a set of numbers.
    */
-  compoundVariants: (['primary', 'default', 'tertiary'] as const).map(variant => ({
-    when: { variant },
-    style: (theme: XAUITheme): SlotStyles<AccordionSlot> => ({
-      root: { borderRadius: theme.radius['2xl'] },
-      separator: { marginHorizontal: theme.spacing(3) },
-    }),
-  })),
+  compoundVariants: [
+    ...(['primary', 'secondary', 'tertiary'] as const).map(variant => ({
+      when: { variant },
+      style: (theme: XAUITheme): SlotStyles<AccordionSlot> => ({
+        root: { borderRadius: theme.radius['2xl'] },
+        separator: { marginHorizontal: theme.spacing(3) },
+      }),
+    })),
+    {
+      when: { variant: 'primary' as const },
+      style: (theme: XAUITheme): SlotStyles<AccordionSlot> => ({
+        root: theme.shadows.surface,
+      }),
+    },
+  ],
 
   states: {
     // On the row, not on the root: pressing one row must not tint the whole container.
