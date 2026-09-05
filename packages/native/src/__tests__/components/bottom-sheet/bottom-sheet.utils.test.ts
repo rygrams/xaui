@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import {
+  collapsedExtent,
   nextSheetState,
+  paddingUnderSeam,
   sheetOffset,
 } from '../../../components/bottom-sheet/bottom-sheet.utils'
 
@@ -76,5 +78,32 @@ describe('nextSheetState', () => {
     // 210 alone reduces; the same drag thrown at 2000 points a second is aimed lower.
     expect(nextSheetState(drag('expanded', 210), TALL)).toBe('collapsed')
     expect(nextSheetState(drag('expanded', 210, 2000), TALL)).toBe('closed')
+  })
+})
+
+describe('paddingUnderSeam', () => {
+  it('reads the most specific padding the style sets', () => {
+    expect(paddingUnderSeam({ padding: 20 })).toBe(20)
+    expect(paddingUnderSeam({ padding: 20, paddingVertical: 12 })).toBe(12)
+    expect(paddingUnderSeam({ padding: 20, paddingBottom: 8 })).toBe(8)
+  })
+
+  it('counts a padding it cannot add as none', () => {
+    expect(paddingUnderSeam({})).toBe(0)
+    expect(paddingUnderSeam({ padding: '10%' })).toBe(0)
+  })
+})
+
+describe('collapsedExtent', () => {
+  it("gives a summary's seam the padding the sheet ends with", () => {
+    expect(collapsedExtent(160, 20, undefined)).toBe(180)
+  })
+
+  it('leaves collapsedHeight alone — the number said what shows', () => {
+    expect(collapsedExtent(undefined, 20, 200)).toBe(200)
+  })
+
+  it('has no reduced state when neither says where to cut', () => {
+    expect(collapsedExtent(undefined, 20, undefined)).toBeUndefined()
   })
 })

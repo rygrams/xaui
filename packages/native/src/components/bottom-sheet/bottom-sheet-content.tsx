@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState } from 'react'
+import { StyleSheet } from 'react-native'
 import type { LayoutChangeEvent } from 'react-native'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 import Animated, {
@@ -16,7 +17,7 @@ import {
 } from './bottom-sheet.animation'
 import { BottomSheetProvider, useBottomSheet } from './bottom-sheet.context'
 import type { BottomSheetContentProps } from './bottom-sheet.type'
-import { nextSheetState, sheetOffset } from './bottom-sheet.utils'
+import { nextSheetState, paddingUnderSeam, sheetOffset } from './bottom-sheet.utils'
 
 /**
  * The sheet itself.
@@ -51,6 +52,7 @@ export function BottomSheetContent({
     close,
     expand,
     collapse,
+    setPaddingBottom,
   } = context
   const [styleProps, rest] = useStyleProps(props)
   const [height, setHeight] = useState(0)
@@ -66,6 +68,23 @@ export function BottomSheetContent({
     },
     [onLayout]
   )
+
+  /**
+   * The padding a reduced sheet keeps under its seam, reported up so the root can add it
+   * to what `Summary` measured. It is flattened from the resolved style rather than read
+   * off the recipe, because a caller who overrode the padding moved the seam with it.
+   *
+   * The animated transform is left out on purpose: it is the one part of the style that
+   * changes every frame, and there is no padding in it.
+   */
+  const paddingBottom = useMemo(
+    () => paddingUnderSeam(StyleSheet.flatten([contentStyle, styleProps, style])),
+    [contentStyle, style, styleProps]
+  )
+
+  useEffect(() => {
+    setPaddingBottom(paddingBottom)
+  }, [paddingBottom, setPaddingBottom])
 
   const geometry = useMemo(
     () => ({ height, collapsedHeight }),

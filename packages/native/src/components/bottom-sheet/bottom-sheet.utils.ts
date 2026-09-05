@@ -1,3 +1,5 @@
+import type { ViewStyle } from 'react-native'
+
 /** Where a sheet can come to rest. `closed` is a state the sheet leaves in, not one it sits in. */
 export type SheetState = 'expanded' | 'collapsed' | 'closed'
 
@@ -25,6 +27,40 @@ export function sheetOffset(state: SheetState, geometry: SheetGeometry): number 
   // Clamped: a `collapsedHeight` taller than the sheet is not a reduced state, it is the
   // sheet — and a negative offset would lift it off the bottom of the screen.
   return Math.max(height - collapsedHeight, 0)
+}
+
+/**
+ * The padding a reduced sheet has to keep under its seam.
+ *
+ * Read off the resolved style rather than off the recipe, so a caller who overrode the
+ * sheet's padding gets a seam that matches what they see. A percentage is not a number of
+ * points and there is nothing to add, so it counts as none.
+ */
+export function paddingUnderSeam(style: ViewStyle): number {
+  const value = style.paddingBottom ?? style.paddingVertical ?? style.padding
+
+  return typeof value === 'number' ? value : 0
+}
+
+/**
+ * How much of the sheet shows when reduced.
+ *
+ * A `Summary` reports **where its bottom edge falls**, and the sheet's own bottom padding
+ * is added back onto it. Without that the visible slice ends on the summary's last pixel:
+ * twenty points of air above the handle, none at all under the last line, and on a phone
+ * with gesture navigation the system bar sitting on the text.
+ *
+ * `collapsedHeight` gets no such treatment. It is a number the caller wrote against a
+ * sheet they were looking at, and "two hundred points show" has to mean two hundred.
+ */
+export function collapsedExtent(
+  summaryExtent: number | undefined,
+  paddingBottom: number,
+  collapsedHeight: number | undefined
+): number | undefined {
+  if (summaryExtent === undefined) return collapsedHeight
+
+  return summaryExtent + paddingBottom
 }
 
 type Release = {

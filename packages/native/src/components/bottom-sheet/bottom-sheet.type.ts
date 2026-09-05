@@ -125,6 +125,11 @@ export type BottomSheetContextValue = {
   collapsedHeight?: number
   /** How `BottomSheet.Summary` reports the edge the sheet should cut at. */
   setSummaryExtent: (extent: number) => void
+  /**
+   * How `BottomSheet.Content` reports the padding it ends with, which the seam a summary
+   * measured is extended by — a reduced sheet keeps the air its expanded self has.
+   */
+  setPaddingBottom: (padding: number) => void
   /** Always `true` on a sheet that cannot be reduced. */
   isExpanded: boolean
   isCollapsible: boolean

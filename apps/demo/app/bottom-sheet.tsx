@@ -46,7 +46,7 @@ export default function BottomSheetScreen() {
 
       <Section
         title="A reduced state"
-        note="BottomSheet.Summary is the part that stays. It renders in both states — what changes is whether everything under it does — and it reports where its bottom edge falls, so the sheet cuts at a seam you chose rather than mid-line. Drag down once to reduce, again to dismiss, up to restore, or press the handle, which is a real control here the way an Accordion.Trigger is."
+        note="BottomSheet.Summary is the part that stays. It renders in both states — what changes is whether everything under it does — and it reports where its bottom edge falls, so the sheet cuts at a seam you chose rather than mid-line. The sheet adds its own bottom padding back onto that edge, so the reduced state ends with the air the expanded one ends with rather than on the last line. Drag down once to reduce, again to dismiss, up to restore, or press the handle, which is a real control here the way an Accordion.Trigger is."
       >
         <Collapsible />
       </Section>

@@ -133,9 +133,46 @@ and `onExpandedChange` control it the way `isOpen` controls the other one.
 one is a number you give rather than a fraction of the screen the sheet works out.
 
 **The sheet is not re-laid out.** It is the same box at its full height, moved further down,
-so the tail below `collapsedHeight` slides off the bottom of the screen and comes back
-untouched. Nothing re-measures, and what is cut is cut wherever the line happens to fall —
-that is the trade for not having to split the content in two.
+so the tail below the reduced height slides off the bottom of the screen and comes back
+untouched. Nothing re-measures — which is why a bare `collapsedHeight` cuts wherever the
+number happens to land, and why `BottomSheet.Summary` below exists.
+
+### `BottomSheet.Summary` — cut at a seam you chose
+
+```tsx
+<BottomSheet defaultExpanded={false}>
+  <BottomSheet.Content>
+    <BottomSheet.Handle accessibilityLabel="Réduire ou déplier la fiche" />
+    <BottomSheet.Summary>
+      <BottomSheet.Title>Café des Arts</BottomSheet.Title>
+      <BottomSheet.Description>★★★★☆ · Ouvert jusqu'à 22 h</BottomSheet.Description>
+    </BottomSheet.Summary>
+    <Hours />
+    <Reviews />
+  </BottomSheet.Content>
+</BottomSheet>
+```
+
+It is `<summary>` to the sheet's `<details>`, and the same thing an `Accordion.Trigger` is:
+**the part that survives**, not a second view for the reduced state. It renders in both —
+what changes is whether everything under it does — so it costs no extra layout.
+
+**It reports where its bottom edge falls**, not how tall it is, so whatever sits above it is
+counted too: a handle above a summary stays visible when the sheet reduces. That is why it
+must be a **direct child of `Content`** — `y` is relative to the immediate parent, and a
+summary wrapped in a `View` would report the wrapper's coordinates.
+
+**The sheet adds its own bottom padding back onto that edge.** Cutting on the summary's last
+pixel would leave the reduced sheet with air above the handle and none at all under the last
+line — the text against the screen edge, and under the gesture bar on a phone that has one.
+The reduced sheet ends with the padding its expanded self ends with, and overriding the
+sheet's `padding` moves the seam with it.
+
+`collapsedHeight` is not extended that way. It is a number you wrote against a sheet you
+were looking at, and two hundred points showing has to mean two hundred.
+
+Give both and the summary wins, with a warning in development: a measurement of the content
+is truer than a number that has to be kept in step with it.
 
 ### Where a drag goes
 

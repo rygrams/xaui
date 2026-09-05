@@ -27,9 +27,13 @@ import type { BottomSheetSummaryProps } from './bottom-sheet.type'
  *
  * **It reports where its bottom edge falls**, not how tall it is, so whatever sits above it
  * is counted too: a handle above a summary is visible when the sheet is reduced, and
- * measuring the summary alone would have cut it off. That edge becomes the reduced height,
- * which is why it must be a direct child of `Content` — `y` is relative to the immediate
- * parent, and a summary wrapped in a `View` would report the wrapper's coordinates.
+ * measuring the summary alone would have cut it off. Which is why it must be a direct child
+ * of `Content` — `y` is relative to the immediate parent, and a summary wrapped in a `View`
+ * would report the wrapper's coordinates.
+ *
+ * That edge is not quite the reduced height: the sheet adds its own bottom padding back
+ * onto it, so a reduced sheet ends with the air its expanded self ends with rather than on
+ * the summary's last pixel.
  *
  * With one of these the sheet needs no `collapsedHeight`, and the cut lands exactly where
  * you put it rather than wherever the line happened to fall.

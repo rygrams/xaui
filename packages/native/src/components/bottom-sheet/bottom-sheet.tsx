@@ -4,6 +4,7 @@ import { warnDev } from '../../utils/warn-dev'
 import { useXAUITheme } from '../../theme/theme-hooks'
 import { BottomSheetProvider } from './bottom-sheet.context'
 import { bottomSheetRecipe } from './bottom-sheet.recipe'
+import { collapsedExtent } from './bottom-sheet.utils'
 import type { BottomSheetProps } from './bottom-sheet.type'
 
 /**
@@ -65,9 +66,13 @@ export function BottomSheet({
   // kept in step with it.
   const [summaryExtent, setSummaryExtent] = useState<number>()
 
+  // Reported by `BottomSheet.Content` off its own resolved style, so the seam a summary
+  // measured keeps the padding the sheet ends with rather than cutting on the last line.
+  const [paddingBottom, setPaddingBottom] = useState(0)
+
   // The slot wins. A measurement of the content is always truer than a number written
   // beside it, and `collapsedHeight` stays for the sheet that has no natural seam.
-  const collapsed = summaryExtent ?? collapsedHeight
+  const collapsed = collapsedExtent(summaryExtent, paddingBottom, collapsedHeight)
 
   // In an effect rather than in the body: `warnDev` does not deduplicate, and the root
   // re-renders on every open and every reduce.
@@ -104,6 +109,7 @@ export function BottomSheet({
       dismissThreshold,
       collapsedHeight: collapsed,
       setSummaryExtent,
+      setPaddingBottom,
       // A sheet with no reduced state has none to be out of, so it reports expanded
       // whatever the disclosure holds — a slot must not draw a chevron for a state the
       // sheet cannot reach.
