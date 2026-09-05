@@ -38,6 +38,7 @@
     "recipe-engine",
     "reference-button",
     "shared-hooks",
+    "skeleton-v1",
     "slot-system",
     "spinner-v1",
     "style-props-everywhere",
