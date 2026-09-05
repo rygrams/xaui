@@ -120,7 +120,6 @@ the auto-wrap does not apply.
 
 | `size` | Circle | Dot | Gap | Label |
 | ------ | ------ | --- | --- | ----- |
-| `xs`   | 16     | 7   | 8   | 14/20 |
 | `sm`   | 20     | 8   | 8   | 14/20 |
 | `md`   | 24     | 10  | 8   | 16/24 |
 | `lg`   | 28     | 12  | 10  | 18/28 |
@@ -179,7 +178,7 @@ Everything `PressableFeedback` accepts, every `ViewStyle` key it does not alread
 | Prop               | Type                            | Default       | Notes                                   |
 | ------------------ | ------------------------------- | ------------- | --------------------------------------- |
 | `variant`          | `RadioVariant`                  | `'secondary'` | The circle at rest                      |
-| `size`             | `'xs' \| 'sm' \| 'md' \| 'lg'`  | `'md'`        | Circle, dot, gap, label type            |
+| `size`             | `'sm' \| 'md' \| 'lg'`          | `'md'`        | Circle, dot, gap, label type            |
 | `radius`           | `RadiusKey`                     | `'full'`      | A circle, unless you say otherwise      |
 | `color`            | `string`                        | —             | A hex tint — the colour once chosen     |
 | `isSelected`       | `boolean`                       | —             | Controlled                              |
@@ -231,7 +230,7 @@ beside it. Outside a `<Radio>` it throws by name.
 | `themeColor="primary"`         | `color={theme.colors.accent}` — a raw value (R7)                      |
 | `variant="filled"`             | `variant="tertiary"` — a border at rest, the accent once chosen       |
 | `variant="light"`              | gone: a dot with no circle. `<Radio.Indicator>` with your own mark    |
-| `size="sm" \| "md" \| "lg"`    | `size` — now `xs` … `lg`                                              |
+| `size="sm" \| "md" \| "lg"`    | `size` — the same three                                               |
 | `radius`                       | `radius` — a `RadiusKey` now, and still `full` by default             |
 | `fullWidth`                    | `width="100%"` in style props (R14)                                   |
 | `isDisabled`                   | unchanged, on the root                                                |

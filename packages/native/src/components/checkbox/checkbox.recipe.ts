@@ -63,6 +63,20 @@ function sizeAxis(step: SizeStep) {
         height: side * CHECK_HEIGHT,
         borderStartWidth: stroke,
         borderBottomWidth: stroke,
+        // An "L" has its ink in one corner, not in the middle of its box, so rotating it
+        // about that box's centre leaves the tick sitting low. Rotating by −45° maps a
+        // point to `(dy − dx)·√2/2`, and over the two strokes that spans `H` at the top
+        // and `H − t − W` at the bottom — an ink centre `(H − t)·√2/4` **below** the box
+        // centre, which flexbox then dutifully centres. Lifting by exactly that is what
+        // makes the mark look centred rather than measure centred.
+        //
+        // Both transforms live here, and not half here and half in a sheet, because
+        // `transform` is a whole value: the recipe's merge replaces it rather than
+        // blending, so a second step would drop the first.
+        transform: [
+          { translateY: -((side * CHECK_HEIGHT - stroke) * Math.SQRT2) / 4 },
+          { rotate: '-45deg' },
+        ],
       },
       // The third state's mark: the check's long stroke, on its own and level.
       dash: {
@@ -80,7 +94,7 @@ function sizeAxis(step: SizeStep) {
 
 /**
  * The long stroke and the short one, as fractions of the box. The two together are an
- * "L" that becomes a check once rotated — see `checkboxSheet`.
+ * "L" that becomes a check once rotated, and lifted — see `sizeAxis`.
  */
 const CHECK_WIDTH = 0.5
 const CHECK_HEIGHT = 0.25
@@ -106,7 +120,6 @@ type SizeStep = {
  * radius base, which on a 24pt box is a circle, and a circle is the `Radio`.
  */
 const SIZES: Record<CheckboxSize, SizeStep> = {
-  xs: { box: 4, radius: 'sm', gap: 2, label: 'sm', stroke: 1.5 },
   sm: { box: 5, radius: 'sm', gap: 2, label: 'sm', stroke: 2 },
   md: { box: 6, radius: 'md', gap: 2, label: 'md', stroke: 2 },
   lg: { box: 7, radius: 'md', gap: 2.5, label: 'lg', stroke: 2.5 },
@@ -165,7 +178,6 @@ export const checkboxRecipe = createRecipe({
 
   variants: {
     size: {
-      xs: sizeAxis(SIZES.xs),
       sm: sizeAxis(SIZES.sm),
       md: sizeAxis(SIZES.md),
       lg: sizeAxis(SIZES.lg),

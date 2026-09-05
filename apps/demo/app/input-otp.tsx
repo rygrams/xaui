@@ -2,11 +2,14 @@ import { useRef, useState } from 'react'
 import { ScrollView, Text, View } from 'react-native'
 import { Button } from '@xaui/native/button'
 import { InputOTP, OTP_ALPHANUMERIC } from '@xaui/native/input-otp'
-import type { InputOTPHandle, InputOTPVariant } from '@xaui/native/input-otp'
-import type { InputOTPRenderState } from '@xaui/native/input-otp'
+import type {
+  InputOTPHandle,
+  InputOTPRenderState,
+  InputOTPVariant,
+} from '@xaui/native/input-otp'
 import { useXAUITheme } from '@xaui/native/theme'
 
-const VARIANTS: InputOTPVariant[] = ['primary', 'secondary', 'tertiary', 'ghost']
+const VARIANTS: InputOTPVariant[] = ['primary', 'secondary', 'tertiary']
 
 /** The render function every group takes. Written once here rather than six times. */
 const boxes = ({ slots }: InputOTPRenderState) =>
@@ -18,7 +21,8 @@ const boxes = ({ slots }: InputOTPRenderState) =>
  *
  * What each section checks is in its subtitle: one hidden input holds the whole code, the
  * active box takes a ring the others do not, a paste out of a message keeps only the
- * code, `onComplete` fires on the last character, and the four levels are the `Input`'s.
+ * code, `onComplete` fires on the last character, and the three levels are the `Input`'s
+ * minus `ghost` — six boxes with no fill and no edge say nothing about how many to type.
  */
 export default function InputOTPScreen() {
   const theme = useXAUITheme()
@@ -32,7 +36,7 @@ export default function InputOTPScreen() {
       <Basic />
 
       <Section
-        title="The four levels"
+        title="The three levels"
         note="The Input's, token for token — a box of a code is a field one character wide. Tap each: the box the next character lands in takes a two-point accent ring, which is HeroUI's outline done with a border, because React Native has no outline."
       >
         {VARIANTS.map(variant => (
@@ -76,7 +80,7 @@ export default function InputOTPScreen() {
         title="size — the box, and the character in it"
         note="md is HeroUI's OTP exactly: a 48 box 44 wide, an 18/28 semibold character, 8 between boxes. The width is the control height less one spacing step, which holds the proportion at the other three sizes."
       >
-        {(['xs', 'sm', 'md', 'lg'] as const).map(size => (
+        {(['sm', 'md', 'lg'] as const).map(size => (
           <InputOTP key={size} maxLength={4} size={size}>
             <InputOTP.Group>{boxes}</InputOTP.Group>
           </InputOTP>

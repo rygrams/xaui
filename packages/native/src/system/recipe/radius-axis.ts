@@ -13,18 +13,32 @@ import type { StyleFn } from './recipe.type'
  * variants: { size: { … }, radius: radiusAxis('root') }
  * ```
  *
+ * **More than one slot when a second node has to square off with the first.** A `Switch`
+ * whose track lost its capsule and kept a circular knob is half-rounded, so the axis moves
+ * both: `radiusAxis('track', 'thumb')`.
+ *
+ * The same named corner on each, not an inset-corrected one. Nesting rules would say the
+ * inner radius is the outer less the gap, but here that reaches zero before the outer does
+ * — at `xs` a 3pt track would hold a sharp-cornered knob — and two matched corners read
+ * better than one correct one.
+ *
+ * Variadic rather than an array because every call but that one passes a single slot, and
+ * `radiusAxis('root')` reads better than `radiusAxis(['root'])`.
+ *
  * The return type is a full `Record<RadiusKey, …>` rather than a partial one, so
  * `createRecipe` still infers `radius="3xl"` as the axis's value union and a typo in a
  * caller's `radius` is a type error rather than a silently ignored key.
  */
 export function radiusAxis<Slot extends string>(
-  slot: Slot
+  ...slots: Slot[]
 ): Record<RadiusKey, StyleFn<Slot>> {
   const axis = {} as Record<RadiusKey, StyleFn<Slot>>
 
   for (const key of RADIUS_KEYS) {
     axis[key] = theme =>
-      ({ [slot]: { borderRadius: theme.radius[key] } }) as ReturnType<StyleFn<Slot>>
+      Object.fromEntries(
+        slots.map(slot => [slot, { borderRadius: theme.radius[key] }])
+      ) as ReturnType<StyleFn<Slot>>
   }
 
   return axis

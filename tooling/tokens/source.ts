@@ -9,7 +9,13 @@ export const source: Record<'light' | 'dark', XAUISourceColors> = {
     foreground: p.zinc[900],
     surface: primitives.white,
     surfaceForeground: p.zinc[900],
-    surfaceSecondary: p.zinc[100],
+    // Not a palette step. `zinc[100]` sits so close to the `background` (`zinc[50]`)
+    // that a `secondary` card on the page reads as no card at all, and `zinc[200]` is
+    // already `surfaceTertiary` — so the level between them is the only one left. It is
+    // the OKLab midpoint of the two, which keeps it on the same ramp rather than beside
+    // it. Written here rather than added to the palette: `PaletteShade` is derived from
+    // `zinc`, so a 150 there would claim every other family has one too.
+    surfaceSecondary: '#ececee',
     surfaceSecondaryForeground: p.zinc[900],
     surfaceTertiary: p.zinc[200],
     surfaceTertiaryForeground: p.zinc[900],
@@ -17,7 +23,7 @@ export const source: Record<'light' | 'dark', XAUISourceColors> = {
     overlayForeground: p.zinc[900],
     backdrop: 'rgba(0, 0, 0, 0.2)',
     muted: p.zinc[500],
-    default: p.zinc[100],
+    default: p.zinc[200],
     defaultForeground: p.zinc[900],
     accent: p.purple[600],
     accentForeground: p.purple[50],
@@ -27,7 +33,12 @@ export const source: Record<'light' | 'dark', XAUISourceColors> = {
     fieldBorder: p.zinc[200],
     success: p.green[700],
     successForeground: p.zinc[50],
-    warning: p.amber[700],
+    // `orange` and not `amber`. The two families sit 11° apart at the 700 step and share
+    // a lightness, so light barely moves — but `amber[400]` is a distinctly yellow 84°,
+    // which made the dark warning read as gold rather than as a caution. Swapping the
+    // family moves both modes the same way and *narrows* the hue gap between them, from
+    // 35° to 18°.
+    warning: p.orange[700],
     warningForeground: p.zinc[50],
     danger: p.red[600],
     dangerForeground: p.zinc[50],
@@ -61,7 +72,7 @@ export const source: Record<'light' | 'dark', XAUISourceColors> = {
     fieldBorder: p.zinc[700],
     success: p.green[400],
     successForeground: p.zinc[900],
-    warning: p.amber[400],
+    warning: p.orange[400],
     warningForeground: p.zinc[900],
     danger: p.red[400],
     dangerForeground: p.zinc[900],

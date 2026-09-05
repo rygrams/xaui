@@ -5,7 +5,7 @@ import type { SwitchSize, SwitchVariant } from '@xaui/native/switch'
 import { useXAUITheme } from '@xaui/native/theme'
 
 const VARIANTS: SwitchVariant[] = ['primary', 'secondary']
-const SIZES: SwitchSize[] = ['xs', 'sm', 'md', 'lg']
+const SIZES: SwitchSize[] = ['sm', 'md', 'lg']
 
 /**
  * The verification screen for the `Switch`. A component is verified here and in the docs

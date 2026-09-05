@@ -68,15 +68,18 @@ function AnimatedFill({
 }) {
   // `useDerivedValue` rather than an assignment in an effect: the timing starts on the UI
   // thread the frame the prop changes, instead of waiting for a commit to schedule it.
-  const progress = useDerivedValue(
-    () => withTiming(isVisible ? 1 : 0, { duration: DURATION }),
-    [isVisible]
-  )
+  const progress = useDerivedValue(() => {
+    'worklet'
+    return withTiming(isVisible ? 1 : 0, { duration: DURATION })
+  }, [isVisible])
 
-  const animatedStyle = useAnimatedStyle(() => ({
-    opacity: progress.value,
-    transform: [{ scale: FROM_SCALE + (1 - FROM_SCALE) * progress.value }],
-  }))
+  const animatedStyle = useAnimatedStyle(() => {
+    'worklet'
+    return {
+      opacity: progress.value,
+      transform: [{ scale: FROM_SCALE + (1 - FROM_SCALE) * progress.value }],
+    }
+  }, [progress])
 
   return <Animated.View style={[style, animatedStyle]}>{children}</Animated.View>
 }

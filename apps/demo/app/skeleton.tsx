@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { ScrollView, Text, View } from 'react-native'
 import { Button } from '@xaui/native/button'
+import { Card } from '@xaui/native/card'
+import { Divider } from '@xaui/native/divider'
 import { Skeleton } from '@xaui/native/skeleton'
 import { useXAUITheme } from '@xaui/native/theme'
 
@@ -82,19 +84,6 @@ export default function SkeletonScreen() {
       </Section>
 
       <Section
-        title="A row of one, mirroring the layout it stands in for"
-        note="The placeholder has the shape of the thing arriving, so nothing jumps when it does. Compare with the loaded row at the top of this screen."
-      >
-        <View style={{ flexDirection: 'row', gap: 12, alignItems: 'center' }}>
-          <Skeleton width={40} height={40} radius="full" />
-          <View style={{ gap: 6, flex: 1 }}>
-            <Skeleton height={12} width="50%" />
-            <Skeleton height={12} width="80%" />
-          </View>
-        </View>
-      </Section>
-
-      <Section
         title="color — one raw tint (R7)"
         note="One thing to colour on a block, so the tint lands on the block. Hex only: the slices are derived in OKLab."
       >
@@ -109,9 +98,194 @@ export default function SkeletonScreen() {
         <Skeleton height={20} />
         <Skeleton height={20} animation={false} />
       </Section>
+      <CardPlaceholder />
+      <ListPlaceholder />
     </ScrollView>
   )
 }
+
+/** Loading for a beat, then loaded — the toggle every placeholder is really judged by. */
+function useFakeLoad(delay = 2200) {
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    if (!isLoading) return
+    const id = setTimeout(() => setIsLoading(false), delay)
+    return () => clearTimeout(id)
+  }, [isLoading, delay])
+
+  return [isLoading, () => setIsLoading(true)] as const
+}
+
+/**
+ * A card, placeholder and loaded, in the same `Card` — which is the point: the skeleton is
+ * *inside* the real surface rather than a grey rectangle standing where one will go, so
+ * the padding, the radius and the gaps are the card's own and nothing shifts when the
+ * content lands.
+ */
+function CardPlaceholder() {
+  const theme = useXAUITheme()
+  const [isLoading, reload] = useFakeLoad()
+
+  return (
+    <Section
+      title="A card — the skeleton inside the real surface"
+      note="Not a grey rectangle the size of a card: a Card holding blocks. The padding, the radius and the gaps are the card's, so the only thing that changes on load is what fills them. Watch the footer row hold its height."
+    >
+      <Card>
+        <Skeleton isLoading={isLoading} height={120} radius="lg">
+          <View
+            style={{
+              height: 120,
+              borderRadius: theme.radius.lg,
+              backgroundColor: theme.colors.accentSoft,
+            }}
+          />
+        </Skeleton>
+
+        <Card.Header>
+          <Skeleton isLoading={isLoading} height={18} width="55%">
+            <Card.Title>Marrakech, trois nuits</Card.Title>
+          </Skeleton>
+          <Skeleton isLoading={isLoading} height={13} width="85%">
+            <Card.Description>
+              Riad en médina, petit-déjeuner compris, annulation gratuite.
+            </Card.Description>
+          </Skeleton>
+        </Card.Header>
+
+        <Card.Footer>
+          <Skeleton isLoading={isLoading} height={32} width={104} radius="full">
+            <Button size="sm">Réserver</Button>
+          </Skeleton>
+          <Skeleton isLoading={isLoading} height={32} width={88} radius="full">
+            <Button size="sm" variant="tertiary">
+              Détails
+            </Button>
+          </Skeleton>
+        </Card.Footer>
+      </Card>
+
+      <Button variant="tertiary" size="sm" alignSelf="flex-start" onPress={reload}>
+        recharger la carte
+      </Button>
+    </Section>
+  )
+}
+
+/**
+ * A list, which is where a placeholder earns its keep: several rows of the same shape, and
+ * the eye reads the rhythm before it reads any one row.
+ */
+function ListPlaceholder() {
+  const theme = useXAUITheme()
+  const [isLoading, reload] = useFakeLoad(2600)
+
+  return (
+    <Section
+      title="A list — the rhythm is what the placeholder is for"
+      note="Four rows of one shape. The avatar is radius='full' and the two lines differ in width, which is what stops four identical rows from reading as a loading bar. The card is the default level on purpose: in dark mode `default` and `surfaceSecondary` are the same grey, so a block on a secondary card disappears."
+    >
+      <Card padding={0}>
+        {PEOPLE.map((person, index) => (
+          <View key={person.name}>
+            {index > 0 ? <Divider /> : null}
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                gap: 12,
+                padding: 14,
+              }}
+            >
+              <Skeleton isLoading={isLoading} width={40} height={40} radius="full">
+                <View
+                  style={{
+                    width: 40,
+                    height: 40,
+                    borderRadius: 20,
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    backgroundColor: theme.colors.accentSoft,
+                  }}
+                >
+                  <Text
+                    style={{
+                      color: theme.colors.accentSoftForeground,
+                      fontSize: theme.fontSizes.xs,
+                      fontWeight: theme.fontWeights.semibold,
+                    }}
+                  >
+                    {person.initials}
+                  </Text>
+                </View>
+              </Skeleton>
+
+              <View style={{ gap: 6, flex: 1 }}>
+                <Skeleton isLoading={isLoading} height={13} width={person.name_w}>
+                  <Text
+                    style={{
+                      color: theme.colors.surfaceForeground,
+                      fontSize: theme.fontSizes.sm,
+                    }}
+                  >
+                    {person.name}
+                  </Text>
+                </Skeleton>
+                <Skeleton isLoading={isLoading} height={11} width={person.role_w}>
+                  <Text
+                    style={{
+                      color: theme.colors.muted,
+                      fontSize: theme.fontSizes.xs,
+                    }}
+                  >
+                    {person.role}
+                  </Text>
+                </Skeleton>
+              </View>
+            </View>
+          </View>
+        ))}
+      </Card>
+
+      <Button variant="tertiary" size="sm" alignSelf="flex-start" onPress={reload}>
+        recharger la liste
+      </Button>
+    </Section>
+  )
+}
+
+/** Widths that differ per row, because four identical ones read as a progress bar. */
+const PEOPLE = [
+  {
+    initials: 'AT',
+    name: 'Amina Traoré',
+    role: 'Design',
+    name_w: '46%',
+    role_w: '22%',
+  },
+  {
+    initials: 'MK',
+    name: 'Marc Keïta',
+    role: 'Ingénierie',
+    name_w: '38%',
+    role_w: '30%',
+  },
+  {
+    initials: 'JD',
+    name: 'Julie Diallo',
+    role: 'Produit',
+    name_w: '52%',
+    role_w: '25%',
+  },
+  {
+    initials: 'SL',
+    name: 'Sofia Lam',
+    role: 'Recherche',
+    name_w: '34%',
+    role_w: '28%',
+  },
+]
 
 /**
  * The component as it is actually used: a gate the real content passes through once it

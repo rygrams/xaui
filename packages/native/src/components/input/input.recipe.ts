@@ -73,6 +73,12 @@ const VARIANT_TOKENS: Record<InputVariant, VariantTokens> = {
  * content is not the developer's cannot be truncated into shape. HeroUI reaches the same
  * conclusion with `min-height` on their single size.
  *
+ * The `gap` is one point tighter than the spacing scale's whole steps at every size — 3,
+ * 3, 5, 7. A label, a field and a line of help are one thing the eye reads top to bottom,
+ * not three stacked blocks, and the full step let them drift apart enough to read as a
+ * list. Quarter steps rather than a new scale: `spacing` takes a fraction, and the `Chip`
+ * already measures its dot and its cross the same way.
+ *
  * The label and the help text carry a small horizontal inset — half the field's padding —
  * so they read as belonging to the box below them rather than to the column edge. It does
  * not scale: it is an optical alignment, not a measurement.
@@ -184,7 +190,7 @@ const SIZES: Record<InputSize, SizeStep> = {
   xs: {
     control: 'xs',
     padding: 2.5,
-    gap: 1,
+    gap: 0.75,
     field: 'sm',
     label: 'sm',
     help: 'xs',
@@ -195,7 +201,7 @@ const SIZES: Record<InputSize, SizeStep> = {
   sm: {
     control: 'sm',
     padding: 3,
-    gap: 1,
+    gap: 0.75,
     field: 'md',
     label: 'sm',
     help: 'xs',
@@ -206,7 +212,7 @@ const SIZES: Record<InputSize, SizeStep> = {
   md: {
     control: 'md',
     padding: 3,
-    gap: 1.5,
+    gap: 1.25,
     field: 'md',
     label: 'md',
     help: 'sm',
@@ -217,7 +223,7 @@ const SIZES: Record<InputSize, SizeStep> = {
   lg: {
     control: 'lg',
     padding: 4,
-    gap: 2,
+    gap: 1.75,
     field: 'lg',
     label: 'lg',
     help: 'md',
@@ -294,6 +300,8 @@ export const inputRecipe = createRecipe({
       borderWidth: theme.borderWidth.field,
       // The theme has a radius named for this component, so every size uses it and the
       // `radius` axis is what overrides it — the same shape a `Chip` takes from `full`.
+      // It is HeroUI's twelve points since the scale was aligned on theirs; it was 21,
+      // which put a 48-tall field at 87% of its geometric maximum.
       borderRadius: theme.radius.field,
       borderCurve: 'continuous',
       // RN centres a single line inside `minHeight` on iOS and pins it to the top on
