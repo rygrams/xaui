@@ -177,6 +177,16 @@
         "default": "./dist/components/switch/index.cjs"
       }
     },
+    "./tabs": {
+      "import": {
+        "types": "./dist/components/tabs/index.d.ts",
+        "default": "./dist/components/tabs/index.js"
+      },
+      "require": {
+        "types": "./dist/components/tabs/index.d.cts",
+        "default": "./dist/components/tabs/index.cjs"
+      }
+    },
     "./text-area": {
       "import": {
         "types": "./dist/components/text-area/index.d.ts",
