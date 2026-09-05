@@ -28,6 +28,7 @@ const SCREENS = [
   { href: '/radio', label: 'Radio' },
   { href: '/switch', label: 'Switch' },
   { href: '/spinner', label: 'Spinner' },
+  { href: '/divider', label: 'Divider' },
 ] as const
 
 export default function HomeScreen() {
