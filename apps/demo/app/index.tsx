@@ -29,6 +29,7 @@ const SCREENS = [
   { href: '/switch', label: 'Switch' },
   { href: '/spinner', label: 'Spinner' },
   { href: '/divider', label: 'Divider' },
+  { href: '/select', label: 'Select' },
   { href: '/skeleton', label: 'Skeleton' },
   { href: '/avatar', label: 'Avatar' },
   { href: '/badge', label: 'Badge' },

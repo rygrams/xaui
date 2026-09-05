@@ -17,6 +17,7 @@ const entries = {
   'components/field-group/index': 'src/components/field-group/index.ts',
   'components/input-otp/index': 'src/components/input-otp/index.ts',
   'components/radio/index': 'src/components/radio/index.ts',
+  'components/select/index': 'src/components/select/index.ts',
   'components/skeleton/index': 'src/components/skeleton/index.ts',
   'components/skeleton/index': 'src/components/skeleton/index.ts',
   'components/skeleton/index': 'src/components/skeleton/index.ts',
