@@ -1,10 +1,10 @@
-import { forwardRef, useCallback } from 'react'
+import { Children, forwardRef, useCallback } from 'react'
 import { Text } from 'react-native'
-import type { View } from 'react-native'
+import type { StyleProp, TextStyle, View } from 'react-native'
+import type { ReactNode } from 'react'
 import { usePressState } from '../../hooks/use-press-state'
 import { IconContext } from '../../system/icon'
 import { PressableFeedback } from '../../system/pressable-feedback'
-import { childrenToString } from '../../system/slot'
 import { useStyleProps } from '../../system/style-props'
 import { useAccordion, useAccordionItem } from './accordion.context'
 import type { AccordionTriggerProps } from './accordion.type'
@@ -43,8 +43,6 @@ export const AccordionTrigger = forwardRef<View, AccordionTriggerProps>(
       [onPress, toggle, value]
     )
 
-    const text = childrenToString(children)
-
     return (
       <IconContext.Provider value={glyph}>
         <PressableFeedback
@@ -71,14 +69,8 @@ export const AccordionTrigger = forwardRef<View, AccordionTriggerProps>(
           onPressIn={press.onPressIn}
           onPressOut={press.onPressOut}
         >
-          {/* R3 — a stringifiable tree becomes the row's label. It is wrapped rather than
-              passed through because the trigger is a row of views, and a bare string in
-              one is a crash on React Native. */}
-          {asChild || text === null ? (
-            children
-          ) : (
-            <Text style={labelStyle}>{text}</Text>
-          )}
+          {/* R3, per child — see `wrapText` below for why not for the whole tree. */}
+          {asChild ? children : wrapText(children, labelStyle)}
         </PressableFeedback>
       </IconContext.Provider>
     )
@@ -86,3 +78,25 @@ export const AccordionTrigger = forwardRef<View, AccordionTriggerProps>(
 )
 
 AccordionTrigger.displayName = 'XAUI.Accordion.Trigger'
+
+/**
+ * R3, per child rather than for the whole tree.
+ *
+ * `childrenToString` is all-or-nothing: it returns `null` the moment any element is
+ * present, which is right for a `Button` whose children are either a label or slots. A
+ * trigger's normal shape is a label **and** an indicator, so the all-or-nothing reading
+ * dropped every loose string into a `View` — where React Native discards it, and the row
+ * renders as a chevron with nothing beside it.
+ *
+ * Wrapping each string on its own keeps `<Accordion.Trigger>Livraison<Accordion.Indicator
+ * /></Accordion.Trigger>` working, which is the shape the API is written for.
+ */
+function wrapText(children: ReactNode, style: StyleProp<TextStyle>): ReactNode {
+  return Children.map(children, child =>
+    typeof child === 'string' || typeof child === 'number' ? (
+      <Text style={style}>{child}</Text>
+    ) : (
+      child
+    )
+  )
+}

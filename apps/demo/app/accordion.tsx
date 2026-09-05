@@ -4,7 +4,7 @@ import { Accordion } from '@xaui/native/accordion'
 import type { AccordionSize, AccordionVariant } from '@xaui/native/accordion'
 import { useXAUITheme } from '@xaui/native/theme'
 
-const VARIANTS: AccordionVariant[] = ['ghost', 'default', 'secondary', 'tertiary']
+const VARIANTS: AccordionVariant[] = ['ghost', 'primary', 'default', 'tertiary']
 const SIZES: AccordionSize[] = ['xs', 'sm', 'md', 'lg']
 
 const FAQ = [
@@ -58,7 +58,7 @@ export default function AccordionScreen() {
 
       <Section
         title="The four levels"
-        note="The Card's table, token for token — an accordion in default is a card with rows in it. ghost is the default and has no container at all: only the hairlines separate the rows, and they run the full width because there is no edge to be inset from."
+        note="The Card's tokens under the Button's names: primary is the strong fill, default the neutral one. primary is HeroUI's surface variant. ghost is our default and is HeroUI's default — no container at all, only the hairlines separate the rows, and they run the full width because there is no edge to be inset from."
       >
         {VARIANTS.map(variant => (
           <Faq key={variant} variant={variant} only={variant} />
@@ -70,7 +70,7 @@ export default function AccordionScreen() {
         note="size moves the row's inset, the gap before the chevron and the type. The vertical padding is one value across all four: HeroUI puts sixteen points above and below against twelve on the sides, which is what gives a row of plain text a target big enough to hit without a border to aim at."
       >
         {SIZES.map(size => (
-          <Faq key={size} size={size} variant="default" only={size} />
+          <Faq key={size} size={size} variant="primary" only={size} />
         ))}
       </Section>
 
@@ -78,21 +78,21 @@ export default function AccordionScreen() {
         title="Always one open"
         note="isCollapsible={false}. Pressing the open row refuses rather than closing it, and onValueChange never fires for a change that did not happen. That is a set of tabs wearing an accordion."
       >
-        <Faq defaultValue="shipping" isCollapsible={false} variant="default" />
+        <Faq defaultValue="shipping" isCollapsible={false} variant="primary" />
       </Section>
 
       <Section
         title="No separators"
         note="hasSeparator={false}. They are drawn by the root between its children, not by the rows — so there is never one under the last row to hide."
       >
-        <Faq hasSeparator={false} variant="default" />
+        <Faq hasSeparator={false} variant="primary" />
       </Section>
 
       <Section
         title="A composed row"
         note="The trigger is a row of views: a stringifiable child is wrapped in a Text for you (R3), anything else is yours to place. Here a description sits under the title, and the chevron stays pinned to the end."
       >
-        <Accordion variant="default">
+        <Accordion variant="primary">
           <Accordion.Item value="a">
             <Accordion.Trigger>
               <View style={{ flexShrink: 1, gap: 2 }}>
@@ -129,7 +129,7 @@ export default function AccordionScreen() {
         title="A row that paints its own state"
         note="children as a function, handed { isExpanded, isDisabled, value }. The escape hatch for a row whose whole appearance changes when it opens, without wiring useAccordionItem yourself."
       >
-        <Accordion variant="default">
+        <Accordion variant="primary">
           {FAQ.slice(0, 2).map(({ value, title, body }) => (
             <Accordion.Item key={value} value={value}>
               {({ isExpanded }) => (
@@ -169,8 +169,8 @@ export default function AccordionScreen() {
         title="A tint (R7), and disabled"
         note="color is a raw value, never a token. It lands where the variant says — the fill of a default container, the border of a tertiary one. isDisabled dims the whole accordion and stops every row; a single row takes it too."
       >
-        <Faq variant="default" color="#7c3aed" only="tinted" />
-        <Faq variant="default" isDisabled only="disabled" />
+        <Faq variant="primary" color="#7c3aed" only="tinted" />
+        <Faq variant="primary" isDisabled only="disabled" />
       </Section>
 
       <Section
@@ -228,7 +228,7 @@ function ControlledFaq() {
   return (
     <View style={{ gap: 12 }}>
       <Accordion
-        variant="default"
+        variant="primary"
         value={value}
         onValueChange={next => setValue(next as string)}
       >

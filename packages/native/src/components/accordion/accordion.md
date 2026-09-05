@@ -176,6 +176,20 @@ two things travelling at once reads as the panel fighting itself.
 **The chevron** turns 0 → −180° on the `Select`'s spring — damping 140, stiffness 1000,
 mass 4. It is a worklet, so it keeps turning while the panel's content mounts.
 
+## The four levels
+
+| ours       | HeroUI    | fill               |
+| ---------- | --------- | ------------------ |
+| `ghost`    | `default` | none — the default |
+| `primary`  | `surface` | `surface`          |
+| `default`  | —         | `surfaceSecondary` |
+| `tertiary` | —         | a border, no fill  |
+
+The tokens are the `Card`'s — an accordion in `primary` **is** a card with rows in it, and
+two containers that look alike but are declared apart drift. The **names** are the
+`Button`'s: `primary` for the strong fill, `default` for the neutral one. The `Card` calls
+its strong level `default`, and that is the `Card` being the odd one out.
+
 ## The separators
 
 Drawn by the root, **between** its children — never by a row. A row that drew its own
@@ -184,7 +198,7 @@ would draw one under the last item too, and every accordion would start by hidin
 They are built from `Children.toArray`, which drops nulls, so a conditionally rendered row
 cannot leave a hairline hanging where nothing is.
 
-In `default`, `secondary` and `tertiary` the container is inset from its own edge and the
+In `primary`, `default` and `tertiary` the container is inset from its own edge and the
 separators are inset with it. `ghost` has no edge to be inset from, so its rows run the
 full width and the hairline runs with them — the difference between a list on a page and a
 list in a box.

@@ -14,13 +14,15 @@ const SLOTS = [
 ] as const
 
 /**
- * The `Card`'s table, because an accordion in `default` **is** a card with rows in it.
- * Two containers that look alike and are declared apart drift, and the drift shows up as
- * an accordion sitting on a card with a fill one step off it.
+ * The `Card`'s **tokens** under the `Button`'s **names**. An accordion in `primary` is a
+ * card with rows in it, so the surface family is what it reads — two containers that look
+ * alike and are declared apart drift, and the drift shows up as an accordion on a card
+ * with a fill one step off it. But `primary` is what the library calls a strong fill
+ * everywhere except the `Card`, so that is the name it takes.
  */
 const VARIANT_TOKENS: Record<AccordionVariant, VariantTokens> = {
-  default: { bg: 'surface', fg: 'surfaceForeground' },
-  secondary: { bg: 'surfaceSecondary', fg: 'surfaceSecondaryForeground' },
+  primary: { bg: 'surface', fg: 'surfaceForeground' },
+  default: { bg: 'surfaceSecondary', fg: 'surfaceSecondaryForeground' },
   tertiary: { border: 'border', fg: 'foreground' },
   ghost: { fg: 'foreground' },
 }
@@ -124,7 +126,7 @@ export const accordionRecipe = createRecipe({
    * edge to be inset from, so its rows run the full width and the hairline runs with them
    * — which is the difference between a list on a page and a list in a box.
    */
-  compoundVariants: (['default', 'secondary', 'tertiary'] as const).map(variant => ({
+  compoundVariants: (['primary', 'default', 'tertiary'] as const).map(variant => ({
     when: { variant },
     style: (theme: XAUITheme): SlotStyles<AccordionSlot> => ({
       root: { borderRadius: theme.radius['2xl'] },
