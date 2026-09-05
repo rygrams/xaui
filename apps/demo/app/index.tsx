@@ -28,6 +28,7 @@ const SCREENS = [
   { href: '/icon', label: 'Icon' },
   { href: '/input-otp', label: 'InputOTP' },
   { href: '/view', label: 'Layout' },
+  { href: '/menu', label: 'Menu' },
   { href: '/popover', label: 'Popover' },
   { href: '/pressable-feedback', label: 'PressableFeedback' },
   { href: '/radio', label: 'Radio' },
