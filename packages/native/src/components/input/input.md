@@ -23,7 +23,8 @@ import { Input } from '@xaui/native/input'
   the recipe once and publishes the resolved styles to its slots. It owns the focus state,
   because the recipe resolves on it (R5).
 - **`Input.Field`** — the `TextInput`. Everything `TextInput` accepts is written here:
-  `value`, `onChangeText`, `keyboardType`, `secureTextEntry`, `multiline`, `autoComplete`.
+  `value`, `onChangeText`, `keyboardType`, `secureTextEntry`, `autoComplete`.
+
 - **`Input.Label`** — what the field is for. It carries the id the field points at.
 - **`Input.Description`** — the hint under the field: the format expected, what the value
   is used for.
@@ -78,22 +79,20 @@ it — a slot that silently renders nothing is a slot you cannot debug.
 
 ### Multiline
 
-```tsx
-<Input>
-  <Input.Label>Message</Input.Label>
-  <Input.Field
-    multiline
-    numberOfLines={4}
-    minHeight={120}
-    paddingTop={12}
-    textAlignVertical="top"
-  />
-</Input>
-```
+`<Input.Field multiline />` works — it is the same `TextInput` — but the height, the
+vertical padding and `textAlignVertical` are then yours to set.
 
-The field's height from `size` is a **minimum**, so a multiline field grows past it instead
-of clipping. `minHeight` and `paddingTop` as style props (R14) are how you give it a
-starting size and stop the text sitting against the top edge.
+For a field that is multiline by design, reach for **[`TextArea`](../text-area/text-area.md)**
+instead. It _is_ this component — the same root, the same recipe, the same context, and
+`TextArea.Label`, `.Description` and `.Error` are literally the slots documented here — with
+a field that adds `multiline`, the text pinned to the top, and a height counted in lines:
+
+```tsx
+<TextArea rows={3} maxRows={6}>
+  <TextArea.Label>Message</TextArea.Label>
+  <TextArea.Field />
+</TextArea>
+```
 
 ### Disabled
 
@@ -318,6 +317,15 @@ Everything `TextInput` accepts **except `editable`**, plus the `TextStyle` keys 
 `placeholderTextColor` defaults to the theme's `fieldPlaceholder` and stays
 overridable. `onFocus` and `onBlur` are composed, never replaced.
 
+### `Input.TextArea`
+
+Everything `Input.Field` accepts except `multiline`, which it sets, plus:
+
+| Prop      | Type     | Default | Notes                                          |
+| --------- | -------- | ------- | ---------------------------------------------- |
+| `rows`    | `number` | `3`     | The starting height, in lines                  |
+| `maxRows` | `number` | —       | The ceiling. Past it the field scrolls instead |
+
 ### `Input.Label`, `Input.Description`, `Input.Error`
 
 Everything `Text` accepts, plus the `TextStyle` keys as props (R14). `Label` and
@@ -383,6 +391,7 @@ The legacy component is `TextInput`, and its props are the ones this table names
 | `isReadOnly`                                          | `readOnly` on `<Input.Field>`                                           |
 | `isDisabled` / `isInvalid`                            | unchanged, on the root                                                  |
 | `isClearable`                                         | not in the 1.0 core — a clear button beside the field is yours to write |
+| `TextArea` with `minRows` / `maxRows`                 | `<Input.TextArea rows maxRows />` — a slot, not a component             |
 | `fullWidth`                                           | removed — that is already the default in a column                       |
 | `startContent` / `endContent`                         | a node beside the field, in a row of your own                           |
 | `customAppearance={{ container }}`                    | `style` on the root                                                     |

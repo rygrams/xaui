@@ -104,7 +104,7 @@ export default function InputScreen() {
 
       <Section
         title="The field is a TextInput"
-        note="secureTextEntry, multiline, keyboardType, autoComplete, maxLength — they are written on Input.Field because that is the node that has them. A multiline field grows past the minimum instead of clipping."
+        note="secureTextEntry, keyboardType, autoComplete, maxLength — they are written on Input.Field because that is the node that has them. multiline works here too; Input.TextArea below is the same field with the three things several lines actually need."
       >
         <Input>
           <Input.Label>Mot de passe</Input.Label>
@@ -115,13 +115,8 @@ export default function InputScreen() {
           <Input.Label>Message</Input.Label>
           <Input.Field
             multiline
-            numberOfLines={4}
-            minHeight={120}
-            paddingTop={12}
-            textAlignVertical="top"
-            placeholder="Écrivez plusieurs lignes pour voir le champ grandir au-delà de son minimum."
+            placeholder="multiline brut : à vous la hauteur et l’alignement. Voir l’écran TextArea."
           />
-          <Input.Description>Trois lignes suffisent.</Input.Description>
         </Input>
       </Section>
 

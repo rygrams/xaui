@@ -8,6 +8,7 @@ const entries = {
   'components/chip/index': 'src/components/chip/index.ts',
   'components/input/index': 'src/components/input/index.ts',
   'components/input-otp/index': 'src/components/input-otp/index.ts',
+  'components/text-area/index': 'src/components/text-area/index.ts',
   'components/typography/index': 'src/components/typography/index.ts',
   'components/view/index': 'src/components/view/index.ts',
   'system/index': 'src/system/index.ts',

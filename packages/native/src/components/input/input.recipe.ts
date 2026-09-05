@@ -7,6 +7,7 @@ const SLOTS = [
   'root',
   'label',
   'field',
+  'textArea',
   'placeholder',
   'description',
   'error',
@@ -69,12 +70,18 @@ const VARIANT_TOKENS: Record<InputVariant, VariantTokens> = {
  * content is not the developer's cannot be truncated into shape. HeroUI reaches the same
  * conclusion with `min-height` on their single size.
  *
+ * The `gap` is one point tighter than the spacing scale's whole steps at every size — 3,
+ * 3, 5, 7. A label, a field and a line of help are one thing the eye reads top to bottom,
+ * not three stacked blocks, and the full step let them drift apart enough to read as a
+ * list. Quarter steps rather than a new scale: `spacing` takes a fraction, and the `Chip`
+ * already measures its dot and its cross the same way.
+ *
  * The label and the help text carry a small horizontal inset — half the field's padding —
  * so they read as belonging to the box below them rather than to the column edge. It does
  * not scale: it is an optical alignment, not a measurement.
  */
 function sizeAxis(step: SizeStep) {
-  const { control, padding, gap, field, label, help } = step
+  const { control, padding, gap, field, label, help, textAreaPadding } = step
 
   return (theme: XAUITheme): SlotStyles<InputSlot> => {
     const inset = { paddingHorizontal: theme.spacing(LABEL_INSET) }
@@ -94,6 +101,15 @@ function sizeAxis(step: SizeStep) {
         minHeight: theme.controlHeights[control],
         paddingHorizontal: theme.spacing(padding),
         fontSize: theme.fontSizes[field],
+      },
+      // Only what a multiline field *adds* — `Input.TextArea` layers this over the field's
+      // own style rather than restating it, so the colours, the border and the radius are
+      // resolved once for both. The height is not here: `rows` is a raw value, and the
+      // slot computes it from the two numbers below.
+      textArea: {
+        lineHeight: theme.lineHeights[field],
+        paddingTop: theme.spacing(textAreaPadding),
+        paddingBottom: theme.spacing(textAreaPadding),
       },
       description: { ...inset, ...helpType },
       error: { ...inset, ...helpType },
@@ -115,6 +131,12 @@ type SizeStep = {
   label: FontSizeKey
   /** `Description` and `Error` — they are the same line at a different colour. */
   help: FontSizeKey
+  /**
+   * The room above and below the text in a multiline field, in spacing steps. A single
+   * line is centred in the control height and needs none; several lines start at the top
+   * and would otherwise sit against the edge.
+   */
+  textAreaPadding: number
   /** The label once it is inside the box: one step down, because it shares the room. */
   labelInside: FontSizeKey
 }
@@ -129,38 +151,42 @@ const SIZES: Record<InputSize, SizeStep> = {
   xs: {
     control: 'xs',
     padding: 2.5,
-    gap: 1,
+    gap: 0.75,
     field: 'sm',
     label: 'sm',
     help: 'xs',
     labelInside: 'xs',
+    textAreaPadding: 1.5,
   },
   sm: {
     control: 'sm',
     padding: 3,
-    gap: 1,
+    gap: 0.75,
     field: 'md',
     label: 'sm',
     help: 'xs',
     labelInside: 'xs',
+    textAreaPadding: 2,
   },
   md: {
     control: 'md',
     padding: 3,
-    gap: 1.5,
+    gap: 1.25,
     field: 'md',
     label: 'md',
     help: 'sm',
     labelInside: 'xs',
+    textAreaPadding: 2,
   },
   lg: {
     control: 'lg',
     padding: 4,
-    gap: 2,
+    gap: 1.75,
     field: 'lg',
     label: 'lg',
     help: 'md',
     labelInside: 'sm',
+    textAreaPadding: 2.5,
   },
 }
 
@@ -204,6 +230,9 @@ function insideLabel(step: SizeStep) {
         paddingTop: block,
         paddingBottom: top,
       },
+      // The same room, because `Input.TextArea` layers its own padding over the field's
+      // and would otherwise put the first line back under the label.
+      textArea: { paddingTop: block, paddingBottom: top },
     }
   }
 }
@@ -228,12 +257,16 @@ export const inputRecipe = createRecipe({
       borderWidth: theme.borderWidth.field,
       // The theme has a radius named for this component, so every size uses it and the
       // `radius` axis is what overrides it — the same shape a `Chip` takes from `full`.
+      // It is HeroUI's twelve points since the scale was aligned on theirs; it was 21,
+      // which put a 48-tall field at 87% of its geometric maximum.
       borderRadius: theme.radius.field,
       borderCurve: 'continuous',
       // RN centres a single line inside `minHeight` on iOS and pins it to the top on
       // Android. Saying it removes a difference nobody chose.
       textAlignVertical: 'center',
     },
+    // Several lines start at the top; only a single line is centred in its box.
+    textArea: { textAlignVertical: 'top' },
     // Not a node — the root flattens this one into `placeholderTextColor`, which is a
     // `TextInput` prop rather than a style.
     placeholder: { color: theme.colors.fieldPlaceholder },
