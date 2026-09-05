@@ -94,16 +94,16 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.13  | `Menubox` — slots over the existing group context                                | todo   |
 | P5.14  | `Progress` — circular, the determinate half of legacy `Indicator`                | todo   |
 | P5.14b | `ProgressBar` — linear, over legacy `LinearProgressIndicator`                    | todo   |
-| P5.15  | `Slider`                                                                         | todo   |
+| P5.15  | `Slider` — Output · Track · Fill · Thumb                                         | done   |
 | P5.16  | `Tabs` — List · Trigger · Label · Indicator · Content                            | done   |
 | P5.17  | `AppBar`                                                                         | todo   |
-| P5.18  | `Snackbar`                                                                       | todo   |
-| P5.18b | `Toast` — net new, to reconcile with P5.18 `Snackbar`                            | todo   |
+| P5.18  | `Snackbar` — closed by P5.18b `Toast`, the same object renamed                   | done   |
+| P5.18b | `Toast` — Title · Description · Actions · Close, plus `ToastHost`                | done   |
 | P5.19  | `Snippet`                                                                        | todo   |
 | P5.20  | `Fab`                                                                            | todo   |
 | P5.21  | `FabMenu`                                                                        | todo   |
-| P5.22  | `Dialog` — legacy `dialog` and `dialogs` land as one                             | todo   |
-| P5.23  | `BottomSheet`                                                                    | todo   |
+| P5.22  | `Dialog` — Trigger · Overlay · Content · Title · Description · Close             | done   |
+| P5.23  | `BottomSheet` — Trigger · Overlay · Content · Handle · Title                     | done   |
 | P5.23b | `BottomSheetInput` — net new, a `TextField` that opens in a `BottomSheet`        | todo   |
 | P5.24  | `Drawer`                                                                         | todo   |
 | P5.24b | `Popover` — Trigger · Overlay · Content · Title · Description · Close            | done   |

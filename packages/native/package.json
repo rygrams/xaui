@@ -1,6 +1,6 @@
 {
   "name": "@xaui/native",
-  "version": "0.9.1-alpha.41",
+  "version": "0.9.1-alpha.44",
   "description": "Composition-first React Native UI components with native animations powered by Reanimated",
   "keywords": [
     "react-native",
@@ -67,6 +67,16 @@
         "default": "./dist/components/badge/index.cjs"
       }
     },
+    "./bottom-sheet": {
+      "import": {
+        "types": "./dist/components/bottom-sheet/index.d.ts",
+        "default": "./dist/components/bottom-sheet/index.js"
+      },
+      "require": {
+        "types": "./dist/components/bottom-sheet/index.d.cts",
+        "default": "./dist/components/bottom-sheet/index.cjs"
+      }
+    },
     "./button": {
       "import": {
         "types": "./dist/components/button/index.d.ts",
@@ -105,6 +115,16 @@
       "require": {
         "types": "./dist/components/chip/index.d.cts",
         "default": "./dist/components/chip/index.cjs"
+      }
+    },
+    "./dialog": {
+      "import": {
+        "types": "./dist/components/dialog/index.d.ts",
+        "default": "./dist/components/dialog/index.js"
+      },
+      "require": {
+        "types": "./dist/components/dialog/index.d.cts",
+        "default": "./dist/components/dialog/index.cjs"
       }
     },
     "./divider": {
@@ -187,6 +207,16 @@
         "default": "./dist/components/skeleton/index.cjs"
       }
     },
+    "./slider": {
+      "import": {
+        "types": "./dist/components/slider/index.d.ts",
+        "default": "./dist/components/slider/index.js"
+      },
+      "require": {
+        "types": "./dist/components/slider/index.d.cts",
+        "default": "./dist/components/slider/index.cjs"
+      }
+    },
     "./spinner": {
       "import": {
         "types": "./dist/components/spinner/index.d.ts",
@@ -245,6 +275,16 @@
       "require": {
         "types": "./dist/components/text-field/index.d.cts",
         "default": "./dist/components/text-field/index.cjs"
+      }
+    },
+    "./toast": {
+      "import": {
+        "types": "./dist/components/toast/index.d.ts",
+        "default": "./dist/components/toast/index.js"
+      },
+      "require": {
+        "types": "./dist/components/toast/index.d.cts",
+        "default": "./dist/components/toast/index.cjs"
       }
     },
     "./typography": {
