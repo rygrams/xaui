@@ -11,6 +11,7 @@
   "changesets": [
     "alert-v1",
     "api-review-fixes",
+    "avatar-v1",
     "card",
     "checkbox-v1",
     "chip-v1",
