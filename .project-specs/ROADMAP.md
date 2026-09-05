@@ -75,10 +75,13 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.2   | `TextArea` — Label · Field · Description · Error, over the `Input`           | done   |
 | P5.3   | `InputGroup` — Prefix · Field · Suffix · Icon, inside the `Input`            | done   |
 | P5.3b  | Rename `InputGroup` → `TextInputGroup`, following `TextInput`                | todo   |
+| P5.3c  | `NumberInput` — net new, a `TextInput` bounded to a number                   | todo   |
+| P5.3d  | `NumberPad` — net new, the keypad `NumberInput` and `InputOTP` share         | todo   |
 | P5.4   | `Select` — slots over the existing group context                             | todo   |
 | P5.5   | `Stepper` — slots over the existing group context                            | todo   |
 | P5.6   | `Toolbar` — slots over the existing group context                            | todo   |
 | P5.7   | `List` — slots over the existing group context                               | todo   |
+| P5.7b  | `ListGroup` — net new, sectioned `List` with its headers                     | todo   |
 | P5.8   | `Menu` — slots over the existing group context                               | todo   |
 | P5.9   | `SegmentButton` — slots over the existing group context                      | todo   |
 | P5.10  | `Autocomplete` — slots over the existing group context                       | todo   |
@@ -113,11 +116,15 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.33  | `FeatureDiscovery`                                                           | todo   |
 | P5.34  | `BarChart` — over legacy `VerticalBarChartCard`                              | todo   |
 | P5.34b | `AreaChart` — net new, no legacy equivalent                                  | todo   |
-| P5.34c | `Chart` — Donut, Pie, Line and Heatmap, the legacy cards left over           | todo   |
+| P5.34c | `Chart` — Donut, Pie and Heatmap, the legacy cards left over                 | todo   |
 | P5.34d | `ComposedChart` — net new, several series on shared axes                     | todo   |
+| P5.34e | `LineChart` — over legacy `LineChartCard`                                    | todo   |
 | P5.35  | `CloseButton` — net new, the dismiss affordance Chip and Alert inline today  | todo   |
+| P5.35b | `LinkButton` — net new, a `Button` that reads as a link                      | todo   |
+| P5.35c | `MorphButton` — net new, a `Button` that animates between states             | todo   |
 | P5.36  | `EmptyState` — net new, no legacy equivalent                                 | todo   |
-| P5.37  | Parity milestone — `npm deprecate @xaui/native-legacy`                       | todo   |
+| P5.37  | `FlipCard` — net new, a `Card` with two faces                                | todo   |
+| P5.38  | Parity milestone — `npm deprecate @xaui/native-legacy`                       | todo   |
 | P6     | `@xaui/hybrid` on the v1 API — frozen until P4 ships                         | todo   |
 | P7     | Delete `native-legacy` — not before the P5 parity milestone                  | todo   |
 
