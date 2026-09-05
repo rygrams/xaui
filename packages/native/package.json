@@ -137,6 +137,16 @@
         "default": "./dist/components/input-otp/index.cjs"
       }
     },
+    "./menu": {
+      "import": {
+        "types": "./dist/components/menu/index.d.ts",
+        "default": "./dist/components/menu/index.js"
+      },
+      "require": {
+        "types": "./dist/components/menu/index.d.cts",
+        "default": "./dist/components/menu/index.cjs"
+      }
+    },
     "./popover": {
       "import": {
         "types": "./dist/components/popover/index.d.ts",
