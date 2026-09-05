@@ -32,6 +32,8 @@ export default function RootLayout() {
           <Stack.Screen name="field-group" options={{ title: 'FieldGroup (v1)' }} />
           <Stack.Screen name="icon" options={{ title: 'Icon (v1)' }} />
           <Stack.Screen name="input-otp" options={{ title: 'InputOTP (v1)' }} />
+          <Stack.Screen name="menu" options={{ title: 'Menu (v1)' }} />
+          <Stack.Screen name="popover" options={{ title: 'Popover (v1)' }} />
           <Stack.Screen
             name="pressable-feedback"
             options={{ title: 'PressableFeedback (v1)' }}
@@ -41,6 +43,7 @@ export default function RootLayout() {
           <Stack.Screen name="skeleton" options={{ title: 'Skeleton (v1)' }} />
           <Stack.Screen name="spinner" options={{ title: 'Spinner (v1)' }} />
           <Stack.Screen name="switch" options={{ title: 'Switch (v1)' }} />
+          <Stack.Screen name="tabs" options={{ title: 'Tabs (v1)' }} />
           <Stack.Screen name="text-area" options={{ title: 'TextArea (v1)' }} />
           <Stack.Screen name="text-field" options={{ title: 'TextField (v1)' }} />
           <Stack.Screen name="typography" options={{ title: 'Typography (v1)' }} />

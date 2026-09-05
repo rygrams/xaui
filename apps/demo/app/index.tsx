@@ -36,6 +36,7 @@ const SCREENS = [
   { href: '/skeleton', label: 'Skeleton' },
   { href: '/spinner', label: 'Spinner' },
   { href: '/switch', label: 'Switch' },
+  { href: '/tabs', label: 'Tabs' },
   { href: '/text-area', label: 'TextArea' },
   { href: '/text-field', label: 'TextField' },
   { href: '/typography', label: 'Typography' },
