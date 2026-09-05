@@ -8,10 +8,28 @@ import { useXUITheme } from '../../core'
  * @deprecated Use `Skeleton` from `@xaui/native/skeleton`. This tree is frozen and
  * receives fixes only.
  *
- * The v1 replacement has no `size` and no `lines`: the block is sized by React Native's own
- * `width` and `height` as props, and a paragraph is three of them in a `Column` — which is
- * also where the shorter last line comes from. `isLoading={false}` renders the content the
- * block stood in for, so it is a gate rather than a shape you mount around your own.
+ * **`isLoaded` becomes `isLoading`, which is its opposite** — the one rename in this
+ * component that will silently invert a screen if it is missed, since both are booleans and
+ * both type-check.
+ *
+ * `width` and `height` are no longer props of ours: they are React Native's own keys, taken
+ * as style props (R14), so `width="60%"` works exactly as it does in a stylesheet. There is
+ * no `size` token either — only the caller knows the shape of the thing that is missing.
+ *
+ * `disableAnimation` becomes `animation={false}`, and `skeletonColor` becomes `color`,
+ * which must be a hex value: its slices are derived in OKLab.
+ *
+ * ```tsx
+ * // legacy
+ * <Skeleton isLoaded={!!user} width={140} height={20} disableAnimation>
+ *   <Text>{user?.name}</Text>
+ * </Skeleton>
+ *
+ * // v1
+ * <Skeleton isLoading={!user} width={140} height={20} animation={false}>
+ *   <Typography>{user?.name}</Typography>
+ * </Skeleton>
+ * ```
  */
 export const Skeleton: React.FC<SkeletonProps> = ({
   children,
