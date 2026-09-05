@@ -1,18 +1,17 @@
 import { ScrollView, Text, View } from 'react-native'
 import { Divider } from '@xaui/native/divider'
-import type { DividerSize, DividerVariant } from '@xaui/native/divider'
+import type { DividerSize } from '@xaui/native/divider'
 import { useXAUITheme } from '@xaui/native/theme'
 
-const VARIANTS: DividerVariant[] = ['default', 'secondary', 'tertiary']
 const SIZES: DividerSize[] = ['xs', 'sm', 'md', 'lg']
 
 /**
  * The verification screen for the `Divider`. A component is verified here and in the docs
  * preview, in light and in dark — there is no test file for it.
  *
- * What each section checks is in its subtitle: the three variants get more visible in
- * order, the four thicknesses start at one device pixel, a vertical rule takes its height
- * from the row it is in, and a horizontal one in a row collapses on purpose.
+ * What each section checks is in its subtitle: the four thicknesses start at one device
+ * pixel, a vertical rule takes its height from the row it is in, a raw colour is the only
+ * way to repaint one, and a horizontal rule inside a row collapses on purpose.
  */
 export default function DividerScreen() {
   const theme = useXAUITheme()
@@ -23,25 +22,13 @@ export default function DividerScreen() {
       contentContainerStyle={{ padding: 16, gap: 28, paddingBottom: 96 }}
     >
       <Section
-        title="The three levels"
-        note="separator, separatorSecondary, separatorTertiary — more visible in that order. No primary: a rule in the accent is a decision about the accent, and that is what color is for. No ghost: a rule with no ink is a gap on the parent."
-      >
-        {VARIANTS.map(variant => (
-          <View key={variant} style={{ gap: 6 }}>
-            <Caption>{variant}</Caption>
-            <Divider variant={variant} />
-          </View>
-        ))}
-      </Section>
-
-      <Section
         title="size — the thickness, on the axis the orientation leaves free"
         note="xs is one device pixel, HeroUI's thin; lg is their thick, six points. xs is the default, and it is the one place in the library that does not default to md — a rule you notice is a rule that is too thick."
       >
         {SIZES.map(size => (
           <View key={size} style={{ gap: 6 }}>
             <Caption>{size}</Caption>
-            <Divider size={size} variant="tertiary" />
+            <Divider size={size} />
           </View>
         ))}
       </Section>
@@ -82,7 +69,7 @@ export default function DividerScreen() {
           <Caption>Brouillon</Caption>
           <Divider orientation="vertical" />
           <Caption>Il y a deux minutes</Caption>
-          <Divider orientation="vertical" size="sm" variant="tertiary" />
+          <Divider orientation="vertical" size="sm" />
           <Caption>3 relecteurs</Caption>
         </View>
 
@@ -97,7 +84,7 @@ export default function DividerScreen() {
           <Text style={{ color: theme.colors.foreground, alignSelf: 'center' }}>
             56pt
           </Text>
-          <Divider orientation="vertical" size="md" variant="tertiary" />
+          <Divider orientation="vertical" size="md" />
           <Text style={{ color: theme.colors.muted, alignSelf: 'center' }}>
             the rule fills it
           </Text>
@@ -133,7 +120,7 @@ export default function DividerScreen() {
             borderRadius: theme.radius.sm,
           }}
         >
-          <Divider asChild size="md" variant="tertiary">
+          <Divider asChild size="md">
             <View style={{ opacity: 0.7 }} />
           </Divider>
         </View>
@@ -145,12 +132,12 @@ export default function DividerScreen() {
       >
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
           <Caption>nothing between →</Caption>
-          <Divider size="md" variant="tertiary" />
+          <Divider size="md" />
           <Caption>← these two</Caption>
         </View>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8 }}>
           <Caption>width={'{64}'} →</Caption>
-          <Divider size="md" variant="tertiary" width={64} />
+          <Divider size="md" width={64} />
           <Caption>← and there it is</Caption>
         </View>
       </Section>
