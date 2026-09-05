@@ -106,7 +106,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.23  | `BottomSheet`                                                                    | todo   |
 | P5.23b | `BottomSheetInput` — net new, a `TextField` that opens in a `BottomSheet`        | todo   |
 | P5.24  | `Drawer`                                                                         | todo   |
-| P5.24b | `Popover` — net new, anchored overlay over the `Portal`                          | todo   |
+| P5.24b | `Popover` — Trigger · Overlay · Content · Title · Description · Close            | done   |
 | P5.25  | `Picker`                                                                         | todo   |
 | P5.25b | `WheelPicker` — net new, the spinning column the three below share               | todo   |
 | P5.25c | `WheelDatePicker` — net new, `WheelPicker` columns for a date                    | todo   |

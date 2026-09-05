@@ -30,9 +30,3 @@ export const contentEntering = FadeIn.duration(CONTENT_MS).easing(
 export const contentExiting = FadeOut.duration(CONTENT_MS).easing(
   Easing.in(Easing.ease)
 )
-
-/** The chevron's, shared with the `Select`: heavy enough that a half turn cannot wobble. */
-export const INDICATOR_SPRING = { damping: 140, stiffness: 1000, mass: 4 } as const
-
-/** Degrees. Down when closed, up when open. */
-export const INDICATOR_ROTATION = [0, -180] as const
