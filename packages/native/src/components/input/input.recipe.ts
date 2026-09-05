@@ -11,6 +11,9 @@ const SLOTS = [
   'placeholder',
   'description',
   'error',
+  'prefix',
+  'suffix',
+  'icon',
 ] as const
 
 /**
@@ -81,13 +84,20 @@ const VARIANT_TOKENS: Record<InputVariant, VariantTokens> = {
  * not scale: it is an optical alignment, not a measurement.
  */
 function sizeAxis(step: SizeStep) {
-  const { control, padding, gap, field, label, help, textAreaPadding } = step
+  const { control, padding, gap, field, label, help, glyph, textAreaPadding } = step
 
   return (theme: XAUITheme): SlotStyles<InputSlot> => {
     const inset = { paddingHorizontal: theme.spacing(LABEL_INSET) }
     const helpType = {
       fontSize: theme.fontSizes[help],
       lineHeight: theme.lineHeights[help],
+    }
+    // A decorator is inset by the field's own padding, so the glyph starts where the text
+    // would have; the gap is that same step, which is what separates two of them. The
+    // field then clears the decorator by its *measured* width — see `InputGroup`.
+    const decorator = {
+      paddingHorizontal: theme.spacing(padding),
+      gap: theme.spacing(padding),
     }
 
     return {
@@ -113,12 +123,35 @@ function sizeAxis(step: SizeStep) {
       },
       description: { ...inset, ...helpType },
       error: { ...inset, ...helpType },
+      prefix: decorator,
+      suffix: decorator,
+      icon: { fontSize: theme.fontSizes[glyph] },
     }
   }
 }
 
 /** Half the `md` field's padding. Optical, so it is one value rather than a scale. */
 const LABEL_INSET = 1.5
+
+/**
+ * What `InputGroup.Prefix` and `InputGroup.Suffix` share — everything but the edge they
+ * are pinned to. They are taken **out of flow** and laid over the field, which is what
+ * lets the box stay the `TextInput` itself: no wrapper borrows its border, its fill and
+ * its radius, so an `InputGroup` and a bare `Input` cannot drift apart. The field clears
+ * them by their measured width.
+ *
+ * `zIndex` is not decoration: the prefix is written before the field, so without it the
+ * field's own fill paints over the glyph.
+ */
+const DECORATOR = {
+  position: 'absolute',
+  top: 0,
+  bottom: 0,
+  flexDirection: 'row',
+  alignItems: 'center',
+  justifyContent: 'center',
+  zIndex: 10,
+} as const
 
 type SizeStep = {
   /** The control height the field takes as its minimum. */
@@ -131,6 +164,12 @@ type SizeStep = {
   label: FontSizeKey
   /** `Description` and `Error` — they are the same line at a different colour. */
   help: FontSizeKey
+  /**
+   * One step above the field's own type, exactly as on the `Button` and the `Chip`: a
+   * 16pt glyph beside 16pt of text reads as an icon smaller than the text it sits with.
+   * It is what `InputGroup.Icon` takes when the caller names no size.
+   */
+  glyph: FontSizeKey
   /**
    * The room above and below the text in a multiline field, in spacing steps. A single
    * line is centred in the control height and needs none; several lines start at the top
@@ -155,6 +194,7 @@ const SIZES: Record<InputSize, SizeStep> = {
     field: 'sm',
     label: 'sm',
     help: 'xs',
+    glyph: 'md',
     labelInside: 'xs',
     textAreaPadding: 1.5,
   },
@@ -165,6 +205,7 @@ const SIZES: Record<InputSize, SizeStep> = {
     field: 'md',
     label: 'sm',
     help: 'xs',
+    glyph: 'lg',
     labelInside: 'xs',
     textAreaPadding: 2,
   },
@@ -175,6 +216,7 @@ const SIZES: Record<InputSize, SizeStep> = {
     field: 'md',
     label: 'md',
     help: 'sm',
+    glyph: 'lg',
     labelInside: 'xs',
     textAreaPadding: 2,
   },
@@ -185,6 +227,7 @@ const SIZES: Record<InputSize, SizeStep> = {
     field: 'lg',
     label: 'lg',
     help: 'md',
+    glyph: 'xl',
     labelInside: 'sm',
     textAreaPadding: 2.5,
   },
@@ -278,6 +321,12 @@ export const inputRecipe = createRecipe({
       fontFamily: theme.fontFamilies.body,
       color: theme.colors.danger,
     },
+    prefix: { ...DECORATOR, start: 0 },
+    suffix: { ...DECORATOR, end: 0 },
+    // The glyph sits with the placeholder rather than with the value: a search mark or a
+    // lock is decoration for the text, not text. `paint` leaves it alone, so a tinted
+    // filled field is the one case where the caller names a colour on the icon itself.
+    icon: { color: theme.colors.fieldPlaceholder },
   }),
 
   variantTokens: VARIANT_TOKENS,

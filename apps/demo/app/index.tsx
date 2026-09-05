@@ -23,6 +23,7 @@ const SCREENS = [
   { href: '/input', label: 'Input' },
   { href: '/input-otp', label: 'InputOTP' },
   { href: '/text-area', label: 'TextArea' },
+  { href: '/input-group', label: 'InputGroup' },
 ] as const
 
 export default function HomeScreen() {

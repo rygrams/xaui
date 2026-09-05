@@ -92,6 +92,9 @@ export const InputRoot = forwardRef<View, InputProps>(function Input(
 
   const context = useMemo(() => {
     const placeholder = StyleSheet.flatten<TextStyle>(styles.placeholder)
+    // `size` and `color` are props an icon component takes, not styles it accepts, so the
+    // slot is flattened here rather than in every decorator on the screen.
+    const icon = StyleSheet.flatten<TextStyle>(styles.icon)
     // `rows` is a raw value, so the height it implies is arithmetic `Input.TextArea` does.
     // Flattened once here rather than in every text area on the screen.
     const textArea = StyleSheet.flatten<TextStyle>(styles.textArea)
@@ -109,6 +112,14 @@ export const InputRoot = forwardRef<View, InputProps>(function Input(
       },
       descriptionStyle: styles.description,
       errorStyle: styles.error,
+      prefixStyle: styles.prefix,
+      suffixStyle: styles.suffix,
+      icon: {
+        size: icon.fontSize,
+        // `ColorValue` also covers the platform's opaque colours, which an icon component
+        // takes as a `string` and nothing else.
+        color: typeof icon.color === 'string' ? icon.color : undefined,
+      },
       // `ColorValue` also covers the platform's opaque colours, which `TextInput` cannot
       // take for a placeholder.
       placeholderTextColor:

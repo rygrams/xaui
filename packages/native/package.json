@@ -77,6 +77,16 @@
         "default": "./dist/components/input/index.cjs"
       }
     },
+    "./input-group": {
+      "import": {
+        "types": "./dist/components/input-group/index.d.ts",
+        "default": "./dist/components/input-group/index.js"
+      },
+      "require": {
+        "types": "./dist/components/input-group/index.d.cts",
+        "default": "./dist/components/input-group/index.cjs"
+      }
+    },
     "./input-otp": {
       "import": {
         "types": "./dist/components/input-otp/index.d.ts",
