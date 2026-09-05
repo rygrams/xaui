@@ -60,9 +60,12 @@ component's own **measure**, and the screen.
 The measure is what stops "as wide as its content wants" from meaning the width of the
 screen — a paragraph always wants more, so a panel bounded only by the edges is a
 full-width panel the moment it holds a sentence, and a popover is an aside rather than a
-sheet. Twenty ems of the body size, which is around sixty characters and the top of the
-range a line stays readable over. A multiple of the type rather than a number of points, so
-a theme that scales its type scales the panel with it.
+sheet. Thirteen ems of the body size, about twenty-six characters a line — narrow on
+purpose. A popover is read at a glance, and a glance is two or three short lines rather
+than a paragraph; past that it stops being an aside and starts being a sheet with a tail.
+It is where HeroUI's own panels land too, measured off their placement demos. A multiple of
+the type rather than a number of points, so a theme that scales its type scales the panel
+with it.
 
 ### Both axes are clamped, not only the cross one
 

@@ -11,15 +11,20 @@ import { createRecipe, radiusAxis } from '../../system/recipe'
 const SLOTS = ['trigger', 'overlay', 'content', 'title', 'description'] as const
 
 /**
- * The widest a `content-fit` panel measures, as a multiple of the body size — twenty ems,
- * which is around sixty characters and the top of the range a line stays readable over.
+ * The widest a `content-fit` panel measures, as a multiple of the body size.
+ *
+ * Thirteen ems, which is about twenty-six characters a line — narrow, and deliberately so.
+ * A popover is read at a glance, and a glance is two or three short lines rather than a
+ * paragraph; past this it stops being an aside and starts being a sheet with a tail. It is
+ * also where HeroUI's own panels land, measured off their placement demos: a little over
+ * two hundred points on a three-hundred-and-ninety point screen.
  *
  * A measure rather than a number of points, so a theme that scales its type scales the
- * panel with it. Without one, "as wide as its content wants" means the width of the screen
- * the moment the content is a paragraph, because a paragraph always wants more.
+ * panel with it. Without one at all, "as wide as its content wants" means the width of the
+ * screen the moment the content is a sentence, because a sentence always wants more.
  */
 export function popoverMeasure(fontSize: number): number {
-  return fontSize * 20
+  return fontSize * 13
 }
 
 export const popoverRecipe = createRecipe({
