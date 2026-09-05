@@ -32,7 +32,11 @@ export const Column = forwardRef<View, ColumnProps>(function Column(
   // Declared rather than left implicit: it is React Native's default, but a `Column`
   // that did not state its own axis would break the moment one were composed into a row.
   return (
-    <Root ref={ref} style={[{ flexDirection: 'column' }, styleProps, style]} {...rest}>
+    <Root
+      ref={ref}
+      style={[{ flexDirection: 'column' }, styleProps, style]}
+      {...rest}
+    >
       {children}
     </Root>
   )

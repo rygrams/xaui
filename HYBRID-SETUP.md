@@ -142,7 +142,6 @@ components/ui/browser-preview.tsx   — browser frame wrapper
 ```tsx
 // Usage
 import { BrowserPreview } from '@/components/ui/browser-preview'
-
 ;<BrowserPreview url="localhost">
   <div className="p-4">
     <Alert title="Hello" themeColor="primary" />

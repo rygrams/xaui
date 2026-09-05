@@ -22,7 +22,7 @@ API surface.
 
 ## Current contents
 
-| File | Role |
-| --- | --- |
-| `colors.ts` | OKLab conversions, `mix`, `alpha`, `contrastOn`, `contrastRatio` |
-| `stable-hash.ts` | Content hash behind the theme `id` and the style cache key |
+| File             | Role                                                             |
+| ---------------- | ---------------------------------------------------------------- |
+| `colors.ts`      | OKLab conversions, `mix`, `alpha`, `contrastOn`, `contrastRatio` |
+| `stable-hash.ts` | Content hash behind the theme `id` and the style cache key       |

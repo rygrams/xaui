@@ -6,8 +6,7 @@ publishes the theme, so a second subpath for it bought nothing.
 ```tsx
 import { XAUIProvider } from '@xaui/native/theme'
 import { appTheme } from './theme'
-
-<XAUIProvider theme={appTheme}>
+;<XAUIProvider theme={appTheme}>
   <App />
 </XAUIProvider>
 ```

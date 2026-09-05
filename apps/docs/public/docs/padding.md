@@ -39,7 +39,6 @@ type EdgeInsets =
 
 ```tsx
 import { Padding } from '@xaui/native-legacy/view'
-
 ;<Padding padding={16}>
   <Card />
 </Padding>
@@ -49,7 +48,6 @@ import { Padding } from '@xaui/native-legacy/view'
 
 ```tsx
 import { Padding } from '@xaui/native-legacy/view'
-
 ;<Padding padding={{ horizontal: 24, vertical: 12 }}>
   <Button label="Submit" onPress={handleSubmit} />
 </Padding>
@@ -59,7 +57,6 @@ import { Padding } from '@xaui/native-legacy/view'
 
 ```tsx
 import { Padding } from '@xaui/native-legacy/view'
-
 ;<Padding padding={{ top: 8, bottom: 16, left: 12, right: 12 }}>
   <ListItem title="Settings" />
 </Padding>

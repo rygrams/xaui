@@ -39,7 +39,6 @@ type EdgeInsets =
 
 ```tsx
 import { Margin } from '@xaui/native-legacy/view'
-
 ;<Margin margin={16}>
   <Card />
 </Margin>
@@ -49,7 +48,6 @@ import { Margin } from '@xaui/native-legacy/view'
 
 ```tsx
 import { Margin } from '@xaui/native-legacy/view'
-
 ;<Margin margin={{ vertical: 20 }}>
   <Divider />
 </Margin>
@@ -59,7 +57,6 @@ import { Margin } from '@xaui/native-legacy/view'
 
 ```tsx
 import { Margin } from '@xaui/native-legacy/view'
-
 ;<Margin margin={{ top: 8, bottom: 24, left: 0, right: 0 }}>
   <Section title="Details" />
 </Margin>

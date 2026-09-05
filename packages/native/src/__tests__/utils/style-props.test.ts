@@ -5,7 +5,9 @@ describe('splitStyleProps', () => {
   it('takes the style keys out and leaves everything else in', () => {
     const onPress = vi.fn()
 
-    expect(splitStyleProps({ padding: 16, marginTop: 8, onPress, testID: 'a' })).toEqual([
+    expect(
+      splitStyleProps({ padding: 16, marginTop: 8, onPress, testID: 'a' })
+    ).toEqual([
       { padding: 16, marginTop: 8 },
       { onPress, testID: 'a' },
     ])

@@ -42,11 +42,11 @@ files edited by hand — these are the ones that are unfixable or expensive late
 - [ ] **R7** — only `variant` and `color` in the vocabulary. R14's style props are raw
       overrides, the same category as `style` — flag one used where a `variant` would do.
 - [ ] **R8** — `isX` / `hasX`; `disabled` is not public.
-- [ ] **R9** *(blocking)* — root forwards `ref`, `style` **including `Pressable`'s function
+- [ ] **R9** _(blocking)_ — root forwards `ref`, `style` **including `Pressable`'s function
       form**, `testID`, a11y props; `accessibilityRole` defaults but stays overridable.
 - [ ] **R10** — the context hook is exported (`export { useButton }`).
 - [ ] **R11** — `displayName` namespaced `'XAUI.<Component>.<Slot>'`.
-- [ ] **R12** *(blocking)* — `asChild` is a real render branch through `Slot` /
+- [ ] **R12** _(blocking)_ — `asChild` is a real render branch through `Slot` /
       `mergeProps` + `mergeRefs`, not a prop that is destructured and then ignored.
 - [ ] Caller props are spread **before** the internal press handlers, and those handlers
       compose the caller's `onPressIn` / `onPressOut` rather than replacing them.
@@ -139,7 +139,7 @@ this?
 
 - [ ] Comments explain **why**, never **what** — the code says what. A comment restating the
       line below it is noise and drifts out of date.
-- [ ] The non-obvious decision *is* commented: a resolution order that must not change, a
+- [ ] The non-obvious decision _is_ commented: a resolution order that must not change, a
       prop spread whose position is load-bearing, a memo that exists for a specific bug.
 - [ ] No `console.log`, no `console.error`, no `debugger`.
 
