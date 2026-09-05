@@ -21,8 +21,22 @@ export type SlotStyles<Slot extends string> = Partial<Record<Slot, SlotStyle>>
  * **A state that reads a role must find it declared on every variant.** The merge is a
  * shallow spread, so a `borderColor: colors.borderFocus` on a variant that names no
  * `borderFocus` writes `undefined` over the colour `paint` had set.
+ *
+ * `bgSelected` and `fgSelected` are the same reasoning for a control that **toggles**:
+ * `bg` is the box at rest and `bgSelected` is the box once it is on, with `fgSelected`
+ * the mark that has to read against it. They are roles rather than tokens named in an
+ * `isSelected` axis for one reason — **the tint pass re-runs `paint` and the states, not
+ * the axes** — and that is what makes a raw `color` the colour a `Checkbox` checks in,
+ * rather than a colour that disappears the moment it is ticked.
  */
-export type VariantRole = 'bg' | 'bgPressed' | 'fg' | 'border' | 'borderFocus'
+export type VariantRole =
+  | 'bg'
+  | 'bgPressed'
+  | 'bgSelected'
+  | 'fg'
+  | 'fgSelected'
+  | 'border'
+  | 'borderFocus'
 
 /** Token names per role — no colour value ever appears in a recipe. */
 export type VariantTokens = Partial<Record<VariantRole, keyof XAUIColors>>

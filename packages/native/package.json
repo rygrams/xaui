@@ -57,6 +57,16 @@
         "default": "./dist/components/card/index.cjs"
       }
     },
+    "./checkbox": {
+      "import": {
+        "types": "./dist/components/checkbox/index.d.ts",
+        "default": "./dist/components/checkbox/index.js"
+      },
+      "require": {
+        "types": "./dist/components/checkbox/index.d.cts",
+        "default": "./dist/components/checkbox/index.cjs"
+      }
+    },
     "./chip": {
       "import": {
         "types": "./dist/components/chip/index.d.ts",
