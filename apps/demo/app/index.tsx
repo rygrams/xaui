@@ -19,6 +19,7 @@ const SCREENS = [
   { href: '/icon', label: 'Icon' },
   { href: '/view', label: 'Layout' },
   { href: '/chip', label: 'Chip' },
+  { href: '/accordion', label: 'Accordion' },
   { href: '/alert', label: 'Alert' },
   { href: '/text-field', label: 'TextField' },
   { href: '/input-otp', label: 'InputOTP' },
