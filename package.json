@@ -14,6 +14,7 @@
     "test": "turbo run test",
     "lint": "turbo run lint",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,md}\"",
     "tokens:generate": "tsx tooling/tokens/generate.ts",
     "tokens:check": "tsx tooling/tokens/generate.ts --check",
     "pack:check": "tsx tooling/pack-check/check.ts",

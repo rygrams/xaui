@@ -63,6 +63,31 @@ jobs:
       - name: '@xaui/native resolves once, and every subpath ships'
         run: pnpm pack:check
 
+  format:
+    name: Prettier Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: pnpm/action-setup@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # Mirrors `pnpm format` exactly — same glob, same .prettierignore — so a red run
+      # is always fixed by running `pnpm format` and committing the result.
+      - name: Format
+        run: pnpm format:check
+
   lint:
     name: ESLint Check
     runs-on: ubuntu-latest
