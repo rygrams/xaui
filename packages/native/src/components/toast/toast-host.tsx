@@ -2,10 +2,35 @@ import { useCallback, useId, useMemo, useRef, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import type { ReactNode } from 'react'
 import type { StyleProp, ViewStyle } from 'react-native'
-import Animated, { useAnimatedStyle, withTiming } from 'react-native-reanimated'
+// An **optional** peer of this package, reached only through `@xaui/native/toast`, so a
+// project that never imports the toast never loads it — the same arrangement the
+// `BottomSheet` has with its drag.
+import { Gesture, GestureDetector } from 'react-native-gesture-handler'
+import Animated, {
+  Extrapolation,
+  interpolate,
+  runOnJS,
+  useAnimatedStyle,
+  useDerivedValue,
+  useSharedValue,
+  withDecay,
+  withSpring,
+  withTiming,
+} from 'react-native-reanimated'
+import { Dimensions } from 'react-native'
 import { Portal } from '../../system/portal'
 import { useXAUITheme } from '../../theme/theme-hooks'
-import { STACK_TIMING, toastEntering, toastExiting } from './toast.animation'
+import {
+  DRAG_RUBBER,
+  PRESS_SCALE,
+  STACK_TIMING,
+  SWIPE_DECAY,
+  SWIPE_DISTANCE,
+  SWIPE_HIDE_MS,
+  SWIPE_VELOCITY,
+  toastEntering,
+  toastExiting,
+} from './toast.animation'
 import { ToastDismissContext, ToastQueueContext } from './toast.context'
 import type { ToastOptions, ToastPlacement, ToastRecord } from './toast.type'
 import { toastStackStyle } from './toast.utils'
@@ -28,6 +53,13 @@ export type ToastHostProps = {
    * @default 3
    */
   maxVisible?: number
+  /**
+   * Whether the front card can be thrown away with a swipe — up for a top stack, down for
+   * a bottom one. The pile empties one card at a time, each swipe promoting the next.
+   *
+   * @default true
+   */
+  isSwipeable?: boolean
 }
 
 /**
@@ -45,6 +77,7 @@ export function ToastHost({
   placement = 'bottom',
   duration = 4000,
   maxVisible = 3,
+  isSwipeable = true,
 }: ToastHostProps) {
   const theme = useXAUITheme()
   const [records, setRecords] = useState<readonly ToastRecord[]>([])
@@ -126,6 +159,8 @@ export function ToastHost({
                 depth={records.length - 1 - index}
                 placement={placement}
                 maxVisible={maxVisible}
+                isSwipeable={isSwipeable}
+                onSwipe={() => dismiss(record.id)}
                 style={entry}
               >
                 <ToastDismissContext.Provider value={() => dismiss(record.id)}>
@@ -141,24 +176,31 @@ export function ToastHost({
 }
 
 /**
- * One card in the pile, at the depth the stack put it.
+ * One card in the pile, at the depth the stack put it, and draggable if it is in front.
  *
  * A component rather than a branch in the map, because the animated style is a hook and a
- * hook cannot be called per iteration. It reads the three numbers in JS and animates them
- * on the UI thread, so a dismissal slides the whole pile forward by one instead of
- * snapping it.
+ * hook cannot be called per iteration.
+ *
+ * **The stack and the drag are separate values that compose.** The stack's three numbers
+ * are animated through `useDerivedValue`, not written straight into the style, because
+ * `withTiming` produces a value a style may hold and not one arithmetic may touch — and
+ * the transform is the sum of where the pile put the card and where the finger has it.
  */
 function ToastStackEntry({
   children,
   depth,
   placement,
   maxVisible,
+  isSwipeable,
+  onSwipe,
   style,
 }: {
   children: ReactNode
   depth: number
   placement: ToastPlacement
   maxVisible: number
+  isSwipeable: boolean
+  onSwipe: () => void
   style: StyleProp<ViewStyle>
 }) {
   const { translateY, scale, opacity } = toastStackStyle(
@@ -167,28 +209,109 @@ function ToastStackEntry({
     maxVisible
   )
 
-  const stacking = useAnimatedStyle(
-    () => ({
-      opacity: withTiming(opacity, STACK_TIMING),
-      transform: [
-        { translateY: withTiming(translateY, STACK_TIMING) },
-        { scale: withTiming(scale, STACK_TIMING) },
-      ],
-    }),
-    [translateY, scale, opacity]
+  const stackY = useDerivedValue(
+    () => withTiming(translateY, STACK_TIMING),
+    [translateY]
+  )
+  const stackScale = useDerivedValue(() => withTiming(scale, STACK_TIMING), [scale])
+  const fade = useDerivedValue(() => withTiming(opacity, STACK_TIMING), [opacity])
+
+  const drag = useSharedValue(0)
+  const press = useSharedValue(1)
+
+  // Read here, not in the gesture: `Dimensions` is a JS module, and the callbacks below run
+  // on the UI thread where it does not exist.
+  const screenHeight = Dimensions.get('window').height
+
+  // Away from the edge the stack sits against: a top card leaves upward, a bottom one down.
+  const away = placement === 'top' ? -1 : 1
+
+  const pan = Gesture.Pan()
+    // Only the card in front. The ones behind show a seven-point shoulder — a target under
+    // any reasonable minimum, and dragging the second card out from under the first reads
+    // as a glitch rather than as a dismissal.
+    .enabled(isSwipeable && depth === 0)
+    .onBegin(() => {
+      press.set(PRESS_SCALE)
+    })
+    .onChange(event => {
+      const towardExit = event.translationY * away
+
+      if (towardExit > 0) {
+        drag.set(event.translationY)
+        return
+      }
+
+      // The wrong way is not refused, it is resisted: the whole screen's travel maps onto
+      // forty points, so the card answers the finger without pretending it can go there.
+      const give = interpolate(
+        Math.abs(event.translationY),
+        [0, screenHeight],
+        [0, DRAG_RUBBER],
+        Extrapolation.CLAMP
+      )
+      drag.set(-give * away)
+    })
+    .onFinalize(event => {
+      press.set(1)
+
+      const towardExit = event.translationY * away > 0
+      const farEnough = Math.abs(event.translationY) > SWIPE_DISTANCE
+      const fastEnough = Math.abs(event.velocityY) > SWIPE_VELOCITY
+
+      if (!towardExit || !(farEnough || fastEnough)) {
+        drag.set(withSpring(0))
+        return
+      }
+
+      // The throw carries on at the speed the finger left it, clamped so a decay cannot
+      // curve the card back across the screen it was thrown off.
+      drag.set(
+        withDecay({
+          velocity: event.velocityY * SWIPE_DECAY,
+          clamp:
+            away === 1
+              ? [0, Number.POSITIVE_INFINITY]
+              : [Number.NEGATIVE_INFINITY, 0],
+        })
+      )
+      // After the decay has read as motion, not before: removing the record now would cut
+      // the throw off at the frame the finger lifted.
+      runOnJS(hideAfterThrow)(event.velocityY)
+    })
+
+  // A hard flick is gone sooner than a soft one, and neither before the throw has shown.
+  const hideAfterThrow = useCallback(
+    (velocity: number) => {
+      setTimeout(onSwipe, Math.min(SWIPE_HIDE_MS, Math.abs(velocity)))
+    },
+    [onSwipe]
   )
 
+  const stacking = useAnimatedStyle(() => ({
+    opacity: fade.get(),
+    transform: [
+      { translateY: stackY.get() + drag.get() },
+      { scale: stackScale.get() * press.get() },
+    ],
+  }))
+
   return (
-    <Animated.View
-      // `none` past the last visible card: a transparent card is still a target, and a
-      // press meant for the front one must not land on something nobody can see.
-      pointerEvents={opacity === 0 ? 'none' : 'box-none'}
-      entering={toastEntering(placement)}
-      exiting={toastExiting(placement)}
-      style={[style, stacking]}
-    >
-      {children}
-    </Animated.View>
+    <GestureDetector gesture={pan}>
+      <Animated.View
+        // The wrapper is the card's own box, so `auto` swallows nothing the card would not
+        // have swallowed — and a `GestureDetector` needs a child that takes touches at all,
+        // which `box-none` is not. `none` past the last visible card: a transparent card is
+        // still a target, and a press meant for the front one must not land on something
+        // nobody can see.
+        pointerEvents={opacity === 0 ? 'none' : 'auto'}
+        entering={toastEntering(placement)}
+        exiting={toastExiting(placement)}
+        style={[style, stacking]}
+      >
+        {children}
+      </Animated.View>
+    </GestureDetector>
   )
 }
 

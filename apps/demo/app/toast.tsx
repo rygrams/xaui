@@ -69,7 +69,7 @@ function Screen() {
 
       <Section
         title="The stack keeps three, and drops the oldest"
-        note="Every card is anchored to the same edge and pushed back by its transform alone — 10 points toward the edge and 3% smaller per step, HeroUI’s values — so a pile of eight costs the height of one. Press five times quickly: three shoulders, and the rest are queued at zero opacity rather than dropped. Each one that expires promotes the next into view."
+        note="Every card is anchored to the same edge and pushed back by its transform alone — 10 points toward the edge and 3% smaller per step, HeroUI’s values — so a pile of eight costs the height of one. Press five times quickly: three shoulders, and the rest are queued at zero opacity rather than dropped. Then throw the front card away from its edge — 50 points or 500 a second — and each swipe promotes the next."
       >
         <View style={{ flexDirection: 'row', gap: 8 }}>
           <Button

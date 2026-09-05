@@ -122,6 +122,31 @@ Newest is painted last, so it lands in front without a `zIndex`. A card past `ma
 takes no touches: a transparent card is still a target, and a press meant for the front one
 must not land on something nobody can see.
 
+## The swipe
+
+The front card is thrown away by dragging it **away from its edge** — up on a top stack,
+down on a bottom one. The pile empties one card at a time, each swipe promoting the next.
+
+It goes past **50 points or 500 points a second**, HeroUI's thresholds, and either alone is
+enough: distance without velocity refuses a flick that clearly meant it, velocity without
+distance refuses a slow deliberate push. A toast is glanced at, so both readings count.
+
+Dragged the wrong way it **resists rather than refuses** — the whole screen's travel maps
+onto 40 points, so the card answers the finger without pretending it can go there. Under a
+finger it sinks half a percent, which is meant to be felt rather than seen.
+
+The throw carries on at the speed the finger left it (`withDecay`, velocity × 1.5) and the
+record goes a moment later, so a hard flick leaves faster than a soft one and neither is cut
+off at the frame the finger lifted.
+
+**Only the card in front.** The ones behind show a seven-point shoulder — a target under any
+reasonable minimum, and dragging the second card out from under the first reads as a glitch
+rather than as a dismissal.
+
+The gesture runs on `react-native-gesture-handler`, an **optional** peer of this package.
+It is reached only through `@xaui/native/toast`, so a project that never imports a toast
+never loads it. Set `isSwipeable={false}` to leave the pile alone.
+
 ### `Toast`
 
 | prop      | type           | default   | description                 |
