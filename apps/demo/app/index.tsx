@@ -22,6 +22,7 @@ const SCREENS = [
   { href: '/alert', label: 'Alert' },
   { href: '/text-field', label: 'TextField' },
   { href: '/input-otp', label: 'InputOTP' },
+  { href: '/tabs', label: 'Tabs' },
   { href: '/text-area', label: 'TextArea' },
   { href: '/field-group', label: 'FieldGroup' },
   { href: '/checkbox', label: 'Checkbox' },
