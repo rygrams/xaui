@@ -22,12 +22,12 @@ import { TextArea } from '@xaui/native/text-area'
 </TextArea>
 ```
 
-### It is an `Input`
+### It is a `TextField`
 
-Not "like" one — it **is** one. `TextArea` renders the `Input`'s root: the same recipe, the
+Not "like" one — it **is** one. `TextArea` renders the `TextField`'s root: the same recipe, the
 same resolved context, the same four variants, the same `size`, `radius`, `color`,
 `labelPlacement`, `isInvalid` and `isDisabled`. `TextArea.Label`, `TextArea.Description` and
-`TextArea.Error` are literally the `Input`'s slots, re-exported rather than wrapped — a
+`TextArea.Error` are literally the `TextField`'s slots, re-exported rather than wrapped — a
 wrapper would add three components to the tree to change a `displayName`, and the string it
 would change is the one telling you the truth.
 
@@ -35,10 +35,10 @@ would change is the one telling you the truth.
 and a height counted in lines.
 
 That is also HeroUI's answer — [their `TextArea`](https://github.com/heroui-inc/heroui-native/tree/main/src/components/text-area)
-is twenty lines rendering their `Input` with the same three defaults. A component of its own
+is twenty lines rendering their `TextField` with the same three defaults. A component of its own
 is what a caller looks for; sharing every line of it is what keeps the two from drifting.
 
-So **everything in [`input.md`](../input/input.md) applies here**, and this page only covers
+So **everything in [`input.md`](../text-field/text-field.md) applies here**, and this page only covers
 what is added.
 
 ## Usage
@@ -90,7 +90,7 @@ style prop away (R14), rather than a second API:
 </TextArea>
 ```
 
-### Everything the `Input` does
+### Everything the `TextField` does
 
 ```tsx
 <TextArea rows={2} variant="tertiary" size="lg" labelPlacement="inside" isInvalid>
@@ -108,7 +108,7 @@ text area as they do to the field.
 
 ### `TextArea`
 
-Everything the [`Input` root](../input/input.md#input) accepts, plus:
+Everything the [`TextField` root](../text-field/text-field.md#input) accepts, plus:
 
 | Prop      | Type     | Default | Notes                                          |
 | --------- | -------- | ------- | ---------------------------------------------- |
@@ -117,30 +117,30 @@ Everything the [`Input` root](../input/input.md#input) accepts, plus:
 
 ### `TextArea.Field`
 
-Everything [`Input.Field`](../input/input.md#inputfield) accepts except `multiline`, which
+Everything [`TextField.Field`](../text-field/text-field.md#inputfield) accepts except `multiline`, which
 it sets. `scrollEnabled` defaults to whether `maxRows` was given.
 
 ### `TextArea.Label`, `TextArea.Description`, `TextArea.Error`
 
-The `Input`'s, unchanged. See [`input.md`](../input/input.md).
+The `TextField`'s, unchanged. See [`input.md`](../text-field/text-field.md).
 
 ## Extending it
 
-`useTextArea()` carries **only** the two row counts — the one thing the `Input`'s own
-context cannot, because `rows` is not the `Input`'s business and a prop that does nothing in
-the common case reads as broken. Everything visual comes from `useInput()`, because the
+`useTextArea()` carries **only** the two row counts — the one thing the `TextField`'s own
+context cannot, because `rows` is not the `TextField`'s business and a prop that does nothing in
+the common case reads as broken. Everything visual comes from `useTextField()`, because the
 styles were resolved there.
 
 ```tsx
-import { useInput } from '@xaui/native/input'
+import { useTextField } from '@xaui/native/text-field'
 import { useTextArea } from '@xaui/native/text-area'
 ```
 
 ## Accessibility
 
-The `Input`'s, unchanged: the wrapper has no role, the field points at the label with
+The `TextField`'s, unchanged: the wrapper has no role, the field points at the label with
 `aria-labelledby` and at the description with `aria-describedby`, and `aria-invalid` follows
-`isInvalid`. See [`input.md`](../input/input.md#accessibility).
+`isInvalid`. See [`input.md`](../text-field/text-field.md#accessibility).
 
 ## Migration from `@xaui/native-legacy`
 
@@ -149,4 +149,4 @@ The `Input`'s, unchanged: the wrapper has no role, the field points at the label
 | `<TextArea minRows>` | `<TextArea rows>` — the same idea under React Native's word |
 | `maxRows`            | `maxRows`, unchanged                                        |
 | `label="…"`          | `<TextArea.Label>…</TextArea.Label>`                        |
-| everything else      | see the `Input`'s table — it is the same component          |
+| everything else      | see the `TextField`'s table — it is the same component      |

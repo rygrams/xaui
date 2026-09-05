@@ -1,5 +1,5 @@
 import type { ReactNode } from 'react'
-import type { InputFieldProps, InputProps } from '../input'
+import type { TextFieldFieldProps, TextFieldProps } from '../text-field'
 
 type TextAreaOwnProps = {
   /**
@@ -19,22 +19,22 @@ type TextAreaOwnProps = {
 }
 
 /**
- * Everything the `Input` root understands, plus the two the shape of a multiline field
+ * Everything the `TextField` root understands, plus the two the shape of a multiline field
  * needs. They sit on the **root** rather than on `TextArea.Field` for the reason `size`
  * and `variant` do: the root is where the field's shape is decided, and the slot reads
  * what it resolved.
  */
-export type TextAreaProps = Omit<InputProps, 'children'> & TextAreaOwnProps
+export type TextAreaProps = Omit<TextFieldProps, 'children'> & TextAreaOwnProps
 
 /**
- * Everything `Input.Field` accepts except `multiline`, which this sets — it is the same
+ * Everything `TextField.Field` accepts except `multiline`, which this sets — it is the same
  * `TextInput`, and the same props, with the three things several lines need.
  */
-export type TextAreaFieldProps = Omit<InputFieldProps, 'multiline'>
+export type TextAreaFieldProps = Omit<TextFieldFieldProps, 'multiline'>
 
 /**
- * The one thing the `Input`'s own context cannot carry, because `rows` is not the
- * `Input`'s business: a single-line field has no use for it, and a prop that does nothing
+ * The one thing the `TextField`'s own context cannot carry, because `rows` is not the
+ * `TextField`'s business: a single-line field has no use for it, and a prop that does nothing
  * in the common case is a prop that reads as broken.
  */
 export type TextAreaContextValue = {

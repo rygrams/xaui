@@ -1,7 +1,11 @@
 import { createRecipe, radiusAxis } from '../../system/recipe'
 import type { SlotStyles, VariantTokens } from '../../system/recipe'
 import type { FontSizeKey, Size, XAUITheme } from '../../theme/theme.type'
-import type { InputSize, InputSlot, InputVariant } from './input.type'
+import type {
+  TextFieldSize,
+  TextFieldSlot,
+  TextFieldVariant,
+} from './text-field.type'
 
 const SLOTS = [
   'root',
@@ -38,7 +42,7 @@ const SLOTS = [
  * declaration is inert there — cheaper than a state function that has to know which
  * variants it is allowed to run for.
  */
-const VARIANT_TOKENS: Record<InputVariant, VariantTokens> = {
+const VARIANT_TOKENS: Record<TextFieldVariant, VariantTokens> = {
   primary: {
     bg: 'fieldBackground',
     border: 'fieldBorder',
@@ -86,7 +90,7 @@ const VARIANT_TOKENS: Record<InputVariant, VariantTokens> = {
 function sizeAxis(step: SizeStep) {
   const { control, padding, gap, field, label, help, glyph, textAreaPadding } = step
 
-  return (theme: XAUITheme): SlotStyles<InputSlot> => {
+  return (theme: XAUITheme): SlotStyles<TextFieldSlot> => {
     const inset = { paddingHorizontal: theme.spacing(LABEL_INSET) }
     const helpType = {
       fontSize: theme.fontSizes[help],
@@ -94,7 +98,7 @@ function sizeAxis(step: SizeStep) {
     }
     // A decorator is inset by the field's own padding, so the glyph starts where the text
     // would have; the gap is that same step, which is what separates two of them. The
-    // field then clears the decorator by its *measured* width — see `InputGroup`.
+    // field then clears the decorator by its *measured* width — see `FieldGroup`.
     const decorator = {
       paddingHorizontal: theme.spacing(padding),
       gap: theme.spacing(padding),
@@ -112,7 +116,7 @@ function sizeAxis(step: SizeStep) {
         paddingHorizontal: theme.spacing(padding),
         fontSize: theme.fontSizes[field],
       },
-      // Only what a multiline field *adds* — `Input.TextArea` layers this over the field's
+      // Only what a multiline field *adds* — `TextField.TextArea` layers this over the field's
       // own style rather than restating it, so the colours, the border and the radius are
       // resolved once for both. The height is not here: `rows` is a raw value, and the
       // slot computes it from the two numbers below.
@@ -134,10 +138,10 @@ function sizeAxis(step: SizeStep) {
 const LABEL_INSET = 1.5
 
 /**
- * What `InputGroup.Prefix` and `InputGroup.Suffix` share — everything but the edge they
+ * What `FieldGroup.Prefix` and `FieldGroup.Suffix` share — everything but the edge they
  * are pinned to. They are taken **out of flow** and laid over the field, which is what
  * lets the box stay the `TextInput` itself: no wrapper borrows its border, its fill and
- * its radius, so an `InputGroup` and a bare `Input` cannot drift apart. The field clears
+ * its radius, so a `FieldGroup` and a bare `TextField` cannot drift apart. The field clears
  * them by their measured width.
  *
  * `zIndex` is not decoration: the prefix is written before the field, so without it the
@@ -167,7 +171,7 @@ type SizeStep = {
   /**
    * One step above the field's own type, exactly as on the `Button` and the `Chip`: a
    * 16pt glyph beside 16pt of text reads as an icon smaller than the text it sits with.
-   * It is what `InputGroup.Icon` takes when the caller names no size.
+   * It is what `FieldGroup.Icon` takes when the caller names no size.
    */
   glyph: FontSizeKey
   /**
@@ -186,7 +190,7 @@ type SizeStep = {
  * has a single step; ours moves around that one, a control height and a step of type at a
  * time.
  */
-const SIZES: Record<InputSize, SizeStep> = {
+const SIZES: Record<TextFieldSize, SizeStep> = {
   xs: {
     control: 'xs',
     padding: 2.5,
@@ -245,7 +249,7 @@ const SIZES: Record<InputSize, SizeStep> = {
 function insideLabel(step: SizeStep) {
   const { control, padding, field, labelInside } = step
 
-  return (theme: XAUITheme): SlotStyles<InputSlot> => {
+  return (theme: XAUITheme): SlotStyles<TextFieldSlot> => {
     const top = theme.spacing(LABEL_INSIDE_TOP)
     // What the label occupies before the text can start.
     const block = top + theme.lineHeights[labelInside]
@@ -273,7 +277,7 @@ function insideLabel(step: SizeStep) {
         paddingTop: block,
         paddingBottom: top,
       },
-      // The same room, because `Input.TextArea` layers its own padding over the field's
+      // The same room, because `TextField.TextArea` layers its own padding over the field's
       // and would otherwise put the first line back under the label.
       textArea: { paddingTop: block, paddingBottom: top },
     }
@@ -283,7 +287,7 @@ function insideLabel(step: SizeStep) {
 /** How far the inside label sits below the top of the box. */
 const LABEL_INSIDE_TOP = 1.5
 
-export const inputRecipe = createRecipe({
+export const textFieldRecipe = createRecipe({
   slots: SLOTS,
 
   base: theme => ({

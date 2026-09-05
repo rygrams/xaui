@@ -1,20 +1,20 @@
-import { InputDescription, InputError, InputLabel } from '../input'
+import { TextFieldDescription, TextFieldError, TextFieldLabel } from '../text-field'
 import { TextAreaField } from './text-area-field'
 import { TextAreaRoot } from './text-area'
 
 /**
- * Three of the four slots **are** the `Input`'s, re-exported rather than wrapped.
+ * Three of the four slots **are** the `TextField`'s, re-exported rather than wrapped.
  *
  * A wrapper would add three components to the tree to change a `displayName` string, and
- * the string it would change is the one that tells you the truth: a `XAUI.Input.Label`
+ * the string it would change is the one that tells you the truth: a `XAUI.TextField.Label`
  * showing up inside a `XAUI.TextArea.Root` is exactly what is happening. Only the field
  * differs, and it is the only one written here.
  */
 export const TextArea = Object.assign(TextAreaRoot, {
-  Label: InputLabel,
+  Label: TextFieldLabel,
   Field: TextAreaField,
-  Description: InputDescription,
-  Error: InputError,
+  Description: TextFieldDescription,
+  Error: TextFieldError,
 })
 
 export { useTextArea } from './text-area.context'

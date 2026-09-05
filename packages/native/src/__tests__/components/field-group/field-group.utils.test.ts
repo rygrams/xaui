@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { decoratorPadding } from '../../../components/input-group/input-group.utils'
+import { decoratorPadding } from '../../../components/field-group/field-group.utils'
 
 describe('decoratorPadding', () => {
   it('is nothing at all when neither decorator is there', () => {

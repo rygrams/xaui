@@ -1,17 +1,17 @@
 import { useState } from 'react'
 import { ScrollView, Text, View } from 'react-native'
 import { TextArea } from '@xaui/native/text-area'
-import type { InputVariant } from '@xaui/native/input'
+import type { TextFieldVariant } from '@xaui/native/text-field'
 import { useXAUITheme } from '@xaui/native/theme'
 
-const VARIANTS: InputVariant[] = ['primary', 'secondary', 'tertiary', 'ghost']
+const VARIANTS: TextFieldVariant[] = ['primary', 'secondary', 'tertiary', 'ghost']
 
 /**
  * The verification screen for the `TextArea`. A component is verified here and in the docs
  * preview, in light and in dark — there is no test file for it.
  *
- * What each section checks is in its subtitle: it is an `Input`, so every one of the
- * `Input`'s props still works on it; `rows` is a height in lines rather than in points;
+ * What each section checks is in its subtitle: it is a `TextField`, so every one of the
+ * `TextField`'s props still works on it; `rows` is a height in lines rather than in points;
  * `maxRows` is what turns scrolling on; and the label placement composes with all of it.
  */
 export default function TextAreaScreen() {
@@ -65,8 +65,8 @@ export default function TextAreaScreen() {
       </Section>
 
       <Section
-        title="It is an Input — every one of its props still works"
-        note="The root is the Input's root: the same recipe, the same resolved context, the same four levels. Label, Description and Error are literally the Input's slots, re-exported rather than wrapped."
+        title="It is a TextField — every one of its props still works"
+        note="The root is the TextField's root: the same recipe, the same resolved context, the same four levels. Label, Description and Error are literally the TextField's slots, re-exported rather than wrapped."
       >
         {VARIANTS.map(variant => (
           <TextArea key={variant} rows={2} variant={variant}>
@@ -78,7 +78,7 @@ export default function TextAreaScreen() {
 
       <Section
         title="isInvalid, isDisabled, labelPlacement, size, color"
-        note="Nothing here is the TextArea's own — it inherits all of it by being an Input. The inside label keeps its room at the top and the first line starts below it."
+        note="Nothing here is the TextArea's own — it inherits all of it by being a TextField. The inside label keeps its room at the top and the first line starts below it."
       >
         <TextArea rows={2} isInvalid>
           <TextArea.Label>Trop court</TextArea.Label>

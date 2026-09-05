@@ -2,33 +2,33 @@ import { forwardRef, useCallback } from 'react'
 import { View } from 'react-native'
 import type { LayoutChangeEvent } from 'react-native'
 import { useStyleProps } from '../../system/style-props'
-import { useInput } from '../input'
-import { useInputGroup } from './input-group.context'
-import type { InputGroupPrefixProps, InputGroupSide } from './input-group.type'
+import { useTextField } from '../text-field'
+import { useFieldGroup } from './field-group.context'
+import type { FieldGroupPrefixProps, FieldGroupSide } from './field-group.type'
 
-type InputGroupDecoratorProps = InputGroupPrefixProps & {
-  side: InputGroupSide
+type FieldGroupDecoratorProps = FieldGroupPrefixProps & {
+  side: FieldGroupSide
 }
 
 /**
- * What `InputGroup.Prefix` and `InputGroup.Suffix` both are. They differ by an edge and by
+ * What `FieldGroup.Prefix` and `FieldGroup.Suffix` both are. They differ by an edge and by
  * which width they report, and one component with a `side` says that better than two
  * copies of thirty lines that have to be kept identical by hand.
  *
  * It is not exported: a side is not a decision a caller should have to make twice, and
- * `<InputGroup.Prefix>` already reads as the leading edge.
+ * `<FieldGroup.Prefix>` already reads as the leading edge.
  *
  * The measurement is the point of this node. The decorator is out of flow, so it cannot
  * push the text aside the way a sibling in a row would — it measures itself and the field
  * clears it by that width. A caller's own `onLayout` is composed, never replaced.
  */
-export const InputGroupDecorator = forwardRef<View, InputGroupDecoratorProps>(
-  function InputGroupDecorator(
+export const FieldGroupDecorator = forwardRef<View, FieldGroupDecoratorProps>(
+  function FieldGroupDecorator(
     { side, children, isDecorative = false, onLayout, style, ...props },
     ref
   ) {
-    const { prefixStyle, suffixStyle, isDisabled } = useInput()
-    const { setPrefixWidth, setSuffixWidth } = useInputGroup()
+    const { prefixStyle, suffixStyle, isDisabled } = useTextField()
+    const { setPrefixWidth, setSuffixWidth } = useFieldGroup()
     const [styleProps, rest] = useStyleProps(props)
 
     const report = side === 'prefix' ? setPrefixWidth : setSuffixWidth
@@ -65,4 +65,4 @@ export const InputGroupDecorator = forwardRef<View, InputGroupDecoratorProps>(
   }
 )
 
-InputGroupDecorator.displayName = 'XAUI.InputGroup.Decorator'
+FieldGroupDecorator.displayName = 'XAUI.FieldGroup.Decorator'

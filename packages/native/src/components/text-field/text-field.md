@@ -1,38 +1,38 @@
-# Input
+# TextField
 
 A text field, with the label, the hint and the error that make it usable.
 
 ## Import
 
 ```tsx
-import { Input } from '@xaui/native/input'
+import { TextField } from '@xaui/native/text-field'
 ```
 
 ## Anatomy
 
 ```tsx
-<Input>
-  <Input.Label />
-  <Input.Field />
-  <Input.Description />
-  <Input.Error />
-</Input>
+<TextField>
+  <TextField.Label />
+  <TextField.Field />
+  <TextField.Description />
+  <TextField.Error />
+</TextField>
 ```
 
-- **`Input`** — the root, and it is the **column, not the field**. A `View` that resolves
+- **`TextField`** — the root, and it is the **column, not the field**. A `View` that resolves
   the recipe once and publishes the resolved styles to its slots. It owns the focus state,
   because the recipe resolves on it (R5).
-- **`Input.Field`** — the `TextInput`. Everything `TextInput` accepts is written here:
+- **`TextField.Field`** — the `TextInput`. Everything `TextInput` accepts is written here:
   `value`, `onChangeText`, `keyboardType`, `secureTextEntry`, `autoComplete`.
 
-- **`Input.Label`** — what the field is for. It carries the id the field points at.
-- **`Input.Description`** — the hint under the field: the format expected, what the value
+- **`TextField.Label`** — what the field is for. It carries the id the field points at.
+- **`TextField.Description`** — the hint under the field: the format expected, what the value
   is used for.
-- **`Input.Error`** — what is wrong with the value, in `danger`.
+- **`TextField.Error`** — what is wrong with the value, in `danger`.
 
 **The root is the column** so that the label, the hint and the error are slots of one
 component rather than three components a form has to keep in step. That is also why
-`TextInputProps` are on `Input.Field` and not on the root: the field is the node that has
+`TextInputProps` are on `TextField.Field` and not on the root: the field is the node that has
 them.
 
 **No auto-wrap** (R3), unlike `Button`, `Card`, `Chip` and `Alert`: a string child of an
@@ -46,9 +46,9 @@ JSX order is screen order — a label under the field is a matter of where you w
 ### Basic
 
 ```tsx
-<Input>
-  <Input.Label>Courriel</Input.Label>
-  <Input.Field
+<TextField>
+  <TextField.Label>Courriel</TextField.Label>
+  <TextField.Field
     value={email}
     onChangeText={setEmail}
     placeholder="nom@exemple.fr"
@@ -56,30 +56,30 @@ JSX order is screen order — a label under the field is a matter of where you w
     autoCapitalize="none"
     autoComplete="email"
   />
-  <Input.Description>On ne le partage jamais.</Input.Description>
-</Input>
+  <TextField.Description>On ne le partage jamais.</TextField.Description>
+</TextField>
 ```
 
 ### Invalid
 
 ```tsx
-<Input isInvalid={Boolean(error)}>
-  <Input.Label>Courriel</Input.Label>
-  <Input.Field value={email} onChangeText={setEmail} />
-  {error ? <Input.Error>{error}</Input.Error> : null}
-</Input>
+<TextField isInvalid={Boolean(error)}>
+  <TextField.Label>Courriel</TextField.Label>
+  <TextField.Field value={email} onChangeText={setEmail} />
+  {error ? <TextField.Error>{error}</TextField.Error> : null}
+</TextField>
 ```
 
 `isInvalid` paints the border, the label and the description in `danger`, and **takes the
 focus treatment off**: an error outranks focus, and a field that is both should read as
 wrong rather than as busy.
 
-It does **not** mount or unmount `Input.Error`. You write that condition yourself and see
+It does **not** mount or unmount `TextField.Error`. You write that condition yourself and see
 it — a slot that silently renders nothing is a slot you cannot debug.
 
 ### Multiline
 
-`<Input.Field multiline />` works — it is the same `TextInput` — but the height, the
+`<TextField.Field multiline />` works — it is the same `TextInput` — but the height, the
 vertical padding and `textAlignVertical` are then yours to set.
 
 For a field that is multiline by design, reach for **[`TextArea`](../text-area/text-area.md)**
@@ -97,10 +97,10 @@ a field that adds `multiline`, the text pinned to the top, and a height counted 
 ### Disabled
 
 ```tsx
-<Input isDisabled>
-  <Input.Label>Identifiant</Input.Label>
-  <Input.Field value={login} />
-</Input>
+<TextField isDisabled>
+  <TextField.Label>Identifiant</TextField.Label>
+  <TextField.Field value={login} />
+</TextField>
 ```
 
 `editable` is not a public prop — it is `disabled` under another name, and R8 keeps that
@@ -109,9 +109,9 @@ off the surface. `isDisabled` on the root dims the column and stops the field.
 ### As another element
 
 ```tsx
-<Input asChild>
+<TextField asChild>
   <Animated.View layout={LinearTransition}>…</Animated.View>
-</Input>
+</TextField>
 ```
 
 The caller's element **is** the column. The slots still read the root's context.
@@ -179,11 +179,11 @@ so `success`, `warning` and `danger` are absent here exactly as they are on the 
 ### Label placement
 
 ```tsx
-<Input labelPlacement="inside">
-  <Input.Label>Courriel</Input.Label>
-  <Input.Field placeholder="nom@exemple.fr" />
-  <Input.Description>On ne le partage jamais.</Input.Description>
-</Input>
+<TextField labelPlacement="inside">
+  <TextField.Label>Courriel</TextField.Label>
+  <TextField.Field placeholder="nom@exemple.fr" />
+  <TextField.Description>On ne le partage jamais.</TextField.Description>
+</TextField>
 ```
 
 `outside` (the default) leaves the label above the box, in the column's flow. `inside`
@@ -193,7 +193,7 @@ reparented (R4). The field then pays for the room — `paddingTop` clears the li
 box grows by the same amount, so the text keeps the height its `size` promised.
 
 Because the inside label positions itself against the top of the root, it assumes the field
-is the first thing left in the column's flow. Write `Input.Description` and `Input.Error`
+is the first thing left in the column's flow. Write `TextField.Description` and `TextField.Error`
 after the field, which is where they belong anyway.
 
 | `size` | Outside min-height | Inside min-height | Inside label |
@@ -215,7 +215,7 @@ mixed 26% towards `fieldForeground`. **No ring and no accent**: a form where eve
 field flashes the brand colour is a form where the accent has stopped meaning "the action".
 
 The focus state lives on the **root**, because the recipe resolves on it (R5), while the
-node that hears the event is `Input.Field` — the field composes the caller's `onFocus` and
+node that hears the event is `TextField.Field` — the field composes the caller's `onFocus` and
 `onBlur` with the two the context published, so your handlers run and the border still
 moves.
 
@@ -248,9 +248,9 @@ makes it read as raised rather than as a second flat fill.
 ### Colour
 
 ```tsx
-<Input variant="tertiary" color="#7c3aed">
-  <Input.Field placeholder="la teinte est la bordure, et le focus" />
-</Input>
+<TextField variant="tertiary" color="#7c3aed">
+  <TextField.Field placeholder="la teinte est la bordure, et le focus" />
+</TextField>
 ```
 
 A raw tint, never a token (R7). It lands where the variant put its tokens, and because the
@@ -266,42 +266,42 @@ Every node takes its own style keys as props (R14) — full React Native names, 
 Native values, no hidden scale:
 
 ```tsx
-<Input maxWidth={420}>
-  <Input.Label letterSpacing={0.4}>Courriel</Input.Label>
-  <Input.Field borderWidth={2} textAlign="center" />
-</Input>
+<TextField maxWidth={420}>
+  <TextField.Label letterSpacing={0.4}>Courriel</TextField.Label>
+  <TextField.Field borderWidth={2} textAlign="center" />
+</TextField>
 ```
 
 ### Everything else goes through `style`
 
 - **`selectionColor`, `cursorColor`, `placeholderTextColor`** are `TextInput` props — write
-  them on `Input.Field`. The placeholder already takes the theme's `fieldPlaceholder`; the
+  them on `TextField.Field`. The placeholder already takes the theme's `fieldPlaceholder`; the
   prop is there to override it.
 - **A leading or trailing adornment** — a search glyph, a clear button, a unit — is
-  **[`InputGroup`](../input-group/input-group.md)**. It goes where the field goes and
+  **[`FieldGroup`](../field-group/field-group.md)**. It goes where the field goes and
   replaces nothing else:
 
   ```tsx
-  <Input>
-    <Input.Label>Recherche</Input.Label>
-    <InputGroup>
-      <InputGroup.Prefix isDecorative>
-        <InputGroup.Icon as={SearchIcon} />
-      </InputGroup.Prefix>
-      <InputGroup.Field placeholder="Rechercher…" />
-    </InputGroup>
-  </Input>
+  <TextField>
+    <TextField.Label>Recherche</TextField.Label>
+    <FieldGroup>
+      <FieldGroup.Prefix isDecorative>
+        <FieldGroup.Icon as={SearchIcon} />
+      </FieldGroup.Prefix>
+      <FieldGroup.Field placeholder="Rechercher…" />
+    </FieldGroup>
+  </TextField>
   ```
 
 ## Props
 
-### `Input`
+### `TextField`
 
 Everything `View` accepts, every `ViewStyle` key it does not already claim (R14), plus:
 
 | Prop             | Type                           | Default       | Notes                                              |
 | ---------------- | ------------------------------ | ------------- | -------------------------------------------------- |
-| `variant`        | `InputVariant`                 | `'secondary'` | The four levels above                              |
+| `variant`        | `TextFieldVariant`             | `'secondary'` | The four levels above                              |
 | `size`           | `'xs' \| 'sm' \| 'md' \| 'lg'` | `'md'`        | The field's minimum height, padding, gaps, type    |
 | `radius`         | `RadiusKey`                    | —             | Overrides the theme's `field` radius               |
 | `labelPlacement` | `'outside' \| 'inside'`        | `'outside'`   | `inside` lifts the label into the box, out of flow |
@@ -310,9 +310,9 @@ Everything `View` accepts, every `ViewStyle` key it does not already claim (R14)
 | `isDisabled`     | `boolean`                      | `false`       | Dims the column and stops the field                |
 | `asChild`        | `boolean`                      | `false`       | Merge into the single child instead of rendering   |
 
-**`TextInputProps` are not here.** They belong to `Input.Field`.
+**`TextInputProps` are not here.** They belong to `TextField.Field`.
 
-### `Input.Field`
+### `TextField.Field`
 
 Everything `TextInput` accepts **except `editable`**, plus the `TextStyle` keys as props
 (R14) — `value`, `defaultValue`, `onChange`, `onChangeText`, `maxLength`, `multiline`,
@@ -322,23 +322,23 @@ Everything `TextInput` accepts **except `editable`**, plus the `TextStyle` keys 
 `keyboardType`, `secureTextEntry` and `autoComplete`, and the field takes all four:
 
 ```tsx
-<Input.Field inputMode="email" autoComplete="email" autoCapitalize="none" />
-<Input.Field secureTextEntry autoComplete="password" />
+<TextField.Field inputMode="email" autoComplete="email" autoCapitalize="none" />
+<TextField.Field secureTextEntry autoComplete="password" />
 ```
 
 `placeholderTextColor` defaults to the theme's `fieldPlaceholder` and stays
 overridable. `onFocus` and `onBlur` are composed, never replaced.
 
-### `Input.TextArea`
+### `TextField.TextArea`
 
-Everything `Input.Field` accepts except `multiline`, which it sets, plus:
+Everything `TextField.Field` accepts except `multiline`, which it sets, plus:
 
 | Prop      | Type     | Default | Notes                                          |
 | --------- | -------- | ------- | ---------------------------------------------- |
 | `rows`    | `number` | `3`     | The starting height, in lines                  |
 | `maxRows` | `number` | —       | The ceiling. Past it the field scrolls instead |
 
-### `Input.Label`, `Input.Description`, `Input.Error`
+### `TextField.Label`, `TextField.Description`, `TextField.Error`
 
 Everything `Text` accepts, plus the `TextStyle` keys as props (R14). `Label` and
 `Description` carry the ids the field points at; passing `nativeID` overrides them.
@@ -349,10 +349,10 @@ The context hook is exported, so a third party can write their own slot against 
 resolved values the built-in ones read:
 
 ```tsx
-import { useInput } from '@xaui/native/input'
+import { useTextField } from '@xaui/native/text-field'
 
-function InputCounter({ length, max }) {
-  const { descriptionStyle } = useInput()
+function TextFieldCounter({ length, max }) {
+  const { descriptionStyle } = useTextField()
   return (
     <Text style={descriptionStyle}>
       {length} / {max}
@@ -361,53 +361,53 @@ function InputCounter({ length, max }) {
 }
 ```
 
-Used outside an `<Input>` it throws by name, pointing at the misplaced component rather
+Used outside a `<TextField>` it throws by name, pointing at the misplaced component rather
 than failing three frames later on an undefined style.
 
 ## Accessibility
 
 - **The wrapper has no role.** The control is the field inside it, and a role on the column
   would give a screen reader a second element to stop on before reaching it.
-- `Input.Field` points at the label with `aria-labelledby` and at the description with
+- `TextField.Field` points at the label with `aria-labelledby` and at the description with
   `aria-describedby`, so a screen reader announces "Courriel, champ de saisie" instead of
   falling back to whatever the placeholder happens to say.
 - `aria-invalid` follows `isInvalid`, and `accessibilityState.disabled` follows
   `isDisabled`.
-- **`Input.Error` sets no live region**, deliberately: an error that changes while you are
+- **`TextField.Error` sets no live region**, deliberately: an error that changes while you are
   still typing would be re-announced on every keystroke. The field's `aria-invalid` is what
   reports the state.
 - **A placeholder is not a label.** A field with only a placeholder loses its name the
-  moment a value is typed — write an `Input.Label`, and hide it with
-  `<Input.Label height={0} opacity={0}>` only if the design truly cannot show one.
+  moment a value is typed — write a `TextField.Label`, and hide it with
+  `<TextField.Label height={0} opacity={0}>` only if the design truly cannot show one.
 
 ## Migration from `@xaui/native-legacy`
 
 The legacy component is `TextInput`, and its props are the ones this table names.
 
-| Legacy                                                | v1                                                                    |
-| ----------------------------------------------------- | --------------------------------------------------------------------- |
-| `label="…"`                                           | `<Input.Label>…</Input.Label>`                                        |
-| `description="…"`                                     | `<Input.Description>…</Input.Description>`                            |
-| `errorMessage="…"`                                    | `<Input.Error>…</Input.Error>`, mounted by you, plus `isInvalid`      |
-| `value` / `defaultValue`                              | the same two props, on `<Input.Field>`                                |
-| `onValueChange`                                       | `onChangeText` on `<Input.Field>` — RN's name. `onChange` works too   |
-| `labelPlacement="inside"`                             | `labelPlacement="inside"` — a static label, not a floating one        |
-| `variant="colored"`                                   | `variant="primary"`                                                   |
-| `variant="light"`                                     | `variant="secondary"`                                                 |
-| `variant="bordered"`                                  | `variant="tertiary"`                                                  |
-| `variant="underlined"`                                | `variant="ghost"` + `borderBottomWidth` on `<Input.Field>`            |
-| `themeColor="primary"`                                | `color={theme.colors.accent}`                                         |
-| `size="sm" \| "md" \| "lg"`                           | `size` — now `xs` … `lg`, and the legacy `sm` is the new `xs`         |
-| `radius`                                              | `radius` — a `RadiusKey` now, not the legacy `Radius`                 |
-| `isSecured`                                           | `secureTextEntry` on `<Input.Field>` — RN's own name                  |
-| `isReadOnly`                                          | `readOnly` on `<Input.Field>`                                         |
-| `isDisabled` / `isInvalid`                            | unchanged, on the root                                                |
-| `isClearable`                                         | a `Pressable` in an `<InputGroup.Suffix>` that sets the value to `''` |
-| `TextArea` with `minRows` / `maxRows`                 | `<Input.TextArea rows maxRows />` — a slot, not a component           |
-| `fullWidth`                                           | removed — that is already the default in a column                     |
-| `startContent` / `endContent`                         | `<InputGroup.Prefix>` / `<InputGroup.Suffix>` around the field        |
-| `customAppearance={{ container }}`                    | `style` on the root                                                   |
-| `customAppearance={{ input }}`                        | `style` on `<Input.Field>`                                            |
-| `customAppearance={{ label }}`                        | `style` on `<Input.Label>`                                            |
-| `customAppearance={{ helperText }}`                   | `style` on `<Input.Description>` / `<Input.Error>`                    |
-| `customAppearance={{ inputContainer, inputWrapper }}` | gone with the wrappers they styled                                    |
+| Legacy                                                | v1                                                                       |
+| ----------------------------------------------------- | ------------------------------------------------------------------------ |
+| `label="…"`                                           | `<TextField.Label>…</TextField.Label>`                                   |
+| `description="…"`                                     | `<TextField.Description>…</TextField.Description>`                       |
+| `errorMessage="…"`                                    | `<TextField.Error>…</TextField.Error>`, mounted by you, plus `isInvalid` |
+| `value` / `defaultValue`                              | the same two props, on `<TextField.Field>`                               |
+| `onValueChange`                                       | `onChangeText` on `<TextField.Field>` — RN's name. `onChange` works too  |
+| `labelPlacement="inside"`                             | `labelPlacement="inside"` — a static label, not a floating one           |
+| `variant="colored"`                                   | `variant="primary"`                                                      |
+| `variant="light"`                                     | `variant="secondary"`                                                    |
+| `variant="bordered"`                                  | `variant="tertiary"`                                                     |
+| `variant="underlined"`                                | `variant="ghost"` + `borderBottomWidth` on `<TextField.Field>`           |
+| `themeColor="primary"`                                | `color={theme.colors.accent}`                                            |
+| `size="sm" \| "md" \| "lg"`                           | `size` — now `xs` … `lg`, and the legacy `sm` is the new `xs`            |
+| `radius`                                              | `radius` — a `RadiusKey` now, not the legacy `Radius`                    |
+| `isSecured`                                           | `secureTextEntry` on `<TextField.Field>` — RN's own name                 |
+| `isReadOnly`                                          | `readOnly` on `<TextField.Field>`                                        |
+| `isDisabled` / `isInvalid`                            | unchanged, on the root                                                   |
+| `isClearable`                                         | a `Pressable` in a `<FieldGroup.Suffix>` that sets the value to `''`     |
+| `TextArea` with `minRows` / `maxRows`                 | `<TextField.TextArea rows maxRows />` — a slot, not a component          |
+| `fullWidth`                                           | removed — that is already the default in a column                        |
+| `startContent` / `endContent`                         | `<FieldGroup.Prefix>` / `<FieldGroup.Suffix>` around the field           |
+| `customAppearance={{ container }}`                    | `style` on the root                                                      |
+| `customAppearance={{ input }}`                        | `style` on `<TextField.Field>`                                           |
+| `customAppearance={{ label }}`                        | `style` on `<TextField.Label>`                                           |
+| `customAppearance={{ helperText }}`                   | `style` on `<TextField.Description>` / `<TextField.Error>`               |
+| `customAppearance={{ inputContainer, inputWrapper }}` | gone with the wrappers they styled                                       |

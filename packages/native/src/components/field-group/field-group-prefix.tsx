@@ -1,18 +1,18 @@
 import { forwardRef } from 'react'
 import { View } from 'react-native'
-import { InputGroupDecorator } from './input-group-decorator'
-import type { InputGroupPrefixProps } from './input-group.type'
+import { FieldGroupDecorator } from './field-group-decorator'
+import type { FieldGroupPrefixProps } from './field-group.type'
 
 /**
  * What sits before the text — a search glyph, a currency, a country code.
  *
  * ```tsx
- * <InputGroup>
- *   <InputGroup.Prefix isDecorative>
- *     <InputGroup.Icon as={SearchIcon} />
- *   </InputGroup.Prefix>
- *   <InputGroup.Field placeholder="Rechercher…" />
- * </InputGroup>
+ * <FieldGroup>
+ *   <FieldGroup.Prefix isDecorative>
+ *     <FieldGroup.Icon as={SearchIcon} />
+ *   </FieldGroup.Prefix>
+ *   <FieldGroup.Field placeholder="Rechercher…" />
+ * </FieldGroup>
  * ```
  *
  * It is pinned to the **leading** edge and inset by the field's own padding, so the glyph
@@ -22,10 +22,10 @@ import type { InputGroupPrefixProps } from './input-group.type'
  *
  * Add `isDecorative` whenever it holds nothing to press. Leave it off for a control.
  */
-export const InputGroupPrefix = forwardRef<View, InputGroupPrefixProps>(
-  function InputGroupPrefix(props, ref) {
-    return <InputGroupDecorator ref={ref} side="prefix" {...props} />
+export const FieldGroupPrefix = forwardRef<View, FieldGroupPrefixProps>(
+  function FieldGroupPrefix(props, ref) {
+    return <FieldGroupDecorator ref={ref} side="prefix" {...props} />
   }
 )
 
-InputGroupPrefix.displayName = 'XAUI.InputGroup.Prefix'
+FieldGroupPrefix.displayName = 'XAUI.FieldGroup.Prefix'
