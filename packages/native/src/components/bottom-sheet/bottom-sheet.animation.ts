@@ -15,3 +15,12 @@ export const SHEET_SPRING = { damping: 28, stiffness: 260, mass: 0.9 } as const
  * covered a third of its height, however clearly it meant to throw the thing away.
  */
 export const DISMISS_VELOCITY = 900
+
+/**
+ * Seconds of travel credited to a throw when deciding where it was aimed.
+ *
+ * It only matters on a sheet that can be reduced, where letting go has three answers rather
+ * than two: a hard flick from the top is heading past the reduced notch, and reading the
+ * finger's position alone would stop it there.
+ */
+export const THROW_PROJECTION = 0.15

@@ -105,6 +105,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.22  | `Dialog` — Trigger · Overlay · Content · Title · Description · Close             | done   |
 | P5.23  | `BottomSheet` — Trigger · Overlay · Content · Handle · Title                     | done   |
 | P5.23b | `BottomSheetInput` — net new, a `TextField` that opens in a `BottomSheet`        | todo   |
+| P5.23c | `BottomSheet` reduced state — `collapsedHeight`, a two-state disclosure          | done   |
 | P5.24  | `Drawer`                                                                         | todo   |
 | P5.24b | `Popover` — Trigger · Overlay · Content · Title · Description · Close            | done   |
 | P5.25  | `Picker`                                                                         | todo   |
