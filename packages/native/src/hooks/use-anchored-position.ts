@@ -24,6 +24,14 @@ export type AnchoredPositionOptions = {
   alignOffset: number
   avoidCollisions: boolean
   insets: Required<Insets>
+  /**
+   * The widest a `content-fit` panel may measure, before the screen is considered.
+   *
+   * Without one, "as wide as its content wants" against a paragraph means the width of the
+   * screen, because a paragraph always wants more. A panel that is an aside has to be
+   * given a measure to stop at.
+   */
+  maxWidth?: number
   /** The caller's own handler, called before the panel is measured. */
   onLayout?: (event: LayoutChangeEvent) => void
 }
@@ -103,7 +111,7 @@ export function useAnchoredPosition({
       opacity: 0,
       top: 0,
       start: 0,
-      ...measuringWidth(options.width, local?.width, window, options.insets),
+      ...measuringWidth(options, local?.width, window),
     },
   }
 }
@@ -115,23 +123,33 @@ export function useAnchoredPosition({
  * A width the panel already knows is imposed, so the content wraps during the measuring
  * pass exactly as it will afterwards and the measured **height** is the real one.
  *
- * `content-fit` is the opposite: imposing anything is what makes it impossible to answer.
+ * `content-fit` cannot be imposed on, because imposing is what makes it unanswerable.
  * Constraining it to the anchor was this hook's first version, and against a small trigger
- * it measured a column one character wide and then held the panel at that width forever —
- * the `Select` never showed it, because its default width is the trigger's anyway.
+ * it measured a column one character wide and held the panel there — the `Select` never
+ * showed it, because its default width is the trigger's anyway.
  *
- * So `content-fit` measures unconstrained, bounded only by the screen: a paragraph has to
- * be allowed to ask for the room it wants, and refused only by the edges.
+ * It is still bounded, by two things and in this order: the component's own `maxWidth`,
+ * and the screen. The first is what stops "as wide as its content wants" from meaning the
+ * width of the screen the moment the content is a paragraph — a paragraph always wants
+ * more, so a panel that is an aside has to be given a measure to stop at. The second is
+ * the floor under that, for a component that declares none.
  */
 function measuringWidth(
-  width: AnchoredWidth,
+  {
+    width,
+    maxWidth,
+    insets,
+  }: Pick<AnchoredPositionOptions, 'width' | 'maxWidth' | 'insets'>,
   anchorWidth: number | undefined,
-  window: Size2D,
-  insets: Required<Insets>
+  window: Size2D
 ): Pick<ViewStyle, 'width' | 'maxWidth'> {
+  const screen = Math.max(window.width - insets.start - insets.end, 0)
+
   if (width === 'trigger') return { width: anchorWidth }
+  if (width === 'full') return { width: screen }
   if (typeof width === 'number') return { width }
-  return { maxWidth: Math.max(window.width - insets.start - insets.end, 0) }
+
+  return { maxWidth: Math.min(maxWidth ?? Number.POSITIVE_INFINITY, screen) }
 }
 
 /** No host, no offset — `Portal` renders nothing in that case anyway. */

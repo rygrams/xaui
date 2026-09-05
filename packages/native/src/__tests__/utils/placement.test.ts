@@ -216,3 +216,20 @@ describe('resolvePlacement — content-fit against a small trigger', () => {
     expect(width).toBe(366) // 390 - 12 - 12
   })
 })
+
+describe('resolvePlacement — full', () => {
+  it('is the screen less its insets', () => {
+    const { width, start } = resolvePlacement(input({ width: 'full' }))
+
+    expect(width).toBe(366) // 390 - 12 - 12
+    expect(start).toBe(12)
+  })
+
+  it('ignores what the content measured at', () => {
+    const { width } = resolvePlacement(
+      input({ width: 'full', content: { width: 80, height: 100 } })
+    )
+
+    expect(width).toBe(366)
+  })
+})
