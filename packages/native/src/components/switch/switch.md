@@ -137,7 +137,6 @@ the auto-wrap does not apply.
 
 | `size` | Track   | Knob | Inset | Travel | Label |
 | ------ | ------- | ---- | ----- | ------ | ----- |
-| `xs`   | 40 × 24 | 18   | 3     | 16     | 14/20 |
 | `sm`   | 44 × 26 | 20   | 3     | 18     | 14/20 |
 | `md`   | 48 × 28 | 22   | 3     | 20     | 16/24 |
 | `lg`   | 56 × 32 | 26   | 3     | 24     | 18/28 |
@@ -146,7 +145,6 @@ the auto-wrap does not apply.
 
 | `size` | Track   | Knob | Inset | Travel | Label |
 | ------ | ------- | ---- | ----- | ------ | ----- |
-| `xs`   | 40 × 16 | 22   | 0     | 18     | 14/20 |
 | `sm`   | 44 × 18 | 24   | 0     | 20     | 14/20 |
 | `md`   | 48 × 18 | 26   | 0     | 22     | 16/24 |
 | `lg`   | 56 × 20 | 30   | 0     | 26     | 18/28 |
@@ -228,7 +226,7 @@ Everything `PressableFeedback` accepts, every `ViewStyle` key it does not alread
 | Prop               | Type                            | Default     | Notes                                   |
 | ------------------ | ------------------------------- | ----------- | --------------------------------------- |
 | `variant`          | `'primary' \| 'secondary'`      | `'primary'` | The shape: knob inside, or over the bar |
-| `size`             | `'xs' \| 'sm' \| 'md' \| 'lg'`  | `'md'`      | Track, knob, gap, label type            |
+| `size`             | `'sm' \| 'md' \| 'lg'`          | `'md'`      | Track, knob, gap, label type            |
 | `radius`           | `RadiusKey`                     | `'full'`    | The track's corner                      |
 | `color`            | `string`                        | —           | A hex tint — the colour it turns on to  |
 | `isSelected`       | `boolean`                       | —           | Controlled                              |
@@ -293,7 +291,7 @@ Outside a `<Switch>` it throws by name.
 | `variant="overlap"`            | `variant="secondary"` — likewise                              |
 | `isSelected` / `onValueChange` | `isSelected` / `onSelectedChange`, plus `defaultSelected`     |
 | `themeColor="primary"`         | `color={theme.colors.accent}` — a raw value (R7)              |
-| `size="sm" \| "md" \| "lg"`    | `size` — now `xs` … `lg`                                      |
+| `size="sm" \| "md" \| "lg"`    | `size` — the same three                                       |
 | `radius`                       | `radius` — a `RadiusKey` now, still `full` by default         |
 | `fullWidth`                    | `width="100%"` in style props (R14)                           |
 | `isDisabled`                   | unchanged, on the root                                        |

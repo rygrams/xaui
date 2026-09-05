@@ -3,7 +3,6 @@ import { View } from 'react-native'
 import { SelectionFill } from '../../system/selection-fill'
 import { useStyleProps } from '../../system/style-props'
 import { useCheckbox } from './checkbox.context'
-import { checkboxSheet } from './checkbox.style'
 import type { CheckboxIndicatorProps } from './checkbox.type'
 
 /**
@@ -50,7 +49,7 @@ CheckboxIndicator.displayName = 'XAUI.Checkbox.Indicator'
 function Check() {
   const { checkStyle } = useCheckbox()
 
-  return <View style={[checkStyle, checkboxSheet.check]} />
+  return <View style={checkStyle} />
 }
 
 /** The third state's mark: the check's long stroke, on its own and level. */

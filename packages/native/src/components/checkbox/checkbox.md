@@ -145,7 +145,6 @@ the auto-wrap does not apply.
 
 | `size` | Box | Corner   | Check        | Gap | Label |
 | ------ | --- | -------- | ------------ | --- | ----- |
-| `xs`   | 16  | `sm` (6) | 8 × 4 · 1.5  | 8   | 14/20 |
 | `sm`   | 20  | `sm` (6) | 10 × 5 · 2   | 8   | 14/20 |
 | `md`   | 24  | `md` (9) | 12 × 6 · 2   | 8   | 16/24 |
 | `lg`   | 28  | `md` (9) | 14 × 7 · 2.5 | 10  | 18/28 |
@@ -247,7 +246,7 @@ Everything `PressableFeedback` accepts, every `ViewStyle` key it does not alread
 | Prop               | Type                            | Default       | Notes                                         |
 | ------------------ | ------------------------------- | ------------- | --------------------------------------------- |
 | `variant`          | `CheckboxVariant`               | `'secondary'` | The box at rest                               |
-| `size`             | `'xs' \| 'sm' \| 'md' \| 'lg'`  | `'md'`        | Box, glyph, gap, label type                   |
+| `size`             | `'sm' \| 'md' \| 'lg'`          | `'md'`        | Box, glyph, gap, label type                   |
 | `radius`           | `RadiusKey`                     | —             | Overrides the corner the size chose           |
 | `color`            | `string`                        | —             | A hex tint — the colour it checks in          |
 | `isSelected`       | `boolean`                       | —             | Controlled                                    |
@@ -316,7 +315,7 @@ than failing three frames later on an undefined style.
 | `themeColor="primary"`        | `color={theme.colors.accent}` — a raw value (R7)                     |
 | `variant="filled"`            | `variant="tertiary"` — a border at rest, the accent once ticked      |
 | `variant="light"`             | gone: a mark with no box. `<Checkbox.Indicator>` with your own glyph |
-| `size="sm" \| "md" \| "lg"`   | `size` — now `xs` … `lg`                                             |
+| `size="sm" \| "md" \| "lg"`   | `size` — the same three                                              |
 | `radius`                      | `radius` — a `RadiusKey` now, not the legacy `Radius`                |
 | `fullWidth`                   | `width="100%"` in style props (R14)                                  |
 | `labelStyle`                  | `style` on `<Checkbox.Label>`                                        |

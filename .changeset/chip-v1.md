@@ -1,6 +1,5 @@
 ---
 '@xaui/native': patch
-'@xaui/native-legacy': patch
 ---
 
 feat(chip): the v1 `Chip` — P3.5
@@ -22,3 +21,14 @@ cross it draws itself, so a dismissible chip needs no icon set installed.
 
 Also extracts the `radius` axis, duplicated in every recipe that has one, into
 `radiusAxis()` in `system/recipe/`.
+
+`Chip.Avatar` is pulled back into the capsule's rounded end. The root's horizontal padding
+is set for text — 12pt at `md` — while the height leaves only 3pt above and below a 22pt
+avatar, so a face sat visibly pushed into the chip where a label beside it looked right. The
+slot now cancels the difference, which seats it concentrically with the rounded end: the
+capsule's cap is a circle of radius `height / 2` and the avatar is one of radius
+`diameter / 2`, so they share a centre only when the gap is equal on every side. It is the
+one margin on a slot in this component, and R4 is about spacing _between_ slots rather than
+about cancelling the parent's padding — `Chip.Avatar` is a leading slot by contract, which
+is what makes a leading-only correction sound. `marginStart`, so RTL follows (R13), and
+clamped at zero so a theme with tighter padding needs no pull at all.

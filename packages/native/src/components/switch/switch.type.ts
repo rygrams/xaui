@@ -38,7 +38,14 @@ export type SwitchSlot =
  */
 export type SwitchVariant = 'primary' | 'secondary'
 
-export type SwitchSize = Size
+/**
+ * Three of the four, the same three as the `Checkbox` and the `Radio` — `xs` is the one
+ * missing. That track was 40 by 24 with an 18pt knob, and a switch is aimed at rather than
+ * read: unlike those two it has no row to press, the track *is* the target. Below `sm` it
+ * stops being comfortably hittable, and shrinking the one control whose whole surface is
+ * the touch target buys width nobody asked for.
+ */
+export type SwitchSize = Exclude<Size, 'xs'>
 
 type SwitchOwnProps = {
   variant?: SwitchVariant
