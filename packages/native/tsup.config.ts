@@ -15,6 +15,7 @@ const entries = {
   'components/divider/index': 'src/components/divider/index.ts',
   'components/field-group/index': 'src/components/field-group/index.ts',
   'components/input-otp/index': 'src/components/input-otp/index.ts',
+  'components/list/index': 'src/components/list/index.ts',
   'components/menu/index': 'src/components/menu/index.ts',
   'components/popover/index': 'src/components/popover/index.ts',
   'components/radio/index': 'src/components/radio/index.ts',
