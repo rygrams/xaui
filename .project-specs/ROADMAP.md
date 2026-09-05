@@ -59,7 +59,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P3.10  | `Switch` — Track · Thumb · Label, two shapes                                     | done   |
 | P3.11  | `Avatar` — Image · Fallback · Initials, the fallback as a layer                  | done   |
 | P3.12  | `Badge` — a count, a dot, and the corner it hangs off                            | done   |
-| P3.13  | `Divider` — three separator levels, one `alignSelf` for both axes                | done   |
+| P3.13  | `Divider` — three separator levels; keeps its name, not HeroUI's `Separator`     | done   |
 | P3.14  | `Skeleton` — one fill, one pulse, sized by R14 alone                             | done   |
 | P3.14b | `Skeleton` drops its `variant` — the second fill was the less visible            | done   |
 | P3.15  | `Spinner` — seven inks, two rings, no SVG; supersedes legacy `Indicator`         | done   |
@@ -147,7 +147,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.38b | `RadioButton` — net new, to reconcile with P3.9 `Radio`                          | todo   |
 | P5.38c | `RadioButtonGroup` — net new, to reconcile with `RadioGroup`                     | todo   |
 | P5.39  | `Rating` — net new, no legacy equivalent                                         | todo   |
-| P5.40  | `Surface` — over legacy `Surface`, inside `view/`                                | todo   |
+| P5.40  | `Surface` — four grounds, elevation asked for, no slots                          | done   |
 | P5.41  | `SplitView` — net new, a `view/` split on a draggable divider                    | todo   |
 | P5.42  | `Table` — net new, no legacy equivalent                                          | todo   |
 | P5.43  | `TagGroup` — net new, to reconcile with P3.5 `Chip`                              | todo   |

@@ -29,6 +29,7 @@ const entries = {
   'components/spinner/index': 'src/components/spinner/index.ts',
   'components/spinner/index': 'src/components/spinner/index.ts',
   'components/spinner/index': 'src/components/spinner/index.ts',
+  'components/surface/index': 'src/components/surface/index.ts',
   'components/switch/index': 'src/components/switch/index.ts',
   'components/tabs/index': 'src/components/tabs/index.ts',
   'components/text-area/index': 'src/components/text-area/index.ts',
