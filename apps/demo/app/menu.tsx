@@ -155,21 +155,21 @@ function Described() {
           <Menu.ItemIndicator>
             <Text style={{ color: theme.colors.overlayForeground }}>◆</Text>
           </Menu.ItemIndicator>
-          <View style={{ flex: 1 }}>
+          <View style={{ flexGrow: 1, flexShrink: 1, flexBasis: 'auto' }}>
             <Menu.ItemTitle>Partager</Menu.ItemTitle>
             <Menu.ItemDescription>Un lien, valable sept jours</Menu.ItemDescription>
           </View>
         </Menu.Item>
         <Menu.Item>
           <Menu.ItemIndicator />
-          <View style={{ flex: 1 }}>
+          <View style={{ flexGrow: 1, flexShrink: 1, flexBasis: 'auto' }}>
             <Menu.ItemTitle>Exporter</Menu.ItemTitle>
             <Menu.ItemDescription>PDF, Markdown ou texte brut</Menu.ItemDescription>
           </View>
         </Menu.Item>
         <Menu.Item variant="danger">
           <Menu.ItemIndicator />
-          <View style={{ flex: 1 }}>
+          <View style={{ flexGrow: 1, flexShrink: 1, flexBasis: 'auto' }}>
             <Menu.ItemTitle>Supprimer</Menu.ItemTitle>
             <Menu.ItemDescription>Définitif, sans corbeille</Menu.ItemDescription>
           </View>

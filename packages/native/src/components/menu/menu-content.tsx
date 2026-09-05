@@ -5,6 +5,8 @@ import { useAnchoredPosition } from '../../hooks/use-anchored-position'
 import { anchoredEntering, anchoredExiting } from '../../system/anchored'
 import { Portal } from '../../system/portal'
 import { useStyleProps } from '../../system/style-props'
+import { useXAUITheme } from '../../theme/theme-hooks'
+import { menuMeasure } from './menu.recipe'
 import { MenuProvider, useMenu } from './menu.context'
 import type { MenuContentProps, MenuInsets } from './menu.type'
 
@@ -44,6 +46,7 @@ export const MenuContent = forwardRef<View, MenuContentProps>(function MenuConte
   const context = useMenu()
   const { contentStyle, isOpen, anchor } = context
   const [styleProps, rest] = useStyleProps(props)
+  const theme = useXAUITheme()
 
   const { position, onContentLayout, measuringStyle } = useAnchoredPosition({
     anchor,
@@ -55,6 +58,7 @@ export const MenuContent = forwardRef<View, MenuContentProps>(function MenuConte
     alignOffset,
     avoidCollisions,
     insets: { ...DEFAULT_INSETS, ...insets },
+    maxWidth: menuMeasure(theme.fontSizes.md),
     onLayout,
   })
 

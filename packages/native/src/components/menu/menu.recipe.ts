@@ -29,6 +29,18 @@ const VARIANT_TOKENS: Record<MenuItemVariant, VariantTokens> = {
   danger: { fg: 'danger' },
 }
 
+/**
+ * The widest a `content-fit` menu measures, as a multiple of the body size.
+ *
+ * Fifteen ems, two above the `Popover`'s thirteen: a menu row is a title with an indicator
+ * beside it and sometimes a sentence under it, where a popover is prose alone. Wide enough
+ * that "Remettre à zéro, et fermer" stays on one line, and not so wide that a list of
+ * one-word actions reads as a sheet.
+ */
+export function menuMeasure(fontSize: number): number {
+  return fontSize * 15
+}
+
 /** HeroUI's, in spacing steps: the panel is inset less than its rows are padded. */
 const PANEL_PADDING_HORIZONTAL = 1.5
 const PANEL_PADDING_VERTICAL = 3
@@ -80,9 +92,18 @@ export const menuRecipe = createRecipe({
       fontWeight: theme.fontWeights.medium,
       fontSize: theme.fontSizes.md,
       lineHeight: theme.lineHeights.md,
-      // The title takes the row's width so the indicator stays pinned to the end, whatever
-      // the label's length.
-      flex: 1,
+      // Grows into the row so an indicator stays pinned to the end, whatever the label's
+      // length — but from its **content** size rather than from zero.
+      //
+      // `flex: 1` is `flexBasis: 0`, and the panel is measured before it has a width: with
+      // a basis of zero and no definite width to grow into, the row's content size is
+      // nothing and the title collapses. The whole menu measured as a 70-point capsule
+      // with no text in it. HeroUI writes `flex: 1` here and gets away with it because
+      // their measuring pass hands the panel a definite width; ours asks the panel how
+      // wide it wants to be, which is a question a zero basis cannot answer.
+      flexGrow: 1,
+      flexShrink: 1,
+      flexBasis: 'auto',
     },
     itemDescription: {
       fontFamily: theme.fontFamilies.body,
