@@ -43,6 +43,7 @@ export const CloseButton = forwardRef<View, CloseButtonProps>(function CloseButt
     children,
     baseStyle,
     glyphStyle,
+    asChild = false,
     accessibilityRole = 'button',
     hitSlop = HIT_SLOP,
     style,
@@ -58,7 +59,11 @@ export const CloseButton = forwardRef<View, CloseButtonProps>(function CloseButt
   // A cross says "close" to someone who can see it and nothing at all to someone who
   // cannot — and unlike an icon-only button, the text beside it names the thing being
   // dismissed rather than the action, so there is nothing to fall back on.
-  if (!rest.accessibilityLabel && !rest['aria-label']) {
+  //
+  // Not under `asChild`: there the caller's own element is rendered, it carries its own
+  // label or its own text, and `<Dialog.Close asChild><Button>Compris</Button></…>` is the
+  // most ordinary dismissal there is. Warning on it would train the reader to ignore this.
+  if (!asChild && !rest.accessibilityLabel && !rest['aria-label']) {
     warnDev(
       `${name}: a close button needs an \`accessibilityLabel\` — the cross is not text, ` +
         'and the label beside it names what is being dismissed, not the action.'
@@ -69,6 +74,7 @@ export const CloseButton = forwardRef<View, CloseButtonProps>(function CloseButt
     <PressableFeedback
       ref={ref}
       isPressed={isPressed}
+      asChild={asChild}
       accessibilityRole={accessibilityRole}
       hitSlop={hitSlop}
       {...rest}

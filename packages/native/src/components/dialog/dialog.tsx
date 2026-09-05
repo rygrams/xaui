@@ -56,6 +56,8 @@ export function Dialog({
       contentStyle: styles.content,
       titleStyle: styles.title,
       descriptionStyle: styles.description,
+      closeStyle: styles.close,
+      closeGlyphStyle: styles.closeGlyph,
       isOpen,
       isDisabled,
       open,

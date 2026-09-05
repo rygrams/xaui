@@ -7,10 +7,18 @@ import type {
   ViewProps,
   ViewStyle,
 } from 'react-native'
+import type { CloseButtonProps } from '../../system/close-button'
 import type { TextStyleProps, ViewStyleProps } from '../../system/style-props'
 import type { RadiusKey } from '../../theme/theme.type'
 
-export type DialogSlot = 'overlay' | 'panel' | 'content' | 'title' | 'description'
+export type DialogSlot =
+  | 'overlay'
+  | 'panel'
+  | 'content'
+  | 'title'
+  | 'description'
+  | 'close'
+  | 'closeGlyph'
 
 type DialogOwnProps = {
   children?: ReactNode
@@ -54,11 +62,17 @@ export type DialogTitleProps = DialogTextOwnProps &
 
 export type DialogDescriptionProps = DialogTitleProps
 
-type DialogCloseOwnProps = { children?: ReactNode; asChild?: boolean }
-
-export type DialogCloseProps = DialogCloseOwnProps &
-  Omit<PressableProps, keyof DialogCloseOwnProps> &
-  Omit<ViewStyleProps, keyof DialogCloseOwnProps | keyof PressableProps>
+/**
+ * Everything the shared `CloseButton` accepts, minus the three the dialog supplies itself:
+ * the warning's name and the two styles its recipe already resolved (R5).
+ *
+ * Which means `children` is optional and the cross is drawn without it, and that a caller
+ * who passes `asChild` gets their own element instead — the two dismissals a dialog has.
+ */
+export type DialogCloseProps = Omit<
+  CloseButtonProps,
+  'name' | 'baseStyle' | 'glyphStyle'
+>
 
 /** R5 — resolved style ids and the state the slots read. */
 export type DialogContextValue = {
@@ -67,6 +81,8 @@ export type DialogContextValue = {
   contentStyle: StyleProp<ViewStyle>
   titleStyle: StyleProp<TextStyle>
   descriptionStyle: StyleProp<TextStyle>
+  closeStyle: StyleProp<ViewStyle>
+  closeGlyphStyle: StyleProp<ViewStyle>
   isOpen: boolean
   isDisabled: boolean
   open: () => void

@@ -15,6 +15,7 @@ import { Dialog } from '@xaui/native/dialog'
   <Dialog.Trigger>…</Dialog.Trigger>
   <Dialog.Overlay />
   <Dialog.Content>
+    <Dialog.Close />
     <Dialog.Title>…</Dialog.Title>
     <Dialog.Description>…</Dialog.Description>
     <Dialog.Close>…</Dialog.Close>
@@ -27,7 +28,8 @@ import { Dialog } from '@xaui/native/dialog'
 - **`Dialog.Overlay`** — the backdrop. It dims, and closes on a press.
 - **`Dialog.Content`** — the panel, centred and inset from the screen's edges.
 - **`Dialog.Title`** / **`Dialog.Description`** — the question and what it costs.
-- **`Dialog.Close`** — anything that answers it.
+- **`Dialog.Close`** — the way out. A cross when it is empty, whatever you put in it
+  otherwise.
 
 ## Usage
 
@@ -85,11 +87,37 @@ words, not in its fill.
 
 `isDismissable` (default `true`), plus `ViewProps` and `ViewStyle` as props.
 
-### `Dialog.Trigger` · `Dialog.Close`
+### `Dialog.Trigger`
 
-Everything `Pressable` takes, plus `ViewStyle` as props and `asChild`. Neither paints
-anything of its own — a dialog is asked and answered by buttons, and giving either a
-surface would put a second box around one.
+Everything `Pressable` takes, plus `ViewStyle` as props and `asChild`. It paints nothing of
+its own — a dialog is asked by a button, and giving the trigger a surface would put a
+second box around one.
+
+### `Dialog.Close`
+
+Everything the shared `CloseButton` takes, minus `name`, `baseStyle` and `glyphStyle`,
+which the dialog supplies. Two shapes, and the empty one is the default:
+
+```tsx
+<Dialog.Close accessibilityLabel="Fermer" />        {/* a cross, 32pt, muted */}
+<Dialog.Close asChild>                              {/* the answer, in words */}
+  <Button variant="danger">Supprimer</Button>
+</Dialog.Close>
+```
+
+**Empty, it draws a cross** — the shared button's, from two rotated bars rather than an
+icon, so the corner affordance works in a project that has installed no icon set. No fill
+and no border: HeroUI's `CloseButton` defaults to `tertiary` and their own dialog overrides
+it to `ghost` at every call site, because a bordered square inside a bordered box is one
+frame too many.
+
+**It places itself nowhere.** `alignSelf="flex-end"` above the title, or `position`,
+`top` and `end` over content that has room for it — a title with space beside it and one
+without want different answers, and that is layout, which is the caller's (R4). This is
+what HeroUI does too; the placement is in the example, not in the component.
+
+Under `asChild` the box is not applied, and the missing-label warning does not fire: the
+caller's element has a height and a shape of its own, and its text is the label.
 
 ## How it differs from the `Popover`
 

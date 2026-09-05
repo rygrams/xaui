@@ -93,6 +93,12 @@ function Controlled() {
         </Dialog.Trigger>
         <Dialog.Overlay />
         <Dialog.Content>
+          <Dialog.Close
+            accessibilityLabel="Fermer"
+            position="absolute"
+            top={12}
+            end={12}
+          />
           <Dialog.Title>Piloté de l’extérieur</Dialog.Title>
           <Dialog.Description>La racine ne possède plus l’état.</Dialog.Description>
           <Dialog.Close asChild>

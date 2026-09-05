@@ -1,11 +1,34 @@
+// Deep import — the `system/close-button` barrel pulls the component in, and the recipe
+// only wants the geometry.
+import { closeButtonBase } from '../../system/close-button/close-button.recipe'
 import { createRecipe, radiusAxis } from '../../system/recipe'
 
-const SLOTS = ['overlay', 'panel', 'content', 'title', 'description'] as const
+const SLOTS = [
+  'overlay',
+  'panel',
+  'content',
+  'title',
+  'description',
+  'close',
+  'closeGlyph',
+] as const
+
+/**
+ * The cross's box, and the length of one of its two bars.
+ *
+ * HeroUI's is a `sm` icon-only `Button` around an 18-point icon. A bar rotated a quarter
+ * turn spans `length / √2` on each axis, so 16 draws a cross about 11 points wide —
+ * the same reading as their icon, whose glyph does not fill its box either.
+ */
+const CLOSE_BOX = 32
+const CLOSE_BAR = 16
 
 export const dialogRecipe = createRecipe({
   slots: SLOTS,
 
   base: theme => ({
+    // Centring and the bar's thickness belong to the shared button, not to the dialog.
+    ...closeButtonBase(theme),
     // Unlike the `Popover`'s, this backdrop dims by default. A popover is an aside you can
     // read the page around; a dialog is a question, and the page behind it is not
     // available until it is answered.
@@ -54,6 +77,19 @@ export const dialogRecipe = createRecipe({
       lineHeight: theme.lineHeights.md,
       color: theme.colors.muted,
     },
+    /**
+     * No fill and no border — HeroUI's `CloseButton` defaults to `tertiary`, and their own
+     * dialog overrides it to `ghost` at every call site. A bordered square in the corner
+     * of a box that already has a border is one frame too many.
+     *
+     * It positions nothing. Where the cross sits is the caller's, exactly as it is theirs:
+     * `alignSelf: 'flex-end'` above the title, or absolute in the corner over content that
+     * has room for it. A slot that placed itself would have to guess which.
+     */
+    close: { width: CLOSE_BOX, height: CLOSE_BOX, borderRadius: CLOSE_BOX / 2 },
+    // `muted`, like theirs: the cross is the way out, not the answer. The answer is a
+    // `Button` in the words the dialog asked for.
+    closeGlyph: { width: CLOSE_BAR, backgroundColor: theme.colors.muted },
   }),
 
   /**
