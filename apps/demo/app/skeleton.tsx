@@ -10,10 +10,10 @@ import { useXAUITheme } from '@xaui/native/theme'
  * The verification screen for the `Skeleton`. A component is verified here and in the docs
  * preview, in light and in dark — there is no test file for it.
  *
- * What each section checks is in its subtitle: the two variants are the two backgrounds a
- * placeholder is drawn on, the block takes its shape from R14 and nothing else, a
- * paragraph is composition rather than a `lines` prop, and `isLoading` is a gate the
- * caller's content passes through.
+ * What each section checks is in its subtitle: the block takes its shape from R14 and
+ * nothing else, a paragraph is composition rather than a `lines` prop, `isLoading` is a
+ * gate the caller's content passes through, and the last two sections are the shapes a
+ * placeholder is actually written as — a card and a list.
  */
 export default function SkeletonScreen() {
   const theme = useXAUITheme()
@@ -24,32 +24,6 @@ export default function SkeletonScreen() {
       contentContainerStyle={{ padding: 16, gap: 28, paddingBottom: 96 }}
     >
       <Loading />
-
-      <Section
-        title="The two levels"
-        note="default is the neutral fill, for a block on the page. secondary is that fill at half, for a block on a surface that already carries a neutral — on the card below, the default one reads as a hole."
-      >
-        <View style={{ gap: 8 }}>
-          <Caption>default · on the page</Caption>
-          <Skeleton height={16} />
-          <Caption>secondary · on the page</Caption>
-          <Skeleton height={16} variant="secondary" />
-        </View>
-
-        <View
-          style={{
-            backgroundColor: theme.colors.surface,
-            borderRadius: theme.radius.lg,
-            padding: 16,
-            gap: 8,
-          }}
-        >
-          <Caption>default · on a surface</Caption>
-          <Skeleton height={16} />
-          <Caption>secondary · on a surface</Caption>
-          <Skeleton height={16} variant="secondary" />
-        </View>
-      </Section>
 
       <Section
         title="No size — R14 is the whole sizing API"
@@ -88,7 +62,7 @@ export default function SkeletonScreen() {
         note="One thing to colour on a block, so the tint lands on the block. Hex only: the slices are derived in OKLab."
       >
         <Skeleton height={20} color="#7c3aed" />
-        <Skeleton height={20} color="#0f766e" variant="secondary" />
+        <Skeleton height={20} color="#0f766e" />
       </Section>
 
       <Section
@@ -335,16 +309,6 @@ function Loading() {
         recharger
       </Button>
     </Section>
-  )
-}
-
-function Caption({ children }: { children: React.ReactNode }) {
-  const theme = useXAUITheme()
-
-  return (
-    <Text style={{ color: theme.colors.muted, fontSize: theme.fontSizes.xs }}>
-      {children}
-    </Text>
   )
 }
 

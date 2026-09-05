@@ -60,15 +60,14 @@ A row of one, mirroring the layout it stands in for:
 
 ## Props
 
-| Prop        | Type                           | Default     |
-| ----------- | ------------------------------ | ----------- |
-| `variant`   | `'default' \| 'secondary'`     | `'default'` |
-| `radius`    | `RadiusKey`                    | `'md'`      |
-| `color`     | `string` — a raw hex tint (R7) | —           |
-| `isLoading` | `boolean`                      | `true`      |
-| `animation` | `boolean`                      | `true`      |
-| `children`  | `ReactNode`                    | —           |
-| `style`     | `StyleProp<ViewStyle>`         | —           |
+| Prop        | Type                           | Default |
+| ----------- | ------------------------------ | ------- |
+| `radius`    | `RadiusKey`                    | `'md'`  |
+| `color`     | `string` — a raw hex tint (R7) | —       |
+| `isLoading` | `boolean`                      | `true`  |
+| `animation` | `boolean`                      | `true`  |
+| `children`  | `ReactNode`                    | —       |
+| `style`     | `StyleProp<ViewStyle>`         | —       |
 
 Plus every `ViewStyle` key as a prop (R14) and every `View` prop.
 
@@ -79,21 +78,30 @@ are the whole sizing API — full React Native names and values, `width="60%"` a
 `width={140}`. A `size` token here would be a scale of rectangles nobody's content happens
 to be.
 
-### `variant` is the two backgrounds a placeholder is drawn on
+### No `variant`
 
-| `variant`   | token         | for                                               |
-| ----------- | ------------- | ------------------------------------------------- |
-| `default`   | `default`     | a block on the page                               |
-| `secondary` | `defaultSoft` | a block on a `Card`, where the full one is a hole |
+It had two — the neutral fill and that fill at half — sold as the two backgrounds a
+placeholder is drawn on. Measured against every surface, in both modes, the second is
+**less** visible than the first everywhere:
 
-**No status families and no `primary`** — a skeleton reports nothing, and a placeholder in
-the accent announces the brand where there is nothing yet to announce. **No `tertiary` and
-no `ghost`**: a skeleton with a border and no fill is an empty box, and one with neither is
-nothing at all.
+| surface                      | `default` | the old `secondary` |
+| ---------------------------- | --------- | ------------------- |
+| the page (light)             | **1.216** | 1.100               |
+| a `default` `Card` (light)   | **1.269** | 1.119               |
+| a `secondary` `Card` (light) | **1.075** | 1.036               |
+| the page (dark)              | **1.336** | 1.123               |
+| a `default` `Card` (dark)    | **1.189** | 1.090               |
+| a `secondary` `Card` (dark)  | **1.000** | **1.000**           |
 
-HeroUI reaches the same grey from `muted` at 30% opacity. Naming the token instead is what
-lets a theme move the skeleton by moving `default`, rather than by discovering that a
-percentage of a text colour is where the placeholder grey came from.
+So it was never the answer to "this block reads as a hole" — the full fill is the _more_
+visible of the two on the surface that claim named. And on a `secondary` `Card` in dark mode
+both resolve to that surface's own `#27272a` and vanish, which is the case the pair was
+supposed to cover.
+
+A skeleton has to contrast with whatever sits under it, and a fixed token cannot know what
+that is. Two frozen values were never going to cover three surfaces times two modes. The
+block paints `default`, and `color` is the way past it — honest about being a raw value
+rather than a name that promises a system.
 
 ### `radius="full"` is the avatar placeholder
 

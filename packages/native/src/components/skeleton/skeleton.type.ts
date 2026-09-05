@@ -6,25 +6,17 @@ import type { RadiusKey } from '../../theme/theme.type'
 export type SkeletonSlot = 'root'
 
 /**
- * Two levels, and they are the two backgrounds a placeholder is ever drawn on (§1 bis).
- *
- * A skeleton **reports nothing** and **is not pressed**, so the status families are absent
- * the way they are from the `Card`, and so is `primary` — a placeholder in the accent
- * announces the brand where there is nothing yet to announce.
- *
- * - **`default`** — the `default` fill. A block on the page.
- * - **`secondary`** — `defaultSoft`, the same fill at half. A block on a `Card` or any
- *   other surface already carrying a neutral, where the full one reads as a hole.
- *
- * **No `tertiary` and no `ghost`**: a skeleton with a border and no fill is an empty box,
- * and a skeleton with neither is nothing at all. Both are the shape of the component being
- * a fill and only a fill.
- */
-export type SkeletonVariant = 'default' | 'secondary'
-
-/**
  * What the `Skeleton` itself understands. R14 — a name in here is the component's, so the
  * style prop that shares it is not exposed: `color` is R7's tint.
+ *
+ * **No `variant`.** It had two — the neutral fill and that fill at half — sold as the two
+ * backgrounds a placeholder is drawn on. Measured, the second is *less* visible than the
+ * first on every surface in both modes, so it was never the answer to "this block reads as
+ * a hole"; and on a `secondary` `Card` in dark mode both resolve to the surface's own
+ * `#27272a` and vanish. A skeleton has to contrast with whatever is under it, and a fixed
+ * token cannot know what that is — two frozen values were never going to cover three
+ * surfaces times two modes. `color` is the way past it, and it is honest about being a
+ * raw value rather than a name that promises a system.
  *
  * **No `asChild`** (R12), because `children` is already taken and means the opposite of
  * what the prop would need it to. Here it is the content the block stands in for — what
@@ -34,7 +26,6 @@ export type SkeletonVariant = 'default' | 'secondary'
  * instead, and R14 gives every `ViewStyle` key as a prop.
  */
 type SkeletonOwnProps = {
-  variant?: SkeletonVariant
   /**
    * The corner. `full` is the circle an avatar placeholder needs, and it is why this is a
    * prop rather than the caller's `borderRadius` — a circle is a shape the vocabulary
