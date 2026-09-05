@@ -1,4 +1,4 @@
-import { forwardRef, useCallback, useMemo, useRef } from 'react'
+import { forwardRef, useCallback, useEffect, useMemo, useRef } from 'react'
 import type { LayoutChangeEvent, View } from 'react-native'
 import { usePressState } from '../../hooks/use-press-state'
 import { PressableFeedback } from '../../system/pressable-feedback'
@@ -21,6 +21,12 @@ import type { SelectTriggerProps } from './select.type'
  * That field is a node handle on the old architecture and a host instance on the new one,
  * and only one of the two answers `measureInWindow` — which is a crash on Android and
  * nowhere else, the worst shape a bug can take.
+ *
+ * **It measures again every time the list opens**, and that is the load-bearing one.
+ * `onLayout` fires when the trigger is laid out and never again — not on scroll — so a
+ * trigger inside a `ScrollView` reports the position it had before the user moved, and
+ * the list opens against a rectangle that has since walked off. Far enough down a screen
+ * it opens past the bottom of the window and looks like nothing happened at all.
  */
 export const SelectTrigger = forwardRef<View, SelectTriggerProps>(
   function SelectTrigger(
@@ -55,22 +61,35 @@ export const SelectTrigger = forwardRef<View, SelectTriggerProps>(
     const node = useRef<View | null>(null)
     const refs = useMemo(() => mergeRefs(node, ref), [ref])
 
-    const measure = useCallback(
+    const measure = useCallback(() => {
+      node.current?.measureInWindow((x, y, width, height) => {
+        setAnchor({ x, y, width, height })
+      })
+    }, [setAnchor])
+
+    const handleLayout = useCallback(
       (event: LayoutChangeEvent) => {
         onLayout?.(event)
-        node.current?.measureInWindow((x, y, width, height) => {
-          setAnchor({ x, y, width, height })
-        })
+        measure()
       },
-      [onLayout, setAnchor]
+      [measure, onLayout]
     )
+
+    // On every open, and not only on the press: a caller driving `isOpen` themselves gets
+    // the same fresh rectangle as one who tapped.
+    useEffect(() => {
+      if (isOpen) measure()
+    }, [isOpen, measure])
 
     const handlePress = useCallback(
       (event: Parameters<NonNullable<SelectTriggerProps['onPress']>>[0]) => {
         onPress?.(event)
+        // Before the toggle, so the panel's first pass already has the right rectangle
+        // rather than positioning once against the stale one and jumping.
+        measure()
         toggle()
       },
-      [onPress, toggle]
+      [measure, onPress, toggle]
     )
 
     return (
@@ -90,7 +109,7 @@ export const SelectTrigger = forwardRef<View, SelectTriggerProps>(
           }}
           aria-invalid={isInvalid || undefined}
           {...rest}
-          onLayout={measure}
+          onLayout={handleLayout}
           style={[
             triggerStyle,
             isPressed && triggerPressedStyle,

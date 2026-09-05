@@ -105,12 +105,22 @@ export function Select({
       tint?.indicator,
     ])
     const itemLabel = StyleSheet.flatten<TextStyle>([styles.itemLabel])
+    // A tint repaints the trigger's fill, and `fieldPlaceholder` was chosen against the
+    // theme's field colour rather than against an arbitrary one — on a purple trigger it
+    // is unreadable. The tint's own foreground is what stays legible on it, and it
+    // reaches the placeholder only here: the role does not exist in the recipe's
+    // vocabulary, and an untinted select must keep the token the `TextField` uses.
+    const tintedPlaceholder = tint
+      ? StyleSheet.flatten<TextStyle>([tint.value]).color
+      : undefined
 
     return {
       triggerStyle: tint ? [styles.trigger, tint.trigger] : styles.trigger,
       triggerPressedStyle: pressed.trigger,
       valueStyle: tint ? [styles.value, tint.value] : styles.value,
-      placeholderStyle: styles.placeholder,
+      placeholderStyle: tintedPlaceholder
+        ? [styles.placeholder, { color: tintedPlaceholder }]
+        : styles.placeholder,
       indicatorStyle: styles.indicator,
       overlayStyle: styles.overlay,
       contentStyle: styles.content,
