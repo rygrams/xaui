@@ -1,7 +1,7 @@
 import { createRecipe, radiusAxis } from '../../system/recipe'
 import type { SlotStyles, VariantTokens } from '../../system/recipe'
 import type { FontSizeKey, Size, XAUITheme } from '../../theme/theme.type'
-import type { SelectSlot, SelectVariant } from './select.type'
+import type { SelectSize, SelectSlot, SelectVariant } from './select.type'
 
 const SLOTS = [
   'trigger',
@@ -56,16 +56,7 @@ type SizeStep = {
   description: FontSizeKey
 }
 
-const SIZES: Record<Size, SizeStep> = {
-  xs: {
-    control: 'xs',
-    padding: 2.5,
-    gap: 2,
-    value: 'sm',
-    glyph: 'md',
-    listLabel: 'xs',
-    description: 'xs',
-  },
+const SIZES: Record<SelectSize, SizeStep> = {
   sm: {
     control: 'sm',
     padding: 3,
@@ -173,9 +164,11 @@ export const selectRecipe = createRecipe({
       position: 'absolute',
       backgroundColor: theme.colors.overlay,
       padding: theme.spacing(LIST.padding),
-      // The panel is not the field: it takes the largest radius on the scale, which is
-      // what separates a floating surface from the control it came out of.
-      borderRadius: theme.radius['3xl'],
+      // The panel is not the field, so it is rounder — but not by three steps of our
+      // scale. HeroUI's panel is their `--radius-3xl` on a base of 8, which is 24 points;
+      // ours is a base of 12, so the same 24 is `2xl`. Reading their key rather than
+      // their number is what put a 36-point corner on it and made it read as a pill.
+      borderRadius: theme.radius['2xl'],
       borderCurve: 'continuous',
       ...theme.shadows.overlay,
     },
@@ -235,7 +228,6 @@ export const selectRecipe = createRecipe({
 
   variants: {
     size: {
-      xs: sizeAxis(SIZES.xs),
       sm: sizeAxis(SIZES.sm),
       md: sizeAxis(SIZES.md),
       lg: sizeAxis(SIZES.lg),

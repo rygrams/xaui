@@ -146,20 +146,20 @@ everything above it.
 
 ### `Select`
 
-| prop            | type                           | default   | description                             |
-| --------------- | ------------------------------ | --------- | --------------------------------------- |
-| `variant`       | `SelectVariant`                | `primary` | The field's four emphasis levels        |
-| `size`          | `'xs' \| 'sm' \| 'md' \| 'lg'` | `md`      | The **control's** scale, not the list's |
-| `radius`        | `RadiusKey`                    | —         | Overrides the field radius              |
-| `color`         | `string`                       | —         | The tint (R7) — a raw value             |
-| `value`         | `string`                       | —         | Controlled selection                    |
-| `defaultValue`  | `string`                       | —         | Uncontrolled selection                  |
-| `onValueChange` | `(value: string) => void`      | —         | Fires on every choice                   |
-| `isOpen`        | `boolean`                      | —         | Controlled open state                   |
-| `defaultOpen`   | `boolean`                      | `false`   | Uncontrolled open state                 |
-| `onOpenChange`  | `(isOpen: boolean) => void`    | —         | Fires on open and on close              |
-| `isDisabled`    | `boolean`                      | `false`   | Dims the trigger, stops the press       |
-| `isInvalid`     | `boolean`                      | `false`   | Moves the border to `danger`            |
+| prop            | type                        | default   | description                             |
+| --------------- | --------------------------- | --------- | --------------------------------------- |
+| `variant`       | `SelectVariant`             | `primary` | The field's four emphasis levels        |
+| `size`          | `'sm' \| 'md' \| 'lg'`      | `md`      | The **control's** scale, not the list's |
+| `radius`        | `RadiusKey`                 | —         | Overrides the field radius              |
+| `color`         | `string`                    | —         | The tint (R7) — a raw value             |
+| `value`         | `string`                    | —         | Controlled selection                    |
+| `defaultValue`  | `string`                    | —         | Uncontrolled selection                  |
+| `onValueChange` | `(value: string) => void`   | —         | Fires on every choice                   |
+| `isOpen`        | `boolean`                   | —         | Controlled open state                   |
+| `defaultOpen`   | `boolean`                   | `false`   | Uncontrolled open state                 |
+| `onOpenChange`  | `(isOpen: boolean) => void` | —         | Fires on open and on close              |
+| `isDisabled`    | `boolean`                   | `false`   | Dims the trigger, stops the press       |
+| `isInvalid`     | `boolean`                   | `false`   | Moves the border to `danger`            |
 
 ### `Select.Trigger`
 

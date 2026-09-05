@@ -35,6 +35,14 @@ list too tall for the room below would open downwards off the screen. The arithm
 pure function with a test — placement is the one part of this component that is maths
 rather than rendering.
 
+`size` is `sm`, `md` or `lg` — no `xs`. A trigger that small has to hold a value, a
+chevron and the gap between them, and at that height the value gets nothing. The
+`TextField` keeps its `xs` because a field only has to hold text.
+
+The panel's corner is `2xl`, not `3xl`. HeroUI's is their `--radius-3xl` on a base of 8,
+which is 24 points; our base is 12, so the same 24 is `2xl`. Reading their key rather than
+their number put a 36-point corner on it and made it read as a pill.
+
 Two narrowings against HeroUI, both deliberate. `placement` is `top` or `bottom` only: a
 list as wide as its own field hanging off the side of it reads as a menu, and `start` and
 `end` belong to `Popover`. And there is no `presentation` prop — the bottom-sheet and

@@ -32,7 +32,12 @@ export type SelectSlot =
  */
 export type SelectVariant = 'primary' | 'secondary' | 'tertiary' | 'ghost'
 
-export type SelectSize = Size
+/**
+ * No `xs`. A trigger that small has to hold a value, a chevron and the gap between them,
+ * and at that height the value gets nothing — the control reads as a chip that lies about
+ * being pressable. The `TextField` keeps its `xs` because a field only has to hold text.
+ */
+export type SelectSize = Exclude<Size, 'xs'>
 
 /**
  * Which side of the trigger the list opens on. Two values, not HeroUI's four: a select's

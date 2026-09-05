@@ -5,7 +5,7 @@ import type { SelectSize, SelectVariant } from '@xaui/native/select'
 import { useXAUITheme } from '@xaui/native/theme'
 
 const VARIANTS: SelectVariant[] = ['primary', 'secondary', 'tertiary', 'ghost']
-const SIZES: SelectSize[] = ['xs', 'sm', 'md', 'lg']
+const SIZES: SelectSize[] = ['sm', 'md', 'lg']
 
 const LANGUAGES = [
   { value: 'fr', label: 'Français', description: 'La langue par défaut' },
