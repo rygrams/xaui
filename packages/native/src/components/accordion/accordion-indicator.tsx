@@ -7,7 +7,7 @@ import Animated, {
 } from 'react-native-reanimated'
 import { ChevronDownIcon, Icon } from '../../system/icon'
 import { useAccordion, useAccordionItem } from './accordion.context'
-import { INDICATOR_ROTATION, INDICATOR_SPRING } from './accordion.animation'
+import { INDICATOR_ROTATION, INDICATOR_SPRING } from '../../system/anchored'
 import type { AccordionIndicatorProps } from './accordion.type'
 
 /**

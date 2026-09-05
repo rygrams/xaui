@@ -7,7 +7,10 @@ import Animated, {
 } from 'react-native-reanimated'
 import { ChevronDownIcon, Icon } from '../../system/icon'
 import { useSelect } from './select.context'
-import { INDICATOR_ROTATION, INDICATOR_SPRING } from './select.animation'
+import {
+  INDICATOR_ROTATION,
+  INDICATOR_SPRING,
+} from '../../system/anchored/indicator-spring'
 import type { SelectIndicatorProps } from './select.type'
 
 /**

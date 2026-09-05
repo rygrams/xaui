@@ -11,6 +11,13 @@ import type {
 import type { IconComponentProps, IconContextValue } from '../../system/icon'
 import type { TextStyleProps, ViewStyleProps } from '../../system/style-props'
 import type { RadiusKey, Size } from '../../theme/theme.type'
+import type {
+  Align,
+  Anchor,
+  AnchoredWidth,
+  Insets,
+  Placement,
+} from '../../utils/placement'
 
 export type SelectSlot =
   | 'trigger'
@@ -40,29 +47,24 @@ export type SelectVariant = 'primary' | 'secondary' | 'tertiary' | 'ghost'
 export type SelectSize = Exclude<Size, 'xs'>
 
 /**
- * Which side of the trigger the list opens on. Two values, not HeroUI's four: a select's
- * list is as wide as the field it belongs to, and a list hanging off the side of its own
- * field reads as a menu. `Popover` is where `start` and `end` belong.
+ * Which side of the trigger the list opens on. Two of the four a `Popover` takes: a
+ * select's list is as wide as the field it belongs to, and one hanging off the side of
+ * its own field reads as a menu rather than as that field's values.
  */
-export type SelectPlacement = 'top' | 'bottom'
+export type SelectPlacement = Extract<Placement, 'top' | 'bottom'>
 
 /** Where the list lines up along the trigger's cross axis. */
-export type SelectAlign = 'start' | 'center' | 'end'
+export type SelectAlign = Align
 
 /**
  * `trigger` matches the field exactly, which is the default because a list wider than the
  * control it drops out of reads as a different surface. `content-fit` lets it hug the
  * longest label instead, bounded by the screen.
  */
-export type SelectWidth = number | 'trigger' | 'content-fit'
+export type SelectWidth = AnchoredWidth
 
 /** Screen edges the list refuses to cross, in points. */
-export type SelectInsets = {
-  top?: number
-  bottom?: number
-  start?: number
-  end?: number
-}
+export type SelectInsets = Insets
 
 type SelectOwnProps = {
   children?: ReactNode
@@ -245,12 +247,7 @@ export type SelectContextValue = {
 }
 
 /** The trigger's rectangle in window coordinates. */
-export type SelectAnchor = {
-  x: number
-  y: number
-  width: number
-  height: number
-}
+export type SelectAnchor = Anchor
 
 /** What one item publishes to its own slots. */
 export type SelectItemContextValue = {
