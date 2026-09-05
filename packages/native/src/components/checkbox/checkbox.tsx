@@ -110,7 +110,11 @@ export const CheckboxRoot = forwardRef<View, CheckboxProps>(function Checkbox(
 
   const context = useMemo(
     () => ({
-      indicatorStyle: tint ? [styles.indicator, tint.indicator] : styles.indicator,
+      // The tint never reaches the box **at rest**, only the two nodes that say the box
+      // is ticked. `paint` writes the resting fill from `bg` and the tint pass re-runs
+      // `paint`, so applying `tint.indicator` here would paint an unticked box in the
+      // caller's brand colour — which reads as ticked, which is the one thing it is not.
+      indicatorStyle: styles.indicator,
       fillStyle: tint ? [styles.fill, tint.fill] : styles.fill,
       checkStyle: tint ? [styles.check, tint.check] : styles.check,
       dashStyle: tint ? [styles.dash, tint.dash] : styles.dash,

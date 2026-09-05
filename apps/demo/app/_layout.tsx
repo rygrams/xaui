@@ -33,6 +33,7 @@ export default function RootLayout() {
               options={{ title: 'InputGroup (v1)' }}
             />
             <Stack.Screen name="input-otp" options={{ title: 'InputOTP (v1)' }} />
+            <Stack.Screen name="radio" options={{ title: 'Radio (v1)' }} />
             <Stack.Screen name="text-area" options={{ title: 'TextArea (v1)' }} />
             <Stack.Screen
               name="pressable-feedback"
