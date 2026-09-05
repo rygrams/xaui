@@ -26,6 +26,7 @@ const SCREENS = [
   { href: '/input-group', label: 'InputGroup' },
   { href: '/checkbox', label: 'Checkbox' },
   { href: '/radio', label: 'Radio' },
+  { href: '/switch', label: 'Switch' },
 ] as const
 
 export default function HomeScreen() {

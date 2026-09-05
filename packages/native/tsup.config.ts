@@ -11,6 +11,7 @@ const entries = {
   'components/input-group/index': 'src/components/input-group/index.ts',
   'components/input-otp/index': 'src/components/input-otp/index.ts',
   'components/radio/index': 'src/components/radio/index.ts',
+  'components/switch/index': 'src/components/switch/index.ts',
   'components/text-area/index': 'src/components/text-area/index.ts',
   'components/typography/index': 'src/components/typography/index.ts',
   'components/view/index': 'src/components/view/index.ts',

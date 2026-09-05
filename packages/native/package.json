@@ -117,6 +117,16 @@
         "default": "./dist/components/radio/index.cjs"
       }
     },
+    "./switch": {
+      "import": {
+        "types": "./dist/components/switch/index.d.ts",
+        "default": "./dist/components/switch/index.js"
+      },
+      "require": {
+        "types": "./dist/components/switch/index.d.cts",
+        "default": "./dist/components/switch/index.cjs"
+      }
+    },
     "./text-area": {
       "import": {
         "types": "./dist/components/text-area/index.d.ts",

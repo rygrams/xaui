@@ -85,6 +85,7 @@ remaining action belongs to a workflow rather than to a commit.
 | P3.7  | `Input` — Label · Field · Description · Error                      | done   |
 | P3.8  | `Checkbox` — Indicator · Label                                     | done   |
 | P3.9  | `Radio` — Indicator · Label, the `Checkbox` in a circle            | done   |
+| P3.10 | `Switch` — Track · Thumb · Label, two shapes                       | done   |
 | P4    | Docs, generated tables, `1.0.0`                                    | todo   |
 | P5    | The remaining 32 components                                        | todo   |
 | P5.1  | `InputOTP` — Group · Box · Value · Placeholder · Caret · Separator | done   |
