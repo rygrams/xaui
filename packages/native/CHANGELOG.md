@@ -1,5 +1,261 @@
 # @xaui/native
 
+## 0.9.1-alpha.45
+
+### Patch Changes
+
+- 541cbe7: The toast stack collapses, like HeroUI's.
+
+  It was a flex column with a gap: every card fully visible, one under the next, so six
+  toasts took six card heights down the screen. HeroUI's is a pile — one card in front, the
+  rest scaled down and pushed toward the edge behind it, only their shoulders showing.
+
+  Every card is now anchored to the same edge and its depth is entirely in its transform:
+  `translateY: 10` toward the edge and `scale: 0.97` per step, their values, read off their
+  `toast.animation.ts`. A pile of eight costs the height of one. The ladder does not clamp —
+  their interpolation clamps the front side only, so the fourth card is genuinely further
+  back than the third rather than sitting on it and reading as one.
+
+  `limit` becomes `maxVisible`, and it no longer discards. A card past it is transparent,
+  keeps its timer and its place, and is promoted into view when the one in front leaves — so
+  a burst of six shows all six instead of losing three.
+
+- 7557e46: The front toast can be thrown away with a swipe, like HeroUI's.
+
+  Away from its edge — up on a top stack, down on a bottom one — past 50 points or 500 points
+  a second, their thresholds, either alone being enough. Dragged the wrong way it resists
+  rather than refuses: the whole screen's travel maps onto 40 points. The throw carries on at
+  the speed the finger left it and the record goes a moment later, so a hard flick leaves
+  faster than a soft one.
+
+  Only the front card. The ones behind show a seven-point shoulder, which is a target under
+  any reasonable minimum, and dragging the second card out from under the first reads as a
+  glitch rather than as a dismissal. `isSwipeable={false}` on the host turns it off.
+
+  Note that this dismisses **one** card and the pile empties a swipe at a time — HeroUI's
+  gesture calls `hide(id)`, not a clear-all, and their provider has no such thing.
+
+  The gesture runs on `react-native-gesture-handler`, already an optional peer, reached only
+  through `@xaui/native/toast`.
+
+- f8dfa9d: `Toast` — Title · Description · Actions · Close, plus `ToastHost` and `useToast`
+
+  **The card does not know it is in a queue**, when it will leave, or what is stacked under
+  it. The host owns all three, and that split is the whole design: `render` returns anything
+  at all and the queue never looks at it, so `Toast` is the card this library ships rather
+  than the card the host requires.
+
+  `Toast.Close` still knows which toast it belongs to without being told. The host provides
+  the dismiss **around** each entry and the card folds it into the context its slots read, so
+  a close button two levels down needs nothing passed to it.
+
+  **The variant paints the title, and nothing else.** A red card sliding in from the edge of
+  the screen reads as the app breaking; a red line of text reads as the thing you just did
+  failing. The surface stays the theme's floating one whatever happened, which is also what
+  lets two toasts of different kinds stack without the pile looking like a paint chart. It
+  uses the soft foregrounds rather than the full colours, because a toast is read from the
+  corner of the eye and `danger` at full strength is a shout where the soft one is a
+  statement.
+
+  **It slides from the edge it will sit against**, where every other overlay here scales in
+  place. A dialog and a popover appear where they are, because they were asked for; a toast
+  arrives, because something happened. Motion across the screen's edge is the difference.
+
+  Past `limit` the **oldest** goes: the newest is the one that just happened, and the reader
+  is looking for it.
+
+  `useToast` outside a `ToastHost` warns and does nothing rather than throwing. A missing host
+  is a setup mistake in the app shell, and a screen that crashes on its way to reporting that
+  a save succeeded has turned a good outcome into a bad one.
+
+  It closes P5.18 as well as P5.18b: `Snackbar` and `Toast` are the same object under two
+  names, and HeroUI calls it `toast`.
+
+## 0.9.1-alpha.44
+
+### Patch Changes
+
+- 750a85a: `Dialog.Close` draws a cross when it is empty, like HeroUI's.
+
+  It was a bare pressable that rendered whatever it was given and nothing when it was given
+  nothing, so `<Dialog.Close />` — the first line of HeroUI's own anatomy — put an invisible
+  32 points in the corner. It now reads `system/close-button`, which draws the cross from two
+  rotated bars, and the dialog's recipe resolves the box and the bar the way `Chip.Close`
+  already did.
+
+  The measurements are theirs, read off their CSS rather than guessed: a 32-point disc
+  (`height: calc(var(--spacing) * 8)`, `aspect-ratio: 1`), filled with `default` because
+  their `CloseButton` is a `tertiary` button, and a `muted` cross inside it.
+
+  `asChild` is unchanged in behaviour and better in two details: the 32-point box is not
+  forced onto the element you hand it, and the missing-label warning no longer fires on
+  `<Dialog.Close asChild><Button>Compris</Button></Dialog.Close>`, where the label is the
+  button's own text. That second fix is in `CloseButton` and reaches every consumer.
+
+  Also exports `SliderValue`, which `SliderProps.value` and `onValueChange` both name and
+  which no consumer could import.
+
+- 797ea98: `Dialog` — Trigger · Overlay · Content · Title · Description · Close
+
+  The `Popover` without an anchor. Same portal, same context re-provision, same overlay
+  keyframes; none of the measuring pass, the host origin or the collision flip, because a
+  centred box has nothing to be measured against.
+
+  Two things it adds.
+
+  **The backdrop dims**, where the `Popover`'s paints nothing until a `backgroundColor` says
+  so. A popover is an aside you read the page around; a dialog is a question, and the page
+  behind it is not available until it is answered. `isDismissable={false}` is for one that
+  must be answered rather than escaped.
+
+  **It grows from its own centre**, 200 ms from `scale: 0.94`. A popover's entrance is offset
+  towards the thing that opened it so the motion points back at it; a dialog belongs to the
+  screen rather than to a control, so the absence of a direction is the message.
+
+  The content is two layers, and the outer one is not decoration: a centred box cannot also
+  be the thing that centres it. The outer layer fills the portal and does the centring, the
+  panel is the box, and the outer one takes no touches — so a press that misses the panel
+  reaches the overlay under it and closes the dialog.
+
+  No `variant`: the question a dialog asks is in its words, not in its fill.
+
+  It also unblocks the `presentation` prop that `Select.Content` and `Menu.Content` are
+  written around but cannot offer — HeroUI has both, and `dialog` was half of what was
+  missing.
+
+## 0.9.1-alpha.43
+
+### Patch Changes
+
+- ef43606: `BottomSheet` — Trigger · Overlay · Content · Handle · Title · Description · Close
+
+  **Built on this library's own peers rather than on `@gorhom/bottom-sheet`**, which is what
+  HeroUI wraps. A sheet that slides, springs and dismisses is a pan gesture and a shared
+  value; taking a dependency for that would put a second animation library in every app that
+  installs one component. What it costs is their snap points and their scroll integration —
+  both worth having, and both worth their own change rather than a dependency.
+
+  **It measures its own height, then slides that far.** A sheet is as tall as what is in it
+  and nothing else on the screen knows that number, so the first layout is what tells the
+  animation how far "down" is. Until it has one the sheet waits off-screen at a pessimistic
+  distance rather than flashing at its resting place for a frame.
+
+  **Far enough or fast enough.** Past `dismissThreshold` of its own height it closes; so does
+  a flick over 900 points a second, whatever the distance. Without the second, a quick flick
+  from the top of a tall sheet is refused however clearly it meant to throw the thing away.
+  The drag is downward only: a sheet dragged up is already against the top of its own content,
+  and letting it stretch there is a rubber-band nobody asked for.
+
+  **Two separate refusals.** `isSwipeable={false}` on the content and `isDismissable={false}`
+  on the overlay, because a sheet that can be tapped away but not dragged is a real design and
+  so is the reverse.
+
+  **`BottomSheet.Handle` is written by the caller.** It is the only thing telling a reader the
+  sheet can be dragged — the gesture has no other affordance — so a sheet with the drag turned
+  off should not be advertising it.
+
+  `radius` moves the **top** corners only, which is why this component does not use
+  `radiusAxis`: that helper writes `borderRadius`, and a sheet's lower corners are off the
+  screen. Rounding them would put two arcs against a straight edge nobody can see.
+
+  It completes what the `Dialog` started: `Select.Content` and `Menu.Content` are written
+  around a `presentation` prop that needed both.
+
+## 0.9.1-alpha.42
+
+### Patch Changes
+
+- 747aef8: `Slider` — Output · Track · Fill · Thumb
+
+  **Two callbacks, and the difference matters.** `onValueChange` fires on every step the thumb
+  crosses, mid-drag included, and is what a live preview reads. `onValueCommit` fires once,
+  when the finger lifts — it is where a network call belongs, because the first can fire
+  fifty times in a second. The legacy component had one of each under different names and
+  nothing saying which was which.
+
+  **The snap counts steps from the minimum**, not from zero. A range from 5 in steps of 10
+  stops at 5, 15, 25; rounding the value itself would give 10, 20, 30 and move every stop.
+  The rounding precision reads the **minimum** as well as the step, which is what the tests
+  caught: a range from `0.05` in steps of `0.1` has two decimals of precision, and rounding
+  to the step's alone turned its first stop into `0.1`.
+
+  **The travel is inset by half a thumb at each end**, and the fill runs to the thumb's centre
+  rather than to the raw proportion. Without both, the thumb hangs over the track's ends at
+  the extremes and the fill runs out from under it.
+
+  **A press anywhere on the track moves the thumb there** — the half of a slider people
+  forget, because dragging a narrow thumb is a fine gesture on a mouse and a poor one on a
+  finger.
+
+  The thumb grows 15% under the press rather than moving: the finger is already covering it,
+  so the scale is what you see in the gap around it, and it is the only confirmation a slider
+  can give that the drag has started.
+
+  `react-native-gesture-handler` is an optional peer of this package and this is the first
+  component to need it. It is imported in `slider-thumb.tsx` and nowhere else, so only an app
+  that reaches for `@xaui/native/slider` pays for it.
+
+  No `variant` and no `xs`: a slider reports a quantity rather than an intent, and a rail
+  four points thick is a line rather than a control.
+
+  ### A rail with a knob on it, not a capsule with a core
+
+  The legacy proportions rather than HeroUI's: 6 to 10 points of rail under a 16 to 24 point
+  disc. The knob overhangs the rail by half their difference on each side, and the rail
+  reserves that overhang as a margin — without it the knob spills into whatever sits above
+  and below, and the layout has no idea the control is thicker than its rail.
+
+  The three pairs are off the spacing grid on purpose. A rail is not a gap between two
+  things, and rounding 6 to `spacing(1.5)` would put the sizes on a scale with no bearing on
+  how thin a line can be and still be pressable.
+
+  The geometry is a **compound** of `size` and `orientation` rather than two axes. The two
+  cannot be written apart — which side of the rail is its thickness, which is its length, how
+  far to pull the knob back — and an `orientation` axis setting `height: undefined` to undo a
+  `size` axis's height is how this first shipped: declaration order is application order, the
+  second axis won, and the rail had no thickness at all.
+
+  ### Three steps of one colour
+
+  The rail is the theme's neutral, the reach is the colour at thirty-five percent, the knob
+  is the colour at full. The eye lands on the knob, which is the value, rather than on the
+  bar behind it, which is only how far the value has come.
+
+  Material's slider is the same relationship with the steps assigned differently: their
+  inactive track is the soft one and their active track is full. Moving the soft step onto
+  the _reach_ is where this stops being theirs — a filled bar at full strength competes with
+  the handle for the eye, and the handle is the part you can move.
+
+  The thirty-five percent is **derived from the resolved role** in the recipe rather than
+  named in the theme. The soft family is a pair, fifteen and twenty, sized for a chip or a
+  soft button; a bar three hundred points long needs more than either. Adding a third step
+  would move every `*-soft` family in the library for one component's sake. Taking it off the
+  role also means a raw `color` flows through untouched, and the reach and the knob can never
+  drift apart because they come from the same place.
+
+  Disabled drops the colour entirely rather than dimming it: a pale wash reads as an enabled
+  slider seen through fog, a neutral one reads as switched off.
+
+  ### Ranges and vertical rails
+
+  `value={[20, 60]}` is two thumbs and a fill **between** them, and it reports a pair back —
+  the shape the caller wrote is the shape they get. One `<Slider.Thumb index>` per end,
+  written rather than conjured by the rail.
+
+  **The thumbs cannot cross.** Each is bounded by its neighbour rather than by the range, so
+  dragging the lower past the upper stops it dead instead of swapping the two: a swap loses
+  the finger's grip mid-drag, and it ends up pushing the thumb it did not pick up. A press on
+  the rail moves the **nearest** thumb, because moving the first every time would send half a
+  range's presses over the other end.
+
+  `orientation="vertical"` counts **from the bottom**. A rail whose fill grew downwards would
+  report a larger value the lower the knob sat, which is the opposite of what a vertical
+  control means everywhere it appears — it reaches the gesture, the press and the fill's
+  anchor, three places that each had to be inverted.
+
+  Ten more tests on `withThumbAt` and `nearestThumb`, including the non-crossing in both
+  directions and the tie that always goes to the lower thumb.
+
 ## 0.9.1-alpha.41
 
 ### Patch Changes
