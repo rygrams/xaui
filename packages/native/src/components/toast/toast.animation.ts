@@ -27,3 +27,11 @@ export function toastExiting(placement: ToastPlacement) {
   const slide = placement === 'top' ? SlideOutUp : SlideOutDown
   return slide.duration(EXIT_MS).easing(Easing.in(Easing.cubic))
 }
+
+/**
+ * How a card moves when the pile shifts — a dismissal promoting everything forward by one.
+ *
+ * HeroUI's 300 ms, and a timing rather than a spring: the cards move together, and a
+ * spring would have them arrive at slightly different moments and read as a shuffle.
+ */
+export const STACK_TIMING = { duration: 300 }

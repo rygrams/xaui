@@ -1,12 +1,14 @@
 import { useCallback, useId, useMemo, useRef, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import type { ReactNode } from 'react'
-import Animated from 'react-native-reanimated'
+import type { StyleProp, ViewStyle } from 'react-native'
+import Animated, { useAnimatedStyle, withTiming } from 'react-native-reanimated'
 import { Portal } from '../../system/portal'
 import { useXAUITheme } from '../../theme/theme-hooks'
-import { toastEntering, toastExiting } from './toast.animation'
+import { STACK_TIMING, toastEntering, toastExiting } from './toast.animation'
 import { ToastDismissContext, ToastQueueContext } from './toast.context'
 import type { ToastOptions, ToastPlacement, ToastRecord } from './toast.type'
+import { toastStackStyle } from './toast.utils'
 
 export type ToastHostProps = {
   children?: ReactNode
@@ -20,12 +22,12 @@ export type ToastHostProps = {
    */
   duration?: number
   /**
-   * How many are shown at once. Past it the **oldest** goes, because the newest is the one
-   * that just happened and the reader is looking for it.
+   * How many cards are visible at once. Past it a card is transparent rather than gone —
+   * it is still queued, and dismissing the front one promotes it into view.
    *
    * @default 3
    */
-  limit?: number
+  maxVisible?: number
 }
 
 /**
@@ -42,7 +44,7 @@ export function ToastHost({
   children,
   placement = 'bottom',
   duration = 4000,
-  limit = 3,
+  maxVisible = 3,
 }: ToastHostProps) {
   const theme = useXAUITheme()
   const [records, setRecords] = useState<readonly ToastRecord[]>([])
@@ -74,18 +76,10 @@ export function ToastHost({
       const id = `${seed}-${count.current}`
       const life = options.duration ?? duration
 
-      setRecords(current => {
-        const next = [...current, { ...options, id }]
-        // The oldest goes, not the newest: the newest is the one that just happened, and
-        // the reader is looking for it.
-        const dropped = next.slice(0, Math.max(next.length - limit, 0))
-        for (const record of dropped) {
-          const timer = timers.current.get(record.id)
-          if (timer) clearTimeout(timer)
-          timers.current.delete(record.id)
-        }
-        return next.slice(-limit)
-      })
+      // Nothing is dropped. A card past `maxVisible` is transparent, not discarded, so a
+      // burst of six shows all six as the ones in front expire — and every one of them
+      // keeps the timer it was given rather than dying with the record.
+      setRecords(current => [...current, { ...options, id }])
 
       if (life > 0) {
         timers.current.set(
@@ -96,7 +90,7 @@ export function ToastHost({
 
       return id
     },
-    [dismiss, duration, limit, seed]
+    [dismiss, duration, seed]
   )
 
   const queue = useMemo(
@@ -104,14 +98,16 @@ export function ToastHost({
     [toast, dismiss, dismissAll]
   )
 
-  const stack = {
-    ...sheet.stack,
-    ...(placement === 'top' ? { top: 0 } : { bottom: 0 }),
-    padding: theme.spacing(4),
-    gap: theme.spacing(2),
-    // Newest nearest the edge it came from, so the eye finds it without reading the pile.
-    flexDirection:
-      placement === 'top' ? ('column-reverse' as const) : ('column' as const),
+  // Every card is anchored to the same edge and pushed back by its transform alone — the
+  // pile costs the height of one card however many are in it, which is the whole point of
+  // stacking rather than listing. The strip fills the portal so the cards have something
+  // to be absolute inside.
+  const inset = theme.spacing(4)
+  const entry = {
+    ...sheet.entry,
+    start: inset,
+    end: inset,
+    ...(placement === 'top' ? { top: inset } : { bottom: inset }),
   }
 
   return (
@@ -121,18 +117,21 @@ export function ToastHost({
         <Portal>
           {/* `box-none` so the strip over the screen's edge does not swallow presses meant
               for whatever is under it — only the cards themselves take touches. */}
-          <View pointerEvents="box-none" style={stack}>
-            {records.map(record => (
-              <Animated.View
+          <View pointerEvents="box-none" style={sheet.stack}>
+            {/* Oldest first, so the newest is painted last and lands on top without a
+                zIndex — the one thing the reader is looking for is the one in front. */}
+            {records.map((record, index) => (
+              <ToastStackEntry
                 key={record.id}
-                pointerEvents="box-none"
-                entering={toastEntering(placement)}
-                exiting={toastExiting(placement)}
+                depth={records.length - 1 - index}
+                placement={placement}
+                maxVisible={maxVisible}
+                style={entry}
               >
                 <ToastDismissContext.Provider value={() => dismiss(record.id)}>
                   {record.render({ dismiss: () => dismiss(record.id) })}
                 </ToastDismissContext.Provider>
-              </Animated.View>
+              </ToastStackEntry>
             ))}
           </View>
         </Portal>
@@ -141,8 +140,61 @@ export function ToastHost({
   )
 }
 
+/**
+ * One card in the pile, at the depth the stack put it.
+ *
+ * A component rather than a branch in the map, because the animated style is a hook and a
+ * hook cannot be called per iteration. It reads the three numbers in JS and animates them
+ * on the UI thread, so a dismissal slides the whole pile forward by one instead of
+ * snapping it.
+ */
+function ToastStackEntry({
+  children,
+  depth,
+  placement,
+  maxVisible,
+  style,
+}: {
+  children: ReactNode
+  depth: number
+  placement: ToastPlacement
+  maxVisible: number
+  style: StyleProp<ViewStyle>
+}) {
+  const { translateY, scale, opacity } = toastStackStyle(
+    depth,
+    placement,
+    maxVisible
+  )
+
+  const stacking = useAnimatedStyle(
+    () => ({
+      opacity: withTiming(opacity, STACK_TIMING),
+      transform: [
+        { translateY: withTiming(translateY, STACK_TIMING) },
+        { scale: withTiming(scale, STACK_TIMING) },
+      ],
+    }),
+    [translateY, scale, opacity]
+  )
+
+  return (
+    <Animated.View
+      // `none` past the last visible card: a transparent card is still a target, and a
+      // press meant for the front one must not land on something nobody can see.
+      pointerEvents={opacity === 0 ? 'none' : 'box-none'}
+      entering={toastEntering(placement)}
+      exiting={toastExiting(placement)}
+      style={[style, stacking]}
+    >
+      {children}
+    </Animated.View>
+  )
+}
+
 const sheet = StyleSheet.create({
-  stack: { position: 'absolute', start: 0, end: 0 },
+  stack: { position: 'absolute', top: 0, bottom: 0, start: 0, end: 0 },
+  entry: { position: 'absolute' },
 })
 
 ToastHost.displayName = 'XAUI.ToastHost'

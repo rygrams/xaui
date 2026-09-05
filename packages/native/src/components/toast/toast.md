@@ -57,7 +57,7 @@ close button two levels down needs nothing passed to it.
 
 ```tsx
 <XAUIProvider>
-  <ToastHost placement="bottom" duration={4000} limit={3}>
+  <ToastHost placement="bottom" duration={4000} maxVisible={3}>
     {app}
   </ToastHost>
 </XAUIProvider>
@@ -88,14 +88,39 @@ dismiss(id)
 
 ### `ToastHost`
 
-| prop        | type                | default  | description                       |
-| ----------- | ------------------- | -------- | --------------------------------- |
-| `placement` | `'top' \| 'bottom'` | `bottom` | Which edge the stack sits against |
-| `duration`  | `number`            | `4000`   | Milliseconds. `0` keeps them      |
-| `limit`     | `number`            | `3`      | How many at once                  |
+| prop         | type                | default  | description                       |
+| ------------ | ------------------- | -------- | --------------------------------- |
+| `placement`  | `'top' \| 'bottom'` | `bottom` | Which edge the stack sits against |
+| `duration`   | `number`            | `4000`   | Milliseconds. `0` keeps them      |
+| `maxVisible` | `number`            | `3`      | How many cards are visible        |
 
-Past the limit the **oldest** goes. The newest is the one that just happened, and the
-reader is looking for it.
+Past `maxVisible` a card is **transparent, not discarded**. It keeps its timer and its
+place, and dismissing the front one promotes it into view — so a burst of six shows all
+six rather than losing three.
+
+## The stack
+
+The cards are not laid out one under another. **Every one is anchored to the same edge**,
+and its depth is entirely in its transform, so a pile of eight costs the height of one:
+
+| depth     | translateY           | scale  |
+| --------- | -------------------- | ------ |
+| 0 (front) | `0`                  | `1`    |
+| 1         | `10` toward the edge | `0.97` |
+| 2         | `20`                 | `0.94` |
+
+Both numbers are HeroUI's, read off their `toast.animation.ts`: `translateY: [0, 10]` and
+`scale: [1, 0.97]`, interpolated over the index. The shoulder a card leaves is
+`10 − 0.03 × height`, around 7 points on a two-line toast — enough to say there is another
+one, not enough to be read as a second card.
+
+**The ladder does not stop.** Their interpolation clamps the front side only, so the fourth
+card is genuinely further back than the third rather than sitting exactly on it and reading
+as one. What ends the ladder is `maxVisible`, past which the card is transparent.
+
+Newest is painted last, so it lands in front without a `zIndex`. A card past `maxVisible`
+takes no touches: a transparent card is still a target, and a press meant for the front one
+must not land on something nobody can see.
 
 ### `Toast`
 
