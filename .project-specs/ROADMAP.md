@@ -141,7 +141,9 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.39  | `Rating` — net new, no legacy equivalent                                    | todo   |
 | P5.40  | `Surface` — net new, the themed ground `Card` and `Popover` sit on          | todo   |
 | P5.41  | `SplitView` — net new, a `view/` split on a draggable divider               | todo   |
-| P5.42  | Parity milestone — `npm deprecate @xaui/native-legacy`                      | todo   |
+| P5.42  | `Table` — net new, no legacy equivalent                                     | todo   |
+| P5.43  | `TagGroup` — net new, to reconcile with P3.5 `Chip`                         | todo   |
+| P5.44  | Parity milestone — `npm deprecate @xaui/native-legacy`                      | todo   |
 | P6     | `@xaui/hybrid` on the v1 API — frozen until P4 ships                        | todo   |
 | P7     | Delete `native-legacy` — not before the P5 parity milestone                 | todo   |
 
