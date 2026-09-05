@@ -1,5 +1,57 @@
 # @xaui/native
 
+## 0.9.1-alpha.44
+
+### Patch Changes
+
+- 750a85a: `Dialog.Close` draws a cross when it is empty, like HeroUI's.
+
+  It was a bare pressable that rendered whatever it was given and nothing when it was given
+  nothing, so `<Dialog.Close />` — the first line of HeroUI's own anatomy — put an invisible
+  32 points in the corner. It now reads `system/close-button`, which draws the cross from two
+  rotated bars, and the dialog's recipe resolves the box and the bar the way `Chip.Close`
+  already did.
+
+  The measurements are theirs, read off their CSS rather than guessed: a 32-point disc
+  (`height: calc(var(--spacing) * 8)`, `aspect-ratio: 1`), filled with `default` because
+  their `CloseButton` is a `tertiary` button, and a `muted` cross inside it.
+
+  `asChild` is unchanged in behaviour and better in two details: the 32-point box is not
+  forced onto the element you hand it, and the missing-label warning no longer fires on
+  `<Dialog.Close asChild><Button>Compris</Button></Dialog.Close>`, where the label is the
+  button's own text. That second fix is in `CloseButton` and reaches every consumer.
+
+  Also exports `SliderValue`, which `SliderProps.value` and `onValueChange` both name and
+  which no consumer could import.
+
+- 797ea98: `Dialog` — Trigger · Overlay · Content · Title · Description · Close
+
+  The `Popover` without an anchor. Same portal, same context re-provision, same overlay
+  keyframes; none of the measuring pass, the host origin or the collision flip, because a
+  centred box has nothing to be measured against.
+
+  Two things it adds.
+
+  **The backdrop dims**, where the `Popover`'s paints nothing until a `backgroundColor` says
+  so. A popover is an aside you read the page around; a dialog is a question, and the page
+  behind it is not available until it is answered. `isDismissable={false}` is for one that
+  must be answered rather than escaped.
+
+  **It grows from its own centre**, 200 ms from `scale: 0.94`. A popover's entrance is offset
+  towards the thing that opened it so the motion points back at it; a dialog belongs to the
+  screen rather than to a control, so the absence of a direction is the message.
+
+  The content is two layers, and the outer one is not decoration: a centred box cannot also
+  be the thing that centres it. The outer layer fills the portal and does the centring, the
+  panel is the box, and the outer one takes no touches — so a press that misses the panel
+  reaches the overlay under it and closes the dialog.
+
+  No `variant`: the question a dialog asks is in its words, not in its fill.
+
+  It also unblocks the `presentation` prop that `Select.Content` and `Menu.Content` are
+  written around but cannot offer — HeroUI has both, and `dialog` was half of what was
+  missing.
+
 ## 0.9.1-alpha.43
 
 ### Patch Changes
