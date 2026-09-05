@@ -14,18 +14,21 @@ thing that is missing, so R14's `width` and `height` are the whole sizing API �
 Native names and values, `width="60%"` as readily as `width={140}`. A `size` token here
 would be a scale of rectangles nobody's content happens to be.
 
-**No `variant`.** It had two — the neutral fill and that fill at half — sold as the two
-backgrounds a placeholder is drawn on. Measured against every surface in both modes, the
-second is _less_ visible than the first everywhere, so it was never the answer to "this
-block reads as a hole" — the full fill is the more visible of the two on the very surface
-that claim named. And on a `secondary` `Card` in dark mode both resolve to that surface's
-own `#27272a` and vanish, which is the case the pair existed to cover.
+`variant` narrows to the two backgrounds a placeholder is ever drawn on: `default`, the
+neutral fill, for a block on the page, and `secondary`, that fill at half, for a block on a
+surface that already carries one — where the full fill reads as a hole. **No status
+families and no `primary`**, because a skeleton reports nothing and a placeholder in the
+accent announces the brand where there is nothing yet to announce; **no `tertiary` and no
+`ghost`**, because a skeleton with a border and no fill is an empty box.
 
-A skeleton has to contrast with whatever sits under it, and a fixed token cannot know what
-that is: two frozen values were never going to cover three surfaces times two modes. The
-block paints `default` — the neutral fill the rest of the library uses for a `secondary`
-`Button`, and the grey HeroUI reaches from `muted` at 30% — and `color` is the way past it,
-honest about being a raw value rather than a name that promises a system.
+HeroUI reaches the same grey from `muted` at 30% opacity. Naming the token instead is what
+lets a theme move the skeleton by moving `default`, rather than by discovering that a
+percentage of a text colour is where the placeholder grey came from.
+
+**No shimmer**, where HeroUI's default is one: a shimmer is a gradient sweeping across the
+block, a gradient needs `react-native-svg`, and that is an optional peer a component in the
+core cannot require. One animation, so `animation` is a boolean rather than a name to
+choose between — the block breathes between full opacity and a half, a second each way.
 
 **No `asChild`** (R12), and the reason is `children`: here it means the content the block
 stands in for, and `asChild` would need it to mean the element to merge the block's styles
