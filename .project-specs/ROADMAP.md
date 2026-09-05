@@ -98,14 +98,20 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.16  | `Tabs`                                                                      | todo   |
 | P5.17  | `AppBar`                                                                    | todo   |
 | P5.18  | `Snackbar`                                                                  | todo   |
+| P5.18b | `Toast` — net new, to reconcile with P5.18 `Snackbar`                       | todo   |
 | P5.19  | `Snippet`                                                                   | todo   |
 | P5.20  | `Fab`                                                                       | todo   |
 | P5.21  | `FabMenu`                                                                   | todo   |
 | P5.22  | `Dialog` — legacy `dialog` and `dialogs` land as one                        | todo   |
 | P5.23  | `BottomSheet`                                                               | todo   |
+| P5.23b | `BottomSheetInput` — net new, a `TextInput` that opens in a `BottomSheet`   | todo   |
 | P5.24  | `Drawer`                                                                    | todo   |
 | P5.24b | `Popover` — net new, anchored overlay over the `Portal`                     | todo   |
 | P5.25  | `Picker`                                                                    | todo   |
+| P5.25b | `WheelPicker` — net new, the spinning column the three below share          | todo   |
+| P5.25c | `WheelDatePicker` — net new, `WheelPicker` columns for a date               | todo   |
+| P5.25d | `WheelTimePicker` — net new, `WheelPicker` columns for a time               | todo   |
+| P5.25e | `WheelDateTimePicker` — net new, the two above as one                       | todo   |
 | P5.26  | `DatePicker`                                                                | todo   |
 | P5.26b | `Calendar` — net new, no legacy equivalent                                  | todo   |
 | P5.26c | `AgendaCalendar` — net new, the `Calendar` with its events                  | todo   |
@@ -133,6 +139,8 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.35c | `MorphButton` — net new, a `Button` that animates between states            | todo   |
 | P5.35d | `SlideButton` — net new, slide-to-confirm over the `Slider`                 | todo   |
 | P5.35e | `SocialAuthButton` — net new, provider marks over the `Button`              | todo   |
+| P5.35f | `ToggleButton` — net new, a `Button` that holds a pressed state             | todo   |
+| P5.35g | `ToggleButtonGroup` — net new, exclusive selection over `ToggleButton`      | todo   |
 | P5.36  | `EmptyState` — net new, no legacy equivalent                                | todo   |
 | P5.37  | `FlipCard` — net new, a `Card` with two faces                               | todo   |
 | P5.38  | `RadioGroup` — net new, the group context P3.9 `Radio` lacks                | todo   |
@@ -143,7 +151,9 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.41  | `SplitView` — net new, a `view/` split on a draggable divider               | todo   |
 | P5.42  | `Table` — net new, no legacy equivalent                                     | todo   |
 | P5.43  | `TagGroup` — net new, to reconcile with P3.5 `Chip`                         | todo   |
-| P5.44  | Parity milestone — `npm deprecate @xaui/native-legacy`                      | todo   |
+| P5.44  | `Timeline` — net new, no legacy equivalent                                  | todo   |
+| P5.45  | `Widget` — net new, no legacy equivalent                                    | todo   |
+| P5.46  | Parity milestone — `npm deprecate @xaui/native-legacy`                      | todo   |
 | P6     | `@xaui/hybrid` on the v1 API — frozen until P4 ships                        | todo   |
 | P7     | Delete `native-legacy` — not before the P5 parity milestone                 | todo   |
 
