@@ -35,7 +35,6 @@ export { SelectOverlay } from './select-overlay'
 export { SelectTrigger } from './select-trigger'
 export { SelectValue } from './select-value'
 export { CheckIcon } from './check-icon'
-export { ChevronDownIcon } from './chevron-down-icon'
 export { useSelect, useSelectItem } from './select.context'
 export { selectRecipe } from './select.recipe'
 export type {
