@@ -30,20 +30,35 @@ A surface has decided nothing: the levels are a ladder, the shadow is asked for,
 goes on it is entirely yours. Reach for a card when the thing is a card; reach for a surface
 when you need a ground.
 
-## A ladder, not four emphases
+## A ladder, not three emphases
 
-| variant     | fill               | typical place              |
-| ----------- | ------------------ | -------------------------- |
-| `primary`   | `surface`          | on the page                |
-| `secondary` | `surfaceSecondary` | inside a `primary`         |
-| `tertiary`  | `surfaceTertiary`  | inside a `secondary`       |
-| `ghost`     | none               | padding and a corner alone |
+| variant     | fill               | edge     | typical place        |
+| ----------- | ------------------ | -------- | -------------------- |
+| `primary`   | `surface`          | —        | on the page          |
+| `secondary` | `surfaceSecondary` | —        | inside a `primary`   |
+| `tertiary`  | `background`       | `border` | inside a `secondary` |
 
 A surface reports nothing — it is the thing other reporting sits on — so the levels say
 **where** something belongs rather than how loud it is. Three is as deep as that reading
 survives; a fourth would be a shade nobody could place.
 
-`ghost` is not a level but the absence of one.
+### `tertiary` is an edge, not a third grey
+
+It takes the page's own `background` and draws itself with a `border`. Below a `secondary`
+there is no grey left that still reads as a level, so what marks the level is the line.
+
+Both are tokens the theme states per mode, so the edge lands **darker than the ground in
+light and lighter than it in dark** — `#fafafa` inside `#e4e4e7`, `#09090b` inside
+`#27272a` — with no branch written in the recipe.
+
+Two consequences to know. A `tertiary` sitting _directly_ on the page shares its fill, so
+only the border draws it — the variant working rather than a bug, since it is meant for
+inside a `secondary`, where the fill also reads as a step back down.
+
+And a **tinted** `tertiary` loses its edge: `color` lands where the variant put its tokens,
+and here that is the fill _and_ the border, so both come back the same colour. A tinted
+surface is a filled surface at every level — reach for `borderColor` as a style prop if you
+want the edge to survive the tint.
 
 ## Props
 
@@ -62,7 +77,7 @@ ground: how tall it is, is how tall what is on it is.
 ## Elevation is asked for
 
 `isElevated` defaults to **true for `primary` only**. A shadow under a ground that barely
-differs from the page reads as dirt rather than as height, so the quieter three are flat
+differs from the page reads as dirt rather than as height, so the quieter two are flat
 until you say otherwise.
 
 That is the second thing separating this from a `Card`, which is always lifted. Whether a
