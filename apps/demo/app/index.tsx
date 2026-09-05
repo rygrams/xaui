@@ -19,6 +19,7 @@ const SCREENS = [
   { href: '/alert', label: 'Alert' },
   { href: '/avatar', label: 'Avatar' },
   { href: '/badge', label: 'Badge' },
+  { href: '/bottom-sheet', label: 'BottomSheet' },
   { href: '/button', label: 'Button' },
   { href: '/card', label: 'Card' },
   { href: '/checkbox', label: 'Checkbox' },

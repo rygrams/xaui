@@ -7,6 +7,7 @@ const entries = {
   'components/avatar/index': 'src/components/avatar/index.ts',
   'components/avatar/index': 'src/components/avatar/index.ts',
   'components/badge/index': 'src/components/badge/index.ts',
+  'components/bottom-sheet/index': 'src/components/bottom-sheet/index.ts',
   'components/button/index': 'src/components/button/index.ts',
   'components/card/index': 'src/components/card/index.ts',
   'components/checkbox/index': 'src/components/checkbox/index.ts',
