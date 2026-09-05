@@ -26,6 +26,7 @@ const entries = {
   'components/tabs/index': 'src/components/tabs/index.ts',
   'components/text-area/index': 'src/components/text-area/index.ts',
   'components/text-field/index': 'src/components/text-field/index.ts',
+  'components/toast/index': 'src/components/toast/index.ts',
   'components/typography/index': 'src/components/typography/index.ts',
   'components/view/index': 'src/components/view/index.ts',
   'system/index': 'src/system/index.ts',
