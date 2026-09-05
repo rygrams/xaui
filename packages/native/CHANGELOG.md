@@ -1,5 +1,60 @@
 # @xaui/native
 
+## 0.9.1-alpha.25
+
+### Patch Changes
+
+- 0c5435f: The `field` radius aligns on HeroUI's — 21 points becomes 12
+
+  `buildRadius` derived it as `base * 1.75`, which on the default base of 12 put a 48-tall
+  field at 21 — 87% of its geometric maximum, so it read as a gélule rather than as a rounded
+  box. HeroUI reaches 12 for the same control from the other side of the scale: their
+  `--radius-field` is an alias of their `--radius-xl`, and their base is 8 where ours is 12.
+
+  It coincides with `lg` at the default base and stays its own key, because that is what lets
+  a theme round its fields without rounding its cards.
+
+  Only `Input` reads it — and `TextArea` through it, since that component has no recipe of its
+  own and renders an `InputRoot`. `InputOTP` deliberately does not: its box is very nearly
+  square, where a wide field's corner is a shape nobody decided for it.
+
+- 0c5435f: The `Input`'s column tightens by a point at every size
+
+  `gap` was 4, 4, 6, 8 and is now 3, 3, 5, 7. A label, a field and a line of help are one
+  thing the eye reads top to bottom, not three stacked blocks, and the whole spacing step let
+  them drift far enough apart to read as a list.
+
+  Quarter steps rather than a new scale: `spacing` takes a fraction, and the `Chip` already
+  measures its dot and its cross that way. It stays a `gap` on the root and not a margin on
+  any slot (R4) — which is what keeps the space above and below the field identical, and what
+  stops an omitted `Input.Description` from leaving a hole behind it.
+
+  `TextArea` inherits it, having no recipe of its own.
+
+- 110dd81: feat(text-area): `TextArea` — a multiline field, over the `Input`
+
+  Not "like" an `Input` — it **is** one. `TextArea` renders the `Input`'s root: the same
+  recipe, the same resolved context, the same four variants, the same `size`, `radius`,
+  `color`, `labelPlacement`, `isInvalid` and `isDisabled`. `TextArea.Label`, `.Description`
+  and `.Error` are literally the `Input`'s slots, re-exported rather than wrapped.
+
+  Only `TextArea.Field` differs, by three things: `multiline`, the text pinned to the top, and
+  a height counted in lines. That is HeroUI's answer too — their `TextArea` is twenty lines
+  rendering their `Input` with the same three defaults.
+
+  `rows` (default `3`) and `maxRows` are **raw values** (R6), like `color`: they resolve
+  outside the style cache from the line height the size chose, so `rows={7}` costs no cache
+  entry. Past `maxRows` the field stops growing and scrolls; unset, it grows with the text and
+  has nothing to scroll, which is why `scrollEnabled` follows `maxRows` rather than being a
+  prop of its own.
+
+  The `Input`'s recipe gains a `textArea` slot carrying only the delta — the line height, the
+  vertical padding and `textAlignVertical` — layered over the field's own style, so the
+  colours, the border and the radius are resolved once for both. The four inside-label
+  compounds write to it as well, so `labelPlacement="inside"` composes.
+
+  Not one of the fifteen the 1.0 core is scoped to; recorded as P5.
+
 ## 0.9.1-alpha.24
 
 ### Patch Changes
