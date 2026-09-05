@@ -94,10 +94,10 @@ const SlidingThumb = forwardRef<
 ) {
   // `useDerivedValue` rather than an assignment in an effect: the slide starts on the UI
   // thread the frame the prop changes, instead of waiting for a commit to schedule it.
-  const progress = useDerivedValue(
-    () => withTiming(isSelected ? 1 : 0, { duration: SWITCH_DURATION }),
-    [isSelected]
-  )
+  const progress = useDerivedValue(() => {
+    'worklet'
+    return withTiming(isSelected ? 1 : 0, { duration: SWITCH_DURATION })
+  }, [isSelected])
 
   const animatedStyle = useAnimatedStyle(() => {
     'worklet'

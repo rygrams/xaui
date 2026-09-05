@@ -41,3 +41,8 @@ plugin does not recognise, and the directive is what `tooling/workletize/` keys 
 The dependency arrays are load-bearing beyond the crash. `distance` and `colors` are plain
 values captured in the closure, not shared values, so without them a switch whose `size` or
 `color` changed would have kept animating to the old travel and the old ink.
+
+**No `xs`**, matching the `Checkbox` and the `Radio`. That track was 40 by 24 with an 18pt
+knob — and unlike those two, a switch has no row to press: the track _is_ the target. Below
+`sm` it stops being comfortably hittable, and shrinking the one control whose whole surface
+is the touch target buys width nobody asked for.
