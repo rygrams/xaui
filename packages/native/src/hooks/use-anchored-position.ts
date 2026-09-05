@@ -49,6 +49,12 @@ export type AnchoredPositionOptions = {
  * against the window; the panel is laid out inside the `PortalHost`. Anything the two
  * differ by — a status bar, a safe-area inset, a host mounted below a header — is exactly
  * the distance the panel would be wrong by.
+ *
+ * **Nothing inside a `content-fit` panel may use `flex: 1`.** That is `flexBasis: 0`, and
+ * the measuring pass has no definite width for a zero basis to grow into — the child's
+ * content size is nothing, so the panel measures to nothing and holds that width. Write
+ * `flexGrow: 1, flexShrink: 1, flexBasis: 'auto'` instead: it fills the row exactly the
+ * same once the width is known, and it starts from the content rather than from zero.
  */
 export function useAnchoredPosition({
   anchor,
