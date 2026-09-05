@@ -55,7 +55,9 @@ export default function TypographyScreen() {
         </Typography>
         <Typography>
           A span inherits the role around it —{' '}
-          <TextSpan color={theme.colors.danger}>and overrides only what it names</TextSpan>
+          <TextSpan color={theme.colors.danger}>
+            and overrides only what it names
+          </TextSpan>
           , here the colour and nothing else.
         </Typography>
         <Typography variant="body-sm">
@@ -93,8 +95,8 @@ export default function TypographyScreen() {
           fontSize={'{17}'} — off the scale on purpose, and it says so
         </Typography>
         <Typography variant="h6" numberOfLines={1}>
-          numberOfLines is React Native&apos;s own, so truncation needs no prop either —
-          this line is far too long to fit on one line of a phone screen
+          numberOfLines is React Native&apos;s own, so truncation needs no prop
+          either — this line is far too long to fit on one line of a phone screen
         </Typography>
       </Section>
 

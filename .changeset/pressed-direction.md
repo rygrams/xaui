@@ -14,7 +14,7 @@ text and darkened in dark mode. Same control, opposite gesture, and nobody had d
 Now `#9333ea → #8533d3` in light and `#c084fc → #c691fd` in dark — darker in light, lighter
 in dark — and the label's contrast rises in both modes instead of falling in one. The
 neutral fills already worked this way, since `defaultForeground` and `surfaceForeground`
-*are* the mode's ink; only the four saturated intents ever flipped. `deriveTint` follows the
+_are_ the mode's ink; only the four saturated intents ever flipped. `deriveTint` follows the
 same rule, so a raw `color` behaves like a token under the finger as much as it does at rest.
 
 Visible on every filled control, which today means the `Button`.

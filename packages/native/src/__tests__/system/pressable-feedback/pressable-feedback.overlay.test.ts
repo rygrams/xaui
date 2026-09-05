@@ -144,7 +144,8 @@ describe('feedbackChildren', () => {
 
     expect(isValidElement(rendered)).toBe(true)
     expect((rendered as ReactElement).type).toBe(Fragment)
-    expect(typesOf((rendered as ReactElement<{ children: ReactNode }>).props.children))
-      .toEqual([Wash, Label])
+    expect(
+      typesOf((rendered as ReactElement<{ children: ReactNode }>).props.children)
+    ).toEqual([Wash, Label])
   })
 })

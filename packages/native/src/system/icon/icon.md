@@ -77,14 +77,14 @@ The same for all three forms, in this order:
 
 ## Props
 
-| Prop | Type | Form | Notes |
-| --- | --- | --- | --- |
-| `as` | `ComponentType<{ size?, color? }>` | `as` | The props Lucide, Ionicons and vector-icons all accept |
-| `children` | `ReactNode` | children | A `react-native-svg` element, cloned with the resolved values |
-| `source` | `ImageSourcePropType` | `source` | An image, tinted with the resolved colour |
-| `size` | `number` | all | Overrides what the slot asked for |
-| `color` | `string` | all | A raw value (R7), never a token |
-| `style` | `StyleProp<ImageStyle>` | **`source` only** | See below |
+| Prop       | Type                               | Form              | Notes                                                         |
+| ---------- | ---------------------------------- | ----------------- | ------------------------------------------------------------- |
+| `as`       | `ComponentType<{ size?, color? }>` | `as`              | The props Lucide, Ionicons and vector-icons all accept        |
+| `children` | `ReactNode`                        | children          | A `react-native-svg` element, cloned with the resolved values |
+| `source`   | `ImageSourcePropType`              | `source`          | An image, tinted with the resolved colour                     |
+| `size`     | `number`                           | all               | Overrides what the slot asked for                             |
+| `color`    | `string`                           | all               | A raw value (R7), never a token                               |
+| `style`    | `StyleProp<ImageStyle>`            | **`source` only** | See below                                                     |
 
 Plus every `ImageStyle` key as a prop (R14) — **on the `source` form only**.
 
@@ -99,7 +99,7 @@ That boundary used to live in a comment while the type offered the props to all 
 forms, so this compiled and silently did nothing:
 
 ```tsx
-<Icon as={Trash2} marginEnd={8} />   // ← now a compile error
+<Icon as={Trash2} marginEnd={8} /> // ← now a compile error
 ```
 
 The props are a union now, so the type refuses it and points at `size` and `color`, which

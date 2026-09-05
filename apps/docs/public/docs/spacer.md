@@ -23,8 +23,7 @@ import { Spacer } from '@xaui/native-legacy/view'
 
 ```tsx
 import { Row, Spacer } from '@xaui/native-legacy/view'
-
-<Row>
+;<Row>
   <Typography>Left</Typography>
   <Spacer />
   <Typography>Right</Typography>
@@ -35,8 +34,7 @@ import { Row, Spacer } from '@xaui/native-legacy/view'
 
 ```tsx
 import { Row, Spacer } from '@xaui/native-legacy/view'
-
-<Row>
+;<Row>
   <Typography>Start</Typography>
   <Spacer flex={2} />
   <Typography>Middle</Typography>
@@ -49,8 +47,7 @@ import { Row, Spacer } from '@xaui/native-legacy/view'
 
 ```tsx
 import { Column, Spacer } from '@xaui/native-legacy/view'
-
-<Column>
+;<Column>
   <Header />
   <Spacer flex={1} />
   <Footer />

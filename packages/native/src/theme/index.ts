@@ -1,5 +1,8 @@
 export { XAUIProvider } from '../provider/xaui-provider'
-export type { ColorModePreference, XAUIProviderProps } from '../provider/xaui-provider.type'
+export type {
+  ColorModePreference,
+  XAUIProviderProps,
+} from '../provider/xaui-provider.type'
 export { createTheme, defaultTheme } from './create-theme'
 export { deriveColors } from './derive-colors'
 export { deriveTint } from './derive-tint'

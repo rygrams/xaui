@@ -43,7 +43,11 @@ function resolveColors(mode: ColorMode, config: XAUIThemeConfig): XAUIColors {
   return { ...defaults, ...source, ...deriveColors(source), ...overrides }
 }
 
-function resolveMode(mode: ColorMode, config: XAUIThemeConfig, id: string): XAUITheme {
+function resolveMode(
+  mode: ColorMode,
+  config: XAUIThemeConfig,
+  id: string
+): XAUITheme {
   const unit = config.spacingUnit ?? SPACING_UNIT
   const shadows = buildShadows(mode)
 

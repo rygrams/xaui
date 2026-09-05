@@ -11,6 +11,6 @@ single element and threw instead, whether or not an overlay was composed: with n
 same. `<Button asChild>` was unusable, and so was every other pressable.
 
 The root's children are now computed once, as a single node, by `feedbackChildren`.
-`asChild` skips the partition entirely: the caller's element *is* the pressable, so an
+`asChild` skips the partition entirely: the caller's element _is_ the pressable, so an
 overlay written inside it belongs to it and hoisting would make it a sibling of the very
 element it was composed into.
