@@ -19,10 +19,19 @@ mount, which reads as the tab bar arranging itself rather than as a control at r
 bar, where the label's colour is the only thing saying which tab is chosen, and that is why
 it is a slot rather than something the list conjures.
 
-**Two shapes, not two emphases.** `primary` is the segmented control — a pill inside a
-filled track; `secondary` is the underline. Different affordances rather than the same one
-louder, which is why the union is two rather than the usual four. Both read the same two
-roles, so a tint lands on either through the same names.
+**Three shapes, not three emphases.** `primary` is the segmented control — a pill inside a
+filled track; `secondary` is the underline; `light` is neither, with no track and no rule
+and nothing but the chosen tab's label going to the accent. Different affordances rather
+than the same one louder, which is why the union is three rather than the usual four. All
+three read the same roles, so a tint lands on any of them through the same names — painting
+a pill, a rule or a word.
+
+`light` names no `bg` and no `bgSelected`, and that is how it has no track and no rule
+rather than an omission: `paint` resolves both to nothing, so the list stays transparent and
+the indicator, with no fill and no compound to give it a size, draws nothing even when a
+caller leaves `<Tabs.Indicator />` in place. Its chosen label goes to the **accent** rather
+than the foreground, because with nothing else moving the colour is the whole signal, and a
+tab merely darker than its neighbours is not chosen — it is just darker.
 
 **A tab is named, not numbered.** The legacy component took an `activeIndex`, which breaks
 the moment a tab is inserted.

@@ -47,15 +47,28 @@ import { Tabs } from '@xaui/native/tabs'
 A stringifiable trigger becomes its label (R3), which is what makes the common case one
 line per tab.
 
-### Two shapes
+### Three shapes
 
 ```tsx
-<Tabs variant="secondary">…</Tabs>
+<Tabs variant="light">…</Tabs>
 ```
 
-`primary` is the segmented control — a pill inside a filled track. `secondary` is the
-underline, a two-point rule along the bottom edge. Two affordances rather than the same one
-louder, which is why the union is two rather than the usual four.
+| variant     | track            | indicator        | chosen label        |
+| ----------- | ---------------- | ---------------- | ------------------- |
+| `primary`   | filled, rounded  | a pill behind it | `segmentForeground` |
+| `secondary` | a hairline under | a two-point rule | `foreground`        |
+| `light`     | none             | none             | `accent`            |
+
+Three affordances rather than the same one louder, which is why the union is three rather
+than the usual four.
+
+`light` is the quietest a tab bar can be and still be one: no track, no rule, nothing but
+the chosen tab's label going to the accent. The colour is the whole signal, which is why it
+goes to the accent rather than to plain ink — a tab merely darker than its neighbours is not
+chosen, it is just darker. It belongs over content that is already busy, and not where a bar
+has to be found before it can be read.
+
+`Tabs.Indicator` draws nothing under `light`, whether you leave it in or take it out.
 
 ### Widening the bar
 
@@ -92,16 +105,16 @@ Full RN names, full RN values (R14). Every node takes them.
 
 ### `Tabs`
 
-| prop            | type                       | default   | description                      |
-| --------------- | -------------------------- | --------- | -------------------------------- |
-| `variant`       | `'primary' \| 'secondary'` | `primary` | Pill in a track, or an underline |
-| `size`          | `'sm' \| 'md' \| 'lg'`     | `md`      | Trigger padding, gap and type    |
-| `radius`        | `RadiusKey`                | —         | Overrides the track and pill     |
-| `color`         | `string`                   | —         | The tint (R7) — a raw value      |
-| `value`         | `string`                   | —         | Controlled                       |
-| `defaultValue`  | `string`                   | —         | Uncontrolled                     |
-| `onValueChange` | `(value: string) => void`  | —         | Fires on every choice            |
-| `isDisabled`    | `boolean`                  | `false`   | Dims the bar, stops every tab    |
+| prop            | type                                  | default   | description                     |
+| --------------- | ------------------------------------- | --------- | ------------------------------- |
+| `variant`       | `'primary' \| 'secondary' \| 'light'` | `primary` | A pill, a rule, or colour alone |
+| `size`          | `'sm' \| 'md' \| 'lg'`                | `md`      | Trigger padding, gap and type   |
+| `radius`        | `RadiusKey`                           | —         | Overrides the track and pill    |
+| `color`         | `string`                              | —         | The tint (R7) — a raw value     |
+| `value`         | `string`                              | —         | Controlled                      |
+| `defaultValue`  | `string`                              | —         | Uncontrolled                    |
+| `onValueChange` | `(value: string) => void`             | —         | Fires on every choice           |
+| `isDisabled`    | `boolean`                             | `false`   | Dims the bar, stops every tab   |
 
 No `xs`. A tab is a target before it is a label, and at that height there is nothing left
 of it.

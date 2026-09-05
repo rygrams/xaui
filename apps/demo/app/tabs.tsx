@@ -4,7 +4,7 @@ import { Tabs } from '@xaui/native/tabs'
 import type { TabsSize, TabsVariant } from '@xaui/native/tabs'
 import { useXAUITheme } from '@xaui/native/theme'
 
-const VARIANTS: TabsVariant[] = ['primary', 'secondary']
+const VARIANTS: TabsVariant[] = ['primary', 'secondary', 'light']
 const SIZES: TabsSize[] = ['sm', 'md', 'lg']
 
 const PANELS = [
@@ -45,8 +45,8 @@ export default function TabsScreen() {
       </Section>
 
       <Section
-        title="Two shapes, not two emphases"
-        note="primary is the segmented control — a pill inside a filled track. secondary is the underline, a two-point rule along the bottom edge. They are different affordances rather than the same one louder, which is why the union is two rather than the usual four."
+        title="Three shapes, not three emphases"
+        note="primary is the segmented control — a pill inside a filled track. secondary is the underline, a two-point rule along the bottom edge. light is neither: no track, no rule, nothing but the chosen tab's label going to the accent. The quietest a tab bar can be and still be one, for a bar over content that is already busy."
       >
         {VARIANTS.map(variant => (
           <Panels key={variant} variant={variant} />
@@ -79,11 +79,19 @@ export default function TabsScreen() {
       </Section>
 
       <Section
+        title="light, and where it belongs"
+        note="With nothing else moving, the colour is the whole signal — which is why the chosen tab goes to the accent rather than to plain ink: a tab merely darker than its neighbours is not chosen, it is just darker. Leave Tabs.Indicator in or out, it draws nothing here."
+      >
+        <Panels variant="light" />
+      </Section>
+
+      <Section
         title="A tint (R7)"
-        note="color is a raw value, never a token. It lands where the shape says: the pill of a primary bar, the rule under a secondary one. The track keeps the theme's neutral, because tinting both would leave the chosen tab with nothing to stand out against."
+        note="color is a raw value, never a token. It lands where the shape says: the pill of a primary bar, the rule under a secondary one, the chosen label of a light one. The track keeps the theme's neutral, because tinting both would leave the chosen tab with nothing to stand out against."
       >
         <Panels color="#7c3aed" hidePanels />
         <Panels variant="secondary" color="#7c3aed" hidePanels />
+        <Panels variant="light" color="#7c3aed" hidePanels />
       </Section>
 
       <Section

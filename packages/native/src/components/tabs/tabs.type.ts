@@ -19,12 +19,18 @@ export type TabsSlot =
   | 'content'
 
 /**
- * Two shapes, not two emphases. `primary` is the segmented control — a pill sliding under
- * the chosen tab inside a filled track; `secondary` is the underline, a rule moving along
- * the bottom edge. They are different affordances rather than the same one louder, which
- * is why the union is two rather than the usual four.
+ * Three shapes, not three emphases.
+ *
+ * `primary` is the segmented control — a pill sliding under the chosen tab inside a filled
+ * track. `secondary` is the underline, a rule moving along the bottom edge. `light` is
+ * neither: no track, no rule, nothing but the chosen tab's label going to the accent.
+ *
+ * They are different affordances rather than the same one louder, which is why the union
+ * is three rather than the usual four. `light` is the quietest a tab bar can be and still
+ * be one — the colour carries it alone, so it belongs over content that is already busy,
+ * and not where a bar has to be found before it can be read.
  */
-export type TabsVariant = 'primary' | 'secondary'
+export type TabsVariant = 'primary' | 'secondary' | 'light'
 
 export type TabsSize = Exclude<Size, 'xs'>
 

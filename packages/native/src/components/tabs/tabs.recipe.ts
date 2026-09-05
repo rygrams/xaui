@@ -6,13 +6,20 @@ import type { TabsSize, TabsSlot, TabsVariant } from './tabs.type'
 const SLOTS = ['root', 'list', 'trigger', 'label', 'indicator', 'content'] as const
 
 /**
- * The two shapes read the same two roles, and that is the point: what a tab looks like
- * when it is chosen is `segment` on `default` in one and `accent` under it in the other,
- * but a tint lands on both through the same names.
+ * The three shapes read the same three roles, and that is the point: a tint lands on any
+ * of them through the same names, whether it ends up painting a pill, a rule or a word.
+ *
+ * `light` names no `bg` and no `bgSelected`, which is not an omission — it is how it has
+ * no track and no rule. `paint` resolves both to nothing, so the list stays transparent
+ * and the indicator, having no fill and no compound to give it a size, draws nothing even
+ * when a caller leaves `<Tabs.Indicator />` in place.
  */
 const VARIANT_TOKENS: Record<TabsVariant, VariantTokens> = {
   primary: { bg: 'default', bgSelected: 'segment', fgSelected: 'segmentForeground' },
   secondary: { bgSelected: 'accent', fgSelected: 'foreground' },
+  // The accent rather than the foreground: with nothing else moving, the colour is the
+  // whole signal, and a chosen tab in plain ink reads as one that is merely darker.
+  light: { fgSelected: 'accent' },
 }
 
 type SizeStep = {
@@ -98,9 +105,11 @@ export const tabsRecipe = createRecipe({
   },
 
   /**
-   * The two shapes, and the only place they differ. `primary` is a pill inside a filled
-   * track, so the track is padded and both corners are round; `secondary` is a rule along
-   * a bottom edge, so the track has a hairline under it and the indicator is that rule.
+   * Where the shapes differ, and `light` is absent on purpose: the base gives the list no
+   * padding, no corner and no edge, so a shape that adds none of them is the base itself.
+   * `primary` is a pill inside a filled track, so the track is padded and both corners are
+   * round; `secondary` is a rule along a bottom edge, so the track carries a hairline and
+   * the indicator is that rule.
    */
   compoundVariants: [
     {
