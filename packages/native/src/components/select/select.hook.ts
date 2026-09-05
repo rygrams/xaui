@@ -1,35 +1,5 @@
 import { useCallback, useMemo, useRef, useState } from 'react'
 
-type ControlledState<T> = {
-  value: T | undefined
-  defaultValue: T | undefined
-  onChange: ((value: T) => void) | undefined
-}
-
-/**
- * One value, owned by the caller or by us. The caller decides by passing `value` at all —
- * checked once on the first render and then held, because a component that silently
- * changes hands mid-life produces a bug nobody can read from the call site.
- */
-export function useControllableState<T>({
-  value,
-  defaultValue,
-  onChange,
-}: ControlledState<T>): [T | undefined, (next: T) => void] {
-  const isControlled = useRef(value !== undefined).current
-  const [uncontrolled, setUncontrolled] = useState(defaultValue)
-
-  const set = useCallback(
-    (next: T) => {
-      if (!isControlled) setUncontrolled(next)
-      onChange?.(next)
-    },
-    [isControlled, onChange]
-  )
-
-  return [isControlled ? value : uncontrolled, set]
-}
-
 /**
  * What the trigger shows once a value is chosen, without the caller repeating it.
  *

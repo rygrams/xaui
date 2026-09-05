@@ -1,4 +1,5 @@
-import { useCallback, useMemo, useRef, useState } from 'react'
+import { useCallback, useMemo } from 'react'
+import { useControllableState } from '../../hooks/use-controllable-state'
 import type { AccordionSelectionMode, AccordionValue } from './accordion.type'
 
 type Options = {
@@ -11,10 +12,8 @@ type Options = {
 
 /**
  * What is open, in whichever shape the mode calls for — a string in `single`, a list in
- * `multiple` — owned by the caller or by us.
- *
- * Which half is controlled is decided on the first render and then held: a component that
- * changes hands mid-life produces a bug nobody can read from the call site.
+ * `multiple`. The controlled/uncontrolled half is `useControllableState`'s, shared with
+ * every other component that has one; only the rule below is this component's own.
  */
 export function useExpansion({
   value,
@@ -23,12 +22,11 @@ export function useExpansion({
   selectionMode,
   isCollapsible,
 }: Options) {
-  const isControlled = useRef(value !== undefined).current
-  const [uncontrolled, setUncontrolled] = useState<AccordionValue>(
-    () => defaultValue ?? (selectionMode === 'multiple' ? [] : '')
-  )
-
-  const current = isControlled ? (value as AccordionValue) : uncontrolled
+  const [current, setCurrent] = useControllableState<AccordionValue>({
+    value,
+    defaultValue: defaultValue ?? (selectionMode === 'multiple' ? [] : ''),
+    onChange: onValueChange,
+  })
 
   const isExpanded = useCallback(
     (item: string) =>
@@ -36,14 +34,15 @@ export function useExpansion({
     [current]
   )
 
+  // `setCurrent` drops a set to the value it already holds, so a press refused under
+  // `isCollapsible={false}` — which is `nextValue` returning what it was given — never
+  // reaches the caller's `onValueChange`. That refusal is the reason it returns the same
+  // reference rather than an equal copy.
   const toggle = useCallback(
     (item: string) => {
-      const next = nextValue(current, item, selectionMode, isCollapsible)
-      if (next === current) return
-      if (!isControlled) setUncontrolled(next)
-      onValueChange?.(next)
+      setCurrent(value_ => nextValue(value_, item, selectionMode, isCollapsible))
     },
-    [current, isControlled, isCollapsible, onValueChange, selectionMode]
+    [isCollapsible, selectionMode, setCurrent]
   )
 
   return useMemo(() => ({ isExpanded, toggle }), [isExpanded, toggle])
