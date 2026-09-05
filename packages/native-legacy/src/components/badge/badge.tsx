@@ -9,6 +9,38 @@ import {
   useBadgeVariantStyles,
 } from './badge.hook'
 
+/**
+ * @deprecated Use `Badge` from `@xaui/native/badge`. This tree is frozen and receives
+ * fixes only.
+ *
+ * The v1 replacement **does not wrap what it decorates**. This one takes the subject as
+ * `children` and the badge as `content`; there, the badge *is* the component and
+ * `placement` puts it on the corner of whatever contains it. So the wrapper is the
+ * caller's, which is what lets a badge sit on anything rather than on what we anticipated.
+ *
+ * `placement` keeps its name and changes its values — `top-right` becomes **`top-end`**,
+ * because the keys underneath are `start` and `end` and a badge on the trailing corner has
+ * to mirror in RTL. `content` becomes children, `themeColor` and the four-value `variant`
+ * (`solid` / `flat` / `faded` / `shadow`) collapse into one eleven-name `variant`, and
+ * `customAppearance` becomes a `style` or style props.
+ *
+ * `isDot` survives unchanged. `isOneChar` does not: the width already follows the count,
+ * because `minWidth` equals the height. `isInvisible` does not either — render it or do
+ * not. `showOutline` and `disableOutline` are gone with the wrapper that drew the ring.
+ *
+ * ```tsx
+ * // legacy
+ * <Badge content="3" placement="top-right" themeColor="danger">
+ *   <BellIcon />
+ * </Badge>
+ *
+ * // v1
+ * <View>
+ *   <Icon as={BellIcon} size={24} />
+ *   <Badge placement="top-end" accessibilityLabel="3 notifications non lues">3</Badge>
+ * </View>
+ * ```
+ */
 export const Badge: React.FC<BadgeProps> = ({
   children,
   content,

@@ -1,6 +1,6 @@
 {
   "name": "@xaui/native",
-  "version": "0.9.1-alpha.32",
+  "version": "0.9.1-alpha.34",
   "description": "Composition-first React Native UI components with native animations powered by Reanimated",
   "keywords": [
     "react-native",
@@ -35,6 +35,26 @@
       "require": {
         "types": "./dist/components/alert/index.d.cts",
         "default": "./dist/components/alert/index.cjs"
+      }
+    },
+    "./avatar": {
+      "import": {
+        "types": "./dist/components/avatar/index.d.ts",
+        "default": "./dist/components/avatar/index.js"
+      },
+      "require": {
+        "types": "./dist/components/avatar/index.d.cts",
+        "default": "./dist/components/avatar/index.cjs"
+      }
+    },
+    "./badge": {
+      "import": {
+        "types": "./dist/components/badge/index.d.ts",
+        "default": "./dist/components/badge/index.js"
+      },
+      "require": {
+        "types": "./dist/components/badge/index.d.cts",
+        "default": "./dist/components/badge/index.cjs"
       }
     },
     "./button": {

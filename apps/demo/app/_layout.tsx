@@ -36,6 +36,8 @@ export default function RootLayout() {
             <Stack.Screen name="radio" options={{ title: 'Radio (v1)' }} />
             <Stack.Screen name="switch" options={{ title: 'Switch (v1)' }} />
             <Stack.Screen name="text-area" options={{ title: 'TextArea (v1)' }} />
+            <Stack.Screen name="avatar" options={{ title: 'Avatar (v1)' }} />
+            <Stack.Screen name="badge" options={{ title: 'Badge (v1)' }} />
             <Stack.Screen name="divider" options={{ title: 'Divider (v1)' }} />
             <Stack.Screen name="skeleton" options={{ title: 'Skeleton (v1)' }} />
             <Stack.Screen name="spinner" options={{ title: 'Spinner (v1)' }} />

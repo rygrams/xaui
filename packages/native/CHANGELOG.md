@@ -1,5 +1,77 @@
 # @xaui/native
 
+## 0.9.1-alpha.34
+
+### Patch Changes
+
+- 4df7f3a: feat(badge): the v1 `Badge` — a count, a dot, and the corner it hangs off
+
+  The twelfth entry of the core, and **one node with no slots**, per the plan: whatever is
+  inside a badge is one line of two or three characters, and a slot would be a name for a
+  `Text` the component can just as well insert itself (R3).
+
+  **It is not a small `Chip`.** A chip holds a word and hugs it; a badge holds a count and is
+  round unless the count is too wide to be. That is the `minWidth` equal to the height — one
+  digit is a circle, two are a capsule — and it is why the label stays at 12pt through three
+  of the four sizes: a count that grows with its badge stops being a count. The heights sit
+  below the `Chip`'s, 16/18/20/24 against 20/24/28/36.
+
+  **`danger` is the default**, the only component in the library whose default is not the
+  first name in its ladder. A badge is overwhelmingly the count of something that wants
+  attention — unread, failed, overdue — and a red one is what `<Badge>3</Badge>` means.
+
+  `isDot` is the bare circle, on its own diameter ladder (6, 8, 10, 12) rather than the
+  height, because a 20pt circle beside a 16pt icon is not a dot. It reaches the recipe as a
+  `dot` axis selected by the resolved size: an axis left unselected contributes nothing, which
+  is exactly "this badge has a label" — where a `{ true, false }` axis would have needed a
+  branch with nothing to say and a `size × isDot` compound would have been sixteen entries for
+  four measurements.
+
+  `placement` makes the parent whatever the badge decorates: absolutely positioned in that
+  corner, pulled out by half its own height on each axis so its centre lands on the corner it
+  marks. The offset is derived from `size`, which is why it is a prop and not four style keys
+  at the call site — and the keys are `start` and `end` (R13), so a trailing-corner badge
+  mirrors in RTL. The insets are computed **outside the style cache**, and have to be: in flow
+  the node is `position: 'relative'`, where an inset is a nudge rather than a placement, so a
+  cached `top: -10` would shift every badge that has no placement at all.
+
+  `placementInsets` is the one pure function here, and it has the one test file.
+
+## 0.9.1-alpha.33
+
+### Patch Changes
+
+- 9f3cde7: feat(avatar): the v1 `Avatar` — Image · Fallback · Initials, the fallback as a layer
+
+  The eleventh entry of the core. **The fallback is not a state, it is the layer underneath.**
+  `Avatar.Image` is absolutely positioned over `Avatar.Fallback`, and an `Image` with nothing
+  decoded yet draws nothing — so the initials show while the photo loads and **stay if the URL
+  is wrong**, with no load-state machine, no `onError` to remember, and nothing to get out of
+  sync. HeroUI runs a status enum for this; a stacking order says the same thing and cannot
+  disagree with itself. JSX order between the two slots is therefore free.
+
+  `variant` is the `Chip`'s eleven names, meaning here what they mean there — an avatar is a
+  token _about_ a person or a thing, which is the category the `Chip` established. The three
+  status families are present because an avatar reports as often as it identifies: a red frame
+  for the account that failed to sync, a green one for the person who is online. It is
+  HeroUI's `variant × color` matrix said once.
+
+  `size` sets both sides, because an avatar is a square before it is a circle — 32, 40, 48, 64,
+  HeroUI's three steps plus the one our ladder adds below them. The glyph inside the fallback
+  runs ahead of the initials at the top of the scale, because two letters fill a circle that
+  one person-icon has to sit inside with air around it.
+
+  `radius` defaults to `full`, where HeroUI fixes one large radius for all three sizes — which
+  makes their small avatars round and their large ones squircles.
+
+  **No default glyph.** XAUI publishes no icon set, so the mark is always the caller's. What
+  `Avatar.Fallback` does instead is publish the frame's resolved size and colour to
+  `IconContext`, so an `Icon` written inside it needs no props at all.
+
+  The photo fades in over 200ms on `onLoad` — HeroUI's timing — driven by a shared value
+  rather than a mount animation, because the node has to be mounted from the first render or
+  it never fetches. `animation={false}` skips it and mounts no worklet.
+
 ## 0.9.1-alpha.32
 
 ### Patch Changes

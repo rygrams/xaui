@@ -15,6 +15,37 @@ import {
 } from './input.hook'
 import { styles } from './input.style'
 
+/**
+ * @deprecated Use `Input` from `@xaui/native/input`. This tree is frozen and receives
+ * fixes only.
+ *
+ * **The root is the column there, not the field.** `Input.Field` is the `TextInput`, and
+ * `label`, `description` and `errorMessage` become `Input.Label`, `Input.Description` and
+ * `Input.Error` — slots on that column, separated by its own `gap`. `customAppearance`,
+ * `container`, `inputContainer` and `inputWrapper` go with them: each slot carries its own
+ * `style` and style props.
+ *
+ * `startContent` and `endContent` become `InputGroup` (`@xaui/native/input-group`), which
+ * is the component for a field with something beside it. `isClearable` has no equivalent —
+ * it is a `InputGroup.Suffix` holding a button you own.
+ *
+ * `themeColor` and the old `variant` fold into one four-level `variant` on the `field*`
+ * tokens. `isInvalid` survives and outranks focus. `onValueChange` becomes `onChangeText`,
+ * React Native's own name. `fullWidth` is gone: a field with no width already fills its
+ * column.
+ *
+ * ```tsx
+ * // legacy
+ * <TextInput label="Courriel" helperText="…" isInvalid errorMessage="…" fullWidth />
+ *
+ * // v1
+ * <Input isInvalid>
+ *   <Input.Label>Courriel</Input.Label>
+ *   <Input.Field value={v} onChangeText={setV} />
+ *   <Input.Error>…</Input.Error>
+ * </Input>
+ * ```
+ */
 export const TextInput = forwardRef<
   React.ComponentRef<typeof RNTextInput>,
   TextInputProps
