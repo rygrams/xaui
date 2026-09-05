@@ -5,7 +5,7 @@ import { Popover } from '@xaui/native/popover'
 import type { PopoverAlign, PopoverPlacement } from '@xaui/native/popover'
 import { useXAUITheme } from '@xaui/native/theme'
 
-const PLACEMENTS: PopoverPlacement[] = ['top', 'bottom', 'start', 'end']
+const PLACEMENTS: PopoverPlacement[] = [ 'end', 'top', 'bottom', 'start' ]
 const ALIGNS: PopoverAlign[] = ['start', 'center', 'end']
 
 /**
@@ -28,7 +28,7 @@ export default function PopoverScreen() {
         title="The four sides"
         note="placement takes start and end as well as top and bottom, which is what separates this from the Select — a list as wide as its own field hanging off the side of it reads as a menu, and a popover has no field. The entrance points back at the trigger either way: a panel below enters upwards, one beside enters sideways."
       >
-        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 12 }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
           {PLACEMENTS.map(placement => (
             <Demo key={placement} placement={placement} label={placement} />
           ))}
@@ -39,7 +39,7 @@ export default function PopoverScreen() {
         title="The three alignments"
         note="align runs along the axis the side does not pin — horizontal for a panel above or below, vertical for one beside. It clamps to the screen insets, so an aligned panel near an edge slides rather than hanging off."
       >
-        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 12 }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
           {ALIGNS.map(align => (
             <Demo key={align} align={align} label={align} />
           ))}
