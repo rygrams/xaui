@@ -34,6 +34,7 @@ const SCREENS = [
   { href: '/radio', label: 'Radio' },
   { href: '/select', label: 'Select' },
   { href: '/skeleton', label: 'Skeleton' },
+  { href: '/slider', label: 'Slider' },
   { href: '/spinner', label: 'Spinner' },
   { href: '/switch', label: 'Switch' },
   { href: '/tabs', label: 'Tabs' },
