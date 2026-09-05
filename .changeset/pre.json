@@ -40,6 +40,7 @@
     "recipe-engine",
     "reference-button",
     "shared-hooks",
+    "skeleton-no-variant",
     "skeleton-v1",
     "slot-system",
     "spinner-v1",
