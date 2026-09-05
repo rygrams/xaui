@@ -38,6 +38,7 @@ const SCREENS = [
   { href: '/skeleton', label: 'Skeleton' },
   { href: '/slider', label: 'Slider' },
   { href: '/spinner', label: 'Spinner' },
+  { href: '/stepper', label: 'Stepper' },
   { href: '/surface', label: 'Surface' },
   { href: '/switch', label: 'Switch' },
   { href: '/tabs', label: 'Tabs' },
