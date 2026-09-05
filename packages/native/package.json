@@ -1,6 +1,6 @@
 {
   "name": "@xaui/native",
-  "version": "0.9.1-alpha.26",
+  "version": "0.9.1-alpha.27",
   "description": "Composition-first React Native UI components with native animations powered by Reanimated",
   "keywords": [
     "react-native",
