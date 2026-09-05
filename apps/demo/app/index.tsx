@@ -40,6 +40,7 @@ const SCREENS = [
   { href: '/spinner', label: 'Spinner' },
   { href: '/switch', label: 'Switch' },
   { href: '/tabs', label: 'Tabs' },
+  { href: '/tag-group', label: 'TagGroup' },
   { href: '/text-area', label: 'TextArea' },
   { href: '/text-field', label: 'TextField' },
   { href: '/toast', label: 'Toast' },
