@@ -24,7 +24,14 @@ export type RadioSlot = 'root' | 'indicator' | 'fill' | 'thumb' | 'label'
  */
 export type RadioVariant = 'primary' | 'secondary' | 'tertiary'
 
-export type RadioSize = Size
+/**
+ * Three of the four, the same three as the `Checkbox` — `xs` is the one missing. That
+ * circle was 16 points across with a 7pt dot, and a target that small is read rather than
+ * aimed at; the touch target is the row anyway, so shrinking the circle buys nothing a
+ * caller can press. The two components pair in the same form, so they offer the same sizes
+ * or a caller discovers the difference the hard way.
+ */
+export type RadioSize = Exclude<Size, 'xs'>
 
 type RadioOwnProps = {
   variant?: RadioVariant
