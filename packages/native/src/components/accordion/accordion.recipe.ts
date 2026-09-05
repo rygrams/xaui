@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native'
 import { createRecipe, radiusAxis } from '../../system/recipe'
 import type { SlotStyles, VariantTokens } from '../../system/recipe'
-import type { FontSizeKey, Size, XAUITheme } from '../../theme/theme.type'
+import type { FontSizeKey, RadiusKey, Size, XAUITheme } from '../../theme/theme.type'
 import type { AccordionSlot, AccordionVariant } from './accordion.type'
 
 const SLOTS = [
@@ -42,13 +42,20 @@ type SizeStep = {
   gap: number
   label: FontSizeKey
   glyph: FontSizeKey
+  radius: RadiusKey
 }
 
+/**
+ * The corner moves with `size`, as the `Card`'s does — and sits one level below the
+ * `Card`'s at every step. A card wraps its content with padding on all four sides, so a
+ * large corner curves through empty space; an accordion's rows run edge to edge, and the
+ * same corner curves through the first and last row's own text.
+ */
 const SIZES: Record<Size, SizeStep> = {
-  xs: { padding: 2.5, gap: 2.5, label: 'sm', glyph: 'md' },
-  sm: { padding: 3, gap: 3, label: 'md', glyph: 'lg' },
-  md: { padding: 3, gap: 4, label: 'md', glyph: 'lg' },
-  lg: { padding: 4, gap: 4, label: 'lg', glyph: 'xl' },
+  xs: { padding: 2.5, gap: 2.5, label: 'sm', glyph: 'md', radius: 'md' },
+  sm: { padding: 3, gap: 3, label: 'md', glyph: 'lg', radius: 'lg' },
+  md: { padding: 3, gap: 4, label: 'md', glyph: 'lg', radius: 'xl' },
+  lg: { padding: 4, gap: 4, label: 'lg', glyph: 'xl', radius: '2xl' },
 }
 
 /**
@@ -59,9 +66,13 @@ const SIZES: Record<Size, SizeStep> = {
 const TRIGGER_PADDING_VERTICAL = 4
 
 function sizeAxis(step: SizeStep) {
-  const { padding, gap, label, glyph } = step
+  const { padding, gap, label, glyph, radius } = step
 
   return (theme: XAUITheme): SlotStyles<AccordionSlot> => ({
+    // Both layers, at the same value: the outer one draws the corner, the inner one is
+    // what a pressed row is cut against.
+    root: { borderRadius: theme.radius[radius] },
+    container: { borderRadius: theme.radius[radius] },
     trigger: {
       paddingVertical: theme.spacing(TRIGGER_PADDING_VERTICAL),
       paddingHorizontal: theme.spacing(padding),
@@ -146,10 +157,6 @@ export const accordionRecipe = createRecipe({
     ...(['primary', 'secondary', 'tertiary'] as const).map(variant => ({
       when: { variant },
       style: (theme: XAUITheme): SlotStyles<AccordionSlot> => ({
-        // Both layers, and at the same value: the outer one draws the corner, the inner
-        // one is what a pressed row is cut against.
-        root: { borderRadius: theme.radius['2xl'] },
-        container: { borderRadius: theme.radius['2xl'] },
         separator: { marginHorizontal: theme.spacing(3) },
       }),
     })),

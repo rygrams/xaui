@@ -190,6 +190,24 @@ two containers that look alike but are declared apart drift. Only the names diff
 they differ on purpose: the ladder descends in one direction, which `default` sitting in
 the middle of the `Card`'s order does not.
 
+## The corner
+
+It moves with `size`, as the `Card`'s does, and sits one level below the `Card`'s at every
+step:
+
+| `size` | corner | the `Card` at the same size |
+| ------ | ------ | --------------------------- |
+| `xs`   | 9      | 12                          |
+| `sm`   | 12     | 18                          |
+| `md`   | 18     | 24                          |
+| `lg`   | 24     | 36                          |
+
+A card wraps its content with padding on all four sides, so a large corner curves through
+empty space. An accordion's rows run edge to edge, and the same corner curves through the
+first and last row's own text.
+
+`radius` overrides it, on both layers at once.
+
 ## Two layers on the root
 
 The root renders one view inside itself, and it is the only place in the library where a
