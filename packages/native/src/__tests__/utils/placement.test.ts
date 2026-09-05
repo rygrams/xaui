@@ -189,3 +189,30 @@ describe('resolvePlacement — beside the trigger', () => {
     expect(top).toBe(632) // 844 - 12 - 200
   })
 })
+
+describe('resolvePlacement — content-fit against a small trigger', () => {
+  it('takes the panel’s own width, not the trigger’s', () => {
+    // The bug this covers: the measuring pass used to lay the panel out at the anchor's
+    // width, so against a 90-point trigger a paragraph measured as a column one character
+    // wide and the panel held that width forever. The arithmetic was always right — what
+    // was wrong was the width it was measured at — so this pins the contract the hook has
+    // to keep: whatever `content` reports is what `content-fit` returns.
+    const { width } = resolvePlacement(
+      input({
+        anchor: { x: 40, y: 300, width: 90, height: 40 },
+        content: { width: 300, height: 120 },
+        width: 'content-fit',
+      })
+    )
+
+    expect(width).toBe(300)
+  })
+
+  it('still refuses to exceed the screen', () => {
+    const { width } = resolvePlacement(
+      input({ content: { width: 900, height: 120 }, width: 'content-fit' })
+    )
+
+    expect(width).toBe(366) // 390 - 12 - 12
+  })
+})
