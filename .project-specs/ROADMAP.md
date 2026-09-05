@@ -79,6 +79,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.3d  | `NumberPad` — net new, the keypad `NumberInput` and `InputOTP` share        | todo   |
 | P5.3e  | `NumberStepper` — net new, the increment pair legacy `Stepper` is not       | todo   |
 | P5.3f  | `PhoneNumberInput` — net new, country prefix over the `TextInput`           | todo   |
+| P5.3g  | `SearchInput` — net new, a `TextInput` with its clear and submit            | todo   |
 | P5.4   | `Select` — slots over the existing group context                            | todo   |
 | P5.5   | `Stepper` — slots over the existing group context                           | todo   |
 | P5.6   | `Toolbar` — slots over the existing group context                           | todo   |
@@ -130,12 +131,17 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.35  | `CloseButton` — net new, the dismiss affordance Chip and Alert inline today | todo   |
 | P5.35b | `LinkButton` — net new, a `Button` that reads as a link                     | todo   |
 | P5.35c | `MorphButton` — net new, a `Button` that animates between states            | todo   |
+| P5.35d | `SlideButton` — net new, slide-to-confirm over the `Slider`                 | todo   |
+| P5.35e | `SocialAuthButton` — net new, provider marks over the `Button`              | todo   |
 | P5.36  | `EmptyState` — net new, no legacy equivalent                                | todo   |
 | P5.37  | `FlipCard` — net new, a `Card` with two faces                               | todo   |
 | P5.38  | `RadioGroup` — net new, the group context P3.9 `Radio` lacks                | todo   |
 | P5.38b | `RadioButton` — net new, to reconcile with P3.9 `Radio`                     | todo   |
 | P5.38c | `RadioButtonGroup` — net new, to reconcile with `RadioGroup`                | todo   |
-| P5.39  | Parity milestone — `npm deprecate @xaui/native-legacy`                      | todo   |
+| P5.39  | `Rating` — net new, no legacy equivalent                                    | todo   |
+| P5.40  | `Surface` — net new, the themed ground `Card` and `Popover` sit on          | todo   |
+| P5.41  | `SplitView` — net new, a `view/` split on a draggable divider               | todo   |
+| P5.42  | Parity milestone — `npm deprecate @xaui/native-legacy`                      | todo   |
 | P6     | `@xaui/hybrid` on the v1 API — frozen until P4 ships                        | todo   |
 | P7     | Delete `native-legacy` — not before the P5 parity milestone                 | todo   |
 
