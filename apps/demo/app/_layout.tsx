@@ -24,6 +24,10 @@ export default function RootLayout() {
           <Stack.Screen name="alert" options={{ title: 'Alert (v1)' }} />
           <Stack.Screen name="avatar" options={{ title: 'Avatar (v1)' }} />
           <Stack.Screen name="badge" options={{ title: 'Badge (v1)' }} />
+          <Stack.Screen
+            name="bottom-sheet"
+            options={{ title: 'BottomSheet (v1)' }}
+          />
           <Stack.Screen name="button" options={{ title: 'Button (v1)' }} />
           <Stack.Screen name="card" options={{ title: 'Card (v1)' }} />
           <Stack.Screen name="checkbox" options={{ title: 'Checkbox (v1)' }} />

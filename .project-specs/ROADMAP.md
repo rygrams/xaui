@@ -103,7 +103,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.20  | `Fab`                                                                            | todo   |
 | P5.21  | `FabMenu`                                                                        | todo   |
 | P5.22  | `Dialog` — legacy `dialog` and `dialogs` land as one                             | todo   |
-| P5.23  | `BottomSheet`                                                                    | todo   |
+| P5.23  | `BottomSheet` — Trigger · Overlay · Content · Handle · Title                     | done   |
 | P5.23b | `BottomSheetInput` — net new, a `TextField` that opens in a `BottomSheet`        | todo   |
 | P5.24  | `Drawer`                                                                         | todo   |
 | P5.24b | `Popover` — Trigger · Overlay · Content · Title · Description · Close            | done   |

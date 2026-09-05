@@ -67,6 +67,16 @@
         "default": "./dist/components/badge/index.cjs"
       }
     },
+    "./bottom-sheet": {
+      "import": {
+        "types": "./dist/components/bottom-sheet/index.d.ts",
+        "default": "./dist/components/bottom-sheet/index.js"
+      },
+      "require": {
+        "types": "./dist/components/bottom-sheet/index.d.cts",
+        "default": "./dist/components/bottom-sheet/index.cjs"
+      }
+    },
     "./button": {
       "import": {
         "types": "./dist/components/button/index.d.ts",
