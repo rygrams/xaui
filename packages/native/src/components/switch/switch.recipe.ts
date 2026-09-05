@@ -173,7 +173,13 @@ export const switchRecipe = createRecipe({
       lg: () => ({}),
     },
 
-    radius: radiusAxis('track'),
+    /**
+     * Both, always together: a track that lost its capsule while the knob kept its circle
+     * is a control rounded by halves. The knob's corner is the same named value rather
+     * than the track's less the padding — that nesting rule reaches zero before the outer
+     * radius does, and a sharp knob inside a slightly rounded track looks like a mistake.
+     */
+    radius: radiusAxis<SwitchSlot>('track', 'thumb'),
   },
 
   /** The six geometries — two shapes, three sizes — and nothing else. */

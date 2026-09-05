@@ -46,3 +46,13 @@ values captured in the closure, not shared values, so without them a switch whos
 knob — and unlike those two, a switch has no row to press: the track _is_ the target. Below
 `sm` it stops being comfortably hittable, and shrinking the one control whose whole surface
 is the touch target buys width nobody asked for.
+
+**`radius` moves the knob with the track.** It reached only the track, so a `radius="sm"`
+switch squared off its bar and kept a circular knob inside it — a control rounded by halves.
+`radiusAxis` becomes variadic to say it, which is the second slot it has been asked for
+since the `Card`.
+
+The knob takes the same named corner rather than the track's less its padding. The nesting
+rule that would suggest otherwise reaches zero before the outer radius does — at `xs` a 3pt
+track would hold a sharp-cornered knob — and two matched corners read better than one
+correct one.
