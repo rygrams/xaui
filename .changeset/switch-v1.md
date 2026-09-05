@@ -29,3 +29,15 @@ a switch that is off is off in every brand.
 
 The knob moves with `translateX` and the sign is flipped against `I18nManager.isRTL`: R13
 bans a directional inset, and a transform does not mirror on its own.
+
+Both animated hooks carry a `'worklet'` directive and a dependency array, which the rest of
+the package already required and these two were missing. Without them the demo's `/switch`
+screen threw outright on web — _"`useAnimatedStyle` was used without a dependency array or
+Babel plugin"_ — while lint, type-check and the test suite all stayed green, because none of
+them renders anything. `pressable-feedback.tsx` states the rule and the reason: the package
+ships as a built `dist`, our CJS output calls the hook as a namespace member that the Babel
+plugin does not recognise, and the directive is what `tooling/workletize/` keys off.
+
+The dependency arrays are load-bearing beyond the crash. `distance` and `colors` are plain
+values captured in the closure, not shared values, so without them a switch whose `size` or
+`color` changed would have kept animating to the old travel and the old ink.

@@ -4,6 +4,7 @@ const entries = {
   index: 'src/index.ts',
   'components/alert/index': 'src/components/alert/index.ts',
   'components/button/index': 'src/components/button/index.ts',
+  'components/card/index': 'src/components/card/index.ts',
   'components/checkbox/index': 'src/components/checkbox/index.ts',
   'components/chip/index': 'src/components/chip/index.ts',
   'components/input/index': 'src/components/input/index.ts',
@@ -12,6 +13,8 @@ const entries = {
   'components/radio/index': 'src/components/radio/index.ts',
   'components/switch/index': 'src/components/switch/index.ts',
   'components/text-area/index': 'src/components/text-area/index.ts',
+  'components/typography/index': 'src/components/typography/index.ts',
+  'components/view/index': 'src/components/view/index.ts',
   'system/index': 'src/system/index.ts',
   'theme/index': 'src/theme/index.ts',
 }

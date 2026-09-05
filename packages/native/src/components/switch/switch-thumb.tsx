@@ -99,14 +99,17 @@ const SlidingThumb = forwardRef<
     [isSelected]
   )
 
-  const animatedStyle = useAnimatedStyle(() => ({
-    transform: [{ translateX: progress.value * distance }],
-    backgroundColor: interpolateColor(
-      progress.value,
-      [0, 1],
-      [colors.off, colors.on]
-    ),
-  }))
+  const animatedStyle = useAnimatedStyle(() => {
+    'worklet'
+    return {
+      transform: [{ translateX: progress.value * distance }],
+      backgroundColor: interpolateColor(
+        progress.value,
+        [0, 1],
+        [colors.off, colors.on]
+      ),
+    }
+  }, [progress, distance, colors.off, colors.on])
 
   return (
     <Animated.View ref={ref} {...rest} style={[style, animatedStyle]}>

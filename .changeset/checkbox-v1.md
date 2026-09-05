@@ -34,3 +34,22 @@ The check is **drawn**, not imported — two borders of an empty box, a quarter 
 where they look like a tick — so a checkbox works in a project that has installed no icon
 set. It is the `CloseButton`'s bargain. Children of `Checkbox.Indicator` replace it and ride
 the same 120ms fade.
+
+Two corrections after seeing it on a device.
+
+**The mark is lifted to where it looks centred.** The check is an "L" — a left border and a
+bottom border — rotated a quarter turn, and an L keeps its ink in one corner rather than in
+the middle of its box. Rotating about that box's centre therefore leaves the tick sitting
+low, and flexbox dutifully centres the box it no longer fills. Rotating by −45° maps a point
+to `(dy − dx)·√2/2`, and across the two strokes that spans `H` at the top and `H − t − W` at
+the bottom — an ink centre `(H − t)·√2/4` below the box centre, 1.06pt on a 24pt box. The
+recipe now lifts by exactly that.
+
+Both transforms moved into the recipe, and `checkbox.style.ts` is gone with them:
+`transform` is a whole value, so the recipe's shallow merge replaces it rather than
+blending, and a rotation in a sheet plus a translation in the recipe would have dropped one
+of the two. The lift is derived from `side` and `stroke`, so it holds at every size.
+
+**No `xs`.** That box was 16 points square with a 1.5pt stroke, and a tick drawn in a space
+that small stops reading as a tick. The touch target is the row rather than the box, so
+shrinking the box buys nothing a caller can press. `sm` is the compact size.

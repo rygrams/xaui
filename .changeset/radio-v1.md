@@ -22,3 +22,8 @@ on it was the `Checkbox`'s, and this is its second use — §2 bis says extract 
 
 `Radio.IndicatorThumb` has no counterpart here: the dot is the indicator's default child,
 replaced by writing children, which is the same escape hatch with one component fewer.
+
+**No `xs`**, matching the `Checkbox`. That circle was 16 points across with a 7pt dot, and a
+target that small is read rather than aimed at — the touch target is the row anyway, so
+shrinking the circle buys nothing a caller can press. The two components pair in the same
+form, so they offer the same three sizes or a caller finds the difference the hard way.

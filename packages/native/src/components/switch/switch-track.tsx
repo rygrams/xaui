@@ -83,13 +83,16 @@ const CrossfadingTrack = forwardRef<
     [isSelected]
   )
 
-  const animatedStyle = useAnimatedStyle(() => ({
-    backgroundColor: interpolateColor(
-      progress.value,
-      [0, 1],
-      [colors.off, colors.on]
-    ),
-  }))
+  const animatedStyle = useAnimatedStyle(() => {
+    'worklet'
+    return {
+      backgroundColor: interpolateColor(
+        progress.value,
+        [0, 1],
+        [colors.off, colors.on]
+      ),
+    }
+  }, [progress, colors.off, colors.on])
 
   return (
     <Animated.View ref={ref} {...rest} style={[style, animatedStyle]}>

@@ -1,6 +1,5 @@
 ---
 '@xaui/native': patch
-'@xaui/native-legacy': patch
 ---
 
 feat(alert): the v1 `Alert` — P3.6
@@ -26,3 +25,11 @@ warning and built-in cross are written once and both components are five-line ca
 Also fixes an inference bug in `createRecipe`: a `compoundVariants` entry declared the
 variant union instead of selecting from it, so a recipe whose only compound was
 `{ when: { variant: 'default' } }` rejected every other variant at the call site.
+
+`Alert.Icon` picks `Icon`'s forms one by one, so the union survives. `IconProps` became a
+discriminated union of its three forms, and a non-distributive `Pick` over it merged them
+back into a single shape where `as` and `source` are both optional — which stopped
+type-checking the moment both changes met on `main`, and would have let
+`<Alert.Icon as={Check} source={png} />` compile with one of the two silently dropped. The
+type now distributes the `Pick`, and the slot renders one `<Icon>` per form in `Icon`'s own
+runtime precedence rather than one call carrying all three.

@@ -22,18 +22,34 @@ export type InputOTPSlot =
   | 'separator'
 
 /**
- * The `Input`'s four levels, unchanged — a one-time code is a field, and a box of it is a
+ * Three of the `Input`'s four levels — a one-time code is a field, and a box of it is a
  * field one character wide. `primary` is the `fieldBackground` fill plus the theme's
  * `field` shadow, `secondary` the neutral fill and the default here, `tertiary` the border
- * alone, `ghost` neither.
+ * alone.
+ *
+ * **No `ghost`**, where the `Input` has one, and it is the shape of the component that
+ * removes it: an input is one wide field whose position the caret and the label already
+ * give away, so it survives having neither fill nor edge. A code is *six* boxes, and their
+ * only job before anything is typed is to say **how many characters are expected and where
+ * they go**. With no fill and no border there is nothing to count. It is the reason the
+ * `Checkbox` has no `ghost` either — a box that is not a box is not a box.
  *
  * HeroUI splits their OTP slot the same two ways their input is split, and they reach for
  * the `field` shadow on `primary` here explicitly — which is the same reading our `Input`
  * takes.
  */
-export type InputOTPVariant = 'primary' | 'secondary' | 'tertiary' | 'ghost'
+export type InputOTPVariant = 'primary' | 'secondary' | 'tertiary'
 
-export type InputOTPSize = Size
+/**
+ * Three of the four, and `xs` is the one missing. The box's width is the control height
+ * less one spacing step, so `xs` is 28 by 32 — a box that small has to carry an 18pt
+ * character to stay legible, and 18 in 28 leaves no room for the two-point active ring
+ * without the digit touching it. A code is also the one field a user reads back to
+ * themselves character by character, which is the worst place to save eight points.
+ *
+ * `sm` is the compact size; below it, use fewer boxes rather than smaller ones.
+ */
+export type InputOTPSize = Exclude<Size, 'xs'>
 
 /** What the boxes are allowed to contain. A string is compiled once, per §. */
 export type InputOTPPattern = string | RegExp
@@ -51,7 +67,7 @@ type InputOTPOwnProps = {
   variant?: InputOTPVariant
   /** The box's height and width, the type inside it, and the gaps. */
   size?: InputOTPSize
-  /** Overrides the `field` radius the theme chose for every size. */
+  /** Overrides the `lg` radius the theme chose for every size. */
   radius?: RadiusKey
   /**
    * A raw tint (`'#7c3aed'`), never a token (R7). It lands where the variant put its

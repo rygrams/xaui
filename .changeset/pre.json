@@ -9,8 +9,23 @@
     "@xaui/native-legacy": "0.2.11"
   },
   "changesets": [
+    "alert-v1",
     "api-review-fixes",
+    "card",
+    "checkbox-v1",
+    "chip-v1",
+    "field-radius-heroui",
+    "great-doors-search",
     "icon",
+    "input-gaps",
+    "input-group",
+    "input-otp-v1",
+    "input-textarea",
+    "input-v1",
+    "khaki-lions-argue",
+    "lucky-hounds-jam",
+    "olive-moons-shave",
+    "olive-pugs-tap",
     "pack-uniqueness",
     "portal",
     "press-feedback-values",
@@ -24,6 +39,8 @@
     "slot-system",
     "style-props-everywhere",
     "style-props",
+    "tame-jars-argue",
+    "warning-orange",
     "workletized-build"
   ]
 }
