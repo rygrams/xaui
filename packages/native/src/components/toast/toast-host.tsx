@@ -226,6 +226,19 @@ function ToastStackEntry({
   // Away from the edge the stack sits against: a top card leaves upward, a bottom one down.
   const away = placement === 'top' ? -1 : 1
 
+  // **Declared before the gesture**, not after. A worklet captures what it names when its
+  // closure is built, and a `const` declared further down is still in its dead zone then —
+  // `runOnJS(undefined)` is what reaches the UI thread, and it fails there with
+  // `__remoteFunction of undefined` rather than at the line that got the order wrong.
+  //
+  // A hard flick is gone sooner than a soft one, and neither before the throw has shown.
+  const hideAfterThrow = useCallback(
+    (velocity: number) => {
+      setTimeout(onSwipe, Math.min(SWIPE_HIDE_MS, Math.abs(velocity)))
+    },
+    [onSwipe]
+  )
+
   const pan = Gesture.Pan()
     // Only the card in front. The ones behind show a seven-point shoulder — a target under
     // any reasonable minimum, and dragging the second card out from under the first reads
@@ -279,14 +292,6 @@ function ToastStackEntry({
       // the throw off at the frame the finger lifted.
       runOnJS(hideAfterThrow)(event.velocityY)
     })
-
-  // A hard flick is gone sooner than a soft one, and neither before the throw has shown.
-  const hideAfterThrow = useCallback(
-    (velocity: number) => {
-      setTimeout(onSwipe, Math.min(SWIPE_HIDE_MS, Math.abs(velocity)))
-    },
-    [onSwipe]
-  )
 
   const stacking = useAnimatedStyle(() => ({
     opacity: fade.get(),
