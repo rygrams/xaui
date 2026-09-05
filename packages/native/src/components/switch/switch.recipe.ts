@@ -98,7 +98,6 @@ type SizeStep = {
  * and HeroUI's is the same 48 wide. Ours moves around that one, a spacing step at a time.
  */
 const INSIDE: Record<SwitchSize, SizeStep> = {
-  xs: { track: 10, height: 6, thumb: 4.5, padding: 0.75, gap: 2, label: 'sm' },
   sm: { track: 11, height: 6.5, thumb: 5, padding: 0.75, gap: 2, label: 'sm' },
   md: { track: 12, height: 7, thumb: 5.5, padding: 0.75, gap: 2, label: 'md' },
   lg: { track: 14, height: 8, thumb: 6.5, padding: 0.75, gap: 2.5, label: 'lg' },
@@ -112,7 +111,6 @@ const INSIDE: Record<SwitchSize, SizeStep> = {
  * ends would only make the travel shorter than the eye expects.
  */
 const OVERLAP: Record<SwitchSize, SizeStep> = {
-  xs: { track: 10, height: 4, thumb: 5.5, padding: 0, gap: 2, label: 'sm' },
   sm: { track: 11, height: 4.5, thumb: 6, padding: 0, gap: 2, label: 'sm' },
   md: { track: 12, height: 4.5, thumb: 6.5, padding: 0, gap: 2, label: 'md' },
   lg: { track: 14, height: 5, thumb: 7.5, padding: 0, gap: 2.5, label: 'lg' },
@@ -170,22 +168,25 @@ export const switchRecipe = createRecipe({
      * the other axes rather than infer it from an absence.
      */
     size: {
-      xs: () => ({}),
       sm: () => ({}),
       md: () => ({}),
       lg: () => ({}),
     },
 
-    radius: radiusAxis('track'),
+    /**
+     * Both, always together: a track that lost its capsule while the knob kept its circle
+     * is a control rounded by halves. The knob's corner is the same named value rather
+     * than the track's less the padding — that nesting rule reaches zero before the outer
+     * radius does, and a sharp knob inside a slightly rounded track looks like a mistake.
+     */
+    radius: radiusAxis<SwitchSlot>('track', 'thumb'),
   },
 
-  /** The eight geometries — two shapes, four sizes — and nothing else. */
+  /** The six geometries — two shapes, three sizes — and nothing else. */
   compoundVariants: [
-    { when: { variant: 'primary', size: 'xs' }, style: sizeAxis(INSIDE.xs) },
     { when: { variant: 'primary', size: 'sm' }, style: sizeAxis(INSIDE.sm) },
     { when: { variant: 'primary', size: 'md' }, style: sizeAxis(INSIDE.md) },
     { when: { variant: 'primary', size: 'lg' }, style: sizeAxis(INSIDE.lg) },
-    { when: { variant: 'secondary', size: 'xs' }, style: sizeAxis(OVERLAP.xs) },
     { when: { variant: 'secondary', size: 'sm' }, style: sizeAxis(OVERLAP.sm) },
     { when: { variant: 'secondary', size: 'md' }, style: sizeAxis(OVERLAP.md) },
     { when: { variant: 'secondary', size: 'lg' }, style: sizeAxis(OVERLAP.lg) },

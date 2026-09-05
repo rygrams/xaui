@@ -5,5 +5,4 @@ export type {
   DividerProps,
   DividerSize,
   DividerSlot,
-  DividerVariant,
 } from './divider.type'

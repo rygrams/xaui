@@ -63,7 +63,10 @@ function BlinkingCaret({ style }: { style: StyleProp<ViewStyle> }) {
     return () => cancelAnimation(opacity)
   }, [opacity])
 
-  const animatedStyle = useAnimatedStyle(() => ({ opacity: opacity.value }))
+  const animatedStyle = useAnimatedStyle(() => {
+    'worklet'
+    return { opacity: opacity.value }
+  }, [opacity])
 
   return <Animated.View style={[style, animatedStyle]} />
 }

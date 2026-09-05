@@ -35,7 +35,13 @@ export type CheckboxSlot = 'root' | 'indicator' | 'fill' | 'check' | 'dash' | 'l
  */
 export type CheckboxVariant = 'primary' | 'secondary' | 'tertiary'
 
-export type CheckboxSize = Size
+/**
+ * Three of the four, and `xs` is the one missing. That box was 16 points square with a
+ * 1.5pt stroke — a tick drawn in a space that small stops reading as a tick, and the touch
+ * target is already the row rather than the box, so shrinking the box buys nothing a
+ * caller can press. `sm` is the compact size.
+ */
+export type CheckboxSize = Exclude<Size, 'xs'>
 
 type CheckboxOwnProps = {
   variant?: CheckboxVariant
