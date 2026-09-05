@@ -27,6 +27,7 @@ const SCREENS = [
   { href: '/checkbox', label: 'Checkbox' },
   { href: '/radio', label: 'Radio' },
   { href: '/switch', label: 'Switch' },
+  { href: '/spinner', label: 'Spinner' },
 ] as const
 
 export default function HomeScreen() {

@@ -1,20 +1,10 @@
-import { useEffect } from 'react'
 import { View } from 'react-native'
 import type { StyleProp, ViewStyle } from 'react-native'
-import Animated, {
-  Easing,
-  cancelAnimation,
-  useAnimatedStyle,
-  useSharedValue,
-  withRepeat,
-  withTiming,
-} from 'react-native-reanimated'
+import Animated from 'react-native-reanimated'
+import { useRotation } from '../../hooks'
 import { useStyleProps } from '../../system/style-props'
 import { useButton } from './button.context'
 import type { ButtonSpinnerProps } from './button.type'
-
-/** One turn. Slow enough to read as waiting, fast enough not to read as stuck. */
-const ROTATION_DURATION = 800
 
 /**
  * The busy indicator. `isLoading` inserts one when none is composed, so
@@ -23,10 +13,19 @@ const ROTATION_DURATION = 800
  *
  * A ring rather than RN's `ActivityIndicator`: the recipe owns its diameter and its
  * colour like every other measurement, which is what makes it follow the button's `size`
- * and its variant with nothing to pass. P3 extracts it into the standalone `Spinner`, and
- * this slot becomes its call site.
+ * and its variant with nothing to pass.
+ *
+ * It is not a `<Spinner>` with props, and it is the standalone component that says why:
+ * `Spinner`'s `size` is a token of its own scale and its `variant` names an ink, while
+ * everything this slot draws was already decided by the button's recipe. Handing it two
+ * raw values would be R6 in reverse — a vocabulary prop taking a computed number. What
+ * the two do share is the turn, and that is `useRotation`.
  */
-export function ButtonSpinner({ style, animation = true, ...props }: ButtonSpinnerProps) {
+export function ButtonSpinner({
+  style,
+  animation = true,
+  ...props
+}: ButtonSpinnerProps) {
   const { spinnerStyle } = useButton()
   const [styleProps] = useStyleProps(props)
   const ringStyle = [spinnerStyle, styleProps, style]
@@ -41,23 +40,7 @@ export function ButtonSpinner({ style, animation = true, ...props }: ButtonSpinn
 ButtonSpinner.displayName = 'XAUI.Button.Spinner'
 
 function SpinningRing({ style }: { style: StyleProp<ViewStyle> }) {
-  const angle = useSharedValue(0)
+  const rotation = useRotation()
 
-  useEffect(() => {
-    angle.value = withRepeat(
-      withTiming(360, { duration: ROTATION_DURATION, easing: Easing.linear }),
-      -1,
-      false
-    )
-    // A repeat with no end runs until something stops it, and unmounting the button is
-    // not by itself that something.
-    return () => cancelAnimation(angle)
-  }, [angle])
-
-  const animatedStyle = useAnimatedStyle(() => {
-    'worklet'
-    return { transform: [{ rotate: `${angle.value}deg` }] }
-  }, [angle])
-
-  return <Animated.View style={[style, animatedStyle]} />
+  return <Animated.View style={[style, rotation]} />
 }
