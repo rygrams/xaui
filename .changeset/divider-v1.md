@@ -2,18 +2,21 @@
 '@xaui/native': patch
 ---
 
-feat(divider): the v1 `Divider` — three levels, one `alignSelf` for both axes
+feat(divider): the v1 `Divider` — no variant, one `alignSelf` for both axes
 
 The thirteenth entry of the core. **One node and no slots**: a rule is a filled box one
 point thick, and there is nothing inside it. A divider with a word across it is a `Row`
 holding two of these and a `Typography` — the composition the library already has. A
 `Divider.Label` would put a layout inside a line.
 
-`variant` is the emphasis ladder narrowed to the three separator tokens, in the order they
-get more visible: `default` between two rows of a list, `secondary` between two groups,
-`tertiary` between two sections. **No status families and no `primary`** — a rule reports
-nothing, and a separator painted in the accent is a decision about the accent, which is
-what `color` is for. **No `ghost`**, because a rule with no ink is a gap on the parent.
+**No `variant`**, and this is the only component in the core without one. A variant is the
+design system's vocabulary (§1 bis) — a name that means the same thing everywhere it
+appears — and on a rule there is nothing for such a name to describe: no fill against a
+foreground, no border against a surface, no intent to report. It briefly had three, naming
+the three separator tokens, which is a shade of grey wearing a word. `size` says how heavy
+the rule is and `color` says what colour it is, in React Native's own values; between them
+there is nothing a third name would add. The theme still sets the default — the rule paints
+`separator`.
 
 **`alignSelf: 'stretch'` serves both orientations**, and that one line is the whole
 mechanism: in a `Column` the cross axis is horizontal so a stretched child is full width,

@@ -34,7 +34,7 @@ import type { DividerProps } from './divider.type'
  * horizontal one written inside a `Row` collapses on purpose rather than guessing.
  */
 export const Divider = forwardRef<View, DividerProps>(function Divider(
-  { children, variant, orientation, size, color, asChild = false, style, ...props },
+  { children, orientation, size, color, asChild = false, style, ...props },
   ref
 ) {
   const theme = useXAUITheme()
@@ -42,7 +42,9 @@ export const Divider = forwardRef<View, DividerProps>(function Divider(
   // the divider's thickness and `color` R7's tint rather than style props of the name.
   const [styleProps, rest] = useStyleProps(props)
 
-  const selection = { variant, orientation, size }
+  // No `variant` — the recipe has one and the caller cannot pick it, so the selection
+  // leaves it to `defaultVariants`.
+  const selection = { orientation, size }
   const styles = dividerRecipe.resolve({ theme, selection })
   // Only when `color` is set, and never cached: a raw tint takes arbitrary values, so
   // letting one into the key would grow the table with the colours callers invent.

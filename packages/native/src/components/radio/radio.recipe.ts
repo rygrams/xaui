@@ -74,7 +74,6 @@ type SizeStep = {
 
 /** `md` is HeroUI's radio measured: a 24pt circle with the field's 1pt border. */
 const SIZES: Record<RadioSize, SizeStep> = {
-  xs: { box: 4, gap: 2, label: 'sm' },
   sm: { box: 5, gap: 2, label: 'sm' },
   md: { box: 6, gap: 2, label: 'md' },
   lg: { box: 7, gap: 2.5, label: 'lg' },
@@ -124,7 +123,6 @@ export const radioRecipe = createRecipe({
 
   variants: {
     size: {
-      xs: sizeAxis(SIZES.xs),
       sm: sizeAxis(SIZES.sm),
       md: sizeAxis(SIZES.md),
       lg: sizeAxis(SIZES.lg),

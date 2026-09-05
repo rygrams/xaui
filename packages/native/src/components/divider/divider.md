@@ -44,7 +44,7 @@ Between two words, in a row:
 A section break, rather than a row break:
 
 ```tsx
-<Divider variant="tertiary" size="sm" />
+<Divider size="sm" />
 ```
 
 With a word across it — two dividers and a label, not a prop:
@@ -61,30 +61,27 @@ With a word across it — two dividers and a label, not a prop:
 
 ## Props
 
-| Prop          | Type                                     | Default        |
-| ------------- | ---------------------------------------- | -------------- |
-| `variant`     | `'default' \| 'secondary' \| 'tertiary'` | `'default'`    |
-| `orientation` | `'horizontal' \| 'vertical'`             | `'horizontal'` |
-| `size`        | `'xs' \| 'sm' \| 'md' \| 'lg'`           | `'xs'`         |
-| `color`       | `string` — a raw hex tint (R7)           | —              |
-| `style`       | `StyleProp<ViewStyle>`                   | —              |
+| Prop          | Type                           | Default        |
+| ------------- | ------------------------------ | -------------- |
+| `orientation` | `'horizontal' \| 'vertical'`   | `'horizontal'` |
+| `size`        | `'xs' \| 'sm' \| 'md' \| 'lg'` | `'xs'`         |
+| `color`       | `string` — a raw hex tint (R7) | —              |
+| `style`       | `StyleProp<ViewStyle>`         | —              |
 
 Plus every `ViewStyle` key as a prop (R14) and every `View` prop.
 
-### `variant` is the emphasis ladder, narrowed
+### No `variant`, and it is the only component in the core without one
 
-A divider reports nothing and is not pressed, so the status families are absent the way
-they are from the `Card` — and so is `primary`: a separator painted in the accent is a
-decision about the accent, which is what `color` is for.
+A variant is the design system's **vocabulary** (§1 bis) — a name that means the same thing
+everywhere it appears. On a rule there is nothing for such a name to describe: no fill
+against a foreground, no border against a surface, no intent to report.
 
-| `variant`   | token                | for                              |
-| ----------- | -------------------- | -------------------------------- |
-| `default`   | `separator`          | between two rows of a list       |
-| `secondary` | `separatorSecondary` | between two groups of rows       |
-| `tertiary`  | `separatorTertiary`  | between two sections of a screen |
+It used to have three, naming the three separator tokens. That is a shade of grey wearing a
+word. `size` says how heavy the rule is, `color` says what colour it is in React Native's
+own values, and between them there is nothing a third name would add.
 
-**No `ghost`**: a rule with no ink is a spacer, and the way to write one is a `gap` on the
-parent rather than an invisible child.
+The theme still decides the default: the rule paints `separator`, and `color` is the way
+past it.
 
 ### `size` is the thickness
 

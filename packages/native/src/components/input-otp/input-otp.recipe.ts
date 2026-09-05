@@ -14,15 +14,15 @@ const SLOTS = [
 ] as const
 
 /**
- * The `Input`'s four levels, token for token — a box of a one-time code is a field one
- * character wide, so it reads the same `field*` family and there is nothing here the
- * `Input` did not already decide.
+ * Three of the `Input`'s four levels, token for token — a box of a one-time code is a
+ * field one character wide, so it reads the same `field*` family and there is nothing
+ * here the `Input` did not already decide.
  *
  * `borderFocus` is the **active** ring rather than a focus one: only the box the next
  * character lands in takes it, and the root resolves that box's styles separately (see
- * `boxActiveStyle`). Every variant declares it, `ghost` included, because a state that
- * reads a role must find it everywhere — a shallow spread would otherwise write
- * `undefined` over the colour `paint` had just set.
+ * `boxActiveStyle`). All three declare it, because a state that reads a role must find it
+ * on every variant — a shallow spread would otherwise write `undefined` over the colour
+ * `paint` had just set.
  */
 const VARIANT_TOKENS: Record<InputOTPVariant, VariantTokens> = {
   primary: {
@@ -42,7 +42,6 @@ const VARIANT_TOKENS: Record<InputOTPVariant, VariantTokens> = {
     borderFocus: 'accent',
     fg: 'fieldForeground',
   },
-  ghost: { borderFocus: 'accent', fg: 'fieldForeground' },
 }
 
 /** How far behind its own colour a placeholder character sits. HeroUI's 50%, exactly. */
@@ -105,7 +104,6 @@ type SizeStep = {
 }
 
 const SIZES: Record<InputOTPSize, SizeStep> = {
-  xs: { control: 'xs', gap: 1.5, glyph: 'sm' },
   sm: { control: 'sm', gap: 2, glyph: 'md' },
   md: { control: 'md', gap: 2, glyph: 'lg' },
   lg: { control: 'lg', gap: 2.5, glyph: 'xl' },
@@ -120,7 +118,13 @@ export const inputOTPRecipe = createRecipe({
     box: {
       alignItems: 'center',
       justifyContent: 'center',
-      borderRadius: theme.radius.field,
+      // `lg` and not `field`, though the two are the same twelve points at the default
+      // base. The keys are kept apart on purpose: `field` is the corner a theme moves when
+      // it wants rounder *fields*, and a field is wide — a code box is very nearly square,
+      // 44 by 48 at `md`, where the geometric maximum is 22 and anything near it is a pill
+      // in all but name. Following `field` here would hand this component a shape that was
+      // never decided for it.
+      borderRadius: theme.radius.lg,
       borderCurve: 'continuous',
       // The one root in the library that clips: the box has no shadow to lose and a
       // character wider than it would otherwise spill onto its neighbour.
@@ -155,12 +159,11 @@ export const inputOTPRecipe = createRecipe({
 
   /**
    * Where the variant's colours land. The border width follows the *presence* of the
-   * border role, so `ghost` needs no rule of its own to say it has no edge at rest.
+   * border role, so a variant that names none needs no rule of its own to say so.
    *
-   * It still takes the ring when it is the active box: the `focused` state sets the width
-   * as well as the colour, so a `ghost` code shows where the next character lands without
-   * carrying five edges it did not ask for. The box has a fixed width and height and
-   * centres what it holds, so the edge appearing moves nothing.
+   * The active box takes the ring whichever variant it is: the `focused` state sets the
+   * width as well as the colour. The box has a fixed width and height and centres what it
+   * holds, so an edge appearing moves nothing.
    */
   paint: (theme, colors) => ({
     box: {
@@ -173,7 +176,6 @@ export const inputOTPRecipe = createRecipe({
 
   variants: {
     size: {
-      xs: sizeAxis(SIZES.xs),
       sm: sizeAxis(SIZES.sm),
       md: sizeAxis(SIZES.md),
       lg: sizeAxis(SIZES.lg),

@@ -37,3 +37,14 @@ this library exists not to ship.
 
 `isLoading={false}` renders `children` and nothing around them, which is what makes the
 component a gate rather than a shape you mount and unmount around your own content.
+
+The demo gains the two shapes a placeholder is actually written as: **a card** — the
+skeleton _inside_ a real `Card`, so the padding, the radius and the gaps are the card's and
+only what fills them changes on load — and **a list** of four rows, where the rhythm is the
+point and the line widths differ so the rows do not read as a loading bar. Both toggle back
+to their loaded content on a press, which is the only way to see that nothing shifts.
+
+The list sits on a `default` card rather than a `secondary` one, and that is worth knowing:
+in dark mode `default` and `surfaceSecondary` are the same `#27272a`, so a `default`
+skeleton on a `secondary` card is invisible — and the `secondary` skeleton, being that fill
+at half, is worse. The variant ladder has no answer on that surface.

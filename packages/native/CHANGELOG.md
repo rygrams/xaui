@@ -1,5 +1,700 @@
 # @xaui/native
 
+## 0.9.1-alpha.32
+
+### Patch Changes
+
+- c66aca9: feat(skeleton): the v1 `Skeleton` — two fills, one pulse, sized by R14 alone
+
+  The fourteenth entry of the core. **One node and no slots**: a placeholder is a rectangle,
+  and there is nothing inside it to name. A paragraph of them is three of these in a `Column`
+  — composition doing what a `lines={3}` prop would otherwise hard-code, including the last
+  line being shorter, which is the only reason the block reads as a paragraph.
+
+  **There is no `size`, and that is the design.** Only the caller knows the shape of the
+  thing that is missing, so R14's `width` and `height` are the whole sizing API — full React
+  Native names and values, `width="60%"` as readily as `width={140}`. A `size` token here
+  would be a scale of rectangles nobody's content happens to be.
+
+  `variant` narrows to the two backgrounds a placeholder is ever drawn on: `default`, the
+  neutral fill, for a block on the page, and `secondary`, that fill at half, for a block on a
+  surface that already carries one — where the full fill reads as a hole. **No status
+  families and no `primary`**, because a skeleton reports nothing and a placeholder in the
+  accent announces the brand where there is nothing yet to announce; **no `tertiary` and no
+  `ghost`**, because a skeleton with a border and no fill is an empty box.
+
+  HeroUI reaches the same grey from `muted` at 30% opacity. Naming the token instead is what
+  lets a theme move the skeleton by moving `default`, rather than by discovering that a
+  percentage of a text colour is where the placeholder grey came from.
+
+  **No shimmer**, where HeroUI's default is one: a shimmer is a gradient sweeping across the
+  block, a gradient needs `react-native-svg`, and that is an optional peer a component in the
+  core cannot require. One animation, so `animation` is a boolean rather than a name to
+  choose between — the block breathes between full opacity and a half, a second each way.
+
+  **No `asChild`** (R12), and the reason is `children`: here it means the content the block
+  stands in for, and `asChild` would need it to mean the element to merge the block's styles
+  into. One `children` with two meanings, disambiguated by a second prop, is the kind of API
+  this library exists not to ship.
+
+  `isLoading={false}` renders `children` and nothing around them, which is what makes the
+  component a gate rather than a shape you mount and unmount around your own content.
+
+  The demo gains the two shapes a placeholder is actually written as: **a card** — the
+  skeleton _inside_ a real `Card`, so the padding, the radius and the gaps are the card's and
+  only what fills them changes on load — and **a list** of four rows, where the rhythm is the
+  point and the line widths differ so the rows do not read as a loading bar. Both toggle back
+  to their loaded content on a press, which is the only way to see that nothing shifts.
+
+  The list sits on a `default` card rather than a `secondary` one, and that is worth knowing:
+  in dark mode `default` and `surfaceSecondary` are the same `#27272a`, so a `default`
+  skeleton on a `secondary` card is invisible — and the `secondary` skeleton, being that fill
+  at half, is worse. The variant ladder has no answer on that surface.
+
+## 0.9.1-alpha.31
+
+### Patch Changes
+
+- 7b0d12b: feat(divider): the v1 `Divider` — no variant, one `alignSelf` for both axes
+
+  The thirteenth entry of the core. **One node and no slots**: a rule is a filled box one
+  point thick, and there is nothing inside it. A divider with a word across it is a `Row`
+  holding two of these and a `Typography` — the composition the library already has. A
+  `Divider.Label` would put a layout inside a line.
+
+  **No `variant`**, and this is the only component in the core without one. A variant is the
+  design system's vocabulary (§1 bis) — a name that means the same thing everywhere it
+  appears — and on a rule there is nothing for such a name to describe: no fill against a
+  foreground, no border against a surface, no intent to report. It briefly had three, naming
+  the three separator tokens, which is a shade of grey wearing a word. `size` says how heavy
+  the rule is and `color` says what colour it is, in React Native's own values; between them
+  there is nothing a third name would add. The theme still sets the default — the rule paints
+  `separator`.
+
+  **`alignSelf: 'stretch'` serves both orientations**, and that one line is the whole
+  mechanism: in a `Column` the cross axis is horizontal so a stretched child is full width,
+  in a `Row` it is vertical so the same word makes a vertical rule full height, and on the
+  axis the thickness fixes it is ignored. So there is no `width` or `height` to keep in sync,
+  and a horizontal divider written inside a `Row` collapses on purpose rather than guessing.
+
+  That is also why the recipe has no `size × orientation` compounds: the `size` axis writes
+  both keys blind and the `orientation` axis, declared second, releases the wrong one. Four
+  lines and two, instead of eight.
+
+  `asChild` is there as R12 requires, and it earns its place on this component: an
+  `Animated.View` that collapses a section takes the thickness and the ink from the recipe and
+  the height from a shared value.
+
+  `size` is the thickness — `xs` is HeroUI's `thin`, one device pixel, and `lg` is their
+  `thick`, six points. **It defaults to `xs`**, the one place in the library that does not
+  default to `md`: a rule you notice is a rule that is too thick.
+
+## 0.9.1-alpha.30
+
+### Patch Changes
+
+- f8cc8d6: feat(spinner): the v1 `Spinner` — seven inks, two rings, no SVG
+
+  The fifteenth entry of the core, and the one `Button.Spinner` was named after. **Two rings
+  and no slots**: the root is the track — the full circle, in the variant's ink at a fraction
+  of its opacity — and its one child is the arc that turns over it, the same circle with a
+  quarter missing. The two are one figure rather than two parts.
+
+  **A variant here names an ink**, which is the narrowing of §1 bis this component argues for.
+  On a `Chip`, `fg` means "the colour that reads _on_ this variant's surface", so `primary`
+  resolves to `accentForeground` — white. A spinner has no surface, so `primary` is `accent`,
+  `secondary` is the accent as it reads on the page, `default` is `foreground`, `tertiary` is
+  `muted`, and the three status families are there for the wait whose outcome is already
+  named: deleting is a `danger` wait. **No `ghost`**, because a spinner with no ink is not a
+  spinner, and **no `-soft` slices**, because a soft slice is a fill softened.
+
+  HeroUI fades a single arc from opaque to 55%, which needs an SVG `linearGradient` and
+  therefore `react-native-svg` — an **optional peer**, which a component in the
+  fifteen-component core cannot require. Two circles of one ink at two opacities read as the
+  same figure, cost two views, and pull in nothing. The track is what does the work: a
+  rotating three-quarter ring on its own reads as broken rather than as busy.
+
+  `size` is the diameter and the only measurement a circle has — 16, 20, 24, 32, HeroUI's
+  three steps plus the one our ladder adds between the first two. The stroke thickens once,
+  at `lg`.
+
+  The turn moves to `hooks/use-rotation.ts` on its second use, per §2 bis, and
+  `Button.Spinner` stops carrying its own copy — with one duration for the library, because
+  two spinners on one screen at two speeds is a bug and one number is the only way to be sure
+  of it. That slot stays its own component rather than becoming `<Spinner size={…} color={…}
+/>`: everything it draws was already resolved by the button's recipe, and handing those two
+  numbers to vocabulary props would be R6 in reverse.
+
+  The demo's screen list becomes data in the same change — a dozen adjacent hand-written
+  buttons in one JSX block is what made it conflict on every component branch.
+
+## 0.9.1-alpha.29
+
+### Patch Changes
+
+- 8e586e2: feat(switch): the v1 `Switch` — two shapes, one flip
+
+  The tenth entry of the core, and the third of the toggles. The root is the row, so tapping
+  the label flips the switch; R3 wraps a text child into the label and supplies the track and
+  the knob.
+
+  **`variant` is a geometry axis here**, which no other component does: `primary` rides the
+  knob inside the track, `secondary` stands it over a thinner bar. They are the legacy
+  component's `inside` and `overlap` — the same two shapes and the same measurements — under
+  the library's own two names, so the v1 API keeps one vocabulary instead of a third pair of
+  words for this component alone. Both are the accent when they are on, which is why the
+  whole table lives in eight compounds and the colours in one `paint`.
+
+  **No `isInvalid`.** A switch applies its change the moment it is flipped, so there is no
+  later moment at which it can be wrong — a checkbox states an intention a form submits, and
+  that is the one that can be. A setting that cannot be turned on is `isDisabled`.
+
+  The track's colour is crossed rather than swapped and the knob slides on the same 175ms,
+  from one constant neither slot owns, so a flip reads as one movement. Both are values on the
+  context rather than styles — a worklet needs a number and a string, not a style to flatten
+  every frame — and the travel is `width − knob − 2 × inset`, arithmetic the root does.
+
+  `color` is the colour the switch turns on to; the track at rest keeps its neutral, because
+  a switch that is off is off in every brand.
+
+  The knob moves with `translateX` and the sign is flipped against `I18nManager.isRTL`: R13
+  bans a directional inset, and a transform does not mirror on its own.
+
+  Both animated hooks carry a `'worklet'` directive and a dependency array, which the rest of
+  the package already required and these two were missing. Without them the demo's `/switch`
+  screen threw outright on web — _"`useAnimatedStyle` was used without a dependency array or
+  Babel plugin"_ — while lint, type-check and the test suite all stayed green, because none of
+  them renders anything. `pressable-feedback.tsx` states the rule and the reason: the package
+  ships as a built `dist`, our CJS output calls the hook as a namespace member that the Babel
+  plugin does not recognise, and the directive is what `tooling/workletize/` keys off.
+
+  The dependency arrays are load-bearing beyond the crash. `distance` and `colors` are plain
+  values captured in the closure, not shared values, so without them a switch whose `size` or
+  `color` changed would have kept animating to the old travel and the old ink.
+
+  **No `xs`**, matching the `Checkbox` and the `Radio`. That track was 40 by 24 with an 18pt
+  knob — and unlike those two, a switch has no row to press: the track _is_ the target. Below
+  `sm` it stops being comfortably hittable, and shrinking the one control whose whole surface
+  is the touch target buys width nobody asked for.
+
+  **`radius` moves the knob with the track.** It reached only the track, so a `radius="sm"`
+  switch squared off its bar and kept a circular knob inside it — a control rounded by halves.
+  `radiusAxis` becomes variadic to say it, which is the second slot it has been asked for
+  since the `Card`.
+
+  The knob takes the same named corner rather than the track's less its padding. The nesting
+  rule that would suggest otherwise reaches zero before the outer radius does — at `xs` a 3pt
+  track would hold a sharp-cornered knob — and two matched corners read better than one
+  correct one.
+
+## 0.9.1-alpha.28
+
+### Patch Changes
+
+- b44037c: feat(radio): the v1 `Radio` — the `Checkbox` in a circle, with one rule changed
+
+  The ninth entry of the core. Same anatomy, same three levels on the same `field*` tokens,
+  same four boxes so a radio and a checkbox in one form line up — and **a press selects, it
+  never clears**. A set of options has no "none of these" unless one of them says so, so
+  `onSelectedChange` fires with `true` only, and pressing the chosen option fires nothing at
+  all.
+
+  There is **no group**: `RadioGroup` is a P5 component with a context of its own, not a prop
+  this one is missing. A set is a `useState` and a `map` over `isSelected={value === option}`,
+  inside a `View` with `accessibilityRole="radiogroup"` — three lines the group component will
+  replace rather than undo. The legacy `RadioGroup` and its shared props are named in the
+  migration table, so nobody discovers the gap at merge time.
+
+  `SelectionFill` moves into `system/`: the fill that fades and grows in with the mark riding
+  on it was the `Checkbox`'s, and this is its second use — §2 bis says extract there. The
+  `Checkbox`'s indicator now renders it too, which is thirty lines it no longer owns.
+
+  `Radio.IndicatorThumb` has no counterpart here: the dot is the indicator's default child,
+  replaced by writing children, which is the same escape hatch with one component fewer.
+
+  **No `xs`**, matching the `Checkbox`. That circle was 16 points across with a 7pt dot, and a
+  target that small is read rather than aimed at — the touch target is the row anyway, so
+  shrinking the circle buys nothing a caller can press. The two components pair in the same
+  form, so they offer the same three sizes or a caller finds the difference the hard way.
+
+## 0.9.1-alpha.27
+
+### Patch Changes
+
+- e1326cf: feat(checkbox): the v1 `Checkbox` — a box, a mark and the label that toggles it
+
+  The eighth entry of the core. **The root is the row, not the box**: it is the pressable, so
+  tapping the label ticks the checkbox — which is the whole reason `Checkbox.Label` is a slot
+  here rather than a `Text` you put beside the component and wire up yourself. HeroUI needs a
+  second component (`ControlField`) for that; the plan's slots for this one are Indicator ·
+  Label, and this is why.
+
+  R3 goes one step further than elsewhere: a stringifiable tree becomes the label **and the
+  root supplies the indicator**, because a checkbox without a box is not a checkbox. Written
+  with no children at all it is the box alone — the form a table row wants.
+
+  **Selection is not a style axis.** The fill and the mark are two slots the indicator mounts
+  only while it is ticked, painted from two new roles — `bgSelected` and `fgSelected`. That
+  keeps the cache at one entry per token combination instead of two, and it is what makes
+  `color` **the colour the box checks in**: the tint pass re-runs `paint` and the states,
+  never the axes, so a fill written as an axis would have snapped back to the accent the
+  moment the box was ticked. `Radio` and `Switch` need the same pair, which is why the roles
+  are in the engine rather than in this recipe.
+
+  Three of the `Input`'s four levels, on the same `field*` tokens — `ghost` is absent, because
+  a box with no border and no fill is nothing at all — plus the four sizes, `radius`,
+  `isInvalid` (which drops the resting fill and outranks the tint) and `isDisabled`.
+
+  `isIndeterminate` is ours and not HeroUI's: the legacy checkbox had it, a "select all" is
+  what it is for, and `accessibilityState.checked: 'mixed'` is something only the component
+  can say. A press resolves it to selected rather than toggling into it.
+
+  The check is **drawn**, not imported — two borders of an empty box, a quarter turn from
+  where they look like a tick — so a checkbox works in a project that has installed no icon
+  set. It is the `CloseButton`'s bargain. Children of `Checkbox.Indicator` replace it and ride
+  the same 120ms fade.
+
+  Two corrections after seeing it on a device.
+
+  **The mark is lifted to where it looks centred.** The check is an "L" — a left border and a
+  bottom border — rotated a quarter turn, and an L keeps its ink in one corner rather than in
+  the middle of its box. Rotating about that box's centre therefore leaves the tick sitting
+  low, and flexbox dutifully centres the box it no longer fills. Rotating by −45° maps a point
+  to `(dy − dx)·√2/2`, and across the two strokes that spans `H` at the top and `H − t − W` at
+  the bottom — an ink centre `(H − t)·√2/4` below the box centre, 1.06pt on a 24pt box. The
+  recipe now lifts by exactly that.
+
+  Both transforms moved into the recipe, and `checkbox.style.ts` is gone with them:
+  `transform` is a whole value, so the recipe's shallow merge replaces it rather than
+  blending, and a rotation in a sheet plus a translation in the recipe would have dropped one
+  of the two. The lift is derived from `side` and `stroke`, so it holds at every size.
+
+  **No `xs`.** That box was 16 points square with a 1.5pt stroke, and a tick drawn in a space
+  that small stops reading as a tick. The touch target is the row rather than the box, so
+  shrinking the box buys nothing a caller can press. `sm` is the compact size.
+
+## 0.9.1-alpha.26
+
+### Patch Changes
+
+- 2f8a9bd: feat(input-group): `InputGroup` — a field with something beside it
+
+  A glyph, a unit, a reveal toggle. `InputGroup` goes **inside** an `Input` and replaces
+  nothing but the field: the column, the label, the hint, the error, the four variants, the
+  `size`, the `radius`, the tint, the focus, `isInvalid` and `isDisabled` all stay the
+  `Input`'s, and this root owns exactly one thing — how wide its two decorators turned out to
+  be.
+
+  **The box is still the `TextInput`.** `InputGroup.Prefix` and `InputGroup.Suffix` are taken
+  out of flow and laid over the field, so no wrapper borrows the border, the fill, the radius
+  and the shadow: there is one box in the library and this is not a second one to keep in step.
+  The field clears them by their **measured** width instead — `paddingStart` and `paddingEnd`,
+  logical edges (R13) — which is the same shape `TextArea` uses for `rows`: a raw value the
+  slot turns into a style, outside the cache (R6). A width takes as many values as there are
+  decorators and could never be a cache key.
+
+  `isDecorative` does the two things that belong together: touches pass through to the field
+  underneath, and the content leaves the accessibility tree. It is off by default, because a
+  suffix is most often a control and one that swallowed its own taps would be a reveal toggle
+  you cannot press. A disabled `Input` takes the touches from both decorators all the same.
+
+  `InputGroup.Icon` is the slot `Button`, `Chip` and `Alert` already have, and the one HeroUI's
+  component does not: a glyph one step above the field's type, in the theme's
+  `fieldPlaceholder`, so a form does not carry a hard-coded `#888` on every field.
+
+  The `Input`'s recipe gains three slots — `prefix`, `suffix` and `icon` — because the size
+  that decides the decorator's inset and the glyph's scale is the field's, and a group with an
+  axis of its own would be a second answer to a question the `Input` has already answered.
+
+  Not one of the fifteen the 1.0 core is scoped to; recorded as P5.3.
+
+## 0.9.1-alpha.25
+
+### Patch Changes
+
+- 0c5435f: The `field` radius aligns on HeroUI's — 21 points becomes 12
+
+  `buildRadius` derived it as `base * 1.75`, which on the default base of 12 put a 48-tall
+  field at 21 — 87% of its geometric maximum, so it read as a gélule rather than as a rounded
+  box. HeroUI reaches 12 for the same control from the other side of the scale: their
+  `--radius-field` is an alias of their `--radius-xl`, and their base is 8 where ours is 12.
+
+  It coincides with `lg` at the default base and stays its own key, because that is what lets
+  a theme round its fields without rounding its cards.
+
+  Only `Input` reads it — and `TextArea` through it, since that component has no recipe of its
+  own and renders an `InputRoot`. `InputOTP` deliberately does not: its box is very nearly
+  square, where a wide field's corner is a shape nobody decided for it.
+
+- 0c5435f: The `Input`'s column tightens by a point at every size
+
+  `gap` was 4, 4, 6, 8 and is now 3, 3, 5, 7. A label, a field and a line of help are one
+  thing the eye reads top to bottom, not three stacked blocks, and the whole spacing step let
+  them drift far enough apart to read as a list.
+
+  Quarter steps rather than a new scale: `spacing` takes a fraction, and the `Chip` already
+  measures its dot and its cross that way. It stays a `gap` on the root and not a margin on
+  any slot (R4) — which is what keeps the space above and below the field identical, and what
+  stops an omitted `Input.Description` from leaving a hole behind it.
+
+  `TextArea` inherits it, having no recipe of its own.
+
+- 110dd81: feat(text-area): `TextArea` — a multiline field, over the `Input`
+
+  Not "like" an `Input` — it **is** one. `TextArea` renders the `Input`'s root: the same
+  recipe, the same resolved context, the same four variants, the same `size`, `radius`,
+  `color`, `labelPlacement`, `isInvalid` and `isDisabled`. `TextArea.Label`, `.Description`
+  and `.Error` are literally the `Input`'s slots, re-exported rather than wrapped.
+
+  Only `TextArea.Field` differs, by three things: `multiline`, the text pinned to the top, and
+  a height counted in lines. That is HeroUI's answer too — their `TextArea` is twenty lines
+  rendering their `Input` with the same three defaults.
+
+  `rows` (default `3`) and `maxRows` are **raw values** (R6), like `color`: they resolve
+  outside the style cache from the line height the size chose, so `rows={7}` costs no cache
+  entry. Past `maxRows` the field stops growing and scrolls; unset, it grows with the text and
+  has nothing to scroll, which is why `scrollEnabled` follows `maxRows` rather than being a
+  prop of its own.
+
+  The `Input`'s recipe gains a `textArea` slot carrying only the delta — the line height, the
+  vertical padding and `textAlignVertical` — layered over the field's own style, so the
+  colours, the border and the radius are resolved once for both. The four inside-label
+  compounds write to it as well, so `labelPlacement="inside"` composes.
+
+  Not one of the fifteen the 1.0 core is scoped to; recorded as P5.
+
+## 0.9.1-alpha.24
+
+### Patch Changes
+
+- 94b4850: feat(input-otp): `InputOTP` — a one-time code, one character to a box
+
+  Not one of the fifteen the 1.0 core is scoped to, so it ships as a P5 component under
+  `1.x`. Its API is the `Input`'s: the same four levels over the theme's `field*` family,
+  the same `size`, `radius`, `color`, `isInvalid` and `isDisabled`.
+
+  **One hidden `TextInput` holds the whole code**, and the boxes are a rendering of that one
+  string. Six focusable boxes is the design every OTP component starts with and abandons —
+  the caret has to be moved by hand, a backspace at the start of a box has to jump backwards,
+  and a paste arrives in one box out of six. Here a keystroke, a backspace, a paste and an
+  autofilled `one-time-code` all take the same path.
+
+  Paste keeps only the code: a run of exactly `maxLength` digits with no digit on either side,
+  so "Your code is 482913, it expires in 10 minutes" yields `482913` and not `Your c`.
+
+  `InputOTP.Group` takes a render function — the one slot in the library that does, because
+  the number of children here is `maxLength` rather than markup. `ref` is the imperative
+  handle (`focus`, `blur`, `clear`) rather than the view, since those are the three things
+  only the hidden input can do.
+
+  Fifteen tests on the pure helpers — `buildSlots`, `extractPastedCode`, `isPaste`. The
+  component itself is verified by its demo screen, as every other one is.
+
+  Three corrections after seeing it on a device.
+
+  **The box takes the `lg` radius, 12 points, not `field`.** A field is wide, so 21 on a
+  48-tall one reads as a rounded rectangle; a code box is very nearly square — 44 by 48 at
+  `md`, 36 by 40 at `sm` — where the geometric maximum is 22, so the same 21 is a pill in all
+  but name and is clamped to one outright at the small end. Twelve is where HeroUI lands for
+  the same box from the other direction: their `field` radius is their `xl`, and their scale's
+  base is 8 where ours is 12.
+
+  **No `ghost`.** The `Input` has one and this does not, because the shape of the component
+  is different: an input is one wide field whose position the caret and the label already
+  give away, so it survives having neither fill nor edge. A code is six boxes, and their only
+  job before anything is typed is to say how many characters are expected and where they go —
+  with no fill and no border there is nothing to count. It is the reason the `Checkbox` has no
+  `ghost` either.
+
+  **No `xs`.** The box's width is the control height less one spacing step, so `xs` was 28 by
+  32 — a box that small still has to carry an 18pt character to stay legible, and 18 in 28
+  leaves no room for the two-point active ring without the digit touching it. A code is also
+  the one field a user reads back to themselves character by character, which is the worst
+  place to save eight points. `sm` is the compact size; below it, use fewer boxes rather than
+  smaller ones.
+
+## 0.9.1-alpha.23
+
+### Patch Changes
+
+- 4467295: feat(input): the v1 `Input` — P3.7
+
+  A text field with the label, the hint and the error that make it usable. Compound root
+  plus four slots: `Input.Label`, `Input.Field`, `Input.Description` and `Input.Error`.
+
+  **The root is the column, not the field.** `Input.Field` is the `TextInput`, which is what
+  makes the three lines slots of one component rather than three components a form has to
+  keep in step — and why `TextInputProps` are on the field rather than on the root.
+
+  The first real use of the theme's `field*` family, derived in P0 and unread since. Four
+  variants, the library's emphasis levels narrowed like the `Card`'s, splitting HeroUI's
+  two-name `primary | secondary` by saying what each of their ends already is: `primary` is
+  their field fill plus the theme's `field` shadow, `secondary` their neutral fill and the
+  default here, `tertiary` the border alone, `ghost` neither.
+
+  Focus darkens the border towards the mode's ink — `fieldBorderFocus`, no ring and no
+  accent. `isInvalid` outranks it, so a field that is both reads as wrong rather than as busy.
+
+  `labelPlacement="inside"` lifts the label into the box. It is taken out of flow and placed
+  against the box's own padding, so the JSX is identical either way and nothing is
+  reparented; the field pays for the room and the box grows by the same amount.
+
+  Visually aligned with `heroui-native`: a 48pt minimum, 12pt of horizontal padding, a 16/24
+  label above the field and a 14/20 line below it at `md`. The height is a **minimum** rather
+  than fixed — the one place this component departs from the `Button`'s rule, because a
+  `multiline` field holds the user's own text and has to grow.
+
+  Adds a `borderFocus` role to `system/recipe`, so a state can read the variant's own focus
+  colour the way `bgPressed` lets a pressed `Button` darken its own fill — and so a raw
+  `color` follows the field into focus.
+
+## 0.9.1-alpha.22
+
+### Patch Changes
+
+- d5461ae: feat(alert): the v1 `Alert` — P3.6
+
+  A message the interface has to make sure is read. Compound root plus five slots:
+  `Alert.Icon`, `Alert.Content`, `Alert.Title`, `Alert.Description` and `Alert.Close`, laid
+  out as a row of three columns spaced by the root's `gap` alone.
+
+  Nine variants: the `Card`'s `surface` for the neutral level — HeroUI's alert root, token
+  for token, shadow included — and the `Chip`'s status ladder for the rest, each family in
+  its full and soft slice.
+
+  Visually aligned with `heroui-native`: 12pt of padding, a 12pt gap, a 24pt radius, a 16/24
+  title above a 14/20 description and an 18pt icon at `md`. The icon's optical offset is
+  derived from the title's leading rather than hard-coded, so it stays right at all four
+  sizes.
+
+  The root is **never a control** — no `isPressable`, no press behaviour on the type. What
+  you press is `Alert.Close`, which now comes from a shared `system/close-button`: the
+  `Chip`'s close became its second use, so its press state, grown touch target, missing-label
+  warning and built-in cross are written once and both components are five-line call sites.
+
+  Also fixes an inference bug in `createRecipe`: a `compoundVariants` entry declared the
+  variant union instead of selecting from it, so a recipe whose only compound was
+  `{ when: { variant: 'default' } }` rejected every other variant at the call site.
+
+  `Alert.Icon` picks `Icon`'s forms one by one, so the union survives. `IconProps` became a
+  discriminated union of its three forms, and a non-distributive `Pick` over it merged them
+  back into a single shape where `as` and `source` are both optional — which stopped
+  type-checking the moment both changes met on `main`, and would have let
+  `<Alert.Icon as={Check} source={png} />` compile with one of the two silently dropped. The
+  type now distributes the `Pick`, and the slot renders one `<Icon>` per form in `Icon`'s own
+  runtime precedence rather than one call carrying all three.
+
+- 17993f6: feat(chip): the v1 `Chip` — P3.5
+
+  A compact token — a status, a tag, a filter, a person. Compound root plus five slots:
+  `Chip.Label`, `Chip.Icon`, `Chip.Dot`, `Chip.Avatar` and `Chip.Close`, spaced by the root
+  alone, so JSX order is screen order and there is no `startContent` / `endContent`.
+
+  Eleven flat variants replace HeroUI's `variant × color` matrix: the `Button`'s five-step
+  emphasis ladder plus the three status families it deliberately refused — a chip reports an
+  outcome, so `success`, `warning` and `danger` each land here with their soft slice.
+
+  Visually aligned with `heroui-native`: 12pt of horizontal padding, a 14/20 label and a 28pt
+  `md`, with the height fixed rather than derived from vertical padding so a chip carrying an
+  avatar still lines up with the one beside it.
+
+  `Chip.Close` is a control in its own right — its own press state, its own `hitSlop`, and a
+  cross it draws itself, so a dismissible chip needs no icon set installed.
+
+  Also extracts the `radius` axis, duplicated in every recipe that has one, into
+  `radiusAxis()` in `system/recipe/`.
+
+  `Chip.Avatar` is pulled back into the capsule's rounded end. The root's horizontal padding
+  is set for text — 12pt at `md` — while the height leaves only 3pt above and below a 22pt
+  avatar, so a face sat visibly pushed into the chip where a label beside it looked right. The
+  slot now cancels the difference, which seats it concentrically with the rounded end: the
+  capsule's cap is a circle of radius `height / 2` and the avatar is one of radius
+  `diameter / 2`, so they share a centre only when the gap is equal on every side. It is the
+  one margin on a slot in this component, and R4 is about spacing _between_ slots rather than
+  about cancelling the parent's padding — `Chip.Avatar` is a leading slot by contract, which
+  is what makes a leading-only correction sound. `marginStart`, so RTL follows (R13), and
+  clamped at zero so a theme with tighter padding needs no pull at all.
+
+- 662fdfc: `warning` moves from the `amber` family to `orange`
+
+  The dark `warning` was `amber[400]`, a distinctly yellow 84° in OKLCh, which read as gold
+  rather than as a caution — next to a green `success` and a red `danger` it looked like a
+  third decorative colour instead of the middle of a status ladder.
+
+  Swapping the family moves both modes the same way and **narrows the gap between them**: the
+  two ramps sit 35° apart today at the steps we use, and 18° after. Light barely moves at all
+  — `amber[700]` and `orange[700]` are 11° apart and share a lightness, so the change there is
+  a slight warming rather than a new colour, and the contrast against `warningForeground` goes
+  _up_, 4.81 → 4.96. Dark moves further, because that is where the yellow was.
+
+  Everything derived follows through `deriveColors`: `warningPressed`, `warningSoft`,
+  `warningSoftForeground` and `warningSoftPressed`. `pnpm tokens:check` passes on both modes.
+
+  It reaches every component with a `warning` variant — `Chip`, `Alert`, `Badge`, `Spinner`
+  and the ones still in review — which is the point of the token layer: one line in
+  `tooling/tokens/source.ts`, no component touched.
+
+## 0.9.1-alpha.21
+
+### Patch Changes
+
+- 1555901: `Card` — the v1 surface, and the control it becomes.
+
+  A compound root with five slots — `Header`, `Body`, `Footer`, `Title`, `Description` — on
+  the same shape as the `Button`: the recipe resolves once at the root and publishes the
+  resolved styles, every node takes its own style props (R14), `asChild` merges into the
+  caller's element, and the context hook is exported so a third party can add a slot.
+
+  `variant` narrows the shared vocabulary to its four emphasis levels — `default`,
+  `secondary`, `tertiary`, `ghost` — over the theme's `surface*` family, with the surface
+  shadow on the one level that stands on the background. `size` drives padding, both gaps,
+  the radius and the type of the two text slots, and never a height: a card is as tall as
+  what it holds. `isPressable` turns the surface into a `PressableFeedback` with a press
+  wash, `accessibilityRole="button"` and the shared scale.
+
+  The rendering is HeroUI's card measured — `md` is 16pt of padding, a 24pt radius, an
+  18/28 title in `medium` over a 16/24 description, no border on a filled surface — reached
+  through our own vocabulary rather than through their utility classes, and with the gaps the
+  component owns instead of leaving to the call site.
+
+  Also fixes a `NoInfer` gap in the recipe engine: a `compoundVariants` entry naming one
+  variant used to collapse the whole recipe's variant union to that single value.
+
+  **`Card.Background`** — a photo, a gradient or a video behind the card. The root **hoists**
+  it, so JSX order does not decide stacking: a background written after the header would
+  otherwise cover it, which is the invisible ordering rule composition should not carry. It
+  reuses the marking idiom `PressableFeedback` uses for its overlays, and `markBackground` is
+  exported so a third party's layer is not a second-class citizen.
+
+  The clip lives on the layer rather than on the root: `overflow: 'hidden'` cuts the node's
+  own shadow on iOS, so clipping the card would cost a `default` one the elevation its variant
+  just gave it. `radius` therefore moves both slots together — a corner that moved only the
+  root would round the card and leave its photo square. HeroUI reaches the same feature
+  through a `background` **prop** and clips on both nodes, losing the shadow.
+
+  **The light `surfaceSecondary` moves up half a step**, `#f4f4f5` → `#ececee`. It sat so
+  close to the `background` (`#fafafa`) that a `secondary` card on the page read as no card at
+  all, and `zinc[200]` was already `surfaceTertiary` — so the level between them was the only
+  one left. It is the OKLab midpoint of the two, written in the source layer rather than added
+  to the palette: `PaletteShade` is derived from `zinc`, so a `150` there would have claimed
+  every other family has one too.
+
+## 0.9.1-alpha.20
+
+### Patch Changes
+
+- 4a14277: `Stack` and `Grid` join the layout lot
+
+  **`Stack`** overlays. The root is the containing block (`position: relative`) and
+  `Stack.Item` is a layer taken out of the flow (`position: absolute`); where a layer sits is
+  R14 — `top`, `bottom`, `start`, `end`, `zIndex`. The first child stays in the flow and gives
+  the stack its size. Overlaying is composed rather than inferred: a stack that positioned
+  every child but the first would have to guess which one sets the size, and would change
+  meaning the day a caller reordered them.
+
+  **`Grid`** lays out a fixed number of columns, wrapping, and **measures** its column width
+  rather than expressing it as a percentage. `width: '33.33%'` resolves against the content
+  box and knows nothing about the gaps, so three cells plus two gaps overflow their row. The
+  root reads its own width and publishes the exact column width; `Grid.Item span={n}` covers
+  several columns, gaps included. `gap` is the grid's own prop because the root has to read
+  it to size the cells.
+
+  `Container` and the remaining legacy `view/` entries are not planned: they are R14 or
+  `Stack`.
+
+## 0.9.1-alpha.19
+
+### Patch Changes
+
+- 5f91549: `Row` and `Column` — the two axes of a layout
+
+  Each contributes one declaration, `flexDirection`, and nothing else. `gap`, `alignItems`,
+  `justifyContent` and `padding` are `ViewStyle` keys that R14 already exposes as props on
+  every node, so these two add no vocabulary of their own — which is the change from the
+  legacy components, where `mainAxisAlignment`, `crossAxisAlignment`, `mainAxisSize`,
+  `direction` and `reversed` were words to learn for what React Native already says.
+
+  `flexDirection` is the one style prop they do not expose: it is their identity, and a `Row`
+  that could be told to lay out as a column would be a `View` with a longer name.
+
+  Three entries of the legacy `view/` lot are deliberately not ported, because R14 removed
+  their reason to exist: `Padding` is `padding={16}` on the node itself, `Center` is two
+  alignment props on the parent, and `Spacer` is `justifyContent="space-between"`. Each added
+  a view node to say what a style prop already says.
+
+## 0.9.1-alpha.18
+
+### Patch Changes
+
+- 345b3e0: `Icon`'s R14 boundary moves from a comment into the type
+
+  `IconProps` declared the style props and `style` for all three forms, but only the `source`
+  form applies them — it is the one where we render the node. So this compiled and silently
+  did nothing:
+
+  ```tsx
+  <Icon as={Trash2} marginEnd={8} />
+  ```
+
+  The props are a discriminated union now: `as`, a raw SVG child and `source` are mutually
+  exclusive, and only `source` carries R14. The call above is a compile error that points at
+  `size` and `color`, the levers the other two forms actually have.
+
+  `Icon` also gains the demo screen it never had — the three forms, the cascade from prop to
+  slot to theme, and a raw SVG having its baked-in size overridden. Not having one is why the
+  gap went unnoticed: nobody had tried writing a margin on an icon.
+
+## 0.9.1-alpha.17
+
+### Patch Changes
+
+- 863cc86: `Typography` and `TextSpan` — the first entry of the v1 core
+
+  Ten roles, aligned with HeroUI Native's `text`: `h1`–`h6`, `body`, `body-sm`, `body-xs` and
+  `code`. Each role fixes size, line height, weight and family **together**, which is why
+  there is no `size` prop and no `weight` prop — the combinations they allowed (a heading in
+  a light weight, a caption in a display size) become unwritable rather than discouraged.
+
+  `TextSpan` is a bare React Native `Text`. Nesting a `Text` inside a `Text` already inherits
+  font, size, weight and colour on both platforms, so a span needs no context to read and no
+  role to resolve: the legacy `TextSpanContext` was reimplementing the platform, and it is
+  gone. `Typography` therefore publishes no slot and does none of a span's work.
+
+  Neither alignment nor truncation gets a prop. `textAlign` is a `TextStyle` key that R14
+  already exposes, and `numberOfLines` is React Native's own — a prop of ours would be a
+  second name for the same thing.
+
+## 0.9.1-alpha.16
+
+### Patch Changes
+
+- da4bc8a: The `default` variant reads as grey rather than as near-white
+
+  Light `default` was zinc-100 on a white background — a fill faint enough to be mistaken
+  for no fill at all, where dark's zinc-800 sits clearly off its own background. One step to
+  zinc-200 balances the two modes instead of shifting one.
+
+  The derived layer follows from the single source: `defaultPressed`, `defaultSoft` and
+  `defaultSoftPressed` move with it, so `tertiary` and `ghost` keep a pressed state that
+  matches the new grey. Both packages regenerate their `tokens.gen.ts` from that source.
+
+## 0.9.1-alpha.15
+
+### Patch Changes
+
+- 7376ce5: `asChild` reached `Slot` as an array, so every pressable threw
+
+  `PressableFeedback` rendered `{overlays}{content}` — two expression children, which React
+  hands to the root as an array. Under `asChild` that root is a `Slot`, which merges into a
+  single element and threw instead, whether or not an overlay was composed: with none,
+  `partitionOverlays` returns `overlays: null` and `[null, content]` is an array all the
+  same. `<Button asChild>` was unusable, and so was every other pressable.
+
+  The root's children are now computed once, as a single node, by `feedbackChildren`.
+  `asChild` skips the partition entirely: the caller's element _is_ the pressable, so an
+  overlay written inside it belongs to it and hoisting would make it a sibling of the very
+  element it was composed into.
+
 ## 0.9.1-alpha.14
 
 ### Patch Changes

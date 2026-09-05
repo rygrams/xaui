@@ -1,3 +1,4 @@
+import { Platform } from 'react-native'
 import type {
   ColorMode,
   FontSizeKey,
@@ -21,7 +22,16 @@ export function buildRadius(base: number): XAUIRadius {
     '2xl': base * 2,
     '3xl': base * 3,
     '4xl': base * 4,
-    field: base * 1.75,
+    /**
+     * HeroUI's value, reached from the other side of the scale: their `--radius-field` is
+     * an alias of their `--radius-xl`, and their base is 8 where ours is 12 — so their
+     * field corner is 12 points and, at our default base, so is this.
+     *
+     * It coincides with `lg` today and is still its own key, because that is what lets a
+     * theme round its fields without rounding its cards. It was `base * 1.75`, which put a
+     * 48-tall field at 87% of its geometric maximum — a gélule rather than a rounded box.
+     */
+    field: base,
     full: 9999,
   }
 }
@@ -65,7 +75,10 @@ export const fontWeights: XAUITheme['fontWeights'] = {
 export const fontFamilies: XAUITheme['fontFamilies'] = {
   body: 'System',
   heading: 'System',
-  mono: 'monospace',
+  // `'monospace'` is an Android family name, not a generic one: iOS does not resolve it and
+  // silently falls back to the system face, so code set with it is not monospaced there.
+  // Menlo is the face iOS ships, and it is what HeroUI Native selects for the same reason.
+  mono: Platform.OS === 'ios' ? 'Menlo' : 'monospace',
 }
 
 export const borderWidth: XAUITheme['borderWidth'] = { default: 1, field: 1 }

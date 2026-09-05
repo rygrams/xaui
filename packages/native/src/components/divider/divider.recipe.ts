@@ -2,22 +2,23 @@ import { StyleSheet } from 'react-native'
 import { createRecipe } from '../../system/recipe'
 import type { SlotStyles, VariantTokens } from '../../system/recipe'
 import type { XAUITheme } from '../../theme/theme.type'
-import type { DividerSlot, DividerVariant } from './divider.type'
+import type { DividerSlot } from './divider.type'
 
 const SLOTS = ['root'] as const
 
 /**
- * Three lines of data, and the three separator tokens in the order they get more visible.
- * `bg` and not `border`: a rule is a filled box one point tall, not a box with an edge —
- * a border would give it a second colour on the three sides it does not have.
+ * One line, because the component has no `variant` to choose between — `DividerProps` says
+ * why a rule has no vocabulary to speak.
  *
- * A raw `color` reads the same role, so tinting any variant tints it the same way.
+ * The role is still declared rather than the colour written into `paint`: `resolveTint`
+ * maps the roles a variant names, and that mapping is what makes a raw `color` land on the
+ * rule. `bg` and not `border`, because a rule is a filled box one point tall rather than a
+ * box with an edge — a border would give it a second colour on the three sides it has not.
  */
-const VARIANT_TOKENS: Record<DividerVariant, VariantTokens> = {
-  default: { bg: 'separator' },
-  secondary: { bg: 'separatorSecondary' },
-  tertiary: { bg: 'separatorTertiary' },
-}
+const VARIANT_TOKENS = { default: { bg: 'separator' } } satisfies Record<
+  string,
+  VariantTokens
+>
 
 /**
  * The thinnest line the screen can draw. It is a platform constant rather than a token
@@ -81,6 +82,9 @@ export const dividerRecipe = createRecipe({
    * `xs` where every other component defaults to `md`, and it is the one place in the
    * library that departs from that: a rule you notice is a rule that is too thick, and
    * the hairline is what a separator is at rest.
+   *
+   * `variant` is named here and nowhere else — there is one, the caller cannot choose it,
+   * and the recipe still needs it selected for `paint` and the tint to resolve.
    */
   defaultVariants: { variant: 'default', size: 'xs', orientation: 'horizontal' },
 })

@@ -5,7 +5,7 @@ import type { RadioSize, RadioVariant } from '@xaui/native/radio'
 import { useXAUITheme } from '@xaui/native/theme'
 
 const VARIANTS: RadioVariant[] = ['primary', 'secondary', 'tertiary']
-const SIZES: RadioSize[] = ['xs', 'sm', 'md', 'lg']
+const SIZES: RadioSize[] = ['sm', 'md', 'lg']
 const PLANS = ['monthly', 'yearly', 'lifetime'] as const
 
 /**
@@ -110,7 +110,7 @@ export default function RadioScreen() {
 }
 
 /** What each size measures, for the row's own label. */
-const BOXES: Record<RadioSize, number> = { xs: 16, sm: 20, md: 24, lg: 28 }
+const BOXES: Record<RadioSize, number> = { sm: 20, md: 24, lg: 28 }
 
 /** The set: three radios over one piece of state. There is no group component. */
 function Choice() {

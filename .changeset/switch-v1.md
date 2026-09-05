@@ -29,3 +29,30 @@ a switch that is off is off in every brand.
 
 The knob moves with `translateX` and the sign is flipped against `I18nManager.isRTL`: R13
 bans a directional inset, and a transform does not mirror on its own.
+
+Both animated hooks carry a `'worklet'` directive and a dependency array, which the rest of
+the package already required and these two were missing. Without them the demo's `/switch`
+screen threw outright on web — _"`useAnimatedStyle` was used without a dependency array or
+Babel plugin"_ — while lint, type-check and the test suite all stayed green, because none of
+them renders anything. `pressable-feedback.tsx` states the rule and the reason: the package
+ships as a built `dist`, our CJS output calls the hook as a namespace member that the Babel
+plugin does not recognise, and the directive is what `tooling/workletize/` keys off.
+
+The dependency arrays are load-bearing beyond the crash. `distance` and `colors` are plain
+values captured in the closure, not shared values, so without them a switch whose `size` or
+`color` changed would have kept animating to the old travel and the old ink.
+
+**No `xs`**, matching the `Checkbox` and the `Radio`. That track was 40 by 24 with an 18pt
+knob — and unlike those two, a switch has no row to press: the track _is_ the target. Below
+`sm` it stops being comfortably hittable, and shrinking the one control whose whole surface
+is the touch target buys width nobody asked for.
+
+**`radius` moves the knob with the track.** It reached only the track, so a `radius="sm"`
+switch squared off its bar and kept a circular knob inside it — a control rounded by halves.
+`radiusAxis` becomes variadic to say it, which is the second slot it has been asked for
+since the `Card`.
+
+The knob takes the same named corner rather than the track's less its padding. The nesting
+rule that would suggest otherwise reaches zero before the outer radius does — at `xs` a 3pt
+track would hold a sharp-cornered knob — and two matched corners read better than one
+correct one.
