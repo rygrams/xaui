@@ -27,6 +27,7 @@ const SCREENS = [
   { href: '/checkbox', label: 'Checkbox' },
   { href: '/radio', label: 'Radio' },
   { href: '/switch', label: 'Switch' },
+  { href: '/slider', label: 'Slider' },
   { href: '/spinner', label: 'Spinner' },
   { href: '/divider', label: 'Divider' },
   { href: '/select', label: 'Select' },

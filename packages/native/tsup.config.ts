@@ -21,6 +21,7 @@ const entries = {
   'components/skeleton/index': 'src/components/skeleton/index.ts',
   'components/skeleton/index': 'src/components/skeleton/index.ts',
   'components/skeleton/index': 'src/components/skeleton/index.ts',
+  'components/slider/index': 'src/components/slider/index.ts',
   'components/spinner/index': 'src/components/spinner/index.ts',
   'components/spinner/index': 'src/components/spinner/index.ts',
   'components/spinner/index': 'src/components/spinner/index.ts',

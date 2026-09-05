@@ -157,6 +157,16 @@
         "default": "./dist/components/skeleton/index.cjs"
       }
     },
+    "./slider": {
+      "import": {
+        "types": "./dist/components/slider/index.d.ts",
+        "default": "./dist/components/slider/index.js"
+      },
+      "require": {
+        "types": "./dist/components/slider/index.d.cts",
+        "default": "./dist/components/slider/index.cjs"
+      }
+    },
     "./spinner": {
       "import": {
         "types": "./dist/components/spinner/index.d.ts",
