@@ -41,3 +41,18 @@ while the panel is laid out inside the `PortalHost`.
 
 The `Select`'s chevron spring moves to `system/anchored` too, where the `Accordion` already
 reads it.
+
+### One bug the `Select` was hiding
+
+The measuring pass laid the panel out at the **anchor's** width. That is right for
+`width: 'trigger'` — the content then wraps during the measurement exactly as it will
+afterwards, so the measured height is the real one — and it is exactly wrong for
+`content-fit`, which is the question "how wide does this want to be" asked while imposing
+an answer.
+
+Against a small trigger it measured a paragraph as a column one character wide, and held
+the panel at that width forever. The `Select` never showed it, because its default width is
+the trigger's anyway.
+
+`content-fit` now measures unconstrained, bounded only by the screen insets: a paragraph has
+to be allowed to ask for the room it wants and be refused only by the edges.

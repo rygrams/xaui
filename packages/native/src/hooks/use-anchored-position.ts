@@ -3,6 +3,7 @@ import { useWindowDimensions } from 'react-native'
 import type { LayoutChangeEvent } from 'react-native'
 import { PortalContext } from '../system/portal'
 import { resolvePlacement } from '../utils/placement'
+import type { ViewStyle } from 'react-native'
 import type {
   Align,
   Anchor,
@@ -51,7 +52,7 @@ export function useAnchoredPosition({
   /** What the panel's own `onLayout` must be, or it never leaves the measuring pass. */
   onContentLayout: (event: LayoutChangeEvent) => void
   /** Where to lay the panel out while it is still being measured. */
-  measuringStyle: { opacity: 0; top: 0; start: 0; width: number | undefined }
+  measuringStyle: ViewStyle
 } {
   const window = useWindowDimensions()
   const origin = useContext(PortalContext)?.origin ?? ZERO
@@ -96,10 +97,41 @@ export function useAnchoredPosition({
   return {
     position,
     onContentLayout,
-    // Laid out at the anchor's width so the content wraps as it finally will, and
-    // invisible so the reader never sees it at the wrong place.
-    measuringStyle: { opacity: 0, top: 0, start: 0, width: local?.width },
+    measuringStyle: {
+      // Invisible, and at the start of the host, so the reader never sees the panel at
+      // the wrong place during the frame it is being measured in.
+      opacity: 0,
+      top: 0,
+      start: 0,
+      ...measuringWidth(options.width, local?.width, window, options.insets),
+    },
   }
+}
+
+/**
+ * How wide to lay the panel out **while measuring it**, which is not the same question as
+ * how wide it ends up.
+ *
+ * A width the panel already knows is imposed, so the content wraps during the measuring
+ * pass exactly as it will afterwards and the measured **height** is the real one.
+ *
+ * `content-fit` is the opposite: imposing anything is what makes it impossible to answer.
+ * Constraining it to the anchor was this hook's first version, and against a small trigger
+ * it measured a column one character wide and then held the panel at that width forever —
+ * the `Select` never showed it, because its default width is the trigger's anyway.
+ *
+ * So `content-fit` measures unconstrained, bounded only by the screen: a paragraph has to
+ * be allowed to ask for the room it wants, and refused only by the edges.
+ */
+function measuringWidth(
+  width: AnchoredWidth,
+  anchorWidth: number | undefined,
+  window: Size2D,
+  insets: Required<Insets>
+): Pick<ViewStyle, 'width' | 'maxWidth'> {
+  if (width === 'trigger') return { width: anchorWidth }
+  if (typeof width === 'number') return { width }
+  return { maxWidth: Math.max(window.width - insets.start - insets.end, 0) }
 }
 
 /** No host, no offset — `Portal` renders nothing in that case anyway. */
