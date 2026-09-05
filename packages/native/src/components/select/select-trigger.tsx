@@ -1,9 +1,9 @@
-import { forwardRef, useCallback, useEffect, useMemo, useRef } from 'react'
+import { forwardRef, useCallback, useEffect, useRef } from 'react'
 import type { LayoutChangeEvent, View } from 'react-native'
+import { useMergedRef } from '../../hooks/use-merged-ref'
 import { usePressState } from '../../hooks/use-press-state'
 import { PressableFeedback } from '../../system/pressable-feedback'
 import { IconContext } from '../../system/icon'
-import { mergeRefs } from '../../system/slot'
 import { useStyleProps } from '../../system/style-props'
 import { useSelect } from './select.context'
 import type { SelectTriggerProps } from './select.type'
@@ -59,7 +59,7 @@ export const SelectTrigger = forwardRef<View, SelectTriggerProps>(
     const [isPressed, press] = usePressState({ onPressIn, onPressOut })
 
     const node = useRef<View | null>(null)
-    const refs = useMemo(() => mergeRefs(node, ref), [ref])
+    const refs = useMergedRef(node, ref)
 
     const measure = useCallback(() => {
       node.current?.measureInWindow((x, y, width, height) => {
