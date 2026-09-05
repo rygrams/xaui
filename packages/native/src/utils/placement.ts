@@ -91,25 +91,33 @@ export function resolvePlacement(input: PlacementInput): PlacementResult {
 
   const height = Math.min(content.height, maxHeight)
 
-  const top = vertical
-    ? placement === 'bottom'
-      ? anchor.y + anchor.height + offset
-      : anchor.y - offset - height
-    : clamp(
-        alignedCross(input, height) + alignOffset,
-        insets.top,
-        Math.max(window.height - insets.bottom - height, insets.top)
-      )
+  // **Both axes are clamped, not just the cross one.** The side decides where the panel
+  // wants to go; the insets decide where it is allowed to be. Without the main axis in
+  // that, a panel beside a trigger with no room for it goes off the screen entirely —
+  // which is what `start` and `end` did until the day someone opened one.
+  //
+  // The panel may then overlap its own trigger. That is the right trade and the one HeroUI
+  // makes too: a panel covering the button that opened it is legible, and a panel past the
+  // edge of the screen is not.
+  const top = clamp(
+    vertical
+      ? placement === 'bottom'
+        ? anchor.y + anchor.height + offset
+        : anchor.y - offset - height
+      : alignedCross(input, height) + alignOffset,
+    insets.top,
+    Math.max(window.height - insets.bottom - height, insets.top)
+  )
 
-  const start = vertical
-    ? clamp(
-        alignedCross(input, width) + alignOffset,
-        insets.start,
-        Math.max(window.width - insets.end - width, insets.start)
-      )
-    : placement === 'end'
-      ? anchor.x + anchor.width + offset
-      : anchor.x - offset - width
+  const start = clamp(
+    vertical
+      ? alignedCross(input, width) + alignOffset
+      : placement === 'end'
+        ? anchor.x + anchor.width + offset
+        : anchor.x - offset - width,
+    insets.start,
+    Math.max(window.width - insets.end - width, insets.start)
+  )
 
   return { top, start, width, maxHeight, placement }
 }

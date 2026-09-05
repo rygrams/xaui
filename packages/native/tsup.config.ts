@@ -50,7 +50,18 @@ export default defineConfig({
   esbuildOptions(options) {
     options.jsx = 'automatic'
   },
-  clean: false,
+  /**
+   * **Load-bearing against `splitting`.** Split output names its shared chunks by content
+   * hash, so a build whose entries changed writes new chunk names and leaves the old ones
+   * behind. Without a clean, `dist/` becomes a mix of two builds: an entry from the first
+   * still importing `chunk-ZF6KIHXH.js`, which the second replaced with a different hash
+   * and never wrote. Metro then fails to resolve the subpath, with an error that names the
+   * component and says nothing about chunks.
+   *
+   * It bites hardest across branches, because turbo restores a cached `dist/**` over
+   * whatever is already there rather than in place of it.
+   */
+  clean: true,
   dts: true,
   splitting: true,
   target: 'es2020',

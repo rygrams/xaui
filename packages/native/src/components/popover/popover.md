@@ -73,6 +73,12 @@ below, vertical for one beside — and clamps to the screen insets.
 has strictly **more** room. A panel two points short stays where it was asked, because a
 flip on a near miss reads as a glitch.
 
+**Both axes are clamped to the insets**, whether or not it flips. The side decides where
+the panel wants to go; the insets decide where it is allowed to be. A panel beside a
+trigger with no room for it is pushed inside the screen and may overlap the trigger — which
+is the right trade: a panel covering the button that opened it is legible, and a panel past
+the edge of the screen is not.
+
 ### No backdrop
 
 Omit `Popover.Overlay` and nothing captures the press outside: a `Popover.Close`, or your
