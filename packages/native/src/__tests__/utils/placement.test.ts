@@ -139,14 +139,40 @@ describe('resolvePlacement — beside the trigger', () => {
   })
 
   it('sits before the trigger on the start side', () => {
-    // Collisions off, because this trigger has 40 points before it and 160 is asked for
-    // — with them on the panel would flip, which is the next test.
+    // Room enough: 240 points before a trigger at x=260, for a panel 160 wide.
     const { start, placement } = resolvePlacement(
-      beside({ placement: 'start', avoidCollisions: false })
+      beside({
+        anchor: { x: 260, y: 300, width: 120, height: 48 },
+        placement: 'start',
+      })
     )
 
     expect(placement).toBe('start')
-    expect(start).toBe(-128) // 40 - 8 - 160
+    expect(start).toBe(92) // 260 - 8 - 160
+  })
+
+  it('is pushed inside the insets rather than off the screen', () => {
+    // 40 points before the trigger, 160 asked for, and collisions off so it cannot flip.
+    // It used to sit at -128 and simply not be there.
+    const { start } = resolvePlacement(
+      beside({ placement: 'start', avoidCollisions: false })
+    )
+
+    expect(start).toBe(12)
+  })
+
+  it('is pushed inside on the end side too, overlapping the trigger if it must', () => {
+    // A trigger near the end edge: past it there are 30 points, and 160 are wanted.
+    // Overlapping the button that opened it is legible; being off the screen is not.
+    const { start } = resolvePlacement(
+      beside({
+        anchor: { x: 340, y: 300, width: 40, height: 48 },
+        placement: 'end',
+        avoidCollisions: false,
+      })
+    )
+
+    expect(start).toBe(218) // 390 - 12 - 160
   })
 
   it('flips to the other side when the one asked for has no room', () => {

@@ -64,6 +64,17 @@ sheet. Twenty ems of the body size, which is around sixty characters and the top
 range a line stays readable over. A multiple of the type rather than a number of points, so
 a theme that scales its type scales the panel with it.
 
+### Both axes are clamped, not only the cross one
+
+The side decides where the panel wants to go; the insets decide where it is allowed to be.
+The main axis was in the first half and not the second, so a panel beside a trigger with no
+room for it went off the screen entirely — `start` and `end` were unusable and nothing said
+so until one was opened.
+
+The panel may now overlap its own trigger. That is the right trade, and the one HeroUI's
+`useRelativePosition` makes too: a panel covering the button that opened it is legible, and
+a panel past the edge of the screen is not.
+
 `width` gains `'full'` for the case the measure exists to refuse — the screen less its
 insets, said out loud. Nothing else in the union can say it: a number is a guess at the
 screen's width, and `content-fit` declines by design.
