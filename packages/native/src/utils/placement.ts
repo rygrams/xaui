@@ -19,8 +19,13 @@ export type Align = 'start' | 'center' | 'end'
 /** The trigger's rectangle. */
 export type Anchor = { x: number; y: number; width: number; height: number }
 
-/** `trigger` matches the anchor exactly; `content-fit` hugs what the panel measured at. */
-export type AnchoredWidth = number | 'trigger' | 'content-fit'
+/**
+ * `trigger` matches the anchor exactly. `content-fit` hugs what the panel measured at,
+ * which the component bounds with a measure of its own. `full` is the screen less its
+ * insets — the way to say "yes, actually, all of it", which nothing else in the union can
+ * express: a number is a guess at the screen's width, and `content-fit` refuses on purpose.
+ */
+export type AnchoredWidth = number | 'trigger' | 'content-fit' | 'full'
 
 /** Screen edges the panel refuses to cross, in points. */
 export type Insets = { top?: number; bottom?: number; start?: number; end?: number }
@@ -109,17 +114,15 @@ export function resolvePlacement(input: PlacementInput): PlacementResult {
   return { top, start, width, maxHeight, placement }
 }
 
-function resolveWidth({
-  width,
-  anchor,
-  content,
-  placement,
-}: PlacementInput): number {
+function resolveWidth(input: PlacementInput): number {
+  const { width, anchor, content, placement, window, insets } = input
+
   // `trigger` on a horizontal side would make the panel as wide as the control it sits
   // beside, which says nothing about the space it has. It hugs its content instead.
   if (width === 'trigger') {
     return axisOf(placement) === 'vertical' ? anchor.width : content.width
   }
+  if (width === 'full') return Math.max(window.width - insets.start - insets.end, 0)
   if (width === 'content-fit') return content.width
   return width
 }

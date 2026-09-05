@@ -126,6 +126,15 @@ report and no intent to carry, so a `variant` would name a decision nobody makes
 `width` defaults to `content-fit` where the `Select`'s defaults to `trigger`: matching the
 width of a word or an icon would give the panel no room at all.
 
+**`content-fit` stops at a measure, not at the screen.** Twenty ems of the body size — around
+sixty characters, the top of the range a line stays readable over. A paragraph always wants
+more room than it has, so a panel bounded only by the edges is a full-width panel the moment
+it holds a sentence, and a popover is an aside rather than a sheet.
+
+`width="full"` is how you say "yes, actually, all of it" — the screen less its insets.
+Nothing else in the union can: a number is a guess at the screen's width, and `content-fit`
+refuses on purpose.
+
 ### `Popover.Trigger` · `Popover.Close`
 
 Everything `Pressable` takes, plus `ViewStyle` as props, plus `asChild`.

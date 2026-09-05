@@ -10,6 +10,18 @@ import { createRecipe, radiusAxis } from '../../system/recipe'
  */
 const SLOTS = ['trigger', 'overlay', 'content', 'title', 'description'] as const
 
+/**
+ * The widest a `content-fit` panel measures, as a multiple of the body size — twenty ems,
+ * which is around sixty characters and the top of the range a line stays readable over.
+ *
+ * A measure rather than a number of points, so a theme that scales its type scales the
+ * panel with it. Without one, "as wide as its content wants" means the width of the screen
+ * the moment the content is a paragraph, because a paragraph always wants more.
+ */
+export function popoverMeasure(fontSize: number): number {
+  return fontSize * 20
+}
+
 export const popoverRecipe = createRecipe({
   slots: SLOTS,
 

@@ -5,6 +5,8 @@ import { useAnchoredPosition } from '../../hooks/use-anchored-position'
 import { anchoredEntering, anchoredExiting } from '../../system/anchored'
 import { Portal } from '../../system/portal'
 import { useStyleProps } from '../../system/style-props'
+import { useXAUITheme } from '../../theme/theme-hooks'
+import { popoverMeasure } from './popover.recipe'
 import { PopoverProvider, usePopover } from './popover.context'
 import type { PopoverContentProps, PopoverInsets } from './popover.type'
 
@@ -24,6 +26,11 @@ const DEFAULT_INSETS: Required<PopoverInsets> = {
  * Its width defaults to `content-fit` rather than the `Select`'s `trigger`: a select's
  * list belongs to the field it drops out of, and a popover belongs to nothing — matching
  * the width of a word or an icon would give it no room at all.
+ *
+ * `content-fit` stops at a **measure** rather than at the screen. A paragraph always wants
+ * more room than it has, so a panel bounded only by the edges is a full-width panel the
+ * moment it holds a sentence — and a popover is an aside, not a sheet. Say `width` to
+ * override it, in points or `'trigger'`.
  */
 export const PopoverContent = forwardRef<View, PopoverContentProps>(
   function PopoverContent(
@@ -45,6 +52,7 @@ export const PopoverContent = forwardRef<View, PopoverContentProps>(
     const context = usePopover()
     const { contentStyle, isOpen, anchor } = context
     const [styleProps, rest] = useStyleProps(props)
+    const theme = useXAUITheme()
 
     const { position, onContentLayout, measuringStyle } = useAnchoredPosition({
       anchor,
@@ -56,6 +64,7 @@ export const PopoverContent = forwardRef<View, PopoverContentProps>(
       alignOffset,
       avoidCollisions,
       insets: { ...DEFAULT_INSETS, ...insets },
+      maxWidth: popoverMeasure(theme.fontSizes.md),
       onLayout,
     })
 

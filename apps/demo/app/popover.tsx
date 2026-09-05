@@ -88,11 +88,13 @@ export default function PopoverScreen() {
 
       <Section
         title="A wide panel"
-        note="width takes a number, 'content-fit' (the default) or 'trigger'. Whatever it resolves to is clamped by the screen insets, so a panel wider than the window becomes a panel the width of the window less twelve points a side."
+        note="content-fit is the default and stops at a measure — twenty ems of the body size, around sixty characters. A paragraph always wants more room than it has, so a panel bounded only by the screen is a full-width panel the moment it holds a sentence, and a popover is an aside rather than a sheet. Say width='full' when you do want all of it."
       >
-        <View style={{ flexDirection: 'row', gap: 12 }}>
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 12 }}>
           <Demo label="content-fit" />
           <Demo label="280" width={280} />
+          <Demo label="trigger" width="trigger" />
+          <Demo label="full" width="full" />
         </View>
       </Section>
     </ScrollView>
@@ -103,7 +105,7 @@ type DemoProps = {
   label: string
   placement?: PopoverPlacement
   align?: PopoverAlign
-  width?: number
+  width?: number | 'trigger' | 'content-fit' | 'full'
   hasOverlay?: boolean
   withClose?: boolean
 }

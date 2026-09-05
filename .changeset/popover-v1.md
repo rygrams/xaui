@@ -54,5 +54,16 @@ Against a small trigger it measured a paragraph as a column one character wide, 
 the panel at that width forever. The `Select` never showed it, because its default width is
 the trigger's anyway.
 
-`content-fit` now measures unconstrained, bounded only by the screen insets: a paragraph has
-to be allowed to ask for the room it wants and be refused only by the edges.
+`content-fit` now measures unconstrained, bounded by two things in this order: the
+component's own **measure**, and the screen.
+
+The measure is what stops "as wide as its content wants" from meaning the width of the
+screen — a paragraph always wants more, so a panel bounded only by the edges is a
+full-width panel the moment it holds a sentence, and a popover is an aside rather than a
+sheet. Twenty ems of the body size, which is around sixty characters and the top of the
+range a line stays readable over. A multiple of the type rather than a number of points, so
+a theme that scales its type scales the panel with it.
+
+`width` gains `'full'` for the case the measure exists to refuse — the screen less its
+insets, said out loud. Nothing else in the union can say it: a number is a guess at the
+screen's width, and `content-fit` declines by design.
