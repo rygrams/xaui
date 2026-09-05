@@ -12,6 +12,8 @@ import type { RadiusKey, Size } from '../../theme/theme.type'
 
 export type AccordionSlot =
   | 'root'
+  /** The clipping layer inside the root. See the recipe for why it is not the root. */
+  | 'container'
   | 'separator'
   | 'item'
   | 'trigger'

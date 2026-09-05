@@ -6,6 +6,7 @@ import type { AccordionSlot, AccordionVariant } from './accordion.type'
 
 const SLOTS = [
   'root',
+  'container',
   'separator',
   'item',
   'trigger',
@@ -80,12 +81,15 @@ export const accordionRecipe = createRecipe({
   slots: SLOTS,
 
   base: theme => ({
-    // No `overflow: 'hidden'` here, and that is a trade rather than an oversight: on iOS
-    // it sets `masksToBounds`, which clips the layer's own shadow along with everything
-    // else — a lifted `primary` would have no shadow at all. The clipping that matters is
-    // the row's, below, which is what contains the unrolling panel. What the root gives up
-    // is a pressed row squaring off the card's rounded corner while a finger is on it.
+    // The root carries the shadow and the border; it must **not** clip. On iOS
+    // `overflow: 'hidden'` sets `masksToBounds`, which clips the layer's own shadow along
+    // with everything else, and a lifted `primary` would have none at all.
     root: { flexDirection: 'column', borderCurve: 'continuous' },
+    // So the clipping is one layer in. This is the one extra node in the component, and
+    // it is here for a platform constraint rather than for layout: a single layer cannot
+    // both cast a shadow and clip its children on iOS. Without it a pressed row paints
+    // over the card's rounded corner, square, for as long as a finger is on it.
+    container: { flexDirection: 'column', overflow: 'hidden' },
     separator: { height: HAIRLINE, backgroundColor: theme.colors.separator },
     // This one is load-bearing: it is what makes the height animation read as a panel
     // unrolling rather than as content sliding out from behind the row above it.
@@ -124,7 +128,7 @@ export const accordionRecipe = createRecipe({
       lg: sizeAxis(SIZES.lg),
     },
 
-    radius: radiusAxis('root'),
+    radius: radiusAxis('root', 'container'),
   },
 
   /**
@@ -142,7 +146,10 @@ export const accordionRecipe = createRecipe({
     ...(['primary', 'secondary', 'tertiary'] as const).map(variant => ({
       when: { variant },
       style: (theme: XAUITheme): SlotStyles<AccordionSlot> => ({
+        // Both layers, and at the same value: the outer one draws the corner, the inner
+        // one is what a pressed row is cut against.
         root: { borderRadius: theme.radius['2xl'] },
+        container: { borderRadius: theme.radius['2xl'] },
         separator: { marginHorizontal: theme.spacing(3) },
       }),
     })),

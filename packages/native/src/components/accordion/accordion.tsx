@@ -133,11 +133,18 @@ export const AccordionRoot = forwardRef<View, AccordionProps>(function Accordion
           {children}
         </Slot>
       ) : (
-        // The layout transition is on the container as well as on each row: without it
-        // the accordion's own height jumps to its new total in one frame while the rows
-        // inside it are still animating.
+        // Two layers, and the only place in the library where a root has one inside it.
+        // A single layer cannot both cast a shadow and clip its children on iOS, and this
+        // component needs both: `primary` is lifted, and a pressed row has to be cut
+        // against the card's rounded corner rather than painting over it.
+        //
+        // The layout transition is on each of them as well as on every row. Without it on
+        // the outer one the accordion's own height jumps to its new total in one frame
+        // while the rows inside it are still animating.
         <Animated.View ref={ref} layout={LAYOUT} {...rest} style={rootStyle}>
-          {rows}
+          <Animated.View layout={LAYOUT} style={styles.container}>
+            {rows}
+          </Animated.View>
         </Animated.View>
       )}
     </AccordionProvider>

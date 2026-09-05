@@ -190,6 +190,19 @@ two containers that look alike but are declared apart drift. Only the names diff
 they differ on purpose: the ladder descends in one direction, which `default` sitting in
 the middle of the `Card`'s order does not.
 
+## Two layers on the root
+
+The root renders one view inside itself, and it is the only place in the library where a
+root does. A single layer cannot both cast a shadow and clip its children on iOS —
+`overflow: 'hidden'` sets `masksToBounds`, which takes the layer's own shadow with it — and
+this component needs both: `primary` is lifted, and a pressed row has to be cut against the
+card's rounded corner rather than painting over it, square, for as long as a finger is on
+it.
+
+So the outer layer carries the shadow, the border and the corner; the inner one carries the
+same corner and the clip. Both take the layout transition, because without it on the outer
+one the accordion's height jumps to its new total a frame ahead of the rows inside it.
+
 ## The separators
 
 Drawn by the root, **between** its children — never by a row. A row that drew its own
