@@ -48,10 +48,13 @@ export default function RootLayout() {
           <Stack.Screen name="skeleton" options={{ title: 'Skeleton (v1)' }} />
           <Stack.Screen name="slider" options={{ title: 'Slider (v1)' }} />
           <Stack.Screen name="spinner" options={{ title: 'Spinner (v1)' }} />
+          <Stack.Screen name="surface" options={{ title: 'Surface (v1)' }} />
           <Stack.Screen name="switch" options={{ title: 'Switch (v1)' }} />
           <Stack.Screen name="tabs" options={{ title: 'Tabs (v1)' }} />
+          <Stack.Screen name="tag-group" options={{ title: 'TagGroup (v1)' }} />
           <Stack.Screen name="text-area" options={{ title: 'TextArea (v1)' }} />
           <Stack.Screen name="text-field" options={{ title: 'TextField (v1)' }} />
+          <Stack.Screen name="toast" options={{ title: 'Toast (v1)' }} />
           <Stack.Screen name="typography" options={{ title: 'Typography (v1)' }} />
           <Stack.Screen name="view" options={{ title: 'Layout (v1)' }} />
         </Stack>

@@ -1,5 +1,144 @@
 # @xaui/native
 
+## 0.9.1-alpha.47
+
+### Patch Changes
+
+- 4d1d3dd: `Surface` — a ground for other things to sit on
+
+  **One node and no slots**, which is the point: a surface is a fill, a corner and some
+  padding, and every other component in this library that needed those three has been writing
+  them out again. It is the smallest thing here and the most reused.
+
+  **It is not a `Card`.** A card has decided things for you — it is always lifted, it has a
+  header and a footer, and its levels carry an emphasis. A surface has decided nothing.
+
+  **A ladder, not four emphases.** `primary` sits on the page, `secondary` inside a `primary`,
+  `tertiary` inside a `secondary`, and each is a token the theme already names — so a nest is
+  legible in both modes without anyone choosing greys. Three is as deep as that reading
+  survives; a fourth would be a shade nobody could place. `ghost` at the end is not a level
+  but the absence of one.
+
+  **Elevation is asked for rather than tied to the variant**, and defaults to true for
+  `primary` alone: a shadow under a ground that barely differs from the page reads as dirt
+  rather than as height. Whether a ground is above the one under it is the layout's business —
+  the same `secondary` is flat inside a card and lifted floating over a list.
+
+  Its props list is six lines because everything else a surface could be is already a style
+  prop. There is nothing here a prop had to be invented for.
+
+  `Card`, `Popover`, `Accordion` and `Dialog` should read it. None of them does yet: that is a
+  refactor rather than a component, and it wants its own change so a regression in one of the
+  four is not hidden inside a new file.
+
+## 0.9.1-alpha.46
+
+### Patch Changes
+
+- ef7332a: `TagGroup` — List · Item · ItemLabel · ItemRemoveButton
+
+  **It is not a row of `Chip`s**, and that answers a question this roadmap has carried since
+  `TagGroup` was first listed beside a `Chip` that already shipped.
+
+  A chip is a piece of metadata that is always the same. A tag is one you can turn on, take
+  off, or both. The selection state and the removal are the component; the pill around them
+  is the least of it — which is also why the two do not share a recipe. A chip has ten
+  variants because it reports an intent; a tag has two grounds because it reports nothing at
+  all until it is selected.
+
+  **Two grounds, not two emphases.** `default` is the theme's neutral fill, `surface` the card
+  colour, and they swap so a tag never disappears into what is behind it: a group on a card
+  wants one, a group on the page wants the other. A selected tag leaves both for the accent's
+  soft slice, the only place this component uses colour.
+
+  **The cross renders nothing without an `onRemove`.** Removing a tag is the caller's list
+  changing, and a cross that appeared to work while the list stayed put would be worse than
+  one that is plainly not there. It is written out rather than drawn by the item, because a
+  tag you can turn on and a tag you can take off are different controls and most groups are
+  only one of the two.
+
+  It reads `system/close-button`, so the press state, the grown touch target, the
+  missing-label warning and the drawn cross are the shared ones — six lines here, and the
+  third component to read them after `Chip` and `Alert`.
+
+  The selection rule is a pure function with ten tests, and it returns the list **unchanged**
+  whenever a press changes nothing: `useControllableState` drops a set to the value it already
+  holds, so `onSelectionChange` never fires for a change that did not happen.
+
+  Both faces of a tag are resolved once on the root, so a group of forty costs what a group of
+  two costs and no slot touches the recipe (R5).
+
+## 0.9.1-alpha.45
+
+### Patch Changes
+
+- 541cbe7: The toast stack collapses, like HeroUI's.
+
+  It was a flex column with a gap: every card fully visible, one under the next, so six
+  toasts took six card heights down the screen. HeroUI's is a pile — one card in front, the
+  rest scaled down and pushed toward the edge behind it, only their shoulders showing.
+
+  Every card is now anchored to the same edge and its depth is entirely in its transform:
+  `translateY: 10` toward the edge and `scale: 0.97` per step, their values, read off their
+  `toast.animation.ts`. A pile of eight costs the height of one. The ladder does not clamp —
+  their interpolation clamps the front side only, so the fourth card is genuinely further
+  back than the third rather than sitting on it and reading as one.
+
+  `limit` becomes `maxVisible`, and it no longer discards. A card past it is transparent,
+  keeps its timer and its place, and is promoted into view when the one in front leaves — so
+  a burst of six shows all six instead of losing three.
+
+- 7557e46: The front toast can be thrown away with a swipe, like HeroUI's.
+
+  Away from its edge — up on a top stack, down on a bottom one — past 50 points or 500 points
+  a second, their thresholds, either alone being enough. Dragged the wrong way it resists
+  rather than refuses: the whole screen's travel maps onto 40 points. The throw carries on at
+  the speed the finger left it and the record goes a moment later, so a hard flick leaves
+  faster than a soft one.
+
+  Only the front card. The ones behind show a seven-point shoulder, which is a target under
+  any reasonable minimum, and dragging the second card out from under the first reads as a
+  glitch rather than as a dismissal. `isSwipeable={false}` on the host turns it off.
+
+  Note that this dismisses **one** card and the pile empties a swipe at a time — HeroUI's
+  gesture calls `hide(id)`, not a clear-all, and their provider has no such thing.
+
+  The gesture runs on `react-native-gesture-handler`, already an optional peer, reached only
+  through `@xaui/native/toast`.
+
+- f8dfa9d: `Toast` — Title · Description · Actions · Close, plus `ToastHost` and `useToast`
+
+  **The card does not know it is in a queue**, when it will leave, or what is stacked under
+  it. The host owns all three, and that split is the whole design: `render` returns anything
+  at all and the queue never looks at it, so `Toast` is the card this library ships rather
+  than the card the host requires.
+
+  `Toast.Close` still knows which toast it belongs to without being told. The host provides
+  the dismiss **around** each entry and the card folds it into the context its slots read, so
+  a close button two levels down needs nothing passed to it.
+
+  **The variant paints the title, and nothing else.** A red card sliding in from the edge of
+  the screen reads as the app breaking; a red line of text reads as the thing you just did
+  failing. The surface stays the theme's floating one whatever happened, which is also what
+  lets two toasts of different kinds stack without the pile looking like a paint chart. It
+  uses the soft foregrounds rather than the full colours, because a toast is read from the
+  corner of the eye and `danger` at full strength is a shout where the soft one is a
+  statement.
+
+  **It slides from the edge it will sit against**, where every other overlay here scales in
+  place. A dialog and a popover appear where they are, because they were asked for; a toast
+  arrives, because something happened. Motion across the screen's edge is the difference.
+
+  Past `limit` the **oldest** goes: the newest is the one that just happened, and the reader
+  is looking for it.
+
+  `useToast` outside a `ToastHost` warns and does nothing rather than throwing. A missing host
+  is a setup mistake in the app shell, and a screen that crashes on its way to reporting that
+  a save succeeded has turned a good outcome into a bad one.
+
+  It closes P5.18 as well as P5.18b: `Snackbar` and `Toast` are the same object under two
+  names, and HeroUI calls it `toast`.
+
 ## 0.9.1-alpha.44
 
 ### Patch Changes
