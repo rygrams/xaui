@@ -1,5 +1,6 @@
-import { useCallback, useMemo } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useControllableState } from '../../hooks/use-controllable-state'
+import { warnDev } from '../../utils/warn-dev'
 import { useXAUITheme } from '../../theme/theme-hooks'
 import { BottomSheetProvider } from './bottom-sheet.context'
 import { bottomSheetRecipe } from './bottom-sheet.recipe'
@@ -59,6 +60,25 @@ export function BottomSheet({
     onChange: onExpandedChange,
   })
 
+  // Reported by `BottomSheet.Summary` from its own layout, so a sheet gets its reduced
+  // height from where the content says to cut rather than from a number that has to be
+  // kept in step with it.
+  const [summaryExtent, setSummaryExtent] = useState<number>()
+
+  // The slot wins. A measurement of the content is always truer than a number written
+  // beside it, and `collapsedHeight` stays for the sheet that has no natural seam.
+  const collapsed = summaryExtent ?? collapsedHeight
+
+  // In an effect rather than in the body: `warnDev` does not deduplicate, and the root
+  // re-renders on every open and every reduce.
+  useEffect(() => {
+    if (summaryExtent === undefined || collapsedHeight === undefined) return
+    warnDev(
+      'BottomSheet: `collapsedHeight` is ignored when a `BottomSheet.Summary` is present ' +
+        '— the summary measures where to cut. Remove one of the two.'
+    )
+  }, [collapsedHeight, summaryExtent])
+
   const styles = bottomSheetRecipe.resolve({ theme, selection: { radius } })
 
   const open = useCallback(() => setOpen(true), [setOpen])
@@ -82,12 +102,13 @@ export function BottomSheet({
       isOpen,
       isDisabled,
       dismissThreshold,
-      collapsedHeight,
-      // A sheet with no `collapsedHeight` has no reduced state to be out of, so it reports
-      // expanded whatever the disclosure holds — a slot must not draw a chevron for a
-      // state the sheet cannot reach.
-      isExpanded: collapsedHeight === undefined ? true : isExpanded,
-      isCollapsible: collapsedHeight !== undefined,
+      collapsedHeight: collapsed,
+      setSummaryExtent,
+      // A sheet with no reduced state has none to be out of, so it reports expanded
+      // whatever the disclosure holds — a slot must not draw a chevron for a state the
+      // sheet cannot reach.
+      isExpanded: collapsed === undefined ? true : isExpanded,
+      isCollapsible: collapsed !== undefined,
       open,
       close,
       toggle,
@@ -100,7 +121,7 @@ export function BottomSheet({
       isOpen,
       isDisabled,
       dismissThreshold,
-      collapsedHeight,
+      collapsed,
       isExpanded,
       open,
       close,

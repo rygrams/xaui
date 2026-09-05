@@ -86,6 +86,13 @@ export type BottomSheetContentProps = ContentOwnProps &
 export type BottomSheetHandleProps = Omit<PressableProps, 'children'> &
   ViewStyleProps
 
+type SummaryOwnProps = { children?: ReactNode }
+
+/** The part that stays when the sheet is reduced. A direct child of `Content`. */
+export type BottomSheetSummaryProps = SummaryOwnProps &
+  Omit<ViewProps, keyof SummaryOwnProps> &
+  Omit<ViewStyleProps, keyof SummaryOwnProps | keyof ViewProps>
+
 type TextOwnProps = { children?: ReactNode }
 
 export type BottomSheetTitleProps = TextOwnProps &
@@ -110,8 +117,14 @@ export type BottomSheetContextValue = {
   isOpen: boolean
   isDisabled: boolean
   dismissThreshold: number
-  /** `undefined` when the sheet has no reduced state. */
+  /**
+   * How much of the sheet shows when reduced, resolved: a `Summary`'s bottom edge if there
+   * is one, else the `collapsedHeight` prop. `undefined` when the sheet has no reduced
+   * state at all.
+   */
   collapsedHeight?: number
+  /** How `BottomSheet.Summary` reports the edge the sheet should cut at. */
+  setSummaryExtent: (extent: number) => void
   /** Always `true` on a sheet that cannot be reduced. */
   isExpanded: boolean
   isCollapsible: boolean

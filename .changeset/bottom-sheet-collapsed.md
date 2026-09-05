@@ -8,9 +8,16 @@
 up or gone, and while it is up it is either full or reduced. `isExpanded`,
 `defaultExpanded` and `onExpandedChange` control it the way `isOpen` controls the other.
 
-These are not snap points — two heights, not an array of them — and the sheet is not
-re-laid out. It is the same box at its full height, moved further down, so the tail below
-`collapsedHeight` slides off the bottom of the screen and comes back untouched.
+These are not snap points — two states, not an array of positions.
+
+Where the sheet cuts comes from `BottomSheet.Summary`, a new slot: it is `<summary>` to the
+sheet's `<details>`, the part that survives rather than a different view for the reduced
+state. It renders in both, and reports where its bottom edge falls so that whatever sits
+above it — a handle, usually — is counted too. `collapsedHeight` stays as the fallback for a
+sheet with no natural seam, and the summary wins when both are given.
+
+Either way the sheet is not re-laid out. It is the same box at its full height, moved
+further down, so the tail slides off the bottom of the screen and comes back untouched.
 
 A drag that was not decisive puts the sheet back. Decisive down goes one state down, unless
 the throw was aimed past the reduced notch, in which case it dismisses: dragging a sheet the

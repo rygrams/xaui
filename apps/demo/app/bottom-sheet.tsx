@@ -46,9 +46,16 @@ export default function BottomSheetScreen() {
 
       <Section
         title="A reduced state"
-        note="collapsedHeight={200} gives the sheet a second state between up and gone. Drag it down once to reduce it, again to dismiss it, up to restore it — or press the handle, which is a real control on a collapsible sheet the way an Accordion.Trigger is. The tail below 200 points slides off the bottom rather than being re-laid out, so what is cut is cut wherever the line falls."
+        note="BottomSheet.Summary is the part that stays. It renders in both states — what changes is whether everything under it does — and it reports where its bottom edge falls, so the sheet cuts at a seam you chose rather than mid-line. Drag down once to reduce, again to dismiss, up to restore, or press the handle, which is a real control here the way an Accordion.Trigger is."
       >
         <Collapsible />
+      </Section>
+
+      <Section
+        title="A reduced state, by the numbers"
+        note="collapsedHeight={200} without a Summary — the fallback for a sheet with no natural seam. Same two states, same drag, but the tail is cut wherever 200 points happens to land, which is what the Summary exists to avoid. Give both and the Summary wins, with a warning."
+      >
+        <CollapsibleByHeight />
       </Section>
 
       <Section
@@ -110,17 +117,45 @@ function Sheet({
 /** A long sheet the reader can push most of the way out of the way without losing it. */
 function Collapsible() {
   return (
-    <BottomSheet collapsedHeight={200} defaultExpanded={false}>
+    <BottomSheet defaultExpanded={false}>
       <BottomSheet.Trigger asChild>
         <Button size="sm">Café des Arts</Button>
       </BottomSheet.Trigger>
       <BottomSheet.Overlay />
       <BottomSheet.Content>
         <BottomSheet.Handle accessibilityLabel="Réduire ou déplier la fiche" />
+        <BottomSheet.Summary>
+          <BottomSheet.Title>Café des Arts</BottomSheet.Title>
+          <BottomSheet.Description>
+            ★★★★☆ · Ouvert jusqu’à 22 h
+          </BottomSheet.Description>
+        </BottomSheet.Summary>
+        {LONG.map(line => (
+          <BottomSheet.Description key={line}>{line}</BottomSheet.Description>
+        ))}
+        <BottomSheet.Close asChild>
+          <Button variant="tertiary" size="sm">
+            Fermer
+          </Button>
+        </BottomSheet.Close>
+      </BottomSheet.Content>
+    </BottomSheet>
+  )
+}
+
+/** The same sheet with no seam to cut at, reduced to a number instead. */
+function CollapsibleByHeight() {
+  return (
+    <BottomSheet collapsedHeight={200} defaultExpanded={false}>
+      <BottomSheet.Trigger asChild>
+        <Button variant="tertiary" size="sm">
+          Sans Summary
+        </Button>
+      </BottomSheet.Trigger>
+      <BottomSheet.Overlay />
+      <BottomSheet.Content>
+        <BottomSheet.Handle accessibilityLabel="Réduire ou déplier la fiche" />
         <BottomSheet.Title>Café des Arts</BottomSheet.Title>
-        <BottomSheet.Description>
-          ★★★★☆ · Ouvert jusqu’à 22 h
-        </BottomSheet.Description>
         {LONG.map(line => (
           <BottomSheet.Description key={line}>{line}</BottomSheet.Description>
         ))}
