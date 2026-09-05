@@ -1,4 +1,7 @@
-const CODEMODS: Record<string, () => Promise<{ run: (targetDir: string) => { changed: string[] } }>> = {
+const CODEMODS: Record<
+  string,
+  () => Promise<{ run: (targetDir: string) => { changed: string[] } }>
+> = {
   'legacy-imports': () => import('./legacy-imports'),
 }
 
@@ -7,7 +10,9 @@ async function main() {
 
   const load = name ? CODEMODS[name] : undefined
   if (!load) {
-    console.error(`Unknown codemod "${name ?? ''}". Available: ${Object.keys(CODEMODS).join(', ')}`)
+    console.error(
+      `Unknown codemod "${name ?? ''}". Available: ${Object.keys(CODEMODS).join(', ')}`
+    )
     process.exitCode = 1
     return
   }

@@ -94,8 +94,9 @@ export default function PressableFeedbackScreen() {
         <Note>
           The tile below is styled entirely in props: no <Bold>style</Bold> object
           anywhere. It must look like the ones above — and its wash must still be
-          visible, which is the real check: the ink is computed from the surface&apos;s
-          background, and that background was written as a prop rather than in a style.
+          visible, which is the real check: the ink is computed from the
+          surface&apos;s background, and that background was written as a prop rather
+          than in a style.
         </Note>
         <StylePropsTile />
       </Section>

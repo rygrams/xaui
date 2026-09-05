@@ -4,16 +4,16 @@ The design values and how components read them.
 
 ## What lives here
 
-| File | Role |
-| --- | --- |
-| `tokens.gen.ts` | **Generated.** Both colour layers, already resolved, for light and dark |
-| `theme.type.ts` | `XAUISourceColors`, `XAUIDerivedColors`, `XAUITheme`, `XAUIThemeConfig` |
-| `palette.ts` | The raw Tailwind scale, 22 families x 11 shades — **outside** the theme |
-| `derive-colors.ts` | The 32 formulas that turn the source layer into the derived one |
-| `scales.ts` | Radius, spacing unit, control heights, type scale, semantic shadows |
-| `create-theme.ts` | The public configuration API, and the theme `id` |
-| `theme-context.ts` | The bare React context |
-| `theme-hooks.ts` | `useXAUITheme`, `useThemeColor`, `useColorMode` |
+| File               | Role                                                                    |
+| ------------------ | ----------------------------------------------------------------------- |
+| `tokens.gen.ts`    | **Generated.** Both colour layers, already resolved, for light and dark |
+| `theme.type.ts`    | `XAUISourceColors`, `XAUIDerivedColors`, `XAUITheme`, `XAUIThemeConfig` |
+| `palette.ts`       | The raw Tailwind scale, 22 families x 11 shades — **outside** the theme |
+| `derive-colors.ts` | The 32 formulas that turn the source layer into the derived one         |
+| `scales.ts`        | Radius, spacing unit, control heights, type scale, semantic shadows     |
+| `create-theme.ts`  | The public configuration API, and the theme `id`                        |
+| `theme-context.ts` | The bare React context                                                  |
+| `theme-hooks.ts`   | `useXAUITheme`, `useThemeColor`, `useColorMode`                         |
 
 `XAUIProvider` lives in `provider/` but is exported from here — one import path for
 everything theme-related.
@@ -35,7 +35,10 @@ follow a brand override and will not switch with the colour mode.
 import { createTheme, palette } from '@xaui/native/theme'
 
 export const appTheme = createTheme({
-  colors: { light: { accent: palette.blue[600] }, dark: { accent: palette.blue[400] } },
+  colors: {
+    light: { accent: palette.blue[600] },
+    dark: { accent: palette.blue[400] },
+  },
 })
 ```
 

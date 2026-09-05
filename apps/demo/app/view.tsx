@@ -56,11 +56,21 @@ export default function ViewScreen() {
         note="It declares React Native's own default, so it changes nothing on its own. It exists for what it says: a layout whose axes are all named reads without inference, and it keeps its direction when composed into a row."
       >
         <Row gap={12}>
-          <Column gap={6} flex={1} padding={12} backgroundColor={theme.colors.surface}>
+          <Column
+            gap={6}
+            flex={1}
+            padding={12}
+            backgroundColor={theme.colors.surface}
+          >
             <Text style={{ color: theme.colors.foreground }}>a column</Text>
             <Text style={{ color: theme.colors.muted }}>inside a row</Text>
           </Column>
-          <Column gap={6} flex={1} padding={12} backgroundColor={theme.colors.surface}>
+          <Column
+            gap={6}
+            flex={1}
+            padding={12}
+            backgroundColor={theme.colors.surface}
+          >
             <Text style={{ color: theme.colors.foreground }}>another</Text>
             <Text style={{ color: theme.colors.muted }}>sharing the width</Text>
           </Column>
@@ -90,7 +100,9 @@ export default function ViewScreen() {
             <Text style={{ color: theme.colors.muted }}>payée</Text>
           </Row>
 
-          <Text style={{ color: theme.colors.muted }}>Émise le 3 septembre — 1 240 €</Text>
+          <Text style={{ color: theme.colors.muted }}>
+            Émise le 3 septembre — 1 240 €
+          </Text>
 
           <Row gap={8} justifyContent="flex-end">
             <Button size="sm" variant="tertiary">
@@ -175,7 +187,9 @@ export default function ViewScreen() {
         note="The child element becomes the axis and keeps its direction."
       >
         <Row asChild gap={8} alignItems="center">
-          <View style={{ borderWidth: 1, borderColor: theme.colors.border, padding: 8 }}>
+          <View
+            style={{ borderWidth: 1, borderColor: theme.colors.border, padding: 8 }}
+          >
             <Text style={{ color: theme.colors.foreground }}>a View,</Text>
             <Text style={{ color: theme.colors.muted }}>wearing the row</Text>
           </View>

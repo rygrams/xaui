@@ -32,7 +32,6 @@ import { Row } from '@xaui/native-legacy/view'
 ```tsx
 import { Row } from '@xaui/native-legacy/view'
 import { View } from 'react-native'
-
 ;<Row gap={12} crossAxisAlignment="center">
   <View
     style={{ width: 48, height: 48, backgroundColor: '#6366f1', borderRadius: 24 }}
@@ -47,7 +46,6 @@ import { View } from 'react-native'
 
 ```tsx
 import { Row } from '@xaui/native-legacy/view'
-
 ;<Row mainAxisAlignment="spaceBetween" crossAxisAlignment="center">
   <Typography>Label</Typography>
   <Switch value={enabled} onValueChange={setEnabled} />
@@ -58,7 +56,6 @@ import { Row } from '@xaui/native-legacy/view'
 
 ```tsx
 import { Row } from '@xaui/native-legacy/view'
-
 ;<Row gap={8} reversed>
   {items.map(item => (
     <Chip key={item.id} label={item.name} />

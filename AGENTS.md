@@ -18,16 +18,16 @@ Changesets, Next.js docs, Expo demo.
 Source of truth in `.agents/skills/<name>/SKILL.md`, copied — never symlinked — into
 `.claude/skills/`. Edit both in the same commit.
 
-| Skill | Owns |
-| --- | --- |
-| `xaui-flow` | Start here on any non-trivial task; routes to the others |
-| `xaui-component` | Writing a component — the fourteen rules, folder shape, per-component loop |
-| `xaui-system` | Recipe engine, style cache, slots, `PressableFeedback`, `Portal`, `Icon` |
-| `xaui-theme` | Tokens, OKLab derivation, `createTheme`, provider, generation |
-| `xaui-hybrid` | The web renderer and the `em` sizing convention |
-| `xaui-docs` | Docs pages, demo screens, generated tables |
-| `xaui-legacy-migration` | The frozen tree, `core-shim`, codemods |
-| `xaui-review` | Run on the diff before every PR — v1 rules and clean code |
+| Skill                   | Owns                                                                       |
+| ----------------------- | -------------------------------------------------------------------------- |
+| `xaui-flow`             | Start here on any non-trivial task; routes to the others                   |
+| `xaui-component`        | Writing a component — the fourteen rules, folder shape, per-component loop |
+| `xaui-system`           | Recipe engine, style cache, slots, `PressableFeedback`, `Portal`, `Icon`   |
+| `xaui-theme`            | Tokens, OKLab derivation, `createTheme`, provider, generation              |
+| `xaui-hybrid`           | The web renderer and the `em` sizing convention                            |
+| `xaui-docs`             | Docs pages, demo screens, generated tables                                 |
+| `xaui-legacy-migration` | The frozen tree, `core-shim`, codemods                                     |
+| `xaui-review`           | Run on the diff before every PR — v1 rules and clean code                  |
 
 ## The v1 API
 

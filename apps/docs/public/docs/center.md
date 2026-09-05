@@ -25,7 +25,6 @@ import { Center } from '@xaui/native-legacy/view'
 ```tsx
 import { Center } from '@xaui/native-legacy/view'
 import { View } from 'react-native'
-
 ;<Center>
   <View
     style={{ width: 80, height: 80, backgroundColor: '#6366f1', borderRadius: 40 }}
@@ -38,7 +37,6 @@ import { View } from 'react-native'
 ```tsx
 import { Center } from '@xaui/native-legacy/view'
 import { ActivityIndicator } from 'react-native'
-
 ;<Center>
   <ActivityIndicator size="large" />
 </Center>
@@ -48,7 +46,6 @@ import { ActivityIndicator } from 'react-native'
 
 ```tsx
 import { Center, Column } from '@xaui/native-legacy/view'
-
 ;<Center>
   <Column crossAxisAlignment="center" gap={12}>
     <EmptyIcon />

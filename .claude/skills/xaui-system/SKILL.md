@@ -18,21 +18,32 @@ from HeroUI), §2 (folder layout), §9/P1 (acceptance criteria).
 ```ts
 export const buttonRecipe = createRecipe({
   slots: ['root', 'label', 'icon', 'spinner'],
-  base: (t) => ({
-    root:  { flexDirection: 'row', alignItems: 'center', gap: t.spacing(2), overflow: 'hidden' },
+  base: t => ({
+    root: {
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: t.spacing(2),
+      overflow: 'hidden',
+    },
     label: { fontWeight: '500', textAlign: 'center' },
   }),
-  variantTokens: {                       // a variant NAMES tokens, it paints nothing
-    primary:        { bg: 'accent',      fg: 'accentForeground' },
-    'danger-soft':  { bg: 'dangerSoft',  fg: 'danger' },
+  variantTokens: {
+    // a variant NAMES tokens, it paints nothing
+    primary: { bg: 'accent', fg: 'accentForeground' },
+    'danger-soft': { bg: 'dangerSoft', fg: 'danger' },
     // …the ten values of Variant
   },
   variants: {
-    size: { md: (t) => ({ root: { height: t.controlHeights.md }, label: { fontSize: t.fontSizes.md } }) },
+    size: {
+      md: t => ({
+        root: { height: t.controlHeights.md },
+        label: { fontSize: t.fontSizes.md },
+      }),
+    },
   },
   states: {
     disabled: () => ({ root: { opacity: 0.5 }, label: { opacity: 0.7 } }),
-    pressed:  () => ({ root: { opacity: 0.9 } }),
+    pressed: () => ({ root: { opacity: 0.9 } }),
   },
   defaultVariants: { variant: 'primary', size: 'md', radius: 'md' },
 })
@@ -103,7 +114,7 @@ same everywhere and has no reason to be rewritten 47 times.
   stay inside
 
 A `feedbackVariant` enum was tried and reverted: a name encodes a cross-product, so a wash
-*and* a wave together was unreachable, and `asChild` — where the caller's element is the
+_and_ a wave together was unreachable, and `asChild` — where the caller's element is the
 pressable and there is no sibling to inject — could have no overlay at all.
 
 Every pressable component depends on it (`Button`, `Chip`, clickable `Card`, `ListItem`,
@@ -129,7 +140,8 @@ vector-icons), raw SVG `children` (props cloned, `react-native-svg`), or `source
 
 ```tsx
 <Button variant="danger">
-  <Button.Icon as={TrashIcon} />       {/* colour and size inherited — nothing to compute */}
+  <Button.Icon as={TrashIcon} />{' '}
+  {/* colour and size inherited — nothing to compute */}
   <Button.Label>Supprimer</Button.Label>
 </Button>
 ```
@@ -198,7 +210,7 @@ splitStyleProps(props) // utils/ — pure, mirrored test; splits, transforms not
 useStyleProps(props) // system/style-props/ — the same, memoized on the values
 ```
 
-The type is `Omit<ViewStyle, DirectionalStyleKey>`, but the split needs the key *names* at
+The type is `Omit<ViewStyle, DirectionalStyleKey>`, but the split needs the key _names_ at
 runtime, and that table is in `utils/style-props.ts`. A compile-time check in
 `style-props.type.ts` pins the two together — an RN upgrade that adds a style key fails
 `type-check` naming it. Never edit one without the other; the check tells you which.

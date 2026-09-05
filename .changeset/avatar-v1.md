@@ -12,7 +12,7 @@ sync. HeroUI runs a status enum for this; a stacking order says the same thing a
 disagree with itself. JSX order between the two slots is therefore free.
 
 `variant` is the `Chip`'s eleven names, meaning here what they mean there — an avatar is a
-token *about* a person or a thing, which is the category the `Chip` established. The three
+token _about_ a person or a thing, which is the category the `Chip` established. The three
 status families are present because an avatar reports as often as it identifies: a red frame
 for the account that failed to sync, a green one for the person who is online. It is
 HeroUI's `variant × color` matrix said once.

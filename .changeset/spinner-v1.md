@@ -10,7 +10,7 @@ of its opacity — and its one child is the arc that turns over it, the same cir
 quarter missing. The two are one figure rather than two parts.
 
 **A variant here names an ink**, which is the narrowing of §1 bis this component argues for.
-On a `Chip`, `fg` means "the colour that reads *on* this variant's surface", so `primary`
+On a `Chip`, `fg` means "the colour that reads _on_ this variant's surface", so `primary`
 resolves to `accentForeground` — white. A spinner has no surface, so `primary` is `accent`,
 `secondary` is the accent as it reads on the page, `default` is `foreground`, `tertiary` is
 `muted`, and the three status families are there for the wait whose outcome is already

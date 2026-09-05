@@ -12,16 +12,16 @@ import { Wrap } from '@xaui/native-legacy/view'
 
 ## Props
 
-| Prop           | Type                                                                        | Default        | Description                                               |
-| -------------- | --------------------------------------------------------------------------- | -------------- | --------------------------------------------------------- |
-| `children`     | `ReactNode`                                                                 | —              | Content to render inside the wrap container               |
-| `direction`    | `"horizontal" \| "vertical"`                                                | `"horizontal"` | Primary axis direction                                    |
-| `alignment`    | `"start" \| "end" \| "center" \| "spaceBetween" \| "spaceAround" \| "spaceEvenly"` | `"start"`      | Alignment of children within each run                     |
-| `runAlignment` | `"start" \| "end" \| "center" \| "spaceBetween" \| "spaceAround" \| "spaceEvenly"` | `"start"`      | Alignment of runs along the cross axis                    |
-| `spacing`      | `number`                                                                    | `0`            | Space between children along the main axis                |
-| `runSpacing`   | `number`                                                                    | `0`            | Space between runs along the cross axis                   |
-| `style`        | `StyleProp<ViewStyle>` / `CSSProperties`                                    | —              | Style override                                            |
-| `testID`       | `string`                                                                    | —              | Test identifier for e2e tests                             |
+| Prop           | Type                                                                               | Default        | Description                                 |
+| -------------- | ---------------------------------------------------------------------------------- | -------------- | ------------------------------------------- |
+| `children`     | `ReactNode`                                                                        | —              | Content to render inside the wrap container |
+| `direction`    | `"horizontal" \| "vertical"`                                                       | `"horizontal"` | Primary axis direction                      |
+| `alignment`    | `"start" \| "end" \| "center" \| "spaceBetween" \| "spaceAround" \| "spaceEvenly"` | `"start"`      | Alignment of children within each run       |
+| `runAlignment` | `"start" \| "end" \| "center" \| "spaceBetween" \| "spaceAround" \| "spaceEvenly"` | `"start"`      | Alignment of runs along the cross axis      |
+| `spacing`      | `number`                                                                           | `0`            | Space between children along the main axis  |
+| `runSpacing`   | `number`                                                                           | `0`            | Space between runs along the cross axis     |
+| `style`        | `StyleProp<ViewStyle>` / `CSSProperties`                                           | —              | Style override                              |
+| `testID`       | `string`                                                                           | —              | Test identifier for e2e tests               |
 
 ## Examples
 
@@ -43,10 +43,12 @@ const tags = ['React', 'TypeScript', 'Flutter', 'UI', 'Mobile']
 ```tsx
 import { Wrap } from '@xaui/native-legacy/view'
 import { View } from 'react-native'
-
-<Wrap alignment="center" spacing={12} runSpacing={12}>
+;<Wrap alignment="center" spacing={12} runSpacing={12}>
   {Array.from({ length: 7 }, (_, i) => (
-    <View key={i} style={{ width: 60, height: 60, backgroundColor: '#6366f1', borderRadius: 8 }} />
+    <View
+      key={i}
+      style={{ width: 60, height: 60, backgroundColor: '#6366f1', borderRadius: 8 }}
+    />
   ))}
 </Wrap>
 ```
@@ -55,8 +57,9 @@ import { View } from 'react-native'
 
 ```tsx
 import { Wrap } from '@xaui/native-legacy/view'
-
-<Wrap spacing={8} runSpacing={16} runAlignment="spaceBetween">
-  {skills.map((s) => <Badge key={s} label={s} />)}
+;<Wrap spacing={8} runSpacing={16} runAlignment="spaceBetween">
+  {skills.map(s => (
+    <Badge key={s} label={s} />
+  ))}
 </Wrap>
 ```

@@ -85,10 +85,7 @@ export function partitionOverlays(children: ReactNode): {
  * was composed into. It reads the feedback context, which is published above the root and
  * descends into it regardless of where it sits.
  */
-export function feedbackChildren(
-  children: ReactNode,
-  asChild: boolean
-): ReactNode {
+export function feedbackChildren(children: ReactNode, asChild: boolean): ReactNode {
   if (asChild) return children
 
   const { overlays, content } = partitionOverlays(children)

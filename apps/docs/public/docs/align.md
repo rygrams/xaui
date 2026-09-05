@@ -40,7 +40,6 @@ import { Align } from '@xaui/native-legacy/view'
 ```tsx
 import { Align } from '@xaui/native-legacy/view'
 import { View } from 'react-native'
-
 ;<Align alignment="topRight">
   <View
     style={{ width: 60, height: 60, backgroundColor: '#6366f1', borderRadius: 8 }}
@@ -55,7 +54,6 @@ Child placed at 25% from left and 75% from top.
 ```tsx
 import { Align } from '@xaui/native-legacy/view'
 import { View } from 'react-native'
-
 ;<Align alignment={{ x: 0.25, y: 0.75 }}>
   <View
     style={{ width: 40, height: 40, backgroundColor: '#f43f5e', borderRadius: 20 }}
@@ -67,7 +65,6 @@ import { View } from 'react-native'
 
 ```tsx
 import { Align } from '@xaui/native-legacy/view'
-
 ;<Align alignment="topRight">
   <Badge count={3} />
 </Align>

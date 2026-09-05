@@ -32,7 +32,6 @@ import { Column } from '@xaui/native-legacy/view'
 ```tsx
 import { Column } from '@xaui/native-legacy/view'
 import { View } from 'react-native'
-
 ;<Column gap={12} crossAxisAlignment="stretch">
   <View style={{ height: 48, backgroundColor: '#6366f1', borderRadius: 8 }} />
   <View style={{ height: 48, backgroundColor: '#8b5cf6', borderRadius: 8 }} />
@@ -44,7 +43,6 @@ import { View } from 'react-native'
 
 ```tsx
 import { Column } from '@xaui/native-legacy/view'
-
 ;<Column mainAxisAlignment="center" crossAxisAlignment="center" gap={16}>
   <Logo />
   <Typography variant="h2">Welcome</Typography>
@@ -56,7 +54,6 @@ import { Column } from '@xaui/native-legacy/view'
 
 ```tsx
 import { Column } from '@xaui/native-legacy/view'
-
 ;<Column mainAxisSize="min" gap={8}>
   <Label>Option A</Label>
   <Label>Option B</Label>

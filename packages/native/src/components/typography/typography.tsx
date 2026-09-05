@@ -42,9 +42,7 @@ export const Typography = forwardRef<Text, TypographyProps>(function Typography(
   const styles = typographyRecipe.resolve({ theme, selection })
   // Never cached: a raw tint takes arbitrary values, and letting one into the key would
   // grow the table with the colours callers invent rather than with the ten roles.
-  const tint = color
-    ? typographyRecipe.tint({ theme, color, selection })
-    : undefined
+  const tint = color ? typographyRecipe.tint({ theme, color, selection }) : undefined
 
   // The order of §2 ter, most general to most specific: the cached role, the uncached
   // tint, the style props, then `style` — the last word.

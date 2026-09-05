@@ -9,21 +9,34 @@ const NEW_PACKAGE = '@xaui/native-legacy'
 const RESERVED_V1_SUBPATHS = new Set(['theme'])
 
 const SOURCE_EXTENSIONS = new Set(['.ts', '.tsx', '.js', '.jsx', '.mjs', '.cjs'])
-const SKIP_DIRS = new Set(['node_modules', '.git', 'dist', 'build', '.turbo', '.next'])
+const SKIP_DIRS = new Set([
+  'node_modules',
+  '.git',
+  'dist',
+  'build',
+  '.turbo',
+  '.next',
+])
 
 // Anchored on the closing quote so it can't partially match '@xaui/native-legacy/...'.
-const SPECIFIER_PATTERN = new RegExp(`(['"])${escapeRegExp(OLD_PACKAGE)}(/[^'"]*)?\\1`, 'g')
+const SPECIFIER_PATTERN = new RegExp(
+  `(['"])${escapeRegExp(OLD_PACKAGE)}(/[^'"]*)?\\1`,
+  'g'
+)
 
 function escapeRegExp(value: string): string {
   return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
 }
 
 export function transformImports(source: string): string {
-  return source.replace(SPECIFIER_PATTERN, (match, quote: string, subpath?: string) => {
-    const firstSegment = subpath?.slice(1).split('/')[0]
-    if (firstSegment && RESERVED_V1_SUBPATHS.has(firstSegment)) return match
-    return `${quote}${NEW_PACKAGE}${subpath ?? ''}${quote}`
-  })
+  return source.replace(
+    SPECIFIER_PATTERN,
+    (match, quote: string, subpath?: string) => {
+      const firstSegment = subpath?.slice(1).split('/')[0]
+      if (firstSegment && RESERVED_V1_SUBPATHS.has(firstSegment)) return match
+      return `${quote}${NEW_PACKAGE}${subpath ?? ''}${quote}`
+    }
+  )
 }
 
 function collectSourceFiles(dir: string, files: string[] = []): string[] {

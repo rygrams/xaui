@@ -14,21 +14,21 @@ Source of truth: `.project-specs/XAUI-V1-PLAN.md` §1 (rules), §1 bis (API voca
 
 ## The fourteen rules — non-negotiable
 
-| # | Rule |
-|---|---|
-| R1 | Composition, not configuration. One `forwardRef` root + dot-notation slots. No prop styles the inside of another component. |
-| R2 | No `customAppearance`. Every slot carries its own `style`. |
-| R3 | Text children are auto-wrapped through `childrenToString` (recursive stringify, returns `null` if any React element is present). |
-| R4 | Layout belongs to the root (`gap`, `alignItems`, `flexDirection`). Slots have **no margin of their own**. No `startContent` / `endContent` — JSX order is screen order. |
-| R5 | Context carries **resolved** values (style IDs), never raw props. Slots re-resolve nothing. Memoized. |
-| R6 | Tokens in the **vocabulary** props: `size="md"` yes, `size={42}` is a type error. Raw values have their own path, outside the cache: `color` and the style props of R14. |
-| R7 | Two appearance props in the **vocabulary**: `variant` and `color`. R14's `backgroundColor` / `borderColor` are not vocabulary — they are raw overrides, the same category as `style`. Seeing one where a `variant` would do still means the design system is being bypassed. |
-| R8 | Booleans are `isX` / `hasX` (`isDisabled`, `isLoading`, `hasError`). `disabled` is never public; forward it internally to `Pressable`. |
-| R9 | Every root forwards `ref`, `style` (including `Pressable`'s function form), `testID` and a11y props. `accessibilityRole` has a default but stays overridable. **Unfixable after 1.0.** |
-| R10 | Every compound exports its context hook: `export { useButton }`. |
-| R11 | `displayName` is namespaced: `'XAUI.Button.Root'`, `'XAUI.Button.Label'`. |
-| R12 | `asChild` on every root, via `mergeProps` + `mergeRefs` from `system/slot/`. |
-| R13 | No `left` / `right` in any style. Use `paddingStart` / `paddingEnd`, `marginStart` / `marginEnd`, `start` / `end`. An ESLint rule enforces it in `src/`. |
+| #   | Rule                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| R1  | Composition, not configuration. One `forwardRef` root + dot-notation slots. No prop styles the inside of another component.                                                                                                                                                                                                                                                                                                                                                                                               |
+| R2  | No `customAppearance`. Every slot carries its own `style`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| R3  | Text children are auto-wrapped through `childrenToString` (recursive stringify, returns `null` if any React element is present).                                                                                                                                                                                                                                                                                                                                                                                          |
+| R4  | Layout belongs to the root (`gap`, `alignItems`, `flexDirection`). Slots have **no margin of their own**. No `startContent` / `endContent` — JSX order is screen order.                                                                                                                                                                                                                                                                                                                                                   |
+| R5  | Context carries **resolved** values (style IDs), never raw props. Slots re-resolve nothing. Memoized.                                                                                                                                                                                                                                                                                                                                                                                                                     |
+| R6  | Tokens in the **vocabulary** props: `size="md"` yes, `size={42}` is a type error. Raw values have their own path, outside the cache: `color` and the style props of R14.                                                                                                                                                                                                                                                                                                                                                  |
+| R7  | Two appearance props in the **vocabulary**: `variant` and `color`. R14's `backgroundColor` / `borderColor` are not vocabulary — they are raw overrides, the same category as `style`. Seeing one where a `variant` would do still means the design system is being bypassed.                                                                                                                                                                                                                                              |
+| R8  | Booleans are `isX` / `hasX` (`isDisabled`, `isLoading`, `hasError`). `disabled` is never public; forward it internally to `Pressable`.                                                                                                                                                                                                                                                                                                                                                                                    |
+| R9  | Every root forwards `ref`, `style` (including `Pressable`'s function form), `testID` and a11y props. `accessibilityRole` has a default but stays overridable. **Unfixable after 1.0.**                                                                                                                                                                                                                                                                                                                                    |
+| R10 | Every compound exports its context hook: `export { useButton }`.                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
+| R11 | `displayName` is namespaced: `'XAUI.Button.Root'`, `'XAUI.Button.Label'`.                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| R12 | `asChild` on every root, via `mergeProps` + `mergeRefs` from `system/slot/`.                                                                                                                                                                                                                                                                                                                                                                                                                                              |
+| R13 | No `left` / `right` in any style. Use `paddingStart` / `paddingEnd`, `marginStart` / `marginEnd`, `start` / `end`. An ESLint rule enforces it in `src/`.                                                                                                                                                                                                                                                                                                                                                                  |
 | R14 | A component's style is editable **in props**: `padding={16}`, `width="100%"`, `backgroundColor="#111"`. **Full RN names and RN values** — no abbreviations, no hidden scale (`padding={t.spacing(4)}` when you want the scale). The set is the node's style type (`ViewStyle`, `TextStyle` on a text slot) **minus the directional keys R13 bans**, which are not exposed at all. Scoped to the node the prop is written on, never a descendant. Outside the cache, after the tint, **before** `style`, which still wins. |
 
 ## API vocabulary
@@ -37,22 +37,28 @@ Source of truth: `.project-specs/XAUI-V1-PLAN.md` §1 (rules), §1 bis (API voca
 
 ```ts
 type Variant =
-  | 'primary' | 'secondary' | 'tertiary' | 'ghost'
-  | 'success' | 'success-soft'
-  | 'warning' | 'warning-soft'
-  | 'danger'  | 'danger-soft'
+  | 'primary'
+  | 'secondary'
+  | 'tertiary'
+  | 'ghost'
+  | 'success'
+  | 'success-soft'
+  | 'warning'
+  | 'warning-soft'
+  | 'danger'
+  | 'danger-soft'
 ```
 
 A variant **names tokens, it computes nothing**:
 
-| `variant` | bg | border | fg |
-|---|---|---|---|
-| `primary` | `accent` | — | `accentForeground` |
-| `secondary` | `default` | — | `defaultForeground` |
-| `tertiary` | transparent | `border` | `foreground` |
-| `ghost` | transparent | — | `foreground` |
-| `success` / `warning` / `danger` | same name | — | `<name>Foreground` |
-| `*-soft` | `<name>Soft` | — | `<name>` |
+| `variant`                        | bg           | border   | fg                  |
+| -------------------------------- | ------------ | -------- | ------------------- |
+| `primary`                        | `accent`     | —        | `accentForeground`  |
+| `secondary`                      | `default`    | —        | `defaultForeground` |
+| `tertiary`                       | transparent  | `border` | `foreground`        |
+| `ghost`                          | transparent  | —        | `foreground`        |
+| `success` / `warning` / `danger` | same name    | —        | `<name>Foreground`  |
+| `*-soft`                         | `<name>Soft` | —        | `<name>`            |
 
 Components with no legitimate intent (`Card`, `Surface`, `Divider`, `Skeleton`) narrow the
 union to the four emphasis levels. That's a subtype, not a different prop.
@@ -94,6 +100,7 @@ union to the four emphasis levels. That's a subtype, not a different prop.
   `ViewStyle` and a text slot in `TextStyle`; the `system/` primitives have them too. A
   component that renders a node and does not expose them is the defect — there is no list
   of which components have them, because the answer is all of them.
+
 - **Anything else goes through `style`.** Tinted shadow, border in a different colour than
   the background, gradient — `style`.
 
@@ -119,7 +126,7 @@ not, and how it is used — added with the folder, updated when the boundary mov
 `.context.ts`; without animation, no `.animation.ts`. Everything that depends on a token or
 a variant lives in the recipe, not in `.style.ts`.
 
-Where a new *shared* file goes is decided by §2 bis of the plan — `theme/`, `provider/`,
+Where a new _shared_ file goes is decided by §2 bis of the plan — `theme/`, `provider/`,
 `system/` (public), `hooks/` (React, ≥2 components), `utils/` (pure, private), `types/`
 (≥2 components), otherwise it stays in the component folder. Promotion happens at the
 second use, never by anticipation.
@@ -128,9 +135,21 @@ second use, never by anticipation.
 
 ```tsx
 export const ButtonRoot = forwardRef<View, ButtonProps>(function Button(
-  { children, variant = 'primary', size = 'md', radius = 'md',
-    isDisabled = false, isLoading = false, isIconOnly = false,
-    asChild = false, color, style, onPressIn, onPressOut, ...pressableProps },
+  {
+    children,
+    variant = 'primary',
+    size = 'md',
+    radius = 'md',
+    isDisabled = false,
+    isLoading = false,
+    isIconOnly = false,
+    asChild = false,
+    color,
+    style,
+    onPressIn,
+    onPressOut,
+    ...pressableProps
+  },
   ref
 ) {
   const theme = useXAUITheme()
@@ -138,7 +157,9 @@ export const ButtonRoot = forwardRef<View, ButtonProps>(function Button(
   const press = usePressState({ onPressIn, onPressOut })
 
   const styles = buttonRecipe.resolve(theme, {
-    variant, size, radius,
+    variant,
+    size,
+    radius,
     states: { disabled: isDisabled || isLoading, pressed: press.isPressed },
     tint: color,
   })
@@ -146,7 +167,13 @@ export const ButtonRoot = forwardRef<View, ButtonProps>(function Button(
   const text = childrenToString(children)
 
   const context = useMemo(
-    () => ({ labelStyle: styles.label, iconStyle: styles.icon, size, isDisabled, isLoading }),
+    () => ({
+      labelStyle: styles.label,
+      iconStyle: styles.icon,
+      size,
+      isDisabled,
+      isLoading,
+    }),
     [styles.label, styles.icon, size, isDisabled, isLoading]
   )
 
@@ -154,14 +181,16 @@ export const ButtonRoot = forwardRef<View, ButtonProps>(function Button(
     accessibilityRole: 'button',
     accessibilityState: { disabled: isDisabled, busy: isLoading },
     disabled: isDisabled || isLoading,
-    ...pressableProps,                 // caller props first…
-    onPressIn: press.onPressIn,        // …then the composed handlers, which call them
+    ...pressableProps, // caller props first…
+    onPressIn: press.onPressIn, // …then the composed handlers, which call them
     onPressOut: press.onPressOut,
   }
 
   // R9 — `style` may be Pressable's function form, so resolve it per state
   const rootStyle = (state: PressableStateCallbackType) => [
-    styles.root, styles.tint?.root, isIconOnly && sheet.iconOnly,
+    styles.root,
+    styles.tint?.root,
+    isIconOnly && sheet.iconOnly,
     typeof style === 'function' ? style(state) : style,
   ]
 
@@ -169,7 +198,11 @@ export const ButtonRoot = forwardRef<View, ButtonProps>(function Button(
     <ButtonContext.Provider value={context}>
       {asChild ? (
         // R12 — mergeProps + mergeRefs into the caller's element
-        <Slot ref={ref} {...rootProps} style={rootStyle({ pressed: press.isPressed })}>
+        <Slot
+          ref={ref}
+          {...rootProps}
+          style={rootStyle({ pressed: press.isPressed })}
+        >
           {children}
         </Slot>
       ) : (
@@ -181,7 +214,7 @@ export const ButtonRoot = forwardRef<View, ButtonProps>(function Button(
   )
 })
 
-ButtonRoot.displayName = 'XAUI.Button.Root'          // R11 — on the root AND every slot
+ButtonRoot.displayName = 'XAUI.Button.Root' // R11 — on the root AND every slot
 
 export const Button = Object.assign(ButtonRoot, { Label, Icon, Spinner })
 ```
@@ -194,7 +227,7 @@ Eight things to note:
   (`system/pressable-feedback/`), never re-implemented per component.
 - **`asChild` renders `Slot`**, which merges props and refs into the caller's element. It is a
   real branch, not a prop that is destructured and forgotten — R12 is unfixable after 1.0.
-- **Prop order in `rootProps` matters.** Caller props are spread *before* the press handlers,
+- **Prop order in `rootProps` matters.** Caller props are spread _before_ the press handlers,
   and `usePressState` composes rather than replaces them. Spreading `...pressableProps` last
   would let a caller's `onPressIn` silently kill the pressed state.
 - **`style` is resolved through a function**, because R9 requires accepting `Pressable`'s
@@ -207,10 +240,15 @@ A slot is three lines — read the resolved style from the context, merge the lo
 
 ```tsx
 export const ButtonLabel = forwardRef<Text, ButtonLabelProps>(function ButtonLabel(
-  { children, style, ...rest }, ref
+  { children, style, ...rest },
+  ref
 ) {
-  const ctx = useButtonContext('Button.Label')   // named throw when used outside
-  return <Text ref={ref} style={[ctx.labelStyle, style]} {...rest}>{children}</Text>
+  const ctx = useButtonContext('Button.Label') // named throw when used outside
+  return (
+    <Text ref={ref} style={[ctx.labelStyle, style]} {...rest}>
+      {children}
+    </Text>
+  )
 })
 
 ButtonLabel.displayName = 'XAUI.Button.Label'

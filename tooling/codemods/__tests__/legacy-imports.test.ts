@@ -4,25 +4,25 @@ import { transformImports } from '../legacy-imports'
 describe('transformImports', () => {
   it('rewrites a subpath import', () => {
     expect(transformImports("import { Button } from '@xaui/native/button'")).toBe(
-      "import { Button } from '@xaui/native-legacy/button'",
+      "import { Button } from '@xaui/native-legacy/button'"
     )
   })
 
   it('rewrites a bare import', () => {
     expect(transformImports('import x from "@xaui/native"')).toBe(
-      'import x from "@xaui/native-legacy"',
+      'import x from "@xaui/native-legacy"'
     )
   })
 
   it('rewrites a require() call', () => {
     expect(transformImports("const { Card } = require('@xaui/native/card')")).toBe(
-      "const { Card } = require('@xaui/native-legacy/card')",
+      "const { Card } = require('@xaui/native-legacy/card')"
     )
   })
 
   it('rewrites a re-export', () => {
     expect(transformImports("export * from '@xaui/native/dialog'")).toBe(
-      "export * from '@xaui/native-legacy/dialog'",
+      "export * from '@xaui/native-legacy/dialog'"
     )
   })
 
@@ -53,7 +53,7 @@ describe('transformImports', () => {
         "import { Button } from '@xaui/native-legacy/button'",
         "import { Checkbox } from '@xaui/native-legacy/checkbox'",
         "import { View } from 'react-native'",
-      ].join('\n'),
+      ].join('\n')
     )
   })
 })

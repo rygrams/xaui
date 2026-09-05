@@ -76,15 +76,24 @@ prop anywhere in the library — and `width="100%"` says it explicitly when it i
 ### Nested
 
 ```tsx
-<Column gap={12} padding={16} borderRadius={12} backgroundColor={theme.colors.surface}>
+<Column
+  gap={12}
+  padding={16}
+  borderRadius={12}
+  backgroundColor={theme.colors.surface}
+>
   <Row justifyContent="space-between" alignItems="center">
     <Typography variant="h5">Facture #2024-118</Typography>
     <Typography variant="body-sm">payée</Typography>
   </Row>
 
   <Row gap={8} justifyContent="flex-end">
-    <Button size="sm" variant="tertiary">Télécharger</Button>
-    <Button size="sm" variant="danger-soft">Annuler</Button>
+    <Button size="sm" variant="tertiary">
+      Télécharger
+    </Button>
+    <Button size="sm" variant="danger-soft">
+      Annuler
+    </Button>
   </Row>
 </Column>
 ```
@@ -99,10 +108,10 @@ prop anywhere in the library — and `width="100%"` says it explicitly when it i
 
 ## Props
 
-| Prop | Type | Default | Notes |
-| --- | --- | --- | --- |
-| `asChild` | `boolean` | `false` | The child element becomes the axis (R12) |
-| `style` | `StyleProp<ViewStyle>` | — | Applied last |
+| Prop      | Type                   | Default | Notes                                    |
+| --------- | ---------------------- | ------- | ---------------------------------------- |
+| `asChild` | `boolean`              | `false` | The child element becomes the axis (R12) |
+| `style`   | `StyleProp<ViewStyle>` | —       | Applied last                             |
 
 Plus every `ViewStyle` key as a prop (R14), **minus `flexDirection`**, and every `ViewProps`
 React Native defines.
@@ -151,7 +160,9 @@ flip with the writing direction — which is what a caption over an image should
 <Grid columns={3} gap={8}>
   <Card />
   <Card />
-  <Grid.Item span={2}><Card /></Grid.Item>
+  <Grid.Item span={2}>
+    <Card />
+  </Grid.Item>
 </Grid>
 ```
 
@@ -172,7 +183,7 @@ size the columns. It carries React Native's meaning all the same — `gap={8}` i
 the same gap `Row` takes as a style prop.
 
 `Grid` has no `asChild`: it measures itself, so it has to be the node it renders.
-`Grid.Item` has none either — the cell *is* the layout, and merging it into a caller's
+`Grid.Item` has none either — the cell _is_ the layout, and merging it into a caller's
 element would hand them a width they did not ask for.
 
 ## Why `Column` exists at all
@@ -186,11 +197,11 @@ and a `Column` keeps its own direction the moment it is composed into a `Row`.
 The legacy `view/` folder had twenty-six entries. Four are kept — the two axes, `Stack` and
 `Grid`. Three lost their reason to exist when R14 landed, and are not being ported:
 
-| Legacy | v1 |
-| --- | --- |
-| `<Padding all={16}><X /></Padding>` | `<X padding={16} />` — R14, and one view node fewer |
-| `<Center><X /></Center>` | `alignItems="center" justifyContent="center"` on the parent |
-| `<Spacer />` between two items | `justifyContent="space-between"` on the parent |
+| Legacy                              | v1                                                          |
+| ----------------------------------- | ----------------------------------------------------------- |
+| `<Padding all={16}><X /></Padding>` | `<X padding={16} />` — R14, and one view node fewer         |
+| `<Center><X /></Center>`            | `alignItems="center" justifyContent="center"` on the parent |
+| `<Spacer />` between two items      | `justifyContent="space-between"` on the parent              |
 
 Each of them added a view node to say what a style prop on an existing node already says,
 and view depth is exactly what the v1 `Button` set out to reduce.
