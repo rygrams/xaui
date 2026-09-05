@@ -118,13 +118,12 @@ export const inputOTPRecipe = createRecipe({
     box: {
       alignItems: 'center',
       justifyContent: 'center',
-      // `lg` and not `field`, which is the radius the rest of this family uses. A field is
-      // wide, so 21 on a 48-tall one reads as a rounded rectangle; a code box is very
-      // nearly square — 44 by 48 at `md`, 36 by 40 at `sm` — where the geometric maximum
-      // is 22, so the same 21 is a pill in all but name and is clamped to one outright at
-      // the small end. Twelve is where HeroUI lands for the same box from the other
-      // direction: their `field` radius is their `xl`, and their scale's base is 8 where
-      // ours is 12.
+      // `lg` and not `field`, though the two are the same twelve points at the default
+      // base. The keys are kept apart on purpose: `field` is the corner a theme moves when
+      // it wants rounder *fields*, and a field is wide — a code box is very nearly square,
+      // 44 by 48 at `md`, where the geometric maximum is 22 and anything near it is a pill
+      // in all but name. Following `field` here would hand this component a shape that was
+      // never decided for it.
       borderRadius: theme.radius.lg,
       borderCurve: 'continuous',
       // The one root in the library that clips: the box has no shadow to lose and a
