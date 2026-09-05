@@ -30,6 +30,7 @@ const SCREENS = [
   { href: '/spinner', label: 'Spinner' },
   { href: '/divider', label: 'Divider' },
   { href: '/skeleton', label: 'Skeleton' },
+  { href: '/avatar', label: 'Avatar' },
 ] as const
 
 export default function HomeScreen() {

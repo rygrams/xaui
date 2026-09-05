@@ -86,6 +86,7 @@ remaining action belongs to a workflow rather than to a commit.
 | P3.8  | `Checkbox` — Indicator · Label                                     | done   |
 | P3.9  | `Radio` — Indicator · Label, the `Checkbox` in a circle            | done   |
 | P3.10 | `Switch` — Track · Thumb · Label, two shapes                       | done   |
+| P3.11 | `Avatar` — Image · Fallback · Initials, the fallback as a layer    | done   |
 | P3.13 | `Divider` — three separator levels, one `alignSelf` for both axes  | done   |
 | P3.14 | `Skeleton` — two fills, one pulse, sized by R14 alone              | done   |
 | P3.15 | `Spinner` — seven inks, two rings, no SVG                          | done   |
