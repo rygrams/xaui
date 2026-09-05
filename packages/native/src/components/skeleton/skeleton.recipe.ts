@@ -1,25 +1,23 @@
 import { createRecipe, radiusAxis } from '../../system/recipe'
 import type { VariantTokens } from '../../system/recipe'
-import type { SkeletonSlot, SkeletonVariant } from './skeleton.type'
+import type { SkeletonSlot } from './skeleton.type'
 
 const SLOTS = ['root'] as const
 
 /**
- * Two lines of data — the two backgrounds a placeholder is ever drawn on.
+ * One line, because the component has no `variant` to choose between — `SkeletonProps`
+ * says why. `default` is the neutral fill the rest of the library uses for a `secondary`
+ * `Button`, which is the grey a placeholder wants: a block on the page rather than a hole
+ * in it. HeroUI reaches the same value from `muted` at 30% opacity; naming the token is
+ * what lets a theme move the skeleton by moving `default`.
  *
- * `default` is the neutral fill the rest of the library uses for a `secondary` `Button`,
- * which is exactly the grey a skeleton wants: it reads as a block on the page without
- * reading as a hole in it. `defaultSoft` is that same fill at half, for the placeholder
- * sitting on a surface that already carries a neutral.
- *
- * HeroUI reaches the same value from `muted` at 30% opacity. Naming the token instead is
- * what lets a theme move the skeleton by moving `default`, rather than by discovering
- * that a percentage of a text colour is where the placeholder grey came from.
+ * The role is declared rather than the colour written into `paint`, because `resolveTint`
+ * maps the roles a variant names and that mapping is what makes a raw `color` land here.
  */
-const VARIANT_TOKENS: Record<SkeletonVariant, VariantTokens> = {
-  default: { bg: 'default' },
-  secondary: { bg: 'defaultSoft' },
-}
+const VARIANT_TOKENS = { default: { bg: 'default' } } satisfies Record<
+  string,
+  VariantTokens
+>
 
 export const skeletonRecipe = createRecipe({
   slots: SLOTS,
@@ -42,6 +40,10 @@ export const skeletonRecipe = createRecipe({
    * default because there is no `size`: the caller gives the block its dimensions with
    * R14's `width` and `height`, because only they know the shape of the thing that is
    * missing.
+   */
+  /**
+   * `variant` is named here and nowhere else: there is one, the caller cannot choose it,
+   * and the recipe still needs it selected for `paint` and the tint to resolve.
    */
   defaultVariants: { variant: 'default', radius: 'md' },
 })

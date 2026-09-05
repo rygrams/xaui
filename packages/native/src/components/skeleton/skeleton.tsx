@@ -46,16 +46,7 @@ const PULSE_MIN_OPACITY = 0.5
  * shape you mount and unmount around your own content.
  */
 export const Skeleton = forwardRef<View, SkeletonProps>(function Skeleton(
-  {
-    variant,
-    radius,
-    color,
-    isLoading = true,
-    animation = true,
-    children,
-    style,
-    ...props
-  },
+  { radius, color, isLoading = true, animation = true, children, style, ...props },
   ref
 ) {
   const theme = useXAUITheme()
@@ -63,7 +54,9 @@ export const Skeleton = forwardRef<View, SkeletonProps>(function Skeleton(
   // R7's tint rather than the style prop of the same name.
   const [styleProps, rest] = useStyleProps(props)
 
-  const selection = { variant, radius }
+  // No `variant` — the recipe has one and the caller cannot pick it, so the selection
+  // leaves it to `defaultVariants`.
+  const selection = { radius }
   const styles = skeletonRecipe.resolve({ theme, selection })
   // Only when `color` is set, and never cached: a raw tint takes arbitrary values, so
   // letting one into the key would grow the table with the colours callers invent.
