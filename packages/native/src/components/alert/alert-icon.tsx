@@ -37,16 +37,23 @@ export const AlertIcon = forwardRef<View, AlertIconProps>(function AlertIcon(
   const { iconStyle, icon } = useAlert()
   const [styleProps, rest] = useStyleProps(props)
 
+  const glyphSize = size ?? icon.size
+  const glyphColor = color ?? icon.color
+
   return (
     <View ref={ref} style={[iconStyle, styleProps, style]} {...rest}>
-      <Icon
-        as={as}
-        source={source}
-        size={size ?? icon.size}
-        color={color ?? icon.color}
-      >
-        {children}
-      </Icon>
+      {/* One `<Icon>` per form rather than one call carrying all three: they are a union,
+          and handing it `as` and `source` together is what the union exists to refuse. The
+          order is `Icon`'s own runtime precedence — `as`, then children, then `source`. */}
+      {as ? (
+        <Icon as={as} size={glyphSize} color={glyphColor} />
+      ) : source ? (
+        <Icon source={source} size={glyphSize} color={glyphColor} />
+      ) : (
+        <Icon size={glyphSize} color={glyphColor}>
+          {children}
+        </Icon>
+      )}
     </View>
   )
 })
