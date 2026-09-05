@@ -24,6 +24,7 @@ import { Menu } from '@xaui/native/menu'
         <Menu.ItemDescription>…</Menu.ItemDescription>
       </Menu.Item>
     </Menu.Group>
+    <Menu.Separator />
   </Menu.Content>
 </Menu>
 ```
@@ -33,6 +34,7 @@ import { Menu } from '@xaui/native/menu'
 - **`Menu.Overlay`** — the backdrop, and what closes it on a press outside.
 - **`Menu.Content`** — the panel, positioned against the trigger, in a portal.
 - **`Menu.Label`** — a heading over a run of rows.
+- **`Menu.Separator`** — a rule between two runs of them.
 - **`Menu.Group`** — that run, announced as a group.
 - **`Menu.Item`** — one action.
 - **`Menu.ItemTitle`** / **`Menu.ItemDescription`** — its two lines.
@@ -72,17 +74,31 @@ reads the menu's state has to run while there is still a menu.
 
 For a row that toggles something the reader will want to toggle again.
 
-### Headings and groups
+### Headings, groups and rules
 
 ```tsx
 <Menu.Label>Ce document</Menu.Label>
 <Menu.Group>
   <Menu.Item>…</Menu.Item>
 </Menu.Group>
+
+<Menu.Separator />
+
+<Menu.Item variant="danger">
+  <Menu.ItemTitle>Supprimer</Menu.ItemTitle>
+</Menu.Item>
 ```
 
-Neither draws anything. What separates two groups is the heading over the second one, and
-a rule as well would be saying it twice.
+`Menu.Label` and `Menu.Group` draw nothing; `Menu.Separator` is the rule, and **you place
+it**. A menu of four related actions wants none; a menu whose last row is "Supprimer" wants
+exactly one, above it. Drawing them between every pair and asking for the exceptions is the
+wrong way round — a menu is short enough that the one place a break belongs is obvious to
+whoever wrote it, and invisible to the component.
+
+It runs the panel's full inner width rather than lining up with the rows' text: a rule
+inset to the titles reads as belonging to the row under it, and this one belongs to
+neither. It is hidden from screen readers, because announcing "separator" between every
+pair of actions is noise in the one place a menu has to be brisk.
 
 ### Style as props
 

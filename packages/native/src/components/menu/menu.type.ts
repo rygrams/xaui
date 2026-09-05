@@ -23,6 +23,7 @@ export type MenuSlot =
   | 'overlay'
   | 'content'
   | 'label'
+  | 'separator'
   | 'group'
   | 'item'
   | 'itemTitle'
@@ -88,6 +89,9 @@ export type MenuLabelProps = MenuTextOwnProps &
 
 export type MenuItemDescriptionProps = MenuLabelProps
 
+/** It draws a rule and holds nothing, so there is no `children`. */
+export type MenuSeparatorProps = Omit<ViewProps, 'children'> & ViewStyleProps
+
 type MenuGroupOwnProps = { children?: ReactNode }
 
 export type MenuGroupProps = MenuGroupOwnProps &
@@ -128,6 +132,7 @@ export type MenuContextValue = {
   overlayStyle: StyleProp<ViewStyle>
   contentStyle: StyleProp<ViewStyle>
   labelStyle: StyleProp<TextStyle>
+  separatorStyle: StyleProp<ViewStyle>
   groupStyle: StyleProp<ViewStyle>
   itemStyle: StyleProp<ViewStyle>
   itemPressedStyle: StyleProp<ViewStyle>

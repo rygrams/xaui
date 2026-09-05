@@ -5,6 +5,7 @@ import { MenuItemDescription } from './menu-item-description'
 import { MenuItemIndicator } from './menu-item-indicator'
 import { MenuItemTitle } from './menu-item-title'
 import { MenuLabel } from './menu-label'
+import { MenuSeparator } from './menu-separator'
 import { MenuOverlay } from './menu-overlay'
 import { MenuTrigger } from './menu-trigger'
 import { Menu as MenuRoot } from './menu'
@@ -14,6 +15,7 @@ export const Menu = Object.assign(MenuRoot, {
   Overlay: MenuOverlay,
   Content: MenuContent,
   Label: MenuLabel,
+  Separator: MenuSeparator,
   Group: MenuGroup,
   Item: MenuItem,
   ItemTitle: MenuItemTitle,
@@ -29,6 +31,7 @@ export { MenuItemDescription } from './menu-item-description'
 export { MenuItemIndicator } from './menu-item-indicator'
 export { MenuItemTitle } from './menu-item-title'
 export { MenuLabel } from './menu-label'
+export { MenuSeparator } from './menu-separator'
 export { MenuOverlay } from './menu-overlay'
 export { MenuTrigger } from './menu-trigger'
 export { useMenu, useMenuItem } from './menu.context'
@@ -51,6 +54,7 @@ export type {
   MenuOverlayProps,
   MenuPlacement,
   MenuProps,
+  MenuSeparatorProps,
   MenuSlot,
   MenuTriggerProps,
   MenuWidth,

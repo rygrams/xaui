@@ -83,6 +83,7 @@ export function Menu({
       overlayStyle: styles.overlay,
       contentStyle: styles.content,
       labelStyle: styles.label,
+      separatorStyle: styles.separator,
       groupStyle: styles.group,
       itemStyle: styles.item,
       itemPressedStyle: pressed.item,

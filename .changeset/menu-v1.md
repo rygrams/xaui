@@ -29,6 +29,17 @@ toggle again.
 `offset` defaults to 6 where the `Popover`'s is 9 — a menu belongs to the control it drops
 out of, and a popover belongs to nothing.
 
+**`Menu.Separator`**, and you place it. A menu of four related actions wants none; a menu
+whose last row is "Supprimer" wants exactly one, above it. Drawing them between every pair
+and asking for the exceptions is the wrong way round — a menu is short enough that the one
+place a break belongs is obvious to whoever wrote it and invisible to the component.
+
+It runs the panel's full inner width rather than lining up with the rows' text, because a
+rule inset to the titles reads as belonging to the row under it and this one belongs to
+neither. Hidden from screen readers: announcing "separator" between every pair of actions
+is noise in the one place a menu has to be brisk. It is the menu's own trim rather than a
+`Divider`, resolved on the root with everything else the panel reads.
+
 ### `flex: 1` cannot be written inside a panel that measures itself
 
 `Menu.ItemTitle` had it, and the whole menu rendered as a seventy-point capsule with no

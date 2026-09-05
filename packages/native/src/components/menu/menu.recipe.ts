@@ -1,3 +1,4 @@
+import { StyleSheet } from 'react-native'
 import { createRecipe, radiusAxis } from '../../system/recipe'
 import type { SlotStyles, VariantTokens } from '../../system/recipe'
 import type { XAUITheme } from '../../theme/theme.type'
@@ -8,6 +9,7 @@ const SLOTS = [
   'overlay',
   'content',
   'label',
+  'separator',
   'group',
   'item',
   'itemTitle',
@@ -50,6 +52,8 @@ const ITEM_GAP = 2.5
 const LABEL_INSET = 3
 /** The check's box, sized so a row never shifts when one appears. */
 const INDICATOR = 5
+/** A hairline is one device pixel — 0.33 at 3× — and no theme has an opinion about that. */
+const HAIRLINE = StyleSheet.hairlineWidth
 
 export const menuRecipe = createRecipe({
   slots: SLOTS,
@@ -76,6 +80,21 @@ export const menuRecipe = createRecipe({
       // before the rows it heads reads as a heading for the panel.
       marginStart: theme.spacing(LABEL_INSET),
       paddingVertical: theme.spacing(1),
+    },
+    /**
+     * A rule between two runs of rows, placed by the caller rather than drawn between
+     * every pair. A menu of four related actions wants none; a menu whose last row is
+     * "Supprimer" wants exactly one, above it.
+     *
+     * It runs the panel's full inner width rather than lining up with the rows' text: a
+     * separator inset to the titles reads as belonging to the row under it, and this one
+     * belongs to neither.
+     */
+    separator: {
+      height: HAIRLINE,
+      backgroundColor: theme.colors.separator,
+      marginVertical: theme.spacing(1),
+      marginHorizontal: -theme.spacing(PANEL_PADDING_HORIZONTAL),
     },
     group: { flexDirection: 'column' },
     item: {

@@ -29,14 +29,14 @@ export default function MenuScreen() {
 
       <Section
         title="One row can be the destructive one"
-        note="variant='danger' on the row, not on the menu. It paints the title and any icon in it, and nothing else — a red row would read as an alert. The description stays muted whatever the intent: a danger row says what it does in red once, and a red sentence under it says it twice."
+        note="variant='danger' on the row, not on the menu. It paints the title and any icon in it, and nothing else — a red row would read as an alert. The description stays muted whatever the intent: a danger row says what it does in red once, and a red sentence under it says it twice. Menu.Separator sets it apart, which is the one place a rule earns its keep."
       >
         <Actions withDanger />
       </Section>
 
       <Section
         title="Headings and groups"
-        note="Menu.Label is a header for a screen reader; Menu.Group announces the rows under it as a group. Neither draws anything — what separates two groups is the heading over the second one, and a rule as well would be saying it twice."
+        note="Menu.Label is a header for a screen reader; Menu.Group announces the rows under it as a group. Neither draws anything on its own — write a Menu.Separator between them when the heading alone is not enough of a break, which is a judgement only you can make."
       >
         <Grouped />
       </Section>
@@ -97,9 +97,12 @@ function Actions({
           <Menu.ItemTitle>Partager</Menu.ItemTitle>
         </Menu.Item>
         {withDanger ? (
-          <Menu.Item variant="danger">
-            <Menu.ItemTitle>Supprimer</Menu.ItemTitle>
-          </Menu.Item>
+          <>
+            <Menu.Separator />
+            <Menu.Item variant="danger">
+              <Menu.ItemTitle>Supprimer</Menu.ItemTitle>
+            </Menu.Item>
+          </>
         ) : null}
       </Menu.Content>
     </Menu>
@@ -125,6 +128,7 @@ function Grouped() {
             <Menu.ItemTitle>Dupliquer</Menu.ItemTitle>
           </Menu.Item>
         </Menu.Group>
+        <Menu.Separator />
         <Menu.Label>Le dossier</Menu.Label>
         <Menu.Group>
           <Menu.Item>
