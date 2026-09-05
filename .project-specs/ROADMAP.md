@@ -53,6 +53,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P3.5   | `Chip` — Label · Icon · Dot · Avatar · Close                                 | done   |
 | P3.6   | `Alert` — Icon · Content · Title · Description · Close                       | done   |
 | P3.7   | `Input` — Label · Field · Description · Error                                | done   |
+| P3.7b  | Rename `Input` → `TextInput` — component, `./input` subpath, demo            | todo   |
 | P3.8   | `Checkbox` — Indicator · Label                                               | done   |
 | P3.9   | `Radio` — Indicator · Label, the `Checkbox` in a circle                      | done   |
 | P3.10  | `Switch` — Track · Thumb · Label, two shapes                                 | done   |
@@ -73,6 +74,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.1   | `InputOTP` — Group · Box · Value · Placeholder · Caret · Separator           | done   |
 | P5.2   | `TextArea` — Label · Field · Description · Error, over the `Input`           | done   |
 | P5.3   | `InputGroup` — Prefix · Field · Suffix · Icon, inside the `Input`            | done   |
+| P5.3b  | Rename `InputGroup` → `TextInputGroup`, following `TextInput`                | todo   |
 | P5.4   | `Select` — slots over the existing group context                             | todo   |
 | P5.5   | `Stepper` — slots over the existing group context                            | todo   |
 | P5.6   | `Toolbar` — slots over the existing group context                            | todo   |
