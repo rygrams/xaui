@@ -1,5 +1,141 @@
 # @xaui/native
 
+## 0.9.1-alpha.38
+
+### Patch Changes
+
+- 7e04096: `Accordion` — Item · Trigger · Indicator · Content
+
+  P5.11, over the legacy `ExpansionPanel`. HeroUI Native calls it `accordion` and so does
+  this, which is also what the roadmap row now says.
+
+  **The height is never measured.** The panel is mounted or it is not, and Reanimated's
+  layout transition animates the row between the two — `LinearTransition.springify()` on
+  HeroUI's numbers, damping 140 against stiffness **1600**. Stiffer than the chevron's 1000
+  deliberately: a height is a longer distance than a rotation, and at the chevron's
+  stiffness the same damping makes a long panel take almost half a second to settle.
+
+  Measuring it would mean a hidden pass on every open, and a panel whose content grows
+  afterwards — an image loading, a list filling — would be stuck at the height it had when
+  it was measured. The container carries the same transition, because without it the
+  accordion's own height jumps to its new total in one frame while the rows inside it are
+  still animating.
+
+  **The variant table is the `Card`'s, token for token.** An accordion in `default` _is_ a
+  card with rows in it, and two containers that look alike but are declared apart drift —
+  the drift showing up as an accordion sitting on a card with a fill one step off it.
+  `ghost` is the default and is HeroUI's own: rows separated by hairlines, on whatever page
+  they sit on.
+
+  **The separators are the root's, drawn between its children.** A row that drew its own
+  would draw one under the last item too, and every accordion would start by hiding it.
+  They come off `Children.toArray`, which drops nulls, so a conditionally rendered row
+  cannot leave a hairline hanging where nothing is.
+
+  **The open state moves to the root.** Legacy asked each item whether it was open, which is
+  what made "only one at a time" the caller's problem. One value on the container is what
+  `selectionMode` needs to mean anything. The whole rule is a pure function with thirteen
+  tests, including the two cases where it returns the value unchanged — a press refused
+  under `isCollapsible={false}` must not fire `onValueChange` for a change that did not
+  happen.
+
+  `ChevronDownIcon` moves from the `Select`'s folder to `system/icon` and is exported from
+  `@xaui/native/system`. Two components draw it now, which is §2 bis exactly: promotion at
+  the second use, never by anticipation.
+
+- 7abe5b5: The build cleans `dist/` before writing it
+
+  `clean: false` had been set since the legacy era, with nothing saying why, and against
+  `splitting: true` it is a bug waiting for the entry list to change.
+
+  Split output names its shared chunks by content hash. A build whose entries changed writes
+  new chunk names and leaves the old ones behind, so `dist/` becomes a mix of two builds: an
+  entry from the first still importing `chunk-ZF6KIHXH.js`, which the second replaced with a
+  different hash and never wrote.
+
+  Metro's report of that is `Unable to resolve "@xaui/native/accordion"` — it names the
+  component and says nothing about chunks, which sends you looking at the export map, the
+  subpath and the workspace link, all three of which are fine.
+
+  It bites hardest across branches, because turbo restores a cached `dist/**` **over**
+  whatever is already there rather than in place of it. Switching from a branch that has a
+  component to one that does not, or back, is enough.
+
+## 0.9.1-alpha.37
+
+### Patch Changes
+
+- c378a99: The `overlay` shadow gets lighter
+
+  It was a 24-point blur eight points down, at 16 of Android's elevation. Android draws
+  elevation on its own curve and draws it strongly, so a panel that read as lifted on iOS
+  read as detached on Android — a dark halo about as wide as the gap between the panel and
+  the field it came out of.
+
+  Half the elevation, two thirds of the blur, half the offset: still "above the page",
+  without the panel looking cut out of it.
+
+  |           | before       | after         |
+  | --------- | ------------ | ------------- |
+  | offset    | `0, 8`       | `0, 4`        |
+  | blur      | `24`         | `16`          |
+  | elevation | `16`         | `8`           |
+  | opacity   | `.14` / `.6` | `.10` / `.45` |
+
+  It is the token rather than the component because a recipe names tokens and computes
+  nothing — and because `Dialog`, `BottomSheet`, `Popover` and `Menu` are all going to read
+  this one. `Select` is its only consumer today, so nothing else moves yet.
+
+- ade75b6: `Select` — Trigger · Value · Indicator · Overlay · Content · Label · Item
+
+  A field that opens a list, and the first component in the library to use the `Portal`.
+  Its trigger is the `TextField`'s twin — the same `field*` tokens, the same four levels,
+  the same heights — so a select and a text input in one form read as one control rather
+  than as two libraries meeting.
+
+  The visual values and the motion are HeroUI Native's, not the legacy component's. The
+  chevron turns 0 to −180° on their spring (damping 140, stiffness 1000, mass 4): heavily
+  damped against a very high stiffness, so it arrives in a fifth of a second without
+  overshooting, because an oscillating chevron reads as a bug rather than as motion. The
+  panel grows out of the trigger at 200 ms from `scale: 0.95`, offset eight points towards
+  it, and leaves in 150 ms — a dismissal as long as the opening feels like the control is
+  arguing.
+
+  **The root renders no node**, which is where this component departs from every other one.
+  The trigger is the control, so `ref`, `style`, `testID`, the a11y props and R14's style
+  props are all on `Select.Trigger`. A wrapper view would have existed only to receive props
+  the field already takes.
+
+  **`XAUIProvider` now mounts a `PortalHost`.** The provider README always said the host
+  belonged there "later", and later is the first component that opens an overlay. It is not
+  left to the app because forgetting it is silent: `Portal` renders nothing outside a host,
+  so a select would open onto an empty screen with no error to read. `hasPortalHost={false}`
+  turns it off for an app that needs the host under a gesture root or inside its own
+  navigation container.
+
+  The panel measures itself invisibly for one frame before it places itself. That frame is
+  what `avoidCollisions` costs: without a measured height there is nothing to compare, and a
+  list too tall for the room below would open downwards off the screen. The arithmetic is a
+  pure function with a test — placement is the one part of this component that is maths
+  rather than rendering.
+
+  `size` is `sm`, `md` or `lg` — no `xs`. A trigger that small has to hold a value, a
+  chevron and the gap between them, and at that height the value gets nothing. The
+  `TextField` keeps its `xs` because a field only has to hold text.
+
+  The panel's corner is `2xl`, not `3xl`. HeroUI's is their `--radius-3xl` on a base of 8,
+  which is 24 points; our base is 12, so the same 24 is `2xl`. Reading their key rather than
+  their number put a 36-point corner on it and made it read as a pill.
+
+  Two narrowings against HeroUI, both deliberate. `placement` is `top` or `bottom` only: a
+  list as wide as its own field hanging off the side of it reads as a menu, and `start` and
+  `end` belong to `Popover`. And there is no `presentation` prop — the bottom-sheet and
+  dialog presentations need `BottomSheet` and `Dialog`, which do not exist yet.
+
+  `selectionMode` does not come across from the legacy component. A select that returns
+  several values is a different control with a different affordance; calling both by one
+  name is what made the legacy props list as long as it is.
+
 ## 0.9.1-alpha.36
 
 ### Patch Changes
