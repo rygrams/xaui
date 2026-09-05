@@ -10,7 +10,7 @@ import type {
 import type { TextStyleProps, ViewStyleProps } from '../../system/style-props'
 import type { RadiusKey, Size } from '../../theme/theme.type'
 
-export type InputSlot =
+export type TextFieldSlot =
   | 'root'
   | 'label'
   | 'field'
@@ -45,7 +45,7 @@ export type InputSlot =
  * and we ship at `1`. That is the one shipped default where the two differ;
  * `createTheme({ borderWidth: { field: 0 } })` reproduces theirs.
  */
-export type InputVariant = 'primary' | 'secondary' | 'tertiary' | 'ghost'
+export type TextFieldVariant = 'primary' | 'secondary' | 'tertiary' | 'ghost'
 
 /**
  * Where the label sits relative to the field's box.
@@ -55,26 +55,26 @@ export type InputVariant = 'primary' | 'secondary' | 'tertiary' | 'ghost'
  * own padding, so the JSX is identical either way and nothing is reparented (R4).
  *
  * Because the inside label positions itself against the top of the root, it assumes the
- * field is the first thing in the column's flow: write `Input.Description` and
- * `Input.Error` after the field, which is where they belong anyway.
+ * field is the first thing in the column's flow: write `TextField.Description` and
+ * `TextField.Error` after the field, which is where they belong anyway.
  */
-export type InputLabelPlacement = 'outside' | 'inside'
+export type TextFieldLabelPlacement = 'outside' | 'inside'
 
-export type InputSize = Size
+export type TextFieldSize = Size
 
 /**
- * What the `Input` itself understands. R14 — a name in here is the component's, so the
+ * What the `TextField` itself understands. R14 — a name in here is the component's, so the
  * style prop that shares it is not exposed: `size` is the field's scale and never
  * `ViewStyle`'s, and `color` is R7's tint.
  */
-type InputOwnProps = {
-  variant?: InputVariant
+type TextFieldOwnProps = {
+  variant?: TextFieldVariant
   /** The field's height, its padding, the gaps and the type. Never width. */
-  size?: InputSize
+  size?: TextFieldSize
   /** Overrides the `field` radius the theme chose for every size. */
   radius?: RadiusKey
   /** Above the box, or lifted into it. @default 'outside' */
-  labelPlacement?: InputLabelPlacement
+  labelPlacement?: TextFieldLabelPlacement
   /**
    * A raw tint (`'#7c3aed'`), never a token (R7). It lands where the variant put its
    * tokens — the fill of a `default`, the border of a `tertiary` — and, because the focus
@@ -86,7 +86,7 @@ type InputOwnProps = {
    * treatment off: an error outranks focus, and a field that is both should read as
    * wrong rather than as busy.
    *
-   * It does **not** mount or unmount `Input.Error`. That stays the caller's — a slot that
+   * It does **not** mount or unmount `TextField.Error`. That stays the caller's — a slot that
    * silently renders nothing is a slot you cannot debug.
    */
   isInvalid?: boolean
@@ -98,12 +98,12 @@ type InputOwnProps = {
 
 /**
  * R14 — the input's own props, the wrapper `View`'s, and every `ViewStyle` key neither
- * already claims. **`TextInputProps` are not here**: they belong to `Input.Field`, which
+ * already claims. **`TextInputProps` are not here**: they belong to `TextField.Field`, which
  * is the node that has them.
  */
-export type InputProps = InputOwnProps &
-  Omit<ViewProps, keyof InputOwnProps> &
-  Omit<ViewStyleProps, keyof InputOwnProps | keyof ViewProps> & {
+export type TextFieldProps = TextFieldOwnProps &
+  Omit<ViewProps, keyof TextFieldOwnProps> &
+  Omit<ViewStyleProps, keyof TextFieldOwnProps | keyof ViewProps> & {
     /** R12 — merge into the single child instead of rendering a `View`. */
     asChild?: boolean
   }
@@ -114,10 +114,10 @@ export type InputProps = InputOwnProps &
  * `editable` is absent: it is `disabled` under another name, and R8 keeps that off the
  * public surface — `isDisabled` on the root is what stops the field.
  */
-export type InputFieldProps = Omit<TextInputProps, 'editable'> &
+export type TextFieldFieldProps = Omit<TextInputProps, 'editable'> &
   Omit<TextStyleProps, keyof TextInputProps>
 
-type InputTextAreaOwnProps = {
+type TextFieldTextAreaOwnProps = {
   /**
    * How many lines tall the field starts. It is a **raw value**, not a token: it resolves
    * outside the style cache from the line height the size chose, the same path `color`
@@ -134,24 +134,24 @@ type InputTextAreaOwnProps = {
 }
 
 /**
- * `Input.Field` with the three things a multiline field needs — `multiline`, the text
+ * `TextField.Field` with the three things a multiline field needs — `multiline`, the text
  * pinned to the top, and a height in lines rather than in points. Everything else is the
  * field's, because it **is** the field: the same styles, the same focus plumbing, the same
  * `isInvalid`.
  */
-export type InputTextAreaProps = InputTextAreaOwnProps &
-  Omit<TextInputProps, 'editable' | 'multiline' | keyof InputTextAreaOwnProps> &
-  Omit<TextStyleProps, keyof TextInputProps | keyof InputTextAreaOwnProps>
+export type TextFieldTextAreaProps = TextFieldTextAreaOwnProps &
+  Omit<TextInputProps, 'editable' | 'multiline' | keyof TextFieldTextAreaOwnProps> &
+  Omit<TextStyleProps, keyof TextInputProps | keyof TextFieldTextAreaOwnProps>
 
 /** `Text`'s own props win over the `TextStyle` keys of the same name (R14). */
-type InputTextProps = TextProps &
+type TextFieldTextProps = TextProps &
   Omit<TextStyleProps, keyof TextProps> & {
     children?: ReactNode
   }
 
-export type InputLabelProps = InputTextProps
-export type InputDescriptionProps = InputTextProps
-export type InputErrorProps = InputTextProps
+export type TextFieldLabelProps = TextFieldTextProps
+export type TextFieldDescriptionProps = TextFieldTextProps
+export type TextFieldErrorProps = TextFieldTextProps
 
 /**
  * Read off `TextInput`'s own props rather than spelled out: React Native has renamed the
@@ -166,10 +166,10 @@ export type FieldBlurEvent = Parameters<NonNullable<TextInputProps['onBlur']>>[0
  * cached `StyleSheet` reference with the uncached tint pass layered over it, so a slot
  * merges its own `style` on top and does no work of its own.
  */
-export type InputContextValue = {
+export type TextFieldContextValue = {
   labelStyle: StyleProp<TextStyle>
   fieldStyle: StyleProp<TextStyle>
-  /** Layered *over* `fieldStyle` by `Input.TextArea`: only what a multiline field adds. */
+  /** Layered *over* `fieldStyle` by `TextField.TextArea`: only what a multiline field adds. */
   textAreaStyle: StyleProp<TextStyle>
   /**
    * Values, not a style: `rows` is a raw number, so the height it implies is arithmetic
@@ -180,7 +180,7 @@ export type InputContextValue = {
   descriptionStyle: StyleProp<TextStyle>
   errorStyle: StyleProp<TextStyle>
   /**
-   * The two decorators of an `InputGroup`, already pinned to their edge and inset by the
+   * The two decorators of a `FieldGroup`, already pinned to their edge and inset by the
    * field's own padding. They are resolved here, on the root, because the size that
    * decides that padding is the root's — the group itself adds no axis of its own.
    */
@@ -200,7 +200,7 @@ export type InputContextValue = {
   /**
    * The focus state lives on the **root**, because the root's recipe resolves on it (R5)
    * and it needs the value before it renders — but the node that hears the event is
-   * `Input.Field`, three levels down. These are how it reports back. Their identity is
+   * `TextField.Field`, three levels down. These are how it reports back. Their identity is
    * stable, so publishing them costs no re-render of a memoized slot.
    */
   onFieldFocus: (event: FieldFocusEvent) => void

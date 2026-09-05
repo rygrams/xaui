@@ -1,18 +1,18 @@
 import { forwardRef, useMemo } from 'react'
 import { TextInput } from 'react-native'
-import { InputField } from '../input'
-import { useInputGroup } from './input-group.context'
-import { decoratorPadding } from './input-group.utils'
-import type { InputGroupFieldProps } from './input-group.type'
+import { TextFieldField } from '../text-field'
+import { useFieldGroup } from './field-group.context'
+import { decoratorPadding } from './field-group.utils'
+import type { FieldGroupFieldProps } from './field-group.type'
 
 /**
- * The `TextInput` itself — `Input.Field` with the room the two decorators need.
+ * The `TextInput` itself — `TextField.Field` with the room the two decorators need.
  *
  * ```tsx
- * <InputGroup.Field value={query} onChangeText={setQuery} placeholder="Rechercher…" />
+ * <FieldGroup.Field value={query} onChangeText={setQuery} placeholder="Rechercher…" />
  * ```
  *
- * It renders the `Input`'s field rather than a second `TextInput`, so the focus plumbing,
+ * It renders the `TextField`'s field rather than a second `TextInput`, so the focus plumbing,
  * the placeholder colour, the label association, `isInvalid` and `isDisabled` are the ones
  * already written, and every `TextInput` prop is written here for the same reason it is
  * there.
@@ -23,17 +23,17 @@ import type { InputGroupFieldProps } from './input-group.type'
  * own `paddingHorizontal`, which is what makes them win, and before the caller's `style`,
  * which still has the last word.
  */
-export const InputGroupField = forwardRef<TextInput, InputGroupFieldProps>(
-  function InputGroupField({ style, ...props }, ref) {
-    const { prefixWidth, suffixWidth } = useInputGroup()
+export const FieldGroupField = forwardRef<TextInput, FieldGroupFieldProps>(
+  function FieldGroupField({ style, ...props }, ref) {
+    const { prefixWidth, suffixWidth } = useFieldGroup()
 
     const padding = useMemo(
       () => decoratorPadding(prefixWidth, suffixWidth),
       [prefixWidth, suffixWidth]
     )
 
-    return <InputField ref={ref} {...props} style={[padding, style]} />
+    return <TextFieldField ref={ref} {...props} style={[padding, style]} />
   }
 )
 
-InputGroupField.displayName = 'XAUI.InputGroup.Field'
+FieldGroupField.displayName = 'XAUI.FieldGroup.Field'

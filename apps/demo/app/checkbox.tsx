@@ -28,7 +28,7 @@ export default function CheckboxScreen() {
 
       <Section
         title="The three levels — the box at rest"
-        note="The Input's field family on a 24pt box: primary is the field fill plus the field shadow, secondary the neutral one and the default here, tertiary the border alone. There is no ghost: a box with no border and no fill is nothing at all. All three check in the accent."
+        note="The TextField's field family on a 24pt box: primary is the field fill plus the field shadow, secondary the neutral one and the default here, tertiary the border alone. There is no ghost: a box with no border and no fill is nothing at all. All three check in the accent."
       >
         {VARIANTS.map(variant => (
           <Toggle key={variant} variant={variant} label={variant} />

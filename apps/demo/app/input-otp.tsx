@@ -21,7 +21,7 @@ const boxes = ({ slots }: InputOTPRenderState) =>
  *
  * What each section checks is in its subtitle: one hidden input holds the whole code, the
  * active box takes a ring the others do not, a paste out of a message keeps only the
- * code, `onComplete` fires on the last character, and the three levels are the `Input`'s
+ * code, `onComplete` fires on the last character, and the three levels are the `TextField`'s
  * minus `ghost` — six boxes with no fill and no edge say nothing about how many to type.
  */
 export default function InputOTPScreen() {
@@ -37,7 +37,7 @@ export default function InputOTPScreen() {
 
       <Section
         title="The three levels"
-        note="The Input's, token for token — a box of a code is a field one character wide. Tap each: the box the next character lands in takes a two-point accent ring, which is HeroUI's outline done with a border, because React Native has no outline."
+        note="The TextField's, token for token — a box of a code is a field one character wide. Tap each: the box the next character lands in takes a two-point accent ring, which is HeroUI's outline done with a border, because React Native has no outline."
       >
         {VARIANTS.map(variant => (
           <View key={variant} style={{ gap: 6 }}>

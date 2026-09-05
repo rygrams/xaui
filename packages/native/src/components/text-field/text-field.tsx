@@ -4,33 +4,33 @@ import type { TextStyle } from 'react-native'
 import { Slot } from '../../system/slot'
 import { useStyleProps } from '../../system/style-props'
 import { useXAUITheme } from '../../theme/theme-hooks'
-import { InputProvider } from './input.context'
-import { inputRecipe } from './input.recipe'
-import type { InputProps } from './input.type'
+import { TextFieldProvider } from './text-field.context'
+import { textFieldRecipe } from './text-field.recipe'
+import type { TextFieldProps } from './text-field.type'
 
 /**
  * A text field, with the label, the hint and the error that make it usable.
  *
  * ```tsx
- * <Input>
- *   <Input.Label>Courriel</Input.Label>
- *   <Input.Field
+ * <TextField>
+ *   <TextField.Label>Courriel</TextField.Label>
+ *   <TextField.Field
  *     value={email}
  *     onChangeText={setEmail}
  *     placeholder="nom@exemple.fr"
  *     keyboardType="email-address"
  *   />
- *   <Input.Description>On ne le partage jamais.</Input.Description>
- * </Input>
+ *   <TextField.Description>On ne le partage jamais.</TextField.Description>
+ * </TextField>
  *
- * <Input isInvalid={Boolean(error)}>
- *   <Input.Label>Mot de passe</Input.Label>
- *   <Input.Field secureTextEntry value={password} onChangeText={setPassword} />
- *   {error ? <Input.Error>{error}</Input.Error> : null}
- * </Input>
+ * <TextField isInvalid={Boolean(error)}>
+ *   <TextField.Label>Mot de passe</TextField.Label>
+ *   <TextField.Field secureTextEntry value={password} onChangeText={setPassword} />
+ *   {error ? <TextField.Error>{error}</TextField.Error> : null}
+ * </TextField>
  * ```
  *
- * **The root is the column, not the field.** `Input.Field` is the `TextInput`, which is
+ * **The root is the column, not the field.** `TextField.Field` is the `TextInput`, which is
  * what makes the label, the hint and the error slots of one component rather than three
  * components a form has to keep in step — and it is why `TextInputProps` are on the field
  * rather than on the root.
@@ -38,7 +38,7 @@ import type { InputProps } from './input.type'
  * There is no auto-wrap here (R3): a string child of an input is not a label, a value or
  * a placeholder in any way the component could guess.
  */
-export const InputRoot = forwardRef<View, InputProps>(function Input(
+export const TextFieldRoot = forwardRef<View, TextFieldProps>(function TextField(
   {
     children,
     variant,
@@ -59,7 +59,7 @@ export const InputRoot = forwardRef<View, InputProps>(function Input(
   const [styleProps, rest] = useStyleProps(props)
 
   // The focus state is the root's because the recipe resolves on it (R5), even though the
-  // node that hears the event is `Input.Field`. The two handlers below are what the field
+  // node that hears the event is `TextField.Field`. The two handlers below are what the field
   // reports back through; they never change identity, so publishing them in the context
   // costs nothing.
   const [isFocused, setIsFocused] = useState(false)
@@ -83,11 +83,11 @@ export const InputRoot = forwardRef<View, InputProps>(function Input(
   // not as busy.
   const states = { focused: isFocused && !isInvalid, disabled: isDisabled }
 
-  const styles = inputRecipe.resolve({ theme, selection, states })
+  const styles = textFieldRecipe.resolve({ theme, selection, states })
   // Only when `color` is set, and never cached: a raw tint takes arbitrary values, so
   // letting one into the key would grow the table with the colours users invent.
   const tint = color
-    ? inputRecipe.tint({ theme, color, selection, states })
+    ? textFieldRecipe.tint({ theme, color, selection, states })
     : undefined
 
   const context = useMemo(() => {
@@ -95,7 +95,7 @@ export const InputRoot = forwardRef<View, InputProps>(function Input(
     // `size` and `color` are props an icon component takes, not styles it accepts, so the
     // slot is flattened here rather than in every decorator on the screen.
     const icon = StyleSheet.flatten<TextStyle>(styles.icon)
-    // `rows` is a raw value, so the height it implies is arithmetic `Input.TextArea` does.
+    // `rows` is a raw value, so the height it implies is arithmetic `TextField.TextArea` does.
     // Flattened once here rather than in every text area on the screen.
     const textArea = StyleSheet.flatten<TextStyle>(styles.textArea)
 
@@ -159,7 +159,7 @@ export const InputRoot = forwardRef<View, InputProps>(function Input(
     </View>
   )
 
-  return <InputProvider value={context}>{surface}</InputProvider>
+  return <TextFieldProvider value={context}>{surface}</TextFieldProvider>
 })
 
-InputRoot.displayName = 'XAUI.Input.Root'
+TextFieldRoot.displayName = 'XAUI.TextField.Root'

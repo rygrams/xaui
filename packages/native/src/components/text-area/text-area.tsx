@@ -1,6 +1,6 @@
 import { forwardRef, useMemo } from 'react'
 import type { View } from 'react-native'
-import { InputRoot } from '../input'
+import { TextFieldRoot } from '../text-field'
 import { TextAreaProvider } from './text-area.context'
 import type { TextAreaProps } from './text-area.type'
 
@@ -18,13 +18,13 @@ const DEFAULT_ROWS = 3
  * </TextArea>
  * ```
  *
- * **It is an `Input`.** The root below is the `Input`'s root, unchanged: the same recipe,
+ * **It is a `TextField`.** The root below is the `TextField`'s root, unchanged: the same recipe,
  * the same resolved context, the same four variants, the same `size`, `radius`, `color`,
  * `labelPlacement`, `isInvalid` and `isDisabled`. `TextArea.Label`, `.Description` and
- * `.Error` **are** the `Input`'s slots — not wrappers around them, the same components —
+ * `.Error` **are** the `TextField`'s slots — not wrappers around them, the same components —
  * and only `TextArea.Field` differs, by being multiline and by taking its height in lines.
  *
- * That is also HeroUI's answer: their `TextArea` renders their `Input` with three defaults.
+ * That is also HeroUI's answer: their `TextArea` renders their `TextField` with three defaults.
  * A component of its own is what a caller looks for; sharing every line of it is what
  * keeps the two from drifting.
  *
@@ -39,9 +39,9 @@ export const TextAreaRoot = forwardRef<View, TextAreaProps>(function TextArea(
 
   return (
     <TextAreaProvider value={context}>
-      <InputRoot ref={ref} {...props}>
+      <TextFieldRoot ref={ref} {...props}>
         {children}
-      </InputRoot>
+      </TextFieldRoot>
     </TextAreaProvider>
   )
 })

@@ -1,15 +1,15 @@
 import { forwardRef, useMemo } from 'react'
 import { TextInput } from 'react-native'
-import { InputField, useInput } from '../input'
+import { TextFieldField, useTextField } from '../text-field'
 import { useStyleProps } from '../../system/style-props'
 import { useTextArea } from './text-area.context'
 import type { TextAreaFieldProps } from './text-area.type'
 
 /**
- * The `TextInput` itself — `Input.Field` with the three things several lines need:
+ * The `TextInput` itself — `TextField.Field` with the three things several lines need:
  * `multiline`, the text pinned to the top, and a height counted in lines.
  *
- * It renders the `Input`'s field rather than a second `TextInput`, so the focus plumbing,
+ * It renders the `TextField`'s field rather than a second `TextInput`, so the focus plumbing,
  * the placeholder colour, the label association and `isDisabled` are the ones already
  * written. What it adds is layered **over** the field's own style: the recipe resolved the
  * colours, the border and the radius once for both.
@@ -20,7 +20,7 @@ import type { TextAreaFieldProps } from './text-area.type'
  */
 export const TextAreaField = forwardRef<TextInput, TextAreaFieldProps>(
   function TextAreaField({ style, scrollEnabled, ...props }, ref) {
-    const { textAreaStyle, textArea } = useInput()
+    const { textAreaStyle, textArea } = useTextField()
     const { rows, maxRows } = useTextArea()
     const [styleProps, rest] = useStyleProps(props)
 
@@ -36,7 +36,7 @@ export const TextAreaField = forwardRef<TextInput, TextAreaFieldProps>(
     }, [rows, maxRows, textArea])
 
     return (
-      <InputField
+      <TextFieldField
         ref={ref}
         multiline
         scrollEnabled={scrollEnabled ?? maxRows !== undefined}

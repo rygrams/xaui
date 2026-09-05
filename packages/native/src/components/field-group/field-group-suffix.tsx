@@ -1,20 +1,20 @@
 import { forwardRef } from 'react'
 import { View } from 'react-native'
-import { InputGroupDecorator } from './input-group-decorator'
-import type { InputGroupSuffixProps } from './input-group.type'
+import { FieldGroupDecorator } from './field-group-decorator'
+import type { FieldGroupSuffixProps } from './field-group.type'
 
 /**
  * What sits after the text — a reveal toggle, a clear button, a unit, a counter.
  *
  * ```tsx
- * <InputGroup>
- *   <InputGroup.Field secureTextEntry value={password} onChangeText={setPassword} />
- *   <InputGroup.Suffix>
+ * <FieldGroup>
+ *   <FieldGroup.Field secureTextEntry value={password} onChangeText={setPassword} />
+ *   <FieldGroup.Suffix>
  *     <Pressable onPress={toggle} hitSlop={20}>
- *       <InputGroup.Icon as={isVisible ? EyeOffIcon : EyeIcon} />
+ *       <FieldGroup.Icon as={isVisible ? EyeOffIcon : EyeIcon} />
  *     </Pressable>
- *   </InputGroup.Suffix>
- * </InputGroup>
+ *   </FieldGroup.Suffix>
+ * </FieldGroup>
  * ```
  *
  * The trailing edge is where a suffix is most often a **control**, which is why
@@ -25,10 +25,10 @@ import type { InputGroupSuffixProps } from './input-group.type'
  * `Pressable` with a `hitSlop` is the thing to put there — a 16pt glyph is not a touch
  * target on its own.
  */
-export const InputGroupSuffix = forwardRef<View, InputGroupSuffixProps>(
-  function InputGroupSuffix(props, ref) {
-    return <InputGroupDecorator ref={ref} side="suffix" {...props} />
+export const FieldGroupSuffix = forwardRef<View, FieldGroupSuffixProps>(
+  function FieldGroupSuffix(props, ref) {
+    return <FieldGroupDecorator ref={ref} side="suffix" {...props} />
   }
 )
 
-InputGroupSuffix.displayName = 'XAUI.InputGroup.Suffix'
+FieldGroupSuffix.displayName = 'XAUI.FieldGroup.Suffix'

@@ -53,7 +53,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P3.5   | `Chip` — Label · Icon · Dot · Avatar · Close                                | done   |
 | P3.6   | `Alert` — Icon · Content · Title · Description · Close                      | done   |
 | P3.7   | `Input` — Label · Field · Description · Error                               | done   |
-| P3.7b  | Rename `Input` → `TextInput` — component, `./input` subpath, demo           | todo   |
+| P3.7b  | Rename `Input` → `TextField` — component, `./text-field` subpath, demo      | done   |
 | P3.8   | `Checkbox` — Indicator · Label                                              | done   |
 | P3.9   | `Radio` — Indicator · Label, the `Checkbox` in a circle                     | done   |
 | P3.10  | `Switch` — Track · Thumb · Label, two shapes                                | done   |
@@ -74,12 +74,12 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.1   | `InputOTP` — Group · Box · Value · Placeholder · Caret · Separator          | done   |
 | P5.2   | `TextArea` — Label · Field · Description · Error, over the `Input`          | done   |
 | P5.3   | `InputGroup` — Prefix · Field · Suffix · Icon, inside the `Input`           | done   |
-| P5.3b  | Rename `InputGroup` → `TextInputGroup`, following `TextInput`               | todo   |
-| P5.3c  | `NumberInput` — net new, a `TextInput` bounded to a number                  | todo   |
+| P5.3b  | Rename `InputGroup` → `FieldGroup`, following `TextField`                   | done   |
+| P5.3c  | `NumberInput` — over legacy `NumberInput`, inside `input/`                  | todo   |
 | P5.3d  | `NumberPad` — net new, the keypad `NumberInput` and `InputOTP` share        | todo   |
 | P5.3e  | `NumberStepper` — net new, the increment pair legacy `Stepper` is not       | todo   |
-| P5.3f  | `PhoneNumberInput` — net new, country prefix over the `TextInput`           | todo   |
-| P5.3g  | `SearchInput` — net new, a `TextInput` with its clear and submit            | todo   |
+| P5.3f  | `PhoneNumberInput` — net new, country prefix over the `TextField`           | todo   |
+| P5.3g  | `SearchInput` — net new, a `TextField` with its clear and submit            | todo   |
 | P5.4   | `Select` — slots over the existing group context                            | todo   |
 | P5.5   | `Stepper` — slots over the existing group context                           | todo   |
 | P5.6   | `Toolbar` — slots over the existing group context                           | todo   |
@@ -104,7 +104,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.21  | `FabMenu`                                                                   | todo   |
 | P5.22  | `Dialog` — legacy `dialog` and `dialogs` land as one                        | todo   |
 | P5.23  | `BottomSheet`                                                               | todo   |
-| P5.23b | `BottomSheetInput` — net new, a `TextInput` that opens in a `BottomSheet`   | todo   |
+| P5.23b | `BottomSheetInput` — net new, a `TextField` that opens in a `BottomSheet`   | todo   |
 | P5.24  | `Drawer`                                                                    | todo   |
 | P5.24b | `Popover` — net new, anchored overlay over the `Portal`                     | todo   |
 | P5.25  | `Picker`                                                                    | todo   |
@@ -115,7 +115,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.26  | `DatePicker`                                                                | todo   |
 | P5.26b | `Calendar` — net new, no legacy equivalent                                  | todo   |
 | P5.26c | `AgendaCalendar` — net new, the `Calendar` with its events                  | todo   |
-| P5.26d | `DateInput` — net new, a `TextInput` that parses a date                     | todo   |
+| P5.26d | `DateInput` — over legacy `DateInput`, with `TimeInput` and `DateTimeInput` | todo   |
 | P5.26e | `DateRangePicker` — net new, two bounds over the `DatePicker`               | todo   |
 | P5.26f | `DateTimePicker` — net new, `DatePicker` and `TimePicker` as one            | todo   |
 | P5.26g | `RangeCalendar` — net new, the `Calendar` behind `DateRangePicker`          | todo   |
@@ -143,11 +143,11 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.35g | `ToggleButtonGroup` — net new, exclusive selection over `ToggleButton`      | todo   |
 | P5.36  | `EmptyState` — net new, no legacy equivalent                                | todo   |
 | P5.37  | `FlipCard` — net new, a `Card` with two faces                               | todo   |
-| P5.38  | `RadioGroup` — net new, the group context P3.9 `Radio` lacks                | todo   |
+| P5.38  | `RadioGroup` — over legacy `RadioGroup`, the context P3.9 `Radio` lacks     | todo   |
 | P5.38b | `RadioButton` — net new, to reconcile with P3.9 `Radio`                     | todo   |
 | P5.38c | `RadioButtonGroup` — net new, to reconcile with `RadioGroup`                | todo   |
 | P5.39  | `Rating` — net new, no legacy equivalent                                    | todo   |
-| P5.40  | `Surface` — net new, the themed ground `Card` and `Popover` sit on          | todo   |
+| P5.40  | `Surface` — over legacy `Surface`, inside `view/`                           | todo   |
 | P5.41  | `SplitView` — net new, a `view/` split on a draggable divider               | todo   |
 | P5.42  | `Table` — net new, no legacy equivalent                                     | todo   |
 | P5.43  | `TagGroup` — net new, to reconcile with P3.5 `Chip`                         | todo   |

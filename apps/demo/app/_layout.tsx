@@ -27,10 +27,10 @@ export default function RootLayout() {
             <Stack.Screen name="alert" options={{ title: 'Alert (v1)' }} />
             <Stack.Screen name="checkbox" options={{ title: 'Checkbox (v1)' }} />
             <Stack.Screen name="chip" options={{ title: 'Chip (v1)' }} />
-            <Stack.Screen name="input" options={{ title: 'Input (v1)' }} />
+            <Stack.Screen name="text-field" options={{ title: 'TextField (v1)' }} />
             <Stack.Screen
-              name="input-group"
-              options={{ title: 'InputGroup (v1)' }}
+              name="field-group"
+              options={{ title: 'FieldGroup (v1)' }}
             />
             <Stack.Screen name="input-otp" options={{ title: 'InputOTP (v1)' }} />
             <Stack.Screen name="radio" options={{ title: 'Radio (v1)' }} />

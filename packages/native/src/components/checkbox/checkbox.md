@@ -77,7 +77,7 @@ dropped**: a box that is wrong reads as an outline rather than as a filled contr
 happens to be red at the edge. HeroUI reaches the same shape with a compound.
 
 It does not mount a message. Put one under the row yourself — a slot that silently renders
-nothing is a slot you cannot debug, which is the `Input.Error` bargain again.
+nothing is a slot you cannot debug, which is the `TextField.Error` bargain again.
 
 ### Indeterminate
 
@@ -161,7 +161,7 @@ box is a circle, which is the `Radio`.
 
 ## Variants
 
-Three of the `Input`'s four levels, meaning here what they mean there — this is the
+Three of the `TextField`'s four levels, meaning here what they mean there — this is the
 `field*` family again, on a box 24pt wide instead of a field 48pt tall.
 
 | `variant`   | Box at rest       | Border        | Shadow  |
@@ -170,7 +170,7 @@ Three of the `Input`'s four levels, meaning here what they mean there — this i
 | `secondary` | `default`         | `fieldBorder` | —       |
 | `tertiary`  | transparent       | `fieldBorder` | —       |
 
-**`ghost` is absent**, where the `Input` has it: a field with no border is still a line of
+**`ghost` is absent**, where the `TextField` has it: a field with no border is still a line of
 text you can see; a checkbox with no border and no fill is nothing at all.
 
 **A variant describes the box at rest.** Ticked, all three are the accent — or `color`.
@@ -193,7 +193,7 @@ again the moment the box was ticked. `Radio` and `Switch` need the same pair, wh
 it is in the engine rather than here.
 
 **The tint is ignored while `isInvalid`.** An error outranks a brand colour, the same way it
-outranks focus on the `Input` — and unlike the `Input`, where a tint and an error currently
+outranks focus on the `TextField` — and unlike the `TextField`, where a tint and an error currently
 fight over the border, this one is decided in the root and not left to resolution order.
 
 ## Selection is not a style axis
@@ -228,7 +228,7 @@ and scale on the mark, and a built-in check so no icon set is required.
 | Theirs                                            | Ours                                   | Why                                                                                                                               |
 | ------------------------------------------------- | -------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------- |
 | The root is the box; a label needs `ControlField` | The root is the row, `Label` is a slot | The plan's slots for this component are Indicator · Label, and a label that does not toggle the box is a bug waiting to be filed. |
-| `variant` auto-switches on a surface              | `secondary` by default                 | We have no surface detection, and the `Input` already answers this the same way.                                                  |
+| `variant` auto-switches on a surface              | `secondary` by default                 | We have no surface detection, and the `TextField` already answers this the same way.                                              |
 | One size                                          | Four                                   | Every control in this library has the same ladder.                                                                                |
 | `Checkbox.Background` (a glass layer)             | —                                      | A theme-registered blur layer belongs to their Uniwind theming, which is the premise XAUI does not share.                         |
 
