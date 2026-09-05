@@ -9,8 +9,34 @@ export type SlotStyle = ViewStyle & TextStyle
 
 export type SlotStyles<Slot extends string> = Partial<Record<Slot, SlotStyle>>
 
-/** The roles a variant consumes. The variant names tokens; `paint` says where they land. */
-export type VariantRole = 'bg' | 'bgPressed' | 'fg' | 'border'
+/**
+ * The roles a variant consumes. The variant names tokens; `paint` says where they land.
+ *
+ * A role exists once a *state* needs the variant's own colour rather than a token named
+ * in the state function — `bgPressed` is what makes a pressed `Button` darken its own
+ * fill instead of taking a neutral wash, and `borderFocus` is the same thing for a field
+ * that has focus. Both also mean a raw `color` follows into that state, because
+ * `resolveTint` maps every declared role.
+ *
+ * **A state that reads a role must find it declared on every variant.** The merge is a
+ * shallow spread, so a `borderColor: colors.borderFocus` on a variant that names no
+ * `borderFocus` writes `undefined` over the colour `paint` had set.
+ *
+ * `bgSelected` and `fgSelected` are the same reasoning for a control that **toggles**:
+ * `bg` is the box at rest and `bgSelected` is the box once it is on, with `fgSelected`
+ * the mark that has to read against it. They are roles rather than tokens named in an
+ * `isSelected` axis for one reason — **the tint pass re-runs `paint` and the states, not
+ * the axes** — and that is what makes a raw `color` the colour a `Checkbox` checks in,
+ * rather than a colour that disappears the moment it is ticked.
+ */
+export type VariantRole =
+  | 'bg'
+  | 'bgPressed'
+  | 'bgSelected'
+  | 'fg'
+  | 'fgSelected'
+  | 'border'
+  | 'borderFocus'
 
 /** Token names per role — no colour value ever appears in a recipe. */
 export type VariantTokens = Partial<Record<VariantRole, keyof XAUIColors>>
@@ -61,7 +87,13 @@ export type RecipeConfig<
   /** Where the variant's colours land — written once, and it holds for every variant. */
   paint?: StyleFn<Slot>
   variants?: A
-  compoundVariants?: ReadonlyArray<CompoundVariant<Slot, Variant, A>>
+  /**
+   * `NoInfer` for the same reason `defaultVariants` needs it: a `when` clause **selects**
+   * from the variants `variantTokens` declared, it does not declare one. Without it a
+   * recipe whose only compound is `{ when: { variant: 'default' } }` narrows `Variant` to
+   * that single literal, and every other variant becomes a type error at the call site.
+   */
+  compoundVariants?: ReadonlyArray<CompoundVariant<Slot, NoInfer<Variant>, A>>
   states?: Partial<Record<StateName, StyleFn<Slot>>>
   /**
    * `NoInfer`, because this is the one place a single variant name appears on its own:

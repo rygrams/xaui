@@ -1,6 +1,6 @@
 {
   "name": "@xaui/native",
-  "version": "0.9.1-alpha.14",
+  "version": "0.9.1-alpha.33",
   "description": "Composition-first React Native UI components with native animations powered by Reanimated",
   "keywords": [
     "react-native",
@@ -27,6 +27,36 @@
         "default": "./dist/index.cjs"
       }
     },
+    "./alert": {
+      "import": {
+        "types": "./dist/components/alert/index.d.ts",
+        "default": "./dist/components/alert/index.js"
+      },
+      "require": {
+        "types": "./dist/components/alert/index.d.cts",
+        "default": "./dist/components/alert/index.cjs"
+      }
+    },
+    "./avatar": {
+      "import": {
+        "types": "./dist/components/avatar/index.d.ts",
+        "default": "./dist/components/avatar/index.js"
+      },
+      "require": {
+        "types": "./dist/components/avatar/index.d.cts",
+        "default": "./dist/components/avatar/index.cjs"
+      }
+    },
+    "./badge": {
+      "import": {
+        "types": "./dist/components/badge/index.d.ts",
+        "default": "./dist/components/badge/index.js"
+      },
+      "require": {
+        "types": "./dist/components/badge/index.d.cts",
+        "default": "./dist/components/badge/index.cjs"
+      }
+    },
     "./button": {
       "import": {
         "types": "./dist/components/button/index.d.ts",
@@ -35,6 +65,146 @@
       "require": {
         "types": "./dist/components/button/index.d.cts",
         "default": "./dist/components/button/index.cjs"
+      }
+    },
+    "./card": {
+      "import": {
+        "types": "./dist/components/card/index.d.ts",
+        "default": "./dist/components/card/index.js"
+      },
+      "require": {
+        "types": "./dist/components/card/index.d.cts",
+        "default": "./dist/components/card/index.cjs"
+      }
+    },
+    "./checkbox": {
+      "import": {
+        "types": "./dist/components/checkbox/index.d.ts",
+        "default": "./dist/components/checkbox/index.js"
+      },
+      "require": {
+        "types": "./dist/components/checkbox/index.d.cts",
+        "default": "./dist/components/checkbox/index.cjs"
+      }
+    },
+    "./chip": {
+      "import": {
+        "types": "./dist/components/chip/index.d.ts",
+        "default": "./dist/components/chip/index.js"
+      },
+      "require": {
+        "types": "./dist/components/chip/index.d.cts",
+        "default": "./dist/components/chip/index.cjs"
+      }
+    },
+    "./divider": {
+      "import": {
+        "types": "./dist/components/divider/index.d.ts",
+        "default": "./dist/components/divider/index.js"
+      },
+      "require": {
+        "types": "./dist/components/divider/index.d.cts",
+        "default": "./dist/components/divider/index.cjs"
+      }
+    },
+    "./input": {
+      "import": {
+        "types": "./dist/components/input/index.d.ts",
+        "default": "./dist/components/input/index.js"
+      },
+      "require": {
+        "types": "./dist/components/input/index.d.cts",
+        "default": "./dist/components/input/index.cjs"
+      }
+    },
+    "./input-group": {
+      "import": {
+        "types": "./dist/components/input-group/index.d.ts",
+        "default": "./dist/components/input-group/index.js"
+      },
+      "require": {
+        "types": "./dist/components/input-group/index.d.cts",
+        "default": "./dist/components/input-group/index.cjs"
+      }
+    },
+    "./input-otp": {
+      "import": {
+        "types": "./dist/components/input-otp/index.d.ts",
+        "default": "./dist/components/input-otp/index.js"
+      },
+      "require": {
+        "types": "./dist/components/input-otp/index.d.cts",
+        "default": "./dist/components/input-otp/index.cjs"
+      }
+    },
+    "./radio": {
+      "import": {
+        "types": "./dist/components/radio/index.d.ts",
+        "default": "./dist/components/radio/index.js"
+      },
+      "require": {
+        "types": "./dist/components/radio/index.d.cts",
+        "default": "./dist/components/radio/index.cjs"
+      }
+    },
+    "./skeleton": {
+      "import": {
+        "types": "./dist/components/skeleton/index.d.ts",
+        "default": "./dist/components/skeleton/index.js"
+      },
+      "require": {
+        "types": "./dist/components/skeleton/index.d.cts",
+        "default": "./dist/components/skeleton/index.cjs"
+      }
+    },
+    "./spinner": {
+      "import": {
+        "types": "./dist/components/spinner/index.d.ts",
+        "default": "./dist/components/spinner/index.js"
+      },
+      "require": {
+        "types": "./dist/components/spinner/index.d.cts",
+        "default": "./dist/components/spinner/index.cjs"
+      }
+    },
+    "./switch": {
+      "import": {
+        "types": "./dist/components/switch/index.d.ts",
+        "default": "./dist/components/switch/index.js"
+      },
+      "require": {
+        "types": "./dist/components/switch/index.d.cts",
+        "default": "./dist/components/switch/index.cjs"
+      }
+    },
+    "./text-area": {
+      "import": {
+        "types": "./dist/components/text-area/index.d.ts",
+        "default": "./dist/components/text-area/index.js"
+      },
+      "require": {
+        "types": "./dist/components/text-area/index.d.cts",
+        "default": "./dist/components/text-area/index.cjs"
+      }
+    },
+    "./typography": {
+      "import": {
+        "types": "./dist/components/typography/index.d.ts",
+        "default": "./dist/components/typography/index.js"
+      },
+      "require": {
+        "types": "./dist/components/typography/index.d.cts",
+        "default": "./dist/components/typography/index.cjs"
+      }
+    },
+    "./view": {
+      "import": {
+        "types": "./dist/components/view/index.d.ts",
+        "default": "./dist/components/view/index.js"
+      },
+      "require": {
+        "types": "./dist/components/view/index.d.cts",
+        "default": "./dist/components/view/index.cjs"
       }
     },
     "./system": {

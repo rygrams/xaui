@@ -1,0 +1,58 @@
+---
+'@xaui/native': patch
+---
+
+feat(switch): the v1 `Switch` — two shapes, one flip
+
+The tenth entry of the core, and the third of the toggles. The root is the row, so tapping
+the label flips the switch; R3 wraps a text child into the label and supplies the track and
+the knob.
+
+**`variant` is a geometry axis here**, which no other component does: `primary` rides the
+knob inside the track, `secondary` stands it over a thinner bar. They are the legacy
+component's `inside` and `overlap` — the same two shapes and the same measurements — under
+the library's own two names, so the v1 API keeps one vocabulary instead of a third pair of
+words for this component alone. Both are the accent when they are on, which is why the
+whole table lives in eight compounds and the colours in one `paint`.
+
+**No `isInvalid`.** A switch applies its change the moment it is flipped, so there is no
+later moment at which it can be wrong — a checkbox states an intention a form submits, and
+that is the one that can be. A setting that cannot be turned on is `isDisabled`.
+
+The track's colour is crossed rather than swapped and the knob slides on the same 175ms,
+from one constant neither slot owns, so a flip reads as one movement. Both are values on the
+context rather than styles — a worklet needs a number and a string, not a style to flatten
+every frame — and the travel is `width − knob − 2 × inset`, arithmetic the root does.
+
+`color` is the colour the switch turns on to; the track at rest keeps its neutral, because
+a switch that is off is off in every brand.
+
+The knob moves with `translateX` and the sign is flipped against `I18nManager.isRTL`: R13
+bans a directional inset, and a transform does not mirror on its own.
+
+Both animated hooks carry a `'worklet'` directive and a dependency array, which the rest of
+the package already required and these two were missing. Without them the demo's `/switch`
+screen threw outright on web — _"`useAnimatedStyle` was used without a dependency array or
+Babel plugin"_ — while lint, type-check and the test suite all stayed green, because none of
+them renders anything. `pressable-feedback.tsx` states the rule and the reason: the package
+ships as a built `dist`, our CJS output calls the hook as a namespace member that the Babel
+plugin does not recognise, and the directive is what `tooling/workletize/` keys off.
+
+The dependency arrays are load-bearing beyond the crash. `distance` and `colors` are plain
+values captured in the closure, not shared values, so without them a switch whose `size` or
+`color` changed would have kept animating to the old travel and the old ink.
+
+**No `xs`**, matching the `Checkbox` and the `Radio`. That track was 40 by 24 with an 18pt
+knob — and unlike those two, a switch has no row to press: the track _is_ the target. Below
+`sm` it stops being comfortably hittable, and shrinking the one control whose whole surface
+is the touch target buys width nobody asked for.
+
+**`radius` moves the knob with the track.** It reached only the track, so a `radius="sm"`
+switch squared off its bar and kept a circular knob inside it — a control rounded by halves.
+`radiusAxis` becomes variadic to say it, which is the second slot it has been asked for
+since the `Card`.
+
+The knob takes the same named corner rather than the track's less its padding. The nesting
+rule that would suggest otherwise reaches zero before the outer radius does — at `xs` a 3pt
+track would hold a sharp-cornered knob — and two matched corners read better than one
+correct one.

@@ -1,7 +1,8 @@
 import { Children, Fragment, createElement, isValidElement } from 'react'
-import type { ReactNode } from 'react'
+import type { ReactElement, ReactNode } from 'react'
 import { describe, expect, it } from 'vitest'
 import {
+  feedbackChildren,
   markOverlay,
   partitionOverlays,
 } from '../../../system/pressable-feedback/pressable-feedback.overlay'
@@ -102,5 +103,48 @@ describe('partitionOverlays', () => {
 
     expect(typesOf(overlays)).toEqual([Wash])
     expect(typesOf(content)).toEqual(['hello'])
+  })
+})
+
+describe('feedbackChildren', () => {
+  /**
+   * The regression. `{overlays}{content}` in the JSX are two expression children, so the
+   * root received an array — and under `asChild` the root is a `Slot`, which merges into
+   * one element and threw on every pressable instead. It threw with no overlay composed
+   * too: `partitionOverlays` returns `overlays: null` there, and `[null, content]` is
+   * still an array.
+   */
+  it('hands asChild a single element, not an array', () => {
+    const child = label()
+
+    expect(isValidElement(feedbackChildren(child, true))).toBe(true)
+    expect(feedbackChildren(child, true)).toBe(child)
+  })
+
+  /**
+   * The caller's element *is* the pressable, so `asChild` skips the partition entirely.
+   * Hoisting a child that is itself a bare overlay would replace the one element `Slot`
+   * merges into with a hoisted pair, and throw again.
+   */
+  it('does not hoist an overlay that is itself the asChild child', () => {
+    const overlay = wash()
+
+    expect(feedbackChildren(overlay, true)).toBe(overlay)
+  })
+
+  it('passes the children through untouched when nothing is hoisted', () => {
+    const children = [label()]
+
+    expect(feedbackChildren(children, false)).toBe(children)
+  })
+
+  /** One node, so the root has a single child — the overlays still coming first inside it. */
+  it('paints hoisted overlays before the content, under one node', () => {
+    const rendered = feedbackChildren([label(), wash()], false)
+
+    expect(isValidElement(rendered)).toBe(true)
+    expect((rendered as ReactElement).type).toBe(Fragment)
+    expect(typesOf((rendered as ReactElement<{ children: ReactNode }>).props.children))
+      .toEqual([Wash, Label])
   })
 })
