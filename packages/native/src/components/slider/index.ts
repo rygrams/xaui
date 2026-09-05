@@ -28,4 +28,5 @@ export type {
   SliderSlot,
   SliderThumbProps,
   SliderTrackProps,
+  SliderValue,
 } from './slider.type'

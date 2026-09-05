@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { ScrollView, Text, View } from 'react-native'
 import { Slider } from '@xaui/native/slider'
-import type { SliderSize } from '@xaui/native/slider'
+import type { SliderSize, SliderValue } from '@xaui/native/slider'
 import { useXAUITheme } from '@xaui/native/theme'
 
 const SIZES: SliderSize[] = ['sm', 'md', 'lg']
@@ -164,12 +164,18 @@ function Vertical({
   )
 }
 
+/** A range slider's output is a pair, so a formatter is written per end and joined. */
+const asDuration = (value: number) =>
+  `${Math.floor(value / 60)} h ${String(value % 60).padStart(2, '0')}`
+
 function Formatted() {
   return (
     <Slider defaultValue={75} max={180} step={5}>
       <Slider.Output>
         {value =>
-          `${Math.floor(value / 60)} h ${String(value % 60).padStart(2, '0')}`
+          typeof value === 'number'
+            ? asDuration(value)
+            : `${asDuration(value[0])} – ${asDuration(value[1])}`
         }
       </Slider.Output>
       <Slider.Track>
@@ -182,8 +188,10 @@ function Formatted() {
 
 function Callbacks() {
   const theme = useXAUITheme()
-  const [live, setLive] = useState(40)
-  const [committed, setCommitted] = useState(40)
+  // `SliderValue`, not `number`: the callbacks report what the slider holds, and a
+  // single-thumb slider is not a different component from a range one.
+  const [live, setLive] = useState<SliderValue>(40)
+  const [committed, setCommitted] = useState<SliderValue>(40)
 
   return (
     <View style={{ gap: 8 }}>

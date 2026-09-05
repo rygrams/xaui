@@ -31,6 +31,16 @@ export default function DialogScreen() {
       </Section>
 
       <Section
+        title="A cross, or the answer in words"
+        note="Dialog.Close is empty here and draws its own cross — two rotated bars, not an icon, so it works with no icon set installed. It places itself nowhere: the first sits above the title with alignSelf, the second floats in the corner over a title that has room beside it. A title with space next to it and one without do not want the same answer, and that is layout."
+      >
+        <View style={{ flexDirection: 'row', gap: 8 }}>
+          <CrossAbove />
+          <CrossInTheCorner />
+        </View>
+      </Section>
+
+      <Section
         title="Two layers, and why"
         note="A centred box cannot also be the thing that centres it. An outer layer fills the portal and does the centring; the panel is the box. The outer one takes no touches, so a press that misses the panel reaches the overlay under it and closes the dialog — try pressing beside the panel rather than on the dimmed area."
       >
@@ -74,6 +84,54 @@ function Confirm({ isDismissable }: { isDismissable?: boolean }) {
             </Button>
           </Dialog.Close>
         </View>
+      </Dialog.Content>
+    </Dialog>
+  )
+}
+
+/** The cross on its own line, which is what a title spanning the panel leaves room for. */
+function CrossAbove() {
+  return (
+    <Dialog>
+      <Dialog.Trigger asChild>
+        <Button variant="secondary" size="sm">
+          Croix au-dessus
+        </Button>
+      </Dialog.Trigger>
+      <Dialog.Overlay />
+      <Dialog.Content>
+        <Dialog.Close accessibilityLabel="Fermer" alignSelf="flex-end" />
+        <Dialog.Title>Mettre à jour le profil</Dialog.Title>
+        <Dialog.Description>
+          Le titre tient sur toute la largeur, donc la croix prend sa propre ligne.
+        </Dialog.Description>
+      </Dialog.Content>
+    </Dialog>
+  )
+}
+
+/** The same cross, absolute, over a title short enough to leave the corner free. */
+function CrossInTheCorner() {
+  return (
+    <Dialog>
+      <Dialog.Trigger asChild>
+        <Button variant="secondary" size="sm">
+          Croix dans le coin
+        </Button>
+      </Dialog.Trigger>
+      <Dialog.Overlay />
+      <Dialog.Content>
+        <Dialog.Close
+          accessibilityLabel="Fermer"
+          position="absolute"
+          top={12}
+          end={12}
+        />
+        <Dialog.Title>Terminé</Dialog.Title>
+        <Dialog.Description>
+          Un titre court laisse le coin libre : la croix flotte par-dessus au lieu de
+          coûter une ligne.
+        </Dialog.Description>
       </Dialog.Content>
     </Dialog>
   )

@@ -99,22 +99,29 @@ Everything the shared `CloseButton` takes, minus `name`, `baseStyle` and `glyphS
 which the dialog supplies. Two shapes, and the empty one is the default:
 
 ```tsx
-<Dialog.Close accessibilityLabel="Fermer" />        {/* a cross, 32pt, muted */}
+<Dialog.Close accessibilityLabel="Fermer" />        {/* a 32pt disc, muted cross */}
 <Dialog.Close asChild>                              {/* the answer, in words */}
   <Button variant="danger">Supprimer</Button>
 </Dialog.Close>
 ```
 
 **Empty, it draws a cross** — the shared button's, from two rotated bars rather than an
-icon, so the corner affordance works in a project that has installed no icon set. No fill
-and no border: HeroUI's `CloseButton` defaults to `tertiary` and their own dialog overrides
-it to `ghost` at every call site, because a bordered square inside a bordered box is one
-frame too many.
+icon, so the corner affordance works in a project that has installed no icon set.
+
+Every measurement is HeroUI's, read off their CSS. `close-button.css` sets
+`height: calc(var(--spacing) * 8)` on a spacing base of 4, so the box is **32 points**, and
+`isIconOnly` gives it `aspect-ratio: 1` and a radius past half its height — a circle. It is
+**filled**, not a bare glyph: their `CloseButton` is a `tertiary` button, and their
+`tertiary` is `background-color: var(--color-default)`, the same token our `secondary`
+names. The cross itself is `muted`. A cross floating on the panel with nothing under it
+reads as decoration; the disc is what makes it a target.
 
 **It places itself nowhere.** `alignSelf="flex-end"` above the title, or `position`,
 `top` and `end` over content that has room for it — a title with space beside it and one
 without want different answers, and that is layout, which is the caller's (R4). This is
-what HeroUI does too; the placement is in the example, not in the component.
+what HeroUI does too: their own examples use `absolute top-3 inset-e-2.5`, `items-end` and
+`self-end me-4` in three different dialogs. The placement is in the example, not in the
+component.
 
 Under `asChild` the box is not applied, and the missing-label warning does not fire: the
 caller's element has a height and a shape of its own, and its text is the label.
