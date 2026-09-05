@@ -87,6 +87,12 @@ trigger shows once the row is chosen — the label is written once.
 `label` is what the trigger shows. It is needed as soon as the children are not one
 string: an avatar and two lines of text have no single label to infer.
 
+The labels are read off the **elements**, before any row mounts. That matters because the
+list lives in a portal that only exists while it is open — without it, a select with a
+`defaultValue` would show its placeholder until the user had opened it once. A row wrapped
+in a component of your own is not reachable that way, and `children` on `Select.Value` is
+the answer for that case.
+
 ### Controlled
 
 ```tsx

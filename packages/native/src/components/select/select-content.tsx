@@ -1,4 +1,4 @@
-import { forwardRef, useContext, useState } from 'react'
+import { forwardRef, useContext, useEffect, useState } from 'react'
 import { ScrollView, useWindowDimensions } from 'react-native'
 import type { LayoutChangeEvent, View } from 'react-native'
 import Animated from 'react-native-reanimated'
@@ -6,7 +6,8 @@ import { Portal, PortalContext } from '../../system/portal'
 import { useStyleProps } from '../../system/style-props'
 import { SelectProvider, useSelect } from './select.context'
 import { contentEntering, contentExiting } from './select.animation'
-import { resolvePlacement } from './select.utils'
+import { SelectItem } from './select-item'
+import { collectItemLabels, resolvePlacement } from './select.utils'
 import type { SelectContentProps, SelectInsets } from './select.type'
 import type { Size2D } from './select.utils'
 
@@ -14,6 +15,9 @@ import type { Size2D } from './select.utils'
 const DEFAULT_OFFSET = 8
 /** No host, no offset — `Portal` renders nothing in that case anyway. */
 const ZERO = { x: 0, y: 0 }
+
+/** By identity rather than by `displayName`: a minifier keeps the reference, not the string. */
+const isSelectItem = (type: unknown) => type === SelectItem
 const DEFAULT_INSETS: Required<SelectInsets> = {
   top: 12,
   bottom: 12,
@@ -60,6 +64,17 @@ export const SelectContent = forwardRef<View, SelectContentProps>(
     // window. The two agree only once the host's own offset is taken back out.
     const origin = useContext(PortalContext)?.origin ?? ZERO
     const [measured, setMeasured] = useState<Size2D | null>(null)
+
+    // Read off the elements, before anything mounts. The rows live in a portal that only
+    // exists while the list is open, so a select with a `defaultValue` would show its
+    // placeholder until the user had opened it once — which is a bug the caller cannot
+    // see coming and cannot work around except by repeating the label.
+    const { registerLabel } = context
+    useEffect(() => {
+      for (const [value, label] of collectItemLabels(children, isSelectItem)) {
+        registerLabel(value, label)
+      }
+    }, [children, registerLabel])
 
     // Measured per open rather than kept: a list whose rows changed while it was closed
     // would otherwise be placed against the height it had last time.
