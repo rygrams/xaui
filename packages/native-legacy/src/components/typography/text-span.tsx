@@ -11,6 +11,15 @@ const alignToTextAlign: Record<TextSpanAlign, TextStyle['textAlign']> = {
   justify: 'justify',
 }
 
+/**
+ * @deprecated Use `TextSpan` from `@xaui/native/typography`. This tree is frozen and
+ * receives fixes only.
+ *
+ * A nested `Text` inherits from its parent in React Native, so the v1 span needs no
+ * context and no resolved style of its own: it is a `Text` with style props and `asChild`.
+ * `themeColor` becomes a raw hex `color`; the rest are `TextStyle` keys under their own
+ * React Native names.
+ */
 export const TextSpan: React.FC<TextSpanProps> = ({
   children,
   color,

@@ -37,6 +37,37 @@ const iconMap: Record<
   danger: DangerIcon,
 }
 
+/**
+ * @deprecated Use `Alert` from `@xaui/native/alert`. This tree is frozen and receives
+ * fixes only.
+ *
+ * `title` and `description` become `Alert.Title` and `Alert.Description`, and with them
+ * `titleStyle` and `descriptionStyle` disappear — a slot carries its own `style` and its
+ * own style props. `icon` becomes `Alert.Icon`, `hideIcon` becomes not writing it, and
+ * `closeButton` becomes `Alert.Close`.
+ *
+ * `themeColor` and the old `variant` fold into one nine-name `variant`: the `Card`'s
+ * surface levels for the neutral end, the three status families for the rest.
+ *
+ * `isVisible` and `onVisibleChange` have no equivalent. Mounting is the caller's — an
+ * alert that renders nothing is a component you cannot debug — so keep the boolean where
+ * the state already lives and render the alert or do not.
+ *
+ * ```tsx
+ * // legacy
+ * <Alert themeColor="warning" title="Expire demain" description="…" isClosable />
+ *
+ * // v1
+ * <Alert variant="warning-soft">
+ *   <Alert.Icon as={TriangleIcon} />
+ *   <Alert.Content>
+ *     <Alert.Title>Expire demain</Alert.Title>
+ *     <Alert.Description>…</Alert.Description>
+ *   </Alert.Content>
+ *   <Alert.Close onPress={dismiss} />
+ * </Alert>
+ * ```
+ */
 export const Alert: React.FC<AlertProps> = ({
   title,
   description,

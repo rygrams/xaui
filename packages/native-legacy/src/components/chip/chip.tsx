@@ -10,6 +10,35 @@ import {
   useChipCloseSize,
 } from './chip.hook'
 
+/**
+ * @deprecated Use `Chip` from `@xaui/native/chip`. This tree is frozen and receives fixes
+ * only.
+ *
+ * `startContent` and `endContent` are gone, and that is the change to understand:
+ * **JSX order is screen order**. `Chip.Icon`, `Chip.Dot`, `Chip.Avatar`, `Chip.Label` and
+ * `Chip.Close` sit where you write them, separated by the root's own `gap`, so there is no
+ * leading slot and no trailing slot to choose between. `text`, `dot`, `avatar` and
+ * `closeButton` become those slots; `customAppearance` becomes a `style` on each.
+ *
+ * `themeColor` and the old `variant` fold into one eleven-name `variant` — the `Button`'s
+ * five-step ladder plus the three status families it refused, each with its soft slice.
+ *
+ * `isSelectable`, `selectMode`, `selectedValues`, `defaultSelectedValues`,
+ * `onSelectionChange` and `value` have no equivalent: selection belonged to `ChipGroup`,
+ * and a filter row is a `Row` of chips whose `isPressable` and `variant` the caller drives
+ * from their own state. `spacing` is the parent's `gap`.
+ *
+ * ```tsx
+ * // legacy
+ * <Chip themeColor="success" text="Payée" startContent={<Dot />} />
+ *
+ * // v1
+ * <Chip variant="success-soft">
+ *   <Chip.Dot />
+ *   <Chip.Label>Payée</Chip.Label>
+ * </Chip>
+ * ```
+ */
 export const Chip: React.FC<ChipProps> = ({
   children,
   variant = 'solid',
