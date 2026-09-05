@@ -5,7 +5,7 @@ import type { CheckboxSize, CheckboxVariant } from '@xaui/native/checkbox'
 import { useXAUITheme } from '@xaui/native/theme'
 
 const VARIANTS: CheckboxVariant[] = ['primary', 'secondary', 'tertiary']
-const SIZES: CheckboxSize[] = ['xs', 'sm', 'md', 'lg']
+const SIZES: CheckboxSize[] = ['sm', 'md', 'lg']
 
 /**
  * The verification screen for the `Checkbox`. A component is verified here and in the docs
@@ -110,7 +110,7 @@ export default function CheckboxScreen() {
 }
 
 /** What each size measures, for the row's own label. */
-const BOXES: Record<CheckboxSize, number> = { xs: 16, sm: 20, md: 24, lg: 28 }
+const BOXES: Record<CheckboxSize, number> = { sm: 20, md: 24, lg: 28 }
 
 /** The short form: text children become the label, and the box comes with them. */
 function ShortForm() {
