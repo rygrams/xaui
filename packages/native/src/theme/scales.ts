@@ -96,6 +96,12 @@ const noShadow: XAUIShadow = {
 /**
  * Three roles, not an sm→xl scale — which is what lets dark mode drop the surface shadow
  * entirely instead of shipping a scale that reads as dirt on a dark background.
+ *
+ * `overlay` was heavier: a 24-point blur eight points down at 16 of Android's elevation.
+ * Android draws elevation on its own curve and draws it strongly, so a panel that read as
+ * lifted on iOS read as detached on Android — a dark halo the width of the gap between it
+ * and the field it came out of. Half the elevation and two thirds of the blur still say
+ * "above the page" without the panel looking cut out of it.
  */
 export function buildShadows(mode: ColorMode): XAUITheme['shadows'] {
   if (mode === 'dark') {
@@ -103,10 +109,10 @@ export function buildShadows(mode: ColorMode): XAUITheme['shadows'] {
       surface: noShadow,
       overlay: {
         shadowColor: '#000000',
-        shadowOffset: { width: 0, height: 8 },
-        shadowOpacity: 0.6,
-        shadowRadius: 24,
-        elevation: 16,
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.45,
+        shadowRadius: 16,
+        elevation: 8,
       },
       field: noShadow,
     }
@@ -121,10 +127,10 @@ export function buildShadows(mode: ColorMode): XAUITheme['shadows'] {
     },
     overlay: {
       shadowColor: '#000000',
-      shadowOffset: { width: 0, height: 8 },
-      shadowOpacity: 0.14,
-      shadowRadius: 24,
-      elevation: 16,
+      shadowOffset: { width: 0, height: 4 },
+      shadowOpacity: 0.1,
+      shadowRadius: 16,
+      elevation: 8,
     },
     field: {
       shadowColor: '#000000',

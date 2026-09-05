@@ -137,6 +137,16 @@
         "default": "./dist/components/radio/index.cjs"
       }
     },
+    "./select": {
+      "import": {
+        "types": "./dist/components/select/index.d.ts",
+        "default": "./dist/components/select/index.js"
+      },
+      "require": {
+        "types": "./dist/components/select/index.d.cts",
+        "default": "./dist/components/select/index.cjs"
+      }
+    },
     "./skeleton": {
       "import": {
         "types": "./dist/components/skeleton/index.d.ts",

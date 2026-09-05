@@ -10,4 +10,12 @@ export type XAUIProviderProps = {
   theme?: XAUIThemeSet
   /** Controlled: the library owns neither the state nor its persistence. */
   colorMode?: ColorModePreference
+  /**
+   * Mounts the `PortalHost` overlays render into. Set false only to mount one yourself,
+   * somewhere the provider cannot reach — under a gesture root, say. Without a host
+   * anywhere, `Portal` renders nothing and overlays are silently absent.
+   *
+   * @default true
+   */
+  hasPortalHost?: boolean
 }

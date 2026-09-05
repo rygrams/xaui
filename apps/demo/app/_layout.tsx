@@ -2,7 +2,6 @@ import { Stack } from 'expo-router'
 import { useColorScheme } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import 'react-native-reanimated'
-import { PortalHost } from '@xaui/native/system'
 import { XAUIProvider } from '@xaui/native/theme'
 
 /**
@@ -19,37 +18,33 @@ export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <XAUIProvider colorMode={colorScheme === 'dark' ? 'dark' : 'light'}>
-        <PortalHost>
-          <Stack>
-            <Stack.Screen name="index" options={{ title: 'XAUI (v1)' }} />
-            <Stack.Screen name="button" options={{ title: 'Button (v1)' }} />
-            <Stack.Screen name="card" options={{ title: 'Card (v1)' }} />
-            <Stack.Screen name="alert" options={{ title: 'Alert (v1)' }} />
-            <Stack.Screen name="checkbox" options={{ title: 'Checkbox (v1)' }} />
-            <Stack.Screen name="chip" options={{ title: 'Chip (v1)' }} />
-            <Stack.Screen name="text-field" options={{ title: 'TextField (v1)' }} />
-            <Stack.Screen
-              name="field-group"
-              options={{ title: 'FieldGroup (v1)' }}
-            />
-            <Stack.Screen name="input-otp" options={{ title: 'InputOTP (v1)' }} />
-            <Stack.Screen name="radio" options={{ title: 'Radio (v1)' }} />
-            <Stack.Screen name="switch" options={{ title: 'Switch (v1)' }} />
-            <Stack.Screen name="text-area" options={{ title: 'TextArea (v1)' }} />
-            <Stack.Screen name="avatar" options={{ title: 'Avatar (v1)' }} />
-            <Stack.Screen name="badge" options={{ title: 'Badge (v1)' }} />
-            <Stack.Screen name="divider" options={{ title: 'Divider (v1)' }} />
-            <Stack.Screen name="skeleton" options={{ title: 'Skeleton (v1)' }} />
-            <Stack.Screen name="spinner" options={{ title: 'Spinner (v1)' }} />
-            <Stack.Screen
-              name="pressable-feedback"
-              options={{ title: 'PressableFeedback (v1)' }}
-            />
-            <Stack.Screen name="typography" options={{ title: 'Typography (v1)' }} />
-            <Stack.Screen name="icon" options={{ title: 'Icon (v1)' }} />
-            <Stack.Screen name="view" options={{ title: 'Layout (v1)' }} />
-          </Stack>
-        </PortalHost>
+        <Stack>
+          <Stack.Screen name="index" options={{ title: 'XAUI (v1)' }} />
+          <Stack.Screen name="button" options={{ title: 'Button (v1)' }} />
+          <Stack.Screen name="card" options={{ title: 'Card (v1)' }} />
+          <Stack.Screen name="alert" options={{ title: 'Alert (v1)' }} />
+          <Stack.Screen name="checkbox" options={{ title: 'Checkbox (v1)' }} />
+          <Stack.Screen name="chip" options={{ title: 'Chip (v1)' }} />
+          <Stack.Screen name="text-field" options={{ title: 'TextField (v1)' }} />
+          <Stack.Screen name="field-group" options={{ title: 'FieldGroup (v1)' }} />
+          <Stack.Screen name="input-otp" options={{ title: 'InputOTP (v1)' }} />
+          <Stack.Screen name="radio" options={{ title: 'Radio (v1)' }} />
+          <Stack.Screen name="switch" options={{ title: 'Switch (v1)' }} />
+          <Stack.Screen name="text-area" options={{ title: 'TextArea (v1)' }} />
+          <Stack.Screen name="avatar" options={{ title: 'Avatar (v1)' }} />
+          <Stack.Screen name="badge" options={{ title: 'Badge (v1)' }} />
+          <Stack.Screen name="divider" options={{ title: 'Divider (v1)' }} />
+          <Stack.Screen name="select" options={{ title: 'Select (v1)' }} />
+          <Stack.Screen name="skeleton" options={{ title: 'Skeleton (v1)' }} />
+          <Stack.Screen name="spinner" options={{ title: 'Spinner (v1)' }} />
+          <Stack.Screen
+            name="pressable-feedback"
+            options={{ title: 'PressableFeedback (v1)' }}
+          />
+          <Stack.Screen name="typography" options={{ title: 'Typography (v1)' }} />
+          <Stack.Screen name="icon" options={{ title: 'Icon (v1)' }} />
+          <Stack.Screen name="view" options={{ title: 'Layout (v1)' }} />
+        </Stack>
       </XAUIProvider>
     </GestureHandlerRootView>
   )

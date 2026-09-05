@@ -80,7 +80,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.3e  | `NumberStepper` — net new, the increment pair legacy `Stepper` is not       | todo   |
 | P5.3f  | `PhoneNumberInput` — net new, country prefix over the `TextField`           | todo   |
 | P5.3g  | `SearchInput` — net new, a `TextField` with its clear and submit            | todo   |
-| P5.4   | `Select` — slots over the existing group context                            | todo   |
+| P5.4   | `Select` — Trigger · Value · Indicator · Overlay · Content · Item           | done   |
 | P5.5   | `Stepper` — slots over the existing group context                           | todo   |
 | P5.6   | `Toolbar` — slots over the existing group context                           | todo   |
 | P5.7   | `List` — slots over the existing group context                              | todo   |
