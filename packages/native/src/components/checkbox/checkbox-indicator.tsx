@@ -8,7 +8,6 @@ import Animated, {
 } from 'react-native-reanimated'
 import { useStyleProps } from '../../system/style-props'
 import { useCheckbox } from './checkbox.context'
-import { checkboxSheet } from './checkbox.style'
 import type { CheckboxIndicatorProps } from './checkbox.type'
 
 /** Long enough to be seen, short enough that a fast tick never waits for it. */
@@ -101,7 +100,7 @@ function StaticFill({ children }: { children: ReactNode }) {
 function Check() {
   const { checkStyle } = useCheckbox()
 
-  return <View style={[checkStyle, checkboxSheet.check]} />
+  return <View style={checkStyle} />
 }
 
 /** The third state's mark: the check's long stroke, on its own and level. */
