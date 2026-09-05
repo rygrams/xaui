@@ -153,7 +153,7 @@ function Picker({ placeholder, width, align, ...props }: PickerProps) {
         <Select.Indicator />
       </Select.Trigger>
       <Select.Overlay />
-      <Select.Content width={width} align={align}>
+      <Select.Content width={width} align={align} elevation={1}>
         {LANGUAGES.map(({ value, label }) => (
           <Select.Item key={value} value={value} label={label}>
             <Select.ItemLabel>{label}</Select.ItemLabel>
