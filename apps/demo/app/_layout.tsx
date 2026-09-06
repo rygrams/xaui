@@ -22,6 +22,10 @@ export default function RootLayout() {
           <Stack.Screen name="index" options={{ title: 'XAUI (v1)' }} />
           <Stack.Screen name="accordion" options={{ title: 'Accordion (v1)' }} />
           <Stack.Screen name="alert" options={{ title: 'Alert (v1)' }} />
+          <Stack.Screen
+            name="autocomplete"
+            options={{ title: 'Autocomplete (v1)' }}
+          />
           <Stack.Screen name="avatar" options={{ title: 'Avatar (v1)' }} />
           <Stack.Screen name="badge" options={{ title: 'Badge (v1)' }} />
           <Stack.Screen

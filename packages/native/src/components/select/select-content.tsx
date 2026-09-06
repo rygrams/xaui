@@ -8,7 +8,7 @@ import { useStyleProps } from '../../system/style-props'
 import { SelectItem } from './select-item'
 import { anchoredEntering, anchoredExiting } from '../../system/anchored'
 import { SelectProvider, useSelect } from './select.context'
-import { collectItemLabels } from './select.utils'
+import { collectItemLabels } from '../../utils/item-labels'
 import type { SelectContentProps, SelectInsets } from './select.type'
 import { useEffect } from 'react'
 
