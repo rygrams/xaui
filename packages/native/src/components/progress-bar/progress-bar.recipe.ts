@@ -68,7 +68,9 @@ export const progressBarRecipe = createRecipe({
   slots: SLOTS,
 
   base: theme => ({
-    root: { width: '100%', gap: theme.spacing(2) },
+    // 6, not the grid's 8: the header is the bar's caption, not a sibling paragraph, so it
+    // sits nearer the rail than one block sits from the next and the two read as one unit.
+    root: { width: '100%', gap: theme.spacing(1.5) },
     // The label and the value are one line, pushed apart. R4 — the gap and the alignment
     // are the header's, and neither text slot carries a margin of its own.
     header: {
