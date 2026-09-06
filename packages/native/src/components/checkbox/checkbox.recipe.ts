@@ -1,4 +1,5 @@
 import { createRecipe, radiusAxis } from '../../system/recipe'
+import { CHECK_SPAN, checkGlyph } from '../../utils/check-glyph'
 import type { SlotStyles, VariantTokens } from '../../system/recipe'
 import type { FontSizeKey, RadiusKey, XAUITheme } from '../../theme/theme.type'
 import type { CheckboxSize, CheckboxSlot, CheckboxVariant } from './checkbox.type'
@@ -44,10 +45,8 @@ const VARIANT_TOKENS: Record<CheckboxVariant, VariantTokens> = {
  * width**. A checkbox hugs its label, and a row that has to fill its parent is a `style`
  * away rather than a `fullWidth` prop.
  *
- * The check is **derived from the box** rather than tabulated: half its width, a quarter
- * its height. Two numbers in a table would drift from the box the day someone changes it,
- * and a check that is not proportional to its box reads as a different glyph at every
- * size.
+ * The check itself is `utils/check-glyph`: derived from the box rather than tabulated, so
+ * it reads as the same glyph at every size.
  */
 function sizeAxis(step: SizeStep) {
   const { box, radius, label, gap, stroke } = step
@@ -58,29 +57,12 @@ function sizeAxis(step: SizeStep) {
     return {
       root: { gap: theme.spacing(gap) },
       indicator: { width: side, height: side, borderRadius: theme.radius[radius] },
-      check: {
-        width: side * CHECK_WIDTH,
-        height: side * CHECK_HEIGHT,
-        borderStartWidth: stroke,
-        borderBottomWidth: stroke,
-        // An "L" has its ink in one corner, not in the middle of its box, so rotating it
-        // about that box's centre leaves the tick sitting low. Rotating by −45° maps a
-        // point to `(dy − dx)·√2/2`, and over the two strokes that spans `H` at the top
-        // and `H − t − W` at the bottom — an ink centre `(H − t)·√2/4` **below** the box
-        // centre, which flexbox then dutifully centres. Lifting by exactly that is what
-        // makes the mark look centred rather than measure centred.
-        //
-        // Both transforms live here, and not half here and half in a sheet, because
-        // `transform` is a whole value: the recipe's merge replaces it rather than
-        // blending, so a second step would drop the first.
-        transform: [
-          { translateY: -((side * CHECK_HEIGHT - stroke) * Math.SQRT2) / 4 },
-          { rotate: '-45deg' },
-        ],
-      },
+      // The tick is `utils/check-glyph`, shared with the completed step of a `Stepper`:
+      // both mark a box they fill, and both have to work with no icon set installed.
+      check: checkGlyph(side, stroke),
       // The third state's mark: the check's long stroke, on its own and level.
       dash: {
-        width: side * CHECK_WIDTH,
+        width: side * CHECK_SPAN,
         height: stroke,
         borderRadius: stroke / 2,
       },
@@ -91,13 +73,6 @@ function sizeAxis(step: SizeStep) {
     }
   }
 }
-
-/**
- * The long stroke and the short one, as fractions of the box. The two together are an
- * "L" that becomes a check once rotated, and lifted — see `sizeAxis`.
- */
-const CHECK_WIDTH = 0.5
-const CHECK_HEIGHT = 0.25
 
 type SizeStep = {
   /** The box's side, in spacing steps — `spacing(6)` is 24 on the base-4 scale. */

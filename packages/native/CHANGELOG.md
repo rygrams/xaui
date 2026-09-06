@@ -1,5 +1,132 @@
 # @xaui/native
 
+## 0.9.1-alpha.51
+
+### Patch Changes
+
+- 4e1233f: `Autocomplete` — a field that opens a list you search.
+
+  **It is not a `Select`, and it wears its clothes.** A select is for a list you read: a dozen
+  options, all of them visible, and choosing is recognising one. An autocomplete is for a list
+  you cannot read — fifty states, four thousand cities — where choosing is _finding_, and the
+  field you type in is the control rather than an extra row in a menu.
+
+  So the two share their style **by construction** rather than by coincidence: the trigger, the
+  panel and the rows resolve through `selectRecipe`, and only the search box and the empty line
+  are this component's own. A second table would be two to keep in step, and the drift would
+  show as a select and an autocomplete side by side in a form with fields half a shade apart.
+
+  `Autocomplete.Search` lives inside the panel and is pinned above its scroller, so it stays
+  put while the results move under it. It takes focus as the panel opens — one you have to tap
+  twice before you can type into it is a select with a spare row — and **the query goes with
+  the panel**: closing clears it, because a search that survived its own closing would leave
+  the list already filtered by a word nobody can see.
+
+  Matching folds diacritics and drops case both ways (`geneve` finds `Genève`), and matches
+  any word rather than the first: a prefix match on "New York" refuses "york", and a long list
+  is searched by whichever word someone remembers.
+
+  Filtering drops rows off the **elements**, before any mounts, and only the panel's direct
+  children. Walking deeper to read a label changes nothing; dropping a row nested inside a
+  caller's own component would mean rebuilding that component's children for it, and a filter
+  that silently rewrote a caller's tree is worse than one that leaves it alone.
+
+  `Autocomplete.Empty` renders instead of the results, and only when nothing matched — a panel
+  that filtered its last row away and showed an empty box reads as a control that has broken.
+
+  The trigger announces itself as a `combobox` rather than a button: it opens a list you type
+  into, and that is the role that says so.
+
+  `collectItemLabels` moves to `utils/item-labels` — the `Select` and the `Autocomplete` have
+  the same trigger, the same portal and the same problem. §2 bis, promotion at the second use.
+
+## 0.9.1-alpha.50
+
+### Patch Changes
+
+- 8b2c0e5: feat(radio): `Radio.Group` — the set an option belongs to
+
+  `Radio` shipped without one, which meant the one thing a radio is for — exclusive selection
+  — was the caller's `useState` and their `map`. This is the context it was written to read,
+  not a second radio.
+
+  **It is `Radio.Group`, not a `RadioGroup` import.** The set publishes the values an option
+  already reads and nothing else; a second module to make three radios exclusive would be a
+  seam with nothing behind it. `RadioGroup` is exported as an alias for a call site that reads
+  better naming it.
+
+  **Membership is a `value`, not a nesting.** The group holds the chosen one, each option
+  compares the one it stands for, and nothing walks the children — so an option inside a
+  `Card`, a `List.Item` or a `Fragment` is in the set exactly as much as a direct child is.
+  That is also what keeps a standalone radio over its own `isSelected` working unchanged
+  inside a group: an option with no `value` is not in the set at all.
+
+  `variant`, `size`, `radius` and `color` are handed down as **defaults**, and an option that
+  names its own wins — a set is usually uniform, and the row that differs is a design rather
+  than a mistake. `isDisabled` and `isInvalid` are the two that do not work that way: a
+  disabled set has no enabled option in it, and a set that is wrong is wrong on every row.
+
+  The group lays its options out, which is R4 and the reason it has a recipe at all — the gap
+  follows `size`, and `orientation="horizontal"` wraps rather than overflowing off a narrow
+  screen. It paints nothing, because an option resolves its own colours and a group that
+  painted would be painting over the row that disagreed with it.
+
+  `isSelected` still outranks the set, so one option in a group can be driven by something the
+  group knows nothing about, and both callbacks fire on a press: the option's
+  `onSelectedChange` and the set's `onValueChange`. Pressing the chosen option fires neither —
+  a press selects and never clears, one level up from where the `Radio` already said so.
+
+  `useRadioGroup()` is exported (R10) for an option of your own that is in the set without
+  being a `Radio`. `accessibilityRole="radiogroup"` moves onto the group, where the wrapper in
+  the old three-line recipe used to carry it.
+
+## 0.9.1-alpha.49
+
+### Patch Changes
+
+- 804f32f: `Stepper` — where you are in a sequence of steps.
+
+  **The value is the caller's, always.** There is no `defaultValue` and no `onValueChange`,
+  because nothing inside a stepper can move it: a step is not a control, it is a report. The
+  number comes from the form, the wizard or the route that actually knows, and an
+  uncontrolled stepper would be a piece of state that could never change. It counts from one,
+  so `value={2}` is "step 2 of 4" — the number you would say out loud rather than an index.
+
+  **The root numbers its children.** An item declares no index and no key: JSX order is step
+  order, so inserting a step in the middle renumbers the rest by being there. It is the
+  reasoning that puts the `Accordion`'s separators on its root — what an item cannot know
+  about its neighbours belongs to the thing that has them all.
+
+  **Three statuses, and they are an order.** Every step before the current one is completed
+  and every step after it is upcoming. A completed step keeps its full contrast — it is a
+  thing you did, not a thing greyed out — and what recedes is the road ahead. The line under
+  the current step is still track: the stepper has not left that step yet.
+
+  **Two orientations that differ by more than the axis.** `vertical` puts the indicator beside
+  the text and aligned to the top of it, with the line running down through whatever height
+  that text takes; it is the layout that can carry a description at all. `horizontal` centres
+  each indicator over its label and gives every step the same width, so the circles land at
+  even intervals whatever the labels say.
+
+  **The connectors belong to the indicator rather than to the root**, which is the opposite of
+  the `Accordion`'s separators: a vertical line has to run from under one circle to the next
+  through the text beside it, and only something inside that row can measure that height. A
+  horizontal step carries two halves, one either side, so its circle stays centred over its
+  label — and the two ends of the rail are drawn transparent rather than dropped, or the first
+  and last circles would slide off theirs.
+
+  **A step is not pressable**, and that is `asChild`'s job rather than a prop. A stepper where
+  a completed step takes you back is one composition away; one where tapping ahead skips a
+  form's validation is not something this component should make easy.
+
+  `color` paints the **progress and not the track**: the travelled line, the ring around the
+  step you are on, the disc behind the ones you are past. The road ahead stays grey, because
+  the untravelled track is written from the theme rather than named as a role.
+
+  The tick a completed step draws moves to `utils/check-glyph`, shared with the `Checkbox`:
+  two borders of an empty box a quarter turn from where they look like one, so both work in a
+  project that has installed no icon set.
+
 ## 0.9.1-alpha.48
 
 ### Patch Changes
