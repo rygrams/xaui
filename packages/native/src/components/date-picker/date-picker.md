@@ -82,6 +82,44 @@ The picker owns the **value**; the calendar owns the **month it is showing**. Op
 panel a second time after paging leaves you where you were, and choosing a day in another
 month still works — paging is not choosing, which `calendar.md` argues at length.
 
+## A year and a month, from the panel
+
+`DatePicker.Calendar` is a `Calendar`, so its year → month → day walk composes here exactly
+as it does on a page: pass the children, hold `view`, and mount `Calendar.YearPicker` /
+`Calendar.MonthPicker` in the grid's place.
+
+```tsx
+const [view, setView] = useState<CalendarView>('grid')
+
+<DatePicker onOpenChange={open => { if (!open) setView('grid') }}>
+  {/* trigger, overlay … */}
+  <DatePicker.Content>
+    <DatePicker.Calendar view={view} onViewChange={setView}>
+      <Calendar.Header>
+        <Calendar.PreviousButton />
+        <PressableFeedback onPress={() => setView(v => (v === 'grid' ? 'year' : 'grid'))}>
+          <Calendar.Title />
+        </PressableFeedback>
+        <Calendar.NextButton />
+      </Calendar.Header>
+      {view === 'year' ? (
+        <Calendar.YearPicker />
+      ) : view === 'month' ? (
+        <Calendar.MonthPicker />
+      ) : (
+        <>
+          <Calendar.Weekdays />
+          <Calendar.Grid />
+        </>
+      )}
+    </DatePicker.Calendar>
+  </DatePicker.Content>
+</DatePicker>
+```
+
+`view` is the `Calendar`'s, not the picker's — resetting it to `'grid'` on close is what
+makes the panel open on the month every time.
+
 ## `closeOnSelect`
 
 On by default: a picker whose only job is one date has been answered the moment a day is

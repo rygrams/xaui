@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import { ScrollView, Text, View } from 'react-native'
 import { Calendar } from '@xaui/native/calendar'
+import type { CalendarView } from '@xaui/native/calendar'
 import { DatePicker } from '@xaui/native/date-picker'
 import type { DatePickerSize, DatePickerVariant } from '@xaui/native/date-picker'
+import { PressableFeedback } from '@xaui/native/system'
 import { useXAUITheme } from '@xaui/native/theme'
 
 const VARIANTS: DatePickerVariant[] = ['primary', 'secondary', 'tertiary', 'ghost']
@@ -26,6 +28,8 @@ export default function DatePickerScreen() {
       contentContainerStyle={{ padding: 16, gap: 32, paddingBottom: 320 }}
     >
       <Picked />
+
+      <YearAndMonth />
 
       <Section
         title="The panel is as wide as the grid, not as wide as the field"
@@ -105,6 +109,68 @@ function Picked() {
         {date === undefined
           ? 'value: —'
           : `value: ${date.toISOString().slice(0, 10)}`}
+      </Caption>
+    </Section>
+  )
+}
+
+/**
+ * The panel's calendar is a `Calendar`, so its year → month → day walk composes here the
+ * same way it does on a page: the title is the button, and `Calendar.YearPicker` /
+ * `Calendar.MonthPicker` mount in the grid's place. `view` resets to the days when the
+ * panel closes, so it always opens on the month.
+ */
+function YearAndMonth() {
+  const [date, setDate] = useState<Date | undefined>()
+  const [view, setView] = useState<CalendarView>('grid')
+
+  return (
+    <Section
+      title="A year and a month, from the panel"
+      note="Tap the month name: the years open in the grid's place, then that year's months, then back to the days — the Calendar's own drill-down, inside the picker. Pressing a day still answers and closes."
+    >
+      <DatePicker
+        value={date}
+        onValueChange={setDate}
+        onOpenChange={open => {
+          if (!open) setView('grid')
+        }}
+      >
+        <DatePicker.Trigger>
+          <DatePicker.Value placeholder="Choisir une date" />
+          <DatePicker.Indicator />
+        </DatePicker.Trigger>
+        <DatePicker.Overlay />
+        <DatePicker.Content>
+          <DatePicker.Calendar view={view} onViewChange={setView}>
+            <Calendar.Header>
+              <Calendar.PreviousButton accessibilityLabel="Mois précédent" />
+              <PressableFeedback
+                onPress={() => setView(v => (v === 'grid' ? 'year' : 'grid'))}
+                accessibilityLabel="Changer le mois et l'année"
+              >
+                <Calendar.Title />
+              </PressableFeedback>
+              <Calendar.NextButton accessibilityLabel="Mois suivant" />
+            </Calendar.Header>
+            {view === 'year' ? (
+              <Calendar.YearPicker />
+            ) : view === 'month' ? (
+              <Calendar.MonthPicker />
+            ) : (
+              <>
+                <Calendar.Weekdays />
+                <Calendar.Grid />
+              </>
+            )}
+          </DatePicker.Calendar>
+        </DatePicker.Content>
+      </DatePicker>
+      <Caption>
+        {date === undefined
+          ? 'value: —'
+          : `value: ${date.toISOString().slice(0, 10)}`}
+        {`  ·  view: ${view}`}
       </Caption>
     </Section>
   )
