@@ -54,12 +54,16 @@ type SizeStep = {
 }
 
 /**
+ * Exported for the `ListGroup`, which needs one number out of it: a section header has to
+ * be inset by the same padding as the rows under it, or the heading and the text it heads
+ * sit on two different left edges.
+ *
  * The corner sits one level below the `Card`'s at every step, as the `Accordion`'s does: a
  * card wraps its content with padding on all four sides so a large corner curves through
  * empty space, where a list's rows run edge to edge and the same corner would curve through
  * the first row's own text.
  */
-const SIZES: Record<Size, SizeStep> = {
+export const SIZES: Record<Size, SizeStep> = {
   xs: {
     padding: 2.5,
     gap: 2.5,

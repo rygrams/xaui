@@ -4,6 +4,7 @@ import type { TextStyle } from 'react-native'
 import { Slot } from '../../system/slot'
 import { useStyleProps } from '../../system/style-props'
 import { useXAUITheme } from '../../theme/theme-hooks'
+import { useOptionalListGroup } from './list-group.context'
 import { ListProvider } from './list.context'
 import { listRecipe } from './list.recipe'
 import type { ListProps } from './list.type'
@@ -37,6 +38,11 @@ import type { ListProps } from './list.type'
  * that drew its own would draw one under the last one too, and every list would start by
  * hiding it.
  *
+ * **In a `ListGroup` it takes the group's appearance**, and its own props still win — a
+ * settings screen is uniform, and setting `variant` on five lists is five chances to set it
+ * differently. Outside a group nothing changes: a list on its own is this component's
+ * original shape.
+ *
  * **It does not select.** There is no `selectionMode` and no `selectedKeys`: picking one of
  * several things is what `Select` and `Menu` are, and a row that toggles carries the
  * control that toggles it — a `Switch` in its suffix, a `Checkbox` in its prefix. A list
@@ -49,7 +55,7 @@ export const ListRoot = forwardRef<View, ListProps>(function List(
     size,
     radius,
     color,
-    hasSeparator = true,
+    hasSeparator,
     isDisabled = false,
     asChild = false,
     style,
@@ -59,14 +65,28 @@ export const ListRoot = forwardRef<View, ListProps>(function List(
 ) {
   const theme = useXAUITheme()
   const [styleProps, rest] = useStyleProps(props)
+  // `null` outside a group, which is a valid arrangement rather than a misplaced slot.
+  const group = useOptionalListGroup()
 
-  const selection = { variant, size, radius }
+  // The group's values are defaults, and the list's own win. `isDisabled` is the one that
+  // is not a default: a disabled group has no live list in it.
+  const resolvedColor = color ?? group?.color
+  const disabled = isDisabled || (group?.isDisabled ?? false)
+  const separated = hasSeparator ?? group?.hasSeparator ?? true
+
+  const selection = {
+    variant: variant ?? group?.variant,
+    size: size ?? group?.size,
+    radius: radius ?? group?.radius,
+  }
   const styles = listRecipe.resolve({
     theme,
     selection,
-    states: { disabled: isDisabled },
+    states: { disabled },
   })
-  const tint = color ? listRecipe.tint({ theme, color, selection }) : undefined
+  const tint = resolvedColor
+    ? listRecipe.tint({ theme, color: resolvedColor, selection })
+    : undefined
 
   const context = useMemo(() => {
     const glyph = StyleSheet.flatten<TextStyle>([styles.prefix, tint?.prefix])
@@ -88,9 +108,9 @@ export const ListRoot = forwardRef<View, ListProps>(function List(
         size: glyph.fontSize,
         color: typeof glyph.color === 'string' ? glyph.color : undefined,
       },
-      isDisabled,
+      isDisabled: disabled,
     }
-  }, [styles, tint, isDisabled])
+  }, [styles, tint, disabled])
 
   // `Children.toArray` rather than `Children.map`: it drops nulls, so a row rendered
   // conditionally cannot leave a hairline hanging where nothing is.
@@ -99,7 +119,7 @@ export const ListRoot = forwardRef<View, ListProps>(function List(
   const rows = items.map((child, index) => (
     <Fragment key={index}>
       {child}
-      {hasSeparator && index < items.length - 1 ? (
+      {separated && index < items.length - 1 ? (
         <View style={styles.separator} />
       ) : null}
     </Fragment>

@@ -38,7 +38,10 @@ type ListOwnProps = {
   radius?: RadiusKey
   /** The tint (R7) — a raw value, never a token. */
   color?: string
-  /** Whether a hairline is drawn between the rows. */
+  /**
+   * Whether a hairline is drawn between the rows. Falls back to the `ListGroup`'s, and
+   * to `true` outside one.
+   */
   hasSeparator?: boolean
   isDisabled?: boolean
   asChild?: boolean
