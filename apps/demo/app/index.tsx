@@ -35,6 +35,7 @@ const SCREENS = [
   { href: '/popover', label: 'Popover' },
   { href: '/pressable-feedback', label: 'PressableFeedback' },
   { href: '/radio', label: 'Radio' },
+  { href: '/segment', label: 'Segment' },
   { href: '/select', label: 'Select' },
   { href: '/skeleton', label: 'Skeleton' },
   { href: '/slider', label: 'Slider' },

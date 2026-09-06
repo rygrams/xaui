@@ -197,6 +197,16 @@
         "default": "./dist/components/radio/index.cjs"
       }
     },
+    "./segment": {
+      "import": {
+        "types": "./dist/components/segment/index.d.ts",
+        "default": "./dist/components/segment/index.js"
+      },
+      "require": {
+        "types": "./dist/components/segment/index.d.cts",
+        "default": "./dist/components/segment/index.cjs"
+      }
+    },
     "./select": {
       "import": {
         "types": "./dist/components/select/index.d.ts",
@@ -372,7 +382,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "rm -rf dist && tsup --config tsup.config.ts && node ../../tooling/workletize/workletize.mjs dist",
+    "build": "rm -rf dist && NODE_OPTIONS=--max-old-space-size=6144 tsup --config tsup.config.ts && node ../../tooling/workletize/workletize.mjs dist",
     "dev": "tsup --config tsup.config.ts --watch",
     "test": "vitest",
     "lint": "eslint src/",

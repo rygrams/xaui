@@ -48,6 +48,7 @@ export default function RootLayout() {
             options={{ title: 'PressableFeedback (v1)' }}
           />
           <Stack.Screen name="radio" options={{ title: 'Radio (v1)' }} />
+          <Stack.Screen name="segment" options={{ title: 'Segment (v1)' }} />
           <Stack.Screen name="select" options={{ title: 'Select (v1)' }} />
           <Stack.Screen name="skeleton" options={{ title: 'Skeleton (v1)' }} />
           <Stack.Screen name="slider" options={{ title: 'Slider (v1)' }} />
