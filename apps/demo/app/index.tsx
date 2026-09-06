@@ -26,6 +26,7 @@ const SCREENS = [
   { href: '/checkbox', label: 'Checkbox' },
   { href: '/chip', label: 'Chip' },
   { href: '/date-field', label: 'DateField' },
+  { href: '/date-time-field', label: 'DateTimeField' },
   { href: '/dialog', label: 'Dialog' },
   { href: '/divider', label: 'Divider' },
   { href: '/field-group', label: 'FieldGroup' },
