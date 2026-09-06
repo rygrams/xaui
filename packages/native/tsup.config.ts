@@ -4,6 +4,7 @@ const entries = {
   index: 'src/index.ts',
   'components/accordion/index': 'src/components/accordion/index.ts',
   'components/alert/index': 'src/components/alert/index.ts',
+  'components/autocomplete/index': 'src/components/autocomplete/index.ts',
   'components/avatar/index': 'src/components/avatar/index.ts',
   'components/badge/index': 'src/components/badge/index.ts',
   'components/bottom-sheet/index': 'src/components/bottom-sheet/index.ts',
