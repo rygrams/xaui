@@ -146,7 +146,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.35g | `ToggleButtonGroup` — net new, exclusive selection over `ToggleButton`           | todo    |
 | P5.36  | `EmptyState` — net new, no legacy equivalent                                     | todo    |
 | P5.37  | `FlipCard` — net new, a `Card` with two faces                                    | todo    |
-| P5.38  | `RadioGroup` — over legacy `RadioGroup`, the context P3.9 `Radio` lacks          | todo    |
+| P5.38  | `Radio.Group` — over legacy `RadioGroup`, the context P3.9 `Radio` lacked        | done    |
 | P5.38b | `RadioButton` — net new, to reconcile with P3.9 `Radio`                          | todo    |
 | P5.38c | `RadioButtonGroup` — net new, to reconcile with `RadioGroup`                     | todo    |
 | P5.39  | `Rating` — net new, no legacy equivalent                                         | todo    |
