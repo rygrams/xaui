@@ -7,7 +7,7 @@ import type {
   ViewProps,
   ViewStyle,
 } from 'react-native'
-import type { CloseButtonProps } from '../../system/close-button'
+import type { CloseButtonBaseProps } from '../../system/close-button'
 import type { TextStyleProps, ViewStyleProps } from '../../system/style-props'
 import type { RadiusKey } from '../../theme/theme.type'
 
@@ -63,14 +63,14 @@ export type DialogTitleProps = DialogTextOwnProps &
 export type DialogDescriptionProps = DialogTitleProps
 
 /**
- * Everything the shared `CloseButton` accepts, minus the three the dialog supplies itself:
+ * Everything the shared `CloseButtonBase` accepts, minus the three the dialog supplies itself:
  * the warning's name and the two styles its recipe already resolved (R5).
  *
  * Which means `children` is optional and the cross is drawn without it, and that a caller
  * who passes `asChild` gets their own element instead — the two dismissals a dialog has.
  */
 export type DialogCloseProps = Omit<
-  CloseButtonProps,
+  CloseButtonBaseProps,
   'name' | 'baseStyle' | 'glyphStyle'
 >
 
