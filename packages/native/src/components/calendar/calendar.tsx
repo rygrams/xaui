@@ -13,7 +13,10 @@ import {
 } from '../../utils/dates'
 import { CalendarProvider } from './calendar.context'
 import { calendarRecipe } from './calendar.recipe'
-import type { CalendarProps } from './calendar.type'
+import type { CalendarProps, CalendarView } from './calendar.type'
+
+/** The years a boundless calendar offers, each way of this one: legacy's ladder. */
+const DEFAULT_YEAR_SPAN = 50
 
 /**
  * A month, and the day chosen in it.
@@ -56,6 +59,9 @@ export const CalendarRoot = forwardRef<View, CalendarProps>(function Calendar(
     month: controlledMonth,
     defaultMonth,
     onMonthChange,
+    view: controlledView,
+    defaultView,
+    onViewChange,
     minValue,
     maxValue,
     firstDayOfWeek,
@@ -85,6 +91,15 @@ export const CalendarRoot = forwardRef<View, CalendarProps>(function Calendar(
     value: controlledMonth,
     defaultValue: defaultMonth ? firstOfMonth(defaultMonth) : fallbackMonth,
     onChange: onMonthChange,
+  })
+
+  // The panel on screen — a third piece of state, separate from the month and the value
+  // the way those two are separate from each other. The pickers step it; a caller with a
+  // title button of its own controls it.
+  const [view, setView] = useControllableState<CalendarView>({
+    value: controlledView,
+    defaultValue: defaultView ?? 'grid',
+    onChange: onViewChange,
   })
 
   const resolvedLocale = locale ?? deviceLocale()
@@ -144,6 +159,37 @@ export const CalendarRoot = forwardRef<View, CalendarProps>(function Calendar(
     [bounds, month]
   )
 
+  // The month of the year is the caller's — a header that said "septembre 2026" and turned
+  // into a year list goes back to the same month, in another year.
+  const currentYear = month.getFullYear()
+  const goToYear = useCallback(
+    (year: number) => {
+      goToMonth((year - currentYear) * 12)
+    },
+    [goToMonth, currentYear]
+  )
+
+  // The year is kept, the month replaced — the month grid drills the year picker landed on.
+  const currentMonthIndex = month.getMonth()
+  const goToMonthInYear = useCallback(
+    (monthIndex: number) => {
+      goToMonth(monthIndex - currentMonthIndex)
+    },
+    [goToMonth, currentMonthIndex]
+  )
+
+  // Legacy's answer, kept: fifty years each way when the calendar is unbounded, and the
+  // bounds' own years when it is not — a picker that offers 2025 when `minValue` says 2027
+  // is a row that can never be pressed.
+  const yearRange = useMemo(() => {
+    const now = new Date().getFullYear()
+
+    return {
+      first: bounds.min?.getFullYear() ?? now - DEFAULT_YEAR_SPAN,
+      last: bounds.max?.getFullYear() ?? now + DEFAULT_YEAR_SPAN,
+    }
+  }, [bounds.min, bounds.max])
+
   const context = useMemo(() => {
     // An `Icon` in a nav button takes the title's scale and the chevron's own colour, so
     // the header's marks match its type without being told to.
@@ -170,6 +216,24 @@ export const CalendarRoot = forwardRef<View, CalendarProps>(function Calendar(
       // mark's width, height and corner on `dot` alone, so a `dotSelected` handed over on
       // its own is a coloured node with no size — which renders nothing at all.
       dotSelectedStyle: [styles.dot, tint ? tint.dotSelected : styles.dotSelected],
+      yearPickerStyle: styles.yearPicker,
+      yearStyle: styles.year,
+      yearSelectedStyle: tint
+        ? [styles.yearSelected, tint.yearSelected]
+        : styles.yearSelected,
+      yearLabelStyle: styles.yearLabel,
+      yearLabelSelectedStyle: tint
+        ? [styles.yearLabelSelected, tint.yearLabelSelected]
+        : styles.yearLabelSelected,
+      monthPickerStyle: styles.monthPicker,
+      monthStyle: styles.month,
+      monthSelectedStyle: tint
+        ? [styles.monthSelected, tint.monthSelected]
+        : styles.monthSelected,
+      monthLabelStyle: styles.monthLabel,
+      monthLabelSelectedStyle: tint
+        ? [styles.monthLabelSelected, tint.monthLabelSelected]
+        : styles.monthLabelSelected,
       glyph: {
         size: title.fontSize,
         color: typeof title.color === 'string' ? title.color : undefined,
@@ -179,10 +243,15 @@ export const CalendarRoot = forwardRef<View, CalendarProps>(function Calendar(
       locale: resolvedLocale,
       firstDayOfWeek: weekStart,
       isDisabled,
+      view,
+      setView,
       isDayEnabled,
       select,
       goToMonth,
       canGoToMonth,
+      goToYear,
+      goToMonthInYear,
+      yearRange,
     }
   }, [
     styles,
@@ -192,10 +261,15 @@ export const CalendarRoot = forwardRef<View, CalendarProps>(function Calendar(
     resolvedLocale,
     weekStart,
     isDisabled,
+    view,
+    setView,
     isDayEnabled,
     select,
     goToMonth,
     canGoToMonth,
+    goToYear,
+    goToMonthInYear,
+    yearRange,
   ])
 
   const rootStyle = [styles.root, styleProps, style]

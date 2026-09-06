@@ -17,6 +17,8 @@ import { useXAUITheme } from '@xaui/native/theme'
 const SCREENS = [
   { href: '/accordion', label: 'Accordion' },
   { href: '/alert', label: 'Alert' },
+  { href: '/agenda-calendar', label: 'AgendaCalendar' },
+  { href: '/autocomplete', label: 'Autocomplete' },
   { href: '/avatar', label: 'Avatar' },
   { href: '/badge', label: 'Badge' },
   { href: '/bottom-sheet', label: 'BottomSheet' },
@@ -25,6 +27,8 @@ const SCREENS = [
   { href: '/card', label: 'Card' },
   { href: '/checkbox', label: 'Checkbox' },
   { href: '/chip', label: 'Chip' },
+  { href: '/close-button', label: 'CloseButton' },
+  { href: '/combobox', label: 'Combobox' },
   { href: '/date-picker', label: 'DatePicker' },
   { href: '/dialog', label: 'Dialog' },
   { href: '/divider', label: 'Divider' },
@@ -32,10 +36,14 @@ const SCREENS = [
   { href: '/icon', label: 'Icon' },
   { href: '/input-otp', label: 'InputOTP' },
   { href: '/view', label: 'Layout' },
+  { href: '/list', label: 'List' },
   { href: '/menu', label: 'Menu' },
   { href: '/popover', label: 'Popover' },
   { href: '/pressable-feedback', label: 'PressableFeedback' },
+  { href: '/progress-bar', label: 'ProgressBar' },
+  { href: '/progress-circle', label: 'ProgressCircle' },
   { href: '/radio', label: 'Radio' },
+  { href: '/segment', label: 'Segment' },
   { href: '/select', label: 'Select' },
   { href: '/skeleton', label: 'Skeleton' },
   { href: '/slider', label: 'Slider' },
@@ -49,6 +57,7 @@ const SCREENS = [
   { href: '/text-field', label: 'TextField' },
   { href: '/toast', label: 'Toast' },
   { href: '/typography', label: 'Typography' },
+  { href: '/wheel-picker', label: 'WheelPicker' },
 ] as const
 
 export default function HomeScreen() {
