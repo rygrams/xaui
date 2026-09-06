@@ -69,8 +69,11 @@ const SIZES: Record<CalendarSize, SizeStep> = {
   lg: { cell: 44, label: 'lg', title: 'xl', weekday: 'md' },
 }
 
-/** The mark under a day that has something on it. A fraction of the cell, not a table. */
-const DOT_RATIO = 5 / 40
+/**
+ * The mark under a day that has something on it. A small fraction of the cell, not a table
+ * — small enough to read as a mark beside the number rather than a second thing under it.
+ */
+const DOT_RATIO = 3.5 / 40
 
 function sizeAxis(step: SizeStep) {
   const { cell, label, title, weekday } = step
@@ -144,8 +147,9 @@ export const calendarRecipe = createRecipe({
       alignSelf: 'center',
     },
     // Under the number rather than over it, and laid out by the day so the number does not
-    // move when it appears: absolute, near the bottom of the cell.
-    dot: { position: 'absolute', bottom: 3 },
+    // move when it appears: absolute, tucked just below the digit rather than down on the
+    // cell's edge.
+    dot: { position: 'absolute', bottom: 5 },
     dayLabel: {
       fontFamily: theme.fontFamilies.body,
       fontWeight: theme.fontWeights.medium,
@@ -192,9 +196,10 @@ export const calendarRecipe = createRecipe({
   paint: (theme, colors) => ({
     daySelected: { backgroundColor: colors.bgSelected },
     dayLabelSelected: { color: colors.fgSelected },
-    // The mark on an unchosen day is the muted ink; on the chosen one it has to read
-    // against the disc, which is what `fgSelected` is for.
-    dot: { backgroundColor: theme.colors.muted },
+    // The mark on an unchosen today is the soft accent — enough colour to read as "today"
+    // without competing with the chosen day's full disc. On the chosen day it has to read
+    // against that disc instead, which is what `fgSelected` is for.
+    dot: { backgroundColor: theme.colors.accentSoftForeground },
     dotSelected: { backgroundColor: colors.fgSelected },
     // The year on screen wears the same pair as the chosen day: one resolution, and the
     // colour of the disc the header's redrawn years sit on.

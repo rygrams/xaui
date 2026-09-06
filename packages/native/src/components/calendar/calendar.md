@@ -149,9 +149,9 @@ tint pass re-runs `paint` and never the axes.
 
 ## Today
 
-Today carries a dot under its number — muted on a plain day, and in the chosen day's own
-contrast colour when today _is_ the chosen day. It is positioned absolutely so the number
-does not shift down the day the dot appears.
+Today carries a small dot tucked just under its number — the **soft accent** on a plain day,
+and the chosen day's own contrast colour when today _is_ the chosen day. It is positioned
+absolutely so the number does not shift down the day the dot appears.
 
 ## The dates behind it
 
