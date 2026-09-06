@@ -10,6 +10,7 @@
   },
   "changesets": [
     "accordion-v1",
+    "agenda-calendar-v1",
     "alert-v1",
     "api-review-fixes",
     "autocomplete-v1",
