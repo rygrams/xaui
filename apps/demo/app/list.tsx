@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { ScrollView, Text, View } from 'react-native'
-import { List } from '@xaui/native/list'
+import { List, ListGroup } from '@xaui/native/list'
 import type { ListSize, ListVariant } from '@xaui/native/list'
 import { Switch } from '@xaui/native/switch'
 import { ChevronDownIcon, Icon } from '@xaui/native/system'
@@ -147,6 +147,95 @@ export default function ListScreen() {
             </List.ItemContent>
           </List.ItemButton>
         </List>
+      </Section>
+      <Section
+        title="ListGroup — sections, each under what its rows have in common"
+        note="It is a group of Lists rather than a List with headings inside it: our List draws its container and its separators between its own children, so a heading among the rows would get a hairline above and below it and would sit inside the card it names."
+      >
+        <ListGroup>
+          <ListGroup.Section>
+            <ListGroup.Header>Réseau</ListGroup.Header>
+            <List>
+              <List.Item>
+                <List.ItemContent>
+                  <List.ItemTitle>Wi-Fi</List.ItemTitle>
+                </List.ItemContent>
+                <List.ItemSuffix>
+                  <Switch isSelected={isOn} onSelectedChange={setOn} />
+                </List.ItemSuffix>
+              </List.Item>
+              <List.ItemButton onPress={() => {}}>
+                <List.ItemContent>
+                  <List.ItemTitle>Bluetooth</List.ItemTitle>
+                  <List.ItemDescription>
+                    Deux appareils connectés
+                  </List.ItemDescription>
+                </List.ItemContent>
+                <List.ItemSuffix>
+                  <Chevron />
+                </List.ItemSuffix>
+              </List.ItemButton>
+            </List>
+            <ListGroup.Footer>
+              Le Wi-Fi se coupe en veille pour économiser la batterie.
+            </ListGroup.Footer>
+          </ListGroup.Section>
+
+          <ListGroup.Section>
+            <ListGroup.Header>Confidentialité</ListGroup.Header>
+            <List>
+              <List.ItemButton onPress={() => {}}>
+                <List.ItemContent>
+                  <List.ItemTitle>Localisation</List.ItemTitle>
+                </List.ItemContent>
+                <List.ItemSuffix>
+                  <Chevron />
+                </List.ItemSuffix>
+              </List.ItemButton>
+              <List.ItemButton onPress={() => {}}>
+                <List.ItemContent>
+                  <List.ItemTitle>Suivi</List.ItemTitle>
+                </List.ItemContent>
+                <List.ItemSuffix>
+                  <Chevron />
+                </List.ItemSuffix>
+              </List.ItemButton>
+            </List>
+          </ListGroup.Section>
+        </ListGroup>
+      </Section>
+
+      <Section
+        title="The group hands its lists their appearance"
+        note="variant, size, radius, color and hasSeparator are defaults — the second section names its own variant and keeps it. The header is inset by the row's own padding, so the heading and the text it heads share a left edge."
+      >
+        <ListGroup variant="tertiary" size="sm" color="#7c3aed">
+          <ListGroup.Section>
+            <ListGroup.Header>Du groupe</ListGroup.Header>
+            <List>
+              <List.ItemButton onPress={() => {}}>
+                <List.ItemContent>
+                  <List.ItemTitle>tertiary, sm, teinte violette</List.ItemTitle>
+                </List.ItemContent>
+              </List.ItemButton>
+            </List>
+          </ListGroup.Section>
+          <ListGroup.Section>
+            <ListGroup.Header>À elle</ListGroup.Header>
+            <List variant="primary" hasSeparator={false}>
+              <List.ItemButton onPress={() => {}}>
+                <List.ItemContent>
+                  <List.ItemTitle>variant=&quot;primary&quot;</List.ItemTitle>
+                </List.ItemContent>
+              </List.ItemButton>
+              <List.ItemButton onPress={() => {}}>
+                <List.ItemContent>
+                  <List.ItemTitle>et sans filet</List.ItemTitle>
+                </List.ItemContent>
+              </List.ItemButton>
+            </List>
+          </ListGroup.Section>
+        </ListGroup>
       </Section>
     </ScrollView>
   )

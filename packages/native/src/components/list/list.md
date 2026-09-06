@@ -5,8 +5,11 @@ Rows on a ground.
 ## Import
 
 ```tsx
-import { List } from '@xaui/native/list'
+import { List, ListGroup } from '@xaui/native/list'
 ```
+
+One import, because they are one component and a group with no lists in it is nothing.
+`List.Group` is the same object as `ListGroup`, for a call site that already has `List`.
 
 ## Usage
 
@@ -136,17 +139,112 @@ that read identically would behave differently. Which of the two a row is, the J
 The root announces itself as a `list`. That is overridable too — a list of one row is a row,
 and a list used as a plain container is neither.
 
+## `ListGroup` — the sectioned list
+
+```tsx
+<ListGroup>
+  <ListGroup.Section>
+    <ListGroup.Header>Réseau</ListGroup.Header>
+    <List>
+      <List.Item>
+        <List.ItemContent>
+          <List.ItemTitle>Wi-Fi</List.ItemTitle>
+        </List.ItemContent>
+        <List.ItemSuffix>
+          <Switch isSelected={isOn} onSelectedChange={setOn} />
+        </List.ItemSuffix>
+      </List.Item>
+    </List>
+    <ListGroup.Footer>Le Wi-Fi se coupe en veille.</ListGroup.Footer>
+  </ListGroup.Section>
+
+  <ListGroup.Section>
+    <ListGroup.Header>Confidentialité</ListGroup.Header>
+    <List>…</List>
+  </ListGroup.Section>
+</ListGroup>
+```
+
+**It is a group of lists, not a list with headings in it.** A `List` draws its container and
+its separators **between its own children**, so a heading placed among the rows would get a
+hairline above and below it and would sit inside the card it names. Sections are containers
+side by side; a heading belongs outside them.
+
+**`ListGroup.Section` exists because proximity is the only thing grouping a header with its
+list** — nothing draws a box around a section. One gap on the group would put a heading
+exactly as far from its own rows as from the section above it, so there are two gaps, on the
+two roots that own them (R4). The ratio is the whole design.
+
+**The header is inset by the row's own padding**, read off the `List`'s size table rather
+than guessed, so the heading and the text it heads share a left edge. `ListGroup.Footer` is
+inset with it — the sentence under a settings block that says what the switch actually does.
+
+**Nothing is walked and nothing is counted.** The group publishes two gaps and a type scale;
+the sections are ordinary children, and a section can be built out of something that is not
+a `List` at all.
+
+### What the group hands down
+
+`variant`, `size`, `radius`, `color` and `hasSeparator` are **defaults**, and a list that
+names its own wins: a settings screen is uniform, and setting `variant` on five lists is
+five chances to set it differently. `isDisabled` is the one that is not a default — a
+disabled group has no live list in it.
+
+```tsx
+<ListGroup variant="tertiary" size="sm" color="#7c3aed">
+  <ListGroup.Section>
+    <ListGroup.Header>Du groupe</ListGroup.Header>
+    <List>…</List>
+  </ListGroup.Section>
+  <ListGroup.Section>
+    <ListGroup.Header>À elle</ListGroup.Header>
+    <List variant="primary">…</List>
+  </ListGroup.Section>
+</ListGroup>
+```
+
+A `List` outside any group is unchanged.
+
+### Alignment with `heroui-native`
+
+Their `ListGroup` **is our `List`** — a Surface container with Item · ItemPrefix ·
+ItemContent · ItemTitle · ItemDescription · ItemSuffix, slot for slot. What is here under
+that name is the thing neither of us had: the sections, their headings and the spacing
+between them. Two components rather than one renamed, because a settings screen is a column
+of lists and a list is a column of rows, and those are two different columns.
+
+### `ListGroup` props
+
+Everything `View` accepts, every `ViewStyle` key it does not claim (R14), plus:
+
+| prop           | type                                                | default | description                   |
+| -------------- | --------------------------------------------------- | ------- | ----------------------------- |
+| `variant`      | `'primary' \| 'secondary' \| 'tertiary' \| 'ghost'` | —       | Default for every list        |
+| `size`         | `'xs' \| 'sm' \| 'md' \| 'lg'`                      | `md`    | Gaps, heading type, the inset |
+| `radius`       | `RadiusKey`                                         | —       | Default for every list        |
+| `color`        | `string`                                            | —       | Default for every list        |
+| `hasSeparator` | `boolean`                                           | —       | Default for every list        |
+| `isDisabled`   | `boolean`                                           | `false` | Every list, and none opts out |
+| `asChild`      | `boolean`                                           | `false` | Renders the caller's element  |
+
+`ListGroup.Section` takes `View`'s props, `ListGroup.Header` and `ListGroup.Footer` take
+`Text`'s, all three plus their style props (R14). `useListGroup()` is exported (R10).
+
+`ListGroup.Header` carries `accessibilityRole="header"`, overridable — that is what lets a
+screen reader jump between sections. The footer carries none: a footnote is prose, and
+announcing it as a heading would put it in the list a reader jumps between.
+
 ## Props
 
-| prop           | type                                                | default   | description                  |
-| -------------- | --------------------------------------------------- | --------- | ---------------------------- |
-| `variant`      | `'primary' \| 'secondary' \| 'tertiary' \| 'ghost'` | `primary` | Which ground                 |
-| `size`         | `'xs' \| 'sm' \| 'md' \| 'lg'`                      | `md`      | Inset, type and corner       |
-| `radius`       | `RadiusKey`                                         | —         | Overrides the corner         |
-| `color`        | `string`                                            | —         | The tint (R7) — a raw value  |
-| `hasSeparator` | `boolean`                                           | `true`    | Hairlines between the rows   |
-| `isDisabled`   | `boolean`                                           | `false`   | Stops every row              |
-| `asChild`      | `boolean`                                           | `false`   | Renders the caller's element |
+| prop           | type                                                | default   | description                    |
+| -------------- | --------------------------------------------------- | --------- | ------------------------------ |
+| `variant`      | `'primary' \| 'secondary' \| 'tertiary' \| 'ghost'` | `primary` | Which ground                   |
+| `size`         | `'xs' \| 'sm' \| 'md' \| 'lg'`                      | `md`      | Inset, type and corner         |
+| `radius`       | `RadiusKey`                                         | —         | Overrides the corner           |
+| `color`        | `string`                                            | —         | The tint (R7) — a raw value    |
+| `hasSeparator` | `boolean`                                           | `true`    | Hairlines. The group's, in one |
+| `isDisabled`   | `boolean`                                           | `false`   | Stops every row                |
+| `asChild`      | `boolean`                                           | `false`   | Renders the caller's element   |
 
 ## Two layers, and one of them is a platform constraint
 
