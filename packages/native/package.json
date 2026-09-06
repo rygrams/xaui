@@ -422,7 +422,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "rm -rf dist && NODE_OPTIONS=--max-old-space-size=6144 tsup --config tsup.config.ts && node ../../tooling/workletize/workletize.mjs dist",
+    "build": "rm -rf dist && tsup --config tsup.config.ts && tsc --emitDeclarationOnly --declarationMap false && node ../../tooling/dual-dts/dual-dts.mjs dist && node ../../tooling/workletize/workletize.mjs dist",
     "dev": "tsup --config tsup.config.ts --watch",
     "test": "vitest",
     "lint": "eslint src/",
