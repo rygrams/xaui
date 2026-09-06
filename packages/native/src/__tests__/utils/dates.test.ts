@@ -8,6 +8,7 @@ import {
   isWithinBounds,
   monthGrid,
   monthLabel,
+  monthNames,
   startOfDay,
   startOfWeek,
   weekGrid,
@@ -187,6 +188,27 @@ describe('monthLabel', () => {
 
   it('falls back to numbers when the locale is not one', () => {
     expect(monthLabel(new Date(2026, 8, 6), 'not a locale')).toBe('9/2026')
+  })
+})
+
+describe('monthNames', () => {
+  it('names all twelve months in order', () => {
+    const names = monthNames('en-US')
+    expect(names).toHaveLength(12)
+    expect(names[0]).toBe('January')
+    expect(names[11]).toBe('December')
+  })
+
+  it('follows the locale', () => {
+    expect(monthNames('fr-FR')[8]).toBe('septembre')
+  })
+
+  it('shortens when asked', () => {
+    expect(monthNames('en-US', 'short')[0]).toBe('Jan')
+  })
+
+  it('falls back to English names when the locale is not one', () => {
+    expect(monthNames('not a locale')[8]).toBe('September')
   })
 })
 

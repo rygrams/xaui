@@ -5,6 +5,7 @@ const entries = {
   'components/accordion/index': 'src/components/accordion/index.ts',
   'components/agenda-calendar/index': 'src/components/agenda-calendar/index.ts',
   'components/alert/index': 'src/components/alert/index.ts',
+  'components/autocomplete/index': 'src/components/autocomplete/index.ts',
   'components/avatar/index': 'src/components/avatar/index.ts',
   'components/badge/index': 'src/components/badge/index.ts',
   'components/bottom-sheet/index': 'src/components/bottom-sheet/index.ts',
@@ -13,13 +14,19 @@ const entries = {
   'components/card/index': 'src/components/card/index.ts',
   'components/checkbox/index': 'src/components/checkbox/index.ts',
   'components/chip/index': 'src/components/chip/index.ts',
+  'components/close-button/index': 'src/components/close-button/index.ts',
+  'components/combobox/index': 'src/components/combobox/index.ts',
   'components/dialog/index': 'src/components/dialog/index.ts',
   'components/divider/index': 'src/components/divider/index.ts',
   'components/field-group/index': 'src/components/field-group/index.ts',
   'components/input-otp/index': 'src/components/input-otp/index.ts',
+  'components/list/index': 'src/components/list/index.ts',
   'components/menu/index': 'src/components/menu/index.ts',
   'components/popover/index': 'src/components/popover/index.ts',
+  'components/progress-bar/index': 'src/components/progress-bar/index.ts',
+  'components/progress-circle/index': 'src/components/progress-circle/index.ts',
   'components/radio/index': 'src/components/radio/index.ts',
+  'components/segment/index': 'src/components/segment/index.ts',
   'components/select/index': 'src/components/select/index.ts',
   'components/skeleton/index': 'src/components/skeleton/index.ts',
   'components/slider/index': 'src/components/slider/index.ts',
@@ -34,6 +41,7 @@ const entries = {
   'components/toast/index': 'src/components/toast/index.ts',
   'components/typography/index': 'src/components/typography/index.ts',
   'components/view/index': 'src/components/view/index.ts',
+  'components/wheel-picker/index': 'src/components/wheel-picker/index.ts',
   'system/index': 'src/system/index.ts',
   'theme/index': 'src/theme/index.ts',
 }
@@ -62,7 +70,16 @@ export default defineConfig({
    * whatever is already there rather than in place of it.
    */
   clean: true,
-  dts: true,
+  /**
+   * **No `dts` on purpose — do not add it back.** `tsup`'s declaration build rolls every
+   * entry up in one `rollup-plugin-dts` worker that holds the package's whole type graph at
+   * once, and that worker ran the process out of heap (`ERR_WORKER_OUT_OF_MEMORY`, no file
+   * named) once the component count crossed Node's default 4288 MB. Declarations now come
+   * from `tsc --emitDeclarationOnly` in `package.json`'s `build` — a file-by-file emit with
+   * no rollup pass — and `tooling/dual-dts` mirrors each `.d.ts` to the `.d.cts` the
+   * `require` condition needs. Re-adding `dts` here brings the single-worker rollup, and the
+   * OOM, straight back.
+   */
   splitting: true,
   target: 'es2020',
   external: [

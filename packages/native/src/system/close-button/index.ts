@@ -1,4 +1,4 @@
-export { CloseButton } from './close-button'
-export { closeButtonBase } from './close-button.recipe'
+export { CloseButtonBase } from './close-button'
+export { closeButtonGeometry } from './close-button.recipe'
 export type { CloseButtonSlots } from './close-button.recipe'
-export type { CloseButtonProps } from './close-button.type'
+export type { CloseButtonBaseProps } from './close-button.type'
