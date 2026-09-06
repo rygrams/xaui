@@ -1,36 +1,31 @@
-import { useEffect } from 'react'
-import Animated, {
-  interpolate,
-  useAnimatedStyle,
-  useSharedValue,
-  withSpring,
-} from 'react-native-reanimated'
-import { INDICATOR_ROTATION, INDICATOR_SPRING } from '../../system/anchored'
-import { ChevronDownIcon, Icon } from '../../system/icon'
+import { View } from 'react-native'
+import type { ComponentType } from 'react'
+import { Icon } from '../../system/icon'
+import type { IconComponentProps } from '../../system/icon'
 import { useDatePicker } from './date-picker.context'
+import { CalendarGlyphIcon } from './calendar-glyph-icon'
 
-/** The chevron, turning with the panel — the `Select`'s, on the same spring. */
-export function DatePickerIndicator(props: { as?: typeof ChevronDownIcon }) {
-  const { as = ChevronDownIcon } = props
-  const { indicatorStyle, isOpen } = useDatePicker()
-  const progress = useSharedValue(isOpen ? 1 : 0)
-
-  useEffect(() => {
-    progress.set(withSpring(isOpen ? 1 : 0, INDICATOR_SPRING))
-  }, [isOpen, progress])
-
-  const rotation = useAnimatedStyle(() => ({
-    transform: [
-      {
-        rotate: `${interpolate(progress.get(), [0, 1], [INDICATOR_ROTATION[0], INDICATOR_ROTATION[1]])}deg`,
-      },
-    ],
-  }))
+/**
+ * The calendar mark on the field.
+ *
+ * It does **not** turn with the panel the way a `Select`'s chevron does: a chevron rotates
+ * because it points at where the list will appear, and a calendar glyph points nowhere. The
+ * field's `accessibilityState.expanded` is what says the panel is open; the mark just says
+ * the field is a date.
+ *
+ * `as` swaps the glyph — pass `ChevronDownIcon` back for the select-style affordance, or any
+ * icon of your own.
+ */
+export function DatePickerIndicator(props: {
+  as?: ComponentType<IconComponentProps>
+}) {
+  const { as = CalendarGlyphIcon } = props
+  const { indicatorStyle } = useDatePicker()
 
   return (
-    <Animated.View style={[indicatorStyle, rotation]}>
+    <View style={indicatorStyle}>
       <Icon as={as} />
-    </Animated.View>
+    </View>
   )
 }
 

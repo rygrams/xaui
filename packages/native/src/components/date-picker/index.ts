@@ -15,6 +15,7 @@ export const DatePicker = Object.assign(DatePickerRoot, {
   Calendar: DatePickerCalendar,
 })
 
+export { CalendarGlyphIcon } from './calendar-glyph-icon'
 export { DatePicker as DatePickerRoot } from './date-picker'
 export { DatePickerCalendar } from './date-picker-calendar'
 export { DatePickerContent } from './date-picker-content'

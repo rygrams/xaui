@@ -30,7 +30,7 @@ import { DatePicker } from '@xaui/native/date-picker'
 | `DatePicker`           | State and resolved style. It renders no node |
 | `DatePicker.Trigger`   | The control — the field the user sees        |
 | `DatePicker.Value`     | The chosen day, or the placeholder           |
-| `DatePicker.Indicator` | The chevron, turning with the panel          |
+| `DatePicker.Indicator` | The calendar glyph on the field              |
 | `DatePicker.Overlay`   | The backdrop. Optional                       |
 | `DatePicker.Content`   | The panel                                    |
 | `DatePicker.Calendar`  | The month, bound to the picker               |
