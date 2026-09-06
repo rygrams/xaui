@@ -26,6 +26,7 @@ const SCREENS = [
   { href: '/checkbox', label: 'Checkbox' },
   { href: '/chip', label: 'Chip' },
   { href: '/date-picker', label: 'DatePicker' },
+  { href: '/date-range-picker', label: 'DateRangePicker' },
   { href: '/dialog', label: 'Dialog' },
   { href: '/divider', label: 'Divider' },
   { href: '/field-group', label: 'FieldGroup' },

@@ -137,6 +137,16 @@
         "default": "./dist/components/date-picker/index.cjs"
       }
     },
+    "./date-range-picker": {
+      "import": {
+        "types": "./dist/components/date-range-picker/index.d.ts",
+        "default": "./dist/components/date-range-picker/index.js"
+      },
+      "require": {
+        "types": "./dist/components/date-range-picker/index.d.cts",
+        "default": "./dist/components/date-range-picker/index.cjs"
+      }
+    },
     "./dialog": {
       "import": {
         "types": "./dist/components/dialog/index.d.ts",
@@ -205,6 +215,16 @@
       "require": {
         "types": "./dist/components/radio/index.d.cts",
         "default": "./dist/components/radio/index.cjs"
+      }
+    },
+    "./range-calendar": {
+      "import": {
+        "types": "./dist/components/range-calendar/index.d.ts",
+        "default": "./dist/components/range-calendar/index.js"
+      },
+      "require": {
+        "types": "./dist/components/range-calendar/index.d.cts",
+        "default": "./dist/components/range-calendar/index.cjs"
       }
     },
     "./select": {
@@ -382,7 +402,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "rm -rf dist && tsup --config tsup.config.ts && node ../../tooling/workletize/workletize.mjs dist",
+    "build": "rm -rf dist && NODE_OPTIONS=--max-old-space-size=8192 tsup --config tsup.config.ts && node ../../tooling/workletize/workletize.mjs dist",
     "dev": "tsup --config tsup.config.ts --watch",
     "test": "vitest",
     "lint": "eslint src/",
