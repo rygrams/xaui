@@ -124,6 +124,17 @@ export type AgendaCalendarDayProps = AgendaCalendarDayOwnProps &
 type AgendaCalendarWeekOwnProps = {
   /** The `Calendar.Grid`'s escape hatch, for the same reason: seven cells from a date. */
   children?: ReactNode | ((date: Date) => ReactNode)
+  /**
+   * A horizontal drag on the strip pages the week — left for the next, right for the
+   * previous — so the chevrons are a shortcut rather than the only way. Set `false` to turn
+   * it off.
+   *
+   * It runs on `react-native-gesture-handler`, an **optional** peer of this package: turning
+   * this on is what pulls it in, so a `<GestureHandlerRootView>` has to be above the strip.
+   *
+   * @default true
+   */
+  swipeable?: boolean
 }
 
 export type AgendaCalendarWeekProps = AgendaCalendarWeekOwnProps &

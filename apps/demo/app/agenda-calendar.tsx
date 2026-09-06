@@ -47,8 +47,11 @@ export default function AgendaCalendarScreen() {
         title="Today, in one press"
         note="It brings today's week on screen, closes any picker, and chooses today. It goes dead only when there is nothing left to do: today's week showing, the strip in view, today selected. Page away or pick another day and it lights again."
       >
-        <AgendaCalendar defaultValue={new Date(2026, 8, 20)} events={EVENTS}>
-          <Head />
+        <AgendaCalendar
+          defaultValue={new Date(2026, 8, 20)}
+          events={EVENTS}
+          locale="fr"
+        >
           <AgendaCalendar.Weekdays />
           <AgendaCalendar.Week />
         </AgendaCalendar>
@@ -182,7 +185,7 @@ function Week() {
   return (
     <Section
       title="One week, and what is on it"
-      note="A strip of seven numbers is a date picker; a strip with marks under some of them is an agenda. Page weeks with the chevrons: the line below does not move until you press a day."
+      note="A strip of seven numbers is a date picker; a strip with marks under some of them is an agenda. Page weeks with the chevrons or by dragging the strip sideways — left for the next, right for the previous. The line below does not move until you press a day."
     >
       <AgendaCalendar value={day} onValueChange={setDay} events={EVENTS}>
         <Head />

@@ -8,6 +8,10 @@ One week, and what is on it.
 import { AgendaCalendar } from '@xaui/native/agenda-calendar'
 ```
 
+`AgendaCalendar.Week` pages on a horizontal drag, which runs on `react-native-gesture-handler`
+— an **optional** peer of this package. Leaving that default on needs the library installed
+and a `<GestureHandlerRootView>` above the strip; `swipeable={false}` removes both.
+
 ## Anatomy
 
 ```tsx
@@ -77,6 +81,17 @@ belonging to next month would be greying out days it is showing.
 
 Only `minValue` / `maxValue` make a day inert. The chevrons go dead when the week they would
 reach has no selectable day in it — the `Calendar`'s rule, one unit down.
+
+## Swipe to page the week
+
+A horizontal drag on `AgendaCalendar.Week` turns the week — **left for the next, right for
+the previous** — so the chevrons are a shortcut rather than the only way. The strip follows
+the finger a little and springs back; past ~48pt, or a fast flick, the week changes. A drag
+that would land on a week with no selectable day does nothing, exactly like the dead chevron.
+
+A tap on a day never starts a drag, and a vertical drag is handed straight back to whatever
+scrolls the page. `swipeable={false}` turns the gesture off — and with it the
+`react-native-gesture-handler` requirement.
 
 ## The week and the day are two pieces of state
 
@@ -210,6 +225,12 @@ Everything `View` accepts, every `ViewStyle` key it does not already claim (R14)
 | `locale`         | `string`                          | the device's |                              |
 | `isDisabled`     | `boolean`                         | `false`      |                              |
 | `asChild`        | `boolean`                         | `false`      |                              |
+
+### `AgendaCalendar.Week`
+
+`children` (a node or a `(date) => node` function), plus `swipeable` (`@default true`) —
+the horizontal drag that pages the week — and everything `View` takes with the `ViewStyle`
+keys as props (R14).
 
 ### `AgendaCalendar.Day`
 
