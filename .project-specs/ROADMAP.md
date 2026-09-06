@@ -124,7 +124,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.26e | `DateRangePicker` — net new, two bounds over the `DatePicker`                     | todo    |
 | P5.26f | `DateTimePicker` — net new, `DatePicker` and `TimePicker` as one                  | todo    |
 | P5.26g | `RangeCalendar` — net new, the `Calendar` behind `DateRangePicker`                | todo    |
-| P5.27  | `TimePicker`                                                                      | todo    |
+| P5.27  | `TimePicker` — a Select trigger, a sheet and a clock face                         | done    |
 | P5.28  | `ColorPicker`                                                                     | todo    |
 | P5.29  | `Carousel`                                                                        | todo    |
 | P5.30  | `Pager`                                                                           | todo    |
