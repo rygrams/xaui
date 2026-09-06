@@ -12,6 +12,7 @@ import {
   pointScale,
 } from '../../utils/chart-scale'
 import { useChartInk } from './chart.hook'
+import { useOptionalChart } from './chart.context'
 import type { Span } from '../../utils/chart-scale'
 import type { ChartDatum, ChartPlot, ChartPlotProps } from './chart.type'
 
@@ -67,7 +68,7 @@ export const ChartPlotRoot = forwardRef(function ChartPlot<
     xKey,
     yKeys,
     variant,
-    size = 'md',
+    size,
     color,
     hasGrid = true,
     hasXAxis = true,
@@ -88,11 +89,15 @@ export const ChartPlotRoot = forwardRef(function ChartPlot<
   ref: ForwardedRef<View>
 ) {
   const [styleProps, rest] = useStyleProps(props)
+  // `null` outside a frame, which is a valid arrangement rather than a misplaced slot: a
+  // figure on its own is the shape all five shipped as. The frame's values are defaults and
+  // the figure's own win — a uniform card is the common case, and the exception is a design.
+  const frame = useOptionalChart()
   const { styles, ink, colors } = useChartInk({
-    variant,
-    size,
-    color,
-    isDisabled,
+    variant: variant ?? frame?.variant,
+    size: size ?? frame?.size ?? 'md',
+    color: color ?? frame?.color,
+    isDisabled: isDisabled || (frame?.isDisabled ?? false),
     count: yKeys.length,
   })
 
@@ -180,7 +185,7 @@ export const ChartPlotRoot = forwardRef(function ChartPlot<
       ref={ref}
       {...rest}
       onLayout={handleLayout}
-      style={[styles.root, styleProps, style]}
+      style={[styles.plot, styleProps, style]}
     >
       {plot === null ? null : (
         <>

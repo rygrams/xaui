@@ -4,7 +4,7 @@ import { Circle, Line, Path, Svg } from 'react-native-svg'
 import { useStyleProps } from '../../system/style-props'
 import { useXAUITheme } from '../../theme/theme-hooks'
 import { polarPoint, polygonPath } from '../../utils/chart-path'
-import { useChartInk } from '../chart'
+import { useChartInk, useOptionalChart } from '../chart'
 import type { ChartDatum } from '../chart'
 import { DIAMETERS, radarChartRecipe } from './radar-chart.recipe'
 import type { RadarChartProps } from './radar-chart.type'
@@ -78,11 +78,12 @@ export function RadarChart<
 }: RadarChartProps<Data, AK, YK>) {
   const theme = useXAUITheme()
   const [styleProps, rest] = useStyleProps(props)
+  const frame = useOptionalChart()
   const { ink, colors } = useChartInk({
-    variant,
+    variant: variant ?? frame?.variant,
     size,
-    color,
-    isDisabled,
+    color: color ?? frame?.color,
+    isDisabled: isDisabled || (frame?.isDisabled ?? false),
     count: yKeys.length,
   })
 

@@ -1,11 +1,34 @@
 import type { ReactNode } from 'react'
-import type { StyleProp, TextStyle, ViewProps, ViewStyle } from 'react-native'
-import type { ViewStyleProps } from '../../system/style-props'
+import type {
+  StyleProp,
+  TextProps,
+  TextStyle,
+  ViewProps,
+  ViewStyle,
+} from 'react-native'
+import type { AsChildProps } from '../../system/slot'
+import type { TextStyleProps, ViewStyleProps } from '../../system/style-props'
 import type { Size } from '../../theme/theme.type'
 import type { Curve } from '../../utils/chart-path'
 import type { Point, Span } from '../../utils/chart-scale'
 
-export type ChartSlot = 'root' | 'label' | 'grid' | 'axis'
+export type ChartSlot =
+  | 'root'
+  | 'ink'
+  | 'plot'
+  | 'label'
+  | 'grid'
+  | 'axis'
+  | 'header'
+  | 'heading'
+  | 'footer'
+  | 'title'
+  | 'description'
+  | 'value'
+  | 'legend'
+  | 'legendItem'
+  | 'legendDot'
+  | 'legendLabel'
 
 /**
  * The `ProgressBar`'s five, for the `ProgressBar`'s reasons: a chart reports a quantity, so
@@ -140,6 +163,61 @@ export type ChartSeriesProps<
   XK extends keyof Data & string,
   YK extends keyof Data & string,
 > = Omit<ChartPlotProps<Data, XK, YK>, 'children' | 'spacing' | 'bandPadding'>
+
+type ChartFrameOwnProps = {
+  variant?: ChartVariant
+  /** The figure's height, its type, and the type in the words around it. */
+  size?: ChartSize
+  /** A raw tint (R7). The palette the figure and the legend both read. */
+  color?: string
+  /**
+   * How many series the figure inside draws.
+   *
+   * The frame cannot count them — it has not rendered the figure, and the keys are that
+   * figure's props — and a legend needs the palette walked to the right length or its third
+   * dot is the wrong colour. It is the one number a frame asks for.
+   */
+  seriesCount?: number
+  isDisabled?: boolean
+  style?: StyleProp<ViewStyle>
+  children?: ReactNode
+}
+
+/** R14 — the frame's own props, `View`'s, and every `ViewStyle` key neither claims. */
+export type ChartFrameProps = ChartFrameOwnProps &
+  AsChildProps &
+  Omit<ViewProps, keyof ChartFrameOwnProps> &
+  Omit<ViewStyleProps, keyof ChartFrameOwnProps | keyof ViewProps>
+
+/** `View`'s own props win over the `ViewStyle` keys of the same name (R14). */
+export type ChartViewSlotProps = ViewProps &
+  Omit<ViewStyleProps, keyof ViewProps> & { children?: ReactNode }
+
+/** `Text`'s own props win over the `TextStyle` keys of the same name (R14). */
+export type ChartTextSlotProps = TextProps &
+  Omit<TextStyleProps, keyof TextProps> & { children?: ReactNode }
+
+type ChartLegendOwnProps = {
+  /** The short form: one entry per label, coloured in palette order. */
+  labels?: ReadonlyArray<string>
+  children?: ReactNode
+}
+
+export type ChartLegendProps = ChartLegendOwnProps &
+  Omit<ViewProps, keyof ChartLegendOwnProps> &
+  Omit<ViewStyleProps, keyof ChartLegendOwnProps | keyof ViewProps>
+
+type ChartLegendItemOwnProps = {
+  /** Which series it stands for — the index the figure walked its `yKeys` in. */
+  index?: number
+  /** A colour of its own, for an entry the palette does not cover. */
+  color?: string
+  children?: ReactNode
+}
+
+export type ChartLegendItemProps = ChartLegendItemOwnProps &
+  Omit<ViewProps, keyof ChartLegendItemOwnProps> &
+  Omit<ViewStyleProps, keyof ChartLegendItemOwnProps | keyof ViewProps>
 
 /** The resolved values the plot paints with. SVG takes colours as props, not as styles. */
 export type ChartInk = {

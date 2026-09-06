@@ -1,6 +1,7 @@
 import { ScrollView, Text, View } from 'react-native'
 import { AreaChart } from '@xaui/native/area-chart'
 import { BarChart } from '@xaui/native/bar-chart'
+import { Chart } from '@xaui/native/chart'
 import type { ChartVariant } from '@xaui/native/chart'
 import { LineChart } from '@xaui/native/line-chart'
 import { PieChart } from '@xaui/native/pie-chart'
@@ -137,8 +138,7 @@ export default function ChartsScreen() {
         title="LineChart — a shade per series, not a colour per series"
         note="A chart's series are usually one quantity split, so shades of one colour say “parts of a whole” where a rainbow says “unrelated things”. A caller changing the accent changes the whole chart with it."
       >
-        <Card title="Source du trafic">
-          <Legend labels={['Organique', 'Payant']} />
+        <Card title="Source du trafic" legend={['Organique', 'Payant']}>
           <LineChart
             data={TRAFFIC}
             xKey="month"
@@ -146,6 +146,25 @@ export default function ChartsScreen() {
             formatY={value => `${Math.round(value / 1000)}k`}
           />
         </Card>
+        <Chart seriesCount={1}>
+          <Chart.Header>
+            <Chart.Heading>
+              <Chart.Description>Solde total</Chart.Description>
+              <Chart.Value>24 801,32 €</Chart.Value>
+            </Chart.Heading>
+          </Chart.Header>
+          <LineChart
+            data={TRAFFIC}
+            xKey="month"
+            yKeys={['organic']}
+            hasGrid={false}
+            hasXAxis={false}
+            hasYAxis={false}
+          />
+          <Chart.Footer>
+            <Chart.Description>Douze derniers mois</Chart.Description>
+          </Chart.Footer>
+        </Chart>
         <Card title="Sans axes ni grille">
           <LineChart
             data={TRAFFIC}
@@ -190,7 +209,7 @@ export default function ChartsScreen() {
         title="PieChart — the whole, and its parts"
         note="innerRadius is a fraction, not points: the hole stays in proportion at every size. What sits in it is React Native rather than SVG — a Text in the middle of a ring is a Text, and takes the theme's font."
       >
-        <Card title="Appareils connectés">
+        <Card title="Appareils connectés" seriesCount={DEVICES.length}>
           <PieChart data={DEVICES} labelKey="device" valueKey="count">
             <Text
               style={{
@@ -207,7 +226,15 @@ export default function ChartsScreen() {
               Appareils
             </Text>
           </PieChart>
-          <Legend labels={DEVICES.map(row => row.device)} />
+          <Chart.Footer>
+            <Chart.Legend>
+              {DEVICES.map((row, index) => (
+                <Chart.LegendItem key={row.device} index={index}>
+                  {`${row.device} — ${row.count.toLocaleString('fr-FR')}`}
+                </Chart.LegendItem>
+              ))}
+            </Chart.Legend>
+          </Chart.Footer>
         </Card>
         <Card title="Sans trou, et sans écart">
           <PieChart
@@ -233,8 +260,7 @@ export default function ChartsScreen() {
         title="RadarChart — several quantities at once"
         note="The data is transposed: a row is an axis, not a reading along one. The vertices are the axes, so the edges are always straight — a curve between two of them would draw a reading on an axis that does not exist."
       >
-        <Card title="Profils">
-          <Legend labels={['Alice', 'Bob']} />
+        <Card title="Profils" legend={['Alice', 'Bob']}>
           <RadarChart
             data={SKILLS}
             axisKey="skill"
@@ -298,62 +324,40 @@ export default function ChartsScreen() {
   )
 }
 
-/** The ground a chart is read against. The charts draw none of their own. */
-function Card({ title, children }: { title: string; children: React.ReactNode }) {
-  const theme = useXAUITheme()
-
-  return (
-    <View
-      style={{
-        backgroundColor: theme.colors.surface,
-        borderRadius: theme.radius['2xl'],
-        padding: 16,
-        gap: 12,
-      }}
-    >
-      <Text
-        style={{
-          color: theme.colors.foreground,
-          fontSize: theme.fontSizes.md,
-          fontWeight: theme.fontWeights.semibold,
-        }}
-      >
-        {title}
-      </Text>
-      {children}
-    </View>
-  )
-}
-
 /**
- * The legend is the caller's, deliberately: which series a dot stands for is a sentence in
- * the caller's language, and the palette is the one thing they need from the chart.
+ * The frame, with the title the demo gives it. Every card on this screen is a real
+ * `Chart` — the local one this screen used to carry is exactly what the component replaced.
  */
-function Legend({ labels }: { labels: string[] }) {
-  const theme = useXAUITheme()
-
+function Card({
+  title,
+  description,
+  legend,
+  seriesCount,
+  children,
+  ...props
+}: {
+  title: string
+  description?: string
+  legend?: string[]
+  seriesCount?: number
+  children: React.ReactNode
+  variant?: ChartVariant
+  color?: string
+  isDisabled?: boolean
+}) {
   return (
-    <View style={{ flexDirection: 'row', gap: 16, flexWrap: 'wrap' }}>
-      {labels.map((label, index) => (
-        <View
-          key={label}
-          style={{ flexDirection: 'row', alignItems: 'center', gap: 6 }}
-        >
-          <View
-            style={{
-              width: 8,
-              height: 8,
-              borderRadius: 4,
-              backgroundColor: theme.colors.accent,
-              opacity: 1 - index * 0.3,
-            }}
-          />
-          <Text style={{ color: theme.colors.muted, fontSize: theme.fontSizes.sm }}>
-            {label}
-          </Text>
-        </View>
-      ))}
-    </View>
+    <Chart seriesCount={seriesCount ?? legend?.length ?? 1} {...props}>
+      <Chart.Header>
+        <Chart.Heading>
+          <Chart.Title>{title}</Chart.Title>
+          {description === undefined ? null : (
+            <Chart.Description>{description}</Chart.Description>
+          )}
+        </Chart.Heading>
+        {legend === undefined ? null : <Chart.Legend labels={legend} />}
+      </Chart.Header>
+      {children}
+    </Chart>
   )
 }
 
