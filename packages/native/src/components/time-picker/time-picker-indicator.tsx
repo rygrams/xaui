@@ -1,6 +1,5 @@
 import { View } from 'react-native'
-import { Icon } from '../../system/icon'
-import { useTimePicker } from './time-picker.context'
+import { Icon, useIconContext } from '../../system/icon'
 import type { IconProps } from '../../system/icon'
 
 /** The two hands of the built-in clock, at ten past ten — where a clock is always drawn. */
@@ -18,9 +17,13 @@ const MINUTE_ANGLE = '60deg'
  * Every measurement is a fraction of the size the field chose, which reaches here through
  * `IconContext` — so an `Icon` passed instead takes the same size and colour without being
  * told either.
+ *
+ * **It reads that context rather than the picker's**, which is what lets another field render
+ * it: `DateTimePicker.Indicator` is this component, because the two fields do the same thing
+ * and a second clock glyph would be a second thing to keep in step with the first.
  */
 export function TimePickerIndicator(props: IconProps) {
-  const { glyph } = useTimePicker()
+  const glyph = useIconContext()
 
   if (props.as || props.children || props.source) return <Icon {...props} />
 

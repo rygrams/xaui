@@ -14,6 +14,7 @@ const entries = {
   'components/chip/index': 'src/components/chip/index.ts',
   'components/date-field/index': 'src/components/date-field/index.ts',
   'components/date-picker/index': 'src/components/date-picker/index.ts',
+  'components/date-time-picker/index': 'src/components/date-time-picker/index.ts',
   'components/dialog/index': 'src/components/dialog/index.ts',
   'components/divider/index': 'src/components/divider/index.ts',
   'components/field-group/index': 'src/components/field-group/index.ts',

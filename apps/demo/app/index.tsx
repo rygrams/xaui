@@ -27,6 +27,7 @@ const SCREENS = [
   { href: '/chip', label: 'Chip' },
   { href: '/date-field', label: 'DateField' },
   { href: '/date-picker', label: 'DatePicker' },
+  { href: '/date-time-picker', label: 'DateTimePicker' },
   { href: '/dialog', label: 'Dialog' },
   { href: '/divider', label: 'Divider' },
   { href: '/field-group', label: 'FieldGroup' },

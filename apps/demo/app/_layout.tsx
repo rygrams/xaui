@@ -35,6 +35,10 @@ export default function RootLayout() {
           <Stack.Screen name="chip" options={{ title: 'Chip (v1)' }} />
           <Stack.Screen name="date-field" options={{ title: 'DateField (v1)' }} />
           <Stack.Screen name="date-picker" options={{ title: 'DatePicker (v1)' }} />
+          <Stack.Screen
+            name="date-time-picker"
+            options={{ title: 'DateTimePicker (v1)' }}
+          />
           <Stack.Screen name="dialog" options={{ title: 'Dialog (v1)' }} />
           <Stack.Screen name="divider" options={{ title: 'Divider (v1)' }} />
           <Stack.Screen name="field-group" options={{ title: 'FieldGroup (v1)' }} />
