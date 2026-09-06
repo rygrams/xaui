@@ -17,6 +17,7 @@ import { useXAUITheme } from '@xaui/native/theme'
 const SCREENS = [
   { href: '/accordion', label: 'Accordion' },
   { href: '/alert', label: 'Alert' },
+  { href: '/agenda-calendar', label: 'AgendaCalendar' },
   { href: '/autocomplete', label: 'Autocomplete' },
   { href: '/avatar', label: 'Avatar' },
   { href: '/badge', label: 'Badge' },

@@ -23,6 +23,10 @@ export default function RootLayout() {
           <Stack.Screen name="accordion" options={{ title: 'Accordion (v1)' }} />
           <Stack.Screen name="alert" options={{ title: 'Alert (v1)' }} />
           <Stack.Screen
+            name="agenda-calendar"
+            options={{ title: 'AgendaCalendar (v1)' }}
+          />
+          <Stack.Screen
             name="autocomplete"
             options={{ title: 'Autocomplete (v1)' }}
           />
