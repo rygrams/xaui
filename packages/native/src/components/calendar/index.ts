@@ -24,7 +24,7 @@ export { CalendarNextButton, CalendarPreviousButton } from './calendar-nav-butto
 export { CalendarTitle } from './calendar-title'
 export { CalendarWeekdays } from './calendar-weekdays'
 export { useCalendar } from './calendar.context'
-export { calendarRecipe } from './calendar.recipe'
+export { calendarRecipe, SIZES as calendarCellSizes } from './calendar.recipe'
 export type {
   CalendarContextValue,
   CalendarDayProps,
