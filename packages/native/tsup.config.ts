@@ -62,6 +62,19 @@ export default defineConfig({
    * whatever is already there rather than in place of it.
    */
   clean: true,
+  /**
+   * **Needs the heap the `build` script hands it.** The declarations are rolled up for all
+   * thirty-five entries in one worker thread, and that worker holds the whole type graph of
+   * the package at once — every component's props, and `react-native`'s `.d.ts` under them.
+   * It crossed Node's default 4288 MB somewhere around the component that made this comment
+   * necessary, and the worker does not fail gracefully: the JS build reports success, then
+   * `ERR_WORKER_OUT_OF_MEMORY` takes the process down with an error that names no file.
+   *
+   * So `package.json`'s `build` sets `--max-old-space-size=6144` — which is why running
+   * `tsup` here by hand can still die where `pnpm build` does not. It is a ceiling raised,
+   * not a cure: the cure is to stop bundling thirty-five entry points of declarations in one
+   * pass, and that is a change to how this package emits types rather than a flag.
+   */
   dts: true,
   splitting: true,
   target: 'es2020',
