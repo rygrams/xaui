@@ -47,6 +47,16 @@
         "default": "./dist/components/alert/index.cjs"
       }
     },
+    "./area-chart": {
+      "import": {
+        "types": "./dist/components/area-chart/index.d.ts",
+        "default": "./dist/components/area-chart/index.js"
+      },
+      "require": {
+        "types": "./dist/components/area-chart/index.d.cts",
+        "default": "./dist/components/area-chart/index.cjs"
+      }
+    },
     "./avatar": {
       "import": {
         "types": "./dist/components/avatar/index.d.ts",
@@ -65,6 +75,16 @@
       "require": {
         "types": "./dist/components/badge/index.d.cts",
         "default": "./dist/components/badge/index.cjs"
+      }
+    },
+    "./bar-chart": {
+      "import": {
+        "types": "./dist/components/bar-chart/index.d.ts",
+        "default": "./dist/components/bar-chart/index.js"
+      },
+      "require": {
+        "types": "./dist/components/bar-chart/index.d.cts",
+        "default": "./dist/components/bar-chart/index.cjs"
       }
     },
     "./bottom-sheet": {
@@ -95,6 +115,16 @@
       "require": {
         "types": "./dist/components/card/index.d.cts",
         "default": "./dist/components/card/index.cjs"
+      }
+    },
+    "./chart": {
+      "import": {
+        "types": "./dist/components/chart/index.d.ts",
+        "default": "./dist/components/chart/index.js"
+      },
+      "require": {
+        "types": "./dist/components/chart/index.d.cts",
+        "default": "./dist/components/chart/index.cjs"
       }
     },
     "./checkbox": {
@@ -157,6 +187,16 @@
         "default": "./dist/components/input-otp/index.cjs"
       }
     },
+    "./line-chart": {
+      "import": {
+        "types": "./dist/components/line-chart/index.d.ts",
+        "default": "./dist/components/line-chart/index.js"
+      },
+      "require": {
+        "types": "./dist/components/line-chart/index.d.cts",
+        "default": "./dist/components/line-chart/index.cjs"
+      }
+    },
     "./menu": {
       "import": {
         "types": "./dist/components/menu/index.d.ts",
@@ -167,6 +207,16 @@
         "default": "./dist/components/menu/index.cjs"
       }
     },
+    "./pie-chart": {
+      "import": {
+        "types": "./dist/components/pie-chart/index.d.ts",
+        "default": "./dist/components/pie-chart/index.js"
+      },
+      "require": {
+        "types": "./dist/components/pie-chart/index.d.cts",
+        "default": "./dist/components/pie-chart/index.cjs"
+      }
+    },
     "./popover": {
       "import": {
         "types": "./dist/components/popover/index.d.ts",
@@ -175,6 +225,16 @@
       "require": {
         "types": "./dist/components/popover/index.d.cts",
         "default": "./dist/components/popover/index.cjs"
+      }
+    },
+    "./radar-chart": {
+      "import": {
+        "types": "./dist/components/radar-chart/index.d.ts",
+        "default": "./dist/components/radar-chart/index.js"
+      },
+      "require": {
+        "types": "./dist/components/radar-chart/index.d.cts",
+        "default": "./dist/components/radar-chart/index.cjs"
       }
     },
     "./radio": {
@@ -362,7 +422,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "rm -rf dist && tsup --config tsup.config.ts && node ../../tooling/workletize/workletize.mjs dist",
+    "build": "rm -rf dist && NODE_OPTIONS=--max-old-space-size=6144 tsup --config tsup.config.ts && node ../../tooling/workletize/workletize.mjs dist",
     "dev": "tsup --config tsup.config.ts --watch",
     "test": "vitest",
     "lint": "eslint src/",

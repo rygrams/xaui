@@ -129,13 +129,13 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.31  | `RefreshControl`                                                                 | todo    |
 | P5.32  | `InputTrigger`                                                                   | todo    |
 | P5.33  | `FeatureDiscovery`                                                               | todo    |
-| P5.34  | `BarChart` — over legacy `VerticalBarChartCard`                                  | todo    |
-| P5.34b | `AreaChart` — net new, no legacy equivalent                                      | todo    |
+| P5.34  | `BarChart` — grouped or stacked, drawn on `react-native-svg`                     | done    |
+| P5.34b | `AreaChart` — net new, the `LineChart` with the ground under it filled           | done    |
 | P5.34c | `Chart` — Donut and Heatmap, the legacy cards left over                          | todo    |
 | P5.34d | `ComposedChart` — net new, several series on shared axes                         | todo    |
-| P5.34e | `LineChart` — over legacy `LineChartCard`                                        | todo    |
-| P5.34f | `PieChart` — over legacy `PieChartCard`                                          | todo    |
-| P5.34g | `RadarChart` — net new, no legacy equivalent                                     | todo    |
+| P5.34e | `LineChart` — over legacy `LineChartCard`, on a monotone curve                   | done    |
+| P5.34f | `PieChart` — over legacy `PieChartCard`, pie and donut                           | done    |
+| P5.34g | `RadarChart` — net new, several quantities each on its own axis                  | done    |
 | P5.34h | `RadialChart` — net new, no legacy equivalent                                    | todo    |
 | P5.35  | `CloseButton` — net new, the dismiss affordance Chip and Alert inline today      | todo    |
 | P5.35b | `LinkButton` — net new, a `Button` that reads as a link                          | todo    |
