@@ -26,6 +26,7 @@ const SCREENS = [
   { href: '/chip', label: 'Chip' },
   { href: '/dialog', label: 'Dialog' },
   { href: '/divider', label: 'Divider' },
+  { href: '/empty-state', label: 'EmptyState' },
   { href: '/field-group', label: 'FieldGroup' },
   { href: '/icon', label: 'Icon' },
   { href: '/input-otp', label: 'InputOTP' },

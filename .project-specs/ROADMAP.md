@@ -144,7 +144,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.35e | `SocialAuthButton` — net new, provider marks over the `Button`                   | todo    |
 | P5.35f | `ToggleButton` — net new, a `Button` that holds a pressed state                  | todo    |
 | P5.35g | `ToggleButtonGroup` — net new, exclusive selection over `ToggleButton`           | todo    |
-| P5.36  | `EmptyState` — net new, no legacy equivalent                                     | todo    |
+| P5.36  | `EmptyState` — net new, no legacy equivalent                                     | done    |
 | P5.37  | `FlipCard` — net new, a `Card` with two faces                                    | todo    |
 | P5.38  | `RadioGroup` — over legacy `RadioGroup`, the context P3.9 `Radio` lacks          | todo    |
 | P5.38b | `RadioButton` — net new, to reconcile with P3.9 `Radio`                          | todo    |
