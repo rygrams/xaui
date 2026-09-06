@@ -26,9 +26,9 @@ const SLOTS = ['root', 'band', 'column', 'item', 'itemSelected'] as const
  */
 const VARIANT_TOKENS: Record<WheelPickerVariant, VariantTokens> = {
   primary: { bg: 'accentSoft', fg: 'accentSoftForeground' },
-  secondary: { bg: 'default', fg: 'defaultForeground' },
-  tertiary: { border: 'border', fg: 'foreground' },
-  ghost: { fg: 'foreground' },
+  secondary: { bg: 'defaultSoft', fg: 'accentSoftForeground' },
+  tertiary: { border: 'border', fg: 'accentSoftForeground' },
+  ghost: { fg: 'accentSoftForeground' },
 }
 
 function sizeAxis(size: WheelPickerSize) {
@@ -87,7 +87,7 @@ export const wheelPickerRecipe = createRecipe({
       borderBottomWidth: colors.border ? theme.borderWidth.default : 0,
     },
     item: { color: theme.colors.foreground },
-    itemSelected: { color: colors.fg },
+    itemSelected: { color: colors.fg, fontWeight: theme.fontWeights.bold },
   }),
 
   variants: {

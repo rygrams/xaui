@@ -6,12 +6,12 @@ import type { WheelPickerSize } from './wheel-picker.type'
  *
  * Off the spacing grid, like the `Slider`'s rail: how tall a row has to be before a list
  * of them reads as a wheel you can aim at has nothing to do with the gaps between things.
- * `md` is iOS's picker row measured — 36 points, which is what puts five of them in the
- * 180 the platform's own wheel is.
+ * `md` sits a little above iOS's own 36-point picker row — the band reads as a target you
+ * aim at rather than a hairline, and a turning row has more room to lean into.
  */
 export const ROWS: Record<WheelPickerSize, { height: number; type: FontSizeKey }> = {
-  sm: { height: 32, type: 'sm' },
-  md: { height: 36, type: 'md' },
+  sm: { height: 36, type: 'sm' },
+  md: { height: 40, type: 'md' },
   lg: { height: 44, type: 'lg' },
 }
 

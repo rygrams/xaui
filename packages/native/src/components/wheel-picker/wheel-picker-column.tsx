@@ -173,6 +173,7 @@ export const WheelPickerColumn = forwardRef<ScrollView, WheelPickerColumnProps>(
           showsVerticalScrollIndicator={false}
           // The two together are the snap: `fast` without an interval overshoots by rows,
           // and an interval without `fast` drifts to a stop between two of them.
+          nestedScrollEnabled={true}
           snapToInterval={rowHeight}
           decelerationRate="fast"
           scrollEnabled={!disabled}
