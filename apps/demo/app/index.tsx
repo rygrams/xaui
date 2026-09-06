@@ -17,6 +17,7 @@ import { useXAUITheme } from '@xaui/native/theme'
 const SCREENS = [
   { href: '/accordion', label: 'Accordion' },
   { href: '/alert', label: 'Alert' },
+  { href: '/autocomplete', label: 'Autocomplete' },
   { href: '/avatar', label: 'Avatar' },
   { href: '/badge', label: 'Badge' },
   { href: '/bottom-sheet', label: 'BottomSheet' },
@@ -35,6 +36,7 @@ const SCREENS = [
   { href: '/popover', label: 'Popover' },
   { href: '/pressable-feedback', label: 'PressableFeedback' },
   { href: '/radio', label: 'Radio' },
+  { href: '/segment', label: 'Segment' },
   { href: '/select', label: 'Select' },
   { href: '/skeleton', label: 'Skeleton' },
   { href: '/slider', label: 'Slider' },
