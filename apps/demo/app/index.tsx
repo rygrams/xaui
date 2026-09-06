@@ -33,6 +33,8 @@ const SCREENS = [
   { href: '/menu', label: 'Menu' },
   { href: '/popover', label: 'Popover' },
   { href: '/pressable-feedback', label: 'PressableFeedback' },
+  { href: '/progress-bar', label: 'ProgressBar' },
+  { href: '/progress-circle', label: 'ProgressCircle' },
   { href: '/radio', label: 'Radio' },
   { href: '/select', label: 'Select' },
   { href: '/skeleton', label: 'Skeleton' },

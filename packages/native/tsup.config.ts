@@ -17,6 +17,8 @@ const entries = {
   'components/input-otp/index': 'src/components/input-otp/index.ts',
   'components/menu/index': 'src/components/menu/index.ts',
   'components/popover/index': 'src/components/popover/index.ts',
+  'components/progress-bar/index': 'src/components/progress-bar/index.ts',
+  'components/progress-circle/index': 'src/components/progress-circle/index.ts',
   'components/radio/index': 'src/components/radio/index.ts',
   'components/select/index': 'src/components/select/index.ts',
   'components/skeleton/index': 'src/components/skeleton/index.ts',
