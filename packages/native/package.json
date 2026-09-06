@@ -317,6 +317,16 @@
         "default": "./dist/components/text-field/index.cjs"
       }
     },
+    "./time-field": {
+      "import": {
+        "types": "./dist/components/time-field/index.d.ts",
+        "default": "./dist/components/time-field/index.js"
+      },
+      "require": {
+        "types": "./dist/components/time-field/index.d.cts",
+        "default": "./dist/components/time-field/index.cjs"
+      }
+    },
     "./toast": {
       "import": {
         "types": "./dist/components/toast/index.d.ts",
