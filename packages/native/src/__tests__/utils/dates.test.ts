@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import {
   addDays,
   addMonths,
+  daysInMonth,
   firstDayOfWeekFor,
   isSameDay,
   isSameMonth,
@@ -13,6 +14,21 @@ import {
   weekGrid,
   weekdayNames,
 } from '../../utils/dates'
+
+describe('daysInMonth', () => {
+  it('knows the short months', () => {
+    expect(daysInMonth(2024, 0)).toBe(31)
+    expect(daysInMonth(2024, 3)).toBe(30)
+  })
+
+  it('knows every leap rule, including the century ones', () => {
+    // The two a `% 4` gets wrong: 1900 is not a leap year and 2000 is.
+    expect(daysInMonth(2024, 1)).toBe(29)
+    expect(daysInMonth(2023, 1)).toBe(28)
+    expect(daysInMonth(1900, 1)).toBe(28)
+    expect(daysInMonth(2000, 1)).toBe(29)
+  })
+})
 
 describe('startOfDay', () => {
   it('drops the time', () => {

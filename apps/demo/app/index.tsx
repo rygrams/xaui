@@ -25,6 +25,7 @@ const SCREENS = [
   { href: '/card', label: 'Card' },
   { href: '/checkbox', label: 'Checkbox' },
   { href: '/chip', label: 'Chip' },
+  { href: '/date-field', label: 'DateField' },
   { href: '/date-picker', label: 'DatePicker' },
   { href: '/dialog', label: 'Dialog' },
   { href: '/divider', label: 'Divider' },
@@ -47,6 +48,8 @@ const SCREENS = [
   { href: '/tag-group', label: 'TagGroup' },
   { href: '/text-area', label: 'TextArea' },
   { href: '/text-field', label: 'TextField' },
+  { href: '/time-field', label: 'TimeField' },
+  { href: '/time-picker', label: 'TimePicker' },
   { href: '/toast', label: 'Toast' },
   { href: '/typography', label: 'Typography' },
 ] as const
