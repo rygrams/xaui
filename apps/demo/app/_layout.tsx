@@ -33,6 +33,7 @@ export default function RootLayout() {
             options={{ title: 'BottomSheet (v1)' }}
           />
           <Stack.Screen name="button" options={{ title: 'Button (v1)' }} />
+          <Stack.Screen name="calendar" options={{ title: 'Calendar (v1)' }} />
           <Stack.Screen name="card" options={{ title: 'Card (v1)' }} />
           <Stack.Screen name="checkbox" options={{ title: 'Checkbox (v1)' }} />
           <Stack.Screen name="chip" options={{ title: 'Chip (v1)' }} />

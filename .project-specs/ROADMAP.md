@@ -116,49 +116,51 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.25d | `WheelTimePicker` — net new, `WheelPicker` columns for a time                    | todo    |
 | P5.25e | `WheelDateTimePicker` — net new, the two above as one                            | todo    |
 | P5.26  | `DatePicker`                                                                     | todo    |
-| P5.26b | `Calendar` — net new, no legacy equivalent                                       | todo    |
-| P5.26c | `AgendaCalendar` — net new, the `Calendar` with its events                       | todo    |
-| P5.26d | `DateInput` — over legacy `DateInput`, with `TimeInput` and `DateTimeInput`      | todo    |
-| P5.26e | `DateRangePicker` — net new, two bounds over the `DatePicker`                    | todo    |
-| P5.26f | `DateTimePicker` — net new, `DatePicker` and `TimePicker` as one                 | todo    |
-| P5.26g | `RangeCalendar` — net new, the `Calendar` behind `DateRangePicker`               | todo    |
-| P5.27  | `TimePicker`                                                                     | todo    |
-| P5.28  | `ColorPicker`                                                                    | todo    |
-| P5.29  | `Carousel`                                                                       | todo    |
-| P5.30  | `Pager`                                                                          | todo    |
-| P5.31  | `RefreshControl`                                                                 | todo    |
-| P5.32  | `InputTrigger`                                                                   | todo    |
-| P5.33  | `FeatureDiscovery`                                                               | todo    |
-| P5.34  | `BarChart` — over legacy `VerticalBarChartCard`                                  | todo    |
-| P5.34b | `AreaChart` — net new, no legacy equivalent                                      | todo    |
-| P5.34c | `Chart` — Donut and Heatmap, the legacy cards left over                          | todo    |
-| P5.34d | `ComposedChart` — net new, several series on shared axes                         | todo    |
-| P5.34e | `LineChart` — over legacy `LineChartCard`                                        | todo    |
-| P5.34f | `PieChart` — over legacy `PieChartCard`                                          | todo    |
-| P5.34g | `RadarChart` — net new, no legacy equivalent                                     | todo    |
-| P5.34h | `RadialChart` — net new, no legacy equivalent                                    | todo    |
-| P5.35  | `CloseButton` — the dismiss affordance, out of Chip and Alert and given a recipe | done    |
-| P5.35b | `LinkButton` — net new, a `Button` that reads as a link                          | todo    |
-| P5.35c | `MorphButton` — net new, a `Button` that animates between states                 | todo    |
-| P5.35d | `SlideButton` — net new, slide-to-confirm over the `Slider`                      | todo    |
-| P5.35e | `SocialAuthButton` — net new, provider marks over the `Button`                   | todo    |
-| P5.35f | `ToggleButton` — net new, a `Button` that holds a pressed state                  | todo    |
-| P5.35g | `ToggleButtonGroup` — net new, exclusive selection over `ToggleButton`           | todo    |
-| P5.36  | `EmptyState` — net new, no legacy equivalent                                     | todo    |
-| P5.37  | `FlipCard` — net new, a `Card` with two faces                                    | todo    |
-| P5.38  | `Radio.Group` — over legacy `RadioGroup`, the context P3.9 `Radio` lacked        | done    |
-| P5.38b | `RadioButton` — net new, to reconcile with P3.9 `Radio`                          | todo    |
-| P5.38c | `RadioButtonGroup` — net new, to reconcile with `RadioGroup`                     | todo    |
-| P5.39  | `Rating` — net new, no legacy equivalent                                         | todo    |
-| P5.40  | `Surface` — four grounds, elevation asked for, no slots                          | done    |
-| P5.41  | `SplitView` — net new, a `view/` split on a draggable divider                    | todo    |
-| P5.42  | `Table` — net new, no legacy equivalent                                          | todo    |
-| P5.43  | `TagGroup` — List · Item · ItemLabel · ItemRemoveButton                          | done    |
-| P5.44  | `Timeline` — net new, no legacy equivalent                                       | todo    |
-| P5.45  | `Widget` — net new, no legacy equivalent                                         | todo    |
-| P5.46  | Parity milestone — `npm deprecate @xaui/native-legacy`                           | todo    |
-| P6     | `@xaui/hybrid` on the v1 API — frozen until P4 ships                             | todo    |
-| P7     | Delete `native-legacy` — not before the P5 parity milestone                      | todo    |
+| P5.26b | `Calendar` — net new, no legacy equivalent                                       | done    |
+
+| P5.26b\* | `Calendar.YearPicker` — the years, mounted instead of the days | done |
+| P5.26c | `AgendaCalendar` — net new, the `Calendar` with its events | todo |
+| P5.26d | `DateInput` — over legacy `DateInput`, with `TimeInput` and `DateTimeInput` | todo |
+| P5.26e | `DateRangePicker` — net new, two bounds over the `DatePicker` | todo |
+| P5.26f | `DateTimePicker` — net new, `DatePicker` and `TimePicker` as one | todo |
+| P5.26g | `RangeCalendar` — net new, the `Calendar` behind `DateRangePicker` | todo |
+| P5.27 | `TimePicker` | todo |
+| P5.28 | `ColorPicker` | todo |
+| P5.29 | `Carousel` | todo |
+| P5.30 | `Pager` | todo |
+| P5.31 | `RefreshControl` | todo |
+| P5.32 | `InputTrigger` | todo |
+| P5.33 | `FeatureDiscovery` | todo |
+| P5.34 | `BarChart` — over legacy `VerticalBarChartCard` | todo |
+| P5.34b | `AreaChart` — net new, no legacy equivalent | todo |
+| P5.34c | `Chart` — Donut and Heatmap, the legacy cards left over | todo |
+| P5.34d | `ComposedChart` — net new, several series on shared axes | todo |
+| P5.34e | `LineChart` — over legacy `LineChartCard` | todo |
+| P5.34f | `PieChart` — over legacy `PieChartCard` | todo |
+| P5.34g | `RadarChart` — net new, no legacy equivalent | todo |
+| P5.34h | `RadialChart` — net new, no legacy equivalent | todo |
+| P5.35 | `CloseButton` — the dismiss affordance, out of Chip and Alert and given a recipe | done |
+| P5.35b | `LinkButton` — net new, a `Button` that reads as a link | todo |
+| P5.35c | `MorphButton` — net new, a `Button` that animates between states | todo |
+| P5.35d | `SlideButton` — net new, slide-to-confirm over the `Slider` | todo |
+| P5.35e | `SocialAuthButton` — net new, provider marks over the `Button` | todo |
+| P5.35f | `ToggleButton` — net new, a `Button` that holds a pressed state | todo |
+| P5.35g | `ToggleButtonGroup` — net new, exclusive selection over `ToggleButton` | todo |
+| P5.36 | `EmptyState` — net new, no legacy equivalent | todo |
+| P5.37 | `FlipCard` — net new, a `Card` with two faces | todo |
+| P5.38 | `Radio.Group` — over legacy `RadioGroup`, the context P3.9 `Radio` lacked | done |
+| P5.38b | `RadioButton` — net new, to reconcile with P3.9 `Radio` | todo |
+| P5.38c | `RadioButtonGroup` — net new, to reconcile with `RadioGroup` | todo |
+| P5.39 | `Rating` — net new, no legacy equivalent | todo |
+| P5.40 | `Surface` — four grounds, elevation asked for, no slots | done |
+| P5.41 | `SplitView` — net new, a `view/` split on a draggable divider | todo |
+| P5.42 | `Table` — net new, no legacy equivalent | todo |
+| P5.43 | `TagGroup` — List · Item · ItemLabel · ItemRemoveButton | done |
+| P5.44 | `Timeline` — net new, no legacy equivalent | todo |
+| P5.45 | `Widget` — net new, no legacy equivalent | todo |
+| P5.46 | Parity milestone — `npm deprecate @xaui/native-legacy` | todo |
+| P6 | `@xaui/hybrid` on the v1 API — frozen until P4 ships | todo |
+| P7 | Delete `native-legacy` — not before the P5 parity milestone | todo |
 
 ## Repository debt
 
