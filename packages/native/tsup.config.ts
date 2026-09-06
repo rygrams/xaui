@@ -13,6 +13,7 @@ const entries = {
   'components/chip/index': 'src/components/chip/index.ts',
   'components/dialog/index': 'src/components/dialog/index.ts',
   'components/divider/index': 'src/components/divider/index.ts',
+  'components/fab/index': 'src/components/fab/index.ts',
   'components/field-group/index': 'src/components/field-group/index.ts',
   'components/input-otp/index': 'src/components/input-otp/index.ts',
   'components/menu/index': 'src/components/menu/index.ts',
