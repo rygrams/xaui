@@ -1,6 +1,6 @@
 // Deep import — the `system/close-button` barrel pulls the component in, and the recipe
 // only wants the geometry.
-import { closeButtonBase } from '../../system/close-button/close-button.recipe'
+import { closeButtonGeometry } from '../../system/close-button/close-button.recipe'
 import { createRecipe, radiusAxis } from '../../system/recipe'
 
 const SLOTS = [
@@ -36,7 +36,7 @@ export const dialogRecipe = createRecipe({
     // and the two slots below merge into it rather than being listed beside it — a
     // second `closeGlyph` key in the same literal silently replaces the first, and a bar
     // that has lost its height draws nothing at all.
-    const shared = closeButtonBase(theme)
+    const shared = closeButtonGeometry(theme)
 
     return {
       // Unlike the `Popover`'s, this backdrop dims by default. A popover is an aside you can
@@ -88,7 +88,7 @@ export const dialogRecipe = createRecipe({
         color: theme.colors.muted,
       },
       /**
-       * A filled disc, not a bare glyph. Their `CloseButton` is a `tertiary` button, and
+       * A filled disc, not a bare glyph. Their `CloseButtonBase` is a `tertiary` button, and
        * their `tertiary` is `background-color: var(--color-default)` — the same token our
        * `secondary` names. A cross floating on the panel with nothing under it reads as
        * decoration; the disc is what makes it a target.
