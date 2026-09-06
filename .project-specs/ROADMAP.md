@@ -124,7 +124,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.26g | `RangeCalendar` — net new, the `Calendar` behind `DateRangePicker`               | todo    |
 | P5.27  | `TimePicker`                                                                     | todo    |
 | P5.28  | `ColorPicker`                                                                    | todo    |
-| P5.29  | `Carousel`                                                                       | todo    |
+| P5.29  | `Carousel`                                                                       | done    |
 | P5.30  | `Pager`                                                                          | todo    |
 | P5.31  | `RefreshControl`                                                                 | todo    |
 | P5.32  | `InputTrigger`                                                                   | todo    |

@@ -22,6 +22,7 @@ const SCREENS = [
   { href: '/bottom-sheet', label: 'BottomSheet' },
   { href: '/button', label: 'Button' },
   { href: '/card', label: 'Card' },
+  { href: '/carousel', label: 'Carousel' },
   { href: '/checkbox', label: 'Checkbox' },
   { href: '/chip', label: 'Chip' },
   { href: '/dialog', label: 'Dialog' },
