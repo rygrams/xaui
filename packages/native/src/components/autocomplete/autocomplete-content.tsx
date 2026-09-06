@@ -7,13 +7,13 @@ import { useAnchoredPosition } from '../../hooks/use-anchored-position'
 import { anchoredEntering, anchoredExiting } from '../../system/anchored'
 import { Portal } from '../../system/portal'
 import { useStyleProps } from '../../system/style-props'
+import { filterItems } from '../../utils/filter-items'
 import { collectItemLabels } from '../../utils/item-labels'
 import { AutocompleteEmpty } from './autocomplete-empty'
 import { AutocompleteItem } from './autocomplete-item'
 import { AutocompleteSearch } from './autocomplete-search'
 import { AutocompleteProvider, useAutocomplete } from './autocomplete.context'
 import type { AutocompleteContentProps } from './autocomplete.type'
-import { filterItems } from './autocomplete.utils'
 
 /** HeroUI's, point for point: eight from the trigger, twelve from every screen edge. */
 const DEFAULT_OFFSET = 8

@@ -13,6 +13,7 @@ const entries = {
   'components/checkbox/index': 'src/components/checkbox/index.ts',
   'components/chip/index': 'src/components/chip/index.ts',
   'components/close-button/index': 'src/components/close-button/index.ts',
+  'components/combobox/index': 'src/components/combobox/index.ts',
   'components/dialog/index': 'src/components/dialog/index.ts',
   'components/divider/index': 'src/components/divider/index.ts',
   'components/field-group/index': 'src/components/field-group/index.ts',

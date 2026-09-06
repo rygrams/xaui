@@ -1,6 +1,6 @@
 import { Children, isValidElement } from 'react'
 import type { ReactNode } from 'react'
-import { readItemLabel } from '../../utils/item-labels'
+import { readItemLabel } from './item-labels'
 
 /**
  * Diacritics folded and case dropped, so a search for `geneve` finds `Genève`.
@@ -41,6 +41,10 @@ export function matchesQuery(label: string, query: string): boolean {
  *
  * The count is what tells the content whether to show its empty state, and it counts **rows**
  * rather than children: a label or a separator surviving is not a result.
+ *
+ * Shared by the `Autocomplete` and the `Combobox` — the same panel filtered by the same
+ * query, typed into two different fields. §2 bis: promotion at the second use, beside
+ * `collectItemLabels`, which was promoted for the same pair one component earlier.
  */
 export function filterItems(
   children: ReactNode,
