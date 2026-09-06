@@ -1,9 +1,21 @@
+import { StyleSheet } from 'react-native'
 import { createRecipe, radiusAxis } from '../../system/recipe'
 import type { SlotStyles, VariantTokens } from '../../system/recipe'
 import type { FontSizeKey, XAUITheme } from '../../theme/theme.type'
 import type { TabsSize, TabsSlot, TabsVariant } from './tabs.type'
 
-const SLOTS = ['root', 'list', 'trigger', 'label', 'indicator', 'content'] as const
+const SLOTS = [
+  'root',
+  'list',
+  'trigger',
+  'separator',
+  'label',
+  'indicator',
+  'content',
+] as const
+
+/** One device pixel — 0.33 at 3× — and no theme has an opinion about that. */
+const HAIRLINE = StyleSheet.hairlineWidth
 
 /**
  * The three shapes read the same three roles, and that is the point: a tint lands on any
@@ -51,6 +63,13 @@ function sizeAxis(step: SizeStep) {
       paddingVertical: theme.spacing(paddingVertical),
       gap: theme.spacing(gap),
     },
+    // Inset by the trigger's own vertical padding, so the rule spans exactly the label
+    // beside it. A hairline running the full height of the track reads as a table's
+    // column edge rather than as the seam between two segments.
+    separator: {
+      top: theme.spacing(paddingVertical),
+      bottom: theme.spacing(paddingVertical),
+    },
     label: {
       fontSize: theme.fontSizes[label],
       lineHeight: theme.lineHeights[label],
@@ -83,6 +102,14 @@ export const tabsRecipe = createRecipe({
     },
     // Behind the triggers, not over them: it is the surface the chosen tab sits on.
     indicator: { position: 'absolute', zIndex: 0, borderCurve: 'continuous' },
+    // Pinned to the trigger's own leading edge, which is the boundary between it and the
+    // tab before it: the list lays its triggers out with no gap, so the two edges coincide.
+    separator: {
+      position: 'absolute',
+      start: 0,
+      width: HAIRLINE,
+      backgroundColor: theme.colors.separator,
+    },
   }),
 
   variantTokens: VARIANT_TOKENS,

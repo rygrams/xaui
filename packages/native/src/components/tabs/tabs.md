@@ -101,6 +101,26 @@ something the list conjures.
 
 Full RN names, full RN values (R14). Every node takes them.
 
+## Separators, for options that are peers
+
+`hasSeparator` draws a hairline between the tabs the pill is nowhere near — the thing that
+separates a segmented control from a tab bar wearing the same clothes.
+
+It is **off by default**. The pill already says which tab is chosen; the rules are what a
+segmented control adds when its options are things to compare rather than places to go.
+
+**Both edges of the pill stay clear.** A rule running into a raised surface reads as a crack
+in it, so neither the selected tab's own leading rule nor the one belonging to the tab after
+it is drawn. That is the behaviour iOS has had since the segmented control was introduced,
+and it is why a segmented control does not look like a table.
+
+The rule belongs to the tab on its trailing side, which is what lets a trigger decide alone:
+the list has no way to know which of its children is which without reading their props, and
+reading a child's props is introspection this library does not do. Every trigger already
+publishes its rectangle for the indicator to slide to, and an ordering is all this needs —
+so before the first layout nothing is drawn, and the rules arrive with the pill rather than
+a frame ahead of it.
+
 ## Props
 
 ### `Tabs`
@@ -114,6 +134,7 @@ Full RN names, full RN values (R14). Every node takes them.
 | `value`         | `string`                              | —         | Controlled                      |
 | `defaultValue`  | `string`                              | —         | Uncontrolled                    |
 | `onValueChange` | `(value: string) => void`             | —         | Fires on every choice           |
+| `hasSeparator`  | `boolean`                             | `false`   | Hairlines between the tabs      |
 | `isDisabled`    | `boolean`                             | `false`   | Dims the bar, stops every tab   |
 
 No `xs`. A tab is a target before it is a label, and at that height there is nothing left

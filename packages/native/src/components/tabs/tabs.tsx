@@ -39,6 +39,7 @@ export const TabsRoot = forwardRef<View, TabsProps>(function Tabs(
     value: controlledValue,
     defaultValue,
     onValueChange,
+    hasSeparator = false,
     isDisabled = false,
     style,
     ...props
@@ -85,15 +86,27 @@ export const TabsRoot = forwardRef<View, TabsProps>(function Tabs(
       labelStyle: styles.label,
       labelSelectedStyle: { color: selected.color },
       indicatorStyle: tint ? [styles.indicator, tint.indicator] : styles.indicator,
+      separatorStyle: styles.separator,
       contentStyle: undefined,
       variant: variant ?? 'primary',
+      hasSeparator,
       value,
       isDisabled,
       select,
       rects,
       setRect,
     }
-  }, [styles, tint, variant, value, isDisabled, select, rects, setRect])
+  }, [
+    styles,
+    tint,
+    variant,
+    hasSeparator,
+    value,
+    isDisabled,
+    select,
+    rects,
+    setRect,
+  ])
 
   return (
     <TabsProvider value={context}>

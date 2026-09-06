@@ -15,6 +15,7 @@ export type TabsSlot =
   | 'list'
   | 'trigger'
   | 'label'
+  | 'separator'
   | 'indicator'
   | 'content'
 
@@ -47,6 +48,14 @@ type TabsOwnProps = {
   value?: string
   defaultValue?: string
   onValueChange?: (value: string) => void
+  /**
+   * Whether a hairline is drawn between the tabs the pill is nowhere near.
+   *
+   * Off by default: a pill sliding under the chosen tab already says which one it is, and
+   * the rules are what a segmented control adds when its options are peers to be compared
+   * rather than places to go. Both edges of the pill stay clear — see `hasLeadingSeparator`.
+   */
+  hasSeparator?: boolean
   isDisabled?: boolean
 }
 
@@ -100,8 +109,10 @@ export type TabsContextValue = {
   labelStyle: StyleProp<TextStyle>
   labelSelectedStyle: StyleProp<TextStyle>
   indicatorStyle: StyleProp<ViewStyle>
+  separatorStyle: StyleProp<ViewStyle>
   contentStyle: StyleProp<ViewStyle>
   variant: TabsVariant
+  hasSeparator: boolean
   value: string | undefined
   isDisabled: boolean
   select: (value: string) => void

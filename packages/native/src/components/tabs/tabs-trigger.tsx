@@ -1,12 +1,14 @@
 import { forwardRef, useCallback, useMemo } from 'react'
-import type { LayoutChangeEvent, View } from 'react-native'
+import type { LayoutChangeEvent } from 'react-native'
 import { usePressState } from '../../hooks/use-press-state'
 import { PressableFeedback } from '../../system/pressable-feedback'
 import { childrenToString } from '../../system/slot'
 import { useStyleProps } from '../../system/style-props'
+import { View } from 'react-native'
 import { TabsLabel } from './tabs-label'
 import { TabsTriggerProvider, useTabs } from './tabs.context'
 import type { TabsTriggerProps } from './tabs.type'
+import { hasLeadingSeparator } from './tabs.utils'
 
 /**
  * One tab.
@@ -34,6 +36,9 @@ export const TabsTrigger = forwardRef<View, TabsTriggerProps>(function TabsTrigg
 ) {
   const {
     triggerStyle,
+    separatorStyle,
+    hasSeparator,
+    rects,
     value: selected,
     isDisabled: isRootDisabled,
     select,
@@ -94,6 +99,9 @@ export const TabsTrigger = forwardRef<View, TabsTriggerProps>(function TabsTrigg
         onPressIn={press.onPressIn}
         onPressOut={press.onPressOut}
       >
+        {hasSeparator && hasLeadingSeparator(rects, value, selected) ? (
+          <View style={separatorStyle} />
+        ) : null}
         {typeof children === 'function' ? (
           children(context)
         ) : text !== null ? (

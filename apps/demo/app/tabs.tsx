@@ -54,6 +54,14 @@ export default function TabsScreen() {
       </Section>
 
       <Section
+        title="Separators, for options that are peers"
+        note="hasSeparator draws a hairline between the tabs the pill is nowhere near. Off by default: the pill already says which tab is chosen, and the rules are what a segmented control adds when its options are things to compare rather than places to go. Both edges of the pill stay clear — a rule running into a raised surface reads as a crack in it, which is why iOS has drawn it this way since the segmented control existed."
+      >
+        <Panels hasSeparator />
+        <Panels hasSeparator variant="secondary" />
+      </Section>
+
+      <Section
         title="Sizes"
         note="size moves the trigger's padding, its gap and the type. The track's three-point inset does not scale: it is the gap between the pill and the track's edge, and at half a spacing step it would be two points and the pill would touch."
       >
@@ -123,17 +131,25 @@ function Panels({
   variant,
   size,
   color,
+  hasSeparator,
   hidePanels,
 }: {
   variant?: TabsVariant
   size?: TabsSize
   color?: string
+  hasSeparator?: boolean
   hidePanels?: boolean
 }) {
   const theme = useXAUITheme()
 
   return (
-    <Tabs defaultValue="all" variant={variant} size={size} color={color}>
+    <Tabs
+      defaultValue="all"
+      variant={variant}
+      size={size}
+      color={color}
+      hasSeparator={hasSeparator}
+    >
       <Tabs.List>
         <Tabs.Indicator />
         {PANELS.map(({ value, label }) => (
