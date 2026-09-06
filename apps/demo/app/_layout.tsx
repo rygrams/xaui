@@ -57,6 +57,10 @@ export default function RootLayout() {
           <Stack.Screen name="text-field" options={{ title: 'TextField (v1)' }} />
           <Stack.Screen name="toast" options={{ title: 'Toast (v1)' }} />
           <Stack.Screen name="typography" options={{ title: 'Typography (v1)' }} />
+          <Stack.Screen
+            name="wheel-picker"
+            options={{ title: 'WheelPicker (v1)' }}
+          />
           <Stack.Screen name="view" options={{ title: 'Layout (v1)' }} />
         </Stack>
       </XAUIProvider>

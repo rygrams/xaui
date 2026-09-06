@@ -327,6 +327,16 @@
         "default": "./dist/components/view/index.cjs"
       }
     },
+    "./wheel-picker": {
+      "import": {
+        "types": "./dist/components/wheel-picker/index.d.ts",
+        "default": "./dist/components/wheel-picker/index.js"
+      },
+      "require": {
+        "types": "./dist/components/wheel-picker/index.d.cts",
+        "default": "./dist/components/wheel-picker/index.cjs"
+      }
+    },
     "./system": {
       "import": {
         "types": "./dist/system/index.d.ts",
