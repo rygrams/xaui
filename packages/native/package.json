@@ -387,6 +387,16 @@
         "default": "./dist/components/view/index.cjs"
       }
     },
+    "./widget": {
+      "import": {
+        "types": "./dist/components/widget/index.d.ts",
+        "default": "./dist/components/widget/index.js"
+      },
+      "require": {
+        "types": "./dist/components/widget/index.d.cts",
+        "default": "./dist/components/widget/index.cjs"
+      }
+    },
     "./system": {
       "import": {
         "types": "./dist/system/index.d.ts",
