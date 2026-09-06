@@ -33,7 +33,12 @@ export default function RootLayout() {
           <Stack.Screen name="card" options={{ title: 'Card (v1)' }} />
           <Stack.Screen name="checkbox" options={{ title: 'Checkbox (v1)' }} />
           <Stack.Screen name="chip" options={{ title: 'Chip (v1)' }} />
+          <Stack.Screen name="date-field" options={{ title: 'DateField (v1)' }} />
           <Stack.Screen name="date-picker" options={{ title: 'DatePicker (v1)' }} />
+          <Stack.Screen
+            name="date-time-picker"
+            options={{ title: 'DateTimePicker (v1)' }}
+          />
           <Stack.Screen name="dialog" options={{ title: 'Dialog (v1)' }} />
           <Stack.Screen name="divider" options={{ title: 'Divider (v1)' }} />
           <Stack.Screen name="field-group" options={{ title: 'FieldGroup (v1)' }} />
@@ -57,6 +62,8 @@ export default function RootLayout() {
           <Stack.Screen name="tag-group" options={{ title: 'TagGroup (v1)' }} />
           <Stack.Screen name="text-area" options={{ title: 'TextArea (v1)' }} />
           <Stack.Screen name="text-field" options={{ title: 'TextField (v1)' }} />
+          <Stack.Screen name="time-picker" options={{ title: 'TimePicker (v1)' }} />
+          <Stack.Screen name="time-field" options={{ title: 'TimeField (v1)' }} />
           <Stack.Screen name="toast" options={{ title: 'Toast (v1)' }} />
           <Stack.Screen name="typography" options={{ title: 'Typography (v1)' }} />
           <Stack.Screen name="view" options={{ title: 'Layout (v1)' }} />

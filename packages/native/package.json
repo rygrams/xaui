@@ -127,6 +127,16 @@
         "default": "./dist/components/chip/index.cjs"
       }
     },
+    "./date-field": {
+      "import": {
+        "types": "./dist/components/date-field/index.d.ts",
+        "default": "./dist/components/date-field/index.js"
+      },
+      "require": {
+        "types": "./dist/components/date-field/index.d.cts",
+        "default": "./dist/components/date-field/index.cjs"
+      }
+    },
     "./date-picker": {
       "import": {
         "types": "./dist/components/date-picker/index.d.ts",
@@ -135,6 +145,16 @@
       "require": {
         "types": "./dist/components/date-picker/index.d.cts",
         "default": "./dist/components/date-picker/index.cjs"
+      }
+    },
+    "./date-time-picker": {
+      "import": {
+        "types": "./dist/components/date-time-picker/index.d.ts",
+        "default": "./dist/components/date-time-picker/index.js"
+      },
+      "require": {
+        "types": "./dist/components/date-time-picker/index.d.cts",
+        "default": "./dist/components/date-time-picker/index.cjs"
       }
     },
     "./dialog": {
@@ -317,6 +337,26 @@
         "default": "./dist/components/text-field/index.cjs"
       }
     },
+    "./time-field": {
+      "import": {
+        "types": "./dist/components/time-field/index.d.ts",
+        "default": "./dist/components/time-field/index.js"
+      },
+      "require": {
+        "types": "./dist/components/time-field/index.d.cts",
+        "default": "./dist/components/time-field/index.cjs"
+      }
+    },
+    "./time-picker": {
+      "import": {
+        "types": "./dist/components/time-picker/index.d.ts",
+        "default": "./dist/components/time-picker/index.js"
+      },
+      "require": {
+        "types": "./dist/components/time-picker/index.d.cts",
+        "default": "./dist/components/time-picker/index.cjs"
+      }
+    },
     "./toast": {
       "import": {
         "types": "./dist/components/toast/index.d.ts",
@@ -382,7 +422,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "rm -rf dist && tsup --config tsup.config.ts && node ../../tooling/workletize/workletize.mjs dist",
+    "build": "rm -rf dist && NODE_OPTIONS=--max-old-space-size=8192 tsup --config tsup.config.ts && node ../../tooling/workletize/workletize.mjs dist",
     "dev": "tsup --config tsup.config.ts --watch",
     "test": "vitest",
     "lint": "eslint src/",
