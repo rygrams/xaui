@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { matchesQuery } from '../../../components/autocomplete/autocomplete.utils'
+import { matchesQuery } from '../../utils/filter-items'
 
 describe('matchesQuery', () => {
   it('keeps everything on an empty query', () => {
