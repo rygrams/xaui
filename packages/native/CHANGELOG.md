@@ -1,5 +1,91 @@
 # @xaui/native
 
+## 0.9.1-alpha.58
+
+### Patch Changes
+
+- 893f056: feat(combobox): a field you type in, over a list you must choose from
+
+  The `Autocomplete` with the search moved into the trigger. In an autocomplete the control
+  shows the chosen row and you type in a box inside the panel; here the field **is** the
+  trigger, on the line where a `TextField` would be, rather than a button that opens a search.
+  That is the ARIA combobox, and it is the shape a form wants.
+
+  **The list is closed.** What is typed narrows the rows and never becomes the value: the
+  query goes with the panel, so closing without choosing puts the chosen row's label back in
+  the field. A combobox that kept the half-typed word would be a text field with a dropdown
+  attached, which is a real control and a different one.
+
+  **The panel, the rows and the empty line are the `Autocomplete`'s own objects**, not copies
+  — `Combobox.Content` _is_ `Autocomplete.Content`. A row is a row whichever field opened it,
+  and a second set would drift into a form with two panels half a shade apart. The
+  load-bearing half of that: `Autocomplete.Content` tells its children apart **by identity**,
+  so a `Combobox.Item` that were a different component would be sorted into "not a row", would
+  never be filtered, and would never register its label. The root is that component's too,
+  wrapped rather than aliased — hanging slots off the autocomplete's own function would
+  overwrite `Autocomplete.Trigger` for everyone.
+
+  Three slots are this component's own, and each is what it is for a reason. **The trigger is
+  a `View`, not a `Pressable`**: the thing you press is the input inside it, and a pressable
+  wrapper around a text field is a second target laid over the one that already takes the tap.
+  **The input fills the box** and takes the trigger's own text style, so the control does not
+  change size as you type. **The chevron is a control** where the autocomplete's is a
+  decoration — that trigger is itself pressable, this one is a field that raises a keyboard,
+  so the way into the list without typing has to be the chevron.
+
+  `filterItems` and `matchesQuery` move to `utils/filter-items.ts` beside `collectItemLabels`,
+  which was promoted for the same pair one component earlier. §2 bis: promotion at the second
+  use.
+
+- 7074a3b: feat(wheel-picker): a column of options you turn, and the one at the middle is the answer
+
+  P5.25b, and it comes before the three pickers that need it: `WheelDatePicker`,
+  `WheelTimePicker` and `WheelDateTimePicker` are all this component with a different set of
+  columns and the arithmetic to fill them.
+
+  **The column has the value, not the wheel.** A time is two columns and a date is three, so a
+  wheel with a single value would be a wheel that can only ever be one of them.
+
+  **The scroll is the control.** There is no press to select: the row at the middle _is_ the
+  choice, so a column snaps to a row and reports whichever one it stopped at. That is what
+  makes this a wheel rather than a short list, and why the rows are `Text` nodes — a row you
+  could tap would be a second way to choose that the band does not describe.
+
+  **It reports at rest, never while turning.** One flick passes nine rows, and every one of
+  them is a value some caller would have written to a form. `onScrollEndDrag` covers a drag
+  that stops without momentum and `onMomentumScrollEnd` covers the flick; both are needed, and
+  neither fires for the other.
+
+  **The rows fade and lean away from the middle**, read off the column's scroll offset on the
+  UI thread through a shared value. That is not decoration: it is the whole of what says this
+  is a drum with more of it out of sight rather than a list that happens to have stopped. A
+  position crossing the bridge every frame would animate at the rate React re-renders rather
+  than at the rate the finger moves.
+
+  **The band is the root's**, one shape across every column rather than one per column — two
+  columns at different widths would show the seam between two bands — and it takes no touch,
+  so it marks the middle without stopping the wheel under it.
+
+  `visibleCount` is **forced odd**, because the whole control is built on there being a middle
+  row, and rounded up rather than down: a caller who asked for four wanted more than three.
+  It is raw rather than a token, like the `ProgressCircle`'s `radius`, so the wheel's height
+  is applied after the cached recipe.
+
+  **No `loop`.** An endless drum is a list with no end, faked by rewriting the data around the
+  finger and jumping the offset back when it drifts. That belongs to the caller's data, where
+  the caller knows how many months there are; here it would be a component quietly
+  renumbering its own children.
+
+  Four levels and no intent — what the variant names is the band. `secondary` names
+  `defaultForeground` rather than `foreground`, and the difference is only visible under a
+  tint: `resolveTint` reads the role off the token's own name, a bare `foreground` maps to the
+  tint itself, and a band painted the same colour as the row on it is a row you cannot read.
+  That one was caught on the demo screen, which is what the demo screen is for.
+
+  The first placement is `onContentSizeChange` rather than the effect that follows an outside
+  change: `contentOffset` only takes on iOS, so on Android and web the wheel would open
+  showing its first row while reporting its fifth — wrong on two platforms out of three.
+
 ## 0.9.1-alpha.57
 
 ### Patch Changes
