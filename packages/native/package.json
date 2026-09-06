@@ -137,6 +137,16 @@
         "default": "./dist/components/date-field/index.cjs"
       }
     },
+    "./date-range-field": {
+      "import": {
+        "types": "./dist/components/date-range-field/index.d.ts",
+        "default": "./dist/components/date-range-field/index.js"
+      },
+      "require": {
+        "types": "./dist/components/date-range-field/index.d.cts",
+        "default": "./dist/components/date-range-field/index.cjs"
+      }
+    },
     "./date-time-field": {
       "import": {
         "types": "./dist/components/date-time-field/index.d.ts",
