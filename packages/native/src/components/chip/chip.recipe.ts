@@ -1,6 +1,6 @@
 // The module and not the barrel: a recipe is style data, and the barrel would pull
-// `CloseButton` — and therefore Reanimated — into anything that only wants the geometry.
-import { closeButtonBase } from '../../system/close-button/close-button.recipe'
+// `CloseButtonBase` — and therefore Reanimated — into anything that only wants the geometry.
+import { closeButtonGeometry } from '../../system/close-button/close-button.recipe'
 import { createRecipe, radiusAxis } from '../../system/recipe'
 import type { SlotStyles, VariantTokens } from '../../system/recipe'
 import type { FontSizeKey, XAUITheme } from '../../theme/theme.type'
@@ -192,9 +192,9 @@ export const chipRecipe = createRecipe({
   slots: SLOTS,
 
   // The cross's own geometry — thickness and centring — belongs to the shared
-  // `CloseButton`; what stays below is the box and bar size this component's scale sets.
+  // `CloseButtonBase`; what stays below is the box and bar size this component's scale sets.
   base: theme => ({
-    ...closeButtonBase(theme),
+    ...closeButtonGeometry(theme),
     root: {
       // A chip hugs its content where a `Button` fills its column. The difference is what
       // the two are: a button is a control the layout sizes, a chip is a token *about*

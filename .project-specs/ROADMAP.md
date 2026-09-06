@@ -85,17 +85,17 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.4   | `Select` — Trigger · Value · Indicator · Overlay · Content · Item                | done    |
 | P5.5   | `Stepper` — slots over the existing group context                                | done    |
 | P5.6   | `Toolbar` — slots over the existing group context                                | dropped |
-| P5.7   | `List` — slots over the existing group context                                   | todo    |
-| P5.7b  | `ListGroup` — net new, sectioned `List` with its headers                         | todo    |
+| P5.7   | `List` — slots over the existing group context                                   | done    |
+| P5.7b  | `ListGroup` — net new, sectioned `List` with its headers                         | done    |
 | P5.8   | `Menu` — Trigger · Overlay · Content · Label · Group · Item                      | done    |
-| P5.9   | `SegmentButton` — slots over the existing group context                          | todo    |
-| P5.10  | `Autocomplete` — slots over the existing group context                           | todo    |
-| P5.10b | `Combobox` — the `Autocomplete` over a closed list                               | todo    |
+| P5.9   | `SegmentButton` — slots over the existing group context                          | done    |
+| P5.10  | `Autocomplete` — slots over the existing group context                           | done    |
+| P5.10b | `Combobox` — the `Autocomplete` over a closed list                               | done    |
 | P5.11  | `Accordion` — Item · Trigger · Indicator · Content, over legacy `ExpansionPanel` | done    |
 | P5.12  | `BottomTabBar` — slots over the existing group context                           | dropped |
 | P5.13  | `Menubox` — slots over the existing group context                                | dropped |
-| P5.14  | `Progress` — circular, the determinate half of legacy `Indicator`                | todo    |
-| P5.14b | `ProgressBar` — linear, over legacy `LinearProgressIndicator`                    | todo    |
+| P5.14  | `ProgressCircle` — circular, the determinate half of legacy `Indicator`          | done    |
+| P5.14b | `ProgressBar` — linear, over legacy `LinearProgressIndicator`                    | done    |
 | P5.15  | `Slider` — Output · Track · Fill · Thumb                                         | done    |
 | P5.16  | `Tabs` — List · Trigger · Label · Indicator · Content                            | done    |
 | P5.17  | `AppBar`                                                                         | todo    |
@@ -137,7 +137,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.34f | `PieChart` — over legacy `PieChartCard`                                          | todo    |
 | P5.34g | `RadarChart` — net new, no legacy equivalent                                     | todo    |
 | P5.34h | `RadialChart` — net new, no legacy equivalent                                    | todo    |
-| P5.35  | `CloseButton` — net new, the dismiss affordance Chip and Alert inline today      | todo    |
+| P5.35  | `CloseButton` — the dismiss affordance, out of Chip and Alert and given a recipe | done    |
 | P5.35b | `LinkButton` — net new, a `Button` that reads as a link                          | todo    |
 | P5.35c | `MorphButton` — net new, a `Button` that animates between states                 | todo    |
 | P5.35d | `SlideButton` — net new, slide-to-confirm over the `Slider`                      | todo    |
@@ -146,7 +146,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.35g | `ToggleButtonGroup` — net new, exclusive selection over `ToggleButton`           | todo    |
 | P5.36  | `EmptyState` — net new, no legacy equivalent                                     | todo    |
 | P5.37  | `FlipCard` — net new, a `Card` with two faces                                    | todo    |
-| P5.38  | `RadioGroup` — over legacy `RadioGroup`, the context P3.9 `Radio` lacks          | todo    |
+| P5.38  | `Radio.Group` — over legacy `RadioGroup`, the context P3.9 `Radio` lacked        | done    |
 | P5.38b | `RadioButton` — net new, to reconcile with P3.9 `Radio`                          | todo    |
 | P5.38c | `RadioButtonGroup` — net new, to reconcile with `RadioGroup`                     | todo    |
 | P5.39  | `Rating` — net new, no legacy equivalent                                         | todo    |
@@ -168,3 +168,4 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | D2  | `apps/demo` has neither a `type-check` script nor a CI filter             | todo   |
 | D3  | `turbo.json` `test` outputs are wrong — every run warns                   | todo   |
 | D4  | `apps/docs/public/docs/` still documents the dropped legacy `view/` names | todo   |
+| D5  | `@xaui/native` types came from one dts worker that OOM'd — now `tsc`      | done   |

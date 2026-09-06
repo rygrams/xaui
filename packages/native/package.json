@@ -1,6 +1,6 @@
 {
   "name": "@xaui/native",
-  "version": "0.9.1-alpha.49",
+  "version": "0.9.1-alpha.57",
   "description": "Composition-first React Native UI components with native animations powered by Reanimated",
   "keywords": [
     "react-native",
@@ -45,6 +45,16 @@
       "require": {
         "types": "./dist/components/alert/index.d.cts",
         "default": "./dist/components/alert/index.cjs"
+      }
+    },
+    "./autocomplete": {
+      "import": {
+        "types": "./dist/components/autocomplete/index.d.ts",
+        "default": "./dist/components/autocomplete/index.js"
+      },
+      "require": {
+        "types": "./dist/components/autocomplete/index.d.cts",
+        "default": "./dist/components/autocomplete/index.cjs"
       }
     },
     "./avatar": {
@@ -117,6 +127,26 @@
         "default": "./dist/components/chip/index.cjs"
       }
     },
+    "./close-button": {
+      "import": {
+        "types": "./dist/components/close-button/index.d.ts",
+        "default": "./dist/components/close-button/index.js"
+      },
+      "require": {
+        "types": "./dist/components/close-button/index.d.cts",
+        "default": "./dist/components/close-button/index.cjs"
+      }
+    },
+    "./combobox": {
+      "import": {
+        "types": "./dist/components/combobox/index.d.ts",
+        "default": "./dist/components/combobox/index.js"
+      },
+      "require": {
+        "types": "./dist/components/combobox/index.d.cts",
+        "default": "./dist/components/combobox/index.cjs"
+      }
+    },
     "./dialog": {
       "import": {
         "types": "./dist/components/dialog/index.d.ts",
@@ -157,6 +187,16 @@
         "default": "./dist/components/input-otp/index.cjs"
       }
     },
+    "./list": {
+      "import": {
+        "types": "./dist/components/list/index.d.ts",
+        "default": "./dist/components/list/index.js"
+      },
+      "require": {
+        "types": "./dist/components/list/index.d.cts",
+        "default": "./dist/components/list/index.cjs"
+      }
+    },
     "./menu": {
       "import": {
         "types": "./dist/components/menu/index.d.ts",
@@ -177,6 +217,26 @@
         "default": "./dist/components/popover/index.cjs"
       }
     },
+    "./progress-bar": {
+      "import": {
+        "types": "./dist/components/progress-bar/index.d.ts",
+        "default": "./dist/components/progress-bar/index.js"
+      },
+      "require": {
+        "types": "./dist/components/progress-bar/index.d.cts",
+        "default": "./dist/components/progress-bar/index.cjs"
+      }
+    },
+    "./progress-circle": {
+      "import": {
+        "types": "./dist/components/progress-circle/index.d.ts",
+        "default": "./dist/components/progress-circle/index.js"
+      },
+      "require": {
+        "types": "./dist/components/progress-circle/index.d.cts",
+        "default": "./dist/components/progress-circle/index.cjs"
+      }
+    },
     "./radio": {
       "import": {
         "types": "./dist/components/radio/index.d.ts",
@@ -185,6 +245,16 @@
       "require": {
         "types": "./dist/components/radio/index.d.cts",
         "default": "./dist/components/radio/index.cjs"
+      }
+    },
+    "./segment": {
+      "import": {
+        "types": "./dist/components/segment/index.d.ts",
+        "default": "./dist/components/segment/index.js"
+      },
+      "require": {
+        "types": "./dist/components/segment/index.d.cts",
+        "default": "./dist/components/segment/index.cjs"
       }
     },
     "./select": {
@@ -372,7 +442,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "rm -rf dist && tsup --config tsup.config.ts && node ../../tooling/workletize/workletize.mjs dist",
+    "build": "rm -rf dist && tsup --config tsup.config.ts && tsc --emitDeclarationOnly --declarationMap false && node ../../tooling/dual-dts/dual-dts.mjs dist && node ../../tooling/workletize/workletize.mjs dist",
     "dev": "tsup --config tsup.config.ts --watch",
     "test": "vitest",
     "lint": "eslint src/",
