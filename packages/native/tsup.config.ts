@@ -13,6 +13,7 @@ const entries = {
   'components/checkbox/index': 'src/components/checkbox/index.ts',
   'components/chip/index': 'src/components/chip/index.ts',
   'components/date-field/index': 'src/components/date-field/index.ts',
+  'components/date-range-field/index': 'src/components/date-range-field/index.ts',
   'components/date-time-field/index': 'src/components/date-time-field/index.ts',
   'components/dialog/index': 'src/components/dialog/index.ts',
   'components/divider/index': 'src/components/divider/index.ts',

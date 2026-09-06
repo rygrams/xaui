@@ -35,6 +35,10 @@ export default function RootLayout() {
           <Stack.Screen name="chip" options={{ title: 'Chip (v1)' }} />
           <Stack.Screen name="date-field" options={{ title: 'DateField (v1)' }} />
           <Stack.Screen
+            name="date-range-field"
+            options={{ title: 'DateRangeField (v1)' }}
+          />
+          <Stack.Screen
             name="date-time-field"
             options={{ title: 'DateTimeField (v1)' }}
           />
