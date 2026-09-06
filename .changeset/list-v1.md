@@ -4,8 +4,8 @@
 
 `List` — rows on a ground.
 
-`List.Item` with `ItemPrefix`, `ItemContent`, `ItemTitle`, `ItemDescription` and
-`ItemSuffix`, on the anatomy `heroui-native`'s `ListGroup` uses.
+`List.Item` and `List.ItemButton` with `ItemPrefix`, `ItemContent`, `ItemTitle`,
+`ItemDescription` and `ItemSuffix`, on the anatomy `heroui-native`'s `ListGroup` uses.
 
 **It is the `Accordion` with rows that do not open**, and it reads the same ladder, insets
 its separators the same way and lifts the same one variant. Two containers that look alike
@@ -30,6 +30,9 @@ the control it actually is.
 trailing end of a settings row is a switch at least as often, and a slot that guesses makes
 you pass a child in order to render nothing.
 
-**A row's role follows its handler.** `List.Item` is a `PressableFeedback` either way, but it
-announces itself as a button only when it has an `onPress` — a screen reader offering to
-activate a line that does nothing is worse than saying nothing at all.
+**A plain row does nothing, and shows nothing.** A list is not necessarily a list of
+buttons; most are a table of facts, and a row that lights up under a finger it never
+responds to is a promise the component does not keep. So `List.Item` is a `View` — no press
+state, no wash, no role — and a row you can press is `List.ItemButton`, used in its place.
+Structural rather than inferred: a single item that turned pressable when handed an
+`onPress` would still be guessing, and the guess would be invisible in the JSX.

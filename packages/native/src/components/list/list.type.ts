@@ -50,13 +50,24 @@ export type ListProps = ListOwnProps &
 
 type ListItemOwnProps = {
   children?: ReactNode
+  asChild?: boolean
+}
+
+/** A plain row: a `View`, with no press state and nothing to announce. */
+export type ListItemProps = ListItemOwnProps &
+  Omit<ViewProps, keyof ListItemOwnProps> &
+  Omit<ViewStyleProps, keyof ListItemOwnProps | keyof ViewProps>
+
+type ListItemButtonOwnProps = {
+  children?: ReactNode
   isDisabled?: boolean
   asChild?: boolean
 }
 
-export type ListItemProps = ListItemOwnProps &
-  Omit<PressableProps, keyof ListItemOwnProps> &
-  Omit<ViewStyleProps, keyof ListItemOwnProps | keyof PressableProps>
+/** A row you can press, used in place of `List.Item` rather than inside it. */
+export type ListItemButtonProps = ListItemButtonOwnProps &
+  Omit<PressableProps, keyof ListItemButtonOwnProps> &
+  Omit<ViewStyleProps, keyof ListItemButtonOwnProps | keyof PressableProps>
 
 type ListSlotOwnProps = {
   children?: ReactNode

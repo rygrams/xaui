@@ -1,5 +1,6 @@
 import { ListRoot } from './list'
 import { ListItem } from './list-item'
+import { ListItemButton } from './list-item-button'
 import { ListItemContent } from './list-item-content'
 import { ListItemDescription } from './list-item-description'
 import { ListItemPrefix } from './list-item-prefix'
@@ -8,6 +9,7 @@ import { ListItemTitle } from './list-item-title'
 
 export const List = Object.assign(ListRoot, {
   Item: ListItem,
+  ItemButton: ListItemButton,
   ItemPrefix: ListItemPrefix,
   ItemContent: ListItemContent,
   ItemTitle: ListItemTitle,
@@ -17,6 +19,7 @@ export const List = Object.assign(ListRoot, {
 
 export { ListRoot } from './list'
 export { ListItem } from './list-item'
+export { ListItemButton } from './list-item-button'
 export { ListItemContent } from './list-item-content'
 export { ListItemDescription } from './list-item-description'
 export { ListItemPrefix } from './list-item-prefix'
@@ -26,6 +29,7 @@ export { useList } from './list.context'
 export { listRecipe } from './list.recipe'
 export type {
   ListContextValue,
+  ListItemButtonProps,
   ListItemContentProps,
   ListItemDescriptionProps,
   ListItemPrefixProps,

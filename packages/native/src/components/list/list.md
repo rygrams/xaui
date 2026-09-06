@@ -32,7 +32,8 @@ import { List } from '@xaui/native/list'
 | slot                   | what it is                                             |
 | ---------------------- | ------------------------------------------------------ |
 | `List`                 | The ground, and the thing that draws the separators    |
-| `List.Item`            | One row                                                |
+| `List.Item`            | One row, inert                                         |
+| `List.ItemButton`      | One row you can press, in place of `List.Item`         |
 | `List.ItemPrefix`      | What leads it — an icon, an avatar, a checkbox         |
 | `List.ItemContent`     | The text column, and what pushes the suffix to the end |
 | `List.ItemTitle`       | What the row is                                        |
@@ -94,14 +95,43 @@ HeroUI's puts a chevron there by default. The trailing end of a settings row is 
 at least as often, and a slot that guesses makes you pass a child in order to render
 nothing. The library ships `ChevronDownIcon`; a row that wants one says so.
 
-## A row's role follows its handler
+## A plain row does nothing, and shows nothing
 
-`List.Item` is a `PressableFeedback` whether or not you give it an `onPress` — a row with
-nothing to do simply has nothing to do — but it announces itself as a **button only when it
-has a handler**. A screen reader offering to activate a line that does nothing is worse than
-saying nothing at all. `accessibilityRole` stays overridable (R9).
+**A list is not necessarily a list of buttons.** Most of them are a table of facts: a value
+beside a label, a switch that is its own control. `List.Item` is therefore a `View` — no
+press state, no wash, no role — because a row that lights up under a finger it never
+responds to is a promise the component does not keep.
 
-`isDisabled` on the root stops every row; on a row it stops that one.
+A row you can press is `List.ItemButton`, used **in place of** `List.Item`:
+
+```tsx
+<List>
+  <List.Item>
+    <List.ItemContent>
+      <List.ItemTitle>Wi-Fi</List.ItemTitle>
+    </List.ItemContent>
+    <List.ItemSuffix>
+      <Switch isSelected={isOn} onSelectedChange={setOn} size="sm" />
+    </List.ItemSuffix>
+  </List.Item>
+
+  <List.ItemButton onPress={openSecurity}>
+    <List.ItemContent>
+      <List.ItemTitle>Sécurité</List.ItemTitle>
+    </List.ItemContent>
+  </List.ItemButton>
+</List>
+```
+
+It is the same row — same inset, same slots, same separators around it — plus the two things
+a plain row must not have: the wash under the finger and the `button` to announce.
+
+**Structural rather than inferred.** A single `Item` that turned pressable when it was given
+an `onPress` would still be guessing, and the guess would be invisible in the JSX: two rows
+that read identically would behave differently. Which of the two a row is, the JSX says.
+
+`isDisabled` on the root stops every `ItemButton`; on one of them it stops that one.
+`accessibilityRole` stays overridable (R9).
 
 The root announces itself as a `list`. That is overridable too — a list of one row is a row,
 and a list used as a plain container is neither.

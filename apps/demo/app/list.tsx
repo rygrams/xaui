@@ -27,7 +27,7 @@ export default function ListScreen() {
         note="The separators are the root's, drawn between the children rather than by them — a row that drew its own would draw one under the last one too, and every list would start by hiding it. The fill is the root's for the same reason: a row painting its own would stack two where the hairline sits."
       >
         <List>
-          <List.Item onPress={() => {}}>
+          <List.ItemButton onPress={() => {}}>
             <List.ItemContent>
               <List.ItemTitle>Informations personnelles</List.ItemTitle>
               <List.ItemDescription>Nom, e-mail, téléphone</List.ItemDescription>
@@ -35,8 +35,8 @@ export default function ListScreen() {
             <List.ItemSuffix>
               <Chevron />
             </List.ItemSuffix>
-          </List.Item>
-          <List.Item onPress={() => {}}>
+          </List.ItemButton>
+          <List.ItemButton onPress={() => {}}>
             <List.ItemContent>
               <List.ItemTitle>Moyens de paiement</List.ItemTitle>
               <List.ItemDescription>Visa se terminant par 4829</List.ItemDescription>
@@ -44,21 +44,21 @@ export default function ListScreen() {
             <List.ItemSuffix>
               <Chevron />
             </List.ItemSuffix>
-          </List.Item>
-          <List.Item onPress={() => {}}>
+          </List.ItemButton>
+          <List.ItemButton onPress={() => {}}>
             <List.ItemContent>
               <List.ItemTitle>Sécurité</List.ItemTitle>
             </List.ItemContent>
             <List.ItemSuffix>
               <Chevron />
             </List.ItemSuffix>
-          </List.Item>
+          </List.ItemButton>
         </List>
       </Section>
 
       <Section
-        title="The suffix draws nothing of its own"
-        note="HeroUI puts a chevron there by default. The trailing end of a settings row is a Switch at least as often, and a slot that guesses makes you pass a child in order to render nothing. A row that toggles carries the control that toggles it — which is also why this list has no selectionMode."
+        title="A plain row does nothing, and shows nothing"
+        note="A list is not necessarily a list of buttons. The Wi-Fi row below is a List.Item — a View, with no press state and no wash, because a row that lights up under a finger it never responds to is a promise the component does not keep. The row under it is a List.ItemButton, used in its place. The suffix draws nothing of its own either: the trailing end of a settings row is a Switch at least as often as a chevron."
       >
         <List>
           <List.Item>
@@ -72,14 +72,14 @@ export default function ListScreen() {
               <Switch isSelected={isOn} onSelectedChange={setOn} size="sm" />
             </List.ItemSuffix>
           </List.Item>
-          <List.Item onPress={() => {}}>
+          <List.ItemButton onPress={() => {}}>
             <List.ItemContent>
               <List.ItemTitle>Bluetooth</List.ItemTitle>
             </List.ItemContent>
             <List.ItemSuffix>
               <Value>Activé</Value>
             </List.ItemSuffix>
-          </List.Item>
+          </List.ItemButton>
         </List>
       </Section>
 
@@ -91,16 +91,16 @@ export default function ListScreen() {
           <View key={variant} style={{ gap: 8 }}>
             <Value>{variant}</Value>
             <List variant={variant}>
-              <List.Item onPress={() => {}}>
+              <List.ItemButton onPress={() => {}}>
                 <List.ItemContent>
                   <List.ItemTitle>Première ligne</List.ItemTitle>
                 </List.ItemContent>
-              </List.Item>
-              <List.Item onPress={() => {}}>
+              </List.ItemButton>
+              <List.ItemButton onPress={() => {}}>
                 <List.ItemContent>
                   <List.ItemTitle>Seconde ligne</List.ItemTitle>
                 </List.ItemContent>
-              </List.Item>
+              </List.ItemButton>
             </List>
           </View>
         ))}
@@ -114,17 +114,17 @@ export default function ListScreen() {
           <View key={size} style={{ gap: 8 }}>
             <Value>{size}</Value>
             <List size={size} variant="secondary">
-              <List.Item onPress={() => {}}>
+              <List.ItemButton onPress={() => {}}>
                 <List.ItemContent>
                   <List.ItemTitle>Notifications</List.ItemTitle>
                   <List.ItemDescription>Sons, badges, aperçus</List.ItemDescription>
                 </List.ItemContent>
-              </List.Item>
-              <List.Item onPress={() => {}}>
+              </List.ItemButton>
+              <List.ItemButton onPress={() => {}}>
                 <List.ItemContent>
                   <List.ItemTitle>Confidentialité</List.ItemTitle>
                 </List.ItemContent>
-              </List.Item>
+              </List.ItemButton>
             </List>
           </View>
         ))}
@@ -135,17 +135,17 @@ export default function ListScreen() {
         note="color is a raw value, never a token — it paints the ground and the press wash with it. hasSeparator={false} leaves the rows to run together, and isDisabled on a row stops it alone."
       >
         <List color="#7c3aed" hasSeparator={false}>
-          <List.Item onPress={() => {}}>
+          <List.ItemButton onPress={() => {}}>
             <List.ItemContent>
               <List.ItemTitle>Teintée</List.ItemTitle>
             </List.ItemContent>
-          </List.Item>
-          <List.Item onPress={() => {}} isDisabled>
+          </List.ItemButton>
+          <List.ItemButton onPress={() => {}} isDisabled>
             <List.ItemContent>
               <List.ItemTitle>Désactivée</List.ItemTitle>
               <List.ItemDescription>Ne répond pas</List.ItemDescription>
             </List.ItemContent>
-          </List.Item>
+          </List.ItemButton>
         </List>
       </Section>
     </ScrollView>

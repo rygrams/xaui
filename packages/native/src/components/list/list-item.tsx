@@ -1,73 +1,37 @@
 import { forwardRef } from 'react'
-import type { View } from 'react-native'
-import { usePressState } from '../../hooks/use-press-state'
+import { View } from 'react-native'
 import { IconContext } from '../../system/icon'
-import { PressableFeedback } from '../../system/pressable-feedback'
+import { Slot } from '../../system/slot'
 import { useStyleProps } from '../../system/style-props'
 import { useList } from './list.context'
 import type { ListItemProps } from './list.type'
 
 /**
- * One row.
+ * One row, and it does **nothing**.
  *
- * It is a `PressableFeedback` whether or not you give it an `onPress` — a row with nothing
- * to do simply has nothing to do — but its **role is not**: without a handler it announces
- * itself as the text it contains rather than as a button, because a screen reader offering
- * to activate a line that does nothing is worse than saying nothing at all.
+ * A list is not necessarily a list of buttons. Most of them are a table of facts — a value
+ * beside a label, a switch that is its own control — and a row that lights up under a
+ * finger it never responds to is a promise the component does not keep. So the plain row
+ * is a `View`: no press state, no wash, no role.
  *
- * The press wash is the row's and the fill is the root's. A row that painted its own fill
- * would stack two where the separator sits, and the hairline would vanish into the seam.
+ * A row you can press is `List.ItemButton`, used in its place. That is a structural choice
+ * rather than an inferred one: a component that decided from the presence of an `onPress`
+ * would still be guessing, and the guess is invisible in the JSX.
  */
 export const ListItem = forwardRef<View, ListItemProps>(function ListItem(
-  {
-    children,
-    isDisabled = false,
-    asChild = false,
-    accessibilityRole,
-    accessibilityState,
-    style,
-    onPress,
-    onPressIn,
-    onPressOut,
-    ...props
-  },
+  { children, asChild = false, style, ...props },
   ref
 ) {
-  const {
-    itemStyle,
-    itemPressedStyle,
-    glyph,
-    isDisabled: isListDisabled,
-  } = useList()
+  const { itemStyle, glyph } = useList()
   const [styleProps, rest] = useStyleProps(props)
-  const [isPressed, press] = usePressState({ onPressIn, onPressOut })
 
-  const disabled = isListDisabled || isDisabled
+  const Node = asChild ? Slot : View
 
   return (
     <IconContext.Provider value={glyph}>
-      <PressableFeedback
-        ref={ref}
-        isPressed={isPressed}
-        isDisabled={disabled}
-        asChild={asChild}
-        accessibilityRole={accessibilityRole ?? (onPress ? 'button' : undefined)}
-        // Merged rather than spread over, so a caller adding `selected` cannot drop the
-        // disabled state a screen reader needs.
-        accessibilityState={{ disabled, ...accessibilityState }}
-        {...rest}
-        style={[
-          itemStyle,
-          isPressed && itemPressedStyle,
-          styleProps,
-          typeof style === 'function' ? style({ pressed: isPressed }) : style,
-        ]}
-        onPress={onPress}
-        onPressIn={press.onPressIn}
-        onPressOut={press.onPressOut}
-      >
+      <Node ref={ref} {...rest} style={[itemStyle, styleProps, style]}>
         {children}
-      </PressableFeedback>
+      </Node>
     </IconContext.Provider>
   )
 })
