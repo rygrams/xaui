@@ -155,7 +155,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.42  | `Table` — net new, no legacy equivalent                                          | todo    |
 | P5.43  | `TagGroup` — List · Item · ItemLabel · ItemRemoveButton                          | done    |
 | P5.44  | `Timeline` — net new, no legacy equivalent                                       | todo    |
-| P5.45  | `Widget` — net new, no legacy equivalent                                         | todo    |
+| P5.45  | `Widget` — net new, no legacy equivalent                                         | done    |
 | P5.46  | Parity milestone — `npm deprecate @xaui/native-legacy`                           | todo    |
 | P6     | `@xaui/hybrid` on the v1 API — frozen until P4 ships                             | todo    |
 | P7     | Delete `native-legacy` — not before the P5 parity milestone                      | todo    |

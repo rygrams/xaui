@@ -48,7 +48,14 @@ export function radiusAxis<Slot extends string>(
  * Listed rather than derived from a theme: the axis is built once at module load, before
  * any theme exists, and `RadiusKey` is a type that no longer exists at runtime.
  */
-const RADIUS_KEYS = [
+/**
+ * Every radius the axis covers, in scale order.
+ *
+ * Exported because a recipe that *derives* a value from the corner — a nested well, an
+ * inner border — has to walk the same list the axis is built on, and a second copy of it
+ * would be a list that drifts.
+ */
+export const RADIUS_KEYS = [
   'xs',
   'sm',
   'md',
