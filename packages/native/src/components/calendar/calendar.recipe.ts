@@ -18,6 +18,16 @@ const SLOTS = [
   'dayLabelMuted',
   'dot',
   'dotSelected',
+  'yearPicker',
+  'year',
+  'yearSelected',
+  'yearLabel',
+  'yearLabelSelected',
+  'monthPicker',
+  'month',
+  'monthSelected',
+  'monthLabel',
+  'monthLabelSelected',
 ] as const
 
 /**
@@ -85,6 +95,16 @@ function sizeAxis(step: SizeStep) {
       },
       nav: { width: cell, height: cell, borderRadius: cell / 2 },
       dot: { width: dot, height: dot, borderRadius: dot / 2 },
+      // Six rows on screen and everything else out of sight, like the grid it replaces:
+      // a year list as tall as a page of months reads as a different control. The picker
+      // is a scroll, and its own content travels.
+      yearPicker: { height: cell * 6 + theme.spacing(2) * 5 },
+      year: { height: cell, borderRadius: cell / 2 },
+      yearLabel: { fontSize: theme.fontSizes[label] },
+      // The same cell as a year, and no fixed picker height: twelve months are four rows,
+      // which fit where six weeks did without a scroll of their own.
+      month: { height: cell, borderRadius: cell / 2 },
+      monthLabel: { fontSize: theme.fontSizes[label] },
     }
   }
 }
@@ -135,6 +155,36 @@ export const calendarRecipe = createRecipe({
     // A day outside the month, or outside the bounds. It is a slot rather than an axis
     // because forty-two cells share one resolution and only some of them are muted.
     dayLabelMuted: { color: theme.colors.muted },
+    // Three columns of a third'd and a bit: a year takes the width its calendar's parent
+    // gives, and three of them fill a phone's width wherever four fixed cells would have
+    // to be measured. The row direction, the wrap and the gap between rows are the
+    // scroll's `contentContainerStyle` — a `ScrollView` refuses child layout on its own
+    // style, RN throws by invariant.
+    yearPicker: { width: '100%' },
+    year: { width: '31%', alignItems: 'center', justifyContent: 'center' },
+    yearLabel: {
+      fontFamily: theme.fontFamilies.body,
+      fontWeight: theme.fontWeights.medium,
+      textAlign: 'center',
+      color: theme.colors.foreground,
+    },
+    // The month grid is a plain `View`, so its own layout lives here rather than on a
+    // content container: three columns like the years, wrapping to four rows, centred so
+    // a short final row does not hang off the left.
+    monthPicker: {
+      width: '100%',
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      justifyContent: 'center',
+      gap: theme.spacing(2),
+    },
+    month: { width: '31%', alignItems: 'center', justifyContent: 'center' },
+    monthLabel: {
+      fontFamily: theme.fontFamilies.body,
+      fontWeight: theme.fontWeights.medium,
+      textAlign: 'center',
+      color: theme.colors.foreground,
+    },
   }),
 
   variantTokens: VARIANT_TOKENS,
@@ -146,6 +196,13 @@ export const calendarRecipe = createRecipe({
     // against the disc, which is what `fgSelected` is for.
     dot: { backgroundColor: theme.colors.muted },
     dotSelected: { backgroundColor: colors.fgSelected },
+    // The year on screen wears the same pair as the chosen day: one resolution, and the
+    // colour of the disc the header's redrawn years sit on.
+    yearSelected: { backgroundColor: colors.bgSelected },
+    yearLabelSelected: { color: colors.fgSelected },
+    // The month on screen, the same again — the grid the year picker drills into.
+    monthSelected: { backgroundColor: colors.bgSelected },
+    monthLabelSelected: { color: colors.fgSelected },
   }),
 
   variants: {
@@ -156,7 +213,14 @@ export const calendarRecipe = createRecipe({
     },
 
     /** Both the disc and the cell it sits in, or a squared-off day holds a round disc. */
-    radius: radiusAxis('day', 'daySelected'),
+    radius: radiusAxis(
+      'day',
+      'daySelected',
+      'year',
+      'yearSelected',
+      'month',
+      'monthSelected'
+    ),
   },
 
   states: {

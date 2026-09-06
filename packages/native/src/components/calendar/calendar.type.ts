@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import type {
   PressableStateCallbackType,
+  ScrollViewProps,
   StyleProp,
   TextProps,
   TextStyle,
@@ -28,6 +29,28 @@ export type CalendarSlot =
   | 'dayLabelMuted'
   | 'dot'
   | 'dotSelected'
+  | 'yearPicker'
+  | 'year'
+  | 'yearSelected'
+  | 'yearLabel'
+  | 'yearLabelSelected'
+  | 'monthPicker'
+  | 'month'
+  | 'monthSelected'
+  | 'monthLabel'
+  | 'monthLabelSelected'
+
+/**
+ * Which panel is on screen: the six weeks of days, the years to aim at, or the months of
+ * the year just aimed at. `'grid'` is the calendar as it opens; the other two are what the
+ * title turns into when it is pressed.
+ *
+ * The picker components move it — pressing a year steps it to `'month'`, pressing a month
+ * back to `'grid'` — the way legacy's dialog walked year → month → day. The caller reads it
+ * to decide which of the three to render, and controls it with `view` / `onViewChange` when
+ * a title button of its own is the switch.
+ */
+export type CalendarView = 'grid' | 'year' | 'month'
 
 /**
  * Four emphasis levels and no intent — a date is neither a success nor a danger. What the
@@ -73,6 +96,15 @@ type CalendarOwnProps = {
   firstDayOfWeek?: WeekDay
   /** Names the months and the weekdays. @default the device's */
   locale?: string
+  /**
+   * Which panel is on screen — the days, the years, or the months. Controlled **separately
+   * from the month and the value**, the same way they are separate from each other: the
+   * picker components step it, and the caller reads it to render one of the three.
+   */
+  view?: CalendarView
+  /** The panel shown at first mount. @default 'grid' */
+  defaultView?: CalendarView
+  onViewChange?: (view: CalendarView) => void
   /** Dims the calendar and stops every day. */
   isDisabled?: boolean
   style?: StyleProp<ViewStyle>
@@ -116,6 +148,54 @@ export type CalendarGridProps = CalendarGridOwnProps &
   Omit<ViewProps, keyof CalendarGridOwnProps> &
   Omit<ViewStyleProps, keyof CalendarGridOwnProps | keyof ViewProps>
 
+type CalendarYearPickerOwnProps = {
+  /**
+   * First year on the list. Defaults to fifty back — from `minValue`'s year when the
+   * calendar has one.
+   */
+  firstYear?: number
+  /**
+   * Last year on the list. Defaults to fifty forward — from `maxValue`'s year when the
+   * calendar has one.
+   */
+  lastYear?: number
+}
+
+/**
+ * The years a calendar can be aimed at, laid in a scroll.
+ *
+ * It is composed, not configured: the caller renders it **instead of** the weekdays and
+ * the grid — inside one of their own view, or an `Animated` one — and the header's title
+ * wears `asChild` into a `PressableFeedback` to become the button that swaps them. One
+ * `useCalendar()` has the whole arithmetic.
+ */
+export type CalendarYearPickerProps = CalendarYearPickerOwnProps &
+  ScrollViewProps &
+  Omit<ViewStyleProps, keyof ScrollViewProps | keyof ViewProps>
+
+type CalendarMonthPickerOwnProps = {
+  /**
+   * How the month names read. `'long'` is "septembre", `'short'` is "sept." — the grid
+   * clips either to one line rather than reflowing, so a long name in a narrow column is a
+   * truncation, not a broken row.
+   *
+   * @default 'long'
+   */
+  format?: 'long' | 'short'
+  children?: ReactNode
+}
+
+/**
+ * The twelve months of the year on screen, laid in a grid.
+ *
+ * The mirror of `Calendar.YearPicker`: it mounts **instead of** the weekdays and the grid,
+ * the year picker steps to it when a year is pressed, and pressing a month here steps back
+ * to the days. One `useCalendar()` has the whole of it.
+ */
+export type CalendarMonthPickerProps = CalendarMonthPickerOwnProps &
+  Omit<ViewProps, keyof CalendarMonthPickerOwnProps> &
+  Omit<ViewStyleProps, keyof CalendarMonthPickerOwnProps | keyof ViewProps>
+
 type CalendarDayOwnProps = {
   /** Which day this cell is. Everything else about it is read off the calendar. */
   date: Date
@@ -151,6 +231,16 @@ export type CalendarContextValue = {
   dayLabelMutedStyle: StyleProp<TextStyle>
   dotStyle: StyleProp<ViewStyle>
   dotSelectedStyle: StyleProp<ViewStyle>
+  yearPickerStyle: StyleProp<ViewStyle>
+  yearStyle: StyleProp<ViewStyle>
+  yearSelectedStyle: StyleProp<ViewStyle>
+  yearLabelStyle: StyleProp<TextStyle>
+  yearLabelSelectedStyle: StyleProp<TextStyle>
+  monthPickerStyle: StyleProp<ViewStyle>
+  monthStyle: StyleProp<ViewStyle>
+  monthSelectedStyle: StyleProp<ViewStyle>
+  monthLabelStyle: StyleProp<TextStyle>
+  monthLabelSelectedStyle: StyleProp<TextStyle>
   /** What an `Icon` in a nav button inherits, so the chevrons match the header's type. */
   glyph: { size?: number; color?: string }
   /** The month on screen, at its first day. */
@@ -160,6 +250,10 @@ export type CalendarContextValue = {
   locale: string
   firstDayOfWeek: WeekDay
   isDisabled: boolean
+  /** Which panel is on screen. `Calendar.YearPicker` / `.MonthPicker` step it. */
+  view: CalendarView
+  /** Sets the panel on screen. Takes the next value or an updater, like a `setState`. */
+  setView: (next: CalendarView | ((current: CalendarView) => CalendarView)) => void
   /** Whether a day can be chosen at all — the bounds, and nothing else. */
   isDayEnabled: (date: Date) => boolean
   select: (date: Date) => void
@@ -167,4 +261,10 @@ export type CalendarContextValue = {
   goToMonth: (step: number) => void
   /** Whether stepping that far would leave every day out of bounds. */
   canGoToMonth: (step: number) => boolean
+  /** Lays the month on screen in `year`, keeping the month of the year it was showing. */
+  goToYear: (year: number) => void
+  /** Lays the month on screen on `monthIndex` (0–11), keeping the year. */
+  goToMonthInYear: (monthIndex: number) => void
+  /** The ends of the year list the picker shows. */
+  yearRange: { first: number; last: number }
 }
