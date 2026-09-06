@@ -137,6 +137,16 @@
         "default": "./dist/components/divider/index.cjs"
       }
     },
+    "./fab": {
+      "import": {
+        "types": "./dist/components/fab/index.d.ts",
+        "default": "./dist/components/fab/index.js"
+      },
+      "require": {
+        "types": "./dist/components/fab/index.d.cts",
+        "default": "./dist/components/fab/index.cjs"
+      }
+    },
     "./field-group": {
       "import": {
         "types": "./dist/components/field-group/index.d.ts",

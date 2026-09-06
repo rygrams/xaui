@@ -169,9 +169,9 @@ function ControlledDemo() {
         </Popover.Trigger>
         <Popover.Overlay />
         <Popover.Content placement="top">
-          <Popover.Title>Piloté de l'extérieur</Popover.Title>
+          <Popover.Title>Piloté de l’extérieur</Popover.Title>
           <Popover.Description>
-            La racine ne possède plus l'état d'ouverture.
+            La racine ne possède plus l’état d’ouverture.
           </Popover.Description>
         </Popover.Content>
       </Popover>
@@ -179,7 +179,7 @@ function ControlledDemo() {
         onPress={() => setOpen(true)}
         style={{ color: theme.colors.accent, fontSize: theme.fontSizes.sm }}
       >
-        Ouvrir depuis l'extérieur
+        Ouvrir depuis l’extérieur
       </Text>
     </View>
   )
