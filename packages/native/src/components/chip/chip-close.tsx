@@ -1,6 +1,6 @@
 import { forwardRef } from 'react'
 import { View } from 'react-native'
-import { CloseButton } from '../../system/close-button'
+import { CloseButtonBase } from '../../system/close-button'
 import { useChip } from './chip.context'
 import type { ChipCloseProps } from './chip.type'
 
@@ -14,7 +14,7 @@ import type { ChipCloseProps } from './chip.type'
  * </Chip>
  * ```
  *
- * Five lines, because the shared `CloseButton` owns the behaviour — its own press state,
+ * Five lines, because the shared `CloseButtonBase` owns the behaviour — its own press state,
  * the grown touch target, the missing-label warning and the built-in cross — and the chip
  * only hands it the styles its recipe resolved (R5).
  */
@@ -25,7 +25,7 @@ export const ChipClose = forwardRef<View, ChipCloseProps>(function ChipClose(
   const { closeStyle, closeGlyphStyle, isDisabled: isChipDisabled } = useChip()
 
   return (
-    <CloseButton
+    <CloseButtonBase
       ref={ref}
       name="Chip.Close"
       baseStyle={closeStyle}

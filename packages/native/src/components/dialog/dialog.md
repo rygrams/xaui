@@ -95,7 +95,7 @@ second box around one.
 
 ### `Dialog.Close`
 
-Everything the shared `CloseButton` takes, minus `name`, `baseStyle` and `glyphStyle`,
+Everything the shared `CloseButtonBase` takes, minus `name`, `baseStyle` and `glyphStyle`,
 which the dialog supplies. Two shapes, and the empty one is the default:
 
 ```tsx
