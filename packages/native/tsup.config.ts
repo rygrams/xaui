@@ -18,6 +18,7 @@ const entries = {
   'components/menu/index': 'src/components/menu/index.ts',
   'components/popover/index': 'src/components/popover/index.ts',
   'components/radio/index': 'src/components/radio/index.ts',
+  'components/segment/index': 'src/components/segment/index.ts',
   'components/select/index': 'src/components/select/index.ts',
   'components/skeleton/index': 'src/components/skeleton/index.ts',
   'components/slider/index': 'src/components/slider/index.ts',

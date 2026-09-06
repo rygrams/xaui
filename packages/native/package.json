@@ -187,6 +187,16 @@
         "default": "./dist/components/radio/index.cjs"
       }
     },
+    "./segment": {
+      "import": {
+        "types": "./dist/components/segment/index.d.ts",
+        "default": "./dist/components/segment/index.js"
+      },
+      "require": {
+        "types": "./dist/components/segment/index.d.cts",
+        "default": "./dist/components/segment/index.cjs"
+      }
+    },
     "./select": {
       "import": {
         "types": "./dist/components/select/index.d.ts",
