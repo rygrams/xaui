@@ -34,5 +34,5 @@ type CloseButtonOwnProps = {
  * R14 — it renders a `PressableFeedback`, so it carries that node's style keys as props
  * through it.
  */
-export type CloseButtonProps = CloseButtonOwnProps &
+export type CloseButtonBaseProps = CloseButtonOwnProps &
   Omit<PressableFeedbackProps, 'isPressed' | 'style' | 'children'>

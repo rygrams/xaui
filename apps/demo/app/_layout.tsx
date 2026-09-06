@@ -22,6 +22,10 @@ export default function RootLayout() {
           <Stack.Screen name="index" options={{ title: 'XAUI (v1)' }} />
           <Stack.Screen name="accordion" options={{ title: 'Accordion (v1)' }} />
           <Stack.Screen name="alert" options={{ title: 'Alert (v1)' }} />
+          <Stack.Screen
+            name="autocomplete"
+            options={{ title: 'Autocomplete (v1)' }}
+          />
           <Stack.Screen name="avatar" options={{ title: 'Avatar (v1)' }} />
           <Stack.Screen name="badge" options={{ title: 'Badge (v1)' }} />
           <Stack.Screen
@@ -32,11 +36,16 @@ export default function RootLayout() {
           <Stack.Screen name="card" options={{ title: 'Card (v1)' }} />
           <Stack.Screen name="checkbox" options={{ title: 'Checkbox (v1)' }} />
           <Stack.Screen name="chip" options={{ title: 'Chip (v1)' }} />
+          <Stack.Screen
+            name="close-button"
+            options={{ title: 'CloseButton (v1)' }}
+          />
           <Stack.Screen name="dialog" options={{ title: 'Dialog (v1)' }} />
           <Stack.Screen name="divider" options={{ title: 'Divider (v1)' }} />
           <Stack.Screen name="field-group" options={{ title: 'FieldGroup (v1)' }} />
           <Stack.Screen name="icon" options={{ title: 'Icon (v1)' }} />
           <Stack.Screen name="input-otp" options={{ title: 'InputOTP (v1)' }} />
+          <Stack.Screen name="list" options={{ title: 'List (v1)' }} />
           <Stack.Screen name="menu" options={{ title: 'Menu (v1)' }} />
           <Stack.Screen name="popover" options={{ title: 'Popover (v1)' }} />
           <Stack.Screen
@@ -52,6 +61,7 @@ export default function RootLayout() {
             options={{ title: 'ProgressCircle (v1)' }}
           />
           <Stack.Screen name="radio" options={{ title: 'Radio (v1)' }} />
+          <Stack.Screen name="segment" options={{ title: 'Segment (v1)' }} />
           <Stack.Screen name="select" options={{ title: 'Select (v1)' }} />
           <Stack.Screen name="skeleton" options={{ title: 'Skeleton (v1)' }} />
           <Stack.Screen name="slider" options={{ title: 'Slider (v1)' }} />
