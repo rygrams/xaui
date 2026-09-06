@@ -6,18 +6,20 @@ import type { SurfaceSlot, SurfaceVariant } from './surface.type'
 const SLOTS = ['root'] as const
 
 /**
- * The three surface levels the theme already names, plus nothing.
- *
- * They descend rather than compete: `primary` sits on the page, `secondary` inside a
+ * The three levels, descending: `primary` sits on the page, `secondary` inside a
  * `primary`, `tertiary` inside a `secondary`. That is the whole vocabulary — a fourth
- * level would be a shade nobody could place, and the `ghost` at the end is not a level but
- * the absence of one, for a `Surface` used only for its padding and its corner.
+ * level would be a shade nobody could place.
+ *
+ * **`tertiary` is an edge rather than a third grey.** It takes the page's own
+ * `background` and names a `border`, so what draws it is the line and not the fill: two
+ * tokens the theme states per mode, which is why the edge lands darker than the ground in
+ * light and lighter than it in dark with no branch written here. Below a `secondary`
+ * there is no grey left that reads as a level — there is only an outline.
  */
 const VARIANT_TOKENS: Record<SurfaceVariant, VariantTokens> = {
   primary: { bg: 'surface', fg: 'surfaceForeground' },
   secondary: { bg: 'surfaceSecondary', fg: 'surfaceSecondaryForeground' },
-  tertiary: { bg: 'surfaceTertiary', fg: 'surfaceTertiaryForeground' },
-  ghost: { fg: 'foreground' },
+  tertiary: { bg: 'background', fg: 'foreground', border: 'border' },
 }
 
 type SizeStep = { padding: number; gap: number; radius: RadiusKey }
@@ -54,7 +56,14 @@ export const surfaceRecipe = createRecipe({
 
   variantTokens: VARIANT_TOKENS,
 
-  paint: (_theme, colors) => ({ root: { backgroundColor: colors.bg } }),
+  /** Only `tertiary` names a border, so only `tertiary` gets a width to draw it with. */
+  paint: (theme, colors) => ({
+    root: {
+      backgroundColor: colors.bg,
+      borderColor: colors.border,
+      borderWidth: colors.border ? theme.borderWidth.default : 0,
+    },
+  }),
 
   variants: {
     size: {

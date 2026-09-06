@@ -3,7 +3,7 @@ import { Surface } from '@xaui/native/surface'
 import type { SurfaceSize, SurfaceVariant } from '@xaui/native/surface'
 import { useXAUITheme } from '@xaui/native/theme'
 
-const VARIANTS: SurfaceVariant[] = ['primary', 'secondary', 'tertiary', 'ghost']
+const VARIANTS: SurfaceVariant[] = ['primary', 'secondary', 'tertiary']
 const SIZES: SurfaceSize[] = ['xs', 'sm', 'md', 'lg']
 
 /**
@@ -19,8 +19,8 @@ export default function SurfaceScreen() {
       contentContainerStyle={{ padding: 16, gap: 28, paddingBottom: 96 }}
     >
       <Section
-        title="A ladder, not four emphases"
-        note="primary sits on the page, secondary inside a primary, tertiary inside a secondary. A surface reports nothing — it is the thing other reporting sits on — so the levels say where something belongs rather than how loud it is. ghost at the end is not a level but the absence of one, for a Surface used only for its padding and its corner."
+        title="A ladder, not three emphases"
+        note="primary sits on the page, secondary inside a primary, tertiary inside a secondary. A surface reports nothing — it is the thing other reporting sits on — so the levels say where something belongs rather than how loud it is. Posée à même la page, la tertiary partage son fond : seule la bordure la dessine, ce qui est la variante qui marche et non un bug."
       >
         {VARIANTS.map(variant => (
           <Surface key={variant} variant={variant}>
@@ -31,7 +31,7 @@ export default function SurfaceScreen() {
 
       <Section
         title="Nested, which is the whole point"
-        note="Three levels is as deep as the reading survives — a fourth would be a shade nobody could place. Each level is a token the theme already names, so a nest is legible in both modes without anyone choosing greys."
+        note="Three levels is as deep as the reading survives — a fourth would be a shade nobody could place. Sous une secondary il ne reste aucun gris qui se lise encore comme un niveau : la tertiary reprend le fond de la page et se dessine à la bordure. Les deux sont des tokens que le thème énonce par mode, donc l'arête tombe plus sombre que le fond en light et plus claire en dark — à vérifier ici dans les deux modes."
       >
         <Surface>
           <Label>primary</Label>
@@ -77,8 +77,12 @@ export default function SurfaceScreen() {
         <Surface color="#7c3aed">
           <Label>teintée</Label>
         </Surface>
-        <Surface variant="ghost" borderWidth={1} borderColor={theme.colors.border}>
-          <Label>ghost, bordée en style props</Label>
+        <Surface
+          variant="secondary"
+          borderWidth={1}
+          borderColor={theme.colors.separator}
+        >
+          <Label>secondary, bordée en style props</Label>
         </Surface>
       </Section>
     </ScrollView>
