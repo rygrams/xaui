@@ -12,10 +12,10 @@ const PLANS = ['monthly', 'yearly', 'lifetime'] as const
  * The verification screen for the `Radio`. A component is verified here and in the docs
  * preview, in light and in dark — there is no test file for it.
  *
- * What each section checks is in its subtitle: a press selects and never clears, the set
- * is a row of radios over one piece of state rather than a group component, and everything
- * else — the three levels, the four sizes, the tint, `isInvalid`, `isDisabled` — is the
- * `Checkbox`'s, on a circle.
+ * What each section checks is in its subtitle: a press selects and never clears, a set is
+ * a `Radio.Group` around options that name a `value`, and everything else — the three
+ * levels, the four sizes, the tint, `isInvalid`, `isDisabled` — is the `Checkbox`'s, on a
+ * circle.
  */
 export default function RadioScreen() {
   const theme = useXAUITheme()
@@ -26,6 +26,51 @@ export default function RadioScreen() {
       contentContainerStyle={{ padding: 16, gap: 28, paddingBottom: 96 }}
     >
       <Choice />
+
+      <Section
+        title="A set hands its options their appearance"
+        note="variant, size, radius and color are defaults — the second option names its own variant and keeps it. isDisabled and isInvalid are not defaults: they hold for every row."
+      >
+        <Radio.Group defaultValue="a" size="lg" color="#7c3aed">
+          <Radio value="a">size et color viennent du groupe</Radio>
+          <Radio value="b" variant="tertiary">
+            variant=&quot;tertiary&quot; est à elle
+          </Radio>
+        </Radio.Group>
+      </Section>
+
+      <Section
+        title="orientation — and a set that is disabled, then invalid"
+        note="horizontal wraps rather than overflowing. A disabled set has no enabled option in it, and a set that is wrong is wrong on every row."
+      >
+        <Radio.Group defaultValue="s" orientation="horizontal" size="sm">
+          <Radio value="s">S</Radio>
+          <Radio value="m">M</Radio>
+          <Radio value="l">L</Radio>
+          <Radio value="xl">XL</Radio>
+        </Radio.Group>
+        <Radio.Group defaultValue="a" orientation="horizontal" isDisabled>
+          <Radio value="a">Éteinte</Radio>
+          <Radio value="b">Éteinte aussi</Radio>
+        </Radio.Group>
+        <Radio.Group orientation="horizontal" isInvalid>
+          <Radio value="a">Aucune choisie</Radio>
+          <Radio value="b">Et c’est l’erreur</Radio>
+        </Radio.Group>
+      </Section>
+
+      <Section
+        title="Membership is the value, not the nesting"
+        note="Nothing walks the children: an option inside a wrapper is in the set, and one with no value is not in it at all — which is what keeps a standalone radio working inside a group."
+      >
+        <Radio.Group defaultValue="card">
+          <View style={{ gap: 12 }}>
+            <Radio value="card">Carte bancaire — dans un wrapper</Radio>
+            <Radio value="transfer">Virement — dans le même</Radio>
+          </View>
+          <Radio defaultSelected>Sans value — hors du jeu, et cochée</Radio>
+        </Radio.Group>
+      </Section>
 
       <Section
         title="A press selects, it never clears"
@@ -112,26 +157,25 @@ export default function RadioScreen() {
 /** What each size measures, for the row's own label. */
 const BOXES: Record<RadioSize, number> = { sm: 20, md: 24, lg: 28 }
 
-/** The set: three radios over one piece of state. There is no group component. */
+/** The set: a `Radio.Group` over one value, and options that say what they stand for. */
 function Choice() {
   const [plan, setPlan] = useState<(typeof PLANS)[number]>('monthly')
 
   return (
     <Section
-      title="A set is a row of radios over one value"
-      note="RadioGroup is a P5 component with a context of its own, not a prop this one is missing. Until it lands, the wrapper carries the radiogroup role and each option compares the value it stands for."
+      title="A set is a Radio.Group over one value"
+      note="The group holds the chosen value and each option compares the one it stands for. Tap the chosen one: neither onValueChange nor onSelectedChange fires."
     >
-      <View accessibilityRole="radiogroup" style={{ gap: 12 }}>
+      <Radio.Group
+        value={plan}
+        onValueChange={next => setPlan(next as (typeof PLANS)[number])}
+      >
         {PLANS.map(value => (
-          <Radio
-            key={value}
-            isSelected={plan === value}
-            onSelectedChange={() => setPlan(value)}
-          >
+          <Radio key={value} value={value}>
             {LABELS[value]}
           </Radio>
         ))}
-      </View>
+      </Radio.Group>
     </Section>
   )
 }
