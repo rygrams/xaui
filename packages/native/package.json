@@ -207,6 +207,26 @@
         "default": "./dist/components/popover/index.cjs"
       }
     },
+    "./progress-bar": {
+      "import": {
+        "types": "./dist/components/progress-bar/index.d.ts",
+        "default": "./dist/components/progress-bar/index.js"
+      },
+      "require": {
+        "types": "./dist/components/progress-bar/index.d.cts",
+        "default": "./dist/components/progress-bar/index.cjs"
+      }
+    },
+    "./progress-circle": {
+      "import": {
+        "types": "./dist/components/progress-circle/index.d.ts",
+        "default": "./dist/components/progress-circle/index.js"
+      },
+      "require": {
+        "types": "./dist/components/progress-circle/index.d.cts",
+        "default": "./dist/components/progress-circle/index.cjs"
+      }
+    },
     "./radio": {
       "import": {
         "types": "./dist/components/radio/index.d.ts",

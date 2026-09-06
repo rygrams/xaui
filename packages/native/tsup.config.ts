@@ -20,6 +20,8 @@ const entries = {
   'components/list/index': 'src/components/list/index.ts',
   'components/menu/index': 'src/components/menu/index.ts',
   'components/popover/index': 'src/components/popover/index.ts',
+  'components/progress-bar/index': 'src/components/progress-bar/index.ts',
+  'components/progress-circle/index': 'src/components/progress-circle/index.ts',
   'components/radio/index': 'src/components/radio/index.ts',
   'components/segment/index': 'src/components/segment/index.ts',
   'components/select/index': 'src/components/select/index.ts',
