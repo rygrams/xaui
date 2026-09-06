@@ -117,7 +117,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.25e | `WheelDateTimePicker` — net new, the two above as one                            | todo    |
 | P5.26  | `DatePicker`                                                                     | todo    |
 | P5.26b | `Calendar` — net new, no legacy equivalent                                       | done    |
-| P5.26c | `AgendaCalendar` — net new, the `Calendar` with its events                       | todo    |
+| P5.26c | `AgendaCalendar` — net new, the `Calendar` with its events                       | done    |
 | P5.26d | `DateInput` — over legacy `DateInput`, with `TimeInput` and `DateTimeInput`      | todo    |
 | P5.26e | `DateRangePicker` — net new, two bounds over the `DatePicker`                    | todo    |
 | P5.26f | `DateTimePicker` — net new, `DatePicker` and `TimePicker` as one                 | todo    |

@@ -3,6 +3,7 @@ import { defineConfig } from 'tsup'
 const entries = {
   index: 'src/index.ts',
   'components/accordion/index': 'src/components/accordion/index.ts',
+  'components/agenda-calendar/index': 'src/components/agenda-calendar/index.ts',
   'components/alert/index': 'src/components/alert/index.ts',
   'components/avatar/index': 'src/components/avatar/index.ts',
   'components/badge/index': 'src/components/badge/index.ts',

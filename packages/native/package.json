@@ -37,6 +37,16 @@
         "default": "./dist/components/accordion/index.cjs"
       }
     },
+    "./agenda-calendar": {
+      "import": {
+        "types": "./dist/components/agenda-calendar/index.d.ts",
+        "default": "./dist/components/agenda-calendar/index.js"
+      },
+      "require": {
+        "types": "./dist/components/agenda-calendar/index.d.cts",
+        "default": "./dist/components/agenda-calendar/index.cjs"
+      }
+    },
     "./alert": {
       "import": {
         "types": "./dist/components/alert/index.d.ts",
