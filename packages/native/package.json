@@ -87,6 +87,16 @@
         "default": "./dist/components/button/index.cjs"
       }
     },
+    "./calendar": {
+      "import": {
+        "types": "./dist/components/calendar/index.d.ts",
+        "default": "./dist/components/calendar/index.js"
+      },
+      "require": {
+        "types": "./dist/components/calendar/index.d.cts",
+        "default": "./dist/components/calendar/index.cjs"
+      }
+    },
     "./card": {
       "import": {
         "types": "./dist/components/card/index.d.ts",
