@@ -4,8 +4,9 @@ import { AgendaCalendar } from '@xaui/native/agenda-calendar'
 import type {
   AgendaCalendarSize,
   AgendaCalendarVariant,
+  AgendaCalendarView,
 } from '@xaui/native/agenda-calendar'
-import { ChevronDownIcon, Icon } from '@xaui/native/system'
+import { ChevronDownIcon, Icon, PressableFeedback } from '@xaui/native/system'
 import { useXAUITheme } from '@xaui/native/theme'
 
 const VARIANTS: AgendaCalendarVariant[] = [
@@ -40,11 +41,13 @@ export default function AgendaCalendarScreen() {
     >
       <Week />
 
+      <MonthYearNav />
+
       <Section
-        title="Today moves the strip. It does not choose today"
-        note="The two are one press apart — today is right there once its week is on screen — and a button that quietly answered the question would be a button you cannot use to look. It goes dead while this week is already the one showing."
+        title="Today, in one press"
+        note="It brings today's week on screen, closes any picker, and chooses today. It goes dead only when there is nothing left to do: today's week showing, the strip in view, today selected. Page away or pick another day and it lights again."
       >
-        <AgendaCalendar defaultValue={new Date(2026, 8, 6)} events={EVENTS}>
+        <AgendaCalendar defaultValue={new Date(2026, 8, 20)} events={EVENTS}>
           <Head />
           <AgendaCalendar.Weekdays />
           <AgendaCalendar.Week />
@@ -194,8 +197,73 @@ function Week() {
 }
 
 /**
- * The header every strip on this screen wears — and the chevron beside the month, which is
- * the caller's pressable rather than a slot: what it opens into is the caller's screen.
+ * Changing the month and the year without paging a week at a time — the `Calendar`'s walk,
+ * one unit down.
+ *
+ * The chevron beside the month is the switch: it opens the **years** first, in a row where
+ * the days were — the strip's own idiom, not the `Calendar`'s grid. A year steps on to that
+ * year's months, a month lands back on the week that holds it. The same two arrows page
+ * whichever row is showing, and `Today` closes the picker on its way back.
+ */
+function MonthYearNav() {
+  const theme = useXAUITheme()
+  const [day, setDay] = useState<Date | undefined>(new Date(2026, 8, 6))
+  const [view, setView] = useState<AgendaCalendarView>('week')
+
+  return (
+    <Section
+      title="Aiming at a year, then a month"
+      note="Tap the month name: the years open in a row where the days were. Pick one and its months open; pick a month and you are back on that week. The arrows page whichever row is showing."
+    >
+      <AgendaCalendar
+        value={day}
+        onValueChange={setDay}
+        view={view}
+        onViewChange={setView}
+        events={EVENTS}
+      >
+        <AgendaCalendar.Header>
+          <PressableFeedback
+            onPress={() => setView(now => (now === 'week' ? 'year' : 'week'))}
+            accessibilityLabel="Changer le mois et l'année"
+          >
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 4 }}>
+              <AgendaCalendar.Title />
+              <View style={{ transform: [{ rotate: '-90deg' }] }}>
+                <Icon as={ChevronDownIcon} size={16} color={theme.colors.accent} />
+              </View>
+            </View>
+          </PressableFeedback>
+          <AgendaCalendar.Nav>
+            <AgendaCalendar.PreviousButton accessibilityLabel="Précédent" />
+            <AgendaCalendar.TodayButton>Today</AgendaCalendar.TodayButton>
+            <AgendaCalendar.NextButton accessibilityLabel="Suivant" />
+          </AgendaCalendar.Nav>
+        </AgendaCalendar.Header>
+
+        {view === 'year' ? (
+          <AgendaCalendar.YearPicker />
+        ) : view === 'month' ? (
+          <AgendaCalendar.MonthPicker />
+        ) : (
+          <>
+            <AgendaCalendar.Weekdays />
+            <AgendaCalendar.Week />
+          </>
+        )}
+      </AgendaCalendar>
+      <Caption>
+        {day === undefined ? 'value: —' : `value: ${day.toISOString().slice(0, 10)}`}
+        {`  ·  view: ${view}`}
+      </Caption>
+    </Section>
+  )
+}
+
+/**
+ * The header every other strip on this screen wears — and the chevron beside the month,
+ * which is the caller's pressable rather than a slot: what it opens into is the caller's
+ * screen.
  */
 function Head() {
   const theme = useXAUITheme()

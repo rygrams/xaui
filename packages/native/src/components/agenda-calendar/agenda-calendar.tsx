@@ -1,12 +1,13 @@
 import { forwardRef, useCallback, useMemo, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
-import type { TextStyle } from 'react-native'
+import type { TextStyle, ViewStyle } from 'react-native'
 import { useControllableState } from '../../hooks/use-controllable-state'
 import { Slot } from '../../system/slot'
 import { useStyleProps } from '../../system/style-props'
 import { useXAUITheme } from '../../theme/theme-hooks'
 import {
   addDays,
+  addMonths,
   firstDayOfWeekFor,
   isSameDay,
   isWithinBounds,
@@ -17,9 +18,13 @@ import {
 import { calendarRecipe } from '../calendar'
 import { AgendaCalendarProvider } from './agenda-calendar.context'
 import { agendaCalendarRecipe } from './agenda-calendar.recipe'
-import type { AgendaCalendarProps } from './agenda-calendar.type'
+import type { AgendaCalendarProps, AgendaCalendarView } from './agenda-calendar.type'
 
 const DAYS_IN_WEEK = 7
+const MONTHS_IN_YEAR = 12
+
+/** The years the strip offers each way when it is unbounded — the `Calendar`'s ladder. */
+const DEFAULT_YEAR_SPAN = 50
 
 /**
  * One week, and what is on it.
@@ -69,6 +74,9 @@ export const AgendaCalendarRoot = forwardRef<View, AgendaCalendarProps>(
       week: controlledWeek,
       defaultWeek,
       onWeekChange,
+      view: controlledView,
+      defaultView,
+      onViewChange,
       events,
       minValue,
       maxValue,
@@ -98,6 +106,14 @@ export const AgendaCalendarRoot = forwardRef<View, AgendaCalendarProps>(
       value: controlledWeek,
       defaultValue: defaultWeek ?? fallbackWeek,
       onChange: onWeekChange,
+    })
+
+    // The strip on screen — the days, the months, or the years. A third piece of state,
+    // for the reason the week is one: paging months is not choosing a day either.
+    const [view, setView] = useControllableState<AgendaCalendarView>({
+      value: controlledView,
+      defaultValue: defaultView ?? 'week',
+      onChange: onViewChange,
     })
 
     const resolvedLocale = locale ?? deviceLocale()
@@ -185,7 +201,99 @@ export const AgendaCalendarRoot = forwardRef<View, AgendaCalendarProps>(
       [bounds, week, weekStart]
     )
 
-    const goToToday = useCallback(() => setWeek(startOfDay(new Date())), [setWeek])
+    // Months and years move the same underlying day; `addMonths` clamps the day-of-month,
+    // so stepping off the 31st lands on the last of the shorter month rather than rolling
+    // over. `canGo…` asks the same question as `canGoByWeeks`, of the week it would land on.
+    const goByMonths = useCallback(
+      (step: number) => {
+        if (step === 0) return
+        setWeek(current => addMonths(current, step))
+      },
+      [setWeek]
+    )
+
+    const canGoByMonths = useCallback(
+      (step: number) => {
+        const target = weekGrid(addMonths(week, step), weekStart)
+        return target.some(day => isWithinBounds(day, bounds))
+      },
+      [bounds, week, weekStart]
+    )
+
+    const goByYears = useCallback(
+      (step: number) => {
+        if (step === 0) return
+        setWeek(current => addMonths(current, step * MONTHS_IN_YEAR))
+      },
+      [setWeek]
+    )
+
+    const canGoByYears = useCallback(
+      (step: number) => {
+        const target = weekGrid(addMonths(week, step * MONTHS_IN_YEAR), weekStart)
+        return target.some(day => isWithinBounds(day, bounds))
+      },
+      [bounds, week, weekStart]
+    )
+
+    // One pair of chevrons for all three strips: they step whatever `view` is showing.
+    const page = useCallback(
+      (step: number) => {
+        if (view === 'year') goByYears(step)
+        else if (view === 'month') goByMonths(step)
+        else goByWeeks(step)
+      },
+      [view, goByYears, goByMonths, goByWeeks]
+    )
+
+    const canPage = useCallback(
+      (step: number) => {
+        if (view === 'year') return canGoByYears(step)
+        if (view === 'month') return canGoByMonths(step)
+        return canGoByWeeks(step)
+      },
+      [view, canGoByYears, canGoByMonths, canGoByWeeks]
+    )
+
+    // Pressing a year is not the end of it — the months of that year are — so the strip
+    // steps on to the month row, the way legacy's dialog walked year → month → day.
+    const goToYear = useCallback(
+      (year: number) => {
+        setWeek(current =>
+          addMonths(current, (year - current.getFullYear()) * MONTHS_IN_YEAR)
+        )
+        setView('month')
+      },
+      [setWeek, setView]
+    )
+
+    const goToMonthInYear = useCallback(
+      (monthIndex: number) => {
+        setWeek(current => addMonths(current, monthIndex - current.getMonth()))
+        setView('week')
+      },
+      [setWeek, setView]
+    )
+
+    const yearRange = useMemo(() => {
+      const now = new Date().getFullYear()
+
+      return {
+        first: bounds.min?.getFullYear() ?? now - DEFAULT_YEAR_SPAN,
+        last: bounds.max?.getFullYear() ?? now + DEFAULT_YEAR_SPAN,
+      }
+    }, [bounds.min, bounds.max])
+
+    // Today is one press, not two: it brings today's week on screen, closes any picker,
+    // **and chooses today** — legacy's `handleTodayPress` did the same, and a "Today" that
+    // left you to hunt for the day once its week arrived is a button half-finished. `select`
+    // still honours the bounds, so an out-of-range today moves the strip without choosing.
+    const goToToday = useCallback(() => {
+      const today = startOfDay(new Date())
+      setWeek(today)
+      setView('week')
+      select(today)
+    }, [setWeek, setView, select])
 
     const isOnToday = useMemo(
       () =>
@@ -193,13 +301,40 @@ export const AgendaCalendarRoot = forwardRef<View, AgendaCalendarProps>(
       [week, weekStart]
     )
 
+    // Whether there is nothing left for `Today` to do: its week is showing, the strip is
+    // the view, and today is the chosen day. Change any one of those — page away, open a
+    // picker, pick another day — and the button comes back to life.
+    const isTodayResolved = useMemo(
+      () =>
+        view === 'week' &&
+        isOnToday &&
+        value !== undefined &&
+        isSameDay(value, new Date()),
+      [view, isOnToday, value]
+    )
+
     const context = useMemo(() => {
       const title = StyleSheet.flatten<TextStyle>([cells.title])
+      // The picker's current-month/year pill wears the chosen day's disc colour, so the
+      // strip and its picker never show two different accents for the same aim. Only the
+      // colour is lifted off the flattened disc — the shape is the recipe's pill, because
+      // a month name does not fit the day's circle.
+      const disc = StyleSheet.flatten<ViewStyle>([
+        cells.daySelected,
+        cellTint?.daySelected,
+      ])
 
       return {
         headerStyle: styles.header,
         navStyle: styles.nav,
         navButtonStyle: styles.navButton,
+        pickerStyle: styles.picker,
+        pickerItemStyle: styles.pickerItem,
+        pickerItemSelectedStyle: { backgroundColor: disc.backgroundColor },
+        pickerItemLabelStyle: cells.dayLabel,
+        pickerItemLabelSelectedStyle: cellTint
+          ? [cells.dayLabelSelected, cellTint.dayLabelSelected]
+          : cells.dayLabelSelected,
         todayStyle: styles.today,
         todayDisabledStyle: styles.todayDisabled,
         todayLabelStyle: tint
@@ -235,13 +370,25 @@ export const AgendaCalendarRoot = forwardRef<View, AgendaCalendarProps>(
         value,
         locale: resolvedLocale,
         isDisabled,
+        view,
+        setView,
         hasEvent,
         isDayEnabled,
         select,
         goByWeeks,
         canGoByWeeks,
+        goByMonths,
+        canGoByMonths,
+        goByYears,
+        canGoByYears,
+        page,
+        canPage,
+        goToYear,
+        goToMonthInYear,
+        yearRange,
         goToToday,
         isOnToday,
+        isTodayResolved,
       }
     }, [
       styles,
@@ -252,13 +399,25 @@ export const AgendaCalendarRoot = forwardRef<View, AgendaCalendarProps>(
       value,
       resolvedLocale,
       isDisabled,
+      view,
+      setView,
       hasEvent,
       isDayEnabled,
       select,
       goByWeeks,
       canGoByWeeks,
+      goByMonths,
+      canGoByMonths,
+      goByYears,
+      canGoByYears,
+      page,
+      canPage,
+      goToYear,
+      goToMonthInYear,
+      yearRange,
       goToToday,
       isOnToday,
+      isTodayResolved,
     ])
 
     const rootStyle = [styles.root, styleProps, style]

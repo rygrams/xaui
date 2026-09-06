@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import type {
   PressableStateCallbackType,
+  ScrollViewProps,
   StyleProp,
   TextProps,
   TextStyle,
@@ -23,9 +24,21 @@ export type AgendaCalendarSlot =
   | 'todayDisabled'
   | 'todayLabel'
   | 'week'
+  | 'picker'
+  | 'pickerItem'
 
 /** The `Calendar`'s four, because the chosen day is the same day. */
 export type AgendaCalendarVariant = CalendarVariant
+
+/**
+ * Which strip is on screen: the week of days, the months of the year, or the years.
+ *
+ * `'week'` is the strip as it opens. The other two are **rows in its place**, not a grid
+ * over it — the months of the year scroll sideways where the days were, and a year picked
+ * there steps on to the months. The chevrons page whichever unit is showing, and `Today`
+ * always lands back on `'week'`.
+ */
+export type AgendaCalendarView = 'week' | 'month' | 'year'
 
 export type AgendaCalendarSize = Exclude<Size, 'xs'>
 
@@ -48,6 +61,14 @@ type AgendaCalendarOwnProps = {
   week?: Date
   defaultWeek?: Date
   onWeekChange?: (week: Date) => void
+  /**
+   * Which strip is on screen — the days, the months, or the years. Controlled separately
+   * again: the picker components step it, and a title button of the caller's opens it.
+   */
+  view?: AgendaCalendarView
+  /** The strip shown at first mount. @default 'week' */
+  defaultView?: AgendaCalendarView
+  onViewChange?: (view: AgendaCalendarView) => void
   /**
    * The days that have something on them. Each one gets a mark under its number, which is
    * the whole of what makes this an *agenda* rather than a week of numbers.
@@ -80,7 +101,7 @@ export type AgendaCalendarTextSlotProps = TextProps &
 
 type AgendaCalendarNavButtonOwnProps = {
   children?: ReactNode
-  /** How many weeks one press moves. @default ±1 */
+  /** How many units one press moves — weeks, months or years, by the strip on screen. @default ±1 */
   step?: number
 }
 
@@ -109,6 +130,48 @@ export type AgendaCalendarWeekProps = AgendaCalendarWeekOwnProps &
   Omit<ViewProps, keyof AgendaCalendarWeekOwnProps> &
   Omit<ViewStyleProps, keyof AgendaCalendarWeekOwnProps | keyof ViewProps>
 
+type AgendaCalendarMonthPickerOwnProps = {
+  /**
+   * How the month names read. `'long'` is "septembre", `'short'` is "sept." — a row that
+   * scrolls sideways, so a long name is a wider pill rather than a wrapped one.
+   *
+   * @default 'short'
+   */
+  format?: 'long' | 'short'
+  children?: ReactNode
+}
+
+/**
+ * The twelve months of the year on screen, in a row where the days were. It mounts while
+ * `view` is `'month'`; the year picker steps to it, and a month pressed here steps back to
+ * the week that holds it.
+ */
+export type AgendaCalendarMonthPickerProps = AgendaCalendarMonthPickerOwnProps &
+  Omit<ScrollViewProps, keyof AgendaCalendarMonthPickerOwnProps> &
+  Omit<
+    ViewStyleProps,
+    keyof AgendaCalendarMonthPickerOwnProps | keyof ScrollViewProps
+  >
+
+type AgendaCalendarYearPickerOwnProps = {
+  /** First year in the row. Defaults to fifty back — from `minValue`'s year when bounded. */
+  firstYear?: number
+  /** Last year in the row. Defaults to fifty on — from `maxValue`'s year when bounded. */
+  lastYear?: number
+  children?: ReactNode
+}
+
+/**
+ * The years the strip can be aimed at, in a row where the days were. It mounts while `view`
+ * is `'year'`; a year pressed here steps on to that year's months.
+ */
+export type AgendaCalendarYearPickerProps = AgendaCalendarYearPickerOwnProps &
+  Omit<ScrollViewProps, keyof AgendaCalendarYearPickerOwnProps> &
+  Omit<
+    ViewStyleProps,
+    keyof AgendaCalendarYearPickerOwnProps | keyof ScrollViewProps
+  >
+
 /** R5 — resolved styles, plus the week, the chosen day and the three moves. */
 export type AgendaCalendarContextValue = {
   headerStyle: StyleProp<ViewStyle>
@@ -129,12 +192,23 @@ export type AgendaCalendarContextValue = {
   dayLabelMutedStyle: StyleProp<TextStyle>
   dotStyle: StyleProp<ViewStyle>
   dotSelectedStyle: StyleProp<ViewStyle>
+  pickerStyle: StyleProp<ViewStyle>
+  pickerItemStyle: StyleProp<ViewStyle>
+  pickerItemSelectedStyle: StyleProp<ViewStyle>
+  pickerItemLabelStyle: StyleProp<TextStyle>
+  pickerItemLabelSelectedStyle: StyleProp<TextStyle>
   glyph: { size?: number; color?: string }
   /** The seven days on screen. */
   days: Date[]
   value: Date | undefined
   locale: string
   isDisabled: boolean
+  /** Which strip is on screen. `AgendaCalendar.YearPicker` / `.MonthPicker` step it. */
+  view: AgendaCalendarView
+  /** Sets the strip on screen. Takes the next value or an updater, like a `setState`. */
+  setView: (
+    next: AgendaCalendarView | ((current: AgendaCalendarView) => AgendaCalendarView)
+  ) => void
   /** Whether that day carries a mark. */
   hasEvent: (date: Date) => boolean
   isDayEnabled: (date: Date) => boolean
@@ -142,8 +216,32 @@ export type AgendaCalendarContextValue = {
   /** Moves the strip by whole weeks. */
   goByWeeks: (step: number) => void
   canGoByWeeks: (step: number) => boolean
-  /** Brings today's week on screen. It does **not** choose today. */
+  /** Moves the strip by whole months, and whether that month has a day left to choose. */
+  goByMonths: (step: number) => void
+  canGoByMonths: (step: number) => boolean
+  /** Moves the strip by whole years, and whether that year has a day left to choose. */
+  goByYears: (step: number) => void
+  canGoByYears: (step: number) => boolean
+  /**
+   * Steps the strip by one unit of **whatever `view` is showing** — a week, a month, or a
+   * year. This is what the chevrons call, so one pair of arrows pages all three.
+   */
+  page: (step: number) => void
+  canPage: (step: number) => boolean
+  /** Lays the strip on `year`, keeping the month and day, then opens that year's months. */
+  goToYear: (year: number) => void
+  /** Lays the strip on `monthIndex` (0–11), keeping the year, then back to the week. */
+  goToMonthInYear: (monthIndex: number) => void
+  /** The ends of the year row the picker shows. */
+  yearRange: { first: number; last: number }
+  /** Brings today's week on screen, returns to `'week'`, and chooses today (bounds allowing). */
   goToToday: () => void
   /** Whether today's week is already the one on screen. */
   isOnToday: boolean
+  /**
+   * Whether there is nothing left for `Today` to do — its week is showing, the strip is the
+   * view, and today is the chosen day. This is what greys the button; page away, open a
+   * picker, or pick another day and it goes back to `false`.
+   */
+  isTodayResolved: boolean
 }

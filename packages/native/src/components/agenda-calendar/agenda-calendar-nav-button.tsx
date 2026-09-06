@@ -15,9 +15,10 @@ const sheet = StyleSheet.create({
 })
 
 /**
- * The week before, and the week after.
+ * One step back, and one step forward — of **whatever strip is on screen**: a week in the
+ * day view, a month in the month row, a year in the year row.
  *
- * Dead when the week it would reach has no selectable day in it — the `Calendar`'s rule,
+ * Dead when the unit it would reach has no selectable day in it — the `Calendar`'s rule,
  * one unit down: a chevron that stays lit while it stops working is worse than one that
  * says so.
  */
@@ -37,13 +38,12 @@ function navButton(step: number, name: string, rotation: ViewStyle) {
       },
       ref
     ) {
-      const { navButtonStyle, goByWeeks, canGoByWeeks, isDisabled } =
-        useAgendaCalendar()
+      const { navButtonStyle, page, canPage, isDisabled } = useAgendaCalendar()
       const [styleProps, rest] = useStyleProps(props)
       const [isPressed, press] = usePressState({ onPressIn, onPressOut })
 
-      const weeks = overrideStep ?? step
-      const disabled = isDisabled || !canGoByWeeks(weeks)
+      const steps = overrideStep ?? step
+      const disabled = isDisabled || !canPage(steps)
 
       return (
         <PressableFeedback
@@ -56,7 +56,7 @@ function navButton(step: number, name: string, rotation: ViewStyle) {
           style={[navButtonStyle, styleProps, style]}
           onPress={event => {
             onPress?.(event)
-            goByWeeks(weeks)
+            page(steps)
           }}
           onPressIn={press.onPressIn}
           onPressOut={press.onPressOut}

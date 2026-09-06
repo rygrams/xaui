@@ -25,18 +25,20 @@ import { AgendaCalendar } from '@xaui/native/agenda-calendar'
 </AgendaCalendar>
 ```
 
-| slot                            | what it is                                  |
-| ------------------------------- | ------------------------------------------- |
-| `AgendaCalendar`                | The card, the state, the resolved style     |
-| `AgendaCalendar.Header`         | The row above the strip                     |
-| `AgendaCalendar.Title`          | The month the week is in                    |
-| `AgendaCalendar.Nav`            | The cluster on the trailing end             |
-| `AgendaCalendar.PreviousButton` | A week back. Dead at the bounds             |
-| `AgendaCalendar.NextButton`     | A week forward                              |
-| `AgendaCalendar.TodayButton`    | Back to this week. It does not choose today |
-| `AgendaCalendar.Weekdays`       | The seven column headings                   |
-| `AgendaCalendar.Week`           | The seven days                              |
-| `AgendaCalendar.Day`            | One day, and the mark under it              |
+| slot                            | what it is                                      |
+| ------------------------------- | ----------------------------------------------- |
+| `AgendaCalendar`                | The card, the state, the resolved style         |
+| `AgendaCalendar.Header`         | The row above the strip                         |
+| `AgendaCalendar.Title`          | The month the week is in                        |
+| `AgendaCalendar.Nav`            | The cluster on the trailing end                 |
+| `AgendaCalendar.PreviousButton` | A week back. Dead at the bounds                 |
+| `AgendaCalendar.NextButton`     | A week forward                                  |
+| `AgendaCalendar.TodayButton`    | Back to this week. It does not choose today     |
+| `AgendaCalendar.Weekdays`       | The seven column headings                       |
+| `AgendaCalendar.Week`           | The seven days                                  |
+| `AgendaCalendar.Day`            | One day, and the mark under it                  |
+| `AgendaCalendar.MonthPicker`    | The twelve months, in a row where the days were |
+| `AgendaCalendar.YearPicker`     | The years, in a row where the days were         |
 
 **Unlike the `Calendar`, this one draws its own card**: a `surface` ground, a corner and its
 padding. A strip is a thing you put on a screen; a month grid is a thing you put in a sheet.
@@ -89,16 +91,59 @@ reach has no selectable day in it — the `Calendar`'s rule, one unit down.
 
 Paging weeks is not choosing a day, for the reason `calendar.md` gives about months.
 
-## Today moves the strip. It does not choose today
+## Today, in one press
 
-The two are one press apart — today is right there once its week is on screen — and a button
-that quietly answered the question for you would be a button you cannot use to _look_.
+`AgendaCalendar.TodayButton` brings today's week on screen, closes any month or year row
+that is open, **and chooses today** — the same three things legacy's dialog did. A button
+that dropped you on the right week and left you to find the day would be half a button.
+`select` still honours the bounds, so an out-of-range today moves the strip without choosing.
 
-It goes dead, and reads dead, while this week is already the one showing: that is the only
-state in which pressing it would do nothing at all.
+It goes dead, and reads dead, only when there is nothing left for it to do: today's week is
+showing, the day strip is the view, and today is the chosen day. Page away, open a picker,
+or choose another day and it comes back to life.
 
 The word is the caller's — "Today", "Aujourd'hui", "Hoy" — and R3 wraps a text child into
 the label.
+
+## Changing the month and the year
+
+```tsx
+const [view, setView] = useState<AgendaCalendarView>('week')
+
+<AgendaCalendar value={day} onValueChange={setDay} view={view} onViewChange={setView}>
+  <AgendaCalendar.Header>
+    <PressableFeedback onPress={() => setView(v => (v === 'week' ? 'year' : 'week'))}>
+      <AgendaCalendar.Title />
+    </PressableFeedback>
+    <AgendaCalendar.Nav>
+      <AgendaCalendar.PreviousButton accessibilityLabel="Précédent" />
+      <AgendaCalendar.TodayButton>Today</AgendaCalendar.TodayButton>
+      <AgendaCalendar.NextButton accessibilityLabel="Suivant" />
+    </AgendaCalendar.Nav>
+  </AgendaCalendar.Header>
+  {view === 'year' ? (
+    <AgendaCalendar.YearPicker />
+  ) : view === 'month' ? (
+    <AgendaCalendar.MonthPicker />
+  ) : (
+    <>
+      <AgendaCalendar.Weekdays />
+      <AgendaCalendar.Week />
+    </>
+  )}
+</AgendaCalendar>
+```
+
+`view` is a third piece of state, controlled the way `value` and `week` are. The pickers are
+**rows in the strip's place**, not a grid over it — they scroll sideways where the days
+were, the way the strip itself does. The walk is the `Calendar`'s, one unit down: the title
+opens the **years**, a year opens that year's months, a month lands back on the week that
+holds it.
+
+**One pair of chevrons pages all three.** `PreviousButton` / `NextButton` step whatever
+`view` is showing — a week, a month, or a year — and go dead when the unit they would reach
+has no selectable day in it. The caller reads `view` to render one of the three; the pickers
+only ever step it.
 
 ## The title names the middle day's month
 
@@ -143,35 +188,50 @@ reason: seven cells are generated from a date rather than written.
 
 Everything `View` accepts, every `ViewStyle` key it does not already claim (R14), plus:
 
-| Prop             | Type                    | Default      | Notes                        |
-| ---------------- | ----------------------- | ------------ | ---------------------------- |
-| `variant`        | `CalendarVariant`       | `'primary'`  | The chosen day               |
-| `size`           | `'sm' \| 'md' \| 'lg'`  | `'md'`       | The cell and the controls    |
-| `radius`         | `RadiusKey`             | `'2xl'`      | The card's corner            |
-| `color`          | `string`                | —            | The disc, its mark, the pill |
-| `value`          | `Date`                  | —            | Controlled                   |
-| `defaultValue`   | `Date`                  | —            |                              |
-| `onValueChange`  | `(value: Date) => void` | —            | Midnight, local time         |
-| `week`           | `Date`                  | —            | Any day in the visible week  |
-| `defaultWeek`    | `Date`                  | the value's  |                              |
-| `onWeekChange`   | `(week: Date) => void`  | —            |                              |
-| `events`         | `Date[]`                | —            | The days that carry a mark   |
-| `minValue`       | `Date`                  | —            | Compared by day              |
-| `maxValue`       | `Date`                  | —            |                              |
-| `firstDayOfWeek` | `0`–`6`                 | the locale's |                              |
-| `locale`         | `string`                | the device's |                              |
-| `isDisabled`     | `boolean`               | `false`      |                              |
-| `asChild`        | `boolean`               | `false`      |                              |
+| Prop             | Type                              | Default      | Notes                        |
+| ---------------- | --------------------------------- | ------------ | ---------------------------- |
+| `variant`        | `CalendarVariant`                 | `'primary'`  | The chosen day               |
+| `size`           | `'sm' \| 'md' \| 'lg'`            | `'md'`       | The cell and the controls    |
+| `radius`         | `RadiusKey`                       | `'2xl'`      | The card's corner            |
+| `color`          | `string`                          | —            | The disc, its mark, the pill |
+| `value`          | `Date`                            | —            | Controlled                   |
+| `defaultValue`   | `Date`                            | —            |                              |
+| `onValueChange`  | `(value: Date) => void`           | —            | Midnight, local time         |
+| `week`           | `Date`                            | —            | Any day in the visible week  |
+| `defaultWeek`    | `Date`                            | the value's  |                              |
+| `onWeekChange`   | `(week: Date) => void`            | —            |                              |
+| `view`           | `AgendaCalendarView`              | —            | Controlled strip on screen   |
+| `defaultView`    | `AgendaCalendarView`              | `'week'`     | Uncontrolled starting strip  |
+| `onViewChange`   | `(v: AgendaCalendarView) => void` | —            | Fires when a picker steps it |
+| `events`         | `Date[]`                          | —            | The days that carry a mark   |
+| `minValue`       | `Date`                            | —            | Compared by day              |
+| `maxValue`       | `Date`                            | —            |                              |
+| `firstDayOfWeek` | `0`–`6`                           | the locale's |                              |
+| `locale`         | `string`                          | the device's |                              |
+| `isDisabled`     | `boolean`                         | `false`      |                              |
+| `asChild`        | `boolean`                         | `false`      |                              |
 
 ### `AgendaCalendar.Day`
 
 `date` (required), `children`, `isDisabled`, plus everything `PressableFeedback` takes and
 the `ViewStyle` keys as props (R14).
 
+### `AgendaCalendar.MonthPicker`
+
+Everything `ScrollView` accepts, plus `format` — `'long'` (`"septembre"`) or `'short'`
+(`"sept."`, the default), clipped to a line since the row scrolls sideways.
+
+### `AgendaCalendar.YearPicker`
+
+Everything `ScrollView` accepts, plus `firstYear` / `lastYear` — the ends of the row,
+defaulting to fifty each way, or to the bounds' own years when the strip is bounded.
+
 ## Extending it
 
 `useAgendaCalendar()` is exported (R10) and carries the seven days, the chosen one,
-`hasEvent`, and the three moves — `goByWeeks`, `goToToday` and `select` — plus `isOnToday`.
+`hasEvent`, `view` / `setView`, and the moves — `goByWeeks`, `goByMonths`, `goByYears`,
+`page` (whichever the view shows), `goToYear`, `goToMonthInYear`, `goToToday` and `select` —
+plus `isOnToday` and `isTodayResolved`.
 Enough to write a strip of your own: names under the numbers, a count instead of a dot, a
 second mark in another colour. Outside an `<AgendaCalendar>` it throws by name.
 

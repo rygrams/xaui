@@ -12,6 +12,8 @@ const SLOTS = [
   'todayDisabled',
   'todayLabel',
   'week',
+  'picker',
+  'pickerItem',
 ] as const
 
 /**
@@ -26,8 +28,11 @@ const SLOTS = [
  */
 const VARIANT_TOKENS: Record<'default', VariantTokens> = {
   // One entry, and it is still a table: `resolveTint` only maps roles a variant declared,
-  // and without one the `color` a caller writes would never reach the pill.
-  default: { bg: 'default', fg: 'foreground' },
+  // and without one the `color` a caller writes would never reach the pill's word. `fg` is
+  // `accent` — the word reads as the accent by default and takes the tint when there is
+  // one; `foreground` here left it plain, and left it `undefined` (RN's black) in dark
+  // wherever the token failed to resolve.
+  default: { bg: 'default', fg: 'accent' },
 }
 
 type SizeStep = {
@@ -47,6 +52,13 @@ function sizeAxis(step: SizeStep) {
 
   return (theme: XAUITheme): SlotStyles<AgendaCalendarSlot> => ({
     navButton: { width: button, height: button, borderRadius: button / 2 },
+    // A pill the height of the strip's own cell and a nav button, so the row of months
+    // sits where the row of days did without the header shifting.
+    pickerItem: {
+      height: button,
+      paddingHorizontal: theme.spacing(3),
+      borderRadius: button / 2,
+    },
     today: {
       height: button,
       paddingHorizontal: theme.spacing(3),
@@ -96,6 +108,11 @@ export const agendaCalendarRecipe = createRecipe({
       color: theme.colors.accent,
     },
     week: { flexDirection: 'row' },
+    // A row that scrolls sideways where the week was. `flexGrow: 0` so the `ScrollView`
+    // does not eat the height the card gives it; the gap between pills is the
+    // `contentContainerStyle`'s, which a `ScrollView` refuses on its own style.
+    picker: { flexGrow: 0 },
+    pickerItem: { alignItems: 'center', justifyContent: 'center' },
     // The pill goes dead once this week is the one on screen, and that is a **per-button**
     // state rather than the recipe's `disabled` — which dims the whole card. Without a look
     // of its own it would read as pressable and do nothing, which is the state the button
@@ -105,8 +122,10 @@ export const agendaCalendarRecipe = createRecipe({
 
   variantTokens: VARIANT_TOKENS,
 
-  /** The tint reaches the pill's word, which is the only thing here a variant colours. */
-  paint: (_theme, colors) => ({ todayLabel: { color: colors.fg } }),
+  // The word is the one thing here a variant colours: the accent by default, the tint when
+  // a `color` is set. Guarded because a resolve pass with no variant token leaves `fg`
+  // unset, and spreading `{ color: undefined }` over the base would drop it to RN's black.
+  paint: (_theme, colors) => (colors.fg ? { todayLabel: { color: colors.fg } } : {}),
 
   variants: {
     size: {
@@ -123,5 +142,8 @@ export const agendaCalendarRecipe = createRecipe({
     disabled: theme => ({ root: { opacity: theme.opacity.disabled } }),
   },
 
-  defaultVariants: { size: 'md' },
+  // `variant: 'default'` so both passes resolve the one token — without it `resolve` runs
+  // `paint` with no colours and `tint` bails before the word, so a `color` prop never
+  // reached the pill and dark mode fell through to black.
+  defaultVariants: { variant: 'default', size: 'md' },
 })
