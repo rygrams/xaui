@@ -85,7 +85,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.4   | `Select` — Trigger · Value · Indicator · Overlay · Content · Item                | done    |
 | P5.5   | `Stepper` — slots over the existing group context                                | done    |
 | P5.6   | `Toolbar` — slots over the existing group context                                | dropped |
-| P5.7   | `List` — slots over the existing group context                                   | todo    |
+| P5.7   | `List` — slots over the existing group context                                   | done    |
 | P5.7b  | `ListGroup` — net new, sectioned `List` with its headers                         | todo    |
 | P5.8   | `Menu` — Trigger · Overlay · Content · Label · Group · Item                      | done    |
 | P5.9   | `SegmentButton` — slots over the existing group context                          | done    |

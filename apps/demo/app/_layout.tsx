@@ -41,6 +41,7 @@ export default function RootLayout() {
           <Stack.Screen name="field-group" options={{ title: 'FieldGroup (v1)' }} />
           <Stack.Screen name="icon" options={{ title: 'Icon (v1)' }} />
           <Stack.Screen name="input-otp" options={{ title: 'InputOTP (v1)' }} />
+          <Stack.Screen name="list" options={{ title: 'List (v1)' }} />
           <Stack.Screen name="menu" options={{ title: 'Menu (v1)' }} />
           <Stack.Screen name="popover" options={{ title: 'Popover (v1)' }} />
           <Stack.Screen
