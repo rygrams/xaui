@@ -168,4 +168,4 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | D2  | `apps/demo` has neither a `type-check` script nor a CI filter             | todo   |
 | D3  | `turbo.json` `test` outputs are wrong — every run warns                   | todo   |
 | D4  | `apps/docs/public/docs/` still documents the dropped legacy `view/` names | todo   |
-| D5  | `@xaui/native` type emit — `tsc --emitDeclarationOnly` replaces the dts rollup that OOM'd | done   |
+| D5  | `@xaui/native` types came from one dts worker that OOM'd — now `tsc`      | done   |
