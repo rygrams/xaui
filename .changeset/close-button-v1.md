@@ -14,7 +14,7 @@ something the library does not own, a card header, a banner, a sheet of your own
 now exports `CloseButtonBase` and `closeButtonGeometry`; the public component takes the name
 `CloseButton` in `@xaui/native/close-button`. Two things called `CloseButton` in one root
 barrel is not a naming preference, it is an ambiguous re-export — and the split is worth
-saying out loud anyway: a close *inside* a component takes that component's colours and that
+saying out loud anyway: a close _inside_ a component takes that component's colours and that
 component's scale, so `Chip.Close` reaches for the base, and dropping a dismiss into a
 layout reaches for the component. The five existing call sites move with it.
 
