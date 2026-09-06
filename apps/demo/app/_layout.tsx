@@ -55,6 +55,7 @@ export default function RootLayout() {
           <Stack.Screen name="tag-group" options={{ title: 'TagGroup (v1)' }} />
           <Stack.Screen name="text-area" options={{ title: 'TextArea (v1)' }} />
           <Stack.Screen name="text-field" options={{ title: 'TextField (v1)' }} />
+          <Stack.Screen name="timeline" options={{ title: 'Timeline (v1)' }} />
           <Stack.Screen name="toast" options={{ title: 'Toast (v1)' }} />
           <Stack.Screen name="typography" options={{ title: 'Typography (v1)' }} />
           <Stack.Screen name="view" options={{ title: 'Layout (v1)' }} />

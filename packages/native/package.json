@@ -297,6 +297,16 @@
         "default": "./dist/components/text-field/index.cjs"
       }
     },
+    "./timeline": {
+      "import": {
+        "types": "./dist/components/timeline/index.d.ts",
+        "default": "./dist/components/timeline/index.js"
+      },
+      "require": {
+        "types": "./dist/components/timeline/index.d.cts",
+        "default": "./dist/components/timeline/index.cjs"
+      }
+    },
     "./toast": {
       "import": {
         "types": "./dist/components/toast/index.d.ts",

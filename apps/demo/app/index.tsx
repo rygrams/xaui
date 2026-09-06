@@ -45,6 +45,7 @@ const SCREENS = [
   { href: '/tag-group', label: 'TagGroup' },
   { href: '/text-area', label: 'TextArea' },
   { href: '/text-field', label: 'TextField' },
+  { href: '/timeline', label: 'Timeline' },
   { href: '/toast', label: 'Toast' },
   { href: '/typography', label: 'Typography' },
 ] as const
