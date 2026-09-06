@@ -21,6 +21,7 @@
     "checkbox-v1",
     "chip-v1",
     "close-button-v1",
+    "combobox-v1",
     "dialog-close-cross",
     "dialog-v1",
     "divider-v1",
@@ -76,6 +77,7 @@
     "toast-v1",
     "tsup-clean",
     "warning-orange",
+    "wheel-picker-v1",
     "workletized-build"
   ]
 }
