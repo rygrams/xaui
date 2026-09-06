@@ -25,6 +25,7 @@ const entries = {
   'components/stepper/index': 'src/components/stepper/index.ts',
   'components/surface/index': 'src/components/surface/index.ts',
   'components/switch/index': 'src/components/switch/index.ts',
+  'components/table/index': 'src/components/table/index.ts',
   'components/tabs/index': 'src/components/tabs/index.ts',
   'components/tag-group/index': 'src/components/tag-group/index.ts',
   'components/text-area/index': 'src/components/text-area/index.ts',

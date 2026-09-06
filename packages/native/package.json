@@ -257,6 +257,16 @@
         "default": "./dist/components/switch/index.cjs"
       }
     },
+    "./table": {
+      "import": {
+        "types": "./dist/components/table/index.d.ts",
+        "default": "./dist/components/table/index.js"
+      },
+      "require": {
+        "types": "./dist/components/table/index.d.cts",
+        "default": "./dist/components/table/index.cjs"
+      }
+    },
     "./tabs": {
       "import": {
         "types": "./dist/components/tabs/index.d.ts",

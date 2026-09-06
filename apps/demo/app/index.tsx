@@ -41,6 +41,7 @@ const SCREENS = [
   { href: '/stepper', label: 'Stepper' },
   { href: '/surface', label: 'Surface' },
   { href: '/switch', label: 'Switch' },
+  { href: '/table', label: 'Table' },
   { href: '/tabs', label: 'Tabs' },
   { href: '/tag-group', label: 'TagGroup' },
   { href: '/text-area', label: 'TextArea' },
