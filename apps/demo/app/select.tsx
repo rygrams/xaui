@@ -190,7 +190,7 @@ function ControlledPicker() {
         onPress={() => setValue('fr')}
         style={{ color: theme.colors.accent, fontSize: theme.fontSizes.sm }}
       >
-        Remettre sur Français, depuis l'extérieur
+        Remettre sur Français, depuis l’extérieur
       </Text>
     </View>
   )

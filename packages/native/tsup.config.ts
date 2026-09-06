@@ -9,6 +9,7 @@ const entries = {
   'components/bottom-sheet/index': 'src/components/bottom-sheet/index.ts',
   'components/button/index': 'src/components/button/index.ts',
   'components/card/index': 'src/components/card/index.ts',
+  'components/carousel/index': 'src/components/carousel/index.ts',
   'components/checkbox/index': 'src/components/checkbox/index.ts',
   'components/chip/index': 'src/components/chip/index.ts',
   'components/dialog/index': 'src/components/dialog/index.ts',
