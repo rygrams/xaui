@@ -52,6 +52,14 @@ export default function RootLayout() {
             name="pressable-feedback"
             options={{ title: 'PressableFeedback (v1)' }}
           />
+          <Stack.Screen
+            name="progress-bar"
+            options={{ title: 'ProgressBar (v1)' }}
+          />
+          <Stack.Screen
+            name="progress-circle"
+            options={{ title: 'ProgressCircle (v1)' }}
+          />
           <Stack.Screen name="radio" options={{ title: 'Radio (v1)' }} />
           <Stack.Screen name="segment" options={{ title: 'Segment (v1)' }} />
           <Stack.Screen name="select" options={{ title: 'Select (v1)' }} />
