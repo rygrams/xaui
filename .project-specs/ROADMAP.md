@@ -120,7 +120,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.26c | `AgendaCalendar` — net new, the `Calendar` with its events                        | todo    |
 | P5.26d | `DateField` — over legacy `DateInput`, following the `Input` → `TextField` rename | done    |
 | P5.26h | `TimeField` — the same mask for a time, over legacy `TimeInput`                   | done    |
-| P5.26i | `DateTimeField` — the two masks in one box, over legacy `DateTimeInput`           | todo    |
+| P5.26i | `DateTimeField` — the two masks in one box, over legacy `DateTimeInput`           | done    |
 | P5.26e | `DateRangePicker` — net new, two bounds over the `DatePicker`                     | todo    |
 | P5.26f | `DateTimePicker` — net new, `DatePicker` and `TimePicker` as one                  | todo    |
 | P5.26g | `RangeCalendar` — net new, the `Calendar` behind `DateRangePicker`                | todo    |
