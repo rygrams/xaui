@@ -51,6 +51,7 @@ export default function RootLayout() {
           <Stack.Screen name="stepper" options={{ title: 'Stepper (v1)' }} />
           <Stack.Screen name="surface" options={{ title: 'Surface (v1)' }} />
           <Stack.Screen name="switch" options={{ title: 'Switch (v1)' }} />
+          <Stack.Screen name="table" options={{ title: 'Table (v1)' }} />
           <Stack.Screen name="tabs" options={{ title: 'Tabs (v1)' }} />
           <Stack.Screen name="tag-group" options={{ title: 'TagGroup (v1)' }} />
           <Stack.Screen name="text-area" options={{ title: 'TextArea (v1)' }} />
