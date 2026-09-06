@@ -4,6 +4,7 @@ const entries = {
   index: 'src/index.ts',
   'components/accordion/index': 'src/components/accordion/index.ts',
   'components/alert/index': 'src/components/alert/index.ts',
+  'components/autocomplete/index': 'src/components/autocomplete/index.ts',
   'components/avatar/index': 'src/components/avatar/index.ts',
   'components/badge/index': 'src/components/badge/index.ts',
   'components/bottom-sheet/index': 'src/components/bottom-sheet/index.ts',
@@ -11,6 +12,7 @@ const entries = {
   'components/card/index': 'src/components/card/index.ts',
   'components/checkbox/index': 'src/components/checkbox/index.ts',
   'components/chip/index': 'src/components/chip/index.ts',
+  'components/close-button/index': 'src/components/close-button/index.ts',
   'components/dialog/index': 'src/components/dialog/index.ts',
   'components/divider/index': 'src/components/divider/index.ts',
   'components/field-group/index': 'src/components/field-group/index.ts',
@@ -18,7 +20,10 @@ const entries = {
   'components/list/index': 'src/components/list/index.ts',
   'components/menu/index': 'src/components/menu/index.ts',
   'components/popover/index': 'src/components/popover/index.ts',
+  'components/progress-bar/index': 'src/components/progress-bar/index.ts',
+  'components/progress-circle/index': 'src/components/progress-circle/index.ts',
   'components/radio/index': 'src/components/radio/index.ts',
+  'components/segment/index': 'src/components/segment/index.ts',
   'components/select/index': 'src/components/select/index.ts',
   'components/skeleton/index': 'src/components/skeleton/index.ts',
   'components/slider/index': 'src/components/slider/index.ts',
@@ -61,6 +66,19 @@ export default defineConfig({
    * whatever is already there rather than in place of it.
    */
   clean: true,
+  /**
+   * **Needs the heap the `build` script hands it.** The declarations are rolled up for all
+   * thirty-five entries in one worker thread, and that worker holds the whole type graph of
+   * the package at once — every component's props, and `react-native`'s `.d.ts` under them.
+   * It crossed Node's default 4288 MB somewhere around the component that made this comment
+   * necessary, and the worker does not fail gracefully: the JS build reports success, then
+   * `ERR_WORKER_OUT_OF_MEMORY` takes the process down with an error that names no file.
+   *
+   * So `package.json`'s `build` sets `--max-old-space-size=6144` — which is why running
+   * `tsup` here by hand can still die where `pnpm build` does not. It is a ceiling raised,
+   * not a cure: the cure is to stop bundling thirty-five entry points of declarations in one
+   * pass, and that is a change to how this package emits types rather than a flag.
+   */
   dts: true,
   splitting: true,
   target: 'es2020',

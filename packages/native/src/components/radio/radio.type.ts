@@ -51,7 +51,22 @@ type RadioOwnProps = {
    * Ignored while `isInvalid`, as on the `Checkbox`.
    */
   color?: string
-  /** Controlled. Leave it out and the radio keeps its own state. */
+  /**
+   * What this option stands for inside a [`Radio.Group`](./radio-group.tsx). The group
+   * holds the chosen value; this is the one the option compares it to.
+   *
+   * It is the only thing that puts an option in a set — nothing walks the children — so a
+   * radio nested in a card or a `List.Item` belongs to the set exactly as much as a direct
+   * child does, and one without a `value` is simply not in it, whatever it is nested in.
+   *
+   * Outside a group it means nothing: use `isSelected`.
+   */
+  value?: string
+  /**
+   * Controlled. Leave it out and the radio keeps its own state — or, inside a
+   * `Radio.Group`, takes it from the set. Given here it wins over the set, which is what
+   * lets one option in a group be driven by something else.
+   */
   isSelected?: boolean
   /** The starting value when uncontrolled. @default false */
   defaultSelected?: boolean
@@ -59,11 +74,15 @@ type RadioOwnProps = {
    * Fired when the option becomes the chosen one — **`true` and only `true`**. Pressing a
    * selected radio changes nothing: a set of options has no "none of these" unless one of
    * them says so, which is a `Checkbox`'s job or another option's.
+   *
+   * Inside a `Radio.Group` it still fires, beside the group's `onValueChange` — one is the
+   * option's, the other the set's, and a row that needs to react to being chosen should
+   * not have to read the value it already stands for.
    */
   onSelectedChange?: (isSelected: boolean) => void
-  /** Paints the border, the fill and the label in `danger`. */
+  /** Paints the border, the fill and the label in `danger`. A group's still applies. */
   isInvalid?: boolean
-  /** Dims the row and stops the press. */
+  /** Dims the row and stops the press. A group's still applies. */
   isDisabled?: boolean
   animation?: AnimationProp
   /** R9 — `Pressable`'s function form as much as an object or an array. */

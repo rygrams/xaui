@@ -1,6 +1,6 @@
 import { forwardRef } from 'react'
 import type { View } from 'react-native'
-import { CloseButton } from '../../system/close-button'
+import { CloseButtonBase } from '../../system/close-button'
 import { useTagGroup, useTagGroupItem } from './tag-group.context'
 import type { TagGroupItemRemoveButtonProps } from './tag-group.type'
 
@@ -14,7 +14,7 @@ import type { TagGroupItemRemoveButtonProps } from './tag-group.type'
  * It is written out rather than drawn by the item, because a tag you can turn on and a tag
  * you can take off are different controls and most groups are only one of the two.
  *
- * Six lines, because the shared `CloseButton` owns the behaviour — its own press state, the
+ * Six lines, because the shared `CloseButtonBase` owns the behaviour — its own press state, the
  * grown touch target, the missing-label warning and the built-in cross — and the group only
  * hands it the styles its recipe resolved (R5).
  */
@@ -29,7 +29,7 @@ export const TagGroupItemRemoveButton = forwardRef<
   if (remove === undefined) return null
 
   return (
-    <CloseButton
+    <CloseButtonBase
       ref={ref}
       name="TagGroup.ItemRemoveButton"
       baseStyle={closeStyle}
