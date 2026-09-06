@@ -137,7 +137,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.34f | `PieChart` — over legacy `PieChartCard`                                          | todo    |
 | P5.34g | `RadarChart` — net new, no legacy equivalent                                     | todo    |
 | P5.34h | `RadialChart` — net new, no legacy equivalent                                    | todo    |
-| P5.35  | `CloseButton` — net new, the dismiss affordance Chip and Alert inline today      | todo    |
+| P5.35  | `CloseButton` — the dismiss affordance, out of Chip and Alert and given a recipe | done    |
 | P5.35b | `LinkButton` — net new, a `Button` that reads as a link                          | todo    |
 | P5.35c | `MorphButton` — net new, a `Button` that animates between states                 | todo    |
 | P5.35d | `SlideButton` — net new, slide-to-confirm over the `Slider`                      | todo    |
