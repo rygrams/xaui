@@ -147,6 +147,16 @@
         "default": "./dist/components/field-group/index.cjs"
       }
     },
+    "./flip-card": {
+      "import": {
+        "types": "./dist/components/flip-card/index.d.ts",
+        "default": "./dist/components/flip-card/index.js"
+      },
+      "require": {
+        "types": "./dist/components/flip-card/index.d.cts",
+        "default": "./dist/components/flip-card/index.cjs"
+      }
+    },
     "./input-otp": {
       "import": {
         "types": "./dist/components/input-otp/index.d.ts",

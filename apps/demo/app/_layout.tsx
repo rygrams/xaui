@@ -35,6 +35,7 @@ export default function RootLayout() {
           <Stack.Screen name="dialog" options={{ title: 'Dialog (v1)' }} />
           <Stack.Screen name="divider" options={{ title: 'Divider (v1)' }} />
           <Stack.Screen name="field-group" options={{ title: 'FieldGroup (v1)' }} />
+          <Stack.Screen name="flip-card" options={{ title: 'FlipCard (v1)' }} />
           <Stack.Screen name="icon" options={{ title: 'Icon (v1)' }} />
           <Stack.Screen name="input-otp" options={{ title: 'InputOTP (v1)' }} />
           <Stack.Screen name="menu" options={{ title: 'Menu (v1)' }} />

@@ -14,6 +14,7 @@ const entries = {
   'components/dialog/index': 'src/components/dialog/index.ts',
   'components/divider/index': 'src/components/divider/index.ts',
   'components/field-group/index': 'src/components/field-group/index.ts',
+  'components/flip-card/index': 'src/components/flip-card/index.ts',
   'components/input-otp/index': 'src/components/input-otp/index.ts',
   'components/menu/index': 'src/components/menu/index.ts',
   'components/popover/index': 'src/components/popover/index.ts',
