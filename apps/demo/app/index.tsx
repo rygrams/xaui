@@ -27,6 +27,7 @@ const SCREENS = [
   { href: '/dialog', label: 'Dialog' },
   { href: '/divider', label: 'Divider' },
   { href: '/field-group', label: 'FieldGroup' },
+  { href: '/flip-card', label: 'FlipCard' },
   { href: '/icon', label: 'Icon' },
   { href: '/input-otp', label: 'InputOTP' },
   { href: '/view', label: 'Layout' },
