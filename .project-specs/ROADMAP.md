@@ -123,9 +123,9 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.26d | `MaskField` — one masked box: `date`, `time`, `datetime`, `credit-card` or a pattern | done |
 | P5.26h | `TimeField` — a time typed, over legacy `TimeInput` | done |
 | P5.26i | `DateTimeField` — the two masks in one box, over legacy `DateTimeInput` | todo |
-| P5.26e | `DateRangePicker` — net new, two bounds over the `DatePicker` | todo |
+| P5.26e | `DateRangePicker` — net new, two bounds over the `DatePicker` | done |
 | P5.26f | `DateTimePicker` — net new, `DatePicker` and `TimePicker` as one | done |
-| P5.26g | `RangeCalendar` — net new, the `Calendar` behind `DateRangePicker` | todo |
+| P5.26g | `RangeCalendar` — net new, the `Calendar` behind `DateRangePicker` | done |
 | P5.27 | `TimePicker` — a `Select` trigger, a sheet and a clock face | done |
 | P5.28 | `ColorPicker` | todo |
 | P5.29 | `Carousel` | done |

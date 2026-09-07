@@ -217,6 +217,16 @@
         "default": "./dist/components/date-picker/index.cjs"
       }
     },
+    "./date-range-picker": {
+      "import": {
+        "types": "./dist/components/date-range-picker/index.d.ts",
+        "default": "./dist/components/date-range-picker/index.js"
+      },
+      "require": {
+        "types": "./dist/components/date-range-picker/index.d.cts",
+        "default": "./dist/components/date-range-picker/index.cjs"
+      }
+    },
     "./date-time-picker": {
       "import": {
         "types": "./dist/components/date-time-picker/index.d.ts",
@@ -395,6 +405,16 @@
       "require": {
         "types": "./dist/components/radio/index.d.cts",
         "default": "./dist/components/radio/index.cjs"
+      }
+    },
+    "./range-calendar": {
+      "import": {
+        "types": "./dist/components/range-calendar/index.d.ts",
+        "default": "./dist/components/range-calendar/index.js"
+      },
+      "require": {
+        "types": "./dist/components/range-calendar/index.d.cts",
+        "default": "./dist/components/range-calendar/index.cjs"
       }
     },
     "./segment": {

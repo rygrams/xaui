@@ -32,6 +32,7 @@ const SCREENS = [
   { href: '/close-button', label: 'CloseButton' },
   { href: '/combobox', label: 'Combobox' },
   { href: '/date-picker', label: 'DatePicker' },
+  { href: '/date-range-picker', label: 'DateRangePicker' },
   { href: '/date-time-picker', label: 'DateTimePicker' },
   { href: '/dialog', label: 'Dialog' },
   { href: '/divider', label: 'Divider' },

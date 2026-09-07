@@ -50,6 +50,10 @@ export default function RootLayout() {
           <Stack.Screen name="combobox" options={{ title: 'Combobox (v1)' }} />
           <Stack.Screen name="date-picker" options={{ title: 'DatePicker (v1)' }} />
           <Stack.Screen
+            name="date-range-picker"
+            options={{ title: 'DateRangePicker (v1)' }}
+          />
+          <Stack.Screen
             name="date-time-picker"
             options={{ title: 'DateTimePicker (v1)' }}
           />
