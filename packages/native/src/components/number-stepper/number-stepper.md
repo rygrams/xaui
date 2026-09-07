@@ -120,6 +120,16 @@ digit:
 It keeps the page's own ink whatever the buttons are painted, because it sits on the pill
 rather than on a button.
 
+## The number gives way, and never lays over a button
+
+`Value` shrinks and then truncates: it is the part of the control that can afford to lose
+room, because the buttons are touch targets. And the buttons carry a `zIndex` above it, so a
+number that has run out of room can never end up painted on top of the leading circle —
+which it otherwise would, since it is written between the two.
+
+One line, always. A second line is a row taller than its own buttons. Pass
+`numberOfLines={0}` if a `Value` of yours really has to wrap.
+
 ## Width
 
 There is no `fullWidth`. The root hugs its content, and `alignSelf` is a style prop (R14)

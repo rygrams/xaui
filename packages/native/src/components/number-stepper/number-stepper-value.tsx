@@ -31,6 +31,10 @@ export const NumberStepperValue = forwardRef<Text, NumberStepperValueProps>(
         // The number is what a screen reader should read as the stepper's value, and it is
         // the one part of this control that is text rather than a mark.
         accessibilityRole="text"
+        // One line, so a number with no room left truncates instead of wrapping — a second
+        // line is a row taller than its own buttons. Before the caller's props, because a
+        // `Value` holding a word that must wrap is theirs to allow.
+        numberOfLines={1}
         {...rest}
         style={[valueStyle, styleProps, style]}
       >

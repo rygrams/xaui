@@ -211,6 +211,25 @@ export default function NumberStepperScreen() {
       </Section>
 
       <Section
+        title="Serré — le nombre cède, il ne passe pas par-dessus"
+        note="Le nombre est la partie qui peut se permettre de perdre de la place : les boutons sont des cibles tactiles. Il se resserre puis se tronque, et les boutons restent au-dessus de lui quoi qu'il arrive."
+      >
+        <View style={{ width: 150 }}>
+          <NumberStepper
+            alignSelf="stretch"
+            defaultValue={1234567}
+            locale="fr-FR"
+            step={1000}
+          >
+            <NumberStepper.Track />
+            <NumberStepper.Decrement accessibilityLabel="Mille de moins" />
+            <NumberStepper.Value flex={1} />
+            <NumberStepper.Increment accessibilityLabel="Mille de plus" />
+          </NumberStepper>
+        </View>
+      </Section>
+
+      <Section
         title="Pleine largeur"
         note="Pas de prop fullWidth : la racine se serre sur son contenu, et alignSelf est une prop de style (R14) comme une autre."
       >

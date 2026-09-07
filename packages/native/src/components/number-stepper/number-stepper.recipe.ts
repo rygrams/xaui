@@ -109,6 +109,11 @@ export const numberStepperRecipe = createRecipe({
       fontWeight: theme.fontWeights.medium,
       fontFamily: theme.fontFamilies.body,
       textAlign: 'center',
+      // The number gives way rather than growing into its neighbours. A row too narrow for
+      // a four-digit value would otherwise push the buttons out of the control or, once a
+      // parent has capped its width, lay the digits over them — and either way the number
+      // is the part that can afford to lose room, because the buttons are touch targets.
+      flexShrink: 1,
       // The `Badge`'s two rules, for the `Badge`'s reason: a number inside a box of a
       // fixed height must not be the thing that decides that height. Android reserves
       // leading above and below the glyphs, and the scale's own leading is taller than the
@@ -120,6 +125,11 @@ export const numberStepperRecipe = createRecipe({
       alignItems: 'center',
       justifyContent: 'center',
       borderCurve: 'continuous',
+      // Above the number, whatever the JSX order does with paint order: the value is
+      // written between the two, so without this the leading button is painted under it
+      // and a digit that has run out of room sits on top of the circle. The track, written
+      // first and out of flow, stays below both.
+      zIndex: 1,
       // Raised off the pill, which is the whole shape: a flat circle on a soft ground is a
       // hole in it. Dark mode drops the surface shadow, so this is a role and not a lift.
       ...theme.shadows.surface,
