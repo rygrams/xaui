@@ -10,7 +10,7 @@ import {
   formatNumber,
   parseNumber,
   stepNumber,
-} from './number-field.utils'
+} from '../../utils/number'
 import type { NumberFieldProps } from './number-field.type'
 
 /** Every fraction digit the value happens to carry, and no grouping. */

@@ -94,6 +94,7 @@ one on it, and that is the caller's call.
 
 ## Related
 
-- `NumberStepper` — the same pair without a field to type into. Not shipped yet.
+- [`NumberStepper`](../number-stepper/number-stepper.md) — the same pair without a field
+  to type into.
 - [`Slider`](../slider/slider.md) — a quantity chosen on a track.
 - [`TextField`](../text-field/text-field.md) — the root, the label, the hint and the error.

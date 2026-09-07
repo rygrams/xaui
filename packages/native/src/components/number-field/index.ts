@@ -35,8 +35,8 @@ export type {
 } from './number-field.type'
 
 /**
- * The number primitives, re-exported so a caller reading a typed value back — or writing a
- * stepper of their own — does not reach into the component's folder.
+ * The number primitives, re-exported so a caller reading a typed value back does not reach
+ * into `utils/`, which is private. `NumberStepper` re-exports the same six.
  */
 export {
   canStep,
@@ -45,5 +45,5 @@ export {
   numberMarks,
   parseNumber,
   stepNumber,
-} from './number-field.utils'
-export type { NumberBounds } from './number-field.utils'
+} from '../../utils/number'
+export type { NumberBounds } from '../../utils/number'

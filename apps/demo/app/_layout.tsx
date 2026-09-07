@@ -63,6 +63,10 @@ export default function RootLayout() {
             name="number-field"
             options={{ title: 'NumberField (v1)' }}
           />
+          <Stack.Screen
+            name="number-stepper"
+            options={{ title: 'NumberStepper (v1)' }}
+          />
           <Stack.Screen name="menu" options={{ title: 'Menu (v1)' }} />
           <Stack.Screen name="popover" options={{ title: 'Popover (v1)' }} />
           <Stack.Screen

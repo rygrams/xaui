@@ -6,7 +6,7 @@ import {
   numberMarks,
   parseNumber,
   stepNumber,
-} from '../../../components/number-field/number-field.utils'
+} from '../../utils/number'
 
 describe('numberMarks', () => {
   it('reads the marks off the locale', () => {
