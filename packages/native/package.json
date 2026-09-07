@@ -1,6 +1,6 @@
 {
   "name": "@xaui/native",
-  "version": "0.9.1-alpha.49",
+  "version": "0.9.1-alpha.62",
   "description": "Composition-first React Native UI components with native animations powered by Reanimated",
   "keywords": [
     "react-native",
@@ -37,6 +37,16 @@
         "default": "./dist/components/accordion/index.cjs"
       }
     },
+    "./agenda-calendar": {
+      "import": {
+        "types": "./dist/components/agenda-calendar/index.d.ts",
+        "default": "./dist/components/agenda-calendar/index.js"
+      },
+      "require": {
+        "types": "./dist/components/agenda-calendar/index.d.cts",
+        "default": "./dist/components/agenda-calendar/index.cjs"
+      }
+    },
     "./alert": {
       "import": {
         "types": "./dist/components/alert/index.d.ts",
@@ -55,6 +65,16 @@
       "require": {
         "types": "./dist/components/area-chart/index.d.cts",
         "default": "./dist/components/area-chart/index.cjs"
+      }
+    },
+    "./autocomplete": {
+      "import": {
+        "types": "./dist/components/autocomplete/index.d.ts",
+        "default": "./dist/components/autocomplete/index.js"
+      },
+      "require": {
+        "types": "./dist/components/autocomplete/index.d.cts",
+        "default": "./dist/components/autocomplete/index.cjs"
       }
     },
     "./avatar": {
@@ -107,6 +127,16 @@
         "default": "./dist/components/button/index.cjs"
       }
     },
+    "./calendar": {
+      "import": {
+        "types": "./dist/components/calendar/index.d.ts",
+        "default": "./dist/components/calendar/index.js"
+      },
+      "require": {
+        "types": "./dist/components/calendar/index.d.cts",
+        "default": "./dist/components/calendar/index.cjs"
+      }
+    },
     "./card": {
       "import": {
         "types": "./dist/components/card/index.d.ts",
@@ -145,6 +175,36 @@
       "require": {
         "types": "./dist/components/chip/index.d.cts",
         "default": "./dist/components/chip/index.cjs"
+      }
+    },
+    "./close-button": {
+      "import": {
+        "types": "./dist/components/close-button/index.d.ts",
+        "default": "./dist/components/close-button/index.js"
+      },
+      "require": {
+        "types": "./dist/components/close-button/index.d.cts",
+        "default": "./dist/components/close-button/index.cjs"
+      }
+    },
+    "./combobox": {
+      "import": {
+        "types": "./dist/components/combobox/index.d.ts",
+        "default": "./dist/components/combobox/index.js"
+      },
+      "require": {
+        "types": "./dist/components/combobox/index.d.cts",
+        "default": "./dist/components/combobox/index.cjs"
+      }
+    },
+    "./date-picker": {
+      "import": {
+        "types": "./dist/components/date-picker/index.d.ts",
+        "default": "./dist/components/date-picker/index.js"
+      },
+      "require": {
+        "types": "./dist/components/date-picker/index.d.cts",
+        "default": "./dist/components/date-picker/index.cjs"
       }
     },
     "./dialog": {
@@ -197,6 +257,16 @@
         "default": "./dist/components/line-chart/index.cjs"
       }
     },
+    "./list": {
+      "import": {
+        "types": "./dist/components/list/index.d.ts",
+        "default": "./dist/components/list/index.js"
+      },
+      "require": {
+        "types": "./dist/components/list/index.d.cts",
+        "default": "./dist/components/list/index.cjs"
+      }
+    },
     "./menu": {
       "import": {
         "types": "./dist/components/menu/index.d.ts",
@@ -227,6 +297,26 @@
         "default": "./dist/components/popover/index.cjs"
       }
     },
+    "./progress-bar": {
+      "import": {
+        "types": "./dist/components/progress-bar/index.d.ts",
+        "default": "./dist/components/progress-bar/index.js"
+      },
+      "require": {
+        "types": "./dist/components/progress-bar/index.d.cts",
+        "default": "./dist/components/progress-bar/index.cjs"
+      }
+    },
+    "./progress-circle": {
+      "import": {
+        "types": "./dist/components/progress-circle/index.d.ts",
+        "default": "./dist/components/progress-circle/index.js"
+      },
+      "require": {
+        "types": "./dist/components/progress-circle/index.d.cts",
+        "default": "./dist/components/progress-circle/index.cjs"
+      }
+    },
     "./radar-chart": {
       "import": {
         "types": "./dist/components/radar-chart/index.d.ts",
@@ -245,6 +335,16 @@
       "require": {
         "types": "./dist/components/radio/index.d.cts",
         "default": "./dist/components/radio/index.cjs"
+      }
+    },
+    "./segment": {
+      "import": {
+        "types": "./dist/components/segment/index.d.ts",
+        "default": "./dist/components/segment/index.js"
+      },
+      "require": {
+        "types": "./dist/components/segment/index.d.cts",
+        "default": "./dist/components/segment/index.cjs"
       }
     },
     "./select": {
@@ -387,6 +487,16 @@
         "default": "./dist/components/view/index.cjs"
       }
     },
+    "./wheel-picker": {
+      "import": {
+        "types": "./dist/components/wheel-picker/index.d.ts",
+        "default": "./dist/components/wheel-picker/index.js"
+      },
+      "require": {
+        "types": "./dist/components/wheel-picker/index.d.cts",
+        "default": "./dist/components/wheel-picker/index.cjs"
+      }
+    },
     "./system": {
       "import": {
         "types": "./dist/system/index.d.ts",
@@ -422,7 +532,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "rm -rf dist && NODE_OPTIONS=--max-old-space-size=6144 tsup --config tsup.config.ts && node ../../tooling/workletize/workletize.mjs dist",
+    "build": "rm -rf dist && tsup --config tsup.config.ts && tsc --emitDeclarationOnly --declarationMap false && node ../../tooling/dual-dts/dual-dts.mjs dist && node ../../tooling/workletize/workletize.mjs dist",
     "dev": "tsup --config tsup.config.ts --watch",
     "test": "vitest",
     "lint": "eslint src/",
