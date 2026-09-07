@@ -20,7 +20,7 @@ export { FieldGroupField } from './field-group-field'
 export { FieldGroupIcon } from './field-group-icon'
 export { FieldGroupPrefix } from './field-group-prefix'
 export { FieldGroupSuffix } from './field-group-suffix'
-export { useFieldGroup } from './field-group.context'
+export { useFieldGroup, useOptionalFieldGroup } from './field-group.context'
 export { decoratorPadding } from './field-group.utils'
 export type {
   FieldGroupContextValue,

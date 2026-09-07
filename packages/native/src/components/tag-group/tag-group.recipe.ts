@@ -1,4 +1,4 @@
-import { closeButtonBase } from '../../system/close-button/close-button.recipe'
+import { closeButtonGeometry } from '../../system/close-button/close-button.recipe'
 import { createRecipe, radiusAxis } from '../../system/recipe'
 import type { SlotStyles, VariantTokens } from '../../system/recipe'
 import type { FontSizeKey, RadiusKey, XAUITheme } from '../../theme/theme.type'
@@ -87,7 +87,7 @@ export const tagGroupRecipe = createRecipe({
 
   base: theme => ({
     // The cross's thickness and its centring are the shared button's, written once there.
-    ...closeButtonBase(theme),
+    ...closeButtonGeometry(theme),
     root: { gap: theme.spacing(3) },
     /**
      * Wrapping is the point. A tag group is a set of the same kind of thing, and a set

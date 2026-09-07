@@ -1,6 +1,6 @@
 // The module and not the barrel: a recipe is style data, and the barrel would pull
-// `CloseButton` — and therefore Reanimated — into anything that only wants the geometry.
-import { closeButtonBase } from '../../system/close-button/close-button.recipe'
+// `CloseButtonBase` — and therefore Reanimated — into anything that only wants the geometry.
+import { closeButtonGeometry } from '../../system/close-button/close-button.recipe'
 import { createRecipe, radiusAxis } from '../../system/recipe'
 import type { SlotStyles, VariantTokens } from '../../system/recipe'
 import type { FontSizeKey, RadiusKey, XAUITheme } from '../../theme/theme.type'
@@ -88,7 +88,7 @@ function sizeAxis(step: SizeStep) {
       fontSize: theme.fontSizes[description],
       lineHeight: theme.lineHeights[description],
     },
-    // The touch target is the glyph's box; the shared `CloseButton` grows it outwards
+    // The touch target is the glyph's box; the shared `CloseButtonBase` grows it outwards
     // with `hitSlop`, because a cross big enough to hit is a cross too big to look right.
     close: { width: theme.fontSizes[glyph], height: theme.fontSizes[glyph] },
     closeGlyph: { width: theme.spacing(cross) },
@@ -163,9 +163,9 @@ export const alertRecipe = createRecipe({
   slots: SLOTS,
 
   // The cross's own geometry — thickness and centring — belongs to the shared
-  // `CloseButton`; what stays below is the box and bar size this component's scale sets.
+  // `CloseButtonBase`; what stays below is the box and bar size this component's scale sets.
   base: theme => ({
-    ...closeButtonBase(theme),
+    ...closeButtonGeometry(theme),
     root: {
       flexDirection: 'row',
       // Top-aligned, not centred: an alert's message can run to three lines, and an icon
