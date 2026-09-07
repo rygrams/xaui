@@ -6,12 +6,85 @@ the first three share.
 ## Import
 
 ```tsx
+import { Chart } from '@xaui/native/chart'
 import { LineChart } from '@xaui/native/line-chart'
 import { AreaChart } from '@xaui/native/area-chart'
 import { BarChart } from '@xaui/native/bar-chart'
 import { PieChart } from '@xaui/native/pie-chart'
 import { RadarChart } from '@xaui/native/radar-chart'
 ```
+
+## The frame
+
+A figure on a screen is a card with words around it, and those words are a title, a
+subtitle, a number and a legend. `Chart` is that card:
+
+```tsx
+<Chart seriesCount={2}>
+  <Chart.Header>
+    <Chart.Heading>
+      <Chart.Title>Source du trafic</Chart.Title>
+      <Chart.Description>Sessions</Chart.Description>
+    </Chart.Heading>
+    <Chart.Legend labels={['Organique', 'Payant']} />
+  </Chart.Header>
+
+  <LineChart data={rows} xKey="month" yKeys={['organic', 'paid']} />
+
+  <Chart.Footer>
+    <Chart.Description>Douze derniers mois</Chart.Description>
+  </Chart.Footer>
+</Chart>
+```
+
+| slot                | what it is                                              |
+| ------------------- | ------------------------------------------------------- |
+| `Chart`             | The card, and the palette everything in it shares       |
+| `Chart.Header`      | The row above the figure, pushed apart                  |
+| `Chart.Heading`     | The title, its description and a value, as one block    |
+| `Chart.Title`       | What the figure is. A `header` to a screen reader       |
+| `Chart.Description` | What it is measuring — the unit, the period, the caveat |
+| `Chart.Value`       | The one number it is about, when it is about one        |
+| `Chart.Legend`      | Which colour is which series                            |
+| `Chart.LegendItem`  | One entry of it                                         |
+| `Chart.Footer`      | The row under the figure. It wraps                      |
+
+**It is optional in both directions.** A figure on its own is the shape all five shipped as,
+and it draws no ground — so `<LineChart />` in a caller's own `Card` is a complete use. And a
+frame with **no figure in it** is a complete use too: a card with a title, a value and a
+footer is what a chart looks like while its data is loading, or when there is none.
+
+```tsx
+<Chart>
+  <Chart.Header>
+    <Chart.Heading>
+      <Chart.Title>Sessions</Chart.Title>
+      <Chart.Description>Aucune donnée sur la période</Chart.Description>
+    </Chart.Heading>
+  </Chart.Header>
+  <Skeleton height={200} />
+</Chart>
+```
+
+Neither half asks for the other, which is what makes the pair worth having.
+
+**The frame owns the appearance and the figure takes it.** `variant`, `size` and `color` are
+handed down, so the legend's dots and the figure's series are the same colours in the same
+order without either being told twice — which is the whole reason `Chart.Legend` can exist
+rather than being a prop on a figure. A figure that names its own still wins.
+
+`seriesCount` is the one number the frame asks for: it cannot count the figure's series,
+because it has not rendered the figure and the keys are that figure's props, and a legend
+needs the palette walked to the right length or its third dot is the wrong colour.
+
+**The labels stay the caller's.** What a series is called is a sentence in their language;
+which colour it got is arithmetic the palette already did. `labels` is the short form and
+children are the long one — a legend carrying a value and a share beside each name, which is
+what a donut usually wants under it.
+
+`Chart.Heading` exists for `ProgressBar.Header`'s reason: the gap between a title and its
+subtitle is a different gap from the one between that block and the legend beside it, and two
+gaps belong to two roots.
 
 ## They are drawn here, not wrapped
 
@@ -131,9 +204,8 @@ The ink is `bgSelected`, a **role** rather than a token named in an axis: the ti
 re-runs `paint` and never the axes, so a series colour written as an axis would snap back to
 the accent the moment a caller set `color`, and the palette walked out of it would go too.
 
-**No chart paints its own ground.** A chart is drawn on the card it sits on; one that painted
-its own would be a card inside a card. The `Card` around it in the demo is the caller's, and
-so is the legend — which series a dot stands for is a sentence in the caller's language.
+**No figure paints its own ground.** One that did would be a card inside the `Chart` frame,
+or inside the caller's own `Card` where there is no frame.
 
 ## Sizes
 

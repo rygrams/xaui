@@ -4,7 +4,7 @@ import { Path, Svg } from 'react-native-svg'
 import { useStyleProps } from '../../system/style-props'
 import { useXAUITheme } from '../../theme/theme-hooks'
 import { arcPath } from '../../utils/chart-path'
-import { useChartInk } from '../chart'
+import { useChartInk, useOptionalChart } from '../chart'
 import type { ChartDatum } from '../chart'
 import { DIAMETERS, pieChartRecipe } from './pie-chart.recipe'
 import type { PieChartProps } from './pie-chart.type'
@@ -62,11 +62,12 @@ export function PieChart<
 }: PieChartProps<Data, LK, VK>) {
   const theme = useXAUITheme()
   const [styleProps, rest] = useStyleProps(props)
+  const frame = useOptionalChart()
   const { colors } = useChartInk({
-    variant,
+    variant: variant ?? frame?.variant,
     size,
-    color,
-    isDisabled,
+    color: color ?? frame?.color,
+    isDisabled: isDisabled || (frame?.isDisabled ?? false),
     count: data.length,
   })
 
