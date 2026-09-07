@@ -38,8 +38,8 @@ type SizeStep = {
 const SIZES: Record<WidgetSize, SizeStep> = {
   xs: {
     paddingX: 2,
-    paddingY: 3,
-    gap: 2,
+    paddingY: 2,
+    gap: 1,
     well: 2,
     radius: 'xl',
     title: 'sm',
@@ -47,8 +47,8 @@ const SIZES: Record<WidgetSize, SizeStep> = {
   },
   sm: {
     paddingX: 2,
-    paddingY: 3,
-    gap: 2.5,
+    paddingY: 2,
+    gap: 1,
     well: 2.5,
     radius: 'xl',
     title: 'md',
@@ -57,7 +57,7 @@ const SIZES: Record<WidgetSize, SizeStep> = {
   md: {
     paddingX: 2,
     paddingY: 2,
-    gap: 3,
+    gap: 1.5,
     well: 3,
     radius: 'xl',
     title: 'lg',
@@ -65,8 +65,8 @@ const SIZES: Record<WidgetSize, SizeStep> = {
   },
   lg: {
     paddingX: 2,
-    paddingY: 3,
-    gap: 3.5,
+    paddingY: 2,
+    gap: 1.5,
     well: 3.5,
     radius: 'xl',
     title: 'xl',
