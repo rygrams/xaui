@@ -1,5 +1,30 @@
 # @xaui/native
 
+## 0.9.1-alpha.68
+
+### Patch Changes
+
+- 13acb91: feat(time-field): a time, typed
+
+  `TimeField` is the `DateField`'s sibling: the same `TextField` root, the same three text
+  slots, and one representation — the digits, in order — that `maskTime` is the only thing to
+  turn into text. The hour cycle comes out of `Intl`.
+
+  The period is a toggle rather than two letters typed into the box, because the keyboard a
+  time field opens is a number pad and cannot produce them. `TimeField.Period` renders nothing
+  on a twenty-four-hour field, so the same JSX serves both.
+
+- e218df1: feat(time-picker): a field that opens a clock
+
+  `TimePicker`'s trigger **is** a `Select`'s trigger and its panel is a `BottomSheet` — a
+  clock face is close to three hundred points square, which beside a field on a phone is the
+  screen. What it adds is the dial: two rings on a twenty-four hour face, sixty marks and
+  twelve labels on the minutes, and the hours handing over to the minutes on the first press.
+
+  The geometry is `utils/clock.ts`, tested — the quarter turn that puts twelve at the top, the
+  sign that keeps it above the centre in coordinates that grow downwards, and the conversion
+  from `atan2`'s own convention.
+
 ## 0.9.1-alpha.67
 
 ### Patch Changes
