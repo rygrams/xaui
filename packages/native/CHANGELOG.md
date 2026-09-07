@@ -1,5 +1,158 @@
 # @xaui/native
 
+## 0.9.1-alpha.77
+
+### Patch Changes
+
+- 8009954: `RadialChart` — several quantities, each as far round its own ring as it has got
+
+  P5.34h, net new, no legacy equivalent. `@xaui/native/radial-chart`, and the family's sixth
+  figure.
+
+  **A ring is not a slice.** The `PieChart` splits one quantity into shares that add up to the
+  whole; this draws several quantities that have nothing to do with each other, each against a
+  target of its own. Calories, steps and minutes do not sum to anything, and a donut of the
+  three would be drawing a total nobody measured — which is why this is a component and not a
+  `PieChart` prop.
+
+  **The first row is the outermost ring**, and the palette walks the rows in that order.
+
+  **Each ring has its own target.** `maxKey` names the column that holds it, `maxValue` is one
+  target for all of them, and with neither the largest value in the data becomes the top — so
+  the biggest ring closes and the rest are read against it, the `RadarChart`'s rule for the
+  `RadarChart`'s reason.
+
+  **The track is the rest of the distance.** Without it a ring at a fifth is an arc floating
+  in space with nothing saying how far it had to go. Every track is drawn before every ring,
+  so a rounded cap is never cut by the ground of the one inside it.
+
+  **The rings thin rather than disappear.** The stroke is centred on the path, so a ring drawn
+  at the box's own radius loses its outer half to the canvas edge, and six series at the
+  default thickness ask for more room than a phone-sized figure has. `radialRings` clamps the
+  gap to half the room and divides what is left, with a test for each case — what gives is the
+  thickness, because the alternative is a chart that silently drops its innermost rings.
+
+  The arc is a **dash offset**, not a path rebuilt per value, which is what lets a ring be one
+  stroke with one rounded cap at each end; the quarter turn to twelve o'clock is on the
+  canvas's **wrapper**, `ProgressCircle`'s arrangement, because `Circle`'s own `rotation` prop
+  emits an invalid DOM property on web — and because it leaves the middle upright. The middle
+  itself is `children` in a `View` laid over the canvas, the `PieChart`'s arrangement.
+  `progressFraction` does the value-to-arc conversion, its third caller after the two
+  progress components.
+
+## 0.9.1-alpha.76
+
+### Patch Changes
+
+- 9512ee4: Fix a `FieldGroup` prefix or suffix taking no touches on a `primary` field, on Android
+
+  `primary` is the one `TextField` variant that lifts its field: `theme.shadows.field`, which
+  carries an `elevation`. A decorator is laid over that field out of flow and was ordered by
+  `zIndex` alone — and on Android an elevated sibling holds a _native_ Z that a React `zIndex`
+  does not outrank, so the field sat over the decorator in the order touches are dispatched and
+  the `TextInput` under it swallowed the press. The control was plainly visible and did nothing,
+  on `primary` and on no other variant: a `NumberField`'s stepper pair, a reveal toggle, a clear
+  button.
+
+  The decorator now carries an elevation of its own, one step above the field's own rather than
+  a number written beside it, so the two cannot drift apart. It draws no shadow: Android takes
+  an elevation shadow from a view's outline, and a decorator has no background to give it one.
+
+- f3c9d09: `NumberField` — Label · Decrement · Field · Increment · Description · Error
+
+  P5.3c, over the legacy `NumberInput`, and named the way `TextField` and `MaskField` are:
+  the roadmap row said `NumberInput`, and the rename that made `Input` into `TextField`
+  applies to it too.
+
+  **It is a `TextField`.** The root is that root, unchanged — the same recipe, the same four
+  variants, the same `size`, `radius`, `color`, `labelPlacement`, `isInvalid` and
+  `isDisabled` — and `Label`, `.Description` and `.Error` **are** the `TextField`'s slots,
+  re-exported rather than wrapped. Only the field differs, by reading a number out of what is
+  typed into it. The `MaskField`'s arrangement exactly.
+
+  **Two representations, and the caret is what swaps them.** Out of the field the value is
+  written by `Intl`, with `formatOptions` passed through untouched — a currency, a unit, a
+  fixed number of decimals. Into it, everything that is not a digit, a sign or the decimal
+  mark is **dropped rather than refused**: the value the caret lands in is grouped, and
+  rejecting its own separators would make the first keystroke clear the box. On the way in the
+  value is rewritten plainly, so nobody types a euro sign back in. A full stop passes as the
+  decimal mark wherever the locale is not using it to group, so `1.5` is one and a half in
+  `fr-FR` and `1.234` is still a thousand-odd in `de-DE`.
+
+  **The bounds land when the reader leaves, not while they type.** `min={10}` and a reader on
+  their way to `15` types a `1` first; clamping that would take the keyboard away from them.
+  Until the field is left `onValueChange` reports what is actually in the box, and the clamp
+  falls on blur and on every press of a stepper. The value is `number | null` — `null`, never
+  `NaN`, because "not a number yet" is a state and `NaN` is a value that propagates.
+
+  **The steppers are `FieldGroup` decorators**, like `TimeField.Period`: that is what lays a
+  control over a field and measures it, so the box stays the `TextInput` itself.
+  `.Decrement` takes the leading edge and `.Increment` the trailing one, because the value
+  sits between them. Each goes flat and stops taking presses when it has nowhere left to go —
+  asked of the **result** rather than of the bound, so a value half a step short of the
+  ceiling can still reach it. With no children each draws its own mark out of one bar, or two
+  a quarter turn apart, the close button's construction, so the field works in a project that
+  has installed no icon set.
+
+  The engine is four pure functions with a test each — `parseNumber`, `formatNumber`,
+  `clampNumber`, `stepNumber` — re-exported from the subpath for a caller building a stepper
+  of their own. `stepNumber` rounds to the precision of the numbers that built the value, the
+  `Slider`'s rounding for the `Slider`'s reason: three steps of a tenth are `0.3` and not
+  `0.30000000000000004`.
+
+## 0.9.1-alpha.75
+
+### Patch Changes
+
+- 38584ee: feat(range-calendar, date-range-picker): a month that takes two days
+
+  `RangeCalendar` is a `Calendar` — the same root, and five of its seven slots re-exported
+  rather than wrapped. Only the day cell differs, and only by having a band behind it, which is
+  possible because `Calendar.Grid` takes a function child.
+
+  Three presses and not two: a range already chosen starts a new one, a day before the start
+  becomes the start rather than a backwards end, and a one-day range is allowed.
+
+  `DateRangePicker` puts that month behind a `Select`'s trigger, in a sheet that closes on the
+  **second** end only — a period is two decisions.
+
+## 0.9.1-alpha.74
+
+### Patch Changes
+
+- b27e2c7: feat(date-time-picker): a field that opens a month, and then a clock
+
+  `DateTimePicker` owns nothing: the field is a `Select`'s trigger, the two steps are a `Tabs`,
+  the month is a `Calendar` and the dial is a `TimePicker` — four components rendered as
+  themselves, and no recipe of its own.
+
+  Two steps rather than two fields, because a moment is one value and a calendar and a clock
+  will not fit on a phone together. Each half keeps the other, so the value is one moment being
+  narrowed rather than two being collected.
+
+  `TimePicker.Indicator` now reads `IconContext` rather than its own picker's context, which is
+  what lets another field render it.
+
+## 0.9.1-alpha.73
+
+### Patch Changes
+
+- 133271c: feat(table): rows and columns, with a shell round them
+
+  `Table` is three nodes and each earns its place: the shell clips and does not move, the
+  scroll container moves, and the content inside it is allowed to be wider than the shell.
+  Widths are declared by the column and read by position, so a cell and its column never name
+  each other.
+
+  The table never reorders anything — sorting reports the press and the caller sorts their own
+  collection — and the third press clears the sort, so there is a way back to the table's own
+  order. `Table.Body` takes `asChild` rather than a `virtualized` prop: a table of ten thousand
+  rows is a `FlatList`.
+
+  `utils/selection.ts` carries the selection and sort arithmetic, tested — including the
+  half-filled header box, the disabled row it must not count, and the keys chosen on another
+  page it must not clear.
+
 ## 0.9.1-alpha.72
 
 ### Patch Changes

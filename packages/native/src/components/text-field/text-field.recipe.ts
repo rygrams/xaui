@@ -146,16 +146,30 @@ const LABEL_INSET = 1.5
  *
  * `zIndex` is not decoration: the prefix is written before the field, so without it the
  * field's own fill paints over the glyph.
+ *
+ * **And `zIndex` alone is not enough on Android**, which is why the elevation is here too.
+ * `primary` is the one variant that lifts its field — `theme.shadows.field`, which carries
+ * an `elevation` — and an elevated sibling holds a *native* Z that a React `zIndex` does not
+ * outrank: the field ends up over the decorator in the order Android hit-tests, and a
+ * `TextInput` swallows the touch. The symptom is a suffix that is plainly visible and does
+ * nothing, on `primary` and nowhere else — a `NumberField`'s stepper pair, a reveal toggle,
+ * a clear button.
+ *
+ * A step above the field's own rather than a number written here, so the two cannot drift.
+ * It draws no shadow of its own: Android takes an elevation shadow from the view's outline
+ * and a decorator has no background to give it one.
  */
-const DECORATOR = {
-  position: 'absolute',
-  top: 0,
-  bottom: 0,
-  flexDirection: 'row',
-  alignItems: 'center',
-  justifyContent: 'center',
-  zIndex: 10,
-} as const
+const decoratorBox = (theme: XAUITheme) =>
+  ({
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 10,
+    elevation: theme.shadows.field.elevation + 1,
+  }) as const
 
 type SizeStep = {
   /** The control height the field takes as its minimum. */
@@ -325,8 +339,8 @@ export const textFieldRecipe = createRecipe({
       fontFamily: theme.fontFamilies.body,
       color: theme.colors.danger,
     },
-    prefix: { ...DECORATOR, start: 0 },
-    suffix: { ...DECORATOR, end: 0 },
+    prefix: { ...decoratorBox(theme), start: 0 },
+    suffix: { ...decoratorBox(theme), end: 0 },
     // The glyph sits with the placeholder rather than with the value: a search mark or a
     // lock is decoration for the text, not text. `paint` leaves it alone, so a tinted
     // filled field is the one case where the caller names a colour on the icon itself.
