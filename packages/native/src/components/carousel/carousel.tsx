@@ -67,19 +67,19 @@ function setTrackOffset(track: AnimatedRef<Animated.ScrollView>, x: number): voi
 
 /** How long an arrow, a dot or an autoplay tick takes to travel one step, and the frame it
  *  is stepped on — 16ms is one display frame at 60Hz. */
-const GLIDE_MS = 340
+const GLIDE_MS = 260
 const GLIDE_FRAME_MS = 16
 
 /**
- * Slow at both ends.
+ * Off fast, braking into the settle.
  *
  * The native `scrollTo({ animated: true })` and the DOM's smooth scroll are close to
  * linear — the track leaves and arrives at the same speed, and the move reads as a jump
- * cut rather than a page turn. Driving the offset by hand against this curve is the whole
- * of what gives a programmatic move its ease-in and its settle.
+ * cut rather than a page turn. An ease-*out* is what makes a press feel answered: the
+ * track jumps after the finger and eases down onto the next slide.
  */
-function easeInOutCubic(t: number): number {
-  return t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2
+function easeOutCubic(t: number): number {
+  return 1 - (1 - t) ** 3
 }
 
 export const CarouselRoot = forwardRef<View, CarouselProps>(function Carousel(
@@ -173,7 +173,7 @@ export const CarouselRoot = forwardRef<View, CarouselProps>(function Carousel(
 
   /**
    * Carry the track from where it is now to `x` over `GLIDE_MS`, a frame at a time against
-   * `easeInOutCubic`.
+   * `easeOutCubic`.
    *
    * `offset` is where it *is* — the scroll handler keeps it live — so a press mid-fling
    * eases on from the real position rather than from the slide it was last resting on. A
@@ -193,7 +193,7 @@ export const CarouselRoot = forwardRef<View, CarouselProps>(function Carousel(
       const start = Date.now()
       glideTimer.current = setInterval(() => {
         const t = Math.min(1, (Date.now() - start) / GLIDE_MS)
-        setTrackOffset(trackRef, from + distance * easeInOutCubic(t))
+        setTrackOffset(trackRef, from + distance * easeOutCubic(t))
         if (t >= 1) stopGlide()
       }, GLIDE_FRAME_MS)
     },
