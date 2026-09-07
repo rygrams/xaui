@@ -66,13 +66,19 @@ moment they were pressed compares unequal to the same two days written by the ca
 Three slots and no more: the cell, the type, the muted day, the today dot and the chosen day
 are all the `Calendar`'s. A day in a range is one of its cells with a band behind it.
 
-The band is **out of flow and a point wider than the cell on each side**. Out of flow so
-nothing about the day's own layout moves when it appears; wider because a seventh of a row is
-a fraction, and a band stopping at the cell's own edge leaves a hairline of background between
-two days on a screen whose width does not divide by seven.
+The band is **out of flow, and exactly as wide as its cell**. Out of flow so nothing about the
+day's own layout moves when it appears; exactly as wide because a soft token is translucent —
+`accentSoft` is the accent at fifteen percent — and a band overhanging into its neighbour is
+painted twice along the overlap, which reads as a rule down every seam rather than as one
+unbroken strip. Abutting is safe: Yoga rounds a node's leading and trailing edges to the pixel
+grid independently, so two adjacent cells share the boundary they meet on.
 
-The two ends are rounded on their **outer** side only — `start` and `end`, never left and
-right (R13) — so seven cells read as one strip with one shape.
+The two ends **stop at the middle of their own cell**, which is where the chosen day's circle
+is — `start` and `end`, never left and right (R13). A cell is a seventh of the row and the
+circle in it is a fixed square, so a cap drawn to the cell's edge runs four or five points
+past the day it belongs to and the period reads as wider than the two days that bound it.
+From the centre the cap is hidden under the circle and emerges level with its edge, which is
+also why it carries no radius of its own: the strip's round ends are the two circles.
 
 `color` reaches the band through `bgSelected`, the same role the chosen ends take, so a tinted
 range is tinted throughout.

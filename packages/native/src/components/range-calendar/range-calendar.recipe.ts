@@ -1,6 +1,6 @@
 import { createRecipe } from '../../system/recipe'
+import { calendarCellSizes } from '../calendar'
 import type { SlotStyles, VariantTokens } from '../../system/recipe'
-import type { XAUITheme } from '../../theme/theme.type'
 import type { CalendarSize } from '../calendar'
 
 export type RangeCalendarSlot = 'band' | 'bandStart' | 'bandEnd'
@@ -22,54 +22,55 @@ const VARIANT_TOKENS: Record<'default', VariantTokens> = {
   default: { bgSelected: 'accentSoft' },
 }
 
-/** How tall the band is, per size — the cell's own height, so it fills the row. */
-const HEIGHTS: Record<CalendarSize, number> = { sm: 32, md: 38, lg: 44 }
-
+/**
+ * The band is as tall as the day it runs between, and that number is **read from the
+ * `Calendar` rather than restated here**: a table of its own drifted to 32/38/44 against the
+ * calendar's 36/40/44, and two points short of the circle at each end is a strip that stops
+ * just before the mark it is supposed to join.
+ */
 function sizeAxis(size: CalendarSize) {
-  return (): SlotStyles<RangeCalendarSlot> => ({
-    band: { height: HEIGHTS[size] },
-    bandStart: { height: HEIGHTS[size] },
-    bandEnd: { height: HEIGHTS[size] },
-  })
+  return (): SlotStyles<RangeCalendarSlot> => {
+    const height = calendarCellSizes[size].cell
+
+    return { band: { height }, bandStart: { height }, bandEnd: { height } }
+  }
 }
 
 export const rangeCalendarRecipe = createRecipe({
   slots: SLOTS,
 
-  base: (theme: XAUITheme) => ({
+  base: () => ({
     /**
-     * The band runs the **whole width of the cell**, edge to edge, which is what makes one
-     * unbroken strip out of seven separate cells. It is out of flow and behind the number,
-     * so nothing about the day's own layout moves when it appears.
+     * The band runs the **whole width of the cell, and not one point more**. It is out of
+     * flow and behind the number, so nothing about the day's own layout moves when it
+     * appears.
      *
-     * Wider than the cell, in fact: a seventh of a row is a fraction, and a band that
-     * stopped at the cell's own edge would leave a hairline of background between two days
-     * on a screen whose width does not divide by seven.
+     * It used to overhang a point on each side, against the hairline of background a
+     * seventh of a row could leave between two days. That cure was worse: a soft token is
+     * translucent — `accentSoft` is the accent at fifteen percent — so the two points where
+     * one cell's band lay over its neighbour's were painted twice and read as a rule down
+     * every seam, which is a border on each selected day rather than one unbroken strip.
+     *
+     * Abutting exactly is what leaves neither. Yoga rounds a node's leading and trailing
+     * edges to the pixel grid independently, so two adjacent cells share the boundary they
+     * meet on and no fraction of a seventh can open a gap between them.
      */
-    band: {
-      position: 'absolute',
-      start: -1,
-      end: -1,
-      borderCurve: 'continuous',
-    },
-    // The two ends are rounded on their outer side only, so the strip has one shape rather
-    // than seven. `start` and `end`, never left and right (R13).
-    bandStart: {
-      position: 'absolute',
-      start: 0,
-      end: -1,
-      borderCurve: 'continuous',
-      borderTopStartRadius: theme.radius.full,
-      borderBottomStartRadius: theme.radius.full,
-    },
-    bandEnd: {
-      position: 'absolute',
-      start: -1,
-      end: 0,
-      borderCurve: 'continuous',
-      borderTopEndRadius: theme.radius.full,
-      borderBottomEndRadius: theme.radius.full,
-    },
+    band: { position: 'absolute', start: 0, end: 0 },
+    /**
+     * **The two ends stop at the middle of their own cell**, which is where the chosen day's
+     * circle is. A cell is a seventh of the row and the circle inside it is a fixed square,
+     * so a cap drawn to the cell's edge sticks out past the day it belongs to — the band
+     * would run four or five points beyond the first and last days of the range, and a
+     * period would read as wider than the two days that bound it.
+     *
+     * From the centre, the cap is hidden under the circle for its whole first half and
+     * emerges level with the circle's edge. That also means **no radius on the outer side**:
+     * the strip's round ends are the two circles themselves, and a half-pill cap behind them
+     * would curve away from the circle it sits under and leave a lens of background between
+     * the two. `start` and `end`, never left and right (R13).
+     */
+    bandStart: { position: 'absolute', start: '50%', end: 0 },
+    bandEnd: { position: 'absolute', start: 0, end: '50%' },
   }),
 
   variantTokens: VARIANT_TOKENS,
