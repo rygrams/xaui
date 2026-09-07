@@ -37,9 +37,10 @@ A **card** puts its content flush on its own ground: the header, the body and th
 all the same surface, and what separates them is space.
 
 A **widget** is a quiet `defaultSoft` ground with no border. The header and the footer sit
-straight on it, and `Widget.Content` is the one card — a `surface`, one step **up** from the
-frame. What is inside the card reads as the thing being shown; the title and the timestamp
-around it, on the soft ground, read as the frame's own labels — **not** part of the thing.
+straight on it, and `Widget.Content` is the one card — one step **up** from the frame
+(`surface` in light, `surfaceSecondary` in dark; see [No variant](#no-variant)). What is
+inside the card reads as the thing being shown; the title and the timestamp around it, on
+the soft ground, read as the frame's own labels — **not** part of the thing.
 
 Reach for a card when the content _is_ the card's content. Reach for a widget when the frame
 is a label around something with its own edges.
@@ -67,7 +68,10 @@ compounds in the recipe are for: an axis sees only its own prop, and this value 
 ## No variant
 
 A widget has **one look** — there is no `variant`, and no primary/secondary/tertiary. The
-frame is always `defaultSoft`, the card is always `surface`. What moves is structural:
+frame is always `defaultSoft`. The card is `surface` in light — white against a near-white
+frame, so the step up is obvious — and `surfaceSecondary` in dark, where `surface` would
+land on top of what `defaultSoft` composites to and vanish (and dark mode drops the surface
+shadow, so colour is the only separation left). What moves is structural:
 
 - `size` — the padding, the gaps, the corner and the type.
 - `radius` — the frame's corner (the card's follows it).
@@ -123,13 +127,16 @@ The soft frame stays flat against the page; the shadow lands on the **card**, an
 what separates it from the frame it sits in. A widget is one of several on a dashboard, and
 the raised card is what makes each one read as its own object.
 
+In **dark mode** there is no shadow to land — `theme.shadows.surface` is empty by design —
+so the card leans entirely on the colour step, which is why it uses `surfaceSecondary`
+there rather than `surface`.
+
 ```tsx
 <Widget isElevated={false}>
 ```
 
-Flat, the card falls back on the colour step between `surface` and `defaultSoft` alone —
-enough on most themes, and the right call when the widget is already inside a bordered
-container that does the separating.
+Flat, the card falls back on that colour step alone — enough on most themes, and the right
+call when the widget is already inside a bordered container that does the separating.
 
 ## Size
 

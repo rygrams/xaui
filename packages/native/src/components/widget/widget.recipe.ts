@@ -172,11 +172,17 @@ export const widgetRecipe = createRecipe({
     },
     description: { fontFamily: theme.fontFamilies.body, color: theme.colors.muted },
     /**
-     * The card, held in the frame: `surface`, one step **up** from the soft ground. It
-     * clips, so a figure drawn to its edges takes the corner rather than overhanging it.
+     * The card, held in the frame: one step **up** from the soft ground. It clips, so a
+     * figure drawn to its edges takes the corner rather than overhanging it.
+     *
+     * `surface` in light is white against a near-white frame — the step is obvious. In dark
+     * `surface` (`#18181b`) lands on top of what `defaultSoft` composites to (about the
+     * same), so the card vanishes; and dark mode drops the surface shadow, so colour is the
+     * only separation left. `surfaceSecondary` is the raised-surface step above it.
      */
     content: {
-      backgroundColor: theme.colors.surface,
+      backgroundColor:
+        theme.mode === 'dark' ? theme.colors.surfaceSecondary : theme.colors.surface,
       borderCurve: 'continuous',
       overflow: 'hidden',
     },
@@ -198,6 +204,8 @@ export const widgetRecipe = createRecipe({
      * The shadow lifts **the card**, not the frame: the soft ground stays flat against the
      * page, and the card reads as the raised thing inside it. On by default — a widget is
      * one of several on a dashboard, and the lift is what separates the card from its frame.
+     * In dark mode `theme.shadows.surface` is empty by design, and the colour step above
+     * carries the separation on its own.
      */
     elevated: {
       true: theme => ({ content: theme.shadows.surface }),
