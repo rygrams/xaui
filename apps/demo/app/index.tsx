@@ -58,6 +58,8 @@ const SCREENS = [
   { href: '/tag-group', label: 'TagGroup' },
   { href: '/text-area', label: 'TextArea' },
   { href: '/text-field', label: 'TextField' },
+  { href: '/time-field', label: 'TimeField' },
+  { href: '/time-picker', label: 'TimePicker' },
   { href: '/toast', label: 'Toast' },
   { href: '/typography', label: 'Typography' },
   { href: '/wheel-picker', label: 'WheelPicker' },
