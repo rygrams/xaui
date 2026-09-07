@@ -32,21 +32,21 @@ export default function DatePickerScreen() {
       <YearAndMonth />
 
       <Section
-        title="The field is a TextField column"
-        note="DatePicker.Field is label, trigger and hint in one tag — the same root gap, label and help styles as a TextField, so the two line up in a form. errorMessage shows only while isInvalid, in place of description."
+        title="The root is a TextField column"
+        note="DatePicker is the column — the same root gap, label and help styles as a TextField, so the two line up in a form. isInvalid drives the colours; the caller mounts the message, exactly as on a TextField."
       >
-        <Field
-          label="Date de naissance"
-          placeholder="jj / mm / aaaa"
-          description="Le format s'affiche une fois la date choisie."
-        />
-        <Field
-          isInvalid
-          label="Date de début"
-          placeholder="Choisir une date"
-          description="Ce champ est requis."
-          errorMessage="Choisissez une date pour continuer."
-        />
+        <DatePicker>
+          <DatePicker.Label>Date de naissance</DatePicker.Label>
+          <DatePicker.Field placeholder="jj / mm / aaaa" />
+          <DatePicker.Description>
+            Le format s'affiche une fois la date choisie.
+          </DatePicker.Description>
+          <DatePicker.Overlay />
+          <DatePicker.Content>
+            <DatePicker.Calendar />
+          </DatePicker.Content>
+        </DatePicker>
+        <Invalid />
       </Section>
 
       <Section
@@ -232,15 +232,9 @@ function Confirming() {
 
 function Field({
   placeholder = 'Choisir une date',
-  label,
-  description,
-  errorMessage,
   ...props
 }: {
   placeholder?: string
-  label?: string
-  description?: string
-  errorMessage?: string
   variant?: DatePickerVariant
   calendarVariant?: DatePickerVariant
   size?: DatePickerSize
@@ -254,12 +248,31 @@ function Field({
 }) {
   return (
     <DatePicker {...props}>
-      <DatePicker.Field
-        placeholder={placeholder}
-        label={label}
-        description={description}
-        errorMessage={errorMessage}
-      />
+      <DatePicker.Field placeholder={placeholder} />
+      <DatePicker.Overlay />
+      <DatePicker.Content>
+        <DatePicker.Calendar />
+      </DatePicker.Content>
+    </DatePicker>
+  )
+}
+
+/** `isInvalid` paints the colours; the caller mounts the message — the `TextField` rule. */
+function Invalid() {
+  const [date, setDate] = useState<Date | undefined>()
+  const missing = date === undefined
+
+  return (
+    <DatePicker value={date} onValueChange={setDate} isInvalid={missing}>
+      <DatePicker.Label>Date de début</DatePicker.Label>
+      <DatePicker.Field placeholder="Choisir une date" />
+      {missing ? (
+        <DatePicker.Error>Choisissez une date pour continuer.</DatePicker.Error>
+      ) : (
+        <DatePicker.Description>
+          {date.toLocaleDateString('fr')}
+        </DatePicker.Description>
+      )}
       <DatePicker.Overlay />
       <DatePicker.Content>
         <DatePicker.Calendar />

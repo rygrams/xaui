@@ -12,12 +12,13 @@ import { DatePicker } from '@xaui/native/date-picker'
 
 ```tsx
 <DatePicker value={date} onValueChange={setDate} isInvalid={Boolean(error)}>
-  <DatePicker.Field
-    label="Date de naissance"
-    placeholder="Choisir une date"
-    description="jj/mm/aaaa"
-    errorMessage={error}
-  />
+  <DatePicker.Label>Date de naissance</DatePicker.Label>
+  <DatePicker.Field placeholder="Choisir une date" />
+  {error ? (
+    <DatePicker.Error>{error}</DatePicker.Error>
+  ) : (
+    <DatePicker.Description>jj/mm/aaaa</DatePicker.Description>
+  )}
   <DatePicker.Overlay />
   <DatePicker.Content>
     <DatePicker.Calendar />
@@ -25,42 +26,42 @@ import { DatePicker } from '@xaui/native/date-picker'
 </DatePicker>
 ```
 
-`DatePicker.Field` is the whole field in one tag — label, trigger, hint. The slots are still
-there for finer control:
+`DatePicker.Field` is the trigger in one tag — `DatePicker.Trigger` around
+`DatePicker.Value` and `DatePicker.Indicator`. Open it up for finer control:
 
 ```tsx
-<DatePicker value={date} onValueChange={setDate}>
-  <DatePicker.Trigger>
-    <DatePicker.Value placeholder="Choisir une date" />
-    <DatePicker.Indicator />
-  </DatePicker.Trigger>
-  <DatePicker.Overlay />
-  <DatePicker.Content>
-    <DatePicker.Calendar />
-  </DatePicker.Content>
-</DatePicker>
+<DatePicker.Trigger>
+  <DatePicker.Value placeholder="Choisir une date" />
+  <DatePicker.Indicator />
+</DatePicker.Trigger>
 ```
 
 ## Anatomy
 
-| slot                     | what it is                                              |
-| ------------------------ | ------------------------------------------------------- |
-| `DatePicker`             | State and resolved style. It renders no node            |
-| `DatePicker.Field`       | Label, trigger and hint in one — the `TextField` column |
-| `DatePicker.Label`       | What the field is for. `danger` on `isInvalid`          |
-| `DatePicker.Trigger`     | The control — the field the user sees                   |
-| `DatePicker.Value`       | The chosen day, or the placeholder                      |
-| `DatePicker.Indicator`   | The calendar glyph on the field                         |
-| `DatePicker.Description` | The hint under the field                                |
-| `DatePicker.Error`       | What is wrong, in `danger`                              |
-| `DatePicker.Overlay`     | The backdrop. Optional                                  |
-| `DatePicker.Content`     | The panel                                               |
-| `DatePicker.Calendar`    | The month, bound to the picker                          |
+| slot                     | what it is                                         |
+| ------------------------ | -------------------------------------------------- |
+| `DatePicker`             | The **column** — state, resolved style, one `gap`  |
+| `DatePicker.Label`       | What the field is for. `danger` on `isInvalid`     |
+| `DatePicker.Field`       | The trigger in one tag — value and glyph inside it |
+| `DatePicker.Trigger`     | The control — the field the user sees              |
+| `DatePicker.Value`       | The chosen day, or the placeholder                 |
+| `DatePicker.Indicator`   | The calendar glyph on the field                    |
+| `DatePicker.Description` | The hint under the field                           |
+| `DatePicker.Error`       | What is wrong, in `danger`                         |
+| `DatePicker.Overlay`     | The backdrop. Optional                             |
+| `DatePicker.Content`     | The panel                                          |
+| `DatePicker.Calendar`    | The month, bound to the picker                     |
 
-**`DatePicker.Field` is the `TextField`'s column**, token for token: the same `root` gap,
-the same label and help styles, resolved through `textFieldRecipe`. A date field and a text
-field stacked in one form line up and read as one control — the same reason the trigger is a
-`Select`'s. `errorMessage` shows only while `isInvalid`, in place of `description`.
+**The root is the `TextField`'s column**, token for token: the same `root` gap, the same
+label and help styles, resolved through `textFieldRecipe`. A date field and a text field
+stacked in one form line up and read as one control — the same reason the trigger is a
+`Select`'s and the grid is a `Calendar`.
+
+**`isInvalid` paints the colours; the caller mounts the message.** It turns the border, the
+label and the description `danger` — it does not add or remove `DatePicker.Error`, because a
+slot that silently renders nothing is one you cannot debug. You write the condition and see
+it, exactly as on a `TextField`. No auto-wrap either (R3): a string child of the root is not
+a label or a hint in any way the component could guess.
 
 ## It owns almost nothing
 
@@ -192,10 +193,12 @@ is unambiguous everywhere even where it is nobody's habit.
 | `formatOptions`   | `Intl.DateTimeFormatOptions` | `medium`     | How the field reads it             |
 | `closeOnSelect`   | `boolean`                    | `true`       |                                    |
 | `isDisabled`      | `boolean`                    | `false`      |                                    |
-| `isInvalid`       | `boolean`                    | `false`      |                                    |
+| `isInvalid`       | `boolean`                    | `false`      | Paints the colours, mounts nothing |
+| `asChild`         | `boolean`                    | `false`      | The caller's element is the column |
 
-The root renders **no node**, so `ref`, `style`, `testID`, the a11y props and R14's style
-props are all on `DatePicker.Trigger`.
+The root **is the column** (a `View`, or the caller's element with `asChild`), so `ref`,
+`style` and R14's style props are the column's. `DatePicker.Trigger` keeps its own — it is
+the node the panel measures, and everything `Pressable` takes is written there.
 
 ### `DatePicker.Content`
 

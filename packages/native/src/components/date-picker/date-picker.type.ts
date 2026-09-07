@@ -64,12 +64,16 @@ type DatePickerOwnProps = {
   children?: ReactNode
 }
 
+type DatePickerRootOwnProps = DatePickerOwnProps & { asChild?: boolean }
+
 /**
- * The root renders **no node**, like the `Select`'s. It is state and resolved style around
- * a trigger and a panel, which is why `ref`, `style`, `testID`, the a11y props and R14's
- * style props are all on `DatePicker.Trigger`.
+ * The root **is the column**, like the `TextField`'s: a `View` that stacks the label, the
+ * field and the hint. `ref`, `style` and R14's style props are the column's; the trigger
+ * keeps its own inside `DatePicker.Field` / `DatePicker.Trigger`.
  */
-export type DatePickerProps = DatePickerOwnProps
+export type DatePickerProps = DatePickerRootOwnProps &
+  Omit<ViewProps, keyof DatePickerRootOwnProps> &
+  Omit<ViewStyleProps, keyof DatePickerRootOwnProps | keyof ViewProps>
 
 export type DatePickerTriggerProps = {
   children?: ReactNode
@@ -97,20 +101,15 @@ export type DatePickerErrorProps = DatePickerTextSlotProps
 type DatePickerFieldOwnProps = {
   /** The line the field shows while no day is chosen. */
   placeholder?: string
-  /** The label above the field. A string or a node of your own. */
-  label?: ReactNode
-  /** The hint under the field — the format expected, what the day is for. */
-  description?: ReactNode
-  /** What is wrong, shown in `danger` **while `isInvalid`** and in place of `description`. */
-  errorMessage?: ReactNode
-  /** Replaces the value and the glyph inside the trigger. */
+  /** Replaces the value and the calendar glyph inside the trigger. */
   children?: ReactNode
 }
 
 /**
- * The field in one tag: the label, the trigger with its value and glyph, and the hint or
- * the error under it — the `TextField`'s column, wired to the picker. Everything
- * `DatePicker.Trigger` takes is written here and lands on the trigger.
+ * The trigger in one tag — `DatePicker.Trigger` around `DatePicker.Value` and
+ * `DatePicker.Indicator`. Everything `DatePicker.Trigger` takes is written here and lands
+ * on the trigger. The label and the hint are **siblings** (`DatePicker.Label`,
+ * `DatePicker.Description` / `.Error`), not props, exactly as on a `TextField`.
  */
 export type DatePickerFieldProps = DatePickerFieldOwnProps &
   Omit<PressableProps, 'children'> &
@@ -150,8 +149,7 @@ export type DatePickerContextValue = {
   overlayStyle: StyleProp<ViewStyle>
   contentStyle: StyleProp<ViewStyle>
   fieldStyle: StyleProp<ViewStyle>
-  /** The `TextField`'s column, label and help line — what `DatePicker.Field` stacks. */
-  columnStyle: StyleProp<ViewStyle>
+  /** The `TextField`'s label and help styles — `danger` under them follows `isInvalid`. */
   labelStyle: StyleProp<TextStyle>
   descriptionStyle: StyleProp<TextStyle>
   errorStyle: StyleProp<TextStyle>
