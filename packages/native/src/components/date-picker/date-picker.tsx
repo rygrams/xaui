@@ -6,11 +6,15 @@ import { Slot } from '../../system/slot'
 import { useStyleProps } from '../../system/style-props'
 import { useXAUITheme } from '../../theme/theme-hooks'
 import { startOfDay } from '../../utils/dates'
+import { calendarCellSizes } from '../calendar'
 import { selectRecipe } from '../select/select.recipe'
 import { textFieldRecipe } from '../text-field/text-field.recipe'
 import { DatePickerProvider } from './date-picker.context'
 import { datePickerRecipe } from './date-picker.recipe'
 import type { DatePickerAnchor, DatePickerProps } from './date-picker.type'
+
+/** Seven columns of a fixed cell — the calendar's width, and the panel's floor. */
+const CALENDAR_COLUMNS = 7
 
 /** What the field says when the caller names no format. */
 const DEFAULT_FORMAT: Intl.DateTimeFormatOptions = { dateStyle: 'medium' }
@@ -119,6 +123,10 @@ export const DatePicker = forwardRef<View, DatePickerProps>(function DatePicker(
 
   /** The half neither the select nor the calendar has: the panel's own inset. */
   const own = datePickerRecipe.resolve({ theme, selection: { size } })
+  // The panel's padding, as a number, for the min-width arithmetic below. The recipe only
+  // ever writes a single `padding` here; the fallback is for a theme that zeroes it.
+  const flatField = StyleSheet.flatten(own.field)
+  const panelPad = typeof flatField.padding === 'number' ? flatField.padding : 0
 
   // The column, the label and the help line are the `TextField`'s, token for token — a
   // date field and a text field stacked in one form read as one control, which is why
@@ -189,6 +197,10 @@ export const DatePicker = forwardRef<View, DatePickerProps>(function DatePicker(
       overlayStyle: styles.overlay,
       contentStyle: styles.content,
       fieldStyle: own.field,
+      // The panel's floor: the grid's seven cells **plus the panel's own inset**, so the
+      // week fits inside the padding rather than being clipped by it. The panel matches the
+      // field above that and never goes under it.
+      panelMinWidth: CALENDAR_COLUMNS * calendarCellSizes[size].cell + 2 * panelPad,
       labelStyle: labelled.label,
       descriptionStyle: labelled.description,
       errorStyle: labelled.error,
@@ -215,6 +227,7 @@ export const DatePicker = forwardRef<View, DatePickerProps>(function DatePicker(
     tint,
     own,
     labelled,
+    size,
     value,
     label,
     isOpen,

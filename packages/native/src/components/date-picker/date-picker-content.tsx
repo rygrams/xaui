@@ -30,7 +30,8 @@ export const DatePickerContent = forwardRef<View, DatePickerContentProps>(
       children,
       placement = 'bottom',
       align = 'center',
-      width = 'content-fit',
+      width = 'trigger',
+      minWidth,
       offset = DEFAULT_OFFSET,
       alignOffset = 0,
       avoidCollisions = true,
@@ -44,7 +45,7 @@ export const DatePickerContent = forwardRef<View, DatePickerContentProps>(
     // The whole context: the portal copies its children into the host rather than
     // re-parenting them, so the subtree below lands outside the provider the root rendered.
     const context = useDatePicker()
-    const { contentStyle, fieldStyle, isOpen, anchor } = context
+    const { contentStyle, fieldStyle, panelMinWidth, isOpen, anchor } = context
     const [styleProps, rest] = useStyleProps(props)
 
     const { position, onContentLayout, measuringStyle } = useAnchoredPosition({
@@ -53,6 +54,9 @@ export const DatePickerContent = forwardRef<View, DatePickerContentProps>(
       placement,
       align,
       width,
+      // The default: match the field, but never below the grid's seven cells. A caller who
+      // names `minWidth` overrides that; `width={280}` or `width="content-fit"` opts out.
+      minWidth: minWidth ?? panelMinWidth,
       offset,
       alignOffset,
       avoidCollisions,

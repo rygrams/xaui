@@ -20,11 +20,11 @@ import type { DatePickerCalendarProps } from './date-picker.type'
  * picker wants every time. Children replace all three: a year picker above the grid, a
  * "Today" button under it.
  *
- * **It is given an explicit width**, and that is the one line here that is not wiring. The
- * panel is sized to its content rather than to the field that opens it — a month grid
- * squeezed into a narrow field would crush its cells — and a grid of seven percentage
- * columns inside a box with no width of its own measures zero. Seven cells is the width the
- * grid was always going to be; this is only saying so out loud.
+ * **It fills the panel, with the grid's own width as a floor.** `width: '100%'` so a panel
+ * matched to a wide field spreads the cells rather than leaving a gap beside them; a
+ * `minWidth` of seven cells so a grid of seven percentage columns never measures below the
+ * point where they crush — the same floor `DatePicker.Content` puts under the panel, said
+ * again here for a caller who overrides the panel's width.
  */
 const COLUMNS = 7
 export const DatePickerCalendar = forwardRef<View, DatePickerCalendarProps>(
@@ -34,7 +34,8 @@ export const DatePickerCalendar = forwardRef<View, DatePickerCalendarProps>(
     return (
       <Calendar
         ref={ref}
-        width={COLUMNS * calendarCellSizes[calendar.size].cell}
+        width="100%"
+        minWidth={COLUMNS * calendarCellSizes[calendar.size].cell}
         variant={calendar.variant}
         size={calendar.size}
         color={calendar.color}

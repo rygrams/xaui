@@ -149,6 +149,8 @@ export type DatePickerContextValue = {
   overlayStyle: StyleProp<ViewStyle>
   contentStyle: StyleProp<ViewStyle>
   fieldStyle: StyleProp<ViewStyle>
+  /** Seven cells — the panel's floor, so it matches a wide field without crushing the grid. */
+  panelMinWidth: number
   /** The `TextField`'s label and help styles — `danger` under them follows `isInvalid`. */
   labelStyle: StyleProp<TextStyle>
   descriptionStyle: StyleProp<TextStyle>

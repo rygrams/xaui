@@ -50,12 +50,13 @@ export default function DatePickerScreen() {
       </Section>
 
       <Section
-        title="The panel is as wide as the grid, not as wide as the field"
-        note="A list is as wide as the field that opens it, because its rows are that field's answers. A month grid is seven columns of a fixed cell, and squeezing it into a narrow field would crush the cells or clip the week. Open the narrow one below."
+        title="The panel matches the field, with the grid as its floor"
+        note="Open the narrow one: its panel is seven cells, not 160 — a grid squeezed that far would crush its columns. Open the wide one: its panel is the field's width, and the calendar spreads to fill it."
       >
         <View style={{ width: 160 }}>
-          <Field placeholder="Étroit" />
+          <Field placeholder="Étroit — 160" />
         </View>
+        <Field placeholder="Pleine largeur — le panneau suit" />
       </Section>
 
       <Section

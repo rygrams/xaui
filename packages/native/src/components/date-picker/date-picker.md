@@ -81,18 +81,21 @@ two things could otherwise disagree:
 value, bounds, locale, first day, variant, disabled — because two sources for one of them
 would be two answers to one question.
 
-## The panel is as wide as the grid
+## The panel matches the field, with the grid as its floor
 
-`width` defaults to **`content-fit`**, not to `trigger`.
+`width` defaults to **`trigger`** with a `minWidth` of **seven cells** — the `Calendar`'s
+own `7 × cell` at the picker's `size`.
 
-A list is as wide as the field that opens it, because its rows are that field's answers. A
-month grid is seven columns of a fixed cell, and squeezing it into a narrow field would crush
-the cells or clip the week.
+So a narrow field opens a panel exactly seven cells wide, and a wide field opens one as wide
+as itself: the panel belongs to the field, and a month grid squeezed under a narrow one
+would crush its columns or clip a week. `DatePicker.Calendar` fills the panel (`width: 100%`)
+so a wide one spreads its cells rather than leaving a gap beside them.
 
-`DatePicker.Calendar` is therefore given an explicit `7 × cell` width, read off the
-`Calendar`'s own size ladder: a grid of seven percentage columns inside a box with no width
-of its own measures zero. Seven cells is the width it was always going to be; this only says
-so out loud.
+Override it like any anchored surface: `width="content-fit"` for the compact seven-cell
+panel whatever the field, `width={320}` for a fixed one, or your own `minWidth`.
+
+`minWidth` is `maxWidth`'s mirror — a floor under the resolved width, on `DatePicker.Content`
+and `Select.Content`, and the screen edge still overrides it.
 
 ## The field's level is not the calendar's
 
@@ -202,8 +205,9 @@ the node the panel measures, and everything `Pressable` takes is written there.
 
 ### `DatePicker.Content`
 
-The `Select`'s placement props — `placement`, `align`, `width`, `offset`, `alignOffset`,
-`avoidCollisions`, `insets` — with `width` defaulting to `content-fit` rather than `trigger`.
+The `Select`'s placement props — `placement`, `align`, `width`, `minWidth`, `offset`,
+`alignOffset`, `avoidCollisions`, `insets` — with `width` defaulting to `trigger` and
+`minWidth` to the `Calendar`'s seven-cell width.
 
 ## Accessibility
 
