@@ -1,6 +1,6 @@
 {
   "name": "@xaui/native",
-  "version": "0.9.1-alpha.49",
+  "version": "0.9.1-alpha.71",
   "description": "Composition-first React Native UI components with native animations powered by Reanimated",
   "keywords": [
     "react-native",
@@ -37,6 +37,16 @@
         "default": "./dist/components/accordion/index.cjs"
       }
     },
+    "./agenda-calendar": {
+      "import": {
+        "types": "./dist/components/agenda-calendar/index.d.ts",
+        "default": "./dist/components/agenda-calendar/index.js"
+      },
+      "require": {
+        "types": "./dist/components/agenda-calendar/index.d.cts",
+        "default": "./dist/components/agenda-calendar/index.cjs"
+      }
+    },
     "./alert": {
       "import": {
         "types": "./dist/components/alert/index.d.ts",
@@ -45,6 +55,26 @@
       "require": {
         "types": "./dist/components/alert/index.d.cts",
         "default": "./dist/components/alert/index.cjs"
+      }
+    },
+    "./area-chart": {
+      "import": {
+        "types": "./dist/components/area-chart/index.d.ts",
+        "default": "./dist/components/area-chart/index.js"
+      },
+      "require": {
+        "types": "./dist/components/area-chart/index.d.cts",
+        "default": "./dist/components/area-chart/index.cjs"
+      }
+    },
+    "./autocomplete": {
+      "import": {
+        "types": "./dist/components/autocomplete/index.d.ts",
+        "default": "./dist/components/autocomplete/index.js"
+      },
+      "require": {
+        "types": "./dist/components/autocomplete/index.d.cts",
+        "default": "./dist/components/autocomplete/index.cjs"
       }
     },
     "./avatar": {
@@ -67,6 +97,16 @@
         "default": "./dist/components/badge/index.cjs"
       }
     },
+    "./bar-chart": {
+      "import": {
+        "types": "./dist/components/bar-chart/index.d.ts",
+        "default": "./dist/components/bar-chart/index.js"
+      },
+      "require": {
+        "types": "./dist/components/bar-chart/index.d.cts",
+        "default": "./dist/components/bar-chart/index.cjs"
+      }
+    },
     "./bottom-sheet": {
       "import": {
         "types": "./dist/components/bottom-sheet/index.d.ts",
@@ -87,6 +127,16 @@
         "default": "./dist/components/button/index.cjs"
       }
     },
+    "./calendar": {
+      "import": {
+        "types": "./dist/components/calendar/index.d.ts",
+        "default": "./dist/components/calendar/index.js"
+      },
+      "require": {
+        "types": "./dist/components/calendar/index.d.cts",
+        "default": "./dist/components/calendar/index.cjs"
+      }
+    },
     "./card": {
       "import": {
         "types": "./dist/components/card/index.d.ts",
@@ -95,6 +145,26 @@
       "require": {
         "types": "./dist/components/card/index.d.cts",
         "default": "./dist/components/card/index.cjs"
+      }
+    },
+    "./carousel": {
+      "import": {
+        "types": "./dist/components/carousel/index.d.ts",
+        "default": "./dist/components/carousel/index.js"
+      },
+      "require": {
+        "types": "./dist/components/carousel/index.d.cts",
+        "default": "./dist/components/carousel/index.cjs"
+      }
+    },
+    "./chart": {
+      "import": {
+        "types": "./dist/components/chart/index.d.ts",
+        "default": "./dist/components/chart/index.js"
+      },
+      "require": {
+        "types": "./dist/components/chart/index.d.cts",
+        "default": "./dist/components/chart/index.cjs"
       }
     },
     "./checkbox": {
@@ -117,6 +187,36 @@
         "default": "./dist/components/chip/index.cjs"
       }
     },
+    "./close-button": {
+      "import": {
+        "types": "./dist/components/close-button/index.d.ts",
+        "default": "./dist/components/close-button/index.js"
+      },
+      "require": {
+        "types": "./dist/components/close-button/index.d.cts",
+        "default": "./dist/components/close-button/index.cjs"
+      }
+    },
+    "./combobox": {
+      "import": {
+        "types": "./dist/components/combobox/index.d.ts",
+        "default": "./dist/components/combobox/index.js"
+      },
+      "require": {
+        "types": "./dist/components/combobox/index.d.cts",
+        "default": "./dist/components/combobox/index.cjs"
+      }
+    },
+    "./date-picker": {
+      "import": {
+        "types": "./dist/components/date-picker/index.d.ts",
+        "default": "./dist/components/date-picker/index.js"
+      },
+      "require": {
+        "types": "./dist/components/date-picker/index.d.cts",
+        "default": "./dist/components/date-picker/index.cjs"
+      }
+    },
     "./dialog": {
       "import": {
         "types": "./dist/components/dialog/index.d.ts",
@@ -137,6 +237,26 @@
         "default": "./dist/components/divider/index.cjs"
       }
     },
+    "./empty-state": {
+      "import": {
+        "types": "./dist/components/empty-state/index.d.ts",
+        "default": "./dist/components/empty-state/index.js"
+      },
+      "require": {
+        "types": "./dist/components/empty-state/index.d.cts",
+        "default": "./dist/components/empty-state/index.cjs"
+      }
+    },
+    "./fab": {
+      "import": {
+        "types": "./dist/components/fab/index.d.ts",
+        "default": "./dist/components/fab/index.js"
+      },
+      "require": {
+        "types": "./dist/components/fab/index.d.cts",
+        "default": "./dist/components/fab/index.cjs"
+      }
+    },
     "./field-group": {
       "import": {
         "types": "./dist/components/field-group/index.d.ts",
@@ -145,6 +265,16 @@
       "require": {
         "types": "./dist/components/field-group/index.d.cts",
         "default": "./dist/components/field-group/index.cjs"
+      }
+    },
+    "./flip-card": {
+      "import": {
+        "types": "./dist/components/flip-card/index.d.ts",
+        "default": "./dist/components/flip-card/index.js"
+      },
+      "require": {
+        "types": "./dist/components/flip-card/index.d.cts",
+        "default": "./dist/components/flip-card/index.cjs"
       }
     },
     "./input-otp": {
@@ -157,6 +287,36 @@
         "default": "./dist/components/input-otp/index.cjs"
       }
     },
+    "./line-chart": {
+      "import": {
+        "types": "./dist/components/line-chart/index.d.ts",
+        "default": "./dist/components/line-chart/index.js"
+      },
+      "require": {
+        "types": "./dist/components/line-chart/index.d.cts",
+        "default": "./dist/components/line-chart/index.cjs"
+      }
+    },
+    "./list": {
+      "import": {
+        "types": "./dist/components/list/index.d.ts",
+        "default": "./dist/components/list/index.js"
+      },
+      "require": {
+        "types": "./dist/components/list/index.d.cts",
+        "default": "./dist/components/list/index.cjs"
+      }
+    },
+    "./mask-field": {
+      "import": {
+        "types": "./dist/components/mask-field/index.d.ts",
+        "default": "./dist/components/mask-field/index.js"
+      },
+      "require": {
+        "types": "./dist/components/mask-field/index.d.cts",
+        "default": "./dist/components/mask-field/index.cjs"
+      }
+    },
     "./menu": {
       "import": {
         "types": "./dist/components/menu/index.d.ts",
@@ -165,6 +325,16 @@
       "require": {
         "types": "./dist/components/menu/index.d.cts",
         "default": "./dist/components/menu/index.cjs"
+      }
+    },
+    "./pie-chart": {
+      "import": {
+        "types": "./dist/components/pie-chart/index.d.ts",
+        "default": "./dist/components/pie-chart/index.js"
+      },
+      "require": {
+        "types": "./dist/components/pie-chart/index.d.cts",
+        "default": "./dist/components/pie-chart/index.cjs"
       }
     },
     "./popover": {
@@ -177,6 +347,36 @@
         "default": "./dist/components/popover/index.cjs"
       }
     },
+    "./progress-bar": {
+      "import": {
+        "types": "./dist/components/progress-bar/index.d.ts",
+        "default": "./dist/components/progress-bar/index.js"
+      },
+      "require": {
+        "types": "./dist/components/progress-bar/index.d.cts",
+        "default": "./dist/components/progress-bar/index.cjs"
+      }
+    },
+    "./progress-circle": {
+      "import": {
+        "types": "./dist/components/progress-circle/index.d.ts",
+        "default": "./dist/components/progress-circle/index.js"
+      },
+      "require": {
+        "types": "./dist/components/progress-circle/index.d.cts",
+        "default": "./dist/components/progress-circle/index.cjs"
+      }
+    },
+    "./radar-chart": {
+      "import": {
+        "types": "./dist/components/radar-chart/index.d.ts",
+        "default": "./dist/components/radar-chart/index.js"
+      },
+      "require": {
+        "types": "./dist/components/radar-chart/index.d.cts",
+        "default": "./dist/components/radar-chart/index.cjs"
+      }
+    },
     "./radio": {
       "import": {
         "types": "./dist/components/radio/index.d.ts",
@@ -185,6 +385,16 @@
       "require": {
         "types": "./dist/components/radio/index.d.cts",
         "default": "./dist/components/radio/index.cjs"
+      }
+    },
+    "./segment": {
+      "import": {
+        "types": "./dist/components/segment/index.d.ts",
+        "default": "./dist/components/segment/index.js"
+      },
+      "require": {
+        "types": "./dist/components/segment/index.d.cts",
+        "default": "./dist/components/segment/index.cjs"
       }
     },
     "./select": {
@@ -307,6 +517,36 @@
         "default": "./dist/components/text-field/index.cjs"
       }
     },
+    "./time-field": {
+      "import": {
+        "types": "./dist/components/time-field/index.d.ts",
+        "default": "./dist/components/time-field/index.js"
+      },
+      "require": {
+        "types": "./dist/components/time-field/index.d.cts",
+        "default": "./dist/components/time-field/index.cjs"
+      }
+    },
+    "./time-picker": {
+      "import": {
+        "types": "./dist/components/time-picker/index.d.ts",
+        "default": "./dist/components/time-picker/index.js"
+      },
+      "require": {
+        "types": "./dist/components/time-picker/index.d.cts",
+        "default": "./dist/components/time-picker/index.cjs"
+      }
+    },
+    "./timeline": {
+      "import": {
+        "types": "./dist/components/timeline/index.d.ts",
+        "default": "./dist/components/timeline/index.js"
+      },
+      "require": {
+        "types": "./dist/components/timeline/index.d.cts",
+        "default": "./dist/components/timeline/index.cjs"
+      }
+    },
     "./toast": {
       "import": {
         "types": "./dist/components/toast/index.d.ts",
@@ -335,6 +575,26 @@
       "require": {
         "types": "./dist/components/view/index.d.cts",
         "default": "./dist/components/view/index.cjs"
+      }
+    },
+    "./wheel-picker": {
+      "import": {
+        "types": "./dist/components/wheel-picker/index.d.ts",
+        "default": "./dist/components/wheel-picker/index.js"
+      },
+      "require": {
+        "types": "./dist/components/wheel-picker/index.d.cts",
+        "default": "./dist/components/wheel-picker/index.cjs"
+      }
+    },
+    "./widget": {
+      "import": {
+        "types": "./dist/components/widget/index.d.ts",
+        "default": "./dist/components/widget/index.js"
+      },
+      "require": {
+        "types": "./dist/components/widget/index.d.cts",
+        "default": "./dist/components/widget/index.cjs"
       }
     },
     "./system": {
@@ -372,7 +632,7 @@
     "access": "public"
   },
   "scripts": {
-    "build": "rm -rf dist && tsup --config tsup.config.ts && node ../../tooling/workletize/workletize.mjs dist",
+    "build": "rm -rf dist && tsup --config tsup.config.ts && tsc --emitDeclarationOnly --declarationMap false && node ../../tooling/dual-dts/dual-dts.mjs dist && node ../../tooling/workletize/workletize.mjs dist",
     "dev": "tsup --config tsup.config.ts --watch",
     "test": "vitest",
     "lint": "eslint src/",

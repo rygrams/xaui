@@ -1,6 +1,6 @@
 import { forwardRef, useCallback } from 'react'
 import type { View } from 'react-native'
-import { CloseButton } from '../../system/close-button'
+import { CloseButtonBase } from '../../system/close-button'
 import { useDialog } from './dialog.context'
 import type { DialogCloseProps } from './dialog.type'
 
@@ -17,7 +17,7 @@ import type { DialogCloseProps } from './dialog.type'
  * </Dialog.Content>
  * ```
  *
- * **Empty, it draws a cross** — the shared `CloseButton`'s, from two bars, so the corner
+ * **Empty, it draws a cross** — the shared `CloseButtonBase`'s, from two bars, so the corner
  * affordance exists in a project that has installed no icon set. Given children, or
  * `asChild`, it is whatever the dismissal actually says. Both close the dialog, which is
  * the only thing this file adds to the shared button.
@@ -41,7 +41,7 @@ export const DialogClose = forwardRef<View, DialogCloseProps>(function DialogClo
   )
 
   return (
-    <CloseButton
+    <CloseButtonBase
       ref={ref}
       name="Dialog.Close"
       asChild={asChild}

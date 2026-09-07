@@ -6,6 +6,7 @@ import { PressableFeedback } from '../../system/pressable-feedback'
 import { childrenToString } from '../../system/slot'
 import { useStyleProps } from '../../system/style-props'
 import { useXAUITheme } from '../../theme/theme-hooks'
+import { useOptionalRadioGroup } from './radio-group.context'
 import { RadioIndicator } from './radio-indicator'
 import { RadioLabel } from './radio-label'
 import { RadioProvider } from './radio.context'
@@ -30,10 +31,20 @@ import type { RadioProps } from './radio.type'
  * clears.** A set of options has no "none of these" unless one of them says so, and a
  * radio that could be untapped back to empty would be a checkbox that happens to be round.
  *
- * **There is no group.** The set lives where its state does — `value === 'monthly'` above
- * is the whole of it — and `RadioGroup` is a P5 component with a context of its own, not a
- * prop this one is missing. Wrap the rows in a `View` with `accessibilityRole="radiogroup"`
- * until it lands.
+ * **A set is a `Radio.Group` around options that name a `value`:**
+ *
+ * ```tsx
+ * <Radio.Group value={plan} onValueChange={setPlan}>
+ *   <Radio value="monthly">Tous les mois</Radio>
+ *   <Radio value="yearly">Tous les ans</Radio>
+ * </Radio.Group>
+ * ```
+ *
+ * The group holds the chosen value and hands down `variant`, `size`, `radius` and `color`;
+ * an option that names its own still wins. Nothing walks the children, so an option nested
+ * in a card or a row is in the set exactly as much as a direct child is — and an option
+ * with no `value` is not in it at all, which is what keeps the standalone radio above
+ * working unchanged inside one.
  *
  * Everything else is the `Checkbox`'s: the root is the row, so the label chooses the
  * option; R3 wraps a text child into the label and supplies the circle; the three variants
@@ -46,6 +57,7 @@ export const RadioRoot = forwardRef<View, RadioProps>(function Radio(
     size,
     radius,
     color,
+    value,
     isSelected,
     defaultSelected = false,
     onSelectedChange,
@@ -70,39 +82,62 @@ export const RadioRoot = forwardRef<View, RadioProps>(function Radio(
   const [styleProps, rest] = useStyleProps(props)
   const [isPressed, press] = usePressState({ onPressIn, onPressOut })
 
+  // `null` outside a set, which is a valid arrangement rather than a misplaced slot — a
+  // radio over its own `isSelected` is this component's original shape.
+  const group = useOptionalRadioGroup()
+  // An option joins the set by naming what it stands for. Membership is that and nothing
+  // else: no child is inspected, so nesting one changes nothing.
+  const inGroup = group !== null && value !== undefined
+
   const [selected, setSelected] = useControllableState({
-    value: isSelected,
+    // The set is a controlled source like any other, and `isSelected` still outranks it:
+    // one option in a group can be driven by something the group knows nothing about.
+    value: isSelected ?? (inGroup ? group.value === value : undefined),
     defaultValue: defaultSelected,
     onChange: onSelectedChange,
   })
+
+  // The set's values are defaults, and the option's own win — a uniform set is the common
+  // case, and the row that differs is a design rather than a mistake.
+  const resolvedVariant = variant ?? group?.variant
+  const resolvedSize = size ?? group?.size
+  const resolvedRadius = radius ?? group?.radius
+  const resolvedColor = color ?? group?.color
+  // These two do not work that way: a disabled set has no enabled option in it, and a set
+  // that is wrong is wrong on every row.
+  const disabled = isDisabled || (group?.isDisabled ?? false)
+  const invalid = isInvalid || (group?.isInvalid ?? false)
 
   const handlePress = useCallback(
     (event: GestureResponderEvent) => {
       // `true`, never a toggle — and `useControllableState` drops a set to the value it
       // already holds, so pressing the chosen option fires nothing at all.
       setSelected(true)
-      // Composed, never replaced: a caller's `onPress` is what a group listens to when it
-      // wants the press rather than the change.
+      // Told to the set as well, because the set is what the other options read. Both
+      // callbacks fire: this option's `onSelectedChange` and the group's `onValueChange`.
+      if (inGroup) group.select(value)
+      // Composed, never replaced: a caller's `onPress` is what a wrapper listens to when
+      // it wants the press rather than the change.
       onPress?.(event)
     },
-    [setSelected, onPress]
+    [setSelected, inGroup, group, value, onPress]
   )
 
   const selection = {
-    variant,
-    size,
-    radius,
-    isInvalid: isInvalid ? ('true' as const) : undefined,
+    variant: resolvedVariant,
+    size: resolvedSize,
+    radius: resolvedRadius,
+    isInvalid: invalid ? ('true' as const) : undefined,
   }
-  const states = { pressed: isPressed, disabled: isDisabled }
+  const states = { pressed: isPressed, disabled }
 
   const styles = radioRecipe.resolve({ theme, selection, states })
   // Only when `color` is set, and never cached: a raw tint takes arbitrary values, so
   // letting one into the key would grow the table with the colours users invent. It is
   // suppressed while invalid — an error outranks a brand colour, as on the `Checkbox`.
   const tint =
-    color && !isInvalid
-      ? radioRecipe.tint({ theme, color, selection, states })
+    resolvedColor && !invalid
+      ? radioRecipe.tint({ theme, color: resolvedColor, selection, states })
       : undefined
 
   const context = useMemo(
@@ -114,10 +149,10 @@ export const RadioRoot = forwardRef<View, RadioProps>(function Radio(
       thumbStyle: tint ? [styles.thumb, tint.thumb] : styles.thumb,
       labelStyle: styles.label,
       isSelected: selected,
-      isDisabled,
-      isInvalid,
+      isDisabled: disabled,
+      isInvalid: invalid,
     }),
-    [styles, tint, selected, isDisabled, isInvalid]
+    [styles, tint, selected, disabled, invalid]
   )
 
   // The resolution order of §2 ter, most general to most specific: the cached recipe, the
@@ -150,7 +185,7 @@ export const RadioRoot = forwardRef<View, RadioProps>(function Radio(
       <PressableFeedback
         ref={ref}
         isPressed={isPressed}
-        isDisabled={isDisabled}
+        isDisabled={disabled}
         asChild={asChild}
         animation={animation}
         accessibilityRole={accessibilityRole ?? 'radio'}
@@ -158,10 +193,10 @@ export const RadioRoot = forwardRef<View, RadioProps>(function Radio(
         // the two a screen reader reads this control by. Their keys still win.
         accessibilityState={{
           checked: selected,
-          disabled: isDisabled,
+          disabled,
           ...accessibilityState,
         }}
-        aria-invalid={isInvalid}
+        aria-invalid={invalid}
         {...rest}
         style={rootStyle}
         // After `rest`, and composed rather than replacing.

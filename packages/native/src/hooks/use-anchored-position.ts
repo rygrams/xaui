@@ -32,6 +32,12 @@ export type AnchoredPositionOptions = {
    * given a measure to stop at.
    */
   maxWidth?: number
+  /**
+   * A floor under the resolved width, `maxWidth`'s mirror: a `trigger`-width panel narrower
+   * than this takes this instead. The case is a panel with a natural minimum — a month grid
+   * is seven columns of a fixed cell — sitting under a field that can be wider.
+   */
+  minWidth?: number
   /** The caller's own handler, called before the panel is measured. */
   onLayout?: (event: LayoutChangeEvent) => void
 }
@@ -143,19 +149,25 @@ export function useAnchoredPosition({
 function measuringWidth(
   {
     width,
+    minWidth,
     maxWidth,
     insets,
-  }: Pick<AnchoredPositionOptions, 'width' | 'maxWidth' | 'insets'>,
+  }: Pick<AnchoredPositionOptions, 'width' | 'minWidth' | 'maxWidth' | 'insets'>,
   anchorWidth: number | undefined,
   window: Size2D
-): Pick<ViewStyle, 'width' | 'maxWidth'> {
+): Pick<ViewStyle, 'width' | 'minWidth' | 'maxWidth'> {
   const screen = Math.max(window.width - insets.start - insets.end, 0)
+  const floor = minWidth ?? 0
 
-  if (width === 'trigger') return { width: anchorWidth }
+  if (width === 'trigger') return { width: Math.max(anchorWidth ?? 0, floor) }
   if (width === 'full') return { width: screen }
-  if (typeof width === 'number') return { width }
+  if (typeof width === 'number') return { width: Math.max(width, floor) }
 
-  return { maxWidth: Math.min(maxWidth ?? Number.POSITIVE_INFINITY, screen) }
+  // `content-fit` measures freely between the two bounds.
+  return {
+    minWidth: floor || undefined,
+    maxWidth: Math.min(maxWidth ?? Number.POSITIVE_INFINITY, screen),
+  }
 }
 
 /** No host, no offset — `Portal` renders nothing in that case anyway. */

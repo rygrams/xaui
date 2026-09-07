@@ -12,7 +12,7 @@ import { ButtonSpinner } from './button-spinner'
 import { ButtonProvider } from './button.context'
 import { buttonRecipe } from './button.recipe'
 import type { ButtonProps } from './button.type'
-import { containsElementOfType } from './button.utils'
+import { containsElementOfType } from '../../utils/children'
 
 /**
  * The reference component. Every other one in the library is this shape.
