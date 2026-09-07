@@ -133,7 +133,13 @@ export function TimePicker({
     [setValue]
   )
 
-  const onPickHour = useCallback(
+  /**
+   * Writing the hour and **finishing** with it are two different things, which is what a
+   * hand you can turn costs: a drag reports a new hour on every frame, and if each one
+   * moved the dial on to the minutes the ring would flip under the finger on contact and
+   * nothing could ever be turned. `onDrag*` writes; `onPick*` writes and settles.
+   */
+  const onDragHour = useCallback(
     (hour: number) => {
       const wanted =
         hourCycle === 24
@@ -147,19 +153,33 @@ export function TimePicker({
           seconds: 0,
         })
       )
-      // Straight on to the minutes, which is the one thing that makes a two-ring dial feel
-      // like one gesture rather than two — and what every platform's clock does.
-      setUnit('minute')
     },
     [commit, hourCycle, period, shown]
   )
 
-  const onPickMinute = useCallback(
+  const onDragMinute = useCallback(
     (minute: number) => {
       commit(withTime(shown, { hours: hours24, minutes: minute, seconds: 0 }))
+    },
+    [commit, hours24, shown]
+  )
+
+  const onPickHour = useCallback(
+    (hour: number) => {
+      onDragHour(hour)
+      // Straight on to the minutes, which is the one thing that makes a two-ring dial feel
+      // like one gesture rather than two — and what every platform's clock does.
+      setUnit('minute')
+    },
+    [onDragHour]
+  )
+
+  const onPickMinute = useCallback(
+    (minute: number) => {
+      onDragMinute(minute)
       if (closeOnSelect) setOpen(false)
     },
-    [closeOnSelect, commit, hours24, setOpen, shown]
+    [closeOnSelect, onDragMinute, setOpen]
   )
 
   const onPeriodChange = useCallback(
@@ -243,6 +263,11 @@ export function TimePicker({
       periodsStyle: dialStyles.periods,
       periodStyle: dialStyles.period,
       periodSelectedStyle: [dialStyles.periodSelected, dialTint?.periodSelected],
+      periodLabelStyle: dialStyles.periodLabel,
+      periodLabelSelectedStyle: [
+        dialStyles.periodLabelSelected,
+        dialTint?.periodLabelSelected,
+      ],
 
       dial: timePickerDial(size),
 
@@ -254,6 +279,8 @@ export function TimePicker({
       minuteStep: Math.max(1, Math.floor(minuteStep)),
       unit,
       setUnit,
+      onDragHour,
+      onDragMinute,
       onPickHour,
       onPickMinute,
       onPeriodChange,
@@ -279,6 +306,8 @@ export function TimePicker({
       hourCycle,
       minuteStep,
       unit,
+      onDragHour,
+      onDragMinute,
       onPickHour,
       onPickMinute,
       onPeriodChange,

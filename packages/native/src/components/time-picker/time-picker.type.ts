@@ -29,6 +29,8 @@ export type TimePickerSlot =
   | 'periods'
   | 'period'
   | 'periodSelected'
+  | 'periodLabel'
+  | 'periodLabelSelected'
 
 /** The `Select`'s four field levels, because the trigger **is** a select's trigger. */
 export type TimePickerVariant = 'primary' | 'secondary' | 'tertiary' | 'ghost'
@@ -131,6 +133,8 @@ export type TimePickerContextValue = {
   periodsStyle: StyleProp<ViewStyle>
   periodStyle: StyleProp<ViewStyle>
   periodSelectedStyle: StyleProp<ViewStyle>
+  periodLabelStyle: StyleProp<TextStyle>
+  periodLabelSelectedStyle: StyleProp<TextStyle>
 
   /** Values, not styles: the dial is drawn from arithmetic and needs the numbers. */
   dial: { box: number; ring: number; mark: number; innerRing: number }
@@ -145,7 +149,16 @@ export type TimePickerContextValue = {
   /** Which ring is on screen, and how the display switches it. */
   unit: TimePickerUnit
   setUnit: (unit: TimePickerUnit) => void
-  /** A mark pressed on the dial. */
+  /**
+   * The hand turning, and the choice settling.
+   *
+   * `onDrag*` writes the value and stops there — it is what every frame of a drag calls.
+   * `onPick*` writes it and settles: the hours hand on to the minutes, the minutes close
+   * the sheet. A pressed mark and the release of a drag are picks; the frames between are
+   * drags, or the ring would flip under the finger before it had turned anything.
+   */
+  onDragHour: (hour: number) => void
+  onDragMinute: (minute: number) => void
   onPickHour: (hour: number) => void
   onPickMinute: (minute: number) => void
   onPeriodChange: (period: DayPeriod) => void

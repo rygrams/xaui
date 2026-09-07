@@ -4,7 +4,7 @@
     {
       "name": "demo-web",
       "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["--filter", "demo", "web", "--port", "8081"],
+      "runtimeArgs": ["--filter", "demo", "web", "--port", "8081", "--clear"],
       "port": 8081
     }
   ]

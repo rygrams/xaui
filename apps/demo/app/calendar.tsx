@@ -1,7 +1,12 @@
 import { useState } from 'react'
 import { ScrollView, Text, View } from 'react-native'
 import { Calendar } from '@xaui/native/calendar'
-import type { CalendarSize, CalendarVariant } from '@xaui/native/calendar'
+import type {
+  CalendarSize,
+  CalendarVariant,
+  CalendarView,
+} from '@xaui/native/calendar'
+import { PressableFeedback } from '@xaui/native/system'
 import { useXAUITheme } from '@xaui/native/theme'
 
 const VARIANTS: CalendarVariant[] = ['primary', 'secondary', 'tertiary', 'ghost']
@@ -25,6 +30,8 @@ export default function CalendarScreen() {
       contentContainerStyle={{ padding: 16, gap: 32, paddingBottom: 96 }}
     >
       <Picked />
+
+      <YearAndMonthPicked />
 
       <Section
         title="The grid is always six weeks"
@@ -188,6 +195,61 @@ function Picked() {
         {date === undefined
           ? 'value: —'
           : `value: ${date.toISOString().slice(0, 10)}`}
+      </Caption>
+    </Section>
+  )
+}
+
+/**
+ * The legacy dialog's walk, rebuilt in composition: the title is the button, and it steps
+ * `view` from the days to the years. Pressing a year steps on to the months of that year,
+ * and pressing a month lands back on the days — year → month → day, the picker replacing
+ * the weeks rather than overlaying them, because a drum of years behind a drum of days
+ * would read as two things at once.
+ */
+function YearAndMonthPicked() {
+  const [date, setDate] = useState<Date | undefined>(new Date(2026, 8, 6))
+  const [view, setView] = useState<CalendarView>('grid')
+
+  return (
+    <Section
+      title="Aiming at a year, then a month"
+      note="Tap the month name: the years open, then the months of the year you pick, then back to the days — legacy's drill-down. The pickers step the view themselves; the caller owns it so the title can be the switch."
+    >
+      <Frame>
+        <Calendar
+          value={date}
+          onValueChange={setDate}
+          view={view}
+          onViewChange={setView}
+        >
+          <Calendar.Header>
+            <Calendar.PreviousButton accessibilityLabel="Mois précédent" />
+            <PressableFeedback
+              onPress={() => setView(now => (now === 'grid' ? 'year' : 'grid'))}
+              accessibilityLabel="Changer le mois et l'année"
+            >
+              <Calendar.Title />
+            </PressableFeedback>
+            <Calendar.NextButton accessibilityLabel="Mois suivant" />
+          </Calendar.Header>
+          {view === 'year' ? (
+            <Calendar.YearPicker />
+          ) : view === 'month' ? (
+            <Calendar.MonthPicker />
+          ) : (
+            <>
+              <Calendar.Weekdays />
+              <Calendar.Grid />
+            </>
+          )}
+        </Calendar>
+      </Frame>
+      <Caption>
+        {date === undefined
+          ? 'value: —'
+          : `value: ${date.toISOString().slice(0, 10)}`}
+        {`  ·  view: ${view}`}
       </Caption>
     </Section>
   )

@@ -44,13 +44,24 @@ where the legacy put it too.
 way twenty-four numbers fit on a circle without the labels touching. `00` rather than `24`:
 midnight is the start of a day, not its end, and the hour reported is 0.
 
-**Sixty marks and twelve labels on the minutes.** A number on every minute is a smudge; a
-mark on every minute is what makes a reader believe they can pick 07 as well as 05.
-`minuteStep` coarsens both, for a picker that only wants quarters.
+**Twelve labels on the minutes, and no marks between them.** A number on every minute is a
+smudge and a dot on every minute is clutter; the unlabelled minutes are still targets, they
+are just not drawn. `minuteStep` coarsens them, for a picker that only wants quarters.
 
-**Tap the mark, not the face.** A drag round the dial needs a gesture recogniser and a hit
-test against a moving angle; a press on a number needs neither, and is what a reader does
-anyway. The hand still travels to the choice, so the gesture reads as one motion.
+**The whole face is the control.** A touch anywhere on it moves the hand to the value under
+the finger; keep the finger down and the hand follows it, live, so an unlabelled `07` is
+reached by turning the hand onto it. One gesture, whether the reader aims at a number or
+turns the hand round to it.
+
+**The choice settles on release.** Choosing an hour hands the dial on to the minutes and
+choosing a minute closes the sheet — do either on touch-down and the ring flips under the
+finger with nothing left to turn. So the frames of a drag only write the value, and the
+release picks it. A tap is that pair with nothing in between.
+
+The pan claims the touch **on contact** rather than after a hold. A hold let the sheet win —
+`BottomSheet.Content` wraps its children in a pan of its own with no threshold, so a finger's
+jitter slid the sheet down before the dial's hold had elapsed. The marks keep their button
+role for a screen reader, which activates them directly and never reaches the pan.
 
 **Choosing an hour goes straight to the minutes**, which is the one thing that makes a
 two-ring dial feel like one gesture rather than two. Choosing a minute closes the sheet,
@@ -82,6 +93,12 @@ hours had been forgotten.
 The period is **two halves of one control** rather than a toggle, unlike `TimeField.Period`:
 there is room here, and a reader choosing a time from nothing should see both options rather
 than press one to find the other.
+
+`AM` and `PM` sit **side by side** in a small pill, well below the dial's numbers in size —
+they caption the time rather than being part of it. The display is **as wide as the face
+beneath it** and the pill is out of flow, pinned to its trailing edge: the two numbers keep
+the middle of that box, so the time reads dead centre over the dial whether the reader is on
+a twelve- or a twenty-four hour clock.
 
 ### The indicator
 

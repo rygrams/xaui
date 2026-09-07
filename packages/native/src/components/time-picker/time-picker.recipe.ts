@@ -19,6 +19,8 @@ const SLOTS = [
   'periods',
   'period',
   'periodSelected',
+  'periodLabel',
+  'periodLabelSelected',
 ] as const
 
 /**
@@ -53,6 +55,19 @@ type SizeStep = {
   /** The two big numbers above the dial. */
   display: FontSizeKey
   markLabel: FontSizeKey
+  /** `AM` / `PM` — a step or two under the dial's numbers: a caption beside them, not part
+   *  of them. `sm` stays off the narrowest face, where the pill would crowd the numbers. */
+  periodLabel: FontSizeKey
+  /**
+   * How much air `AM` and `PM` get on either side, in spacing steps.
+   *
+   * Per size because the horizontal has a ceiling the vertical does not: the pill and the
+   * two numbers share one box as wide as the dial and the numbers are centred in it, so
+   * every point the pill takes sideways is a point off the gap between them on the widest
+   * time the clock can read. Each step here is the widest that still leaves that gap ~10
+   * points on its own face — the narrow face has the least to give and gets the least.
+   */
+  periodPadding: number
 }
 
 const SIZES: Record<TimePickerSize, SizeStep> = {
@@ -62,7 +77,9 @@ const SIZES: Record<TimePickerSize, SizeStep> = {
     mark: 34,
     innerRing: 0.54,
     display: '2xl',
-    markLabel: 'sm',
+    markLabel: 'md',
+    periodLabel: 'xs',
+    periodPadding: 1.5,
   },
   md: {
     box: 268,
@@ -70,7 +87,9 @@ const SIZES: Record<TimePickerSize, SizeStep> = {
     mark: 38,
     innerRing: 0.55,
     display: '3xl',
-    markLabel: 'md',
+    markLabel: 'lg',
+    periodLabel: 'sm',
+    periodPadding: 2,
   },
   lg: {
     box: 304,
@@ -78,7 +97,9 @@ const SIZES: Record<TimePickerSize, SizeStep> = {
     mark: 42,
     innerRing: 0.56,
     display: '4xl',
-    markLabel: 'lg',
+    markLabel: 'xl',
+    periodLabel: 'sm',
+    periodPadding: 2.5,
   },
 }
 
@@ -94,13 +115,17 @@ export function timePickerDial(size: TimePickerSize): {
   return { box, ring, mark, innerRing }
 }
 
-/** How thick the hand is, and how far the hub reaches. Pure geometry, in points. */
-const HAND_WIDTH = 2
-const HUB_SIZE = 8
+/** How thick the hand is, and how far the hub reaches. Pure geometry, in points — exported
+ *  so `TimePicker.Clock` can pull the hand and the hub back by half of themselves. */
+export const HAND_WIDTH = 3
+export const HUB_SIZE = 10
 
 function sizeAxis(step: SizeStep) {
   return (theme: XAUITheme): SlotStyles<TimePickerSlot> => ({
     dial: { width: step.box, height: step.box },
+    // The display is as wide as the face beneath it. That is what centres the numbers over
+    // the dial rather than over themselves, and what gives `periods` an edge to hang from.
+    display: { width: step.box },
     face: { width: step.box, height: step.box, borderRadius: step.box / 2 },
     mark: { width: step.mark, height: step.mark, borderRadius: step.mark / 2 },
     markSelected: {
@@ -116,6 +141,16 @@ function sizeAxis(step: SizeStep) {
       fontSize: theme.fontSizes[step.markLabel],
       lineHeight: theme.lineHeights[step.markLabel],
     },
+    periodLabel: {
+      fontSize: theme.fontSizes[step.periodLabel],
+      lineHeight: theme.lineHeights[step.periodLabel],
+    },
+    periodLabelSelected: {
+      fontSize: theme.fontSizes[step.periodLabel],
+      lineHeight: theme.lineHeights[step.periodLabel],
+    },
+    period: { paddingHorizontal: theme.spacing(step.periodPadding) },
+    periodSelected: { paddingHorizontal: theme.spacing(step.periodPadding) },
     unit: {
       fontSize: theme.fontSizes[step.display],
       lineHeight: theme.lineHeights[step.display],
@@ -135,7 +170,11 @@ export const timePickerRecipe = createRecipe({
   slots: SLOTS,
 
   base: theme => ({
-    dial: { alignItems: 'center', justifyContent: 'center' },
+    dial: {
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginBottom: theme.spacing(4),
+    },
     face: { position: 'relative' },
     // Every mark is placed by `clockPoint`, so it is out of flow and centred on its own
     // point — a fixed box pulled back by half of it, which is the only placement that works
@@ -151,6 +190,15 @@ export const timePickerRecipe = createRecipe({
       color: theme.colors.foreground,
     },
     markLabelSelected: { fontFamily: theme.fontFamilies.body },
+    periodLabel: {
+      fontFamily: theme.fontFamilies.body,
+      fontWeight: theme.fontWeights.medium,
+      color: theme.colors.muted,
+    },
+    periodLabelSelected: {
+      fontFamily: theme.fontFamilies.body,
+      fontWeight: theme.fontWeights.semibold,
+    },
     /**
      * The hand grows **from the hub outwards**, which is why its origin is the bottom of the
      * bar rather than its middle: a rotation about the centre of a bar half the radius long
@@ -168,7 +216,17 @@ export const timePickerRecipe = createRecipe({
       height: HUB_SIZE,
       borderRadius: HUB_SIZE / 2,
     },
-    display: { flexDirection: 'row', alignItems: 'center', gap: theme.spacing(1) },
+    // As wide as the dial (see `sizeAxis`) and centred, so the two numbers sit over the
+    // middle of the face and `periods` can hang off the trailing edge without shifting
+    // them — the time stays centred whether or not AM/PM is there.
+    display: {
+      position: 'relative',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: theme.spacing(1),
+      marginBottom: theme.spacing(3),
+    },
     unit: {
       fontFamily: theme.fontFamilies.body,
       fontWeight: theme.fontWeights.medium,
@@ -184,23 +242,29 @@ export const timePickerRecipe = createRecipe({
       color: theme.colors.muted,
     },
     periods: {
-      flexDirection: 'column',
-      borderRadius: theme.radius.field,
+      // Out of flow, pinned to the trailing edge of `display` — which is as wide as the
+      // dial — and centred against the numbers. The numbers keep the middle of that box
+      // whether or not AM/PM is there, so the time sits dead centre over the face.
+      //
+      // Pinned with `end`, and inside the box rather than past it: an absolute child hung
+      // off `start: '100%'` sits outside its parent's bounds, where a clipping ancestor
+      // can eat it.
+      position: 'absolute',
+      end: 0,
+      alignSelf: 'center',
+      // AM and PM on one line — a pair read side by side faster than one stacked.
+      flexDirection: 'row',
+      // `field` is 12 on a pill barely more than twice that tall — a gélule. `sm` reads as
+      // a small boxed caption, which is what AM/PM is beside numbers this size.
+      borderRadius: theme.radius.sm,
       borderCurve: 'continuous',
       overflow: 'hidden',
       borderWidth: theme.borderWidth.field,
       borderColor: theme.colors.border,
     },
-    period: {
-      paddingHorizontal: theme.spacing(3),
-      paddingVertical: theme.spacing(1.5),
-      alignItems: 'center',
-    },
-    periodSelected: {
-      paddingHorizontal: theme.spacing(3),
-      paddingVertical: theme.spacing(1.5),
-      alignItems: 'center',
-    },
+    // Only the vertical here — the horizontal is per size, and `periodPadding` says why.
+    period: { paddingVertical: theme.spacing(1.5), alignItems: 'center' },
+    periodSelected: { paddingVertical: theme.spacing(1.5), alignItems: 'center' },
   }),
 
   variantTokens: VARIANT_TOKENS,
@@ -209,6 +273,7 @@ export const timePickerRecipe = createRecipe({
     face: { backgroundColor: colors.bg },
     markSelected: { backgroundColor: colors.bgSelected },
     markLabelSelected: { color: colors.fgSelected },
+    periodLabelSelected: { color: colors.fgSelected },
     hand: { backgroundColor: colors.bgSelected },
     hub: { backgroundColor: colors.bgSelected },
     unitSelected: { color: colors.bgSelected },

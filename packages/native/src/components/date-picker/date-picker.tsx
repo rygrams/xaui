@@ -1,13 +1,20 @@
-import { useCallback, useMemo, useState } from 'react'
-import { StyleSheet } from 'react-native'
+import { forwardRef, useCallback, useMemo, useState } from 'react'
+import { StyleSheet, View } from 'react-native'
 import type { TextStyle } from 'react-native'
 import { useControllableState } from '../../hooks/use-controllable-state'
+import { Slot } from '../../system/slot'
+import { useStyleProps } from '../../system/style-props'
 import { useXAUITheme } from '../../theme/theme-hooks'
 import { startOfDay } from '../../utils/dates'
+import { calendarCellSizes } from '../calendar'
 import { selectRecipe } from '../select/select.recipe'
+import { textFieldRecipe } from '../text-field/text-field.recipe'
 import { DatePickerProvider } from './date-picker.context'
 import { datePickerRecipe } from './date-picker.recipe'
 import type { DatePickerAnchor, DatePickerProps } from './date-picker.type'
+
+/** Seven columns of a fixed cell — the calendar's width, and the panel's floor. */
+const CALENDAR_COLUMNS = 7
 
 /** What the field says when the caller names no format. */
 const DEFAULT_FORMAT: Intl.DateTimeFormatOptions = { dateStyle: 'medium' }
@@ -40,32 +47,43 @@ const DEFAULT_FORMAT: Intl.DateTimeFormatOptions = { dateStyle: 'medium' }
  * is the ordinary case — the trigger is quiet on the form and the chosen day is not — so
  * `variant` dresses the field and `calendarVariant` dresses the grid.
  *
- * **The root renders no node.** `ref`, `style` and the a11y props live on
- * `DatePicker.Trigger`.
+ * **The root is the column, not the field** — the `TextField`'s shape: a `View` that
+ * resolves the styles and stacks `DatePicker.Label`, `DatePicker.Field` and
+ * `DatePicker.Description` / `.Error` with one `gap`, so JSX order is screen order.
+ * `DatePicker.Trigger` is the field, and it keeps its own `ref` — the node the panel
+ * measures. `DatePicker.Overlay` and `DatePicker.Content` portal out, so they add nothing
+ * to the column.
  */
-export function DatePicker({
-  children,
-  variant,
-  size = 'md',
-  radius,
-  color,
-  calendarVariant,
-  value: controlledValue,
-  defaultValue,
-  onValueChange,
-  isOpen: controlledOpen,
-  defaultOpen = false,
-  onOpenChange,
-  minValue,
-  maxValue,
-  firstDayOfWeek,
-  locale,
-  formatOptions,
-  closeOnSelect = true,
-  isDisabled = false,
-  isInvalid = false,
-}: DatePickerProps) {
+export const DatePicker = forwardRef<View, DatePickerProps>(function DatePicker(
+  {
+    children,
+    variant,
+    size = 'md',
+    radius,
+    color,
+    calendarVariant,
+    value: controlledValue,
+    defaultValue,
+    onValueChange,
+    isOpen: controlledOpen,
+    defaultOpen = false,
+    onOpenChange,
+    minValue,
+    maxValue,
+    firstDayOfWeek,
+    locale,
+    formatOptions,
+    closeOnSelect = true,
+    isDisabled = false,
+    isInvalid = false,
+    asChild = false,
+    style,
+    ...props
+  },
+  ref
+) {
   const theme = useXAUITheme()
+  const [styleProps, rest] = useStyleProps(props)
   const [anchor, setAnchor] = useState<DatePickerAnchor | null>(null)
 
   const [value, setValue] = useControllableState<Date | undefined>({
@@ -105,6 +123,19 @@ export function DatePicker({
 
   /** The half neither the select nor the calendar has: the panel's own inset. */
   const own = datePickerRecipe.resolve({ theme, selection: { size } })
+  // The panel's padding, as a number, for the min-width arithmetic below. The recipe only
+  // ever writes a single `padding` here; the fallback is for a theme that zeroes it.
+  const flatField = StyleSheet.flatten(own.field)
+  const panelPad = typeof flatField.padding === 'number' ? flatField.padding : 0
+
+  // The column, the label and the help line are the `TextField`'s, token for token — a
+  // date field and a text field stacked in one form read as one control, which is why
+  // `DatePicker.Field` composes them rather than this component owning a second table.
+  const labelled = textFieldRecipe.resolve({
+    theme,
+    selection: { size, isInvalid: isInvalid ? ('true' as const) : undefined },
+    states: { disabled: isDisabled },
+  })
 
   const open = useCallback(() => setOpen(true), [setOpen])
   const close = useCallback(() => setOpen(false), [setOpen])
@@ -166,6 +197,13 @@ export function DatePicker({
       overlayStyle: styles.overlay,
       contentStyle: styles.content,
       fieldStyle: own.field,
+      // The panel's floor: the grid's seven cells **plus the panel's own inset**, so the
+      // week fits inside the padding rather than being clipped by it. The panel matches the
+      // field above that and never goes under it.
+      panelMinWidth: CALENDAR_COLUMNS * calendarCellSizes[size].cell + 2 * panelPad,
+      labelStyle: labelled.label,
+      descriptionStyle: labelled.description,
+      errorStyle: labelled.error,
       glyph: {
         size: indicator.fontSize,
         color: typeof indicator.color === 'string' ? indicator.color : undefined,
@@ -188,6 +226,8 @@ export function DatePicker({
     pressed,
     tint,
     own,
+    labelled,
+    size,
     value,
     label,
     isOpen,
@@ -201,8 +241,22 @@ export function DatePicker({
     anchor,
   ])
 
-  return <DatePickerProvider value={context}>{children}</DatePickerProvider>
-}
+  // Most general to most specific: the recipe's column, the style props, then `style`.
+  const columnStyle = [labelled.root, styleProps, style]
+
+  const column = asChild ? (
+    // R12 — the caller's element is the column.
+    <Slot ref={ref} {...rest} style={columnStyle}>
+      {children}
+    </Slot>
+  ) : (
+    <View ref={ref} {...rest} style={columnStyle}>
+      {children}
+    </View>
+  )
+
+  return <DatePickerProvider value={context}>{column}</DatePickerProvider>
+})
 
 DatePicker.displayName = 'XAUI.DatePicker.Root'
 

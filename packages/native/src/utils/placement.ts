@@ -37,6 +37,12 @@ export type PlacementInput = {
   /** What the panel measured at, before it was constrained. */
   content: Size2D
   window: Size2D
+  /**
+   * A floor under the resolved width. A `trigger`-width panel narrower than this takes this
+   * instead — the case for a control whose panel has a natural minimum (a month grid) but
+   * whose field can be wider. Still clamped to the screen last.
+   */
+  minWidth?: number
   placement: Placement
   align: Align
   width: AnchoredWidth
@@ -76,7 +82,10 @@ export function resolvePlacement(input: PlacementInput): PlacementResult {
   const { anchor, content, window, offset, alignOffset, insets } = input
 
   const available = window.width - insets.start - insets.end
-  const width = Math.min(resolveWidth(input), Math.max(available, 0))
+  // The floor is applied before the screen clamp: `minWidth` is a request the room can
+  // still deny, never a way to push the panel past the edge.
+  const wanted = Math.max(resolveWidth(input), input.minWidth ?? 0)
+  const width = Math.min(wanted, Math.max(available, 0))
 
   const placement = choosePlacement(input)
   const room = Math.max(roomFor(placement, input), 0)
