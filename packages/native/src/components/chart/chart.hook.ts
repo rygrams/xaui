@@ -49,12 +49,12 @@ export function useChartInk({
   const tint = color ? chartRecipe.tint({ theme, color, selection }) : undefined
 
   return useMemo(() => {
-    const root = StyleSheet.flatten<TextStyle>([styles.root, tint?.root])
+    const ink = StyleSheet.flatten<TextStyle>([styles.ink, tint?.ink])
     const label = StyleSheet.flatten<TextStyle>([styles.label])
     const grid = StyleSheet.flatten([styles.grid])
     const axis = StyleSheet.flatten([styles.axis])
 
-    const seed = typeof root.color === 'string' ? root.color : theme.colors.accent
+    const seed = typeof ink.color === 'string' ? ink.color : theme.colors.accent
 
     return {
       styles,
