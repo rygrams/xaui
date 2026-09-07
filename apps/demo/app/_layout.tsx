@@ -49,6 +49,14 @@ export default function RootLayout() {
           />
           <Stack.Screen name="combobox" options={{ title: 'Combobox (v1)' }} />
           <Stack.Screen name="date-picker" options={{ title: 'DatePicker (v1)' }} />
+          <Stack.Screen
+            name="date-range-picker"
+            options={{ title: 'DateRangePicker (v1)' }}
+          />
+          <Stack.Screen
+            name="date-time-picker"
+            options={{ title: 'DateTimePicker (v1)' }}
+          />
           <Stack.Screen name="dialog" options={{ title: 'Dialog (v1)' }} />
           <Stack.Screen name="divider" options={{ title: 'Divider (v1)' }} />
           <Stack.Screen name="empty-state" options={{ title: 'EmptyState (v1)' }} />
@@ -86,6 +94,7 @@ export default function RootLayout() {
           <Stack.Screen name="stepper" options={{ title: 'Stepper (v1)' }} />
           <Stack.Screen name="surface" options={{ title: 'Surface (v1)' }} />
           <Stack.Screen name="switch" options={{ title: 'Switch (v1)' }} />
+          <Stack.Screen name="table" options={{ title: 'Table (v1)' }} />
           <Stack.Screen name="tabs" options={{ title: 'Tabs (v1)' }} />
           <Stack.Screen name="tag-group" options={{ title: 'TagGroup (v1)' }} />
           <Stack.Screen name="text-area" options={{ title: 'TextArea (v1)' }} />

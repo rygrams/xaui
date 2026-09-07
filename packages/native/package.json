@@ -1,6 +1,6 @@
 {
   "name": "@xaui/native",
-  "version": "0.9.1-alpha.72",
+  "version": "0.9.1-alpha.74",
   "description": "Composition-first React Native UI components with native animations powered by Reanimated",
   "keywords": [
     "react-native",
@@ -217,6 +217,26 @@
         "default": "./dist/components/date-picker/index.cjs"
       }
     },
+    "./date-range-picker": {
+      "import": {
+        "types": "./dist/components/date-range-picker/index.d.ts",
+        "default": "./dist/components/date-range-picker/index.js"
+      },
+      "require": {
+        "types": "./dist/components/date-range-picker/index.d.cts",
+        "default": "./dist/components/date-range-picker/index.cjs"
+      }
+    },
+    "./date-time-picker": {
+      "import": {
+        "types": "./dist/components/date-time-picker/index.d.ts",
+        "default": "./dist/components/date-time-picker/index.js"
+      },
+      "require": {
+        "types": "./dist/components/date-time-picker/index.d.cts",
+        "default": "./dist/components/date-time-picker/index.cjs"
+      }
+    },
     "./dialog": {
       "import": {
         "types": "./dist/components/dialog/index.d.ts",
@@ -397,6 +417,16 @@
         "default": "./dist/components/radio/index.cjs"
       }
     },
+    "./range-calendar": {
+      "import": {
+        "types": "./dist/components/range-calendar/index.d.ts",
+        "default": "./dist/components/range-calendar/index.js"
+      },
+      "require": {
+        "types": "./dist/components/range-calendar/index.d.cts",
+        "default": "./dist/components/range-calendar/index.cjs"
+      }
+    },
     "./segment": {
       "import": {
         "types": "./dist/components/segment/index.d.ts",
@@ -475,6 +505,16 @@
       "require": {
         "types": "./dist/components/switch/index.d.cts",
         "default": "./dist/components/switch/index.cjs"
+      }
+    },
+    "./table": {
+      "import": {
+        "types": "./dist/components/table/index.d.ts",
+        "default": "./dist/components/table/index.js"
+      },
+      "require": {
+        "types": "./dist/components/table/index.d.cts",
+        "default": "./dist/components/table/index.cjs"
       }
     },
     "./tabs": {
