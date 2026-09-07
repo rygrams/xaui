@@ -21,6 +21,7 @@ const entries = {
   'components/close-button/index': 'src/components/close-button/index.ts',
   'components/combobox/index': 'src/components/combobox/index.ts',
   'components/date-picker/index': 'src/components/date-picker/index.ts',
+  'components/date-time-picker/index': 'src/components/date-time-picker/index.ts',
   'components/dialog/index': 'src/components/dialog/index.ts',
   'components/divider/index': 'src/components/divider/index.ts',
   'components/empty-state/index': 'src/components/empty-state/index.ts',
