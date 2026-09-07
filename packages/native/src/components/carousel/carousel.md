@@ -126,7 +126,7 @@ A **drag** is the platform's: `snapToInterval` plus `decelerationRate="fast"`, s
 lands on a slide rather than between two.
 
 An **arrow, a dot or an autoplay tick** is a hand-run tween — the offset is carried from
-where it is to the next step over ~260ms against an ease-**out** curve, a frame at a time,
+where it is to the next step over ~420ms against an ease-**out** curve, a frame at a time,
 so the track leaves fast under the press and brakes onto the slide. `scrollTo({ animated:
 true })` was the obvious call and it is close to linear on both renderers: it leaves and
 arrives at the same speed and the move reads as a jump cut. A press mid-travel eases on

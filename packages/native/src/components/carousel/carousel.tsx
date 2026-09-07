@@ -67,7 +67,7 @@ function setTrackOffset(track: AnimatedRef<Animated.ScrollView>, x: number): voi
 
 /** How long an arrow, a dot or an autoplay tick takes to travel one step, and the frame it
  *  is stepped on — 16ms is one display frame at 60Hz. */
-const GLIDE_MS = 260
+const GLIDE_MS = 420
 const GLIDE_FRAME_MS = 16
 
 /**
