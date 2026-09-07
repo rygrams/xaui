@@ -62,7 +62,7 @@ const SIZES: Record<TimePickerSize, SizeStep> = {
     mark: 34,
     innerRing: 0.54,
     display: '2xl',
-    markLabel: 'sm',
+    markLabel: 'md',
   },
   md: {
     box: 268,
@@ -70,7 +70,7 @@ const SIZES: Record<TimePickerSize, SizeStep> = {
     mark: 38,
     innerRing: 0.55,
     display: '3xl',
-    markLabel: 'md',
+    markLabel: 'lg',
   },
   lg: {
     box: 304,
@@ -78,7 +78,7 @@ const SIZES: Record<TimePickerSize, SizeStep> = {
     mark: 42,
     innerRing: 0.56,
     display: '4xl',
-    markLabel: 'lg',
+    markLabel: 'xl',
   },
 }
 
@@ -94,9 +94,10 @@ export function timePickerDial(size: TimePickerSize): {
   return { box, ring, mark, innerRing }
 }
 
-/** How thick the hand is, and how far the hub reaches. Pure geometry, in points. */
-const HAND_WIDTH = 2
-const HUB_SIZE = 8
+/** How thick the hand is, and how far the hub reaches. Pure geometry, in points — exported
+ *  so `TimePicker.Clock` can pull the hand and the hub back by half of themselves. */
+export const HAND_WIDTH = 3
+export const HUB_SIZE = 10
 
 function sizeAxis(step: SizeStep) {
   return (theme: XAUITheme): SlotStyles<TimePickerSlot> => ({
@@ -184,7 +185,9 @@ export const timePickerRecipe = createRecipe({
       color: theme.colors.muted,
     },
     periods: {
-      flexDirection: 'column',
+      // AM and PM on one line — there is room beside the two big numbers, and a reader
+      // reads a pair laid side by side faster than one stacked.
+      flexDirection: 'row',
       borderRadius: theme.radius.field,
       borderCurve: 'continuous',
       overflow: 'hidden',

@@ -1,14 +1,25 @@
-import { forwardRef, useMemo } from 'react'
+import { forwardRef, useCallback, useMemo } from 'react'
 import { Pressable, Text, View } from 'react-native'
+import { Gesture, GestureDetector } from 'react-native-gesture-handler'
+import { runOnJS } from 'react-native-reanimated'
 import { useStyleProps } from '../../system/style-props'
-import { clockAngle, clockPoint } from '../../utils/clock'
+import {
+  angleAtPoint,
+  clockAngle,
+  clockPoint,
+  distanceFrom,
+  valueAtAngle,
+} from '../../utils/clock'
+import { HAND_WIDTH, HUB_SIZE } from './time-picker.recipe'
 import { useTimePicker } from './time-picker.context'
 import type { TimePickerViewProps } from './time-picker.type'
 
 const HOURS_ON_A_FACE = 12
 const MINUTES_IN_AN_HOUR = 60
-/** Every fifth minute carries a number; the rest are marks with no label. */
+/** Every fifth minute carries a number; the rest are targets with no label. */
 const LABELLED_MINUTE = 5
+/** How long a finger rests before a drag round the dial takes over from a tap on a mark. */
+const DRAG_HOLD_MS = 220
 
 /**
  * The dial: the marks, the hand, and the hub they turn about.
@@ -17,13 +28,16 @@ const LABELLED_MINUTE = 5
  * which is the only way twenty-four numbers fit on a circle without the labels touching — and
  * what every platform's clock does.
  *
- * **The minutes show sixty marks and twelve labels.** A number on every minute is a smudge;
- * a mark on every minute is what makes a reader believe they can pick 07 as well as 05.
- * `minuteStep` coarsens both, for a picker that only wants quarters.
+ * **The minutes show twelve labels and forty-eight bare targets.** A number on every minute
+ * is a smudge; an unlabelled minute is still pressable, just not drawn — the reader picks it
+ * by dragging the hand onto it rather than by aiming at a dot. `minuteStep` coarsens the
+ * targets, for a picker that only wants quarters.
  *
- * **Tap the mark, not the face.** A drag round the dial needs a gesture recogniser and a
- * hit test against a moving angle; a press on a number needs neither and is what a reader
- * does anyway. The hand still travels to the choice, so the gesture reads as one motion.
+ * **Tap a mark, or hold and turn the hand.** A press on a number is what a reader does by
+ * reflex and needs no gesture recogniser. Past that, holding anywhere on the face for a beat
+ * hands the dial to a drag: the hand follows the finger and the value under it is chosen,
+ * live. The hold is what keeps the two apart — a quick tap still lands on the mark beneath
+ * it.
  *
  * Every mark is placed by `clockPoint` — a fixed box pulled back by half of it, which is the
  * only placement that works at every angle without measuring the text.
@@ -117,60 +131,112 @@ export const TimePickerClock = forwardRef<View, TimePickerViewProps>(
         ? dial.innerRing
         : dial.ring
 
+    /**
+     * The value the finger is over. For a twenty-four hour face the ring is read from the
+     * distance to the centre — the outer numbers are 1–12, the inner ones 13–00.
+     */
+    const pickAt = useCallback(
+      (x: number, y: number) => {
+        const point = { x, y }
+        const angle = angleAtPoint(center, point)
+
+        if (unit === 'minute') {
+          const step = Math.max(1, minuteStep)
+          const raw = valueAtAngle(angle, MINUTES_IN_AN_HOUR)
+          onPickMinute((Math.round(raw / step) * step) % MINUTES_IN_AN_HOUR)
+          return
+        }
+
+        const raw = valueAtAngle(angle, HOURS_ON_A_FACE)
+        if (hourCycle === 12) {
+          onPickHour(raw === 0 ? HOURS_ON_A_FACE : raw)
+          return
+        }
+
+        const onInner =
+          distanceFrom(center, point) < radius * (dial.ring + dial.innerRing) * 0.5
+        if (onInner) onPickHour(raw === 0 ? 0 : raw + HOURS_ON_A_FACE)
+        else onPickHour(raw === 0 ? HOURS_ON_A_FACE : raw)
+      },
+      [
+        center,
+        radius,
+        unit,
+        minuteStep,
+        hourCycle,
+        dial.ring,
+        dial.innerRing,
+        onPickHour,
+        onPickMinute,
+      ]
+    )
+
+    const drag = useMemo(
+      () =>
+        Gesture.Pan()
+          .enabled(!isDisabled)
+          // The hold is what keeps a drag from stealing a tap meant for a mark.
+          .activateAfterLongPress(DRAG_HOLD_MS)
+          .onStart(event => runOnJS(pickAt)(event.x, event.y))
+          .onUpdate(event => runOnJS(pickAt)(event.x, event.y)),
+      [isDisabled, pickAt]
+    )
+
     return (
       <View ref={ref} {...rest} style={[dialStyle, styleProps, style]}>
-        <View style={faceStyle}>
-          {/* Under the marks, so a chosen mark sits on the hand rather than beneath it. */}
-          <View
-            style={[
-              handStyle,
-              {
-                height: radius * handRing,
-                start: center.x - 1,
-                top: center.y - radius * handRing,
-                transform: [{ rotate: `${handAngle}deg` }],
-              },
-            ]}
-          />
-          <View style={[hubStyle, { start: center.x - 4, top: center.y - 4 }]} />
+        <GestureDetector gesture={drag}>
+          <View style={faceStyle}>
+            {/* Under the marks, so a chosen mark sits on the hand rather than beneath it. */}
+            <View
+              style={[
+                handStyle,
+                {
+                  height: radius * handRing,
+                  start: center.x - HAND_WIDTH / 2,
+                  top: center.y - radius * handRing,
+                  transform: [{ rotate: `${handAngle}deg` }],
+                },
+              ]}
+            />
+            <View
+              style={[
+                hubStyle,
+                { start: center.x - HUB_SIZE / 2, top: center.y - HUB_SIZE / 2 },
+              ]}
+            />
 
-          {marks.map(mark => {
-            const at = clockPoint(center, radius * mark.ring, mark.angle)
-            const isChosen = mark.value === chosen
+            {marks.map(mark => {
+              const at = clockPoint(center, radius * mark.ring, mark.angle)
+              const isChosen = mark.value === chosen
 
-            return (
-              <Pressable
-                key={`${unit}-${mark.value}`}
-                accessibilityRole="button"
-                accessibilityState={{ selected: isChosen, disabled: isDisabled }}
-                accessibilityValue={{ text: mark.label || String(mark.value) }}
-                disabled={isDisabled}
-                style={[
-                  isChosen ? markSelectedStyle : markStyle,
-                  { start: at.x - dial.mark / 2, top: at.y - dial.mark / 2 },
-                ]}
-                onPress={() =>
-                  unit === 'hour' ? onPickHour(mark.value) : onPickMinute(mark.value)
-                }
-              >
-                {mark.label === '' ? (
-                  // An unlabelled minute is still a target, and a dot is what says so.
-                  <View
-                    style={[
-                      hubStyle,
-                      { position: 'relative', width: 4, height: 4, borderRadius: 2 },
-                    ]}
-                  />
-                ) : (
-                  <Text style={isChosen ? markLabelSelectedStyle : markLabelStyle}>
-                    {mark.label}
-                  </Text>
-                )}
-              </Pressable>
-            )
-          })}
-          {children}
-        </View>
+              return (
+                <Pressable
+                  key={`${unit}-${mark.value}`}
+                  accessibilityRole="button"
+                  accessibilityState={{ selected: isChosen, disabled: isDisabled }}
+                  accessibilityValue={{ text: mark.label || String(mark.value) }}
+                  disabled={isDisabled}
+                  style={[
+                    isChosen ? markSelectedStyle : markStyle,
+                    { start: at.x - dial.mark / 2, top: at.y - dial.mark / 2 },
+                  ]}
+                  onPress={() =>
+                    unit === 'hour'
+                      ? onPickHour(mark.value)
+                      : onPickMinute(mark.value)
+                  }
+                >
+                  {mark.label === '' ? null : (
+                    <Text style={isChosen ? markLabelSelectedStyle : markLabelStyle}>
+                      {mark.label}
+                    </Text>
+                  )}
+                </Pressable>
+              )
+            })}
+            {children}
+          </View>
+        </GestureDetector>
       </View>
     )
   }

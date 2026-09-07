@@ -44,13 +44,15 @@ where the legacy put it too.
 way twenty-four numbers fit on a circle without the labels touching. `00` rather than `24`:
 midnight is the start of a day, not its end, and the hour reported is 0.
 
-**Sixty marks and twelve labels on the minutes.** A number on every minute is a smudge; a
-mark on every minute is what makes a reader believe they can pick 07 as well as 05.
-`minuteStep` coarsens both, for a picker that only wants quarters.
+**Twelve labels on the minutes, and no marks between them.** A number on every minute is a
+smudge and a dot on every minute is clutter; the unlabelled minutes are still targets, they
+are just not drawn. `minuteStep` coarsens them, for a picker that only wants quarters.
 
-**Tap the mark, not the face.** A drag round the dial needs a gesture recogniser and a hit
-test against a moving angle; a press on a number needs neither, and is what a reader does
-anyway. The hand still travels to the choice, so the gesture reads as one motion.
+**Tap a mark, or hold and turn the hand.** A press on a number is what a reader does by
+reflex. Past that, holding anywhere on the face for a beat hands the dial to a drag — the
+hand follows the finger and the value under it is chosen, live, so an unlabelled `07` is
+reached by turning the hand onto it. The hold is what keeps the two apart: a quick tap still
+lands on the mark beneath it.
 
 **Choosing an hour goes straight to the minutes**, which is the one thing that makes a
 two-ring dial feel like one gesture rather than two. Choosing a minute closes the sheet,
@@ -81,7 +83,8 @@ hours had been forgotten.
 
 The period is **two halves of one control** rather than a toggle, unlike `TimeField.Period`:
 there is room here, and a reader choosing a time from nothing should see both options rather
-than press one to find the other.
+than press one to find the other. `AM` and `PM` sit **side by side** — a pair read on one
+line, not stacked.
 
 ### The indicator
 
