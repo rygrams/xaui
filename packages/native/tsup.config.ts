@@ -50,6 +50,7 @@ const entries = {
   'components/tag-group/index': 'src/components/tag-group/index.ts',
   'components/text-area/index': 'src/components/text-area/index.ts',
   'components/text-field/index': 'src/components/text-field/index.ts',
+  'components/timeline/index': 'src/components/timeline/index.ts',
   'components/time-field/index': 'src/components/time-field/index.ts',
   'components/time-picker/index': 'src/components/time-picker/index.ts',
   'components/toast/index': 'src/components/toast/index.ts',
