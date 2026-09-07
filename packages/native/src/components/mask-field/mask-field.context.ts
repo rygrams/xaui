@@ -1,5 +1,5 @@
 import { createSlotContext } from '../../system/slot'
-import type { DateFieldContextValue } from './date-field.type'
+import type { MaskFieldContextValue } from './mask-field.type'
 
 /**
  * R10 — the masked text and the keystroke handler.
@@ -8,5 +8,5 @@ import type { DateFieldContextValue } from './date-field.type'
  * reads its styles from that one and its value from this one, which is what lets the two
  * halves stay the components they already are.
  */
-export const [DateFieldProvider, useDateField] =
-  createSlotContext<DateFieldContextValue>('DateField')
+export const [MaskFieldProvider, useMaskField] =
+  createSlotContext<MaskFieldContextValue>('MaskField')

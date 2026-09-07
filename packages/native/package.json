@@ -207,16 +207,6 @@
         "default": "./dist/components/combobox/index.cjs"
       }
     },
-    "./date-field": {
-      "import": {
-        "types": "./dist/components/date-field/index.d.ts",
-        "default": "./dist/components/date-field/index.js"
-      },
-      "require": {
-        "types": "./dist/components/date-field/index.d.cts",
-        "default": "./dist/components/date-field/index.cjs"
-      }
-    },
     "./date-picker": {
       "import": {
         "types": "./dist/components/date-picker/index.d.ts",
@@ -285,6 +275,16 @@
       "require": {
         "types": "./dist/components/list/index.d.cts",
         "default": "./dist/components/list/index.cjs"
+      }
+    },
+    "./mask-field": {
+      "import": {
+        "types": "./dist/components/mask-field/index.d.ts",
+        "default": "./dist/components/mask-field/index.js"
+      },
+      "require": {
+        "types": "./dist/components/mask-field/index.d.cts",
+        "default": "./dist/components/mask-field/index.cjs"
       }
     },
     "./menu": {

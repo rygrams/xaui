@@ -48,7 +48,6 @@ export default function RootLayout() {
             options={{ title: 'CloseButton (v1)' }}
           />
           <Stack.Screen name="combobox" options={{ title: 'Combobox (v1)' }} />
-          <Stack.Screen name="date-field" options={{ title: 'DateField (v1)' }} />
           <Stack.Screen name="date-picker" options={{ title: 'DatePicker (v1)' }} />
           <Stack.Screen name="dialog" options={{ title: 'Dialog (v1)' }} />
           <Stack.Screen name="divider" options={{ title: 'Divider (v1)' }} />
@@ -56,6 +55,7 @@ export default function RootLayout() {
           <Stack.Screen name="icon" options={{ title: 'Icon (v1)' }} />
           <Stack.Screen name="input-otp" options={{ title: 'InputOTP (v1)' }} />
           <Stack.Screen name="list" options={{ title: 'List (v1)' }} />
+          <Stack.Screen name="mask-field" options={{ title: 'MaskField (v1)' }} />
           <Stack.Screen name="menu" options={{ title: 'Menu (v1)' }} />
           <Stack.Screen name="popover" options={{ title: 'Popover (v1)' }} />
           <Stack.Screen
