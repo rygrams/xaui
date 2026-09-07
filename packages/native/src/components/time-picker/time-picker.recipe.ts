@@ -219,8 +219,7 @@ export const timePickerRecipe = createRecipe({
       // Out of flow, hung off the trailing edge of `display` and centred against the
       // numbers — so the time reads as centred and AM/PM as a caption to its right.
       position: 'absolute',
-      start: '100%',
-      marginStart: theme.spacing(2),
+      end: 0,
       alignSelf: 'center',
       // AM and PM on one line — a pair read side by side faster than one stacked.
       flexDirection: 'row',
