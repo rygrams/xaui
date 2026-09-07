@@ -23,6 +23,13 @@ const SLOTS = [
 /**
  * `bg` is the shell, `bgSelected` a chosen row and `fgSelected` the sort mark.
  *
+ * **A chosen row is `defaultSoft`, not the accent's soft.** A table is a page of values and
+ * several rows can be chosen at once; an accent wash on three of twelve rows reads as three
+ * highlighted *facts* rather than as a selection, and it collides with whatever accent the
+ * cells themselves carry — a chip, a link, a status. The neutral wash says "these ones" and
+ * leaves the accent to mean something. The sort mark keeps the accent: there is only ever
+ * one of it, and it marks the table's own state rather than the data.
+ *
  * **A raw `color` reaches the last two only**, and the root is what enforces that: `bg` names
  * `surface`, a bare token, so `resolveTint` would map it to the tint like any other and a
  * blue app would get an entirely blue table. A tint on a container means the thing it
@@ -33,13 +40,13 @@ const VARIANT_TOKENS: Record<TableVariant, VariantTokens> = {
     bg: 'surface',
     fg: 'foreground',
     border: 'border',
-    bgSelected: 'accentSoft',
+    bgSelected: 'defaultSoft',
     fgSelected: 'accent',
   },
   secondary: {
     bg: 'background',
     fg: 'foreground',
-    bgSelected: 'accentSoft',
+    bgSelected: 'defaultSoft',
     fgSelected: 'accent',
   },
 }
@@ -154,8 +161,10 @@ export const tableRecipe = createRecipe({
   base: theme => ({
     root: { borderCurve: 'continuous', overflow: 'hidden' },
     // The column inside the horizontal scroller. It is what can be wider than the shell,
-    // which is the whole reason the two are separate nodes.
-    content: { flexDirection: 'column' },
+    // which is the whole reason the two are separate nodes — and `flexGrow` is what makes
+    // it fill the shell when it is *narrower*, so a flexible column takes the width that is
+    // there rather than shrinking to its own text.
+    content: { flexDirection: 'column', flexGrow: 1 },
     header: {
       flexDirection: 'row',
       alignItems: 'center',
@@ -241,8 +250,13 @@ export const tableRecipe = createRecipe({
     {
       // The raised shell, and only that one: a `secondary` table is the page's own ground,
       // and a shadow under something the same colour as the page reads as dirt.
+      //
+      // `field` rather than `surface`, which is the theme's own step down: a table is the
+      // widest box on a screen, and the lift that reads as "a card" under something hand-
+      // sized reads as a slab under something full-width. The border is already saying
+      // where the shell ends — the shadow only has to keep it off the page.
       when: { variant: 'primary' },
-      style: theme => ({ root: theme.shadows.surface }),
+      style: theme => ({ root: theme.shadows.field }),
     },
     {
       // Flat, so the header band is what marks the top instead of a border round everything.

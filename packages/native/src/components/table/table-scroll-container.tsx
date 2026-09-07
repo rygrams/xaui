@@ -17,7 +17,10 @@ import type { TableScrollProps } from './table.type'
  * no state anything else reads.
  */
 export const TableScrollContainer = forwardRef<ScrollView, TableScrollProps>(
-  function TableScrollContainer({ children, style, ...props }, ref) {
+  function TableScrollContainer(
+    { children, contentContainerStyle, style, ...props },
+    ref
+  ) {
     const [styleProps, rest] = useStyleProps(props)
 
     return (
@@ -27,6 +30,11 @@ export const TableScrollContainer = forwardRef<ScrollView, TableScrollProps>(
         showsHorizontalScrollIndicator={false}
         {...rest}
         style={[styleProps, style]}
+        // A horizontal scroller sizes its content to what is in it, and a table narrower
+        // than its shell would then stop short of the border with a band of empty ground
+        // beside every row. `flexGrow` gives the content the shell's width as a *floor* —
+        // a wider table still runs past it and scrolls, which is what this node is for.
+        contentContainerStyle={[{ flexGrow: 1 }, contentContainerStyle]}
       >
         {children}
       </ScrollView>
