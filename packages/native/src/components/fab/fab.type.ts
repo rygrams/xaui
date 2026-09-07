@@ -29,7 +29,7 @@ export type FabVariant =
   | 'danger'
   | 'danger-soft'
 
-/** Material's three, measured: 40, 56 and 96 points square. The legacy's, kept. */
+/** Three steps on the square's side: 40, 56 and 72 points. */
 export type FabSize = 'sm' | 'md' | 'lg'
 
 /**

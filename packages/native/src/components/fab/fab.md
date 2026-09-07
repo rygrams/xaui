@@ -47,14 +47,14 @@ column is RN's own behaviour and the right one. A full-width FAB is a button.
 
 ## Size
 
-Material's three, measured, and the legacy's: **40, 56 and 96** points square. `size` is the
+Three steps on the square's side: **40, 56 and 72** points. `size` is the
 side of the square, or an extended one's height — never its width.
 
 | size | side | glyph |
 | ---- | ---- | ----- |
 | `sm` | 40   | 18    |
 | `md` | 56   | 24    |
-| `lg` | 96   | 36    |
+| `lg` | 72   | 28    |
 
 ## `placement`
 

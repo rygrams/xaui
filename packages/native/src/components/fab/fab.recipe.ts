@@ -28,7 +28,7 @@ const VARIANT_TOKENS: Record<FabVariant, VariantTokens> = {
 }
 
 type SizeStep = {
-  /** The square's side. Material's three, measured, and the legacy's. */
+  /** The square's side. `sm` and `md` follow Material; `lg` is pulled in to 72. */
   side: number
   /** An extended one's inset, in spacing steps. Its height is still `side`. */
   paddingHorizontal: number
@@ -42,7 +42,7 @@ type SizeStep = {
 const SIZES: Record<FabSize, SizeStep> = {
   sm: { side: 40, paddingHorizontal: 4, gap: 2, label: 'sm', glyph: 18 },
   md: { side: 56, paddingHorizontal: 5, gap: 2.5, label: 'md', glyph: 24 },
-  lg: { side: 96, paddingHorizontal: 7, gap: 3, label: 'lg', glyph: 36 },
+  lg: { side: 72, paddingHorizontal: 6, gap: 3, label: 'lg', glyph: 28 },
 }
 
 /** The glyph the size implies, read as a value — an `Icon` takes props, not styles. */
