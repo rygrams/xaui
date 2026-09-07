@@ -77,7 +77,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.2   | `TextArea` — Label · Field · Description · Error, over the `Input`               | done    |
 | P5.3   | `InputGroup` — Prefix · Field · Suffix · Icon, inside the `Input`                | done    |
 | P5.3b  | Rename `InputGroup` → `FieldGroup`, following `TextField`                        | done    |
-| P5.3c  | `NumberInput` — over legacy `NumberInput`, inside `input/`                       | todo    |
+| P5.3c  | `NumberField` — over legacy `NumberInput`, following `TextField`                 | done    |
 | P5.3d  | `NumberPad` — net new, the keypad `NumberInput` and `InputOTP` share             | todo    |
 | P5.3e  | `NumberStepper` — net new, the increment pair legacy `Stepper` is not            | todo    |
 | P5.3f  | `PhoneNumberInput` — net new, country prefix over the `TextField`                | todo    |
