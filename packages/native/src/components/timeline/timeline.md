@@ -67,7 +67,7 @@ reds mean what happened, and a tint that repainted them would be a tint that lie
 the line, the marker, the lower half. Children replace all three.
 
 ```tsx
-<Timeline.Rail>
+<Timeline.Rail marker={28}>
   <Timeline.Connector edge="above" />
   <Timeline.Marker>
     <Icon as={CheckIcon} />
@@ -76,27 +76,58 @@ the line, the marker, the lower half. Children replace all three.
 </Timeline.Rail>
 ```
 
+**`marker` is how a composed rail says how tall its marker is.** The upper half of the line is
+a height, and the only height the rail can work out on its own is the dot's — so a rail
+carrying a 28pt circled icon and told nothing places it eight points below the title it
+labels. It clamps at zero: something taller than the title's own line cannot be centred on it
+without hanging over the top of the entry.
+
 **Two halves rather than one line, and that is what makes `align` work.** Below the marker
 both are a share of the height, so it centres; above it the upper half is a fixed inset —
-half the title's line — so it sits level with the first line of the text. One connector could
-do neither.
+what is left of half the title's line once the dot's own half is taken off — so the dot's
+centre lands on the middle of the first line of the text. One connector could do neither.
+
+That inset is **derived, not chosen**: `(lineHeight(title) - marker) / 2`. Written by hand it
+drifts, and a marker a point or three below the words it labels is exactly what a reader
+reads as a crooked list.
 
 **The end segments are left off**: the first entry has nothing above it and the last has
 nothing below it, and a line running off the top of a list is a list that has been cut.
 `force` draws one anyway, for a timeline that continues past what is on screen.
 
-The first entry's upper half is still a **spacer** rather than nothing: the marker's place is
-decided by what is above it, so removing it would lift the first dot out of line with every
-other one.
+A segment that is left off is still **drawn, just not painted** — only its colour goes, its
+flex stays. The marker's place is decided by what is above and below it, so a half that
+collapses to nothing lifts the first dot to the top of its entry and drops the last one to the
+bottom; on `center` that is the whole height of an entry's worth of error.
+
+**The rail's column is a `minWidth`, not a width.** A composed marker wider than the dot — a
+circled icon, a number — widens the column instead of spilling out of it and landing on the
+words. The line stays centred in it either way.
+
+## The gutter
+
+`Timeline.Item` is a row with a `gap`, and that is where the air between the time, the rail
+and the words lives. It cannot be padding inside the rail: the rail's own slack is what
+centres the line in it, so widening it to make room for the text moves the line rather than
+the text.
 
 ## `Timeline.Leading`
 
-The column before the rail — a time, a date, a step number. **Right-aligned and a fixed
-width**, which is what makes a column of times read as a column: ragged times beside a
-straight rail look like a mistake.
+The column before the rail — a time, a date, a step number. **Right-aligned, a fixed width,
+and tabular figures**, which together are what make a column of times read as a column:
+letting each time be as wide as its own text is what makes them ragged, and proportional
+digits leave `11:06` narrower than `10:43` even after that.
+
+**It sits on the line the marker sits on** — the middle of the title's first line, not the top
+of the row. A time is set smaller than the title it labels, so a cell that simply starts at
+the top puts the time above both the dot and the words. It follows `align` for that: an inset
+on a `start` entry, `alignSelf: 'center'` on a `center` one.
 
 A `Text`, because that is what it almost always is. Something taller goes in a `View` you
 write.
+
+A time written on the **right** is content rather than a leading cell, and it has the same two
+requirements: put it on the title's row and give it `fontVariant: ['tabular-nums']`.
 
 ## `align`
 

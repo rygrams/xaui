@@ -36,6 +36,7 @@ export type {
   TimelineItemContextValue,
   TimelineItemProps,
   TimelineProps,
+  TimelineRailProps,
   TimelineSize,
   TimelineSlot,
   TimelineStatus,

@@ -25,13 +25,11 @@ export const TimelineConnector = forwardRef<View, TimelineConnectorProps>(
     const { align, isFirst, isLast } = useTimelineItem()
     const [styleProps, rest] = useStyleProps(props)
 
+    // A segment that is left off is still **drawn**, just not painted: the marker's place in
+    // the rail is decided by what is above and below it, so a half that collapses to nothing
+    // lifts the first dot to the top of its entry and drops the last one to the bottom. Only
+    // the colour goes — the flex stays, and every dot in the list lands on the same line.
     const atEnd = edge === 'above' ? isFirst : isLast
-    if (atEnd && !force) {
-      // A spacer rather than nothing at all: the marker's place in the rail is decided by
-      // what is above it, so removing the upper half on the first entry would lift its dot
-      // to the top and put it out of line with every other one.
-      return edge === 'above' ? <View style={upperSpace(align, rail.inset)} /> : null
-    }
 
     return (
       <View
@@ -40,6 +38,7 @@ export const TimelineConnector = forwardRef<View, TimelineConnectorProps>(
         style={[
           connectorStyle,
           edge === 'above' ? upperSpace(align, rail.inset) : null,
+          atEnd && !force ? BLANK : null,
           styleProps,
           style,
         ]}
@@ -49,6 +48,9 @@ export const TimelineConnector = forwardRef<View, TimelineConnectorProps>(
 )
 
 TimelineConnector.displayName = 'XAUI.Timeline.Connector'
+
+/** An end segment: it takes up its space and reserves the marker's place, and paints nothing. */
+const BLANK = { backgroundColor: 'transparent' } as const
 
 /**
  * The upper half's height: a share of the entry when the marker is centred, and a fixed

@@ -107,11 +107,28 @@ export type TimelineConnectorProps = TimelineConnectorOwnProps &
 export type TimelineViewProps = ViewProps &
   Omit<ViewStyleProps, keyof ViewProps> & { children?: ReactNode }
 
+type TimelineRailOwnProps = {
+  /**
+   * How tall the marker in this rail is, when it is not the dot.
+   *
+   * The rail places its marker by arithmetic, and the only height it can know on its own is
+   * the dot's. A composed marker — a circled icon, a number, an avatar — is taller, so a rail
+   * told nothing puts it half the difference below the title it labels. Giving the number
+   * puts it back on the line.
+   */
+  marker?: number
+  children?: ReactNode
+}
+
+export type TimelineRailProps = TimelineRailOwnProps &
+  Omit<ViewProps, keyof TimelineRailOwnProps> &
+  Omit<ViewStyleProps, keyof TimelineRailOwnProps | keyof ViewProps>
+
 /** `Text`'s own props win over the `TextStyle` keys of the same name (R14). */
 export type TimelineTextProps = TextProps &
   Omit<TextStyleProps, keyof TextProps> & { children?: ReactNode }
 
-/** R5 — resolved styles, plus the two numbers the rail's arithmetic needs. */
+/** R5 — resolved styles, plus the numbers the row's arithmetic needs. */
 export type TimelineContextValue = {
   itemStyle: StyleProp<ViewStyle>
   leadingStyle: StyleProp<TextStyle>
@@ -123,10 +140,18 @@ export type TimelineContextValue = {
   /** A marker per status, resolved once — an item picks rather than resolving its own (R5). */
   markerStyles: Record<TimelineStatus, StyleProp<ViewStyle>>
   /**
-   * Values, not styles: the rail places the marker by arithmetic, and how far down it sits
-   * on a `start` entry is the title's own half-line.
+   * Values, not styles: the rail and the time column place themselves by arithmetic, and
+   * everything hangs off `line` — the middle of the title's first line, which is the height
+   * an entry reads at. `inset` is what is left of it above the dot and `leadInset` what is
+   * left above a time; a composed rail recomputes `inset` from `line` and its own marker.
    */
-  rail: { width: number; marker: number; inset: number }
+  rail: {
+    width: number
+    marker: number
+    line: number
+    inset: number
+    leadInset: number
+  }
   align: TimelineAlign
   /** Values a marker of your own reads — an `Icon` takes props, not styles. */
   icon: { size: number | undefined; color: string | undefined }

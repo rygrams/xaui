@@ -102,7 +102,7 @@ export const TimelineRoot = forwardRef<View, TimelineProps>(function Timeline(
   }, [theme, size, density, color])
 
   const context = useMemo(() => {
-    const rail = timelineRail(size)
+    const rail = timelineRail(theme, size)
     const ink = StyleSheet.flatten<TextStyle>([styles.description])
 
     return {
@@ -114,14 +114,20 @@ export const TimelineRoot = forwardRef<View, TimelineProps>(function Timeline(
       titleStyle: styles.title,
       descriptionStyle: styles.description,
       markerStyles,
-      rail: { width: rail.width, marker: rail.marker, inset: rail.inset },
+      rail: {
+        width: rail.width,
+        marker: rail.marker,
+        line: rail.line,
+        inset: rail.inset,
+        leadInset: rail.leadInset,
+      },
       align: itemAlign,
       icon: {
         size: rail.glyph,
         color: typeof ink.color === 'string' ? ink.color : undefined,
       },
     }
-  }, [styles, markerStyles, size, itemAlign])
+  }, [theme, styles, markerStyles, size, itemAlign])
 
   const count = Children.count(children)
   const rootStyle = [styles.root, styleProps, style]

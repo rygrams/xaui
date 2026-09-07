@@ -51,15 +51,10 @@ const VARIANT_TOKENS: Record<TimelineStatus, VariantTokens> = {
 type SizeStep = {
   /** The dot's diameter. */
   marker: number
-  /** The rail's column, wide enough to centre the dot and the line in it. */
+  /** The rail's column at its narrowest — a composed marker wider than the dot widens it. */
   rail: number
   /** How thick the connector is. */
   line: number
-  /**
-   * How far down a `start` entry's marker sits: half the title's line, so the dot is level
-   * with the middle of the first line rather than with the top of the text's box.
-   */
-  inset: number
   title: FontSizeKey
   description: FontSizeKey
   leading: FontSizeKey
@@ -72,7 +67,6 @@ const SIZES: Record<TimelineSize, SizeStep> = {
     marker: 10,
     rail: 20,
     line: 2,
-    inset: 5,
     title: 'sm',
     description: 'xs',
     leading: 'xs',
@@ -82,7 +76,6 @@ const SIZES: Record<TimelineSize, SizeStep> = {
     marker: 12,
     rail: 24,
     line: 2,
-    inset: 7,
     title: 'md',
     description: 'sm',
     leading: 'xs',
@@ -92,7 +85,6 @@ const SIZES: Record<TimelineSize, SizeStep> = {
     marker: 16,
     rail: 28,
     line: 2,
-    inset: 9,
     title: 'lg',
     description: 'md',
     leading: 'sm',
@@ -100,16 +92,53 @@ const SIZES: Record<TimelineSize, SizeStep> = {
   },
 }
 
-/** The rail's measurements, read as values — it places the marker by arithmetic. */
-export function timelineRail(size: TimelineSize): {
+/**
+ * The row's measurements, read as values — the rail and the time column place themselves by
+ * arithmetic rather than by a style.
+ *
+ * **Everything hangs off one number: `line`, the middle of the title's first line.** That is
+ * the height an entry reads at, so the dot, the time and the title all have to meet there,
+ * and each of them is a different height. Hand-picked insets are what put them a point or
+ * three apart at `md` and `lg` — derived from the title's own line height, they cannot drift,
+ * and a theme that changes `lineHeights` keeps them together.
+ */
+export function timelineRail(
+  theme: XAUITheme,
+  size: TimelineSize
+): {
   width: number
   marker: number
+  line: number
   inset: number
+  leadInset: number
   glyph: number
 } {
-  const { rail, marker, inset, glyph } = SIZES[size]
+  const { rail, marker, glyph, title, leading } = SIZES[size]
+  const line = theme.lineHeights[title] / 2
 
-  return { width: rail, marker, inset, glyph }
+  return {
+    width: rail,
+    marker,
+    glyph,
+    line,
+    // How tall the rail's upper half is on a `start` entry: what is left of the line once the
+    // marker's own half is taken off it, so the marker's centre lands on the line.
+    inset: timelineInset(line, marker),
+    // The same line, for a column of times whose type is smaller than the title's.
+    leadInset: timelineInset(line, theme.lineHeights[leading]),
+  }
+}
+
+/**
+ * The upper half of the line for something of a given height — the one piece of arithmetic in
+ * this component, written once because the dot, the time and a composed marker all need it.
+ *
+ * It clamps at zero: something taller than the title's line cannot be centred on it without
+ * hanging off the top of the entry, and a list whose first row bleeds over its own edge is
+ * worse than a marker a point low.
+ */
+export function timelineInset(line: number, height: number): number {
+  return Math.max(0, line - height / 2)
 }
 
 /** How much air under an entry, in spacing steps. */
@@ -121,7 +150,11 @@ function sizeAxis(step: SizeStep) {
       fontSize: theme.fontSizes[step.leading],
       lineHeight: theme.lineHeights[step.leading],
     },
-    rail: { width: step.rail },
+    // **`minWidth`, not `width`.** A composed rail carries a marker of your own — a circled
+    // icon, a number — and one wider than the dot would otherwise spill out of a fixed column
+    // and land on the words beside it. The column takes the marker's width instead, and the
+    // line stays centred in it either way.
+    rail: { minWidth: step.rail },
     marker: {
       width: step.marker,
       height: step.marker,
@@ -153,11 +186,18 @@ export const timelineRecipe = createRecipe({
     // the full height of its entry, so the air between two entries has to be *inside* the
     // one above — a gap on the root would be a break in the line.
     root: { flexDirection: 'column' },
-    item: { flexDirection: 'row' },
+    // The gutter between the three columns, and it has to be a `gap` on the row rather than
+    // air inside the rail: the rail's own slack is what centres the dot, so widening it to
+    // make room for the text moves the line instead of moving the text.
+    item: { flexDirection: 'row', gap: theme.spacing(2) },
     leading: {
       fontFamily: theme.fontFamilies.body,
       color: theme.colors.muted,
       textAlign: 'right',
+      // Same-width digits, which is the other half of making a column of times a column:
+      // right-aligning proportional figures still leaves `11:06` and `10:43` starting at
+      // different places, and a stack of times that each begin somewhere else reads ragged.
+      fontVariant: ['tabular-nums'],
     },
     rail: { alignItems: 'center' },
     marker: { alignItems: 'center', justifyContent: 'center' },
