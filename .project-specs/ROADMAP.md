@@ -77,7 +77,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.2   | `TextArea` — Label · Field · Description · Error, over the `Input`               | done    |
 | P5.3   | `InputGroup` — Prefix · Field · Suffix · Icon, inside the `Input`                | done    |
 | P5.3b  | Rename `InputGroup` → `FieldGroup`, following `TextField`                        | done    |
-| P5.3c  | `NumberInput` — over legacy `NumberInput`, inside `input/`                       | todo    |
+| P5.3c  | `NumberField` — over legacy `NumberInput`, following `TextField`                 | done    |
 | P5.3d  | `NumberPad` — net new, the keypad `NumberInput` and `InputOTP` share             | todo    |
 | P5.3e  | `NumberStepper` — net new, the increment pair legacy `Stepper` is not            | todo    |
 | P5.3f  | `PhoneNumberInput` — net new, country prefix over the `TextField`                | todo    |
@@ -123,9 +123,9 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.26d | `MaskField` — one masked box: `date`, `time`, `datetime`, `credit-card` or a pattern | done |
 | P5.26h | `TimeField` — a time typed, over legacy `TimeInput` | done |
 | P5.26i | `DateTimeField` — the two masks in one box, over legacy `DateTimeInput` | todo |
-| P5.26e | `DateRangePicker` — net new, two bounds over the `DatePicker` | todo |
-| P5.26f | `DateTimePicker` — net new, `DatePicker` and `TimePicker` as one | todo |
-| P5.26g | `RangeCalendar` — net new, the `Calendar` behind `DateRangePicker` | todo |
+| P5.26e | `DateRangePicker` — net new, two bounds over the `DatePicker` | done |
+| P5.26f | `DateTimePicker` — net new, `DatePicker` and `TimePicker` as one | done |
+| P5.26g | `RangeCalendar` — net new, the `Calendar` behind `DateRangePicker` | done |
 | P5.27 | `TimePicker` — a `Select` trigger, a sheet and a clock face | done |
 | P5.28 | `ColorPicker` | todo |
 | P5.29 | `Carousel` | done |
@@ -156,7 +156,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.39 | `Rating` — net new, no legacy equivalent | todo |
 | P5.40 | `Surface` — four grounds, elevation asked for, no slots | done |
 | P5.41 | `SplitView` — net new, a `view/` split on a draggable divider | todo |
-| P5.42 | `Table` — net new, no legacy equivalent | todo |
+| P5.42 | `Table` — net new, no legacy equivalent | done |
 | P5.43 | `TagGroup` — List · Item · ItemLabel · ItemRemoveButton | done |
 | P5.44 | `Timeline` — net new, no legacy equivalent | done |
 | P5.45 | `Widget` — net new, no legacy equivalent | done |
