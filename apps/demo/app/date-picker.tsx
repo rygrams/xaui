@@ -1,0 +1,323 @@
+import { useState } from 'react'
+import { ScrollView, Text, View } from 'react-native'
+import { Calendar } from '@xaui/native/calendar'
+import type { CalendarView } from '@xaui/native/calendar'
+import { DatePicker } from '@xaui/native/date-picker'
+import type { DatePickerSize, DatePickerVariant } from '@xaui/native/date-picker'
+import { PressableFeedback } from '@xaui/native/system'
+import { useXAUITheme } from '@xaui/native/theme'
+
+const VARIANTS: DatePickerVariant[] = ['primary', 'secondary', 'tertiary', 'ghost']
+const SIZES: DatePickerSize[] = ['sm', 'md', 'lg']
+
+/**
+ * The verification screen for the `DatePicker`. A component is verified here and in the
+ * docs preview, in light and in dark — there is no test file for it, though the date
+ * arithmetic under it is `utils/dates.ts` and that one is tested.
+ *
+ * Three things only this screen can show: that the panel is as wide as the grid rather than
+ * as wide as the field, that pressing a day both answers and closes, and that the field and
+ * the grid never disagree about which day is chosen.
+ */
+export default function DatePickerScreen() {
+  const theme = useXAUITheme()
+
+  return (
+    <ScrollView
+      style={{ backgroundColor: theme.colors.background }}
+      contentContainerStyle={{ padding: 16, gap: 32, paddingBottom: 320 }}
+    >
+      <Picked />
+
+      <YearAndMonth />
+
+      <Section
+        title="The root is a TextField column"
+        note="DatePicker is the column — the same root gap, label and help styles as a TextField, so the two line up in a form. isInvalid drives the colours; the caller mounts the message, exactly as on a TextField."
+      >
+        <DatePicker>
+          <DatePicker.Label>Date de naissance</DatePicker.Label>
+          <DatePicker.Field placeholder="jj / mm / aaaa" />
+          <DatePicker.Description>
+            Le format s'affiche une fois la date choisie.
+          </DatePicker.Description>
+          <DatePicker.Overlay />
+          <DatePicker.Content>
+            <DatePicker.Calendar />
+          </DatePicker.Content>
+        </DatePicker>
+        <Invalid />
+      </Section>
+
+      <Section
+        title="The panel matches the field, with the grid as its floor"
+        note="Open the narrow one: its panel is seven cells, not 160 — a grid squeezed that far would crush its columns. Open the wide one: its panel is the field's width, and the calendar spreads to fill it."
+      >
+        <View style={{ width: 160 }}>
+          <Field placeholder="Étroit — 160" />
+        </View>
+        <Field placeholder="Pleine largeur — le panneau suit" />
+      </Section>
+
+      <Section
+        title="The field's level is not the calendar's"
+        note="A ghost field over a primary calendar is the ordinary case: the trigger is quiet on the form and the chosen day is not. variant dresses the field, calendarVariant dresses the grid."
+      >
+        {VARIANTS.map(variant => (
+          <Field key={variant} variant={variant} placeholder={variant} />
+        ))}
+        <Field
+          variant="ghost"
+          calendarVariant="primary"
+          placeholder="ghost field, primary calendar"
+        />
+      </Section>
+
+      <Section
+        title="size, bounds, formatOptions and the states"
+        note="One set of bounds, not two: the field, the grid and the chevrons all read the same minValue and maxValue. formatOptions is how the field reads the day, and it never changes what the grid thinks is chosen."
+      >
+        {SIZES.map(size => (
+          <Field key={size} size={size} placeholder={size} />
+        ))}
+        <Field
+          placeholder="Les trente prochains jours"
+          minValue={new Date(2026, 8, 6)}
+          maxValue={new Date(2026, 9, 6)}
+        />
+        <Field
+          defaultValue={new Date(2026, 8, 6)}
+          formatOptions={{ dateStyle: 'full' }}
+          placeholder="dateStyle: full"
+        />
+        <Field isInvalid placeholder="isInvalid" />
+        <Field isDisabled placeholder="isDisabled" />
+        <Field color="#7c3aed" placeholder="color — the field and the chosen day" />
+      </Section>
+
+      <Section
+        title="closeOnSelect, and a calendar of your own"
+        note="Off for a picker inside a form that confirms. DatePicker.Calendar takes children, so a Today button under the grid is the caller's — and it stays bound to the picker's value either way."
+      >
+        <Confirming />
+      </Section>
+    </ScrollView>
+  )
+}
+
+/** The section that shows the field and the grid never disagree. */
+function Picked() {
+  const [date, setDate] = useState<Date | undefined>()
+
+  return (
+    <Section
+      title="A field that opens a month"
+      note="Pressing a day answers and closes. The line below is the value the picker holds; the field above reads the same day through Intl."
+    >
+      <DatePicker value={date} onValueChange={setDate}>
+        <DatePicker.Trigger>
+          <DatePicker.Value placeholder="Choisir une date" />
+          <DatePicker.Indicator />
+        </DatePicker.Trigger>
+        <DatePicker.Overlay />
+        <DatePicker.Content>
+          <DatePicker.Calendar />
+        </DatePicker.Content>
+      </DatePicker>
+      <Caption>
+        {date === undefined
+          ? 'value: —'
+          : `value: ${date.toISOString().slice(0, 10)}`}
+      </Caption>
+    </Section>
+  )
+}
+
+/**
+ * The panel's calendar is a `Calendar`, so its year → month → day walk composes here the
+ * same way it does on a page: the title is the button, and `Calendar.YearPicker` /
+ * `Calendar.MonthPicker` mount in the grid's place. `view` resets to the days when the
+ * panel closes, so it always opens on the month.
+ */
+function YearAndMonth() {
+  const [date, setDate] = useState<Date | undefined>()
+  const [view, setView] = useState<CalendarView>('grid')
+
+  return (
+    <Section
+      title="A year and a month, from the panel"
+      note="Tap the month name: the years open in the grid's place, then that year's months, then back to the days — the Calendar's own drill-down, inside the picker. Pressing a day still answers and closes."
+    >
+      <DatePicker
+        value={date}
+        onValueChange={setDate}
+        onOpenChange={open => {
+          if (!open) setView('grid')
+        }}
+      >
+        <DatePicker.Trigger>
+          <DatePicker.Value placeholder="Choisir une date" />
+          <DatePicker.Indicator />
+        </DatePicker.Trigger>
+        <DatePicker.Overlay />
+        <DatePicker.Content>
+          <DatePicker.Calendar view={view} onViewChange={setView}>
+            <Calendar.Header>
+              <Calendar.PreviousButton accessibilityLabel="Mois précédent" />
+              <PressableFeedback
+                onPress={() => setView(v => (v === 'grid' ? 'year' : 'grid'))}
+                accessibilityLabel="Changer le mois et l'année"
+              >
+                <Calendar.Title />
+              </PressableFeedback>
+              <Calendar.NextButton accessibilityLabel="Mois suivant" />
+            </Calendar.Header>
+            {view === 'year' ? (
+              <Calendar.YearPicker />
+            ) : view === 'month' ? (
+              <Calendar.MonthPicker />
+            ) : (
+              <>
+                <Calendar.Weekdays />
+                <Calendar.Grid />
+              </>
+            )}
+          </DatePicker.Calendar>
+        </DatePicker.Content>
+      </DatePicker>
+      <Caption>
+        {date === undefined
+          ? 'value: —'
+          : `value: ${date.toISOString().slice(0, 10)}`}
+        {`  ·  view: ${view}`}
+      </Caption>
+    </Section>
+  )
+}
+
+/** A picker that does not close on a press, with the caller's own footer under the grid. */
+function Confirming() {
+  const [date, setDate] = useState<Date | undefined>(new Date(2026, 8, 6))
+  const theme = useXAUITheme()
+
+  return (
+    <DatePicker value={date} onValueChange={setDate} closeOnSelect={false}>
+      <DatePicker.Trigger>
+        <DatePicker.Value placeholder="Reste ouvert" />
+        <DatePicker.Indicator />
+      </DatePicker.Trigger>
+      <DatePicker.Overlay />
+      <DatePicker.Content>
+        <DatePicker.Calendar>
+          <Calendar.Header>
+            <Calendar.PreviousButton accessibilityLabel="Mois précédent" />
+            <Calendar.Title />
+            <Calendar.NextButton accessibilityLabel="Mois suivant" />
+          </Calendar.Header>
+          <Calendar.Weekdays />
+          <Calendar.Grid />
+          <Text
+            style={{
+              color: theme.colors.muted,
+              fontSize: theme.fontSizes.xs,
+              textAlign: 'center',
+            }}
+          >
+            Appuyez ailleurs pour fermer
+          </Text>
+        </DatePicker.Calendar>
+      </DatePicker.Content>
+    </DatePicker>
+  )
+}
+
+function Field({
+  placeholder = 'Choisir une date',
+  ...props
+}: {
+  placeholder?: string
+  variant?: DatePickerVariant
+  calendarVariant?: DatePickerVariant
+  size?: DatePickerSize
+  color?: string
+  defaultValue?: Date
+  minValue?: Date
+  maxValue?: Date
+  formatOptions?: Intl.DateTimeFormatOptions
+  isInvalid?: boolean
+  isDisabled?: boolean
+}) {
+  return (
+    <DatePicker {...props}>
+      <DatePicker.Field placeholder={placeholder} />
+      <DatePicker.Overlay />
+      <DatePicker.Content>
+        <DatePicker.Calendar />
+      </DatePicker.Content>
+    </DatePicker>
+  )
+}
+
+/** `isInvalid` paints the colours; the caller mounts the message — the `TextField` rule. */
+function Invalid() {
+  const [date, setDate] = useState<Date | undefined>()
+  const missing = date === undefined
+
+  return (
+    <DatePicker value={date} onValueChange={setDate} isInvalid={missing}>
+      <DatePicker.Label>Date de début</DatePicker.Label>
+      <DatePicker.Field placeholder="Choisir une date" />
+      {missing ? (
+        <DatePicker.Error>Choisissez une date pour continuer.</DatePicker.Error>
+      ) : (
+        <DatePicker.Description>
+          {date.toLocaleDateString('fr')}
+        </DatePicker.Description>
+      )}
+      <DatePicker.Overlay />
+      <DatePicker.Content>
+        <DatePicker.Calendar />
+      </DatePicker.Content>
+    </DatePicker>
+  )
+}
+
+function Caption({ children }: { children: React.ReactNode }) {
+  const theme = useXAUITheme()
+
+  return (
+    <Text style={{ color: theme.colors.muted, fontSize: theme.fontSizes.xs }}>
+      {children}
+    </Text>
+  )
+}
+
+function Section({
+  title,
+  note,
+  children,
+}: {
+  title: string
+  note: string
+  children: React.ReactNode
+}) {
+  const theme = useXAUITheme()
+
+  return (
+    <View style={{ gap: 14 }}>
+      <Text
+        style={{
+          color: theme.colors.foreground,
+          fontSize: theme.fontSizes.md,
+          fontWeight: theme.fontWeights.semibold,
+        }}
+      >
+        {title}
+      </Text>
+      <Text style={{ color: theme.colors.muted, fontSize: theme.fontSizes.xs }}>
+        {note}
+      </Text>
+      {children}
+    </View>
+  )
+}

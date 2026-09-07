@@ -8,7 +8,7 @@ import type {
   ViewProps,
   ViewStyle,
 } from 'react-native'
-import type { CloseButtonProps } from '../../system/close-button'
+import type { CloseButtonBaseProps } from '../../system/close-button'
 import type { IconContextValue, IconProps } from '../../system/icon'
 import type { PressableFeedbackProps } from '../../system/pressable-feedback'
 import type { TextStyleProps, ViewStyleProps } from '../../system/style-props'
@@ -139,11 +139,11 @@ export type ChipAvatarProps = ChipAvatarOwnProps &
   Omit<ViewStyleProps, keyof ViewProps | keyof ChipAvatarOwnProps>
 
 /**
- * Everything the shared `CloseButton` accepts, minus the three the chip supplies itself:
+ * Everything the shared `CloseButtonBase` accepts, minus the three the chip supplies itself:
  * the warning's name and the two resolved styles its recipe already decided (R5).
  */
 export type ChipCloseProps = Omit<
-  CloseButtonProps,
+  CloseButtonBaseProps,
   'name' | 'baseStyle' | 'glyphStyle'
 >
 
