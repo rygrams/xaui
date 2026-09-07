@@ -76,7 +76,7 @@ const SIZES: Record<TimePickerSize, SizeStep> = {
     innerRing: 0.55,
     display: '3xl',
     markLabel: 'lg',
-    periodLabel: 'sm',
+    periodLabel: 'xs',
   },
   lg: {
     box: 304,
@@ -85,7 +85,7 @@ const SIZES: Record<TimePickerSize, SizeStep> = {
     innerRing: 0.56,
     display: '4xl',
     markLabel: 'xl',
-    periodLabel: 'sm',
+    periodLabel: 'xs',
   },
 }
 
@@ -193,7 +193,14 @@ export const timePickerRecipe = createRecipe({
       height: HUB_SIZE,
       borderRadius: HUB_SIZE / 2,
     },
-    display: { flexDirection: 'row', alignItems: 'center', gap: theme.spacing(1) },
+    // Relative, so `periods` can hang off its trailing edge without shifting the two
+    // numbers — the time stays centred wherever it sits, with AM/PM beside it.
+    display: {
+      position: 'relative',
+      flexDirection: 'row',
+      alignItems: 'center',
+      gap: theme.spacing(1),
+    },
     unit: {
       fontFamily: theme.fontFamilies.body,
       fontWeight: theme.fontWeights.medium,
@@ -209,8 +216,13 @@ export const timePickerRecipe = createRecipe({
       color: theme.colors.muted,
     },
     periods: {
-      // AM and PM on one line — there is room beside the two big numbers, and a reader
-      // reads a pair laid side by side faster than one stacked.
+      // Out of flow, hung off the trailing edge of `display` and centred against the
+      // numbers — so the time reads as centred and AM/PM as a caption to its right.
+      position: 'absolute',
+      start: '100%',
+      marginStart: theme.spacing(2),
+      alignSelf: 'center',
+      // AM and PM on one line — a pair read side by side faster than one stacked.
       flexDirection: 'row',
       borderRadius: theme.radius.field,
       borderCurve: 'continuous',
@@ -219,13 +231,13 @@ export const timePickerRecipe = createRecipe({
       borderColor: theme.colors.border,
     },
     period: {
-      paddingHorizontal: theme.spacing(2.5),
-      paddingVertical: theme.spacing(1),
+      paddingHorizontal: theme.spacing(2),
+      paddingVertical: theme.spacing(0.75),
       alignItems: 'center',
     },
     periodSelected: {
-      paddingHorizontal: theme.spacing(2.5),
-      paddingVertical: theme.spacing(1),
+      paddingHorizontal: theme.spacing(2),
+      paddingVertical: theme.spacing(0.75),
       alignItems: 'center',
     },
   }),
