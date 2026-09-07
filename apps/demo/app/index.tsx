@@ -25,6 +25,7 @@ const SCREENS = [
   { href: '/button', label: 'Button' },
   { href: '/calendar', label: 'Calendar' },
   { href: '/card', label: 'Card' },
+  { href: '/carousel', label: 'Carousel' },
   { href: '/checkbox', label: 'Checkbox' },
   { href: '/charts', label: 'Charts' },
   { href: '/chip', label: 'Chip' },

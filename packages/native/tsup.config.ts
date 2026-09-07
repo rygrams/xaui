@@ -14,6 +14,7 @@ const entries = {
   'components/button/index': 'src/components/button/index.ts',
   'components/calendar/index': 'src/components/calendar/index.ts',
   'components/card/index': 'src/components/card/index.ts',
+  'components/carousel/index': 'src/components/carousel/index.ts',
   'components/chart/index': 'src/components/chart/index.ts',
   'components/checkbox/index': 'src/components/checkbox/index.ts',
   'components/chip/index': 'src/components/chip/index.ts',
