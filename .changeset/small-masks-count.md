@@ -2,20 +2,23 @@
 '@xaui/native': patch
 ---
 
-feat(date-field): a date, typed
+feat(mask-field): a value typed into a shape
 
-`DateField` is the `TextField` with its box masked: the same root, the same variants and
-sizes, the same label, description and error slots, and only the field differs. The order
-and the separator come from the locale through `Intl`, and a mask over one representation —
-the digits, in order — is what makes it survive a paste, a punctuation keyboard and a
-backspace over a separator.
+`MaskField` is the `TextField` with its box masked: the same root, the same variants and
+sizes, the same label, description and error slots, and only the field differs. There is
+one representation — the accepted characters, in order — and `maskInput` is the only thing
+that turns them into text, which is what makes the field survive a paste, a punctuation
+keyboard and a backspace over a separator.
 
-A date that cannot exist reads as `null` rather than rolling forward into the next month.
+`mask` is a preset or a pattern. `'date'`, `'time'`, `'datetime'` and `'credit-card'` carry
+their own rules — the date order and separator from the locale through `Intl`, and a part
+clamped as it completes and never raised. A date that cannot exist stays out of the box the
+moment the month is known. Anything else is a pattern string: `#` a digit, `A` a letter,
+`*` either, every other character a literal put back in as the parts fill.
 
-`DateField.Trigger` puts a calendar on the trailing edge and `DateField.Sheet` is the month
-it opens — a bottom sheet rather than a popover, because a month is three hundred points wide
-and on a phone that is the screen. Both are composed rather than props, so a field that is
-only ever typed carries neither.
+The value is the masked string. `convert` is the one plug that turns it into a value of
+your own — `parseMaskedDate` and `parseMaskedTime` are exported for the `date` and `time`
+shapes, and `MASK_FIELD_MASKS` lists the presets.
 
 `useOptionalFieldGroup` joins `useFieldGroup`, so a field can leave a decorator its room
 without requiring one — the shape `useOptionalChart` already has.
