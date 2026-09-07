@@ -37,6 +37,7 @@ const SCREENS = [
   { href: '/empty-state', label: 'EmptyState' },
   { href: '/fab', label: 'Fab' },
   { href: '/field-group', label: 'FieldGroup' },
+  { href: '/flip-card', label: 'FlipCard' },
   { href: '/icon', label: 'Icon' },
   { href: '/input-otp', label: 'InputOTP' },
   { href: '/view', label: 'Layout' },

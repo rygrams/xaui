@@ -26,6 +26,7 @@ const entries = {
   'components/empty-state/index': 'src/components/empty-state/index.ts',
   'components/fab/index': 'src/components/fab/index.ts',
   'components/field-group/index': 'src/components/field-group/index.ts',
+  'components/flip-card/index': 'src/components/flip-card/index.ts',
   'components/input-otp/index': 'src/components/input-otp/index.ts',
   'components/line-chart/index': 'src/components/line-chart/index.ts',
   'components/list/index': 'src/components/list/index.ts',
