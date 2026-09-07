@@ -1,6 +1,7 @@
 /**
- * The three things a number in a text box is made of: reading one out of what was typed,
- * writing one back, and moving one by a step.
+ * The three things a number in a control is made of: reading one out of what was typed,
+ * writing one back, and moving one by a step. Shared by `NumberField`, which types it, and
+ * `NumberStepper`, which only walks it.
  *
  * Pure, because none of the three can be seen in a screenshot. A number field that eats a
  * group separator, that turns `0.1 + 0.2` into `0.30000000000000004`, or that lets a

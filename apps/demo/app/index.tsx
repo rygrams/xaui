@@ -46,6 +46,7 @@ const SCREENS = [
   { href: '/list', label: 'List' },
   { href: '/mask-field', label: 'MaskField' },
   { href: '/number-field', label: 'NumberField' },
+  { href: '/number-stepper', label: 'NumberStepper' },
   { href: '/menu', label: 'Menu' },
   { href: '/popover', label: 'Popover' },
   { href: '/pressable-feedback', label: 'PressableFeedback' },
