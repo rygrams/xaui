@@ -98,7 +98,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.14b | `ProgressBar` — linear, over legacy `LinearProgressIndicator`                    | done    |
 | P5.15  | `Slider` — Output · Track · Fill · Thumb                                         | done    |
 | P5.16  | `Tabs` — List · Trigger · Label · Indicator · Content                            | done    |
-| P5.17  | `AppBar`                                                                         | todo    |
+| P5.17  | `AppBar`                                                                         | dropped |
 | P5.18  | `Snackbar` — closed by P5.18b `Toast`, the same object renamed                   | done    |
 | P5.18b | `Toast` — Title · Description · Actions · Close, plus `ToastHost`                | done    |
 | P5.19  | `Snippet`                                                                        | todo    |
@@ -108,7 +108,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.23  | `BottomSheet` — Trigger · Overlay · Content · Handle · Title                     | done    |
 | P5.23b | `BottomSheetInput` — net new, a `TextField` that opens in a `BottomSheet`        | todo    |
 | P5.23c | `BottomSheet` reduced state — `collapsedHeight`, a two-state disclosure          | done    |
-| P5.24  | `Drawer`                                                                         | todo    |
+| P5.24  | `Drawer`                                                                         | dropped |
 | P5.24b | `Popover` — Trigger · Overlay · Content · Title · Description · Close            | done    |
 | P5.25  | `Picker`                                                                         | todo    |
 | P5.25b | `WheelPicker` — net new, the spinning column the three below share               | done    |
@@ -130,7 +130,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.28 | `ColorPicker` | todo |
 | P5.29 | `Carousel` | done |
 | P5.30 | `Pager` | todo |
-| P5.31 | `RefreshControl` | todo |
+| P5.31 | `RefreshControl` | dropped |
 | P5.32 | `InputTrigger` | todo |
 | P5.33 | `FeatureDiscovery` | todo |
 | P5.34 | `BarChart` — grouped or stacked, drawn on `react-native-svg` | done |
