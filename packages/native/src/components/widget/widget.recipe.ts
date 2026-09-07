@@ -162,6 +162,10 @@ export const widgetRecipe = createRecipe({
       alignItems: 'flex-start',
       justifyContent: 'space-between',
       gap: theme.spacing(3),
+      // A hair of side padding of their own, so the header and footer text sits a touch
+      // inside the card's edge rather than flush against where it begins. Fixed, not on
+      // the `size` ladder — it is optical alignment, not spacing.
+      paddingHorizontal: theme.spacing(1),
     },
     /** The title and its description, as one block that shrinks rather than pushes. */
     heading: { flexShrink: 1, gap: theme.spacing(0.5) },
@@ -186,7 +190,11 @@ export const widgetRecipe = createRecipe({
       borderCurve: 'continuous',
       overflow: 'hidden',
     },
-    footer: { fontFamily: theme.fontFamilies.body, color: theme.colors.muted },
+    footer: {
+      fontFamily: theme.fontFamilies.body,
+      color: theme.colors.muted,
+      paddingHorizontal: theme.spacing(1),
+    },
   }),
 
   variants: {
