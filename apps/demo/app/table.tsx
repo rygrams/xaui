@@ -1,9 +1,28 @@
 import { useMemo, useState } from 'react'
 import { ScrollView, Text, View } from 'react-native'
+import Svg, { Path } from 'react-native-svg'
 import { Chip } from '@xaui/native/chip'
+import { EmptyState } from '@xaui/native/empty-state'
+import { Icon } from '@xaui/native/system'
+import type { IconComponentProps } from '@xaui/native/system'
 import { Table } from '@xaui/native/table'
 import type { SortDescriptor, TableSize, TableVariant } from '@xaui/native/table'
 import { useXAUITheme } from '@xaui/native/theme'
+
+/* The bell an empty member list shows, drawn inline so the screen needs no icon set. */
+function BellIcon({ size, color }: IconComponentProps) {
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+      <Path
+        d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9m4.7 19a2 2 0 0 0 3.6 0"
+        stroke={color}
+        strokeWidth={1.8}
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </Svg>
+  )
+}
 
 type Person = {
   id: string
@@ -64,7 +83,7 @@ export default function TableScreen() {
     >
       <Section
         title="Le cas complet"
-        note="Le tableau ne réordonne rien : il rapporte la pression et l'appelant trie sa propre collection — un tableau qui trierait à votre place devrait comprendre la valeur de chaque cellule, et la seule chose qui la comprend est le code qui a construit la ligne. Appuyez sur « Nom » trois fois : croissant, décroissant, plus de tri."
+        note="Le tableau ne réordonne rien : il rapporte la pression et l'appelant trie sa propre collection — un tableau qui trierait à votre place devrait comprendre la valeur de chaque cellule, et la seule chose qui la comprend est le code qui a construit la ligne. Les trois colonnes trient : appuyez trois fois sur l'une d'elles — croissant, décroissant, plus de tri — et un appui sur une autre reprend le cycle à zéro."
       >
         <Table
           selectionMode="multiple"
@@ -84,7 +103,9 @@ export default function TableScreen() {
                 <Table.Column id="role" allowsSorting width={140}>
                   Rôle
                 </Table.Column>
-                <Table.Column width={120}>Statut</Table.Column>
+                <Table.Column id="status" allowsSorting width={120}>
+                  Statut
+                </Table.Column>
               </Table.Header>
 
               <Table.Body>
@@ -115,11 +136,41 @@ export default function TableScreen() {
       </Section>
 
       <Section
+        title="Rien à afficher"
+        note="Le corps n'est qu'un conteneur (R1) : rien ne l'empêche de tenir un EmptyState plutôt que des lignes quand la collection est vide, sans qu'il ait à en connaître la différence."
+      >
+        <Table size="sm">
+          <Table.ScrollContainer>
+            <Table.Content>
+              <Table.Header>
+                <Table.Column>Nom</Table.Column>
+                <Table.Column width={120}>Rôle</Table.Column>
+              </Table.Header>
+              <Table.Body style={{ paddingVertical: 32, paddingHorizontal: 16 }}>
+                <EmptyState>
+                  <EmptyState.Header>
+                    <EmptyState.Media variant="icon">
+                      <Icon as={BellIcon} />
+                    </EmptyState.Media>
+                    <EmptyState.Title>Aucun membre pour l’instant</EmptyState.Title>
+                    <EmptyState.Description>
+                      Invitez des coéquipiers pour les voir apparaître ici.
+                    </EmptyState.Description>
+                  </EmptyState.Header>
+                </EmptyState>
+              </Table.Body>
+            </Table.Content>
+          </Table.ScrollContainer>
+        </Table>
+      </Section>
+
+      <Section
         title="Une seule ligne à la fois"
         note="single remplace au lieu d'ajouter, et appuyer de nouveau sur la ligne choisie l'efface : une liste à choix unique sans retour à « rien » est une liste qu'on ne peut se tromper qu'une fois."
       >
         <Table
           selectionMode="single"
+          variant='secondary'
           selectedKeys={single}
           onSelectionChange={setSingle}
           size="sm"
@@ -128,7 +179,7 @@ export default function TableScreen() {
             <Table.Content>
               <Table.Header>
                 <Table.Column>Nom</Table.Column>
-                <Table.Column width={130}>Rôle</Table.Column>
+                <Table.Column>Rôle</Table.Column>
               </Table.Header>
               <Table.Body>
                 {PEOPLE.slice(0, 3).map(person => (
@@ -187,7 +238,7 @@ export default function TableScreen() {
               <Table.Content>
                 <Table.Header>
                   <Table.Column>{variant}</Table.Column>
-                  <Table.Column width={120}>Rôle</Table.Column>
+                  <Table.Column>Rôle</Table.Column>
                 </Table.Header>
                 <Table.Body>
                   {PEOPLE.slice(0, 2).map(person => (
@@ -220,7 +271,7 @@ export default function TableScreen() {
                 <Table.Header>
                   <Table.SelectAllCell />
                   <Table.Column>{size}</Table.Column>
-                  <Table.Column width={130}>Rôle</Table.Column>
+                  <Table.Column>Rôle</Table.Column>
                 </Table.Header>
                 <Table.Body>
                   {PEOPLE.slice(0, 3).map(person => (

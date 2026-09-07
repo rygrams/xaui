@@ -146,8 +146,23 @@ _marks_, not the ground everything sits on.
 
 ## Size
 
-`size` moves the row's height, the cell's inset and the type. The height is **fixed**: a value
-too long is truncated rather than deforming the table.
+`size` moves the row's height, the cell's inset, the type and the shell's corner. The height
+is **fixed**: a value too long is truncated rather than deforming the table.
+
+The corner sits a level below the `Card`'s at the same size, and `radius` overrides it. A card
+is one padded surface and can take a wide curve; a table is a stack of square rows behind a
+shell that clips them, so past `lg` the top row's corner starts eating into the first cell's
+text while every row underneath stays flat.
+
+## The rules are hairlines
+
+Every line _inside_ the table — under the header, between two rows, above the footer, and
+between two column names — is one device pixel, `StyleSheet.hairlineWidth`, as the `List`'s
+and the `Menu`'s are. Only the shell's own outline is a full point.
+
+The rule between column names is the header's alone: a row's `gap` already says where one
+field ends, and a grid ruled in both directions is a spreadsheet. It is drawn out of flow, so
+it costs no width and a header column still starts on the same edge as the cells under it.
 
 ## See also
 

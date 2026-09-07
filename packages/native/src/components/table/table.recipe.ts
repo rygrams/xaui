@@ -1,6 +1,7 @@
+import { StyleSheet } from 'react-native'
 import { createRecipe, radiusAxis } from '../../system/recipe'
 import type { SlotStyles, VariantTokens } from '../../system/recipe'
-import type { FontSizeKey, XAUITheme } from '../../theme/theme.type'
+import type { FontSizeKey, RadiusKey, XAUITheme } from '../../theme/theme.type'
 import type { TableSize, TableSlot, TableVariant } from './table.type'
 
 const SLOTS = [
@@ -9,6 +10,7 @@ const SLOTS = [
   'header',
   'column',
   'columnLabel',
+  'columnSeparator',
   'sortIndicator',
   'body',
   'row',
@@ -42,6 +44,9 @@ const VARIANT_TOKENS: Record<TableVariant, VariantTokens> = {
   },
 }
 
+/** One device pixel — 0.33 at 3× — and no theme has an opinion about that. */
+const HAIRLINE = StyleSheet.hairlineWidth
+
 type SizeStep = {
   /** A row's height. Fixed, so a long cell truncates rather than deforming the table. */
   row: number
@@ -53,12 +58,45 @@ type SizeStep = {
   cell: FontSizeKey
   /** The checkbox column's width, in points. */
   selection: number
+  /**
+   * The shell's corner, a level below the `Card`'s at the same size.
+   *
+   * A card is one padded surface and can take a wide curve; a table is a stack of square
+   * rows behind a shell that clips them, and past `lg` the top row's corner eats into the
+   * first cell's text while the rows underneath stay flat — a curve the content cannot
+   * follow reads as a mistake rather than as a rounder box.
+   */
+  radius: RadiusKey
 }
 
 const SIZES: Record<TableSize, SizeStep> = {
-  sm: { row: 40, header: 40, padding: 3, label: 'xs', cell: 'sm', selection: 44 },
-  md: { row: 48, header: 48, padding: 4, label: 'sm', cell: 'md', selection: 52 },
-  lg: { row: 56, header: 56, padding: 5, label: 'md', cell: 'lg', selection: 60 },
+  sm: {
+    row: 40,
+    header: 40,
+    padding: 3,
+    label: 'xs',
+    cell: 'sm',
+    selection: 44,
+    radius: 'md',
+  },
+  md: {
+    row: 48,
+    header: 48,
+    padding: 4,
+    label: 'sm',
+    cell: 'md',
+    selection: 52,
+    radius: 'lg',
+  },
+  lg: {
+    row: 56,
+    header: 56,
+    padding: 5,
+    label: 'md',
+    cell: 'lg',
+    selection: 60,
+    radius: 'xl',
+  },
 }
 
 /** The checkbox column's width, read as a value — the header and every row must agree. */
@@ -71,6 +109,11 @@ const SORT_MARK = 5
 
 function sizeAxis(step: SizeStep) {
   return (theme: XAUITheme): SlotStyles<TableSlot> => ({
+    root: { borderRadius: theme.radius[step.radius] },
+    // Half a gap to the left of the column it belongs to, which is the middle of the space
+    // between that column and the one before it. Out of flow, so the rule costs no width
+    // and a header column still starts on the same edge as the cells under it.
+    columnSeparator: { start: -theme.spacing(step.padding) / 2 },
     // The inset is the row's and the space between columns is its `gap` — a padding on the
     // cell would double at the table's two edges, and none at all lets a name and a role run
     // together the moment a flexible column shrinks to its content.
@@ -116,7 +159,7 @@ export const tableRecipe = createRecipe({
     header: {
       flexDirection: 'row',
       alignItems: 'center',
-      borderBottomWidth: theme.borderWidth.default,
+      borderBottomWidth: HAIRLINE,
       borderBottomColor: theme.colors.separator,
     },
     column: { flexDirection: 'row', alignItems: 'center', gap: theme.spacing(1) },
@@ -124,6 +167,17 @@ export const tableRecipe = createRecipe({
       fontFamily: theme.fontFamilies.body,
       fontWeight: theme.fontWeights.semibold,
       color: theme.colors.muted,
+    },
+    // The rule between two column names, and the header is the only band that carries one:
+    // a row's own gap already says where one field ends, and a grid ruled in both directions
+    // is a spreadsheet. Absolute and full-height of its column, so it spans the label beside
+    // it — the `Segment`'s seam, drawn for the same reason and in the same two lines.
+    columnSeparator: {
+      position: 'absolute',
+      top: 0,
+      bottom: 0,
+      width: HAIRLINE,
+      backgroundColor: theme.colors.separator,
     },
     // A triangle from a box with three sides transparent — the arrow every table's header
     // has, and no icon set to install for it.
@@ -140,13 +194,13 @@ export const tableRecipe = createRecipe({
     row: {
       flexDirection: 'row',
       alignItems: 'center',
-      borderBottomWidth: theme.borderWidth.default,
+      borderBottomWidth: HAIRLINE,
       borderBottomColor: theme.colors.separator,
     },
     rowSelected: {
       flexDirection: 'row',
       alignItems: 'center',
-      borderBottomWidth: theme.borderWidth.default,
+      borderBottomWidth: HAIRLINE,
       borderBottomColor: theme.colors.separator,
     },
     // No fixed width here: a cell takes its column's, or an equal share when it has none.
@@ -159,7 +213,7 @@ export const tableRecipe = createRecipe({
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-between',
-      borderTopWidth: theme.borderWidth.default,
+      borderTopWidth: HAIRLINE,
       borderTopColor: theme.colors.separator,
     },
   }),
@@ -179,6 +233,7 @@ export const tableRecipe = createRecipe({
   variants: {
     size: { sm: sizeAxis(SIZES.sm), md: sizeAxis(SIZES.md), lg: sizeAxis(SIZES.lg) },
 
+    /** Declaration order is application order: `radius` overrides the corner `size` set. */
     radius: radiusAxis('root'),
   },
 
@@ -200,5 +255,7 @@ export const tableRecipe = createRecipe({
     disabled: theme => ({ root: { opacity: theme.opacity.disabled } }),
   },
 
-  defaultVariants: { variant: 'primary', size: 'md', radius: '2xl' },
+  // No `radius` here: the corner comes from `size`, as the `Card`'s does, and a default
+  // named on this line would pin every size to one curve.
+  defaultVariants: { variant: 'primary', size: 'md' },
 })

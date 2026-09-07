@@ -146,6 +146,7 @@ export const TableRoot = forwardRef<View, TableProps>(function Table(
       headerStyle: styles.header,
       columnStyle: styles.column,
       columnLabelStyle: styles.columnLabel,
+      columnSeparatorStyle: styles.columnSeparator,
       sortIndicatorStyle: [styles.sortIndicator, tint?.sortIndicator],
       bodyStyle: styles.body,
       rowStyle: styles.row,

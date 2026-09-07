@@ -24,6 +24,7 @@ export const TableColumn = forwardRef<View, TableColumnProps>(function TableColu
   const {
     columnStyle,
     columnLabelStyle,
+    columnSeparatorStyle,
     sortIndicatorStyle,
     setWidth,
     sortDescriptor,
@@ -48,6 +49,11 @@ export const TableColumn = forwardRef<View, TableColumnProps>(function TableColu
     styleProps,
     style,
   ]
+
+  // Every column but the first draws the rule before it — the leading edge of the header
+  // has nothing to divide from, and a rule owned by the column on its right is one rule per
+  // seam however many columns there are.
+  const separator = index > 0 ? <View style={columnSeparatorStyle} /> : null
 
   const label =
     typeof children === 'string' || typeof children === 'number' ? (
@@ -74,6 +80,7 @@ export const TableColumn = forwardRef<View, TableColumnProps>(function TableColu
   if (!canSort) {
     return (
       <View ref={ref} {...rest} style={box}>
+        {separator}
         {label}
         {mark}
       </View>
@@ -93,6 +100,7 @@ export const TableColumn = forwardRef<View, TableColumnProps>(function TableColu
       style={box}
       onPress={() => sortBy(id)}
     >
+      {separator}
       {label}
       {mark}
     </Pressable>

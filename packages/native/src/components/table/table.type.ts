@@ -18,6 +18,7 @@ export type TableSlot =
   | 'header'
   | 'column'
   | 'columnLabel'
+  | 'columnSeparator'
   | 'sortIndicator'
   | 'body'
   | 'row'
@@ -119,6 +120,8 @@ export type TableContextValue = {
   headerStyle: StyleProp<ViewStyle>
   columnStyle: StyleProp<ViewStyle>
   columnLabelStyle: StyleProp<TextStyle>
+  /** The rule before a column, drawn by every column but the first. */
+  columnSeparatorStyle: StyleProp<ViewStyle>
   sortIndicatorStyle: StyleProp<ViewStyle>
   bodyStyle: StyleProp<ViewStyle>
   rowStyle: StyleProp<ViewStyle>
