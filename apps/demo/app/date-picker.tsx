@@ -39,7 +39,7 @@ export default function DatePickerScreen() {
           <DatePicker.Label>Date de naissance</DatePicker.Label>
           <DatePicker.Field placeholder="jj / mm / aaaa" />
           <DatePicker.Description>
-            Le format s'affiche une fois la date choisie.
+            Le format s&apos;affiche une fois la date choisie.
           </DatePicker.Description>
           <DatePicker.Overlay />
           <DatePicker.Content>
