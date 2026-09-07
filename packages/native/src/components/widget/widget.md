@@ -46,11 +46,12 @@ is a label around something with its own edges.
 
 ## The card's corner is derived, not chosen
 
-An inner corner is the outer one **less the gap between them** — here the frame's own
-padding:
+An inner corner is the outer one **less the gap between them** — here the frame's
+**vertical** padding, the band above and below the card that a near-full-width card visibly
+sits within:
 
 ```
-cardRadius = theme.radius[radius] − theme.spacing(padding)
+cardRadius = theme.radius[radius] − theme.spacing(paddingY)
 ```
 
 Two arcs that do not follow that rule run at different rates, and the inset stops reading as
@@ -135,15 +136,18 @@ container that does the separating.
 `size` moves the padding, the gaps, the corner and the type — **never a height**. A widget
 is as tall as what is in it.
 
-| size | frame padding | card padding | corner | title |
-| ---- | ------------- | ------------ | ------ | ----- |
-| `xs` | 3             | 2            | `xl`   | `sm`  |
-| `sm` | 3.5           | 2.5          | `2xl`  | `md`  |
-| `md` | 4             | 3            | `2xl`  | `lg`  |
-| `lg` | 5             | 3.5          | `3xl`  | `xl`  |
+| size | frame padding (x / y) | card padding | corner | title |
+| ---- | --------------------- | ------------ | ------ | ----- |
+| `xs` | 2 / 3                 | 2            | `xl`   | `sm`  |
+| `sm` | 2.5 / 3.5             | 2.5          | `2xl`  | `md`  |
+| `md` | 3 / 4                 | 3            | `2xl`  | `lg`  |
+| `lg` | 3.5 / 5               | 3.5          | `3xl`  | `xl`  |
 
-The card's padding is smaller than the frame's at every size: it is a panel, not a second
-frame, and matching them would double the inset at the edges.
+The frame's **side** inset is one step tighter than its vertical one: the card carries most
+of the width, so a wide band on either side of it is margin the frame does not need. On the
+sides it comes out level with the card's own inset, which keeps the horizontal rhythm even
+from the frame edge to the content; the vertical band stays wider, and is what the card's
+corner is derived from.
 
 ## Accessibility
 

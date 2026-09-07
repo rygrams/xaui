@@ -14,8 +14,10 @@ const SLOTS = [
 ] as const
 
 type SizeStep = {
-  /** The frame's own inset, in spacing steps — how far the card is held off the edge. */
-  padding: number
+  /** The frame's side inset, in spacing steps — tighter than the top and bottom. */
+  paddingX: number
+  /** The frame's top and bottom inset. This is the gap the card's corner is derived from. */
+  paddingY: number
   /** Between the header, the card and the footer. */
   gap: number
   /** The card's own inset, which is smaller: it holds a figure, it is not a second frame. */
@@ -29,19 +31,47 @@ type SizeStep = {
  * `size` moves the padding, the gaps, the corner and the type — **never a height**. A widget
  * is as tall as what is in it, which is the `Surface`'s rule and the reason neither takes a
  * height at all.
+ *
+ * The side inset is one step tighter than the vertical: the card carries most of the width,
+ * so a wide horizontal band on either side of it is margin the frame does not need.
  */
 const SIZES: Record<WidgetSize, SizeStep> = {
-  xs: { padding: 3, gap: 2, well: 2, radius: 'xl', title: 'sm', footer: 'xs' },
+  xs: {
+    paddingX: 2,
+    paddingY: 3,
+    gap: 2,
+    well: 2,
+    radius: 'xl',
+    title: 'sm',
+    footer: 'xs',
+  },
   sm: {
-    padding: 3.5,
+    paddingX: 2.5,
+    paddingY: 3.5,
     gap: 2.5,
     well: 2.5,
     radius: '2xl',
     title: 'md',
     footer: 'xs',
   },
-  md: { padding: 4, gap: 3, well: 3, radius: '2xl', title: 'lg', footer: 'sm' },
-  lg: { padding: 5, gap: 3.5, well: 3.5, radius: '3xl', title: 'xl', footer: 'sm' },
+  md: {
+    paddingX: 3,
+    paddingY: 4,
+    gap: 3,
+    well: 3,
+    radius: '2xl',
+    title: 'lg',
+    footer: 'sm',
+  },
+  lg: {
+    paddingX: 3.5,
+    paddingY: 5,
+    gap: 3.5,
+    well: 3.5,
+    radius: '3xl',
+    title: 'xl',
+    footer: 'sm',
+  },
 }
 
 /**
@@ -49,12 +79,13 @@ const SIZES: Record<WidgetSize, SizeStep> = {
  *
  * The **nesting rule**: an inner corner should be the outer one less the gap between them,
  * or the two arcs run at different rates and the inset reads as a sticker rather than as a
- * card the frame is holding. Here the gap is the frame's own padding, so the subtraction is
- * exactly that — and it is clamped at zero, because a large padding on a small corner would
- * otherwise ask for a negative radius.
+ * card the frame is holding. The gap here is the frame's **vertical** padding — the band
+ * above and below the card, which is what a near-full-width card visibly sits within — and
+ * it is clamped at zero, because a large padding on a small corner would otherwise ask for a
+ * negative radius.
  */
-function cardRadius(theme: XAUITheme, radius: RadiusKey, padding: number): number {
-  return Math.max(0, theme.radius[radius] - theme.spacing(padding))
+function cardRadius(theme: XAUITheme, radius: RadiusKey, paddingY: number): number {
+  return Math.max(0, theme.radius[radius] - theme.spacing(paddingY))
 }
 
 const SIZE_KEYS = ['xs', 'sm', 'md', 'lg'] as const satisfies readonly WidgetSize[]
@@ -75,17 +106,18 @@ const NESTED_RADII = SIZE_KEYS.flatMap(size =>
   RADIUS_KEYS.map(radius => ({
     when: { size, radius },
     style: (theme: XAUITheme) => ({
-      content: { borderRadius: cardRadius(theme, radius, SIZES[size].padding) },
+      content: { borderRadius: cardRadius(theme, radius, SIZES[size].paddingY) },
     }),
   }))
 )
 
 function sizeAxis(step: SizeStep) {
-  const { padding, gap, well, radius, title, footer } = step
+  const { paddingX, paddingY, gap, well, radius, title, footer } = step
 
   return (theme: XAUITheme): SlotStyles<WidgetSlot> => ({
     root: {
-      padding: theme.spacing(padding),
+      paddingHorizontal: theme.spacing(paddingX),
+      paddingVertical: theme.spacing(paddingY),
       gap: theme.spacing(gap),
       borderRadius: theme.radius[radius],
     },
@@ -93,7 +125,7 @@ function sizeAxis(step: SizeStep) {
       padding: theme.spacing(well),
       // The corner this size implies. An explicit `radius` prop replaces it through
       // `NESTED_RADII`, which is the only other place the card's corner is set.
-      borderRadius: cardRadius(theme, radius, padding),
+      borderRadius: cardRadius(theme, radius, paddingY),
     },
     title: {
       fontSize: theme.fontSizes[title],
