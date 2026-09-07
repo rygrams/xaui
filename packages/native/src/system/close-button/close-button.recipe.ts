@@ -1,14 +1,14 @@
 import type { SlotStyle } from '../recipe'
 import type { XAUITheme } from '../../theme/theme.type'
 
-/** The two slots a component publishes for a `CloseButton`: its box and one cross bar. */
+/** The two slots a component publishes for a `CloseButtonBase`: its box and one cross bar. */
 export type CloseButtonSlots = { close: SlotStyle; closeGlyph: SlotStyle }
 
 /**
- * The cross's own geometry, for the `base` of any recipe that hosts a `CloseButton`:
+ * The cross's own geometry, for the `base` of any recipe that hosts a `CloseButtonBase`:
  *
  * ```ts
- * base: theme => ({ ...closeButtonBase(theme), root: { … } })
+ * base: theme => ({ ...closeButtonGeometry(theme), root: { … } })
  * ```
  *
  * The bar's thickness and the box's centring belong to the button rather than to the
@@ -19,7 +19,7 @@ export type CloseButtonSlots = { close: SlotStyle; closeGlyph: SlotStyle }
  * Two bars are rendered, rotated a quarter turn apart, which is why only one is described
  * and why it is positioned absolutely — they overlap at the centre of the box.
  */
-export function closeButtonBase(theme: XAUITheme): CloseButtonSlots {
+export function closeButtonGeometry(theme: XAUITheme): CloseButtonSlots {
   return {
     close: { alignItems: 'center', justifyContent: 'center' },
     closeGlyph: {

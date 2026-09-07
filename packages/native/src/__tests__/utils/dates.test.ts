@@ -2,17 +2,34 @@ import { describe, expect, it } from 'vitest'
 import {
   addDays,
   addMonths,
+  daysInMonth,
   firstDayOfWeekFor,
   isSameDay,
   isSameMonth,
   isWithinBounds,
   monthGrid,
   monthLabel,
+  monthNames,
   startOfDay,
   startOfWeek,
   weekGrid,
   weekdayNames,
 } from '../../utils/dates'
+
+describe('daysInMonth', () => {
+  it('knows the short months', () => {
+    expect(daysInMonth(2024, 0)).toBe(31)
+    expect(daysInMonth(2024, 3)).toBe(30)
+  })
+
+  it('knows every leap rule, including the century ones', () => {
+    // The two a `% 4` gets wrong: 1900 is not a leap year and 2000 is.
+    expect(daysInMonth(2024, 1)).toBe(29)
+    expect(daysInMonth(2023, 1)).toBe(28)
+    expect(daysInMonth(1900, 1)).toBe(28)
+    expect(daysInMonth(2000, 1)).toBe(29)
+  })
+})
 
 describe('startOfDay', () => {
   it('drops the time', () => {
@@ -187,6 +204,27 @@ describe('monthLabel', () => {
 
   it('falls back to numbers when the locale is not one', () => {
     expect(monthLabel(new Date(2026, 8, 6), 'not a locale')).toBe('9/2026')
+  })
+})
+
+describe('monthNames', () => {
+  it('names all twelve months in order', () => {
+    const names = monthNames('en-US')
+    expect(names).toHaveLength(12)
+    expect(names[0]).toBe('January')
+    expect(names[11]).toBe('December')
+  })
+
+  it('follows the locale', () => {
+    expect(monthNames('fr-FR')[8]).toBe('septembre')
+  })
+
+  it('shortens when asked', () => {
+    expect(monthNames('en-US', 'short')[0]).toBe('Jan')
+  })
+
+  it('falls back to English names when the locale is not one', () => {
+    expect(monthNames('not a locale')[8]).toBe('September')
   })
 })
 

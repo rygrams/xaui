@@ -8,7 +8,7 @@ import { useStyleProps } from '../../system/style-props'
 import { SelectItem } from './select-item'
 import { anchoredEntering, anchoredExiting } from '../../system/anchored'
 import { SelectProvider, useSelect } from './select.context'
-import { collectItemLabels } from './select.utils'
+import { collectItemLabels } from '../../utils/item-labels'
 import type { SelectContentProps, SelectInsets } from './select.type'
 import { useEffect } from 'react'
 
@@ -39,6 +39,7 @@ export const SelectContent = forwardRef<View, SelectContentProps>(
       placement = 'bottom',
       align = 'center',
       width = 'trigger',
+      minWidth,
       offset = DEFAULT_OFFSET,
       alignOffset = 0,
       avoidCollisions = true,
@@ -63,6 +64,7 @@ export const SelectContent = forwardRef<View, SelectContentProps>(
       placement,
       align,
       width,
+      minWidth,
       offset,
       alignOffset,
       avoidCollisions,

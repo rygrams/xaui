@@ -1,8 +1,10 @@
 import { useState } from 'react'
 import { ScrollView, Text, View } from 'react-native'
 import { Calendar } from '@xaui/native/calendar'
+import type { CalendarView } from '@xaui/native/calendar'
 import { DatePicker } from '@xaui/native/date-picker'
 import type { DatePickerSize, DatePickerVariant } from '@xaui/native/date-picker'
+import { PressableFeedback } from '@xaui/native/system'
 import { useXAUITheme } from '@xaui/native/theme'
 
 const VARIANTS: DatePickerVariant[] = ['primary', 'secondary', 'tertiary', 'ghost']
@@ -27,13 +29,34 @@ export default function DatePickerScreen() {
     >
       <Picked />
 
+      <YearAndMonth />
+
       <Section
-        title="The panel is as wide as the grid, not as wide as the field"
-        note="A list is as wide as the field that opens it, because its rows are that field's answers. A month grid is seven columns of a fixed cell, and squeezing it into a narrow field would crush the cells or clip the week. Open the narrow one below."
+        title="The root is a TextField column"
+        note="DatePicker is the column — the same root gap, label and help styles as a TextField, so the two line up in a form. isInvalid drives the colours; the caller mounts the message, exactly as on a TextField."
+      >
+        <DatePicker>
+          <DatePicker.Label>Date de naissance</DatePicker.Label>
+          <DatePicker.Field placeholder="jj / mm / aaaa" />
+          <DatePicker.Description>
+            Le format s&apos;affiche une fois la date choisie.
+          </DatePicker.Description>
+          <DatePicker.Overlay />
+          <DatePicker.Content>
+            <DatePicker.Calendar />
+          </DatePicker.Content>
+        </DatePicker>
+        <Invalid />
+      </Section>
+
+      <Section
+        title="The panel matches the field, with the grid as its floor"
+        note="Open the narrow one: its panel is seven cells, not 160 — a grid squeezed that far would crush its columns. Open the wide one: its panel is the field's width, and the calendar spreads to fill it."
       >
         <View style={{ width: 160 }}>
-          <Field placeholder="Étroit" />
+          <Field placeholder="Étroit — 160" />
         </View>
+        <Field placeholder="Pleine largeur — le panneau suit" />
       </Section>
 
       <Section
@@ -110,6 +133,68 @@ function Picked() {
   )
 }
 
+/**
+ * The panel's calendar is a `Calendar`, so its year → month → day walk composes here the
+ * same way it does on a page: the title is the button, and `Calendar.YearPicker` /
+ * `Calendar.MonthPicker` mount in the grid's place. `view` resets to the days when the
+ * panel closes, so it always opens on the month.
+ */
+function YearAndMonth() {
+  const [date, setDate] = useState<Date | undefined>()
+  const [view, setView] = useState<CalendarView>('grid')
+
+  return (
+    <Section
+      title="A year and a month, from the panel"
+      note="Tap the month name: the years open in the grid's place, then that year's months, then back to the days — the Calendar's own drill-down, inside the picker. Pressing a day still answers and closes."
+    >
+      <DatePicker
+        value={date}
+        onValueChange={setDate}
+        onOpenChange={open => {
+          if (!open) setView('grid')
+        }}
+      >
+        <DatePicker.Trigger>
+          <DatePicker.Value placeholder="Choisir une date" />
+          <DatePicker.Indicator />
+        </DatePicker.Trigger>
+        <DatePicker.Overlay />
+        <DatePicker.Content>
+          <DatePicker.Calendar view={view} onViewChange={setView}>
+            <Calendar.Header>
+              <Calendar.PreviousButton accessibilityLabel="Mois précédent" />
+              <PressableFeedback
+                onPress={() => setView(v => (v === 'grid' ? 'year' : 'grid'))}
+                accessibilityLabel="Changer le mois et l'année"
+              >
+                <Calendar.Title />
+              </PressableFeedback>
+              <Calendar.NextButton accessibilityLabel="Mois suivant" />
+            </Calendar.Header>
+            {view === 'year' ? (
+              <Calendar.YearPicker />
+            ) : view === 'month' ? (
+              <Calendar.MonthPicker />
+            ) : (
+              <>
+                <Calendar.Weekdays />
+                <Calendar.Grid />
+              </>
+            )}
+          </DatePicker.Calendar>
+        </DatePicker.Content>
+      </DatePicker>
+      <Caption>
+        {date === undefined
+          ? 'value: —'
+          : `value: ${date.toISOString().slice(0, 10)}`}
+        {`  ·  view: ${view}`}
+      </Caption>
+    </Section>
+  )
+}
+
 /** A picker that does not close on a press, with the caller's own footer under the grid. */
 function Confirming() {
   const [date, setDate] = useState<Date | undefined>(new Date(2026, 8, 6))
@@ -164,10 +249,31 @@ function Field({
 }) {
   return (
     <DatePicker {...props}>
-      <DatePicker.Trigger>
-        <DatePicker.Value placeholder={placeholder} />
-        <DatePicker.Indicator />
-      </DatePicker.Trigger>
+      <DatePicker.Field placeholder={placeholder} />
+      <DatePicker.Overlay />
+      <DatePicker.Content>
+        <DatePicker.Calendar />
+      </DatePicker.Content>
+    </DatePicker>
+  )
+}
+
+/** `isInvalid` paints the colours; the caller mounts the message — the `TextField` rule. */
+function Invalid() {
+  const [date, setDate] = useState<Date | undefined>()
+  const missing = date === undefined
+
+  return (
+    <DatePicker value={date} onValueChange={setDate} isInvalid={missing}>
+      <DatePicker.Label>Date de début</DatePicker.Label>
+      <DatePicker.Field placeholder="Choisir une date" />
+      {missing ? (
+        <DatePicker.Error>Choisissez une date pour continuer.</DatePicker.Error>
+      ) : (
+        <DatePicker.Description>
+          {date.toLocaleDateString('fr')}
+        </DatePicker.Description>
+      )}
       <DatePicker.Overlay />
       <DatePicker.Content>
         <DatePicker.Calendar />

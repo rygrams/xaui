@@ -16,6 +16,19 @@ const WEEK_LENGTH = 7
  * `a.getTime() === b.getTime()` would say they are not. Constructing a new date from the
  * three parts is also what drops the time zone question — the parts are already local.
  */
+/**
+ * How many days that month has, with `month` zero-based as `Date` has it.
+ *
+ * Asked by anything that has to keep a day number inside its month — a masked field where
+ * the reader has typed 31 into February, a calendar clamping a chosen day as the month
+ * changes under it.
+ */
+export function daysInMonth(year: number, month: number): number {
+  // Day zero of the next month is the last day of this one, and the `Date` constructor
+  // already knows every leap rule there is — including the century ones a `% 4` gets wrong.
+  return new Date(year, month + 1, 0).getDate()
+}
+
 export function startOfDay(date: Date): Date {
   return new Date(date.getFullYear(), date.getMonth(), date.getDate())
 }
@@ -202,6 +215,26 @@ export function monthLabel(month: Date, locale: string): string {
 }
 
 /**
+ * The twelve month names, in the calendar's locale — "janvier", "février", … — for the
+ * month grid the year picker drills into.
+ *
+ * Any year would do as a source of twelve consecutive months; 2023 is the one
+ * `weekdayNames` already uses. Falls back to English long names on an engine with no
+ * `Intl`, like every other formatter in this file.
+ */
+export function monthNames(
+  locale: string,
+  format: Intl.DateTimeFormatOptions['month'] = 'long'
+): string[] {
+  const formatter = safeFormatter(locale, { month: format })
+
+  return Array.from({ length: 12 }, (_, index) => {
+    const date = new Date(2023, index, 1)
+    return formatter ? formatter.format(date) : FALLBACK_MONTHS[index]
+  })
+}
+
+/**
  * A formatter, or nothing.
  *
  * A Hermes build compiled without ICU has no `Intl.DateTimeFormat`, and an invalid locale
@@ -220,3 +253,18 @@ function safeFormatter(
 }
 
 const FALLBACK_WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
+
+const FALLBACK_MONTHS = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+]
