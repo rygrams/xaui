@@ -32,6 +32,24 @@ export default function DatePickerScreen() {
       <YearAndMonth />
 
       <Section
+        title="The field is a TextField column"
+        note="DatePicker.Field is label, trigger and hint in one tag — the same root gap, label and help styles as a TextField, so the two line up in a form. errorMessage shows only while isInvalid, in place of description."
+      >
+        <Field
+          label="Date de naissance"
+          placeholder="jj / mm / aaaa"
+          description="Le format s'affiche une fois la date choisie."
+        />
+        <Field
+          isInvalid
+          label="Date de début"
+          placeholder="Choisir une date"
+          description="Ce champ est requis."
+          errorMessage="Choisissez une date pour continuer."
+        />
+      </Section>
+
+      <Section
         title="The panel is as wide as the grid, not as wide as the field"
         note="A list is as wide as the field that opens it, because its rows are that field's answers. A month grid is seven columns of a fixed cell, and squeezing it into a narrow field would crush the cells or clip the week. Open the narrow one below."
       >
@@ -214,9 +232,15 @@ function Confirming() {
 
 function Field({
   placeholder = 'Choisir une date',
+  label,
+  description,
+  errorMessage,
   ...props
 }: {
   placeholder?: string
+  label?: string
+  description?: string
+  errorMessage?: string
   variant?: DatePickerVariant
   calendarVariant?: DatePickerVariant
   size?: DatePickerSize
@@ -230,10 +254,12 @@ function Field({
 }) {
   return (
     <DatePicker {...props}>
-      <DatePicker.Trigger>
-        <DatePicker.Value placeholder={placeholder} />
-        <DatePicker.Indicator />
-      </DatePicker.Trigger>
+      <DatePicker.Field
+        placeholder={placeholder}
+        label={label}
+        description={description}
+        errorMessage={errorMessage}
+      />
       <DatePicker.Overlay />
       <DatePicker.Content>
         <DatePicker.Calendar />

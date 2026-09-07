@@ -11,6 +11,24 @@ import { DatePicker } from '@xaui/native/date-picker'
 ## Usage
 
 ```tsx
+<DatePicker value={date} onValueChange={setDate} isInvalid={Boolean(error)}>
+  <DatePicker.Field
+    label="Date de naissance"
+    placeholder="Choisir une date"
+    description="jj/mm/aaaa"
+    errorMessage={error}
+  />
+  <DatePicker.Overlay />
+  <DatePicker.Content>
+    <DatePicker.Calendar />
+  </DatePicker.Content>
+</DatePicker>
+```
+
+`DatePicker.Field` is the whole field in one tag — label, trigger, hint. The slots are still
+there for finer control:
+
+```tsx
 <DatePicker value={date} onValueChange={setDate}>
   <DatePicker.Trigger>
     <DatePicker.Value placeholder="Choisir une date" />
@@ -25,15 +43,24 @@ import { DatePicker } from '@xaui/native/date-picker'
 
 ## Anatomy
 
-| slot                   | what it is                                   |
-| ---------------------- | -------------------------------------------- |
-| `DatePicker`           | State and resolved style. It renders no node |
-| `DatePicker.Trigger`   | The control — the field the user sees        |
-| `DatePicker.Value`     | The chosen day, or the placeholder           |
-| `DatePicker.Indicator` | The calendar glyph on the field              |
-| `DatePicker.Overlay`   | The backdrop. Optional                       |
-| `DatePicker.Content`   | The panel                                    |
-| `DatePicker.Calendar`  | The month, bound to the picker               |
+| slot                     | what it is                                              |
+| ------------------------ | ------------------------------------------------------- |
+| `DatePicker`             | State and resolved style. It renders no node            |
+| `DatePicker.Field`       | Label, trigger and hint in one — the `TextField` column |
+| `DatePicker.Label`       | What the field is for. `danger` on `isInvalid`          |
+| `DatePicker.Trigger`     | The control — the field the user sees                   |
+| `DatePicker.Value`       | The chosen day, or the placeholder                      |
+| `DatePicker.Indicator`   | The calendar glyph on the field                         |
+| `DatePicker.Description` | The hint under the field                                |
+| `DatePicker.Error`       | What is wrong, in `danger`                              |
+| `DatePicker.Overlay`     | The backdrop. Optional                                  |
+| `DatePicker.Content`     | The panel                                               |
+| `DatePicker.Calendar`    | The month, bound to the picker                          |
+
+**`DatePicker.Field` is the `TextField`'s column**, token for token: the same `root` gap,
+the same label and help styles, resolved through `textFieldRecipe`. A date field and a text
+field stacked in one form line up and read as one control — the same reason the trigger is a
+`Select`'s. `errorMessage` shows only while `isInvalid`, in place of `description`.
 
 ## It owns almost nothing
 

@@ -5,6 +5,7 @@ import { useControllableState } from '../../hooks/use-controllable-state'
 import { useXAUITheme } from '../../theme/theme-hooks'
 import { startOfDay } from '../../utils/dates'
 import { selectRecipe } from '../select/select.recipe'
+import { textFieldRecipe } from '../text-field/text-field.recipe'
 import { DatePickerProvider } from './date-picker.context'
 import { datePickerRecipe } from './date-picker.recipe'
 import type { DatePickerAnchor, DatePickerProps } from './date-picker.type'
@@ -106,6 +107,15 @@ export function DatePicker({
   /** The half neither the select nor the calendar has: the panel's own inset. */
   const own = datePickerRecipe.resolve({ theme, selection: { size } })
 
+  // The column, the label and the help line are the `TextField`'s, token for token — a
+  // date field and a text field stacked in one form read as one control, which is why
+  // `DatePicker.Field` composes them rather than this component owning a second table.
+  const labelled = textFieldRecipe.resolve({
+    theme,
+    selection: { size, isInvalid: isInvalid ? ('true' as const) : undefined },
+    states: { disabled: isDisabled },
+  })
+
   const open = useCallback(() => setOpen(true), [setOpen])
   const close = useCallback(() => setOpen(false), [setOpen])
   const toggle = useCallback(
@@ -166,6 +176,10 @@ export function DatePicker({
       overlayStyle: styles.overlay,
       contentStyle: styles.content,
       fieldStyle: own.field,
+      columnStyle: labelled.root,
+      labelStyle: labelled.label,
+      descriptionStyle: labelled.description,
+      errorStyle: labelled.error,
       glyph: {
         size: indicator.fontSize,
         color: typeof indicator.color === 'string' ? indicator.color : undefined,
@@ -188,6 +202,7 @@ export function DatePicker({
     pressed,
     tint,
     own,
+    labelled,
     value,
     label,
     isOpen,

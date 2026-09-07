@@ -83,6 +83,39 @@ export type DatePickerValueProps = DatePickerValueOwnProps &
   Omit<TextProps, keyof DatePickerValueOwnProps> &
   Omit<TextStyleProps, keyof DatePickerValueOwnProps | keyof TextProps>
 
+/** A `Text` slot — `DatePicker.Label`, `.Description` and `.Error` are the same shape. */
+type DatePickerTextSlotProps = { children?: ReactNode } & Omit<
+  TextProps,
+  'children'
+> &
+  TextStyleProps
+
+export type DatePickerLabelProps = DatePickerTextSlotProps
+export type DatePickerDescriptionProps = DatePickerTextSlotProps
+export type DatePickerErrorProps = DatePickerTextSlotProps
+
+type DatePickerFieldOwnProps = {
+  /** The line the field shows while no day is chosen. */
+  placeholder?: string
+  /** The label above the field. A string or a node of your own. */
+  label?: ReactNode
+  /** The hint under the field — the format expected, what the day is for. */
+  description?: ReactNode
+  /** What is wrong, shown in `danger` **while `isInvalid`** and in place of `description`. */
+  errorMessage?: ReactNode
+  /** Replaces the value and the glyph inside the trigger. */
+  children?: ReactNode
+}
+
+/**
+ * The field in one tag: the label, the trigger with its value and glyph, and the hint or
+ * the error under it — the `TextField`'s column, wired to the picker. Everything
+ * `DatePicker.Trigger` takes is written here and lands on the trigger.
+ */
+export type DatePickerFieldProps = DatePickerFieldOwnProps &
+  Omit<PressableProps, 'children'> &
+  ViewStyleProps
+
 export type DatePickerOverlayProps = ViewProps &
   ViewStyleProps & { isDismissable?: boolean }
 
@@ -117,6 +150,11 @@ export type DatePickerContextValue = {
   overlayStyle: StyleProp<ViewStyle>
   contentStyle: StyleProp<ViewStyle>
   fieldStyle: StyleProp<ViewStyle>
+  /** The `TextField`'s column, label and help line — what `DatePicker.Field` stacks. */
+  columnStyle: StyleProp<ViewStyle>
+  labelStyle: StyleProp<TextStyle>
+  descriptionStyle: StyleProp<TextStyle>
+  errorStyle: StyleProp<TextStyle>
   glyph: IconContextValue
   value: Date | undefined
   /** The chosen day as the field reads it, or `undefined` while none is. */
