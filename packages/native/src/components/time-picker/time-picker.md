@@ -48,11 +48,20 @@ midnight is the start of a day, not its end, and the hour reported is 0.
 smudge and a dot on every minute is clutter; the unlabelled minutes are still targets, they
 are just not drawn. `minuteStep` coarsens them, for a picker that only wants quarters.
 
-**Tap a mark, or hold and turn the hand.** A press on a number is what a reader does by
-reflex. Past that, holding anywhere on the face for a beat hands the dial to a drag — the
-hand follows the finger and the value under it is chosen, live, so an unlabelled `07` is
-reached by turning the hand onto it. The hold is what keeps the two apart: a quick tap still
-lands on the mark beneath it.
+**The whole face is the control.** A touch anywhere on it moves the hand to the value under
+the finger; keep the finger down and the hand follows it, live, so an unlabelled `07` is
+reached by turning the hand onto it. One gesture, whether the reader aims at a number or
+turns the hand round to it.
+
+**The choice settles on release.** Choosing an hour hands the dial on to the minutes and
+choosing a minute closes the sheet — do either on touch-down and the ring flips under the
+finger with nothing left to turn. So the frames of a drag only write the value, and the
+release picks it. A tap is that pair with nothing in between.
+
+The pan claims the touch **on contact** rather than after a hold. A hold let the sheet win —
+`BottomSheet.Content` wraps its children in a pan of its own with no threshold, so a finger's
+jitter slid the sheet down before the dial's hold had elapsed. The marks keep their button
+role for a screen reader, which activates them directly and never reaches the pan.
 
 **Choosing an hour goes straight to the minutes**, which is the one thing that makes a
 two-ring dial feel like one gesture rather than two. Choosing a minute closes the sheet,
@@ -86,9 +95,10 @@ there is room here, and a reader choosing a time from nothing should see both op
 than press one to find the other.
 
 `AM` and `PM` sit **side by side** in a small pill, well below the dial's numbers in size —
-they caption the time rather than being part of it. The pill is **out of flow**, hung off
-the trailing edge of the two numbers, so the time itself stays centred whether the reader
-is on a twelve- or a twenty-four hour clock.
+they caption the time rather than being part of it. The display is **as wide as the face
+beneath it** and the pill is out of flow, pinned to its trailing edge: the two numbers keep
+the middle of that box, so the time reads dead centre over the dial whether the reader is on
+a twelve- or a twenty-four hour clock.
 
 ### The indicator
 

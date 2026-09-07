@@ -1,4 +1,4 @@
-import { forwardRef, useCallback, useMemo } from 'react'
+import { forwardRef, useCallback, useMemo, useRef } from 'react'
 import { Pressable, Text, View } from 'react-native'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 import { runOnJS } from 'react-native-reanimated'
@@ -18,8 +18,6 @@ const HOURS_ON_A_FACE = 12
 const MINUTES_IN_AN_HOUR = 60
 /** Every fifth minute carries a number; the rest are targets with no label. */
 const LABELLED_MINUTE = 5
-/** How long a finger rests before a drag round the dial takes over from a tap on a mark. */
-const DRAG_HOLD_MS = 220
 
 /**
  * The dial: the marks, the hand, and the hub they turn about.
@@ -33,11 +31,22 @@ const DRAG_HOLD_MS = 220
  * by dragging the hand onto it rather than by aiming at a dot. `minuteStep` coarsens the
  * targets, for a picker that only wants quarters.
  *
- * **Tap a mark, or hold and turn the hand.** A press on a number is what a reader does by
- * reflex and needs no gesture recogniser. Past that, holding anywhere on the face for a beat
- * hands the dial to a drag: the hand follows the finger and the value under it is chosen,
- * live. The hold is what keeps the two apart — a quick tap still lands on the mark beneath
- * it.
+ * **The whole face is the control.** A touch anywhere on it moves the hand to the value
+ * under the finger and keeps it there while the finger turns — one gesture, whether the
+ * reader aims at `3` or turns the hand round to an unlabelled `07`.
+ *
+ * **The choice settles on release, not on contact.** Picking an hour hands the dial on to
+ * the minutes and picking a minute closes the sheet, so doing either on touch-down ends the
+ * gesture before it starts — the ring flips under the finger and there is nothing left to
+ * turn. Every frame of the drag calls `onDrag*`, which only writes the value; `onEnd` calls
+ * `onPick*`, which settles it. A tap is that pair with nothing in between.
+ *
+ * The pan takes the touch **the moment it lands** (`minDistance(0)`) rather than after a
+ * hold. A hold let the sheet win: `BottomSheet.Content` wraps its children in a pan of its
+ * own with no threshold, so the finger's jitter slid the sheet down before the dial's hold
+ * had elapsed. Claiming the touch on contact settles that — a gesture that has activated
+ * cancels the ones around it. The marks keep their `Pressable` and their roles for a screen
+ * reader, which activates them directly and never reaches the pan.
  *
  * Every mark is placed by `clockPoint` — a fixed box pulled back by half of it, which is the
  * only placement that works at every angle without measuring the text.
@@ -59,6 +68,8 @@ export const TimePickerClock = forwardRef<View, TimePickerViewProps>(
       hourCycle,
       minuteStep,
       unit,
+      onDragHour,
+      onDragMinute,
       onPickHour,
       onPickMinute,
       isDisabled,
@@ -132,54 +143,90 @@ export const TimePickerClock = forwardRef<View, TimePickerViewProps>(
         : dial.ring
 
     /**
+     * **Everything the drag reads, in a box the drag can reopen.**
+     *
+     * A `GestureDetector` binds its gesture to the view once; a gesture rebuilt on a later
+     * render does not reliably replace the closures already bound. So a `valueAt` that
+     * closed over `unit` kept the ring it was born with — the hand turned, and set an hour
+     * on a face showing minutes. Reading through a ref makes the function itself constant,
+     * which is what lets the gesture be built once and still see this render's values.
+     */
+    const latest = useRef({
+      center,
+      radius,
+      unit,
+      minuteStep,
+      hourCycle,
+      ring: dial.ring,
+      innerRing: dial.innerRing,
+      onDragHour,
+      onDragMinute,
+      onPickHour,
+      onPickMinute,
+    })
+    latest.current = {
+      center,
+      radius,
+      unit,
+      minuteStep,
+      hourCycle,
+      ring: dial.ring,
+      innerRing: dial.innerRing,
+      onDragHour,
+      onDragMinute,
+      onPickHour,
+      onPickMinute,
+    }
+
+    /**
      * The value the finger is over. For a twenty-four hour face the ring is read from the
      * distance to the centre — the outer numbers are 1–12, the inner ones 13–00.
+     *
+     * `settle` says whether this is the end of the gesture: while the finger is down the
+     * value is only written, so the hand turns under it; on release it is picked, and the
+     * hours hand on to the minutes.
      */
-    const pickAt = useCallback(
-      (x: number, y: number) => {
-        const point = { x, y }
-        const angle = angleAtPoint(center, point)
+    const valueAt = useCallback((x: number, y: number, settle: boolean) => {
+      const now = latest.current
+      const point = { x, y }
+      const angle = angleAtPoint(now.center, point)
 
-        if (unit === 'minute') {
-          const step = Math.max(1, minuteStep)
-          const raw = valueAtAngle(angle, MINUTES_IN_AN_HOUR)
-          onPickMinute((Math.round(raw / step) * step) % MINUTES_IN_AN_HOUR)
-          return
-        }
+      if (now.unit === 'minute') {
+        const step = Math.max(1, now.minuteStep)
+        const raw = valueAtAngle(angle, MINUTES_IN_AN_HOUR)
+        const minute = (Math.round(raw / step) * step) % MINUTES_IN_AN_HOUR
+        if (settle) now.onPickMinute(minute)
+        else now.onDragMinute(minute)
+        return
+      }
 
-        const raw = valueAtAngle(angle, HOURS_ON_A_FACE)
-        if (hourCycle === 12) {
-          onPickHour(raw === 0 ? HOURS_ON_A_FACE : raw)
-          return
-        }
+      const setHour = settle ? now.onPickHour : now.onDragHour
+      const raw = valueAtAngle(angle, HOURS_ON_A_FACE)
+      if (now.hourCycle === 12) {
+        setHour(raw === 0 ? HOURS_ON_A_FACE : raw)
+        return
+      }
 
-        const onInner =
-          distanceFrom(center, point) < radius * (dial.ring + dial.innerRing) * 0.5
-        if (onInner) onPickHour(raw === 0 ? 0 : raw + HOURS_ON_A_FACE)
-        else onPickHour(raw === 0 ? HOURS_ON_A_FACE : raw)
-      },
-      [
-        center,
-        radius,
-        unit,
-        minuteStep,
-        hourCycle,
-        dial.ring,
-        dial.innerRing,
-        onPickHour,
-        onPickMinute,
-      ]
-    )
+      const onInner =
+        distanceFrom(now.center, point) <
+        now.radius * (now.ring + now.innerRing) * 0.5
+      if (onInner) setHour(raw === 0 ? 0 : raw + HOURS_ON_A_FACE)
+      else setHour(raw === 0 ? HOURS_ON_A_FACE : raw)
+    }, [])
 
     const drag = useMemo(
       () =>
         Gesture.Pan()
           .enabled(!isDisabled)
-          // The hold is what keeps a drag from stealing a tap meant for a mark.
-          .activateAfterLongPress(DRAG_HOLD_MS)
-          .onStart(event => runOnJS(pickAt)(event.x, event.y))
-          .onUpdate(event => runOnJS(pickAt)(event.x, event.y)),
-      [isDisabled, pickAt]
+          // On contact, not after a threshold — the dial has to beat the sheet's own pan,
+          // and a clock face is chosen by where the finger lands as much as by where it
+          // travels.
+          .minDistance(0)
+          .onStart(event => runOnJS(valueAt)(event.x, event.y, false))
+          .onUpdate(event => runOnJS(valueAt)(event.x, event.y, false))
+          // Only here does the choice settle. A tap is this pair with nothing in between.
+          .onEnd(event => runOnJS(valueAt)(event.x, event.y, true)),
+      [isDisabled, valueAt]
     )
 
     return (
