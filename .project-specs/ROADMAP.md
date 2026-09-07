@@ -115,7 +115,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.25c | `WheelDatePicker` — net new, `WheelPicker` columns for a date                    | todo    |
 | P5.25d | `WheelTimePicker` — net new, `WheelPicker` columns for a time                    | todo    |
 | P5.25e | `WheelDateTimePicker` — net new, the two above as one                            | todo    |
-| P5.26  | `DatePicker`                                                                     | todo    |
+| P5.26  | `DatePicker` — Trigger · Value · Indicator · Overlay · Content · Calendar        | done    |
 | P5.26b | `Calendar` — net new, no legacy equivalent                                       | done    |
 
 | P5.26b\* | `Calendar.YearPicker` — the years, mounted instead of the days | done |

@@ -56,6 +56,11 @@ type SizeStep = {
 }
 
 /**
+ * Exported for the `DatePicker`, which needs one number out of it. Its panel is sized to
+ * its content rather than to the field that opens it, and a grid of seven percentage
+ * columns inside a box with no width of its own measures zero — so the picker gives the
+ * calendar an explicit `7 × cell` and the columns divide that.
+ *
  * The cell is 36 to 44 points, which is the whole of the ladder: a calendar is seven
  * columns wide whatever the size, so `size` cannot drive width without deciding the
  * calendar's own — and the grid spans its parent instead.
@@ -63,7 +68,7 @@ type SizeStep = {
  * Off the spacing grid, like the `Slider`'s rail: how big a square has to be before a
  * finger can hit one of seven in a row has nothing to do with the gaps between things.
  */
-const SIZES: Record<CalendarSize, SizeStep> = {
+export const SIZES: Record<CalendarSize, SizeStep> = {
   sm: { cell: 36, label: 'sm', title: 'md', weekday: 'xs' },
   md: { cell: 40, label: 'md', title: 'lg', weekday: 'sm' },
   lg: { cell: 44, label: 'lg', title: 'xl', weekday: 'md' },

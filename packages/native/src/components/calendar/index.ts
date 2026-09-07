@@ -30,7 +30,7 @@ export { CalendarTitle } from './calendar-title'
 export { CalendarWeekdays } from './calendar-weekdays'
 export { CalendarYearPicker } from './calendar-year-picker'
 export { useCalendar } from './calendar.context'
-export { calendarRecipe } from './calendar.recipe'
+export { calendarRecipe, SIZES as calendarCellSizes } from './calendar.recipe'
 export type {
   CalendarContextValue,
   CalendarDayProps,

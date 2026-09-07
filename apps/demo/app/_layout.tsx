@@ -46,6 +46,7 @@ export default function RootLayout() {
             options={{ title: 'CloseButton (v1)' }}
           />
           <Stack.Screen name="combobox" options={{ title: 'Combobox (v1)' }} />
+          <Stack.Screen name="date-picker" options={{ title: 'DatePicker (v1)' }} />
           <Stack.Screen name="dialog" options={{ title: 'Dialog (v1)' }} />
           <Stack.Screen name="divider" options={{ title: 'Divider (v1)' }} />
           <Stack.Screen name="field-group" options={{ title: 'FieldGroup (v1)' }} />

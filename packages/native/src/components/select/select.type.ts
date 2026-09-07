@@ -144,6 +144,12 @@ type SelectContentOwnProps = {
   placement?: SelectPlacement
   align?: SelectAlign
   width?: SelectWidth
+  /**
+   * A floor under `width`, in points. A `trigger`-width panel that would come out narrower
+   * than this takes this instead — still clamped to the screen. `content-fit` measures
+   * between it and `maxWidth`.
+   */
+  minWidth?: number
   /** Distance from the trigger, in points. */
   offset?: number
   /** Shift along the alignment axis, in points. */
