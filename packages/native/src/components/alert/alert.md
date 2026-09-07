@@ -255,7 +255,7 @@ Everything `Text` accepts, plus the `TextStyle` keys as props (R14). Both wrap.
 
 ### `Alert.Close`
 
-Everything the shared `CloseButton` accepts — `accessibilityRole` is `'button'` and
+Everything the shared `CloseButtonBase` accepts — `accessibilityRole` is `'button'` and
 `hitSlop` is `8` by default, and `isDisabled` falls back to the alert's. With no children it
 draws its own cross, so a dismissible alert works in a project that has installed no icon
 set.

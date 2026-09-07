@@ -32,6 +32,8 @@ import { Calendar } from '@xaui/native/calendar'
 | `Calendar.Weekdays`       | The seven column headings                               |
 | `Calendar.Grid`           | Six weeks of cells                                      |
 | `Calendar.Day`            | One day                                                 |
+| `Calendar.YearPicker`     | The years a calendar can be aimed at                    |
+| `Calendar.MonthPicker`    | The twelve months of the year just aimed at             |
 
 **The header lays itself out with `space-between` and nothing else.** Where the title sits —
 between the chevrons, or beside them with both on the right, as `AgendaCalendar` has it — is
@@ -147,15 +149,15 @@ tint pass re-runs `paint` and never the axes.
 
 ## Today
 
-Today carries a dot under its number — muted on a plain day, and in the chosen day's own
-contrast colour when today _is_ the chosen day. It is positioned absolutely so the number
-does not shift down the day the dot appears.
+Today carries a small dot tucked just under its number — the **soft accent** on a plain day,
+and the chosen day's own contrast colour when today _is_ the chosen day. It is positioned
+absolutely so the number does not shift down the day the dot appears.
 
 ## The dates behind it
 
 The arithmetic is `utils/dates.ts`, and it is tested: `startOfDay`, `isSameDay`,
 `isSameMonth`, `addDays`, `addMonths`, `startOfWeek`, `isWithinBounds`, `monthGrid`,
-`weekGrid`, `weekdayNames`, `monthLabel`, `firstDayOfWeekFor`.
+`weekGrid`, `weekdayNames`, `monthLabel`, `monthNames`, `firstDayOfWeekFor`.
 
 Two of those exist because the obvious version is wrong:
 
@@ -172,24 +174,27 @@ Two of those exist because the obvious version is wrong:
 
 Everything `View` accepts, every `ViewStyle` key it does not already claim (R14), plus:
 
-| Prop             | Type                    | Default      | Notes                            |
-| ---------------- | ----------------------- | ------------ | -------------------------------- |
-| `variant`        | `CalendarVariant`       | `'primary'`  | The chosen day                   |
-| `size`           | `'sm' \| 'md' \| 'lg'`  | `'md'`       | The cell's box and its type      |
-| `radius`         | `RadiusKey`             | a circle     | The cell and the disc together   |
-| `color`          | `string`                | —            | A hex tint, on the chosen day    |
-| `value`          | `Date`                  | —            | Controlled                       |
-| `defaultValue`   | `Date`                  | —            | Uncontrolled starting day        |
-| `onValueChange`  | `(value: Date) => void` | —            | Fires at midnight local time     |
-| `month`          | `Date`                  | —            | The month on screen. Controlled  |
-| `defaultMonth`   | `Date`                  | the value's  | Uncontrolled starting month      |
-| `onMonthChange`  | `(month: Date) => void` | —            |                                  |
-| `minValue`       | `Date`                  | —            | Compared by day                  |
-| `maxValue`       | `Date`                  | —            |                                  |
-| `firstDayOfWeek` | `0`–`6`                 | the locale's |                                  |
-| `locale`         | `string`                | the device's |                                  |
-| `isDisabled`     | `boolean`               | `false`      | Every day, and none opts back in |
-| `asChild`        | `boolean`               | `false`      | Merge into the single child      |
+| Prop             | Type                        | Default      | Notes                            |
+| ---------------- | --------------------------- | ------------ | -------------------------------- |
+| `variant`        | `CalendarVariant`           | `'primary'`  | The chosen day                   |
+| `size`           | `'sm' \| 'md' \| 'lg'`      | `'md'`       | The cell's box and its type      |
+| `radius`         | `RadiusKey`                 | a circle     | The cell and the disc together   |
+| `color`          | `string`                    | —            | A hex tint, on the chosen day    |
+| `value`          | `Date`                      | —            | Controlled                       |
+| `defaultValue`   | `Date`                      | —            | Uncontrolled starting day        |
+| `onValueChange`  | `(value: Date) => void`     | —            | Fires at midnight local time     |
+| `month`          | `Date`                      | —            | The month on screen. Controlled  |
+| `defaultMonth`   | `Date`                      | the value's  | Uncontrolled starting month      |
+| `onMonthChange`  | `(month: Date) => void`     | —            |                                  |
+| `minValue`       | `Date`                      | —            | Compared by day                  |
+| `maxValue`       | `Date`                      | —            |                                  |
+| `firstDayOfWeek` | `0`–`6`                     | the locale's |                                  |
+| `locale`         | `string`                    | the device's |                                  |
+| `view`           | `CalendarView`              | —            | Controlled panel on screen       |
+| `defaultView`    | `CalendarView`              | `'grid'`     | Uncontrolled starting panel      |
+| `onViewChange`   | `(v: CalendarView) => void` | —            | Fires when a picker steps it     |
+| `isDisabled`     | `boolean`                   | `false`      | Every day, and none opts back in |
+| `asChild`        | `boolean`                   | `false`      | Merge into the single child      |
 
 ### `Calendar.Day`
 
@@ -205,12 +210,75 @@ Everything `PressableFeedback` accepts, plus the `ViewStyle` keys as props (R14)
 
 Everything `PressableFeedback` accepts, plus `step` — how many months one press moves.
 
+### `Calendar.YearPicker`
+
+A `ScrollView` of year pills, and everything it accepts plus `style` in `ViewStyle` keys
+(R14), plus:
+
+| Prop        | Type     | Default       | Notes                               |
+| ----------- | -------- | ------------- | ----------------------------------- |
+| `firstYear` | `number` | fifty back    | From `minValue`'s year when bounded |
+| `lastYear`  | `number` | fifty forward | From `maxValue`'s year when bounded |
+
+### `Calendar.MonthPicker`
+
+Everything `View` accepts, plus the `ViewStyle` keys as props (R14), plus:
+
+| Prop     | Type                | Default  | Notes                                         |
+| -------- | ------------------- | -------- | --------------------------------------------- |
+| `format` | `'long' \| 'short'` | `'long'` | `"septembre"` or `"sept."`, clipped to a line |
+
+## Switching the month and the year
+
+`Calendar.YearPicker` and `Calendar.MonthPicker` are the legacy dialog's month-year button
+rebuilt in composition. Each mounts **instead of** the weekdays and the grid, not over them
+— a drum of years behind a drum of days would read as two things at once — and the walk is
+legacy's: the title opens the years, a year opens the months of that year, a month lands
+back on the days.
+
+`view` is the third piece of state, controlled the way `value` and `month` are. The pickers
+step it themselves; the caller owns it so the title can be the switch:
+
+```tsx
+const [view, setView] = useState<CalendarView>('grid')
+
+<Calendar value={date} onValueChange={setDate} view={view} onViewChange={setView}>
+  <Calendar.Header>
+    <Calendar.PreviousButton accessibilityLabel="Mois précédent" />
+    <PressableFeedback onPress={() => setView(v => (v === 'grid' ? 'year' : 'grid'))}>
+      <Calendar.Title />
+    </PressableFeedback>
+    <Calendar.NextButton accessibilityLabel="Mois suivant" />
+  </Calendar.Header>
+  {view === 'year' ? (
+    <Calendar.YearPicker />
+  ) : view === 'month' ? (
+    <Calendar.MonthPicker />
+  ) : (
+    <>
+      <Calendar.Weekdays />
+      <Calendar.Grid />
+    </>
+  )}
+</Calendar>
+```
+
+The year and the month on screen each wear the chosen day's disc, and the year list opens
+on the year it was on. Pressing a year **keeps the month of the year it was showing**, and
+pressing a month **keeps the year** — a header that said "septembre 2026" has not become a
+switch to January. A year or a month that lies entirely outside the bounds is dead rather
+than merely inert.
+
+The caller reads `view` to choose which of the three to render, so in practice it holds the
+state — as above, or from a child on `useCalendar()`. The pickers only ever step it.
+
 ## Extending it
 
 `useCalendar()` is exported (R10) and carries the resolved styles, the month on screen, the
-chosen day, the locale, and the three moves: `select`, `goToMonth` and `canGoToMonth`. Enough
-to write a year picker beside the title, or a "Today" button of your own. Outside a
-`<Calendar>` it throws by name.
+chosen day, the locale, the panel (`view` / `setView`), and the moves: `select`,
+`goToMonth`, `canGoToMonth`, `goToYear` and `goToMonthInYear`. Enough for a "Today" button
+of your own, or a title on `useCalendar().setView` — the pickers the built-in ones serve run
+on nothing else. Outside a `<Calendar>` it throws by name.
 
 ## Accessibility
 

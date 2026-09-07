@@ -1,6 +1,6 @@
 import { createElement } from 'react'
 import { describe, expect, it } from 'vitest'
-import { collectItemLabels } from '../../../components/select/select.utils'
+import { collectItemLabels } from '../../utils/item-labels'
 
 /** Stand-ins: the collector matches by identity, so any two components will do. */
 const Item = () => null

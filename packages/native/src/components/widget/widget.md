@@ -1,0 +1,174 @@
+# Widget
+
+A thing on a dashboard: a title, a card, and a line about it underneath.
+
+## Import
+
+```tsx
+import { Widget } from '@xaui/native/widget'
+```
+
+## Usage
+
+```tsx
+<Widget>
+  <Widget.Header>
+    <Widget.Heading>
+      <Widget.Title>Tokens consommés</Widget.Title>
+      <Widget.Description>30 derniers jours</Widget.Description>
+    </Widget.Heading>
+    <Chart.Legend labels={['Entrée', 'Sortie']} />
+  </Widget.Header>
+
+  <Widget.Content>
+    <LineChart data={rows} xKey="jour" yKeys={['entree', 'sortie']} />
+  </Widget.Content>
+
+  <Widget.Footer>Mis à jour il y a 2 minutes</Widget.Footer>
+</Widget>
+```
+
+## It is a card held in a soft frame
+
+That is the whole of it, and it is worth stating plainly because a widget and a card look
+alike in a screenshot.
+
+A **card** puts its content flush on its own ground: the header, the body and the footer are
+all the same surface, and what separates them is space.
+
+A **widget** is a quiet `defaultSoft` ground with no border. The header and the footer sit
+straight on it, and `Widget.Content` is the one card — one step **up** from the frame
+(`surface` in light, `surfaceSecondary` in dark; see [No variant](#no-variant)). What is
+inside the card reads as the thing being shown; the title and the timestamp around it, on
+the soft ground, read as the frame's own labels — **not** part of the thing.
+
+Reach for a card when the content _is_ the card's content. Reach for a widget when the frame
+is a label around something with its own edges.
+
+## The card's corner is derived, not chosen
+
+An inner corner is the outer one **less the gap between them** — here the frame's
+**vertical** padding, the band above and below the card that a near-full-width card visibly
+sits within:
+
+```
+cardRadius = theme.radius[radius] − theme.spacing(paddingY)
+```
+
+Two arcs that do not follow that rule run at different rates, and the inset stops reading as
+a card the frame is holding and starts reading as a sticker laid on it. It is the one thing
+this component's shape depends on, so it is not a prop.
+
+It is clamped at zero, because a large padding under a small corner would otherwise ask for
+a negative radius — an `xs` widget at `radius="sm"` has a square card, correctly.
+
+A `radius` prop therefore moves **both** corners. That is what the forty `size × radius`
+compounds in the recipe are for: an axis sees only its own prop, and this value needs two.
+
+## No variant
+
+A widget has **one look** — there is no `variant`, and no primary/secondary/tertiary. The
+frame is always `defaultSoft`. The card is `surface` in light — white against a near-white
+frame, so the step up is obvious — and `surfaceSecondary` in dark, where `surface` would
+land on top of what `defaultSoft` composites to and vanish (and dark mode drops the surface
+shadow, so colour is the only separation left). What moves is structural:
+
+- `size` — the padding, the gaps, the corner and the type.
+- `radius` — the frame's corner (the card's follows it).
+- `isElevated` — whether the card is lifted off the frame.
+
+## Slots
+
+| slot                 | node   | what it is                                                          |
+| -------------------- | ------ | ------------------------------------------------------------------- |
+| `Widget`             | `View` | the soft frame                                                      |
+| `Widget.Header`      | `View` | the row above the card — heading on one side, anything on the other |
+| `Widget.Heading`     | `View` | the title and its description, as one block                         |
+| `Widget.Title`       | `Text` | what this is. An `accessibilityRole="header"`                       |
+| `Widget.Description` | `Text` | what it is showing — the period, the unit, the caveat               |
+| `Widget.Content`     | `View` | the card                                                            |
+| `Widget.Footer`      | `Text` | when it was last updated, over what range, what it excludes         |
+
+Every one of them is optional and none of them has a fixed order — a widget that is a card
+and nothing else is a `Widget` with one `Widget.Content` in it.
+
+### Why `Heading` exists
+
+The gap between a title and its subtitle is a different gap from the one between that block
+and the legend beside it, and R4 puts layout on a root — so two gaps need two roots. It also
+shrinks rather than pushing, so a long title wraps instead of squeezing the trailing content
+off the row.
+
+### `Widget.Content` is a ground, not a chart slot
+
+A figure, a table, a list of rows, a map — whatever the widget is showing goes there, and
+the only thing the slot knows about it is that it is a level up from the frame.
+
+It **clips**, which matters for the case this component exists for: a chart's own box is a
+rectangle, and a rectangle in a rounded card shows its corners.
+
+### `Widget.Footer` is a `Text`
+
+Because that is what it almost always is — a timestamp, a range, a caveat. A footer that
+needs a control in it is a `View` you write, and this slot is what you put in it:
+
+```tsx
+<View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+  <Widget.Footer>Mis à jour il y a 2 minutes</Widget.Footer>
+  <Button variant="ghost" size="xs">
+    Voir tout
+  </Button>
+</View>
+```
+
+## `isElevated` is on by default
+
+The soft frame stays flat against the page; the shadow lands on the **card**, and that is
+what separates it from the frame it sits in. A widget is one of several on a dashboard, and
+the raised card is what makes each one read as its own object.
+
+In **dark mode** there is no shadow to land — `theme.shadows.surface` is empty by design —
+so the card leans entirely on the colour step, which is why it uses `surfaceSecondary`
+there rather than `surface`.
+
+```tsx
+<Widget isElevated={false}>
+```
+
+Flat, the card falls back on that colour step alone — enough on most themes, and the right
+call when the widget is already inside a bordered container that does the separating.
+
+## Size
+
+`size` moves the padding, the gaps, the corner and the type — **never a height**. A widget
+is as tall as what is in it.
+
+| size | frame padding (x / y) | card padding | corner | title |
+| ---- | --------------------- | ------------ | ------ | ----- |
+| `xs` | 2 / 3                 | 2            | `xl`   | `sm`  |
+| `sm` | 2.5 / 3.5             | 2.5          | `2xl`  | `md`  |
+| `md` | 3 / 4                 | 3            | `2xl`  | `lg`  |
+| `lg` | 3.5 / 5               | 3.5          | `3xl`  | `xl`  |
+
+The frame's **side** inset is one step tighter than its vertical one: the card carries most
+of the width, so a wide band on either side of it is margin the frame does not need. On the
+sides it comes out level with the card's own inset, which keeps the horizontal rhythm even
+from the frame edge to the content; the vertical band stays wider, and is what the card's
+corner is derived from.
+
+## Accessibility
+
+`Widget.Title` is an `accessibilityRole="header"`, which is what a screen reader jumps
+between — so a dashboard of widgets is navigable by their titles. Pass your own
+`accessibilityRole` to override it, on a widget whose title is not a heading.
+
+The root has no role of its own: a widget is a grouping, and what is inside it carries the
+semantics.
+
+## Props
+
+Every node takes R14's style props for its own style type — `ViewStyle` on the views,
+`TextStyle` on the three texts — and forwards `ref`, `testID` and the a11y props.
+
+`useWidget()` is exported: it returns the resolved styles, so a slot of your own — a toolbar
+in the header, a second card under the first — is written the same way the shipped ones are.
