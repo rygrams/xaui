@@ -27,6 +27,7 @@ const entries = {
   'components/input-otp/index': 'src/components/input-otp/index.ts',
   'components/line-chart/index': 'src/components/line-chart/index.ts',
   'components/list/index': 'src/components/list/index.ts',
+  'components/mask-field/index': 'src/components/mask-field/index.ts',
   'components/menu/index': 'src/components/menu/index.ts',
   'components/pie-chart/index': 'src/components/pie-chart/index.ts',
   'components/popover/index': 'src/components/popover/index.ts',

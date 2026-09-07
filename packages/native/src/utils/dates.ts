@@ -16,6 +16,19 @@ const WEEK_LENGTH = 7
  * `a.getTime() === b.getTime()` would say they are not. Constructing a new date from the
  * three parts is also what drops the time zone question — the parts are already local.
  */
+/**
+ * How many days that month has, with `month` zero-based as `Date` has it.
+ *
+ * Asked by anything that has to keep a day number inside its month — a masked field where
+ * the reader has typed 31 into February, a calendar clamping a chosen day as the month
+ * changes under it.
+ */
+export function daysInMonth(year: number, month: number): number {
+  // Day zero of the next month is the last day of this one, and the `Date` constructor
+  // already knows every leap rule there is — including the century ones a `% 4` gets wrong.
+  return new Date(year, month + 1, 0).getDate()
+}
+
 export function startOfDay(date: Date): Date {
   return new Date(date.getFullYear(), date.getMonth(), date.getDate())
 }
