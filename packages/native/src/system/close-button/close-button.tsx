@@ -5,7 +5,7 @@ import { warnDev } from '../../utils/warn-dev'
 import { PressableFeedback } from '../pressable-feedback'
 import { useStyleProps } from '../style-props'
 import { closeButtonSheet } from './close-button.style'
-import type { CloseButtonProps } from './close-button.type'
+import type { CloseButtonBaseProps } from './close-button.type'
 
 /**
  * A cross is the right size to look at and the wrong size to hit. The target grows
@@ -21,7 +21,7 @@ const HIT_SLOP = 8
  * ```tsx
  * const { closeStyle, closeGlyphStyle, isDisabled } = useChip()
  *
- * <CloseButton
+ * <CloseButtonBase
  *   name="Chip.Close"
  *   baseStyle={closeStyle}
  *   glyphStyle={closeGlyphStyle}
@@ -36,69 +36,76 @@ const HIT_SLOP = 8
  *
  * With no children it draws its own cross from two bars a quarter turn apart, so a
  * dismissible component works in a project that has installed no icon set.
+ *
+ * **It is not the public `CloseButton`.** That one is a component with a recipe of its own,
+ * for a dismiss on something the library does not own; this is the behaviour underneath
+ * both, and it is the base rather than the component because a close *inside* a component
+ * takes that component's colours and that component's scale, resolved once at its root.
  */
-export const CloseButton = forwardRef<View, CloseButtonProps>(function CloseButton(
-  {
-    name,
-    children,
-    baseStyle,
-    glyphStyle,
-    asChild = false,
-    accessibilityRole = 'button',
-    hitSlop = HIT_SLOP,
-    style,
-    onPressIn,
-    onPressOut,
-    ...props
-  },
-  ref
-) {
-  const [styleProps, rest] = useStyleProps(props)
-  const [isPressed, press] = usePressState({ onPressIn, onPressOut })
+export const CloseButtonBase = forwardRef<View, CloseButtonBaseProps>(
+  function CloseButtonBase(
+    {
+      name,
+      children,
+      baseStyle,
+      glyphStyle,
+      asChild = false,
+      accessibilityRole = 'button',
+      hitSlop = HIT_SLOP,
+      style,
+      onPressIn,
+      onPressOut,
+      ...props
+    },
+    ref
+  ) {
+    const [styleProps, rest] = useStyleProps(props)
+    const [isPressed, press] = usePressState({ onPressIn, onPressOut })
 
-  // A cross says "close" to someone who can see it and nothing at all to someone who
-  // cannot — and unlike an icon-only button, the text beside it names the thing being
-  // dismissed rather than the action, so there is nothing to fall back on.
-  //
-  // Not under `asChild`: there the caller's own element is rendered, it carries its own
-  // label or its own text, and `<Dialog.Close asChild><Button>Compris</Button></…>` is the
-  // most ordinary dismissal there is. Warning on it would train the reader to ignore this.
-  if (!asChild && !rest.accessibilityLabel && !rest['aria-label']) {
-    warnDev(
-      `${name}: a close button needs an \`accessibilityLabel\` — the cross is not text, ` +
-        'and the label beside it names what is being dismissed, not the action.'
+    // A cross says "close" to someone who can see it and nothing at all to someone who
+    // cannot — and unlike an icon-only button, the text beside it names the thing being
+    // dismissed rather than the action, so there is nothing to fall back on.
+    //
+    // Not under `asChild`: there the caller's own element is rendered, it carries its own
+    // label or its own text, and `<Dialog.Close asChild><Button>Compris</Button></…>` is the
+    // most ordinary dismissal there is. Warning on it would train the reader to ignore this.
+    if (!asChild && !rest.accessibilityLabel && !rest['aria-label']) {
+      warnDev(
+        `${name}: a close button needs an \`accessibilityLabel\` — the cross is not text, ` +
+          'and the label beside it names what is being dismissed, not the action.'
+      )
+    }
+
+    return (
+      <PressableFeedback
+        ref={ref}
+        isPressed={isPressed}
+        asChild={asChild}
+        accessibilityRole={accessibilityRole}
+        hitSlop={hitSlop}
+        {...rest}
+        // R9 — the caller's `style` may be `Pressable`'s function form. This component owns
+        // the press state, so it resolves the function here rather than forwarding it and
+        // losing the styles inside.
+        style={[
+          baseStyle,
+          styleProps,
+          typeof style === 'function' ? style({ pressed: isPressed }) : style,
+        ]}
+        // After `rest`, and composed rather than replacing: a caller's `onPressIn` runs,
+        // and the pressed state still happens.
+        onPressIn={press.onPressIn}
+        onPressOut={press.onPressOut}
+      >
+        {children ?? (
+          <>
+            <View style={[glyphStyle, closeButtonSheet.bar]} />
+            <View style={[glyphStyle, closeButtonSheet.barMirrored]} />
+          </>
+        )}
+      </PressableFeedback>
     )
   }
+)
 
-  return (
-    <PressableFeedback
-      ref={ref}
-      isPressed={isPressed}
-      asChild={asChild}
-      accessibilityRole={accessibilityRole}
-      hitSlop={hitSlop}
-      {...rest}
-      // R9 — the caller's `style` may be `Pressable`'s function form. This component owns
-      // the press state, so it resolves the function here rather than forwarding it and
-      // losing the styles inside.
-      style={[
-        baseStyle,
-        styleProps,
-        typeof style === 'function' ? style({ pressed: isPressed }) : style,
-      ]}
-      // After `rest`, and composed rather than replacing: a caller's `onPressIn` runs,
-      // and the pressed state still happens.
-      onPressIn={press.onPressIn}
-      onPressOut={press.onPressOut}
-    >
-      {children ?? (
-        <>
-          <View style={[glyphStyle, closeButtonSheet.bar]} />
-          <View style={[glyphStyle, closeButtonSheet.barMirrored]} />
-        </>
-      )}
-    </PressableFeedback>
-  )
-})
-
-CloseButton.displayName = 'XAUI.CloseButton'
+CloseButtonBase.displayName = 'XAUI.CloseButtonBase'

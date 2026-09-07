@@ -193,6 +193,7 @@ nothing until a `backgroundColor` says so.
 | `placement`       | `'top' \| 'bottom'`                    | `bottom`    |
 | `align`           | `'start' \| 'center' \| 'end'`         | `center`    |
 | `width`           | `number \| 'trigger' \| 'content-fit'` | `trigger`   |
+| `minWidth`        | `number`                               | —           |
 | `offset`          | `number`                               | `8`         |
 | `alignOffset`     | `number`                               | `0`         |
 | `avoidCollisions` | `boolean`                              | `true`      |
