@@ -1,5 +1,24 @@
 # @xaui/native
 
+## 0.9.1-alpha.66
+
+### Patch Changes
+
+- d2ce35e: feat(carousel): a series of slides, and the controls to move between them
+
+  `Carousel` in the v1 shape: the slides are children rather than a `data` array and a
+  `renderItem`, and every control — the arrows, the dots, the counter, the thumbnails — is a
+  slot rather than a `showX` prop.
+
+  A slide's width comes from the measured track through `carouselMetrics`, so `itemsPerView`
+  and `peek` divide it rather than a number of points that is wrong on the next screen size.
+  The indicator follows the drag frame by frame on the UI thread, and the settled index is
+  derived from the same offset — which is also what makes it work under a wheel or a trackpad.
+
+  An arrow, a dot or an autoplay tick moves the track on a hand-run ease-out tween (~420ms,
+  fast off the press and braking onto the slide) rather than `scrollTo({ animated: true })`,
+  whose curve is the platform's and close to linear.
+
 ## 0.9.1-alpha.65
 
 ### Patch Changes
