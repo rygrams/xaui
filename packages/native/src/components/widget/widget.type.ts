@@ -19,27 +19,18 @@ export type WidgetSlot =
   | 'content'
   | 'footer'
 
-/**
- * The `Surface`'s three levels, and deliberately the same three: a widget **is** a surface
- * with a well cut into it, and its content sits one level below whatever the card is. A
- * fourth level would be a shade nobody could place, which is the argument `surface.md`
- * makes and this component inherits.
- */
-export type WidgetVariant = 'primary' | 'secondary' | 'tertiary'
-
 export type WidgetSize = Size
 
 type WidgetOwnProps = {
-  variant?: WidgetVariant
   /** The padding, the gaps and the corner. Never a height — a widget is as tall as its content. */
   size?: WidgetSize
-  /** The card's corner. The well's follows it, one step in. */
+  /** The frame's corner. The card's follows it, one step in. */
   radius?: RadiusKey
   /**
-   * Whether the card is lifted off the page.
+   * Whether the card is lifted off the frame.
    *
-   * On by default, unlike the `Surface`'s: a widget is a thing on a dashboard rather than a
-   * ground under a form, and the shadow is what separates one from the next.
+   * On by default: the soft frame stays flat against the page and the shadow is what
+   * separates the card from it. There is no variant — a widget has one look.
    */
   isElevated?: boolean
   style?: StyleProp<ViewStyle>

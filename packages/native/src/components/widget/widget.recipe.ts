@@ -1,7 +1,7 @@
 import { RADIUS_KEYS, createRecipe, radiusAxis } from '../../system/recipe'
-import type { SlotStyles, VariantTokens } from '../../system/recipe'
+import type { SlotStyles } from '../../system/recipe'
 import type { FontSizeKey, RadiusKey, XAUITheme } from '../../theme/theme.type'
-import type { WidgetSize, WidgetSlot, WidgetVariant } from './widget.type'
+import type { WidgetSize, WidgetSlot } from './widget.type'
 
 const SLOTS = [
   'root',
@@ -13,19 +13,12 @@ const SLOTS = [
   'footer',
 ] as const
 
-/** The card's own ground — the `Surface`'s table, because a widget is one of those. */
-const VARIANT_TOKENS: Record<WidgetVariant, VariantTokens> = {
-  primary: { bg: 'surface', fg: 'surfaceForeground' },
-  secondary: { bg: 'surfaceSecondary', fg: 'surfaceSecondaryForeground' },
-  tertiary: { bg: 'background', fg: 'foreground', border: 'border' },
-}
-
 type SizeStep = {
-  /** The card's own inset, in spacing steps. */
+  /** The frame's own inset, in spacing steps — how far the card is held off the edge. */
   padding: number
-  /** Between the header, the well and the footer. */
+  /** Between the header, the card and the footer. */
   gap: number
-  /** The well's inset, which is smaller: it is a panel, not a second card. */
+  /** The card's own inset, which is smaller: it holds a figure, it is not a second frame. */
   well: number
   radius: RadiusKey
   title: FontSizeKey
@@ -52,15 +45,15 @@ const SIZES: Record<WidgetSize, SizeStep> = {
 }
 
 /**
- * How much smaller the well's corner is than the card's.
+ * How much smaller the card's corner is than the frame's.
  *
  * The **nesting rule**: an inner corner should be the outer one less the gap between them,
  * or the two arcs run at different rates and the inset reads as a sticker rather than as a
- * well cut into the card. Here the gap is the card's own padding, so the subtraction is
+ * card the frame is holding. Here the gap is the frame's own padding, so the subtraction is
  * exactly that — and it is clamped at zero, because a large padding on a small corner would
  * otherwise ask for a negative radius.
  */
-function wellRadius(theme: XAUITheme, radius: RadiusKey, padding: number): number {
+function cardRadius(theme: XAUITheme, radius: RadiusKey, padding: number): number {
   return Math.max(0, theme.radius[radius] - theme.spacing(padding))
 }
 
@@ -69,11 +62,11 @@ const SIZE_KEYS = ['xs', 'sm', 'md', 'lg'] as const satisfies readonly WidgetSiz
 /**
  * The nesting rule, as a table.
  *
- * The well's corner depends on **both** the card's corner and the padding between them, and
+ * The card's corner depends on **both** the frame's corner and the padding between them, and
  * an axis sees only its own prop: `size` does not know the `radius` the caller passed, and
  * `radius` does not know the padding. So the pair is a compound, one per combination.
  *
- * Without it, a `radius` prop would move the card's corner and leave the well's where the
+ * Without it, a `radius` prop would move the frame's corner and leave the card's where the
  * size had put it — an inset whose arcs no longer match the ones around them, which is the
  * one thing this component's shape depends on. Forty entries written by a loop rather than
  * four written by hand.
@@ -82,7 +75,7 @@ const NESTED_RADII = SIZE_KEYS.flatMap(size =>
   RADIUS_KEYS.map(radius => ({
     when: { size, radius },
     style: (theme: XAUITheme) => ({
-      content: { borderRadius: wellRadius(theme, radius, SIZES[size].padding) },
+      content: { borderRadius: cardRadius(theme, radius, SIZES[size].padding) },
     }),
   }))
 )
@@ -99,8 +92,8 @@ function sizeAxis(step: SizeStep) {
     content: {
       padding: theme.spacing(well),
       // The corner this size implies. An explicit `radius` prop replaces it through
-      // `NESTED_RADII`, which is the only other place the well's corner is set.
-      borderRadius: wellRadius(theme, radius, padding),
+      // `NESTED_RADII`, which is the only other place the card's corner is set.
+      borderRadius: cardRadius(theme, radius, padding),
     },
     title: {
       fontSize: theme.fontSizes[title],
@@ -121,8 +114,13 @@ export const widgetRecipe = createRecipe({
   slots: SLOTS,
 
   base: theme => ({
+    /**
+     * The frame: a quiet `defaultSoft` ground, no border. It is **not** a card — the header
+     * and the footer sit straight on it, and the one card in a widget is `Widget.Content`.
+     */
     root: {
       flexDirection: 'column',
+      backgroundColor: theme.colors.defaultSoft,
       // iOS's squircle. It is free on Android, and at this corner it is the difference
       // between a shape and two arcs meeting a straight edge.
       borderCurve: 'continuous',
@@ -138,22 +136,19 @@ export const widgetRecipe = createRecipe({
     title: {
       fontFamily: theme.fontFamilies.body,
       fontWeight: theme.fontWeights.semibold,
-      color: theme.colors.foreground,
+      color: theme.colors.defaultSoftForeground,
     },
     description: { fontFamily: theme.fontFamilies.body, color: theme.colors.muted },
-    content: { borderCurve: 'continuous', overflow: 'hidden' },
-    footer: { fontFamily: theme.fontFamilies.body, color: theme.colors.muted },
-  }),
-
-  variantTokens: VARIANT_TOKENS,
-
-  paint: (theme, colors) => ({
-    root: {
-      backgroundColor: colors.bg,
-      borderColor: colors.border,
-      borderWidth: colors.border ? theme.borderWidth.default : 0,
+    /**
+     * The card, held in the frame: `surface`, one step **up** from the soft ground. It
+     * clips, so a figure drawn to its edges takes the corner rather than overhanging it.
+     */
+    content: {
+      backgroundColor: theme.colors.surface,
+      borderCurve: 'continuous',
+      overflow: 'hidden',
     },
-    title: { color: colors.fg },
+    footer: { fontFamily: theme.fontFamilies.body, color: theme.colors.muted },
   }),
 
   variants: {
@@ -164,45 +159,20 @@ export const widgetRecipe = createRecipe({
       lg: sizeAxis(SIZES.lg),
     },
 
-    /** The card's corner. The well's is derived from it, so it moves with it. */
+    /** The frame's corner. The card's is derived from it, so it moves with it. */
     radius: radiusAxis('root'),
 
+    /**
+     * The shadow lifts **the card**, not the frame: the soft ground stays flat against the
+     * page, and the card reads as the raised thing inside it. On by default — a widget is
+     * one of several on a dashboard, and the lift is what separates the card from its frame.
+     */
     elevated: {
-      true: theme => ({ root: theme.shadows.surface }),
+      true: theme => ({ content: theme.shadows.surface }),
     },
   },
 
-  /**
-   * **The well is one level below the card**, and that is the whole of what makes this a
-   * widget rather than a `Card`: the content sits in a panel cut into the ground rather
-   * than flush on it.
-   *
-   * A compound rather than a role, because it is a *second background* and the engine's
-   * roles have one. Naming it `bgSelected` would have made a raw `color` paint the well,
-   * which is not what a tint on a container means.
-   */
-  compoundVariants: [
-    {
-      when: { variant: 'primary' },
-      style: theme => ({
-        content: { backgroundColor: theme.colors.surfaceSecondary },
-      }),
-    },
-    {
-      when: { variant: 'secondary' },
-      style: theme => ({
-        content: { backgroundColor: theme.colors.surfaceTertiary },
-      }),
-    },
-    {
-      // The card here is the page's own colour with an outline, so there is nothing below
-      // it to recess into: the well steps **up** instead, and reads as the one solid thing
-      // inside an outline.
-      when: { variant: 'tertiary' },
-      style: theme => ({ content: { backgroundColor: theme.colors.surface } }),
-    },
-    ...NESTED_RADII,
-  ],
+  compoundVariants: [...NESTED_RADII],
 
-  defaultVariants: { variant: 'primary', size: 'md' },
+  defaultVariants: { size: 'md' },
 })

@@ -1,6 +1,6 @@
 # Widget
 
-A thing on a dashboard: a title, something in a well, and a line about it underneath.
+A thing on a dashboard: a title, a card, and a line about it underneath.
 
 ## Import
 
@@ -28,54 +28,63 @@ import { Widget } from '@xaui/native/widget'
 </Widget>
 ```
 
-## It is a `Card` with a well cut into it
+## It is a card held in a soft frame
 
-That is the whole difference, and it is worth stating plainly because the two look alike in
-a screenshot.
+That is the whole of it, and it is worth stating plainly because a widget and a card look
+alike in a screenshot.
 
 A **card** puts its content flush on its own ground: the header, the body and the footer are
 all the same surface, and what separates them is space.
 
-A **widget** recesses the middle one level. What is inside `Widget.Content` reads as a panel
-the card is _holding_ rather than as part of the card — which is exactly what a figure, a
-table or a list needs when the card around it also carries a title and a timestamp that are
-**not** part of the thing being shown.
+A **widget** is a quiet `defaultSoft` ground with no border. The header and the footer sit
+straight on it, and `Widget.Content` is the one card — a `surface`, one step **up** from the
+frame. What is inside the card reads as the thing being shown; the title and the timestamp
+around it, on the soft ground, read as the frame's own labels — **not** part of the thing.
 
-Reach for a card when the content _is_ the card's content. Reach for a widget when the card
-is a frame around something with its own edges.
+Reach for a card when the content _is_ the card's content. Reach for a widget when the frame
+is a label around something with its own edges.
 
-## The well's corner is derived, not chosen
+## The card's corner is derived, not chosen
 
-An inner corner is the outer one **less the gap between them** — here the card's own
+An inner corner is the outer one **less the gap between them** — here the frame's own
 padding:
 
 ```
-wellRadius = theme.radius[radius] − theme.spacing(padding)
+cardRadius = theme.radius[radius] − theme.spacing(padding)
 ```
 
 Two arcs that do not follow that rule run at different rates, and the inset stops reading as
-a well cut into the card and starts reading as a sticker laid on it. It is the one thing
+a card the frame is holding and starts reading as a sticker laid on it. It is the one thing
 this component's shape depends on, so it is not a prop.
 
 It is clamped at zero, because a large padding under a small corner would otherwise ask for
-a negative radius — an `xs` widget at `radius="sm"` has a square well, correctly.
+a negative radius — an `xs` widget at `radius="sm"` has a square card, correctly.
 
 A `radius` prop therefore moves **both** corners. That is what the forty `size × radius`
 compounds in the recipe are for: an axis sees only its own prop, and this value needs two.
+
+## No variant
+
+A widget has **one look** — there is no `variant`, and no primary/secondary/tertiary. The
+frame is always `defaultSoft`, the card is always `surface`. What moves is structural:
+
+- `size` — the padding, the gaps, the corner and the type.
+- `radius` — the frame's corner (the card's follows it).
+- `isElevated` — whether the card is lifted off the frame.
 
 ## Slots
 
 | slot                 | node   | what it is                                                          |
 | -------------------- | ------ | ------------------------------------------------------------------- |
-| `Widget`             | `View` | the card                                                            |
-| `Widget.Header`      | `View` | the row above the well — heading on one side, anything on the other |
+| `Widget`             | `View` | the soft frame                                                      |
+| `Widget.Header`      | `View` | the row above the card — heading on one side, anything on the other |
 | `Widget.Heading`     | `View` | the title and its description, as one block                         |
 | `Widget.Title`       | `Text` | what this is. An `accessibilityRole="header"`                       |
 | `Widget.Description` | `Text` | what it is showing — the period, the unit, the caveat               |
-| `Widget.Content`     | `View` | the well                                                            |
+| `Widget.Content`     | `View` | the card                                                            |
 | `Widget.Footer`      | `Text` | when it was last updated, over what range, what it excludes         |
 
-Every one of them is optional and none of them has a fixed order — a widget that is a well
+Every one of them is optional and none of them has a fixed order — a widget that is a card
 and nothing else is a `Widget` with one `Widget.Content` in it.
 
 ### Why `Heading` exists
@@ -88,10 +97,10 @@ off the row.
 ### `Widget.Content` is a ground, not a chart slot
 
 A figure, a table, a list of rows, a map — whatever the widget is showing goes there, and
-the only thing the slot knows about it is that it is a different level from the card.
+the only thing the slot knows about it is that it is a level up from the frame.
 
 It **clips**, which matters for the case this component exists for: a chart's own box is a
-rectangle, and a rectangle in a rounded well shows its corners.
+rectangle, and a rectangle in a rounded card shows its corners.
 
 ### `Widget.Footer` is a `Text`
 
@@ -107,55 +116,34 @@ needs a control in it is a `View` you write, and this slot is what you put in it
 </View>
 ```
 
-## Variants
-
-The `Surface`'s three levels, and deliberately the same three: a widget **is** a surface
-with a well cut into it, and its content sits one level below whatever the card is.
-
-| variant     | the card              | the well           |
-| ----------- | --------------------- | ------------------ |
-| `primary`   | `surface`             | `surfaceSecondary` |
-| `secondary` | `surfaceSecondary`    | `surfaceTertiary`  |
-| `tertiary`  | `background` + border | `surface`          |
-
-`tertiary` is the one that inverts. Its card is the page's own colour with an outline, so
-there is nothing below it to recess into — the well steps **up** instead, and reads as the
-one solid thing inside an outline.
-
-### Why the well is not a role
-
-The engine's roles are what a raw `color` reaches. Naming the well `bgSelected` would have
-made `color="#7c3aed"` paint the _inside_ of the card purple, which is not what a tint on a
-container means — so it is a compound instead, and `color` lands on the card as it does
-everywhere else.
-
 ## `isElevated` is on by default
 
-Unlike the `Surface`'s, which is off. A widget is one of several on a dashboard, and the
-shadow is what separates it from the next one; a surface is a ground under a form, where the
-`Surface` doc's argument holds — a shadow reads as dirt under a level barely different from
-the page.
-
-That argument applies here to `tertiary`, and that is the variant to turn it off on:
+The soft frame stays flat against the page; the shadow lands on the **card**, and that is
+what separates it from the frame it sits in. A widget is one of several on a dashboard, and
+the raised card is what makes each one read as its own object.
 
 ```tsx
-<Widget variant="tertiary" isElevated={false}>
+<Widget isElevated={false}>
 ```
+
+Flat, the card falls back on the colour step between `surface` and `defaultSoft` alone —
+enough on most themes, and the right call when the widget is already inside a bordered
+container that does the separating.
 
 ## Size
 
 `size` moves the padding, the gaps, the corner and the type — **never a height**. A widget
 is as tall as what is in it.
 
-| size | card padding | well padding | corner | title |
-| ---- | ------------ | ------------ | ------ | ----- |
-| `xs` | 3            | 2            | `xl`   | `sm`  |
-| `sm` | 3.5          | 2.5          | `2xl`  | `md`  |
-| `md` | 4            | 3            | `2xl`  | `lg`  |
-| `lg` | 5            | 3.5          | `3xl`  | `xl`  |
+| size | frame padding | card padding | corner | title |
+| ---- | ------------- | ------------ | ------ | ----- |
+| `xs` | 3             | 2            | `xl`   | `sm`  |
+| `sm` | 3.5           | 2.5          | `2xl`  | `md`  |
+| `md` | 4             | 3            | `2xl`  | `lg`  |
+| `lg` | 5             | 3.5          | `3xl`  | `xl`  |
 
-The well's padding is smaller than the card's at every size: it is a panel, not a second
-card, and matching them would double the inset at the edges.
+The card's padding is smaller than the frame's at every size: it is a panel, not a second
+frame, and matching them would double the inset at the edges.
 
 ## Accessibility
 
@@ -172,4 +160,4 @@ Every node takes R14's style props for its own style type — `ViewStyle` on the
 `TextStyle` on the three texts — and forwards `ref`, `testID` and the a11y props.
 
 `useWidget()` is exported: it returns the resolved styles, so a slot of your own — a toolbar
-in the header, a second well under the first — is written the same way the shipped ones are.
+in the header, a second card under the first — is written the same way the shipped ones are.

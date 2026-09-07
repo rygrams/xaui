@@ -26,6 +26,5 @@ export type {
   WidgetSize,
   WidgetSlot,
   WidgetTextSlotProps,
-  WidgetVariant,
   WidgetViewSlotProps,
 } from './widget.type'

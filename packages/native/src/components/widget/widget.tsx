@@ -27,34 +27,26 @@ import type { WidgetProps } from './widget.type'
  * </Widget>
  * ```
  *
- * **It is a `Card` with a well cut into it**, and the well is the whole difference. A card
- * puts its content flush on its own ground; a widget recesses it one level, so what is
- * inside reads as a panel the card is holding rather than as part of the card. That is what
- * a figure, a table or a list needs when the card around it also carries a title and a
- * timestamp that are *not* part of the thing being shown.
+ * **It is a card held in a soft frame**, and that is the whole of it. The frame is a quiet
+ * `defaultSoft` ground with no border; the header and the footer sit straight on it, and
+ * `Widget.Content` is the one card — a `surface`, one step up from the frame. That is what a
+ * figure, a table or a list needs when the thing around it also carries a title and a
+ * timestamp that are *not* part of what is being shown.
  *
- * **The well's corner is derived, not chosen.** An inner radius is the outer one less the
- * gap between them — here the card's own padding — or the two arcs run at different rates
- * and the inset reads as a sticker rather than as a well.
+ * **There is no variant** — a widget has one look. `size` moves the padding, the gaps and
+ * the corner; `radius` moves the frame's corner; `isElevated` lifts the card off the frame.
  *
- * **It is elevated by default**, unlike the `Surface`: a widget is one of several on a
- * dashboard, and the shadow is what separates it from the next. The `Surface`'s argument
- * against a shadow — that it reads as dirt under a ground barely different from the page —
- * applies to its `tertiary`, and that variant is the one to turn it off on.
+ * **The card's corner is derived, not chosen.** An inner radius is the outer one less the
+ * gap between them — here the frame's own padding — or the two arcs run at different rates
+ * and the inset reads as a sticker rather than as a card the frame is holding.
  *
- * The content is **anything**: `Widget.Content` is a well, not a chart slot.
+ * **The card is elevated by default**: the soft frame stays flat against the page and the
+ * shadow is what separates the card from it. Pass `isElevated={false}` for a flat widget.
+ *
+ * The content is **anything**: `Widget.Content` is a ground, not a chart slot.
  */
 export const WidgetRoot = forwardRef<View, WidgetProps>(function Widget(
-  {
-    children,
-    variant,
-    size,
-    radius,
-    isElevated = true,
-    asChild = false,
-    style,
-    ...props
-  },
+  { children, size, radius, isElevated = true, asChild = false, style, ...props },
   ref
 ) {
   const theme = useXAUITheme()
@@ -63,7 +55,6 @@ export const WidgetRoot = forwardRef<View, WidgetProps>(function Widget(
   const styles = widgetRecipe.resolve({
     theme,
     selection: {
-      variant,
       size,
       radius,
       elevated: isElevated ? ('true' as const) : undefined,
