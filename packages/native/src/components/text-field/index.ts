@@ -21,6 +21,8 @@ export { TextFieldLabel } from './text-field-label'
 export { useTextField } from './text-field.context'
 export { textFieldRecipe } from './text-field.recipe'
 export type {
+  FieldBlurEvent,
+  FieldFocusEvent,
   TextFieldContextValue,
   TextFieldDescriptionProps,
   TextFieldErrorProps,

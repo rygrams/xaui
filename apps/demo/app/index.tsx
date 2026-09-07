@@ -43,6 +43,7 @@ const SCREENS = [
   { href: '/view', label: 'Layout' },
   { href: '/list', label: 'List' },
   { href: '/mask-field', label: 'MaskField' },
+  { href: '/number-field', label: 'NumberField' },
   { href: '/menu', label: 'Menu' },
   { href: '/popover', label: 'Popover' },
   { href: '/pressable-feedback', label: 'PressableFeedback' },

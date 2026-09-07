@@ -327,6 +327,16 @@
         "default": "./dist/components/menu/index.cjs"
       }
     },
+    "./number-field": {
+      "import": {
+        "types": "./dist/components/number-field/index.d.ts",
+        "default": "./dist/components/number-field/index.js"
+      },
+      "require": {
+        "types": "./dist/components/number-field/index.d.cts",
+        "default": "./dist/components/number-field/index.cjs"
+      }
+    },
     "./pie-chart": {
       "import": {
         "types": "./dist/components/pie-chart/index.d.ts",

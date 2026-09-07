@@ -32,6 +32,7 @@ const entries = {
   'components/list/index': 'src/components/list/index.ts',
   'components/mask-field/index': 'src/components/mask-field/index.ts',
   'components/menu/index': 'src/components/menu/index.ts',
+  'components/number-field/index': 'src/components/number-field/index.ts',
   'components/pie-chart/index': 'src/components/pie-chart/index.ts',
   'components/popover/index': 'src/components/popover/index.ts',
   'components/progress-bar/index': 'src/components/progress-bar/index.ts',
