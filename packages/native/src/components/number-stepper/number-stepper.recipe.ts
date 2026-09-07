@@ -12,6 +12,7 @@ const SLOTS = [
   'track',
   'value',
   'button',
+  'buttonContent',
   'buttonGlyph',
   'buttonExhausted',
 ] as const
@@ -80,7 +81,6 @@ function sizeAxis(size: NumberStepperSize) {
       value: {
         paddingHorizontal: theme.spacing(step.gutter),
         fontSize: theme.fontSizes[step.value],
-        lineHeight: theme.lineHeights[step.value],
       },
       button: { width: side, height: side, borderRadius: side / 2 },
       buttonGlyph: { width: theme.fontSizes[step.glyph] },
@@ -109,6 +109,12 @@ export const numberStepperRecipe = createRecipe({
       fontWeight: theme.fontWeights.medium,
       fontFamily: theme.fontFamilies.body,
       textAlign: 'center',
+      // The `Badge`'s two rules, for the `Badge`'s reason: a number inside a box of a
+      // fixed height must not be the thing that decides that height. Android reserves
+      // leading above and below the glyphs, and the scale's own leading is taller than the
+      // control at the small end — between them a `lineHeight` here is a row a point or two
+      // taller than its buttons. The root centres the number anyway.
+      includeFontPadding: false,
     },
     button: {
       alignItems: 'center',
@@ -125,8 +131,25 @@ export const numberStepperRecipe = createRecipe({
       height: theme.borderWidth.default * 1.5,
       borderRadius: theme.borderWidth.default,
     },
-    // Not a state on the button: the two run out of room at opposite ends of the range, so
-    // which one is spent is the slot's own question and not the root's.
+    // The button's **content**, so a spent button fades its mark and keeps its fill.
+    //
+    // Dimming the box instead is what makes it translucent, and a translucent button stops
+    // hiding the pill it is raised off: the ground reads straight through the circle. It is
+    // also the wrong thing to say — the affordance is gone, the button is still there.
+    //
+    // Not a state on the button either: the two run out of room at opposite ends of the
+    // range, so which one is spent is the slot's own question and not the root's.
+    // `start` / `end`, never `left` / `right` (R13) — which is also why this is written
+    // out rather than taken from `StyleSheet.absoluteFillObject`.
+    buttonContent: {
+      position: 'absolute',
+      top: 0,
+      bottom: 0,
+      start: 0,
+      end: 0,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
     buttonExhausted: { opacity: theme.opacity.disabled },
   }),
 

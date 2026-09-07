@@ -42,7 +42,8 @@ const EMPTY = '—'
  *
  * **The two buttons are the same component**, and the variant paints them because they are
  * what a finger is aimed at. Each owns its own press state, so pressing one does not light
- * the other, and each goes flat when the value has nowhere left to go.
+ * the other, and each fades its **mark** — not its box — when the value has nowhere left
+ * to go.
  *
  * **A `Decrement` that becomes a bin at the floor is `children` and a ternary**, not a prop:
  *
@@ -131,6 +132,7 @@ export const NumberStepperRoot = forwardRef<View, NumberStepperProps>(
         trackStyle: styles.track,
         valueStyle: styles.value,
         buttonStyle: tint ? [styles.button, tint.button] : styles.button,
+        buttonContentStyle: styles.buttonContent,
         buttonGlyphStyle: tint
           ? [styles.buttonGlyph, tint.buttonGlyph]
           : styles.buttonGlyph,

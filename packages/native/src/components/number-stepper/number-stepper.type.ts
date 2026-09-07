@@ -3,6 +3,7 @@ import type {
   PressableProps,
   StyleProp,
   TextProps,
+  TextStyle,
   ViewProps,
   ViewStyle,
 } from 'react-native'
@@ -15,6 +16,7 @@ export type NumberStepperSlot =
   | 'track'
   | 'value'
   | 'button'
+  | 'buttonContent'
   | 'buttonGlyph'
   | 'buttonExhausted'
 
@@ -127,8 +129,10 @@ export type NumberStepperContextValue = {
   canIncrement: boolean
   canDecrement: boolean
   trackStyle: StyleProp<ViewStyle>
-  valueStyle: StyleProp<ViewStyle>
+  valueStyle: StyleProp<TextStyle>
   buttonStyle: StyleProp<ViewStyle>
+  /** The layer the mark sits in, so a spent button fades it and keeps its own fill. */
+  buttonContentStyle: StyleProp<ViewStyle>
   buttonGlyphStyle: StyleProp<ViewStyle>
   /** The dimming for a button with nowhere left to go. */
   buttonExhaustedStyle: StyleProp<ViewStyle>

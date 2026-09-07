@@ -11,8 +11,9 @@ import type { NumberStepperButtonProps } from './number-stepper.type'
  * <NumberStepper.Increment accessibilityLabel="Un de plus" />
  * ```
  *
- * It goes flat and stops taking presses when the value has nowhere left to go. That is
- * asked of the **result** rather than of `max`: a value half a step short of the ceiling
+ * Its mark fades and it stops taking presses when the value has nowhere left to go —
+ * the mark, not the box: a button dimmed whole goes translucent, and then the pill it is
+ * raised off reads straight through it. That is asked of the **result** rather than of `max`: a value half a step short of the ceiling
  * can still reach it, and a button dead at that point strands the reader.
  *
  * With no children it draws its own plus. Pass an `<Icon>` to replace it, and an `onPress`

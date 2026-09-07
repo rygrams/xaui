@@ -74,9 +74,13 @@ Two buttons on one control are two targets: pressing the plus must not light the
 That is why the recipe has no `bgPressed` and the press is the shared `PressableFeedback`
 treatment instead — the `CloseButton`'s arrangement, for the `CloseButton`'s reason.
 
-**A button goes flat when the value has nowhere left to go**, and stops taking presses
-there. That is asked of the **result** rather than of the bound: a value half a step short
-of the ceiling can still reach it, and a button dead at that point strands the reader.
+**A spent button fades its mark and keeps its fill**, and stops taking presses. The mark
+and not the box, because a button dimmed whole goes translucent — and a translucent button
+stops hiding the pill it is raised off, so the ground reads straight through the circle. It
+is also the wrong thing to say: the affordance is gone, the button is still there.
+
+Which end is spent is asked of the **result** rather than of the bound: a value half a step
+short of the ceiling can still reach it, and a button dead at that point strands the reader.
 
 With no children each draws its own mark — one bar, or two a quarter turn apart — so a
 stepper works in a project that has installed no icon set.

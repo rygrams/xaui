@@ -53,8 +53,13 @@ export const StepperButton = forwardRef<View, StepperButtonProps>(
     },
     ref
   ) {
-    const { buttonStyle, buttonGlyphStyle, buttonExhaustedStyle, isDisabled } =
-      useNumberStepper()
+    const {
+      buttonStyle,
+      buttonContentStyle,
+      buttonGlyphStyle,
+      buttonExhaustedStyle,
+      isDisabled,
+    } = useNumberStepper()
     const [styleProps, rest] = useStyleProps(props)
     const [isPressed, press] = usePressState({ onPressIn, onPressOut })
 
@@ -87,19 +92,24 @@ export const StepperButton = forwardRef<View, StepperButtonProps>(
         onPress={onPress ?? onStep}
         onPressIn={press.onPressIn}
         onPressOut={press.onPressOut}
-        style={[
-          buttonStyle,
-          isLive ? undefined : buttonExhaustedStyle,
-          styleProps,
-          style,
-        ]}
+        style={[buttonStyle, styleProps, style]}
       >
-        {children ?? (
-          <>
-            <View style={buttonGlyphStyle} />
-            {hasUpright ? <View style={[buttonGlyphStyle, sheet.upright]} /> : null}
-          </>
-        )}
+        {/* The mark is what fades when the button is spent, not the box. Dimming the box
+            makes it translucent, and a translucent button stops hiding the pill it is
+            raised off — the ground reads straight through the circle. This layer is also
+            what makes a caller's own icon fade exactly as the drawn bars do. */}
+        <View
+          style={[buttonContentStyle, isLive ? undefined : buttonExhaustedStyle]}
+        >
+          {children ?? (
+            <>
+              <View style={buttonGlyphStyle} />
+              {hasUpright ? (
+                <View style={[buttonGlyphStyle, sheet.upright]} />
+              ) : null}
+            </>
+          )}
+        </View>
         <PressableFeedback.Highlight />
       </PressableFeedback>
     )
