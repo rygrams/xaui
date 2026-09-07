@@ -48,20 +48,38 @@ import type { CarouselProps } from './carousel.type'
  * that resumes moving under a reader who has taken hold of it is a carousel fighting them.
  */
 /**
- * Move the track, in the one way that works on both renderers.
+ * Put the track at `x` this frame, no animation of its own.
  *
- * Written out because there are two wrong ones either side of it. Reanimated's own
- * `scrollTo` worklet is a no-op under the web renderer, so a carousel whose arrows are
- * written that way does nothing on the web and everything on a device. And `scrollTo`
- * **needs its `y`**: React Native Web hands the object straight to the DOM's own
- * `scrollTo`, where a missing `top` means "stay where you are" — and a horizontal scroll
- * with no vertical component is exactly the call that looks like it should be fine.
+ * The primitive the glide below is built from, and written out because there are two wrong
+ * ones either side of it. Reanimated's own `scrollTo` worklet is a no-op under the web
+ * renderer, so a carousel whose arrows are written that way does nothing on the web and
+ * everything on a device. And `scrollTo` **needs its `y`**: React Native Web hands the
+ * object straight to the DOM's own `scrollTo`, where a missing `top` means "stay where you
+ * are" — and a horizontal scroll with no vertical component is exactly the call that looks
+ * like it should be fine.
  *
  * The ref is `useAnimatedRef`'s, which is what reaches the scroller's own methods; the ref
  * `Animated.ScrollView` hands a plain `useRef` is the wrapper Reanimated built around it.
  */
-function scrollTrack(track: AnimatedRef<Animated.ScrollView>, x: number): void {
-  track.current?.scrollTo({ x, y: 0, animated: true })
+function setTrackOffset(track: AnimatedRef<Animated.ScrollView>, x: number): void {
+  track.current?.scrollTo({ x, y: 0, animated: false })
+}
+
+/** How long an arrow, a dot or an autoplay tick takes to travel one step, and the frame it
+ *  is stepped on — 16ms is one display frame at 60Hz. */
+const GLIDE_MS = 340
+const GLIDE_FRAME_MS = 16
+
+/**
+ * Slow at both ends.
+ *
+ * The native `scrollTo({ animated: true })` and the DOM's smooth scroll are close to
+ * linear — the track leaves and arrives at the same speed, and the move reads as a jump
+ * cut rather than a page turn. Driving the offset by hand against this curve is the whole
+ * of what gives a programmatic move its ease-in and its settle.
+ */
+function easeInOutCubic(t: number): number {
+  return t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2
 }
 
 export const CarouselRoot = forwardRef<View, CarouselProps>(function Carousel(
@@ -104,6 +122,9 @@ export const CarouselRoot = forwardRef<View, CarouselProps>(function Carousel(
   const hasInteracted = useRef(false)
   const trackRef = useAnimatedRef<Animated.ScrollView>()
   const offset = useSharedValue(0)
+  // The handle of the glide in flight, so a second arrow press mid-travel takes over rather
+  // than racing the first.
+  const glideTimer = useRef<ReturnType<typeof setInterval> | null>(null)
 
   const selection = { variant, size, radius }
   const styles = carouselRecipe.resolve({
@@ -143,15 +164,51 @@ export const CarouselRoot = forwardRef<View, CarouselProps>(function Carousel(
     setWidth(event.nativeEvent.layout.width)
   }
 
+  const stopGlide = useCallback(() => {
+    if (glideTimer.current !== null) {
+      clearInterval(glideTimer.current)
+      glideTimer.current = null
+    }
+  }, [])
+
+  /**
+   * Carry the track from where it is now to `x` over `GLIDE_MS`, a frame at a time against
+   * `easeInOutCubic`.
+   *
+   * `offset` is where it *is* — the scroll handler keeps it live — so a press mid-fling
+   * eases on from the real position rather than from the slide it was last resting on. A
+   * hand-run tween rather than `scrollTo({ animated: true })` because that call's curve is
+   * the platform's, it is close to linear, and it cannot be replaced.
+   */
+  const glideTo = useCallback(
+    (x: number) => {
+      stopGlide()
+      const from = offset.get()
+      const distance = x - from
+      if (Math.abs(distance) < 1) {
+        setTrackOffset(trackRef, x)
+        return
+      }
+
+      const start = Date.now()
+      glideTimer.current = setInterval(() => {
+        const t = Math.min(1, (Date.now() - start) / GLIDE_MS)
+        setTrackOffset(trackRef, from + distance * easeInOutCubic(t))
+        if (t >= 1) stopGlide()
+      }, GLIDE_FRAME_MS)
+    },
+    [offset, stopGlide, trackRef]
+  )
+
   const goTo = useCallback(
     (next: number) => {
       // The track is the source of truth for where the carousel is: telling it to move and
       // letting its own settle report back is what keeps a controlled index, a dragged
       // index and an autoplayed one on one path instead of three.
-      scrollTrack(trackRef, next * metrics.step)
+      glideTo(next * metrics.step)
       setIndex(next)
     },
-    [metrics.step, setIndex, trackRef]
+    [glideTo, metrics.step, setIndex]
   )
 
   const moveBy = useCallback(
@@ -161,7 +218,12 @@ export const CarouselRoot = forwardRef<View, CarouselProps>(function Carousel(
 
   const onInteract = useCallback(() => {
     hasInteracted.current = true
-  }, [])
+    // A finger on the track wins over a glide that has not landed — otherwise the two set
+    // the offset on alternate frames and the slide judders.
+    stopGlide()
+  }, [stopGlide])
+
+  useEffect(() => stopGlide, [stopGlide])
 
   useEffect(() => {
     if (!autoPlayInterval || isDisabled || count < 2) return
@@ -175,13 +237,13 @@ export const CarouselRoot = forwardRef<View, CarouselProps>(function Carousel(
       // at the last slide, and an autoplay that stops there is one that quietly dies.
       setIndex(current => {
         const next = stepIndex(current, 1, count, true)
-        scrollTrack(trackRef, next * metrics.step)
+        glideTo(next * metrics.step)
         return next
       })
     }, autoPlayInterval)
 
     return () => clearInterval(timer)
-  }, [autoPlayInterval, count, isDisabled, metrics.step, setIndex, trackRef])
+  }, [autoPlayInterval, count, isDisabled, glideTo, metrics.step, setIndex])
 
   const context = useMemo(
     () => ({

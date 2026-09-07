@@ -120,6 +120,17 @@ deceleration.
 
 A fast flick across three slides therefore reports three changes. That is what happened.
 
+## How a move is animated
+
+A **drag** is the platform's: `snapToInterval` plus `decelerationRate="fast"`, so a flick
+lands on a slide rather than between two.
+
+An **arrow, a dot or an autoplay tick** is a hand-run tween — the offset is carried from
+where it is to the next step over ~340ms against an ease-in-out curve, a frame at a time.
+`scrollTo({ animated: true })` was the obvious call and it is close to linear on both
+renderers: the track leaves and arrives at the same speed and the move reads as a jump cut.
+A press mid-travel eases on from the live position rather than racing the tween before it.
+
 ## `hasLoop` is about the arrows
 
 Unset, they stop at the ends. Set, they wrap.

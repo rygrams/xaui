@@ -12,3 +12,6 @@ A slide's width comes from the measured track through `carouselMetrics`, so `ite
 and `peek` divide it rather than a number of points that is wrong on the next screen size.
 The indicator follows the drag frame by frame on the UI thread, and the settled index is
 derived from the same offset — which is also what makes it work under a wheel or a trackpad.
+
+An arrow, a dot or an autoplay tick moves the track on a hand-run ease-in-out tween rather
+than `scrollTo({ animated: true })`, whose curve is the platform's and close to linear.
