@@ -85,17 +85,17 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.4   | `Select` — Trigger · Value · Indicator · Overlay · Content · Item                | done    |
 | P5.5   | `Stepper` — slots over the existing group context                                | done    |
 | P5.6   | `Toolbar` — slots over the existing group context                                | dropped |
-| P5.7   | `List` — slots over the existing group context                                   | todo    |
-| P5.7b  | `ListGroup` — net new, sectioned `List` with its headers                         | todo    |
+| P5.7   | `List` — slots over the existing group context                                   | done    |
+| P5.7b  | `ListGroup` — net new, sectioned `List` with its headers                         | done    |
 | P5.8   | `Menu` — Trigger · Overlay · Content · Label · Group · Item                      | done    |
-| P5.9   | `SegmentButton` — slots over the existing group context                          | todo    |
-| P5.10  | `Autocomplete` — slots over the existing group context                           | todo    |
-| P5.10b | `Combobox` — the `Autocomplete` over a closed list                               | todo    |
+| P5.9   | `SegmentButton` — slots over the existing group context                          | done    |
+| P5.10  | `Autocomplete` — slots over the existing group context                           | done    |
+| P5.10b | `Combobox` — the `Autocomplete` over a closed list                               | done    |
 | P5.11  | `Accordion` — Item · Trigger · Indicator · Content, over legacy `ExpansionPanel` | done    |
 | P5.12  | `BottomTabBar` — slots over the existing group context                           | dropped |
 | P5.13  | `Menubox` — slots over the existing group context                                | dropped |
-| P5.14  | `Progress` — circular, the determinate half of legacy `Indicator`                | todo    |
-| P5.14b | `ProgressBar` — linear, over legacy `LinearProgressIndicator`                    | todo    |
+| P5.14  | `ProgressCircle` — circular, the determinate half of legacy `Indicator`          | done    |
+| P5.14b | `ProgressBar` — linear, over legacy `LinearProgressIndicator`                    | done    |
 | P5.15  | `Slider` — Output · Track · Fill · Thumb                                         | done    |
 | P5.16  | `Tabs` — List · Trigger · Label · Indicator · Content                            | done    |
 | P5.17  | `AppBar`                                                                         | todo    |
@@ -111,54 +111,56 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.24  | `Drawer`                                                                         | todo    |
 | P5.24b | `Popover` — Trigger · Overlay · Content · Title · Description · Close            | done    |
 | P5.25  | `Picker`                                                                         | todo    |
-| P5.25b | `WheelPicker` — net new, the spinning column the three below share               | todo    |
+| P5.25b | `WheelPicker` — net new, the spinning column the three below share               | done    |
 | P5.25c | `WheelDatePicker` — net new, `WheelPicker` columns for a date                    | todo    |
 | P5.25d | `WheelTimePicker` — net new, `WheelPicker` columns for a time                    | todo    |
 | P5.25e | `WheelDateTimePicker` — net new, the two above as one                            | todo    |
-| P5.26  | `DatePicker`                                                                     | todo    |
-| P5.26b | `Calendar` — net new, no legacy equivalent                                       | todo    |
-| P5.26c | `AgendaCalendar` — net new, the `Calendar` with its events                       | todo    |
-| P5.26d | `DateInput` — over legacy `DateInput`, with `TimeInput` and `DateTimeInput`      | todo    |
-| P5.26e | `DateRangePicker` — net new, two bounds over the `DatePicker`                    | todo    |
-| P5.26f | `DateTimePicker` — net new, `DatePicker` and `TimePicker` as one                 | todo    |
-| P5.26g | `RangeCalendar` — net new, the `Calendar` behind `DateRangePicker`               | todo    |
-| P5.27  | `TimePicker`                                                                     | todo    |
-| P5.28  | `ColorPicker`                                                                    | todo    |
-| P5.29  | `Carousel`                                                                       | todo    |
-| P5.30  | `Pager`                                                                          | todo    |
-| P5.31  | `RefreshControl`                                                                 | todo    |
-| P5.32  | `InputTrigger`                                                                   | todo    |
-| P5.33  | `FeatureDiscovery`                                                               | todo    |
-| P5.34  | `BarChart` — grouped or stacked, drawn on `react-native-svg`                     | done    |
-| P5.34b | `AreaChart` — net new, the `LineChart` with the ground under it filled           | done    |
-| P5.34c | `Chart` — Donut and Heatmap, the legacy cards left over                          | todo    |
-| P5.34d | `ComposedChart` — net new, several series on shared axes                         | todo    |
-| P5.34e | `LineChart` — over legacy `LineChartCard`, on a monotone curve                   | done    |
-| P5.34f | `PieChart` — over legacy `PieChartCard`, pie and donut                           | done    |
-| P5.34g | `RadarChart` — net new, several quantities each on its own axis                  | done    |
-| P5.34h | `RadialChart` — net new, no legacy equivalent                                    | todo    |
-| P5.35  | `CloseButton` — net new, the dismiss affordance Chip and Alert inline today      | todo    |
-| P5.35b | `LinkButton` — net new, a `Button` that reads as a link                          | todo    |
-| P5.35c | `MorphButton` — net new, a `Button` that animates between states                 | todo    |
-| P5.35d | `SlideButton` — net new, slide-to-confirm over the `Slider`                      | todo    |
-| P5.35e | `SocialAuthButton` — net new, provider marks over the `Button`                   | todo    |
-| P5.35f | `ToggleButton` — net new, a `Button` that holds a pressed state                  | todo    |
-| P5.35g | `ToggleButtonGroup` — net new, exclusive selection over `ToggleButton`           | todo    |
-| P5.36  | `EmptyState` — net new, no legacy equivalent                                     | todo    |
-| P5.37  | `FlipCard` — net new, a `Card` with two faces                                    | todo    |
-| P5.38  | `RadioGroup` — over legacy `RadioGroup`, the context P3.9 `Radio` lacks          | todo    |
-| P5.38b | `RadioButton` — net new, to reconcile with P3.9 `Radio`                          | todo    |
-| P5.38c | `RadioButtonGroup` — net new, to reconcile with `RadioGroup`                     | todo    |
-| P5.39  | `Rating` — net new, no legacy equivalent                                         | todo    |
-| P5.40  | `Surface` — four grounds, elevation asked for, no slots                          | done    |
-| P5.41  | `SplitView` — net new, a `view/` split on a draggable divider                    | todo    |
-| P5.42  | `Table` — net new, no legacy equivalent                                          | todo    |
-| P5.43  | `TagGroup` — List · Item · ItemLabel · ItemRemoveButton                          | done    |
-| P5.44  | `Timeline` — net new, no legacy equivalent                                       | todo    |
-| P5.45  | `Widget` — net new, no legacy equivalent                                         | todo    |
-| P5.46  | Parity milestone — `npm deprecate @xaui/native-legacy`                           | todo    |
-| P6     | `@xaui/hybrid` on the v1 API — frozen until P4 ships                             | todo    |
-| P7     | Delete `native-legacy` — not before the P5 parity milestone                      | todo    |
+| P5.26  | `DatePicker` — Trigger · Value · Indicator · Overlay · Content · Calendar        | done    |
+| P5.26b | `Calendar` — net new, no legacy equivalent                                       | done    |
+
+| P5.26b\* | `Calendar.YearPicker` — the years, mounted instead of the days | done |
+| P5.26c | `AgendaCalendar` — net new, the `Calendar` with its events | done |
+| P5.26d | `DateInput` — over legacy `DateInput`, with `TimeInput` and `DateTimeInput` | todo |
+| P5.26e | `DateRangePicker` — net new, two bounds over the `DatePicker` | todo |
+| P5.26f | `DateTimePicker` — net new, `DatePicker` and `TimePicker` as one | todo |
+| P5.26g | `RangeCalendar` — net new, the `Calendar` behind `DateRangePicker` | todo |
+| P5.27 | `TimePicker` | todo |
+| P5.28 | `ColorPicker` | todo |
+| P5.29 | `Carousel` | todo |
+| P5.30 | `Pager` | todo |
+| P5.31 | `RefreshControl` | todo |
+| P5.32 | `InputTrigger` | todo |
+| P5.33 | `FeatureDiscovery` | todo |
+| P5.34 | `BarChart` — grouped or stacked, drawn on `react-native-svg` | done |
+| P5.34b | `AreaChart` — net new, the `LineChart` with the ground under it filled | done |
+| P5.34c | `Chart` — Donut and Heatmap, the legacy cards left over | todo |
+| P5.34d | `ComposedChart` — net new, several series on shared axes | todo |
+| P5.34e | `LineChart` — over legacy `LineChartCard`, on a monotone curve | done |
+| P5.34f | `PieChart` — over legacy `PieChartCard`, pie and donut | done |
+| P5.34g | `RadarChart` — net new, several quantities each on its own axis | done |
+| P5.34h | `RadialChart` — net new, no legacy equivalent | todo |
+| P5.35 | `CloseButton` — the dismiss affordance, out of Chip and Alert and given a recipe | done |
+| P5.35b | `LinkButton` — net new, a `Button` that reads as a link | todo |
+| P5.35c | `MorphButton` — net new, a `Button` that animates between states | todo |
+| P5.35d | `SlideButton` — net new, slide-to-confirm over the `Slider` | todo |
+| P5.35e | `SocialAuthButton` — net new, provider marks over the `Button` | todo |
+| P5.35f | `ToggleButton` — net new, a `Button` that holds a pressed state | todo |
+| P5.35g | `ToggleButtonGroup` — net new, exclusive selection over `ToggleButton` | todo |
+| P5.36 | `EmptyState` — net new, no legacy equivalent | todo |
+| P5.37 | `FlipCard` — net new, a `Card` with two faces | todo |
+| P5.38 | `Radio.Group` — over legacy `RadioGroup`, the context P3.9 `Radio` lacked | done |
+| P5.38b | `RadioButton` — net new, to reconcile with P3.9 `Radio` | todo |
+| P5.38c | `RadioButtonGroup` — net new, to reconcile with `RadioGroup` | todo |
+| P5.39 | `Rating` — net new, no legacy equivalent | todo |
+| P5.40 | `Surface` — four grounds, elevation asked for, no slots | done |
+| P5.41 | `SplitView` — net new, a `view/` split on a draggable divider | todo |
+| P5.42 | `Table` — net new, no legacy equivalent | todo |
+| P5.43 | `TagGroup` — List · Item · ItemLabel · ItemRemoveButton | done |
+| P5.44 | `Timeline` — net new, no legacy equivalent | todo |
+| P5.45 | `Widget` — net new, no legacy equivalent | todo |
+| P5.46 | Parity milestone — `npm deprecate @xaui/native-legacy` | todo |
+| P6 | `@xaui/hybrid` on the v1 API — frozen until P4 ships | todo |
+| P7 | Delete `native-legacy` — not before the P5 parity milestone | todo |
 
 ## Repository debt
 
@@ -168,3 +170,4 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | D2  | `apps/demo` has neither a `type-check` script nor a CI filter             | todo   |
 | D3  | `turbo.json` `test` outputs are wrong — every run warns                   | todo   |
 | D4  | `apps/docs/public/docs/` still documents the dropped legacy `view/` names | todo   |
+| D5  | `@xaui/native` types came from one dts worker that OOM'd — now `tsc`      | done   |

@@ -251,6 +251,19 @@ export const selectRecipe = createRecipe({
     },
   },
 
+  /**
+   * What `primary` adds over a plain filled trigger — the `TextField`'s rule, exactly:
+   * `primary` is the field that sits a hair off the form, `secondary` the one flush with
+   * it. Without this the two variants differ only by fill, and on a dark form the fill
+   * alone is nearly invisible.
+   */
+  compoundVariants: [
+    {
+      when: { variant: 'primary' },
+      style: theme => ({ trigger: theme.shadows.field }),
+    },
+  ],
+
   states: {
     pressed: theme => ({
       trigger: { backgroundColor: theme.colors.fieldPressed },

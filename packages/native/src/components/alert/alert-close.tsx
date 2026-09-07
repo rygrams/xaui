@@ -1,6 +1,6 @@
 import { forwardRef } from 'react'
 import { View } from 'react-native'
-import { CloseButton } from '../../system/close-button'
+import { CloseButtonBase } from '../../system/close-button'
 import { useAlert } from './alert.context'
 import type { AlertCloseProps } from './alert.type'
 
@@ -16,7 +16,7 @@ import type { AlertCloseProps } from './alert.type'
  * </Alert>
  * ```
  *
- * Five lines, because the shared `CloseButton` owns the behaviour — its own press state,
+ * Five lines, because the shared `CloseButtonBase` owns the behaviour — its own press state,
  * the grown touch target, the missing-label warning and the built-in cross — and the alert
  * only hands it the styles its recipe resolved (R5).
  *
@@ -31,7 +31,7 @@ export const AlertClose = forwardRef<View, AlertCloseProps>(function AlertClose(
   const { closeStyle, closeGlyphStyle, isDisabled: isAlertDisabled } = useAlert()
 
   return (
-    <CloseButton
+    <CloseButtonBase
       ref={ref}
       name="Alert.Close"
       baseStyle={closeStyle}
