@@ -35,6 +35,7 @@ const SCREENS = [
   { href: '/dialog', label: 'Dialog' },
   { href: '/divider', label: 'Divider' },
   { href: '/empty-state', label: 'EmptyState' },
+  { href: '/fab', label: 'Fab' },
   { href: '/field-group', label: 'FieldGroup' },
   { href: '/icon', label: 'Icon' },
   { href: '/input-otp', label: 'InputOTP' },

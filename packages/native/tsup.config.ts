@@ -24,6 +24,7 @@ const entries = {
   'components/dialog/index': 'src/components/dialog/index.ts',
   'components/divider/index': 'src/components/divider/index.ts',
   'components/empty-state/index': 'src/components/empty-state/index.ts',
+  'components/fab/index': 'src/components/fab/index.ts',
   'components/field-group/index': 'src/components/field-group/index.ts',
   'components/input-otp/index': 'src/components/input-otp/index.ts',
   'components/line-chart/index': 'src/components/line-chart/index.ts',
