@@ -243,6 +243,11 @@ export function TimePicker({
       periodsStyle: dialStyles.periods,
       periodStyle: dialStyles.period,
       periodSelectedStyle: [dialStyles.periodSelected, dialTint?.periodSelected],
+      periodLabelStyle: dialStyles.periodLabel,
+      periodLabelSelectedStyle: [
+        dialStyles.periodLabelSelected,
+        dialTint?.periodLabelSelected,
+      ],
 
       dial: timePickerDial(size),
 

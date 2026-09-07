@@ -29,6 +29,8 @@ export type TimePickerSlot =
   | 'periods'
   | 'period'
   | 'periodSelected'
+  | 'periodLabel'
+  | 'periodLabelSelected'
 
 /** The `Select`'s four field levels, because the trigger **is** a select's trigger. */
 export type TimePickerVariant = 'primary' | 'secondary' | 'tertiary' | 'ghost'
@@ -131,6 +133,8 @@ export type TimePickerContextValue = {
   periodsStyle: StyleProp<ViewStyle>
   periodStyle: StyleProp<ViewStyle>
   periodSelectedStyle: StyleProp<ViewStyle>
+  periodLabelStyle: StyleProp<TextStyle>
+  periodLabelSelectedStyle: StyleProp<TextStyle>
 
   /** Values, not styles: the dial is drawn from arithmetic and needs the numbers. */
   dial: { box: number; ring: number; mark: number; innerRing: number }

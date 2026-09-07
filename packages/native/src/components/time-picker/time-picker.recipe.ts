@@ -19,6 +19,8 @@ const SLOTS = [
   'periods',
   'period',
   'periodSelected',
+  'periodLabel',
+  'periodLabelSelected',
 ] as const
 
 /**
@@ -53,6 +55,8 @@ type SizeStep = {
   /** The two big numbers above the dial. */
   display: FontSizeKey
   markLabel: FontSizeKey
+  /** `AM` / `PM` — smaller than the dial's numbers, it is a caption beside them. */
+  periodLabel: FontSizeKey
 }
 
 const SIZES: Record<TimePickerSize, SizeStep> = {
@@ -63,6 +67,7 @@ const SIZES: Record<TimePickerSize, SizeStep> = {
     innerRing: 0.54,
     display: '2xl',
     markLabel: 'md',
+    periodLabel: 'xs',
   },
   md: {
     box: 268,
@@ -71,6 +76,7 @@ const SIZES: Record<TimePickerSize, SizeStep> = {
     innerRing: 0.55,
     display: '3xl',
     markLabel: 'lg',
+    periodLabel: 'sm',
   },
   lg: {
     box: 304,
@@ -79,6 +85,7 @@ const SIZES: Record<TimePickerSize, SizeStep> = {
     innerRing: 0.56,
     display: '4xl',
     markLabel: 'xl',
+    periodLabel: 'sm',
   },
 }
 
@@ -117,6 +124,14 @@ function sizeAxis(step: SizeStep) {
       fontSize: theme.fontSizes[step.markLabel],
       lineHeight: theme.lineHeights[step.markLabel],
     },
+    periodLabel: {
+      fontSize: theme.fontSizes[step.periodLabel],
+      lineHeight: theme.lineHeights[step.periodLabel],
+    },
+    periodLabelSelected: {
+      fontSize: theme.fontSizes[step.periodLabel],
+      lineHeight: theme.lineHeights[step.periodLabel],
+    },
     unit: {
       fontSize: theme.fontSizes[step.display],
       lineHeight: theme.lineHeights[step.display],
@@ -152,6 +167,15 @@ export const timePickerRecipe = createRecipe({
       color: theme.colors.foreground,
     },
     markLabelSelected: { fontFamily: theme.fontFamilies.body },
+    periodLabel: {
+      fontFamily: theme.fontFamilies.body,
+      fontWeight: theme.fontWeights.medium,
+      color: theme.colors.muted,
+    },
+    periodLabelSelected: {
+      fontFamily: theme.fontFamilies.body,
+      fontWeight: theme.fontWeights.semibold,
+    },
     /**
      * The hand grows **from the hub outwards**, which is why its origin is the bottom of the
      * bar rather than its middle: a rotation about the centre of a bar half the radius long
@@ -195,13 +219,13 @@ export const timePickerRecipe = createRecipe({
       borderColor: theme.colors.border,
     },
     period: {
-      paddingHorizontal: theme.spacing(3),
-      paddingVertical: theme.spacing(1.5),
+      paddingHorizontal: theme.spacing(2.5),
+      paddingVertical: theme.spacing(1),
       alignItems: 'center',
     },
     periodSelected: {
-      paddingHorizontal: theme.spacing(3),
-      paddingVertical: theme.spacing(1.5),
+      paddingHorizontal: theme.spacing(2.5),
+      paddingVertical: theme.spacing(1),
       alignItems: 'center',
     },
   }),
@@ -212,6 +236,7 @@ export const timePickerRecipe = createRecipe({
     face: { backgroundColor: colors.bg },
     markSelected: { backgroundColor: colors.bgSelected },
     markLabelSelected: { color: colors.fgSelected },
+    periodLabelSelected: { color: colors.fgSelected },
     hand: { backgroundColor: colors.bgSelected },
     hub: { backgroundColor: colors.bgSelected },
     unitSelected: { color: colors.bgSelected },

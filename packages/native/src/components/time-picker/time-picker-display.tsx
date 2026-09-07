@@ -30,8 +30,8 @@ export const TimePickerDisplay = forwardRef<View, TimePickerViewProps>(
       periodsStyle,
       periodStyle,
       periodSelectedStyle,
-      markLabelStyle,
-      markLabelSelectedStyle,
+      periodLabelStyle,
+      periodLabelSelectedStyle,
       hours,
       minutes,
       period,
@@ -96,7 +96,7 @@ export const TimePickerDisplay = forwardRef<View, TimePickerViewProps>(
                   >
                     <Text
                       style={
-                        half === period ? markLabelSelectedStyle : markLabelStyle
+                        half === period ? periodLabelSelectedStyle : periodLabelStyle
                       }
                     >
                       {LABELS[half]}

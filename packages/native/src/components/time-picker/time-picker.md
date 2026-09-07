@@ -84,7 +84,8 @@ hours had been forgotten.
 The period is **two halves of one control** rather than a toggle, unlike `TimeField.Period`:
 there is room here, and a reader choosing a time from nothing should see both options rather
 than press one to find the other. `AM` and `PM` sit **side by side** — a pair read on one
-line, not stacked.
+line, not stacked — and a step smaller than the dial's numbers, because they caption the
+time rather than being part of it.
 
 ### The indicator
 
