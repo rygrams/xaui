@@ -88,6 +88,7 @@ export default function RootLayout() {
             options={{ title: 'WheelPicker (v1)' }}
           />
           <Stack.Screen name="view" options={{ title: 'Layout (v1)' }} />
+          <Stack.Screen name="widget" options={{ title: 'Widget (v1)' }} />
         </Stack>
       </XAUIProvider>
     </GestureHandlerRootView>

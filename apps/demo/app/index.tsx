@@ -59,6 +59,7 @@ const SCREENS = [
   { href: '/toast', label: 'Toast' },
   { href: '/typography', label: 'Typography' },
   { href: '/wheel-picker', label: 'WheelPicker' },
+  { href: '/widget', label: 'Widget' },
 ] as const
 
 export default function HomeScreen() {

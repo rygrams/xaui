@@ -200,6 +200,19 @@ export type ChartTextSlotProps = TextProps &
 type ChartLegendOwnProps = {
   /** The short form: one entry per label, coloured in palette order. */
   labels?: ReadonlyArray<string>
+  /**
+   * The appearance to walk the palette from, for a legend that is **not** inside a
+   * `<Chart>` — a `Widget`'s header, typically. They have to be the ones the figure was
+   * given, or the legend names the wrong colours. Inside a frame the frame wins.
+   */
+  variant?: ChartVariant
+  size?: ChartSize
+  color?: string
+  /**
+   * How many series the ramp has. Defaults to the number of labels, or of children — pass
+   * it when a legend prints fewer entries than the figure draws.
+   */
+  count?: number
   children?: ReactNode
 }
 

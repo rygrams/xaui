@@ -49,6 +49,7 @@ const entries = {
   'components/typography/index': 'src/components/typography/index.ts',
   'components/view/index': 'src/components/view/index.ts',
   'components/wheel-picker/index': 'src/components/wheel-picker/index.ts',
+  'components/widget/index': 'src/components/widget/index.ts',
   'system/index': 'src/system/index.ts',
   'theme/index': 'src/theme/index.ts',
 }
