@@ -407,6 +407,16 @@
         "default": "./dist/components/radar-chart/index.cjs"
       }
     },
+    "./radial-chart": {
+      "import": {
+        "types": "./dist/components/radial-chart/index.d.ts",
+        "default": "./dist/components/radial-chart/index.js"
+      },
+      "require": {
+        "types": "./dist/components/radial-chart/index.d.cts",
+        "default": "./dist/components/radial-chart/index.cjs"
+      }
+    },
     "./radio": {
       "import": {
         "types": "./dist/components/radio/index.d.ts",

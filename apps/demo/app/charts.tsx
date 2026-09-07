@@ -6,6 +6,7 @@ import type { ChartVariant } from '@xaui/native/chart'
 import { LineChart } from '@xaui/native/line-chart'
 import { PieChart } from '@xaui/native/pie-chart'
 import { RadarChart } from '@xaui/native/radar-chart'
+import { RadialChart } from '@xaui/native/radial-chart'
 import { useXAUITheme } from '@xaui/native/theme'
 
 const VARIANTS: ChartVariant[] = [
@@ -59,6 +60,22 @@ const SKILLS = [
   { skill: 'Force', alice: 45, bob: 85 },
   { skill: 'Agilité', alice: 88, bob: 60 },
   { skill: 'Tactique', alice: 70, bob: 78 },
+]
+
+/**
+ * Three quantities that have nothing to do with each other, each against a target of its
+ * own — the shape a donut gets wrong, because they do not add up to anything.
+ */
+const ACTIVITY = [
+  { label: 'Calories', value: 1623, target: 2000, unit: 'kcal' },
+  { label: 'Pas', value: 5400, target: 10000, unit: 'pas' },
+  { label: 'Exercice', value: 25, target: 120, unit: 'min' },
+]
+
+/** Two readings against one shared ceiling. */
+const ENERGY = [
+  { source: 'Repos', kcal: 700 },
+  { source: 'Activité', kcal: 420 },
 ]
 
 const DEVICES = [
@@ -282,6 +299,94 @@ export default function ChartsScreen() {
       </Section>
 
       <Section
+        title="RadialChart — plusieurs quantités, chacune sur son anneau"
+        note="Un anneau n'est pas une part. Le PieChart découpe une quantité en parts qui font le tout ; celui-ci dessine plusieurs quantités sans rapport entre elles, chacune contre une cible à elle. Des calories, des pas et des minutes ne s'additionnent pas, et un donut de ces trois-là dessinerait un total que personne n'a mesuré."
+      >
+        <Card
+          title="Activité du jour"
+          legendBelow
+          legend={ACTIVITY.map(
+            row =>
+              `${row.label} — ${row.value.toLocaleString('fr-FR')}/${row.target.toLocaleString('fr-FR')} ${row.unit}`
+          )}
+        >
+          <RadialChart
+            data={ACTIVITY}
+            labelKey="label"
+            valueKey="value"
+            maxKey="target"
+          />
+        </Card>
+
+        <Card title="Une cible partagée, et un total au milieu" seriesCount={2}>
+          <RadialChart
+            data={ENERGY}
+            labelKey="source"
+            valueKey="kcal"
+            maxValue={1200}
+          >
+            <Text
+              style={{ color: theme.colors.muted, fontSize: theme.fontSizes.sm }}
+            >
+              Calories
+            </Text>
+            <Text
+              style={{
+                color: theme.colors.foreground,
+                fontSize: theme.fontSizes.xl,
+                fontWeight: theme.fontWeights.semibold,
+              }}
+            >
+              1 120 kcal
+            </Text>
+          </RadialChart>
+        </Card>
+
+        <Card title="Sans piste, plus épais, resserré">
+          <RadialChart
+            data={ACTIVITY}
+            labelKey="label"
+            valueKey="value"
+            maxKey="target"
+            hasTrack={false}
+            thickness={20}
+            gap={2}
+            size="sm"
+          />
+        </Card>
+
+        <Card title="Un seul anneau, et un anneau plein">
+          <RadialChart
+            data={[{ label: 'Objectif', value: 120, target: 120 }]}
+            labelKey="label"
+            valueKey="value"
+            maxKey="target"
+            size="sm"
+          />
+        </Card>
+
+        <Card
+          title="Six séries — l'épaisseur cède, aucun anneau ne saute"
+          seriesCount={6}
+        >
+          <RadialChart
+            data={MONTHS.slice(0, 6).map((month, index) => ({
+              month,
+              value: (index + 1) * 15,
+            }))}
+            labelKey="month"
+            valueKey="value"
+            maxValue={100}
+            size="sm"
+          />
+        </Card>
+
+        <Card title="Aucune donnée">
+          <RadialChart data={[]} labelKey="label" valueKey="value" size="sm" />
+        </Card>
+      </Section>
+
+      <Section
         title="The five levels, and a tint"
         note="The ProgressBar's five, for the ProgressBar's reasons: primary and secondary are the two emphases, and the three intents are for when the number itself is the news."
       >
@@ -328,10 +433,20 @@ export default function ChartsScreen() {
  * The frame, with the title the demo gives it. Every card on this screen is a real
  * `Chart` — the local one this screen used to carry is exactly what the component replaced.
  */
+/**
+ * `Chart.Header` is a row, and its legend does not shrink — `flexShrink` is 0 by default in
+ * React Native. A legend of two short names sits beside the title happily; three labels
+ * carrying a value and a target take the whole row, squeeze the title to nothing and leave
+ * the card as tall as a title wrapped one letter per line.
+ *
+ * So a long legend goes **under** the figure instead, which is where a radial chart's
+ * belongs anyway: the names read against the rings rather than above them.
+ */
 function Card({
   title,
   description,
   legend,
+  legendBelow = false,
   seriesCount,
   children,
   ...props
@@ -339,12 +454,15 @@ function Card({
   title: string
   description?: string
   legend?: string[]
+  legendBelow?: boolean
   seriesCount?: number
   children: React.ReactNode
   variant?: ChartVariant
   color?: string
   isDisabled?: boolean
 }) {
+  const legendNode = legend === undefined ? null : <Chart.Legend labels={legend} />
+
   return (
     <Chart seriesCount={seriesCount ?? legend?.length ?? 1} {...props}>
       <Chart.Header>
@@ -354,9 +472,12 @@ function Card({
             <Chart.Description>{description}</Chart.Description>
           )}
         </Chart.Heading>
-        {legend === undefined ? null : <Chart.Legend labels={legend} />}
+        {legendBelow ? null : legendNode}
       </Chart.Header>
       {children}
+      {legendBelow && legendNode !== null ? (
+        <Chart.Footer>{legendNode}</Chart.Footer>
+      ) : null}
     </Chart>
   )
 }

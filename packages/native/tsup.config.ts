@@ -40,6 +40,7 @@ const entries = {
   'components/progress-bar/index': 'src/components/progress-bar/index.ts',
   'components/progress-circle/index': 'src/components/progress-circle/index.ts',
   'components/radar-chart/index': 'src/components/radar-chart/index.ts',
+  'components/radial-chart/index': 'src/components/radial-chart/index.ts',
   'components/radio/index': 'src/components/radio/index.ts',
   'components/range-calendar/index': 'src/components/range-calendar/index.ts',
   'components/segment/index': 'src/components/segment/index.ts',
