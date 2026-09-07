@@ -6,6 +6,7 @@ build
 out
 coverage
 .turbo
+.claude
 
 # Vendored native dependencies — CocoaPods and Gradle own these
 apps/demo/ios/Pods
