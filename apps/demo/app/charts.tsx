@@ -304,6 +304,7 @@ export default function ChartsScreen() {
       >
         <Card
           title="Activité du jour"
+          legendBelow
           legend={ACTIVITY.map(
             row =>
               `${row.label} — ${row.value.toLocaleString('fr-FR')}/${row.target.toLocaleString('fr-FR')} ${row.unit}`
@@ -432,10 +433,20 @@ export default function ChartsScreen() {
  * The frame, with the title the demo gives it. Every card on this screen is a real
  * `Chart` — the local one this screen used to carry is exactly what the component replaced.
  */
+/**
+ * `Chart.Header` is a row, and its legend does not shrink — `flexShrink` is 0 by default in
+ * React Native. A legend of two short names sits beside the title happily; three labels
+ * carrying a value and a target take the whole row, squeeze the title to nothing and leave
+ * the card as tall as a title wrapped one letter per line.
+ *
+ * So a long legend goes **under** the figure instead, which is where a radial chart's
+ * belongs anyway: the names read against the rings rather than above them.
+ */
 function Card({
   title,
   description,
   legend,
+  legendBelow = false,
   seriesCount,
   children,
   ...props
@@ -443,12 +454,15 @@ function Card({
   title: string
   description?: string
   legend?: string[]
+  legendBelow?: boolean
   seriesCount?: number
   children: React.ReactNode
   variant?: ChartVariant
   color?: string
   isDisabled?: boolean
 }) {
+  const legendNode = legend === undefined ? null : <Chart.Legend labels={legend} />
+
   return (
     <Chart seriesCount={seriesCount ?? legend?.length ?? 1} {...props}>
       <Chart.Header>
@@ -458,9 +472,12 @@ function Card({
             <Chart.Description>{description}</Chart.Description>
           )}
         </Chart.Heading>
-        {legend === undefined ? null : <Chart.Legend labels={legend} />}
+        {legendBelow ? null : legendNode}
       </Chart.Header>
       {children}
+      {legendBelow && legendNode !== null ? (
+        <Chart.Footer>{legendNode}</Chart.Footer>
+      ) : null}
     </Chart>
   )
 }
