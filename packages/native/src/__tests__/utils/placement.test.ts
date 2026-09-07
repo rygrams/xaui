@@ -41,6 +41,30 @@ describe('resolvePlacement', () => {
     expect(start).toBe(80) // 20 + (320 - 200) / 2
   })
 
+  it('floors the width at minWidth', () => {
+    // A trigger narrower than the floor: the panel takes the floor, and the centred
+    // position it would want (20 + (120 - 280) / 2 = -60) is clamped to the left inset.
+    const narrow = resolvePlacement(
+      input({
+        anchor: { x: 20, y: 300, width: 120, height: 48 },
+        width: 'trigger',
+        minWidth: 280,
+      })
+    )
+    expect(narrow.width).toBe(280)
+    expect(narrow.start).toBe(12)
+
+    // A trigger wider than the floor: minWidth does nothing.
+    const wide = resolvePlacement(input({ width: 'trigger', minWidth: 280 }))
+    expect(wide.width).toBe(320)
+  })
+
+  it('keeps the screen clamp above minWidth', () => {
+    const { width } = resolvePlacement(input({ width: 'trigger', minWidth: 5000 }))
+
+    expect(width).toBe(366) // 390 - 12 - 12, the floor cannot push past the edge
+  })
+
   it('pins a content-fit list to either edge of the trigger', () => {
     const start = resolvePlacement(input({ width: 'content-fit', align: 'start' }))
     const end = resolvePlacement(input({ width: 'content-fit', align: 'end' }))
