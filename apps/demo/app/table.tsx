@@ -170,7 +170,7 @@ export default function TableScreen() {
       >
         <Table
           selectionMode="single"
-          variant='secondary'
+          variant="secondary"
           selectedKeys={single}
           onSelectionChange={setSingle}
           size="sm"
