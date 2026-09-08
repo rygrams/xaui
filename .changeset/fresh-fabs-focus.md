@@ -2,4 +2,4 @@
 '@xaui/native': patch
 ---
 
-fix(native): forward a lifted `Fab.Discovery.Target` ref to its portal-rendered FAB
+fix(native): preserve `Fab.Discovery` target refs and backdrop dismissal while lifted

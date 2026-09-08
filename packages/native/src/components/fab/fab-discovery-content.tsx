@@ -55,6 +55,9 @@ export const FabDiscoveryContent = forwardRef<View, FabDiscoveryContentProps>(
           <Animated.View
             entering={ZoomIn.duration(DISC_DURATION)}
             exiting={FadeOut}
+            // Decorative only: presses outside an action must keep travelling to the
+            // dismissable backdrop beneath the disc.
+            pointerEvents="none"
             style={[
               circleStyle,
               fabDiscoverySheet.disc,
