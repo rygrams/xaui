@@ -92,6 +92,9 @@ importers:
       expo-splash-screen:
         specifier: ~55.0.25
         version: 55.0.25(expo@55.0.31)(typescript@5.9.3)
+      libphonenumber-js:
+        specifier: ^1.13.12
+        version: 1.13.12
       react:
         specifier: 19.2.0
         version: 19.2.0
@@ -241,6 +244,9 @@ importers:
       '@types/react':
         specifier: ^19.2.0
         version: 19.2.18
+      libphonenumber-js:
+        specifier: ^1.13.12
+        version: 1.13.12
       react:
         specifier: 19.2.0
         version: 19.2.0
@@ -5415,6 +5421,9 @@ packages:
   levn@0.4.1:
     resolution: {integrity: sha512-+bT2uH4E5LGE7h/n3evcS/sQlJXCpIp6ym8OWJ5eV6+67Dsql/LaaT7qJBAt2rzfoa/5QBGBhxDix1dMt2kQKQ==}
     engines: {node: '>= 0.8.0'}
+
+  libphonenumber-js@1.13.12:
+    resolution: {integrity: sha512-uLVeV1c9OTk6qkdqnj+mpMD+ZdnZ0szVyWu58HwMmpwkHA1gCEkyjd3veZQXDnuw9KEwSRjcc9B1pS9XKIN1fA==}
 
   lighthouse-logger@1.4.2:
     resolution: {integrity: sha512-gPWxznF6TKmUHrOQjlVo2UbaL2EJ71mb2CCeRs/2qBpi4L/g4LUVc9+3lKQ6DTUZwJswfM7ainGrLO1+fOqa2g==}
@@ -13463,6 +13472,8 @@ snapshots:
     dependencies:
       prelude-ls: 1.2.1
       type-check: 0.4.0
+
+  libphonenumber-js@1.13.12: {}
 
   lighthouse-logger@1.4.2:
     dependencies:

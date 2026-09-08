@@ -1,4 +1,6 @@
+import { useState } from 'react'
 import { Stack } from 'expo-router'
+import { Button } from '@xaui/native/button'
 import { useColorScheme } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import 'react-native-reanimated'
@@ -14,11 +16,26 @@ import { XAUIProvider } from '@xaui/native/theme'
  */
 export default function RootLayout() {
   const colorScheme = useColorScheme()
+  const [mode, setMode] = useState<'light' | 'dark' | null>(null)
+  const colorMode = mode ?? (colorScheme === 'dark' ? 'dark' : 'light')
 
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <XAUIProvider colorMode={colorScheme === 'dark' ? 'dark' : 'light'}>
-        <Stack>
+      <XAUIProvider colorMode={colorMode}>
+        <Stack
+          screenOptions={{
+            headerRight: () => (
+              <Button
+                size="xs"
+                variant="secondary"
+                accessibilityLabel="Changer le thème"
+                onPress={() => setMode(colorMode === 'light' ? 'dark' : 'light')}
+              >
+                {colorMode === 'light' ? 'Dark' : 'Light'}
+              </Button>
+            ),
+          }}
+        >
           <Stack.Screen name="index" options={{ title: 'XAUI (v1)' }} />
           <Stack.Screen name="accordion" options={{ title: 'Accordion (v1)' }} />
           <Stack.Screen name="alert" options={{ title: 'Alert (v1)' }} />
@@ -104,6 +121,10 @@ export default function RootLayout() {
           <Stack.Screen name="tag-group" options={{ title: 'TagGroup (v1)' }} />
           <Stack.Screen name="text-area" options={{ title: 'TextArea (v1)' }} />
           <Stack.Screen name="text-field" options={{ title: 'TextField (v1)' }} />
+          <Stack.Screen
+            name="phone-number-field"
+            options={{ title: 'PhoneNumberField (v1)' }}
+          />
           <Stack.Screen name="time-field" options={{ title: 'TimeField (v1)' }} />
           <Stack.Screen name="timeline" options={{ title: 'Timeline (v1)' }} />
           <Stack.Screen name="time-picker" options={{ title: 'TimePicker (v1)' }} />

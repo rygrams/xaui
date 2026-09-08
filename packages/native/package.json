@@ -686,6 +686,16 @@
         "types": "./dist/theme/index.d.cts",
         "default": "./dist/theme/index.cjs"
       }
+    },
+    "./phone-number-field": {
+      "import": {
+        "types": "./dist/components/phone-number-field/index.d.ts",
+        "default": "./dist/components/phone-number-field/index.js"
+      },
+      "require": {
+        "types": "./dist/components/phone-number-field/index.d.cts",
+        "default": "./dist/components/phone-number-field/index.cjs"
+      }
     }
   },
   "files": [
@@ -709,6 +719,7 @@
     "type-check": "tsc --noEmit"
   },
   "peerDependencies": {
+    "libphonenumber-js": ">=1.11.0",
     "react": "^18.0.0 || ^19.0.0",
     "react-native": ">=0.70.0",
     "react-native-gesture-handler": ">=2.0.0",
@@ -718,6 +729,9 @@
     "react-native-worklets": ">=0.5.0"
   },
   "peerDependenciesMeta": {
+    "libphonenumber-js": {
+      "optional": true
+    },
     "react-native-gesture-handler": {
       "optional": true
     },
@@ -730,6 +744,7 @@
   },
   "devDependencies": {
     "@types/react": "^19.2.0",
+    "libphonenumber-js": "^1.13.12",
     "react": "19.2.0",
     "react-native": "0.83.10",
     "react-native-gesture-handler": "^2.28.0",

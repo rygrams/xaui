@@ -67,6 +67,7 @@ const SCREENS = [
   { href: '/tag-group', label: 'TagGroup' },
   { href: '/text-area', label: 'TextArea' },
   { href: '/text-field', label: 'TextField' },
+  { href: '/phone-number-field', label: 'PhoneNumberField' },
   { href: '/time-field', label: 'TimeField' },
   { href: '/timeline', label: 'Timeline' },
   { href: '/time-picker', label: 'TimePicker' },
