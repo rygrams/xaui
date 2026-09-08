@@ -4,6 +4,7 @@ import type { FontSizeKey, XAUITheme } from '../../theme/theme.type'
 import type { ColorPickerSize, ColorPickerSlot } from './color-picker.type'
 
 const SLOTS = [
+  'content',
   'preview',
   'grid',
   'group',
@@ -47,19 +48,28 @@ const VARIANT_TOKENS: Record<'default', VariantTokens> = {
  * is eighteen lines of type in a dialog that could have been colour, and the eye reads a
  * label to the left of the thing it names as readily as one on top of it.
  *
- * That is what fixes the cell: the row now has to hold a label column, a gap and eight
- * cells inside the ~310 points a dialog leaves on a phone. At `md` that is 56 + 6 + 8×28 =
- * 286. Growing the cell past this makes a ramp wrap halfway through itself, which reads as
- * two bars rather than one colour getting darker.
+ * **The cell is a basis, not a width.** A row has to hold the label column, a gap and eight
+ * cells inside whatever the dialog leaves — 326 points on one phone and 311 on the next —
+ * and a fixed cell has to be sized for the narrowest of them or a ramp wraps halfway
+ * through itself, which reads as two bars rather than one colour getting darker. So the
+ * cell below is what it takes when there is room, and the ramp **shrinks** rather than
+ * wrapping when there is not: 32 at `md` on a 390-point screen, 31 on a 375. That is what
+ * lets the number be the size the palette deserves instead of the size the smallest phone
+ * allows.
  *
  * The chip is smaller than the cell and not by a ratio: it sits inside a field beside a
  * line of text, so it follows the field's own scale rather than the grid's.
  */
 type SizeStep = {
-  /** One grid cell, ring included. */
+  /** What one cell takes when the row has room for it. It gives before the row does. */
   cell: number
   /** The chip on the trigger. */
   chip: number
+  /**
+   * The dialog's own inset, under the `Dialog`'s five steps. A panel of colour wants less
+   * chrome than a panel of prose, and every point taken off it is a point of ramp.
+   */
+  pad: number
   /** Between a group's name and its ramp. */
   labelGap: number
   /** Between two ramps — the only air in the grid, and what keeps them apart. */
@@ -69,12 +79,12 @@ type SizeStep = {
 }
 
 const SIZES: Record<ColorPickerSize, SizeStep> = {
-  xs: { cell: 5, chip: 4, labelGap: 1, stackGap: 1.5, label: 'xs' },
-  sm: { cell: 6, chip: 5, labelGap: 1.25, stackGap: 1.5, label: 'xs' },
-  md: { cell: 7, chip: 5, labelGap: 1.5, stackGap: 2, label: 'sm' },
+  xs: { cell: 6, chip: 4, pad: 2, labelGap: 1, stackGap: 1.5, label: 'xs' },
+  sm: { cell: 7, chip: 5, pad: 2.5, labelGap: 1.25, stackGap: 1.5, label: 'xs' },
+  md: { cell: 8, chip: 5, pad: 3, labelGap: 1.5, stackGap: 2, label: 'sm' },
   // The label holds at `sm`: a hue's name is a caption beside a bar rather than body copy,
   // and letting the type grow here would take the width straight off the colour.
-  lg: { cell: 7.5, chip: 6, labelGap: 1.75, stackGap: 2, label: 'sm' },
+  lg: { cell: 9, chip: 6, pad: 3.5, labelGap: 1.75, stackGap: 2, label: 'sm' },
 }
 
 /**
@@ -101,13 +111,14 @@ const LABEL_WIDTH = 4
 const RING = 2
 
 function sizeAxis(step: SizeStep) {
-  const { cell, chip, labelGap, stackGap, label } = step
+  const { cell, chip, pad, labelGap, stackGap, label } = step
 
   return (theme: XAUITheme): SlotStyles<ColorPickerSlot> => {
     const side = theme.spacing(cell)
     const chipSide = theme.spacing(chip)
 
     return {
+      content: { padding: theme.spacing(pad) },
       preview: {
         width: chipSide,
         height: chipSide,
@@ -120,7 +131,9 @@ function sizeAxis(step: SizeStep) {
         fontSize: theme.fontSizes[label],
         lineHeight: theme.lineHeights[label],
       },
-      swatch: { width: side, height: side },
+      // A basis rather than a width, and square whatever it ends up: `aspectRatio` takes
+      // the height off the width the row actually granted.
+      swatch: { flexBasis: side, flexGrow: 0, flexShrink: 1, aspectRatio: 1 },
       swatchSelected: { borderWidth: theme.borderWidth.default * RING },
     }
   }
@@ -161,8 +174,13 @@ export const colorPickerRecipe = createRecipe({
      */
     swatches: {
       flexDirection: 'row',
-      flexWrap: 'wrap',
       // No `gap`: the cells of one ramp touch. What separates two ramps is `grid`'s.
+      //
+      // No `flexWrap` either, and no `flexGrow`: the bar is as wide as its cells want to be
+      // and shrinks with them when the row is narrower than that. Wrapping would break a
+      // ramp in half and growing would leave a hairline around empty ground on a group of
+      // four swatches.
+      flexShrink: 1,
       overflow: 'hidden',
       borderWidth: theme.borderWidth.default,
       borderColor: theme.colors.border,

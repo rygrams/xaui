@@ -12,6 +12,7 @@ import type { RadiusKey, Size } from '../../theme/theme.type'
 import type { DummyFieldFieldProps, DummyFieldLabelPlacement } from '../dummy-field'
 
 export type ColorPickerSlot =
+  | 'content'
   | 'preview'
   | 'grid'
   | 'group'
@@ -164,6 +165,8 @@ export type ColorPickerContextValue = {
   select: (color: string) => void
   colors: readonly ColorGroup[]
   isDisabled: boolean
+  /** The dialog's own inset and its ceiling, over the `Dialog`'s panel. */
+  contentStyle: StyleProp<ViewStyle>
   previewStyle: StyleProp<ViewStyle>
   /** The dashed edge a chip wears while nothing is chosen. */
   previewEmptyStyle: StyleProp<ViewStyle>

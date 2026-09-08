@@ -123,6 +123,7 @@ export const ColorPickerRoot = forwardRef<View, ColorPickerProps>(
         select,
         colors,
         isDisabled,
+        contentStyle: styles.content,
         // The chip carries the answer, so the answer is part of its style rather than a
         // prop the slot merges: a raw colour resolves outside the cache, like every other
         // value the caller invents.

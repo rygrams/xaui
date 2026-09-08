@@ -174,11 +174,19 @@ own `style` and style props.
 ## Variants
 
 The `DummyField`'s four — `primary`, `secondary`, `tertiary`, `ghost` — dress the **field**,
-and the four sizes (`xs`, `sm`, `md`, `lg`) drive the field's height and the grid's cell:
-20, 24, 28 and 30 points. The cell is as large as a row allows once the label column and the
-gap beside it are paid for — 56 + 6 + 8×28 = 286 inside the ~310 a dialog leaves on a phone
-— because a ramp that wrapped halfway through itself would read as two bars rather than one
-colour getting darker.
+and the four sizes (`xs`, `sm`, `md`, `lg`) drive the field's height, the dialog's inset and
+the grid's cell: 24, 28, 32 and 36 points.
+
+**The cell is a basis, not a width.** A row holds the label column, a gap and eight cells
+inside whatever the dialog leaves — 326 points on one phone, 311 on the next — and a fixed
+cell would have to be sized for the narrowest of them. So the cell is what it takes when
+there is room and the ramp **shrinks** rather than wrapping when there is not: 32 points at
+`md` on a 390-point screen, 31 on a 375. A ramp that wrapped halfway through itself would
+read as two bars rather than one colour getting darker.
+
+The dialog itself is capped at three quarters of the screen and pays less inset than a
+`Dialog` of prose, so the page stays visible at both ends and the grid scrolls inside the
+panel rather than the panel growing past it.
 
 `color` is a raw tint (R7). It dresses the field and it is the ring around the chosen
 swatch — the legacy picker's `themeColor`, which drove the same two. `radius` moves the

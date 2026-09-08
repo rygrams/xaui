@@ -24,6 +24,8 @@ export const ColorPickerContent = forwardRef<View, ColorPickerContentProps>(
     // the host, and a React context does not travel with them. The dialog puts its own back
     // on the far side; the picker's has to be put back beside it, or the grid would throw
     // looking for it.
+    // The whole value, not a rest of it: the provider below re-publishes it across the
+    // portal, and a fresh object every render would re-render every slot under it.
     const context = useColorPicker()
     const [styleProps, rest] = useStyleProps(props)
 
@@ -31,9 +33,10 @@ export const ColorPickerContent = forwardRef<View, ColorPickerContentProps>(
       <DialogContent
         ref={ref}
         {...rest}
-        // The panel gives before the screen does: a palette taller than the dialog has to
-        // shrink so the grid inside it can scroll, rather than running off both ends.
-        style={[colorPickerSheet.panel, styleProps, style]}
+        // The `Dialog`'s five steps of padding, then this component's: a panel of colour
+        // wants less chrome than a panel of prose. Then the ceiling, and the shrink that
+        // lets the grid inside scroll once the panel has reached it.
+        style={[context.contentStyle, colorPickerSheet.panel, styleProps, style]}
       >
         <ColorPickerProvider value={context}>
           {children ?? <ColorPickerGrid />}
