@@ -13,7 +13,8 @@ The design values and how components read them.
 | `scales.ts`        | Radius, spacing unit, control heights, type scale, semantic shadows     |
 | `create-theme.ts`  | The public configuration API, and the theme `id`                        |
 | `theme-context.ts` | The bare React context                                                  |
-| `theme-hooks.ts`   | `useXAUITheme`, `useThemeColor`, `useColorMode`                         |
+| `theme-hooks.ts`   | `useXAUITheme`, `useThemeColor`, `useColorMode`, `useAppearance`        |
+| `appearance.ts`    | The theme read as app chrome — status bar, navigation bar, a header     |
 
 `XAUIProvider` lives in `provider/` but is exported from here — one import path for
 everything theme-related.
@@ -23,6 +24,50 @@ everything theme-related.
 A source layer of ~32 colours per mode is written by hand in `tooling/tokens/source.ts`.
 Everything else is **derived** — override `accent`, and `accentPressed`, `accentSoft` and
 `accentSoftForeground` follow. Never add a derivable token to the source layer.
+
+## The chrome above the provider
+
+`XAUIProvider` dresses everything the library renders and **nothing above it**. A status bar
+belongs to the platform and a navigation header belongs to whichever navigator the app chose,
+so the theme carries neither `expo-status-bar` nor React Navigation — it answers what they
+ask instead, and the app wires four values:
+
+```tsx
+function Shell({ children }) {
+  const { colorMode, barContent, statusBarStyle, background, foreground } =
+    useAppearance()
+
+  return (
+    <>
+      {/* React Native's own — no extra dependency. */}
+      <StatusBar barStyle={statusBarStyle} backgroundColor={background} />
+
+      {/* expo-status-bar, which takes the one-word form. */}
+      <ExpoStatusBar style={barContent} />
+
+      {/* Expo Router, or React Navigation. */}
+      <Stack
+        screenOptions={{
+          headerStyle: { backgroundColor: background },
+          headerTintColor: foreground,
+          contentStyle: { backgroundColor: background },
+        }}
+      >
+        {children}
+      </Stack>
+    </>
+  )
+}
+```
+
+It has to be **under** the provider: `useAppearance` reads the resolved theme, and the
+provider is what resolves it. `appearanceFor(theme)` is the same mapping as a plain function,
+for a navigator built outside it.
+
+**`barContent` is the opposite of `colorMode`** — a dark app draws light text up there. That
+inversion is the one thing this module exists for: `barContent === colorMode` reads correctly
+in prose, is backwards on screen, and is invisible on a simulator whose bar happens to be
+white, so it ships as a status bar nobody can read.
 
 ## The palette is not the theme
 

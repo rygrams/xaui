@@ -22,6 +22,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P0.5   | Contrast guard in CI                                                             | done    |
 | P0.6   | `createTheme`                                                                    | done    |
 | P0.7   | `XAUIProvider`                                                                   | done    |
+| P0.7b  | `useAppearance` — the theme read as app chrome, with no navigator dependency     | done    |
 | P0.8   | Legacy `core-shim.ts`                                                            | done    |
 | P0.9   | Package hygiene and optional peers                                               | done    |
 | P0.10  | ESLint rule for R13                                                              | done    |
