@@ -118,10 +118,7 @@ export function discoveryGeometry({
 
   // Where the block's far edge lands — its top when it grows upwards, its bottom when it
   // grows down. That is the end the curve pinches, so that is where the chord is measured.
-  const blockHeight = Math.max(
-    MIN_HEIGHT,
-    messageHeight ?? ESTIMATED_MESSAGE_HEIGHT
-  )
+  const blockHeight = Math.max(MIN_HEIGHT, messageHeight ?? ESTIMATED_MESSAGE_HEIGHT)
   const farY = isBelow
     ? (pinned.top ?? 0) + blockHeight
     : y - TARGET_GAP - blockHeight
