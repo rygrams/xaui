@@ -56,6 +56,7 @@ const SCREENS = [
   { href: '/progress-circle', label: 'ProgressCircle' },
   { href: '/radio', label: 'Radio' },
   { href: '/segment', label: 'Segment' },
+  { href: '/scaffold', label: 'Scaffold' },
   { href: '/search-field', label: 'SearchField' },
   { href: '/select', label: 'Select' },
   { href: '/skeleton', label: 'Skeleton' },
