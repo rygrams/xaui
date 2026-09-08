@@ -141,5 +141,9 @@ export const fabMenuRecipe = createRecipe({
     disabled: theme => ({ item: { opacity: theme.opacity.disabled } }),
   },
 
-  defaultVariants: { size: 'md' },
+  // `variant` is named even though the table has one entry: without it the selection
+  // resolves to `undefined`, `paint` is handed an empty set of colours, and the pill ends
+  // up with `backgroundColor: undefined` — a hole showing the backdrop through it rather
+  // than a white pill. `createRecipe` warns about exactly this now.
+  defaultVariants: { variant: 'default', size: 'md' },
 })
