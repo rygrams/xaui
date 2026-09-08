@@ -79,12 +79,12 @@ type SizeStep = {
 }
 
 const SIZES: Record<ColorPickerSize, SizeStep> = {
-  xs: { cell: 6, chip: 4, pad: 2, labelGap: 1, stackGap: 1.5, label: 'xs' },
-  sm: { cell: 7, chip: 5, pad: 2.5, labelGap: 1.25, stackGap: 1.5, label: 'xs' },
-  md: { cell: 8, chip: 5, pad: 3, labelGap: 1.5, stackGap: 2, label: 'sm' },
+  xs: { cell: 6, chip: 4, pad: 4, labelGap: 1, stackGap: 1.5, label: 'xs' },
+  sm: { cell: 7, chip: 5, pad: 4, labelGap: 1.25, stackGap: 1.5, label: 'xs' },
+  md: { cell: 8, chip: 5, pad: 4, labelGap: 1.5, stackGap: 2, label: 'sm' },
   // The label holds at `sm`: a hue's name is a caption beside a bar rather than body copy,
   // and letting the type grow here would take the width straight off the colour.
-  lg: { cell: 9, chip: 6, pad: 3.5, labelGap: 1.75, stackGap: 2, label: 'sm' },
+  lg: { cell: 9, chip: 6, pad: 4, labelGap: 1.75, stackGap: 2, label: 'sm' },
 }
 
 /**
