@@ -1,6 +1,6 @@
 {
   "name": "@xaui/native",
-  "version": "0.9.1-alpha.81",
+  "version": "0.9.1-alpha.83",
   "description": "Composition-first React Native UI components with native animations powered by Reanimated",
   "keywords": [
     "react-native",
@@ -705,6 +705,16 @@
       "require": {
         "types": "./dist/components/search-field/index.d.cts",
         "default": "./dist/components/search-field/index.cjs"
+      }
+    },
+    "./color-picker": {
+      "import": {
+        "types": "./dist/components/color-picker/index.d.ts",
+        "default": "./dist/components/color-picker/index.js"
+      },
+      "require": {
+        "types": "./dist/components/color-picker/index.d.cts",
+        "default": "./dist/components/color-picker/index.cjs"
       }
     }
   },

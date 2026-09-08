@@ -64,6 +64,10 @@ export default function RootLayout() {
             name="close-button"
             options={{ title: 'CloseButton (v1)' }}
           />
+          <Stack.Screen
+            name="color-picker"
+            options={{ title: 'ColorPicker (v1)' }}
+          />
           <Stack.Screen name="combobox" options={{ title: 'Combobox (v1)' }} />
           <Stack.Screen name="date-picker" options={{ title: 'DatePicker (v1)' }} />
           <Stack.Screen
