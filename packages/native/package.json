@@ -706,6 +706,16 @@
         "types": "./dist/components/search-field/index.d.cts",
         "default": "./dist/components/search-field/index.cjs"
       }
+    },
+    "./color-picker": {
+      "import": {
+        "types": "./dist/components/color-picker/index.d.ts",
+        "default": "./dist/components/color-picker/index.js"
+      },
+      "require": {
+        "types": "./dist/components/color-picker/index.d.cts",
+        "default": "./dist/components/color-picker/index.cjs"
+      }
     }
   },
   "files": [
