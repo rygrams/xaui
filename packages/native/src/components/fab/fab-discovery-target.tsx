@@ -48,7 +48,9 @@ export const FabDiscoveryTarget = forwardRef<View, FabDiscoveryTargetProps>(
     return (
       <>
         <FabRoot
-          ref={refs}
+          // The placeholder remains the measurement anchor, but it must not keep the
+          // public ref after the interactive FAB has moved into the portal.
+          ref={isLifted ? anchor.node : refs}
           placement={placement}
           offset={offset}
           accessibilityElementsHidden={isLifted || undefined}
@@ -84,7 +86,7 @@ export const FabDiscoveryTarget = forwardRef<View, FabDiscoveryTargetProps>(
                   puts it exactly where the original is, and re-applying them would float
                   it a second time — inside a box its own size, which lands it `offset`
                   points up and towards the leading edge of its own ring. */}
-              <FabRoot {...props} style={style}>
+              <FabRoot ref={ref} {...props} style={style}>
                 {children}
               </FabRoot>
             </View>
