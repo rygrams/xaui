@@ -1,5 +1,11 @@
 # @xaui/native
 
+## 0.9.1-alpha.81
+
+### Patch Changes
+
+- bac69d0: Add SearchField at `@xaui/native/search-field`: a TextField with a built-in magnifier, a clear button and a search key, in two fills — a flat `primary` and a soft `secondary`, neither carrying the field shadow.
+
 ## 0.9.1-alpha.80
 
 ### Patch Changes
