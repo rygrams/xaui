@@ -15,8 +15,8 @@ const TEXT_DELAY = 120
  * The disc, the ring, and the block of text on it.
  *
  * All three are placed by `discoveryGeometry`, measured off the target — including the
- * text, which is laid out to the **chord of the disc at its own height** rather than to the
- * disc's width. A block set at the full diameter runs past the curve at both ends, which is
+ * text, which is pinned by the edge nearest the target and laid out to the **chord of the
+ * disc at its far end** rather than to the disc's width. A block set at the full diameter runs past the curve at both ends, which is
  * the shape every first coach mark has; where the chord is too narrow to read a paragraph
  * in, the block gives up on the disc and sets from the screen's edge instead.
  *
@@ -84,7 +84,11 @@ export const FabDiscoveryContent = forwardRef<View, FabDiscoveryContentProps>(
               contentStyle,
               fabDiscoverySheet.disc,
               {
+                // One of the two, never both: pinned by the edge nearest the target, so a
+                // block above it grows upwards as the text runs long instead of down into
+                // the FAB. React Native ignores the one that is `undefined`.
                 top: message.top,
+                bottom: message.bottom,
                 start: message.start,
                 width: message.width,
                 maxHeight: message.maxHeight,

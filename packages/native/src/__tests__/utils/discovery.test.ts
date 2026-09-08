@@ -58,20 +58,39 @@ describe('discoveryGeometry — the text inside the disc', () => {
 
     const radius = circle.size / 2
     const centreY = circle.top + radius
-    const halfChord = Math.sqrt(radius ** 2 - (message.top - centreY) ** 2)
+    const top = message.top ?? WINDOW.height - (message.bottom ?? 0) - 180
+    const halfChord = Math.sqrt(radius ** 2 - (top - centreY) ** 2)
 
     expect(message.width).toBeLessThanOrEqual(halfChord * 2)
   })
 
-  it('sets the text above a target in the bottom half', () => {
+  /**
+   * Pinned by the edge nearest the target, never by the far one. A block above the FAB
+   * that set its `top` from a constant would run down into the FAB the moment the
+   * description gained a line — which is what the legacy's `targetY - 150` did.
+   */
+  it('pins the block by its bottom, just above a target in the bottom half', () => {
     const { message } = geometry()
-    expect(message.top).toBeLessThan(FAB.y)
+
+    expect(message.top).toBeUndefined()
+    expect(message.bottom).toBe(WINDOW.height - (FAB.y - 30))
   })
 
-  it('sets the text below a target in the top half', () => {
+  it('pins the block by its top, just below a target in the top half', () => {
     const target = { ...FAB, y: 80 }
     const { message } = geometry({ target })
-    expect(message.top).toBeGreaterThan(target.y)
+
+    expect(message.bottom).toBeUndefined()
+    expect(message.top).toBe(target.y + target.height + 30)
+  })
+
+  it('keeps the gap to the target whatever the text does', () => {
+    // The block has no height in the geometry at all — which is the point: nothing about
+    // where it sits can change when the description gains a line.
+    const short = geometry()
+    const tall = geometry({ scale: 3 })
+
+    expect(short.message.bottom).toBe(tall.message.bottom)
   })
 
   it('leaves the text a readable width even where the chord is a sliver', () => {
@@ -81,6 +100,20 @@ describe('discoveryGeometry — the text inside the disc', () => {
 
     expect(message.width).toBeGreaterThanOrEqual(280)
     expect(message.start).toBe(24)
+  })
+
+  it("measures the chord at the block's far end, not at the edge it is pinned to", () => {
+    // Pinned just above the FAB, the block grows towards the disc's crown, where the
+    // curve pinches. Measuring at the pinned edge instead would hand it the disc's widest
+    // chord and let its first line run past the curve.
+    const { circle, message } = geometry({ target: { ...FAB, x: 167 } })
+
+    const radius = circle.size / 2
+    const centreY = circle.top + radius
+    const pinnedY = WINDOW.height - (message.bottom ?? 0)
+    const atPinned = 2 * Math.sqrt(radius ** 2 - (pinnedY - centreY) ** 2)
+
+    expect(message.width).toBeLessThan(atPinned)
   })
 
   it('runs the text away from the side the target is on', () => {

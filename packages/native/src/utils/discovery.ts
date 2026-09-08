@@ -9,11 +9,18 @@ export type DiscoveryGeometry = {
   /** The target's own rectangle, for the copy drawn over the disc. */
   target: Rect
   /**
-   * The block of text: where it starts, how wide it may be, and which edge its lines set
-   * from. It has no height of its own — the text decides that, up to `maxHeight`.
+   * The block of text: which edge it is pinned to, where it starts, how wide it may be,
+   * and which way its lines set. It has no height of its own — the text decides that, up
+   * to `maxHeight`.
+   *
+   * **One of `top` and `bottom`, never both.** A block under the target is pinned by its
+   * top, because that is the edge nearest the thing it describes; a block above one is
+   * pinned by its **bottom**, for the same reason — and that is what lets it grow upwards
+   * as the text gets longer instead of running down into the target.
    */
   message: {
-    top: number
+    top?: number
+    bottom?: number
     start: number
     width: number
     maxHeight: number
@@ -45,10 +52,16 @@ const MIN_WIDTH = 280
 const MIN_HEIGHT = 140
 /** Where the screen stops being "the top half" — past centre, because a FAB lives low. */
 const TOP_HALF = 0.55
-/** How far above the target the text starts when the target is in the bottom half. */
-const ABOVE_LIFT = 150
-/** A hair of air between the text and the target, on top of `TARGET_GAP`. */
-const BREATH = 14
+/**
+ * How tall the block is assumed to be **when deciding how wide the disc lets it be**.
+ *
+ * Only the width needs a guess. A block above the target is pinned by its bottom, so where
+ * it sits is exact however long the text runs — but the chord that bounds its width is
+ * narrowest at its **top**, and the top is not known until the text has been laid out.
+ * Four or five lines is what a coach mark holds; guessing high costs a little width and
+ * guessing low would let a line run past the curve.
+ */
+const REFERENCE_HEIGHT = 180
 
 /**
  * A coach mark's geometry: a disc centred on the thing being taught, a ring around it, and
@@ -93,10 +106,21 @@ export function discoveryGeometry({
   const radius = diameter / 2
   const haloSize = Math.max(target.width, target.height) + padding * 2
 
-  const top = messageTop(centreY, y, target.height, window.height)
-  // The half-chord of the disc at the text's own `y`, which is how much room the curve
-  // actually leaves there. Zero once the text is past the disc entirely.
-  const dy = top - centreY
+  // Above the target or below it, and pinned by the edge nearest it either way.
+  const isBelow = centreY < window.height * TOP_HALF
+  const pinned = isBelow
+    ? { top: y + target.height + TARGET_GAP }
+    : { bottom: window.height - (y - TARGET_GAP) }
+
+  // Where the block's far edge lands — its top when it grows upwards, its bottom when it
+  // grows down. That is the end the curve pinches, so that is where the chord is measured.
+  const farY = isBelow
+    ? (pinned.top ?? 0) + REFERENCE_HEIGHT
+    : y - TARGET_GAP - REFERENCE_HEIGHT
+
+  // The half-chord of the disc at that height, which is how much room the curve actually
+  // leaves there. Zero once the text is past the disc entirely.
+  const dy = farY - centreY
   const halfChord = Math.abs(dy) < radius ? Math.sqrt(radius ** 2 - dy ** 2) : 0
 
   const isOnStartSide = centreX < window.width / 2
@@ -124,41 +148,26 @@ export function discoveryGeometry({
     },
     target: { top: y, start: x, width: target.width, height: target.height },
     message: {
-      top,
+      ...pinned,
       start: setsFromEdge
         ? isOnStartSide
           ? TEXT_INSET
           : window.width - TEXT_INSET - floor
         : insideStart,
       width: setsFromEdge ? floor : insideWidth,
-      // From the disc's bottom, so a long description scrolls rather than running out of
-      // the curve at the foot of it.
-      maxHeight: Math.max(MIN_HEIGHT, centreY + radius - TEXT_INSET - top),
+      // As far as the block may grow before it leaves the disc — down to the disc's foot
+      // for a block that grows down, up to its crown for one that grows up. Past that a
+      // long description scrolls rather than running out of the curve.
+      maxHeight: Math.max(
+        MIN_HEIGHT,
+        isBelow
+          ? centreY + radius - TEXT_INSET - (pinned.top ?? 0)
+          : y - TARGET_GAP - (centreY - radius + TEXT_INSET)
+      ),
       // The text hugs the side the target is on, so the two read as one thing.
       align: isOnStartSide ? 'start' : 'end',
     },
   }
-}
-
-/**
- * Above the target or below it, depending on which half of the screen the target is in.
- *
- * A FAB lives in the bottom corner, so the line is past centre rather than at it: the text
- * of an ordinary coach mark goes **above** its target, and only a target genuinely high up
- * gets it underneath.
- */
-function messageTop(
-  centreY: number,
-  targetY: number,
-  targetHeight: number,
-  windowHeight: number
-): number {
-  const base =
-    centreY < windowHeight * TOP_HALF
-      ? Math.min(windowHeight - 200, targetY + targetHeight + TARGET_GAP)
-      : Math.max(TEXT_INSET, targetY - ABOVE_LIFT)
-
-  return Math.max(TEXT_INSET, base - BREATH)
 }
 
 function clamp(value: number, low: number, high: number): number {

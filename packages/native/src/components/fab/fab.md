@@ -230,9 +230,15 @@ the curve at both ends, which is the shape every first coach mark has.
 
 Where that chord is too narrow to read a paragraph in, the block gives up on the disc and
 sets from the screen's own edge — on the side the target is **not** on, so the words run away
-from the thing they describe rather than under it. The text sits above the target, or below
-it when the target is in the top of the screen, and its `maxHeight` reaches the disc's foot
-so a long description scrolls rather than running out of the curve.
+from the thing they describe rather than under it.
+
+**The block is pinned by the edge nearest the target**: by its top when it sits below one,
+by its **bottom** when it sits above. That is what keeps the gap to the FAB fixed however
+long the description runs — the legacy set a `top` at `targetY − 150`, so a coach mark that
+gained a line grew down into the button it was pointing at. Only the block's _width_ still
+needs a guess at its height, because the chord that bounds it is narrowest at the far end and
+the far end is not known until the text has been laid out; that guess is one named constant,
+and it errs wide.
 
 ## Accessibility
 
