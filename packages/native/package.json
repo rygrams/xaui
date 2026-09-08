@@ -697,6 +697,16 @@
         "default": "./dist/components/phone-number-field/index.cjs"
       }
     },
+    "./scaffold": {
+      "import": {
+        "types": "./dist/components/scaffold/index.d.ts",
+        "default": "./dist/components/scaffold/index.js"
+      },
+      "require": {
+        "types": "./dist/components/scaffold/index.d.cts",
+        "default": "./dist/components/scaffold/index.cjs"
+      }
+    },
     "./search-field": {
       "import": {
         "types": "./dist/components/search-field/index.d.ts",

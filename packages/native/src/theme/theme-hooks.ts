@@ -1,5 +1,7 @@
 import { useContext } from 'react'
+import { appearanceFor } from './appearance'
 import { ThemeContext } from './theme-context'
+import type { XAUIAppearance } from './appearance'
 import type { ColorMode, XAUIColors, XAUITheme } from './theme.type'
 
 export function useXAUITheme(): XAUITheme {
@@ -13,6 +15,17 @@ export function useXAUITheme(): XAUITheme {
 /** The resolved mode — never `'system'`. */
 export function useColorMode(): ColorMode {
   return useXAUITheme().mode
+}
+
+/**
+ * The theme, read as app chrome: the status bar, the navigation bar, a header.
+ *
+ * The provider dresses everything the library renders and nothing above it, because a
+ * status bar belongs to the platform and a header belongs to whatever navigator the app
+ * chose. This is what an app hands to those — see `appearanceFor` for the three wirings.
+ */
+export function useAppearance(): XAUIAppearance {
+  return appearanceFor(useXAUITheme())
 }
 
 export function useThemeColor(token: keyof XAUIColors): string

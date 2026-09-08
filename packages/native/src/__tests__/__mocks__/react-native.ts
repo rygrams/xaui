@@ -5,9 +5,24 @@
  *
  * `create` is the identity function on purpose: it makes a reference-stability test
  * assert what the style cache does, not what RN does with the object afterwards.
+ *
+ * `flatten` is RN's own contract instead, because that is what is being asserted through
+ * it: a nested list collapsed left to right, falsy entries skipped, the last value of a
+ * key winning. `create` being the identity is what lets it stay this short — there is no
+ * registered id to look up.
  */
 export const StyleSheet = {
   create: <T extends Record<string, object>>(styles: T): T => styles,
+
+  flatten: (style?: unknown): Record<string, unknown> => {
+    if (!style) return {}
+    if (!Array.isArray(style)) return style as Record<string, unknown>
+
+    return style.reduce<Record<string, unknown>>(
+      (flat, entry) => Object.assign(flat, StyleSheet.flatten(entry)),
+      {}
+    )
+  },
 }
 
 /**
