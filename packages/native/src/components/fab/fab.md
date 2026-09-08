@@ -167,6 +167,79 @@ it nothing says a set of actions has appeared. Each action is a `menuitem`.
 `isDisabled` on the root stops the trigger and every action with it; on one action it stops
 that one. Either way the pill dims once, never twice.
 
+## `Fab.Discovery`
+
+The coach mark that says what a FAB is for.
+
+```tsx
+<Fab.Discovery isOpen={tour} onOpenChange={setTour}>
+  <Fab.Discovery.Target
+    placement="bottom-end"
+    accessibilityLabel="Composer"
+    onPress={compose}
+  >
+    <Fab.Icon as={PlusIcon} />
+  </Fab.Discovery.Target>
+  <Fab.Discovery.Overlay />
+  <Fab.Discovery.Content>
+    <Fab.Discovery.Title>Composez d’où vous voulez</Fab.Discovery.Title>
+    <Fab.Discovery.Description>
+      Ce bouton suit chaque écran de la boîte de réception.
+    </Fab.Discovery.Description>
+    <Fab.Discovery.Action>Compris</Fab.Discovery.Action>
+  </Fab.Discovery.Content>
+</Fab.Discovery>
+```
+
+**It is opened by the app, not by the FAB.** A discovery is shown because this reader has
+not seen the feature — a question only the app can answer — so `isOpen` is controlled far
+more often than not, and pressing the target does what it always did. `Fab.Discovery.Action`
+takes the mark down after the caller's `onPress` has run; so does a press on the overlay.
+
+`color` is a raw tint for the disc and everything on it. Unset it is the theme's `accent`,
+which is what a coach mark means: the one thing on this screen worth pointing at. `scale`
+sets the disc's diameter as a multiple of the window's width and `padding` how far the ring
+stands off the target.
+
+### The FAB does not move, and it stays the FAB
+
+The legacy `FeatureDiscovery` took a `targetRef`, measured it, and drew a **copy** of
+whatever the caller passed as `highlightContent` over the disc. A copy is a picture: it does
+not press, and it is only correct for as long as somebody keeps it in step with the original.
+
+`Fab.Discovery.Target` **is** the `Fab`. While the mark is up it is lifted into the portal at
+its own measured rectangle — the coordinates it already occupied — so it draws above the
+disc, still presses, and never appears to move. The node left in the flow stays mounted and
+invisible, because it is what holds the space the layout gave the FAB and what `onLayout`
+measures; it is taken out of the accessibility tree while it is a placeholder, or a screen
+reader would find the same button twice.
+
+The layers are **numbered** rather than left to mount order. The target and the disc each
+open a portal, and which one landed on top would otherwise depend on the order two slots
+were written in — a FAB under its own disc, from moving one line. `zIndex` alone is not
+enough on Android, which draws a native Z from `elevation` that a React `zIndex` does not
+outrank, so the layer holding the FAB carries more of both.
+
+### The text is laid out to the chord, not to the diameter
+
+`discoveryGeometry` is a pure function — eleven tests — and this is the part worth reading.
+The block of text is placed at a `y`, and how wide the disc is at that `y` is the chord of a
+circle, `√(r² − dy²)`: a block near the disc's centre is nearly its full width, and one near
+the top or bottom is a sliver. Laying the text out at the disc's width instead runs it past
+the curve at both ends, which is the shape every first coach mark has.
+
+Where that chord is too narrow to read a paragraph in, the block gives up on the disc and
+sets from the screen's own edge — on the side the target is **not** on, so the words run away
+from the thing they describe rather than under it.
+
+**The block is pinned by the edge nearest the target**: by its top when it sits below one,
+by its **bottom** when it sits above. That is what keeps the gap to the FAB fixed however
+long the description runs — the legacy set a `top` at `targetY − 150`, so a coach mark that
+gained a line grew down into the button it was pointing at. Only the block's _width_ still
+needs a guess at its height, because the chord that bounds it is narrowest at the far end and
+the far end is not known until the text has been laid out; that guess is one named constant,
+and it errs wide.
+
 ## Accessibility
 
 **A round FAB needs an `accessibilityLabel`.** A mark is not text and there is nothing beside
@@ -178,4 +251,5 @@ it to fall back on. An extended one has a label and does not.
 
 - **`Button`** — the same seven intents, in a row of text.
 - **`Menu`** — a list of actions dropping out of a control that is not a FAB.
+- **`Dialog`** — for a question that has to be answered, rather than a feature explained.
 - **`Portal`** — for a FAB that must escape a scroll container's clipping.
