@@ -260,5 +260,9 @@ export const colorPickerRecipe = createRecipe({
     disabled: theme => ({ grid: { opacity: theme.opacity.disabled } }),
   },
 
-  defaultVariants: { size: 'md', layout: 'ramps' },
+  // `variant` is named even though the table has one entry: without it the selection
+  // resolves to `undefined`, `paint` is handed an empty set of colours, and the ring's
+  // `borderColor` comes out `undefined` — so the chosen swatch is drawn with no ring at
+  // all. `createRecipe` warns about exactly this now.
+  defaultVariants: { variant: 'default', size: 'md', layout: 'ramps' },
 })
