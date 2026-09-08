@@ -73,7 +73,7 @@ describe('discoveryGeometry — the text inside the disc', () => {
     const { message } = geometry()
 
     expect(message.top).toBeUndefined()
-    expect(message.bottom).toBe(WINDOW.height - (FAB.y - 30))
+    expect(message.bottom).toBe(WINDOW.height - (FAB.y - 20))
   })
 
   it('pins the block by its top, just below a target in the top half', () => {
@@ -81,7 +81,7 @@ describe('discoveryGeometry — the text inside the disc', () => {
     const { message } = geometry({ target })
 
     expect(message.bottom).toBeUndefined()
-    expect(message.top).toBe(target.y + target.height + 30)
+    expect(message.top).toBe(target.y + target.height + 20)
   })
 
   it('keeps the gap to the target whatever the text does', () => {

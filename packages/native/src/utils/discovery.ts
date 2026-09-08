@@ -47,7 +47,7 @@ const INSET = 16
 /** The text's own inset inside the disc, so a line never runs to the curve. */
 const TEXT_INSET = 24
 /** Between the target and the first line of text. */
-const TARGET_GAP = 30
+const TARGET_GAP = 20
 /** A block narrower than this stops reading as a paragraph and sets from a side instead. */
 const MIN_WIDTH = 280
 /** Below this the block would clip its own text rather than scroll it. */
