@@ -1,5 +1,5 @@
 import { useCallback, useContext, useMemo, useState } from 'react'
-import { useWindowDimensions } from 'react-native'
+import { I18nManager, useWindowDimensions } from 'react-native'
 import { useControllableState } from '../../hooks/use-controllable-state'
 import { PortalContext } from '../../system/portal'
 import { useXAUITheme } from '../../theme/theme-hooks'
@@ -105,6 +105,12 @@ export function FabDiscovery({
         : styles.description,
       actionStyle: tint ? [styles.action, tint.action] : styles.action,
       geometry,
+      // The block hugs the side the target is on, and its lines have to follow it — see
+      // `textAlign` on the context. `I18nManager` because the geometry speaks in leading
+      // and trailing and `textAlign` only speaks in left and right.
+      textAlign: ((geometry?.message.align === 'end') !== I18nManager.isRTL
+        ? 'right'
+        : 'left') as 'left' | 'right',
       isOpen,
       open,
       close,

@@ -26,9 +26,16 @@ import type { FabDiscoveryTargetProps } from './fab-discovery.type'
  * space the layout gave the FAB, and what `onLayout` measures. It is taken out of the
  * accessibility tree while it is a placeholder, or a screen reader would find the same
  * button twice.
+ *
+ * **`placement` belongs to the node in the flow and to nothing else.** The copy is already
+ * placed, by a wrapper sitting on the measured rectangle; floating it a second time inside
+ * a box its own size is what puts a FAB `offset` points off its own ring.
  */
 export const FabDiscoveryTarget = forwardRef<View, FabDiscoveryTargetProps>(
-  function FabDiscoveryTarget({ children, style, onLayout, ...props }, ref) {
+  function FabDiscoveryTarget(
+    { children, style, onLayout, placement, offset, ...props },
+    ref
+  ) {
     const { isOpen, geometry, setAnchor } = useFabDiscovery()
 
     const anchor = useAnchorRef({ isOpen, onAnchor: setAnchor, onLayout })
@@ -42,6 +49,8 @@ export const FabDiscoveryTarget = forwardRef<View, FabDiscoveryTargetProps>(
       <>
         <FabRoot
           ref={refs}
+          placement={placement}
+          offset={offset}
           accessibilityElementsHidden={isLifted || undefined}
           importantForAccessibility={isLifted ? 'no-hide-descendants' : undefined}
           focusable={!isLifted}
@@ -71,6 +80,10 @@ export const FabDiscoveryTarget = forwardRef<View, FabDiscoveryTargetProps>(
                 },
               ]}
             >
+              {/* No `placement` and no `offset` on the copy: the wrapper above already
+                  puts it exactly where the original is, and re-applying them would float
+                  it a second time — inside a box its own size, which lands it `offset`
+                  points up and towards the leading edge of its own ring. */}
               <FabRoot {...props} style={style}>
                 {children}
               </FabRoot>

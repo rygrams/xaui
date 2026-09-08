@@ -12,7 +12,7 @@ import type { FabDiscoveryTitleProps } from './fab-discovery.type'
  */
 export const FabDiscoveryTitle = forwardRef<Text, FabDiscoveryTitleProps>(
   function FabDiscoveryTitle({ children, style, ...props }, ref) {
-    const { titleStyle } = useFabDiscovery()
+    const { titleStyle, textAlign } = useFabDiscovery()
     const [styleProps, rest] = useStyleProps(props)
 
     return (
@@ -20,7 +20,7 @@ export const FabDiscoveryTitle = forwardRef<Text, FabDiscoveryTitleProps>(
         ref={ref}
         accessibilityRole="header"
         {...rest}
-        style={[titleStyle, styleProps, style]}
+        style={[titleStyle, { textAlign }, styleProps, style]}
       >
         {children}
       </Text>

@@ -96,6 +96,16 @@ export type FabDiscoveryContextValue = {
    * has been measured, which is the frame before the mark can be drawn at all.
    */
   geometry: DiscoveryGeometry | null
+  /**
+   * Which way the **lines** of the text set, which is not the same as which way the block
+   * is pushed. `alignItems` makes a paragraph's box hug the trailing edge and leaves every
+   * line inside it starting at the leading one — a right-aligned block of left-aligned
+   * text, which is the ragged shape on the screenshot.
+   *
+   * `left` and `right` because React Native's `textAlign` has no logical value to offer
+   * (R13's exception, and the reason this is derived here rather than written in a style).
+   */
+  textAlign: 'left' | 'right'
   isOpen: boolean
   open: () => void
   close: () => void

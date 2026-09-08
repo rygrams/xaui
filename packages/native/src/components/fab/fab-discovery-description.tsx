@@ -16,11 +16,15 @@ export const FabDiscoveryDescription = forwardRef<
   Text,
   FabDiscoveryDescriptionProps
 >(function FabDiscoveryDescription({ children, style, ...props }, ref) {
-  const { descriptionStyle } = useFabDiscovery()
+  const { descriptionStyle, textAlign } = useFabDiscovery()
   const [styleProps, rest] = useStyleProps(props)
 
   return (
-    <Text ref={ref} {...rest} style={[descriptionStyle, styleProps, style]}>
+    <Text
+      ref={ref}
+      {...rest}
+      style={[descriptionStyle, { textAlign }, styleProps, style]}
+    >
       {children}
     </Text>
   )
