@@ -119,7 +119,7 @@ function PickerDemo({
 }: PickerDemoProps) {
   return (
     <ColorPicker {...props}>
-      <ColorPicker.Label >{label}</ColorPicker.Label>
+      <ColorPicker.Label>{label}</ColorPicker.Label>
       <FieldGroup>
         <FieldGroup.Prefix isDecorative>
           <ColorPicker.Preview />
@@ -131,7 +131,7 @@ function PickerDemo({
       ) : null}
       {error ? <ColorPicker.Error>{error}</ColorPicker.Error> : null}
       <ColorPicker.Overlay />
-      <ColorPicker.Content padding={30}> 
+      <ColorPicker.Content padding={30}>
         <ColorPicker.Title>Pick a colour</ColorPicker.Title>
         <ColorPicker.Grid />
       </ColorPicker.Content>
