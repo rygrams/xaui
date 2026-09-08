@@ -1,4 +1,4 @@
-import { forwardRef, useCallback } from 'react'
+import { forwardRef, useCallback, useEffect } from 'react'
 import { View } from 'react-native'
 import type { LayoutChangeEvent } from 'react-native'
 import { useStyleProps } from '../../system/style-props'
@@ -40,6 +40,12 @@ export const FieldGroupDecorator = forwardRef<View, FieldGroupDecoratorProps>(
       },
       [report, onLayout]
     )
+
+    // A decorator that goes away has to say so, or the field goes on clearing room for
+    // it: the width is only ever reported from a layout, and an unmounted node has no
+    // more layouts to report. A `SearchField`'s cross is the first of these — it is
+    // mounted by the query being non-empty — and any conditional decorator is the same.
+    useEffect(() => () => report(0), [report])
 
     // A decorative decorator hands its touches to the field underneath, so tapping the
     // glyph focuses the field; a disabled group takes them from everything, including the

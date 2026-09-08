@@ -219,6 +219,20 @@ const SIZES: Record<TextFieldSize, SizeStep> = {
 }
 
 /**
+ * The `glyph` step of each size, read off `SIZES` rather than restated — what
+ * `FieldGroup.Icon` gives a mark in the field, and therefore what anything drawn beside
+ * that mark has to take. It is exported because a second component needs it: the
+ * `SearchField`'s cross has to come out the same height as its magnifier, and four values
+ * copied into that recipe would be four values free to drift from these.
+ */
+export const FIELD_GLYPH_SIZES: Record<TextFieldSize, FontSizeKey> = {
+  xs: SIZES.xs.glyph,
+  sm: SIZES.sm.glyph,
+  md: SIZES.md.glyph,
+  lg: SIZES.lg.glyph,
+}
+
+/**
  * The label lifted into the box. It leaves the column's flow and sits against the box's
  * own padding, so the caller's JSX is the same either way and nothing is reparented (R4)
  * — the price is that the field has to be the first thing left in the flow, which is why

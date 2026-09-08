@@ -81,7 +81,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.3d  | `NumberPad` — net new, the keypad `NumberInput` and `InputOTP` share             | todo    |
 | P5.3e  | `NumberStepper` — net new, the increment pair legacy `Stepper` is not            | done    |
 | P5.3f  | `PhoneNumberField` — country prefix, searchable sheet and national number        | done    |
-| P5.3g  | `SearchInput` — net new, a `TextField` with its clear and submit                 | todo    |
+| P5.3g  | `SearchField` — net new, a `TextField` with its mark, its clear and its search   | done    |
 | P5.4   | `Select` — Trigger · Value · Indicator · Overlay · Content · Item                | done    |
 | P5.5   | `Stepper` — slots over the existing group context                                | done    |
 | P5.6   | `Toolbar` — slots over the existing group context                                | dropped |

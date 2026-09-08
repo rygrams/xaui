@@ -20,3 +20,5 @@
 - [Alert](https://ui.xtartapp.com/docs/alert.md): Contextual feedback message with theme colors (default, primary, success, warning, danger), four variants (flat, solid, bordered, faded), closable behavior, and animated transitions. Available in @xaui/native and @xaui/hybrid
 
 - [PhoneNumberField](https://ui.xtartapp.com/docs/phone-number-field.md): Native v1 component, composition, API and accessibility.
+
+- [SearchField](https://ui.xtartapp.com/docs/search-field.md): Native v1 component, composition, API and accessibility.

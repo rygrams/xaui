@@ -19,7 +19,7 @@ export { TextFieldError } from './text-field-error'
 export { TextFieldField } from './text-field-field'
 export { TextFieldLabel } from './text-field-label'
 export { useTextField } from './text-field.context'
-export { textFieldRecipe } from './text-field.recipe'
+export { FIELD_GLYPH_SIZES, textFieldRecipe } from './text-field.recipe'
 export type {
   FieldBlurEvent,
   FieldFocusEvent,
