@@ -36,6 +36,7 @@ const SCREENS = [
   { href: '/date-time-picker', label: 'DateTimePicker' },
   { href: '/dialog', label: 'Dialog' },
   { href: '/divider', label: 'Divider' },
+  { href: '/dummy-field', label: 'DummyField' },
   { href: '/empty-state', label: 'EmptyState' },
   { href: '/fab', label: 'Fab' },
   { href: '/field-group', label: 'FieldGroup' },
