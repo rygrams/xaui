@@ -132,7 +132,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.30 | `Pager` | todo |
 | P5.32 | `DummyField` — renamed from legacy `InputTrigger`, not the `Trigger` slot vocabulary | done |
 | P5.31 | `RefreshControl` | dropped |
-| P5.33 | `FeatureDiscovery` | todo |
+| P5.33 | `Fab.Discovery` — the coach mark, with the FAB lifted over its own disc | done |
 | P5.34 | `BarChart` — grouped or stacked, drawn on `react-native-svg` | done |
 | P5.34b | `AreaChart` — net new, the `LineChart` with the ground under it filled | done |
 | P5.34c | `Chart` — Donut and Heatmap, the legacy cards left over | todo |
