@@ -70,6 +70,22 @@ export default function ColorPickerScreen() {
         </ColorPicker>
       </View>
 
+      <PickerDemo label="Mosaic" layout="mosaic" defaultValue="#0ea5e9" />
+
+      <View style={{ gap: 12 }}>
+        <Text style={{ color: theme.colors.foreground, fontWeight: '600' }}>
+          Mosaic on the page — no labels, everything touching
+        </Text>
+        <ColorPicker
+          value={brand}
+          onValueChange={setBrand}
+          layout="mosaic"
+          closeOnSelect={false}
+        >
+          <ColorPicker.Grid scrollEnabled={false} />
+        </ColorPicker>
+      </View>
+
       <View style={{ gap: 12 }}>
         <Text style={{ color: theme.colors.foreground, fontWeight: '600' }}>
           A group of its own

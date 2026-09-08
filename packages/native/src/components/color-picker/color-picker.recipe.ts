@@ -217,8 +217,37 @@ export const colorPickerRecipe = createRecipe({
       lg: sizeAxis(SIZES.lg),
     },
 
-    /** Declared after `size`, so it overrides the corner the bar and the chip chose. */
-    radius: radiusAxis('swatches', 'preview'),
+    /**
+     * Every colour touching every other, with nothing named.
+     *
+     * Declared after `size` so it overrides what the cell chose, and it is one axis rather
+     * than two props because the two halves are the same decision: the names were the only
+     * thing holding the rows apart, so dropping them is what lets the block close up. The
+     * width they were taking goes back to the colour — the cells **grow** here where they
+     * only shrink in a ramp, so eight of them divide the whole row instead of stopping at
+     * their basis, which is what makes a mosaic cell half again the size.
+     *
+     * The hairline moves with the shape it describes. Around each ramp it would double into
+     * a two-point line between every pair of rows, so in a mosaic it is the block's own
+     * edge — and the block fills the row, which is what makes a full-width border right
+     * here and wrong in a ramp.
+     */
+    layout: {
+      ramps: () => ({}),
+      mosaic: theme => ({
+        grid: {
+          gap: 0,
+          overflow: 'hidden',
+          borderWidth: theme.borderWidth.default,
+          borderColor: theme.colors.border,
+        },
+        swatches: { flexGrow: 1, borderWidth: 0 },
+        swatch: { flexGrow: 1 },
+      }),
+    },
+
+    /** Declared last, so it overrides the corner the block, the bar and the chip chose. */
+    radius: radiusAxis('grid', 'swatches', 'preview'),
   },
 
   /**
@@ -231,5 +260,5 @@ export const colorPickerRecipe = createRecipe({
     disabled: theme => ({ grid: { opacity: theme.opacity.disabled } }),
   },
 
-  defaultVariants: { size: 'md' },
+  defaultVariants: { size: 'md', layout: 'ramps' },
 })

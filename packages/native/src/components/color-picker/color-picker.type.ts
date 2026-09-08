@@ -30,6 +30,20 @@ export type ColorPickerVariant = 'primary' | 'secondary' | 'tertiary' | 'ghost'
 
 export type ColorPickerSize = Size
 
+/**
+ * How the grid is arranged.
+ *
+ * - **`ramps`** — one row per hue, its name in a fixed column beside it, the rows held
+ *   apart. The palette reads as eighteen named scales, which is what a reader looking for
+ *   "a green" needs.
+ * - **`mosaic`** — no names, no air anywhere: every colour touches its neighbours in one
+ *   continuous block that fills the width. The names were the only thing keeping the rows
+ *   apart, so dropping them is what lets the block close up — and the width they were
+ *   taking goes back to the colour, which is why a mosaic cell is half again the size of a
+ *   ramp's.
+ */
+export type ColorPickerLayout = 'ramps' | 'mosaic'
+
 /** Tailwind's step, kept as the label a screen reader reads: "Violet 600". */
 export type ColorPickerShade =
   | '100'
@@ -68,6 +82,11 @@ type ColorPickerOwnProps = {
   color?: string
   /** Above the box, or lifted into it. @default 'outside' */
   labelPlacement?: DummyFieldLabelPlacement
+  /**
+   * Named ramps, or one continuous block of colour with no labels at all.
+   * @default 'ramps'
+   */
+  layout?: ColorPickerLayout
   /** The chosen colour, as a hex string. Controlled — leave it out and the picker holds its own. */
   value?: string
   defaultValue?: string
@@ -164,6 +183,8 @@ export type ColorPickerContextValue = {
   value: string | undefined
   select: (color: string) => void
   colors: readonly ColorGroup[]
+  /** The grid reads it to decide whether a ramp is given its name. */
+  layout: ColorPickerLayout
   isDisabled: boolean
   /** The dialog's own inset and its ceiling, over the `Dialog`'s panel. */
   contentStyle: StyleProp<ViewStyle>

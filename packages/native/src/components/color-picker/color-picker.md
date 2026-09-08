@@ -55,6 +55,16 @@ import { FieldGroup } from '@xaui/native/field-group'
 </ColorPicker>
 ```
 
+Two layouts. `ramps` is the default — one row per hue, its name in a fixed column beside it.
+`mosaic` withholds the names and closes everything up into one continuous block that fills
+the width, which is also what makes its cells half again the size:
+
+```tsx
+<ColorPicker layout="mosaic" value={brand} onValueChange={setBrand}>
+  …
+</ColorPicker>
+```
+
 The grid on its own — no field, no dialog, nothing to open:
 
 ```tsx
@@ -101,6 +111,7 @@ Inherited React Native and composed component props remain available.
 | radius         | `RadiusKey \| undefined`                   | The field's corner, the chip's and the swatch's. The dialog keeps the `Dialog`'s.                                                                                                                              |
 | color          | `string \| undefined`                      | A raw tint (`'#7c3aed'`), never a token (R7). It dresses the field, and it is the ring around the chosen swatch — the legacy picker's `themeColor`, which drove the same two.                                  |
 | labelPlacement | `DummyFieldLabelPlacement \| undefined`    | Above the box, or lifted into it.                                                                                                                                                                              |
+| layout         | `ColorPickerLayout \| undefined`           | Named ramps, or one continuous block of colour with no labels at all.                                                                                                                                          |
 | value          | `string \| undefined`                      | The chosen colour, as a hex string. Controlled — leave it out and the picker holds its own.                                                                                                                    |
 | defaultValue   | `string \| undefined`                      |                                                                                                                                                                                                                |
 | onValueChange  | `((color: string) => void) \| undefined`   | Every choice, including one made in a grid that stays open.                                                                                                                                                    |
@@ -192,6 +203,15 @@ panel rather than the panel growing past it.
 swatch — the legacy picker's `themeColor`, which drove the same two. `radius` moves the
 field's corner, the chip's and the swatch's together; the dialog keeps the `Dialog`'s own,
 because a picker asked for a pill of a trigger did not ask for a pill of a panel.
+
+**`layout` is the grid's own shape, and it is one prop rather than two because the two
+halves are the same decision.** Under `ramps` a hue's name sits in a fixed column beside its
+row; under `mosaic` there are no names, no gaps anywhere, and the block fills the width. The
+names were the only thing holding the rows apart, so dropping them is what lets the block
+close up — and the width they were taking goes back to the colour, so a mosaic cell comes
+out about half again the size of a ramp's. The hairline moves with the shape it describes:
+around each ramp it would double into a two-point line between every pair of rows, so in a
+mosaic it is the block's own edge.
 
 **A hue's name sits to the left of its ramp, in a column of fixed width.** Above it,
 eighteen captions are eighteen lines of type in a dialog that could have been colour; in the

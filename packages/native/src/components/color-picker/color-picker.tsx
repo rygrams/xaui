@@ -63,6 +63,7 @@ export const ColorPickerRoot = forwardRef<View, ColorPickerProps>(
       radius,
       color,
       labelPlacement,
+      layout = 'ramps',
       value: controlledValue,
       defaultValue,
       onValueChange,
@@ -92,7 +93,7 @@ export const ColorPickerRoot = forwardRef<View, ColorPickerProps>(
       onChange: onOpenChange,
     })
 
-    const selection = { size, radius }
+    const selection = { size, radius, layout }
     const styles = colorPickerRecipe.resolve({
       theme,
       selection,
@@ -122,6 +123,7 @@ export const ColorPickerRoot = forwardRef<View, ColorPickerProps>(
         value,
         select,
         colors,
+        layout,
         isDisabled,
         contentStyle: styles.content,
         // The chip carries the answer, so the answer is part of its style rather than a
@@ -142,7 +144,7 @@ export const ColorPickerRoot = forwardRef<View, ColorPickerProps>(
           : styles.swatchSelected,
         swatchFillStyle: styles.swatchFill,
       }),
-      [value, select, colors, isDisabled, styles, tint]
+      [value, select, colors, layout, isDisabled, styles, tint]
     )
 
     return (

@@ -25,6 +25,9 @@ import type { ColorPickerGridProps } from './color-picker.type'
  *
  * **The whole grid is the radio group**, not each row: a reader chooses one colour out of
  * the palette, and rows are how it is arranged rather than what is being asked.
+ *
+ * Under `layout="mosaic"` it draws the same ramps with their names withheld, which is what
+ * lets the rows close up into one block of colour.
  */
 export const ColorPickerGrid = forwardRef<ScrollView, ColorPickerGridProps>(
   function ColorPickerGrid(
@@ -37,7 +40,7 @@ export const ColorPickerGrid = forwardRef<ScrollView, ColorPickerGridProps>(
     },
     ref
   ) {
-    const { colors, gridStyle } = useColorPicker()
+    const { colors, layout, gridStyle } = useColorPicker()
     const [styleProps, rest] = useStyleProps(props)
 
     return (
@@ -54,7 +57,12 @@ export const ColorPickerGrid = forwardRef<ScrollView, ColorPickerGridProps>(
       >
         {children ??
           colors.map(group => (
-            <ColorPickerGroup key={group.name} name={group.name}>
+            // A mosaic has no names — that is what lets its rows close up — and the group
+            // renders no label when it is given none.
+            <ColorPickerGroup
+              key={group.name}
+              name={layout === 'mosaic' ? undefined : group.name}
+            >
               {group.swatches.map(swatch => (
                 <ColorPickerSwatch
                   key={swatch.value}
