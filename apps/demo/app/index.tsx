@@ -72,6 +72,7 @@ const SCREENS = [
   { href: '/time-field', label: 'TimeField' },
   { href: '/timeline', label: 'Timeline' },
   { href: '/time-picker', label: 'TimePicker' },
+  { href: '/toggle-button', label: 'ToggleButton' },
   { href: '/toast', label: 'Toast' },
   { href: '/typography', label: 'Typography' },
   { href: '/wheel-picker', label: 'WheelPicker' },

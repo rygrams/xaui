@@ -132,6 +132,10 @@ export default function RootLayout() {
           <Stack.Screen name="time-field" options={{ title: 'TimeField (v1)' }} />
           <Stack.Screen name="timeline" options={{ title: 'Timeline (v1)' }} />
           <Stack.Screen name="time-picker" options={{ title: 'TimePicker (v1)' }} />
+          <Stack.Screen
+            name="toggle-button"
+            options={{ title: 'ToggleButton (v1)' }}
+          />
           <Stack.Screen name="toast" options={{ title: 'Toast (v1)' }} />
           <Stack.Screen name="typography" options={{ title: 'Typography (v1)' }} />
           <Stack.Screen

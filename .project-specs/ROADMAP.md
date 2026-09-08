@@ -146,7 +146,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.35c | `MorphButton` — net new, a `Button` that animates between states | todo |
 | P5.35d | `SlideButton` — net new, slide-to-confirm over the `Slider` | todo |
 | P5.35e | `SocialAuthButton` — net new, provider marks over the `Button` | todo |
-| P5.35f | `ToggleButton` — net new, a `Button` that holds a pressed state | todo |
+| P5.35f | `ToggleButton` — net new, a `Button` that holds a pressed state | done |
 | P5.35g | `ToggleButtonGroup` — net new, exclusive selection over `ToggleButton` | todo |
 | P5.36 | `EmptyState` — net new, no legacy equivalent | done |
 | P5.37 | `FlipCard` — net new, a `Card` with two faces | done |
