@@ -25,6 +25,7 @@ const entries = {
   'components/date-time-picker/index': 'src/components/date-time-picker/index.ts',
   'components/dialog/index': 'src/components/dialog/index.ts',
   'components/divider/index': 'src/components/divider/index.ts',
+  'components/dummy-field/index': 'src/components/dummy-field/index.ts',
   'components/empty-state/index': 'src/components/empty-state/index.ts',
   'components/fab/index': 'src/components/fab/index.ts',
   'components/field-group/index': 'src/components/field-group/index.ts',

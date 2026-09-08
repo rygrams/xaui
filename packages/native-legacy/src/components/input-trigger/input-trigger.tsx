@@ -8,6 +8,14 @@ import {
 } from './input-trigger.hook'
 import { styles } from './input-trigger.style'
 
+/**
+ * @deprecated Use `DummyField` from `@xaui/native/dummy-field`. This tree is frozen and receives
+ * fixes only.
+ *
+ * Renamed to `DummyField` in v1 to match the `*Field` vocabulary (`TextField`, `MaskField`,
+ * `NumberField`, `TimeField`) and avoid clashing with the `*.Trigger` slot vocabulary of overlay
+ * compounds (`Select.Trigger`, `Popover.Trigger`, `Menu.Trigger`).
+ */
 export const InputTrigger: React.FC<InputTriggerProps> = ({
   value,
   placeholder = 'Select...',
