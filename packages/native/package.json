@@ -686,6 +686,16 @@
         "types": "./dist/theme/index.d.cts",
         "default": "./dist/theme/index.cjs"
       }
+    },
+    "./phone-number-field": {
+      "import": {
+        "types": "./dist/components/phone-number-field/index.d.ts",
+        "default": "./dist/components/phone-number-field/index.js"
+      },
+      "require": {
+        "types": "./dist/components/phone-number-field/index.d.cts",
+        "default": "./dist/components/phone-number-field/index.cjs"
+      }
     }
   },
   "files": [
@@ -740,5 +750,8 @@
     "tsup": "^8.5.1",
     "typescript": "^5.9.3"
   },
-  "module": "./dist/index.js"
+  "module": "./dist/index.js",
+  "dependencies": {
+    "libphonenumber-js": "^1.13.12"
+  }
 }
