@@ -1,4 +1,5 @@
-import { forwardRef } from 'react'
+import { forwardRef, useCallback } from 'react'
+import type { LayoutChangeEvent } from 'react-native'
 import { View } from 'react-native'
 import Animated, { FadeIn, FadeOut, ZoomIn } from 'react-native-reanimated'
 import { Portal } from '../../system/portal'
@@ -25,10 +26,24 @@ const TEXT_DELAY = 120
  * because two slots were written the other way round.
  */
 export const FabDiscoveryContent = forwardRef<View, FabDiscoveryContentProps>(
-  function FabDiscoveryContent({ children, style, ...props }, ref) {
+  function FabDiscoveryContent({ children, style, onLayout, ...props }, ref) {
     const context = useFabDiscovery()
-    const { circleStyle, haloStyle, contentStyle, geometry, isOpen } = context
+    const {
+      circleStyle,
+      haloStyle,
+      contentStyle,
+      geometry,
+      isOpen,
+      setMessageHeight,
+    } = context
     const [styleProps, rest] = useStyleProps(props)
+    const handleLayout = useCallback(
+      (event: LayoutChangeEvent) => {
+        setMessageHeight(event.nativeEvent.layout.height)
+        onLayout?.(event)
+      },
+      [onLayout, setMessageHeight]
+    )
 
     if (!isOpen || geometry === null) return null
 
@@ -79,6 +94,7 @@ export const FabDiscoveryContent = forwardRef<View, FabDiscoveryContentProps>(
             // The block takes no touches of its own; only what is written inside it does,
             // so a press on the air beside a title still reaches the backdrop.
             pointerEvents="box-none"
+            onLayout={handleLayout}
             {...rest}
             style={[
               contentStyle,

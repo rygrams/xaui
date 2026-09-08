@@ -64,6 +64,7 @@ export function FabDiscovery({
   // wrong every part of the mark would be.
   const origin = useContext(PortalContext)?.origin
   const [anchor, setAnchor] = useState<FabDiscoveryAnchor | null>(null)
+  const [messageHeight, setMessageHeightState] = useState<number | undefined>()
 
   const [isOpen, setOpen] = useControllableState({
     value: controlledOpen,
@@ -78,6 +79,11 @@ export function FabDiscovery({
 
   const open = useCallback(() => setOpen(true), [setOpen])
   const close = useCallback(() => setOpen(false), [setOpen])
+  const setMessageHeight = useCallback((height: number) => {
+    setMessageHeightState(previous =>
+      previous === undefined || Math.abs(previous - height) >= 1 ? height : previous
+    )
+  }, [])
 
   const geometry = useMemo(() => {
     if (anchor === null) return null
@@ -90,8 +96,18 @@ export function FabDiscovery({
       window: { width: window.width - x, height: window.height - y },
       scale,
       padding,
+      messageHeight,
     })
-  }, [anchor, origin?.x, origin?.y, window.width, window.height, scale, padding])
+  }, [
+    anchor,
+    origin?.x,
+    origin?.y,
+    window.width,
+    window.height,
+    scale,
+    padding,
+    messageHeight,
+  ])
 
   const context = useMemo(
     () => ({
@@ -105,6 +121,7 @@ export function FabDiscovery({
         : styles.description,
       actionStyle: tint ? [styles.action, tint.action] : styles.action,
       geometry,
+      setMessageHeight,
       // The block hugs the side the target is on, and its lines have to follow it — see
       // `textAlign` on the context. `I18nManager` because the geometry speaks in leading
       // and trailing and `textAlign` only speaks in left and right.
@@ -117,7 +134,7 @@ export function FabDiscovery({
       anchor,
       setAnchor,
     }),
-    [styles, tint, geometry, isOpen, open, close, anchor]
+    [styles, tint, geometry, setMessageHeight, isOpen, open, close, anchor]
   )
 
   return <FabDiscoveryProvider value={context}>{children}</FabDiscoveryProvider>

@@ -96,6 +96,8 @@ export type FabDiscoveryContextValue = {
    * has been measured, which is the frame before the mark can be drawn at all.
    */
   geometry: DiscoveryGeometry | null
+  /** Records the rendered message height so its next layout uses the right circle chord. */
+  setMessageHeight: (height: number) => void
   /**
    * Which way the **lines** of the text set, which is not the same as which way the block
    * is pushed. `alignItems` makes a paragraph's box hug the trailing edge and leaves every

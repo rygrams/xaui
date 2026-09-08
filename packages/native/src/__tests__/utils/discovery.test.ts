@@ -116,6 +116,15 @@ describe('discoveryGeometry — the text inside the disc', () => {
     expect(message.width).toBeLessThan(atPinned)
   })
 
+  it('uses the measured message height after the first layout', () => {
+    const target = { ...FAB, x: 167, y: 400 }
+    const estimated = geometry({ target })
+    const measured = geometry({ target, messageHeight: 240 })
+
+    // The taller rendered block reaches nearer the disc's edge, leaving a narrower chord.
+    expect(measured.message.width).toBeLessThan(estimated.message.width)
+  })
+
   it('runs the text away from the side the target is on', () => {
     expect(geometry({ target: { ...FAB, x: 16 } }).message.align).toBe('start')
     expect(geometry({ target: { ...FAB, x: 318 } }).message.align).toBe('end')

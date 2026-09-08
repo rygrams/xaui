@@ -38,6 +38,8 @@ export type DiscoveryInput = {
   scale: number
   /** How far the halo stands off the target, in points. */
   padding: number
+  /** The rendered height of the message, once it has been measured. */
+  messageHeight?: number
 }
 
 /** How far the disc, the halo and the text stay from the screen's edges. */
@@ -58,10 +60,11 @@ const TOP_HALF = 0.55
  * Only the width needs a guess. A block above the target is pinned by its bottom, so where
  * it sits is exact however long the text runs — but the chord that bounds its width is
  * narrowest at its **top**, and the top is not known until the text has been laid out.
- * Four or five lines is what a coach mark holds; guessing high costs a little width and
- * guessing low would let a line run past the curve.
+ * Four or five lines is what a coach mark holds before its first layout. After that the
+ * caller supplies the measured height; guessing high costs a little width and guessing
+ * low would let a line run past the curve.
  */
-const REFERENCE_HEIGHT = 180
+const ESTIMATED_MESSAGE_HEIGHT = 180
 
 /**
  * A coach mark's geometry: a disc centred on the thing being taught, a ring around it, and
@@ -85,6 +88,7 @@ export function discoveryGeometry({
   window,
   scale,
   padding,
+  messageHeight,
 }: DiscoveryInput): DiscoveryGeometry {
   // Clamped so a target hanging off the edge — mid-transition, or badly placed — still
   // gets a disc on screen rather than one centred past the corner.
@@ -114,9 +118,13 @@ export function discoveryGeometry({
 
   // Where the block's far edge lands — its top when it grows upwards, its bottom when it
   // grows down. That is the end the curve pinches, so that is where the chord is measured.
+  const blockHeight = Math.max(
+    MIN_HEIGHT,
+    messageHeight ?? ESTIMATED_MESSAGE_HEIGHT
+  )
   const farY = isBelow
-    ? (pinned.top ?? 0) + REFERENCE_HEIGHT
-    : y - TARGET_GAP - REFERENCE_HEIGHT
+    ? (pinned.top ?? 0) + blockHeight
+    : y - TARGET_GAP - blockHeight
 
   // The half-chord of the disc at that height, which is how much room the curve actually
   // leaves there. Zero once the text is past the disc entirely.
