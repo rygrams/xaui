@@ -136,14 +136,23 @@ its actions to belong to, so each one carries its own.
 Three consequences:
 
 - **The column has no surface.** No background, no border, no shadow; the pills are the
-  surface. `content-fit` is the only width that makes sense on it, because a `trigger` width
-  would crush three words into the FAB's diameter.
+  surface — `theme.colors.overlay`, which is white in light mode and the theme's raised
+  surface in dark. `content-fit` is the only width that makes sense on it, because a
+  `trigger` width would crush three words into the FAB's diameter.
 - **The pill wears the `surface` shadow, not the `overlay` one** a `Menu` panel wears.
   Three pills twelve points apart, each carrying a sixteen-point blur, pool into one grey
   smudge behind the lot of them.
 - **The press feedback is the shared one.** A `Menu` row darkens because the scale treatment
   on a full-width strip reads as the panel twitching; a pill is a small floating button —
   the same object the FAB above it is — and `PressableFeedback`'s treatment is right on it.
+
+**`Fab.Menu.Overlay` dims**, where a `Menu`'s and a `Select`'s do not. Those drop out of a
+field and leave the page alone, because the page is still the context for the answer they
+are asking for; a FAB floats over everything and its actions replace the screen's one thing
+to do with three. That is a `Dialog`'s situation, and it takes the `Dialog`'s `backdrop`
+token — which is also what puts the pills on a dimmed ground, where a white pill reads as
+white. `backgroundColor="transparent"` on the slot takes the dimming back off, and omitting
+the slot leaves no backdrop and nothing to press outside.
 
 `top` and `end` are the defaults, because that is where a FAB is. `avoidCollisions` still
 flips the column below the trigger for a FAB at the top of a screen.

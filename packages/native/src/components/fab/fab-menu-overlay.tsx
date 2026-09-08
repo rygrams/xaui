@@ -13,9 +13,15 @@ const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 /**
  * The backdrop, and what closes the menu on a press outside it.
  *
- * **Optional, and it dims nothing unless told to.** Written, it captures the press outside;
- * a `backgroundColor` on it is what dims the page behind — which is the usual thing to want
- * here, because a FAB's actions float over content rather than out of a field.
+ * **Optional, but it dims** — unlike a `Menu`'s or a `Select`'s, which leave the page alone
+ * because the page is still the context for the answer they are asking for. A FAB floats
+ * over everything and its actions replace the screen's one thing to do with three, which is
+ * a `Dialog`'s situation and takes a `Dialog`'s backdrop. It is also what puts the pills on
+ * a dimmed ground, where a white pill reads as white.
+ *
+ * Omitted, there is no backdrop and no press to close on — the caller's own state, or an
+ * action, is what closes the menu. `backgroundColor="transparent"` keeps the press and
+ * drops the dimming.
  */
 export const FabMenuOverlay = forwardRef<View, FabMenuOverlayProps>(
   function FabMenuOverlay({ children, isDismissable = true, style, ...props }, ref) {

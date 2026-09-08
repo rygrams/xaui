@@ -65,7 +65,24 @@ export const fabMenuRecipe = createRecipe({
   slots: SLOTS,
 
   base: theme => ({
-    overlay: { position: 'absolute', top: 0, bottom: 0, start: 0, end: 0 },
+    /**
+     * **It dims, where a `Menu`'s and a `Select`'s do not.** Those drop out of a field and
+     * leave the page alone, because the page is still the context for the answer they are
+     * asking for. A FAB floats over everything and its actions replace the screen's one
+     * thing to do with three — that is a `Dialog`'s situation, and it takes the `Dialog`'s
+     * backdrop. It is also what puts the pills on a dimmed ground, which is where a white
+     * pill reads as white.
+     *
+     * `backgroundColor="transparent"` on the slot takes it back off (R14).
+     */
+    overlay: {
+      position: 'absolute',
+      top: 0,
+      bottom: 0,
+      start: 0,
+      end: 0,
+      backgroundColor: theme.colors.backdrop,
+    },
     /**
      * A column with no surface of its own: the pills are the surface, and a background
      * here would be the panel this component exists not to be.
