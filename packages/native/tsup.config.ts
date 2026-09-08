@@ -109,6 +109,7 @@ export default defineConfig({
   splitting: true,
   target: 'es2020',
   external: [
+    'libphonenumber-js',
     'react',
     'react-native',
     'react-native-gesture-handler',

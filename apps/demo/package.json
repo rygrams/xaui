@@ -16,6 +16,7 @@
     "expo-linking": "~55.0.17",
     "expo-router": "~55.0.18",
     "expo-splash-screen": "~55.0.25",
+    "libphonenumber-js": "^1.13.12",
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "react-native": "0.83.10",

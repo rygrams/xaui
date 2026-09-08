@@ -6,6 +6,14 @@ A national phone number beside its country flag and calling code, with a searcha
 sheet. Imports from `@xaui/native/phone-number-field`. Run the `phone-number-field` demo
 screen to try the real component in light and dark mode.
 
+`libphonenumber-js` is an **optional** peer of this package, and this component needs it —
+it supplies the calling codes, the country metadata and the national formatting. It is the
+only component that imports it, so an app without a phone field never pays for it.
+
+```bash
+pnpm add libphonenumber-js
+```
+
 ## Anatomy
 
 ```text

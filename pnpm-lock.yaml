@@ -92,6 +92,9 @@ importers:
       expo-splash-screen:
         specifier: ~55.0.25
         version: 55.0.25(expo@55.0.31)(typescript@5.9.3)
+      libphonenumber-js:
+        specifier: ^1.13.12
+        version: 1.13.12
       react:
         specifier: 19.2.0
         version: 19.2.0
@@ -237,14 +240,13 @@ importers:
         version: 5.9.3
 
   packages/native:
-    dependencies:
-      libphonenumber-js:
-        specifier: ^1.13.12
-        version: 1.13.12
     devDependencies:
       '@types/react':
         specifier: ^19.2.0
         version: 19.2.18
+      libphonenumber-js:
+        specifier: ^1.13.12
+        version: 1.13.12
       react:
         specifier: 19.2.0
         version: 19.2.0
