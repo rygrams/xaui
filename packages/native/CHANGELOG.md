@@ -1,5 +1,11 @@
 # @xaui/native
 
+## 0.9.1-alpha.83
+
+### Patch Changes
+
+- c66bf88: Add `Fab.Menu` at `@xaui/native/fab`: a FAB that opens its two or three actions as separate pills. The trigger is never re-parented — it measures itself and the actions are anchored to that rectangle — so the FAB stays exactly where the layout put it, where the legacy `FabMenu` moved it into the portal's own corner.
+
 ## 0.9.1-alpha.82
 
 ### Patch Changes
