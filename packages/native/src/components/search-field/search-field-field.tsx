@@ -1,6 +1,7 @@
-import { forwardRef } from 'react'
+import { forwardRef, useMemo } from 'react'
 import type { TextInput } from 'react-native'
 import { useStyleProps } from '../../system/style-props'
+import { decoratorPadding, useOptionalFieldGroup } from '../field-group'
 import { TextFieldField } from '../text-field'
 import { useSearchField } from './search-field.context'
 import type { SearchFieldFieldProps } from './search-field.type'
@@ -17,8 +18,8 @@ import type { SearchFieldFieldProps } from './search-field.type'
  * three are the caller's to override — a field searching a list of proper nouns wants its
  * capitals back.
  *
- * Inside a `FieldGroup` the decorators clear themselves, exactly as `FieldGroup.Field`
- * does, which is how the magnifier and the cross get their room.
+ * Inside a `FieldGroup` it clears the two decorators by the width they measured, exactly
+ * as `FieldGroup.Field` does, which is how the magnifier and the cross get their room.
  */
 export const SearchFieldField = forwardRef<TextInput, SearchFieldFieldProps>(
   function SearchFieldField({ style, ...props }, ref) {
@@ -27,6 +28,15 @@ export const SearchFieldField = forwardRef<TextInput, SearchFieldFieldProps>(
     // the box the `TextField` resolved and *before* the caller's own keys, and a
     // `backgroundColor={…}` written on this node has to win over the variant it overrides.
     const [styleProps, rest] = useStyleProps(props)
+    const group = useOptionalFieldGroup()
+
+    // Inside a `FieldGroup` it leaves the decorators their room, exactly as
+    // `FieldGroup.Field` does — which is how the magnifier and the cross get theirs.
+    // Outside one there is nothing to clear and it adds nothing.
+    const padding = useMemo(
+      () => decoratorPadding(group?.prefixWidth ?? 0, group?.suffixWidth ?? 0),
+      [group?.prefixWidth, group?.suffixWidth]
+    )
 
     return (
       <TextFieldField
@@ -42,7 +52,7 @@ export const SearchFieldField = forwardRef<TextInput, SearchFieldFieldProps>(
         value={query}
         onChangeText={onType}
         onSubmitEditing={submit}
-        style={[boxStyle, styleProps, style]}
+        style={[boxStyle, padding, styleProps, style]}
       />
     )
   }
