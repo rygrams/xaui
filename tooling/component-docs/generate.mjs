@@ -13,9 +13,12 @@ const checker = program.getTypeChecker()
 const source = program.getSourceFile(sourcePath)
 const lines = []
 for (const statement of source.statements) {
+  // Exported aliases only: a component's own `*OwnProps` is the half of its public type
+  // that is not public, and a table for it would document the same props twice.
   if (
     !ts.isTypeAliasDeclaration(statement) ||
-    !statement.name.text.endsWith('Props')
+    !statement.name.text.endsWith('Props') ||
+    !statement.modifiers?.some(m => m.kind === ts.SyntaxKind.ExportKeyword)
   )
     continue
   const type = checker.getTypeAtLocation(statement)

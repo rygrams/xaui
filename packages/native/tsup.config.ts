@@ -45,6 +45,7 @@ const entries = {
   'components/radial-chart/index': 'src/components/radial-chart/index.ts',
   'components/radio/index': 'src/components/radio/index.ts',
   'components/range-calendar/index': 'src/components/range-calendar/index.ts',
+  'components/search-field/index': 'src/components/search-field/index.ts',
   'components/segment/index': 'src/components/segment/index.ts',
   'components/select/index': 'src/components/select/index.ts',
   'components/skeleton/index': 'src/components/skeleton/index.ts',

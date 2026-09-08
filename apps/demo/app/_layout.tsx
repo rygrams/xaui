@@ -108,6 +108,10 @@ export default function RootLayout() {
             options={{ title: 'ProgressCircle (v1)' }}
           />
           <Stack.Screen name="radio" options={{ title: 'Radio (v1)' }} />
+          <Stack.Screen
+            name="search-field"
+            options={{ title: 'SearchField (v1)' }}
+          />
           <Stack.Screen name="segment" options={{ title: 'Segment (v1)' }} />
           <Stack.Screen name="select" options={{ title: 'Select (v1)' }} />
           <Stack.Screen name="skeleton" options={{ title: 'Skeleton (v1)' }} />

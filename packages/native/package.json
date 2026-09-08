@@ -696,6 +696,16 @@
         "types": "./dist/components/phone-number-field/index.d.cts",
         "default": "./dist/components/phone-number-field/index.cjs"
       }
+    },
+    "./search-field": {
+      "import": {
+        "types": "./dist/components/search-field/index.d.ts",
+        "default": "./dist/components/search-field/index.js"
+      },
+      "require": {
+        "types": "./dist/components/search-field/index.d.cts",
+        "default": "./dist/components/search-field/index.cjs"
+      }
     }
   },
   "files": [
