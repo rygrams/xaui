@@ -19,6 +19,7 @@ const entries = {
   'components/checkbox/index': 'src/components/checkbox/index.ts',
   'components/chip/index': 'src/components/chip/index.ts',
   'components/close-button/index': 'src/components/close-button/index.ts',
+  'components/color-picker/index': 'src/components/color-picker/index.ts',
   'components/combobox/index': 'src/components/combobox/index.ts',
   'components/date-picker/index': 'src/components/date-picker/index.ts',
   'components/date-range-picker/index': 'src/components/date-range-picker/index.ts',

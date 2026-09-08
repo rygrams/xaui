@@ -22,3 +22,5 @@
 - [PhoneNumberField](https://ui.xtartapp.com/docs/phone-number-field.md): Native v1 component, composition, API and accessibility.
 
 - [SearchField](https://ui.xtartapp.com/docs/search-field.md): Native v1 component, composition, API and accessibility.
+
+- [ColorPicker](https://ui.xtartapp.com/docs/color-picker.md): Native v1 component, composition, API and accessibility.
