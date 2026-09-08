@@ -7,6 +7,8 @@ out
 coverage
 .turbo
 .claude
+.agents
+.changeset
 
 # Vendored native dependencies — CocoaPods and Gradle own these
 apps/demo/ios/Pods
