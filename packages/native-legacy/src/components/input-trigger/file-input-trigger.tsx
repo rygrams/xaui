@@ -23,6 +23,10 @@ const dropzoneMinHeightMap = {
   lg: 120,
 } as const
 
+/**
+ * @deprecated Use `DummyField` with custom content from `@xaui/native/dummy-field`. This
+ * tree is frozen and receives fixes only.
+ */
 export const FileInputTrigger: React.FC<FileInputTriggerProps> = ({
   value,
   placeholder = 'Select files',

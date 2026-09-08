@@ -130,7 +130,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.28 | `ColorPicker` | todo |
 | P5.29 | `Carousel` | done |
 | P5.30 | `Pager` | todo |
-| P5.32 | `DummyField` — renamed from legacy `InputTrigger`, not the `Trigger` slot vocabulary | todo |
+| P5.32 | `DummyField` — renamed from legacy `InputTrigger`, not the `Trigger` slot vocabulary | done |
 | P5.31 | `RefreshControl` | dropped |
 | P5.33 | `FeatureDiscovery` | todo |
 | P5.34 | `BarChart` — grouped or stacked, drawn on `react-native-svg` | done |

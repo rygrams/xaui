@@ -59,6 +59,7 @@ export default function RootLayout() {
           />
           <Stack.Screen name="dialog" options={{ title: 'Dialog (v1)' }} />
           <Stack.Screen name="divider" options={{ title: 'Divider (v1)' }} />
+          <Stack.Screen name="dummy-field" options={{ title: 'DummyField (v1)' }} />
           <Stack.Screen name="empty-state" options={{ title: 'EmptyState (v1)' }} />
           <Stack.Screen name="fab" options={{ title: 'Fab (v1)' }} />
           <Stack.Screen name="field-group" options={{ title: 'FieldGroup (v1)' }} />

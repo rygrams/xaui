@@ -22,8 +22,9 @@ API surface.
 
 ## Current contents
 
-| File             | Role                                                                    |
-| ---------------- | ----------------------------------------------------------------------- |
-| `colors.ts`      | OKLab conversions, `mix`, `alpha`, `contrastOn`, `contrastRatio`        |
-| `number.ts`      | Parse, format, clamp and step a number — `NumberField`, `NumberStepper` |
-| `stable-hash.ts` | Content hash behind the theme `id` and the style cache key              |
+| File               | Role                                                                    |
+| ------------------ | ----------------------------------------------------------------------- |
+| `colors.ts`        | OKLab conversions, `mix`, `alpha`, `contrastOn`, `contrastRatio`        |
+| `decorator-box.ts` | The out-of-flow `FieldGroup` decorator box, shared by the field recipes |
+| `number.ts`        | Parse, format, clamp and step a number — `NumberField`, `NumberStepper` |
+| `stable-hash.ts`   | Content hash behind the theme `id` and the style cache key              |
