@@ -175,19 +175,27 @@ own `style` and style props.
 
 The `DummyField`'s four — `primary`, `secondary`, `tertiary`, `ghost` — dress the **field**,
 and the four sizes (`xs`, `sm`, `md`, `lg`) drive the field's height and the grid's cell:
-24, 28, 32 and 34 points, with a four-point gutter between them at every size. The cell is
-as large as a row of eight allows — 8×32 + 7×4 is 284 inside the 310 a dialog leaves on a
-phone — because a ramp that wrapped halfway through itself would read as two colours rather
-than one getting darker.
+24, 28, 32 and 36 points. The cell is as large as a row of eight allows — 8×32 is 256 inside
+the 310 a dialog leaves on a phone — because a ramp that wrapped halfway through itself
+would read as two bars rather than one colour getting darker.
 
 `color` is a raw tint (R7). It dresses the field and it is the ring around the chosen
 swatch — the legacy picker's `themeColor`, which drove the same two. `radius` moves the
 field's corner, the chip's and the swatch's together; the dialog keeps the `Dialog`'s own,
 because a picker asked for a pill of a trigger did not ask for a pill of a panel.
 
-The ring is drawn at **every** cell, transparent until the cell is the answer, so choosing a
-colour changes one colour and moves nothing — where thickening a border, which is what the
-legacy picker did, shrank the swatch under it at the moment it was pressed.
+**A ramp is one square bar.** Its cells touch, with no gutter and no corner on either end:
+a rounded end would put a curve on two of the eight colours and leave the other six square,
+and the corner is the one shape a swatch cannot afford, because it is the shape of the
+colour itself. The only edge in the grid is a hairline around the bar — one per ramp rather
+than one per cell, which would double into a two-point line between every pair of colours —
+and it is what keeps a pale ramp visible on a white sheet. `radius` still rounds the bar for
+a caller who asks.
+
+The chosen cell draws its ring **over** its colour rather than around it. As a border the
+ring would reserve its width at every cell, answer or not, and six points of ground between
+two colours is not a ramp; a border that appeared only on the chosen cell, which is what the
+legacy picker did, shrank the swatch under the finger at the moment it was pressed.
 
 ## Accessibility
 

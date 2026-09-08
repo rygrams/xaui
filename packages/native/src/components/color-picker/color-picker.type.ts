@@ -172,7 +172,7 @@ export type ColorPickerContextValue = {
   groupLabelStyle: StyleProp<TextStyle>
   swatchesStyle: StyleProp<ViewStyle>
   swatchStyle: StyleProp<ViewStyle>
-  /** Layered over `swatchStyle` by the chosen cell: the ring's colour, and only that. */
+  /** The ring the chosen cell draws **over** its colour — an inset edge, not a border. */
   swatchSelectedStyle: StyleProp<ViewStyle>
   swatchFillStyle: StyleProp<ViewStyle>
 }

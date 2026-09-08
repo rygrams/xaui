@@ -23,10 +23,12 @@ import type { ColorPickerSwatchProps } from './color-picker.type'
  * `CloseButton`'s reason — the root's recipe cannot resolve a state that belongs to one of
  * a hundred and forty-four cells.
  *
- * Two nodes rather than one, and the ring is the outer: a ring that appeared by thickening
- * the border would shrink the colour under it at the moment it is pressed. Both are drawn
- * at every cell, transparent until the cell is the answer, so choosing a colour changes one
- * colour and moves nothing.
+ * **The ring is drawn over the cell, not around it.** As a border it would reserve its own
+ * width at every cell whether or not that cell is the answer, and six points of ground
+ * between two colours is not a ramp — the cells of one ramp touch. A border that appeared
+ * only on the chosen cell, which is what the legacy picker did, shrinks the swatch under
+ * the finger at the moment it is pressed. Over the top, nothing moves and nothing is
+ * reserved.
  */
 export const ColorPickerSwatch = forwardRef<View, ColorPickerSwatchProps>(
   function ColorPickerSwatch(
@@ -85,7 +87,6 @@ export const ColorPickerSwatch = forwardRef<View, ColorPickerSwatchProps>(
         {...rest}
         style={[
           swatchStyle,
-          isSelected && swatchSelectedStyle,
           styleProps,
           typeof style === 'function' ? style({ pressed: isPressed }) : style,
         ]}
@@ -94,6 +95,10 @@ export const ColorPickerSwatch = forwardRef<View, ColorPickerSwatchProps>(
         onPressOut={press.onPressOut}
       >
         <View style={[swatchFillStyle, { backgroundColor: color }]} />
+        {/* After the fill, so it is over it; inert, so the press belongs to the cell. */}
+        {isSelected ? (
+          <View pointerEvents="none" style={swatchSelectedStyle} />
+        ) : null}
       </PressableFeedback>
     )
   }
