@@ -19,8 +19,11 @@ import type { ColorPickerGroupProps } from './color-picker.type'
  * how a picker offers a set of its own — a brand row, the last colours used — with or
  * without the grid under it.
  *
- * The row **wraps** rather than scrolling sideways: a ramp that ran off the edge would hide
- * its dark end behind a gesture, and a swatch nobody scrolls to is a swatch nobody picks.
+ * **The name sits to the left of the ramp, in a column of fixed width.** Above it, eighteen
+ * captions are eighteen lines of type in a dialog that could have been colour; in the flow
+ * beside it, each ramp would start where its own name ended and the bars would step in and
+ * out of the column by the length of the word. Fixed, they line up, and a name too long for
+ * it truncates rather than pushing its bar out of line.
  */
 export const ColorPickerGroup = forwardRef<View, ColorPickerGroupProps>(
   function ColorPickerGroup({ name, children, style, ...props }, ref) {
@@ -32,7 +35,15 @@ export const ColorPickerGroup = forwardRef<View, ColorPickerGroupProps>(
 
     return (
       <View ref={ref} {...rest} style={[groupStyle, styleProps, style]}>
-        {text !== null ? <Text style={groupLabelStyle}>{text}</Text> : name}
+        {text !== null ? (
+          // One line, always: the column's width is what aligns the ramps, and a name that
+          // wrapped inside it would make its own row taller than the seventeen others.
+          <Text numberOfLines={1} style={groupLabelStyle}>
+            {text}
+          </Text>
+        ) : (
+          name
+        )}
         <View style={swatchesStyle}>{children}</View>
       </View>
     )

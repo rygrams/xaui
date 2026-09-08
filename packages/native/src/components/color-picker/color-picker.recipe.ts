@@ -38,14 +38,19 @@ const VARIANT_TOKENS: Record<'default', VariantTokens> = {
  * on the base-4 scale.
  *
  * **The cells of one ramp touch**, so the row reads as a single bar of one colour getting
- * darker rather than as eight unrelated chips. There is no gutter to add to the arithmetic:
- * the cell is simply as large as a row of eight allows inside the 310 points a dialog
- * leaves on a phone — 8×32 at `md`, 8×36 at `lg`. A ramp that wrapped halfway through
- * itself would read as two bars, which is the whole reason the row exists.
+ * darker rather than as eight unrelated chips. Touching is also what moved the selection
+ * ring out of the box model: as a border it reserved its own width plus the air behind it
+ * at every edge, and six points of ground between two colours is not a ramp. It is drawn
+ * over the cell instead — see `RING`.
  *
- * Touching is also what moved the selection ring out of the box model: as a border it
- * reserved its own width plus the air behind it at every edge, and six points of ground
- * between two colours is not a ramp. It is drawn over the cell instead — see `swatch`.
+ * **The name sits beside the ramp, not above it.** Eighteen ramps with a caption over each
+ * is eighteen lines of type in a dialog that could have been colour, and the eye reads a
+ * label to the left of the thing it names as readily as one on top of it.
+ *
+ * That is what fixes the cell: the row now has to hold a label column, a gap and eight
+ * cells inside the ~310 points a dialog leaves on a phone. At `md` that is 56 + 6 + 8×28 =
+ * 286. Growing the cell past this makes a ramp wrap halfway through itself, which reads as
+ * two bars rather than one colour getting darker.
  *
  * The chip is smaller than the cell and not by a ratio: it sits inside a field beside a
  * line of text, so it follows the field's own scale rather than the grid's.
@@ -55,7 +60,7 @@ type SizeStep = {
   cell: number
   /** The chip on the trigger. */
   chip: number
-  /** Between a group's name and its row. */
+  /** Between a group's name and its ramp. */
   labelGap: number
   /** Between two ramps — the only air in the grid, and what keeps them apart. */
   stackGap: number
@@ -64,11 +69,24 @@ type SizeStep = {
 }
 
 const SIZES: Record<ColorPickerSize, SizeStep> = {
-  xs: { cell: 6, chip: 4, labelGap: 1, stackGap: 2, label: 'xs' },
-  sm: { cell: 7, chip: 5, labelGap: 1.25, stackGap: 2, label: 'xs' },
-  md: { cell: 8, chip: 5, labelGap: 1.5, stackGap: 2.5, label: 'sm' },
-  lg: { cell: 9, chip: 6, labelGap: 1.75, stackGap: 3, label: 'md' },
+  xs: { cell: 5, chip: 4, labelGap: 1, stackGap: 1.5, label: 'xs' },
+  sm: { cell: 6, chip: 5, labelGap: 1.25, stackGap: 1.5, label: 'xs' },
+  md: { cell: 7, chip: 5, labelGap: 1.5, stackGap: 2, label: 'sm' },
+  // The label holds at `sm`: a hue's name is a caption beside a bar rather than body copy,
+  // and letting the type grow here would take the width straight off the colour.
+  lg: { cell: 7.5, chip: 6, labelGap: 1.75, stackGap: 2, label: 'sm' },
 }
+
+/**
+ * The label column, as a multiple of the label's own type.
+ *
+ * **A fixed width, and that is the whole point of it**: with the name in the flow the ramps
+ * would each start where their own name ended, and eighteen bars would step in and out of
+ * the column by the length of the word beside them. Four ems clears the longest hue in the
+ * palette — "Fuchsia", seven characters at roughly 0.55em each — and a name longer than
+ * that truncates rather than pushing its bar out of line.
+ */
+const LABEL_WIDTH = 4
 
 /**
  * The ring, in multiples of the theme's hairline.
@@ -98,6 +116,7 @@ function sizeAxis(step: SizeStep) {
       grid: { gap: theme.spacing(stackGap) },
       group: { gap: theme.spacing(labelGap) },
       groupLabel: {
+        width: theme.fontSizes[label] * LABEL_WIDTH,
         fontSize: theme.fontSizes[label],
         lineHeight: theme.lineHeights[label],
       },
@@ -118,7 +137,9 @@ export const colorPickerRecipe = createRecipe({
       borderColor: theme.colors.border,
       borderCurve: 'continuous',
     },
-    group: { flexDirection: 'column' },
+    // A row, so the name reads beside the ramp and the eighteen of them stack in half the
+    // height. Centred on the cross axis: a caption level with the bar it names.
+    group: { flexDirection: 'row', alignItems: 'center' },
     groupLabel: {
       fontFamily: theme.fontFamilies.body,
       fontWeight: theme.fontWeights.medium,
@@ -142,7 +163,6 @@ export const colorPickerRecipe = createRecipe({
       flexDirection: 'row',
       flexWrap: 'wrap',
       // No `gap`: the cells of one ramp touch. What separates two ramps is `grid`'s.
-      alignSelf: 'flex-start',
       overflow: 'hidden',
       borderWidth: theme.borderWidth.default,
       borderColor: theme.colors.border,

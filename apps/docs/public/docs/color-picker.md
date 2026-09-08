@@ -175,14 +175,21 @@ own `style` and style props.
 
 The `DummyField`'s four — `primary`, `secondary`, `tertiary`, `ghost` — dress the **field**,
 and the four sizes (`xs`, `sm`, `md`, `lg`) drive the field's height and the grid's cell:
-24, 28, 32 and 36 points. The cell is as large as a row of eight allows — 8×32 is 256 inside
-the 310 a dialog leaves on a phone — because a ramp that wrapped halfway through itself
-would read as two bars rather than one colour getting darker.
+20, 24, 28 and 30 points. The cell is as large as a row allows once the label column and the
+gap beside it are paid for — 56 + 6 + 8×28 = 286 inside the ~310 a dialog leaves on a phone
+— because a ramp that wrapped halfway through itself would read as two bars rather than one
+colour getting darker.
 
 `color` is a raw tint (R7). It dresses the field and it is the ring around the chosen
 swatch — the legacy picker's `themeColor`, which drove the same two. `radius` moves the
 field's corner, the chip's and the swatch's together; the dialog keeps the `Dialog`'s own,
 because a picker asked for a pill of a trigger did not ask for a pill of a panel.
+
+**A hue's name sits to the left of its ramp, in a column of fixed width.** Above it,
+eighteen captions are eighteen lines of type in a dialog that could have been colour; in the
+flow beside it, each ramp would start where its own name ended and the bars would step in
+and out of the column by the length of the word. Fixed, they line up, and a name too long
+for the column truncates rather than pushing its bar out of line.
 
 **A ramp is one square bar.** Its cells touch, with no gutter and no corner on either end:
 a rounded end would put a curve on two of the eight colours and leave the other six square,
