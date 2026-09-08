@@ -1,5 +1,11 @@
 # @xaui/native
 
+## 0.9.1-alpha.80
+
+### Patch Changes
+
+- a61b873: Add PhoneNumberField with a country prefix, searchable country sheet, national number editing and E.164 output. `libphonenumber-js` is a new optional peer dependency, needed only by this component.
+
 ## 0.9.1-alpha.79
 
 ### Patch Changes
