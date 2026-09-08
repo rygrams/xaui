@@ -9,6 +9,7 @@ import type {
   StyleFn,
   VariantColors,
 } from './recipe.type'
+import { warnDev } from '../../utils/warn-dev'
 import { resolveTint } from './resolve-tint'
 import { cacheKey, createStyleCache } from './style-cache'
 import {
@@ -60,6 +61,31 @@ export function createRecipe<
   const A extends Axes<Slot>,
 >(config: RecipeConfig<Slot, Variant, A>): Recipe<Slot, Variant, A> {
   const cache = createStyleCache(config.slots)
+
+  /**
+   * A recipe that paints has to say which variant it paints from.
+   *
+   * `resolveSelection` leaves `variant` `undefined` when neither the caller nor
+   * `defaultVariants` names one, `variantTokens[undefined]` is nothing, and `paint` is then
+   * handed an empty set of colours — so every colour it writes is `undefined`. Nothing
+   * throws and nothing is logged: the control simply renders with no fill, which on a
+   * white surface over a backdrop looks like a deliberate hole.
+   *
+   * It is checked here rather than per resolution because it is knowable at creation and
+   * cannot change afterwards, so the warning fires once at import instead of once per
+   * cache miss.
+   */
+  if (
+    config.paint &&
+    config.variantTokens &&
+    config.defaultVariants?.variant === undefined
+  ) {
+    warnDev(
+      `the recipe for slots [${config.slots.join(', ')}] declares \`paint\` and ` +
+        '`variantTokens` but no `variant` in `defaultVariants`, so `paint` will be handed ' +
+        'no colours unless a caller names a variant. Name the default one.'
+    )
+  }
 
   const tokensFor = (variant: string | undefined) =>
     variant === undefined ? undefined : config.variantTokens?.[variant as Variant]

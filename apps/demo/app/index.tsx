@@ -30,6 +30,7 @@ const SCREENS = [
   { href: '/charts', label: 'Charts' },
   { href: '/chip', label: 'Chip' },
   { href: '/close-button', label: 'CloseButton' },
+  { href: '/color-picker', label: 'ColorPicker' },
   { href: '/combobox', label: 'Combobox' },
   { href: '/date-picker', label: 'DatePicker' },
   { href: '/date-range-picker', label: 'DateRangePicker' },

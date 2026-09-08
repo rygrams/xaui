@@ -104,7 +104,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.18b | `Toast` — Title · Description · Actions · Close, plus `ToastHost`                | done    |
 | P5.19  | `Snippet`                                                                        | todo    |
 | P5.20  | `Fab` — round or extended, the Button's table on a floating box                  | done    |
-| P5.21  | `FabMenu`                                                                        | todo    |
+| P5.21  | `Fab.Menu` — the FAB's actions as pills, anchored so the FAB never moves         | done    |
 | P5.22  | `Dialog` — Trigger · Overlay · Content · Title · Description · Close             | done    |
 | P5.23  | `BottomSheet` — Trigger · Overlay · Content · Handle · Title                     | done    |
 | P5.23b | `BottomSheetInput` — net new, a `TextField` that opens in a `BottomSheet`        | todo    |
@@ -128,7 +128,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.26f | `DateTimePicker` — net new, `DatePicker` and `TimePicker` as one | done |
 | P5.26g | `RangeCalendar` — net new, the `Calendar` behind `DateRangePicker` | done |
 | P5.27 | `TimePicker` — a `Select` trigger, a sheet and a clock face | done |
-| P5.28 | `ColorPicker` | todo |
+| P5.28 | `ColorPicker` — a `DummyField` that opens a `Dialog`, or the Tailwind grid alone | done |
 | P5.29 | `Carousel` | done |
 | P5.30 | `Pager` | todo |
 | P5.32 | `DummyField` — renamed from legacy `InputTrigger`, not the `Trigger` slot vocabulary | done |
