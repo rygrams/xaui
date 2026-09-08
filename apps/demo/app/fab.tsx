@@ -66,6 +66,7 @@ function Plus() {
 export default function FabScreen() {
   const theme = useXAUITheme()
   const [busy, setBusy] = useState(false)
+  const [chosen, setChosen] = useState<string | null>(null)
 
   return (
     <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
@@ -174,6 +175,78 @@ export default function FabScreen() {
         </Section>
 
         <Section
+          title="Fab.Menu"
+          note="Le FAB ne bouge pas quand le menu s'ouvre. Le legacy re-rendait son FAB à l'intérieur du portail, à l'inset du portail, donc un FAB posé ailleurs sautait à travers l'écran au moment où on le pressait. Ici le déclencheur n'est jamais reparenté : il se mesure, et les actions se placent contre ce rectangle. Ce n'est pas un Menu non plus — un menu est une surface avec des rangées dedans, ici chaque action est sa propre pastille avec de l'air entre elles."
+        >
+          <View
+            style={{
+              height: 260,
+              borderRadius: 16,
+              backgroundColor: theme.colors.surfaceSecondary,
+            }}
+          >
+            <Fab.Menu>
+              <Fab.Menu.Trigger placement="bottom-end" accessibilityLabel="Nouveau">
+                <Plus />
+              </Fab.Menu.Trigger>
+              <Fab.Menu.Overlay />
+              <Fab.Menu.Content>
+                <Fab.Menu.Item onPress={() => setChosen('Nouveau message')}>
+                  Nouveau message
+                </Fab.Menu.Item>
+                <Fab.Menu.Item onPress={() => setChosen('Nouveau libellé')}>
+                  Nouveau libellé
+                </Fab.Menu.Item>
+                <Fab.Menu.Item onPress={() => setChosen('Nouveau dossier')}>
+                  Nouveau dossier
+                </Fab.Menu.Item>
+                <Fab.Menu.Item isDisabled>Bientôt</Fab.Menu.Item>
+              </Fab.Menu.Content>
+            </Fab.Menu>
+          </View>
+
+          <Text style={{ color: theme.colors.muted }}>Choisi : {chosen ?? '—'}</Text>
+
+          <View style={{ flexDirection: 'row', gap: 24, alignItems: 'flex-end' }}>
+            {SIZES.map(size => (
+              <Fab.Menu key={size} size={size}>
+                <Fab.Menu.Trigger accessibilityLabel={size}>
+                  <Plus />
+                </Fab.Menu.Trigger>
+                <Fab.Menu.Overlay />
+                <Fab.Menu.Content>
+                  <Fab.Menu.Item>Une action</Fab.Menu.Item>
+                  <Fab.Menu.Item>Une autre</Fab.Menu.Item>
+                </Fab.Menu.Content>
+              </Fab.Menu>
+            ))}
+          </View>
+
+          <View style={{ flexDirection: 'row', gap: 24, alignItems: 'flex-end' }}>
+            <Fab.Menu color="#0ea5e9">
+              <Fab.Menu.Trigger color="#0ea5e9" accessibilityLabel="Teinté">
+                <Plus />
+              </Fab.Menu.Trigger>
+              <Fab.Menu.Overlay />
+              <Fab.Menu.Content>
+                <Fab.Menu.Item>Teintée</Fab.Menu.Item>
+                <Fab.Menu.Item>Teintée aussi</Fab.Menu.Item>
+              </Fab.Menu.Content>
+            </Fab.Menu>
+
+            <Fab.Menu isDisabled>
+              <Fab.Menu.Trigger accessibilityLabel="Indisponible">
+                <Plus />
+              </Fab.Menu.Trigger>
+              <Fab.Menu.Overlay />
+              <Fab.Menu.Content>
+                <Fab.Menu.Item>Inatteignable</Fab.Menu.Item>
+              </Fab.Menu.Content>
+            </Fab.Menu>
+          </View>
+        </Section>
+
+        <Section
           title="placement"
           note="Non renseigné il est dans le flux, ce que veut un FAB dans une carte ou une barre d'outils. Les trois autres l'épinglent en bas de son ancêtre positionné le plus proche — start et end plutôt que gauche et droite, donc une mise en page de droite à gauche le déplace sans deuxième branche. Celui de cet écran est épinglé en bas à droite, par-dessus le défilement."
         >
@@ -197,9 +270,20 @@ export default function FabScreen() {
         </Section>
       </ScrollView>
 
-      <Fab placement="bottom-end" accessibilityLabel="Nouveau message">
-        <Plus />
-      </Fab>
+      <Fab.Menu>
+        <Fab.Menu.Trigger
+          placement="bottom-end"
+          accessibilityLabel="Nouveau message"
+        >
+          <Plus />
+        </Fab.Menu.Trigger>
+        <Fab.Menu.Overlay />
+        <Fab.Menu.Content>
+          <Fab.Menu.Item onPress={() => setChosen('Message')}>Message</Fab.Menu.Item>
+          <Fab.Menu.Item onPress={() => setChosen('Libellé')}>Libellé</Fab.Menu.Item>
+          <Fab.Menu.Item onPress={() => setChosen('Dossier')}>Dossier</Fab.Menu.Item>
+        </Fab.Menu.Content>
+      </Fab.Menu>
     </View>
   )
 }

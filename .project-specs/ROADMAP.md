@@ -103,7 +103,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.18b | `Toast` — Title · Description · Actions · Close, plus `ToastHost`                | done    |
 | P5.19  | `Snippet`                                                                        | todo    |
 | P5.20  | `Fab` — round or extended, the Button's table on a floating box                  | done    |
-| P5.21  | `FabMenu`                                                                        | todo    |
+| P5.21  | `Fab.Menu` — the FAB's actions as pills, anchored so the FAB never moves         | done    |
 | P5.22  | `Dialog` — Trigger · Overlay · Content · Title · Description · Close             | done    |
 | P5.23  | `BottomSheet` — Trigger · Overlay · Content · Handle · Title                     | done    |
 | P5.23b | `BottomSheetInput` — net new, a `TextField` that opens in a `BottomSheet`        | todo    |
