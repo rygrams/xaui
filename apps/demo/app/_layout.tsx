@@ -125,6 +125,10 @@ export default function RootLayout() {
                 options={{ title: 'NumberStepper (v1)' }}
               />
               <Stack.Screen name="menu" options={{ title: 'Menu (v1)' }} />
+              <Stack.Screen
+                name="morph-button"
+                options={{ title: 'MorphButton (v1)' }}
+              />
               <Stack.Screen name="popover" options={{ title: 'Popover (v1)' }} />
               <Stack.Screen
                 name="pressable-feedback"

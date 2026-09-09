@@ -145,7 +145,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.34h | `RadialChart` — net new, no legacy equivalent | done |
 | P5.35 | `CloseButton` — the dismiss affordance, out of Chip and Alert and given a recipe | done |
 | P5.35b | `LinkButton` — net new, a `Button` that reads as a link | dropped |
-| P5.35c | `MorphButton` — net new, a `Button` that animates between states | todo |
+| P5.35c | `MorphButton` — net new, a `Button` that animates between states | done |
 | P5.35d | `SlideButton` — net new, slide-to-confirm over the `Slider` | todo |
 | P5.35e | `SocialAuthButton` — net new, provider marks over the `Button` | todo |
 | P5.35f | `ToggleButton` — net new, a `Button` that holds a pressed state | done |
