@@ -1,5 +1,12 @@
 # @xaui/native
 
+## 0.9.1-alpha.88
+
+### Patch Changes
+
+- c01ade0: Add the v1 Snackbar notification API, including a vertical `Snackbar.Stack` for displaying
+  several independently controlled messages without overlap.
+
 ## 0.9.1-alpha.87
 
 ### Patch Changes
