@@ -3,24 +3,45 @@ import type { SlotStyles, VariantTokens } from '../../system/recipe'
 import type { Size, XAUITheme } from '../../theme/theme.type'
 import type { PagerSlot, PagerVariant } from './pager.type'
 
-const SLOTS = ['root', 'content', 'page', 'indicator', 'dot', 'dotActive'] as const
+const SLOTS = ['root', 'content', 'page', 'indicator', 'dot'] as const
 
 /**
  * The tokens paint the **dots**, and nothing else — the pages are the caller's content and
  * this component never touches them.
  *
- * Only `bgSelected` is named, because only the current dot is a colour decision: the ones
- * behind it keep the neutral fill `base` gives them, which is the ground the current one
- * travels over. `bgSelected` is also the role a raw `color` re-tints, which is why the
- * colour that matters is the one carrying that name.
+ * One role, not two. Every dot takes `bgSelected` and the unfilled ones are the same colour
+ * at `DOT_REST_OPACITY`, so there is no second token that has to be chosen to contrast with
+ * the first. It is also the role a raw `color` re-tints, which is why a tinted pager tints
+ * its whole indicator rather than half of it.
  */
 const VARIANT_TOKENS: Record<PagerVariant, VariantTokens> = {
   primary: { bgSelected: 'accent' },
-  secondary: { bgSelected: 'defaultForeground' },
-  // The raised ground rather than the page's, which on a light theme is white: this is the
-  // pager over a photograph, where an accent dot disappears into whatever is behind it.
+  // The page's own ink, for an indicator that has to read as chrome rather than as accent.
+  secondary: { bgSelected: 'foreground' },
+  // The raised ground — white on a light theme. A pager over a *photograph* wants
+  // `color="#ffffff"` instead: a photograph is a photograph in both colour modes, and this
+  // token flips with the theme.
   tertiary: { bgSelected: 'surface' },
 }
+
+/**
+ * How far behind the current dot the others sit.
+ *
+ * **Opacity, not a second colour**, and this is the load-bearing decision in the file. A
+ * neutral fill for the unfilled dots — the `Carousel`'s answer, which this copied first — has
+ * to contrast with whatever the current one happens to be, and it cannot: `tertiary` puts
+ * `surface` against `default`, which is `#ffffff` on `#e4e4e7` in light and two
+ * near-identical greys in dark. The variant that exists for a pager over an image was the one
+ * whose indicator could not be read.
+ *
+ * One colour at two opacities cannot collapse like that, whatever the variant, whichever the
+ * colour mode, and for any raw `color` a caller invents. It is also what iOS's own page
+ * control does.
+ *
+ * 0.3 rather than 0.5: the dots are seven points across, and at half strength a small mark
+ * reads as the current one seen through something rather than as a mark behind it.
+ */
+export const DOT_REST_OPACITY = 0.3
 
 type SizeStep = {
   /** A dot's diameter. */
@@ -67,7 +88,7 @@ function orientationAxis(direction: 'row' | 'column') {
 export const pagerRecipe = createRecipe({
   slots: SLOTS,
 
-  base: theme => ({
+  base: () => ({
     /**
      * **The root has no size of its own**, and that is deliberate rather than missing.
      *
@@ -87,23 +108,17 @@ export const pagerRecipe = createRecipe({
     // named, so it arrives as an inline style instead of from here.
     page: { overflow: 'hidden' },
     indicator: { alignItems: 'center', justifyContent: 'center' },
-    /**
-     * A neutral fill rather than a faint version of the current one: a pale tint of the
-     * accent under the pages reads as a control that has half failed to load. A raw `color`
-     * reaches the current dot, which is the one it should move.
-     */
-    dot: { backgroundColor: theme.colors.default },
   }),
 
   variantTokens: VARIANT_TOKENS,
 
   /**
-   * The current dot, **read as a value and never applied as a style**: the colour is
-   * interpolated on the UI thread, and `interpolateColor` needs a string rather than a
-   * `StyleSheet` id. The root flattens this slot into `dotInk`, so the recipe still owns it.
+   * Every dot takes the same colour. What separates the current one from the rest is its
+   * opacity, animated on the UI thread — so this is a plain style rather than a value the
+   * root has to flatten and hand to a worklet.
    */
   paint: (_theme, colors) => ({
-    dotActive: { backgroundColor: colors.bgSelected },
+    dot: { backgroundColor: colors.bgSelected },
   }),
 
   variants: {
