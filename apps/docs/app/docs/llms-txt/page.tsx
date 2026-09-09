@@ -1,4 +1,5 @@
 import type { Metadata } from 'next'
+import Link from 'next/link'
 import { CodeBlock } from '@/components/ui/code-block'
 import { ExternalLink, Bot, FileText } from 'lucide-react'
 
@@ -39,10 +40,8 @@ export default function LlmsTxtPage() {
           </div>
         </a>
 
-        <a
-          href="/docs/container.md"
-          target="_blank"
-          rel="noopener noreferrer"
+        <Link
+          href="/docs/skills"
           className="group flex items-start gap-4 rounded-lg border p-5 transition-colors hover:bg-muted/40"
         >
           <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10">
@@ -50,14 +49,13 @@ export default function LlmsTxtPage() {
           </div>
           <div className="min-w-0">
             <div className="flex items-center gap-1.5">
-              <p className="font-semibold">container.md</p>
-              <ExternalLink className="h-3.5 w-3.5 text-muted-foreground" />
+              <p className="font-semibold">SKILL.md</p>
             </div>
             <p className="mt-0.5 text-sm text-muted-foreground">
-              Container props, events, and usage example.
+              The agent skill — the API rules plus the component index.
             </p>
           </div>
-        </a>
+        </Link>
       </div>
 
       <div className="space-y-4">
@@ -84,15 +82,23 @@ export default function LlmsTxtPage() {
       </div>
 
       <div className="space-y-4">
-        <h2 className="text-xl font-semibold">Usage in Claude</h2>
+        <h2 className="text-xl font-semibold">Usage in Claude Code</h2>
         <p className="text-muted-foreground">
-          Paste this into your system prompt or project instructions:
+          Paste this into a system prompt or project instructions:
         </p>
         <CodeBlock
           language="text"
           code={`Refer to https://ui.xtartapp.com/llms.txt for the XAUI component library.
 Fetch the linked markdown files to get props and examples before generating code.`}
         />
+        <p className="text-muted-foreground">
+          Claude Code and the other coding agents can also install the skill file —
+          see{' '}
+          <Link className="underline" href="/docs/skills">
+            Agent skills
+          </Link>
+          .
+        </p>
       </div>
 
       <div className="space-y-4">
