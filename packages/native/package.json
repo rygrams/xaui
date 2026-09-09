@@ -1,6 +1,6 @@
 {
   "name": "@xaui/native",
-  "version": "0.9.1-alpha.85",
+  "version": "0.9.1-alpha.86",
   "description": "Composition-first React Native UI components with native animations powered by Reanimated",
   "keywords": [
     "react-native",
@@ -615,6 +615,16 @@
       "require": {
         "types": "./dist/components/timeline/index.d.cts",
         "default": "./dist/components/timeline/index.cjs"
+      }
+    },
+    "./toggle-button": {
+      "import": {
+        "types": "./dist/components/toggle-button/index.d.ts",
+        "default": "./dist/components/toggle-button/index.js"
+      },
+      "require": {
+        "types": "./dist/components/toggle-button/index.d.cts",
+        "default": "./dist/components/toggle-button/index.cjs"
       }
     },
     "./toast": {
