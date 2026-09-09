@@ -41,16 +41,10 @@ export default function SnackbarScreen() {
           isVisible={isPersistentVisible}
           onVisibleChange={setPersistentVisible}
           duration={0}
-          variant="danger"
         >
           <Snackbar.Message>L’envoi a échoué.</Snackbar.Message>
           <Snackbar.Actions>
             <Snackbar.Action onPress={() => {}}>Réessayer</Snackbar.Action>
-            <Snackbar.Close asChild>
-              <Button size="sm" variant="tertiary">
-                Fermer
-              </Button>
-            </Snackbar.Close>
           </Snackbar.Actions>
         </Snackbar>
       </Snackbar.Stack>
