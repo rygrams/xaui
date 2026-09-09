@@ -100,7 +100,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.15  | `Slider` — Output · Track · Fill · Thumb                                         | done    |
 | P5.16  | `Tabs` — List · Trigger · Label · Indicator · Content                            | done    |
 | P5.17  | `AppBar`                                                                         | dropped |
-| P5.18  | `Snackbar` — closed by P5.18b `Toast`, the same object renamed                   | done    |
+| P5.18  | `Snackbar` — v1 transient notification over the shared toast queue               | done    |
 | P5.18b | `Toast` — Title · Description · Actions · Close, plus `ToastHost`                | done    |
 | P5.19  | `Snippet`                                                                        | todo    |
 | P5.20  | `Fab` — round or extended, the Button's table on a floating box                  | done    |

@@ -50,6 +50,7 @@ const entries = {
   'components/search-field/index': 'src/components/search-field/index.ts',
   'components/segment/index': 'src/components/segment/index.ts',
   'components/select/index': 'src/components/select/index.ts',
+  'components/snackbar/index': 'src/components/snackbar/index.ts',
   'components/skeleton/index': 'src/components/skeleton/index.ts',
   'components/slider/index': 'src/components/slider/index.ts',
   'components/spinner/index': 'src/components/spinner/index.ts',

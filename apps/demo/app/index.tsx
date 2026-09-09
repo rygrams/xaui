@@ -59,6 +59,7 @@ const SCREENS = [
   { href: '/scaffold', label: 'Scaffold' },
   { href: '/search-field', label: 'SearchField' },
   { href: '/select', label: 'Select' },
+  { href: '/snackbar', label: 'Snackbar' },
   { href: '/skeleton', label: 'Skeleton' },
   { href: '/slider', label: 'Slider' },
   { href: '/spinner', label: 'Spinner' },
