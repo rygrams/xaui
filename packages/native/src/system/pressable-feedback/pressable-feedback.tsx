@@ -120,6 +120,10 @@ const StaticFeedback = forwardRef<View, BranchProps>(function StaticFeedback(
     isDisabled,
     asChild = false,
     animation,
+    // Dropped rather than forwarded: this branch renders a plain `Pressable`, and a
+    // Reanimated layout builder reaching a host view is an unknown prop rather than a
+    // transition that quietly does nothing.
+    layout: _layout,
     children,
     style,
     ...rest
