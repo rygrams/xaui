@@ -1,5 +1,12 @@
 # @xaui/native
 
+## 0.9.1-alpha.87
+
+### Patch Changes
+
+- 8396052: Rename the compound row container from List to ListBox and reduce the default `primary`
+  elevation so it sits closer to the page than a card.
+
 ## 0.9.1-alpha.86
 
 ### Patch Changes
