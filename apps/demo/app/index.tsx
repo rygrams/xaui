@@ -51,6 +51,7 @@ const SCREENS = [
   { href: '/number-field', label: 'NumberField' },
   { href: '/number-stepper', label: 'NumberStepper' },
   { href: '/menu', label: 'Menu' },
+  { href: '/morph-button', label: 'MorphButton' },
   { href: '/popover', label: 'Popover' },
   { href: '/pressable-feedback', label: 'PressableFeedback' },
   { href: '/progress-bar', label: 'ProgressBar' },

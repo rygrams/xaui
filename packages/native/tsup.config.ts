@@ -37,6 +37,7 @@ const entries = {
   'components/list-box/index': 'src/components/list-box/index.ts',
   'components/mask-field/index': 'src/components/mask-field/index.ts',
   'components/menu/index': 'src/components/menu/index.ts',
+  'components/morph-button/index': 'src/components/morph-button/index.ts',
   'components/number-field/index': 'src/components/number-field/index.ts',
   'components/number-stepper/index': 'src/components/number-stepper/index.ts',
   'components/pie-chart/index': 'src/components/pie-chart/index.ts',

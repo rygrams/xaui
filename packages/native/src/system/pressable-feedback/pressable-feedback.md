@@ -314,6 +314,15 @@ Everything `Pressable` accepts, minus `style`'s function form, plus:
 | `isDisabled` | `boolean`       | —       | R8; forwarded to `Pressable` as `disabled`        |
 | `asChild`    | `boolean`       | `false` | Merge into the single child, keeping the feedback |
 | `animation`  | `AnimationProp` | —       | `false` mounts no worklet                         |
+| `layout`     | Reanimated's    | —       | Layout transition, for a box that changes size    |
+
+`layout` is for a control whose **own box** changes size — a `MorphButton` growing from a
+pill into a card. It is here rather than in that component because the box that travels is
+this node: a transition on a wrapper animates the wrapper's frame while the pressable inside
+it is already at its final size, so the content spills out of the shape halfway through. It
+has no effect on the static branch, which mounts a plain `Pressable` and no worklet at all —
+`animation={false}` turns the morph off with everything else, which is the answer a caller
+asking for no animation wanted.
 
 `style` is an object or an array, not `Pressable`'s function form: the root above already
 owns the press state and publishes it through context, so the function form would be a

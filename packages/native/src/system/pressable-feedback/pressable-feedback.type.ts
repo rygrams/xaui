@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import type { PressableProps, StyleProp, ViewStyle } from 'react-native'
-import type { SharedValue } from 'react-native-reanimated'
+import type { AnimatedProps, SharedValue } from 'react-native-reanimated'
 import type { ViewStyleProps } from '../style-props'
 
 export type AnimationConfig = {
@@ -48,6 +48,18 @@ export type PressableFeedbackProps = Omit<
      */
     asChild?: boolean
     animation?: AnimationProp
+    /**
+     * Reanimated's layout transition, for a control whose **own box** changes size — a
+     * `MorphButton` growing from a pill into a card. It is here rather than in that
+     * component because the box that travels is this node: a transition on a wrapper
+     * animates the wrapper's frame while the pressable inside it is already at its final
+     * size, so the content spills out of the shape halfway through.
+     *
+     * It has no effect on the static branch, which mounts a plain `Pressable` and no
+     * worklet at all: `animation={false}` turns the morph off with everything else, which
+     * is the answer a caller asking for no animation wanted.
+     */
+    layout?: AnimatedProps<PressableProps>['layout']
     style?: StyleProp<ViewStyle>
     /**
      * The overlays are children, not a prop — `<PressableFeedback.Highlight />` or
