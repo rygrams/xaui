@@ -1,5 +1,11 @@
 # @xaui/native
 
+## 0.9.1-alpha.89
+
+### Patch Changes
+
+- 8d1f9b1: Add the virtualized `List` component with themed compound rows and final-row-aware hairline separators.
+
 ## 0.9.1-alpha.88
 
 ### Patch Changes
