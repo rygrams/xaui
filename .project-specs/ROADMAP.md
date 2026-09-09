@@ -79,7 +79,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.3   | `InputGroup` — Prefix · Field · Suffix · Icon, inside the `Input`                | done    |
 | P5.3b  | Rename `InputGroup` → `FieldGroup`, following `TextField`                        | done    |
 | P5.3c  | `NumberField` — over legacy `NumberInput`, following `TextField`                 | done    |
-| P5.3d  | `NumberPad` — net new, the keypad `NumberInput` and `InputOTP` share             | todo    |
+| P5.3d  | `NumberPad` — net new, the keypad `NumberInput` and `InputOTP` share             | done    |
 | P5.3e  | `NumberStepper` — net new, the increment pair legacy `Stepper` is not            | done    |
 | P5.3f  | `PhoneNumberField` — country prefix, searchable sheet and national number        | done    |
 | P5.3g  | `SearchField` — net new, a `TextField` with its mark, its clear and its search   | done    |

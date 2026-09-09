@@ -50,6 +50,7 @@ const SCREENS = [
   { href: '/mask-field', label: 'MaskField' },
   { href: '/number-field', label: 'NumberField' },
   { href: '/number-stepper', label: 'NumberStepper' },
+  { href: '/number-pad', label: 'NumberPad' },
   { href: '/menu', label: 'Menu' },
   { href: '/morph-button', label: 'MorphButton' },
   { href: '/popover', label: 'Popover' },
