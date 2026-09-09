@@ -1,14 +1,41 @@
 # Snackbar
 
-`Snackbar` is the v1 transient notification surface. Mount `SnackbarHost`, then call
-`useSnackbar()` to add a queued message.
+A temporary, controlled message inspired by the legacy Snackbar rather than by the v1
+Toast queue.
+
+## Import
 
 ```tsx
-<SnackbarHost>
-  <Screen />
-</SnackbarHost>
+import { Snackbar } from '@xaui/native/snackbar'
 ```
 
-The surface is compound: `Snackbar.Title`, `Snackbar.Description`, `Snackbar.Actions` and
-`Snackbar.Close`. It uses the same accessible queue, portal and UI-thread gestures as the
-v1 Toast implementation.
+## Usage
+
+```tsx
+<Snackbar isVisible={isVisible} onVisibleChange={setVisible} duration={4000}>
+  <Snackbar.Message>Enregistré.</Snackbar.Message>
+  <Snackbar.Actions>
+    <Snackbar.Action onPress={undo}>Annuler</Snackbar.Action>
+    <Snackbar.Close asChild>
+      <Button variant="tertiary">Fermer</Button>
+    </Snackbar.Close>
+  </Snackbar.Actions>
+</Snackbar>
+```
+
+## Anatomy
+
+- `Snackbar` owns visibility, the timer, placement and portal.
+- `Snackbar.Message` is the announcement.
+- `Snackbar.Actions` groups trailing controls.
+- `Snackbar.Action` runs an action and dismisses by default.
+- `Snackbar.ActionLabel` is the action text; raw action text is wrapped in it.
+- `Snackbar.Close` only dismisses.
+
+`duration={0}` keeps it visible. `position`, `insetHorizontal`, `insetVertical`, `maxWidth`
+and `isPortalled` correspond to the legacy layout controls. The legacy `message`,
+`actionLabel`, `showCloseAffordance` and `customAppearance` configuration props become
+explicit slots and each slot accepts its own style props.
+
+The root has the `alert` role and a polite live region. Entrance and exit run through
+Reanimated.
