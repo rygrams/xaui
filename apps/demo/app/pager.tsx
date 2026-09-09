@@ -109,7 +109,7 @@ export default function PagerScreen() {
 
       <Section
         title="Les trois variantes"
-        note="Elles nomment la couleur du point courant, seule chose que ce composant peint. Les points derrière gardent un remplissage neutre : une teinte pâle de l'accent sous les pages lirait comme un contrôle à moitié chargé."
+        note="Elles nomment la couleur de l'indicateur, et chaque point la prend : le courant à pleine force, les autres à 30 %. Une paire de couleurs devrait contraster avec elle-même et n'y arrive pas — tertiary posait surface sur default, soit blanc sur presque-blanc en clair et deux gris identiques en sombre."
       >
         {VARIANTS.map(variant => (
           <View key={variant} style={{ gap: 8 }}>
@@ -122,11 +122,20 @@ export default function PagerScreen() {
               <Pager.Content>
                 {STEPS.map(step => (
                   <Pager.Page key={step.title}>
-                    <Panel title={step.title} body={variant} />
+                    {/* `tertiary` is the raised ground — white on a light theme — so it is
+                        shown on a coloured page, which is where it is for. */}
+                    <Panel
+                      title={step.title}
+                      body={variant}
+                      tone={variant === 'tertiary' ? 'accent' : 'default'}
+                    />
                   </Pager.Page>
                 ))}
               </Pager.Content>
-              <Pager.Indicator paddingVertical={10} />
+              {/* Over the page rather than under it, so every variant's dots are compared
+                  against the ground they are meant to sit on — a `tertiary` indicator on the
+                  black page below would be a dark dot on a dark page in dark mode. */}
+              <Pager.Indicator position="absolute" bottom={10} start={0} end={0} />
             </Pager>
           </View>
         ))}
