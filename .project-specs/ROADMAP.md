@@ -101,7 +101,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.15  | `Slider` — Output · Track · Fill · Thumb                                         | done    |
 | P5.16  | `Tabs` — List · Trigger · Label · Indicator · Content                            | done    |
 | P5.17  | `AppBar`                                                                         | dropped |
-| P5.18  | `Snackbar` — closed by P5.18b `Toast`, the same object renamed                   | done    |
+| P5.18  | `Snackbar` — v1 transient notification over the shared toast queue               | done    |
 | P5.18b | `Toast` — Title · Description · Actions · Close, plus `ToastHost`                | done    |
 | P5.19  | `Snippet`                                                                        | todo    |
 | P5.20  | `Fab` — round or extended, the Button's table on a floating box                  | done    |
@@ -148,8 +148,8 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.35c | `MorphButton` — net new, a `Button` that animates between states | todo |
 | P5.35d | `SlideButton` — net new, slide-to-confirm over the `Slider` | todo |
 | P5.35e | `SocialAuthButton` — net new, provider marks over the `Button` | todo |
-| P5.35f | `ToggleButton` — net new, a `Button` that holds a pressed state | todo |
-| P5.35g | `ToggleButtonGroup` — net new, exclusive selection over `ToggleButton` | todo |
+| P5.35f | `ToggleButton` — net new, a `Button` that holds a pressed state | done |
+| P5.35g | `ToggleButtonGroup` — net new, exclusive selection over `ToggleButton` | done |
 | P5.36 | `EmptyState` — net new, no legacy equivalent | done |
 | P5.37 | `FlipCard` — net new, a `Card` with two faces | done |
 | P5.38 | `Radio.Group` — over legacy `RadioGroup`, the context P3.9 `Radio` lacked | done |

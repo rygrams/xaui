@@ -51,6 +51,7 @@ const entries = {
   'components/search-field/index': 'src/components/search-field/index.ts',
   'components/segment/index': 'src/components/segment/index.ts',
   'components/select/index': 'src/components/select/index.ts',
+  'components/snackbar/index': 'src/components/snackbar/index.ts',
   'components/skeleton/index': 'src/components/skeleton/index.ts',
   'components/slider/index': 'src/components/slider/index.ts',
   'components/spinner/index': 'src/components/spinner/index.ts',
@@ -63,6 +64,7 @@ const entries = {
   'components/text-area/index': 'src/components/text-area/index.ts',
   'components/text-field/index': 'src/components/text-field/index.ts',
   'components/timeline/index': 'src/components/timeline/index.ts',
+  'components/toggle-button/index': 'src/components/toggle-button/index.ts',
   'components/phone-number-field/index':
     'src/components/phone-number-field/index.ts',
   'components/time-field/index': 'src/components/time-field/index.ts',

@@ -248,9 +248,10 @@ announcing it as a heading would put it in the list a reader jumps between.
 
 ## Two layers, and one of them is a platform constraint
 
-The root carries the shadow and the border and must **not** clip: on iOS
+The root carries the subtle `field` shadow and the border and must **not** clip: on iOS
 `overflow: 'hidden'` sets `masksToBounds`, which cuts the layer's own shadow off with
-everything else, and a lifted `primary` would have none.
+everything else, and a raised `primary` would have none. It deliberately sits closer to
+the page than a card, whose stronger elevation uses the `surface` shadow.
 
 So the clipping is one layer in. It is the only extra node in this component, and without it
 the press wash on the first and last rows paints square over the container's rounded corner.

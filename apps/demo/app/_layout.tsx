@@ -146,6 +146,7 @@ export default function RootLayout() {
               <Stack.Screen name="scaffold" options={{ title: 'Scaffold (v1)' }} />
               <Stack.Screen name="segment" options={{ title: 'Segment (v1)' }} />
               <Stack.Screen name="select" options={{ title: 'Select (v1)' }} />
+              <Stack.Screen name="snackbar" options={{ title: 'Snackbar (v1)' }} />
               <Stack.Screen name="skeleton" options={{ title: 'Skeleton (v1)' }} />
               <Stack.Screen name="slider" options={{ title: 'Slider (v1)' }} />
               <Stack.Screen name="spinner" options={{ title: 'Spinner (v1)' }} />
@@ -174,6 +175,10 @@ export default function RootLayout() {
                 options={{ title: 'TimePicker (v1)' }}
               />
               <Stack.Screen name="toast" options={{ title: 'Toast (v1)' }} />
+              <Stack.Screen
+                name="toggle-button"
+                options={{ title: 'ToggleButton (v1)' }}
+              />
               <Stack.Screen
                 name="typography"
                 options={{ title: 'Typography (v1)' }}
