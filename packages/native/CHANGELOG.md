@@ -1,5 +1,12 @@
 # @xaui/native
 
+## 0.9.1-alpha.90
+
+### Patch Changes
+
+- c20ac35: Rename the floating-action compounds from `Fab.Menu` and `Fab.Discovery` to `FabMenu` and
+  `FabDiscovery`, and remove the `ListBox.Group` alias in favor of `ListBoxGroup`.
+
 ## 0.9.1-alpha.89
 
 ### Patch Changes
