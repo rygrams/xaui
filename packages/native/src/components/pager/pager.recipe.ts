@@ -68,9 +68,20 @@ export const pagerRecipe = createRecipe({
   slots: SLOTS,
 
   base: theme => ({
-    // A pager holds screens, so it fills what it is given. A caller who wants it shorter
-    // says so — `height={240}` — rather than the component guessing on their behalf.
-    root: { flex: 1 },
+    /**
+     * **The root has no size of its own**, and that is deliberate rather than missing.
+     *
+     * `flex: 1` here would have been the convenient default and it is a trap: React Native
+     * expands it to a zero flex-basis, which **overrides an explicit `height`** — so
+     * `<Pager height={240}>` would collapse to the height of its dots, and the prop the
+     * caller reached for would silently do nothing. It is the same reason there is no
+     * `fullWidth` on a `Button`: RN's own behaviour is the answer, and the caller says which
+     * of the two they want — `flex={1}` to fill a screen, `height={320}` inside a scroll
+     * view.
+     *
+     * The track keeps its `flex: 1`, so it takes whatever the root was given less the dots.
+     * Nothing sizes it from outside, which is why it is safe there and not here.
+     */
     content: { flex: 1 },
     // A page is the size of the track on both axes, and that number is measured rather than
     // named, so it arrives as an inline style instead of from here.

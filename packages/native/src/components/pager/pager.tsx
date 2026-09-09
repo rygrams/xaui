@@ -31,6 +31,10 @@ import type { PagerProps } from './pager.type'
  * also what separates this from the `Carousel`, whose slides are a *division* of the track
  * and which therefore has `itemsPerView`, `peek` and a gap to divide it by.
  *
+ * **It has no height of its own** — give it one, `flex={1}` to fill a screen or
+ * `height={320}` inside a scroll view. A `flex: 1` in the recipe would have overridden an
+ * explicit `height` through RN's zero flex-basis, which is the trap the recipe explains.
+ *
  * **It pages rather than snapping.** `pagingEnabled` is React Native's own whole-viewport
  * paging, which is exactly this component's job and exactly what the `Carousel` cannot use.
  *

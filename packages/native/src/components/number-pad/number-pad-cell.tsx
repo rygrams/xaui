@@ -17,6 +17,12 @@ import type { NumberPadCellTone, NumberPadKeyProps } from './number-pad.type'
  * **The cell owns its press state**, which is why the root publishes both faces of the
  * style: the root cannot see which of eleven keys is down. R5 stays intact — nothing here
  * touches the recipe.
+ *
+ * **`button` and not `keyboardkey`**, which is the role that exists for exactly this. React
+ * Native maps `keyboardkey` to a trait on **iOS only**: on Android it falls through to no
+ * role, and the web renderer emits a bare focusable `div`. A key that announces as nothing
+ * on two platforms out of three is worse than one that announces as a button on all three.
+ * It is still the default rather than a fixed value, so an iOS-only app passes it.
  */
 type NumberPadCellProps = Omit<NumberPadKeyProps, 'value'> & {
   tone: NumberPadCellTone
@@ -31,7 +37,7 @@ export const NumberPadCell = forwardRef<View, NumberPadCellProps>(
       onActivate,
       children,
       isDisabled,
-      accessibilityRole = 'keyboardkey',
+      accessibilityRole = 'button',
       accessibilityState,
       style,
       onPress,

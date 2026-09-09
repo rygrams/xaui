@@ -29,6 +29,19 @@ import { Pager } from '@xaui/native/pager'
 </Pager>
 ```
 
+## A `Pager` has no height of its own
+
+Give it one: `flex={1}` to fill a screen, `height={320}` inside a scroll view.
+
+`flex: 1` in the recipe would have been the convenient default and it is a trap. React Native
+expands it to a zero flex-basis, which **overrides an explicit `height`** — so
+`<Pager height={240}>` would collapse to the height of its dots and the prop the caller
+reached for would silently do nothing. It is the same reason there is no `fullWidth` on a
+`Button`: RN's own behaviour is the answer, and the caller says which of the two they want.
+
+The track keeps its `flex: 1` and takes whatever the root was given less the dots. Nothing
+sizes it from outside, which is why it is safe there and not on the root.
+
 ## A page is the track, measured
 
 Not a prop, and not a fraction of one: a pager's page is the viewport it sits in, on both
@@ -87,8 +100,13 @@ what does. They name which colour the **current** dot takes:
 
 The dots behind the current one keep a **neutral** fill rather than a faint version of it: a
 pale tint of the accent under the pages reads as a control that has half failed to load. A
-raw `color` therefore reaches the current dot only, which is the one it should move. Over a
-photograph, override the rest with a style prop — `<Pager.Dot backgroundColor="rgba(255,255,255,0.4)" />`.
+raw `color` therefore reaches the current dot only, which is the one it should move.
+
+Both ends of the travel are the recipe's, so `variant` is how the **pair** moves — and a
+style prop is not: `<Pager.Dot backgroundColor="…" />` lands after the interpolated colour
+and replaces it outright, which stops the dot travelling at all. A caller who needs a pair
+the three variants do not offer composes their own dot against `usePager().offset`, which is
+what the context publishes it for.
 
 ## The dot changes colour, it does not stretch
 

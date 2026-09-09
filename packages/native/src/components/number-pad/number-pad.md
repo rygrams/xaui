@@ -43,6 +43,31 @@ a `Typography`. A pad that also rendered the value would be two components that 
 on a string, and the interesting half of that pair is always the one the pad did not
 anticipate.
 
+### A masked display is a composition, not a prop
+
+There is no `isSecure` here, and there does not need to be. `InputOTP.Value` takes children
+that win over the box's own character, so a PIN masks in one line:
+
+```tsx
+<InputOTP maxLength={6} value={pin}>
+  <InputOTP.Group>
+    {({ slots }) =>
+      slots.map(slot => (
+        <InputOTP.Box key={slot.index} index={slot.index}>
+          <InputOTP.Value>{slot.char ? '•' : undefined}</InputOTP.Value>
+        </InputOTP.Box>
+      ))
+    }
+  </InputOTP.Group>
+</InputOTP>
+```
+
+The lock screen's bare row of dots — no boxes at all — is a `View` per character filled up to
+`value.length`, which is six divs and stays the screen's. A component for it would have to
+pick a size, a gap, a colour and a shape on behalf of every lock screen that installs it.
+
+Both are on the demo screen.
+
 ## The value
 
 One string, controlled or not: `value` / `defaultValue` / `onChangeText`, as everywhere in the
@@ -119,8 +144,14 @@ given and the three columns divide that between them.
 
 ## Accessibility
 
-Each cell is a `keyboardkey` — the trait that exists for exactly this, and what makes a screen
-reader announce "1, key" rather than "1, button".
+Each cell is a `button`, labelled with what it inserts.
+
+**Not `keyboardkey`**, which is the role that exists for exactly this and would have a screen
+reader announce "1, key". React Native maps it to a trait on **iOS only**: on Android it falls
+through to no role, and the web renderer emits a bare focusable `div` with no role at all. A
+key that announces as nothing on two platforms out of three is worse than one that announces
+as a button on all three. It is still only the default, so an iOS-only app passes
+`accessibilityRole="keyboardkey"` on the cell.
 
 The root is `none`. There is no keypad role in React Native, and reaching for `toolbar` or
 `list` would have a screen reader announce the box as something it is not.

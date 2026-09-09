@@ -34,6 +34,7 @@ export default function NumberPadScreen() {
   const [pin, setPin] = useState('')
   const [amount, setAmount] = useState('')
   const [unlocked, setUnlocked] = useState(false)
+  const [secret, setSecret] = useState('')
 
   return (
     <ScrollView
@@ -75,6 +76,30 @@ export default function NumberPadScreen() {
           }}
           onComplete={() => setUnlocked(true)}
         />
+      </Section>
+
+      <Section
+        title="Un affichage masqué"
+        note="Le pavé ne dessine aucun affichage : ce que la valeur donne à voir est celui de l'écran. Masquer est donc une composition, pas une propriété — InputOTP.Value prend des enfants qui gagnent sur le caractère de la case, et une rangée de points nus est une rangée de Views pilotée par value.length."
+      >
+        <View style={{ alignItems: 'center', gap: 16 }}>
+          <InputOTP maxLength={6} value={secret} size="sm">
+            <InputOTP.Group>
+              {({ slots }) =>
+                slots.map(slot => (
+                  <InputOTP.Box key={slot.index} index={slot.index}>
+                    {/* Les enfants gagnent sur slot.char ; vide, la case retombe sur rien. */}
+                    <InputOTP.Value>{slot.char ? '•' : undefined}</InputOTP.Value>
+                  </InputOTP.Box>
+                ))
+              }
+            </InputOTP.Group>
+          </InputOTP>
+
+          <Dots length={secret.length} max={6} />
+        </View>
+
+        <NumberPad maxLength={6} value={secret} onChangeText={setSecret} size="sm" />
       </Section>
 
       <Section
@@ -171,6 +196,34 @@ export default function NumberPadScreen() {
         <NumberPad isDisabled size="sm" />
       </Section>
     </ScrollView>
+  )
+}
+
+/**
+ * The bare dot row of a lock screen: a `View` per character, filled up to `length`.
+ *
+ * It is here rather than in the library on purpose — the pad draws no display, and this is
+ * six divs. A component for it would have to pick a size, a gap, a colour and a shape on
+ * behalf of every lock screen that installs it.
+ */
+function Dots({ length, max }: { length: number; max: number }) {
+  const theme = useXAUITheme()
+
+  return (
+    <View style={{ flexDirection: 'row', gap: 12 }}>
+      {Array.from({ length: max }, (_, index) => (
+        <View
+          key={index}
+          style={{
+            width: 10,
+            height: 10,
+            borderRadius: 5,
+            backgroundColor:
+              index < length ? theme.colors.foreground : theme.colors.default,
+          }}
+        />
+      ))}
+    </View>
   )
 }
 

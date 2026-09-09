@@ -136,11 +136,11 @@ export default function PagerScreen() {
         title="L'indicateur par-dessus, et un tint"
         note="Il est dans le flux par défaut ; le poser sur les pages est un jeu de style props — position absolute, bottom, start et end. Absolu par défaut aurait fait du cas courant celui qu'il faut défaire."
       >
-        <Pager height={200} color="#7c3aed">
+        <Pager height={200} variant="tertiary">
           <Pager.Content>
             {STEPS.map(step => (
               <Pager.Page key={step.title}>
-                <Panel title={step.title} body={step.body} />
+                <Panel title={step.title} body={step.body} tone="accent" />
               </Pager.Page>
             ))}
           </Pager.Content>
@@ -153,11 +153,11 @@ export default function PagerScreen() {
         title="L'axe vertical"
         note="orientation est l'axe et non une direction, donc aucune branche RTL : un pager horizontal se reflète avec son scroll view, ce qui est le comportement de RN. Les points suivent — l'indicateur devient une colonne."
       >
-        <Pager orientation="vertical" height={220}>
+        <Pager orientation="vertical" height={220} variant="tertiary">
           <Pager.Content>
             {STEPS.map(step => (
               <Pager.Page key={step.title}>
-                <Panel title={step.title} body={step.body} />
+                <Panel title={step.title} body={step.body} tone="accent" />
               </Pager.Page>
             ))}
           </Pager.Content>
@@ -202,13 +202,21 @@ function Skip() {
   )
 }
 
+/**
+ * A stand-in for whatever a page actually holds.
+ *
+ * `tone="accent"` is the over-a-photograph case: neutral dots on a neutral panel vanish, and
+ * that pairing is exactly what the `tertiary` variant exists for.
+ */
 function Panel({
   title,
   body,
+  tone = 'default',
   children,
 }: {
   title: string
   body: string
+  tone?: 'default' | 'accent'
   children?: React.ReactNode
 }) {
   const theme = useXAUITheme()
@@ -217,7 +225,8 @@ function Panel({
     <View
       style={{
         flex: 1,
-        backgroundColor: theme.colors.default,
+        backgroundColor:
+          tone === 'accent' ? theme.colors.accent : theme.colors.default,
         borderRadius: theme.radius['2xl'],
         alignItems: 'center',
         justifyContent: 'center',
@@ -227,7 +236,10 @@ function Panel({
     >
       <Text
         style={{
-          color: theme.colors.foreground,
+          color:
+            tone === 'accent'
+              ? theme.colors.accentForeground
+              : theme.colors.foreground,
           fontSize: theme.fontSizes.lg,
           fontWeight: theme.fontWeights.semibold,
         }}
@@ -236,7 +248,8 @@ function Panel({
       </Text>
       <Text
         style={{
-          color: theme.colors.muted,
+          color:
+            tone === 'accent' ? theme.colors.accentForeground : theme.colors.muted,
           fontSize: theme.fontSizes.sm,
           textAlign: 'center',
         }}
