@@ -152,8 +152,8 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.36 | `EmptyState` — net new, no legacy equivalent | done |
 | P5.37 | `FlipCard` — net new, a `Card` with two faces | done |
 | P5.38 | `Radio.Group` — over legacy `RadioGroup`, the context P3.9 `Radio` lacked | done |
-| P5.38b | `RadioButton` — net new, to reconcile with P3.9 `Radio` | dropped |
-| P5.38c | `RadioButtonGroup` — net new, to reconcile with `RadioGroup` | dropped |
+| P5.38b | `RadioButton` — net new, to reconcile with P3.9 `Radio` | done |
+| P5.38c | `RadioButtonGroup` — net new, to reconcile with `RadioGroup` | done |
 | P5.39 | `Rating` — net new, no legacy equivalent | todo |
 | P5.40 | `Surface` — four grounds, elevation asked for, no slots | done |
 | P5.41 | `SplitView` — net new, a `view/` split on a draggable divider | todo |
