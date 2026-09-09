@@ -108,7 +108,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.21  | `FabMenu` — the FAB's actions as pills, anchored so the FAB never moves          | done    |
 | P5.22  | `Dialog` — Trigger · Overlay · Content · Title · Description · Close             | done    |
 | P5.23  | `BottomSheet` — Trigger · Overlay · Content · Handle · Title                     | done    |
-| P5.23b | `BottomSheetInput` — net new, a `TextField` that opens in a `BottomSheet`        | todo    |
+| P5.23b | `BottomSheetInput` — net new, a `TextField` that opens in a `BottomSheet`        | dropped |
 | P5.23c | `BottomSheet` reduced state — `collapsedHeight`, a two-state disclosure          | done    |
 | P5.24  | `Drawer`                                                                         | dropped |
 | P5.24b | `Popover` — Trigger · Overlay · Content · Title · Description · Close            | done    |
@@ -137,14 +137,14 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.33 | `FabDiscovery` — the coach mark, with the FAB lifted over its own disc | done |
 | P5.34 | `BarChart` — grouped or stacked, drawn on `react-native-svg` | done |
 | P5.34b | `AreaChart` — net new, the `LineChart` with the ground under it filled | done |
-| P5.34c | `Chart` — Donut and Heatmap, the legacy cards left over | todo |
-| P5.34d | `ComposedChart` — net new, several series on shared axes | todo |
+| P5.34c | `Chart` — Donut and Heatmap, the legacy cards left over | dropped |
+| P5.34d | `ComposedChart` — net new, several series on shared axes | dropped |
 | P5.34e | `LineChart` — over legacy `LineChartCard`, on a monotone curve | done |
 | P5.34f | `PieChart` — over legacy `PieChartCard`, pie and donut | done |
 | P5.34g | `RadarChart` — net new, several quantities each on its own axis | done |
 | P5.34h | `RadialChart` — net new, no legacy equivalent | done |
 | P5.35 | `CloseButton` — the dismiss affordance, out of Chip and Alert and given a recipe | done |
-| P5.35b | `LinkButton` — net new, a `Button` that reads as a link | todo |
+| P5.35b | `LinkButton` — net new, a `Button` that reads as a link | dropped |
 | P5.35c | `MorphButton` — net new, a `Button` that animates between states | todo |
 | P5.35d | `SlideButton` — net new, slide-to-confirm over the `Slider` | todo |
 | P5.35e | `SocialAuthButton` — net new, provider marks over the `Button` | todo |
