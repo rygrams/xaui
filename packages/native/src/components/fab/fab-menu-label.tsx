@@ -8,7 +8,7 @@ import type { FabMenuLabelProps } from './fab-menu.type'
  * The word on a pill.
  *
  * Written by hand only when there is a mark beside it — a bare string child of
- * `Fab.Menu.Item` is wrapped in one of these already (R3).
+ * `FabMenu.Item` is wrapped in one of these already (R3).
  *
  * Single-line: the column is as wide as its widest action, and an action long enough to
  * wrap is one that should have been shorter.
@@ -31,4 +31,4 @@ export const FabMenuLabel = forwardRef<Text, FabMenuLabelProps>(
   }
 )
 
-FabMenuLabel.displayName = 'XAUI.Fab.Menu.Label'
+FabMenuLabel.displayName = 'XAUI.FabMenu.Label'

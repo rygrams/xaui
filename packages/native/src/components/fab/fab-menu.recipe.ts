@@ -88,7 +88,7 @@ export const fabMenuRecipe = createRecipe({
      * here would be the panel this component exists not to be.
      *
      * Which edge the pills line up on is **not** here — it follows `align`, which is a
-     * prop of `Fab.Menu.Content` and so is never seen by a recipe resolving on the root.
+     * prop of `FabMenu.Content` and so is never seen by a recipe resolving on the root.
      * See `fabMenuAlignment`.
      */
     content: { position: 'absolute' },

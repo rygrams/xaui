@@ -111,4 +111,4 @@ export const FabMenuContent = forwardRef<View, FabMenuContentProps>(
   }
 )
 
-FabMenuContent.displayName = 'XAUI.Fab.Menu.Content'
+FabMenuContent.displayName = 'XAUI.FabMenu.Content'

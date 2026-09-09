@@ -13,15 +13,15 @@ import type { FabMenuItemProps } from './fab-menu.type'
  * One action, as its own pill.
  *
  * ```tsx
- * <Fab.Menu.Item onPress={compose}>Nouveau message</Fab.Menu.Item>
+ * <FabMenu.Item onPress={compose}>Nouveau message</FabMenu.Item>
  *
- * <Fab.Menu.Item onPress={label}>
- *   <Fab.Menu.Icon as={TagIcon} />
- *   <Fab.Menu.Label>Nouveau libellé</Fab.Menu.Label>
- * </Fab.Menu.Item>
+ * <FabMenu.Item onPress={label}>
+ *   <FabMenu.Icon as={TagIcon} />
+ *   <FabMenu.Label>Nouveau libellé</FabMenu.Label>
+ * </FabMenu.Item>
  * ```
  *
- * R3 — a bare string is wrapped in a `Fab.Menu.Label`, so the common case is one line.
+ * R3 — a bare string is wrapped in a `FabMenu.Label`, so the common case is one line.
  *
  * It closes the menu after the caller's `onPress` has run, and in that order: a handler
  * that reads the menu's state has to run while there is still a menu. `closesOnPress`
@@ -98,4 +98,4 @@ export const FabMenuItem = forwardRef<View, FabMenuItemProps>(function FabMenuIt
   )
 })
 
-FabMenuItem.displayName = 'XAUI.Fab.Menu.Item'
+FabMenuItem.displayName = 'XAUI.FabMenu.Item'

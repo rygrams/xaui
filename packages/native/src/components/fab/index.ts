@@ -17,12 +17,7 @@ import { FabMenuTrigger } from './fab-menu-trigger'
 import { FabRoot } from './fab'
 import { FabSpinner } from './fab-spinner'
 
-/**
- * The menu is a compound of its own, attached here rather than shipped as its own subpath
- * — the `Calendar.YearPicker`'s arrangement, for its reason: it is a `Fab` with a list
- * behind it, its trigger renders this component, and a caller who has the FAB has the
- * menu. One import, one entry point, and no cycle between two barrels.
- */
+/** A FAB menu compound, exported alongside `Fab` from the same entry point. */
 export const FabMenu = Object.assign(FabMenuRoot, {
   Trigger: FabMenuTrigger,
   Overlay: FabMenuOverlay,
@@ -49,7 +44,6 @@ export const Fab = Object.assign(FabRoot, {
   Icon: FabIcon,
   Label: FabLabel,
   Spinner: FabSpinner,
-  Menu: FabMenu,
   Discovery: FabDiscovery,
 })
 

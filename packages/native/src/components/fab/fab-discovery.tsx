@@ -46,7 +46,7 @@ const DEFAULT_PADDING = 14
  * **The root renders no node.** It holds the disclosure, the measured rectangle and the
  * geometry every slot reads.
  *
- * For a FAB that opens a list of actions rather than explaining itself, that is `Fab.Menu`.
+ * For a FAB that opens a list of actions rather than explaining itself, that is `FabMenu`.
  */
 export function FabDiscovery({
   children,

@@ -64,4 +64,4 @@ export const FabMenuTrigger = forwardRef<View, FabMenuTriggerProps>(
   }
 )
 
-FabMenuTrigger.displayName = 'XAUI.Fab.Menu.Trigger'
+FabMenuTrigger.displayName = 'XAUI.FabMenu.Trigger'
