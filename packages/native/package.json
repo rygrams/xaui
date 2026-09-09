@@ -397,6 +397,16 @@
         "default": "./dist/components/number-pad/index.cjs"
       }
     },
+    "./pager": {
+      "import": {
+        "types": "./dist/components/pager/index.d.ts",
+        "default": "./dist/components/pager/index.js"
+      },
+      "require": {
+        "types": "./dist/components/pager/index.d.cts",
+        "default": "./dist/components/pager/index.cjs"
+      }
+    },
     "./number-stepper": {
       "import": {
         "types": "./dist/components/number-stepper/index.d.ts",

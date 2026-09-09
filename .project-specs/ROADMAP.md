@@ -131,7 +131,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.27 | `TimePicker` — a `Select` trigger, a sheet and a clock face | done |
 | P5.28 | `ColorPicker` — a `DummyField` that opens a `Dialog`, or the Tailwind grid alone | done |
 | P5.29 | `Carousel` | done |
-| P5.30 | `Pager` | todo |
+| P5.30 | `Pager` — net new, whole pages on either axis, with a page control | done |
 | P5.32 | `DummyField` — renamed from legacy `InputTrigger`, not the `Trigger` slot vocabulary | done |
 | P5.31 | `RefreshControl` | dropped |
 | P5.33 | `FabDiscovery` — the coach mark, with the FAB lifted over its own disc | done |

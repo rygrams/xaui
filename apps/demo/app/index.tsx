@@ -53,6 +53,7 @@ const SCREENS = [
   { href: '/number-pad', label: 'NumberPad' },
   { href: '/menu', label: 'Menu' },
   { href: '/morph-button', label: 'MorphButton' },
+  { href: '/pager', label: 'Pager' },
   { href: '/popover', label: 'Popover' },
   { href: '/pressable-feedback', label: 'PressableFeedback' },
   { href: '/progress-bar', label: 'ProgressBar' },

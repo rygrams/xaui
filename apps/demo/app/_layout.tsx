@@ -133,6 +133,7 @@ export default function RootLayout() {
                 name="morph-button"
                 options={{ title: 'MorphButton (v1)' }}
               />
+              <Stack.Screen name="pager" options={{ title: 'Pager (v1)' }} />
               <Stack.Screen name="popover" options={{ title: 'Popover (v1)' }} />
               <Stack.Screen
                 name="pressable-feedback"

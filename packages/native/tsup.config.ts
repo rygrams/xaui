@@ -40,6 +40,7 @@ const entries = {
   'components/morph-button/index': 'src/components/morph-button/index.ts',
   'components/number-field/index': 'src/components/number-field/index.ts',
   'components/number-pad/index': 'src/components/number-pad/index.ts',
+  'components/pager/index': 'src/components/pager/index.ts',
   'components/number-stepper/index': 'src/components/number-stepper/index.ts',
   'components/pie-chart/index': 'src/components/pie-chart/index.ts',
   'components/popover/index': 'src/components/popover/index.ts',
