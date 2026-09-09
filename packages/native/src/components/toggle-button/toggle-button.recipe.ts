@@ -14,22 +14,28 @@ const SLOTS: readonly ToggleButtonSlot[] = [
 ]
 
 /**
- * Rest is neutral; selection is the accent's soft slice for both variants. The selected
- * roles also make a raw `color` follow into that state through the uncached tint pass.
+ * Primary is the filled treatment, secondary keeps the same structure at soft emphasis,
+ * and ghost communicates selection through content colour without ever painting a fill.
+ * The selected roles also make a raw `color` follow through the uncached tint pass.
  */
 const VARIANT_TOKENS: Record<ToggleButtonVariant, VariantTokens> = {
-  default: {
+  primary: {
     bg: 'default',
     bgPressed: 'defaultPressed',
     fg: 'defaultForeground',
+    bgSelected: 'accent',
+    fgSelected: 'accentForeground',
+  },
+  secondary: {
+    bg: 'defaultSoft',
+    bgPressed: 'defaultSoftPressed',
+    fg: 'defaultSoftForeground',
     bgSelected: 'accentSoft',
     fgSelected: 'accentSoftForeground',
   },
   ghost: {
-    bgPressed: 'defaultSoftPressed',
     fg: 'foreground',
-    bgSelected: 'accentSoft',
-    fgSelected: 'accentSoftForeground',
+    fgSelected: 'accent',
   },
 }
 
@@ -114,5 +120,5 @@ export const toggleButtonRecipe = createRecipe({
     disabled: theme => ({ root: { opacity: theme.opacity.disabled } }),
   },
 
-  defaultVariants: { variant: 'default', size: 'md' },
+  defaultVariants: { variant: 'primary', size: 'md' },
 })

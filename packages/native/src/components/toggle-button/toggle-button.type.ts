@@ -20,8 +20,8 @@ export type ToggleButtonSlot =
   | 'icon'
   | 'iconSelected'
 
-/** A neutral fill or no resting fill. Selection supplies the accent in both cases. */
-export type ToggleButtonVariant = 'default' | 'ghost'
+/** Filled, softly filled or content-only emphasis. */
+export type ToggleButtonVariant = 'primary' | 'secondary' | 'ghost'
 
 export type ToggleButtonSize = Size
 

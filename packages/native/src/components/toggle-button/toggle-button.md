@@ -131,10 +131,10 @@ They are raw React Native values, not hidden token steps. `style` remains the la
 
 | Prop               | Type                                           | Default     | Notes                                   |
 | ------------------ | ---------------------------------------------- | ----------- | --------------------------------------- |
-| `variant`          | `'default' \| 'ghost'`                         | `'default'` | Resting surface                         |
+| `variant`          | `'primary' \| 'secondary' \| 'ghost'`          | `'primary'` | Visual emphasis                         |
 | `size`             | `'xs' \| 'sm' \| 'md' \| 'lg'`                 | `'md'`      | Height, padding, gap, radius and type   |
 | `radius`           | `RadiusKey`                                    | by size     | Overrides the shape the size chose      |
-| `color`            | `string`                                       | —           | Raw tint; selection uses its soft slice |
+| `color`            | `string`                                       | —           | Raw tint following the variant emphasis |
 | `value`            | `string`                                       | —           | Joins a `ToggleButton.Group`            |
 | `isSelected`       | `boolean`                                      | —           | Controlled value                        |
 | `defaultSelected`  | `boolean`                                      | `false`     | Initial uncontrolled value              |
@@ -162,14 +162,16 @@ values with `isSelected`, `isPressed` and `isDisabled`, and throws by name outsi
 
 ## Variants
 
-| `variant` | Resting background | Resting content     | Selected background | Selected content       |
-| --------- | ------------------ | ------------------- | ------------------- | ---------------------- |
-| `default` | `default`          | `defaultForeground` | `accentSoft`        | `accentSoftForeground` |
-| `ghost`   | transparent        | `foreground`        | `accentSoft`        | `accentSoftForeground` |
+| `variant`   | Resting background | Resting content         | Selected background | Selected content       |
+| ----------- | ------------------ | ----------------------- | ------------------- | ---------------------- |
+| `primary`   | `default`          | `defaultForeground`     | `accent`            | `accentForeground`     |
+| `secondary` | `defaultSoft`      | `defaultSoftForeground` | `accentSoft`        | `accentSoftForeground` |
+| `ghost`     | transparent        | `foreground`            | transparent         | `accent`               |
 
-The variant describes the resting surface. Selection is the same semantic value in both
-variants, so it keeps one accent treatment. `color` replaces that family through the tint
-pass rather than entering the style cache.
+`primary` is the filled default. `secondary` keeps a softer fill both at rest and when
+selected. `ghost` never paints a background; selection changes only its text and icon
+colour. `color` replaces the relevant family through the tint pass rather than entering
+the style cache.
 
 ## Accessibility
 

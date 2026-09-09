@@ -10,7 +10,7 @@ import type {
 import type { IconComponentProps } from '@xaui/native/system'
 import { useXAUITheme } from '@xaui/native/theme'
 
-const VARIANTS: ToggleButtonVariant[] = ['default', 'ghost']
+const VARIANTS: ToggleButtonVariant[] = ['primary', 'secondary', 'ghost']
 const SIZES: ToggleButtonSize[] = ['xs', 'sm', 'md', 'lg']
 
 export default function ToggleButtonScreen() {
