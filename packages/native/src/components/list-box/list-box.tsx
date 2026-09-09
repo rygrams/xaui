@@ -4,29 +4,29 @@ import type { TextStyle } from 'react-native'
 import { Slot } from '../../system/slot'
 import { useStyleProps } from '../../system/style-props'
 import { useXAUITheme } from '../../theme/theme-hooks'
-import { useOptionalListGroup } from './list-group.context'
-import { ListProvider } from './list.context'
-import { listRecipe } from './list.recipe'
-import type { ListProps } from './list.type'
+import { useOptionalListBoxGroup } from './list-box-group.context'
+import { ListBoxProvider } from './list-box.context'
+import { listBoxRecipe } from './list-box.recipe'
+import type { ListBoxProps } from './list-box.type'
 
 /**
  * Rows on a ground.
  *
  * ```tsx
- * <List>
- *   <List.Item onPress={openWifi}>
- *     <List.ItemPrefix>
+ * <ListBox>
+ *   <ListBox.Item onPress={openWifi}>
+ *     <ListBox.ItemPrefix>
  *       <Icon as={WifiIcon} />
- *     </List.ItemPrefix>
- *     <List.ItemContent>
- *       <List.ItemTitle>Wi-Fi</List.ItemTitle>
- *       <List.ItemDescription>Maison</List.ItemDescription>
- *     </List.ItemContent>
- *     <List.ItemSuffix>
+ *     </ListBox.ItemPrefix>
+ *     <ListBox.ItemContent>
+ *       <ListBox.ItemTitle>Wi-Fi</ListBox.ItemTitle>
+ *       <ListBox.ItemDescription>Maison</ListBox.ItemDescription>
+ *     </ListBox.ItemContent>
+ *     <ListBox.ItemSuffix>
  *       <Switch isSelected={isOn} />
- *     </List.ItemSuffix>
- *   </List.Item>
- * </List>
+ *     </ListBox.ItemSuffix>
+ *   </ListBox.Item>
+ * </ListBox>
  * ```
  *
  * **It is the `Accordion` with rows that do not open**, which is why it reads the same
@@ -38,7 +38,7 @@ import type { ListProps } from './list.type'
  * that drew its own would draw one under the last one too, and every list would start by
  * hiding it.
  *
- * **In a `ListGroup` it takes the group's appearance**, and its own props still win — a
+ * **In a `ListBoxGroup` it takes the group's appearance**, and its own props still win — a
  * settings screen is uniform, and setting `variant` on five lists is five chances to set it
  * differently. Outside a group nothing changes: a list on its own is this component's
  * original shape.
@@ -48,7 +48,7 @@ import type { ListProps } from './list.type'
  * control that toggles it — a `Switch` in its suffix, a `Checkbox` in its prefix. A list
  * that owned a selection would be a second, quieter menu with none of the affordances.
  */
-export const ListRoot = forwardRef<View, ListProps>(function List(
+export const ListBoxRoot = forwardRef<View, ListBoxProps>(function ListBox(
   {
     children,
     variant,
@@ -66,7 +66,7 @@ export const ListRoot = forwardRef<View, ListProps>(function List(
   const theme = useXAUITheme()
   const [styleProps, rest] = useStyleProps(props)
   // `null` outside a group, which is a valid arrangement rather than a misplaced slot.
-  const group = useOptionalListGroup()
+  const group = useOptionalListBoxGroup()
 
   // The group's values are defaults, and the list's own win. `isDisabled` is the one that
   // is not a default: a disabled group has no live list in it.
@@ -79,13 +79,13 @@ export const ListRoot = forwardRef<View, ListProps>(function List(
     size: size ?? group?.size,
     radius: radius ?? group?.radius,
   }
-  const styles = listRecipe.resolve({
+  const styles = listBoxRecipe.resolve({
     theme,
     selection,
     states: { disabled },
   })
   const tint = resolvedColor
-    ? listRecipe.tint({ theme, color: resolvedColor, selection })
+    ? listBoxRecipe.tint({ theme, color: resolvedColor, selection })
     : undefined
 
   const context = useMemo(() => {
@@ -128,7 +128,7 @@ export const ListRoot = forwardRef<View, ListProps>(function List(
   const rootStyle = [styles.root, tint?.root, styleProps, style]
 
   return (
-    <ListProvider value={context}>
+    <ListBoxProvider value={context}>
       {asChild ? (
         <Slot accessibilityRole="list" {...rest} ref={ref} style={rootStyle}>
           {children}
@@ -145,8 +145,8 @@ export const ListRoot = forwardRef<View, ListProps>(function List(
           <View style={styles.container}>{rows}</View>
         </View>
       )}
-    </ListProvider>
+    </ListBoxProvider>
   )
 })
 
-ListRoot.displayName = 'XAUI.List.Root'
+ListBoxRoot.displayName = 'XAUI.ListBox.Root'

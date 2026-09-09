@@ -1,8 +1,8 @@
 import { forwardRef } from 'react'
 import { View } from 'react-native'
 import { useStyleProps } from '../../system/style-props'
-import { useList } from './list.context'
-import type { ListItemPrefixProps } from './list.type'
+import { useListBox } from './list-box.context'
+import type { ListBoxItemPrefixProps } from './list-box.type'
 
 /**
  * What leads the row: an icon, an avatar, a checkbox.
@@ -10,9 +10,9 @@ import type { ListItemPrefixProps } from './list.type'
  * An `Icon` inside it inherits the row's glyph size and its muted colour from the context
  * the item provides, so the marks down a list match without each one being told to.
  */
-export const ListItemPrefix = forwardRef<View, ListItemPrefixProps>(
-  function ListItemPrefix({ children, style, ...props }, ref) {
-    const { prefixStyle } = useList()
+export const ListBoxItemPrefix = forwardRef<View, ListBoxItemPrefixProps>(
+  function ListBoxItemPrefix({ children, style, ...props }, ref) {
+    const { prefixStyle } = useListBox()
     const [styleProps, rest] = useStyleProps(props)
 
     return (
@@ -23,4 +23,4 @@ export const ListItemPrefix = forwardRef<View, ListItemPrefixProps>(
   }
 )
 
-ListItemPrefix.displayName = 'XAUI.List.ItemPrefix'
+ListBoxItemPrefix.displayName = 'XAUI.ListBox.ItemPrefix'

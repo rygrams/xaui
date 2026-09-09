@@ -1,8 +1,8 @@
 import { forwardRef } from 'react'
 import { Text } from 'react-native'
 import { useStyleProps } from '../../system/style-props'
-import { useListGroup } from './list-group.context'
-import type { ListGroupTextSlotProps } from './list-group.type'
+import { useListBoxGroup } from './list-box-group.context'
+import type { ListBoxGroupTextSlotProps } from './list-box-group.type'
 
 /**
  * What the rows above it need saying — the sentence under a settings block that explains
@@ -11,9 +11,9 @@ import type { ListGroupTextSlotProps } from './list-group.type'
  * Inset like the header, and quiet like it. It carries no role: a footnote is prose, and
  * announcing it as a heading would put it in the list a screen reader jumps between.
  */
-export const ListGroupFooter = forwardRef<Text, ListGroupTextSlotProps>(
-  function ListGroupFooter({ children, style, ...props }, ref) {
-    const { footerStyle } = useListGroup()
+export const ListBoxGroupFooter = forwardRef<Text, ListBoxGroupTextSlotProps>(
+  function ListBoxGroupFooter({ children, style, ...props }, ref) {
+    const { footerStyle } = useListBoxGroup()
     const [styleProps, rest] = useStyleProps(props)
 
     return (
@@ -24,4 +24,4 @@ export const ListGroupFooter = forwardRef<Text, ListGroupTextSlotProps>(
   }
 )
 
-ListGroupFooter.displayName = 'XAUI.ListGroup.Footer'
+ListBoxGroupFooter.displayName = 'XAUI.ListBoxGroup.Footer'

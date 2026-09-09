@@ -1,13 +1,13 @@
 import { forwardRef } from 'react'
 import { Text } from 'react-native'
 import { useStyleProps } from '../../system/style-props'
-import { useList } from './list.context'
-import type { ListItemDescriptionProps } from './list.type'
+import { useListBox } from './list-box.context'
+import type { ListBoxItemDescriptionProps } from './list-box.type'
 
 /** The quiet line under the title — what the row is currently set to, usually. */
-export const ListItemDescription = forwardRef<Text, ListItemDescriptionProps>(
-  function ListItemDescription({ children, style, ...props }, ref) {
-    const { descriptionStyle } = useList()
+export const ListBoxItemDescription = forwardRef<Text, ListBoxItemDescriptionProps>(
+  function ListBoxItemDescription({ children, style, ...props }, ref) {
+    const { descriptionStyle } = useListBox()
     const [styleProps, rest] = useStyleProps(props)
 
     return (
@@ -18,4 +18,4 @@ export const ListItemDescription = forwardRef<Text, ListItemDescriptionProps>(
   }
 )
 
-ListItemDescription.displayName = 'XAUI.List.ItemDescription'
+ListBoxItemDescription.displayName = 'XAUI.ListBox.ItemDescription'

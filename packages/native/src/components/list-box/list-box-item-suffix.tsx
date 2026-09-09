@@ -1,8 +1,8 @@
 import { forwardRef } from 'react'
 import { View } from 'react-native'
 import { useStyleProps } from '../../system/style-props'
-import { useList } from './list.context'
-import type { ListItemSuffixProps } from './list.type'
+import { useListBox } from './list-box.context'
+import type { ListBoxItemSuffixProps } from './list-box.type'
 
 /**
  * What trails the row: a value, a switch, a chevron, a badge.
@@ -12,9 +12,9 @@ import type { ListItemSuffixProps } from './list.type'
  * pass a child in order to render nothing. What goes there is the row's business, and the
  * row is one line away from saying so.
  */
-export const ListItemSuffix = forwardRef<View, ListItemSuffixProps>(
-  function ListItemSuffix({ children, style, ...props }, ref) {
-    const { suffixStyle } = useList()
+export const ListBoxItemSuffix = forwardRef<View, ListBoxItemSuffixProps>(
+  function ListBoxItemSuffix({ children, style, ...props }, ref) {
+    const { suffixStyle } = useListBox()
     const [styleProps, rest] = useStyleProps(props)
 
     return (
@@ -25,4 +25,4 @@ export const ListItemSuffix = forwardRef<View, ListItemSuffixProps>(
   }
 )
 
-ListItemSuffix.displayName = 'XAUI.List.ItemSuffix'
+ListBoxItemSuffix.displayName = 'XAUI.ListBox.ItemSuffix'

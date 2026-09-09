@@ -1,9 +1,9 @@
 import { createRecipe } from '../../system/recipe'
 import type { SlotStyles } from '../../system/recipe'
 import type { FontSizeKey, XAUITheme } from '../../theme/theme.type'
-import { SIZES as LIST_SIZES } from './list.recipe'
-import type { ListGroupSlot } from './list-group.type'
-import type { ListSize } from './list.type'
+import { SIZES as LIST_SIZES } from './list-box.recipe'
+import type { ListBoxGroupSlot } from './list-box-group.type'
+import type { ListBoxSize } from './list-box.type'
 
 const SLOTS = ['root', 'section', 'header', 'footer'] as const
 
@@ -24,17 +24,17 @@ type SizeStep = {
  * cards — proximity is the only thing grouping them, since nothing draws a box around a
  * section.
  */
-const SIZES: Record<ListSize, SizeStep> = {
+const SIZES: Record<ListBoxSize, SizeStep> = {
   xs: { gap: 5, sectionGap: 1.5, type: 'xs' },
   sm: { gap: 6, sectionGap: 2, type: 'xs' },
   md: { gap: 6, sectionGap: 2, type: 'sm' },
   lg: { gap: 7, sectionGap: 2.5, type: 'md' },
 }
 
-function sizeAxis(size: ListSize) {
+function sizeAxis(size: ListBoxSize) {
   const { gap, sectionGap, type } = SIZES[size]
 
-  return (theme: XAUITheme): SlotStyles<ListGroupSlot> => {
+  return (theme: XAUITheme): SlotStyles<ListBoxGroupSlot> => {
     // A header inset by anything but the row's own padding puts the heading and the text
     // it heads on two different left edges. R13 — `paddingStart` / `paddingEnd`, so it is
     // the leading edge in RTL too.
@@ -67,7 +67,7 @@ function sizeAxis(size: ListSize) {
  * What it does own is the type of its headings, which belongs to the group rather than to
  * any one list — a screen whose sections were headed at two sizes is not sectioned.
  */
-export const listGroupRecipe = createRecipe({
+export const listBoxGroupRecipe = createRecipe({
   slots: SLOTS,
 
   base: theme => ({

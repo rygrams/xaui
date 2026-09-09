@@ -1,8 +1,8 @@
 import { forwardRef } from 'react'
 import { Text } from 'react-native'
 import { useStyleProps } from '../../system/style-props'
-import { useListGroup } from './list-group.context'
-import type { ListGroupTextSlotProps } from './list-group.type'
+import { useListBoxGroup } from './list-box-group.context'
+import type { ListBoxGroupTextSlotProps } from './list-box-group.type'
 
 /**
  * What the rows under it have in common.
@@ -11,9 +11,12 @@ import type { ListGroupTextSlotProps } from './list-group.type'
  * heading and the text it heads share a left edge. `accessibilityRole="header"` is on it by
  * default, which is what lets a screen reader jump between sections.
  */
-export const ListGroupHeader = forwardRef<Text, ListGroupTextSlotProps>(
-  function ListGroupHeader({ children, accessibilityRole, style, ...props }, ref) {
-    const { headerStyle } = useListGroup()
+export const ListBoxGroupHeader = forwardRef<Text, ListBoxGroupTextSlotProps>(
+  function ListBoxGroupHeader(
+    { children, accessibilityRole, style, ...props },
+    ref
+  ) {
+    const { headerStyle } = useListBoxGroup()
     const [styleProps, rest] = useStyleProps(props)
 
     return (
@@ -29,4 +32,4 @@ export const ListGroupHeader = forwardRef<Text, ListGroupTextSlotProps>(
   }
 )
 
-ListGroupHeader.displayName = 'XAUI.ListGroup.Header'
+ListBoxGroupHeader.displayName = 'XAUI.ListBoxGroup.Header'
