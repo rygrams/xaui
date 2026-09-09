@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native'
 import { createRecipe, radiusAxis } from '../../system/recipe'
 import type { SlotStyles, VariantTokens } from '../../system/recipe'
 import type { FontSizeKey, RadiusKey, Size, XAUITheme } from '../../theme/theme.type'
-import type { ListSlot, ListVariant } from './list.type'
+import type { ListBoxSlot, ListBoxVariant } from './list-box.type'
 
 const SLOTS = [
   'root',
@@ -26,7 +26,7 @@ const SLOTS = [
  * in a pressed state so that a tinted list presses in its own colour — the tint pass
  * re-runs `paint`, not the axes.
  */
-const VARIANT_TOKENS: Record<ListVariant, VariantTokens> = {
+const VARIANT_TOKENS: Record<ListBoxVariant, VariantTokens> = {
   primary: { bg: 'surface', fg: 'surfaceForeground', bgPressed: 'surfacePressed' },
   secondary: {
     bg: 'surfaceSecondary',
@@ -54,7 +54,7 @@ type SizeStep = {
 }
 
 /**
- * Exported for the `ListGroup`, which needs one number out of it: a section header has to
+ * Exported for the `ListBoxGroup`, which needs one number out of it: a section header has to
  * be inset by the same padding as the rows under it, or the heading and the text it heads
  * sit on two different left edges.
  *
@@ -112,7 +112,7 @@ const ITEM_PADDING_VERTICAL = 4
 function sizeAxis(step: SizeStep) {
   const { padding, gap, contentGap, title, description, glyph, radius } = step
 
-  return (theme: XAUITheme): SlotStyles<ListSlot> => ({
+  return (theme: XAUITheme): SlotStyles<ListBoxSlot> => ({
     // Both layers at the same value: the outer draws the corner, the inner is what a
     // pressed row is cut against.
     root: { borderRadius: theme.radius[radius] },
@@ -140,7 +140,7 @@ function sizeAxis(step: SizeStep) {
   })
 }
 
-export const listRecipe = createRecipe({
+export const listBoxRecipe = createRecipe({
   slots: SLOTS,
 
   base: theme => ({
@@ -214,12 +214,12 @@ export const listRecipe = createRecipe({
         separator: { marginHorizontal: 0 },
       }),
     },
-    // `primary` is the one that reads as a card, and a card is lifted. A shadow under a
-    // ground that barely differs from the page reads as dirt rather than as height, so the
-    // quieter three stay flat.
+    // `primary` is the only ground with enough contrast to carry elevation, but a list box
+    // stays closer to the page than a card. The field role gives it that quieter lift; a
+    // shadow under the other three would read as dirt rather than as height.
     {
       when: { variant: 'primary' },
-      style: theme => ({ root: theme.shadows.surface }),
+      style: theme => ({ root: theme.shadows.field }),
     },
   ],
 
@@ -230,4 +230,4 @@ export const listRecipe = createRecipe({
   defaultVariants: { variant: 'primary', size: 'md' },
 })
 
-export type { ListSlot }
+export type { ListBoxSlot }
