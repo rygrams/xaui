@@ -214,12 +214,12 @@ export const listBoxRecipe = createRecipe({
         separator: { marginHorizontal: 0 },
       }),
     },
-    // `primary` is the one that reads as a card, and a card is lifted. A shadow under a
-    // ground that barely differs from the page reads as dirt rather than as height, so the
-    // quieter three stay flat.
+    // `primary` is the only ground with enough contrast to carry elevation, but a list box
+    // stays closer to the page than a card. The field role gives it that quieter lift; a
+    // shadow under the other three would read as dirt rather than as height.
     {
       when: { variant: 'primary' },
-      style: theme => ({ root: theme.shadows.surface }),
+      style: theme => ({ root: theme.shadows.field }),
     },
   ],
 
