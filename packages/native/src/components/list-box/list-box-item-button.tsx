@@ -4,11 +4,11 @@ import { usePressState } from '../../hooks/use-press-state'
 import { IconContext } from '../../system/icon'
 import { PressableFeedback } from '../../system/pressable-feedback'
 import { useStyleProps } from '../../system/style-props'
-import { useList } from './list.context'
-import type { ListItemButtonProps } from './list.type'
+import { useListBox } from './list-box.context'
+import type { ListBoxItemButtonProps } from './list-box.type'
 
 /**
- * A row you can press, used **in place of** `List.Item` rather than inside it.
+ * A row you can press, used **in place of** `ListBox.Item` rather than inside it.
  *
  * It is the same row — same inset, same slots, same separators around it — and it adds the
  * two things a plain row must not have: a wash under the finger, and a `button` to
@@ -18,8 +18,8 @@ import type { ListItemButtonProps } from './list.type'
  * The wash is the row's and the fill is the root's. A row that painted its own fill would
  * stack two where the separator sits, and the hairline would vanish into the seam.
  */
-export const ListItemButton = forwardRef<View, ListItemButtonProps>(
-  function ListItemButton(
+export const ListBoxItemButton = forwardRef<View, ListBoxItemButtonProps>(
+  function ListBoxItemButton(
     {
       children,
       isDisabled = false,
@@ -39,7 +39,7 @@ export const ListItemButton = forwardRef<View, ListItemButtonProps>(
       itemPressedStyle,
       glyph,
       isDisabled: isListDisabled,
-    } = useList()
+    } = useListBox()
     const [styleProps, rest] = useStyleProps(props)
     const [isPressed, press] = usePressState({ onPressIn, onPressOut })
 
@@ -74,4 +74,4 @@ export const ListItemButton = forwardRef<View, ListItemButtonProps>(
   }
 )
 
-ListItemButton.displayName = 'XAUI.List.ItemButton'
+ListBoxItemButton.displayName = 'XAUI.ListBox.ItemButton'

@@ -239,6 +239,7 @@ const SnackbarSurface: React.FC<{
   )
 }
 
+/** @deprecated Use `Snackbar` from `@xaui/native/snackbar`. */
 export const SnackbarStack: React.FC<SnackbarStackProps> = ({
   items,
   onDismiss,
@@ -294,6 +295,7 @@ export const SnackbarStack: React.FC<SnackbarStackProps> = ({
   return usePortal ? <Portal>{stackNode}</Portal> : stackNode
 }
 
+/** @deprecated Use `Snackbar` from `@xaui/native/snackbar`. */
 export const Snackbar: React.FC<SnackbarProps> = ({
   isVisible,
   duration = SNACKBAR_DEFAULT_DURATION,

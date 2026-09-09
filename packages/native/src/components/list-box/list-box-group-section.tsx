@@ -1,18 +1,18 @@
 import { forwardRef } from 'react'
 import { View } from 'react-native'
 import { useStyleProps } from '../../system/style-props'
-import { useListGroup } from './list-group.context'
-import type { ListGroupSectionProps } from './list-group.type'
+import { useListBoxGroup } from './list-box-group.context'
+import type { ListBoxGroupSectionProps } from './list-box-group.type'
 
 /**
  * One section: a heading, the list it heads, and whatever the list needs saying after it.
  *
  * ```tsx
- * <ListGroup.Section>
- *   <ListGroup.Header>Réseau</ListGroup.Header>
- *   <List>…</List>
- *   <ListGroup.Footer>Le Wi-Fi se coupe en veille.</ListGroup.Footer>
- * </ListGroup.Section>
+ * <ListBoxGroup.Section>
+ *   <ListBoxGroup.Header>Réseau</ListBoxGroup.Header>
+ *   <ListBox>…</ListBox>
+ *   <ListBoxGroup.Footer>Le Wi-Fi se coupe en veille.</ListBoxGroup.Footer>
+ * </ListBoxGroup.Section>
  * ```
  *
  * It exists because **proximity is the only thing grouping a header with its list** —
@@ -20,9 +20,9 @@ import type { ListGroupSectionProps } from './list-group.type'
  * exactly as far from its own rows as from the section above it. R4: the two gaps belong to
  * the two roots that own them.
  */
-export const ListGroupSection = forwardRef<View, ListGroupSectionProps>(
-  function ListGroupSection({ children, style, ...props }, ref) {
-    const { sectionStyle } = useListGroup()
+export const ListBoxGroupSection = forwardRef<View, ListBoxGroupSectionProps>(
+  function ListBoxGroupSection({ children, style, ...props }, ref) {
+    const { sectionStyle } = useListBoxGroup()
     const [styleProps, rest] = useStyleProps(props)
 
     return (
@@ -33,4 +33,4 @@ export const ListGroupSection = forwardRef<View, ListGroupSectionProps>(
   }
 )
 
-ListGroupSection.displayName = 'XAUI.ListGroup.Section'
+ListBoxGroupSection.displayName = 'XAUI.ListBoxGroup.Section'

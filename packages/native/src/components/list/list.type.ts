@@ -1,105 +1,86 @@
-import type { ReactNode } from 'react'
+import type { ReactElement, ReactNode, RefAttributes } from 'react'
 import type {
-  PressableProps,
+  FlatList,
+  FlatListProps,
+  ListRenderItem,
   StyleProp,
   TextProps,
   TextStyle,
   ViewProps,
+  ViewStyle,
 } from 'react-native'
-import type { TextStyleProps, ViewStyleProps } from '../../system/style-props'
 import type { IconContextValue } from '../../system/icon'
-import type { RadiusKey, Size } from '../../theme/theme.type'
+import type { TextStyleProps, ViewStyleProps } from '../../system/style-props'
 
 export type ListSlot =
   | 'root'
-  | 'container'
-  | 'separator'
   | 'item'
-  | 'itemPressed'
-  | 'prefix'
+  | 'separator'
+  | 'leading'
   | 'content'
   | 'title'
   | 'description'
-  | 'suffix'
+  | 'action'
 
-/**
- * The `Accordion`'s ladder, because a list is the same container with rows that do not
- * open. `tertiary` drops the fill for a border and `ghost` drops that too, for a list on a
- * surface that is already the level below.
- */
-export type ListVariant = 'primary' | 'secondary' | 'tertiary' | 'ghost'
-
-export type ListSize = Size
-
-type ListOwnProps = {
-  children?: ReactNode
-  variant?: ListVariant
-  size?: ListSize
-  radius?: RadiusKey
-  /** The tint (R7) — a raw value, never a token. */
-  color?: string
-  /**
-   * Whether a hairline is drawn between the rows. Falls back to the `ListGroup`'s, and
-   * to `true` outside one.
-   */
-  hasSeparator?: boolean
-  isDisabled?: boolean
+type ListOwnProps<ItemT> = {
+  /** Renders the compound row for one item. */
+  renderItem: ListRenderItem<ItemT>
+  /** Merge the list props into a custom `FlatList`-compatible root. */
   asChild?: boolean
+  children?: ReactElement
 }
 
-export type ListProps = ListOwnProps &
-  Omit<ViewProps, keyof ListOwnProps> &
-  Omit<ViewStyleProps, keyof ListOwnProps | keyof ViewProps>
+type LockedFlatListProp =
+  | 'ItemSeparatorComponent'
+  | 'horizontal'
+  | 'inverted'
+  | 'numColumns'
 
-type ListItemOwnProps = {
-  children?: ReactNode
-  asChild?: boolean
-}
+export type ListProps<ItemT> = ListOwnProps<ItemT> &
+  Omit<FlatListProps<ItemT>, keyof ListOwnProps<ItemT> | LockedFlatListProp> &
+  Omit<ViewStyleProps, keyof ListOwnProps<ItemT> | keyof FlatListProps<ItemT>>
 
-/** A plain row: a `View`, with no press state and nothing to announce. */
+type ListItemOwnProps = { children?: ReactNode; asChild?: boolean }
+
 export type ListItemProps = ListItemOwnProps &
   Omit<ViewProps, keyof ListItemOwnProps> &
   Omit<ViewStyleProps, keyof ListItemOwnProps | keyof ViewProps>
 
-type ListItemButtonOwnProps = {
-  children?: ReactNode
-  isDisabled?: boolean
-  asChild?: boolean
-}
+type ListViewSlotOwnProps = { children?: ReactNode }
 
-/** A row you can press, used in place of `List.Item` rather than inside it. */
-export type ListItemButtonProps = ListItemButtonOwnProps &
-  Omit<PressableProps, keyof ListItemButtonOwnProps> &
-  Omit<ViewStyleProps, keyof ListItemButtonOwnProps | keyof PressableProps>
+export type ListLeadingProps = ListViewSlotOwnProps &
+  Omit<ViewProps, keyof ListViewSlotOwnProps> &
+  Omit<ViewStyleProps, keyof ListViewSlotOwnProps | keyof ViewProps>
 
-type ListSlotOwnProps = {
-  children?: ReactNode
-}
+export type ListContentProps = ListLeadingProps
+export type ListActionProps = ListLeadingProps
 
-export type ListItemPrefixProps = ListSlotOwnProps &
-  Omit<ViewProps, keyof ListSlotOwnProps> &
-  Omit<ViewStyleProps, keyof ListSlotOwnProps | keyof ViewProps>
+type ListTextSlotOwnProps = { children?: ReactNode }
 
-export type ListItemContentProps = ListItemPrefixProps
-export type ListItemSuffixProps = ListItemPrefixProps
+export type ListTitleProps = ListTextSlotOwnProps &
+  Omit<TextProps, keyof ListTextSlotOwnProps> &
+  Omit<TextStyleProps, keyof ListTextSlotOwnProps | keyof TextProps>
 
-export type ListItemTitleProps = ListSlotOwnProps &
-  Omit<TextProps, keyof ListSlotOwnProps> &
-  Omit<TextStyleProps, keyof ListSlotOwnProps | keyof TextProps>
+export type ListDescriptionProps = ListTitleProps
 
-export type ListItemDescriptionProps = ListItemTitleProps
-
-/** R5 — resolved style ids, never a token for a slot to resolve again. */
+/** Resolved recipe values shared by every virtualized row. */
 export type ListContextValue = {
-  separatorStyle: StyleProp<TextStyle>
-  itemStyle: StyleProp<TextStyle>
-  itemPressedStyle: StyleProp<TextStyle>
-  prefixStyle: StyleProp<TextStyle>
-  contentStyle: StyleProp<TextStyle>
+  itemStyle: StyleProp<ViewStyle>
+  separatorStyle: StyleProp<ViewStyle>
+  leadingStyle: StyleProp<ViewStyle>
+  contentStyle: StyleProp<ViewStyle>
   titleStyle: StyleProp<TextStyle>
   descriptionStyle: StyleProp<TextStyle>
-  suffixStyle: StyleProp<TextStyle>
-  /** What an `Icon` in a prefix or a suffix inherits, so a row's glyphs match its type. */
-  glyph: IconContextValue
-  isDisabled: boolean
+  actionStyle: StyleProp<ViewStyle>
+  leadingIcon: IconContextValue
+  actionIcon: IconContextValue
+}
+
+export type ListItemContextValue = { isLast: boolean }
+
+export type ListRootComponent = {
+  <ItemT>(
+    props: ListProps<ItemT> & RefAttributes<FlatList<ItemT>>
+  ): ReactElement | null
+  displayName?: string
 }

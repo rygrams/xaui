@@ -86,8 +86,9 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.4   | `Select` — Trigger · Value · Indicator · Overlay · Content · Item                | done    |
 | P5.5   | `Stepper` — slots over the existing group context                                | done    |
 | P5.6   | `Toolbar` — slots over the existing group context                                | dropped |
-| P5.7   | `List` — slots over the existing group context                                   | done    |
-| P5.7b  | `ListGroup` — net new, sectioned `List` with its headers                         | done    |
+| P5.7   | `ListBox` — slots over the existing group context                                | done    |
+| P5.7b  | `ListBoxGroup` — net new, sectioned `ListBox` with its headers                   | done    |
+| P5.7c  | `List` — virtualized rows over React Native `FlatList`                           | done    |
 | P5.8   | `Menu` — Trigger · Overlay · Content · Label · Group · Item                      | done    |
 | P5.9   | `SegmentButton` — slots over the existing group context                          | done    |
 | P5.10  | `Autocomplete` — slots over the existing group context                           | done    |
@@ -100,7 +101,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.15  | `Slider` — Output · Track · Fill · Thumb                                         | done    |
 | P5.16  | `Tabs` — List · Trigger · Label · Indicator · Content                            | done    |
 | P5.17  | `AppBar`                                                                         | dropped |
-| P5.18  | `Snackbar` — closed by P5.18b `Toast`, the same object renamed                   | done    |
+| P5.18  | `Snackbar` — v1 transient notification over the shared toast queue               | done    |
 | P5.18b | `Toast` — Title · Description · Actions · Close, plus `ToastHost`                | done    |
 | P5.19  | `Snippet`                                                                        | dropped |
 | P5.20  | `Fab` — round or extended, the Button's table on a floating box                  | done    |
@@ -147,8 +148,8 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.35c | `MorphButton` — net new, a `Button` that animates between states | todo |
 | P5.35d | `SlideButton` — net new, slide-to-confirm over the `Slider` | todo |
 | P5.35e | `SocialAuthButton` — net new, provider marks over the `Button` | todo |
-| P5.35f | `ToggleButton` — net new, a `Button` that holds a pressed state | todo |
-| P5.35g | `ToggleButtonGroup` — net new, exclusive selection over `ToggleButton` | todo |
+| P5.35f | `ToggleButton` — net new, a `Button` that holds a pressed state | done |
+| P5.35g | `ToggleButtonGroup` — net new, exclusive selection over `ToggleButton` | done |
 | P5.36 | `EmptyState` — net new, no legacy equivalent | done |
 | P5.37 | `FlipCard` — net new, a `Card` with two faces | done |
 | P5.38 | `Radio.Group` — over legacy `RadioGroup`, the context P3.9 `Radio` lacked | done |
