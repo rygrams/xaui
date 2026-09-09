@@ -79,6 +79,24 @@ Stringifiable children are wrapped in `ToggleButton.Label` automatically.
 <ToggleButton>Pin</ToggleButton>
 ```
 
+### Exclusive group
+
+`ToggleButton.Group` gives a set one selected value. A member joins by naming `value`; it
+can still be nested in a layout, because the group communicates through context instead of
+walking its children.
+
+```tsx
+<ToggleButton.Group value={alignment} onValueChange={setAlignment}>
+  <ToggleButton value="start">Start</ToggleButton>
+  <ToggleButton value="center">Center</ToggleButton>
+  <ToggleButton value="end">End</ToggleButton>
+</ToggleButton.Group>
+```
+
+The group is horizontal and wrapping by default. `orientation="vertical"` makes a column.
+Its `variant`, `size`, `radius`, `color` and `isDisabled` are member defaults; a member can
+still name its own appearance, while a disabled group always disables every member.
+
 ### Icon only
 
 ```tsx
@@ -117,6 +135,7 @@ They are raw React Native values, not hidden token steps. `style` remains the la
 | `size`             | `'xs' \| 'sm' \| 'md' \| 'lg'`                 | `'md'`      | Height, padding, gap, radius and type   |
 | `radius`           | `RadiusKey`                                    | by size     | Overrides the shape the size chose      |
 | `color`            | `string`                                       | —           | Raw tint; selection uses its soft slice |
+| `value`            | `string`                                       | —           | Joins a `ToggleButton.Group`            |
 | `isSelected`       | `boolean`                                      | —           | Controlled value                        |
 | `defaultSelected`  | `boolean`                                      | `false`     | Initial uncontrolled value              |
 | `onSelectedChange` | `(isSelected: boolean) => void`                | —           | Receives the proposed next value        |
@@ -158,6 +177,8 @@ pass rather than entering the style cache.
 - `accessibilityState.selected` always reflects the current value and is merged with state
   supplied by the caller.
 - `aria-pressed` mirrors the same value for React Native Web.
+- In a group, members use the `radio` role and `aria-checked`; the group is announced as a
+  `radiogroup`.
 - `accessibilityState.disabled` follows `isDisabled`.
 - An icon-only root warns without `accessibilityLabel` or `aria-label`.
 - Press handlers are composed: the toggle, `onPress` and the internal pressed state all

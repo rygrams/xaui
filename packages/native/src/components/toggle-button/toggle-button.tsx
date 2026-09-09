@@ -8,6 +8,7 @@ import { childrenToString } from '../../system/slot'
 import { useStyleProps } from '../../system/style-props'
 import { useXAUITheme } from '../../theme/theme-hooks'
 import { warnDev } from '../../utils/warn-dev'
+import { useOptionalToggleButtonGroup } from './toggle-button-group.context'
 import { ToggleButtonLabel } from './toggle-button-label'
 import { ToggleButtonProvider } from './toggle-button.context'
 import { toggleButtonRecipe } from './toggle-button.recipe'
@@ -37,6 +38,7 @@ export const ToggleButtonRoot = forwardRef<View, ToggleButtonProps>(
       size,
       radius,
       color,
+      value,
       isSelected,
       defaultSelected = false,
       onSelectedChange,
@@ -56,35 +58,43 @@ export const ToggleButtonRoot = forwardRef<View, ToggleButtonProps>(
     const theme = useXAUITheme()
     const [styleProps, rest] = useStyleProps(props)
     const [isPressed, press] = usePressState({ onPressIn, onPressOut })
+    const group = useOptionalToggleButtonGroup()
+    const inGroup = group !== null && value !== undefined
     const [selected, setSelected] = useControllableState({
-      value: isSelected,
+      value: isSelected ?? (inGroup ? group.value === value : undefined),
       defaultValue: defaultSelected,
       onChange: onSelectedChange,
     })
+    const resolvedVariant = variant ?? group?.variant
+    const resolvedSize = size ?? group?.size
+    const resolvedRadius = radius ?? group?.radius
+    const resolvedColor = color ?? group?.color
+    const disabled = isDisabled || (group?.isDisabled ?? false)
 
     const handlePress = useCallback(
       (event: GestureResponderEvent) => {
-        setSelected(current => !current)
+        setSelected(inGroup ? true : current => !current)
+        if (inGroup) group.select(value)
         onPress?.(event)
       },
-      [onPress, setSelected]
+      [onPress, setSelected, inGroup, group, value]
     )
 
     const selection = {
-      variant,
-      size,
-      radius,
+      variant: resolvedVariant,
+      size: resolvedSize,
+      radius: resolvedRadius,
       isIconOnly: isIconOnly ? ('true' as const) : undefined,
     }
-    const states = { disabled: isDisabled }
+    const states = { disabled }
     const styles = toggleButtonRecipe.resolve({ theme, selection, states })
-    const tint = color
-      ? toggleButtonRecipe.tint({ theme, color, selection, states })
+    const tint = resolvedColor
+      ? toggleButtonRecipe.tint({ theme, color: resolvedColor, selection, states })
       : undefined
 
     const renderState = useMemo(
-      () => ({ isSelected: selected, isPressed, isDisabled }),
-      [selected, isPressed, isDisabled]
+      () => ({ isSelected: selected, isPressed, isDisabled: disabled }),
+      [selected, isPressed, disabled]
     )
 
     const context = useMemo(() => {
@@ -138,16 +148,17 @@ export const ToggleButtonRoot = forwardRef<View, ToggleButtonProps>(
         <PressableFeedback
           ref={ref}
           isPressed={isPressed}
-          isDisabled={isDisabled}
+          isDisabled={disabled}
           asChild={asChild}
-          accessibilityRole={accessibilityRole}
+          accessibilityRole={accessibilityRole ?? (inGroup ? 'radio' : 'button')}
           accessibilityState={{
             ...accessibilityState,
-            disabled: isDisabled,
-            selected,
+            disabled,
+            ...(inGroup ? { checked: selected } : { selected }),
           }}
           {...rest}
-          aria-pressed={selected}
+          aria-checked={inGroup ? selected : undefined}
+          aria-pressed={inGroup ? undefined : selected}
           style={rootStyle}
           onPress={handlePress}
           onPressIn={press.onPressIn}

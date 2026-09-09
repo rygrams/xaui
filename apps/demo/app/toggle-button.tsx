@@ -68,6 +68,8 @@ export default function ToggleButtonScreen() {
 
       <InteractiveExample />
 
+      <ToggleGroupExample />
+
       <DemoCard title="Tailles">
         <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 12 }}>
           {SIZES.map(size => (
@@ -147,6 +149,23 @@ function InteractiveExample() {
       <Text style={{ color: theme.colors.foreground }}>
         {isSelected ? 'Ajouté aux favoris' : 'Pas encore dans les favoris'}
       </Text>
+    </DemoCard>
+  )
+}
+
+function ToggleGroupExample() {
+  const [alignment, setAlignment] = useState('start')
+
+  return (
+    <DemoCard title="Groupe exclusif">
+      <Text style={{ color: useXAUITheme().colors.muted }}>
+        Une seule option est active. Chaque bouton rejoint le groupe avec sa valeur.
+      </Text>
+      <ToggleButton.Group value={alignment} onValueChange={setAlignment}>
+        <ToggleButton value="start">Début</ToggleButton>
+        <ToggleButton value="center">Centre</ToggleButton>
+        <ToggleButton value="end">Fin</ToggleButton>
+      </ToggleButton.Group>
     </DemoCard>
   )
 }

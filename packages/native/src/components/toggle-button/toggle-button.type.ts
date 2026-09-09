@@ -40,6 +40,8 @@ type ToggleButtonOwnProps = {
   radius?: RadiusKey
   /** A raw tint (R7). Selection uses its soft slice. */
   color?: string
+  /** The value this button represents inside a `ToggleButton.Group`. */
+  value?: string
   /** Controlled selection. Leave it out and the button keeps its own state. */
   isSelected?: boolean
   /** The starting selection when uncontrolled. @default false */
