@@ -73,7 +73,9 @@ export default function ScaffoldScreen() {
         title="Scaffold.Navigator dresses the app's own navigator"
         note="Il n'y a rien à afficher ici : le slot clone le navigateur reçu en enfant avec les screenOptions du thème fusionnées SOUS les siennes, et ce navigateur est celui de cette app. Le bouton Dark/Light du header, écrit dans le headerRight du Stack de _layout.tsx, est la preuve que la fusion laisse passer les clés de l'app."
       >
-        <Values />
+        <Scaffold variant="ghost" flex={0}>
+          <Values />
+        </Scaffold>
       </Section>
     </ScrollView>
   )
