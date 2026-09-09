@@ -112,7 +112,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.23c | `BottomSheet` reduced state — `collapsedHeight`, a two-state disclosure          | done    |
 | P5.24  | `Drawer`                                                                         | dropped |
 | P5.24b | `Popover` — Trigger · Overlay · Content · Title · Description · Close            | done    |
-| P5.25  | `Picker`                                                                         | todo    |
+| P5.25  | `Picker`                                                                         | dropped |
 | P5.25b | `WheelPicker` — net new, the spinning column the three below share               | done    |
 | P5.25c | `WheelDatePicker` — net new, `WheelPicker` columns for a date                    | dropped |
 | P5.25d | `WheelTimePicker` — net new, `WheelPicker` columns for a time                    | dropped |
@@ -147,7 +147,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.35b | `LinkButton` — net new, a `Button` that reads as a link | dropped |
 | P5.35c | `MorphButton` — net new, a `Button` that animates between states | done |
 | P5.35d | `SlideButton` — net new, slide-to-confirm over the `Slider` | todo |
-| P5.35e | `SocialAuthButton` — net new, provider marks over the `Button` | todo |
+| P5.35e | `SocialAuthButton` — net new, provider marks over the `Button` | dropped |
 | P5.35f | `ToggleButton` — net new, a `Button` that holds a pressed state | done |
 | P5.35g | `ToggleButtonGroup` — net new, exclusive selection over `ToggleButton` | done |
 | P5.36 | `EmptyState` — net new, no legacy equivalent | done |
@@ -157,7 +157,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.38c | `RadioButtonGroup` — net new, to reconcile with `RadioGroup` | done |
 | P5.39 | `Rating` — net new, no legacy equivalent | todo |
 | P5.40 | `Surface` — four grounds, elevation asked for, no slots | done |
-| P5.41 | `SplitView` — net new, a `view/` split on a draggable divider | todo |
+| P5.41 | `SplitView` — net new, a `view/` split on a draggable divider | dropped |
 | P5.42 | `Table` — net new, no legacy equivalent | done |
 | P5.43 | `TagGroup` — List · Item · ItemLabel · ItemRemoveButton | done |
 | P5.44 | `Timeline` — net new, no legacy equivalent | done |
