@@ -36,6 +36,22 @@ export type SnackbarProps = SnackbarOwnProps &
   Omit<ViewProps, keyof SnackbarOwnProps> &
   Omit<ViewStyleProps, keyof SnackbarOwnProps | keyof ViewProps>
 
+type SnackbarStackOwnProps = {
+  children?: ReactNode
+  position?: SnackbarPosition
+  /** Space between consecutive snackbars. */
+  spacing?: number
+  insetHorizontal?: number
+  insetVertical?: number
+  maxWidth?: number
+  isPortalled?: boolean
+  asChild?: boolean
+}
+
+export type SnackbarStackProps = SnackbarStackOwnProps &
+  Omit<ViewProps, keyof SnackbarStackOwnProps> &
+  Omit<ViewStyleProps, keyof SnackbarStackOwnProps | keyof ViewProps>
+
 type SnackbarTextOwnProps = { children?: ReactNode }
 export type SnackbarMessageProps = SnackbarTextOwnProps &
   Omit<TextProps, keyof SnackbarTextOwnProps> &

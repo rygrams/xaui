@@ -10,6 +10,7 @@ import { snackbarEntering, snackbarExiting } from './snackbar.animation'
 import { SnackbarProvider } from './snackbar.context'
 import { SnackbarMessage } from './snackbar-message'
 import { snackbarRecipe } from './snackbar.recipe'
+import { useIsInsideSnackbarStack } from './snackbar-stack.context'
 import type { SnackbarProps } from './snackbar.type'
 
 export const SnackbarRoot = forwardRef<View, SnackbarProps>(function Snackbar(
@@ -36,6 +37,7 @@ export const SnackbarRoot = forwardRef<View, SnackbarProps>(function Snackbar(
   ref
 ) {
   const theme = useXAUITheme()
+  const isInsideStack = useIsInsideSnackbarStack()
   const [styleProps, rest] = useStyleProps(props)
   const [isVisible, setVisible] = useControllableState({
     value: controlledVisible,
@@ -97,6 +99,11 @@ export const SnackbarRoot = forwardRef<View, SnackbarProps>(function Snackbar(
       {content}
     </Animated.View>
   )
+  const providedSurface = (
+    <SnackbarProvider value={context}>{surface}</SnackbarProvider>
+  )
+  if (isInsideStack) return providedSurface
+
   const node = (
     <SnackbarProvider value={context}>
       <View
