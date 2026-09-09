@@ -22,7 +22,7 @@ const NativePreviewClient = dynamic(
     ssr: false,
     loading: () => (
       <div className="native-preview rounded-2xl border p-6">
-        <div className="mx-auto aspect-[9/19.25] w-full max-w-[320px] animate-pulse rounded-[2.25rem] bg-zinc-900" />
+        <div className="mx-auto aspect-[390/844] w-full max-w-[320px] animate-pulse rounded-[2.25rem] bg-zinc-900" />
       </div>
     ),
   }
