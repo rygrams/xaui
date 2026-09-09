@@ -53,9 +53,12 @@ export function useSlidingIndicator(rect: IndicatorRect | undefined): ViewStyle 
     }
   }, [rect, hasArrived, width, x])
 
-  return useAnimatedStyle(() => ({
-    transform: [{ translateX: x.get() }],
-    width: width.get(),
-    opacity: hasArrived.get() ? 1 : 0,
-  }))
+  return useAnimatedStyle(() => {
+    'worklet'
+    return {
+      transform: [{ translateX: x.get() }],
+      width: width.get(),
+      opacity: hasArrived.get() ? 1 : 0,
+    }
+  }, [x, width, hasArrived])
 }

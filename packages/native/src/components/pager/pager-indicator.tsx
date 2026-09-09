@@ -86,6 +86,7 @@ export const PagerDot = forwardRef<View, PagerDotProps>(function PagerDot(
   const { rest: restColor, active } = dotInk
 
   const travel = useAnimatedStyle(() => {
+    'worklet'
     const distance = Math.abs(progressFromOffset(offset.get(), step, count) - index)
     // Linear between two dots and nothing beyond them: `1 − distance` clamped at zero hands
     // the colour over at exactly the rate the neighbour takes it, so the two never both read
@@ -95,7 +96,7 @@ export const PagerDot = forwardRef<View, PagerDotProps>(function PagerDot(
     return {
       backgroundColor: interpolateColor(nearness, [0, 1], [restColor, active]),
     }
-  })
+  }, [offset, step, count, index, restColor, active])
 
   return (
     <AnimatedPressable

@@ -79,9 +79,10 @@ export function SliderThumb({
       runOnJS(commit)()
     })
 
-  const scale = useAnimatedStyle(() => ({
-    transform: [{ scale: 1 + pressed.get() * (THUMB_PRESSED_SCALE - 1) }],
-  }))
+  const scale = useAnimatedStyle(() => {
+    'worklet'
+    return { transform: [{ scale: 1 + pressed.get() * (THUMB_PRESSED_SCALE - 1) }] }
+  }, [pressed])
 
   return (
     <GestureDetector gesture={pan}>

@@ -84,6 +84,7 @@ export const CarouselDot = forwardRef<View, CarouselDotProps>(function CarouselD
   const { rest: restColor, active, width, pill } = dotInk
 
   const grow = useAnimatedStyle(() => {
+    'worklet'
     const distance = Math.abs(progressFromOffset(offset.get(), step, count) - index)
     // Linear between two dots and nothing beyond them: `1 − distance` clamped at zero is a
     // triangle, and a triangle is what makes a dot take width exactly as fast as its
@@ -95,7 +96,7 @@ export const CarouselDot = forwardRef<View, CarouselDotProps>(function CarouselD
       width: width + (pill - width) * nearness,
       backgroundColor: interpolateColor(nearness, [0, 1], [restColor, active]),
     }
-  })
+  }, [offset, step, count, index, width, pill, restColor, active])
 
   return (
     <AnimatedPressable

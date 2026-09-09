@@ -181,7 +181,10 @@ const AnimatedFeedback = forwardRef<View, BranchProps>(function AnimatedFeedback
    * four times as far as a chip, and the eye reads the displacement rather than the
    * ratio — which is what made the old flat `0.975` lurch.
    */
-  const pressedScale = useDerivedValue(() => pressScaleFor(size.value.width))
+  const pressedScale = useDerivedValue(() => {
+    'worklet'
+    return pressScaleFor(size.value.width)
+  }, [size])
 
   /**
    * Every animated hook in this package carries an explicit `'worklet'` directive **and**

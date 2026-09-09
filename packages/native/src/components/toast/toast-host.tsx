@@ -293,13 +293,16 @@ function ToastStackEntry({
       runOnJS(hideAfterThrow)(event.velocityY)
     })
 
-  const stacking = useAnimatedStyle(() => ({
-    opacity: fade.get(),
-    transform: [
-      { translateY: stackY.get() + drag.get() },
-      { scale: stackScale.get() * press.get() },
-    ],
-  }))
+  const stacking = useAnimatedStyle(() => {
+    'worklet'
+    return {
+      opacity: fade.get(),
+      transform: [
+        { translateY: stackY.get() + drag.get() },
+        { scale: stackScale.get() * press.get() },
+      ],
+    }
+  }, [fade, stackY, drag, stackScale, press])
 
   return (
     <GestureDetector gesture={pan}>

@@ -75,9 +75,10 @@ export const AgendaCalendarWeek = forwardRef<View, AgendaCalendarWeekProps>(
         drag.set(withSpring(0, SPRING))
       })
 
-    const slide = useAnimatedStyle(() => ({
-      transform: [{ translateX: drag.get() }],
-    }))
+    const slide = useAnimatedStyle(() => {
+      'worklet'
+      return { transform: [{ translateX: drag.get() }] }
+    }, [drag])
 
     const cells = days.map(date => (
       <View key={date.getTime()} style={CELL}>
