@@ -34,6 +34,7 @@ export type {
   DateTimePickerCalendarProps,
   DateTimePickerClockProps,
   DateTimePickerContextValue,
+  DateTimePickerIndicatorProps,
   DateTimePickerProps,
   DateTimePickerSheetProps,
   DateTimePickerSize,

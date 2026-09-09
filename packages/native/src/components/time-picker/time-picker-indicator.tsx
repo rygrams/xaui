@@ -1,6 +1,7 @@
 import { View } from 'react-native'
 import { Icon, useIconContext } from '../../system/icon'
 import type { IconProps } from '../../system/icon'
+import type { TimePickerIndicatorProps } from './time-picker.type'
 
 /** The two hands of the built-in clock, at ten past ten — where a clock is always drawn. */
 const HOUR_ANGLE = '-60deg'
@@ -22,10 +23,11 @@ const MINUTE_ANGLE = '60deg'
  * it: `DateTimePicker.Indicator` is this component, because the two fields do the same thing
  * and a second clock glyph would be a second thing to keep in step with the first.
  */
-export function TimePickerIndicator(props: IconProps) {
+export function TimePickerIndicator(props: TimePickerIndicatorProps) {
   const glyph = useIconContext()
 
-  if (props.as || props.children || props.source) return <Icon {...props} />
+  if (props.as || props.children || props.source)
+    return <Icon {...(props as IconProps)} />
 
   const size = props.size ?? glyph.size ?? 18
   const color = props.color ?? glyph.color

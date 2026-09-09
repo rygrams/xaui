@@ -26,6 +26,7 @@ export { useTimePicker } from './time-picker.context'
 export { timePickerRecipe } from './time-picker.recipe'
 export type {
   TimePickerContextValue,
+  TimePickerIndicatorProps,
   TimePickerProps,
   TimePickerSheetProps,
   TimePickerSize,
