@@ -19,29 +19,41 @@ export default function SnackbarScreen() {
         <Button variant="tertiary" onPress={() => setPersistentVisible(true)}>
           Avec action
         </Button>
+        <Button
+          variant="secondary"
+          onPress={() => {
+            setVisible(true)
+            setPersistentVisible(true)
+          }}
+        >
+          Afficher la pile
+        </Button>
       </View>
 
-      <Snackbar isVisible={isVisible} onVisibleChange={setVisible}>
-        <Snackbar.Message>Vos modifications ont été enregistrées.</Snackbar.Message>
-      </Snackbar>
+      <Snackbar.Stack position="bottom" spacing={8}>
+        <Snackbar isVisible={isVisible} onVisibleChange={setVisible}>
+          <Snackbar.Message>
+            Vos modifications ont été enregistrées.
+          </Snackbar.Message>
+        </Snackbar>
 
-      <Snackbar
-        isVisible={isPersistentVisible}
-        onVisibleChange={setPersistentVisible}
-        duration={0}
-        variant="danger"
-        position="top"
-      >
-        <Snackbar.Message>L’envoi a échoué.</Snackbar.Message>
-        <Snackbar.Actions>
-          <Snackbar.Action onPress={() => {}}>Réessayer</Snackbar.Action>
-          <Snackbar.Close asChild>
-            <Button size="sm" variant="tertiary">
-              Fermer
-            </Button>
-          </Snackbar.Close>
-        </Snackbar.Actions>
-      </Snackbar>
+        <Snackbar
+          isVisible={isPersistentVisible}
+          onVisibleChange={setPersistentVisible}
+          duration={0}
+          variant="danger"
+        >
+          <Snackbar.Message>L’envoi a échoué.</Snackbar.Message>
+          <Snackbar.Actions>
+            <Snackbar.Action onPress={() => {}}>Réessayer</Snackbar.Action>
+            <Snackbar.Close asChild>
+              <Button size="sm" variant="tertiary">
+                Fermer
+              </Button>
+            </Snackbar.Close>
+          </Snackbar.Actions>
+        </Snackbar>
+      </Snackbar.Stack>
     </ScrollView>
   )
 }
