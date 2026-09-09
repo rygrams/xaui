@@ -17,11 +17,6 @@ export const ListGroup = Object.assign(ListGroupRoot, {
   Footer: ListGroupFooter,
 })
 
-/**
- * `List.Group` is the same object, for a call site that already has `List` imported. The
- * sections are written on `ListGroup` either way — `List.Group.Section` reads as three
- * things when it is two.
- */
 export const List = Object.assign(ListRoot, {
   Item: ListItem,
   ItemButton: ListItemButton,
@@ -30,7 +25,6 @@ export const List = Object.assign(ListRoot, {
   ItemTitle: ListItemTitle,
   ItemDescription: ListItemDescription,
   ItemSuffix: ListItemSuffix,
-  Group: ListGroup,
 })
 
 export { ListRoot } from './list'

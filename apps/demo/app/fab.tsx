@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { ScrollView, Text, View } from 'react-native'
 import { Button } from '@xaui/native/button'
-import { Fab, FabMenu, useFab } from '@xaui/native/fab'
+import { Fab, FabDiscovery, FabMenu, useFab } from '@xaui/native/fab'
 import type { FabProps } from '@xaui/native/fab'
 import { useXAUITheme } from '@xaui/native/theme'
 
@@ -249,7 +249,7 @@ export default function FabScreen() {
         </Section>
 
         <Section
-          title="Fab.Discovery"
+          title="FabDiscovery"
           note="Le FAB ne bouge pas, et il reste le FAB. Le legacy prenait un targetRef et dessinait une copie de ce qu'on lui passait en highlightContent : la chose enseignée était une image d'elle-même, non pressable, et juste seulement tant que l'appelant gardait la copie en phase. Ici la cible EST le Fab, hissé dans le portail à son propre rectangle mesuré — au-dessus du disque, toujours pressable, aux coordonnées qu'il occupait déjà. Le texte est mis en page à la corde du disque à sa hauteur, pas à son diamètre."
         >
           <View
@@ -260,24 +260,24 @@ export default function FabScreen() {
               backgroundColor: theme.colors.surfaceSecondary,
             }}
           >
-            <Fab.Discovery isOpen={tour} onOpenChange={setTour}>
-              <Fab.Discovery.Target
+            <FabDiscovery isOpen={tour} onOpenChange={setTour}>
+              <FabDiscovery.Target
                 placement="bottom-end"
                 accessibilityLabel="Composer"
                 onPress={() => setChosen('Composer')}
               >
                 <Plus />
-              </Fab.Discovery.Target>
-              <Fab.Discovery.Overlay />
-              <Fab.Discovery.Content>
-                <Fab.Discovery.Title>Composez d’où vous voulez</Fab.Discovery.Title>
-                <Fab.Discovery.Description>
+              </FabDiscovery.Target>
+              <FabDiscovery.Overlay />
+              <FabDiscovery.Content>
+                <FabDiscovery.Title>Composez d’où vous voulez</FabDiscovery.Title>
+                <FabDiscovery.Description>
                   Ce bouton suit chaque écran de la boîte de réception. Appuyez
                   dessus pour commencer un message sans revenir en arrière.
-                </Fab.Discovery.Description>
-                <Fab.Discovery.Action>Compris</Fab.Discovery.Action>
-              </Fab.Discovery.Content>
-            </Fab.Discovery>
+                </FabDiscovery.Description>
+                <FabDiscovery.Action>Compris</FabDiscovery.Action>
+              </FabDiscovery.Content>
+            </FabDiscovery>
           </View>
 
           <View style={{ flexDirection: 'row', gap: 12 }}>

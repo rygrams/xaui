@@ -54,4 +54,4 @@ export const FabDiscoveryOverlay = forwardRef<View, FabDiscoveryOverlayProps>(
   }
 )
 
-FabDiscoveryOverlay.displayName = 'XAUI.Fab.Discovery.Overlay'
+FabDiscoveryOverlay.displayName = 'XAUI.FabDiscovery.Overlay'

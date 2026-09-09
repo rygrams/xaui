@@ -4,7 +4,7 @@ import { StyleSheet } from 'react-native'
  * The stacking order inside the portal host, and nothing else — pure geometry with no
  * token in it, which is why it is here and not in a recipe.
  *
- * It cannot be left to mount order. `Fab.Discovery.Target` and `Fab.Discovery.Content`
+ * It cannot be left to mount order. `FabDiscovery.Target` and `FabDiscovery.Content`
  * each open a portal of their own, and which one lands on top would then depend on the
  * order the caller happened to write two slots in — a FAB under its own disc, from moving
  * one line. So the layers are numbered.

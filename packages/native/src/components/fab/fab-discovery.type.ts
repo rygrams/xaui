@@ -45,7 +45,7 @@ type FabDiscoveryOwnProps = {
   children?: ReactNode
 }
 
-/** The root renders **no node** — `Fab.Discovery.Target` is where `ref` and `style` live. */
+/** The root renders **no node** — `FabDiscovery.Target` is where `ref` and `style` live. */
 export type FabDiscoveryProps = FabDiscoveryOwnProps
 
 /**

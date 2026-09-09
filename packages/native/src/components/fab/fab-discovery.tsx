@@ -16,26 +16,26 @@ const DEFAULT_PADDING = 14
  * The coach mark that says what a FAB is for.
  *
  * ```tsx
- * <Fab.Discovery isOpen={tour} onOpenChange={setTour}>
- *   <Fab.Discovery.Target placement="bottom-end" accessibilityLabel="Composer" onPress={compose}>
+ * <FabDiscovery isOpen={tour} onOpenChange={setTour}>
+ *   <FabDiscovery.Target placement="bottom-end" accessibilityLabel="Composer" onPress={compose}>
  *     <Fab.Icon as={PlusIcon} />
- *   </Fab.Discovery.Target>
- *   <Fab.Discovery.Overlay />
- *   <Fab.Discovery.Content>
- *     <Fab.Discovery.Title>Composez d'où vous voulez</Fab.Discovery.Title>
- *     <Fab.Discovery.Description>
+ *   </FabDiscovery.Target>
+ *   <FabDiscovery.Overlay />
+ *   <FabDiscovery.Content>
+ *     <FabDiscovery.Title>Composez d'où vous voulez</FabDiscovery.Title>
+ *     <FabDiscovery.Description>
  *       Ce bouton suit chaque écran de la boîte de réception.
- *     </Fab.Discovery.Description>
- *     <Fab.Discovery.Action>Compris</Fab.Discovery.Action>
- *   </Fab.Discovery.Content>
- * </Fab.Discovery>
+ *     </FabDiscovery.Description>
+ *     <FabDiscovery.Action>Compris</FabDiscovery.Action>
+ *   </FabDiscovery.Content>
+ * </FabDiscovery>
  * ```
  *
  * **The FAB does not move, and it stays the FAB.** The legacy `FeatureDiscovery` took a
  * `targetRef`, measured it, and drew a *copy* of whatever the caller passed as
  * `highlightContent` over the disc — so the thing being taught was a picture of itself,
  * unpressable, and only correct as long as the caller kept the copy in step with the
- * original. Here `Fab.Discovery.Target` **is** the FAB: it stays exactly where the layout
+ * original. Here `FabDiscovery.Target` **is** the FAB: it stays exactly where the layout
  * put it and is lifted into the portal at its own measured rectangle while the mark is up,
  * so it sits above the disc, still presses, and never appears to move.
  *
@@ -140,4 +140,4 @@ export function FabDiscovery({
   return <FabDiscoveryProvider value={context}>{children}</FabDiscoveryProvider>
 }
 
-FabDiscovery.displayName = 'XAUI.Fab.Discovery.Root'
+FabDiscovery.displayName = 'XAUI.FabDiscovery.Root'

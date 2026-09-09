@@ -5,7 +5,7 @@ The one thing to do on a screen, floating over the thing it does it to.
 ## Import
 
 ```tsx
-import { Fab, FabMenu } from '@xaui/native/fab'
+import { Fab, FabDiscovery, FabMenu } from '@xaui/native/fab'
 ```
 
 ## Usage
@@ -166,33 +166,33 @@ it nothing says a set of actions has appeared. Each action is a `menuitem`.
 `isDisabled` on the root stops the trigger and every action with it; on one action it stops
 that one. Either way the pill dims once, never twice.
 
-## `Fab.Discovery`
+## `FabDiscovery`
 
 The coach mark that says what a FAB is for.
 
 ```tsx
-<Fab.Discovery isOpen={tour} onOpenChange={setTour}>
-  <Fab.Discovery.Target
+<FabDiscovery isOpen={tour} onOpenChange={setTour}>
+  <FabDiscovery.Target
     placement="bottom-end"
     accessibilityLabel="Composer"
     onPress={compose}
   >
     <Fab.Icon as={PlusIcon} />
-  </Fab.Discovery.Target>
-  <Fab.Discovery.Overlay />
-  <Fab.Discovery.Content>
-    <Fab.Discovery.Title>Composez d’où vous voulez</Fab.Discovery.Title>
-    <Fab.Discovery.Description>
+  </FabDiscovery.Target>
+  <FabDiscovery.Overlay />
+  <FabDiscovery.Content>
+    <FabDiscovery.Title>Composez d’où vous voulez</FabDiscovery.Title>
+    <FabDiscovery.Description>
       Ce bouton suit chaque écran de la boîte de réception.
-    </Fab.Discovery.Description>
-    <Fab.Discovery.Action>Compris</Fab.Discovery.Action>
-  </Fab.Discovery.Content>
-</Fab.Discovery>
+    </FabDiscovery.Description>
+    <FabDiscovery.Action>Compris</FabDiscovery.Action>
+  </FabDiscovery.Content>
+</FabDiscovery>
 ```
 
 **It is opened by the app, not by the FAB.** A discovery is shown because this reader has
 not seen the feature — a question only the app can answer — so `isOpen` is controlled far
-more often than not, and pressing the target does what it always did. `Fab.Discovery.Action`
+more often than not, and pressing the target does what it always did. `FabDiscovery.Action`
 takes the mark down after the caller's `onPress` has run; so does a press on the overlay.
 
 `color` is a raw tint for the disc and everything on it. Unset it is the theme's `accent`,
@@ -206,7 +206,7 @@ The legacy `FeatureDiscovery` took a `targetRef`, measured it, and drew a **copy
 whatever the caller passed as `highlightContent` over the disc. A copy is a picture: it does
 not press, and it is only correct for as long as somebody keeps it in step with the original.
 
-`Fab.Discovery.Target` **is** the `Fab`. While the mark is up it is lifted into the portal at
+`FabDiscovery.Target` **is** the `Fab`. While the mark is up it is lifted into the portal at
 its own measured rectangle — the coordinates it already occupied — so it draws above the
 disc, still presses, and never appears to move. The node left in the flow stays mounted and
 invisible, because it is what holds the space the layout gave the FAB and what `onLayout`

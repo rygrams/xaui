@@ -127,4 +127,4 @@ export const FabDiscoveryContent = forwardRef<View, FabDiscoveryContentProps>(
   }
 )
 
-FabDiscoveryContent.displayName = 'XAUI.Fab.Discovery.Content'
+FabDiscoveryContent.displayName = 'XAUI.FabDiscovery.Content'

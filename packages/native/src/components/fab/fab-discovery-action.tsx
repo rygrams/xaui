@@ -69,4 +69,4 @@ export const FabDiscoveryAction = forwardRef<View, FabDiscoveryActionProps>(
   }
 )
 
-FabDiscoveryAction.displayName = 'XAUI.Fab.Discovery.Action'
+FabDiscoveryAction.displayName = 'XAUI.FabDiscovery.Action'

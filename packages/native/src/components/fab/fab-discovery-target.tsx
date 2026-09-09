@@ -97,4 +97,4 @@ export const FabDiscoveryTarget = forwardRef<View, FabDiscoveryTargetProps>(
   }
 )
 
-FabDiscoveryTarget.displayName = 'XAUI.Fab.Discovery.Target'
+FabDiscoveryTarget.displayName = 'XAUI.FabDiscovery.Target'

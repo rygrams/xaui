@@ -9,7 +9,6 @@ import { List, ListGroup } from '@xaui/native/list'
 ```
 
 One import, because they are one component and a group with no lists in it is nothing.
-`List.Group` is the same object as `ListGroup`, for a call site that already has `List`.
 
 ## Usage
 

@@ -27,10 +27,7 @@ export const FabMenu = Object.assign(FabMenuRoot, {
   Icon: FabMenuIcon,
 })
 
-/**
- * The coach mark, attached the same way and for the same reason: its target **is** a `Fab`,
- * so it belongs to the FAB's entry point rather than to a subpath of its own.
- */
+/** A coach-mark compound, exported alongside `Fab` from the same entry point. */
 export const FabDiscovery = Object.assign(FabDiscoveryRoot, {
   Target: FabDiscoveryTarget,
   Overlay: FabDiscoveryOverlay,
@@ -44,7 +41,6 @@ export const Fab = Object.assign(FabRoot, {
   Icon: FabIcon,
   Label: FabLabel,
   Spinner: FabSpinner,
-  Discovery: FabDiscovery,
 })
 
 export { FabRoot } from './fab'
