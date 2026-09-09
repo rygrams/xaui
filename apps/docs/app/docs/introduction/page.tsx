@@ -1,88 +1,87 @@
 import type { Metadata } from 'next'
-import { Button } from '@/components/ui/button'
-import { ArrowRight, Sparkles, Zap, Palette } from 'lucide-react'
 import Link from 'next/link'
+import { ArrowRight, Blocks, Gauge, Palette, Sparkles } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 import { CodeBlock } from '@/components/ui/code-block'
+import { components } from '@/lib/data/components'
 
 export const metadata: Metadata = {
-  title: 'Introduction - Xaui',
-  description: 'A modern React Native UI library inspired by Flutter',
+  title: 'Introduction — XAUI Native',
+  description:
+    'A React Native component library built on composition, Reanimated motion and semantic tokens.',
 }
+
+const principles = [
+  {
+    icon: Blocks,
+    title: 'Explicit composition',
+    text: 'Roots and dot-notation slots. JSX order is visual order — no hidden configuration props.',
+  },
+  {
+    icon: Gauge,
+    title: 'Motion on the UI thread',
+    text: 'Interactions and transitions run on Reanimated, through one shared touch feedback.',
+  },
+  {
+    icon: Palette,
+    title: 'Semantic theme',
+    text: 'A small source layer derives the light and dark palettes in OKLab.',
+  },
+]
 
 export default function IntroductionPage() {
   return (
-    <div className="space-y-8">
-      <div className="space-y-4">
-        <h1 className="text-3xl font-bold tracking-tight md:text-4xl">
-          Xaui Documentation
-        </h1>
-        <p className="text-base text-muted-foreground max-w-2xl md:text-xl">
-          A modern React Native UI library inspired by Flutter. Build beautiful,
-          consistent, and performant mobile applications with ease.
+    <div className="space-y-14 pb-16">
+      <header className="space-y-6">
+        <div className="inline-flex items-center gap-2 rounded-full border bg-muted/40 px-3 py-1.5 text-xs font-medium">
+          <Sparkles className="size-3.5" /> @xaui/native · alpha
+        </div>
+        <div className="max-w-3xl space-y-4">
+          <h1 className="text-4xl font-bold tracking-tight md:text-6xl">
+            Composable React Native components.
+          </h1>
+          <p className="text-lg leading-8 text-muted-foreground md:text-xl">
+            {components.length} documented components, one visual vocabulary,
+            Reanimated motion, and React Native styles with no implicit scale.
+          </p>
+        </div>
+        <div className="flex flex-wrap gap-3">
+          <Button asChild size="lg">
+            <Link href="/docs/getting-started">
+              Get started <ArrowRight className="ml-2 size-4" />
+            </Link>
+          </Button>
+          <Button asChild size="lg" variant="outline">
+            <Link href="/docs/components">Browse components</Link>
+          </Button>
+        </div>
+      </header>
+
+      <section className="grid gap-4 md:grid-cols-3">
+        {principles.map(({ icon: Icon, title, text }) => (
+          <div className="rounded-2xl border bg-card p-6" key={title}>
+            <Icon className="mb-5 size-5" />
+            <h2 className="font-semibold">{title}</h2>
+            <p className="mt-2 text-sm leading-6 text-muted-foreground">{text}</p>
+          </div>
+        ))}
+      </section>
+
+      <section className="space-y-4 rounded-2xl border p-6 md:p-8">
+        <h2 className="text-2xl font-bold tracking-tight">The model in a minute</h2>
+        <p className="max-w-2xl text-muted-foreground">
+          Import a component from its subpath, put its slots in the order you want
+          them, and set style props on the node they belong to.
         </p>
-      </div>
+        <CodeBlock
+          code={`import { Button } from '@xaui/native/button'
 
-      <div className="flex flex-col gap-3 sm:flex-row sm:gap-4">
-        <Link href="/docs/getting-started">
-          <Button size="lg">
-            Get Started
-            <ArrowRight className="ml-2 h-4 w-4" />
-          </Button>
-        </Link>
-        <Link href="/docs/components">
-          <Button variant="outline" size="lg">
-            Browse Components
-          </Button>
-        </Link>
-      </div>
-
-      <div className="grid gap-6 md:grid-cols-3 pt-8">
-        <div className="rounded-lg border p-6 space-y-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
-            <Sparkles className="h-5 w-5 text-primary" />
-          </div>
-          <h3 className="font-semibold">Component-First</h3>
-          <p className="text-sm text-muted-foreground">
-            Built with a high-volume component set so teams can ship complete apps
-            with minimal external UI libraries.
-          </p>
-        </div>
-
-        <div className="rounded-lg border p-6 space-y-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
-            <Zap className="h-5 w-5 text-primary" />
-          </div>
-          <h3 className="font-semibold">Performance First</h3>
-          <p className="text-sm text-muted-foreground">
-            Built with React Native Reanimated for smooth 60fps animations and native
-            performance on both iOS and Android.
-          </p>
-        </div>
-
-        <div className="rounded-lg border p-6 space-y-3">
-          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10">
-            <Palette className="h-5 w-5 text-primary" />
-          </div>
-          <h3 className="font-semibold">Complete Design System</h3>
-          <p className="text-sm text-muted-foreground">
-            Comprehensive color palette with 20+ colors and 11 shades each.
-            Tailwind-inspired design tokens.
-          </p>
-        </div>
-      </div>
-
-      <div className="rounded-lg border p-6 space-y-4">
-        <h2 className="text-xl font-semibold md:text-2xl">Quick Start</h2>
-        <p className="text-muted-foreground">
-          Install Xaui in your React Native project and start building:
-        </p>
-        <CodeBlock code="npm install @xaui/native-legacy" language="bash" />
-        <Link href="/docs/installation">
-          <Button variant="outline" className="mt-2">
-            View Installation Guide
-          </Button>
-        </Link>
-      </div>
+<Button variant="primary" width="100%" onPress={save}>
+  <Button.Icon as={SaveIcon} />
+  <Button.Label>Save</Button.Label>
+</Button>`}
+        />
+      </section>
     </div>
   )
 }

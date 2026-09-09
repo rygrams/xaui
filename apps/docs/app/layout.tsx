@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import { Sidebar } from '@/components/layout/sidebar'
+import { SiteHeader } from '@/components/layout/site-header'
+import { getReleases } from '@/lib/releases'
 import { GoogleAnalytics } from '@next/third-parties/google'
 
 const geistSans = Geist({
@@ -15,8 +17,12 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: 'Xaui Documentation',
-  description: 'A modern React Native UI library',
+  title: {
+    default: 'XAUI Native — Documentation',
+    template: '%s',
+  },
+  description:
+    'Documentation for the XAUI React Native components — live web demos and a generated TypeScript API.',
 }
 
 export const viewport: Viewport = {
@@ -30,14 +36,24 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const versions = getReleases().map(release => release.version)
+
   return (
     <html lang="en">
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `globalThis.__DEV__ = ${process.env.NODE_ENV !== 'production'};`,
+          }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}
       >
-        <div className="flex min-h-screen">
-          <Sidebar />
-          <main className="min-w-0 flex-1 pt-14 md:pt-0 md:pl-64">
+        <SiteHeader version={versions[0]} versions={versions} />
+        <div className="flex min-h-screen pt-26">
+          <Sidebar versions={versions} />
+          <main className="min-w-0 flex-1 md:pl-64">
             <div className="mx-auto max-w-5xl px-4 py-8 md:px-8">{children}</div>
           </main>
         </div>

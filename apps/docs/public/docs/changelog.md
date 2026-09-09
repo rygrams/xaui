@@ -1,0 +1,3224 @@
+# @xaui/native
+
+## 0.9.1-alpha.92
+
+### Patch Changes
+
+- 064ee2a: `NumberPad`, `Pager` and `Rating`
+
+  P5.3d, P5.30 and P5.39.
+
+  **`NumberPad`** — Key · Backspace · Action · Label · Icon. The grid is data, not markup: `1`
+  to `9`, the `0` and the backspace are not a decision a caller makes, so the root renders
+  them. What is composed is the one free corner of the bottom row, and that is what `children`
+  is; left out, the corner is still a cell, or the `0` slides to the start of its row and stops
+  being the middle column.
+
+  It **draws no display** — what the value looks like is the screen's, an `InputOTP`'s boxes or
+  a row of dots. A masked PIN is therefore a composition rather than a prop: `InputOTP.Value`
+  takes children that win over the box's own character.
+
+  `maxLength` clamps rather than truncating, and measures the insert whole, for the `00` key
+  that would otherwise land halfway over the limit. A cell owns its press state, which the root
+  cannot see, so the root resolves both faces and each cell picks — the `Menu`'s arrangement,
+  and what keeps a pad of eleven the cost of a pad of two. The bare cells read the **page's**
+  foreground rather than the variant's: a `primary` pad puts `accentForeground` on its digits,
+  and a backspace with no ground of its own would take white on white.
+
+  **`Pager`** — Content · Page · Indicator · Dot. Whole pages on either axis. A page is the
+  track, measured, on both axes — and the measurement is the track's rather than the root's,
+  because the indicator sits in the flow under the pages.
+
+  It shares the paging arithmetic with the `Carousel` and nothing else. A page is the whole
+  track where a slide is a division of it, so this uses RN's own `pagingEnabled`; the travel is
+  `scrollTo({ animated: true })`, because a page's move is a whole viewport, which is the
+  distance the platform's own pagers travel on that curve. The dot changes colour and does not
+  stretch: a page control is a fixed row of marks, and a mark that grows moves the row's
+  arithmetic under a reader counting it.
+
+  **`Rating`** — Item · Icon. One component for the input and the average, because a mark's
+  fill is a **fraction**: 4.3 shows three tenths of the fifth mark, where a boolean per mark
+  would have had to round it. A mark is the same glyph twice — the neutral one sizes the mark,
+  the filled one is pinned over it in a clip cut to the fraction — and which layer an instance
+  is in comes from the layer rather than a prop, so the glyph is written once. A press reads
+  `locationX` and rounds **up**, the only rounding that matches the gesture.
+
+  `PressableFeedback` is unchanged; the `Pager` and the `Rating` use `Animated.ScrollView` and
+  `PressableFeedback` as they are.
+
+## 0.9.1-alpha.91
+
+### Patch Changes
+
+- 337f1cb: `MorphButton` — Collapsed · Expanded · Label · Title · Description · Icon
+
+  P5.35c, net new. A button that changes shape: a pill at rest, a card once it is open.
+
+  **One box, two contents.** The pressable _is_ the shape that travels, and exactly one face
+  is mounted at a time — so the box takes its size from whichever that is, and Reanimated's
+  layout transition animates it between the two. Nothing is measured, which is the
+  `Accordion`'s rule applied to a control's own box: a card whose sentence arrives from the
+  network grows with it, instead of being stuck at the size it had when it was measured.
+
+  That is also why `PressableFeedback` gained a `layout` prop. The box that travels is the
+  pressable itself; a transition on a wrapper animates the wrapper's frame while the pressable
+  inside it is already at its final size, so the content spills out of the shape for the length
+  of the spring. The root clips (`overflow: 'hidden'`), which turns those same frames into the
+  shape revealing its content.
+
+  **One corner for both shapes**, half the collapsed height. At that height it is exactly a
+  pill; on the taller card it is a corner in proportion to the control's scale. Two radius keys
+  would have needed a compound of `size` and `radius` to say what one derived value says once,
+  and `radius` still overrides it.
+
+  **The measurements are on the faces, not on the box** — the collapsed height and side inset
+  on `Collapsed`, the card's four-sided frame on `Expanded`. Since one face is mounted at a
+  time, that removes the `size` × `isExpanded` compound the component would otherwise need.
+
+  Three sizes, not four: a card that opens out of a 32-point control has less room than the
+  padding it would need. The `Button`'s seven variants unchanged, its `…Pressed` token for the
+  press rather than a `Highlight` overlay, and the description turned down by opacity rather
+  than recoloured — the ground is a raw `color` as often as it is a token.
+
+  **No `childrenToString`** (R3), and it is the one component that legitimately skips it: a
+  bare string could belong to either face, and wrapping it into the collapsed one would build a
+  button that morphs into an empty card. A missing face warns in development.
+
+  `isExpanded` / `defaultExpanded` / `onExpandedChange`, controlled or not. `useMorphButton()`
+  publishes `toggle`, so a close control inside the card costs no state. The faces fade from
+  the **second** shape onwards — Reanimated runs an `entering` animation on the first mount as
+  well, and without that every button on a screen would fade in as the screen arrived.
+
+  `Chart` (Donut and Heatmap), `ComposedChart`, `LinkButton` and `BottomSheetInput` are dropped
+  on the roadmap in the same change.
+
+## 0.9.1-alpha.90
+
+### Patch Changes
+
+- c20ac35: Rename the floating-action compounds from `Fab.Menu` and `Fab.Discovery` to `FabMenu` and
+  `FabDiscovery`, and remove the `ListBox.Group` alias in favor of `ListBoxGroup`.
+
+## 0.9.1-alpha.89
+
+### Patch Changes
+
+- 8d1f9b1: Add the virtualized `List` component with themed compound rows and final-row-aware hairline separators.
+
+## 0.9.1-alpha.88
+
+### Patch Changes
+
+- c01ade0: Add the v1 Snackbar notification API, including a vertical `Snackbar.Stack` for displaying
+  several independently controlled messages without overlap.
+
+## 0.9.1-alpha.87
+
+### Patch Changes
+
+- 8396052: Rename the compound row container from List to ListBox and reduce the default `primary`
+  elevation so it sits closer to the page than a card.
+
+## 0.9.1-alpha.86
+
+### Patch Changes
+
+- f181310: feat(toggle-button): add exclusive ToggleButton.Group selection
+
+  `ToggleButton.Group` owns one selected value, with controlled and uncontrolled APIs. Its
+  members opt in through `value`, inherit the group appearance defaults, and remain usable at
+  any nesting depth through context.
+
+- 91cf010: feat(toggle-button): add an independent two-state action
+
+  `ToggleButton` follows the button's fixed-height scale and dot-notation composition while
+  owning or receiving a boolean selection. It exposes controlled and uncontrolled APIs,
+  publishes selected, pressed and disabled state to render children and custom slots, and
+  announces selection through `accessibilityState`.
+
+  Three variants provide filled, softly filled and content-only treatments. `primary` moves
+  from the neutral fill to the accent, `secondary` uses soft fills in both states, and
+  `ghost` stays transparent while its content changes to the accent. A raw `color` follows
+  through the uncached tint pass. `ToggleButton.Label` and `ToggleButton.Icon` inherit the
+  resolved selection colour, and icon-only controls keep the same missing-label warning as
+  `Button`.
+
+## 0.9.1-alpha.85
+
+### Patch Changes
+
+- 41daa14: fix(native): preserve `Fab.Discovery` target refs and backdrop dismissal while lifted
+- ec31e18: Add `Fab.Discovery` at `@xaui/native/fab`: the coach mark that says what a FAB is for. The target **is** the `Fab` rather than a copy of it — lifted into the portal at its own measured rectangle while the mark is up, so it draws above the disc, still presses, and never appears to move. The text is laid out to the chord of the disc at its own height rather than to its diameter.
+
+## 0.9.1-alpha.84
+
+### Patch Changes
+
+- 5b1f8db: `Scaffold` — Root · StatusBar · Navigator
+
+  P5.47, over `useAppearance` (P0.7b). The hook answered what an app's chrome needs from the
+  theme; this is that answer wired — the ground under every screen, the status bar over it,
+  and the five options the app's navigator is dressed with.
+
+  **It depends on no navigator, and on Expo least of all.** `Scaffold.Navigator` takes the
+  app's own navigator **as its child** and clones it with the theme's `screenOptions` merged
+  in. Those keys are React Navigation's spelling, declared structurally here as
+  `ScaffoldScreenOptions`, so Expo Router, a native stack, a drawer or a set of tabs are all
+  dressed by the same component and `@xaui/native` imports none of them — not a dependency,
+  not an optional peer, not a type import. Routing stays entirely the app's: nothing writes a
+  route, wraps a screen or touches what the navigator was configured with.
+
+  That is also why there is **no `asChild` on the slot**. The prop distinguishes "render
+  yourself" from "dress my element", and this slot has only the second mode: there is no
+  navigator XAUI could render in place of the app's.
+
+  **`mergeScreenOptions` is the one merge `mergeProps` cannot do.** That helper gives the
+  child the whole value of a key it declares — right for a `style` or a handler, wrong here:
+  an app writing `screenOptions={{ headerRight }}` means "add a button", not "drop the
+  theme's header". So the theme's options go under the navigator's own key by key, the three
+  style keys are flattened rather than replaced (a `headerStyle={{ height: 96 }}` keeps its
+  ground), and the function form stays a function, because React Navigation calls it per
+  route. It is the component's only pure function, and the only thing in it with a test.
+
+  **The variant is a ladder, not four emphases** — how much the header separates from the
+  page. `primary` is the accent bar, `secondary` the one `surface` draws, `tertiary` the
+  page's own ground closed by a hairline, and `ghost` that ground with no edge at all, which
+  is the default and what almost every app now wants.
+
+  The page's ground is `background` under every variant: a scaffold that repainted the page
+  per variant would be a theme rather than a chrome. And the two flat variants name no fill in
+  the recipe, which is what makes the tint follow the variant as it does everywhere else —
+  `<Scaffold color="#7c3aed">` is a brand title on the page's ground, exactly as a tinted
+  `ghost` button paints its label, while a tinted `secondary` is a brand bar with contrasted
+  ink.
+
+  `headerShadowVisible` is always `false`: the variant owns the header's edge, so the
+  navigator's own line never doubles the hairline `tertiary` draws.
+
+  The demo's `_layout.tsx` is now a `Scaffold` — its local `Shell` is deleted, and this app's
+  status bar and header are what the component resolved. `useAppearance` stays the answer for
+  a chrome the two slots do not reach.
+
+- 7e2b158: Add `useAppearance` and `appearanceFor` to `@xaui/native/theme`: the resolved theme read as app chrome — the mode, the ink the system bars need (which is its opposite), and the ground and ink for a navigator's header. The library still depends on nothing but React Native; this is what an app hands to `StatusBar`, `expo-status-bar` or React Navigation's `screenOptions` instead of re-deriving it.
+
+## 0.9.1-alpha.83
+
+### Patch Changes
+
+- c66bf88: Add `Fab.Menu` at `@xaui/native/fab`: a FAB that opens its two or three actions as separate pills. The trigger is never re-parented — it measures itself and the actions are anchored to that rectangle — so the FAB stays exactly where the layout put it, where the legacy `FabMenu` moved it into the portal's own corner.
+
+## 0.9.1-alpha.82
+
+### Patch Changes
+
+- 9763df7: Add ColorPicker at `@xaui/native/color-picker`: a `DummyField` that opens a `Dialog` over the Tailwind palette, or that palette on its own as a grid. Two layouts — `ramps`, one named row per hue, and `mosaic`, every colour touching in one block with no labels. Ships `TAILWIND_PALETTE` — the seventeen hues plus Zinc, at eight steps each — with `Group` and `Swatch` to compose a palette of your own.
+
+## 0.9.1-alpha.81
+
+### Patch Changes
+
+- bac69d0: Add SearchField at `@xaui/native/search-field`: a TextField with a built-in magnifier, a clear button and a search key, in two fills — a flat `primary` and a soft `secondary`, neither carrying the field shadow.
+
+## 0.9.1-alpha.80
+
+### Patch Changes
+
+- a61b873: Add PhoneNumberField with a country prefix, searchable country sheet, national number editing and E.164 output. `libphonenumber-js` is a new optional peer dependency, needed only by this component.
+
+## 0.9.1-alpha.79
+
+### Patch Changes
+
+- d042729: `DummyField` — Label · Field · Value · Indicator · Description · Error
+
+  P5.32, renamed from legacy `InputTrigger`.
+  - A pressable field container styled identically to a text input (`TextField`), but
+    non-editable and interactive through `PressableFeedback`.
+  - Renamed with the `*Field` suffix to match `TextField`, `MaskField`, `NumberField`, and
+    `TimeField`, avoiding name collisions with the `*.Trigger` slot vocabulary of overlay
+    compounds (`Select.Trigger`, `Popover.Trigger`, `Menu.Trigger`).
+  - Composable slot anatomy: `DummyField.Label`, `DummyField.Field`, `DummyField.Value`,
+    `DummyField.Indicator`, `DummyField.Description`, `DummyField.Error`.
+  - Text children of `DummyField.Field` are auto-wrapped in `DummyField.Value` (R3).
+  - Supports `labelPlacement="inside"` out of flow, four emphasis variants (`primary`,
+    `secondary`, `tertiary`, `ghost`), four sizes (`xs`, `sm`, `md`, `lg`), `isInvalid`,
+    `isDisabled`, raw tint `color`, and decorator padding inside `FieldGroup`.
+
+## 0.9.1-alpha.78
+
+### Patch Changes
+
+- 413b20f: `NumberStepper` — Track · Decrement · Value · Increment
+
+  P5.3e, net new. The increment pair the legacy `Stepper` is not — that one is a progress
+  indicator, and this is a control.
+
+  **It is not a `NumberField` without its box.** A field is typed into and this is not: no
+  keyboard, no caret, no parse, no `isInvalid`, and no bounds to apply late, because a value
+  that can only be pressed into existence is inside its range at every moment. What the two
+  share is the arithmetic and nothing else — which is why `parseNumber`, `formatNumber`,
+  `clampNumber` and `stepNumber` **move to `utils/number.ts`** in this change, at their second
+  use and not by anticipation (§2 bis). Both components re-export the six from their own
+  subpath, so a caller never reaches into `utils/`, which is private.
+
+  **The track is a slot, and it is written first.** Out of flow and painted behind everything
+  after it, so its place in the JSX is what puts it under the rest — `Slider.Track`'s
+  arrangement. The inset is the shape: the buttons are the control's full height and the pill
+  is shorter, so the two circles stand proud of the ground between them. A pill as tall as its
+  buttons is a segmented control, which says "pick one" rather than "more of it".
+
+  **The variant paints the buttons**, because they are what a finger is aimed at. Four
+  emphasis levels, no intents — a stepper reports nothing. `secondary` is the default and the
+  one departure from the vocabulary table: it names `surface` rather than `default`, because
+  a `default` button on a `defaultSoft` pill is two greys a shade apart and stops reading as
+  raised at all.
+
+  **Each button owns its own press state.** Two buttons on one control are two targets, so
+  pressing the plus must not light the minus — which is why the recipe has no `bgPressed` and
+  the press is the shared `PressableFeedback` treatment, the `CloseButton`'s arrangement. Each
+  goes flat and stops taking presses when the value has nowhere left to go, asked of the
+  **result** rather than of the bound.
+
+  **A bin at the floor is `children` and a ternary**, not a prop: the condition is a basket
+  row's rule rather than a stepper's, and a caller's own `onPress` replaces the step rather
+  than running beside it — removing the row is not also decrementing it.
+
+  `NumberStepper.Value` takes a function child for a unit or a plural, and writes an **em
+  dash** rather than a zero while nothing has been pressed.
+
+## 0.9.1-alpha.77
+
+### Patch Changes
+
+- 8009954: `RadialChart` — several quantities, each as far round its own ring as it has got
+
+  P5.34h, net new, no legacy equivalent. `@xaui/native/radial-chart`, and the family's sixth
+  figure.
+
+  **A ring is not a slice.** The `PieChart` splits one quantity into shares that add up to the
+  whole; this draws several quantities that have nothing to do with each other, each against a
+  target of its own. Calories, steps and minutes do not sum to anything, and a donut of the
+  three would be drawing a total nobody measured — which is why this is a component and not a
+  `PieChart` prop.
+
+  **The first row is the outermost ring**, and the palette walks the rows in that order.
+
+  **Each ring has its own target.** `maxKey` names the column that holds it, `maxValue` is one
+  target for all of them, and with neither the largest value in the data becomes the top — so
+  the biggest ring closes and the rest are read against it, the `RadarChart`'s rule for the
+  `RadarChart`'s reason.
+
+  **The track is the rest of the distance.** Without it a ring at a fifth is an arc floating
+  in space with nothing saying how far it had to go. Every track is drawn before every ring,
+  so a rounded cap is never cut by the ground of the one inside it.
+
+  **The rings thin rather than disappear.** The stroke is centred on the path, so a ring drawn
+  at the box's own radius loses its outer half to the canvas edge, and six series at the
+  default thickness ask for more room than a phone-sized figure has. `radialRings` clamps the
+  gap to half the room and divides what is left, with a test for each case — what gives is the
+  thickness, because the alternative is a chart that silently drops its innermost rings.
+
+  The arc is a **dash offset**, not a path rebuilt per value, which is what lets a ring be one
+  stroke with one rounded cap at each end; the quarter turn to twelve o'clock is on the
+  canvas's **wrapper**, `ProgressCircle`'s arrangement, because `Circle`'s own `rotation` prop
+  emits an invalid DOM property on web — and because it leaves the middle upright. The middle
+  itself is `children` in a `View` laid over the canvas, the `PieChart`'s arrangement.
+  `progressFraction` does the value-to-arc conversion, its third caller after the two
+  progress components.
+
+## 0.9.1-alpha.76
+
+### Patch Changes
+
+- 9512ee4: Fix a `FieldGroup` prefix or suffix taking no touches on a `primary` field, on Android
+
+  `primary` is the one `TextField` variant that lifts its field: `theme.shadows.field`, which
+  carries an `elevation`. A decorator is laid over that field out of flow and was ordered by
+  `zIndex` alone — and on Android an elevated sibling holds a _native_ Z that a React `zIndex`
+  does not outrank, so the field sat over the decorator in the order touches are dispatched and
+  the `TextInput` under it swallowed the press. The control was plainly visible and did nothing,
+  on `primary` and on no other variant: a `NumberField`'s stepper pair, a reveal toggle, a clear
+  button.
+
+  The decorator now carries an elevation of its own, one step above the field's own rather than
+  a number written beside it, so the two cannot drift apart. It draws no shadow: Android takes
+  an elevation shadow from a view's outline, and a decorator has no background to give it one.
+
+- f3c9d09: `NumberField` — Label · Decrement · Field · Increment · Description · Error
+
+  P5.3c, over the legacy `NumberInput`, and named the way `TextField` and `MaskField` are:
+  the roadmap row said `NumberInput`, and the rename that made `Input` into `TextField`
+  applies to it too.
+
+  **It is a `TextField`.** The root is that root, unchanged — the same recipe, the same four
+  variants, the same `size`, `radius`, `color`, `labelPlacement`, `isInvalid` and
+  `isDisabled` — and `Label`, `.Description` and `.Error` **are** the `TextField`'s slots,
+  re-exported rather than wrapped. Only the field differs, by reading a number out of what is
+  typed into it. The `MaskField`'s arrangement exactly.
+
+  **Two representations, and the caret is what swaps them.** Out of the field the value is
+  written by `Intl`, with `formatOptions` passed through untouched — a currency, a unit, a
+  fixed number of decimals. Into it, everything that is not a digit, a sign or the decimal
+  mark is **dropped rather than refused**: the value the caret lands in is grouped, and
+  rejecting its own separators would make the first keystroke clear the box. On the way in the
+  value is rewritten plainly, so nobody types a euro sign back in. A full stop passes as the
+  decimal mark wherever the locale is not using it to group, so `1.5` is one and a half in
+  `fr-FR` and `1.234` is still a thousand-odd in `de-DE`.
+
+  **The bounds land when the reader leaves, not while they type.** `min={10}` and a reader on
+  their way to `15` types a `1` first; clamping that would take the keyboard away from them.
+  Until the field is left `onValueChange` reports what is actually in the box, and the clamp
+  falls on blur and on every press of a stepper. The value is `number | null` — `null`, never
+  `NaN`, because "not a number yet" is a state and `NaN` is a value that propagates.
+
+  **The steppers are `FieldGroup` decorators**, like `TimeField.Period`: that is what lays a
+  control over a field and measures it, so the box stays the `TextInput` itself.
+  `.Decrement` takes the leading edge and `.Increment` the trailing one, because the value
+  sits between them. Each goes flat and stops taking presses when it has nowhere left to go —
+  asked of the **result** rather than of the bound, so a value half a step short of the
+  ceiling can still reach it. With no children each draws its own mark out of one bar, or two
+  a quarter turn apart, the close button's construction, so the field works in a project that
+  has installed no icon set.
+
+  The engine is four pure functions with a test each — `parseNumber`, `formatNumber`,
+  `clampNumber`, `stepNumber` — re-exported from the subpath for a caller building a stepper
+  of their own. `stepNumber` rounds to the precision of the numbers that built the value, the
+  `Slider`'s rounding for the `Slider`'s reason: three steps of a tenth are `0.3` and not
+  `0.30000000000000004`.
+
+## 0.9.1-alpha.75
+
+### Patch Changes
+
+- 38584ee: feat(range-calendar, date-range-picker): a month that takes two days
+
+  `RangeCalendar` is a `Calendar` — the same root, and five of its seven slots re-exported
+  rather than wrapped. Only the day cell differs, and only by having a band behind it, which is
+  possible because `Calendar.Grid` takes a function child.
+
+  Three presses and not two: a range already chosen starts a new one, a day before the start
+  becomes the start rather than a backwards end, and a one-day range is allowed.
+
+  `DateRangePicker` puts that month behind a `Select`'s trigger, in a sheet that closes on the
+  **second** end only — a period is two decisions.
+
+## 0.9.1-alpha.74
+
+### Patch Changes
+
+- b27e2c7: feat(date-time-picker): a field that opens a month, and then a clock
+
+  `DateTimePicker` owns nothing: the field is a `Select`'s trigger, the two steps are a `Tabs`,
+  the month is a `Calendar` and the dial is a `TimePicker` — four components rendered as
+  themselves, and no recipe of its own.
+
+  Two steps rather than two fields, because a moment is one value and a calendar and a clock
+  will not fit on a phone together. Each half keeps the other, so the value is one moment being
+  narrowed rather than two being collected.
+
+  `TimePicker.Indicator` now reads `IconContext` rather than its own picker's context, which is
+  what lets another field render it.
+
+## 0.9.1-alpha.73
+
+### Patch Changes
+
+- 133271c: feat(table): rows and columns, with a shell round them
+
+  `Table` is three nodes and each earns its place: the shell clips and does not move, the
+  scroll container moves, and the content inside it is allowed to be wider than the shell.
+  Widths are declared by the column and read by position, so a cell and its column never name
+  each other.
+
+  The table never reorders anything — sorting reports the press and the caller sorts their own
+  collection — and the third press clears the sort, so there is a way back to the table's own
+  order. `Table.Body` takes `asChild` rather than a `virtualized` prop: a table of ten thousand
+  rows is a `FlatList`.
+
+  `utils/selection.ts` carries the selection and sort arithmetic, tested — including the
+  half-filled header box, the disabled row it must not count, and the keys chosen on another
+  page it must not clear.
+
+## 0.9.1-alpha.72
+
+### Patch Changes
+
+- 8ed01e0: feat(timeline): what happened, in order, with a line through it
+
+  `Timeline` has no `gap` on its root and cannot have one: the rail runs the full height of its
+  entry, so a gap would be a break in the line. `density` is the content's bottom padding, which
+  is the one measurement that has to be in the right place.
+
+  The rail is two halves rather than one line, which is what makes `align` work: below the
+  marker both are a share of the height so it centres, above it the upper half is a fixed inset
+  so it sits level with the title's first line. `status` names what happened rather than how
+  loud it is, and a tint reaches `default` and `current` only — a timeline's greens and reds
+  mean succeeded and failed.
+
+- cce2d57: `Timeline` — the row is built on one line
+
+  The dot, the time and the title were each placed by their own arithmetic, so none of them
+  met. Everything now hangs off a single number, `line` — the middle of the title's first line,
+  which is the height an entry reads at.
+
+  **The insets were written by hand and drifted.** `inset` was a per-size constant (5 / 7 / 9)
+  rather than the value it stands for, so the dot's centre landed at 13 against a line at 12 at
+  `md`, and at 17 against 14 at `lg`. `timelineInset(line, height)` derives it now, from the
+  title's own `lineHeight`, which means a theme that changes `lineHeights` keeps the column
+  together instead of pulling it apart.
+
+  **`Timeline.Leading` was never on the line at all.** A cell in a row stretches, and a
+  stretched `Text` draws at the top of it — so a time, set smaller than the title it labels, sat
+  four points above both the dot and the words. It takes the same line as the marker now: an
+  inset on a `start` entry, `alignSelf: 'center'` on a `center` one. It also sets
+  `fontVariant: ['tabular-nums']`, because right-aligning proportional figures still leaves
+  `11:06` and `10:43` starting in different places, and times that each begin somewhere else
+  read ragged however straight their right edge is.
+
+  **An end segment is now drawn, just not painted.** `Timeline.Connector` returned `null` for
+  the last entry's lower half and a bare `View` for the first entry's upper half, and the
+  marker's place in a rail is decided by what is above and below it — so on `center` the first
+  dot jumped to the top of its entry and the last one fell to the bottom, an entry's height of
+  error. Only the colour goes now; the flex stays.
+
+  **`Timeline.Rail` takes `marker`** — how tall the marker it carries is, when it is not the
+  dot. The upper half of the line is a height, and the only height a rail can work out on its
+  own is the dot's, so a rail told nothing places a 28pt circled icon eight points below the
+  title. The number is republished into the context rather than passed to the connectors, which
+  are children the rail does not own (R1). It stays out of the recipe's selection, so it cannot
+  reach the style cache.
+
+  **The rail's column is a `minWidth` and the entry is a row with a `gap`.** A composed marker
+  wider than the dot used to spill out of a fixed 24pt column and land on the words; the three
+  columns had no gutter between them at all. The gutter cannot be padding inside the rail — the
+  rail's own slack is what centres the line in it, so widening it moves the line rather than the
+  text.
+
+## 0.9.1-alpha.71
+
+### Patch Changes
+
+- 228ea85: feat(flip-card): a card with two faces, and a turn between them
+
+  `FlipCard` paints nothing and has no recipe: what turns is two faces the caller supplied, and
+  each is usually a `Card` with its own variant and radius. The front decides how big the card
+  is and the back fills it out of flow.
+
+  The two faces stay a half turn apart at every moment, which with a hidden backface leaves
+  exactly one of them drawn — `utils/flip.ts` is that relationship, tested, including the case
+  it exists to prevent.
+
+## 0.9.1-alpha.70
+
+### Patch Changes
+
+- 328e6db: feat(fab): the one thing to do on a screen, floating over it
+
+  `Fab` shares the `Button`'s variant table token for token and not its recipe: a button is a
+  row of text with padding, and this is a fixed square that carries a shadow at rest. Round or
+  extended, three sizes measured from Material and the legacy, and a `placement` that pins it
+  to the bottom in start/centre/end without a left or a right anywhere (R13).
+
+  `containsElementOfType` moves from `button.utils.ts` to `utils/children.ts` — its second use
+  is what promotes it (§2 bis) — and gains tests, including the one that says it looks no
+  deeper than the direct children.
+
+## 0.9.1-alpha.69
+
+### Patch Changes
+
+- e0b3779: feat(empty-state): what is on the screen when there is nothing on the screen
+
+  `EmptyState` is a header — a mark, a title, a sentence — and an optional row of actions, as
+  two roots rather than one column: the gap inside the block is not the gap above the buttons,
+  and two gaps need two roots (R4).
+
+  `plain` draws nothing and is the default, because most empty states fill a screen and a
+  screen already has a ground. `outlined` is the one that is not a fill: a dashed edge round
+  the space the content would occupy, which is what a drop target wants.
+
+## 0.9.1-alpha.68
+
+### Patch Changes
+
+- 13acb91: feat(time-field): a time, typed
+
+  `TimeField` is the `DateField`'s sibling: the same `TextField` root, the same three text
+  slots, and one representation — the digits, in order — that `maskTime` is the only thing to
+  turn into text. The hour cycle comes out of `Intl`.
+
+  The period is a toggle rather than two letters typed into the box, because the keyboard a
+  time field opens is a number pad and cannot produce them. `TimeField.Period` renders nothing
+  on a twenty-four-hour field, so the same JSX serves both.
+
+- e218df1: feat(time-picker): a field that opens a clock
+
+  `TimePicker`'s trigger **is** a `Select`'s trigger and its panel is a `BottomSheet` — a
+  clock face is close to three hundred points square, which beside a field on a phone is the
+  screen. What it adds is the dial: two rings on a twenty-four hour face, sixty marks and
+  twelve labels on the minutes, and the hours handing over to the minutes on the first press.
+
+  The geometry is `utils/clock.ts`, tested — the quarter turn that puts twelve at the top, the
+  sign that keeps it above the centre in coordinates that grow downwards, and the conversion
+  from `atan2`'s own convention.
+
+## 0.9.1-alpha.67
+
+### Patch Changes
+
+- 3a5fd0e: feat(mask-field): a value typed into a shape
+
+  `MaskField` is the `TextField` with its box masked: the same root, the same variants and
+  sizes, the same label, description and error slots, and only the field differs. There is
+  one representation — the accepted characters, in order — and `maskInput` is the only thing
+  that turns them into text, which is what makes the field survive a paste, a punctuation
+  keyboard and a backspace over a separator.
+
+  `mask` is a preset or a pattern. `'date'`, `'time'`, `'datetime'` and `'credit-card'` carry
+  their own rules — the date order and separator from the locale through `Intl`, and a part
+  clamped as it completes and never raised. A date that cannot exist stays out of the box the
+  moment the month is known. Anything else is a pattern string: `#` a digit, `A` a letter,
+  `*` either, every other character a literal put back in as the parts fill.
+
+  The value is the masked string. `convert` is the one plug that turns it into a value of
+  your own — `parseMaskedDate` and `parseMaskedTime` are exported for the `date` and `time`
+  shapes, and `MASK_FIELD_MASKS` lists the presets.
+
+  `useOptionalFieldGroup` joins `useFieldGroup`, so a field can leave a decorator its room
+  without requiring one — the shape `useOptionalChart` already has.
+
+## 0.9.1-alpha.66
+
+### Patch Changes
+
+- d2ce35e: feat(carousel): a series of slides, and the controls to move between them
+
+  `Carousel` in the v1 shape: the slides are children rather than a `data` array and a
+  `renderItem`, and every control — the arrows, the dots, the counter, the thumbnails — is a
+  slot rather than a `showX` prop.
+
+  A slide's width comes from the measured track through `carouselMetrics`, so `itemsPerView`
+  and `peek` divide it rather than a number of points that is wrong on the next screen size.
+  The indicator follows the drag frame by frame on the UI thread, and the settled index is
+  derived from the same offset — which is also what makes it work under a wheel or a trackpad.
+
+  An arrow, a dot or an autoplay tick moves the track on a hand-run ease-out tween (~420ms,
+  fast off the press and braking onto the slide) rather than `scrollTo({ animated: true })`,
+  whose curve is the platform's and close to linear.
+
+## 0.9.1-alpha.65
+
+### Patch Changes
+
+- e6d8dfb: feat(widget): a card held in a soft frame
+
+  `Widget` is the frame a figure, a table or a list is shown in: a quiet `defaultSoft` ground
+  with the header and footer sitting straight on it, one raised `surface` card for the thing
+  itself, and a footer line for when it was last updated. It has **one look** — no `variant`,
+  no primary/secondary/tertiary. `size` moves the padding, the gaps and the corner; `radius`
+  moves the frame's corner; `isElevated` (on by default) lifts the card off the frame.
+
+  The card's corner is derived from the frame's — the outer radius less the padding between
+  them — so the arcs nest instead of reading as a sticker laid on the frame.
+
+  `Chart.Legend` now works outside a `<Chart>`, which is what a widget's header needs: the
+  title and the legend sit above the card and the figure sits inside it.
+
+## 0.9.1-alpha.64
+
+### Patch Changes
+
+- 1a5bc45: feat(chart): `Chart` — the card a figure is read on
+
+  A figure on a screen is a card with words around it, and those words are a title, a subtitle,
+  a number and a legend. Every one of them is a `Text` that should take the theme's type rather
+  than a prop on a figure — so they are slots: `Chart.Header`, `Chart.Heading`, `Chart.Title`,
+  `Chart.Description`, `Chart.Value`, `Chart.Legend`, `Chart.LegendItem`, `Chart.Footer`.
+
+  **The frame owns the appearance and the figure takes it.** `variant`, `size` and `color` are
+  handed down, so the legend's dots and the figure's series are the same colours in the same
+  order without either being told twice — which is the whole reason `Chart.Legend` can exist
+  rather than being a prop on a figure. A figure that names its own still wins, and one outside
+  a frame is unchanged.
+
+  `seriesCount` is the one number the frame asks for: it cannot count the figure's series,
+  because it has not rendered the figure and the keys are that figure's props, and a legend
+  needs the palette walked to the right length or its third dot is the wrong colour.
+
+  **The labels stay the caller's.** What a series is called is a sentence in their language;
+  which colour it got is arithmetic the palette already did. `labels` is the short form and
+  children are the long one — a legend carrying a value beside each name, which is what a donut
+  wants under it.
+
+  **Optional in both directions.** A figure on its own draws no ground and belongs in whatever
+  card the caller has. A frame with no figure in it is a complete use too: a card with a title,
+  a value and a footer is what a chart looks like while its data is loading, or when there is
+  none.
+
+  `Chart.Heading` exists for `ProgressBar.Header`'s reason — the gap between a title and its
+  subtitle is a different gap from the one between that block and the legend beside it, and two
+  gaps belong to two roots. The recipe's `root` slot is now the card and the plot's box is
+  `plot`; the series ink moves to a slot of its own rather than riding on the root's `color`.
+
+## 0.9.1-alpha.63
+
+### Patch Changes
+
+- 8bbed5d: feat(charts): `LineChart`, `AreaChart`, `BarChart`, `PieChart` and `RadarChart` — drawn here
+
+  P5.34, P5.34b, P5.34e, P5.34f and P5.34g. **Nothing is imported to draw them.**
+  `react-native-svg` is already an optional peer — the `Select`'s check and the `Icon`'s
+  chevron use it — and everything above it is this library's: the scales, the paths, the
+  palette.
+
+  That is not an aesthetic preference. **A chart library is a second design system**: its own
+  idea of a colour, its own appearance blob, its own units, and an API that is the one place
+  `variant` and `color` cannot reach. Wrapping one means either exposing that blob — which is
+  `customAppearance`, the thing R2 removed — or fighting it. The alternative considered was a
+  native graphics engine as a peer dependency, which is a great deal of install for five
+  figures.
+
+  **And the maths becomes tests.** `chart-scale`, `chart-path` and `chart-palette` are 106
+  cases: a curve that must never dip below its data, an axis that must never label a value
+  above the tallest bar, a bar whose corner must not exceed its own height, a ramp that must
+  not drift off its hue. Each of those is a test rather than a screenshot someone has to
+  remember to look at — and two of them were bugs the tests found before the demo did.
+
+  The API is chartkit's shape — rows of objects, `xKey`, a key per series — with `yKeys` plural,
+  because a chart with two series is the common case and not an escape hatch. **The series are
+  props, not children**, and that is the one place this family parts company with the rest of
+  the library: a line is not a component a caller composes, it is a column of their data. What
+  composition there is lives on `ChartPlot`, which takes a render function.
+
+  **A shade per series, not a colour per series.** The palette is walked out of one colour in
+  OKLab lightness, and **reduces chroma to stay in gamut rather than clamping channels** —
+  clamping gives away the hue, and a blue drifts several degrees towards cyan across a ramp.
+  Shades of one colour say "parts of a whole" where a rainbow says "unrelated things", and it
+  is the only scheme that survives a caller changing the accent.
+
+  `LineChart`, `AreaChart` and `BarChart` are three files over one `ChartPlot`, the way the
+  `Autocomplete` is a few files over `selectRecipe`. It owns the frame, the grid, the axes and
+  both scales — **point spacing for a line, band spacing for a bar**, because a line inset by
+  half a slot reads as cut off and a bar on the edge is half outside the plot. `PieChart` and
+  `RadarChart` are square rather than framed, and take the palette and the ink to draw their
+  own geometry.
+
+  The axis is honest: `niceScale` picks a step from 1, 2, 2.5, 5 or 10 times a power of ten and
+  then **widens the domain** to a multiple of it, rather than squeezing ticks into the data's
+  own range — which is what produces an axis labelled 3.33, and how a top tick ends up below
+  the tallest bar.
+
+  The curve is Fritsch–Carlson: flat at every turning point, capped at three times the
+  neighbouring slope elsewhere. A midpoint cubic is four lines and overshoots — two high
+  readings either side of a low one bow the curve below the low one, and on an area chart that
+  is ink under the axis.
+
+  No chart paints its own ground; the card around it and the legend beside it are the caller's.
+  `tsup`'s DTS pass gets a larger heap, because the generic chart props push the default over.
+
+## 0.9.1-alpha.62
+
+### Patch Changes
+
+- 855dfbc: feat(date-picker): a field that opens a month
+
+  P5.26, and it owns almost nothing — which is the design. The trigger **is** a `Select`'s
+  trigger, the panel **is** a `Select`'s panel, and the grid **is** a `Calendar`, all three by
+  construction rather than by resemblance: a select and a date field in one form cannot drift
+  apart, and a calendar in a picker cannot differ from one on a page.
+
+  What it adds is the wiring, and every piece of it is a place two things could otherwise
+  disagree: the day read into the field through `Intl`, a panel that closes when a day is
+  pressed, and **one** set of bounds that the field, the grid and the chevrons all read.
+  `DatePicker.Calendar` takes the `Calendar`'s props _minus_ the ones the picker already owns,
+  because two sources for one of them would be two answers to one question.
+
+  **The panel is as wide as the grid, not as wide as the field.** A list is as wide as the
+  field that opens it because its rows are that field's answers; a month grid is seven columns
+  of a fixed cell, and squeezing it into a narrow field would crush the cells or clip the week.
+  So `width` defaults to `content-fit`, and the calendar is given an explicit `7 × cell` read
+  off the `Calendar`'s own ladder — a grid of seven percentage columns inside a box with no
+  width of its own measures zero.
+
+  **The field's level is not the calendar's.** A `ghost` field over a `primary` calendar is the
+  ordinary case — the trigger is quiet on the form and the chosen day is not — so `variant`
+  dresses the field and `calendarVariant` dresses the grid, while `color` reaches both.
+
+  **The month on screen stays the calendar's own state.** Opening the panel a second time after
+  paging leaves you where you were, and choosing a day in another month still works.
+
+  `closeOnSelect` is on by default: a picker whose only job is one date has been answered the
+  moment a day is pressed. Off, the caller writes their own footer under the grid through
+  `DatePicker.Calendar`'s children.
+
+  `calendarRecipe`'s size table is now exported for the width above, alongside the `List`'s,
+  which the `ListGroup` exports for its header inset — same reason, same shape.
+
+## 0.9.1-alpha.61
+
+### Patch Changes
+
+- ab573da: feat(agenda-calendar): one week, and what is on it
+
+  P5.26c. **The row of marks is the whole difference**: a strip of seven numbers is a date
+  picker, and a strip of seven numbers with marks under some of them is an agenda.
+
+  **The cells are the `Calendar`'s own style**, resolved through `calendarRecipe` rather than a
+  second table — a strip and a month showing two different discs for the same chosen day is
+  what that sharing exists to prevent, and the two sit one above the other the moment a caller
+  expands one into the other.
+
+  **It is a component rather than a `layout` prop on the `Calendar` because it steps by
+  weeks.** A different unit means different state under it, and `layout="week"` would have been
+  a prop that changes what another prop means. Everything genuinely shared is shared; the API
+  is not, because the two do not do the same thing.
+
+  **No day is ever "outside".** All seven are on screen and all seven are choosable — a strip
+  that greyed out the two days belonging to next month would be greying out days it is showing.
+  Only the bounds make a day inert, and the chevrons go dead when the week they would reach has
+  none left.
+
+  **Today moves the strip; it does not choose today.** The two are one press apart, and a
+  button that quietly answered the question would be a button you cannot use to look. It goes
+  dead — and now reads dead — while this week is already the one showing.
+
+  `events` is a list read by day and turned into a set once per change, rather than a scan per
+  cell. The title names the month of the week's **middle** day, which is always the majority
+  month of a seven-day window and the only rule that does not call a week with six September
+  days in it "August".
+
+## 0.9.1-alpha.60
+
+### Patch Changes
+
+- c459084: feat(calendar): a month, and the day chosen in it
+
+  P5.26b, and the first of the date family: the `DatePicker`, the `AgendaCalendar`, the
+  `RangeCalendar` and the `DateRangePicker` are all this grid with something around it.
+
+  **The month on screen is state of its own**, separate from the chosen day. Paging through
+  months is not choosing: a calendar that jumped back to the chosen month every time you looked
+  at the next one would be unusable, and one that chose a day because you paged past it would
+  be worse.
+
+  **The grid is always six weeks**, never five for a short month — a grid that changed height
+  between March and April would move everything under it twice a year. Days from the months
+  either side fill the ends, muted but still choosable: a calendar that refused the 1st of next
+  month would be refusing a date you can see.
+
+  **`Calendar.Grid` takes a function**, and it is the one place in this library that does.
+  Forty-two cells are generated from a month rather than written, so there is nothing to
+  compose against — `asChild` merges into one element and a slot list cannot enumerate a month.
+  It stays two lines at the call site because **a day is a date plus the calendar around it**:
+  `Calendar.Day` reads chosen, outside-the-month, out-of-bounds and today off its own `date`.
+
+  The chosen day is `bgSelected` / `fgSelected` rather than a variant axis — the `Checkbox`'s
+  roles for the `Checkbox`'s reason: forty-two cells share one resolution, and a raw `color`
+  written as an axis would stop reaching the chosen day the moment it became the chosen one.
+
+  **The chevrons go dead at the bounds.** A step that would land on a month with no selectable
+  day has nothing to show, and a chevron that stays lit while it stops working is the worst of
+  the three options. Bounds compare by **day, not by instant**: a `maxValue` written as
+  `new Date()` carries the current time, and an instant comparison would refuse the rest of
+  today.
+
+  The week starts where the locale says. `Intl.Locale`'s week info answers it properly where it
+  exists — Saturday-first locales are real, and a hand-kept list of Monday-first languages has
+  never included them — with that list as the fallback, not the source.
+
+  `utils/dates.ts` is new and tested, twenty-eight cases. Two of its functions exist because
+  the obvious version is wrong: **`addMonths` clamps to the end of the target month**, since
+  January the 31st plus a month is the 31st of February and `Date` rolls that to the 3rd of
+  March; and **`addDays` goes through the day-of-month rather than through milliseconds**,
+  since a day is not always 86 400 seconds and adding that many across a daylight-saving
+  boundary lands an hour into the day before.
+
+## 0.9.1-alpha.59
+
+### Patch Changes
+
+- 8763184: A WheelPicker reads at a glance again, and turns under a parent scroll:
+
+  The row at the middle is **bold**, on top of the band's colour — weight now says which row
+  is chosen together with where it sits, and unfocused rows hold the body weight. The fade and
+  lean away from the middle were doing that alone, and a still wheel next to a still list read
+  as the same thing.
+
+  The columns set `nestedScrollEnabled`, because a wheel most often sits inside a scroll of its
+  own — on Android a vertical `ScrollView` under a vertical `ScrollView` keeps the gesture for
+  itself unless the child asks, and a wheel that will not turn is not a wheel.
+
+  Rows are a size step taller — `sm` 36, `md` 40 — so the band reads as a target you aim at
+  rather than a hairline, and a turning row has room to lean into. `lg` keeps its 44.
+
+  `ghost` and `tertiary` rows name `accentSoftForeground` rather than `foreground`, and
+  `secondary`'s band is `defaultSoft`: under a tint, a bare `foreground` resolves to the tint
+  itself, which painted the row the colour of the band it sits on.
+
+## 0.9.1-alpha.58
+
+### Patch Changes
+
+- 893f056: feat(combobox): a field you type in, over a list you must choose from
+
+  The `Autocomplete` with the search moved into the trigger. In an autocomplete the control
+  shows the chosen row and you type in a box inside the panel; here the field **is** the
+  trigger, on the line where a `TextField` would be, rather than a button that opens a search.
+  That is the ARIA combobox, and it is the shape a form wants.
+
+  **The list is closed.** What is typed narrows the rows and never becomes the value: the
+  query goes with the panel, so closing without choosing puts the chosen row's label back in
+  the field. A combobox that kept the half-typed word would be a text field with a dropdown
+  attached, which is a real control and a different one.
+
+  **The panel, the rows and the empty line are the `Autocomplete`'s own objects**, not copies
+  — `Combobox.Content` _is_ `Autocomplete.Content`. A row is a row whichever field opened it,
+  and a second set would drift into a form with two panels half a shade apart. The
+  load-bearing half of that: `Autocomplete.Content` tells its children apart **by identity**,
+  so a `Combobox.Item` that were a different component would be sorted into "not a row", would
+  never be filtered, and would never register its label. The root is that component's too,
+  wrapped rather than aliased — hanging slots off the autocomplete's own function would
+  overwrite `Autocomplete.Trigger` for everyone.
+
+  Three slots are this component's own, and each is what it is for a reason. **The trigger is
+  a `View`, not a `Pressable`**: the thing you press is the input inside it, and a pressable
+  wrapper around a text field is a second target laid over the one that already takes the tap.
+  **The input fills the box** and takes the trigger's own text style, so the control does not
+  change size as you type. **The chevron is a control** where the autocomplete's is a
+  decoration — that trigger is itself pressable, this one is a field that raises a keyboard,
+  so the way into the list without typing has to be the chevron.
+
+  `filterItems` and `matchesQuery` move to `utils/filter-items.ts` beside `collectItemLabels`,
+  which was promoted for the same pair one component earlier. §2 bis: promotion at the second
+  use.
+
+- 7074a3b: feat(wheel-picker): a column of options you turn, and the one at the middle is the answer
+
+  P5.25b, and it comes before the three pickers that need it: `WheelDatePicker`,
+  `WheelTimePicker` and `WheelDateTimePicker` are all this component with a different set of
+  columns and the arithmetic to fill them.
+
+  **The column has the value, not the wheel.** A time is two columns and a date is three, so a
+  wheel with a single value would be a wheel that can only ever be one of them.
+
+  **The scroll is the control.** There is no press to select: the row at the middle _is_ the
+  choice, so a column snaps to a row and reports whichever one it stopped at. That is what
+  makes this a wheel rather than a short list, and why the rows are `Text` nodes — a row you
+  could tap would be a second way to choose that the band does not describe.
+
+  **It reports at rest, never while turning.** One flick passes nine rows, and every one of
+  them is a value some caller would have written to a form. `onScrollEndDrag` covers a drag
+  that stops without momentum and `onMomentumScrollEnd` covers the flick; both are needed, and
+  neither fires for the other.
+
+  **The rows fade and lean away from the middle**, read off the column's scroll offset on the
+  UI thread through a shared value. That is not decoration: it is the whole of what says this
+  is a drum with more of it out of sight rather than a list that happens to have stopped. A
+  position crossing the bridge every frame would animate at the rate React re-renders rather
+  than at the rate the finger moves.
+
+  **The band is the root's**, one shape across every column rather than one per column — two
+  columns at different widths would show the seam between two bands — and it takes no touch,
+  so it marks the middle without stopping the wheel under it.
+
+  `visibleCount` is **forced odd**, because the whole control is built on there being a middle
+  row, and rounded up rather than down: a caller who asked for four wanted more than three.
+  It is raw rather than a token, like the `ProgressCircle`'s `radius`, so the wheel's height
+  is applied after the cached recipe.
+
+  **No `loop`.** An endless drum is a list with no end, faked by rewriting the data around the
+  finger and jumping the offset back when it drifts. That belongs to the caller's data, where
+  the caller knows how many months there are; here it would be a component quietly
+  renumbering its own children.
+
+  Four levels and no intent — what the variant names is the band. `secondary` names
+  `defaultForeground` rather than `foreground`, and the difference is only visible under a
+  tint: `resolveTint` reads the role off the token's own name, a bare `foreground` maps to the
+  tint itself, and a band painted the same colour as the row on it is a row you cannot read.
+  That one was caught on the demo screen, which is what the demo screen is for.
+
+  The first placement is `onContentSizeChange` rather than the effect that follows an outside
+  change: `contentOffset` only takes on iOS, so on Android and web the wheel would open
+  showing its first row while reporting its fifth — wrong on two platforms out of three.
+
+## 0.9.1-alpha.57
+
+### Patch Changes
+
+- c34831d: feat(list): `ListGroup` — the sectioned list
+
+  The settings screen: sections side by side, each under what its rows have in common, with
+  the sentence underneath that says what the switch actually does.
+
+  **It is a group of `List`s, not a `List` with headings in it.** A list draws its container
+  and its separators **between its own children**, so a heading placed among the rows would
+  get a hairline above and below it and would sit inside the card it names. Sections are
+  containers side by side, and a heading belongs outside them.
+
+  **`ListGroup.Section` exists because proximity is the only thing grouping a header with its
+  list** — nothing draws a box around a section. One gap on the group would put a heading
+  exactly as far from its own rows as from the section above it, so there are two gaps, on the
+  two roots that own them (R4). That ratio is the whole design.
+
+  The header is inset by the **row's own padding**, read off the `List`'s size table rather
+  than guessed, so the heading and the text it heads share a left edge; the footer is inset
+  with it. `ListGroup.Header` carries `accessibilityRole="header"`, which is what lets a
+  screen reader jump between sections. The footer carries none — a footnote is prose.
+
+  `variant`, `size`, `radius`, `color` and `hasSeparator` are handed down as **defaults**, and
+  a list that names its own wins: a settings screen is uniform, and setting `variant` on five
+  lists is five chances to set it differently. `isDisabled` is the one that is not a default.
+  A `List` outside any group is unchanged; `hasSeparator` loses its literal default so that an
+  unset prop can still reach the group's.
+
+  Nothing is walked and nothing is counted: the group publishes two gaps and a type scale, the
+  sections are ordinary children, and one can be built out of something that is not a list.
+
+  For the record, since the name is theirs: HeroUI's `ListGroup` **is our `List`** — a Surface
+  container with Item · ItemPrefix · ItemContent · ItemTitle · ItemDescription · ItemSuffix,
+  slot for slot. What ships here under that name is the thing neither of us had.
+
+## 0.9.1-alpha.56
+
+### Patch Changes
+
+- c251f16: Emit declarations with `tsc`, not one `rollup-plugin-dts` worker
+
+  `tsup`'s `dts` rolls all thirty-five entry points up in a single worker that holds the
+  package's whole type graph at once — every component's props, and `react-native`'s `.d.ts`
+  under them. It crossed Node's default 4288 MB heap, and the worker does not fail
+  gracefully: the JS build reports success, then `ERR_WORKER_OUT_OF_MEMORY` takes the process
+  down with an error that names no file. `main` went red on its own, and every CI job that
+  runs `@xaui/native#build` as a turbo dependency — Pack Uniqueness, ESLint, Type Check,
+  Vitest — went down with it. The stopgap raised the ceiling with
+  `NODE_OPTIONS=--max-old-space-size=6144`; the package gains roughly a component per branch,
+  so the ceiling was going to be hit again.
+
+  Declarations now come from `tsc --emitDeclarationOnly` — a plain file-by-file emit with no
+  rollup pass and no worker to run out of heap — and `tooling/dual-dts` mirrors each emitted
+  `.d.ts` to the `.d.cts` that the `require` half of the `exports` map points at. The
+  `--max-old-space-size` flag is gone from the `build` script.
+
+  What a consumer sees: `dist` now carries a declaration file for every source module rather
+  than one bundled `.d.ts` per entry point. Both `import` and `require` type conditions still
+  resolve to a real file on every subpath, `pnpm pack:check` still passes, and `pnpm build`
+  succeeds on a default heap.
+
+## 0.9.1-alpha.55
+
+### Patch Changes
+
+- 5c63340: feat(progress): `ProgressBar` and `ProgressCircle` — how far along something is
+
+  The `Stepper` shipped announcing `progressbar` to a screen reader with no visual progress
+  component anywhere beside it. These are the two, and they are two rather than one with a
+  `shape` prop because they share no geometry at all: a bar is a `View` that grows, and a ring
+  is an SVG path whose dash offset moves. What they do share — the five variants, the clamped
+  range, `formatOptions`, the 240ms — they share to the number.
+
+  **There is no `isIndeterminate` on either.** An unknown duration is a `Spinner`. That is the
+  split the legacy `Indicator` was two components pretending to be one, and a bar that runs a
+  loop across itself is a spinner drawn as a line.
+
+  **The bar's fill is a child of the rail, not a layer over it.** It grows to a percentage of
+  the width and the rail clips it, so one `radius` rounds both — an overlay would have needed
+  a corner of its own and would have got it wrong at 100%. Its `size` is the rail's thickness
+  and never its width, for the `Button`'s reason.
+
+  **The circle's `radius` is a number**, and it is the one place in this library where the
+  word means what it means in geometry: a circle has no corner to round. It is raw, so it sits
+  outside the style cache and wins over `size` the way a raw `color` wins over a variant's
+  token — R6 keeps the ladder a vocabulary, and the escape hatch gets its own name. So does
+  `strokeWidth`, and both are clamped: a stroke thicker than the ring is wide draws a path
+  with a negative radius, which renders nothing on one platform with no error anywhere.
+
+  The arc is a **dash offset on one path** rather than a shape rebuilt per value, which is
+  what keeps one rounded cap at each end while it sweeps, and it moves as an animated _prop_
+  rather than an animated style because `strokeDashoffset` is an SVG attribute. The turn to
+  twelve o'clock is on the wrapper: `Circle`'s own `originX` / `originY` / `rotation` emit an
+  invalid DOM property on web.
+
+  `ProgressCircle.Indicator` is the first file in the library to import `react-native-svg`,
+  which stays an optional peer — the component is its own subpath export, so a project that
+  never renders a ring never pays for it.
+
+  Five variants, not ten. `tertiary` and `ghost` are gone because a fill with no fill is not a
+  progress bar, and the `*-soft` pairs because the rail already is the soft half of every one
+  of them. The rail is the same neutral under all five: it is the room left to go, and that is
+  not success, warning or danger.
+
+  `utils/progress.ts` is new and tested: the clamp, and the formatting. **Which number
+  `formatOptions` formats follows the style** — the fraction for a percentage, the value for
+  anything else — because formatting the fraction as euros reports a 1 250 € goal as 0,63 €.
+  `Intl` missing from a Hermes build without ICU falls back to a plain number rather than
+  throwing.
+
+## 0.9.1-alpha.54
+
+### Patch Changes
+
+- 2f05199: feat(close-button): the dismiss affordance, on its own
+
+  `Chip`, `Alert`, `Dialog`, `Popover` and `BottomSheet` all have a close. Each is five lines
+  over a shared base that owns the behaviour — its own press state, the grown touch target,
+  the missing-label warning, the cross drawn from two rotated bars — and each hands that base
+  the styles its own recipe resolved. What was missing is the standalone one: a dismiss on
+  something the library does not own, a card header, a banner, a sheet of your own.
+
+  **The base is renamed, and that is the whole of the breaking change.** `system/close-button`
+  now exports `CloseButtonBase` and `closeButtonGeometry`; the public component takes the name
+  `CloseButton` in `@xaui/native/close-button`. Two things called `CloseButton` in one root
+  barrel is not a naming preference, it is an ambiguous re-export — and the split is worth
+  saying out loud anyway: a close _inside_ a component takes that component's colours and that
+  component's scale, so `Chip.Close` reaches for the base, and dropping a dismiss into a
+  layout reaches for the component. The five existing call sites move with it.
+
+  The recipe is what the component adds. Four emphasis levels and **no intent** — dismissing
+  is neither a success nor a danger, and the close that carries an intent is the one inside a
+  component that has one. `secondary` is the neutral disc and the default, for the reason the
+  `Dialog` gives at its own close: a cross floating on a panel with nothing under it reads as
+  decoration, and the disc is what makes it a target. `ghost` is the bare cross for a
+  component already providing one.
+
+  Four sizes on a 24 / 28 / 32 / 40 box, `md` being HeroUI's measured and the `Dialog`'s. The
+  bar is a ratio of the box rather than a table — a bar rotated a quarter turn spans
+  `length / √2` per axis, so it is twice as long as the cross looks — which makes it one cross
+  at four sizes instead of four drawings of one. **The stroke does not scale**: it is the
+  thickness the `Chip`, the `Alert` and the `Dialog` already draw at, and crosses that
+  thickened with their box would read as four different marks.
+
+  **No pressed colour**, unlike every other control here. The base owns the press state,
+  because a cross has to be a different target from the panel around it, so the root cannot
+  resolve a colour for a state it does not know it is in. The press is the shared
+  `PressableFeedback` treatment — which is how every close in the library already reads.
+
+## 0.9.1-alpha.53
+
+### Patch Changes
+
+- cb76b65: `List` — rows on a ground.
+
+  `List.Item` and `List.ItemButton` with `ItemPrefix`, `ItemContent`, `ItemTitle`,
+  `ItemDescription` and `ItemSuffix`, on the anatomy `heroui-native`'s `ListGroup` uses.
+
+  **It is the `Accordion` with rows that do not open**, and it reads the same ladder, insets
+  its separators the same way and lifts the same one variant. Two containers that look alike
+  but are declared apart drift until a list on a card sits one shade off it; they will
+  eventually share the container that `Card`, `Popover`, `Accordion` and `Dialog` are all
+  waiting on, and until then they at least name the same tokens.
+
+  **The separators are the root's**, drawn between the children rather than by them — a row
+  that drew its own would draw one under the last one too, and every list would start by
+  hiding it. The fill is the root's for the same reason: a row painting its own would stack
+  two where the hairline sits, and the hairline would vanish into the seam. The inset stops
+  where the text starts, and `ghost`, having no edge to be inset from, runs its rows and its
+  hairlines the full width.
+
+  **It does not select.** No `selectionMode`, no `selectedKeys`: picking one of several things
+  is what `Select` and `Menu` are, and a list that owned a selection would be a second,
+  quieter menu with none of the affordances. A row that toggles carries the control that
+  toggles it — a `Switch` in its suffix — which says out loud what it does and is reachable as
+  the control it actually is.
+
+  **`ItemSuffix` draws nothing of its own.** HeroUI's puts a chevron there by default; the
+  trailing end of a settings row is a switch at least as often, and a slot that guesses makes
+  you pass a child in order to render nothing.
+
+  **A plain row does nothing, and shows nothing.** A list is not necessarily a list of
+  buttons; most are a table of facts, and a row that lights up under a finger it never
+  responds to is a promise the component does not keep. So `List.Item` is a `View` — no press
+  state, no wash, no role — and a row you can press is `List.ItemButton`, used in its place.
+  Structural rather than inferred: a single item that turned pressable when handed an
+  `onPress` would still be guessing, and the guess would be invisible in the JSX.
+
+## 0.9.1-alpha.52
+
+### Patch Changes
+
+- 3dd1628: `Segment` — a filter: one of a few options, chosen in place.
+
+  **It is not `Tabs`, and that is the point.** They wear the same clothes — a pill sliding
+  under the chosen option inside a filled track, on the theme's own `segment` tokens — and
+  they do different jobs. A tab bar wraps content: its triggers name panels that live under
+  it, and it says `tablist` / `tab` out loud. A segment names nothing; it holds a value the
+  way a radio group does, and says `radiogroup` / `radio`. Which of the two a control is, is
+  what a screen reader hears, so it cannot be a flag on one component.
+
+  **The pill is not a slot.** `Tabs` makes you write its indicator because a tab bar can be
+  `light` and have none. A segment without its pill is not a segment, so the root draws it.
+
+  **Separators, off by default.** `hasSeparator` draws a hairline between the options the pill
+  is nowhere near, for a list long enough to need dividing. Both edges of the pill stay clear:
+  a rule running into a raised surface reads as a crack in it, which is what iOS has done
+  since the segmented control existed and why one does not look like a table. The rule belongs
+  to the option on its trailing side, so an option decides alone from the rectangles every
+  option already publishes — the root cannot know which child is which without reading its
+  props, and that is introspection this library does not do.
+
+  The tint reaches the **word** as well as the pill: `fgSelected` is a role rather than a token
+  named in a state, so the tint pass follows it. Without that, a tinted segment would slide a
+  coloured pill under a word that had stopped reading against it.
+
+  The sliding itself moves to `hooks/use-sliding-indicator`, shared with the `Tabs` — §2 bis,
+  promotion at the second use. Both are a filled shape following the chosen child along a row,
+  and the two behaviours worth getting right are the same for either: nothing drawn before the
+  first layout, and a first placement that jumps where every one after it springs.
+
+## 0.9.1-alpha.51
+
+### Patch Changes
+
+- 4e1233f: `Autocomplete` — a field that opens a list you search.
+
+  **It is not a `Select`, and it wears its clothes.** A select is for a list you read: a dozen
+  options, all of them visible, and choosing is recognising one. An autocomplete is for a list
+  you cannot read — fifty states, four thousand cities — where choosing is _finding_, and the
+  field you type in is the control rather than an extra row in a menu.
+
+  So the two share their style **by construction** rather than by coincidence: the trigger, the
+  panel and the rows resolve through `selectRecipe`, and only the search box and the empty line
+  are this component's own. A second table would be two to keep in step, and the drift would
+  show as a select and an autocomplete side by side in a form with fields half a shade apart.
+
+  `Autocomplete.Search` lives inside the panel and is pinned above its scroller, so it stays
+  put while the results move under it. It takes focus as the panel opens — one you have to tap
+  twice before you can type into it is a select with a spare row — and **the query goes with
+  the panel**: closing clears it, because a search that survived its own closing would leave
+  the list already filtered by a word nobody can see.
+
+  Matching folds diacritics and drops case both ways (`geneve` finds `Genève`), and matches
+  any word rather than the first: a prefix match on "New York" refuses "york", and a long list
+  is searched by whichever word someone remembers.
+
+  Filtering drops rows off the **elements**, before any mounts, and only the panel's direct
+  children. Walking deeper to read a label changes nothing; dropping a row nested inside a
+  caller's own component would mean rebuilding that component's children for it, and a filter
+  that silently rewrote a caller's tree is worse than one that leaves it alone.
+
+  `Autocomplete.Empty` renders instead of the results, and only when nothing matched — a panel
+  that filtered its last row away and showed an empty box reads as a control that has broken.
+
+  The trigger announces itself as a `combobox` rather than a button: it opens a list you type
+  into, and that is the role that says so.
+
+  `collectItemLabels` moves to `utils/item-labels` — the `Select` and the `Autocomplete` have
+  the same trigger, the same portal and the same problem. §2 bis, promotion at the second use.
+
+## 0.9.1-alpha.50
+
+### Patch Changes
+
+- 8b2c0e5: feat(radio): `Radio.Group` — the set an option belongs to
+
+  `Radio` shipped without one, which meant the one thing a radio is for — exclusive selection
+  — was the caller's `useState` and their `map`. This is the context it was written to read,
+  not a second radio.
+
+  **It is `Radio.Group`, not a `RadioGroup` import.** The set publishes the values an option
+  already reads and nothing else; a second module to make three radios exclusive would be a
+  seam with nothing behind it. `RadioGroup` is exported as an alias for a call site that reads
+  better naming it.
+
+  **Membership is a `value`, not a nesting.** The group holds the chosen one, each option
+  compares the one it stands for, and nothing walks the children — so an option inside a
+  `Card`, a `List.Item` or a `Fragment` is in the set exactly as much as a direct child is.
+  That is also what keeps a standalone radio over its own `isSelected` working unchanged
+  inside a group: an option with no `value` is not in the set at all.
+
+  `variant`, `size`, `radius` and `color` are handed down as **defaults**, and an option that
+  names its own wins — a set is usually uniform, and the row that differs is a design rather
+  than a mistake. `isDisabled` and `isInvalid` are the two that do not work that way: a
+  disabled set has no enabled option in it, and a set that is wrong is wrong on every row.
+
+  The group lays its options out, which is R4 and the reason it has a recipe at all — the gap
+  follows `size`, and `orientation="horizontal"` wraps rather than overflowing off a narrow
+  screen. It paints nothing, because an option resolves its own colours and a group that
+  painted would be painting over the row that disagreed with it.
+
+  `isSelected` still outranks the set, so one option in a group can be driven by something the
+  group knows nothing about, and both callbacks fire on a press: the option's
+  `onSelectedChange` and the set's `onValueChange`. Pressing the chosen option fires neither —
+  a press selects and never clears, one level up from where the `Radio` already said so.
+
+  `useRadioGroup()` is exported (R10) for an option of your own that is in the set without
+  being a `Radio`. `accessibilityRole="radiogroup"` moves onto the group, where the wrapper in
+  the old three-line recipe used to carry it.
+
+## 0.9.1-alpha.49
+
+### Patch Changes
+
+- 804f32f: `Stepper` — where you are in a sequence of steps.
+
+  **The value is the caller's, always.** There is no `defaultValue` and no `onValueChange`,
+  because nothing inside a stepper can move it: a step is not a control, it is a report. The
+  number comes from the form, the wizard or the route that actually knows, and an
+  uncontrolled stepper would be a piece of state that could never change. It counts from one,
+  so `value={2}` is "step 2 of 4" — the number you would say out loud rather than an index.
+
+  **The root numbers its children.** An item declares no index and no key: JSX order is step
+  order, so inserting a step in the middle renumbers the rest by being there. It is the
+  reasoning that puts the `Accordion`'s separators on its root — what an item cannot know
+  about its neighbours belongs to the thing that has them all.
+
+  **Three statuses, and they are an order.** Every step before the current one is completed
+  and every step after it is upcoming. A completed step keeps its full contrast — it is a
+  thing you did, not a thing greyed out — and what recedes is the road ahead. The line under
+  the current step is still track: the stepper has not left that step yet.
+
+  **Two orientations that differ by more than the axis.** `vertical` puts the indicator beside
+  the text and aligned to the top of it, with the line running down through whatever height
+  that text takes; it is the layout that can carry a description at all. `horizontal` centres
+  each indicator over its label and gives every step the same width, so the circles land at
+  even intervals whatever the labels say.
+
+  **The connectors belong to the indicator rather than to the root**, which is the opposite of
+  the `Accordion`'s separators: a vertical line has to run from under one circle to the next
+  through the text beside it, and only something inside that row can measure that height. A
+  horizontal step carries two halves, one either side, so its circle stays centred over its
+  label — and the two ends of the rail are drawn transparent rather than dropped, or the first
+  and last circles would slide off theirs.
+
+  **A step is not pressable**, and that is `asChild`'s job rather than a prop. A stepper where
+  a completed step takes you back is one composition away; one where tapping ahead skips a
+  form's validation is not something this component should make easy.
+
+  `color` paints the **progress and not the track**: the travelled line, the ring around the
+  step you are on, the disc behind the ones you are past. The road ahead stays grey, because
+  the untravelled track is written from the theme rather than named as a role.
+
+  The tick a completed step draws moves to `utils/check-glyph`, shared with the `Checkbox`:
+  two borders of an empty box a quarter turn from where they look like one, so both work in a
+  project that has installed no icon set.
+
+## 0.9.1-alpha.48
+
+### Patch Changes
+
+- 8de0808: `BottomSheet` gets a reduced state.
+
+  `collapsedHeight={200}` gives the sheet a second disclosure inside the first: it is either
+  up or gone, and while it is up it is either full or reduced. `isExpanded`,
+  `defaultExpanded` and `onExpandedChange` control it the way `isOpen` controls the other.
+
+  These are not snap points — two states, not an array of positions.
+
+  Where the sheet cuts comes from `BottomSheet.Summary`, a new slot: it is `<summary>` to the
+  sheet's `<details>`, the part that survives rather than a different view for the reduced
+  state. It renders in both, and reports where its bottom edge falls so that whatever sits
+  above it — a handle, usually — is counted too. The sheet adds its own bottom padding back
+  onto that edge: cutting on the summary's last pixel leaves the reduced sheet with air above
+  the handle and none under the last line, the text against the screen edge and under the
+  gesture bar on a phone that has one. `collapsedHeight` is not extended that way — it is a
+  number written against a sheet someone was looking at — and it stays as the fallback for a
+  sheet with no natural seam, the summary winning when both are given.
+
+  Either way the sheet is not re-laid out. It is the same box at its full height, moved
+  further down, so the tail slides off the bottom of the screen and comes back untouched.
+
+  A drag that was not decisive puts the sheet back. Decisive down goes one state down, unless
+  the throw was aimed past the reduced notch, in which case it dismisses: dragging a sheet the
+  whole way to the bottom and having it stop half open reads as a refusal. Decisive up
+  expands. Without a `collapsedHeight` none of this applies and the sheet behaves exactly as
+  before.
+
+  `BottomSheet.Handle` becomes a real control on a collapsible sheet, the way an
+  `Accordion.Trigger` is — a drag would otherwise be the only way in and out of the reduced
+  state, and a drag is a gesture some people cannot perform. It warns in development without
+  an `accessibilityLabel`.
+
+## 0.9.1-alpha.47
+
+### Patch Changes
+
+- 4d1d3dd: `Surface` — a ground for other things to sit on
+
+  **One node and no slots**, which is the point: a surface is a fill, a corner and some
+  padding, and every other component in this library that needed those three has been writing
+  them out again. It is the smallest thing here and the most reused.
+
+  **It is not a `Card`.** A card has decided things for you — it is always lifted, it has a
+  header and a footer, and its levels carry an emphasis. A surface has decided nothing.
+
+  **A ladder, not four emphases.** `primary` sits on the page, `secondary` inside a `primary`,
+  `tertiary` inside a `secondary`, and each is a token the theme already names — so a nest is
+  legible in both modes without anyone choosing greys. Three is as deep as that reading
+  survives; a fourth would be a shade nobody could place. `ghost` at the end is not a level
+  but the absence of one.
+
+  **Elevation is asked for rather than tied to the variant**, and defaults to true for
+  `primary` alone: a shadow under a ground that barely differs from the page reads as dirt
+  rather than as height. Whether a ground is above the one under it is the layout's business —
+  the same `secondary` is flat inside a card and lifted floating over a list.
+
+  Its props list is six lines because everything else a surface could be is already a style
+  prop. There is nothing here a prop had to be invented for.
+
+  `Card`, `Popover`, `Accordion` and `Dialog` should read it. None of them does yet: that is a
+  refactor rather than a component, and it wants its own change so a regression in one of the
+  four is not hidden inside a new file.
+
+## 0.9.1-alpha.46
+
+### Patch Changes
+
+- ef7332a: `TagGroup` — List · Item · ItemLabel · ItemRemoveButton
+
+  **It is not a row of `Chip`s**, and that answers a question this roadmap has carried since
+  `TagGroup` was first listed beside a `Chip` that already shipped.
+
+  A chip is a piece of metadata that is always the same. A tag is one you can turn on, take
+  off, or both. The selection state and the removal are the component; the pill around them
+  is the least of it — which is also why the two do not share a recipe. A chip has ten
+  variants because it reports an intent; a tag has two grounds because it reports nothing at
+  all until it is selected.
+
+  **Two grounds, not two emphases.** `default` is the theme's neutral fill, `surface` the card
+  colour, and they swap so a tag never disappears into what is behind it: a group on a card
+  wants one, a group on the page wants the other. A selected tag leaves both for the accent's
+  soft slice, the only place this component uses colour.
+
+  **The cross renders nothing without an `onRemove`.** Removing a tag is the caller's list
+  changing, and a cross that appeared to work while the list stayed put would be worse than
+  one that is plainly not there. It is written out rather than drawn by the item, because a
+  tag you can turn on and a tag you can take off are different controls and most groups are
+  only one of the two.
+
+  It reads `system/close-button`, so the press state, the grown touch target, the
+  missing-label warning and the drawn cross are the shared ones — six lines here, and the
+  third component to read them after `Chip` and `Alert`.
+
+  The selection rule is a pure function with ten tests, and it returns the list **unchanged**
+  whenever a press changes nothing: `useControllableState` drops a set to the value it already
+  holds, so `onSelectionChange` never fires for a change that did not happen.
+
+  Both faces of a tag are resolved once on the root, so a group of forty costs what a group of
+  two costs and no slot touches the recipe (R5).
+
+## 0.9.1-alpha.45
+
+### Patch Changes
+
+- 541cbe7: The toast stack collapses, like HeroUI's.
+
+  It was a flex column with a gap: every card fully visible, one under the next, so six
+  toasts took six card heights down the screen. HeroUI's is a pile — one card in front, the
+  rest scaled down and pushed toward the edge behind it, only their shoulders showing.
+
+  Every card is now anchored to the same edge and its depth is entirely in its transform:
+  `translateY: 10` toward the edge and `scale: 0.97` per step, their values, read off their
+  `toast.animation.ts`. A pile of eight costs the height of one. The ladder does not clamp —
+  their interpolation clamps the front side only, so the fourth card is genuinely further
+  back than the third rather than sitting on it and reading as one.
+
+  `limit` becomes `maxVisible`, and it no longer discards. A card past it is transparent,
+  keeps its timer and its place, and is promoted into view when the one in front leaves — so
+  a burst of six shows all six instead of losing three.
+
+- 7557e46: The front toast can be thrown away with a swipe, like HeroUI's.
+
+  Away from its edge — up on a top stack, down on a bottom one — past 50 points or 500 points
+  a second, their thresholds, either alone being enough. Dragged the wrong way it resists
+  rather than refuses: the whole screen's travel maps onto 40 points. The throw carries on at
+  the speed the finger left it and the record goes a moment later, so a hard flick leaves
+  faster than a soft one.
+
+  Only the front card. The ones behind show a seven-point shoulder, which is a target under
+  any reasonable minimum, and dragging the second card out from under the first reads as a
+  glitch rather than as a dismissal. `isSwipeable={false}` on the host turns it off.
+
+  Note that this dismisses **one** card and the pile empties a swipe at a time — HeroUI's
+  gesture calls `hide(id)`, not a clear-all, and their provider has no such thing.
+
+  The gesture runs on `react-native-gesture-handler`, already an optional peer, reached only
+  through `@xaui/native/toast`.
+
+- f8dfa9d: `Toast` — Title · Description · Actions · Close, plus `ToastHost` and `useToast`
+
+  **The card does not know it is in a queue**, when it will leave, or what is stacked under
+  it. The host owns all three, and that split is the whole design: `render` returns anything
+  at all and the queue never looks at it, so `Toast` is the card this library ships rather
+  than the card the host requires.
+
+  `Toast.Close` still knows which toast it belongs to without being told. The host provides
+  the dismiss **around** each entry and the card folds it into the context its slots read, so
+  a close button two levels down needs nothing passed to it.
+
+  **The variant paints the title, and nothing else.** A red card sliding in from the edge of
+  the screen reads as the app breaking; a red line of text reads as the thing you just did
+  failing. The surface stays the theme's floating one whatever happened, which is also what
+  lets two toasts of different kinds stack without the pile looking like a paint chart. It
+  uses the soft foregrounds rather than the full colours, because a toast is read from the
+  corner of the eye and `danger` at full strength is a shout where the soft one is a
+  statement.
+
+  **It slides from the edge it will sit against**, where every other overlay here scales in
+  place. A dialog and a popover appear where they are, because they were asked for; a toast
+  arrives, because something happened. Motion across the screen's edge is the difference.
+
+  Past `limit` the **oldest** goes: the newest is the one that just happened, and the reader
+  is looking for it.
+
+  `useToast` outside a `ToastHost` warns and does nothing rather than throwing. A missing host
+  is a setup mistake in the app shell, and a screen that crashes on its way to reporting that
+  a save succeeded has turned a good outcome into a bad one.
+
+  It closes P5.18 as well as P5.18b: `Snackbar` and `Toast` are the same object under two
+  names, and HeroUI calls it `toast`.
+
+## 0.9.1-alpha.44
+
+### Patch Changes
+
+- 750a85a: `Dialog.Close` draws a cross when it is empty, like HeroUI's.
+
+  It was a bare pressable that rendered whatever it was given and nothing when it was given
+  nothing, so `<Dialog.Close />` — the first line of HeroUI's own anatomy — put an invisible
+  32 points in the corner. It now reads `system/close-button`, which draws the cross from two
+  rotated bars, and the dialog's recipe resolves the box and the bar the way `Chip.Close`
+  already did.
+
+  The measurements are theirs, read off their CSS rather than guessed: a 32-point disc
+  (`height: calc(var(--spacing) * 8)`, `aspect-ratio: 1`), filled with `default` because
+  their `CloseButton` is a `tertiary` button, and a `muted` cross inside it.
+
+  `asChild` is unchanged in behaviour and better in two details: the 32-point box is not
+  forced onto the element you hand it, and the missing-label warning no longer fires on
+  `<Dialog.Close asChild><Button>Compris</Button></Dialog.Close>`, where the label is the
+  button's own text. That second fix is in `CloseButton` and reaches every consumer.
+
+  Also exports `SliderValue`, which `SliderProps.value` and `onValueChange` both name and
+  which no consumer could import.
+
+- 797ea98: `Dialog` — Trigger · Overlay · Content · Title · Description · Close
+
+  The `Popover` without an anchor. Same portal, same context re-provision, same overlay
+  keyframes; none of the measuring pass, the host origin or the collision flip, because a
+  centred box has nothing to be measured against.
+
+  Two things it adds.
+
+  **The backdrop dims**, where the `Popover`'s paints nothing until a `backgroundColor` says
+  so. A popover is an aside you read the page around; a dialog is a question, and the page
+  behind it is not available until it is answered. `isDismissable={false}` is for one that
+  must be answered rather than escaped.
+
+  **It grows from its own centre**, 200 ms from `scale: 0.94`. A popover's entrance is offset
+  towards the thing that opened it so the motion points back at it; a dialog belongs to the
+  screen rather than to a control, so the absence of a direction is the message.
+
+  The content is two layers, and the outer one is not decoration: a centred box cannot also
+  be the thing that centres it. The outer layer fills the portal and does the centring, the
+  panel is the box, and the outer one takes no touches — so a press that misses the panel
+  reaches the overlay under it and closes the dialog.
+
+  No `variant`: the question a dialog asks is in its words, not in its fill.
+
+  It also unblocks the `presentation` prop that `Select.Content` and `Menu.Content` are
+  written around but cannot offer — HeroUI has both, and `dialog` was half of what was
+  missing.
+
+## 0.9.1-alpha.43
+
+### Patch Changes
+
+- ef43606: `BottomSheet` — Trigger · Overlay · Content · Handle · Title · Description · Close
+
+  **Built on this library's own peers rather than on `@gorhom/bottom-sheet`**, which is what
+  HeroUI wraps. A sheet that slides, springs and dismisses is a pan gesture and a shared
+  value; taking a dependency for that would put a second animation library in every app that
+  installs one component. What it costs is their snap points and their scroll integration —
+  both worth having, and both worth their own change rather than a dependency.
+
+  **It measures its own height, then slides that far.** A sheet is as tall as what is in it
+  and nothing else on the screen knows that number, so the first layout is what tells the
+  animation how far "down" is. Until it has one the sheet waits off-screen at a pessimistic
+  distance rather than flashing at its resting place for a frame.
+
+  **Far enough or fast enough.** Past `dismissThreshold` of its own height it closes; so does
+  a flick over 900 points a second, whatever the distance. Without the second, a quick flick
+  from the top of a tall sheet is refused however clearly it meant to throw the thing away.
+  The drag is downward only: a sheet dragged up is already against the top of its own content,
+  and letting it stretch there is a rubber-band nobody asked for.
+
+  **Two separate refusals.** `isSwipeable={false}` on the content and `isDismissable={false}`
+  on the overlay, because a sheet that can be tapped away but not dragged is a real design and
+  so is the reverse.
+
+  **`BottomSheet.Handle` is written by the caller.** It is the only thing telling a reader the
+  sheet can be dragged — the gesture has no other affordance — so a sheet with the drag turned
+  off should not be advertising it.
+
+  `radius` moves the **top** corners only, which is why this component does not use
+  `radiusAxis`: that helper writes `borderRadius`, and a sheet's lower corners are off the
+  screen. Rounding them would put two arcs against a straight edge nobody can see.
+
+  It completes what the `Dialog` started: `Select.Content` and `Menu.Content` are written
+  around a `presentation` prop that needed both.
+
+## 0.9.1-alpha.42
+
+### Patch Changes
+
+- 747aef8: `Slider` — Output · Track · Fill · Thumb
+
+  **Two callbacks, and the difference matters.** `onValueChange` fires on every step the thumb
+  crosses, mid-drag included, and is what a live preview reads. `onValueCommit` fires once,
+  when the finger lifts — it is where a network call belongs, because the first can fire
+  fifty times in a second. The legacy component had one of each under different names and
+  nothing saying which was which.
+
+  **The snap counts steps from the minimum**, not from zero. A range from 5 in steps of 10
+  stops at 5, 15, 25; rounding the value itself would give 10, 20, 30 and move every stop.
+  The rounding precision reads the **minimum** as well as the step, which is what the tests
+  caught: a range from `0.05` in steps of `0.1` has two decimals of precision, and rounding
+  to the step's alone turned its first stop into `0.1`.
+
+  **The travel is inset by half a thumb at each end**, and the fill runs to the thumb's centre
+  rather than to the raw proportion. Without both, the thumb hangs over the track's ends at
+  the extremes and the fill runs out from under it.
+
+  **A press anywhere on the track moves the thumb there** — the half of a slider people
+  forget, because dragging a narrow thumb is a fine gesture on a mouse and a poor one on a
+  finger.
+
+  The thumb grows 15% under the press rather than moving: the finger is already covering it,
+  so the scale is what you see in the gap around it, and it is the only confirmation a slider
+  can give that the drag has started.
+
+  `react-native-gesture-handler` is an optional peer of this package and this is the first
+  component to need it. It is imported in `slider-thumb.tsx` and nowhere else, so only an app
+  that reaches for `@xaui/native/slider` pays for it.
+
+  No `variant` and no `xs`: a slider reports a quantity rather than an intent, and a rail
+  four points thick is a line rather than a control.
+
+  ### A rail with a knob on it, not a capsule with a core
+
+  The legacy proportions rather than HeroUI's: 6 to 10 points of rail under a 16 to 24 point
+  disc. The knob overhangs the rail by half their difference on each side, and the rail
+  reserves that overhang as a margin — without it the knob spills into whatever sits above
+  and below, and the layout has no idea the control is thicker than its rail.
+
+  The three pairs are off the spacing grid on purpose. A rail is not a gap between two
+  things, and rounding 6 to `spacing(1.5)` would put the sizes on a scale with no bearing on
+  how thin a line can be and still be pressable.
+
+  The geometry is a **compound** of `size` and `orientation` rather than two axes. The two
+  cannot be written apart — which side of the rail is its thickness, which is its length, how
+  far to pull the knob back — and an `orientation` axis setting `height: undefined` to undo a
+  `size` axis's height is how this first shipped: declaration order is application order, the
+  second axis won, and the rail had no thickness at all.
+
+  ### Three steps of one colour
+
+  The rail is the theme's neutral, the reach is the colour at thirty-five percent, the knob
+  is the colour at full. The eye lands on the knob, which is the value, rather than on the
+  bar behind it, which is only how far the value has come.
+
+  Material's slider is the same relationship with the steps assigned differently: their
+  inactive track is the soft one and their active track is full. Moving the soft step onto
+  the _reach_ is where this stops being theirs — a filled bar at full strength competes with
+  the handle for the eye, and the handle is the part you can move.
+
+  The thirty-five percent is **derived from the resolved role** in the recipe rather than
+  named in the theme. The soft family is a pair, fifteen and twenty, sized for a chip or a
+  soft button; a bar three hundred points long needs more than either. Adding a third step
+  would move every `*-soft` family in the library for one component's sake. Taking it off the
+  role also means a raw `color` flows through untouched, and the reach and the knob can never
+  drift apart because they come from the same place.
+
+  Disabled drops the colour entirely rather than dimming it: a pale wash reads as an enabled
+  slider seen through fog, a neutral one reads as switched off.
+
+  ### Ranges and vertical rails
+
+  `value={[20, 60]}` is two thumbs and a fill **between** them, and it reports a pair back —
+  the shape the caller wrote is the shape they get. One `<Slider.Thumb index>` per end,
+  written rather than conjured by the rail.
+
+  **The thumbs cannot cross.** Each is bounded by its neighbour rather than by the range, so
+  dragging the lower past the upper stops it dead instead of swapping the two: a swap loses
+  the finger's grip mid-drag, and it ends up pushing the thumb it did not pick up. A press on
+  the rail moves the **nearest** thumb, because moving the first every time would send half a
+  range's presses over the other end.
+
+  `orientation="vertical"` counts **from the bottom**. A rail whose fill grew downwards would
+  report a larger value the lower the knob sat, which is the opposite of what a vertical
+  control means everywhere it appears — it reaches the gesture, the press and the fill's
+  anchor, three places that each had to be inverted.
+
+  Ten more tests on `withThumbAt` and `nearestThumb`, including the non-crossing in both
+  directions and the tie that always goes to the lower thumb.
+
+## 0.9.1-alpha.41
+
+### Patch Changes
+
+- 277a713: `Tabs` — List · Trigger · Label · Indicator · Content
+
+  **The indicator is one node sliding**, not a border on each tab appearing and disappearing.
+  The triggers publish their rectangles on layout, the root keeps them, and the indicator
+  springs between them on the UI thread — so it keeps travelling while whatever the new tab
+  shows is mounting.
+
+  Softer than the chevron's spring: damping 20 against stiffness 220 at mass 0.6. That one
+  turns 180 degrees and must not overshoot; this one slides a few dozen points, and a touch
+  of overshoot is what makes it feel attached to the press. Its **first** placement jumps
+  rather than springing — animating it would slide the pill in from the start of the row on
+  mount, which reads as the tab bar arranging itself rather than as a control at rest.
+
+  `Tabs.Indicator` is written by the caller, inside the list. Leaving it out is a legitimate
+  bar, where the label's colour is the only thing saying which tab is chosen, and that is why
+  it is a slot rather than something the list conjures.
+
+  **Three shapes, not three emphases.** `primary` is the segmented control — a pill inside a
+  filled track; `secondary` is the underline; `light` is neither, with no track and no rule
+  and nothing but the chosen tab's label going to the accent. Different affordances rather
+  than the same one louder, which is why the union is three rather than the usual four. All
+  three read the same roles, so a tint lands on any of them through the same names — painting
+  a pill, a rule or a word.
+
+  `light` names no `bg` and no `bgSelected`, and that is how it has no track and no rule
+  rather than an omission: `paint` resolves both to nothing, so the list stays transparent and
+  the indicator, with no fill and no compound to give it a size, draws nothing even when a
+  caller leaves `<Tabs.Indicator />` in place. Its chosen label goes to the **accent** rather
+  than the foreground, because with nothing else moving the colour is the whole signal, and a
+  tab merely darker than its neighbours is not chosen — it is just darker.
+
+  **A tab is named, not numbered.** The legacy component took an `activeIndex`, which breaks
+  the moment a tab is inserted.
+
+  **A panel is mounted only while its tab is chosen.** A tab bar over four screens of content
+  should not have four screens of content mounted; a panel that must keep its state across a
+  switch is one the caller holds the state for, which is the same trade every router makes.
+
+  No `xs`: a tab is a target before it is a label, and at that height there is nothing left
+  of it.
+
+  A scrollable list and `Tabs.Separator` are not here. Centring the chosen tab when the bar
+  overflows means the indicator has to account for a scroll offset the triggers' own layout
+  does not report, which is worth its own change.
+
+## 0.9.1-alpha.40
+
+### Patch Changes
+
+- 78813c4: `Menu` — Trigger · Overlay · Content · Label · Group · Item · ItemTitle · ItemDescription ·
+  ItemIndicator
+
+  A list of actions anchored to whatever opened it, and the **third** component to read the
+  anchored positioning extracted for the `Popover` — `utils/placement.ts`,
+  `hooks/use-anchor-ref.ts`, `hooks/use-anchored-position.ts`, `system/anchored/`. Nothing
+  about the measuring pass, the host origin or the collision flip is written again here,
+  which is the whole return on that extraction.
+
+  **The intent belongs to the row, not to the menu.** A menu is the theme's floating surface
+  like a popover, with no emphasis of its own — but one row in it can be the destructive one,
+  and a list where "Supprimer" reads like "Renommer" is the list that gets misread. `danger`
+  paints the title and any icon in it and nothing else: a red row would read as an alert.
+  The description stays muted whatever the intent, because a danger row says what it does in
+  red once and a red sentence under it says it twice.
+
+  Both faces of a row are resolved once on the root, so a menu of forty actions costs what a
+  menu of two costs and no slot ever touches the recipe (R5).
+
+  **Choosing a row closes the menu after the caller's `onPress` has run**, in that order: a
+  handler that reads the menu's state has to run while there is still a menu.
+  `closesOnPress={false}` is for the row that toggles something the reader will want to
+  toggle again.
+
+  `offset` defaults to 6 where the `Popover`'s is 9 — a menu belongs to the control it drops
+  out of, and a popover belongs to nothing.
+
+  **`Menu.Separator`**, and you place it. A menu of four related actions wants none; a menu
+  whose last row is "Supprimer" wants exactly one, above it. Drawing them between every pair
+  and asking for the exceptions is the wrong way round — a menu is short enough that the one
+  place a break belongs is obvious to whoever wrote it and invisible to the component.
+
+  It runs the panel's full inner width rather than lining up with the rows' text, because a
+  rule inset to the titles reads as belonging to the row under it and this one belongs to
+  neither. Hidden from screen readers: announcing "separator" between every pair of actions
+  is noise in the one place a menu has to be brisk. It is the menu's own trim rather than a
+  `Divider`, resolved on the root with everything else the panel reads.
+
+  ### `flex: 1` cannot be written inside a panel that measures itself
+
+  `Menu.ItemTitle` had it, and the whole menu rendered as a seventy-point capsule with no
+  text in it.
+
+  `flex: 1` is `flexBasis: 0`. The measuring pass asks the panel how wide it wants to be, so
+  there is no definite width for a zero basis to grow into: the row's content size is nothing,
+  the title collapses, and the panel holds that width. HeroUI writes `flex: 1` on the same
+  node and gets away with it because their measuring pass hands the panel a definite width —
+  ours asks a question a zero basis cannot answer.
+
+  `flexGrow: 1, flexShrink: 1, flexBasis: 'auto'` fills the row exactly the same once the
+  width is known, and starts from the content rather than from zero. `useAnchoredPosition`
+  now says so where anyone writing the next anchored panel will read it.
+
+  `Menu.Content` also takes a measure of its own, fifteen ems against the `Popover`'s
+  thirteen: a menu row is a title with an indicator beside it and sometimes a sentence under
+  it, where a popover is prose alone.
+
+  `SubMenu` is not here. HeroUI ships it as its own component and it needs a second anchored
+  panel whose trigger is a row of the first, which is worth its own change.
+
+## 0.9.1-alpha.39
+
+### Patch Changes
+
+- 4eda62d: `Popover` — Trigger · Overlay · Content · Title · Description · Close
+
+  A panel anchored to whatever opened it, and the component the `Select` was written before.
+
+  **Four sides, where the `Select` has two.** A select's list is as wide as the field it
+  drops out of, and one hanging off the side of that field reads as a menu; a popover belongs
+  to nothing, so `placement` takes `start` and `end` as well. `width` defaults to
+  `content-fit` rather than `trigger` for the same reason — matching the width of a word or
+  an icon would give the panel no room at all.
+
+  **No `variant`.** A popover is the theme's floating surface: no emphasis to report, no
+  intent to carry, so a variant would name a decision nobody makes.
+
+  ### Four things move out of the `Select` and become shared
+
+  §2 bis, at the second use rather than by anticipation:
+
+  | moved                             | to                               |
+  | --------------------------------- | -------------------------------- |
+  | the placement arithmetic          | `utils/placement.ts`             |
+  | the trigger's measurement         | `hooks/use-anchor-ref.ts`        |
+  | the measuring pass and the origin | `hooks/use-anchored-position.ts` |
+  | the entrance and exit keyframes   | `system/anchored/`               |
+
+  The arithmetic gained the two horizontal sides on the way, which is a real generalisation
+  rather than a rename: on a vertical side the room bounds the panel's **height**, on a
+  horizontal one it bounds its **width** and the height is bounded by the screen instead. A
+  panel beside its trigger can be as tall as the window allows. Seven more tests cover it, on
+  top of the twelve the vertical sides already had.
+
+  Two of the four exist because of bugs rather than tidiness, and both would have been
+  rewritten wrong in `Menu`, `SubMenu` and `Tooltip`. The trigger measures again on every
+  open, because `onLayout` never fires on scroll and a trigger inside a `ScrollView`
+  otherwise reports where it used to be. And the position is computed in the **host's**
+  coordinates rather than the window's, because the trigger reports itself against the window
+  while the panel is laid out inside the `PortalHost`.
+
+  The `Select`'s chevron spring moves to `system/anchored` too, where the `Accordion` already
+  reads it.
+
+  ### One bug the `Select` was hiding
+
+  The measuring pass laid the panel out at the **anchor's** width. That is right for
+  `width: 'trigger'` — the content then wraps during the measurement exactly as it will
+  afterwards, so the measured height is the real one — and it is exactly wrong for
+  `content-fit`, which is the question "how wide does this want to be" asked while imposing
+  an answer.
+
+  Against a small trigger it measured a paragraph as a column one character wide, and held
+  the panel at that width forever. The `Select` never showed it, because its default width is
+  the trigger's anyway.
+
+  `content-fit` now measures unconstrained, bounded by two things in this order: the
+  component's own **measure**, and the screen.
+
+  The measure is what stops "as wide as its content wants" from meaning the width of the
+  screen — a paragraph always wants more, so a panel bounded only by the edges is a
+  full-width panel the moment it holds a sentence, and a popover is an aside rather than a
+  sheet. Thirteen ems of the body size, about twenty-six characters a line — narrow on
+  purpose. A popover is read at a glance, and a glance is two or three short lines rather
+  than a paragraph; past that it stops being an aside and starts being a sheet with a tail.
+  It is where HeroUI's own panels land too, measured off their placement demos. A multiple of
+  the type rather than a number of points, so a theme that scales its type scales the panel
+  with it.
+
+  ### Both axes are clamped, not only the cross one
+
+  The side decides where the panel wants to go; the insets decide where it is allowed to be.
+  The main axis was in the first half and not the second, so a panel beside a trigger with no
+  room for it went off the screen entirely — `start` and `end` were unusable and nothing said
+  so until one was opened.
+
+  The panel may now overlap its own trigger. That is the right trade, and the one HeroUI's
+  `useRelativePosition` makes too: a panel covering the button that opened it is legible, and
+  a panel past the edge of the screen is not.
+
+  `width` gains `'full'` for the case the measure exists to refuse — the screen less its
+  insets, said out loud. Nothing else in the union can say it: a number is a guess at the
+  screen's width, and `content-fit` declines by design.
+
+## 0.9.1-alpha.38
+
+### Patch Changes
+
+- 7e04096: `Accordion` — Item · Trigger · Indicator · Content
+
+  P5.11, over the legacy `ExpansionPanel`. HeroUI Native calls it `accordion` and so does
+  this, which is also what the roadmap row now says.
+
+  **The height is never measured.** The panel is mounted or it is not, and Reanimated's
+  layout transition animates the row between the two — `LinearTransition.springify()` on
+  HeroUI's numbers, damping 140 against stiffness **1600**. Stiffer than the chevron's 1000
+  deliberately: a height is a longer distance than a rotation, and at the chevron's
+  stiffness the same damping makes a long panel take almost half a second to settle.
+
+  Measuring it would mean a hidden pass on every open, and a panel whose content grows
+  afterwards — an image loading, a list filling — would be stuck at the height it had when
+  it was measured. The container carries the same transition, because without it the
+  accordion's own height jumps to its new total in one frame while the rows inside it are
+  still animating.
+
+  **The variant table is the `Card`'s, token for token.** An accordion in `default` _is_ a
+  card with rows in it, and two containers that look alike but are declared apart drift —
+  the drift showing up as an accordion sitting on a card with a fill one step off it.
+  `ghost` is the default and is HeroUI's own: rows separated by hairlines, on whatever page
+  they sit on.
+
+  **The separators are the root's, drawn between its children.** A row that drew its own
+  would draw one under the last item too, and every accordion would start by hiding it.
+  They come off `Children.toArray`, which drops nulls, so a conditionally rendered row
+  cannot leave a hairline hanging where nothing is.
+
+  **The open state moves to the root.** Legacy asked each item whether it was open, which is
+  what made "only one at a time" the caller's problem. One value on the container is what
+  `selectionMode` needs to mean anything. The whole rule is a pure function with thirteen
+  tests, including the two cases where it returns the value unchanged — a press refused
+  under `isCollapsible={false}` must not fire `onValueChange` for a change that did not
+  happen.
+
+  `ChevronDownIcon` moves from the `Select`'s folder to `system/icon` and is exported from
+  `@xaui/native/system`. Two components draw it now, which is §2 bis exactly: promotion at
+  the second use, never by anticipation.
+
+- 7abe5b5: The build cleans `dist/` before writing it
+
+  `clean: false` had been set since the legacy era, with nothing saying why, and against
+  `splitting: true` it is a bug waiting for the entry list to change.
+
+  Split output names its shared chunks by content hash. A build whose entries changed writes
+  new chunk names and leaves the old ones behind, so `dist/` becomes a mix of two builds: an
+  entry from the first still importing `chunk-ZF6KIHXH.js`, which the second replaced with a
+  different hash and never wrote.
+
+  Metro's report of that is `Unable to resolve "@xaui/native/accordion"` — it names the
+  component and says nothing about chunks, which sends you looking at the export map, the
+  subpath and the workspace link, all three of which are fine.
+
+  It bites hardest across branches, because turbo restores a cached `dist/**` **over**
+  whatever is already there rather than in place of it. Switching from a branch that has a
+  component to one that does not, or back, is enough.
+
+## 0.9.1-alpha.37
+
+### Patch Changes
+
+- c378a99: The `overlay` shadow gets lighter
+
+  It was a 24-point blur eight points down, at 16 of Android's elevation. Android draws
+  elevation on its own curve and draws it strongly, so a panel that read as lifted on iOS
+  read as detached on Android — a dark halo about as wide as the gap between the panel and
+  the field it came out of.
+
+  Half the elevation, two thirds of the blur, half the offset: still "above the page",
+  without the panel looking cut out of it.
+
+  |           | before       | after         |
+  | --------- | ------------ | ------------- |
+  | offset    | `0, 8`       | `0, 4`        |
+  | blur      | `24`         | `16`          |
+  | elevation | `16`         | `8`           |
+  | opacity   | `.14` / `.6` | `.10` / `.45` |
+
+  It is the token rather than the component because a recipe names tokens and computes
+  nothing — and because `Dialog`, `BottomSheet`, `Popover` and `Menu` are all going to read
+  this one. `Select` is its only consumer today, so nothing else moves yet.
+
+- ade75b6: `Select` — Trigger · Value · Indicator · Overlay · Content · Label · Item
+
+  A field that opens a list, and the first component in the library to use the `Portal`.
+  Its trigger is the `TextField`'s twin — the same `field*` tokens, the same four levels,
+  the same heights — so a select and a text input in one form read as one control rather
+  than as two libraries meeting.
+
+  The visual values and the motion are HeroUI Native's, not the legacy component's. The
+  chevron turns 0 to −180° on their spring (damping 140, stiffness 1000, mass 4): heavily
+  damped against a very high stiffness, so it arrives in a fifth of a second without
+  overshooting, because an oscillating chevron reads as a bug rather than as motion. The
+  panel grows out of the trigger at 200 ms from `scale: 0.95`, offset eight points towards
+  it, and leaves in 150 ms — a dismissal as long as the opening feels like the control is
+  arguing.
+
+  **The root renders no node**, which is where this component departs from every other one.
+  The trigger is the control, so `ref`, `style`, `testID`, the a11y props and R14's style
+  props are all on `Select.Trigger`. A wrapper view would have existed only to receive props
+  the field already takes.
+
+  **`XAUIProvider` now mounts a `PortalHost`.** The provider README always said the host
+  belonged there "later", and later is the first component that opens an overlay. It is not
+  left to the app because forgetting it is silent: `Portal` renders nothing outside a host,
+  so a select would open onto an empty screen with no error to read. `hasPortalHost={false}`
+  turns it off for an app that needs the host under a gesture root or inside its own
+  navigation container.
+
+  The panel measures itself invisibly for one frame before it places itself. That frame is
+  what `avoidCollisions` costs: without a measured height there is nothing to compare, and a
+  list too tall for the room below would open downwards off the screen. The arithmetic is a
+  pure function with a test — placement is the one part of this component that is maths
+  rather than rendering.
+
+  `size` is `sm`, `md` or `lg` — no `xs`. A trigger that small has to hold a value, a
+  chevron and the gap between them, and at that height the value gets nothing. The
+  `TextField` keeps its `xs` because a field only has to hold text.
+
+  The panel's corner is `2xl`, not `3xl`. HeroUI's is their `--radius-3xl` on a base of 8,
+  which is 24 points; our base is 12, so the same 24 is `2xl`. Reading their key rather than
+  their number put a 36-point corner on it and made it read as a pill.
+
+  Two narrowings against HeroUI, both deliberate. `placement` is `top` or `bottom` only: a
+  list as wide as its own field hanging off the side of it reads as a menu, and `start` and
+  `end` belong to `Popover`. And there is no `presentation` prop — the bottom-sheet and
+  dialog presentations need `BottomSheet` and `Dialog`, which do not exist yet.
+
+  `selectionMode` does not come across from the legacy component. A select that returns
+  several values is a different control with a different affordance; calling both by one
+  name is what made the legacy props list as long as it is.
+
+## 0.9.1-alpha.36
+
+### Patch Changes
+
+- f38983f: `Input` becomes `TextField`, `InputGroup` becomes `FieldGroup`
+
+  Breaking, and deliberately taken now: the package is on the alpha line, so this costs a
+  changeset rather than a major. Seven planned components are described in terms of this
+  field — `NumberInput`, `PhoneNumberInput`, `SearchInput`, `DateInput`, `BottomSheetInput` —
+  and each one written before the rename would have been written against a name about to
+  move.
+
+  `Input` was never the right name here. The root is not the thing you type into: it is the
+  column that holds a label, a field, a hint and an error, and keeps them in step. `TextField`
+  says that, and it leaves `Field` free to mean the one node that is actually a `TextInput`.
+
+  `TextInput` was the obvious candidate and is the one name to avoid. React Native exports
+  `TextInput` and `TextInputProps`, both imported by the field, the group's field and the text
+  area. A public `TextFieldProps` sitting beside React Native's `TextInputProps` is a name
+  collision in every file that touches both, and a reader's coin flip in the ones that do not.
+
+  `FieldGroup` rather than `TextFieldGroup` for the same reason the root dropped `Input`: the
+  group decorates a field, and the field's own type is not its business.
+
+  | before                          | after                                |
+  | ------------------------------- | ------------------------------------ |
+  | `@xaui/native/input`            | `@xaui/native/text-field`            |
+  | `@xaui/native/input-group`      | `@xaui/native/field-group`           |
+  | `Input`, `Input.Field`          | `TextField`, `TextField.Field`       |
+  | `InputGroup`, `InputGroup.Icon` | `FieldGroup`, `FieldGroup.Icon`      |
+  | `useInput`, `useInputGroup`     | `useTextField`, `useFieldGroup`      |
+  | `InputProps`, `InputVariant`    | `TextFieldProps`, `TextFieldVariant` |
+  | `inputRecipe`                   | `textFieldRecipe`                    |
+
+  The slot names do not move. `TextField.Field` still stutters as `TextFieldField` internally,
+  and that was the trade taken: renaming the slot would have changed every call site that the
+  rename otherwise leaves alone.
+
+  `InputOTP` keeps its name. It is not a text field with decoration, and nothing in it reads
+  the field's context.
+
+## 0.9.1-alpha.35
+
+### Patch Changes
+
+- 806fa8d: `Skeleton` drops its `variant`
+
+  It shipped with two — the neutral fill and that fill at half — sold as the two backgrounds a
+  placeholder is drawn on. Measured against every surface, in both modes, the second is
+  **less** visible than the first everywhere:
+
+  | surface                      | `default` | the old `secondary` |
+  | ---------------------------- | --------- | ------------------- |
+  | the page (light)             | **1.216** | 1.100               |
+  | a `default` `Card` (light)   | **1.269** | 1.119               |
+  | a `secondary` `Card` (light) | **1.075** | 1.036               |
+  | the page (dark)              | **1.336** | 1.123               |
+  | a `default` `Card` (dark)    | **1.189** | 1.090               |
+  | a `secondary` `Card` (dark)  | **1.000** | **1.000**           |
+
+  So it was never the answer to "this block reads as a hole" — the full fill is the _more_
+  visible of the two on the very surface that claim named. And on a `secondary` `Card` in dark
+  mode both resolve to that surface's own `#27272a` and vanish, which is precisely the case
+  the pair existed to cover: `default` and `surfaceSecondary` are the same colour there.
+
+  A skeleton has to contrast with whatever sits under it, and a fixed token cannot know what
+  that is — two frozen values were never going to cover three surfaces times two modes. The
+  block paints `default`, the neutral fill the rest of the library uses for a `secondary`
+  `Button`, and `color` is the way past it: honest about being a raw value rather than a name
+  that promises a system.
+
+  The recipe keeps a single-entry `variantTokens` all the same, because `resolveTint` maps the
+  roles a variant declares and that mapping is what lets `color` land on the block.
+
+## 0.9.1-alpha.34
+
+### Patch Changes
+
+- 4df7f3a: feat(badge): the v1 `Badge` — a count, a dot, and the corner it hangs off
+
+  The twelfth entry of the core, and **one node with no slots**, per the plan: whatever is
+  inside a badge is one line of two or three characters, and a slot would be a name for a
+  `Text` the component can just as well insert itself (R3).
+
+  **It is not a small `Chip`.** A chip holds a word and hugs it; a badge holds a count and is
+  round unless the count is too wide to be. That is the `minWidth` equal to the height — one
+  digit is a circle, two are a capsule — and it is why the label stays at 12pt through three
+  of the four sizes: a count that grows with its badge stops being a count. The heights sit
+  below the `Chip`'s, 16/18/20/24 against 20/24/28/36.
+
+  **`danger` is the default**, the only component in the library whose default is not the
+  first name in its ladder. A badge is overwhelmingly the count of something that wants
+  attention — unread, failed, overdue — and a red one is what `<Badge>3</Badge>` means.
+
+  `isDot` is the bare circle, on its own diameter ladder (6, 8, 10, 12) rather than the
+  height, because a 20pt circle beside a 16pt icon is not a dot. It reaches the recipe as a
+  `dot` axis selected by the resolved size: an axis left unselected contributes nothing, which
+  is exactly "this badge has a label" — where a `{ true, false }` axis would have needed a
+  branch with nothing to say and a `size × isDot` compound would have been sixteen entries for
+  four measurements.
+
+  `placement` makes the parent whatever the badge decorates: absolutely positioned in that
+  corner, pulled out by half its own height on each axis so its centre lands on the corner it
+  marks. The offset is derived from `size`, which is why it is a prop and not four style keys
+  at the call site — and the keys are `start` and `end` (R13), so a trailing-corner badge
+  mirrors in RTL. The insets are computed **outside the style cache**, and have to be: in flow
+  the node is `position: 'relative'`, where an inset is a nudge rather than a placement, so a
+  cached `top: -10` would shift every badge that has no placement at all.
+
+  `placementInsets` is the one pure function here, and it has the one test file.
+
+## 0.9.1-alpha.33
+
+### Patch Changes
+
+- 9f3cde7: feat(avatar): the v1 `Avatar` — Image · Fallback · Initials, the fallback as a layer
+
+  The eleventh entry of the core. **The fallback is not a state, it is the layer underneath.**
+  `Avatar.Image` is absolutely positioned over `Avatar.Fallback`, and an `Image` with nothing
+  decoded yet draws nothing — so the initials show while the photo loads and **stay if the URL
+  is wrong**, with no load-state machine, no `onError` to remember, and nothing to get out of
+  sync. HeroUI runs a status enum for this; a stacking order says the same thing and cannot
+  disagree with itself. JSX order between the two slots is therefore free.
+
+  `variant` is the `Chip`'s eleven names, meaning here what they mean there — an avatar is a
+  token _about_ a person or a thing, which is the category the `Chip` established. The three
+  status families are present because an avatar reports as often as it identifies: a red frame
+  for the account that failed to sync, a green one for the person who is online. It is
+  HeroUI's `variant × color` matrix said once.
+
+  `size` sets both sides, because an avatar is a square before it is a circle — 32, 40, 48, 64,
+  HeroUI's three steps plus the one our ladder adds below them. The glyph inside the fallback
+  runs ahead of the initials at the top of the scale, because two letters fill a circle that
+  one person-icon has to sit inside with air around it.
+
+  `radius` defaults to `full`, where HeroUI fixes one large radius for all three sizes — which
+  makes their small avatars round and their large ones squircles.
+
+  **No default glyph.** XAUI publishes no icon set, so the mark is always the caller's. What
+  `Avatar.Fallback` does instead is publish the frame's resolved size and colour to
+  `IconContext`, so an `Icon` written inside it needs no props at all.
+
+  The photo fades in over 200ms on `onLoad` — HeroUI's timing — driven by a shared value
+  rather than a mount animation, because the node has to be mounted from the first render or
+  it never fetches. `animation={false}` skips it and mounts no worklet.
+
+## 0.9.1-alpha.32
+
+### Patch Changes
+
+- c66aca9: feat(skeleton): the v1 `Skeleton` — two fills, one pulse, sized by R14 alone
+
+  The fourteenth entry of the core. **One node and no slots**: a placeholder is a rectangle,
+  and there is nothing inside it to name. A paragraph of them is three of these in a `Column`
+  — composition doing what a `lines={3}` prop would otherwise hard-code, including the last
+  line being shorter, which is the only reason the block reads as a paragraph.
+
+  **There is no `size`, and that is the design.** Only the caller knows the shape of the
+  thing that is missing, so R14's `width` and `height` are the whole sizing API — full React
+  Native names and values, `width="60%"` as readily as `width={140}`. A `size` token here
+  would be a scale of rectangles nobody's content happens to be.
+
+  `variant` narrows to the two backgrounds a placeholder is ever drawn on: `default`, the
+  neutral fill, for a block on the page, and `secondary`, that fill at half, for a block on a
+  surface that already carries one — where the full fill reads as a hole. **No status
+  families and no `primary`**, because a skeleton reports nothing and a placeholder in the
+  accent announces the brand where there is nothing yet to announce; **no `tertiary` and no
+  `ghost`**, because a skeleton with a border and no fill is an empty box.
+
+  HeroUI reaches the same grey from `muted` at 30% opacity. Naming the token instead is what
+  lets a theme move the skeleton by moving `default`, rather than by discovering that a
+  percentage of a text colour is where the placeholder grey came from.
+
+  **No shimmer**, where HeroUI's default is one: a shimmer is a gradient sweeping across the
+  block, a gradient needs `react-native-svg`, and that is an optional peer a component in the
+  core cannot require. One animation, so `animation` is a boolean rather than a name to
+  choose between — the block breathes between full opacity and a half, a second each way.
+
+  **No `asChild`** (R12), and the reason is `children`: here it means the content the block
+  stands in for, and `asChild` would need it to mean the element to merge the block's styles
+  into. One `children` with two meanings, disambiguated by a second prop, is the kind of API
+  this library exists not to ship.
+
+  `isLoading={false}` renders `children` and nothing around them, which is what makes the
+  component a gate rather than a shape you mount and unmount around your own content.
+
+  The demo gains the two shapes a placeholder is actually written as: **a card** — the
+  skeleton _inside_ a real `Card`, so the padding, the radius and the gaps are the card's and
+  only what fills them changes on load — and **a list** of four rows, where the rhythm is the
+  point and the line widths differ so the rows do not read as a loading bar. Both toggle back
+  to their loaded content on a press, which is the only way to see that nothing shifts.
+
+  The list sits on a `default` card rather than a `secondary` one, and that is worth knowing:
+  in dark mode `default` and `surfaceSecondary` are the same `#27272a`, so a `default`
+  skeleton on a `secondary` card is invisible — and the `secondary` skeleton, being that fill
+  at half, is worse. The variant ladder has no answer on that surface.
+
+## 0.9.1-alpha.31
+
+### Patch Changes
+
+- 7b0d12b: feat(divider): the v1 `Divider` — no variant, one `alignSelf` for both axes
+
+  The thirteenth entry of the core. **One node and no slots**: a rule is a filled box one
+  point thick, and there is nothing inside it. A divider with a word across it is a `Row`
+  holding two of these and a `Typography` — the composition the library already has. A
+  `Divider.Label` would put a layout inside a line.
+
+  **No `variant`**, and this is the only component in the core without one. A variant is the
+  design system's vocabulary (§1 bis) — a name that means the same thing everywhere it
+  appears — and on a rule there is nothing for such a name to describe: no fill against a
+  foreground, no border against a surface, no intent to report. It briefly had three, naming
+  the three separator tokens, which is a shade of grey wearing a word. `size` says how heavy
+  the rule is and `color` says what colour it is, in React Native's own values; between them
+  there is nothing a third name would add. The theme still sets the default — the rule paints
+  `separator`.
+
+  **`alignSelf: 'stretch'` serves both orientations**, and that one line is the whole
+  mechanism: in a `Column` the cross axis is horizontal so a stretched child is full width,
+  in a `Row` it is vertical so the same word makes a vertical rule full height, and on the
+  axis the thickness fixes it is ignored. So there is no `width` or `height` to keep in sync,
+  and a horizontal divider written inside a `Row` collapses on purpose rather than guessing.
+
+  That is also why the recipe has no `size × orientation` compounds: the `size` axis writes
+  both keys blind and the `orientation` axis, declared second, releases the wrong one. Four
+  lines and two, instead of eight.
+
+  `asChild` is there as R12 requires, and it earns its place on this component: an
+  `Animated.View` that collapses a section takes the thickness and the ink from the recipe and
+  the height from a shared value.
+
+  `size` is the thickness — `xs` is HeroUI's `thin`, one device pixel, and `lg` is their
+  `thick`, six points. **It defaults to `xs`**, the one place in the library that does not
+  default to `md`: a rule you notice is a rule that is too thick.
+
+## 0.9.1-alpha.30
+
+### Patch Changes
+
+- f8cc8d6: feat(spinner): the v1 `Spinner` — seven inks, two rings, no SVG
+
+  The fifteenth entry of the core, and the one `Button.Spinner` was named after. **Two rings
+  and no slots**: the root is the track — the full circle, in the variant's ink at a fraction
+  of its opacity — and its one child is the arc that turns over it, the same circle with a
+  quarter missing. The two are one figure rather than two parts.
+
+  **A variant here names an ink**, which is the narrowing of §1 bis this component argues for.
+  On a `Chip`, `fg` means "the colour that reads _on_ this variant's surface", so `primary`
+  resolves to `accentForeground` — white. A spinner has no surface, so `primary` is `accent`,
+  `secondary` is the accent as it reads on the page, `default` is `foreground`, `tertiary` is
+  `muted`, and the three status families are there for the wait whose outcome is already
+  named: deleting is a `danger` wait. **No `ghost`**, because a spinner with no ink is not a
+  spinner, and **no `-soft` slices**, because a soft slice is a fill softened.
+
+  HeroUI fades a single arc from opaque to 55%, which needs an SVG `linearGradient` and
+  therefore `react-native-svg` — an **optional peer**, which a component in the
+  fifteen-component core cannot require. Two circles of one ink at two opacities read as the
+  same figure, cost two views, and pull in nothing. The track is what does the work: a
+  rotating three-quarter ring on its own reads as broken rather than as busy.
+
+  `size` is the diameter and the only measurement a circle has — 16, 20, 24, 32, HeroUI's
+  three steps plus the one our ladder adds between the first two. The stroke thickens once,
+  at `lg`.
+
+  The turn moves to `hooks/use-rotation.ts` on its second use, per §2 bis, and
+  `Button.Spinner` stops carrying its own copy — with one duration for the library, because
+  two spinners on one screen at two speeds is a bug and one number is the only way to be sure
+  of it. That slot stays its own component rather than becoming `<Spinner size={…} color={…}
+/>`: everything it draws was already resolved by the button's recipe, and handing those two
+  numbers to vocabulary props would be R6 in reverse.
+
+  The demo's screen list becomes data in the same change — a dozen adjacent hand-written
+  buttons in one JSX block is what made it conflict on every component branch.
+
+## 0.9.1-alpha.29
+
+### Patch Changes
+
+- 8e586e2: feat(switch): the v1 `Switch` — two shapes, one flip
+
+  The tenth entry of the core, and the third of the toggles. The root is the row, so tapping
+  the label flips the switch; R3 wraps a text child into the label and supplies the track and
+  the knob.
+
+  **`variant` is a geometry axis here**, which no other component does: `primary` rides the
+  knob inside the track, `secondary` stands it over a thinner bar. They are the legacy
+  component's `inside` and `overlap` — the same two shapes and the same measurements — under
+  the library's own two names, so the v1 API keeps one vocabulary instead of a third pair of
+  words for this component alone. Both are the accent when they are on, which is why the
+  whole table lives in eight compounds and the colours in one `paint`.
+
+  **No `isInvalid`.** A switch applies its change the moment it is flipped, so there is no
+  later moment at which it can be wrong — a checkbox states an intention a form submits, and
+  that is the one that can be. A setting that cannot be turned on is `isDisabled`.
+
+  The track's colour is crossed rather than swapped and the knob slides on the same 175ms,
+  from one constant neither slot owns, so a flip reads as one movement. Both are values on the
+  context rather than styles — a worklet needs a number and a string, not a style to flatten
+  every frame — and the travel is `width − knob − 2 × inset`, arithmetic the root does.
+
+  `color` is the colour the switch turns on to; the track at rest keeps its neutral, because
+  a switch that is off is off in every brand.
+
+  The knob moves with `translateX` and the sign is flipped against `I18nManager.isRTL`: R13
+  bans a directional inset, and a transform does not mirror on its own.
+
+  Both animated hooks carry a `'worklet'` directive and a dependency array, which the rest of
+  the package already required and these two were missing. Without them the demo's `/switch`
+  screen threw outright on web — _"`useAnimatedStyle` was used without a dependency array or
+  Babel plugin"_ — while lint, type-check and the test suite all stayed green, because none of
+  them renders anything. `pressable-feedback.tsx` states the rule and the reason: the package
+  ships as a built `dist`, our CJS output calls the hook as a namespace member that the Babel
+  plugin does not recognise, and the directive is what `tooling/workletize/` keys off.
+
+  The dependency arrays are load-bearing beyond the crash. `distance` and `colors` are plain
+  values captured in the closure, not shared values, so without them a switch whose `size` or
+  `color` changed would have kept animating to the old travel and the old ink.
+
+  **No `xs`**, matching the `Checkbox` and the `Radio`. That track was 40 by 24 with an 18pt
+  knob — and unlike those two, a switch has no row to press: the track _is_ the target. Below
+  `sm` it stops being comfortably hittable, and shrinking the one control whose whole surface
+  is the touch target buys width nobody asked for.
+
+  **`radius` moves the knob with the track.** It reached only the track, so a `radius="sm"`
+  switch squared off its bar and kept a circular knob inside it — a control rounded by halves.
+  `radiusAxis` becomes variadic to say it, which is the second slot it has been asked for
+  since the `Card`.
+
+  The knob takes the same named corner rather than the track's less its padding. The nesting
+  rule that would suggest otherwise reaches zero before the outer radius does — at `xs` a 3pt
+  track would hold a sharp-cornered knob — and two matched corners read better than one
+  correct one.
+
+## 0.9.1-alpha.28
+
+### Patch Changes
+
+- b44037c: feat(radio): the v1 `Radio` — the `Checkbox` in a circle, with one rule changed
+
+  The ninth entry of the core. Same anatomy, same three levels on the same `field*` tokens,
+  same four boxes so a radio and a checkbox in one form line up — and **a press selects, it
+  never clears**. A set of options has no "none of these" unless one of them says so, so
+  `onSelectedChange` fires with `true` only, and pressing the chosen option fires nothing at
+  all.
+
+  There is **no group**: `RadioGroup` is a P5 component with a context of its own, not a prop
+  this one is missing. A set is a `useState` and a `map` over `isSelected={value === option}`,
+  inside a `View` with `accessibilityRole="radiogroup"` — three lines the group component will
+  replace rather than undo. The legacy `RadioGroup` and its shared props are named in the
+  migration table, so nobody discovers the gap at merge time.
+
+  `SelectionFill` moves into `system/`: the fill that fades and grows in with the mark riding
+  on it was the `Checkbox`'s, and this is its second use — §2 bis says extract there. The
+  `Checkbox`'s indicator now renders it too, which is thirty lines it no longer owns.
+
+  `Radio.IndicatorThumb` has no counterpart here: the dot is the indicator's default child,
+  replaced by writing children, which is the same escape hatch with one component fewer.
+
+  **No `xs`**, matching the `Checkbox`. That circle was 16 points across with a 7pt dot, and a
+  target that small is read rather than aimed at — the touch target is the row anyway, so
+  shrinking the circle buys nothing a caller can press. The two components pair in the same
+  form, so they offer the same three sizes or a caller finds the difference the hard way.
+
+## 0.9.1-alpha.27
+
+### Patch Changes
+
+- e1326cf: feat(checkbox): the v1 `Checkbox` — a box, a mark and the label that toggles it
+
+  The eighth entry of the core. **The root is the row, not the box**: it is the pressable, so
+  tapping the label ticks the checkbox — which is the whole reason `Checkbox.Label` is a slot
+  here rather than a `Text` you put beside the component and wire up yourself. HeroUI needs a
+  second component (`ControlField`) for that; the plan's slots for this one are Indicator ·
+  Label, and this is why.
+
+  R3 goes one step further than elsewhere: a stringifiable tree becomes the label **and the
+  root supplies the indicator**, because a checkbox without a box is not a checkbox. Written
+  with no children at all it is the box alone — the form a table row wants.
+
+  **Selection is not a style axis.** The fill and the mark are two slots the indicator mounts
+  only while it is ticked, painted from two new roles — `bgSelected` and `fgSelected`. That
+  keeps the cache at one entry per token combination instead of two, and it is what makes
+  `color` **the colour the box checks in**: the tint pass re-runs `paint` and the states,
+  never the axes, so a fill written as an axis would have snapped back to the accent the
+  moment the box was ticked. `Radio` and `Switch` need the same pair, which is why the roles
+  are in the engine rather than in this recipe.
+
+  Three of the `Input`'s four levels, on the same `field*` tokens — `ghost` is absent, because
+  a box with no border and no fill is nothing at all — plus the four sizes, `radius`,
+  `isInvalid` (which drops the resting fill and outranks the tint) and `isDisabled`.
+
+  `isIndeterminate` is ours and not HeroUI's: the legacy checkbox had it, a "select all" is
+  what it is for, and `accessibilityState.checked: 'mixed'` is something only the component
+  can say. A press resolves it to selected rather than toggling into it.
+
+  The check is **drawn**, not imported — two borders of an empty box, a quarter turn from
+  where they look like a tick — so a checkbox works in a project that has installed no icon
+  set. It is the `CloseButton`'s bargain. Children of `Checkbox.Indicator` replace it and ride
+  the same 120ms fade.
+
+  Two corrections after seeing it on a device.
+
+  **The mark is lifted to where it looks centred.** The check is an "L" — a left border and a
+  bottom border — rotated a quarter turn, and an L keeps its ink in one corner rather than in
+  the middle of its box. Rotating about that box's centre therefore leaves the tick sitting
+  low, and flexbox dutifully centres the box it no longer fills. Rotating by −45° maps a point
+  to `(dy − dx)·√2/2`, and across the two strokes that spans `H` at the top and `H − t − W` at
+  the bottom — an ink centre `(H − t)·√2/4` below the box centre, 1.06pt on a 24pt box. The
+  recipe now lifts by exactly that.
+
+  Both transforms moved into the recipe, and `checkbox.style.ts` is gone with them:
+  `transform` is a whole value, so the recipe's shallow merge replaces it rather than
+  blending, and a rotation in a sheet plus a translation in the recipe would have dropped one
+  of the two. The lift is derived from `side` and `stroke`, so it holds at every size.
+
+  **No `xs`.** That box was 16 points square with a 1.5pt stroke, and a tick drawn in a space
+  that small stops reading as a tick. The touch target is the row rather than the box, so
+  shrinking the box buys nothing a caller can press. `sm` is the compact size.
+
+## 0.9.1-alpha.26
+
+### Patch Changes
+
+- 2f8a9bd: feat(input-group): `InputGroup` — a field with something beside it
+
+  A glyph, a unit, a reveal toggle. `InputGroup` goes **inside** an `Input` and replaces
+  nothing but the field: the column, the label, the hint, the error, the four variants, the
+  `size`, the `radius`, the tint, the focus, `isInvalid` and `isDisabled` all stay the
+  `Input`'s, and this root owns exactly one thing — how wide its two decorators turned out to
+  be.
+
+  **The box is still the `TextInput`.** `InputGroup.Prefix` and `InputGroup.Suffix` are taken
+  out of flow and laid over the field, so no wrapper borrows the border, the fill, the radius
+  and the shadow: there is one box in the library and this is not a second one to keep in step.
+  The field clears them by their **measured** width instead — `paddingStart` and `paddingEnd`,
+  logical edges (R13) — which is the same shape `TextArea` uses for `rows`: a raw value the
+  slot turns into a style, outside the cache (R6). A width takes as many values as there are
+  decorators and could never be a cache key.
+
+  `isDecorative` does the two things that belong together: touches pass through to the field
+  underneath, and the content leaves the accessibility tree. It is off by default, because a
+  suffix is most often a control and one that swallowed its own taps would be a reveal toggle
+  you cannot press. A disabled `Input` takes the touches from both decorators all the same.
+
+  `InputGroup.Icon` is the slot `Button`, `Chip` and `Alert` already have, and the one HeroUI's
+  component does not: a glyph one step above the field's type, in the theme's
+  `fieldPlaceholder`, so a form does not carry a hard-coded `#888` on every field.
+
+  The `Input`'s recipe gains three slots — `prefix`, `suffix` and `icon` — because the size
+  that decides the decorator's inset and the glyph's scale is the field's, and a group with an
+  axis of its own would be a second answer to a question the `Input` has already answered.
+
+  Not one of the fifteen the 1.0 core is scoped to; recorded as P5.3.
+
+## 0.9.1-alpha.25
+
+### Patch Changes
+
+- 0c5435f: The `field` radius aligns on HeroUI's — 21 points becomes 12
+
+  `buildRadius` derived it as `base * 1.75`, which on the default base of 12 put a 48-tall
+  field at 21 — 87% of its geometric maximum, so it read as a gélule rather than as a rounded
+  box. HeroUI reaches 12 for the same control from the other side of the scale: their
+  `--radius-field` is an alias of their `--radius-xl`, and their base is 8 where ours is 12.
+
+  It coincides with `lg` at the default base and stays its own key, because that is what lets
+  a theme round its fields without rounding its cards.
+
+  Only `Input` reads it — and `TextArea` through it, since that component has no recipe of its
+  own and renders an `InputRoot`. `InputOTP` deliberately does not: its box is very nearly
+  square, where a wide field's corner is a shape nobody decided for it.
+
+- 0c5435f: The `Input`'s column tightens by a point at every size
+
+  `gap` was 4, 4, 6, 8 and is now 3, 3, 5, 7. A label, a field and a line of help are one
+  thing the eye reads top to bottom, not three stacked blocks, and the whole spacing step let
+  them drift far enough apart to read as a list.
+
+  Quarter steps rather than a new scale: `spacing` takes a fraction, and the `Chip` already
+  measures its dot and its cross that way. It stays a `gap` on the root and not a margin on
+  any slot (R4) — which is what keeps the space above and below the field identical, and what
+  stops an omitted `Input.Description` from leaving a hole behind it.
+
+  `TextArea` inherits it, having no recipe of its own.
+
+- 110dd81: feat(text-area): `TextArea` — a multiline field, over the `Input`
+
+  Not "like" an `Input` — it **is** one. `TextArea` renders the `Input`'s root: the same
+  recipe, the same resolved context, the same four variants, the same `size`, `radius`,
+  `color`, `labelPlacement`, `isInvalid` and `isDisabled`. `TextArea.Label`, `.Description`
+  and `.Error` are literally the `Input`'s slots, re-exported rather than wrapped.
+
+  Only `TextArea.Field` differs, by three things: `multiline`, the text pinned to the top, and
+  a height counted in lines. That is HeroUI's answer too — their `TextArea` is twenty lines
+  rendering their `Input` with the same three defaults.
+
+  `rows` (default `3`) and `maxRows` are **raw values** (R6), like `color`: they resolve
+  outside the style cache from the line height the size chose, so `rows={7}` costs no cache
+  entry. Past `maxRows` the field stops growing and scrolls; unset, it grows with the text and
+  has nothing to scroll, which is why `scrollEnabled` follows `maxRows` rather than being a
+  prop of its own.
+
+  The `Input`'s recipe gains a `textArea` slot carrying only the delta — the line height, the
+  vertical padding and `textAlignVertical` — layered over the field's own style, so the
+  colours, the border and the radius are resolved once for both. The four inside-label
+  compounds write to it as well, so `labelPlacement="inside"` composes.
+
+  Not one of the fifteen the 1.0 core is scoped to; recorded as P5.
+
+## 0.9.1-alpha.24
+
+### Patch Changes
+
+- 94b4850: feat(input-otp): `InputOTP` — a one-time code, one character to a box
+
+  Not one of the fifteen the 1.0 core is scoped to, so it ships as a P5 component under
+  `1.x`. Its API is the `Input`'s: the same four levels over the theme's `field*` family,
+  the same `size`, `radius`, `color`, `isInvalid` and `isDisabled`.
+
+  **One hidden `TextInput` holds the whole code**, and the boxes are a rendering of that one
+  string. Six focusable boxes is the design every OTP component starts with and abandons —
+  the caret has to be moved by hand, a backspace at the start of a box has to jump backwards,
+  and a paste arrives in one box out of six. Here a keystroke, a backspace, a paste and an
+  autofilled `one-time-code` all take the same path.
+
+  Paste keeps only the code: a run of exactly `maxLength` digits with no digit on either side,
+  so "Your code is 482913, it expires in 10 minutes" yields `482913` and not `Your c`.
+
+  `InputOTP.Group` takes a render function — the one slot in the library that does, because
+  the number of children here is `maxLength` rather than markup. `ref` is the imperative
+  handle (`focus`, `blur`, `clear`) rather than the view, since those are the three things
+  only the hidden input can do.
+
+  Fifteen tests on the pure helpers — `buildSlots`, `extractPastedCode`, `isPaste`. The
+  component itself is verified by its demo screen, as every other one is.
+
+  Three corrections after seeing it on a device.
+
+  **The box takes the `lg` radius, 12 points, not `field`.** A field is wide, so 21 on a
+  48-tall one reads as a rounded rectangle; a code box is very nearly square — 44 by 48 at
+  `md`, 36 by 40 at `sm` — where the geometric maximum is 22, so the same 21 is a pill in all
+  but name and is clamped to one outright at the small end. Twelve is where HeroUI lands for
+  the same box from the other direction: their `field` radius is their `xl`, and their scale's
+  base is 8 where ours is 12.
+
+  **No `ghost`.** The `Input` has one and this does not, because the shape of the component
+  is different: an input is one wide field whose position the caret and the label already
+  give away, so it survives having neither fill nor edge. A code is six boxes, and their only
+  job before anything is typed is to say how many characters are expected and where they go —
+  with no fill and no border there is nothing to count. It is the reason the `Checkbox` has no
+  `ghost` either.
+
+  **No `xs`.** The box's width is the control height less one spacing step, so `xs` was 28 by
+  32 — a box that small still has to carry an 18pt character to stay legible, and 18 in 28
+  leaves no room for the two-point active ring without the digit touching it. A code is also
+  the one field a user reads back to themselves character by character, which is the worst
+  place to save eight points. `sm` is the compact size; below it, use fewer boxes rather than
+  smaller ones.
+
+## 0.9.1-alpha.23
+
+### Patch Changes
+
+- 4467295: feat(input): the v1 `Input` — P3.7
+
+  A text field with the label, the hint and the error that make it usable. Compound root
+  plus four slots: `Input.Label`, `Input.Field`, `Input.Description` and `Input.Error`.
+
+  **The root is the column, not the field.** `Input.Field` is the `TextInput`, which is what
+  makes the three lines slots of one component rather than three components a form has to
+  keep in step — and why `TextInputProps` are on the field rather than on the root.
+
+  The first real use of the theme's `field*` family, derived in P0 and unread since. Four
+  variants, the library's emphasis levels narrowed like the `Card`'s, splitting HeroUI's
+  two-name `primary | secondary` by saying what each of their ends already is: `primary` is
+  their field fill plus the theme's `field` shadow, `secondary` their neutral fill and the
+  default here, `tertiary` the border alone, `ghost` neither.
+
+  Focus darkens the border towards the mode's ink — `fieldBorderFocus`, no ring and no
+  accent. `isInvalid` outranks it, so a field that is both reads as wrong rather than as busy.
+
+  `labelPlacement="inside"` lifts the label into the box. It is taken out of flow and placed
+  against the box's own padding, so the JSX is identical either way and nothing is
+  reparented; the field pays for the room and the box grows by the same amount.
+
+  Visually aligned with `heroui-native`: a 48pt minimum, 12pt of horizontal padding, a 16/24
+  label above the field and a 14/20 line below it at `md`. The height is a **minimum** rather
+  than fixed — the one place this component departs from the `Button`'s rule, because a
+  `multiline` field holds the user's own text and has to grow.
+
+  Adds a `borderFocus` role to `system/recipe`, so a state can read the variant's own focus
+  colour the way `bgPressed` lets a pressed `Button` darken its own fill — and so a raw
+  `color` follows the field into focus.
+
+## 0.9.1-alpha.22
+
+### Patch Changes
+
+- d5461ae: feat(alert): the v1 `Alert` — P3.6
+
+  A message the interface has to make sure is read. Compound root plus five slots:
+  `Alert.Icon`, `Alert.Content`, `Alert.Title`, `Alert.Description` and `Alert.Close`, laid
+  out as a row of three columns spaced by the root's `gap` alone.
+
+  Nine variants: the `Card`'s `surface` for the neutral level — HeroUI's alert root, token
+  for token, shadow included — and the `Chip`'s status ladder for the rest, each family in
+  its full and soft slice.
+
+  Visually aligned with `heroui-native`: 12pt of padding, a 12pt gap, a 24pt radius, a 16/24
+  title above a 14/20 description and an 18pt icon at `md`. The icon's optical offset is
+  derived from the title's leading rather than hard-coded, so it stays right at all four
+  sizes.
+
+  The root is **never a control** — no `isPressable`, no press behaviour on the type. What
+  you press is `Alert.Close`, which now comes from a shared `system/close-button`: the
+  `Chip`'s close became its second use, so its press state, grown touch target, missing-label
+  warning and built-in cross are written once and both components are five-line call sites.
+
+  Also fixes an inference bug in `createRecipe`: a `compoundVariants` entry declared the
+  variant union instead of selecting from it, so a recipe whose only compound was
+  `{ when: { variant: 'default' } }` rejected every other variant at the call site.
+
+  `Alert.Icon` picks `Icon`'s forms one by one, so the union survives. `IconProps` became a
+  discriminated union of its three forms, and a non-distributive `Pick` over it merged them
+  back into a single shape where `as` and `source` are both optional — which stopped
+  type-checking the moment both changes met on `main`, and would have let
+  `<Alert.Icon as={Check} source={png} />` compile with one of the two silently dropped. The
+  type now distributes the `Pick`, and the slot renders one `<Icon>` per form in `Icon`'s own
+  runtime precedence rather than one call carrying all three.
+
+- 17993f6: feat(chip): the v1 `Chip` — P3.5
+
+  A compact token — a status, a tag, a filter, a person. Compound root plus five slots:
+  `Chip.Label`, `Chip.Icon`, `Chip.Dot`, `Chip.Avatar` and `Chip.Close`, spaced by the root
+  alone, so JSX order is screen order and there is no `startContent` / `endContent`.
+
+  Eleven flat variants replace HeroUI's `variant × color` matrix: the `Button`'s five-step
+  emphasis ladder plus the three status families it deliberately refused — a chip reports an
+  outcome, so `success`, `warning` and `danger` each land here with their soft slice.
+
+  Visually aligned with `heroui-native`: 12pt of horizontal padding, a 14/20 label and a 28pt
+  `md`, with the height fixed rather than derived from vertical padding so a chip carrying an
+  avatar still lines up with the one beside it.
+
+  `Chip.Close` is a control in its own right — its own press state, its own `hitSlop`, and a
+  cross it draws itself, so a dismissible chip needs no icon set installed.
+
+  Also extracts the `radius` axis, duplicated in every recipe that has one, into
+  `radiusAxis()` in `system/recipe/`.
+
+  `Chip.Avatar` is pulled back into the capsule's rounded end. The root's horizontal padding
+  is set for text — 12pt at `md` — while the height leaves only 3pt above and below a 22pt
+  avatar, so a face sat visibly pushed into the chip where a label beside it looked right. The
+  slot now cancels the difference, which seats it concentrically with the rounded end: the
+  capsule's cap is a circle of radius `height / 2` and the avatar is one of radius
+  `diameter / 2`, so they share a centre only when the gap is equal on every side. It is the
+  one margin on a slot in this component, and R4 is about spacing _between_ slots rather than
+  about cancelling the parent's padding — `Chip.Avatar` is a leading slot by contract, which
+  is what makes a leading-only correction sound. `marginStart`, so RTL follows (R13), and
+  clamped at zero so a theme with tighter padding needs no pull at all.
+
+- 662fdfc: `warning` moves from the `amber` family to `orange`
+
+  The dark `warning` was `amber[400]`, a distinctly yellow 84° in OKLCh, which read as gold
+  rather than as a caution — next to a green `success` and a red `danger` it looked like a
+  third decorative colour instead of the middle of a status ladder.
+
+  Swapping the family moves both modes the same way and **narrows the gap between them**: the
+  two ramps sit 35° apart today at the steps we use, and 18° after. Light barely moves at all
+  — `amber[700]` and `orange[700]` are 11° apart and share a lightness, so the change there is
+  a slight warming rather than a new colour, and the contrast against `warningForeground` goes
+  _up_, 4.81 → 4.96. Dark moves further, because that is where the yellow was.
+
+  Everything derived follows through `deriveColors`: `warningPressed`, `warningSoft`,
+  `warningSoftForeground` and `warningSoftPressed`. `pnpm tokens:check` passes on both modes.
+
+  It reaches every component with a `warning` variant — `Chip`, `Alert`, `Badge`, `Spinner`
+  and the ones still in review — which is the point of the token layer: one line in
+  `tooling/tokens/source.ts`, no component touched.
+
+## 0.9.1-alpha.21
+
+### Patch Changes
+
+- 1555901: `Card` — the v1 surface, and the control it becomes.
+
+  A compound root with five slots — `Header`, `Body`, `Footer`, `Title`, `Description` — on
+  the same shape as the `Button`: the recipe resolves once at the root and publishes the
+  resolved styles, every node takes its own style props (R14), `asChild` merges into the
+  caller's element, and the context hook is exported so a third party can add a slot.
+
+  `variant` narrows the shared vocabulary to its four emphasis levels — `default`,
+  `secondary`, `tertiary`, `ghost` — over the theme's `surface*` family, with the surface
+  shadow on the one level that stands on the background. `size` drives padding, both gaps,
+  the radius and the type of the two text slots, and never a height: a card is as tall as
+  what it holds. `isPressable` turns the surface into a `PressableFeedback` with a press
+  wash, `accessibilityRole="button"` and the shared scale.
+
+  The rendering is HeroUI's card measured — `md` is 16pt of padding, a 24pt radius, an
+  18/28 title in `medium` over a 16/24 description, no border on a filled surface — reached
+  through our own vocabulary rather than through their utility classes, and with the gaps the
+  component owns instead of leaving to the call site.
+
+  Also fixes a `NoInfer` gap in the recipe engine: a `compoundVariants` entry naming one
+  variant used to collapse the whole recipe's variant union to that single value.
+
+  **`Card.Background`** — a photo, a gradient or a video behind the card. The root **hoists**
+  it, so JSX order does not decide stacking: a background written after the header would
+  otherwise cover it, which is the invisible ordering rule composition should not carry. It
+  reuses the marking idiom `PressableFeedback` uses for its overlays, and `markBackground` is
+  exported so a third party's layer is not a second-class citizen.
+
+  The clip lives on the layer rather than on the root: `overflow: 'hidden'` cuts the node's
+  own shadow on iOS, so clipping the card would cost a `default` one the elevation its variant
+  just gave it. `radius` therefore moves both slots together — a corner that moved only the
+  root would round the card and leave its photo square. HeroUI reaches the same feature
+  through a `background` **prop** and clips on both nodes, losing the shadow.
+
+  **The light `surfaceSecondary` moves up half a step**, `#f4f4f5` → `#ececee`. It sat so
+  close to the `background` (`#fafafa`) that a `secondary` card on the page read as no card at
+  all, and `zinc[200]` was already `surfaceTertiary` — so the level between them was the only
+  one left. It is the OKLab midpoint of the two, written in the source layer rather than added
+  to the palette: `PaletteShade` is derived from `zinc`, so a `150` there would have claimed
+  every other family has one too.
+
+## 0.9.1-alpha.20
+
+### Patch Changes
+
+- 4a14277: `Stack` and `Grid` join the layout lot
+
+  **`Stack`** overlays. The root is the containing block (`position: relative`) and
+  `Stack.Item` is a layer taken out of the flow (`position: absolute`); where a layer sits is
+  R14 — `top`, `bottom`, `start`, `end`, `zIndex`. The first child stays in the flow and gives
+  the stack its size. Overlaying is composed rather than inferred: a stack that positioned
+  every child but the first would have to guess which one sets the size, and would change
+  meaning the day a caller reordered them.
+
+  **`Grid`** lays out a fixed number of columns, wrapping, and **measures** its column width
+  rather than expressing it as a percentage. `width: '33.33%'` resolves against the content
+  box and knows nothing about the gaps, so three cells plus two gaps overflow their row. The
+  root reads its own width and publishes the exact column width; `Grid.Item span={n}` covers
+  several columns, gaps included. `gap` is the grid's own prop because the root has to read
+  it to size the cells.
+
+  `Container` and the remaining legacy `view/` entries are not planned: they are R14 or
+  `Stack`.
+
+## 0.9.1-alpha.19
+
+### Patch Changes
+
+- 5f91549: `Row` and `Column` — the two axes of a layout
+
+  Each contributes one declaration, `flexDirection`, and nothing else. `gap`, `alignItems`,
+  `justifyContent` and `padding` are `ViewStyle` keys that R14 already exposes as props on
+  every node, so these two add no vocabulary of their own — which is the change from the
+  legacy components, where `mainAxisAlignment`, `crossAxisAlignment`, `mainAxisSize`,
+  `direction` and `reversed` were words to learn for what React Native already says.
+
+  `flexDirection` is the one style prop they do not expose: it is their identity, and a `Row`
+  that could be told to lay out as a column would be a `View` with a longer name.
+
+  Three entries of the legacy `view/` lot are deliberately not ported, because R14 removed
+  their reason to exist: `Padding` is `padding={16}` on the node itself, `Center` is two
+  alignment props on the parent, and `Spacer` is `justifyContent="space-between"`. Each added
+  a view node to say what a style prop already says.
+
+## 0.9.1-alpha.18
+
+### Patch Changes
+
+- 345b3e0: `Icon`'s R14 boundary moves from a comment into the type
+
+  `IconProps` declared the style props and `style` for all three forms, but only the `source`
+  form applies them — it is the one where we render the node. So this compiled and silently
+  did nothing:
+
+  ```tsx
+  <Icon as={Trash2} marginEnd={8} />
+  ```
+
+  The props are a discriminated union now: `as`, a raw SVG child and `source` are mutually
+  exclusive, and only `source` carries R14. The call above is a compile error that points at
+  `size` and `color`, the levers the other two forms actually have.
+
+  `Icon` also gains the demo screen it never had — the three forms, the cascade from prop to
+  slot to theme, and a raw SVG having its baked-in size overridden. Not having one is why the
+  gap went unnoticed: nobody had tried writing a margin on an icon.
+
+## 0.9.1-alpha.17
+
+### Patch Changes
+
+- 863cc86: `Typography` and `TextSpan` — the first entry of the v1 core
+
+  Ten roles, aligned with HeroUI Native's `text`: `h1`–`h6`, `body`, `body-sm`, `body-xs` and
+  `code`. Each role fixes size, line height, weight and family **together**, which is why
+  there is no `size` prop and no `weight` prop — the combinations they allowed (a heading in
+  a light weight, a caption in a display size) become unwritable rather than discouraged.
+
+  `TextSpan` is a bare React Native `Text`. Nesting a `Text` inside a `Text` already inherits
+  font, size, weight and colour on both platforms, so a span needs no context to read and no
+  role to resolve: the legacy `TextSpanContext` was reimplementing the platform, and it is
+  gone. `Typography` therefore publishes no slot and does none of a span's work.
+
+  Neither alignment nor truncation gets a prop. `textAlign` is a `TextStyle` key that R14
+  already exposes, and `numberOfLines` is React Native's own — a prop of ours would be a
+  second name for the same thing.
+
+## 0.9.1-alpha.16
+
+### Patch Changes
+
+- da4bc8a: The `default` variant reads as grey rather than as near-white
+
+  Light `default` was zinc-100 on a white background — a fill faint enough to be mistaken
+  for no fill at all, where dark's zinc-800 sits clearly off its own background. One step to
+  zinc-200 balances the two modes instead of shifting one.
+
+  The derived layer follows from the single source: `defaultPressed`, `defaultSoft` and
+  `defaultSoftPressed` move with it, so `tertiary` and `ghost` keep a pressed state that
+  matches the new grey. Both packages regenerate their `tokens.gen.ts` from that source.
+
+## 0.9.1-alpha.15
+
+### Patch Changes
+
+- 7376ce5: `asChild` reached `Slot` as an array, so every pressable threw
+
+  `PressableFeedback` rendered `{overlays}{content}` — two expression children, which React
+  hands to the root as an array. Under `asChild` that root is a `Slot`, which merges into a
+  single element and threw instead, whether or not an overlay was composed: with none,
+  `partitionOverlays` returns `overlays: null` and `[null, content]` is an array all the
+  same. `<Button asChild>` was unusable, and so was every other pressable.
+
+  The root's children are now computed once, as a single node, by `feedbackChildren`.
+  `asChild` skips the partition entirely: the caller's element _is_ the pressable, so an
+  overlay written inside it belongs to it and hoisting would make it a sibling of the very
+  element it was composed into.
+
+## 0.9.1-alpha.14
+
+### Patch Changes
+
+- 2838877: R14 reaches every component that renders a node, not only the `Button`.
+
+  `PressableFeedback` and its `Highlight` / `Ripple` overlays, `PortalHost` and `Icon` now
+  take the style keys of the node they render, the same way the `Button` and its slots do.
+  The primitive every pressable control in the library is built on cannot be the one place
+  where `padding={16}` has to become an object again.
+
+  ```tsx
+  <PressableFeedback padding={12} borderRadius={16}>…</PressableFeedback>
+  <Icon source={logo} marginEnd={8} />
+  ```
+
+  `Icon`'s reach the **`source` form only**, exactly as far as its `style` already does: the
+  other two forms render a third-party component or clone the caller's element, so there is
+  no node of ours to style. That is the rule applied, not an exception to it — the rule says
+  _the node the component renders_, and there is one in three.
+
+  On `PressableFeedback` they merge into `style` before either branch sees it, so the ink and
+  the corners an overlay reads off its surface include a `backgroundColor` or a
+  `borderRadius` written as a prop.
+
+## 0.9.1-alpha.13
+
+### Patch Changes
+
+- 18b3fd8: A pressed fill now moves one way: towards the ink of the mode.
+
+  `accentPressed`, `successPressed`, `warningPressed` and `dangerPressed` mix towards
+  `foreground` instead of the variant's own text colour. That text is picked for contrast, so
+  its lightness followed the fill's and took the direction with it: `#9333ea` carries
+  near-white text and lightened under the finger in light mode, while `#c084fc` carries dark
+  text and darkened in dark mode. Same control, opposite gesture, and nobody had decided it.
+
+  Now `#9333ea → #8533d3` in light and `#c084fc → #c691fd` in dark — darker in light, lighter
+  in dark — and the label's contrast rises in both modes instead of falling in one. The
+  neutral fills already worked this way, since `defaultForeground` and `surfaceForeground`
+  _are_ the mode's ink; only the four saturated intents ever flipped. `deriveTint` follows the
+  same rule, so a raw `color` behaves like a token under the finger as much as it does at rest.
+
+  Visible on every filled control, which today means the `Button`.
+
+## 0.9.1-alpha.12
+
+### Patch Changes
+
+- cd06df1: Fix the press scale, which lurched on wide controls, and align the touch feedback with
+  HeroUI's values.
+
+  **The scale was a flat `0.975` for every control.** What the eye reads is the displacement,
+  not the ratio: that same ratio moves a 360pt row nine points and a 96pt chip two. It is now
+  `0.985` adjusted by a width coefficient, so the movement stays roughly constant in points
+  whatever the control's width — the reference width is 300pt, and `pressScaleFor` carries the
+  arithmetic with a test that asserts a chip and a full-width row travel the same distance.
+  The curve is 300ms eased out, in both directions, instead of 100ms in and 150ms out.
+
+  The wash goes to `0.1` over 200ms. The ripple is Material's `InkRipple` rather than an
+  approximation of it: full ink in 75ms held while the circle keeps growing, a circle starting
+  at 30% of its target instead of at a point, a target radius of half the diagonal, and a
+  centre travelling from the finger to the middle of the control. The expansion runs a second
+  while the finger is down and finishes in 225ms once it lifts, so the wave catches up rather
+  than being cut.
+
+  **The ripple now draws, and the waves belong to the root.** It never drew, and the first fix
+  was wrong: the handlers went onto the overlay's own `View`, which only hears touches that
+  land on _it_. The overlay is a sibling of the component's children, not their parent, so a
+  ripple worked on a button's padding and did nothing on its label — a bug that looks like a
+  rendering problem. Touches bubble to the `Pressable`, so that is where the handlers live;
+  the root drives the two waves and publishes them, and the overlay only draws them.
+
+  **`feedbackVariant` is gone, and overlays are composed.** The prop named a cross-product in
+  a string — `scale`, `highlight`, `ripple`, `scale-highlight`, `scale-ripple`, `none` — which
+  could name five of the six combinations it had and none of the ones a third overlay would
+  add. A wash and a wave together, which is what Material actually does, was unreachable.
+
+  The root scales, and anything laid over it is a part that wraps what it sits under:
+
+  ```tsx
+  <PressableFeedback isPressed={isPressed} style={styles.root}>
+    <PressableFeedback.Ripple>
+      <Label />
+    </PressableFeedback.Ripple>
+  </PressableFeedback>
+  ```
+
+  **Wrapping costs nothing**, which is the part worth knowing: the children are not boxed.
+  They come back as siblings of the wave's layer in a fragment, which has no presence in the
+  host tree, so the root's `flexDirection`, `gap` and `alignItems` still reach them directly
+  and the rendered tree is identical to writing the overlay as a bare sibling. A real wrapping
+  `View` would have been the trap — the root's layout would apply to the wrapper, the
+  primitive would need to be handed the row's `gap` to give it back, and it would add the view
+  depth §8 removed.
+
+  Written bare, `<PressableFeedback.Ripple />` is that sibling and **order does not matter**:
+  the root pulls its bare overlays out and paints them under everything else, so one written
+  after the label does not end up on top of it — a 10% wash over text is subtle enough to ship
+  by accident. A wrapping overlay is left where it is, since it already contains its content.
+  `markOverlay` is exported, so a third party's own overlay part gets the same treatment.
+
+  This is also the only shape that survives `asChild`, and that was a real hole: the caller's
+  element _is_ the pressable there, so the primitive has no sibling to inject and mounted no
+  overlay at all. An `asChild` control could not have one. Now the caller renders it.
+
+  **`Button` drops `feedbackVariant` rather than renaming it.** It has one treatment and
+  always did: the recipe's `pressed` state paints the variant's own pressed colour, so a wash
+  on top would darken the control twice. It scales, and mounts nothing.
+
+  **The ink and the corners are resolved, not configured.** The root flattens its own `style`
+  once and publishes both: `backgroundColor` decides the contrasting ink, and the radius keys
+  decide the shape an overlay clips itself to. A purple fill gets light ink, a pale surface
+  gets dark ink, and a translucent `…Soft` token or no background at all falls back to the
+  theme's `foreground` — honest, because the control is showing what is behind it. The perf
+  harness caught that `contrastOn` throws on the `rgba()` those soft tokens carry, which would
+  have crashed every soft variant on first press.
+
+  Carrying the clip on the overlay rather than on the root fixes a second thing: the root no
+  longer sets `overflow: 'hidden'`, so a child that legitimately overflows — a badge on a
+  button's corner — is no longer cut by a decision about the press.
+
+  `inkFor`, `radiusFrom` and `partitionOverlays` are pure and tested, as are `pressScaleFor`,
+  `rippleRadiusFor`, `resolveAnimation` and `resolveSlotAnimation` — thirty-four assertions
+  where the docs previously claimed a test that did not exist. Three carry a decision rather
+  than an implementation: every control travels the same distance in points whatever its
+  width, a translucent background falls back to the foreground instead of throwing, and a bare
+  overlay written last comes back first while a wrapping one stays put.
+
+- 51986e5: Style as props (R14) — `useStyleProps` and `splitStyleProps` on `@xaui/native/system`, and
+  the `Button` on them.
+
+  ```tsx
+  <Button padding={16} marginTop={8} width="100%">Envoyer</Button>
+  <Button.Label fontSize={18} letterSpacing={1}>Envoyer</Button.Label>
+  ```
+
+  Full React Native names, and therefore full React Native values: `padding={16}` is 16
+  points, exactly as `style` would be — a prop carrying the RN key's name while multiplying
+  its value by a scale would be the trap you only catch by measuring on screen. The scale
+  stays one word away, `padding={t.spacing(4)}`.
+
+  The set is the node's style type minus the directional forms R13 bans, which are not
+  exposed at all: `ViewStyleProps` on a root, `TextStyleProps` on a text slot. A name the
+  component already uses stays the component's — `size` is the control's scale, `color` is
+  R7's tint. They resolve outside the style cache, after the tint and before `style`, which
+  is still the last word.
+
+  `Button.Icon` deliberately takes none: two of `Icon`'s three forms render no view of ours.
+
+## 0.9.1-alpha.11
+
+### Patch Changes
+
+- 76441cd: Ship workletized code, or every animation is a hard crash.
+
+  The Reanimated Babel plugin turns a function into a worklet — a serialized body plus its
+  captured closure — and Reanimated **aborts the process** when it is handed a plain function
+  to run on the UI runtime: `Abort trap: 6` inside `WorkletRuntime::runSync`, with no
+  JavaScript error to read. In an app that transformation happens in the consumer's Metro
+  build; over a published `node_modules` it does not. The libraries that get this right ship
+  their _source_, so Babel sees the original call sites; we ship a compiled `dist`, so the
+  same pass now runs in our own build (`tooling/workletize/`).
+
+  Every animated hook also carries an explicit `'worklet'` directive. It is the load-bearing
+  half: the CJS output calls the hook as `_reactNativeReanimated.useAnimatedStyle(...)`, and
+  the plugin recognises the bare identifier rather than the namespace member — so without the
+  directive the pass finds nothing to transform. The explicit dependency arrays stay for the
+  web, where the hook throws instead of aborting.
+
+## 0.9.1-alpha.10
+
+### Patch Changes
+
+- c4c4657: Fix what the blocking P2 API review found, before fifteen components copy it.
+
+  **`require()` failed on every subpath.** `exports.require` pointed at the ESM build while
+  the CJS build was produced and never referenced, so in a `"type": "module"` package every
+  `require('@xaui/native')` threw a `SyntaxError`. Both packages now declare the full dual
+  form, with types **per condition** — `.d.ts` under `import`, `.d.cts` under `require` — so
+  a CommonJS consumer no longer type-checks against the ESM declarations.
+
+  **Overlays painted outside rounded corners.** `Highlight` and `Ripple` are absolute fills
+  with square corners, and every control in the library is rounded. The clip existed only for
+  `scale-ripple`, and only on the animated branch; it now applies on both branches whenever a
+  default overlay is mounted — and only then, so a root without one can still let a child
+  overflow.
+
+  **`accessibilityState` was replaced instead of merged** on `Button`. A caller adding
+  `expanded` or `selected` silently erased `disabled` and `busy`, and a screen reader stopped
+  announcing a disabled button.
+
+  **`defaultVariants` narrowed a recipe's whole `Variant` type** to the single value named in
+  it, making every other variant a type error at the call site. `NoInfer` in the engine
+  removes the cast each of the forty-seven components would otherwise have carried.
+
+## 0.9.1-alpha.9
+
+### Patch Changes
+
+- 40b48e0: Add `Button` — the first v1 component, on `@xaui/native/button`.
+
+  ```tsx
+  <Button onPress={submit}>Envoyer</Button>
+
+  <Button variant="danger" size="lg">
+    <Button.Icon as={TrashIcon} />
+    <Button.Label>Supprimer</Button.Label>
+  </Button>
+  ```
+
+  Ten variants naming tokens and computing nothing, four sizes driving height and never
+  width, `color` as one raw tint that lands where the variant put its tokens, `isLoading`
+  inserting a spinner when none is composed, and `asChild` handing the press to someone
+  else's element. The view depth is one — `PressableFeedback > (Text | Icon)` — and a press
+  allocates no style: every combination of tokens is resolved once and cached for the
+  lifetime of the app.
+
+  Two fixes the component needed on the way:
+  - The build emitted classic `React.createElement` against a binding the sources never
+    import, so **every component in the published package would have thrown on first
+    render**. esbuild now uses the automatic JSX runtime.
+  - Every animated hook carries an explicit dependency array. Reanimated's Babel plugin
+    infers one, but it runs in the consumer's build and does not reach a published `dist` on
+    web, where the hook throws instead of animating.
+
+  `usePressState` now accepts `null` handlers, which is how `PressableProps` types them.
+
+## 0.9.1-alpha.8
+
+### Patch Changes
+
+- 6cc7b49: Fix `asChild` on `PressableFeedback`, which silently dropped every pressable prop.
+
+  Under `asChild` the root renders a `Slot`, and a `Slot` merges its props into its single
+  child. That child was the feedback context provider, so the ref, the style, the press
+  handlers and `disabled` all landed on a provider that ignores them: the caller's element
+  stopped reacting to touch entirely, with no error to say so. The provider now sits above
+  the root, and the caller's element receives the props it was always meant to.
+
+  The default overlay is no longer rendered under `asChild`. The caller's element _is_ the
+  pressable there, so there is no sibling to inject it as; the context is still published, so
+  `<PressableFeedback.Highlight />` among the caller's own children still works.
+
+## 0.9.1-alpha.7
+
+### Patch Changes
+
+- 824d5b6: Declare `semver` where it is used. `tooling/pack-check` checks, against the **packed**
+  manifests, that `@xaui/native` can only ever appear once in a consumer's resolution tree:
+  it is a peer and never a dependency, neither package carries a runtime dependency, no
+  `workspace:` protocol survives packing, and every peer range admits the version actually
+  shipped.
+
+## 0.9.1-alpha.6
+
+### Patch Changes
+
+- d8783d7: Add the shared hooks: `useControllableState`, `usePressState`, `useMergedRef` and
+  `usePrevious`.
+
+  `useControllableState` gives a component one state that works whether the caller drives it
+  or not, so there are never two code paths for the same value. Its setter keeps its identity
+  across renders and reads the current value from a ref, which is what lets a handler built
+  on it be passed to a memoized child. Switching between the two modes mid-life warns in
+  development — it is always a bug, and invisible without it.
+
+  `usePressState` is the press state a root owns, with handlers that **compose** the caller's
+  rather than replacing them and keep their identity across renders. Every pressable
+  component needs those three properties and gets one of them wrong on its own.
+
+  `useMergedRef` memoizes `mergeRefs` on the refs it was given, so React does not detach and
+  reattach every one of them — and pay for a node measurement — on each render.
+
+## 0.9.1-alpha.5
+
+### Patch Changes
+
+- 60011be: Add `Icon` to `@xaui/native/system`.
+
+  An icon is a third-party component, so a slot context never reaches it and every call site
+  ends up computing the colour by hand. `Icon` closes that: three forms — a component through
+  `as` (`size` and `color` injected, covering Lucide, Ionicons and vector-icons), a raw
+  `react-native-svg` element as children, or an image through `source` — all resolving the
+  same way. An explicit prop, else what the surrounding slot published through `IconContext`,
+  else the theme.
+
+  For a raw SVG the resolved values win over the element's own `width`, `height` and `color`:
+  one arriving from a design tool carries a baked-in size, and inheriting the slot's instead
+  is the point of wrapping it. `react-native-svg` stays an optional peer — nothing here
+  imports it, the raw-SVG form only clones an element the caller already made.
+
+## 0.9.1-alpha.4
+
+### Patch Changes
+
+- 06d5069: Add `Portal` and `PortalHost` to `@xaui/native/system`.
+
+  `Portal` renders its children into the nearest `PortalHost` instead of where it sits, which
+  is what `Dialog`, `Sheet`, `Drawer` and `Snackbar` will be built on — an overlay has to
+  escape the clipping and stacking of whatever container held the trigger. Publishing happens
+  in a layout effect, so the content lands in the same commit as the trigger's and an overlay
+  never shows a frame late.
+
+  Outside a host the context is `null` and `Portal` renders nothing rather than throwing: an
+  app that forgot `PortalHost` should lose its overlays, not crash on its first dialog.
+
+## 0.9.1-alpha.3
+
+### Patch Changes
+
+- c4d26ad: Add `PressableFeedback` to `@xaui/native/system`: the touch feedback every pressable
+  component shares, instead of an animation file per component.
+
+  It renders the pressable root and is **controlled** — the component above owns `isPressed`,
+  because its recipe resolves on that value and needs it before rendering.
+  `feedbackVariant` picks what happens under the finger (`scale-highlight`, `scale-ripple`,
+  `scale`, `none`) and mounts the matching overlay; `PressableFeedback.Highlight` and
+  `.Ripple` are slots a root can render itself when it wants to style one.
+
+  `asChild` goes **through** this component rather than around it: a root swapping it for a
+  bare `Slot` would render the child with no touch feedback at all. `isDisabled` replaces
+  React Native's `disabled` (R8), and each overlay takes its own `animation` — `false`, or a
+  `duration` and `opacity` — over the blanket one on the root.
+
+  `animation` on the root accepts `false`, `'disabled'`, `'disable-all'` or an object
+  switching sub-animations off one at a time. Turning animations off renders a different component
+  rather than the same one with a branch inside, so no Reanimated hook is reached and no
+  worklet is mounted. `'disable-all'` reaches descendants through context, so a long list
+  disables every row's worklets with one prop.
+
+  Also types `XAUITheme['fontWeights']` as React Native's own `fontWeight` instead of
+  `string`, which does not assign to it — every component reading `t.fontWeights.medium`
+  would otherwise have needed a cast.
+
+## 0.9.1-alpha.2
+
+### Patch Changes
+
+- c0a6e44: Add the slot primitives to `@xaui/native/system`: `createSlotContext`,
+  `childrenToString`, `Slot`, `mergeProps` and `mergeRefs`.
+
+  `createSlotContext(name)` returns a `[Provider, useSlot]` pair, so each compound names the
+  hook it exports and a slot read outside its root throws an error naming both the hook and
+  the component instead of failing three frames later on `undefined`.
+
+  `childrenToString` implements the text auto-wrap once for the whole library. It stringifies
+  the tree recursively rather than inspecting the first child, which is what makes
+  `<Button>{count} items</Button>` — children `[3, ' items']` — resolve to `'3 items'`.
+
+  `Slot` is the `asChild` render branch: `const Root = asChild ? Slot : Pressable`. It merges
+  through `mergeProps`, which composes event handlers rather than replacing them, stacks
+  styles with the child's on top, keeps a `Pressable` state-function style callable, and
+  merges refs. `asChild` has to be uniform from the first component — retrofitting it changes
+  the ref signature of every core component at once.
+
+## 0.9.1-alpha.1
+
+### Patch Changes
+
+- 09cda9d: Add the style engine, on the new `@xaui/native/system` subpath.
+
+  `createRecipe` declares a component's style once and resolves it in two passes. The cached
+  pass is keyed by finite tokens alone — theme, mode, variant, the axes, the active states —
+  so `StyleSheet.create` runs once per combination for the app's lifetime and every slot
+  reads a stable reference, which is what lets `React.memo` work and keeps a press from
+  allocating. The `color` prop takes arbitrary values, so it stays out of the key and gets a
+  second, uncached pass: the cache grows with the number of token combinations, not with the
+  palette an app invents.
+
+  A variant names tokens and a single `paint` function says where they land, so the tint pass
+  reuses it and `color` lands wherever the variant put its tokens — a background for
+  `primary`, a label for `ghost`, a border for `tertiary` — with nothing further to declare.
+  `theme/derive-tint.ts` expands one raw tint into the six slices a variant consumes, using
+  the same OKLab formulas as the derived colour layer, memoized per tint and mode.
+
+## 0.9.1-alpha.0
+
+### Patch Changes
+
+- 88c692a: Publish to npm again, under the `alpha` dist-tag.
+
+  Both packages were `private` while the v1 rewrite started from an empty `src/`. They are
+  publishable again, but the repo is now in changesets **pre mode** with the tag `alpha`, so
+  `changeset publish` ships them as `alpha` and leaves `latest` where it is —
+  `@xaui/native@0.2.8` and `@xaui/hybrid@0.0.14`, the last releases that actually carry
+  components. Installing either package without a tag keeps returning those.
+
+  `pnpm add @xaui/native@alpha` is the opt-in. At this point it exports the theme layer only
+  (`createTheme`, `XAUIProvider`, the token and colour utilities) — the components land from
+  P2 on, one at a time, which is exactly what the tag announces.
+
+## 0.9.0
+
+### Patch Changes
+
+- 1f09f09: Add an ESLint rule (R13) that forbids directional style properties (`left`, `right`, `paddingLeft`, `marginRight`, `borderLeftWidth`…) in `packages/native/src` — use the Start/End equivalents instead so React Native mirrors layout correctly under RTL.

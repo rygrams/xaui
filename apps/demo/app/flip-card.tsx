@@ -3,6 +3,7 @@ import { Pressable, ScrollView, Text, View } from 'react-native'
 import { Button } from '@xaui/native/button'
 import { Card } from '@xaui/native/card'
 import { FlipCard, useFlipCard } from '@xaui/native/flip-card'
+import type { CardVariant } from '@xaui/native/card'
 import type { FlipCardDirection } from '@xaui/native/flip-card'
 import { useXAUITheme } from '@xaui/native/theme'
 
@@ -25,12 +26,12 @@ function TurnBack({ label }: { label: string }) {
 function Face({
   title,
   body,
-  variant = 'primary',
+  variant = 'default',
   children,
 }: {
   title: string
   body: string
-  variant?: 'primary' | 'secondary' | 'tertiary'
+  variant?: CardVariant
   children?: React.ReactNode
 }) {
   const theme = useXAUITheme()

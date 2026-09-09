@@ -67,11 +67,12 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P3.14b | `Skeleton` drops its `variant` — the second fill was the less visible            | done    |
 | P3.15  | `Spinner` — seven inks, two rings, no SVG; supersedes legacy `Indicator`         | done    |
 | P4     | Docs, generated tables, `1.0.0`                                                  | todo    |
-| P4.1   | Live previews — alias `react-native` → `react-native-web` in Next.js             | todo    |
-| P4.2   | Prop tables generated from the TS types                                          | todo    |
-| P4.3   | The fifteen pages, on the structure of plan §6                                   | todo    |
-| P4.4   | Migration guide legacy → v1, with the table of plan §7                           | todo    |
-| P4.5   | Regenerate `llms.txt`, unpublish `@xaui/mcp` and `@xaui/icons`                   | todo    |
+| P4.1   | Live previews — alias `react-native` → `react-native-web` in Next.js             | done    |
+| P4.2   | Prop tables generated from the TS types                                          | done    |
+| P4.3   | Component pages, on the structure of plan §6                                     | done    |
+| P4.4   | Migration guide legacy → v1, with the table of plan §7                           | done    |
+| P4.5   | Regenerate `llms.txt`                                                            | done    |
+| P4.5b  | Unpublish `@xaui/mcp` and `@xaui/icons`                                          | todo    |
 | P4.6   | Publish `@xaui/native@1.0.0` — needs `changeset pre exit` first                  | todo    |
 | P5     | The remaining components, shipped under `1.x`                                    | todo    |
 | P5.1   | `InputOTP` — Group · Box · Value · Placeholder · Caret · Separator               | done    |

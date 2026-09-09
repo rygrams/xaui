@@ -4,10 +4,12 @@ const nextConfig: NextConfig = {
   output: 'export',
   images: { unoptimized: true },
   transpilePackages: [
-    '@xaui/native-legacy',
     '@xaui/native',
+    'react-native-gesture-handler',
+    'react-native-reanimated',
     'react-native-web',
     'react-native-svg',
+    'react-native-worklets',
   ],
   turbopack: {
     resolveAlias: {

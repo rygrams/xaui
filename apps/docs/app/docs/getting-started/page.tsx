@@ -1,196 +1,142 @@
 import type { Metadata } from 'next'
-import { Button } from '@/components/ui/button'
-import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
+import { ArrowRight } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 import { CodeBlock } from '@/components/ui/code-block'
 
 export const metadata: Metadata = {
-  title: 'Getting Started - Xaui',
-  description: 'Get started with Xaui in your React Native project',
+  title: 'Get started — XAUI Native',
+  description: 'Set up the XAUI provider and compose your first screen.',
 }
 
 export default function GettingStartedPage() {
   return (
-    <div className="space-y-8">
-      <div className="space-y-4">
-        <h1 className="text-3xl font-bold tracking-tight md:text-4xl">
-          Getting Started
-        </h1>
-        <p className="text-base text-muted-foreground md:text-xl">
-          Learn how to set up Xaui in your React Native project and start building
-          beautiful user interfaces.
+    <div className="space-y-10 pb-16">
+      <header className="max-w-3xl space-y-4">
+        <h1 className="text-4xl font-bold tracking-tight">Get started</h1>
+        <p className="text-lg leading-8 text-muted-foreground">
+          One provider at the root, subpath imports, explicit slots. That is the
+          whole setup.
         </p>
-      </div>
+      </header>
 
-      <div className="space-y-6">
-        <section className="space-y-4">
-          <h2 className="text-xl font-semibold md:text-2xl">1. Installation</h2>
-          <p className="text-muted-foreground">
-            Install the core packages using your preferred package manager.
-            <span className="font-mono text-xs"> @xaui/native </span>carries the
-            theme and the provider, so it is a required peer of the frozen
-            <span className="font-mono text-xs"> @xaui/native-legacy </span>tree —
-            pin that one to an exact version.
-          </p>
-          <div className="space-y-4">
-            <div>
-              <p className="text-sm text-muted-foreground mb-2">With npm:</p>
-              <CodeBlock
-                code={`npm install @xaui/native
-npm install --save-exact @xaui/native-legacy@0.2.8`}
-                language="bash"
-              />
-            </div>
-            <div>
-              <p className="text-sm text-muted-foreground mb-2">Or with yarn:</p>
-              <CodeBlock
-                code={`yarn add @xaui/native
-yarn add --exact @xaui/native-legacy@0.2.8`}
-                language="bash"
-              />
-            </div>
-            <div>
-              <p className="text-sm text-muted-foreground mb-2">Or with pnpm:</p>
-              <CodeBlock
-                code={`pnpm add @xaui/native
-pnpm add --save-exact @xaui/native-legacy@0.2.8`}
-                language="bash"
-              />
-            </div>
-          </div>
-        </section>
+      <Step number="1" title="Install the package">
+        <CodeBlock language="bash" code="pnpm add @xaui/native@alpha" />
+        <p className="text-sm text-muted-foreground">
+          The native peer dependencies are listed in the{' '}
+          <Link className="underline" href="/docs/installation">
+            installation guide
+          </Link>
+          .
+        </p>
+      </Step>
 
-        <section className="space-y-4">
-          <h2 className="text-xl font-semibold md:text-2xl">
-            2. Theme Customization
-          </h2>
-          <p className="text-muted-foreground">
-            Xaui lets you override only the parts of the theme you need. Build the
-            theme set once with
-            <span className="font-mono text-xs"> createTheme() </span>and customize
-            brand colors, typography tokens, spacing, radius, and more without
-            rewriting the full theme.
-          </p>
-          <ul className="list-disc pl-6 text-muted-foreground space-y-1">
-            <li>
-              Override source colors per mode: non-overridden tokens keep their
-              default values.
-            </li>
-            <li>
-              The derived steps —
-              <span className="font-mono text-xs"> accentSoft </span>,
-              <span className="font-mono text-xs"> accentPressed </span>, and the
-              rest — are recomputed from what you set.
-            </li>
-          </ul>
-          <CodeBlock
-            code={`// theme.ts
+      <Step number="2" title="Create the theme once">
+        <CodeBlock
+          code={`// theme.ts
 import { createTheme } from '@xaui/native/theme'
 
-// Build it once, at module level: a literal object passed to the provider
-// changes identity on every parent render and rebuilds every style in the app.
 export const appTheme = createTheme({
   colors: {
-    light: {
-      accent: '#2563EB',
-      accentForeground: '#FFFFFF',
-      background: '#FFFFFF',
-      foreground: '#0F172A',
-    },
-    dark: {
-      accent: '#60A5FA',
-      accentForeground: '#0F172A',
-    },
+    light: { accent: '#2563EB', accentForeground: '#FFFFFF' },
+    dark: { accent: '#60A5FA', accentForeground: '#0F172A' },
   },
   radius: 16,
 })`}
-          />
-          <p className="text-sm text-muted-foreground">
-            Tip: Start by overriding only
-            <span className="font-mono text-xs"> accent </span>and
-            <span className="font-mono text-xs"> accentForeground </span>
-            to quickly align Xaui with your brand, then extend to
-            <span className="font-mono text-xs"> background </span>, spacing and
-            typography if needed. Frozen components read the same values —
-            <span className="font-mono text-xs"> accent </span>is what they call
-            <span className="font-mono text-xs"> colors.primary.main </span>.
-          </p>
-        </section>
+        />
+        <p className="text-muted-foreground">
+          Soft, pressed and contrasting colours are derived in OKLab. Do not rebuild
+          the theme during render — its identity has to stay stable.
+        </p>
+      </Step>
 
-        <section className="space-y-4">
-          <h2 className="text-xl font-semibold md:text-2xl">3. Setup Provider</h2>
-          <p className="text-muted-foreground">
-            Wrap your app with the XAUIProvider to enable theming and context. One
-            provider themes both trees, so v1 and legacy screens can sit side by
-            side:
-          </p>
-          <CodeBlock
-            code={`import { XAUIProvider } from '@xaui/native/theme'
-import { PortalHost } from '@xaui/native-legacy/core'
+      <Step number="3" title="Mount the provider">
+        <CodeBlock
+          code={`import { XAUIProvider } from '@xaui/native/theme'
 import { appTheme } from './theme'
 
 export default function App() {
   return (
     <XAUIProvider theme={appTheme}>
-      <PortalHost>
-        <YourApp />
-      </PortalHost>
+      <YourApp />
     </XAUIProvider>
   )
 }`}
-          />
-          <p className="text-sm text-muted-foreground">
-            <span className="font-mono text-xs">XUIProvider</span> from
-            <span className="font-mono text-xs"> @xaui/native-legacy/core </span>
-            still works as a deprecated wrapper around the same provider, but it is
-            no longer prop-compatible with v0:
-            <span className="font-mono text-xs"> theme </span>now takes the set
-            returned by <span className="font-mono text-xs">createTheme</span>.
-          </p>
-        </section>
+        />
+        <p className="text-muted-foreground">
+          <code>colorMode</code> takes <code>light</code>, <code>dark</code> or{' '}
+          <code>system</code>. The portal host mounts with it.
+        </p>
+      </Step>
 
-        <section className="space-y-4">
-          <h2 className="text-xl font-semibold md:text-2xl">4. Use Components</h2>
-          <p className="text-muted-foreground">
-            Start using components in your application:
-          </p>
-          <CodeBlock
-            code={`import { Button } from '@xaui/native-legacy/button'
+      <Step number="4" title="Compose a component">
+        <CodeBlock
+          code={`import { Button } from '@xaui/native/button'
 
-export function MyComponent() {
+export function SaveButton() {
   return (
-    <Button themeColor="primary" onPress={() => console.log('Pressed!')}>
-      Hello Xaui
+    <Button variant="primary" onPress={save}>
+      <Button.Icon as={SaveIcon} />
+      <Button.Label>Save</Button.Label>
     </Button>
   )
 }`}
-          />
-        </section>
+        />
+        <ul className="list-disc space-y-2 pl-5 text-muted-foreground">
+          <li>Slots use dot notation and render in JSX order.</li>
+          <li>
+            <code>variant</code> picks a semantic appearance; <code>color</code>{' '}
+            takes a raw hue.
+          </li>
+          <li>
+            <Link className="underline" href="/docs/style-props">
+              Style props
+            </Link>{' '}
+            keep the full React Native names and values —{' '}
+            <code>padding={'{16}'}</code>, <code>width=&quot;100%&quot;</code>.
+          </li>
+          <li>
+            <code>style</code> still wins, for transforms, shadows and computed
+            values.
+          </li>
+        </ul>
+      </Step>
 
-        <section className="space-y-4">
-          <h2 className="text-xl font-semibold md:text-2xl">Next Steps</h2>
-          <div className="flex flex-col gap-3">
-            <Link href="/docs/installation">
-              <Button variant="outline" className="justify-start">
-                <ArrowRight className="mr-2 h-4 w-4" />
-                Detailed Installation Guide
-              </Button>
-            </Link>
-            <Link href="/docs/components">
-              <Button variant="outline" className="justify-start">
-                <ArrowRight className="mr-2 h-4 w-4" />
-                Browse Components
-              </Button>
-            </Link>
-            <Link href="/docs/theme">
-              <Button variant="outline" className="justify-start">
-                <ArrowRight className="mr-2 h-4 w-4" />
-                Theme Guide
-              </Button>
-            </Link>
-          </div>
-        </section>
+      <div className="flex flex-wrap gap-3 border-t pt-8">
+        <Button asChild>
+          <Link href="/docs/components">
+            Browse components <ArrowRight className="ml-2 size-4" />
+          </Link>
+        </Button>
+        <Button asChild variant="outline">
+          <Link href="/docs/theme">Read the theme guide</Link>
+        </Button>
+        <Button asChild variant="outline">
+          <Link href="/docs/faq">FAQ</Link>
+        </Button>
       </div>
     </div>
+  )
+}
+
+function Step({
+  number,
+  title,
+  children,
+}: {
+  number: string
+  title: string
+  children: React.ReactNode
+}) {
+  return (
+    <section className="grid gap-4 md:grid-cols-[3rem_1fr]">
+      <div className="flex size-9 items-center justify-center rounded-full bg-foreground text-sm font-semibold text-background">
+        {number}
+      </div>
+      <div className="min-w-0 space-y-4">
+        <h2 className="text-2xl font-semibold tracking-tight">{title}</h2>
+        {children}
+      </div>
+    </section>
   )
 }

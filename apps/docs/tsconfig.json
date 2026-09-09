@@ -19,7 +19,10 @@
       }
     ],
     "paths": {
-      "@/*": ["./*"]
+      "@/*": ["./*"],
+      "@xaui/native/system": ["../../packages/native/src/system/index.ts"],
+      "@xaui/native/theme": ["../../packages/native/src/theme/index.ts"],
+      "@xaui/native/*": ["../../packages/native/src/components/*/index.ts"]
     }
   },
   "include": [

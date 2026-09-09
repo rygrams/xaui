@@ -66,6 +66,9 @@ class DeviceFrame extends HTMLElement {
     grid-template-rows: auto 1fr;
     overflow: hidden;
     position: relative;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: geometricPrecision;
 }
 :host([${DeviceFrame.attrs.shadow}]) .device {
     border: var(--df-internal-border);
@@ -242,7 +245,11 @@ class DeviceFrame extends HTMLElement {
   }
 }
 
-if (typeof window !== 'undefined' && 'customElements' in window) {
+if (
+  typeof window !== 'undefined' &&
+  'customElements' in window &&
+  !customElements.get(DeviceFrame.tagName)
+) {
   customElements.define(DeviceFrame.tagName, DeviceFrame)
 }
 

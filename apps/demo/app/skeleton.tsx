@@ -259,7 +259,7 @@ const PEOPLE = [
     name_w: '34%',
     role_w: '28%',
   },
-]
+] as const
 
 /**
  * The component as it is actually used: a gate the real content passes through once it

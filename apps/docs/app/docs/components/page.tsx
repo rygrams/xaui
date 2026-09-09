@@ -3,9 +3,8 @@
 import { useState } from 'react'
 import { Input } from '@/components/ui/input'
 import { components, categories } from '@/lib/data/components'
-import { Search } from 'lucide-react'
+import { ArrowUpRight, Search } from 'lucide-react'
 import Link from 'next/link'
-import { cn } from '@/lib/utils'
 
 export default function ComponentsPage() {
   const [searchQuery, setSearchQuery] = useState('')
@@ -29,16 +28,24 @@ export default function ComponentsPage() {
   return (
     <div className="space-y-8">
       <div className="space-y-4">
-        <h1 className="text-3xl font-bold tracking-tight md:text-4xl">Components</h1>
-        <p className="text-base text-muted-foreground md:text-xl">
-          Browse all available components in the Xaui library.
+        <div className="flex items-center gap-3">
+          <h1 className="text-3xl font-bold tracking-tight md:text-4xl">
+            Components
+          </h1>
+          <span className="rounded-full bg-muted px-2.5 py-1 text-xs font-medium text-muted-foreground">
+            {components.length}
+          </span>
+        </div>
+        <p className="max-w-3xl text-base leading-7 text-muted-foreground md:text-xl md:leading-8">
+          The whole @xaui/native catalogue: live React Native Web preview, anatomy,
+          examples, generated TypeScript API, accessibility and migration.
         </p>
       </div>
 
       <div className="relative">
         <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
         <Input
-          placeholder="Search components..."
+          placeholder="Search a component…"
           value={searchQuery}
           onChange={e => setSearchQuery(e.target.value)}
           className="pl-10"
@@ -51,34 +58,31 @@ export default function ComponentsPage() {
           if (categoryComponents.length === 0) return null
 
           return (
-            <section key={category} className="space-y-4">
-              <h2 className="text-xl font-semibold">{category}</h2>
-              <div className="grid gap-4 md:grid-cols-2">
+            <section
+              className="scroll-mt-8 space-y-4"
+              id={category.toLowerCase().replaceAll(' ', '-')}
+              key={category}
+            >
+              <h2 className="text-xl font-semibold tracking-tight">{category}</h2>
+              <div className="grid gap-3 md:grid-cols-2">
                 {categoryComponents.map(component => (
                   <Link
                     key={component.id}
                     href={component.href}
-                    className="group rounded-lg border p-4 transition-colors hover:bg-accent hover:text-accent-foreground"
+                    className="group rounded-xl border bg-card p-5 transition-all hover:-translate-y-0.5 hover:border-foreground/20 hover:shadow-sm"
                   >
                     <div className="flex items-start justify-between">
-                      <div>
+                      <div className="min-w-0 pr-3">
                         <h3 className="font-semibold">{component.name}</h3>
-                        <p className="mt-1 text-sm text-muted-foreground group-hover:text-accent-foreground">
+                        <p className="mt-1 line-clamp-2 text-sm leading-6 text-muted-foreground">
                           {component.description}
                         </p>
                       </div>
-                      <span
-                        className={cn(
-                          'rounded-full px-2 py-0.5 text-xs',
-                          component.status === 'stable' &&
-                            'bg-green-100 text-green-700 dark:bg-green-900 dark:text-green-300',
-                          component.status === 'beta' &&
-                            'bg-yellow-100 text-yellow-700 dark:bg-yellow-900 dark:text-yellow-300'
-                        )}
-                      >
-                        {component.status}
-                      </span>
+                      <ArrowUpRight className="size-4 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </div>
+                    <code className="mt-4 block truncate text-xs text-muted-foreground">
+                      {component.importPath}
+                    </code>
                   </Link>
                 ))}
               </div>
@@ -90,7 +94,7 @@ export default function ComponentsPage() {
       {filteredComponents.length === 0 && (
         <div className="text-center py-12">
           <p className="text-muted-foreground">
-            No components found matching &quot;{searchQuery}&quot;
+            No component matches &quot;{searchQuery}&quot;.
           </p>
         </div>
       )}
