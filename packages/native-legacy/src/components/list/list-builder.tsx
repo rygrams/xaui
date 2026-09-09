@@ -5,6 +5,10 @@ import type { ListBuilderProps } from './list.type'
 import { styles } from './list.style'
 import { useXUITheme } from '../../core'
 
+/**
+ * @deprecated Use `List` from `@xaui/native/list`. This tree is frozen and receives fixes
+ * only.
+ */
 export function ListBuilder<T>({
   data,
   keyExtractor,

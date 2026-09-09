@@ -88,6 +88,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.6   | `Toolbar` — slots over the existing group context                                | dropped |
 | P5.7   | `ListBox` — slots over the existing group context                                | done    |
 | P5.7b  | `ListBoxGroup` — net new, sectioned `ListBox` with its headers                   | done    |
+| P5.7c  | `List` — virtualized rows over React Native `FlatList`                           | done    |
 | P5.8   | `Menu` — Trigger · Overlay · Content · Label · Group · Item                      | done    |
 | P5.9   | `SegmentButton` — slots over the existing group context                          | done    |
 | P5.10  | `Autocomplete` — slots over the existing group context                           | done    |

@@ -33,6 +33,7 @@ const entries = {
   'components/flip-card/index': 'src/components/flip-card/index.ts',
   'components/input-otp/index': 'src/components/input-otp/index.ts',
   'components/line-chart/index': 'src/components/line-chart/index.ts',
+  'components/list/index': 'src/components/list/index.ts',
   'components/list-box/index': 'src/components/list-box/index.ts',
   'components/mask-field/index': 'src/components/mask-field/index.ts',
   'components/menu/index': 'src/components/menu/index.ts',
