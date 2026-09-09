@@ -62,6 +62,7 @@ const entries = {
   'components/text-area/index': 'src/components/text-area/index.ts',
   'components/text-field/index': 'src/components/text-field/index.ts',
   'components/timeline/index': 'src/components/timeline/index.ts',
+  'components/toggle-button/index': 'src/components/toggle-button/index.ts',
   'components/phone-number-field/index':
     'src/components/phone-number-field/index.ts',
   'components/time-field/index': 'src/components/time-field/index.ts',

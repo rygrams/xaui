@@ -174,6 +174,10 @@ export default function RootLayout() {
               />
               <Stack.Screen name="toast" options={{ title: 'Toast (v1)' }} />
               <Stack.Screen
+                name="toggle-button"
+                options={{ title: 'ToggleButton (v1)' }}
+              />
+              <Stack.Screen
                 name="typography"
                 options={{ title: 'Typography (v1)' }}
               />

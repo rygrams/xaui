@@ -617,6 +617,16 @@
         "default": "./dist/components/timeline/index.cjs"
       }
     },
+    "./toggle-button": {
+      "import": {
+        "types": "./dist/components/toggle-button/index.d.ts",
+        "default": "./dist/components/toggle-button/index.js"
+      },
+      "require": {
+        "types": "./dist/components/toggle-button/index.d.cts",
+        "default": "./dist/components/toggle-button/index.cjs"
+      }
+    },
     "./toast": {
       "import": {
         "types": "./dist/components/toast/index.d.ts",
