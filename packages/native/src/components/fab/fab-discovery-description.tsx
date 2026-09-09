@@ -30,4 +30,4 @@ export const FabDiscoveryDescription = forwardRef<
   )
 })
 
-FabDiscoveryDescription.displayName = 'XAUI.Fab.Discovery.Description'
+FabDiscoveryDescription.displayName = 'XAUI.FabDiscovery.Description'

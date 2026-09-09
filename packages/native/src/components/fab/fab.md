@@ -5,7 +5,7 @@ The one thing to do on a screen, floating over the thing it does it to.
 ## Import
 
 ```tsx
-import { Fab } from '@xaui/native/fab'
+import { Fab, FabDiscovery, FabMenu } from '@xaui/native/fab'
 ```
 
 ## Usage
@@ -78,42 +78,41 @@ The ring is the recipe's own — the `Button.Spinner`'s argument — so it follo
 and its variant with nothing to pass. Composing `<Fab.Spinner />` yourself is how you put it
 after the label instead of before it.
 
-## `Fab.Menu`
+## `FabMenu`
 
 A FAB that opens the two or three things it could have been.
 
 ```tsx
-<Fab.Menu>
-  <Fab.Menu.Trigger placement="bottom-end" accessibilityLabel="Nouveau">
+<FabMenu>
+  <FabMenu.Trigger placement="bottom-end" accessibilityLabel="Nouveau">
     <Fab.Icon as={PlusIcon} />
-  </Fab.Menu.Trigger>
-  <Fab.Menu.Overlay />
-  <Fab.Menu.Content>
-    <Fab.Menu.Item onPress={compose}>Nouveau message</Fab.Menu.Item>
-    <Fab.Menu.Item onPress={label}>Nouveau libellé</Fab.Menu.Item>
-    <Fab.Menu.Item onPress={folder}>Nouveau dossier</Fab.Menu.Item>
-  </Fab.Menu.Content>
-</Fab.Menu>
+  </FabMenu.Trigger>
+  <FabMenu.Overlay />
+  <FabMenu.Content>
+    <FabMenu.Item onPress={compose}>Nouveau message</FabMenu.Item>
+    <FabMenu.Item onPress={label}>Nouveau libellé</FabMenu.Item>
+    <FabMenu.Item onPress={folder}>Nouveau dossier</FabMenu.Item>
+  </FabMenu.Content>
+</FabMenu>
 ```
 
-It is a compound of its own, attached to `Fab` rather than shipped as a second subpath —
-the `Calendar.YearPicker`'s arrangement: its trigger renders a `Fab`, and a caller who has
-the FAB has the menu.
+It is a compound of its own, exported from the FAB entry point. Its trigger renders a `Fab`,
+so the two primitives stay available from one import.
 
 **The root renders no node.** It holds the disclosure, the anchor and the styles the slots
-read. `Fab.Menu.Trigger` is the FAB and keeps its own `ref`; `Fab.Menu.Overlay` and
-`Fab.Menu.Content` portal out, so they add nothing where they are written. `isOpen`,
+read. `FabMenu.Trigger` is the FAB and keeps its own `ref`; `FabMenu.Overlay` and
+`FabMenu.Content` portal out, so they add nothing where they are written. `isOpen`,
 `defaultOpen` and `onOpenChange` are the root's, so a menu is controlled or not exactly as a
 `Select` is.
 
-`Fab.Menu.Trigger` takes everything a `Fab` takes **except `size`**, which is the root's
+`FabMenu.Trigger` takes everything a `Fab` takes **except `size`**, which is the root's
 because the pills read it too — a menu whose actions were sized apart from the FAB they come
 out of would read as two controls. `color` on the root paints the pills; `color` on the
 trigger paints the FAB, and they are deliberately two props: a menu whose actions were the
 same colour as the button they came out of would read as one shape that had grown.
 
-A bare string child of `Fab.Menu.Item` is wrapped in a `Fab.Menu.Label` (R3). Write the
-label by hand when there is a `Fab.Menu.Icon` beside it.
+A bare string child of `FabMenu.Item` is wrapped in a `FabMenu.Label` (R3). Write the
+label by hand when there is a `FabMenu.Icon` beside it.
 
 ### The FAB does not move when the menu opens
 
@@ -146,7 +145,7 @@ Three consequences:
   on a full-width strip reads as the panel twitching; a pill is a small floating button —
   the same object the FAB above it is — and `PressableFeedback`'s treatment is right on it.
 
-**`Fab.Menu.Overlay` dims**, where a `Menu`'s and a `Select`'s do not. Those drop out of a
+**`FabMenu.Overlay` dims**, where a `Menu`'s and a `Select`'s do not. Those drop out of a
 field and leave the page alone, because the page is still the context for the answer they
 are asking for; a FAB floats over everything and its actions replace the screen's one thing
 to do with three. That is a `Dialog`'s situation, and it takes the `Dialog`'s `backdrop`
@@ -167,33 +166,33 @@ it nothing says a set of actions has appeared. Each action is a `menuitem`.
 `isDisabled` on the root stops the trigger and every action with it; on one action it stops
 that one. Either way the pill dims once, never twice.
 
-## `Fab.Discovery`
+## `FabDiscovery`
 
 The coach mark that says what a FAB is for.
 
 ```tsx
-<Fab.Discovery isOpen={tour} onOpenChange={setTour}>
-  <Fab.Discovery.Target
+<FabDiscovery isOpen={tour} onOpenChange={setTour}>
+  <FabDiscovery.Target
     placement="bottom-end"
     accessibilityLabel="Composer"
     onPress={compose}
   >
     <Fab.Icon as={PlusIcon} />
-  </Fab.Discovery.Target>
-  <Fab.Discovery.Overlay />
-  <Fab.Discovery.Content>
-    <Fab.Discovery.Title>Composez d’où vous voulez</Fab.Discovery.Title>
-    <Fab.Discovery.Description>
+  </FabDiscovery.Target>
+  <FabDiscovery.Overlay />
+  <FabDiscovery.Content>
+    <FabDiscovery.Title>Composez d’où vous voulez</FabDiscovery.Title>
+    <FabDiscovery.Description>
       Ce bouton suit chaque écran de la boîte de réception.
-    </Fab.Discovery.Description>
-    <Fab.Discovery.Action>Compris</Fab.Discovery.Action>
-  </Fab.Discovery.Content>
-</Fab.Discovery>
+    </FabDiscovery.Description>
+    <FabDiscovery.Action>Compris</FabDiscovery.Action>
+  </FabDiscovery.Content>
+</FabDiscovery>
 ```
 
 **It is opened by the app, not by the FAB.** A discovery is shown because this reader has
 not seen the feature — a question only the app can answer — so `isOpen` is controlled far
-more often than not, and pressing the target does what it always did. `Fab.Discovery.Action`
+more often than not, and pressing the target does what it always did. `FabDiscovery.Action`
 takes the mark down after the caller's `onPress` has run; so does a press on the overlay.
 
 `color` is a raw tint for the disc and everything on it. Unset it is the theme's `accent`,
@@ -207,7 +206,7 @@ The legacy `FeatureDiscovery` took a `targetRef`, measured it, and drew a **copy
 whatever the caller passed as `highlightContent` over the disc. A copy is a picture: it does
 not press, and it is only correct for as long as somebody keeps it in step with the original.
 
-`Fab.Discovery.Target` **is** the `Fab`. While the mark is up it is lifted into the portal at
+`FabDiscovery.Target` **is** the `Fab`. While the mark is up it is lifted into the portal at
 its own measured rectangle — the coordinates it already occupied — so it draws above the
 disc, still presses, and never appears to move. The node left in the flow stays mounted and
 invisible, because it is what holds the space the layout gave the FAB and what `onLayout`

@@ -28,4 +28,4 @@ export const FabDiscoveryTitle = forwardRef<Text, FabDiscoveryTitleProps>(
   }
 )
 
-FabDiscoveryTitle.displayName = 'XAUI.Fab.Discovery.Title'
+FabDiscoveryTitle.displayName = 'XAUI.FabDiscovery.Title'

@@ -17,11 +17,6 @@ export const ListBoxGroup = Object.assign(ListBoxGroupRoot, {
   Footer: ListBoxGroupFooter,
 })
 
-/**
- * `ListBox.Group` is the same object, for a call site that already has `ListBox` imported. The
- * sections are written on `ListBoxGroup` either way — `ListBox.Group.Section` reads as three
- * things when it is two.
- */
 export const ListBox = Object.assign(ListBoxRoot, {
   Item: ListBoxItem,
   ItemButton: ListBoxItemButton,
@@ -30,7 +25,6 @@ export const ListBox = Object.assign(ListBoxRoot, {
   ItemTitle: ListBoxItemTitle,
   ItemDescription: ListBoxItemDescription,
   ItemSuffix: ListBoxItemSuffix,
-  Group: ListBoxGroup,
 })
 
 export { ListBoxRoot } from './list-box'

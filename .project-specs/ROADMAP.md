@@ -103,9 +103,9 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.17  | `AppBar`                                                                         | dropped |
 | P5.18  | `Snackbar` — v1 transient notification over the shared toast queue               | done    |
 | P5.18b | `Toast` — Title · Description · Actions · Close, plus `ToastHost`                | done    |
-| P5.19  | `Snippet`                                                                        | todo    |
+| P5.19  | `Snippet`                                                                        | dropped |
 | P5.20  | `Fab` — round or extended, the Button's table on a floating box                  | done    |
-| P5.21  | `Fab.Menu` — the FAB's actions as pills, anchored so the FAB never moves         | done    |
+| P5.21  | `FabMenu` — the FAB's actions as pills, anchored so the FAB never moves          | done    |
 | P5.22  | `Dialog` — Trigger · Overlay · Content · Title · Description · Close             | done    |
 | P5.23  | `BottomSheet` — Trigger · Overlay · Content · Handle · Title                     | done    |
 | P5.23b | `BottomSheetInput` — net new, a `TextField` that opens in a `BottomSheet`        | todo    |
@@ -114,9 +114,9 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.24b | `Popover` — Trigger · Overlay · Content · Title · Description · Close            | done    |
 | P5.25  | `Picker`                                                                         | todo    |
 | P5.25b | `WheelPicker` — net new, the spinning column the three below share               | done    |
-| P5.25c | `WheelDatePicker` — net new, `WheelPicker` columns for a date                    | todo    |
-| P5.25d | `WheelTimePicker` — net new, `WheelPicker` columns for a time                    | todo    |
-| P5.25e | `WheelDateTimePicker` — net new, the two above as one                            | todo    |
+| P5.25c | `WheelDatePicker` — net new, `WheelPicker` columns for a date                    | dropped |
+| P5.25d | `WheelTimePicker` — net new, `WheelPicker` columns for a time                    | dropped |
+| P5.25e | `WheelDateTimePicker` — net new, the two above as one                            | dropped |
 | P5.26  | `DatePicker` — Trigger · Value · Indicator · Overlay · Content · Calendar        | done    |
 | P5.26b | `Calendar` — net new, no legacy equivalent                                       | done    |
 
@@ -124,7 +124,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.26c | `AgendaCalendar` — net new, the `Calendar` with its events | done |
 | P5.26d | `MaskField` — one masked box: `date`, `time`, `datetime`, `credit-card` or a pattern | done |
 | P5.26h | `TimeField` — a time typed, over legacy `TimeInput` | done |
-| P5.26i | `DateTimeField` — the two masks in one box, over legacy `DateTimeInput` | todo |
+| P5.26i | `DateTimeField` — the two masks in one box, over legacy `DateTimeInput` | dropped |
 | P5.26e | `DateRangePicker` — net new, two bounds over the `DatePicker` | done |
 | P5.26f | `DateTimePicker` — net new, `DatePicker` and `TimePicker` as one | done |
 | P5.26g | `RangeCalendar` — net new, the `Calendar` behind `DateRangePicker` | done |
@@ -134,7 +134,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.30 | `Pager` | todo |
 | P5.32 | `DummyField` — renamed from legacy `InputTrigger`, not the `Trigger` slot vocabulary | done |
 | P5.31 | `RefreshControl` | dropped |
-| P5.33 | `Fab.Discovery` — the coach mark, with the FAB lifted over its own disc | done |
+| P5.33 | `FabDiscovery` — the coach mark, with the FAB lifted over its own disc | done |
 | P5.34 | `BarChart` — grouped or stacked, drawn on `react-native-svg` | done |
 | P5.34b | `AreaChart` — net new, the `LineChart` with the ground under it filled | done |
 | P5.34c | `Chart` — Donut and Heatmap, the legacy cards left over | todo |
@@ -153,8 +153,8 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.36 | `EmptyState` — net new, no legacy equivalent | done |
 | P5.37 | `FlipCard` — net new, a `Card` with two faces | done |
 | P5.38 | `Radio.Group` — over legacy `RadioGroup`, the context P3.9 `Radio` lacked | done |
-| P5.38b | `RadioButton` — net new, to reconcile with P3.9 `Radio` | todo |
-| P5.38c | `RadioButtonGroup` — net new, to reconcile with `RadioGroup` | todo |
+| P5.38b | `RadioButton` — net new, to reconcile with P3.9 `Radio` | done |
+| P5.38c | `RadioButtonGroup` — net new, to reconcile with `RadioGroup` | done |
 | P5.39 | `Rating` — net new, no legacy equivalent | todo |
 | P5.40 | `Surface` — four grounds, elevation asked for, no slots | done |
 | P5.41 | `SplitView` — net new, a `view/` split on a draggable divider | todo |

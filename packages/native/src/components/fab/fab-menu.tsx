@@ -11,17 +11,17 @@ import type { FabMenuAnchor, FabMenuProps } from './fab-menu.type'
  * A FAB that opens the two or three things it could have been.
  *
  * ```tsx
- * <Fab.Menu>
- *   <Fab.Menu.Trigger placement="bottom-end" accessibilityLabel="Nouveau">
+ * <FabMenu>
+ *   <FabMenu.Trigger placement="bottom-end" accessibilityLabel="Nouveau">
  *     <Fab.Icon as={PlusIcon} />
- *   </Fab.Menu.Trigger>
- *   <Fab.Menu.Overlay />
- *   <Fab.Menu.Content>
- *     <Fab.Menu.Item onPress={compose}>Nouveau message</Fab.Menu.Item>
- *     <Fab.Menu.Item onPress={label}>Nouveau libellé</Fab.Menu.Item>
- *     <Fab.Menu.Item onPress={folder}>Nouveau dossier</Fab.Menu.Item>
- *   </Fab.Menu.Content>
- * </Fab.Menu>
+ *   </FabMenu.Trigger>
+ *   <FabMenu.Overlay />
+ *   <FabMenu.Content>
+ *     <FabMenu.Item onPress={compose}>Nouveau message</FabMenu.Item>
+ *     <FabMenu.Item onPress={label}>Nouveau libellé</FabMenu.Item>
+ *     <FabMenu.Item onPress={folder}>Nouveau dossier</FabMenu.Item>
+ *   </FabMenu.Content>
+ * </FabMenu>
  * ```
  *
  * **The FAB does not move when the menu opens**, and that is the whole reason this exists
@@ -37,7 +37,7 @@ import type { FabMenuAnchor, FabMenuProps } from './fab-menu.type'
  * its actions to belong to and each one carries its own.
  *
  * **The root renders no node.** It holds the disclosure, the anchor and the styles the
- * slots read. `Fab.Menu.Trigger` is the FAB and keeps its own `ref`.
+ * slots read. `FabMenu.Trigger` is the FAB and keeps its own `ref`.
  *
  * For a list of actions dropping out of a control that is not a FAB, that is `Menu`.
  */
@@ -116,4 +116,4 @@ export function FabMenu({
   return <FabMenuProvider value={context}>{children}</FabMenuProvider>
 }
 
-FabMenu.displayName = 'XAUI.Fab.Menu.Root'
+FabMenu.displayName = 'XAUI.FabMenu.Root'

@@ -9,7 +9,6 @@ import { ListBox, ListBoxGroup } from '@xaui/native/list-box'
 ```
 
 One import, because they are one component and a group with no lists in it is nothing.
-`ListBox.Group` is the same object as `ListBoxGroup`, for a call site that already has `ListBox`.
 
 ## Usage
 

@@ -56,4 +56,4 @@ export const FabMenuOverlay = forwardRef<View, FabMenuOverlayProps>(
   }
 )
 
-FabMenuOverlay.displayName = 'XAUI.Fab.Menu.Overlay'
+FabMenuOverlay.displayName = 'XAUI.FabMenu.Overlay'

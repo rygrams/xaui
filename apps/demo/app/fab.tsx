@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { ScrollView, Text, View } from 'react-native'
 import { Button } from '@xaui/native/button'
-import { Fab, useFab } from '@xaui/native/fab'
+import { Fab, FabDiscovery, FabMenu, useFab } from '@xaui/native/fab'
 import type { FabProps } from '@xaui/native/fab'
 import { useXAUITheme } from '@xaui/native/theme'
 
@@ -177,7 +177,7 @@ export default function FabScreen() {
         </Section>
 
         <Section
-          title="Fab.Menu"
+          title="FabMenu"
           note="Le FAB ne bouge pas quand le menu s'ouvre. Le legacy re-rendait son FAB à l'intérieur du portail, à l'inset du portail, donc un FAB posé ailleurs sautait à travers l'écran au moment où on le pressait. Ici le déclencheur n'est jamais reparenté : il se mesure, et les actions se placent contre ce rectangle. Ce n'est pas un Menu non plus — un menu est une surface avec des rangées dedans, ici chaque action est sa propre pastille avec de l'air entre elles."
         >
           <View
@@ -187,69 +187,69 @@ export default function FabScreen() {
               backgroundColor: theme.colors.surfaceSecondary,
             }}
           >
-            <Fab.Menu>
-              <Fab.Menu.Trigger placement="bottom-end" accessibilityLabel="Nouveau">
+            <FabMenu>
+              <FabMenu.Trigger placement="bottom-end" accessibilityLabel="Nouveau">
                 <Plus />
-              </Fab.Menu.Trigger>
-              <Fab.Menu.Overlay />
-              <Fab.Menu.Content>
-                <Fab.Menu.Item onPress={() => setChosen('Nouveau message')}>
+              </FabMenu.Trigger>
+              <FabMenu.Overlay />
+              <FabMenu.Content>
+                <FabMenu.Item onPress={() => setChosen('Nouveau message')}>
                   Nouveau message
-                </Fab.Menu.Item>
-                <Fab.Menu.Item onPress={() => setChosen('Nouveau libellé')}>
+                </FabMenu.Item>
+                <FabMenu.Item onPress={() => setChosen('Nouveau libellé')}>
                   Nouveau libellé
-                </Fab.Menu.Item>
-                <Fab.Menu.Item onPress={() => setChosen('Nouveau dossier')}>
+                </FabMenu.Item>
+                <FabMenu.Item onPress={() => setChosen('Nouveau dossier')}>
                   Nouveau dossier
-                </Fab.Menu.Item>
-                <Fab.Menu.Item isDisabled>Bientôt</Fab.Menu.Item>
-              </Fab.Menu.Content>
-            </Fab.Menu>
+                </FabMenu.Item>
+                <FabMenu.Item isDisabled>Bientôt</FabMenu.Item>
+              </FabMenu.Content>
+            </FabMenu>
           </View>
 
           <Text style={{ color: theme.colors.muted }}>Choisi : {chosen ?? '—'}</Text>
 
           <View style={{ flexDirection: 'row', gap: 24, alignItems: 'flex-end' }}>
             {SIZES.map(size => (
-              <Fab.Menu key={size} size={size}>
-                <Fab.Menu.Trigger accessibilityLabel={size}>
+              <FabMenu key={size} size={size}>
+                <FabMenu.Trigger accessibilityLabel={size}>
                   <Plus />
-                </Fab.Menu.Trigger>
-                <Fab.Menu.Overlay />
-                <Fab.Menu.Content>
-                  <Fab.Menu.Item>Une action</Fab.Menu.Item>
-                  <Fab.Menu.Item>Une autre</Fab.Menu.Item>
-                </Fab.Menu.Content>
-              </Fab.Menu>
+                </FabMenu.Trigger>
+                <FabMenu.Overlay />
+                <FabMenu.Content>
+                  <FabMenu.Item>Une action</FabMenu.Item>
+                  <FabMenu.Item>Une autre</FabMenu.Item>
+                </FabMenu.Content>
+              </FabMenu>
             ))}
           </View>
 
           <View style={{ flexDirection: 'row', gap: 24, alignItems: 'flex-end' }}>
-            <Fab.Menu color="#0ea5e9">
-              <Fab.Menu.Trigger color="#0ea5e9" accessibilityLabel="Teinté">
+            <FabMenu color="#0ea5e9">
+              <FabMenu.Trigger color="#0ea5e9" accessibilityLabel="Teinté">
                 <Plus />
-              </Fab.Menu.Trigger>
-              <Fab.Menu.Overlay />
-              <Fab.Menu.Content>
-                <Fab.Menu.Item>Teintée</Fab.Menu.Item>
-                <Fab.Menu.Item>Teintée aussi</Fab.Menu.Item>
-              </Fab.Menu.Content>
-            </Fab.Menu>
+              </FabMenu.Trigger>
+              <FabMenu.Overlay />
+              <FabMenu.Content>
+                <FabMenu.Item>Teintée</FabMenu.Item>
+                <FabMenu.Item>Teintée aussi</FabMenu.Item>
+              </FabMenu.Content>
+            </FabMenu>
 
-            <Fab.Menu isDisabled>
-              <Fab.Menu.Trigger accessibilityLabel="Indisponible">
+            <FabMenu isDisabled>
+              <FabMenu.Trigger accessibilityLabel="Indisponible">
                 <Plus />
-              </Fab.Menu.Trigger>
-              <Fab.Menu.Overlay />
-              <Fab.Menu.Content>
-                <Fab.Menu.Item>Inatteignable</Fab.Menu.Item>
-              </Fab.Menu.Content>
-            </Fab.Menu>
+              </FabMenu.Trigger>
+              <FabMenu.Overlay />
+              <FabMenu.Content>
+                <FabMenu.Item>Inatteignable</FabMenu.Item>
+              </FabMenu.Content>
+            </FabMenu>
           </View>
         </Section>
 
         <Section
-          title="Fab.Discovery"
+          title="FabDiscovery"
           note="Le FAB ne bouge pas, et il reste le FAB. Le legacy prenait un targetRef et dessinait une copie de ce qu'on lui passait en highlightContent : la chose enseignée était une image d'elle-même, non pressable, et juste seulement tant que l'appelant gardait la copie en phase. Ici la cible EST le Fab, hissé dans le portail à son propre rectangle mesuré — au-dessus du disque, toujours pressable, aux coordonnées qu'il occupait déjà. Le texte est mis en page à la corde du disque à sa hauteur, pas à son diamètre."
         >
           <View
@@ -260,24 +260,24 @@ export default function FabScreen() {
               backgroundColor: theme.colors.surfaceSecondary,
             }}
           >
-            <Fab.Discovery isOpen={tour} onOpenChange={setTour}>
-              <Fab.Discovery.Target
+            <FabDiscovery isOpen={tour} onOpenChange={setTour}>
+              <FabDiscovery.Target
                 placement="bottom-end"
                 accessibilityLabel="Composer"
                 onPress={() => setChosen('Composer')}
               >
                 <Plus />
-              </Fab.Discovery.Target>
-              <Fab.Discovery.Overlay />
-              <Fab.Discovery.Content>
-                <Fab.Discovery.Title>Composez d’où vous voulez</Fab.Discovery.Title>
-                <Fab.Discovery.Description>
+              </FabDiscovery.Target>
+              <FabDiscovery.Overlay />
+              <FabDiscovery.Content>
+                <FabDiscovery.Title>Composez d’où vous voulez</FabDiscovery.Title>
+                <FabDiscovery.Description>
                   Ce bouton suit chaque écran de la boîte de réception. Appuyez
                   dessus pour commencer un message sans revenir en arrière.
-                </Fab.Discovery.Description>
-                <Fab.Discovery.Action>Compris</Fab.Discovery.Action>
-              </Fab.Discovery.Content>
-            </Fab.Discovery>
+                </FabDiscovery.Description>
+                <FabDiscovery.Action>Compris</FabDiscovery.Action>
+              </FabDiscovery.Content>
+            </FabDiscovery>
           </View>
 
           <View style={{ flexDirection: 'row', gap: 12 }}>
@@ -311,20 +311,17 @@ export default function FabScreen() {
         </Section>
       </ScrollView>
 
-      <Fab.Menu>
-        <Fab.Menu.Trigger
-          placement="bottom-end"
-          accessibilityLabel="Nouveau message"
-        >
+      <FabMenu>
+        <FabMenu.Trigger placement="bottom-end" accessibilityLabel="Nouveau message">
           <Plus />
-        </Fab.Menu.Trigger>
-        <Fab.Menu.Overlay />
-        <Fab.Menu.Content>
-          <Fab.Menu.Item onPress={() => setChosen('Message')}>Message</Fab.Menu.Item>
-          <Fab.Menu.Item onPress={() => setChosen('Libellé')}>Libellé</Fab.Menu.Item>
-          <Fab.Menu.Item onPress={() => setChosen('Dossier')}>Dossier</Fab.Menu.Item>
-        </Fab.Menu.Content>
-      </Fab.Menu>
+        </FabMenu.Trigger>
+        <FabMenu.Overlay />
+        <FabMenu.Content>
+          <FabMenu.Item onPress={() => setChosen('Message')}>Message</FabMenu.Item>
+          <FabMenu.Item onPress={() => setChosen('Libellé')}>Libellé</FabMenu.Item>
+          <FabMenu.Item onPress={() => setChosen('Dossier')}>Dossier</FabMenu.Item>
+        </FabMenu.Content>
+      </FabMenu>
     </View>
   )
 }

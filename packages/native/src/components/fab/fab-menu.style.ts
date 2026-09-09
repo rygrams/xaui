@@ -5,7 +5,7 @@ import type { FabMenuAlign } from './fab-menu.type'
  * How the pills line up inside the column, per `align`.
  *
  * Pure geometry with no token in it, which is why it is here and not in the recipe — and
- * it cannot be in the recipe anyway: `align` is a prop of `Fab.Menu.Content`, and the
+ * it cannot be in the recipe anyway: `align` is a prop of `FabMenu.Content`, and the
  * recipe resolves on the root, which never sees it.
  *
  * It has to follow `align` rather than being fixed at the trailing edge. The column is

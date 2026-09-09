@@ -36,7 +36,7 @@ type FabMenuOwnProps = {
    *
    * It is the root's rather than the trigger's because both of them read it, and a menu
    * whose pills were sized apart from the FAB they come out of would read as two controls.
-   * `Fab.Menu.Trigger` takes everything else a `Fab` takes.
+   * `FabMenu.Trigger` takes everything else a `Fab` takes.
    *
    * @default 'md'
    */
@@ -57,7 +57,7 @@ type FabMenuOwnProps = {
   children?: ReactNode
 }
 
-/** The root renders **no node** — `Fab.Menu.Trigger` is where `ref` and `style` live. */
+/** The root renders **no node** — `FabMenu.Trigger` is where `ref` and `style` live. */
 export type FabMenuProps = FabMenuOwnProps
 
 /**
