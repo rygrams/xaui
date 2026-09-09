@@ -79,7 +79,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.3   | `InputGroup` — Prefix · Field · Suffix · Icon, inside the `Input`                | done    |
 | P5.3b  | Rename `InputGroup` → `FieldGroup`, following `TextField`                        | done    |
 | P5.3c  | `NumberField` — over legacy `NumberInput`, following `TextField`                 | done    |
-| P5.3d  | `NumberPad` — net new, the keypad `NumberInput` and `InputOTP` share             | todo    |
+| P5.3d  | `NumberPad` — net new, the keypad `NumberInput` and `InputOTP` share             | done    |
 | P5.3e  | `NumberStepper` — net new, the increment pair legacy `Stepper` is not            | done    |
 | P5.3f  | `PhoneNumberField` — country prefix, searchable sheet and national number        | done    |
 | P5.3g  | `SearchField` — net new, a `TextField` with its mark, its clear and its search   | done    |
@@ -112,7 +112,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.23c | `BottomSheet` reduced state — `collapsedHeight`, a two-state disclosure          | done    |
 | P5.24  | `Drawer`                                                                         | dropped |
 | P5.24b | `Popover` — Trigger · Overlay · Content · Title · Description · Close            | done    |
-| P5.25  | `Picker`                                                                         | todo    |
+| P5.25  | `Picker`                                                                         | dropped |
 | P5.25b | `WheelPicker` — net new, the spinning column the three below share               | done    |
 | P5.25c | `WheelDatePicker` — net new, `WheelPicker` columns for a date                    | dropped |
 | P5.25d | `WheelTimePicker` — net new, `WheelPicker` columns for a time                    | dropped |
@@ -131,7 +131,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.27 | `TimePicker` — a `Select` trigger, a sheet and a clock face | done |
 | P5.28 | `ColorPicker` — a `DummyField` that opens a `Dialog`, or the Tailwind grid alone | done |
 | P5.29 | `Carousel` | done |
-| P5.30 | `Pager` | todo |
+| P5.30 | `Pager` — net new, whole pages on either axis, with a page control | done |
 | P5.32 | `DummyField` — renamed from legacy `InputTrigger`, not the `Trigger` slot vocabulary | done |
 | P5.31 | `RefreshControl` | dropped |
 | P5.33 | `FabDiscovery` — the coach mark, with the FAB lifted over its own disc | done |
@@ -147,7 +147,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.35b | `LinkButton` — net new, a `Button` that reads as a link | dropped |
 | P5.35c | `MorphButton` — net new, a `Button` that animates between states | done |
 | P5.35d | `SlideButton` — net new, slide-to-confirm over the `Slider` | todo |
-| P5.35e | `SocialAuthButton` — net new, provider marks over the `Button` | todo |
+| P5.35e | `SocialAuthButton` — net new, provider marks over the `Button` | dropped |
 | P5.35f | `ToggleButton` — net new, a `Button` that holds a pressed state | done |
 | P5.35g | `ToggleButtonGroup` — net new, exclusive selection over `ToggleButton` | done |
 | P5.36 | `EmptyState` — net new, no legacy equivalent | done |
@@ -155,9 +155,9 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.38 | `Radio.Group` — over legacy `RadioGroup`, the context P3.9 `Radio` lacked | done |
 | P5.38b | `RadioButton` — net new, to reconcile with P3.9 `Radio` | done |
 | P5.38c | `RadioButtonGroup` — net new, to reconcile with `RadioGroup` | done |
-| P5.39 | `Rating` — net new, no legacy equivalent | todo |
+| P5.39 | `Rating` — net new, no legacy equivalent | done |
 | P5.40 | `Surface` — four grounds, elevation asked for, no slots | done |
-| P5.41 | `SplitView` — net new, a `view/` split on a draggable divider | todo |
+| P5.41 | `SplitView` — net new, a `view/` split on a draggable divider | dropped |
 | P5.42 | `Table` — net new, no legacy equivalent | done |
 | P5.43 | `TagGroup` — List · Item · ItemLabel · ItemRemoveButton | done |
 | P5.44 | `Timeline` — net new, no legacy equivalent | done |

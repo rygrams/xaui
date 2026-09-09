@@ -124,11 +124,16 @@ export default function RootLayout() {
                 name="number-stepper"
                 options={{ title: 'NumberStepper (v1)' }}
               />
+              <Stack.Screen
+                name="number-pad"
+                options={{ title: 'NumberPad (v1)' }}
+              />
               <Stack.Screen name="menu" options={{ title: 'Menu (v1)' }} />
               <Stack.Screen
                 name="morph-button"
                 options={{ title: 'MorphButton (v1)' }}
               />
+              <Stack.Screen name="pager" options={{ title: 'Pager (v1)' }} />
               <Stack.Screen name="popover" options={{ title: 'Popover (v1)' }} />
               <Stack.Screen
                 name="pressable-feedback"
@@ -143,6 +148,7 @@ export default function RootLayout() {
                 options={{ title: 'ProgressCircle (v1)' }}
               />
               <Stack.Screen name="radio" options={{ title: 'Radio (v1)' }} />
+              <Stack.Screen name="rating" options={{ title: 'Rating (v1)' }} />
               <Stack.Screen
                 name="search-field"
                 options={{ title: 'SearchField (v1)' }}
