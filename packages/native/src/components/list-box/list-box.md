@@ -1,47 +1,47 @@
-# List
+# ListBox
 
 Rows on a ground.
 
 ## Import
 
 ```tsx
-import { List, ListGroup } from '@xaui/native/list'
+import { ListBox, ListBoxGroup } from '@xaui/native/list-box'
 ```
 
 One import, because they are one component and a group with no lists in it is nothing.
-`List.Group` is the same object as `ListGroup`, for a call site that already has `List`.
+`ListBox.Group` is the same object as `ListBoxGroup`, for a call site that already has `ListBox`.
 
 ## Usage
 
 ```tsx
-<List>
-  <List.Item onPress={openWifi}>
-    <List.ItemPrefix>
+<ListBox>
+  <ListBox.Item onPress={openWifi}>
+    <ListBox.ItemPrefix>
       <Icon as={WifiIcon} />
-    </List.ItemPrefix>
-    <List.ItemContent>
-      <List.ItemTitle>Wi-Fi</List.ItemTitle>
-      <List.ItemDescription>Maison</List.ItemDescription>
-    </List.ItemContent>
-    <List.ItemSuffix>
+    </ListBox.ItemPrefix>
+    <ListBox.ItemContent>
+      <ListBox.ItemTitle>Wi-Fi</ListBox.ItemTitle>
+      <ListBox.ItemDescription>Maison</ListBox.ItemDescription>
+    </ListBox.ItemContent>
+    <ListBox.ItemSuffix>
       <Switch isSelected={isOn} onSelectedChange={setOn} size="sm" />
-    </List.ItemSuffix>
-  </List.Item>
-</List>
+    </ListBox.ItemSuffix>
+  </ListBox.Item>
+</ListBox>
 ```
 
 ## Anatomy
 
-| slot                   | what it is                                             |
-| ---------------------- | ------------------------------------------------------ |
-| `List`                 | The ground, and the thing that draws the separators    |
-| `List.Item`            | One row, inert                                         |
-| `List.ItemButton`      | One row you can press, in place of `List.Item`         |
-| `List.ItemPrefix`      | What leads it — an icon, an avatar, a checkbox         |
-| `List.ItemContent`     | The text column, and what pushes the suffix to the end |
-| `List.ItemTitle`       | What the row is                                        |
-| `List.ItemDescription` | What it is currently set to, usually                   |
-| `List.ItemSuffix`      | What trails it — a value, a switch, a chevron          |
+| slot                      | what it is                                             |
+| ------------------------- | ------------------------------------------------------ |
+| `ListBox`                 | The ground, and the thing that draws the separators    |
+| `ListBox.Item`            | One row, inert                                         |
+| `ListBox.ItemButton`      | One row you can press, in place of `ListBox.Item`      |
+| `ListBox.ItemPrefix`      | What leads it — an icon, an avatar, a checkbox         |
+| `ListBox.ItemContent`     | The text column, and what pushes the suffix to the end |
+| `ListBox.ItemTitle`       | What the row is                                        |
+| `ListBox.ItemDescription` | What it is currently set to, usually                   |
+| `ListBox.ItemSuffix`      | What trails it — a value, a switch, a chevron          |
 
 ## It is the `Accordion` with rows that do not open
 
@@ -79,14 +79,14 @@ none of the affordances.
 A row that toggles carries the control that toggles it:
 
 ```tsx
-<List.Item>
-  <List.ItemContent>
-    <List.ItemTitle>Wi-Fi</List.ItemTitle>
-  </List.ItemContent>
-  <List.ItemSuffix>
+<ListBox.Item>
+  <ListBox.ItemContent>
+    <ListBox.ItemTitle>Wi-Fi</ListBox.ItemTitle>
+  </ListBox.ItemContent>
+  <ListBox.ItemSuffix>
     <Switch isSelected={isOn} onSelectedChange={setOn} size="sm" />
-  </List.ItemSuffix>
-</List.Item>
+  </ListBox.ItemSuffix>
+</ListBox.Item>
 ```
 
 which says out loud what it does, and is reachable by a screen reader as the control it
@@ -101,29 +101,29 @@ nothing. The library ships `ChevronDownIcon`; a row that wants one says so.
 ## A plain row does nothing, and shows nothing
 
 **A list is not necessarily a list of buttons.** Most of them are a table of facts: a value
-beside a label, a switch that is its own control. `List.Item` is therefore a `View` — no
+beside a label, a switch that is its own control. `ListBox.Item` is therefore a `View` — no
 press state, no wash, no role — because a row that lights up under a finger it never
 responds to is a promise the component does not keep.
 
-A row you can press is `List.ItemButton`, used **in place of** `List.Item`:
+A row you can press is `ListBox.ItemButton`, used **in place of** `ListBox.Item`:
 
 ```tsx
-<List>
-  <List.Item>
-    <List.ItemContent>
-      <List.ItemTitle>Wi-Fi</List.ItemTitle>
-    </List.ItemContent>
-    <List.ItemSuffix>
+<ListBox>
+  <ListBox.Item>
+    <ListBox.ItemContent>
+      <ListBox.ItemTitle>Wi-Fi</ListBox.ItemTitle>
+    </ListBox.ItemContent>
+    <ListBox.ItemSuffix>
       <Switch isSelected={isOn} onSelectedChange={setOn} size="sm" />
-    </List.ItemSuffix>
-  </List.Item>
+    </ListBox.ItemSuffix>
+  </ListBox.Item>
 
-  <List.ItemButton onPress={openSecurity}>
-    <List.ItemContent>
-      <List.ItemTitle>Sécurité</List.ItemTitle>
-    </List.ItemContent>
-  </List.ItemButton>
-</List>
+  <ListBox.ItemButton onPress={openSecurity}>
+    <ListBox.ItemContent>
+      <ListBox.ItemTitle>Sécurité</ListBox.ItemTitle>
+    </ListBox.ItemContent>
+  </ListBox.ItemButton>
+</ListBox>
 ```
 
 It is the same row — same inset, same slots, same separators around it — plus the two things
@@ -139,49 +139,49 @@ that read identically would behave differently. Which of the two a row is, the J
 The root announces itself as a `list`. That is overridable too — a list of one row is a row,
 and a list used as a plain container is neither.
 
-## `ListGroup` — the sectioned list
+## `ListBoxGroup` — the sectioned list
 
 ```tsx
-<ListGroup>
-  <ListGroup.Section>
-    <ListGroup.Header>Réseau</ListGroup.Header>
-    <List>
-      <List.Item>
-        <List.ItemContent>
-          <List.ItemTitle>Wi-Fi</List.ItemTitle>
-        </List.ItemContent>
-        <List.ItemSuffix>
+<ListBoxGroup>
+  <ListBoxGroup.Section>
+    <ListBoxGroup.Header>Réseau</ListBoxGroup.Header>
+    <ListBox>
+      <ListBox.Item>
+        <ListBox.ItemContent>
+          <ListBox.ItemTitle>Wi-Fi</ListBox.ItemTitle>
+        </ListBox.ItemContent>
+        <ListBox.ItemSuffix>
           <Switch isSelected={isOn} onSelectedChange={setOn} />
-        </List.ItemSuffix>
-      </List.Item>
-    </List>
-    <ListGroup.Footer>Le Wi-Fi se coupe en veille.</ListGroup.Footer>
-  </ListGroup.Section>
+        </ListBox.ItemSuffix>
+      </ListBox.Item>
+    </ListBox>
+    <ListBoxGroup.Footer>Le Wi-Fi se coupe en veille.</ListBoxGroup.Footer>
+  </ListBoxGroup.Section>
 
-  <ListGroup.Section>
-    <ListGroup.Header>Confidentialité</ListGroup.Header>
-    <List>…</List>
-  </ListGroup.Section>
-</ListGroup>
+  <ListBoxGroup.Section>
+    <ListBoxGroup.Header>Confidentialité</ListBoxGroup.Header>
+    <ListBox>…</ListBox>
+  </ListBoxGroup.Section>
+</ListBoxGroup>
 ```
 
-**It is a group of lists, not a list with headings in it.** A `List` draws its container and
+**It is a group of lists, not a list with headings in it.** A `ListBox` draws its container and
 its separators **between its own children**, so a heading placed among the rows would get a
 hairline above and below it and would sit inside the card it names. Sections are containers
 side by side; a heading belongs outside them.
 
-**`ListGroup.Section` exists because proximity is the only thing grouping a header with its
+**`ListBoxGroup.Section` exists because proximity is the only thing grouping a header with its
 list** — nothing draws a box around a section. One gap on the group would put a heading
 exactly as far from its own rows as from the section above it, so there are two gaps, on the
 two roots that own them (R4). The ratio is the whole design.
 
-**The header is inset by the row's own padding**, read off the `List`'s size table rather
-than guessed, so the heading and the text it heads share a left edge. `ListGroup.Footer` is
+**The header is inset by the row's own padding**, read off the `ListBox`'s size table rather
+than guessed, so the heading and the text it heads share a left edge. `ListBoxGroup.Footer` is
 inset with it — the sentence under a settings block that says what the switch actually does.
 
 **Nothing is walked and nothing is counted.** The group publishes two gaps and a type scale;
 the sections are ordinary children, and a section can be built out of something that is not
-a `List` at all.
+a `ListBox` at all.
 
 ### What the group hands down
 
@@ -191,29 +191,29 @@ five chances to set it differently. `isDisabled` is the one that is not a defaul
 disabled group has no live list in it.
 
 ```tsx
-<ListGroup variant="tertiary" size="sm" color="#7c3aed">
-  <ListGroup.Section>
-    <ListGroup.Header>Du groupe</ListGroup.Header>
-    <List>…</List>
-  </ListGroup.Section>
-  <ListGroup.Section>
-    <ListGroup.Header>À elle</ListGroup.Header>
-    <List variant="primary">…</List>
-  </ListGroup.Section>
-</ListGroup>
+<ListBoxGroup variant="tertiary" size="sm" color="#7c3aed">
+  <ListBoxGroup.Section>
+    <ListBoxGroup.Header>Du groupe</ListBoxGroup.Header>
+    <ListBox>…</ListBox>
+  </ListBoxGroup.Section>
+  <ListBoxGroup.Section>
+    <ListBoxGroup.Header>À elle</ListBoxGroup.Header>
+    <ListBox variant="primary">…</ListBox>
+  </ListBoxGroup.Section>
+</ListBoxGroup>
 ```
 
-A `List` outside any group is unchanged.
+A `ListBox` outside any group is unchanged.
 
 ### Alignment with `heroui-native`
 
-Their `ListGroup` **is our `List`** — a Surface container with Item · ItemPrefix ·
+Their `ListBoxGroup` **is our `ListBox`** — a Surface container with Item · ItemPrefix ·
 ItemContent · ItemTitle · ItemDescription · ItemSuffix, slot for slot. What is here under
 that name is the thing neither of us had: the sections, their headings and the spacing
 between them. Two components rather than one renamed, because a settings screen is a column
 of lists and a list is a column of rows, and those are two different columns.
 
-### `ListGroup` props
+### `ListBoxGroup` props
 
 Everything `View` accepts, every `ViewStyle` key it does not claim (R14), plus:
 
@@ -227,10 +227,10 @@ Everything `View` accepts, every `ViewStyle` key it does not claim (R14), plus:
 | `isDisabled`   | `boolean`                                           | `false` | Every list, and none opts out |
 | `asChild`      | `boolean`                                           | `false` | Renders the caller's element  |
 
-`ListGroup.Section` takes `View`'s props, `ListGroup.Header` and `ListGroup.Footer` take
-`Text`'s, all three plus their style props (R14). `useListGroup()` is exported (R10).
+`ListBoxGroup.Section` takes `View`'s props, `ListBoxGroup.Header` and `ListBoxGroup.Footer` take
+`Text`'s, all three plus their style props (R14). `useListBoxGroup()` is exported (R10).
 
-`ListGroup.Header` carries `accessibilityRole="header"`, overridable — that is what lets a
+`ListBoxGroup.Header` carries `accessibilityRole="header"`, overridable — that is what lets a
 screen reader jump between sections. The footer carries none: a footnote is prose, and
 announcing it as a heading would put it in the list a reader jumps between.
 

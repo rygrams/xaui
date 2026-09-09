@@ -10,7 +10,7 @@ import type { TextStyleProps, ViewStyleProps } from '../../system/style-props'
 import type { IconContextValue } from '../../system/icon'
 import type { RadiusKey, Size } from '../../theme/theme.type'
 
-export type ListSlot =
+export type ListBoxSlot =
   | 'root'
   | 'container'
   | 'separator'
@@ -27,19 +27,19 @@ export type ListSlot =
  * open. `tertiary` drops the fill for a border and `ghost` drops that too, for a list on a
  * surface that is already the level below.
  */
-export type ListVariant = 'primary' | 'secondary' | 'tertiary' | 'ghost'
+export type ListBoxVariant = 'primary' | 'secondary' | 'tertiary' | 'ghost'
 
-export type ListSize = Size
+export type ListBoxSize = Size
 
-type ListOwnProps = {
+type ListBoxOwnProps = {
   children?: ReactNode
-  variant?: ListVariant
-  size?: ListSize
+  variant?: ListBoxVariant
+  size?: ListBoxSize
   radius?: RadiusKey
   /** The tint (R7) — a raw value, never a token. */
   color?: string
   /**
-   * Whether a hairline is drawn between the rows. Falls back to the `ListGroup`'s, and
+   * Whether a hairline is drawn between the rows. Falls back to the `ListBoxGroup`'s, and
    * to `true` outside one.
    */
   hasSeparator?: boolean
@@ -47,50 +47,50 @@ type ListOwnProps = {
   asChild?: boolean
 }
 
-export type ListProps = ListOwnProps &
-  Omit<ViewProps, keyof ListOwnProps> &
-  Omit<ViewStyleProps, keyof ListOwnProps | keyof ViewProps>
+export type ListBoxProps = ListBoxOwnProps &
+  Omit<ViewProps, keyof ListBoxOwnProps> &
+  Omit<ViewStyleProps, keyof ListBoxOwnProps | keyof ViewProps>
 
-type ListItemOwnProps = {
+type ListBoxItemOwnProps = {
   children?: ReactNode
   asChild?: boolean
 }
 
 /** A plain row: a `View`, with no press state and nothing to announce. */
-export type ListItemProps = ListItemOwnProps &
-  Omit<ViewProps, keyof ListItemOwnProps> &
-  Omit<ViewStyleProps, keyof ListItemOwnProps | keyof ViewProps>
+export type ListBoxItemProps = ListBoxItemOwnProps &
+  Omit<ViewProps, keyof ListBoxItemOwnProps> &
+  Omit<ViewStyleProps, keyof ListBoxItemOwnProps | keyof ViewProps>
 
-type ListItemButtonOwnProps = {
+type ListBoxItemButtonOwnProps = {
   children?: ReactNode
   isDisabled?: boolean
   asChild?: boolean
 }
 
-/** A row you can press, used in place of `List.Item` rather than inside it. */
-export type ListItemButtonProps = ListItemButtonOwnProps &
-  Omit<PressableProps, keyof ListItemButtonOwnProps> &
-  Omit<ViewStyleProps, keyof ListItemButtonOwnProps | keyof PressableProps>
+/** A row you can press, used in place of `ListBox.Item` rather than inside it. */
+export type ListBoxItemButtonProps = ListBoxItemButtonOwnProps &
+  Omit<PressableProps, keyof ListBoxItemButtonOwnProps> &
+  Omit<ViewStyleProps, keyof ListBoxItemButtonOwnProps | keyof PressableProps>
 
-type ListSlotOwnProps = {
+type ListBoxSlotOwnProps = {
   children?: ReactNode
 }
 
-export type ListItemPrefixProps = ListSlotOwnProps &
-  Omit<ViewProps, keyof ListSlotOwnProps> &
-  Omit<ViewStyleProps, keyof ListSlotOwnProps | keyof ViewProps>
+export type ListBoxItemPrefixProps = ListBoxSlotOwnProps &
+  Omit<ViewProps, keyof ListBoxSlotOwnProps> &
+  Omit<ViewStyleProps, keyof ListBoxSlotOwnProps | keyof ViewProps>
 
-export type ListItemContentProps = ListItemPrefixProps
-export type ListItemSuffixProps = ListItemPrefixProps
+export type ListBoxItemContentProps = ListBoxItemPrefixProps
+export type ListBoxItemSuffixProps = ListBoxItemPrefixProps
 
-export type ListItemTitleProps = ListSlotOwnProps &
-  Omit<TextProps, keyof ListSlotOwnProps> &
-  Omit<TextStyleProps, keyof ListSlotOwnProps | keyof TextProps>
+export type ListBoxItemTitleProps = ListBoxSlotOwnProps &
+  Omit<TextProps, keyof ListBoxSlotOwnProps> &
+  Omit<TextStyleProps, keyof ListBoxSlotOwnProps | keyof TextProps>
 
-export type ListItemDescriptionProps = ListItemTitleProps
+export type ListBoxItemDescriptionProps = ListBoxItemTitleProps
 
 /** R5 — resolved style ids, never a token for a slot to resolve again. */
-export type ListContextValue = {
+export type ListBoxContextValue = {
   separatorStyle: StyleProp<TextStyle>
   itemStyle: StyleProp<TextStyle>
   itemPressedStyle: StyleProp<TextStyle>

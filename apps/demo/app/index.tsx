@@ -45,7 +45,7 @@ const SCREENS = [
   { href: '/icon', label: 'Icon' },
   { href: '/input-otp', label: 'InputOTP' },
   { href: '/view', label: 'Layout' },
-  { href: '/list', label: 'List' },
+  { href: '/list-box', label: 'ListBox' },
   { href: '/mask-field', label: 'MaskField' },
   { href: '/number-field', label: 'NumberField' },
   { href: '/number-stepper', label: 'NumberStepper' },
