@@ -246,10 +246,6 @@ export const nativeDemoRegistry: Record<string, ComponentType> = {
     () => import('../../../demo/app/text-field'),
     { loading, ssr: false }
   ),
-  'time-field': dynamic(
-    () => import('../../../demo/app/time-field'),
-    { loading, ssr: false }
-  ),
   'time-picker': dynamic(
     () => import('../../../demo/app/time-picker'),
     { loading, ssr: false }

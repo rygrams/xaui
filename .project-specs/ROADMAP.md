@@ -124,7 +124,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.26b\* | `Calendar.YearPicker` — the years, mounted instead of the days | done |
 | P5.26c | `AgendaCalendar` — net new, the `Calendar` with its events | done |
 | P5.26d | `MaskField` — one masked box: `date`, `time`, `datetime`, `credit-card` or a pattern | done |
-| P5.26h | `TimeField` — a time typed, over legacy `TimeInput` | done |
+| P5.26h | `TimeField` — a time typed; superseded by `MaskField` with `mask="time"` | dropped |
 | P5.26i | `DateTimeField` — the two masks in one box, over legacy `DateTimeInput` | dropped |
 | P5.26e | `DateRangePicker` — net new, two bounds over the `DatePicker` | done |
 | P5.26f | `DateTimePicker` — net new, `DatePicker` and `TimePicker` as one | done |

@@ -85,7 +85,6 @@ const CATEGORY_COMPONENTS = {
     'switch',
     'text-area',
     'text-field',
-    'time-field',
     'time-picker',
     'wheel-picker',
   ],

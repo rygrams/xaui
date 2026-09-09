@@ -13,7 +13,7 @@ import type { TimePickerIndicatorProps, TimePickerProps } from '../time-picker'
 import type { PressableFeedbackProps } from '../../system/pressable-feedback'
 import type { TextStyleProps, ViewStyleProps } from '../../system/style-props'
 import type { RadiusKey, Size } from '../../theme/theme.type'
-import type { HourCycle } from '../../utils/time-mask'
+import type { HourCycle } from '../../utils/time'
 
 /** The `Select`'s four field levels, because the trigger **is** a select's trigger. */
 export type DateTimePickerVariant = 'primary' | 'secondary' | 'tertiary' | 'ghost'

@@ -3,9 +3,9 @@ import { StyleSheet } from 'react-native'
 import type { TextStyle } from 'react-native'
 import { useControllableState } from '../../hooks/use-controllable-state'
 import { useXAUITheme } from '../../theme/theme-hooks'
-import { periodOf, withTime } from '../../utils/time-mask'
-import type { DayPeriod } from '../../utils/time-mask'
-import { hourCycleFor } from '../../utils/time-mask'
+import { periodOf, withTime } from '../../utils/time'
+import type { DayPeriod } from '../../utils/time'
+import { hourCycleFor } from '../../utils/time'
 import { selectRecipe } from '../select/select.recipe'
 import { TimePickerProvider } from './time-picker.context'
 import { timePickerDial, timePickerRecipe } from './time-picker.recipe'
@@ -42,7 +42,7 @@ const HOURS_IN_HALF_DAY = 12
  * round the face, then the minutes, with the two big numbers above switching between them.
  * Choosing the minutes closes the sheet, because at that point the time is complete.
  *
- * For a time **typed** rather than chosen, that is `TimeField`.
+ * For a time **typed** rather than chosen, that is `MaskField` with `mask="time"`.
  */
 export function TimePicker({
   children,

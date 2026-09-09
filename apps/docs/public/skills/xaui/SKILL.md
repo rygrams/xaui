@@ -5,7 +5,7 @@ description: Write React Native UI with @xaui/native — composition-first compo
 
 # @xaui/native
 
-75 React Native components built on composition: a root plus dot-notation slots, Reanimated motion, and a theme that derives its own palettes.
+74 React Native components built on composition: a root plus dot-notation slots, Reanimated motion, and a theme that derives its own palettes.
 
 ## Install
 
@@ -111,7 +111,6 @@ import { Button } from '@xaui/native/button'
 - [TagGroup](https://ui.xtartapp.com/docs/tag-group.md): A wrapping set of tags you can turn on, and take off.
 - [TextArea](https://ui.xtartapp.com/docs/text-area.md): A multiline field, with the label, the hint and the error that make it usable.
 - [TextField](https://ui.xtartapp.com/docs/text-field.md): A text field, with the label, the hint and the error that make it usable.
-- [TimeField](https://ui.xtartapp.com/docs/time-field.md): A time, typed.
 - [TimePicker](https://ui.xtartapp.com/docs/time-picker.md): A field that opens a clock.
 - [Timeline](https://ui.xtartapp.com/docs/timeline.md): What happened, in order, with a line through it.
 - [Toast](https://ui.xtartapp.com/docs/toast.md): A notice that arrives because something happened, and leaves on its own.

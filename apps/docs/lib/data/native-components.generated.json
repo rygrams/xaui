@@ -1151,22 +1151,6 @@
     ]
   },
   {
-    "id": "time-field",
-    "title": "TimeField",
-    "description": "A time, typed.",
-    "category": "Forms",
-    "importPath": "@xaui/native/time-field",
-    "href": "/docs/components/time-field",
-    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/time-field",
-    "markdownPath": "packages/native/src/components/time-field/time-field.md",
-    "demoId": "time-field",
-    "exports": [
-      "TimeField",
-      "TimeFieldField",
-      "TimeFieldPeriod"
-    ]
-  },
-  {
     "id": "time-picker",
     "title": "TimePicker",
     "description": "A field that opens a clock.",

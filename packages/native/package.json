@@ -647,16 +647,6 @@
         "default": "./dist/components/text-field/index.cjs"
       }
     },
-    "./time-field": {
-      "import": {
-        "types": "./dist/components/time-field/index.d.ts",
-        "default": "./dist/components/time-field/index.js"
-      },
-      "require": {
-        "types": "./dist/components/time-field/index.d.cts",
-        "default": "./dist/components/time-field/index.cjs"
-      }
-    },
     "./time-picker": {
       "import": {
         "types": "./dist/components/time-picker/index.d.ts",
