@@ -155,7 +155,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.38 | `Radio.Group` — over legacy `RadioGroup`, the context P3.9 `Radio` lacked | done |
 | P5.38b | `RadioButton` — net new, to reconcile with P3.9 `Radio` | done |
 | P5.38c | `RadioButtonGroup` — net new, to reconcile with `RadioGroup` | done |
-| P5.39 | `Rating` — net new, no legacy equivalent | todo |
+| P5.39 | `Rating` — net new, no legacy equivalent | done |
 | P5.40 | `Surface` — four grounds, elevation asked for, no slots | done |
 | P5.41 | `SplitView` — net new, a `view/` split on a draggable divider | dropped |
 | P5.42 | `Table` — net new, no legacy equivalent | done |

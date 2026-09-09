@@ -59,6 +59,7 @@ const SCREENS = [
   { href: '/progress-bar', label: 'ProgressBar' },
   { href: '/progress-circle', label: 'ProgressCircle' },
   { href: '/radio', label: 'Radio' },
+  { href: '/rating', label: 'Rating' },
   { href: '/segment', label: 'Segment' },
   { href: '/scaffold', label: 'Scaffold' },
   { href: '/search-field', label: 'SearchField' },

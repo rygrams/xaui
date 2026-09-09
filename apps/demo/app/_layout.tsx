@@ -148,6 +148,7 @@ export default function RootLayout() {
                 options={{ title: 'ProgressCircle (v1)' }}
               />
               <Stack.Screen name="radio" options={{ title: 'Radio (v1)' }} />
+              <Stack.Screen name="rating" options={{ title: 'Rating (v1)' }} />
               <Stack.Screen
                 name="search-field"
                 options={{ title: 'SearchField (v1)' }}
