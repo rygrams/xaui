@@ -477,6 +477,16 @@
         "default": "./dist/components/select/index.cjs"
       }
     },
+    "./snackbar": {
+      "import": {
+        "types": "./dist/components/snackbar/index.d.ts",
+        "default": "./dist/components/snackbar/index.js"
+      },
+      "require": {
+        "types": "./dist/components/snackbar/index.d.cts",
+        "default": "./dist/components/snackbar/index.cjs"
+      }
+    },
     "./skeleton": {
       "import": {
         "types": "./dist/components/skeleton/index.d.ts",
