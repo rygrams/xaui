@@ -139,7 +139,13 @@
 .native-preview-screen * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scrollbar-width: thin;
   text-rendering: geometricPrecision;
+}
+
+.native-preview-screen *::-webkit-scrollbar {
+  height: 4px;
+  width: 4px;
 }
 
 .native-preview-screen {

@@ -102,8 +102,11 @@ export function NativePreviewClient({
             }
           >
             <div className="native-preview-screen" ref={screen}>
+              {/* GestureHandlerRootView's flex only bounds the demo when its HTML parent
+                  participates in flex layout. That bound is what makes ScrollView scroll. */}
               <div
                 style={{
+                  display: 'flex',
                   width: DEVICE.width,
                   height: DEVICE.height,
                   transform: `scale(${scale})`,
