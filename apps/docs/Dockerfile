@@ -17,6 +17,10 @@ COPY --from=pruner /app/out/pnpm-lock.yaml ./pnpm-lock.yaml
 RUN --mount=type=cache,id=pnpm,target=/pnpm/store pnpm install --frozen-lockfile
 COPY --from=pruner /app/out/full/ .
 COPY --from=pruner /app/tsconfig.base.json ./tsconfig.base.json
+# `turbo prune` keeps workspace packages, and `tooling/` is not one — but the native build
+# workletizes and mirrors its own `.d.ts` from there, and the docs prebuild generates every
+# component page from there, so the pruned tree cannot build without it.
+COPY --from=pruner /app/tooling/ ./tooling/
 RUN pnpm turbo build --filter=docs
 
 FROM nginx:alpine AS runner
