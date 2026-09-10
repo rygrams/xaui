@@ -116,6 +116,17 @@ Without an `alignSelf`, the pill fills its column, which is RN's own behaviour a
 The handle is a **horizontal stadium**, wider than it is tall: a slide-to-confirm handle
 is pushed sideways, so it reads as a thing you shove rather than a knob you turn.
 
+It is lifted off the pill by `shadows.surface`, so the chevron on it never has to fight the
+pill for contrast — and **`isDisabled` puts that lift down** rather than dimming it with
+everything else. Opacity fades the pill until its edges are most of the way to the page,
+and a shadow at half strength is then the strongest edge left, sitting a point below a
+handle whose own outline has gone: it reads as a handle pressed into a dent rather than as
+a faded control. Nothing disabled should look lifted anyway.
+
+For the same reason the pill itself never sets `overflow: 'hidden'`. On iOS that clips the
+layer's own shadow, and the handle's lower half reaches the pill's edge exactly. The trail
+is cut to the pill's shape by a window one layer in, so the cut lands on the trail alone.
+
 `radius` overrides the pill's corner, which is `full` by default.
 
 ## Variants and colour
@@ -123,30 +134,46 @@ is pushed sideways, so it reads as a thing you shove rather than a knob you turn
 The ten flat variants, the same vocabulary every control in the library takes — a
 slide-to-delete is a real `danger` use, so the intents stay.
 
-| `variant`                        | Pill         | Border   | Label               |
-| -------------------------------- | ------------ | -------- | ------------------- |
-| `primary`                        | `accent`     | —        | `accentForeground`  |
-| `secondary`                      | `default`    | —        | `defaultForeground` |
-| `tertiary`                       | —            | `border` | `foreground`        |
-| `ghost`                          | —            | —        | `foreground`        |
-| `success` / `warning` / `danger` | same name    | —        | `<name>Foreground`  |
-| `*-soft`                         | `<name>Soft` | —        | `<name>`            |
+| `variant`                        | Pill at rest | Trail    | Label at rest          | Label swept        |
+| -------------------------------- | ------------ | -------- | ---------------------- | ------------------ |
+| `primary`                        | `accentSoft` | `accent` | `accentSoftForeground` | `accentForeground` |
+| `success` / `warning` / `danger` | `<name>Soft` | `<name>` | `<name>SoftForeground` | `<name>Foreground` |
+| `secondary`                      | `default`    | wash     | `defaultForeground`    | same               |
+| `tertiary`                       | — (`border`) | wash     | `foreground`           | same               |
+| `ghost`                          | —            | wash     | `foreground`           | same               |
+| `*-soft`                         | `<name>Soft` | wash     | `<name>`               | same               |
 
 `secondary` is the default — the neutral grey pill.
 
+**The four intents rest soft and earn their colour.** A `Button` is its intent the moment
+it is on screen, because a tap is the whole interaction. A slide is not: the pill sits
+under the thumb saying _not yet_, so `primary`, `success`, `warning` and `danger` open on
+their soft slice and name the vivid one as `bgSelected` — the role the recipe engine
+already has for "the box once it is on". The trail lays it down as the handle sweeps, so
+the colour arrives with the commitment rather than before it.
+
+**The label is drawn twice**, and that is what keeps it readable. No single text colour
+survives a pill going from its soft slice to the vivid one: painted for the soft pill it
+reads about 1.3:1 against the trail, painted for the trail it is invisible at rest. So the
+second copy takes `fgSelected` and is clipped to exactly the trail's width — a word the
+trail is halfway through is dark on the half that is still soft and light on the half that
+is not. Measured against the default theme, every variant clears AA in both modes: 4.9–6.5
+at rest and 4.6–5.0 swept in light, 7.5–10.4 and 6.4–10.2 in dark. Where a variant names no
+`fgSelected` both copies resolve to the same colour and the second one changes nothing.
+
 `color` is a raw value (R7). It lands where the variant's tokens do: the pill for the
-filled ones, the label for `ghost`, the label and border for `tertiary`. **It never
-reaches the handle** — the handle stays the surface colour so the chevron on it is
+filled ones, the label for `ghost`, the label and border for `tertiary` — and, because
+`resolveTint` maps every declared role, into the trail on the four that name one. **It
+never reaches the handle** — the handle stays the surface colour so the chevron on it is
 readable whatever the pill is doing.
 
-**The trail is a wash of the pill's own foreground** — the same colour the label uses, at
-low opacity. It reads against every variant without a token of its own: light on a filled
-pill, dark on `secondary` or `ghost`. A raw `color` moves it with the label. Its width is
-the swept **fraction** of the travel laid over the whole pill — nothing at rest, and full
-at the end. It is not the handle's raw offset: the handle stops a handle's width short of
-the trailing cap, because that is where it physically is, and a trail that stopped with it
-would leave a confirmed slide showing unswept pill. How far the slide has come, not the
-value.
+**The variants that name no vivid slice sweep a wash of their own foreground** instead, at
+low opacity — the same colour the label uses, so it reads against every pill without a
+token of its own. Either way the trail's width is the swept **fraction** of the travel laid
+over the whole pill — nothing at rest, and full at the end. It is not the handle's raw
+offset: the handle stops a handle's width short of the trailing cap, because that is where
+it physically is, and a trail that stopped with it would leave a confirmed slide showing
+unswept pill. How far the slide has come, not the value.
 
 ## How it is put together
 
@@ -189,4 +216,4 @@ Everything a `View` accepts, every `ViewStyle` key it does not already claim (R1
 | `isConfirmed`      | `boolean`              | —             | Controlled — pins the thumb at the end, or springs home |
 | `defaultConfirmed` | `boolean`              | `false`       | The starting state when uncontrolled                    |
 | `onConfirm`        | `() => void`           | —             | Fires once, when the thumb reaches `threshold`          |
-| `isDisabled`       | `boolean`              | `false`       | Dims it and stops the drag                              |
+| `isDisabled`       | `boolean`              | `false`       | Dims it, drops the handle's shadow, stops the drag      |

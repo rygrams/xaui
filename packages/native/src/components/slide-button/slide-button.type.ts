@@ -11,7 +11,14 @@ import type { IconContextValue, IconProps } from '../../system/icon'
 import type { TextStyleProps, ViewStyleProps } from '../../system/style-props'
 import type { RadiusKey } from '../../theme/theme.type'
 
-export type SlideButtonSlot = 'root' | 'fill' | 'label' | 'thumb' | 'glyph'
+export type SlideButtonSlot =
+  | 'root'
+  | 'fillClip'
+  | 'fill'
+  | 'label'
+  | 'labelSwept'
+  | 'thumb'
+  | 'glyph'
 
 /**
  * The flat variant union, the same ten values every control in the library takes. A
@@ -83,8 +90,12 @@ export type SlideButtonIconProps = IconProps
 
 /** R5 — resolved style ids and the shared progress the animated slots read. */
 export type SlideButtonContextValue = {
+  /** The window the trail is cut to — the pill's shape, so the cut stays off the handle. */
+  fillClipStyle: StyleProp<ViewStyle>
   fillStyle: StyleProp<ViewStyle>
   labelStyle: StyleProp<TextStyle>
+  /** The label's swept copy, already carrying the width the clip must not re-centre it in. */
+  labelSweptStyle: StyleProp<TextStyle>
   thumbStyle: StyleProp<ViewStyle>
   glyphStyle: StyleProp<ViewStyle>
   icon: IconContextValue

@@ -1,6 +1,6 @@
 import { forwardRef, useCallback, useEffect, useMemo, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
-import type { LayoutChangeEvent, ViewStyle } from 'react-native'
+import type { LayoutChangeEvent, TextStyle, ViewStyle } from 'react-native'
 import { useSharedValue, withSpring } from 'react-native-reanimated'
 import { useControllableState } from '../../hooks/use-controllable-state'
 import { childrenToString } from '../../system/slot'
@@ -115,9 +115,25 @@ export const SlideButtonRoot = forwardRef<View, SlideButtonProps>(
     const context = useMemo(() => {
       const glyph = StyleSheet.flatten<ViewStyle>([styles.glyph, tint?.glyph])
 
+      // The swept copy is laid out inside a clip that keeps narrowing, so it cannot take
+      // the `end` inset the resting label does — it is handed the pill's own width less
+      // both insets instead. Read off the resolved style for the same reason the travel is:
+      // any other number and the two copies stop sitting on the same glyphs.
+      const labelInset = StyleSheet.flatten<TextStyle>([styles.label]).start
+      const sweptWidth = Math.max(
+        trackLength - (typeof labelInset === 'number' ? labelInset : 0) * 2,
+        0
+      )
+
       return {
+        fillClipStyle: styles.fillClip,
         fillStyle: tint ? [styles.fill, tint.fill] : styles.fill,
         labelStyle: tint ? [styles.label, tint.label] : styles.label,
+        labelSweptStyle: [
+          styles.labelSwept,
+          tint?.labelSwept,
+          { width: sweptWidth },
+        ],
         thumbStyle: styles.thumb,
         glyphStyle: tint ? [styles.glyph, tint.glyph] : styles.glyph,
         icon: {
@@ -152,7 +168,7 @@ export const SlideButtonRoot = forwardRef<View, SlideButtonProps>(
     const text = childrenToString(children)
 
     // No `asChild`, for the reason the `Slider` root has none: this is a structural
-    // container — a fixed-height bar that measures itself, holds three absolutely-placed
+    // container — a fixed-height bar that measures itself, holds absolutely-placed
     // children and owns the pan's shared value — not a single node to merge into a
     // caller's element. `style` and the R14 props are the way to reshape it.
     return (

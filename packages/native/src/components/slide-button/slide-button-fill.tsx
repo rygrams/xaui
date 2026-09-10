@@ -1,7 +1,8 @@
 import { forwardRef } from 'react'
-import type { View } from 'react-native'
+import { View } from 'react-native'
 import Animated, { useAnimatedStyle } from 'react-native-reanimated'
 import { useStyleProps } from '../../system/style-props'
+import { sweptWidth } from './slide-button.animation'
 import { useSlideButton } from './slide-button.context'
 import type { SlideButtonFillProps } from './slide-button.type'
 
@@ -21,25 +22,40 @@ import type { SlideButtonFillProps } from './slide-button.type'
  * In between, the trail's leading edge sits under the handle for all but the first and last
  * few points of the drag, so there is no seam to see while the finger is down.
  *
+ * It is drawn inside a window cut to the pill's shape, because its own corner cannot be:
+ * `radius.full` is clamped to half the shorter side, so while the trail is narrower than
+ * the pill is tall it draws a squarer corner than the pill's and shows outside it. The
+ * window is here rather than on the root so that the cut lands on the trail alone and not
+ * on the handle's shadow.
+ *
  * Driven on the UI thread; a spring here would let the trail and the handle come apart
  * under the finger.
  */
 export const SlideButtonFill = forwardRef<View, SlideButtonFillProps>(
   function SlideButtonFill({ style, ...props }, ref) {
-    const { fillStyle, offset, travel, trackLength } = useSlideButton()
+    const { fillClipStyle, fillStyle, offset, travel, trackLength } =
+      useSlideButton()
     const [styleProps, rest] = useStyleProps(props)
 
-    const width = useAnimatedStyle(
-      () => ({ width: travel > 0 ? (offset.get() / travel) * trackLength : 0 }),
-      [travel, trackLength]
-    )
+    // The directive is not decoration. In the published `dist` the bundler renames
+    // duplicate imports — `useAnimatedStyle2`, `useAnimatedStyle3` — and the plugin's
+    // auto-workletization matches the callee by *name*, so a renamed call site is silently
+    // left as a plain function and crashes the first time the UI thread runs it.
+    const width = useAnimatedStyle(() => {
+      'worklet'
+      return { width: sweptWidth(offset.get(), travel, trackLength) }
+    }, [travel, trackLength])
 
+    // `box-none` and not `none`: the window is a cut, not a lid — it must not catch a touch
+    // itself, but anything a caller hangs on the trail still has to receive one.
     return (
-      <Animated.View
-        ref={ref}
-        {...rest}
-        style={[fillStyle, width, styleProps, style]}
-      />
+      <View pointerEvents="box-none" style={fillClipStyle}>
+        <Animated.View
+          ref={ref}
+          {...rest}
+          style={[fillStyle, width, styleProps, style]}
+        />
+      </View>
     )
   }
 )
