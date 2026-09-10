@@ -1,6 +1,5 @@
 import { forwardRef, useCallback, useMemo, useState } from 'react'
-import { StyleSheet, View } from 'react-native'
-import type { ViewStyle } from 'react-native'
+import { View } from 'react-native'
 import type Animated from 'react-native-reanimated'
 import { useAnimatedRef, useSharedValue } from 'react-native-reanimated'
 import { useControllableState } from '../../hooks/use-controllable-state'
@@ -115,28 +114,14 @@ export const PagerRoot = forwardRef<View, PagerProps>(function Pager(
     [orientation, setIndex, step, trackRef]
   )
 
-  const context = useMemo(() => {
-    const active = StyleSheet.flatten<ViewStyle>([styles.dotActive, tint?.dotActive])
-    const at = StyleSheet.flatten<ViewStyle>([styles.dot])
-
-    return {
+  const context = useMemo(
+    () => ({
       contentStyle: styles.content,
       pageStyle: styles.page,
       indicatorStyle: styles.indicator,
-      dotStyle: styles.dot,
-      // Values rather than styles: the colour is interpolated on the UI thread, and
-      // `interpolateColor` needs strings. The fallbacks are the tokens the recipe named, for
-      // the platform colours `ColorValue` also covers.
-      dotInk: {
-        rest:
-          typeof at.backgroundColor === 'string'
-            ? at.backgroundColor
-            : theme.colors.default,
-        active:
-          typeof active.backgroundColor === 'string'
-            ? active.backgroundColor
-            : theme.colors.accent,
-      },
+      // One colour for every dot; the current one is told apart by its opacity, which the dot
+      // animates itself. Nothing here has to be flattened into a value for a worklet.
+      dotStyle: tint ? [styles.dot, tint.dot] : styles.dot,
       orientation,
       index,
       count,
@@ -149,23 +134,23 @@ export const PagerRoot = forwardRef<View, PagerProps>(function Pager(
       onSettle: setIndex,
       trackRef,
       isDisabled,
-    }
-  }, [
-    styles,
-    tint,
-    theme,
-    orientation,
-    index,
-    count,
-    track,
-    setTrack,
-    step,
-    offset,
-    goTo,
-    setIndex,
-    trackRef,
-    isDisabled,
-  ])
+    }),
+    [
+      styles,
+      tint,
+      orientation,
+      index,
+      count,
+      track,
+      setTrack,
+      step,
+      offset,
+      goTo,
+      setIndex,
+      trackRef,
+      isDisabled,
+    ]
+  )
 
   // The resolution order of §2 ter: the cached recipe, the uncached tint, the style props,
   // then `style` — the last word.

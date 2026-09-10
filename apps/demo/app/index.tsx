@@ -54,6 +54,7 @@ const SCREENS = [
   { href: '/menu', label: 'Menu' },
   { href: '/morph-button', label: 'MorphButton' },
   { href: '/pager', label: 'Pager' },
+  { href: '/pager-full', label: 'Pager (plein écran)' },
   { href: '/popover', label: 'Popover' },
   { href: '/pressable-feedback', label: 'PressableFeedback' },
   { href: '/progress-bar', label: 'ProgressBar' },

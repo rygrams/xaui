@@ -82,12 +82,6 @@ export type PagerDotProps = PagerViewSlotProps & {
   index: number
 }
 
-/** The two colours a dot travels between, read as values because a worklet interpolates them. */
-export type PagerDotInk = {
-  rest: string
-  active: string
-}
-
 /** How big the track measured — a page is exactly this, on both axes. */
 export type PagerTrackSize = {
   width: number
@@ -99,8 +93,12 @@ export type PagerContextValue = {
   contentStyle: StyleProp<ViewStyle>
   pageStyle: StyleProp<ViewStyle>
   indicatorStyle: StyleProp<ViewStyle>
+  /**
+   * One colour for every dot. What tells the current one from the rest is its opacity, which
+   * the dot animates itself — so there is no second colour in here to keep in contrast with
+   * the first, and no pair that can collapse into one.
+   */
   dotStyle: StyleProp<ViewStyle>
-  dotInk: PagerDotInk
   orientation: PagerOrientation
   /** The settled page. */
   index: number

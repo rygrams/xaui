@@ -15,11 +15,10 @@ export { PagerContent } from './pager-content'
 export { PagerDot, PagerIndicator } from './pager-indicator'
 export { PagerPage } from './pager-page'
 export { usePager } from './pager.context'
-export { pagerRecipe } from './pager.recipe'
+export { DOT_REST_OPACITY, pagerRecipe } from './pager.recipe'
 export type {
   PagerContentProps,
   PagerContextValue,
-  PagerDotInk,
   PagerDotProps,
   PagerOrientation,
   PagerProps,

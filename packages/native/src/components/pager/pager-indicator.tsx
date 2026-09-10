@@ -1,12 +1,10 @@
 import { forwardRef } from 'react'
 import { Pressable, View } from 'react-native'
-import Animated, {
-  interpolateColor,
-  useAnimatedStyle,
-} from 'react-native-reanimated'
+import Animated, { interpolate, useAnimatedStyle } from 'react-native-reanimated'
 import { useStyleProps } from '../../system/style-props'
 import { progressFromOffset } from '../../utils/carousel'
 import { usePager } from './pager.context'
+import { DOT_REST_OPACITY } from './pager.recipe'
 import type { PagerDotProps, PagerViewSlotProps } from './pager.type'
 
 /** A dot is the right size to look at and the wrong size to hit. */
@@ -74,7 +72,6 @@ export const PagerDot = forwardRef<View, PagerDotProps>(function PagerDot(
 ) {
   const {
     dotStyle,
-    dotInk,
     offset,
     step,
     count,
@@ -83,20 +80,17 @@ export const PagerDot = forwardRef<View, PagerDotProps>(function PagerDot(
     goTo,
   } = usePager()
   const [styleProps, rest] = useStyleProps(props)
-  const { rest: restColor, active } = dotInk
 
   const travel = useAnimatedStyle(() => {
     'worklet'
     const distance = Math.abs(progressFromOffset(offset.get(), step, count) - index)
     // Linear between two dots and nothing beyond them: `1 − distance` clamped at zero hands
-    // the colour over at exactly the rate the neighbour takes it, so the two never both read
-    // as current and never both read as behind.
+    // the strength over at exactly the rate the neighbour takes it, so the two never both
+    // read as current and never both read as behind.
     const nearness = Math.max(0, 1 - distance)
 
-    return {
-      backgroundColor: interpolateColor(nearness, [0, 1], [restColor, active]),
-    }
-  }, [offset, step, count, index, restColor, active])
+    return { opacity: interpolate(nearness, [0, 1], [DOT_REST_OPACITY, 1]) }
+  }, [offset, step, count, index])
 
   return (
     <AnimatedPressable

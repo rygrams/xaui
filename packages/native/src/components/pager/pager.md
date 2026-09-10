@@ -88,27 +88,43 @@ of photographs want opposite things inside a page, and the caller is the one who
 this is.
 
 Three variants, none of them an intent — a pager reports nothing, it is a way of arranging
-what does. They name which colour the **current** dot takes:
+what does. They name **the indicator's colour**, and every dot takes it:
 
 - `primary` — the accent. The onboarding flow's answer.
-- `secondary` — the neutral foreground, for a pager on a plain page.
-- `tertiary` — the raised surface, which on a light theme is white: the pager over a
-  photograph, where an accent dot disappears into whatever is behind it.
+- `secondary` — the page's own ink, for an indicator that has to read as chrome.
+- `tertiary` — the raised ground, white on a light theme.
 
 `ghost` is absent rather than forgotten. A dot with no fill is not a dot, which is why
 `InputOTP` has no `ghost` either — a box that is not a box is not a box.
 
-The dots behind the current one keep a **neutral** fill rather than a faint version of it: a
-pale tint of the accent under the pages reads as a control that has half failed to load. A
-raw `color` therefore reaches the current dot only, which is the one it should move.
+A pager over a **photograph** wants `color="#ffffff"` rather than `tertiary`: a photograph is
+a photograph in both colour modes, and `surface` flips with the theme.
 
-Both ends of the travel are the recipe's, so `variant` is how the **pair** moves — and a
-style prop is not: `<Pager.Dot backgroundColor="…" />` lands after the interpolated colour
-and replaces it outright, which stops the dot travelling at all. A caller who needs a pair
-the three variants do not offer composes their own dot against `usePager().offset`, which is
-what the context publishes it for.
+### One colour at two opacities, not two colours
 
-## The dot changes colour, it does not stretch
+The current dot is at full strength and the rest sit at 30%. `DOT_REST_OPACITY` is exported,
+and the travel between the two is interpolated from the live scroll offset.
+
+This is the correction of the component's first shape, and it is worth stating why rather than
+just what. The dots started as a **pair** of tokens — the current one from the variant, the
+rest from the neutral `default` fill, which is what `Carousel` does. A pair has to be chosen
+to contrast with itself, and it cannot be: `tertiary` put `surface` against `default`, which
+measures `#ffffff` on `#e4e4e7` in light and two near-identical greys in dark. The one variant
+that exists for a pager over an image was the one whose indicator could not be read, in both
+colour modes.
+
+One colour at two opacities cannot collapse like that — whatever the variant, whichever the
+colour mode, and for any raw `color` a caller invents. It is also what iOS's own page control
+does. 30% rather than 50%: the dots are seven points across, and at half strength a small mark
+reads as the current one seen through something rather than as a mark behind it.
+
+A style prop is still not the way to recolour one dot: `<Pager.Dot backgroundColor="…" />`
+lands after the recipe, so it paints that dot and leaves the opacity travel alone — which is
+usually not what someone reaching for it meant. A caller who needs something the variants and
+`color` do not offer composes their own dot against `usePager().offset`, which is what the
+context publishes it for.
+
+## The dot fades, it does not stretch
 
 That is the difference from `Carousel.Dot`, and it is deliberate rather than a
 simplification. A page control is a fixed row of marks saying how many screens there are and
@@ -116,7 +132,7 @@ which one you are on, and a mark that grows makes the row's arithmetic move unde
 who is counting it. The carousel's pill is a _progress_ indicator over a series; this is a
 position among screens.
 
-It **follows the drag rather than the settle**: the colour is interpolated from the live
+It **follows the drag rather than the settle**: the opacity is interpolated from the live
 scroll offset on the UI thread, so it travels while the finger is still down. Reading the
 settled index instead would make it jump once per gesture, after the fact.
 
