@@ -22,7 +22,7 @@ import type { SpinnerProps } from './spinner.type'
  * the same circle with a quarter missing. There is nothing between them for a slot to
  * name, and the two are one figure rather than two parts.
  *
- * It is HeroUI's spinner drawn with borders instead of a gradient stroke. Theirs fades a
+ * It is the reference implementation's spinner drawn with borders instead of a gradient stroke. Theirs fades a
  * single arc from opaque to 55%, which needs an SVG `linearGradient` and therefore
  * `react-native-svg` — an optional peer, which a component in the fifteen-component core
  * cannot require. Two circles of one ink at two opacities read as the same figure and

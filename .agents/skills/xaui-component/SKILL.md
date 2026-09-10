@@ -290,7 +290,7 @@ decisions taken elsewhere in the same document or in CLAUDE.md. This skill wins:
 
 ## Pitfalls
 
-- Re-resolving the recipe inside a slot — that's HeroUI's model and it only works with a
+- Re-resolving the recipe inside a slot — that's the reference implementation's model and it only works with a
   class-cache engine. Resolve once at the root (R5).
 - Putting a token-dependent value in `.style.ts`. It belongs to the recipe.
 - Adding a prop instead of using `style`. R7 closes that door on purpose.

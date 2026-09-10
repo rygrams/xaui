@@ -23,7 +23,7 @@ export default function DividerScreen() {
     >
       <Section
         title="size — the thickness, on the axis the orientation leaves free"
-        note="xs is one device pixel, HeroUI's thin; lg is their thick, six points. xs is the default, and it is the one place in the library that does not default to md — a rule you notice is a rule that is too thick."
+        note="xs is one device pixel, the reference implementation's thin; lg is their thick, six points. xs is the default, and it is the one place in the library that does not default to md — a rule you notice is a rule that is too thick."
       >
         {SIZES.map(size => (
           <View key={size} style={{ gap: 6 }}>

@@ -31,13 +31,13 @@ export function toastExiting(placement: ToastPlacement) {
 /**
  * How a card moves when the pile shifts — a dismissal promoting everything forward by one.
  *
- * HeroUI's 300 ms, and a timing rather than a spring: the cards move together, and a
+ * The reference implementation's 300 ms, and a timing rather than a spring: the cards move together, and a
  * spring would have them arrive at slightly different moments and read as a shuffle.
  */
 export const STACK_TIMING = { duration: 300 }
 
 /**
- * The swipe that throws a card away, in HeroUI's numbers.
+ * The swipe that throws a card away, in the reference implementation's numbers.
  *
  * `SWIPE_DISTANCE` **or** `SWIPE_VELOCITY` — either alone is enough. Distance without
  * velocity refuses a flick that clearly meant it; velocity without distance refuses a slow,

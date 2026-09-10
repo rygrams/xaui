@@ -87,7 +87,7 @@ type SizeStep = {
 }
 
 /**
- * `md` is the anchor, and it is HeroUI's checkbox measured: a 24pt box with the field's
+ * `md` is the anchor, and it is the reference implementation's checkbox measured: a 24pt box with the field's
  * 1pt border and an 8pt corner. Their scale has a single size; ours moves around that one,
  * a spacing step and a step of type at a time.
  *
@@ -164,7 +164,7 @@ export const checkboxRecipe = createRecipe({
      * Declared after `size` so its border wins. The resting fill is dropped rather than
      * repainted — `undefined` over a colour is what RN reads as "no background" — because
      * a box that is wrong should read as an outline, not as a filled control that happens
-     * to be red at the edge. HeroUI reaches the same shape with a compound.
+     * to be red at the edge. The reference implementation reaches the same shape with a compound.
      */
     isInvalid: {
       true: theme => ({

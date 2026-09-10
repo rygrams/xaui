@@ -31,6 +31,6 @@ unset prop can still reach the group's.
 Nothing is walked and nothing is counted: the group publishes two gaps and a type scale, the
 sections are ordinary children, and one can be built out of something that is not a list.
 
-For the record, since the name is theirs: HeroUI's `ListGroup` **is our `List`** — a Surface
+For the record, since the name is theirs: The reference implementation's `ListGroup` **is our `List`** — a Surface
 container with Item · ItemPrefix · ItemContent · ItemTitle · ItemDescription · ItemSuffix,
 slot for slot. What ships here under that name is the thing neither of us had.

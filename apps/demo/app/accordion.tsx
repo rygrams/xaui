@@ -44,7 +44,7 @@ export default function AccordionScreen() {
     >
       <Section
         title="One at a time"
-        note="The default. Open a second row and the first closes. The height is animated by Reanimated's layout transition on HeroUI's spring — damping 140 against stiffness 1600, stiffer than the chevron's because a height is a longer distance than a rotation. Nothing is measured: the panel is mounted or it is not."
+        note="The default. Open a second row and the first closes. The height is animated by Reanimated's layout transition on the reference implementation's spring — damping 140 against stiffness 1600, stiffer than the chevron's because a height is a longer distance than a rotation. Nothing is measured: the panel is mounted or it is not."
       >
         <Faq />
       </Section>
@@ -58,7 +58,7 @@ export default function AccordionScreen() {
 
       <Section
         title="The four levels"
-        note="The Card's tokens under the Button's names: primary is the strong fill, secondary the quieter one. primary is HeroUI's surface variant. ghost is our default and is HeroUI's default — no container at all, only the hairlines separate the rows, and they run the full width because there is no edge to be inset from."
+        note="The Card's tokens under the Button's names: primary is the strong fill, secondary the quieter one. primary is the reference implementation's surface variant. ghost is our default and is the reference implementation's default — no container at all, only the hairlines separate the rows, and they run the full width because there is no edge to be inset from."
       >
         {VARIANTS.map(variant => (
           <Faq key={variant} variant={variant} only={variant} />
@@ -67,7 +67,7 @@ export default function AccordionScreen() {
 
       <Section
         title="Sizes"
-        note="size moves the row's inset, the gap before the chevron and the type. The vertical padding is one value across all four: HeroUI puts sixteen points above and below against twelve on the sides, which is what gives a row of plain text a target big enough to hit without a border to aim at."
+        note="size moves the row's inset, the gap before the chevron and the type. The vertical padding is one value across all four: The reference implementation puts sixteen points above and below against twelve on the sides, which is what gives a row of plain text a target big enough to hit without a border to aim at."
       >
         {SIZES.map(size => (
           <Faq key={size} size={size} variant="primary" only={size} />

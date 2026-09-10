@@ -141,14 +141,14 @@ differs from a `Button`'s.
 | `md`   | 28     | 12      | 14/20 | 6   | 22     |
 | `lg`   | 36     | 16      | 16/24 | 8   | 28     |
 
-The height is fixed where HeroUI uses vertical padding. Same numbers — theirs resolve to
+The height is fixed where the reference implementation uses vertical padding. Same numbers — theirs resolve to
 20, 28 and 36 — and a different reason to arrive at them: with padding, a chip carrying an
 avatar is taller than the chip beside it carrying only text, and a row of filters stops
 lining up.
 
 ### Variants
 
-Eleven flat names, replacing HeroUI's `variant × color` matrix — four emphases times five
+Eleven flat names, replacing the reference implementation's `variant × color` matrix — four emphases times five
 intents, of which nine combinations paint the same thing.
 
 The first five are the `Button`'s ladder, descending by how much accent is left. The six

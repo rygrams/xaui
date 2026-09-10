@@ -36,7 +36,7 @@ const HAIRLINE = StyleSheet.hairlineWidth
  * two. Declaration order is application order, so `orientation` runs second and always
  * wins on the axis it frees.
  *
- * `xs` is HeroUI's `thin` and `lg` is their `thick`, six points, with the two steps our
+ * `xs` is the reference implementation's `thin` and `lg` is their `thick`, six points, with the two steps our
  * ladder puts between them.
  */
 function thickness(of: (theme: XAUITheme) => number) {

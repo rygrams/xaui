@@ -44,7 +44,7 @@ const VARIANT_TOKENS: Record<InputOTPVariant, VariantTokens> = {
   },
 }
 
-/** How far behind its own colour a placeholder character sits. HeroUI's 50%, exactly. */
+/** How far behind its own colour a placeholder character sits. The reference implementation's 50%, exactly. */
 const PLACEHOLDER_OPACITY = 0.5
 
 /**
@@ -59,7 +59,7 @@ const ACTIVE_BORDER_WIDTH = 2
  * `size` drives the box, the type inside it and the gaps — there is no width to set
  * separately, because a box is a square-ish thing whose width follows its height.
  *
- * `md` is HeroUI's OTP measured: a 48pt box 44pt wide, an 18/28 semibold character, 8pt
+ * `md` is the reference implementation's OTP measured: a 48pt box 44pt wide, an 18/28 semibold character, 8pt
  * between boxes. The width is the control height less one spacing step, which reproduces
  * their 48 × 44 and keeps the proportion at the other three sizes.
  */
@@ -90,7 +90,7 @@ function sizeAxis(step: SizeStep) {
   }
 }
 
-/** HeroUI's caret and separator thickness — a half step, at every size. */
+/** the reference implementation's caret and separator thickness — a half step, at every size. */
 const CARET_WIDTH = 0.5
 const SEPARATOR_WIDTH = 2
 

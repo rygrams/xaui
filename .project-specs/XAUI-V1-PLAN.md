@@ -1,6 +1,6 @@
 # XAUI v1 — Plan d'implémentation
 
-> Refonte de `@xaui/native` en librairie React Native pure, inspirée de HeroUI Native, l'existant étant republié figé sous `@xaui/native-legacy` le temps de la migration.
+> Refonte de `@xaui/native` en librairie React Native pure, inspirée de l'implémentation de référence, l'existant étant republié figé sous `@xaui/native-legacy` le temps de la migration.
 
 **État de départ** : `@xaui/native` v0.2.8, 47 composants publiés · `@xaui/hybrid` v0.0.14 · `@xaui/core`, `@xaui/icons`, `@xaui/mcp` · monorepo Turborepo/pnpm · docs Next.js, demo Expo.
 
@@ -28,13 +28,13 @@ Un composant = un root `forwardRef` + des slots en dot-notation. Aucune prop ne 
 Chaque slot porte son propre `style`. L'override est local et visible là où il s'applique.
 
 **R3 — Les children textuels sont auto-wrappés, via `childrenToString`.**
-On n'inspecte pas le premier enfant : on tente de **stringifier récursivement** l'arbre. S'il contient le moindre élément React, la fonction rend `null` et les children passent tels quels ; sinon on enveloppe la chaîne concaténée dans le slot texte par défaut. C'est l'implémentation de HeroUI, et elle traite correctement `<Button>{count} items</Button>` — un tableau `[3, ' items']` qu'un simple `isValidElement` aurait manqué.
+On n'inspecte pas le premier enfant : on tente de **stringifier récursivement** l'arbre. S'il contient le moindre élément React, la fonction rend `null` et les children passent tels quels ; sinon on enveloppe la chaîne concaténée dans le slot texte par défaut. C'est celle de l'implémentation de référence, et elle traite correctement `<Button>{count} items</Button>` — un tableau `[3, ' items']` qu'un simple `isValidElement` aurait manqué.
 
 **R4 — Le layout appartient au root.**
 `gap`, `alignItems`, `flexDirection` sont sur le root. **Les slots n'ont aucune marge propre.** Corollaire : l'ordre JSX est l'ordre à l'écran, donc `startContent` / `endContent` disparaissent.
 
 **R5 — Le contexte porte des valeurs résolues.** _(divergence assumée — voir §1 ter)_
-Le root résout `variant × size × état` (plus la teinte `color` si fournie) une fois et publie la couleur finale. Les slots ne re-résolvent rien. Valeur memoizée. HeroUI publie les props brutes et laisse chaque slot re-résoudre — c'est gratuit chez eux grâce au cache de `tv()`, ça ne l'est pas sans moteur de classes.
+Le root résout `variant × size × état` (plus la teinte `color` si fournie) une fois et publie la couleur finale. Les slots ne re-résolvent rien. Valeur memoizée. L'implémentation de référence publie les props brutes et laisse chaque slot re-résoudre — c'est gratuit chez eux grâce au cache de `tv()`, ça ne l'est pas sans moteur de classes.
 
 **R6 — Tokens dans les props, valeurs arbitraires dans `style`.**
 `size="md"` passe, `size={42}` est une erreur de type. C'est ce qui permet le cache de styles (§3) — l'ouvrir tue le gain de perf. La règle porte sur le **vocabulaire** : `variant`, `size`, `radius`. Les valeurs brutes ont leur propre chemin, **hors du cache** et résolu dans une seconde passe (§3) : `color` et les **props de style** de R14.
@@ -47,10 +47,10 @@ Le root résout `variant × size × état` (plus la teinte `color` si fournie) u
 
 **R9 — Chaque root forwarde `ref`, `style`, `testID` et les props d'accessibilité.**
 Sans ça : pas de gesture-handler, pas de mesure de layout, pas de focus programmatique, pas de `asChild`. **C'est irrattrapable après la 1.0.**
-Deux détails que HeroUI applique et qu'il faut reprendre : `accessibilityRole` a une valeur par défaut mais reste surchargeable par les props, et `style` accepte **la forme fonction** de `Pressable` (`(state) => style`), pas seulement un objet.
+Deux détails que l'implémentation de référence applique et qu'il faut reprendre : `accessibilityRole` a une valeur par défaut mais reste surchargeable par les props, et `style` accepte **la forme fonction** de `Pressable` (`(state) => style`), pas seulement un objet.
 
 **R10 — Chaque composant composé exporte son hook de contexte.**
-`export { useButton }`, `export { useChip }`. C'est ce qui permet à un tiers d'écrire son propre slot (`<Button.MyThing>`) sans forker la lib. HeroUI le fait sur chaque compound ; sans ça, `system/` ne sert à rien pour l'extérieur.
+`export { useButton }`, `export { useChip }`. C'est ce qui permet à un tiers d'écrire son propre slot (`<Button.MyThing>`) sans forker la lib. L'implémentation de référence le fait sur chaque compound ; sans ça, `system/` ne sert à rien pour l'extérieur.
 
 **R11 — `displayName` est namespacé.**
 `'XAUI.Button.Root'`, `'XAUI.Button.Label'`. C'est ce qui rend les stack traces et le React DevTools lisibles quand vingt composants ont un slot `Label`.
@@ -95,7 +95,7 @@ Le détail du jeu et de sa résolution est au §2 ter.
 
 ### `variant` — union plate, emphase et intention fusionnées
 
-`themeColor` disparaît. `color` est réservé aux valeurs brutes (§1 R7), donc l'intention sémantique remonte dans `variant`, comme le `Button` de HeroUI.
+`themeColor` disparaît. `color` est réservé aux valeurs brutes (§1 R7), donc l'intention sémantique remonte dans `variant`, comme le `Button` de l'implémentation de référence.
 
 ```ts
 type Variant =
@@ -130,7 +130,7 @@ Sept lignes de table, aucune logique de peinture dupliquée : ce sont les tokens
 
 ### `size` pilote la hauteur, jamais la largeur
 
-Vérifié dans la source de HeroUI Native (`src/styles/components/button.css`) : le root du bouton déclare `flex-direction`, `align-items`, `justify-content`, `border-width` — **et aucune largeur**. `size` ne fixe que la hauteur, le padding horizontal, le `gap` et le rayon.
+Vérifié dans la source de l'implémentation de référence (`src/styles/components/button.css`) : le root du bouton déclare `flex-direction`, `align-items`, `justify-content`, `border-width` — **et aucune largeur**. `size` ne fixe que la hauteur, le padding horizontal, le `gap` et le rayon.
 
 ```css
 .button__root--size-md {
@@ -145,7 +145,7 @@ Vérifié dans la source de HeroUI Native (`src/styles/components/button.css`) :
 }
 ```
 
-Conséquence, en React Native : `alignItems` vaut `stretch` par défaut, donc **un bouton sans largeur remplit son parent en `Column` et épouse son contenu en `Row`**. HeroUI n'a pas de prop `fullWidth` — le comportement natif suffit, et `className="self-start"` sert d'échappatoire.
+Conséquence, en React Native : `alignItems` vaut `stretch` par défaut, donc **un bouton sans largeur remplit son parent en `Column` et épouse son contenu en `Row`**. L'implémentation de référence n'a pas de prop `fullWidth` — le comportement natif suffit, et `className="self-start"` sert d'échappatoire.
 
 **Trois décisions pour XAUI :**
 
@@ -177,7 +177,7 @@ type TextVariant =
 
 Chaque rôle fixe **taille, interlignage, graisse et famille ensemble**. Ça supprime les props `size` et `weight` séparées du composant actuel, et avec elles les combinaisons illégales — un titre en `weight="light"`, un caption en `lg`. `style` reste l'échappatoire pour le cas hors système.
 
-Dix valeurs contre trois chez HeroUI : on garde l'échelle typographique que les 13 variantes encodaient déjà, sans en garder le vocabulaire.
+Dix valeurs contre trois chez l'implémentation de référence : on garde l'échelle typographique que les 13 variantes encodaient déjà, sans en garder le vocabulaire.
 
 ### `color` — la teinte, en valeur brute
 
@@ -220,9 +220,9 @@ Tous. Ceux qui n'ont pas d'intention légitime (`Card`, `Surface`, `Divider`, `S
 
 ---
 
-## 1 ter. Fidélité à HeroUI — l'audit
+## 1 ter. Fidélité à l'implémentation de référence — l'audit
 
-Vérifié dans leur source (`heroui-inc/heroui-native`), pas dans leur doc.
+Vérifié dans leur source, pas dans leur doc.
 
 ### Repris à l'identique
 
@@ -233,7 +233,7 @@ Vérifié dans leur source (`heroui-inc/heroui-native`), pas dans leur doc.
 | Contexte strict, erreur nommée     | `createContext({ name, strict })` + `Error.captureStackTrace` | identique                  |
 | Auto-wrap des children             | `childrenToString` récursif                                   | identique (R3)             |
 | Hook de contexte exporté           | `export { useButton }`                                        | identique (R10)            |
-| `displayName` namespacé            | `'HeroUINative.Button.Root'`                                  | `'XAUI.Button.Root'` (R11) |
+| `displayName` namespacé            | `'Reference.Button.Root'`                                     | `'XAUI.Button.Root'` (R11) |
 | `size` = hauteur, jamais largeur   | aucune largeur au root                                        | identique (§1 bis)         |
 | Aucune prop de style profonde      | `className` par slot seulement                                | `style` par slot (R2)      |
 | Tokens sémantiques plats           | `--color-accent`, `--color-danger-soft`                       | identique (§4)             |
@@ -451,7 +451,7 @@ Conséquence sur le code existant : **45 fichiers utilisent encore l'`Animated` 
 
 **`@xaui/core` → dissous.** Les tokens deviennent `theme/tokens.gen.ts` dans chaque package (§4). Les types partagés (`EdgeInsets`, `Alignment`, `Border`, `ShadowConfig`…) sont recopiés dans `native/src/theme/theme.type.ts` — ils sont purement déclaratifs, la duplication ne coûte rien. Le tree legacy reçoit un `core-shim.ts` qui réexporte sous les anciens noms pour que rien n'y soit touché.
 
-**`@xaui/icons` → supprimé.** Les 520 SVG partent. À la place, un primitif `Icon` dans `system/` qui adapte n'importe quelle lib tierce (Ionicons, Lucide, react-native-svg) **et lit le contexte de slot pour la couleur et la taille** (§5). C'est précisément le point faible de HeroUI Native — leur doc oblige l'utilisateur à résoudre la couleur d'icône à la main via `useThemeColor`.
+**`@xaui/icons` → supprimé.** Les 520 SVG partent. À la place, un primitif `Icon` dans `system/` qui adapte n'importe quelle lib tierce (Ionicons, Lucide, react-native-svg) **et lit le contexte de slot pour la couleur et la taille** (§5). C'est précisément le point faible de l'implémentation de référence — leur doc oblige l'utilisateur à résoudre la couleur d'icône à la main via `useThemeColor`.
 
 **`@xaui/mcp` → supprimé.** Sa `src/data/` est de la doc écrite à la main, déjà dupliquée avec `apps/docs` et les README. Elle est régénérée depuis la source unique de doc (§6) et servie par le site en `llms.txt` — la route `app/docs/llms-txt` existe déjà.
 
@@ -742,11 +742,11 @@ Une petite allocation, seulement quand la prop est passée. La table de cache re
 
 ---
 
-## 4. Le thème : deux couches, comme HeroUI
+## 4. Le thème : deux couches, comme l'implémentation de référence
 
 ### 4.1 La découverte structurante
 
-HeroUI n'écrit pas tous ses tokens. Il en écrit **une petite couche source**, et **dérive tout le reste** par calcul :
+L'implémentation de référence n'écrit pas tous ses tokens. Elle en écrit **une petite couche source**, et **dérive tout le reste** par calcul :
 
 | Fichier                | Rôle                                                     | Volume       |
 | ---------------------- | -------------------------------------------------------- | ------------ |
@@ -776,7 +776,7 @@ HeroUI n'écrit pas tous ses tokens. Il en écrit **une petite couche source**, 
 
 **C'est le vrai avantage DX du système**, et je l'avais manqué : on surcharge `accent`, et `accentPressed`, `accentSoft`, `accentSoftForeground` suivent tout seuls. Avec la liste plate que je proposais avant, changer la couleur de marque demandait douze valeurs à la main.
 
-**React Native n'a pas `color-mix()`.** La dérivation se fait donc en JS, au moment de la construction du thème. HeroUI fait déjà du calcul de couleur en JS avec son `colorKit` (`colorKit.setAlpha(...)` dans leur `Button.tsx`) — on fait pareil, en amont plutôt qu'en CSS.
+**React Native n'a pas `color-mix()`.** La dérivation se fait donc en JS, au moment de la construction du thème. L'implémentation de référence fait déjà du calcul de couleur en JS avec son `colorKit` (`colorKit.setAlpha(...)` dans leur `Button.tsx`) — on fait pareil, en amont plutôt qu'en CSS.
 
 ### 4.2 La couche source — ce qu'on écrit, ce qu'on surcharge
 
@@ -839,7 +839,7 @@ Plus quelques primitives constantes entre les deux modes — `white`, `black`, `
 
 ### 4.3 La couche dérivée — calculée, jamais écrite
 
-Une fonction `deriveColors(source)` applique les formules de HeroUI, transposées en JS :
+Une fonction `deriveColors(source)` applique les formules de l'implémentation de référence, transposées en JS :
 
 ```ts
 // états de press (leurs `-hover`, renommés — voir §1 ter)
@@ -853,7 +853,7 @@ surfacePressed = mix(surface, surfaceForeground, 0.08)
 ```
 
 **La direction du press est une décision, pas un effet de bord.** Mélanger vers le texte
-de la variante — ce que fait HeroUI — fait suivre à la direction la clarté du fond :
+de la variante — ce que fait l'implémentation de référence — fait suivre à la direction la clarté du fond :
 `#9333ea` porte un texte quasi blanc et s'éclaircissait sous le doigt en mode clair,
 `#c084fc` porte un texte sombre et s'assombrissait en mode sombre. Même composant, geste
 opposé, personne ne l'avait choisi. Vers `foreground`, c'est une direction unique — plus
@@ -936,13 +936,13 @@ radius = {
 }
 ```
 
-**Les ombres sont sémantiques, pas une échelle.** Trois rôles — `surface`, `overlay`, `field` — et non `sm | md | lg | xl`. Corollaire important : en mode sombre HeroUI **supprime** l'ombre de surface et remplace celle d'overlay par un liseré interne clair. Une échelle `sm→xl` ne peut pas exprimer ça ; trois rôles, si.
+**Les ombres sont sémantiques, pas une échelle.** Trois rôles — `surface`, `overlay`, `field` — et non `sm | md | lg | xl`. Corollaire important : en mode sombre l'implémentation de référence **supprime** l'ombre de surface et remplace celle d'overlay par un liseré interne clair. Une échelle `sm→xl` ne peut pas exprimer ça ; trois rôles, si.
 
 **`spacing` est une fonction, pas une table.** Base 4 px, comme Tailwind. `spacing(3) === 12`. Ça supprime la question « quel nom pour 12 px » et aligne les valeurs de leur CSS (`calc(var(--spacing) * 12)` = hauteur 48 du bouton `md`).
 
 ### 4.5 Configurer le thème — l'API
 
-**`HeroUINativeProvider` n'a aucune prop de thème.** Son `config` ne contient que `textProps`, `textInputProps`, `toast`, `animation`, `devInfo`, `isRTL`. Le thème se configure entièrement en CSS, lu via `useCSSVariable` de **Uniwind**, leur moteur de classes. C'est ce que XAUI ne peut pas faire — et ne doit pas vouloir faire, c'est la prémisse du projet.
+**Le provider de l'implémentation de référence n'a aucune prop de thème.** Son `config` ne contient que `textProps`, `textInputProps`, `toast`, `animation`, `devInfo`, `isRTL`. Le thème se configure entièrement en CSS, lu via `useCSSVariable` de **Uniwind**, leur moteur de classes. C'est ce que XAUI ne peut pas faire — et ne doit pas vouloir faire, c'est la prémisse du projet.
 
 #### `createTheme` au niveau module
 
@@ -1011,7 +1011,7 @@ const accent = useThemeColor('accent') // un token
 const [bg, fg] = useThemeColor(['background', 'foreground'])
 ```
 
-`useThemeColor` reprend la signature de HeroUI, y compris la surcharge tableau. C'est ce dont un utilisateur a besoin pour colorer une icône tierce ou un composant maison.
+`useThemeColor` reprend la signature de l'implémentation de référence, y compris la surcharge tableau. C'est ce dont un utilisateur a besoin pour colorer une icône tierce ou un composant maison.
 
 #### Plusieurs thèmes
 
@@ -1040,7 +1040,7 @@ tooling/tokens/source.ts     →  packages/native/src/theme/tokens.gen.ts   (nom
 
 ## 5. Le primitif `Icon`
 
-Le problème que HeroUI n'a pas résolu : une icône est un composant tiers, le contexte de slot ne l'atteint pas, donc l'utilisateur doit calculer la couleur à la main.
+Le problème que l'implémentation de référence n'a pas résolu : une icône est un composant tiers, le contexte de slot ne l'atteint pas, donc l'utilisateur doit calculer la couleur à la main.
 
 ```tsx
 // L'icône reçoit couleur et taille du contexte du Button — rien à calculer

@@ -32,6 +32,6 @@ lines and two, instead of eight.
 `Animated.View` that collapses a section takes the thickness and the ink from the recipe and
 the height from a shared value.
 
-`size` is the thickness — `xs` is HeroUI's `thin`, one device pixel, and `lg` is their
+`size` is the thickness — `xs` is the reference implementation's `thin`, one device pixel, and `lg` is their
 `thick`, six points. **It defaults to `xs`**, the one place in the library that does not
 default to `md`: a rule you notice is a rule that is too thick.

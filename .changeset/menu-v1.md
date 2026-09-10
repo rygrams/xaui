@@ -47,7 +47,7 @@ text in it.
 
 `flex: 1` is `flexBasis: 0`. The measuring pass asks the panel how wide it wants to be, so
 there is no definite width for a zero basis to grow into: the row's content size is nothing,
-the title collapses, and the panel holds that width. HeroUI writes `flex: 1` on the same
+the title collapses, and the panel holds that width. The reference implementation writes `flex: 1` on the same
 node and gets away with it because their measuring pass hands the panel a definite width —
 ours asks a question a zero basis cannot answer.
 
@@ -59,5 +59,5 @@ now says so where anyone writing the next anchored panel will read it.
 thirteen: a menu row is a title with an indicator beside it and sometimes a sentence under
 it, where a popover is prose alone.
 
-`SubMenu` is not here. HeroUI ships it as its own component and it needs a second anchored
+`SubMenu` is not here. The reference implementation ships it as its own component and it needs a second anchored
 panel whose trigger is a row of the first, which is worth its own change.

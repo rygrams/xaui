@@ -21,11 +21,11 @@ families and no `primary`**, because a skeleton reports nothing and a placeholde
 accent announces the brand where there is nothing yet to announce; **no `tertiary` and no
 `ghost`**, because a skeleton with a border and no fill is an empty box.
 
-HeroUI reaches the same grey from `muted` at 30% opacity. Naming the token instead is what
+The reference implementation reaches the same grey from `muted` at 30% opacity. Naming the token instead is what
 lets a theme move the skeleton by moving `default`, rather than by discovering that a
 percentage of a text colour is where the placeholder grey came from.
 
-**No shimmer**, where HeroUI's default is one: a shimmer is a gradient sweeping across the
+**No shimmer**, where the reference implementation's default is one: a shimmer is a gradient sweeping across the
 block, a gradient needs `react-native-svg`, and that is an optional peer a component in the
 core cannot require. One animation, so `animation` is a boolean rather than a name to
 choose between — the block breathes between full opacity and a half, a second each way.

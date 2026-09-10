@@ -43,14 +43,14 @@ export default function SelectScreen() {
 
       <Section
         title="The chevron turns on a spring"
-        note="HeroUI's numbers: damping 140 against stiffness 1000 at mass 4. Heavy enough not to overshoot, which is what a 180-degree turn needs — an oscillating chevron reads as a bug. It runs on the UI thread, so it keeps turning while the rows mount."
+        note="the reference implementation's numbers: damping 140 against stiffness 1000 at mass 4. Heavy enough not to overshoot, which is what a 180-degree turn needs — an oscillating chevron reads as a bug. It runs on the UI thread, so it keeps turning while the rows mount."
       >
         <Picker placeholder="Ouvrir, puis fermer" />
       </Section>
 
       <Section
         title="Sizes — the control scales, the list does not"
-        note="size moves the trigger's height, padding and type. The rows keep their own measurements: a lg select opening lg rows is a menu that fills the screen, and HeroUI takes the same position."
+        note="size moves the trigger's height, padding and type. The rows keep their own measurements: a lg select opening lg rows is a menu that fills the screen, and the reference implementation takes the same position."
       >
         {SIZES.map(size => (
           <Picker key={size} size={size} placeholder={size} />

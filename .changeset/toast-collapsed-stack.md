@@ -2,10 +2,10 @@
 '@xaui/native': patch
 ---
 
-The toast stack collapses, like HeroUI's.
+The toast stack collapses, like the reference implementation's.
 
 It was a flex column with a gap: every card fully visible, one under the next, so six
-toasts took six card heights down the screen. HeroUI's is a pile — one card in front, the
+toasts took six card heights down the screen. The reference implementation's is a pile — one card in front, the
 rest scaled down and pushed toward the edge behind it, only their shoulders showing.
 
 Every card is now anchored to the same edge and its depth is entirely in its transform:

@@ -18,7 +18,7 @@ import type { SelectIndicatorProps } from './select.type'
  *
  * It rotates on a spring rather than a timing curve. A 180-degree turn on a curve reads
  * as an animation playing next to the list; on a spring heavy enough not to overshoot it
- * reads as the list pushing the glyph round — which is the same trade HeroUI makes, with
+ * reads as the list pushing the glyph round — which is the same trade the reference implementation makes, with
  * the same numbers.
  *
  * The rotation is a worklet on the UI thread, so it keeps turning while JavaScript is

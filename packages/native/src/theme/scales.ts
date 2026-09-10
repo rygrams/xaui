@@ -23,7 +23,7 @@ export function buildRadius(base: number): XAUIRadius {
     '3xl': base * 3,
     '4xl': base * 4,
     /**
-     * HeroUI's value, reached from the other side of the scale: their `--radius-field` is
+     * The reference implementation's value, reached from the other side of the scale: their `--radius-field` is
      * an alias of their `--radius-xl`, and their base is 8 where ours is 12 — so their
      * field corner is 12 points and, at our default base, so is this.
      *
@@ -77,7 +77,7 @@ export const fontFamilies: XAUITheme['fontFamilies'] = {
   heading: 'System',
   // `'monospace'` is an Android family name, not a generic one: iOS does not resolve it and
   // silently falls back to the system face, so code set with it is not monospaced there.
-  // Menlo is the face iOS ships, and it is what HeroUI Native selects for the same reason.
+  // Menlo is the face iOS ships, and it is what the reference implementation selects for the same reason.
   mono: Platform.OS === 'ios' ? 'Menlo' : 'monospace',
 }
 

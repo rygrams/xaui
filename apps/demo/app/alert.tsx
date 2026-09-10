@@ -38,7 +38,7 @@ export default function AlertScreen() {
     >
       <Section
         title="The nine variants"
-        note="The Card's surface for the neutral level, the Chip's status ladder for the rest. default is HeroUI's alert exactly — a neutral card with the status carried by the icon — and the soft slices are the tinted surface most alerts want."
+        note="The Card's surface for the neutral level, the Chip's status ladder for the rest. default is the reference implementation's alert exactly — a neutral card with the status carried by the icon — and the soft slices are the tinted surface most alerts want."
       >
         {VARIANTS.map(variant => (
           <Alert key={variant} variant={variant}>
@@ -141,14 +141,15 @@ export default function AlertScreen() {
 
       <Section
         title="An icon that disagrees with its alert"
-        note="HeroUI colours the icon by status on a neutral surface. Here the variant decides both, and the case is an explicit color on the slot — a raw value, which is what R7 says an exception looks like."
+        note="the reference implementation colours the icon by status on a neutral surface. Here the variant decides both, and the case is an explicit color on the slot — a raw value, which is what R7 says an exception looks like."
       >
         <Alert>
           <Alert.Icon as={CheckIcon} color={theme.colors.success} />
           <Alert.Content>
             <Alert.Title>Profil enregistré</Alert.Title>
             <Alert.Description>
-              Surface neutre, coche verte — l&apos;alerte de HeroUI, écrite en clair.
+              Surface neutre, coche verte — l&apos;alerte de the reference
+              implementation, écrite en clair.
             </Alert.Description>
           </Alert.Content>
         </Alert>

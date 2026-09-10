@@ -33,7 +33,7 @@ const VARIANT_TOKENS: Record<CloseButtonVariant, VariantTokens> = {
 /**
  * The box, and the length of one of the two bars that cross in it.
  *
- * `md` is the `Dialog`'s cross, which is HeroUI's measured: a 32-point square, and a bar
+ * `md` is the `Dialog`'s cross, which is the reference implementation's measured: a 32-point square, and a bar
  * long enough to draw a cross about 11 points wide — a bar rotated a quarter turn spans
  * `length / √2` on each axis, so the bar is twice as long as it looks. Keeping that as a
  * **ratio** is what makes it one cross at four sizes rather than four drawings, exactly as

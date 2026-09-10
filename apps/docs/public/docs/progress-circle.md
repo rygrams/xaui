@@ -128,7 +128,7 @@ than by a stylesheet. The recipe still owns them, on two slots it never renders 
 thing the `Tabs` recipe does with its `content` slot — because that is what makes a raw
 `color` reach the arc through `resolveTint`, which only maps roles a variant declared.
 
-## Alignment with `heroui-native`
+## Alignment with the reference implementation
 
 **Identical:** the three sizes, the clamped range, `formatOptions`, the SVG ring with a
 rounded cap starting at twelve o'clock, and Indicator · Value as slots.

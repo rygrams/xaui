@@ -26,7 +26,7 @@ export default function TextFieldScreen() {
     >
       <Section
         title="The four levels"
-        note="primary is HeroUI's field fill plus the theme's field shadow; secondary is their neutral one, and the default here. Tap each: the border darkens towards the mode's ink — fieldBorderFocus, no ring and no accent. ghost has no border to move, so its focus is the caret alone."
+        note="primary is the reference implementation's field fill plus the theme's field shadow; secondary is their neutral one, and the default here. Tap each: the border darkens towards the mode's ink — fieldBorderFocus, no ring and no accent. ghost has no border to move, so its focus is the caret alone."
       >
         {VARIANTS.map(variant => (
           <TextField key={variant} variant={variant}>
@@ -84,7 +84,7 @@ export default function TextFieldScreen() {
 
       <Section
         title="size — the field's minimum height, never its width"
-        note="A minimum and not a fixed height, which is where this component departs from the Button: a multiline field holds the user's own text and has to grow. md is HeroUI's input exactly — 48 minimum, 12 of padding, a 16/24 label, a 14/20 line below."
+        note="A minimum and not a fixed height, which is where this component departs from the Button: a multiline field holds the user's own text and has to grow. md is the reference implementation's input exactly — 48 minimum, 12 of padding, a 16/24 label, a 14/20 line below."
       >
         <TextField size="xs">
           <TextField.Label>xs · 32</TextField.Label>

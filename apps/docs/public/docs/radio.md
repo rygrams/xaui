@@ -178,7 +178,7 @@ the auto-wrap does not apply.
 | `lg`   | 28     | 12  | 10  | 18/28 |
 
 The same four boxes as the `Checkbox`, so a radio and a checkbox in one form line up. The
-dot keeps HeroUI's ratio — 10 in 24 — rather than being tabulated, so it is one dot at four
+dot keeps the reference implementation's ratio — 10 in 24 — rather than being tabulated, so it is one dot at four
 sizes instead of four drawings of one.
 
 `radius` is `full` and overridable: a squared-off option in a segmented row is a real
@@ -201,7 +201,7 @@ tint is ignored while `isInvalid`, as on the `Checkbox`.
 Why a role and not an axis is written up once, in
 [`checkbox.md`](../checkbox/checkbox.md#colour), and it holds here unchanged.
 
-## Alignment with `heroui-native`
+## Alignment with the reference implementation
 
 Measured against their `radio.tsx` and `radio.css`.
 

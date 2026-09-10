@@ -8,7 +8,7 @@ import { useStyleProps } from '../../system/style-props'
 import { DatePickerProvider, useDatePicker } from './date-picker.context'
 import type { DatePickerContentProps } from './date-picker.type'
 
-/** HeroUI's, point for point: eight from the trigger, twelve from every screen edge. */
+/** the reference implementation's, point for point: eight from the trigger, twelve from every screen edge. */
 const DEFAULT_OFFSET = 8
 const DEFAULT_INSETS = { top: 12, bottom: 12, start: 12, end: 12 }
 

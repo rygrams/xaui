@@ -66,7 +66,7 @@ const VARIANT_TOKENS: Record<ChipVariant, VariantTokens> = {
  * its label, which is what `alignSelf: 'flex-start'` in `base` says, and there is no
  * `fullWidth` here any more than on a `Button`.
  *
- * The height is fixed where HeroUI uses vertical padding. Same numbers — theirs resolve
+ * The height is fixed where the reference implementation uses vertical padding. Same numbers — theirs resolve
  * to 20, 28 and 36 — and a different reason to arrive at them: with padding, a chip
  * carrying an avatar is taller than the chip next to it carrying only text, and a row of
  * filters stops lining up. A height decided by the size holds the row together and lets
@@ -141,7 +141,7 @@ type SizeStep = {
 }
 
 /**
- * `md` is the anchor, and it is HeroUI's chip measured: 12pt of horizontal padding, a
+ * `md` is the anchor, and it is the reference implementation's chip measured: 12pt of horizontal padding, a
  * 14/20 label, 28pt tall. Their scale has three steps and ours has four, so `xs` and `lg`
  * are theirs and `sm` is the step our ladder adds between the first two.
  */
@@ -199,19 +199,19 @@ export const chipRecipe = createRecipe({
       // A chip hugs its content where a `Button` fills its column. The difference is what
       // the two are: a button is a control the layout sizes, a chip is a token *about*
       // something, and a tag stretched across a screen has stopped being one. It is also
-      // the one line of HeroUI's chip that is not a measurement.
+      // the one line of the reference implementation's chip that is not a measurement.
       alignSelf: 'flex-start',
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
       borderWidth: 0,
-      // The capsule the name means, at every size. HeroUI reaches it through a radius
+      // The capsule the name means, at every size. The reference implementation reaches it through a radius
       // ladder that React Native would clamp to the same pill anyway; saying `full` says
       // it once, and `radius` is still there for the tag that wants square corners.
       borderRadius: theme.radius.full,
       // Squircle corners for when `radius` overrides the pill. Free on Android.
       borderCurve: 'continuous',
-      // Deliberately no `overflow: 'hidden'`, where HeroUI clips: the press overlays
+      // Deliberately no `overflow: 'hidden'`, where the reference implementation clips: the press overlays
       // carry their own corners (`system/pressable-feedback/`), so nothing needs the clip
       // — and clipping here would cut a badge or a shadow a caller hangs off the chip.
     },

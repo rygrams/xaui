@@ -115,7 +115,7 @@ All of them are the `Select`'s, resolved through `selectRecipe` exactly as the
 `Autocomplete`'s are: four field levels, three sizes, `radius`, `color`, `isInvalid`,
 `isDisabled`. A second table would be a third one to keep in step.
 
-## Alignment with `heroui-native`
+## Alignment with the reference implementation
 
 Theirs is `ComboBox` with `InputGroup` · `Value` · `Trigger` · `Popover`.
 

@@ -10,7 +10,7 @@ recipe, the same resolved context, the same four variants, the same `size`, `rad
 and `.Error` are literally the `Input`'s slots, re-exported rather than wrapped.
 
 Only `TextArea.Field` differs, by three things: `multiline`, the text pinned to the top, and
-a height counted in lines. That is HeroUI's answer too — their `TextArea` is twenty lines
+a height counted in lines. That is the reference implementation's answer too — their `TextArea` is twenty lines
 rendering their `Input` with the same three defaults.
 
 `rows` (default `3`) and `maxRows` are **raw values** (R6), like `color`: they resolve

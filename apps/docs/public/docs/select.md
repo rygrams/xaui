@@ -217,7 +217,7 @@ goes, so choosing never shifts a label.
 
 ## Motion
 
-Three animations, HeroUI's values throughout.
+Three animations, the reference implementation's values throughout.
 
 **The chevron** turns 0 → −180° on a spring: damping 140, stiffness 1000, mass 4. Heavily
 damped against a very high stiffness, so it arrives in about a fifth of a second and does

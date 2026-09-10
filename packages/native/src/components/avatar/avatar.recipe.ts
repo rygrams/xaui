@@ -10,7 +10,7 @@ const SLOTS = ['root', 'fallback', 'initials', 'icon'] as const
  * a thing, which is the category the `Chip` established, so a name means here what it
  * means there.
  *
- * They colour the **frame**, which is all that shows when there is no image. HeroUI says
+ * They colour the **frame**, which is all that shows when there is no image. The reference implementation says
  * the same set as a `variant × color` matrix; these eleven flat names say it once.
  *
  * No `…Pressed` roles: an avatar is not a control. One inside a pressable row is a child of
@@ -34,12 +34,12 @@ const VARIANT_TOKENS: Record<AvatarVariant, VariantTokens> = {
  * `size` drives the diameter and the type inside it — **never a width of its own**. An
  * avatar is a square before it is a circle, so the one measurement sets both sides.
  *
- * Forty, forty-eight and sixty-four are HeroUI's three steps; `xs` is the thirty-two our
+ * Forty, forty-eight and sixty-four are the reference implementation's three steps; `xs` is the thirty-two our
  * ladder adds below them, which is the size an avatar is inside a `Chip` or a list row.
  *
  * The glyph runs ahead of the initials at the top of the scale — 12, 14, 16, 20 against
  * 12, 12, 14, 16 — because two letters fill a circle that one person-icon has to sit
- * inside with air around it. HeroUI ships the same two ladders, for the same reason.
+ * inside with air around it. The reference implementation ships the same two ladders, for the same reason.
  */
 function sizeAxis(step: SizeStep) {
   return (theme: XAUITheme): SlotStyles<AvatarSlot> => {
@@ -132,7 +132,7 @@ export const avatarRecipe = createRecipe({
   },
 
   /**
-   * A circle at every size, where HeroUI fixes one large radius for all three — which
+   * A circle at every size, where the reference implementation fixes one large radius for all three — which
    * makes their small avatars round and their large ones squircles. `full` says the shape
    * the name means once, and `radius` is still there for the logo that wants a square.
    */

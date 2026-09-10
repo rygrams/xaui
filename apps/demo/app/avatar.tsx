@@ -73,7 +73,7 @@ export default function AvatarScreen() {
 
       <Section
         title="size — one measurement, both sides"
-        note="32, 40, 48, 64: HeroUI's three steps plus the xs our ladder adds below them. The glyph runs ahead of the initials at the top of the scale, because two letters fill a circle that one icon has to sit inside with air around it."
+        note="32, 40, 48, 64: The reference implementation's three steps plus the xs our ladder adds below them. The glyph runs ahead of the initials at the top of the scale, because two letters fill a circle that one icon has to sit inside with air around it."
       >
         <Row>
           {SIZES.map(size => (
@@ -144,7 +144,7 @@ export default function AvatarScreen() {
 
       <Section
         title="radius — a circle at every size, unless you say otherwise"
-        note="Where HeroUI fixes one large radius for all three sizes, which makes their small avatars round and their large ones squircles. full says the shape the name means once."
+        note="Where the reference implementation fixes one large radius for all three sizes, which makes their small avatars round and their large ones squircles. full says the shape the name means once."
       >
         <Row>
           <Labelled label="full">
@@ -199,7 +199,7 @@ export default function AvatarScreen() {
 
       <Section
         title="A glyph needs no props"
-        note="Avatar.Fallback publishes the frame's resolved size and colour to IconContext, so an Icon written inside it inherits both. XAUI ships no icon set, so the mark is always the caller's — which is why there is no default person icon where HeroUI has one."
+        note="Avatar.Fallback publishes the frame's resolved size and colour to IconContext, so an Icon written inside it inherits both. XAUI ships no icon set, so the mark is always the caller's — which is why there is no default person icon where the reference implementation has one."
       >
         <Row>
           <Avatar variant="primary">

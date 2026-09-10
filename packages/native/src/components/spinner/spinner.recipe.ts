@@ -32,7 +32,7 @@ const VARIANT_TOKENS: Record<SpinnerVariant, VariantTokens> = {
  * How much of the ink is left in the track — the full circle the arc sweeps over.
  *
  * It is what separates this from `Button.Spinner`'s bare arc, and it is the whole reason
- * the component reads as HeroUI's does: their spinner is one stroke fading from opaque to
+ * the component reads as the reference implementation's does: their spinner is one stroke fading from opaque to
  * 55%, which needs a gradient and therefore `react-native-svg`. Two rings of one colour
  * at two opacities is the same figure drawn with borders — no optional peer for a core
  * component, and no SVG node per spinner in a list.
@@ -43,7 +43,7 @@ const TRACK_OPACITY = 0.18
  * `size` drives the diameter and the stroke together. There is no width axis to speak of:
  * a spinner is a circle, so its `size` is the only measurement it has.
  *
- * The four steps are HeroUI's three — 16, 24, 32 — with the 20 our ladder adds between
+ * The four steps are the reference implementation's three — 16, 24, 32 — with the 20 our ladder adds between
  * the first two. The stroke thickens once, at `lg`: a 2pt ring on a 32pt circle reads as
  * a hairline, and a 3pt ring on a 16pt one reads as a doughnut.
  */

@@ -14,7 +14,7 @@ import { useXAUITheme } from '../../theme/theme-hooks'
 import { skeletonRecipe } from './skeleton.recipe'
 import type { SkeletonProps } from './skeleton.type'
 
-/** One breath in, one breath out. HeroUI's pulse, at HeroUI's timing. */
+/** One breath in, one breath out. The reference implementation's pulse, at the reference implementation's timing. */
 const PULSE_DURATION = 1000
 
 /** How far down the block breathes. Under a half and the pulse reads as a flicker. */

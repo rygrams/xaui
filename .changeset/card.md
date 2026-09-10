@@ -16,7 +16,7 @@ the radius and the type of the two text slots, and never a height: a card is as 
 what it holds. `isPressable` turns the surface into a `PressableFeedback` with a press
 wash, `accessibilityRole="button"` and the shared scale.
 
-The rendering is HeroUI's card measured — `md` is 16pt of padding, a 24pt radius, an
+The rendering is the reference implementation's card measured — `md` is 16pt of padding, a 24pt radius, an
 18/28 title in `medium` over a 16/24 description, no border on a filled surface — reached
 through our own vocabulary rather than through their utility classes, and with the gaps the
 component owns instead of leaving to the call site.
@@ -33,7 +33,7 @@ exported so a third party's layer is not a second-class citizen.
 The clip lives on the layer rather than on the root: `overflow: 'hidden'` cuts the node's
 own shadow on iOS, so clipping the card would cost a `default` one the elevation its variant
 just gave it. `radius` therefore moves both slots together — a corner that moved only the
-root would round the card and leave its photo square. HeroUI reaches the same feature
+root would round the card and leave its photo square. The reference implementation reaches the same feature
 through a `background` **prop** and clips on both nodes, losing the shadow.
 
 **The light `surfaceSecondary` moves up half a step**, `#f4f4f5` → `#ececee`. It sat so

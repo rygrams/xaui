@@ -46,7 +46,7 @@ export default function SurfaceScreen() {
 
       <Section
         title="Sizes move the padding, the gap and the corner"
-        note="Never a height. A surface is a ground: how tall it is, is how tall what is on it is. md is HeroUI's, measured — sixteen points of padding on a twenty-four point corner."
+        note="Never a height. A surface is a ground: how tall it is, is how tall what is on it is. md is the reference implementation's, measured — sixteen points of padding on a twenty-four point corner."
       >
         {SIZES.map(size => (
           <Surface key={size} size={size} variant="secondary">

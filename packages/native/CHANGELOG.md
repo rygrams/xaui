@@ -1,5 +1,15 @@
 # @xaui/native
 
+## 0.9.1-beta.96
+
+### Patch Changes
+
+- 4c65aa2: Reword the third-party library attribution in doc comments and component docs
+
+  Every design note that named the upstream library it was measured against now says
+  "the reference implementation" instead. No API, token, value or behaviour changes —
+  only the prose in JSDoc, component `.md` pages and generated docs.
+
 ## 0.9.1-beta.95
 
 ### Patch Changes
@@ -1031,7 +1041,7 @@
   Nothing is walked and nothing is counted: the group publishes two gaps and a type scale, the
   sections are ordinary children, and one can be built out of something that is not a list.
 
-  For the record, since the name is theirs: HeroUI's `ListGroup` **is our `List`** — a Surface
+  For the record, since the name is theirs: The reference implementation's `ListGroup` **is our `List`** — a Surface
   container with Item · ItemPrefix · ItemContent · ItemTitle · ItemDescription · ItemSuffix,
   slot for slot. What ships here under that name is the thing neither of us had.
 
@@ -1137,7 +1147,7 @@
   decoration, and the disc is what makes it a target. `ghost` is the bare cross for a
   component already providing one.
 
-  Four sizes on a 24 / 28 / 32 / 40 box, `md` being HeroUI's measured and the `Dialog`'s. The
+  Four sizes on a 24 / 28 / 32 / 40 box, `md` being the reference implementation's measured and the `Dialog`'s. The
   bar is a ratio of the box rather than a table — a bar rotated a quarter turn spans
   `length / √2` per axis, so it is twice as long as the cross looks — which makes it one cross
   at four sizes instead of four drawings of one. **The stroke does not scale**: it is the
@@ -1156,7 +1166,7 @@
 - cb76b65: `List` — rows on a ground.
 
   `List.Item` and `List.ItemButton` with `ItemPrefix`, `ItemContent`, `ItemTitle`,
-  `ItemDescription` and `ItemSuffix`, on the anatomy `heroui-native`'s `ListGroup` uses.
+  `ItemDescription` and `ItemSuffix`, on the anatomy the reference implementation's `ListGroup` uses.
 
   **It is the `Accordion` with rows that do not open**, and it reads the same ladder, insets
   its separators the same way and lifts the same one variant. Two containers that look alike
@@ -1177,7 +1187,7 @@
   toggles it — a `Switch` in its suffix — which says out loud what it does and is reachable as
   the control it actually is.
 
-  **`ItemSuffix` draws nothing of its own.** HeroUI's puts a chevron there by default; the
+  **`ItemSuffix` draws nothing of its own.** The reference implementation's puts a chevron there by default; the
   trailing end of a settings row is a switch at least as often, and a slot that guesses makes
   you pass a child in order to render nothing.
 
@@ -1456,10 +1466,10 @@
 
 ### Patch Changes
 
-- 541cbe7: The toast stack collapses, like HeroUI's.
+- 541cbe7: The toast stack collapses, like the reference implementation's.
 
   It was a flex column with a gap: every card fully visible, one under the next, so six
-  toasts took six card heights down the screen. HeroUI's is a pile — one card in front, the
+  toasts took six card heights down the screen. The reference implementation's is a pile — one card in front, the
   rest scaled down and pushed toward the edge behind it, only their shoulders showing.
 
   Every card is now anchored to the same edge and its depth is entirely in its transform:
@@ -1472,7 +1482,7 @@
   keeps its timer and its place, and is promoted into view when the one in front leaves — so
   a burst of six shows all six instead of losing three.
 
-- 7557e46: The front toast can be thrown away with a swipe, like HeroUI's.
+- 7557e46: The front toast can be thrown away with a swipe, like the reference implementation's.
 
   Away from its edge — up on a top stack, down on a bottom one — past 50 points or 500 points
   a second, their thresholds, either alone being enough. Dragged the wrong way it resists
@@ -1484,7 +1494,7 @@
   any reasonable minimum, and dragging the second card out from under the first reads as a
   glitch rather than as a dismissal. `isSwipeable={false}` on the host turns it off.
 
-  Note that this dismisses **one** card and the pile empties a swipe at a time — HeroUI's
+  Note that this dismisses **one** card and the pile empties a swipe at a time — the reference implementation's
   gesture calls `hide(id)`, not a clear-all, and their provider has no such thing.
 
   The gesture runs on `react-native-gesture-handler`, already an optional peer, reached only
@@ -1521,16 +1531,16 @@
   a save succeeded has turned a good outcome into a bad one.
 
   It closes P5.18 as well as P5.18b: `Snackbar` and `Toast` are the same object under two
-  names, and HeroUI calls it `toast`.
+  names, and the reference implementation calls it `toast`.
 
 ## 0.9.1-alpha.44
 
 ### Patch Changes
 
-- 750a85a: `Dialog.Close` draws a cross when it is empty, like HeroUI's.
+- 750a85a: `Dialog.Close` draws a cross when it is empty, like the reference implementation's.
 
   It was a bare pressable that rendered whatever it was given and nothing when it was given
-  nothing, so `<Dialog.Close />` — the first line of HeroUI's own anatomy — put an invisible
+  nothing, so `<Dialog.Close />` — the first line of the reference implementation's own anatomy — put an invisible
   32 points in the corner. It now reads `system/close-button`, which draws the cross from two
   rotated bars, and the dialog's recipe resolves the box and the bar the way `Chip.Close`
   already did.
@@ -1572,7 +1582,7 @@
   No `variant`: the question a dialog asks is in its words, not in its fill.
 
   It also unblocks the `presentation` prop that `Select.Content` and `Menu.Content` are
-  written around but cannot offer — HeroUI has both, and `dialog` was half of what was
+  written around but cannot offer — the reference implementation has both, and `dialog` was half of what was
   missing.
 
 ## 0.9.1-alpha.43
@@ -1582,7 +1592,7 @@
 - ef43606: `BottomSheet` — Trigger · Overlay · Content · Handle · Title · Description · Close
 
   **Built on this library's own peers rather than on `@gorhom/bottom-sheet`**, which is what
-  HeroUI wraps. A sheet that slides, springs and dismisses is a pan gesture and a shared
+  the reference implementation wraps. A sheet that slides, springs and dismisses is a pan gesture and a shared
   value; taking a dependency for that would put a second animation library in every app that
   installs one component. What it costs is their snap points and their scroll integration —
   both worth having, and both worth their own change rather than a dependency.
@@ -1652,7 +1662,7 @@
 
   ### A rail with a knob on it, not a capsule with a core
 
-  The legacy proportions rather than HeroUI's: 6 to 10 points of rail under a 16 to 24 point
+  The legacy proportions rather than the reference implementation's: 6 to 10 points of rail under a 16 to 24 point
   disc. The knob overhangs the rail by half their difference on each side, and the rail
   reserves that overhang as a margin — without it the knob spills into whatever sits above
   and below, and the layout has no idea the control is thicker than its rail.
@@ -1806,7 +1816,7 @@
 
   `flex: 1` is `flexBasis: 0`. The measuring pass asks the panel how wide it wants to be, so
   there is no definite width for a zero basis to grow into: the row's content size is nothing,
-  the title collapses, and the panel holds that width. HeroUI writes `flex: 1` on the same
+  the title collapses, and the panel holds that width. The reference implementation writes `flex: 1` on the same
   node and gets away with it because their measuring pass hands the panel a definite width —
   ours asks a question a zero basis cannot answer.
 
@@ -1818,7 +1828,7 @@
   thirteen: a menu row is a title with an indicator beside it and sometimes a sentence under
   it, where a popover is prose alone.
 
-  `SubMenu` is not here. HeroUI ships it as its own component and it needs a second anchored
+  `SubMenu` is not here. The reference implementation ships it as its own component and it needs a second anchored
   panel whose trigger is a row of the first, which is worth its own change.
 
 ## 0.9.1-alpha.39
@@ -1886,7 +1896,7 @@
   sheet. Thirteen ems of the body size, about twenty-six characters a line — narrow on
   purpose. A popover is read at a glance, and a glance is two or three short lines rather
   than a paragraph; past that it stops being an aside and starts being a sheet with a tail.
-  It is where HeroUI's own panels land too, measured off their placement demos. A multiple of
+  It is where the reference implementation's own panels land too, measured off their placement demos. A multiple of
   the type rather than a number of points, so a theme that scales its type scales the panel
   with it.
 
@@ -1897,7 +1907,7 @@
   room for it went off the screen entirely — `start` and `end` were unusable and nothing said
   so until one was opened.
 
-  The panel may now overlap its own trigger. That is the right trade, and the one HeroUI's
+  The panel may now overlap its own trigger. That is the right trade, and the one the reference implementation's
   `useRelativePosition` makes too: a panel covering the button that opened it is legible, and
   a panel past the edge of the screen is not.
 
@@ -1911,12 +1921,12 @@
 
 - 7e04096: `Accordion` — Item · Trigger · Indicator · Content
 
-  P5.11, over the legacy `ExpansionPanel`. HeroUI Native calls it `accordion` and so does
+  P5.11, over the legacy `ExpansionPanel`. The reference implementation calls it `accordion` and so does
   this, which is also what the roadmap row now says.
 
   **The height is never measured.** The panel is mounted or it is not, and Reanimated's
   layout transition animates the row between the two — `LinearTransition.springify()` on
-  HeroUI's numbers, damping 140 against stiffness **1600**. Stiffer than the chevron's 1000
+  the reference implementation's numbers, damping 140 against stiffness **1600**. Stiffer than the chevron's 1000
   deliberately: a height is a longer distance than a rotation, and at the chevron's
   stiffness the same damping makes a long panel take almost half a second to settle.
 
@@ -1929,7 +1939,7 @@
   **The variant table is the `Card`'s, token for token.** An accordion in `default` _is_ a
   card with rows in it, and two containers that look alike but are declared apart drift —
   the drift showing up as an accordion sitting on a card with a fill one step off it.
-  `ghost` is the default and is HeroUI's own: rows separated by hairlines, on whatever page
+  `ghost` is the default and is the reference implementation's own: rows separated by hairlines, on whatever page
   they sit on.
 
   **The separators are the root's, drawn between its children.** A row that drew its own
@@ -1998,7 +2008,7 @@
   the same heights — so a select and a text input in one form read as one control rather
   than as two libraries meeting.
 
-  The visual values and the motion are HeroUI Native's, not the legacy component's. The
+  The visual values and the motion are the reference implementation's, not the legacy component's. The
   chevron turns 0 to −180° on their spring (damping 140, stiffness 1000, mass 4): heavily
   damped against a very high stiffness, so it arrives in a fifth of a second without
   overshooting, because an oscillating chevron reads as a bug rather than as motion. The
@@ -2028,11 +2038,11 @@
   chevron and the gap between them, and at that height the value gets nothing. The
   `TextField` keeps its `xs` because a field only has to hold text.
 
-  The panel's corner is `2xl`, not `3xl`. HeroUI's is their `--radius-3xl` on a base of 8,
+  The panel's corner is `2xl`, not `3xl`. The reference implementation's is their `--radius-3xl` on a base of 8,
   which is 24 points; our base is 12, so the same 24 is `2xl`. Reading their key rather than
   their number put a 36-point corner on it and made it read as a pill.
 
-  Two narrowings against HeroUI, both deliberate. `placement` is `top` or `bottom` only: a
+  Two narrowings against the reference implementation, both deliberate. `placement` is `top` or `bottom` only: a
   list as wide as its own field hanging off the side of it reads as a menu, and `start` and
   `end` belong to `Popover`. And there is no `presentation` prop — the bottom-sheet and
   dialog presentations need `BottomSheet` and `Dialog`, which do not exist yet.
@@ -2162,28 +2172,28 @@
   `Avatar.Image` is absolutely positioned over `Avatar.Fallback`, and an `Image` with nothing
   decoded yet draws nothing — so the initials show while the photo loads and **stay if the URL
   is wrong**, with no load-state machine, no `onError` to remember, and nothing to get out of
-  sync. HeroUI runs a status enum for this; a stacking order says the same thing and cannot
+  sync. The reference implementation runs a status enum for this; a stacking order says the same thing and cannot
   disagree with itself. JSX order between the two slots is therefore free.
 
   `variant` is the `Chip`'s eleven names, meaning here what they mean there — an avatar is a
   token _about_ a person or a thing, which is the category the `Chip` established. The three
   status families are present because an avatar reports as often as it identifies: a red frame
   for the account that failed to sync, a green one for the person who is online. It is
-  HeroUI's `variant × color` matrix said once.
+  the reference implementation's `variant × color` matrix said once.
 
   `size` sets both sides, because an avatar is a square before it is a circle — 32, 40, 48, 64,
-  HeroUI's three steps plus the one our ladder adds below them. The glyph inside the fallback
+  the reference implementation's three steps plus the one our ladder adds below them. The glyph inside the fallback
   runs ahead of the initials at the top of the scale, because two letters fill a circle that
   one person-icon has to sit inside with air around it.
 
-  `radius` defaults to `full`, where HeroUI fixes one large radius for all three sizes — which
+  `radius` defaults to `full`, where the reference implementation fixes one large radius for all three sizes — which
   makes their small avatars round and their large ones squircles.
 
   **No default glyph.** XAUI publishes no icon set, so the mark is always the caller's. What
   `Avatar.Fallback` does instead is publish the frame's resolved size and colour to
   `IconContext`, so an `Icon` written inside it needs no props at all.
 
-  The photo fades in over 200ms on `onLoad` — HeroUI's timing — driven by a shared value
+  The photo fades in over 200ms on `onLoad` — the reference implementation's timing — driven by a shared value
   rather than a mount animation, because the node has to be mounted from the first render or
   it never fetches. `animation={false}` skips it and mounts no worklet.
 
@@ -2210,11 +2220,11 @@
   accent announces the brand where there is nothing yet to announce; **no `tertiary` and no
   `ghost`**, because a skeleton with a border and no fill is an empty box.
 
-  HeroUI reaches the same grey from `muted` at 30% opacity. Naming the token instead is what
+  The reference implementation reaches the same grey from `muted` at 30% opacity. Naming the token instead is what
   lets a theme move the skeleton by moving `default`, rather than by discovering that a
   percentage of a text colour is where the placeholder grey came from.
 
-  **No shimmer**, where HeroUI's default is one: a shimmer is a gradient sweeping across the
+  **No shimmer**, where the reference implementation's default is one: a shimmer is a gradient sweeping across the
   block, a gradient needs `react-native-svg`, and that is an optional peer a component in the
   core cannot require. One animation, so `animation` is a boolean rather than a name to
   choose between — the block breathes between full opacity and a half, a second each way.
@@ -2272,7 +2282,7 @@
   `Animated.View` that collapses a section takes the thickness and the ink from the recipe and
   the height from a shared value.
 
-  `size` is the thickness — `xs` is HeroUI's `thin`, one device pixel, and `lg` is their
+  `size` is the thickness — `xs` is the reference implementation's `thin`, one device pixel, and `lg` is their
   `thick`, six points. **It defaults to `xs`**, the one place in the library that does not
   default to `md`: a rule you notice is a rule that is too thick.
 
@@ -2295,13 +2305,13 @@
   named: deleting is a `danger` wait. **No `ghost`**, because a spinner with no ink is not a
   spinner, and **no `-soft` slices**, because a soft slice is a fill softened.
 
-  HeroUI fades a single arc from opaque to 55%, which needs an SVG `linearGradient` and
+  The reference implementation fades a single arc from opaque to 55%, which needs an SVG `linearGradient` and
   therefore `react-native-svg` — an **optional peer**, which a component in the
   fifteen-component core cannot require. Two circles of one ink at two opacities read as the
   same figure, cost two views, and pull in nothing. The track is what does the work: a
   rotating three-quarter ring on its own reads as broken rather than as busy.
 
-  `size` is the diameter and the only measurement a circle has — 16, 20, 24, 32, HeroUI's
+  `size` is the diameter and the only measurement a circle has — 16, 20, 24, 32, the reference implementation's
   three steps plus the one our ladder adds between the first two. The stroke thickens once,
   at `lg`.
 
@@ -2412,7 +2422,7 @@
 
   The eighth entry of the core. **The root is the row, not the box**: it is the pressable, so
   tapping the label ticks the checkbox — which is the whole reason `Checkbox.Label` is a slot
-  here rather than a `Text` you put beside the component and wire up yourself. HeroUI needs a
+  here rather than a `Text` you put beside the component and wire up yourself. The reference implementation needs a
   second component (`ControlField`) for that; the plan's slots for this one are Indicator ·
   Label, and this is why.
 
@@ -2432,7 +2442,7 @@
   a box with no border and no fill is nothing at all — plus the four sizes, `radius`,
   `isInvalid` (which drops the resting fill and outranks the tint) and `isDisabled`.
 
-  `isIndeterminate` is ours and not HeroUI's: the legacy checkbox had it, a "select all" is
+  `isIndeterminate` is ours and not the reference implementation's: the legacy checkbox had it, a "select all" is
   what it is for, and `accessibilityState.checked: 'mixed'` is something only the component
   can say. A press resolves it to selected rather than toggling into it.
 
@@ -2485,7 +2495,7 @@
   suffix is most often a control and one that swallowed its own taps would be a reveal toggle
   you cannot press. A disabled `Input` takes the touches from both decorators all the same.
 
-  `InputGroup.Icon` is the slot `Button`, `Chip` and `Alert` already have, and the one HeroUI's
+  `InputGroup.Icon` is the slot `Button`, `Chip` and `Alert` already have, and the one the reference implementation's
   component does not: a glyph one step above the field's type, in the theme's
   `fieldPlaceholder`, so a form does not carry a hard-coded `#888` on every field.
 
@@ -2499,11 +2509,11 @@
 
 ### Patch Changes
 
-- 0c5435f: The `field` radius aligns on HeroUI's — 21 points becomes 12
+- 0c5435f: The `field` radius aligns on the reference implementation's — 21 points becomes 12
 
   `buildRadius` derived it as `base * 1.75`, which on the default base of 12 put a 48-tall
   field at 21 — 87% of its geometric maximum, so it read as a gélule rather than as a rounded
-  box. HeroUI reaches 12 for the same control from the other side of the scale: their
+  box. The reference implementation reaches 12 for the same control from the other side of the scale: their
   `--radius-field` is an alias of their `--radius-xl`, and their base is 8 where ours is 12.
 
   It coincides with `lg` at the default base and stays its own key, because that is what lets
@@ -2534,7 +2544,7 @@
   and `.Error` are literally the `Input`'s slots, re-exported rather than wrapped.
 
   Only `TextArea.Field` differs, by three things: `multiline`, the text pinned to the top, and
-  a height counted in lines. That is HeroUI's answer too — their `TextArea` is twenty lines
+  a height counted in lines. That is the reference implementation's answer too — their `TextArea` is twenty lines
   rendering their `Input` with the same three defaults.
 
   `rows` (default `3`) and `maxRows` are **raw values** (R6), like `color`: they resolve
@@ -2582,7 +2592,7 @@
   **The box takes the `lg` radius, 12 points, not `field`.** A field is wide, so 21 on a
   48-tall one reads as a rounded rectangle; a code box is very nearly square — 44 by 48 at
   `md`, 36 by 40 at `sm` — where the geometric maximum is 22, so the same 21 is a pill in all
-  but name and is clamped to one outright at the small end. Twelve is where HeroUI lands for
+  but name and is clamped to one outright at the small end. Twelve is where the reference implementation lands for
   the same box from the other direction: their `field` radius is their `xl`, and their scale's
   base is 8 where ours is 12.
 
@@ -2614,7 +2624,7 @@
   keep in step — and why `TextInputProps` are on the field rather than on the root.
 
   The first real use of the theme's `field*` family, derived in P0 and unread since. Four
-  variants, the library's emphasis levels narrowed like the `Card`'s, splitting HeroUI's
+  variants, the library's emphasis levels narrowed like the `Card`'s, splitting the reference implementation's
   two-name `primary | secondary` by saying what each of their ends already is: `primary` is
   their field fill plus the theme's `field` shadow, `secondary` their neutral fill and the
   default here, `tertiary` the border alone, `ghost` neither.
@@ -2626,7 +2636,7 @@
   against the box's own padding, so the JSX is identical either way and nothing is
   reparented; the field pays for the room and the box grows by the same amount.
 
-  Visually aligned with `heroui-native`: a 48pt minimum, 12pt of horizontal padding, a 16/24
+  Visually aligned with the reference implementation: a 48pt minimum, 12pt of horizontal padding, a 16/24
   label above the field and a 14/20 line below it at `md`. The height is a **minimum** rather
   than fixed — the one place this component departs from the `Button`'s rule, because a
   `multiline` field holds the user's own text and has to grow.
@@ -2645,11 +2655,11 @@
   `Alert.Icon`, `Alert.Content`, `Alert.Title`, `Alert.Description` and `Alert.Close`, laid
   out as a row of three columns spaced by the root's `gap` alone.
 
-  Nine variants: the `Card`'s `surface` for the neutral level — HeroUI's alert root, token
+  Nine variants: the `Card`'s `surface` for the neutral level — the reference implementation's alert root, token
   for token, shadow included — and the `Chip`'s status ladder for the rest, each family in
   its full and soft slice.
 
-  Visually aligned with `heroui-native`: 12pt of padding, a 12pt gap, a 24pt radius, a 16/24
+  Visually aligned with the reference implementation: 12pt of padding, a 12pt gap, a 24pt radius, a 16/24
   title above a 14/20 description and an 18pt icon at `md`. The icon's optical offset is
   derived from the title's leading rather than hard-coded, so it stays right at all four
   sizes.
@@ -2677,11 +2687,11 @@
   `Chip.Label`, `Chip.Icon`, `Chip.Dot`, `Chip.Avatar` and `Chip.Close`, spaced by the root
   alone, so JSX order is screen order and there is no `startContent` / `endContent`.
 
-  Eleven flat variants replace HeroUI's `variant × color` matrix: the `Button`'s five-step
+  Eleven flat variants replace the reference implementation's `variant × color` matrix: the `Button`'s five-step
   emphasis ladder plus the three status families it deliberately refused — a chip reports an
   outcome, so `success`, `warning` and `danger` each land here with their soft slice.
 
-  Visually aligned with `heroui-native`: 12pt of horizontal padding, a 14/20 label and a 28pt
+  Visually aligned with the reference implementation: 12pt of horizontal padding, a 14/20 label and a 28pt
   `md`, with the height fixed rather than derived from vertical padding so a chip carrying an
   avatar still lines up with the one beside it.
 
@@ -2739,7 +2749,7 @@
   what it holds. `isPressable` turns the surface into a `PressableFeedback` with a press
   wash, `accessibilityRole="button"` and the shared scale.
 
-  The rendering is HeroUI's card measured — `md` is 16pt of padding, a 24pt radius, an
+  The rendering is the reference implementation's card measured — `md` is 16pt of padding, a 24pt radius, an
   18/28 title in `medium` over a 16/24 description, no border on a filled surface — reached
   through our own vocabulary rather than through their utility classes, and with the gaps the
   component owns instead of leaving to the call site.
@@ -2756,7 +2766,7 @@
   The clip lives on the layer rather than on the root: `overflow: 'hidden'` cuts the node's
   own shadow on iOS, so clipping the card would cost a `default` one the elevation its variant
   just gave it. `radius` therefore moves both slots together — a corner that moved only the
-  root would round the card and leave its photo square. HeroUI reaches the same feature
+  root would round the card and leave its photo square. The reference implementation reaches the same feature
   through a `background` **prop** and clips on both nodes, losing the shadow.
 
   **The light `surfaceSecondary` moves up half a step**, `#f4f4f5` → `#ececee`. It sat so
@@ -2837,7 +2847,7 @@
 
 - 863cc86: `Typography` and `TextSpan` — the first entry of the v1 core
 
-  Ten roles, aligned with HeroUI Native's `text`: `h1`–`h6`, `body`, `body-sm`, `body-xs` and
+  Ten roles, aligned with the reference implementation's `text`: `h1`–`h6`, `body`, `body-sm`, `body-xs` and
   `code`. Each role fixes size, line height, weight and family **together**, which is why
   there is no `size` prop and no `weight` prop — the combinations they allowed (a heading in
   a light weight, a caption in a display size) become unwritable rather than discouraged.
@@ -2932,7 +2942,7 @@
 ### Patch Changes
 
 - cd06df1: Fix the press scale, which lurched on wide controls, and align the touch feedback with
-  HeroUI's values.
+  the reference implementation's values.
 
   **The scale was a flat `0.975` for every control.** What the eye reads is the displacement,
   not the ratio: that same ratio moves a 360pt row nine points and a 96pt chip two. It is now

@@ -5,7 +5,7 @@ import type { XAUIDerivedColors, XAUISourceColors } from './theme.type'
  * The derived layer: ~30 tokens computed from the source layer, never written by hand.
  * Override `accent` and `accentPressed`, `accentSoft`, `accentSoftForeground` follow.
  *
- * These are HeroUI's `color-mix(in oklab, …)` formulas transposed to JS, because React
+ * These are the reference implementation's `color-mix(in oklab, …)` formulas transposed to JS, because React
  * Native has no `color-mix()`. Their `-hover` names became `-pressed`: what they feed is
  * the press overlay, and the web name was a leftover.
  *

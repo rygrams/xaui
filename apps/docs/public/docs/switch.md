@@ -106,7 +106,7 @@ instead of a third pair of words for this component alone.
 ```
 
 The knob's children travel with it. Anything else you put in the track stays where you put
-it — a glyph at each end, for instance, which is what HeroUI's `StartContent` and
+it — a glyph at each end, for instance, which is what the reference implementation's `StartContent` and
 `EndContent` are; here they are two `View`s you position, because the track is a node you
 were given rather than one that was hidden from you.
 
@@ -149,7 +149,7 @@ the auto-wrap does not apply.
 | `md`   | 48 × 18 | 26   | 0     | 22     | 16/24 |
 | `lg`   | 56 × 20 | 30   | 0     | 26     | 18/28 |
 
-`md` is the legacy switch measured — a 48 × 28 track with a 22 knob — and HeroUI's is the
+`md` is the legacy switch measured — a 48 × 28 track with a 22 knob — and the reference implementation's is the
 same 48 wide.
 
 **The width is part of the control**, unlike everywhere else in the library, where `size`
@@ -198,12 +198,12 @@ transform is not one — but a transform does not mirror under RTL either, so th
 flipped by hand against `I18nManager.isRTL`. It is the one place in the library that reads
 it, and it reads it for a movement rather than for a layout.
 
-## Alignment with `heroui-native`
+## Alignment with the reference implementation
 
 Measured against their `switch.tsx` and `switch.css`, and against the legacy component this
 one replaces.
 
-**Identical to HeroUI:** the 48pt track at `md`, the knob's `field` shadow, the accent
+**Identical to the reference implementation:** the 48pt track at `md`, the knob's `field` shadow, the accent
 track when on with a contrasting knob, the 175ms crossfade, and a default knob so nothing
 has to be written for the common case.
 

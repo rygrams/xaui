@@ -28,11 +28,11 @@ export type TextFieldSlot =
  * `success`, `warning` and `danger` are absent here for the same reason they are there.
  *
  * This is where the theme's `field*` family is finally read, and the four names split
- * HeroUI's two-name `primary | secondary` by saying what each of their ends already is:
+ * the reference implementation's two-name `primary | secondary` by saying what each of their ends already is:
  *
- * - **`primary`** — the `fieldBackground` fill plus the theme's `field` shadow. HeroUI's
+ * - **`primary`** — the `fieldBackground` fill plus the theme's `field` shadow. The reference implementation's
  *   `primary`, with the elevation their flat token only implies.
- * - **`secondary`** — the neutral `default` fill. HeroUI's `secondary`, and the default
+ * - **`secondary`** — the neutral `default` fill. The reference implementation's `secondary`, and the default
  *   here: on a plain background a white field is its border and nothing else, while on a
  *   card the `fieldBackground` token *is* the card's own colour.
  * - **`tertiary`** — the border alone, no fill. The same drop the `Button`'s `tertiary`
@@ -41,7 +41,7 @@ export type TextFieldSlot =
  *   to move, so its focus shows in the caret alone.
  *
  * The first three name the `fieldBorder` edge and `ghost` gives it up. Its width is the
- * theme's `borderWidth.field` — HeroUI's `--field-border-width`, which they ship at `0`
+ * theme's `borderWidth.field` — the reference implementation's `--field-border-width`, which they ship at `0`
  * and we ship at `1`. That is the one shipped default where the two differ;
  * `createTheme({ borderWidth: { field: 0 } })` reproduces theirs.
  */

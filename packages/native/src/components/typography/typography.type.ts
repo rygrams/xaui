@@ -3,7 +3,7 @@ import type { StyleProp, TextProps, TextStyle } from 'react-native'
 import type { TextStyleProps } from '../../system/style-props'
 
 /**
- * The ten roles, aligned with HeroUI Native's `text` — six headings, three body steps and
+ * The ten roles, aligned with the reference implementation's `text` — six headings, three body steps and
  * inline code. Each one fixes **size, line height, weight and family together**, which is
  * what removes the separate `size` and `weight` props the legacy component carried, and
  * with them the illegal combinations they allowed: a heading in `weight="light"`, a

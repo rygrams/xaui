@@ -210,7 +210,7 @@ panel rather than a modal, and a dimmed page behind one reads oddly — leave
 
 ## Not `@gorhom/bottom-sheet`
 
-HeroUI wraps it. A sheet that slides, springs and dismisses is a pan gesture and a shared
+The reference implementation wraps it. A sheet that slides, springs and dismisses is a pan gesture and a shared
 value; taking a dependency for that would put a second animation library in every app that
 installs one component. What we lose is their scroll integration, which is worth having and
 worth its own change rather than a dependency.

@@ -1,6 +1,6 @@
 # XAUI Library
 
-XAUI is a Flutter-inspired component system targeting React Native and hybrid web/native experiences within a Turborepo monorepo. `@xaui/native` holds the tokens, the theme and the single provider; `@xaui/native-legacy` is the frozen v0 tree, kept only until the v1 API reaches parity.
+XAUI is a composition-first component system targeting React Native and hybrid web/native experiences within a Turborepo monorepo. `@xaui/native` holds the tokens, the theme and the single provider; `@xaui/native-legacy` is the frozen v0 tree, kept only until the v1 API reaches parity.
 
 **[Documentation → ui.xtartapp.com](https://ui.xtartapp.com)**
 

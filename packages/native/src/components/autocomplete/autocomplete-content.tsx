@@ -15,7 +15,7 @@ import { AutocompleteSearch } from './autocomplete-search'
 import { AutocompleteProvider, useAutocomplete } from './autocomplete.context'
 import type { AutocompleteContentProps } from './autocomplete.type'
 
-/** HeroUI's, point for point: eight from the trigger, twelve from every screen edge. */
+/** the reference implementation's, point for point: eight from the trigger, twelve from every screen edge. */
 const DEFAULT_OFFSET = 8
 const DEFAULT_INSETS = { top: 12, bottom: 12, start: 12, end: 12 }
 

@@ -158,7 +158,7 @@ Everything `View` takes, plus `ViewStyle` as props.
 
 **The height is never measured.** The panel is mounted or it is not, and Reanimated's
 layout transition animates the row between the two — `LinearTransition.springify()` on
-HeroUI's numbers, damping 140 against stiffness **1600**. Stiffer than the chevron's 1000
+The reference implementation's numbers, damping 140 against stiffness **1600**. Stiffer than the chevron's 1000
 on purpose: a height is a longer distance than a rotation, and at the chevron's stiffness
 the same damping makes a long panel take almost half a second to settle.
 
@@ -178,12 +178,12 @@ mass 4. It is a worklet, so it keeps turning while the panel's content mounts.
 
 ## The four levels
 
-| ours        | HeroUI    | fill               |
-| ----------- | --------- | ------------------ |
-| `primary`   | `surface` | `surface`          |
-| `secondary` | —         | `surfaceSecondary` |
-| `tertiary`  | —         | a border, no fill  |
-| `ghost`     | `default` | none — the default |
+| ours        | The reference implementation | fill               |
+| ----------- | ---------------------------- | ------------------ |
+| `primary`   | `surface`                    | `surface`          |
+| `secondary` | —                            | `surfaceSecondary` |
+| `tertiary`  | —                            | a border, no fill  |
+| `ghost`     | `default`                    | none — the default |
 
 The tokens are the `Card`'s — an accordion in `primary` **is** a card with rows in it, and
 two containers that look alike but are declared apart drift. Only the names differ, and

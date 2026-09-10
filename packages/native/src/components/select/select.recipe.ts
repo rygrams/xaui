@@ -88,7 +88,7 @@ const SIZES: Record<SelectSize, SizeStep> = {
 
 /**
  * The list's own measurements do **not** scale with `size`. A `lg` trigger opening a list
- * of `lg` rows is a menu that fills the screen, and HeroUI takes the same position: their
+ * of `lg` rows is a menu that fills the screen, and the reference implementation takes the same position: their
  * item padding is one value whatever the trigger is. `size` is the control's scale, and
  * the list is not the control.
  */
@@ -100,7 +100,7 @@ const LIST = {
   itemGap: 2,
   labelPaddingHorizontal: 2,
   labelPaddingVertical: 1.5,
-  /** The check's box, in spacing steps like the rest — five of them, HeroUI's twenty. */
+  /** The check's box, in spacing steps like the rest — five of them, the reference implementation's twenty. */
   indicator: 5,
 } as const
 
@@ -165,7 +165,7 @@ export const selectRecipe = createRecipe({
       backgroundColor: theme.colors.overlay,
       padding: theme.spacing(LIST.padding),
       // The panel is not the field, so it is rounder — but not by three steps of our
-      // scale. HeroUI's panel is their `--radius-3xl` on a base of 8, which is 24 points;
+      // scale. The reference implementation's panel is their `--radius-3xl` on a base of 8, which is 24 points;
       // ours is a base of 12, so the same 24 is `2xl`. Reading their key rather than
       // their number is what put a 36-point corner on it and made it read as a pill.
       borderRadius: theme.radius['2xl'],

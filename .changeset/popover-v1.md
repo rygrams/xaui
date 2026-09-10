@@ -63,7 +63,7 @@ full-width panel the moment it holds a sentence, and a popover is an aside rathe
 sheet. Thirteen ems of the body size, about twenty-six characters a line — narrow on
 purpose. A popover is read at a glance, and a glance is two or three short lines rather
 than a paragraph; past that it stops being an aside and starts being a sheet with a tail.
-It is where HeroUI's own panels land too, measured off their placement demos. A multiple of
+It is where the reference implementation's own panels land too, measured off their placement demos. A multiple of
 the type rather than a number of points, so a theme that scales its type scales the panel
 with it.
 
@@ -74,7 +74,7 @@ The main axis was in the first half and not the second, so a panel beside a trig
 room for it went off the screen entirely — `start` and `end` were unusable and nothing said
 so until one was opened.
 
-The panel may now overlap its own trigger. That is the right trade, and the one HeroUI's
+The panel may now overlap its own trigger. That is the right trade, and the one the reference implementation's
 `useRelativePosition` makes too: a panel covering the button that opened it is legible, and
 a panel past the edge of the screen is not.
 

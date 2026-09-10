@@ -31,7 +31,7 @@ export const toastRecipe = createRecipe({
     root: {
       backgroundColor: theme.colors.overlay,
       padding: theme.spacing(4),
-      // HeroUI's `--radius-3xl` on a base of 8 is 24 points; ours is 12, so the same 24
+      // The reference implementation's `--radius-3xl` on a base of 8 is 24 points; ours is 12, so the same 24
       // is `2xl`.
       borderRadius: theme.radius['2xl'],
       borderCurve: 'continuous',

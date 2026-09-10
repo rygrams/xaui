@@ -201,12 +201,12 @@ There is no `size` here. The `TextField`'s decides everything:
 | `lg`   | 16              | 16  | 20   |
 
 The inset is the field's own horizontal padding, so the glyph starts where the text would
-have. The gap is that same step — HeroUI's, and it is what separates two glyphs in one
+have. The gap is that same step — the reference implementation's, and it is what separates two glyphs in one
 decorator.
 
 The icon sits **one step above the field's type**, exactly as on the `Button` and the
 `Chip`: a 16pt glyph beside 16pt of text reads as an icon smaller than the text it sits
-with. HeroUI's component sizes no icon at all — theirs is a number at the call site — so
+with. The reference implementation's component sizes no icon at all — theirs is a number at the call site — so
 this is a slot they do not have rather than a value we disagree on.
 
 ## Colour
@@ -230,7 +230,7 @@ fill is the caller's colour and the placeholder grey is no longer readable over 
 Everything else a tint touches — the border, the fill, the focus — is the `TextField`'s and
 reaches the group untouched.
 
-## Alignment with `heroui-native`
+## Alignment with the reference implementation
 
 Measured against their `input-group.tsx` and `input-group.css` rather than eyeballed.
 

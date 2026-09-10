@@ -230,7 +230,7 @@ treatment.
 **The clip lives on the layer, not on the root.** `overflow: 'hidden'` cuts the node's own
 shadow on iOS, so putting it on the card would cost a `default` card the elevation its
 variant just gave it. This slot carries its own `overflow` and the card's radius — which is
-also why `radius` moves both slots together. HeroUI clips on both and loses the shadow.
+also why `radius` moves both slots together. The reference implementation clips on both and loses the shadow.
 
 Two forms, like `Icon`: `source` renders the image, and anything else is the caller's own
 layer, already positioned and clipped.

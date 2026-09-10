@@ -129,13 +129,13 @@ and the reason there is no `fullWidth` prop.
 | `md`   | 48               | 12      | 16    | 16/24 | 14/20               |
 | `lg`   | 56               | 16      | 18    | 18/28 | 16/24               |
 
-`md` is HeroUI's input measured: a 48pt minimum, 12pt of horizontal padding, a 16/24 label
+`md` is the reference implementation's input measured: a 48pt minimum, 12pt of horizontal padding, a 16/24 label
 above the field and a 14/20 line below it.
 
 **A minimum and not a fixed height**, which is the one place this component departs from
 the rule the `Button` and the `Chip` follow. A `TextInput` with `multiline` holds three
 lines of the user's own text and has to grow; a control whose content is not the
-developer's cannot be truncated into shape. HeroUI reaches the same conclusion with
+developer's cannot be truncated into shape. The reference implementation reaches the same conclusion with
 `min-height`.
 
 The label and the help text carry a small horizontal inset — half the `md` field's padding
@@ -155,7 +155,7 @@ and nothing else has read since.
 | `tertiary`  | transparent       | `fieldBorder` | `fieldBorderFocus` | —       |
 | `ghost`     | transparent       | —             | — (no border)      | —       |
 
-The four names split HeroUI's two-name `primary | secondary` by saying what each of their
+The four names split the reference implementation's two-name `primary | secondary` by saying what each of their
 ends already is:
 
 - **`primary`** is their `primary` — the `fieldBackground` fill — plus the theme's `field`
@@ -168,7 +168,7 @@ ends already is:
   alone. Reach for `tertiary` when a focus ring matters.
 
 The first three name the `fieldBorder` edge and `ghost` gives it up. Its **width** is the
-theme's `borderWidth.field` — the same knob HeroUI exposes as `--field-border-width`, and
+theme's `borderWidth.field` — the same knob the reference implementation exposes as `--field-border-width`, and
 the one shipped default where the two libraries differ: **they ship `0`**, so their input is
 a fill with no visible edge, and we ship `1`. `createTheme({ borderWidth: { field: 0 } })`
 reproduces theirs exactly.
@@ -219,7 +219,7 @@ node that hears the event is `TextField.Field` — the field composes the caller
 `onBlur` with the two the context published, so your handlers run and the border still
 moves.
 
-### Alignment with `heroui-native`
+### Alignment with the reference implementation
 
 Measured against their `input.css`, `text-field.css`, `label.css`, `description.css`,
 `field-error.css` and `variables.css` rather than eyeballed.
@@ -236,10 +236,10 @@ both modes, and the field token is the one that can be themed apart later.
 
 **Two deltas, both deliberate and both in the theme rather than in this component:**
 
-| Token               | HeroUI           | XAUI              | Why                                                                                                                                                                                                                                                 |
-| ------------------- | ---------------- | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `borderWidth.field` | `0`              | `1`               | Their input is a fill with no visible edge. Ours keeps a hairline, because `tertiary` — the border alone — has nothing left to be without it. Same knob, different shipped default: `createTheme({ borderWidth: { field: 0 } })` reproduces theirs. |
-| radius base         | `8` → field `14` | `12` → field `21` | `RADIUS_BASE` is a P0 decision that draws every corner in the library. Changing it for one component would be incoherent; changing it globally is a theme decision, not this one.                                                                   |
+| Token               | The reference implementation | XAUI              | Why                                                                                                                                                                                                                                                 |
+| ------------------- | ---------------------------- | ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `borderWidth.field` | `0`                          | `1`               | Their input is a fill with no visible edge. Ours keeps a hairline, because `tertiary` — the border alone — has nothing left to be without it. Same knob, different shipped default: `createTheme({ borderWidth: { field: 0 } })` reproduces theirs. |
+| radius base         | `8` → field `14`             | `12` → field `21` | `RADIUS_BASE` is a P0 decision that draws every corner in the library. Changing it for one component would be incoherent; changing it globally is a theme decision, not this one.                                                                   |
 
 **Two things we add that they do not have:** a focus state — their CSS has none, and the
 theme derived `fieldBorderFocus` for it — and the `field` shadow on `primary`, which is what

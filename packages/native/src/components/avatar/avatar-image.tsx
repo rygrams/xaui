@@ -10,7 +10,7 @@ import { useStyleProps } from '../../system/style-props'
 import { avatarSheet } from './avatar.style'
 import type { AvatarImageProps } from './avatar.type'
 
-/** Long enough to read as an arrival, short enough not to delay a face. HeroUI's 200ms. */
+/** Long enough to read as an arrival, short enough not to delay a face. The reference implementation's 200ms. */
 const FADE_DURATION = 200
 
 /**

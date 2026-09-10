@@ -59,7 +59,7 @@ const SIZES: Record<Size, SizeStep> = {
 }
 
 /**
- * The trigger is taller than it is wide-padded, and deliberately: HeroUI puts sixteen
+ * The trigger is taller than it is wide-padded, and deliberately: The reference implementation puts sixteen
  * points above and below against twelve on the sides, which is what gives a row of plain
  * text a target big enough to hit without a border to aim at.
  */
@@ -147,7 +147,7 @@ export const accordionRecipe = createRecipe({
    * edge to be inset from, so its rows run the full width and the hairline runs with them
    * — which is the difference between a list on a page and a list in a box.
    *
-   * `primary` is the only one lifted. It is the one that reads as a card, and HeroUI puts
+   * `primary` is the only one lifted. It is the one that reads as a card, and the reference implementation puts
    * their `--shadow-surface` on exactly that variant. `secondary` and `tertiary` have too
    * little fill to lift — a shadow under either would read as dirt rather than as height
    * — and in dark mode the theme's surface shadow is already nothing (§4), which is why
