@@ -27,7 +27,14 @@ const packageJson = JSON.parse(
 )
 
 const CATEGORY_COMPONENTS = {
-  Actions: ['button', 'close-button', 'fab', 'morph-button', 'toggle-button'],
+  Actions: [
+    'button',
+    'close-button',
+    'fab',
+    'morph-button',
+    'slide-button',
+    'toggle-button',
+  ],
   Charts: [
     'area-chart',
     'bar-chart',

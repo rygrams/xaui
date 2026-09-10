@@ -59,6 +59,7 @@
 - [Segment](https://ui.xtartapp.com/docs/segment.md): A filter: one of a few options, chosen in place.
 - [Select](https://ui.xtartapp.com/docs/select.md): A field that opens a list. It is the TextField's twin: the same field tokens, the same four levels, the same heights — so the two sit in a form and read as one control.
 - [Skeleton](https://ui.xtartapp.com/docs/skeleton.md): The shape of what has not arrived yet.
+- [SlideButton](https://ui.xtartapp.com/docs/slide-button.md): A button you drag rather than tap — slide the thumb to the end and it fires once. It is the confirmation for an action that must not happen by accident.
 - [Slider](https://ui.xtartapp.com/docs/slider.md): A value chosen along a line.
 - [Snackbar](https://ui.xtartapp.com/docs/snackbar.md): A temporary, controlled message inspired by the legacy Snackbar rather than by the v1 Toast queue. Several messages share a vertical anchor through Snackbar.Stack, so they never overlap.
 - [Spinner](https://ui.xtartapp.com/docs/spinner.md): The wait, drawn. A circle whose arc turns until whatever is loading has loaded.

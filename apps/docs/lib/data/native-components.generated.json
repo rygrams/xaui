@@ -958,6 +958,24 @@
     ]
   },
   {
+    "id": "slide-button",
+    "title": "SlideButton",
+    "description": "A button you drag rather than tap — slide the thumb to the end and it fires once. It is the confirmation for an action that must not happen by accident.",
+    "category": "Actions",
+    "importPath": "@xaui/native/slide-button",
+    "href": "/docs/components/slide-button",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/slide-button",
+    "markdownPath": "packages/native/src/components/slide-button/slide-button.md",
+    "demoId": "slide-button",
+    "exports": [
+      "SlideButton",
+      "SlideButtonFill",
+      "SlideButtonLabel",
+      "SlideButtonThumb",
+      "SlideButtonIcon"
+    ]
+  },
+  {
     "id": "slider",
     "title": "Slider",
     "description": "A value chosen along a line.",

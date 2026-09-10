@@ -72,7 +72,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P4.3   | Component pages, on the structure of plan §6                                     | done    |
 | P4.4   | Migration guide legacy → v1, with the table of plan §7                           | done    |
 | P4.5   | Regenerate `llms.txt`                                                            | done    |
-| P4.5b  | Unpublish `@xaui/mcp` and `@xaui/icons`                                          | todo    |
+| P4.5b  | Deprecate `@xaui/icons` + `@xaui/core` on npm (`@xaui/mcp` never shipped)        | done    |
 | P4.6   | Publish `@xaui/native@1.0.0` — needs `changeset pre exit` first                  | todo    |
 | P5     | The remaining components, shipped under `1.x`                                    | todo    |
 | P5.1   | `InputOTP` — Group · Box · Value · Placeholder · Caret · Separator               | done    |
@@ -147,7 +147,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.35 | `CloseButton` — the dismiss affordance, out of Chip and Alert and given a recipe | done |
 | P5.35b | `LinkButton` — net new, a `Button` that reads as a link | dropped |
 | P5.35c | `MorphButton` — net new, a `Button` that animates between states | done |
-| P5.35d | `SlideButton` — net new, slide-to-confirm over the `Slider` | todo |
+| P5.35d | `SlideButton` — net new, slide-to-confirm over the `Slider` | done |
 | P5.35e | `SocialAuthButton` — net new, provider marks over the `Button` | dropped |
 | P5.35f | `ToggleButton` — net new, a `Button` that holds a pressed state | done |
 | P5.35g | `ToggleButtonGroup` — net new, exclusive selection over `ToggleButton` | done |

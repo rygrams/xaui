@@ -162,6 +162,10 @@ export default function RootLayout() {
               <Stack.Screen name="select" options={{ title: 'Select (v1)' }} />
               <Stack.Screen name="snackbar" options={{ title: 'Snackbar (v1)' }} />
               <Stack.Screen name="skeleton" options={{ title: 'Skeleton (v1)' }} />
+              <Stack.Screen
+                name="slide-button"
+                options={{ title: 'SlideButton (v1)' }}
+              />
               <Stack.Screen name="slider" options={{ title: 'Slider (v1)' }} />
               <Stack.Screen name="spinner" options={{ title: 'Spinner (v1)' }} />
               <Stack.Screen name="stepper" options={{ title: 'Stepper (v1)' }} />

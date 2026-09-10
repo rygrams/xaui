@@ -57,6 +57,7 @@ const entries = {
   'components/select/index': 'src/components/select/index.ts',
   'components/snackbar/index': 'src/components/snackbar/index.ts',
   'components/skeleton/index': 'src/components/skeleton/index.ts',
+  'components/slide-button/index': 'src/components/slide-button/index.ts',
   'components/slider/index': 'src/components/slider/index.ts',
   'components/spinner/index': 'src/components/spinner/index.ts',
   'components/stepper/index': 'src/components/stepper/index.ts',
