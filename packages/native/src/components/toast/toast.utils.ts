@@ -3,7 +3,7 @@ import type { ToastPlacement } from './toast.type'
 /**
  * How far one step back sits toward the edge, and how much it shrinks doing it.
  *
- * Both are HeroUI's, read off their `toast.animation.ts` rather than matched by eye:
+ * Both are the reference implementation's, read off their `toast.animation.ts` rather than matched by eye:
  * `translateY: [0, 10]` and `scale: [1, 0.97]`, interpolated over the index. The shoulder
  * a card leaves is `PEEK - SHRINK × height`, so around 7 points on a two-line toast —
  * enough to say "there is another one" and not enough to be read as a second card.
@@ -24,7 +24,7 @@ export type ToastStackStyle = {
  * edge, and depth is expressed entirely in the transform. That is what makes a pile of
  * eight cost the height of one.
  *
- * Nothing clamps the depth: HeroUI's interpolation clamps only the front side, so the
+ * Nothing clamps the depth: The reference implementation's interpolation clamps only the front side, so the
  * fourth card is genuinely further back than the third rather than sitting on it. What
  * ends the ladder is `maxVisible`, past which the card is transparent — and being still
  * mounted is the point, because dismissing the front one promotes it into view instead of

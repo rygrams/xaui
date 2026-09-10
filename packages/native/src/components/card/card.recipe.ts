@@ -101,7 +101,7 @@ type SizeStep = {
 }
 
 /**
- * `md` is the anchor, and it is HeroUI's card measured: 16pt of padding, a 24pt radius,
+ * `md` is the anchor, and it is the reference implementation's card measured: 16pt of padding, a 24pt radius,
  * an 18/28 title one step above a 16/24 description. Their scale has a single step; ours
  * moves around that one, a step of type and a level of radius at a time.
  */

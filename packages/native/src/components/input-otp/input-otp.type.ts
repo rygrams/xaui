@@ -34,7 +34,7 @@ export type InputOTPSlot =
  * they go**. With no fill and no border there is nothing to count. It is the reason the
  * `Checkbox` has no `ghost` either — a box that is not a box is not a box.
  *
- * HeroUI splits their OTP slot the same two ways their input is split, and they reach for
+ * The reference implementation splits their OTP slot the same two ways their input is split, and they reach for
  * the `field` shadow on `primary` here explicitly — which is the same reading our `Input`
  * takes.
  */

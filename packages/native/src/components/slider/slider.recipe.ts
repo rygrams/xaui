@@ -45,7 +45,7 @@ type SizeStep = {
  * The legacy slider's proportions, point for point.
  *
  * A **thin rail with a round knob on it**, not a capsule with a core inside — which is what
- * this component shipped as, borrowed from HeroUI's. The rail is 6 to 10 points and the
+ * this component shipped as, borrowed from the reference implementation's. The rail is 6 to 10 points and the
  * knob 16 to 24, so the knob overhangs the rail by half their difference on each side. That
  * overhang is the shape: it is what makes the knob read as sitting *on* a line rather than
  * as a segment *of* one.

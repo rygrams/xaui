@@ -25,7 +25,7 @@ export default function SliderScreen() {
     >
       <Section
         title="Drag it, or press anywhere on the track"
-        note="A thin rail with a round knob riding on it, the legacy proportions rather than HeroUI's capsule: 6 to 10 points of rail under a 16 to 24 point disc. The knob overhangs the rail by half their difference on each side, and the rail reserves that overhang as a margin — otherwise the knob spills into whatever sits above and below. A press anywhere on the rail moves it there, and it grows 15% under the press rather than moving."
+        note="A thin rail with a round knob riding on it, the legacy proportions rather than the reference implementation's capsule: 6 to 10 points of rail under a 16 to 24 point disc. The knob overhangs the rail by half their difference on each side, and the rail reserves that overhang as a margin — otherwise the knob spills into whatever sits above and below. A press anywhere on the rail moves it there, and it grows 15% under the press rather than moving."
       >
         <Basic />
       </Section>

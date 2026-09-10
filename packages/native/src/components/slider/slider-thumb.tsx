@@ -24,7 +24,7 @@ import type { SliderThumbProps } from './slider.type'
  * the scale can stay on the other thread.
  *
  * It is a **disc of the page's own colour inside a ring of the fill's**, which is the
- * legacy component's shape rather than HeroUI's capsule-with-a-core. A solid accent knob
+ * legacy component's shape rather than the reference implementation's capsule-with-a-core. A solid accent knob
  * on an accent fill disappears the moment the value reaches the top; a ring never does.
  */
 export function SliderThumb({

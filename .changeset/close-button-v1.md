@@ -25,7 +25,7 @@ component that has one. `secondary` is the neutral disc and the default, for the
 decoration, and the disc is what makes it a target. `ghost` is the bare cross for a
 component already providing one.
 
-Four sizes on a 24 / 28 / 32 / 40 box, `md` being HeroUI's measured and the `Dialog`'s. The
+Four sizes on a 24 / 28 / 32 / 40 box, `md` being the reference implementation's measured and the `Dialog`'s. The
 bar is a ratio of the box rather than a table — a bar rotated a quarter turn spans
 `length / √2` per axis, so it is twice as long as the cross looks — which makes it one cross
 at four sizes instead of four drawings of one. **The stroke does not scale**: it is the

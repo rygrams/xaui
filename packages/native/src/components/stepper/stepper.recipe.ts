@@ -60,7 +60,7 @@ type SizeStep = {
  * wide as its parent lets it be and a horizontal one splits that width evenly, which is
  * RN's own behaviour and the reason there is no `fullWidth` prop here either.
  *
- * `md`'s indicator is twenty-eight points, HeroUI's, measured off their own stepper.
+ * `md`'s indicator is twenty-eight points, the reference implementation's, measured off their own stepper.
  */
 const SIZES: Record<Size, SizeStep> = {
   xs: {

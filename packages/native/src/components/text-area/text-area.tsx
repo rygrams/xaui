@@ -24,7 +24,7 @@ const DEFAULT_ROWS = 3
  * `.Error` **are** the `TextField`'s slots — not wrappers around them, the same components —
  * and only `TextArea.Field` differs, by being multiline and by taking its height in lines.
  *
- * That is also HeroUI's answer: their `TextArea` renders their `TextField` with three defaults.
+ * That is also the reference implementation's answer: their `TextArea` renders their `TextField` with three defaults.
  * A component of its own is what a caller looks for; sharing every line of it is what
  * keeps the two from drifting.
  *

@@ -22,7 +22,7 @@ import type { AvatarFallbackProps } from './avatar.type'
  * It is a layer rather than a state: `Avatar.Image` is absolutely positioned over it, so
  * this slot is simply always there. Nothing here knows whether an image exists.
  *
- * **No default glyph**, where HeroUI ships a person icon. XAUI publishes no icon set —
+ * **No default glyph**, where the reference implementation ships a person icon. XAUI publishes no icon set —
  * `@xaui/icons` was deleted in P0 — so the mark is always the caller's. What this slot does
  * instead is publish the frame's resolved size and colour to `IconContext`, so an `Icon`
  * written inside it needs no props at all.

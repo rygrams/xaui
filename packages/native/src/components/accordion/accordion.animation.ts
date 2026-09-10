@@ -9,7 +9,7 @@ import { Easing, FadeIn, FadeOut, LinearTransition } from 'react-native-reanimat
  * content grows afterwards — an image loading, a list filling — would be stuck at the
  * height it had when it was measured.
  *
- * HeroUI's spring, and stiffer than the chevron's: 1600 against 1000. A height is a
+ * The reference implementation's spring, and stiffer than the chevron's: 1600 against 1000. A height is a
  * bigger distance than a rotation, and at the chevron's stiffness the same damping makes
  * a long panel take almost half a second to settle.
  */

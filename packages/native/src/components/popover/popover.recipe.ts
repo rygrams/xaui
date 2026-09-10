@@ -16,7 +16,7 @@ const SLOTS = ['trigger', 'overlay', 'content', 'title', 'description'] as const
  * Thirteen ems, which is about twenty-six characters a line — narrow, and deliberately so.
  * A popover is read at a glance, and a glance is two or three short lines rather than a
  * paragraph; past this it stops being an aside and starts being a sheet with a tail. It is
- * also where HeroUI's own panels land, measured off their placement demos: a little over
+ * also where the reference implementation's own panels land, measured off their placement demos: a little over
  * two hundred points on a three-hundred-and-ninety point screen.
  *
  * A measure rather than a number of points, so a theme that scales its type scales the
@@ -35,7 +35,7 @@ export const popoverRecipe = createRecipe({
     content: {
       position: 'absolute',
       backgroundColor: theme.colors.overlay,
-      // HeroUI's twelve by sixteen: a panel is read, not scanned, so it is wider-padded
+      // The reference implementation's twelve by sixteen: a panel is read, not scanned, so it is wider-padded
       // than it is tall-padded.
       paddingVertical: theme.spacing(3),
       paddingHorizontal: theme.spacing(4),

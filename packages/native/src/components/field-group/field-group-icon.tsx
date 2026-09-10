@@ -20,7 +20,7 @@ import type { FieldGroupIconProps } from './field-group.type'
  * `primary` field, where the fill is the caller's colour and the placeholder grey is no
  * longer readable over it.
  *
- * It is not one of HeroUI's three parts: theirs colour the glyph at the call site. This is
+ * It is not one of the reference implementation's three parts: theirs colour the glyph at the call site. This is
  * the same slot `Button`, `Chip` and `Alert` all have, and it exists so that a form does
  * not carry a hard-coded `#888` on every field.
  */

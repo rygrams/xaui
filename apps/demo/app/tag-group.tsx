@@ -54,7 +54,7 @@ export default function TagGroupScreen() {
 
       <Section
         title="Sizes"
-        note="HeroUI's three, step for step: the padding, the corner and the type all move together, and the remove button's box moves with the label so a tag with a cross is never taller than a tag without."
+        note="the reference implementation's three, step for step: the padding, the corner and the type all move together, and the remove button's box moves with the label so a tag with a cross is never taller than a tag without."
       >
         {SIZES.map(size => (
           <Removable key={size} size={size} />

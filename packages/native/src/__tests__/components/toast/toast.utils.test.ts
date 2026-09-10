@@ -10,7 +10,7 @@ describe('toastStackStyle', () => {
     })
   })
 
-  it('peeks 10 points and shrinks 3% per step, HeroUI’s values', () => {
+  it('peeks 10 points and shrinks 3% per step, the reference implementation’s values', () => {
     expect(toastStackStyle(1, 'top', 3)).toMatchObject({
       translateY: 10,
       scale: 0.97,
@@ -27,7 +27,7 @@ describe('toastStackStyle', () => {
   })
 
   it('keeps going past the last visible card rather than piling on it', () => {
-    // HeroUI clamps only the front side of the interpolation. Two cards at the same depth
+    // The reference implementation clamps only the front side of the interpolation. Two cards at the same depth
     // would read as one, which is the bug this asserts against.
     expect(toastStackStyle(4, 'top', 3).translateY).toBe(40)
     expect(toastStackStyle(3, 'top', 3).translateY).not.toBe(

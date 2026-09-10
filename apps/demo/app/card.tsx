@@ -111,7 +111,7 @@ export default function CardScreen() {
 
       <Section
         title="size — padding and type, never a height"
-        note="A card is a surface, not a control: it is as tall as what it holds. md is HeroUI's card measured — 16pt of padding, a 24pt radius, an 18/28 title over a 16/24 description — and the other three steps move around it."
+        note="A card is a surface, not a control: it is as tall as what it holds. md is the reference card measured — 16pt of padding, a 24pt radius, an 18/28 title over a 16/24 description — and the other three steps move around it."
       >
         {(['xs', 'sm', 'md', 'lg'] as const).map(size => (
           <Card key={size} size={size} variant="secondary">
@@ -269,7 +269,7 @@ export default function CardScreen() {
       </Section>
       <Section
         title="Card.Background — ce que la carte pose derrière elle"
-        note="Le root la hisse en tête quels que soient les enfants écrits avant : l'ordre JSX ne décide pas de l'empilement, comme pour les overlays de PressableFeedback. Elle porte son propre overflow et le rayon de la carte, donc le root garde son ombre — là où HeroUI clippe des deux côtés et la perd."
+        note="Le root la hisse en tête quels que soient les enfants écrits avant : l'ordre JSX ne décide pas de l'empilement, comme pour les overlays de PressableFeedback. Elle porte son propre overflow et le rayon de la carte, donc le root garde son ombre — là où l'implémentation de référence clippe des deux côtés et la perd."
       >
         <Card variant="ghost" size="lg" height={180} justifyContent="flex-end">
           <Card.Background source={{ uri: COVER }} />

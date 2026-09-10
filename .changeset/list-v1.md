@@ -5,7 +5,7 @@
 `List` — rows on a ground.
 
 `List.Item` and `List.ItemButton` with `ItemPrefix`, `ItemContent`, `ItemTitle`,
-`ItemDescription` and `ItemSuffix`, on the anatomy `heroui-native`'s `ListGroup` uses.
+`ItemDescription` and `ItemSuffix`, on the anatomy the reference implementation's `ListGroup` uses.
 
 **It is the `Accordion` with rows that do not open**, and it reads the same ladder, insets
 its separators the same way and lifts the same one variant. Two containers that look alike
@@ -26,7 +26,7 @@ quieter menu with none of the affordances. A row that toggles carries the contro
 toggles it — a `Switch` in its suffix — which says out loud what it does and is reachable as
 the control it actually is.
 
-**`ItemSuffix` draws nothing of its own.** HeroUI's puts a chevron there by default; the
+**`ItemSuffix` draws nothing of its own.** The reference implementation's puts a chevron there by default; the
 trailing end of a settings row is a switch at least as often, and a slot that guesses makes
 you pass a child in order to render nothing.
 

@@ -16,7 +16,7 @@ const SLOTS = [
 /**
  * The cross's box, and the length of one of its two bars.
  *
- * Both are HeroUI's, read off `close-button.css` rather than guessed:
+ * Both are the reference implementation's, read off `close-button.css` rather than guessed:
  * `height: calc(var(--spacing) * 8)` on a spacing base of 4 is 32 points, and `isIconOnly`
  * makes it `aspect-ratio: 1` — a 32-point square, rounded to a circle by a radius their
  * `sm` size sets past half of it.
@@ -67,7 +67,7 @@ export const dialogRecipe = createRecipe({
       content: {
         backgroundColor: theme.colors.overlay,
         padding: theme.spacing(5),
-        // HeroUI's `--radius-3xl` on a base of 8 is 24 points; our base is 12, so the same
+        // The reference implementation's `--radius-3xl` on a base of 8 is 24 points; our base is 12, so the same
         // 24 is `2xl`. Reading their key rather than their number puts a pill on it.
         borderRadius: theme.radius['2xl'],
         borderCurve: 'continuous',

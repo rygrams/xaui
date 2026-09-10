@@ -30,7 +30,7 @@ import type { AvatarProps } from './avatar.type'
  * **The fallback is not a state, it is the layer underneath.** `Avatar.Image` is absolutely
  * positioned over `Avatar.Fallback`, so the fallback is what shows before the image decodes
  * and what shows again if the URL is wrong — with no load-state machine, no `onError` to
- * remember, and nothing to get out of sync. HeroUI runs a status enum for this; a stacking
+ * remember, and nothing to get out of sync. The reference implementation runs a status enum for this; a stacking
  * order says the same thing and cannot disagree with itself.
  *
  * R3 — a stringifiable tree becomes the initials, which is the majority case:

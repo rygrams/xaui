@@ -85,7 +85,7 @@ past it.
 
 ### `size` is the thickness
 
-`xs` is HeroUI's `thin` — one device pixel, `StyleSheet.hairlineWidth` — and `lg` is their
+`xs` is the reference implementation's `thin` — one device pixel, `StyleSheet.hairlineWidth` — and `lg` is their
 `thick`, six points, with the two steps our ladder puts between them.
 
 It is `size` and not `thickness` because that is the vocabulary word (§1 bis), and it is

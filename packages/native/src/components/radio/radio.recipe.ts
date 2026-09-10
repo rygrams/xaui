@@ -39,7 +39,7 @@ const VARIANT_TOKENS: Record<RadioVariant, VariantTokens> = {
  * width**, exactly as on the `Checkbox`, and the two ladders are the same four boxes so
  * that a radio and a checkbox in one form line up.
  *
- * The dot is **derived from the circle** rather than tabulated: HeroUI's is 10 in a 24,
+ * The dot is **derived from the circle** rather than tabulated: The reference implementation's is 10 in a 24,
  * and keeping the ratio is what makes it one dot at four sizes instead of four drawings.
  */
 function sizeAxis(step: SizeStep) {
@@ -61,7 +61,7 @@ function sizeAxis(step: SizeStep) {
   }
 }
 
-/** HeroUI's 10pt dot in their 24pt circle, kept as a ratio so every size gets one. */
+/** the reference implementation's 10pt dot in their 24pt circle, kept as a ratio so every size gets one. */
 const THUMB_RATIO = 10 / 24
 
 type SizeStep = {
@@ -72,7 +72,7 @@ type SizeStep = {
   label: FontSizeKey
 }
 
-/** `md` is HeroUI's radio measured: a 24pt circle with the field's 1pt border. */
+/** `md` is the reference implementation's radio measured: a 24pt circle with the field's 1pt border. */
 const SIZES: Record<RadioSize, SizeStep> = {
   sm: { box: 5, gap: 2, label: 'sm' },
   md: { box: 6, gap: 2, label: 'md' },

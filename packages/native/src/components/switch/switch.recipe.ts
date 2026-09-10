@@ -95,7 +95,7 @@ type SizeStep = {
 
 /**
  * `md` is the legacy switch measured — a 48 × 28 track with a 22 thumb and 3 of padding —
- * and HeroUI's is the same 48 wide. Ours moves around that one, a spacing step at a time.
+ * and the reference implementation's is the same 48 wide. Ours moves around that one, a spacing step at a time.
  */
 const INSIDE: Record<SwitchSize, SizeStep> = {
   sm: { track: 11, height: 6.5, thumb: 5, padding: 0.75, gap: 2, label: 'sm' },

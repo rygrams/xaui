@@ -3,7 +3,7 @@
 ---
 
 Fix the press scale, which lurched on wide controls, and align the touch feedback with
-HeroUI's values.
+The reference implementation's values.
 
 **The scale was a flat `0.975` for every control.** What the eye reads is the displacement,
 not the ratio: that same ratio moves a 360pt row nine points and a 96pt chip two. It is now

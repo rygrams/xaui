@@ -34,8 +34,8 @@ would change is the one telling you the truth.
 **Only `TextArea.Field` differs**, by three things: `multiline`, the text pinned to the top,
 and a height counted in lines.
 
-That is also HeroUI's answer — [their `TextArea`](https://github.com/heroui-inc/heroui-native/tree/main/src/components/text-area)
-is twenty lines rendering their `TextField` with the same three defaults. A component of its own
+That is also the reference implementation's answer — its `TextArea`
+is twenty lines rendering its `TextField` with the same three defaults. A component of its own
 is what a caller looks for; sharing every line of it is what keeps the two from drifting.
 
 So **everything in [`input.md`](../text-field/text-field.md) applies here**, and this page only covers
@@ -81,7 +81,7 @@ cache.
 
 ### A fixed height
 
-HeroUI's text area is a **fixed** 128 that scrolls rather than one that grows. That is a
+The reference implementation's text area is a **fixed** 128 that scrolls rather than one that grows. That is a
 style prop away (R14), rather than a second API:
 
 ```tsx

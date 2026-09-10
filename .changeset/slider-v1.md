@@ -37,7 +37,7 @@ four points thick is a line rather than a control.
 
 ### A rail with a knob on it, not a capsule with a core
 
-The legacy proportions rather than HeroUI's: 6 to 10 points of rail under a 16 to 24 point
+The legacy proportions rather than the reference implementation's: 6 to 10 points of rail under a 16 to 24 point
 disc. The knob overhangs the rail by half their difference on each side, and the rail
 reserves that overhang as a margin — without it the knob spills into whatever sits above
 and below, and the layout has no idea the control is thicker than its rail.

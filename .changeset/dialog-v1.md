@@ -27,5 +27,5 @@ reaches the overlay under it and closes the dialog.
 No `variant`: the question a dialog asks is in its words, not in its fill.
 
 It also unblocks the `presentation` prop that `Select.Content` and `Menu.Content` are
-written around but cannot offer — HeroUI has both, and `dialog` was half of what was
+written around but cannot offer — the reference implementation has both, and `dialog` was half of what was
 missing.

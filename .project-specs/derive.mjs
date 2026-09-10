@@ -3,7 +3,7 @@ import { mix, alpha } from './oklab.mjs'
 /** Couche DÉRIVÉE — ~30 tokens calculés, jamais écrits à la main. */
 export function deriveColors(s) {
   return {
-    // états pressés (les `-hover` de HeroUI, renommés)
+    // états pressés (les `-hover` de l'implémentation de référence, renommés)
     accentPressed:  mix(s.accent,  s.accentForeground,  0.10),
     successPressed: mix(s.success, s.successForeground, 0.10),
     warningPressed: mix(s.warning, s.warningForeground, 0.10),

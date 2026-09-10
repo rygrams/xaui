@@ -83,7 +83,7 @@ element carries its own label or its own text.
 | `md`   | 32  | 16  | ~11   |
 | `lg`   | 40  | 20  | ~14   |
 
-`md` is HeroUI's close button measured — a 32-point square — and it is the `Dialog`'s.
+`md` is the reference implementation's close button measured — a 32-point square — and it is the `Dialog`'s.
 
 The **bar** is twice as long as the cross looks: a bar rotated a quarter turn spans
 `length / √2` on each axis. It is kept as a ratio of the box rather than tabulated, so it is
@@ -123,7 +123,7 @@ because the base owns the press state — a cross has to be a different target f
 around it — and a root that does not know it is pressed cannot resolve a colour for it.
 Every other close button in the library reads the same way.
 
-## Alignment with `heroui-native`
+## Alignment with the reference implementation
 
 **Identical:** the 32-point box at the default size, the circle, the filled default rather
 than a bare glyph, the grown touch target, and children replacing the mark.

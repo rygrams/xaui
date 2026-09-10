@@ -11,7 +11,7 @@ if a helper becomes useful outside, it **moves** to `system/`, it is not re-expo
 `utils/`.
 
 Source of truth: `.project-specs/XAUI-V1-PLAN.md` §3 (style engine), §1 ter (what to take
-from HeroUI), §2 (folder layout), §9/P1 (acceptance criteria).
+from the reference implementation), §2 (folder layout), §9/P1 (acceptance criteria).
 
 ## `system/recipe/` — the style engine
 
@@ -90,7 +90,7 @@ different `color` adds **no entry** to the cache.
 ## `system/slot/`
 
 - `create-slot-context.ts` — strict context with a named error when a slot hook is used
-  outside its parent (`Error.captureStackTrace`, like HeroUI).
+  outside its parent (`Error.captureStackTrace`, like the reference implementation).
 - `children-to-string.ts` — recursive stringification (R3). **Do not inspect the first
   child**: try to stringify the whole tree; if it contains any React element, return
   `null` and pass children through; otherwise wrap the concatenated string in the default
@@ -131,7 +131,7 @@ Acceptance: the existing tests pass unmodified.
 
 ## `system/icon/`
 
-The gap HeroUI never closed: an icon is a third-party component, slot context doesn't reach
+The gap the reference implementation never closed: an icon is a third-party component, slot context doesn't reach
 it, so their users compute the colour by hand. XAUI's `Icon` reads the parent slot context
 for **size and colour**.
 

@@ -36,7 +36,7 @@ export type ChipSlot =
  * `tertiary` a border, `ghost` nothing at all. A name means here exactly what it means on
  * a `Button`, which is what makes this one vocabulary rather than two.
  *
- * It replaces HeroUI's `variant × color` matrix — four emphases times five intents, of
+ * It replaces the reference implementation's `variant × color` matrix — four emphases times five intents, of
  * which nine combinations paint the same thing. Eleven flat names say the same set once.
  */
 export type ChipVariant =

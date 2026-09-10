@@ -23,7 +23,7 @@ underneath, and the content leaves the accessibility tree. It is off by default,
 suffix is most often a control and one that swallowed its own taps would be a reveal toggle
 you cannot press. A disabled `Input` takes the touches from both decorators all the same.
 
-`InputGroup.Icon` is the slot `Button`, `Chip` and `Alert` already have, and the one HeroUI's
+`InputGroup.Icon` is the slot `Button`, `Chip` and `Alert` already have, and the one the reference implementation's
 component does not: a glyph one step above the field's type, in the theme's
 `fieldPlaceholder`, so a form does not carry a hard-coded `#888` on every field.
 

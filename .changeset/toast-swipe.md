@@ -2,7 +2,7 @@
 '@xaui/native': patch
 ---
 
-The front toast can be thrown away with a swipe, like HeroUI's.
+The front toast can be thrown away with a swipe, like the reference implementation's.
 
 Away from its edge — up on a top stack, down on a bottom one — past 50 points or 500 points
 a second, their thresholds, either alone being enough. Dragged the wrong way it resists
@@ -14,7 +14,7 @@ Only the front card. The ones behind show a seven-point shoulder, which is a tar
 any reasonable minimum, and dragging the second card out from under the first reads as a
 glitch rather than as a dismissal. `isSwipeable={false}` on the host turns it off.
 
-Note that this dismisses **one** card and the pile empties a swipe at a time — HeroUI's
+Note that this dismisses **one** card and the pile empties a swipe at a time — the reference implementation's
 gesture calls `hide(id)`, not a clear-all, and their provider has no such thing.
 
 The gesture runs on `react-native-gesture-handler`, already an optional peer, reached only

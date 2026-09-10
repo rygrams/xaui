@@ -47,7 +47,7 @@ const VARIANT_TOKENS: Record<AlertVariant, VariantTokens> = {
 /**
  * How far the description sits behind the title.
  *
- * HeroUI uses the `muted` token here. This is a fraction of the title's own colour
+ * The reference implementation uses the `muted` token here. This is a fraction of the title's own colour
  * instead, for the reason the `Card` gives: an alert's foreground is not fixed — a
  * `danger` alert paints its text on a saturated red, and a grey `muted` on that is the one
  * combination that stops being readable. The value is `muted` solved for, so an untinted
@@ -65,7 +65,7 @@ const DESCRIPTION_OPACITY = 0.6
  *
  * The icon's `paddingTop` is **half the title's leading**: a glyph is a solid box and a
  * line of text is not, so aligning their boxes puts the glyph visibly above the cap-height
- * it should sit level with. HeroUI hard-codes 3.5px for their single size; deriving it
+ * it should sit level with. The reference implementation hard-codes 3.5px for their single size; deriving it
  * gives the same 3 at `md` and keeps the other three sizes right.
  */
 function sizeAxis(step: SizeStep) {
@@ -112,7 +112,7 @@ type SizeStep = {
 }
 
 /**
- * `md` is the anchor, and it is HeroUI's alert measured: 12pt of padding, a 12pt gap, a
+ * `md` is the anchor, and it is the reference implementation's alert measured: 12pt of padding, a 12pt gap, a
  * 24pt radius, a 16/24 title above a 14/20 description, an 18pt icon. Their scale has a
  * single step; ours moves around that one, a step of type and a level of radius at a time.
  */
@@ -204,7 +204,7 @@ export const alertRecipe = createRecipe({
    *
    * The icon takes the **title's** colour rather than a status colour of its own — on a
    * `danger` alert the readable colour is the one the title already uses, and on a
-   * `danger-soft` one that token *is* the red. HeroUI arrives at the same place from the
+   * `danger-soft` one that token *is* the red. The reference implementation arrives at the same place from the
    * other direction, colouring the icon by status on a neutral surface; here the variant
    * decides both, and an icon that has to disagree with its alert says so itself with
    * `<Alert.Icon color={…} />`.

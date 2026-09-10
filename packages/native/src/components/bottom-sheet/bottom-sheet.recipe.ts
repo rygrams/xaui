@@ -3,7 +3,7 @@ import type { RadiusKey, XAUITheme } from '../../theme/theme.type'
 
 const SLOTS = ['overlay', 'content', 'handle', 'title', 'description'] as const
 
-/** The grab bar: HeroUI's proportions, in points because a pill is not a gap. */
+/** The grab bar: The reference implementation's proportions, in points because a pill is not a gap. */
 const HANDLE = { width: 36, height: 4 } as const
 
 /**
@@ -55,7 +55,7 @@ export const bottomSheetRecipe = createRecipe({
       backgroundColor: theme.colors.overlay,
       padding: theme.spacing(5),
       gap: theme.spacing(2),
-      // HeroUI's `--radius-4xl` on a base of 8 is 32 points; the nearest on our base of 12
+      // The reference implementation's `--radius-4xl` on a base of 8 is 32 points; the nearest on our base of 12
       // is `3xl` at 36. A sheet's corner is the largest in the library because it is the
       // only edge of it you can see.
       borderTopStartRadius: theme.radius['3xl'],

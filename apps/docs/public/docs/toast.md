@@ -109,7 +109,7 @@ and its depth is entirely in its transform, so a pile of eight costs the height 
 | 1         | `10` toward the edge | `0.97` |
 | 2         | `20`                 | `0.94` |
 
-Both numbers are HeroUI's, read off their `toast.animation.ts`: `translateY: [0, 10]` and
+Both numbers are the reference implementation's, read off their `toast.animation.ts`: `translateY: [0, 10]` and
 `scale: [1, 0.97]`, interpolated over the index. The shoulder a card leaves is
 `10 − 0.03 × height`, around 7 points on a two-line toast — enough to say there is another
 one, not enough to be read as a second card.
@@ -127,7 +127,7 @@ must not land on something nobody can see.
 The front card is thrown away by dragging it **away from its edge** — up on a top stack,
 down on a bottom one. The pile empties one card at a time, each swipe promoting the next.
 
-It goes past **50 points or 500 points a second**, HeroUI's thresholds, and either alone is
+It goes past **50 points or 500 points a second**, the reference implementation's thresholds, and either alone is
 enough: distance without velocity refuses a flick that clearly meant it, velocity without
 distance refuses a slow deliberate push. A toast is glanced at, so both readings count.
 
@@ -191,7 +191,7 @@ save succeeded has turned a good outcome into a bad one.
 
 ## It replaces `Snackbar`
 
-The legacy component is `Snackbar`. It is the same object under two names, and HeroUI calls
+The legacy component is `Snackbar`. It is the same object under two names, and the reference implementation calls
 it `toast`; the roadmap's P5.18 closes with this.
 
 | Legacy                        | v1                                     |

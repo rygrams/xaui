@@ -113,7 +113,7 @@ export default function TextAreaScreen() {
       </Section>
 
       <Section
-        title="height — HeroUI's fixed text area"
+        title="height — the reference implementation's fixed text area"
         note="Theirs is a fixed 128 that scrolls rather than one that grows. A style prop reproduces it exactly, which is the escape hatch rather than a second API."
       >
         <TextArea>

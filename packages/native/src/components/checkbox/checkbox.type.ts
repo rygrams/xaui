@@ -20,7 +20,7 @@ export type CheckboxSlot = 'root' | 'indicator' | 'fill' | 'check' | 'dash' | 'l
  * Three of the `Input`'s four levels, and they mean here what they mean there — this is
  * the `field*` family again, on a box 24pt wide instead of a field 48pt tall.
  *
- * - **`primary`** — the `fieldBackground` fill plus the theme's `field` shadow. HeroUI's
+ * - **`primary`** — the `fieldBackground` fill plus the theme's `field` shadow. The reference implementation's
  *   `primary`, with the elevation their flat token only implies.
  * - **`secondary`** — the neutral `default` fill, and the default here for the reason it
  *   is the `Input`'s: on a plain background a white box is its border and nothing else,

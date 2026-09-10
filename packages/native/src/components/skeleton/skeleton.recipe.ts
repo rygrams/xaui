@@ -8,7 +8,7 @@ const SLOTS = ['root'] as const
  * One line, because the component has no `variant` to choose between — `SkeletonProps`
  * says why. `default` is the neutral fill the rest of the library uses for a `secondary`
  * `Button`, which is the grey a placeholder wants: a block on the page rather than a hole
- * in it. HeroUI reaches the same value from `muted` at 30% opacity; naming the token is
+ * in it. The reference implementation reaches the same value from `muted` at 30% opacity; naming the token is
  * what lets a theme move the skeleton by moving `default`.
  *
  * The role is declared rather than the colour written into `paint`, because `resolveTint`

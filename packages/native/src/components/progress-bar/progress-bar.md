@@ -143,7 +143,7 @@ success, warning or danger.
 `Checkbox`'s pair, meaning the same thing on a line instead of in a box. Why a role and not
 an axis is written up once in [`checkbox.md`](../checkbox/checkbox.md#colour).
 
-## Alignment with `heroui-native`
+## Alignment with the reference implementation
 
 **Identical:** the three sizes, the label-and-value header, the clamped range with
 `minValue` / `maxValue`, `formatOptions` through `Intl`, and Track · Fill as slots.

@@ -9,7 +9,7 @@ Its trigger is the `TextField`'s twin — the same `field*` tokens, the same fou
 the same heights — so a select and a text input in one form read as one control rather
 than as two libraries meeting.
 
-The visual values and the motion are HeroUI Native's, not the legacy component's. The
+The visual values and the motion are the reference implementation's, not the legacy component's. The
 chevron turns 0 to −180° on their spring (damping 140, stiffness 1000, mass 4): heavily
 damped against a very high stiffness, so it arrives in a fifth of a second without
 overshooting, because an oscillating chevron reads as a bug rather than as motion. The
@@ -39,11 +39,11 @@ rather than rendering.
 chevron and the gap between them, and at that height the value gets nothing. The
 `TextField` keeps its `xs` because a field only has to hold text.
 
-The panel's corner is `2xl`, not `3xl`. HeroUI's is their `--radius-3xl` on a base of 8,
+The panel's corner is `2xl`, not `3xl`. The reference implementation's is their `--radius-3xl` on a base of 8,
 which is 24 points; our base is 12, so the same 24 is `2xl`. Reading their key rather than
 their number put a 36-point corner on it and made it read as a pill.
 
-Two narrowings against HeroUI, both deliberate. `placement` is `top` or `bottom` only: a
+Two narrowings against the reference implementation, both deliberate. `placement` is `top` or `bottom` only: a
 list as wide as its own field hanging off the side of it reads as a menu, and `start` and
 `end` belong to `Popover`. And there is no `presentation` prop — the bottom-sheet and
 dialog presentations need `BottomSheet` and `Dialog`, which do not exist yet.

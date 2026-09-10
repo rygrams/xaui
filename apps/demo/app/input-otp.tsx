@@ -37,7 +37,7 @@ export default function InputOTPScreen() {
 
       <Section
         title="The three levels"
-        note="The TextField's, token for token — a box of a code is a field one character wide. Tap each: the box the next character lands in takes a two-point accent ring, which is HeroUI's outline done with a border, because React Native has no outline."
+        note="The TextField's, token for token — a box of a code is a field one character wide. Tap each: the box the next character lands in takes a two-point accent ring, which is the reference implementation's outline done with a border, because React Native has no outline."
       >
         {VARIANTS.map(variant => (
           <View key={variant} style={{ gap: 6 }}>
@@ -78,7 +78,7 @@ export default function InputOTPScreen() {
 
       <Section
         title="size — the box, and the character in it"
-        note="md is HeroUI's OTP exactly: a 48 box 44 wide, an 18/28 semibold character, 8 between boxes. The width is the control height less one spacing step, which holds the proportion at the other three sizes."
+        note="md is the reference implementation's OTP exactly: a 48 box 44 wide, an 18/28 semibold character, 8 between boxes. The width is the control height less one spacing step, which holds the proportion at the other three sizes."
       >
         {(['sm', 'md', 'lg'] as const).map(size => (
           <InputOTP key={size} maxLength={4} size={size}>

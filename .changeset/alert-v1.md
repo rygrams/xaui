@@ -8,11 +8,11 @@ A message the interface has to make sure is read. Compound root plus five slots:
 `Alert.Icon`, `Alert.Content`, `Alert.Title`, `Alert.Description` and `Alert.Close`, laid
 out as a row of three columns spaced by the root's `gap` alone.
 
-Nine variants: the `Card`'s `surface` for the neutral level — HeroUI's alert root, token
+Nine variants: the `Card`'s `surface` for the neutral level — the reference implementation's alert root, token
 for token, shadow included — and the `Chip`'s status ladder for the rest, each family in
 its full and soft slice.
 
-Visually aligned with `heroui-native`: 12pt of padding, a 12pt gap, a 24pt radius, a 16/24
+Visually aligned with the reference implementation: 12pt of padding, a 12pt gap, a 24pt radius, a 16/24
 title above a 14/20 description and an 18pt icon at `md`. The icon's optical offset is
 derived from the title's leading rather than hard-coded, so it stays right at all four
 sizes.

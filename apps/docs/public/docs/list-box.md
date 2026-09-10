@@ -93,7 +93,7 @@ actually is.
 
 ## The suffix draws nothing of its own
 
-HeroUI's puts a chevron there by default. The trailing end of a settings row is a `Switch`
+The reference implementation's puts a chevron there by default. The trailing end of a settings row is a `Switch`
 at least as often, and a slot that guesses makes you pass a child in order to render
 nothing. The library ships `ChevronDownIcon`; a row that wants one says so.
 
@@ -204,7 +204,7 @@ disabled group has no live list in it.
 
 A `ListBox` outside any group is unchanged.
 
-### Alignment with `heroui-native`
+### Alignment with the reference implementation
 
 Their `ListBoxGroup` **is our `ListBox`** — a Surface container with Item · ItemPrefix ·
 ItemContent · ItemTitle · ItemDescription · ItemSuffix, slot for slot. What is here under

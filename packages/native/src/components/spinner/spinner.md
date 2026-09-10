@@ -75,7 +75,7 @@ is a fill softened, and there is no fill here.
 
 ### `size` is the diameter
 
-Sixteen, twenty, twenty-four and thirty-two points — HeroUI's three steps plus the one our
+Sixteen, twenty, twenty-four and thirty-two points — the reference implementation's three steps plus the one our
 ladder adds between the first two. The stroke thickens once, at `lg`, because a 2pt ring on
 a 32pt circle reads as a hairline and a 3pt ring on a 16pt one reads as a doughnut.
 
@@ -103,7 +103,7 @@ still the last word.
 
 ### Why borders and not an SVG stroke
 
-HeroUI draws one arc fading from opaque to 55%, which needs a `linearGradient` and
+The reference implementation draws one arc fading from opaque to 55%, which needs a `linearGradient` and
 therefore `react-native-svg`. That package is an **optional peer** here, and a component in
 the fifteen-component core cannot require one. Two circles of a single ink at two opacities
 read as the same figure, cost two views, and pull in nothing.

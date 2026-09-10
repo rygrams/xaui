@@ -59,7 +59,7 @@ export default function SpinnerScreen() {
 
       <Section
         title="The track — why it is two rings and not one"
-        note="The faint full circle is the track; the arc turns over it. Without it a rotating three-quarter ring reads as broken rather than as busy. HeroUI gets the same figure from a gradient stroke, which would need react-native-svg — an optional peer a core component cannot require."
+        note="The faint full circle is the track; the arc turns over it. Without it a rotating three-quarter ring reads as broken rather than as busy. The reference implementation gets the same figure from a gradient stroke, which would need react-native-svg — an optional peer a core component cannot require."
       >
         <Row>
           <Labelled label="lg · default">

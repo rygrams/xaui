@@ -28,7 +28,7 @@ const SLOTS = [
  * A variant **names tokens and computes nothing**: `paint` below decides where they land.
  *
  * The first three name the `fieldBorder` edge and `ghost` gives it up. Its **width** is
- * the theme's `borderWidth.field`, which is the same knob HeroUI exposes as
+ * the theme's `borderWidth.field`, which is the same knob the reference implementation exposes as
  * `--field-border-width` — and the one number where the two libraries' defaults differ:
  * they ship it at `0`, so their input is a fill with no visible edge, and we ship `1`.
  * `createTheme({ borderWidth: { field: 0 } })` reproduces theirs exactly.
@@ -75,7 +75,7 @@ const VARIANT_TOKENS: Record<TextFieldVariant, VariantTokens> = {
  * The height is a **minimum**, which is the one place this component departs from the
  * fixed-height rule the `Button` and the `Chip` follow. The reason is `multiline`: a
  * `TextInput` holding three lines of the user's own text has to grow, and a control whose
- * content is not the developer's cannot be truncated into shape. HeroUI reaches the same
+ * content is not the developer's cannot be truncated into shape. The reference implementation reaches the same
  * conclusion with `min-height` on their single size.
  *
  * The `gap` is one point tighter than the spacing scale's whole steps at every size — 3,
@@ -166,7 +166,7 @@ type SizeStep = {
 }
 
 /**
- * `md` is the anchor, and it is HeroUI's input measured: a 48pt minimum, 12pt of
+ * `md` is the anchor, and it is the reference implementation's input measured: a 48pt minimum, 12pt of
  * horizontal padding, a 16/24 label above the field and a 14/20 line below it. Their scale
  * has a single step; ours moves around that one, a control height and a step of type at a
  * time.
@@ -299,7 +299,7 @@ export const textFieldRecipe = createRecipe({
       borderWidth: theme.borderWidth.field,
       // The theme has a radius named for this component, so every size uses it and the
       // `radius` axis is what overrides it — the same shape a `Chip` takes from `full`.
-      // It is HeroUI's twelve points since the scale was aligned on theirs; it was 21,
+      // It is the reference implementation's twelve points since the scale was aligned on theirs; it was 21,
       // which put a 48-tall field at 87% of its geometric maximum.
       borderRadius: theme.radius.field,
       borderCurve: 'continuous',

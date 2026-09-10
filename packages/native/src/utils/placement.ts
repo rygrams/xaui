@@ -105,7 +105,7 @@ export function resolvePlacement(input: PlacementInput): PlacementResult {
   // that, a panel beside a trigger with no room for it goes off the screen entirely —
   // which is what `start` and `end` did until the day someone opened one.
   //
-  // The panel may then overlap its own trigger. That is the right trade and the one HeroUI
+  // The panel may then overlap its own trigger. That is the right trade and the one the reference implementation
   // makes too: a panel covering the button that opened it is legible, and a panel past the
   // edge of the screen is not.
   const top = clamp(

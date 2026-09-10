@@ -4,7 +4,7 @@
 
 `Typography` and `TextSpan` — the first entry of the v1 core
 
-Ten roles, aligned with HeroUI Native's `text`: `h1`–`h6`, `body`, `body-sm`, `body-xs` and
+Ten roles, aligned with the reference implementation's `text`: `h1`–`h6`, `body`, `body-sm`, `body-xs` and
 `code`. Each role fixes size, line height, weight and family **together**, which is why
 there is no `size` prop and no `weight` prop — the combinations they allowed (a heading in
 a light weight, a caption in a display size) become unwritable rather than discouraged.
