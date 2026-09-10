@@ -133,7 +133,7 @@ export const SlideButtonRoot = forwardRef<View, SlideButtonProps>(
         isDisabled,
         isConfirmed: confirmed,
         confirm,
-        setTrackLength,
+        trackLength,
       }
     }, [
       styles,
@@ -146,6 +146,7 @@ export const SlideButtonRoot = forwardRef<View, SlideButtonProps>(
       isDisabled,
       confirmed,
       confirm,
+      trackLength,
     ])
 
     const text = childrenToString(children)

@@ -100,5 +100,6 @@ export type SlideButtonContextValue = {
   isConfirmed: boolean
   /** Called from the pan on release once the thumb has reached `threshold`. */
   confirm: () => void
-  setTrackLength: (length: number) => void
+  /** The pill's measured width. Zero until it has been laid out. */
+  trackLength: number
 }

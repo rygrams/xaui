@@ -142,8 +142,11 @@ readable whatever the pill is doing.
 **The trail is a wash of the pill's own foreground** — the same colour the label uses, at
 low opacity. It reads against every variant without a token of its own: light on a filled
 pill, dark on `secondary` or `ghost`. A raw `color` moves it with the label. Its width is
-the handle's offset, so it is nothing at rest and grows behind the handle as the drag
-runs — how far the slide has come, not the value.
+the swept **fraction** of the travel laid over the whole pill — nothing at rest, and full
+at the end. It is not the handle's raw offset: the handle stops a handle's width short of
+the trailing cap, because that is where it physically is, and a trail that stopped with it
+would leave a confirmed slide showing unswept pill. How far the slide has come, not the
+value.
 
 ## How it is put together
 

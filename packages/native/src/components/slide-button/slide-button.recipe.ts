@@ -105,16 +105,27 @@ export const slideButtonRecipe = createRecipe({
   base: theme => ({
     // A fixed-height bar holding three absolutely-positioned children — the fill, the
     // label and the thumb — so none of them pushes the others around as the thumb moves.
+    //
+    // It clips, and that is not housekeeping: the pill is `radius.full`, which on a
+    // 48-tall bar resolves to a 24-point cap, while the trail's own `full` is clamped to
+    // half of whichever side is shorter — half its *width* for the whole first 48 points
+    // of the drag. A squarer corner inside a rounder one shows, so early in the slide the
+    // trail bulged past the pill's leading edge. The clip is what holds the trail to the
+    // pill's shape at every width. The handle is inset 4 points on a shadow that reaches
+    // about as far, so what the clip costs is the last wisp of it, at the pill's edge.
     root: {
       width: '100%',
       justifyContent: 'center',
+      overflow: 'hidden',
       borderCurve: 'continuous',
       borderRadius: theme.radius.full,
       borderWidth: 0,
     },
-    // Zero width at rest — its width is the handle's offset, so nothing shows over the
-    // pill's leading corner until the drag has actually started. The colour is the
-    // variant's, set in `paint`.
+    // Zero width at rest — the width is the swept fraction of the pill, set by the slot,
+    // so there is nothing to draw until the drag has actually started. The radius is the
+    // pill's, so the trail matches the leading cap once it is wide enough to render it;
+    // the root's clip covers the widths where it cannot. The colour is the variant's,
+    // set in `paint`.
     fill: {
       position: 'absolute',
       top: 0,
