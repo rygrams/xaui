@@ -8,10 +8,11 @@ import type {
   ViewStyle,
 } from 'react-native'
 import type { BottomSheetProps } from '../bottom-sheet'
+import type { IconProps } from '../../system/icon'
 import type { PressableFeedbackProps } from '../../system/pressable-feedback'
 import type { TextStyleProps, ViewStyleProps } from '../../system/style-props'
 import type { RadiusKey, Size } from '../../theme/theme.type'
-import type { DayPeriod, HourCycle } from '../../utils/time-mask'
+import type { DayPeriod, HourCycle } from '../../utils/time'
 
 export type TimePickerSlot =
   | 'dial'
@@ -97,6 +98,17 @@ export type TimePickerValueProps = TimePickerTextProps & {
   /** What the field says with no time chosen. */
   placeholder?: string
 }
+
+type TimePickerDefaultIndicatorProps = {
+  as?: never
+  children?: never
+  source?: never
+  size?: number
+  color?: string
+}
+
+/** Empty props draw the built-in clock; any of `Icon`'s three forms replaces it. */
+export type TimePickerIndicatorProps = TimePickerDefaultIndicatorProps | IconProps
 
 /** `View`'s own props win over the `ViewStyle` keys of the same name (R14). */
 export type TimePickerViewProps = ViewProps &

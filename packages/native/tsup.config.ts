@@ -71,7 +71,6 @@ const entries = {
   'components/toggle-button/index': 'src/components/toggle-button/index.ts',
   'components/phone-number-field/index':
     'src/components/phone-number-field/index.ts',
-  'components/time-field/index': 'src/components/time-field/index.ts',
   'components/time-picker/index': 'src/components/time-picker/index.ts',
   'components/toast/index': 'src/components/toast/index.ts',
   'components/typography/index': 'src/components/typography/index.ts',

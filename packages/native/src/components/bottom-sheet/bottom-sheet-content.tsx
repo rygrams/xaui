@@ -159,9 +159,10 @@ export function BottomSheetContent({
       runOnJS(release)(event.translationY, event.velocityY)
     })
 
-  const slide = useAnimatedStyle(() => ({
-    transform: [{ translateY: offset.get() }],
-  }))
+  const slide = useAnimatedStyle(() => {
+    'worklet'
+    return { transform: [{ translateY: offset.get() }] }
+  }, [offset])
 
   if (!isOpen) return null
 

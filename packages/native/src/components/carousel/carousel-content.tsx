@@ -63,23 +63,27 @@ export const CarouselContent = forwardRef<ScrollView, CarouselViewSlotProps>(
     const settled = useSharedValue(0)
 
     const { step } = metrics
-    const scroll = useAnimatedScrollHandler(event => {
-      offset.set(event.contentOffset.x)
+    const scroll = useAnimatedScrollHandler(
+      event => {
+        'worklet'
+        offset.set(event.contentOffset.x)
 
-      // The index changes as the track *crosses* the halfway point, not when it stops.
-      //
-      // `onMomentumScrollEnd` would be the obvious place and it is the wrong one twice: it
-      // never fires for a wheel or a trackpad, so on the web the index would never move at
-      // all; and it lands after the fact, so the arrows and the thumbnails would sit on the
-      // previous slide for the length of the deceleration. `indexFromOffset` rounds, so the
-      // crossing is the moment the nearest slide changes, which is what "which slide am I
-      // on" means while a finger is still down.
-      const next = indexFromOffset(event.contentOffset.x, step, count)
-      if (next !== settled.get()) {
-        settled.set(next)
-        runOnJS(onSettle)(next)
-      }
-    })
+        // The index changes as the track *crosses* the halfway point, not when it stops.
+        //
+        // `onMomentumScrollEnd` would be the obvious place and it is the wrong one twice: it
+        // never fires for a wheel or a trackpad, so on the web the index would never move at
+        // all; and it lands after the fact, so the arrows and the thumbnails would sit on the
+        // previous slide for the length of the deceleration. `indexFromOffset` rounds, so the
+        // crossing is the moment the nearest slide changes, which is what "which slide am I
+        // on" means while a finger is still down.
+        const next = indexFromOffset(event.contentOffset.x, step, count)
+        if (next !== settled.get()) {
+          settled.set(next)
+          runOnJS(onSettle)(next)
+        }
+      },
+      [offset, settled, step, count, onSettle]
+    )
 
     return (
       <Animated.ScrollView

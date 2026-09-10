@@ -16,8 +16,8 @@ import type { NumberFieldIncrementProps } from './number-field.type'
  * </FieldGroup>
  * ```
  *
- * It goes in a `FieldGroup`, like `TimeField.Period`: that is the thing that lays a control
- * over a field and measures it, and the field reads the same measurement to leave it room.
+ * It goes in a `FieldGroup`: that is the thing that lays a control over a field and measures
+ * it, and the field reads the same measurement to leave it room.
  *
  * **The trailing edge is not a choice.** The value sits between the two buttons, which is
  * the only arrangement in which they read as one control rather than as two marks that

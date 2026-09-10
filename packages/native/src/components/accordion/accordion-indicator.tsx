@@ -30,13 +30,16 @@ export function AccordionIndicator({
     progress.set(withSpring(isExpanded ? 1 : 0, INDICATOR_SPRING))
   }, [isExpanded, progress])
 
-  const rotation = useAnimatedStyle(() => ({
-    transform: [
-      {
-        rotate: `${interpolate(progress.get(), [0, 1], [INDICATOR_ROTATION[0], INDICATOR_ROTATION[1]])}deg`,
-      },
-    ],
-  }))
+  const rotation = useAnimatedStyle(() => {
+    'worklet'
+    return {
+      transform: [
+        {
+          rotate: `${interpolate(progress.get(), [0, 1], [INDICATOR_ROTATION[0], INDICATOR_ROTATION[1]])}deg`,
+        },
+      ],
+    }
+  }, [progress])
 
   return (
     <Animated.View style={[indicatorStyle, rotation]}>

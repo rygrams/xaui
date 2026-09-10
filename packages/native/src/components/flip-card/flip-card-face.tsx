@@ -25,6 +25,7 @@ function face(which: FlipFace, name: string) {
     const [styleProps, rest] = useStyleProps(props)
 
     const turn = useAnimatedStyle(() => {
+      'worklet'
       const angle = `${faceAngle(progress.get(), which, rotation)}deg`
 
       return {
@@ -36,7 +37,7 @@ function face(which: FlipFace, name: string) {
           direction === 'horizontal' ? { rotateY: angle } : { rotateX: angle },
         ],
       }
-    })
+    }, [progress, direction, rotation])
 
     return (
       <Animated.View

@@ -1,0 +1,1291 @@
+[
+  {
+    "id": "accordion",
+    "title": "Accordion",
+    "description": "A list of rows that open. Replaces the legacy ExpansionPanel.",
+    "category": "Navigation",
+    "importPath": "@xaui/native/accordion",
+    "href": "/docs/components/accordion",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/accordion",
+    "markdownPath": "packages/native/src/components/accordion/accordion.md",
+    "demoId": "accordion",
+    "exports": [
+      "Accordion",
+      "AccordionContent",
+      "AccordionIndicator",
+      "AccordionItem",
+      "AccordionTrigger"
+    ]
+  },
+  {
+    "id": "agenda-calendar",
+    "title": "AgendaCalendar",
+    "description": "One week, and what is on it.",
+    "category": "Navigation",
+    "importPath": "@xaui/native/agenda-calendar",
+    "href": "/docs/components/agenda-calendar",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/agenda-calendar",
+    "markdownPath": "packages/native/src/components/agenda-calendar/agenda-calendar.md",
+    "demoId": "agenda-calendar",
+    "exports": [
+      "AgendaCalendar",
+      "AgendaCalendarDay",
+      "AgendaCalendarHeader",
+      "AgendaCalendarMonthPicker",
+      "AgendaCalendarNav",
+      "AgendaCalendarTitle",
+      "AgendaCalendarTodayButton",
+      "AgendaCalendarWeek",
+      "AgendaCalendarWeekdays",
+      "AgendaCalendarYearPicker"
+    ]
+  },
+  {
+    "id": "alert",
+    "title": "Alert",
+    "description": "A message the interface has to make sure is read — an outcome, a warning, a failure.",
+    "category": "Feedback",
+    "importPath": "@xaui/native/alert",
+    "href": "/docs/components/alert",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/alert",
+    "markdownPath": "packages/native/src/components/alert/alert.md",
+    "demoId": "alert",
+    "exports": [
+      "Alert"
+    ]
+  },
+  {
+    "id": "area-chart",
+    "title": "AreaChart",
+    "description": "The LineChart with the ground under it filled.",
+    "category": "Charts",
+    "importPath": "@xaui/native/area-chart",
+    "href": "/docs/components/area-chart",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/area-chart",
+    "markdownPath": "packages/native/src/components/area-chart/area-chart.md",
+    "demoId": "charts",
+    "exports": [
+      "AreaChart"
+    ]
+  },
+  {
+    "id": "autocomplete",
+    "title": "Autocomplete",
+    "description": "A field that opens a list you search.",
+    "category": "Forms",
+    "importPath": "@xaui/native/autocomplete",
+    "href": "/docs/components/autocomplete",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/autocomplete",
+    "markdownPath": "packages/native/src/components/autocomplete/autocomplete.md",
+    "demoId": "autocomplete",
+    "exports": [
+      "Autocomplete",
+      "AutocompleteContent",
+      "AutocompleteEmpty",
+      "AutocompleteIndicator",
+      "AutocompleteItem",
+      "AutocompleteItemLabel",
+      "AutocompleteOverlay",
+      "AutocompleteSearch",
+      "AutocompleteTrigger",
+      "AutocompleteValue"
+    ]
+  },
+  {
+    "id": "avatar",
+    "title": "Avatar",
+    "description": "A person or a thing, in a circle.",
+    "category": "Data display",
+    "importPath": "@xaui/native/avatar",
+    "href": "/docs/components/avatar",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/avatar",
+    "markdownPath": "packages/native/src/components/avatar/avatar.md",
+    "demoId": "avatar",
+    "exports": [
+      "Avatar"
+    ]
+  },
+  {
+    "id": "badge",
+    "title": "Badge",
+    "description": "A count, or the fact that there is one.",
+    "category": "Data display",
+    "importPath": "@xaui/native/badge",
+    "href": "/docs/components/badge",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/badge",
+    "markdownPath": "packages/native/src/components/badge/badge.md",
+    "demoId": "badge",
+    "exports": [
+      "Badge"
+    ]
+  },
+  {
+    "id": "bar-chart",
+    "title": "BarChart",
+    "description": "A bar per row, and a bar per series inside it once there is more than one.",
+    "category": "Charts",
+    "importPath": "@xaui/native/bar-chart",
+    "href": "/docs/components/bar-chart",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/bar-chart",
+    "markdownPath": "packages/native/src/components/bar-chart/bar-chart.md",
+    "demoId": "charts",
+    "exports": [
+      "BarChart"
+    ]
+  },
+  {
+    "id": "bottom-sheet",
+    "title": "BottomSheet",
+    "description": "A surface that comes up from the bottom edge and can be thrown back down.",
+    "category": "Overlays",
+    "importPath": "@xaui/native/bottom-sheet",
+    "href": "/docs/components/bottom-sheet",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/bottom-sheet",
+    "markdownPath": "packages/native/src/components/bottom-sheet/bottom-sheet.md",
+    "demoId": "bottom-sheet",
+    "exports": [
+      "BottomSheet",
+      "BottomSheetClose",
+      "BottomSheetContent",
+      "BottomSheetDescription",
+      "BottomSheetHandle",
+      "BottomSheetOverlay",
+      "BottomSheetSummary",
+      "BottomSheetTitle",
+      "BottomSheetTrigger"
+    ]
+  },
+  {
+    "id": "button",
+    "title": "Button",
+    "description": "A control that runs an action when it is pressed. The reference component: every other one in the library is this shape.",
+    "category": "Actions",
+    "importPath": "@xaui/native/button",
+    "href": "/docs/components/button",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/button",
+    "markdownPath": "packages/native/src/components/button/button.md",
+    "demoId": "button",
+    "exports": [
+      "Button"
+    ]
+  },
+  {
+    "id": "calendar",
+    "title": "Calendar",
+    "description": "A month, and the day chosen in it.",
+    "category": "Navigation",
+    "importPath": "@xaui/native/calendar",
+    "href": "/docs/components/calendar",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/calendar",
+    "markdownPath": "packages/native/src/components/calendar/calendar.md",
+    "demoId": "calendar",
+    "exports": [
+      "Calendar",
+      "CalendarDay",
+      "CalendarGrid",
+      "CalendarHeader",
+      "CalendarMonthPicker",
+      "CalendarTitle",
+      "CalendarWeekdays",
+      "CalendarYearPicker"
+    ]
+  },
+  {
+    "id": "card",
+    "title": "Card",
+    "description": "A surface that groups related content — and, with isPressable, the control that opens it.",
+    "category": "Layout",
+    "importPath": "@xaui/native/card",
+    "href": "/docs/components/card",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/card",
+    "markdownPath": "packages/native/src/components/card/card.md",
+    "demoId": "card",
+    "exports": [
+      "Card"
+    ]
+  },
+  {
+    "id": "carousel",
+    "title": "Carousel",
+    "description": "A series of slides, one or a few at a time, with the controls to move between them.",
+    "category": "Data display",
+    "importPath": "@xaui/native/carousel",
+    "href": "/docs/components/carousel",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/carousel",
+    "markdownPath": "packages/native/src/components/carousel/carousel.md",
+    "demoId": "carousel",
+    "exports": [
+      "Carousel",
+      "CarouselContent",
+      "CarouselCounter",
+      "CarouselItem"
+    ]
+  },
+  {
+    "id": "chart",
+    "title": "Charts",
+    "description": "Five figures — LineChart, AreaChart, BarChart, PieChart, RadarChart — and the plot the first three share.",
+    "category": "Charts",
+    "importPath": "@xaui/native/chart",
+    "href": "/docs/components/chart",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/chart",
+    "markdownPath": "packages/native/src/components/chart/chart.md",
+    "demoId": "charts",
+    "exports": [
+      "Chart",
+      "ChartFooter",
+      "ChartHeader",
+      "ChartHeading"
+    ]
+  },
+  {
+    "id": "checkbox",
+    "title": "Checkbox",
+    "description": "A box that is either ticked or not, with the label that says what it means.",
+    "category": "Forms",
+    "importPath": "@xaui/native/checkbox",
+    "href": "/docs/components/checkbox",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/checkbox",
+    "markdownPath": "packages/native/src/components/checkbox/checkbox.md",
+    "demoId": "checkbox",
+    "exports": [
+      "Checkbox",
+      "CheckboxIndicator",
+      "CheckboxLabel"
+    ]
+  },
+  {
+    "id": "chip",
+    "title": "Chip",
+    "description": "A compact token — a status, a tag, a filter, a person.",
+    "category": "Data display",
+    "importPath": "@xaui/native/chip",
+    "href": "/docs/components/chip",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/chip",
+    "markdownPath": "packages/native/src/components/chip/chip.md",
+    "demoId": "chip",
+    "exports": [
+      "Chip"
+    ]
+  },
+  {
+    "id": "close-button",
+    "title": "CloseButton",
+    "description": "The way out, on its own.",
+    "category": "Actions",
+    "importPath": "@xaui/native/close-button",
+    "href": "/docs/components/close-button",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/close-button",
+    "markdownPath": "packages/native/src/components/close-button/close-button.md",
+    "demoId": "close-button",
+    "exports": [
+      "CloseButton"
+    ]
+  },
+  {
+    "id": "color-picker",
+    "title": "ColorPicker",
+    "description": "A colour, chosen off a palette. Imports from @xaui/native/color-picker. Run the color-picker demo screen to try the real component in light and dark mode.",
+    "category": "Forms",
+    "importPath": "@xaui/native/color-picker",
+    "href": "/docs/components/color-picker",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/color-picker",
+    "markdownPath": "packages/native/src/components/color-picker/color-picker.md",
+    "demoId": "color-picker",
+    "exports": [
+      "ColorPicker",
+      "ColorPickerContent",
+      "ColorPickerField",
+      "ColorPickerGrid",
+      "ColorPickerGroup",
+      "ColorPickerPreview",
+      "ColorPickerSwatch"
+    ]
+  },
+  {
+    "id": "combobox",
+    "title": "Combobox",
+    "description": "A field you type in, over a list you must choose from.",
+    "category": "Forms",
+    "importPath": "@xaui/native/combobox",
+    "href": "/docs/components/combobox",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/combobox",
+    "markdownPath": "packages/native/src/components/combobox/combobox.md",
+    "demoId": "combobox",
+    "exports": [
+      "Combobox",
+      "ComboboxIndicator",
+      "ComboboxInput",
+      "ComboboxTrigger"
+    ]
+  },
+  {
+    "id": "date-picker",
+    "title": "DatePicker",
+    "description": "A field that opens a month.",
+    "category": "Forms",
+    "importPath": "@xaui/native/date-picker",
+    "href": "/docs/components/date-picker",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/date-picker",
+    "markdownPath": "packages/native/src/components/date-picker/date-picker.md",
+    "demoId": "date-picker",
+    "exports": [
+      "DatePicker",
+      "CalendarGlyphIcon",
+      "DatePickerCalendar",
+      "DatePickerContent",
+      "DatePickerDescription",
+      "DatePickerError",
+      "DatePickerField",
+      "DatePickerIndicator",
+      "DatePickerLabel",
+      "DatePickerOverlay",
+      "DatePickerTrigger",
+      "DatePickerValue"
+    ]
+  },
+  {
+    "id": "date-range-picker",
+    "title": "DateRangePicker",
+    "description": "A field that opens a month, and takes two days from it.",
+    "category": "Forms",
+    "importPath": "@xaui/native/date-range-picker",
+    "href": "/docs/components/date-range-picker",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/date-range-picker",
+    "markdownPath": "packages/native/src/components/date-range-picker/date-range-picker.md",
+    "demoId": "date-range-picker",
+    "exports": [
+      "DateRangePicker",
+      "DateRangePickerIndicator",
+      "DateRangePickerTrigger",
+      "DateRangePickerValue"
+    ]
+  },
+  {
+    "id": "date-time-picker",
+    "title": "DateTimePicker",
+    "description": "A field that opens a month, and then a clock.",
+    "category": "Forms",
+    "importPath": "@xaui/native/date-time-picker",
+    "href": "/docs/components/date-time-picker",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/date-time-picker",
+    "markdownPath": "packages/native/src/components/date-time-picker/date-time-picker.md",
+    "demoId": "date-time-picker",
+    "exports": [
+      "DateTimePicker",
+      "DateTimePickerIndicator",
+      "DateTimePickerSteps",
+      "DateTimePickerTrigger",
+      "DateTimePickerValue"
+    ]
+  },
+  {
+    "id": "dialog",
+    "title": "Dialog",
+    "description": "A question the page has to be answered before it goes on.",
+    "category": "Overlays",
+    "importPath": "@xaui/native/dialog",
+    "href": "/docs/components/dialog",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/dialog",
+    "markdownPath": "packages/native/src/components/dialog/dialog.md",
+    "demoId": "dialog",
+    "exports": [
+      "Dialog",
+      "DialogClose",
+      "DialogContent",
+      "DialogDescription",
+      "DialogOverlay",
+      "DialogTitle",
+      "DialogTrigger"
+    ]
+  },
+  {
+    "id": "divider",
+    "title": "Divider",
+    "description": "The line between two things.",
+    "category": "Layout",
+    "importPath": "@xaui/native/divider",
+    "href": "/docs/components/divider",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/divider",
+    "markdownPath": "packages/native/src/components/divider/divider.md",
+    "demoId": "divider",
+    "exports": [
+      "Divider"
+    ]
+  },
+  {
+    "id": "dummy-field",
+    "title": "DummyField",
+    "description": "A field container styled identically to a text input (TextField), but non-editable and pressable. Designed as a trigger for pickers, modals, bottom sheets, menus, or file selection — or for presenting a read-only field value that can be tapped.",
+    "category": "Forms",
+    "importPath": "@xaui/native/dummy-field",
+    "href": "/docs/components/dummy-field",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/dummy-field",
+    "markdownPath": "packages/native/src/components/dummy-field/dummy-field.md",
+    "demoId": "dummy-field",
+    "exports": [
+      "DummyField",
+      "DummyFieldLabel",
+      "DummyFieldField",
+      "DummyFieldValue",
+      "DummyFieldIndicator",
+      "DummyFieldDescription",
+      "DummyFieldError"
+    ]
+  },
+  {
+    "id": "empty-state",
+    "title": "EmptyState",
+    "description": "What is on the screen when there is nothing on the screen.",
+    "category": "Feedback",
+    "importPath": "@xaui/native/empty-state",
+    "href": "/docs/components/empty-state",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/empty-state",
+    "markdownPath": "packages/native/src/components/empty-state/empty-state.md",
+    "demoId": "empty-state",
+    "exports": [
+      "EmptyState",
+      "EmptyStateContent",
+      "EmptyStateHeader",
+      "EmptyStateMedia"
+    ]
+  },
+  {
+    "id": "fab",
+    "title": "Fab",
+    "description": "The one thing to do on a screen, floating over the thing it does it to.",
+    "category": "Actions",
+    "importPath": "@xaui/native/fab",
+    "href": "/docs/components/fab",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/fab",
+    "markdownPath": "packages/native/src/components/fab/fab.md",
+    "demoId": "fab",
+    "exports": [
+      "FabMenu",
+      "FabDiscovery",
+      "Fab",
+      "FabIcon",
+      "FabLabel",
+      "FabSpinner",
+      "FabMenuContent",
+      "FabMenuIcon",
+      "FabMenuItem",
+      "FabMenuLabel",
+      "FabMenuOverlay",
+      "FabMenuTrigger",
+      "FabDiscoveryAction",
+      "FabDiscoveryContent",
+      "FabDiscoveryDescription",
+      "FabDiscoveryOverlay",
+      "FabDiscoveryTarget",
+      "FabDiscoveryTitle"
+    ]
+  },
+  {
+    "id": "field-group",
+    "title": "FieldGroup",
+    "description": "A field with something beside it — a glyph, a unit, a reveal toggle.",
+    "category": "Forms",
+    "importPath": "@xaui/native/field-group",
+    "href": "/docs/components/field-group",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/field-group",
+    "markdownPath": "packages/native/src/components/field-group/field-group.md",
+    "demoId": "field-group",
+    "exports": [
+      "FieldGroup",
+      "FieldGroupField",
+      "FieldGroupIcon",
+      "FieldGroupPrefix",
+      "FieldGroupSuffix"
+    ]
+  },
+  {
+    "id": "flip-card",
+    "title": "FlipCard",
+    "description": "A card with two faces, and a turn between them.",
+    "category": "Layout",
+    "importPath": "@xaui/native/flip-card",
+    "href": "/docs/components/flip-card",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/flip-card",
+    "markdownPath": "packages/native/src/components/flip-card/flip-card.md",
+    "demoId": "flip-card",
+    "exports": [
+      "FlipCard"
+    ]
+  },
+  {
+    "id": "input-otp",
+    "title": "InputOTP",
+    "description": "A one-time code, one character to a box.",
+    "category": "Forms",
+    "importPath": "@xaui/native/input-otp",
+    "href": "/docs/components/input-otp",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/input-otp",
+    "markdownPath": "packages/native/src/components/input-otp/input-otp.md",
+    "demoId": "input-otp",
+    "exports": [
+      "InputOTP"
+    ]
+  },
+  {
+    "id": "line-chart",
+    "title": "LineChart",
+    "description": "A line per series, over a shared scale.",
+    "category": "Charts",
+    "importPath": "@xaui/native/line-chart",
+    "href": "/docs/components/line-chart",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/line-chart",
+    "markdownPath": "packages/native/src/components/line-chart/line-chart.md",
+    "demoId": "charts",
+    "exports": [
+      "LineChart"
+    ]
+  },
+  {
+    "id": "list",
+    "title": "List",
+    "description": "List virtualise une collection avec le FlatList de React Native. Il fournit la structure visuelle d'une ligne sans lui attribuer de comportement de sélection ou de pression.",
+    "category": "Data display",
+    "importPath": "@xaui/native/list",
+    "href": "/docs/components/list",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/list",
+    "markdownPath": "packages/native/src/components/list/list.md",
+    "demoId": "list",
+    "exports": [
+      "List",
+      "ListAction",
+      "ListContent",
+      "ListDescription",
+      "ListItem",
+      "ListLeading",
+      "ListTitle"
+    ]
+  },
+  {
+    "id": "list-box",
+    "title": "ListBox",
+    "description": "Rows on a ground.",
+    "category": "Data display",
+    "importPath": "@xaui/native/list-box",
+    "href": "/docs/components/list-box",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/list-box",
+    "markdownPath": "packages/native/src/components/list-box/list-box.md",
+    "demoId": "list-box",
+    "exports": [
+      "ListBoxGroup",
+      "ListBox",
+      "ListBoxGroupFooter",
+      "ListBoxGroupHeader",
+      "ListBoxGroupSection",
+      "ListBoxItem",
+      "ListBoxItemButton",
+      "ListBoxItemContent",
+      "ListBoxItemDescription",
+      "ListBoxItemPrefix",
+      "ListBoxItemSuffix",
+      "ListBoxItemTitle"
+    ]
+  },
+  {
+    "id": "mask-field",
+    "title": "MaskField",
+    "description": "A value typed into a shape — a date, a time, a card number, or a pattern of your own.",
+    "category": "Forms",
+    "importPath": "@xaui/native/mask-field",
+    "href": "/docs/components/mask-field",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/mask-field",
+    "markdownPath": "packages/native/src/components/mask-field/mask-field.md",
+    "demoId": "mask-field",
+    "exports": [
+      "MaskField",
+      "MaskFieldField"
+    ]
+  },
+  {
+    "id": "menu",
+    "title": "Menu",
+    "description": "A list of actions, anchored to whatever opened it. The Popover's positioning with rows in it.",
+    "category": "Overlays",
+    "importPath": "@xaui/native/menu",
+    "href": "/docs/components/menu",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/menu",
+    "markdownPath": "packages/native/src/components/menu/menu.md",
+    "demoId": "menu",
+    "exports": [
+      "Menu",
+      "MenuContent",
+      "MenuGroup",
+      "MenuItem",
+      "MenuItemDescription",
+      "MenuItemIndicator",
+      "MenuItemTitle",
+      "MenuLabel",
+      "MenuSeparator",
+      "MenuOverlay",
+      "MenuTrigger"
+    ]
+  },
+  {
+    "id": "morph-button",
+    "title": "MorphButton",
+    "description": "A button that changes shape: a pill at rest, a card once it is open.",
+    "category": "Actions",
+    "importPath": "@xaui/native/morph-button",
+    "href": "/docs/components/morph-button",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/morph-button",
+    "markdownPath": "packages/native/src/components/morph-button/morph-button.md",
+    "demoId": "morph-button",
+    "exports": [
+      "MorphButton",
+      "MorphButtonIcon"
+    ]
+  },
+  {
+    "id": "number-field",
+    "title": "NumberField",
+    "description": "A number, typed — with the two ends of its range and a pair of buttons that walk it.",
+    "category": "Forms",
+    "importPath": "@xaui/native/number-field",
+    "href": "/docs/components/number-field",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/number-field",
+    "markdownPath": "packages/native/src/components/number-field/number-field.md",
+    "demoId": "number-field",
+    "exports": [
+      "NumberField",
+      "NumberFieldDecrement",
+      "NumberFieldField",
+      "NumberFieldIncrement"
+    ]
+  },
+  {
+    "id": "number-pad",
+    "title": "NumberPad",
+    "description": "The keypad a PIN, a code and an amount are typed on.",
+    "category": "Forms",
+    "importPath": "@xaui/native/number-pad",
+    "href": "/docs/components/number-pad",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/number-pad",
+    "markdownPath": "packages/native/src/components/number-pad/number-pad.md",
+    "demoId": "number-pad",
+    "exports": [
+      "NumberPad",
+      "NumberPadAction",
+      "NumberPadBackspace",
+      "NumberPadIcon",
+      "NumberPadKey",
+      "NumberPadLabel"
+    ]
+  },
+  {
+    "id": "number-stepper",
+    "title": "NumberStepper",
+    "description": "A quantity, and the two presses that move it.",
+    "category": "Forms",
+    "importPath": "@xaui/native/number-stepper",
+    "href": "/docs/components/number-stepper",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/number-stepper",
+    "markdownPath": "packages/native/src/components/number-stepper/number-stepper.md",
+    "demoId": "number-stepper",
+    "exports": [
+      "NumberStepper",
+      "NumberStepperDecrement",
+      "NumberStepperIncrement",
+      "NumberStepperTrack",
+      "NumberStepperValue"
+    ]
+  },
+  {
+    "id": "pager",
+    "title": "Pager",
+    "description": "Whole pages, one at a time — the onboarding flow, the full-screen feed, the gallery a reader swipes through.",
+    "category": "Navigation",
+    "importPath": "@xaui/native/pager",
+    "href": "/docs/components/pager",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/pager",
+    "markdownPath": "packages/native/src/components/pager/pager.md",
+    "demoId": "pager",
+    "exports": [
+      "Pager",
+      "PagerContent",
+      "PagerPage"
+    ]
+  },
+  {
+    "id": "phone-number-field",
+    "title": "PhoneNumberField",
+    "description": "A national phone number beside its country flag and calling code, with a searchable country sheet. Imports from @xaui/native/phone-number-field. Run the phone-number-field demo screen to try the real component in light and dark mode.",
+    "category": "Forms",
+    "importPath": "@xaui/native/phone-number-field",
+    "href": "/docs/components/phone-number-field",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/phone-number-field",
+    "markdownPath": "packages/native/src/components/phone-number-field/phone-number-field.md",
+    "demoId": "phone-number-field",
+    "exports": [
+      "PhoneNumberField"
+    ]
+  },
+  {
+    "id": "pie-chart",
+    "title": "PieChart",
+    "description": "The whole, and its parts.",
+    "category": "Charts",
+    "importPath": "@xaui/native/pie-chart",
+    "href": "/docs/components/pie-chart",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/pie-chart",
+    "markdownPath": "packages/native/src/components/pie-chart/pie-chart.md",
+    "demoId": "charts",
+    "exports": [
+      "PieChart"
+    ]
+  },
+  {
+    "id": "popover",
+    "title": "Popover",
+    "description": "A panel anchored to whatever opened it. The component the Select was written before: the two share their positioning, their measuring pass and their entrance.",
+    "category": "Overlays",
+    "importPath": "@xaui/native/popover",
+    "href": "/docs/components/popover",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/popover",
+    "markdownPath": "packages/native/src/components/popover/popover.md",
+    "demoId": "popover",
+    "exports": [
+      "Popover",
+      "PopoverClose",
+      "PopoverContent",
+      "PopoverDescription",
+      "PopoverOverlay",
+      "PopoverTitle",
+      "PopoverTrigger"
+    ]
+  },
+  {
+    "id": "progress-bar",
+    "title": "ProgressBar",
+    "description": "How far along something is.",
+    "category": "Feedback",
+    "importPath": "@xaui/native/progress-bar",
+    "href": "/docs/components/progress-bar",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/progress-bar",
+    "markdownPath": "packages/native/src/components/progress-bar/progress-bar.md",
+    "demoId": "progress-bar",
+    "exports": [
+      "ProgressBar",
+      "ProgressBarFill",
+      "ProgressBarHeader",
+      "ProgressBarLabel",
+      "ProgressBarTrack",
+      "ProgressBarValue"
+    ]
+  },
+  {
+    "id": "progress-circle",
+    "title": "ProgressCircle",
+    "description": "How far along something is, drawn as a ring.",
+    "category": "Feedback",
+    "importPath": "@xaui/native/progress-circle",
+    "href": "/docs/components/progress-circle",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/progress-circle",
+    "markdownPath": "packages/native/src/components/progress-circle/progress-circle.md",
+    "demoId": "progress-circle",
+    "exports": [
+      "ProgressCircle",
+      "ProgressCircleIndicator",
+      "ProgressCircleValue"
+    ]
+  },
+  {
+    "id": "radar-chart",
+    "title": "RadarChart",
+    "description": "Several quantities at once, each on its own axis.",
+    "category": "Charts",
+    "importPath": "@xaui/native/radar-chart",
+    "href": "/docs/components/radar-chart",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/radar-chart",
+    "markdownPath": "packages/native/src/components/radar-chart/radar-chart.md",
+    "demoId": "charts",
+    "exports": [
+      "RadarChart"
+    ]
+  },
+  {
+    "id": "radial-chart",
+    "title": "RadialChart",
+    "description": "Several quantities, each as far round its own ring as it has got.",
+    "category": "Charts",
+    "importPath": "@xaui/native/radial-chart",
+    "href": "/docs/components/radial-chart",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/radial-chart",
+    "markdownPath": "packages/native/src/components/radial-chart/radial-chart.md",
+    "demoId": "charts",
+    "exports": [
+      "RadialChart"
+    ]
+  },
+  {
+    "id": "radio",
+    "title": "Radio",
+    "description": "One option out of a set, and the label that says which.",
+    "category": "Forms",
+    "importPath": "@xaui/native/radio",
+    "href": "/docs/components/radio",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/radio",
+    "markdownPath": "packages/native/src/components/radio/radio.md",
+    "demoId": "radio",
+    "exports": [
+      "Radio",
+      "RadioGroup",
+      "RadioIndicator",
+      "RadioLabel"
+    ]
+  },
+  {
+    "id": "range-calendar",
+    "title": "RangeCalendar",
+    "description": "A month, and the period chosen in it.",
+    "category": "Forms",
+    "importPath": "@xaui/native/range-calendar",
+    "href": "/docs/components/range-calendar",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/range-calendar",
+    "markdownPath": "packages/native/src/components/range-calendar/range-calendar.md",
+    "demoId": "date-range-picker",
+    "exports": [
+      "RangeCalendar",
+      "RangeCalendarDay",
+      "RangeCalendarGrid"
+    ]
+  },
+  {
+    "id": "rating",
+    "title": "Rating",
+    "description": "A row of marks, given or shown.",
+    "category": "Forms",
+    "importPath": "@xaui/native/rating",
+    "href": "/docs/components/rating",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/rating",
+    "markdownPath": "packages/native/src/components/rating/rating.md",
+    "demoId": "rating",
+    "exports": [
+      "Rating",
+      "RatingIcon",
+      "RatingItem"
+    ]
+  },
+  {
+    "id": "scaffold",
+    "title": "Scaffold",
+    "description": "The app's chrome, painted from the theme: the ground under every screen, the status bar over it, and the options the navigator is dressed with.",
+    "category": "Layout",
+    "importPath": "@xaui/native/scaffold",
+    "href": "/docs/components/scaffold",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/scaffold",
+    "markdownPath": "packages/native/src/components/scaffold/scaffold.md",
+    "demoId": "scaffold",
+    "exports": [
+      "Scaffold"
+    ]
+  },
+  {
+    "id": "search-field",
+    "title": "SearchField",
+    "description": "A query, with the mark that says so and the cross that takes it back. Imports from @xaui/native/search-field. Run the search-field demo screen to try the real component in light and dark mode.",
+    "category": "Forms",
+    "importPath": "@xaui/native/search-field",
+    "href": "/docs/components/search-field",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/search-field",
+    "markdownPath": "packages/native/src/components/search-field/search-field.md",
+    "demoId": "search-field",
+    "exports": [
+      "SearchField",
+      "SearchFieldClear",
+      "SearchFieldField",
+      "SearchFieldIcon",
+      "SearchIcon"
+    ]
+  },
+  {
+    "id": "segment",
+    "title": "Segment",
+    "description": "A filter: one of a few options, chosen in place.",
+    "category": "Navigation",
+    "importPath": "@xaui/native/segment",
+    "href": "/docs/components/segment",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/segment",
+    "markdownPath": "packages/native/src/components/segment/segment.md",
+    "demoId": "segment",
+    "exports": [
+      "Segment",
+      "SegmentItem",
+      "SegmentLabel"
+    ]
+  },
+  {
+    "id": "select",
+    "title": "Select",
+    "description": "A field that opens a list. It is the TextField's twin: the same field tokens, the same four levels, the same heights — so the two sit in a form and read as one control.",
+    "category": "Forms",
+    "importPath": "@xaui/native/select",
+    "href": "/docs/components/select",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/select",
+    "markdownPath": "packages/native/src/components/select/select.md",
+    "demoId": "select",
+    "exports": [
+      "Select",
+      "SelectContent",
+      "SelectIndicator",
+      "SelectItem",
+      "SelectItemDescription",
+      "SelectItemIndicator",
+      "SelectItemLabel",
+      "SelectLabel",
+      "SelectOverlay",
+      "SelectTrigger",
+      "SelectValue",
+      "CheckIcon"
+    ]
+  },
+  {
+    "id": "skeleton",
+    "title": "Skeleton",
+    "description": "The shape of what has not arrived yet.",
+    "category": "Feedback",
+    "importPath": "@xaui/native/skeleton",
+    "href": "/docs/components/skeleton",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/skeleton",
+    "markdownPath": "packages/native/src/components/skeleton/skeleton.md",
+    "demoId": "skeleton",
+    "exports": [
+      "Skeleton"
+    ]
+  },
+  {
+    "id": "slider",
+    "title": "Slider",
+    "description": "A value chosen along a line.",
+    "category": "Forms",
+    "importPath": "@xaui/native/slider",
+    "href": "/docs/components/slider",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/slider",
+    "markdownPath": "packages/native/src/components/slider/slider.md",
+    "demoId": "slider",
+    "exports": [
+      "Slider",
+      "SliderFill",
+      "SliderOutput",
+      "SliderThumb",
+      "SliderTrack"
+    ]
+  },
+  {
+    "id": "snackbar",
+    "title": "Snackbar",
+    "description": "A temporary, controlled message inspired by the legacy Snackbar rather than by the v1 Toast queue. Several messages share a vertical anchor through Snackbar.Stack, so they never overlap.",
+    "category": "Feedback",
+    "importPath": "@xaui/native/snackbar",
+    "href": "/docs/components/snackbar",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/snackbar",
+    "markdownPath": "packages/native/src/components/snackbar/snackbar.md",
+    "demoId": "snackbar",
+    "exports": [
+      "Snackbar",
+      "SnackbarAction",
+      "SnackbarActionLabel",
+      "SnackbarActions",
+      "SnackbarClose",
+      "SnackbarMessage",
+      "SnackbarStack"
+    ]
+  },
+  {
+    "id": "spinner",
+    "title": "Spinner",
+    "description": "The wait, drawn. A circle whose arc turns until whatever is loading has loaded.",
+    "category": "Feedback",
+    "importPath": "@xaui/native/spinner",
+    "href": "/docs/components/spinner",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/spinner",
+    "markdownPath": "packages/native/src/components/spinner/spinner.md",
+    "demoId": "spinner",
+    "exports": [
+      "Spinner"
+    ]
+  },
+  {
+    "id": "stepper",
+    "title": "Stepper",
+    "description": "Where you are in a sequence of steps.",
+    "category": "Navigation",
+    "importPath": "@xaui/native/stepper",
+    "href": "/docs/components/stepper",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/stepper",
+    "markdownPath": "packages/native/src/components/stepper/stepper.md",
+    "demoId": "stepper",
+    "exports": [
+      "Stepper",
+      "StepperContent",
+      "StepperDescription",
+      "StepperIndicator",
+      "StepperItem",
+      "StepperTitle"
+    ]
+  },
+  {
+    "id": "surface",
+    "title": "Surface",
+    "description": "A ground for other things to sit on.",
+    "category": "Layout",
+    "importPath": "@xaui/native/surface",
+    "href": "/docs/components/surface",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/surface",
+    "markdownPath": "packages/native/src/components/surface/surface.md",
+    "demoId": "surface",
+    "exports": [
+      "Surface"
+    ]
+  },
+  {
+    "id": "switch",
+    "title": "Switch",
+    "description": "A setting that is on or off, and takes effect the moment it is flipped.",
+    "category": "Forms",
+    "importPath": "@xaui/native/switch",
+    "href": "/docs/components/switch",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/switch",
+    "markdownPath": "packages/native/src/components/switch/switch.md",
+    "demoId": "switch",
+    "exports": [
+      "Switch",
+      "SwitchLabel",
+      "SwitchThumb",
+      "SwitchTrack"
+    ]
+  },
+  {
+    "id": "table",
+    "title": "Table",
+    "description": "Rows and columns, with a shell round them.",
+    "category": "Data display",
+    "importPath": "@xaui/native/table",
+    "href": "/docs/components/table",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/table",
+    "markdownPath": "packages/native/src/components/table/table.md",
+    "demoId": "table",
+    "exports": [
+      "Table",
+      "TableBody",
+      "TableCell",
+      "TableColumn",
+      "TableContent",
+      "TableFooter",
+      "TableHeader",
+      "TableRow",
+      "TableScrollContainer"
+    ]
+  },
+  {
+    "id": "tabs",
+    "title": "Tabs",
+    "description": "A row of tabs, and what each one shows.",
+    "category": "Navigation",
+    "importPath": "@xaui/native/tabs",
+    "href": "/docs/components/tabs",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/tabs",
+    "markdownPath": "packages/native/src/components/tabs/tabs.md",
+    "demoId": "tabs",
+    "exports": [
+      "Tabs",
+      "TabsContent",
+      "TabsIndicator",
+      "TabsLabel",
+      "TabsList",
+      "TabsTrigger"
+    ]
+  },
+  {
+    "id": "tag-group",
+    "title": "TagGroup",
+    "description": "A wrapping set of tags you can turn on, and take off.",
+    "category": "Data display",
+    "importPath": "@xaui/native/tag-group",
+    "href": "/docs/components/tag-group",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/tag-group",
+    "markdownPath": "packages/native/src/components/tag-group/tag-group.md",
+    "demoId": "tag-group",
+    "exports": [
+      "TagGroup",
+      "TagGroupItem",
+      "TagGroupItemLabel",
+      "TagGroupItemRemoveButton",
+      "TagGroupList"
+    ]
+  },
+  {
+    "id": "text-area",
+    "title": "TextArea",
+    "description": "A multiline field, with the label, the hint and the error that make it usable.",
+    "category": "Forms",
+    "importPath": "@xaui/native/text-area",
+    "href": "/docs/components/text-area",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/text-area",
+    "markdownPath": "packages/native/src/components/text-area/text-area.md",
+    "demoId": "text-area",
+    "exports": [
+      "TextArea"
+    ]
+  },
+  {
+    "id": "text-field",
+    "title": "TextField",
+    "description": "A text field, with the label, the hint and the error that make it usable.",
+    "category": "Forms",
+    "importPath": "@xaui/native/text-field",
+    "href": "/docs/components/text-field",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/text-field",
+    "markdownPath": "packages/native/src/components/text-field/text-field.md",
+    "demoId": "text-field",
+    "exports": [
+      "TextField",
+      "TextFieldDescription",
+      "TextFieldError",
+      "TextFieldField",
+      "TextFieldLabel"
+    ]
+  },
+  {
+    "id": "time-picker",
+    "title": "TimePicker",
+    "description": "A field that opens a clock.",
+    "category": "Forms",
+    "importPath": "@xaui/native/time-picker",
+    "href": "/docs/components/time-picker",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/time-picker",
+    "markdownPath": "packages/native/src/components/time-picker/time-picker.md",
+    "demoId": "time-picker",
+    "exports": [
+      "TimePicker",
+      "TimePickerClock",
+      "TimePickerDisplay",
+      "TimePickerIndicator",
+      "TimePickerSheet",
+      "TimePickerTrigger",
+      "TimePickerValue"
+    ]
+  },
+  {
+    "id": "timeline",
+    "title": "Timeline",
+    "description": "What happened, in order, with a line through it.",
+    "category": "Data display",
+    "importPath": "@xaui/native/timeline",
+    "href": "/docs/components/timeline",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/timeline",
+    "markdownPath": "packages/native/src/components/timeline/timeline.md",
+    "demoId": "timeline",
+    "exports": [
+      "Timeline",
+      "TimelineConnector",
+      "TimelineContent",
+      "TimelineItem",
+      "TimelineLeading",
+      "TimelineMarker",
+      "TimelineRail"
+    ]
+  },
+  {
+    "id": "toast",
+    "title": "Toast",
+    "description": "A notice that arrives because something happened, and leaves on its own.",
+    "category": "Feedback",
+    "importPath": "@xaui/native/toast",
+    "href": "/docs/components/toast",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/toast",
+    "markdownPath": "packages/native/src/components/toast/toast.md",
+    "demoId": "toast",
+    "exports": [
+      "Toast",
+      "ToastActions",
+      "ToastClose",
+      "ToastDescription",
+      "ToastHost",
+      "ToastTitle"
+    ]
+  },
+  {
+    "id": "toggle-button",
+    "title": "ToggleButton",
+    "description": "A button that keeps whether it is active. It is for independent choices such as Like, Favourite, Pin or Mute — one press turns the choice on, the next turns it off.",
+    "category": "Actions",
+    "importPath": "@xaui/native/toggle-button",
+    "href": "/docs/components/toggle-button",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/toggle-button",
+    "markdownPath": "packages/native/src/components/toggle-button/toggle-button.md",
+    "demoId": "toggle-button",
+    "exports": [
+      "ToggleButton"
+    ]
+  },
+  {
+    "id": "typography",
+    "title": "Typography",
+    "description": "Text, by the role it plays. Ten roles fix size, line height, weight and family together, so a heading cannot be set in a body weight and a caption cannot be set in a display size.",
+    "category": "Data display",
+    "importPath": "@xaui/native/typography",
+    "href": "/docs/components/typography",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/typography",
+    "markdownPath": "packages/native/src/components/typography/typography.md",
+    "demoId": "typography",
+    "exports": [
+      "Typography",
+      "TextSpan"
+    ]
+  },
+  {
+    "id": "view",
+    "title": "Layout — Row, Column, Stack, Grid",
+    "description": "Four components. Row and Column are the two axes and contribute one declaration each; Stack overlays; Grid lays out fixed columns. Everything else you write on them is R14 — React Native's own style keys, exposed as props on every node.",
+    "category": "Layout",
+    "importPath": "@xaui/native/view",
+    "href": "/docs/components/view",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/view",
+    "markdownPath": "packages/native/src/components/view/view.md",
+    "demoId": "view",
+    "exports": [
+      "Stack",
+      "Grid",
+      "Row",
+      "Column"
+    ]
+  },
+  {
+    "id": "wheel-picker",
+    "title": "WheelPicker",
+    "description": "A column of options you turn, and the one at the middle is the answer.",
+    "category": "Forms",
+    "importPath": "@xaui/native/wheel-picker",
+    "href": "/docs/components/wheel-picker",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/wheel-picker",
+    "markdownPath": "packages/native/src/components/wheel-picker/wheel-picker.md",
+    "demoId": "wheel-picker",
+    "exports": [
+      "WheelPicker",
+      "WheelPickerColumn",
+      "WheelPickerItem"
+    ]
+  },
+  {
+    "id": "widget",
+    "title": "Widget",
+    "description": "A thing on a dashboard: a title, a card, and a line about it underneath.",
+    "category": "Data display",
+    "importPath": "@xaui/native/widget",
+    "href": "/docs/components/widget",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/widget",
+    "markdownPath": "packages/native/src/components/widget/widget.md",
+    "demoId": "widget",
+    "exports": [
+      "Widget",
+      "WidgetContent",
+      "WidgetHeader",
+      "WidgetHeading"
+    ]
+  }
+]

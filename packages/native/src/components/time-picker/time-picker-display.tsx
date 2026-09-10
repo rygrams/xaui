@@ -2,7 +2,7 @@ import { forwardRef } from 'react'
 import { Pressable, Text, View } from 'react-native'
 import { useStyleProps } from '../../system/style-props'
 import { useTimePicker } from './time-picker.context'
-import type { DayPeriod } from '../../utils/time-mask'
+import type { DayPeriod } from '../../utils/time'
 import type { TimePickerViewProps } from './time-picker.type'
 
 const PERIODS: DayPeriod[] = ['am', 'pm']
@@ -16,9 +16,9 @@ const LABELS: Record<DayPeriod, string> = { am: 'AM', pm: 'PM' }
  * two is lit says which ring is on screen — without it a reader who reopened the sheet on the
  * minutes would think the hours had been forgotten.
  *
- * The period is two halves of one control rather than a toggle, unlike `TimeField.Period`:
- * there is room here, and a reader choosing a time from nothing should see both options
- * rather than press one to find the other.
+ * The period is two halves of one control rather than a toggle: there is room here, and a
+ * reader choosing a time from nothing should see both options rather than press one to find
+ * the other.
  */
 export const TimePickerDisplay = forwardRef<View, TimePickerViewProps>(
   function TimePickerDisplay({ children, style, ...props }, ref) {

@@ -66,20 +66,26 @@ export const PagerContent = forwardRef<ScrollView, PagerContentProps>(
     const settled = useSharedValue(0)
     const isHorizontal = orientation === 'horizontal'
 
-    const scroll = useAnimatedScrollHandler(event => {
-      const travelled = isHorizontal ? event.contentOffset.x : event.contentOffset.y
-      offset.set(travelled)
+    const scroll = useAnimatedScrollHandler(
+      event => {
+        'worklet'
+        const travelled = isHorizontal
+          ? event.contentOffset.x
+          : event.contentOffset.y
+        offset.set(travelled)
 
-      // The index changes as the track *crosses* the halfway point rather than when it
-      // stops. `onMomentumScrollEnd` never fires for a wheel or a trackpad, so on the web
-      // the index would never move at all — and it lands after the fact, so a "Next" button
-      // would sit on the previous page for the length of the deceleration.
-      const next = indexFromOffset(travelled, step, count)
-      if (next !== settled.get()) {
-        settled.set(next)
-        runOnJS(onSettle)(next)
-      }
-    })
+        // The index changes as the track *crosses* the halfway point rather than when it
+        // stops. `onMomentumScrollEnd` never fires for a wheel or a trackpad, so on the web
+        // the index would never move at all — and it lands after the fact, so a "Next" button
+        // would sit on the previous page for the length of the deceleration.
+        const next = indexFromOffset(travelled, step, count)
+        if (next !== settled.get()) {
+          settled.set(next)
+          runOnJS(onSettle)(next)
+        }
+      },
+      [offset, settled, step, count, onSettle, isHorizontal]
+    )
 
     return (
       <Animated.ScrollView

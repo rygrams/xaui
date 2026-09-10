@@ -50,7 +50,7 @@ export default function TimePickerScreen() {
 
       <Section
         title="Douze heures, et les deux moitiés du jour"
-        note="Ici la période est un contrôle à deux moitiés plutôt qu'une bascule, contrairement au TimeField : il y a la place, et un lecteur qui choisit une heure à partir de rien doit voir les deux options plutôt qu'appuyer sur l'une pour trouver l'autre."
+        note="Ici la période est un contrôle à deux moitiés plutôt qu'une bascule : il y a la place, et un lecteur qui choisit une heure à partir de rien doit voir les deux options plutôt qu'appuyer sur l'une pour trouver l'autre."
       >
         <TimePicker locale="en-US" value={twelve} onValueChange={setTwelve}>
           <TimePicker.Trigger>

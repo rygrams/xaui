@@ -179,10 +179,6 @@ export default function RootLayout() {
                 name="phone-number-field"
                 options={{ title: 'PhoneNumberField (v1)' }}
               />
-              <Stack.Screen
-                name="time-field"
-                options={{ title: 'TimeField (v1)' }}
-              />
               <Stack.Screen name="timeline" options={{ title: 'Timeline (v1)' }} />
               <Stack.Screen
                 name="time-picker"

@@ -75,10 +75,13 @@ export const WheelPickerColumn = forwardRef<ScrollView, WheelPickerColumnProps>(
     // The caller's ref goes to the node they can actually scroll, not to a wrapper.
     const refs = useMergedRef(scroller, ref)
 
-    const scrollHandler = useAnimatedScrollHandler(event => {
-      'worklet'
-      offset.value = event.contentOffset.y
-    })
+    const scrollHandler = useAnimatedScrollHandler(
+      event => {
+        'worklet'
+        offset.value = event.contentOffset.y
+      },
+      [offset]
+    )
 
     const settle = useCallback(
       (event: NativeSyntheticEvent<NativeScrollEvent>) => {

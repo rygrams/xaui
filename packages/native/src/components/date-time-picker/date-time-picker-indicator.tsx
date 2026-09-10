@@ -1,7 +1,7 @@
 import { TimePickerIndicator } from '../time-picker'
 import { IconContext } from '../../system/icon'
 import { useDateTimePicker } from './date-time-picker.context'
-import type { IconProps } from '../../system/icon'
+import type { DateTimePickerIndicatorProps } from './date-time-picker.type'
 
 /**
  * The mark on the trailing edge.
@@ -13,7 +13,7 @@ import type { IconProps } from '../../system/icon'
  *
  * An `Icon` passed instead replaces it, as everywhere else in the library.
  */
-export function DateTimePickerIndicator(props: IconProps) {
+export function DateTimePickerIndicator(props: DateTimePickerIndicatorProps) {
   const { glyph } = useDateTimePicker()
 
   return (

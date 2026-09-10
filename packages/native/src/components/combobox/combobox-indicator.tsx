@@ -33,13 +33,16 @@ export function ComboboxIndicator(props: {
     progress.set(withSpring(isOpen ? 1 : 0, INDICATOR_SPRING))
   }, [isOpen, progress])
 
-  const rotation = useAnimatedStyle(() => ({
-    transform: [
-      {
-        rotate: `${interpolate(progress.get(), [0, 1], [INDICATOR_ROTATION[0], INDICATOR_ROTATION[1]])}deg`,
-      },
-    ],
-  }))
+  const rotation = useAnimatedStyle(() => {
+    'worklet'
+    return {
+      transform: [
+        {
+          rotate: `${interpolate(progress.get(), [0, 1], [INDICATOR_ROTATION[0], INDICATOR_ROTATION[1]])}deg`,
+        },
+      ],
+    }
+  }, [progress])
 
   return (
     <Pressable

@@ -1,0 +1,208 @@
+{
+  "groups": [
+    {
+      "title": "Flex and layout",
+      "keys": [
+        "alignContent",
+        "alignItems",
+        "alignSelf",
+        "aspectRatio",
+        "boxSizing",
+        "columnGap",
+        "direction",
+        "display",
+        "flex",
+        "flexBasis",
+        "flexDirection",
+        "flexGrow",
+        "flexShrink",
+        "flexWrap",
+        "gap",
+        "justifyContent",
+        "overflow",
+        "rowGap"
+      ]
+    },
+    {
+      "title": "Position",
+      "keys": [
+        "bottom",
+        "end",
+        "inset",
+        "insetBlock",
+        "insetBlockEnd",
+        "insetBlockStart",
+        "insetInline",
+        "insetInlineEnd",
+        "insetInlineStart",
+        "position",
+        "start",
+        "top",
+        "zIndex"
+      ]
+    },
+    {
+      "title": "Margin",
+      "keys": [
+        "margin",
+        "marginBlock",
+        "marginBlockEnd",
+        "marginBlockStart",
+        "marginBottom",
+        "marginEnd",
+        "marginHorizontal",
+        "marginInline",
+        "marginInlineEnd",
+        "marginInlineStart",
+        "marginStart",
+        "marginTop",
+        "marginVertical"
+      ]
+    },
+    {
+      "title": "Padding",
+      "keys": [
+        "padding",
+        "paddingBlock",
+        "paddingBlockEnd",
+        "paddingBlockStart",
+        "paddingBottom",
+        "paddingEnd",
+        "paddingHorizontal",
+        "paddingInline",
+        "paddingInlineEnd",
+        "paddingInlineStart",
+        "paddingStart",
+        "paddingTop",
+        "paddingVertical"
+      ]
+    },
+    {
+      "title": "Size",
+      "keys": [
+        "height",
+        "maxHeight",
+        "maxWidth",
+        "minHeight",
+        "minWidth",
+        "width"
+      ]
+    },
+    {
+      "title": "Border",
+      "keys": [
+        "borderBlockColor",
+        "borderBlockEndColor",
+        "borderBlockStartColor",
+        "borderBottomColor",
+        "borderBottomEndRadius",
+        "borderBottomStartRadius",
+        "borderBottomWidth",
+        "borderColor",
+        "borderCurve",
+        "borderEndColor",
+        "borderEndEndRadius",
+        "borderEndStartRadius",
+        "borderEndWidth",
+        "borderRadius",
+        "borderStartColor",
+        "borderStartEndRadius",
+        "borderStartStartRadius",
+        "borderStartWidth",
+        "borderStyle",
+        "borderTopColor",
+        "borderTopEndRadius",
+        "borderTopStartRadius",
+        "borderTopWidth",
+        "borderWidth"
+      ]
+    },
+    {
+      "title": "Fill, shadow, and the rest of a box's paint",
+      "keys": [
+        "backfaceVisibility",
+        "backgroundColor",
+        "boxShadow",
+        "cursor",
+        "elevation",
+        "experimental_backgroundImage",
+        "filter",
+        "isolation",
+        "mixBlendMode",
+        "opacity",
+        "outlineColor",
+        "outlineOffset",
+        "outlineStyle",
+        "outlineWidth",
+        "shadowColor",
+        "shadowOffset",
+        "shadowOpacity",
+        "shadowRadius"
+      ]
+    },
+    {
+      "title": "Transform",
+      "keys": [
+        "rotation",
+        "scaleX",
+        "scaleY",
+        "transform",
+        "transformMatrix",
+        "transformOrigin",
+        "translateX",
+        "translateY"
+      ]
+    },
+    {
+      "title": "Text — a text slot only",
+      "keys": [
+        "color",
+        "fontFamily",
+        "fontSize",
+        "fontStyle",
+        "fontVariant",
+        "fontWeight",
+        "includeFontPadding",
+        "letterSpacing",
+        "lineHeight",
+        "textAlign",
+        "textAlignVertical",
+        "textDecorationColor",
+        "textDecorationLine",
+        "textDecorationStyle",
+        "textShadowColor",
+        "textShadowOffset",
+        "textShadowRadius",
+        "textTransform",
+        "userSelect",
+        "verticalAlign",
+        "writingDirection"
+      ]
+    },
+    {
+      "title": "Image — an image slot only",
+      "keys": [
+        "objectFit",
+        "overlayColor",
+        "resizeMode",
+        "tintColor"
+      ]
+    }
+  ],
+  "withheld": [
+    "left",
+    "right",
+    "paddingLeft",
+    "paddingRight",
+    "marginLeft",
+    "marginRight",
+    "borderLeftWidth",
+    "borderRightWidth",
+    "borderLeftColor",
+    "borderRightColor",
+    "borderTopLeftRadius",
+    "borderTopRightRadius",
+    "borderBottomLeftRadius",
+    "borderBottomRightRadius"
+  ]
+}

@@ -1,0 +1,121 @@
+---
+name: xaui-native
+description: Write React Native UI with @xaui/native — composition-first components with dot-notation slots, semantic variants and React Native style props. Use when a file imports from '@xaui/native', or when a task asks for a XAUI component, screen or theme.
+---
+
+# @xaui/native
+
+74 React Native components built on composition: a root plus dot-notation slots, Reanimated motion, and a theme that derives its own palettes.
+
+## Install
+
+```bash
+pnpm add @xaui/native@alpha
+pnpm exec expo install react-native-reanimated react-native-worklets \
+  react-native-gesture-handler react-native-svg react-native-safe-area-context
+```
+
+`react-native-worklets/plugin` goes last in the Babel plugin list. One `XAUIProvider`
+at the root of the app, inside a `GestureHandlerRootView`.
+
+## The API
+
+```tsx
+import { Button } from '@xaui/native/button'
+
+<Button variant="primary" paddingHorizontal={20} onPress={save}>
+  <Button.Icon as={SaveIcon} />
+  <Button.Label fontSize={15}>Save</Button.Label>
+</Button>
+```
+
+## Rules
+
+- **Import from the subpath**, never the root: `@xaui/native/button`.
+- **Slots are dot notation** and render in JSX order. There is no `startContent`,
+  `endContent` or `customAppearance` — those are the legacy API.
+- **`variant` is a semantic appearance** out of the theme; **`color` is one raw hue**
+  the component derives its states from. A component only accepts the variant names in
+  its own markdown — do not carry another component's set over.
+- **Style props are the React Native style keys**, with React Native values and no
+  implicit scale: `padding={16}` is sixteen pixels. They go on the node that draws the
+  thing. `style` wins over them.
+- **Start and End, never Left and Right** — that is what mirrors under RTL.
+- **Do not invent a prop.** Fetch the component file below and read its API first.
+
+## Components
+
+- [Accordion](https://ui.xtartapp.com/docs/accordion.md): A list of rows that open. Replaces the legacy ExpansionPanel.
+- [AgendaCalendar](https://ui.xtartapp.com/docs/agenda-calendar.md): One week, and what is on it.
+- [Alert](https://ui.xtartapp.com/docs/alert.md): A message the interface has to make sure is read — an outcome, a warning, a failure.
+- [AreaChart](https://ui.xtartapp.com/docs/area-chart.md): The LineChart with the ground under it filled.
+- [Autocomplete](https://ui.xtartapp.com/docs/autocomplete.md): A field that opens a list you search.
+- [Avatar](https://ui.xtartapp.com/docs/avatar.md): A person or a thing, in a circle.
+- [Badge](https://ui.xtartapp.com/docs/badge.md): A count, or the fact that there is one.
+- [BarChart](https://ui.xtartapp.com/docs/bar-chart.md): A bar per row, and a bar per series inside it once there is more than one.
+- [BottomSheet](https://ui.xtartapp.com/docs/bottom-sheet.md): A surface that comes up from the bottom edge and can be thrown back down.
+- [Button](https://ui.xtartapp.com/docs/button.md): A control that runs an action when it is pressed. The reference component: every other one in the library is this shape.
+- [Calendar](https://ui.xtartapp.com/docs/calendar.md): A month, and the day chosen in it.
+- [Card](https://ui.xtartapp.com/docs/card.md): A surface that groups related content — and, with isPressable, the control that opens it.
+- [Carousel](https://ui.xtartapp.com/docs/carousel.md): A series of slides, one or a few at a time, with the controls to move between them.
+- [Charts](https://ui.xtartapp.com/docs/chart.md): Five figures — LineChart, AreaChart, BarChart, PieChart, RadarChart — and the plot the first three share.
+- [Checkbox](https://ui.xtartapp.com/docs/checkbox.md): A box that is either ticked or not, with the label that says what it means.
+- [Chip](https://ui.xtartapp.com/docs/chip.md): A compact token — a status, a tag, a filter, a person.
+- [CloseButton](https://ui.xtartapp.com/docs/close-button.md): The way out, on its own.
+- [ColorPicker](https://ui.xtartapp.com/docs/color-picker.md): A colour, chosen off a palette. Imports from @xaui/native/color-picker. Run the color-picker demo screen to try the real component in light and dark mode.
+- [Combobox](https://ui.xtartapp.com/docs/combobox.md): A field you type in, over a list you must choose from.
+- [DatePicker](https://ui.xtartapp.com/docs/date-picker.md): A field that opens a month.
+- [DateRangePicker](https://ui.xtartapp.com/docs/date-range-picker.md): A field that opens a month, and takes two days from it.
+- [DateTimePicker](https://ui.xtartapp.com/docs/date-time-picker.md): A field that opens a month, and then a clock.
+- [Dialog](https://ui.xtartapp.com/docs/dialog.md): A question the page has to be answered before it goes on.
+- [Divider](https://ui.xtartapp.com/docs/divider.md): The line between two things.
+- [DummyField](https://ui.xtartapp.com/docs/dummy-field.md): A field container styled identically to a text input (TextField), but non-editable and pressable. Designed as a trigger for pickers, modals, bottom sheets, menus, or file selection — or for presenting a read-only field value that can be tapped.
+- [EmptyState](https://ui.xtartapp.com/docs/empty-state.md): What is on the screen when there is nothing on the screen.
+- [Fab](https://ui.xtartapp.com/docs/fab.md): The one thing to do on a screen, floating over the thing it does it to.
+- [FieldGroup](https://ui.xtartapp.com/docs/field-group.md): A field with something beside it — a glyph, a unit, a reveal toggle.
+- [FlipCard](https://ui.xtartapp.com/docs/flip-card.md): A card with two faces, and a turn between them.
+- [InputOTP](https://ui.xtartapp.com/docs/input-otp.md): A one-time code, one character to a box.
+- [LineChart](https://ui.xtartapp.com/docs/line-chart.md): A line per series, over a shared scale.
+- [List](https://ui.xtartapp.com/docs/list.md): List virtualise une collection avec le FlatList de React Native. Il fournit la structure visuelle d'une ligne sans lui attribuer de comportement de sélection ou de pression.
+- [ListBox](https://ui.xtartapp.com/docs/list-box.md): Rows on a ground.
+- [MaskField](https://ui.xtartapp.com/docs/mask-field.md): A value typed into a shape — a date, a time, a card number, or a pattern of your own.
+- [Menu](https://ui.xtartapp.com/docs/menu.md): A list of actions, anchored to whatever opened it. The Popover's positioning with rows in it.
+- [MorphButton](https://ui.xtartapp.com/docs/morph-button.md): A button that changes shape: a pill at rest, a card once it is open.
+- [NumberField](https://ui.xtartapp.com/docs/number-field.md): A number, typed — with the two ends of its range and a pair of buttons that walk it.
+- [NumberPad](https://ui.xtartapp.com/docs/number-pad.md): The keypad a PIN, a code and an amount are typed on.
+- [NumberStepper](https://ui.xtartapp.com/docs/number-stepper.md): A quantity, and the two presses that move it.
+- [Pager](https://ui.xtartapp.com/docs/pager.md): Whole pages, one at a time — the onboarding flow, the full-screen feed, the gallery a reader swipes through.
+- [PhoneNumberField](https://ui.xtartapp.com/docs/phone-number-field.md): A national phone number beside its country flag and calling code, with a searchable country sheet. Imports from @xaui/native/phone-number-field. Run the phone-number-field demo screen to try the real component in light and dark mode.
+- [PieChart](https://ui.xtartapp.com/docs/pie-chart.md): The whole, and its parts.
+- [Popover](https://ui.xtartapp.com/docs/popover.md): A panel anchored to whatever opened it. The component the Select was written before: the two share their positioning, their measuring pass and their entrance.
+- [ProgressBar](https://ui.xtartapp.com/docs/progress-bar.md): How far along something is.
+- [ProgressCircle](https://ui.xtartapp.com/docs/progress-circle.md): How far along something is, drawn as a ring.
+- [RadarChart](https://ui.xtartapp.com/docs/radar-chart.md): Several quantities at once, each on its own axis.
+- [RadialChart](https://ui.xtartapp.com/docs/radial-chart.md): Several quantities, each as far round its own ring as it has got.
+- [Radio](https://ui.xtartapp.com/docs/radio.md): One option out of a set, and the label that says which.
+- [RangeCalendar](https://ui.xtartapp.com/docs/range-calendar.md): A month, and the period chosen in it.
+- [Rating](https://ui.xtartapp.com/docs/rating.md): A row of marks, given or shown.
+- [Scaffold](https://ui.xtartapp.com/docs/scaffold.md): The app's chrome, painted from the theme: the ground under every screen, the status bar over it, and the options the navigator is dressed with.
+- [SearchField](https://ui.xtartapp.com/docs/search-field.md): A query, with the mark that says so and the cross that takes it back. Imports from @xaui/native/search-field. Run the search-field demo screen to try the real component in light and dark mode.
+- [Segment](https://ui.xtartapp.com/docs/segment.md): A filter: one of a few options, chosen in place.
+- [Select](https://ui.xtartapp.com/docs/select.md): A field that opens a list. It is the TextField's twin: the same field tokens, the same four levels, the same heights — so the two sit in a form and read as one control.
+- [Skeleton](https://ui.xtartapp.com/docs/skeleton.md): The shape of what has not arrived yet.
+- [Slider](https://ui.xtartapp.com/docs/slider.md): A value chosen along a line.
+- [Snackbar](https://ui.xtartapp.com/docs/snackbar.md): A temporary, controlled message inspired by the legacy Snackbar rather than by the v1 Toast queue. Several messages share a vertical anchor through Snackbar.Stack, so they never overlap.
+- [Spinner](https://ui.xtartapp.com/docs/spinner.md): The wait, drawn. A circle whose arc turns until whatever is loading has loaded.
+- [Stepper](https://ui.xtartapp.com/docs/stepper.md): Where you are in a sequence of steps.
+- [Surface](https://ui.xtartapp.com/docs/surface.md): A ground for other things to sit on.
+- [Switch](https://ui.xtartapp.com/docs/switch.md): A setting that is on or off, and takes effect the moment it is flipped.
+- [Table](https://ui.xtartapp.com/docs/table.md): Rows and columns, with a shell round them.
+- [Tabs](https://ui.xtartapp.com/docs/tabs.md): A row of tabs, and what each one shows.
+- [TagGroup](https://ui.xtartapp.com/docs/tag-group.md): A wrapping set of tags you can turn on, and take off.
+- [TextArea](https://ui.xtartapp.com/docs/text-area.md): A multiline field, with the label, the hint and the error that make it usable.
+- [TextField](https://ui.xtartapp.com/docs/text-field.md): A text field, with the label, the hint and the error that make it usable.
+- [TimePicker](https://ui.xtartapp.com/docs/time-picker.md): A field that opens a clock.
+- [Timeline](https://ui.xtartapp.com/docs/timeline.md): What happened, in order, with a line through it.
+- [Toast](https://ui.xtartapp.com/docs/toast.md): A notice that arrives because something happened, and leaves on its own.
+- [ToggleButton](https://ui.xtartapp.com/docs/toggle-button.md): A button that keeps whether it is active. It is for independent choices such as Like, Favourite, Pin or Mute — one press turns the choice on, the next turns it off.
+- [Typography](https://ui.xtartapp.com/docs/typography.md): Text, by the role it plays. Ten roles fix size, line height, weight and family together, so a heading cannot be set in a body weight and a caption cannot be set in a display size.
+- [Layout — Row, Column, Stack, Grid](https://ui.xtartapp.com/docs/view.md): Four components. Row and Column are the two axes and contribute one declaration each; Stack overlays; Grid lays out fixed columns. Everything else you write on them is R14 — React Native's own style keys, exposed as props on every node.
+- [WheelPicker](https://ui.xtartapp.com/docs/wheel-picker.md): A column of options you turn, and the one at the middle is the answer.
+- [Widget](https://ui.xtartapp.com/docs/widget.md): A thing on a dashboard: a title, a card, and a line about it underneath.

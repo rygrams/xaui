@@ -9,11 +9,11 @@ import type {
 } from 'react-native'
 import type { BottomSheetProps } from '../bottom-sheet'
 import type { CalendarProps } from '../calendar'
-import type { TimePickerProps } from '../time-picker'
+import type { TimePickerIndicatorProps, TimePickerProps } from '../time-picker'
 import type { PressableFeedbackProps } from '../../system/pressable-feedback'
 import type { TextStyleProps, ViewStyleProps } from '../../system/style-props'
 import type { RadiusKey, Size } from '../../theme/theme.type'
-import type { HourCycle } from '../../utils/time-mask'
+import type { HourCycle } from '../../utils/time'
 
 /** The `Select`'s four field levels, because the trigger **is** a select's trigger. */
 export type DateTimePickerVariant = 'primary' | 'secondary' | 'tertiary' | 'ghost'
@@ -82,6 +82,8 @@ export type DateTimePickerValueProps = DateTimePickerTextProps & {
   /** What the field says with no moment chosen. */
   placeholder?: string
 }
+
+export type DateTimePickerIndicatorProps = TimePickerIndicatorProps
 
 /** `View`'s own props win over the `ViewStyle` keys of the same name (R14). */
 export type DateTimePickerViewProps = ViewProps &
