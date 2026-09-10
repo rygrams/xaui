@@ -177,3 +177,4 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | D3  | `turbo.json` `test` outputs are wrong — every run warns                   | todo   |
 | D4  | `apps/docs/public/docs/` still documents the dropped legacy `view/` names | todo   |
 | D5  | `@xaui/native` types came from one dts worker that OOM'd — now `tsc`      | done   |
+| D6  | Constrain web preview screens so their React Native `ScrollView` scrolls  | done   |
