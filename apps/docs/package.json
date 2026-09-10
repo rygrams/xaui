@@ -37,6 +37,7 @@
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
+    "demo": "workspace:*",
     "@types/node": "^20",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19",
