@@ -21,7 +21,7 @@ export default function GettingStartedPage() {
       </header>
 
       <Step number="1" title="Install the package">
-        <CodeBlock language="bash" code="pnpm add @xaui/native@alpha" />
+        <CodeBlock language="bash" code="pnpm add @xaui/native@beta" />
         <p className="text-sm text-muted-foreground">
           The native peer dependencies are listed in the{' '}
           <Link className="underline" href="/docs/installation">

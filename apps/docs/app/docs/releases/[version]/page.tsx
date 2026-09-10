@@ -3,7 +3,7 @@ import Link from 'next/link'
 import { notFound } from 'next/navigation'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { Markdown } from '@/components/docs/markdown'
-import { getRelease, getReleases } from '@/lib/releases'
+import { CHANNEL_LABELS, getRelease, getReleases } from '@/lib/releases'
 
 type ReleasePageProps = {
   params: Promise<{ version: string }>
@@ -54,7 +54,7 @@ export default async function ReleasePage({ params }: ReleasePageProps) {
             {release.version}
           </h1>
           <span className="rounded-full bg-violet-100 px-2.5 py-1 text-xs font-medium text-violet-700 dark:bg-violet-950 dark:text-violet-300">
-            {release.channel === 'alpha' ? 'Alpha' : 'Stable'}
+            {CHANNEL_LABELS[release.channel]}
           </span>
         </div>
         <p className="text-sm text-muted-foreground">

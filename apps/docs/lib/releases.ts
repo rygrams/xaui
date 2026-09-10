@@ -1,12 +1,27 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
+/** The npm dist-tag a version went out on, read back from the version string. */
+export type Channel = 'alpha' | 'beta' | 'stable'
+
+export const CHANNEL_LABELS: Record<Channel, string> = {
+  alpha: 'Alpha',
+  beta: 'Beta',
+  stable: 'Stable',
+}
+
 export type Release = {
   version: string
-  channel: 'alpha' | 'stable'
+  channel: Channel
   summary: string
   markdown: string
   href: string
+}
+
+function getChannel(version: string): Channel {
+  if (version.includes('-alpha')) return 'alpha'
+  if (version.includes('-beta')) return 'beta'
+  return 'stable'
 }
 
 /**
@@ -57,7 +72,7 @@ export function getReleases(): Release[] {
 
     return {
       version,
-      channel: version.includes('-alpha') ? 'alpha' : 'stable',
+      channel: getChannel(version),
       summary: getSummary(markdown),
       markdown,
       href: `/docs/releases/${version}`,

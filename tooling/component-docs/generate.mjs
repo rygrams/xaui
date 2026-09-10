@@ -417,7 +417,7 @@ const skill = [
   '## Install',
   '',
   '```bash',
-  'pnpm add @xaui/native@alpha',
+  'pnpm add @xaui/native@beta',
   'pnpm exec expo install react-native-reanimated react-native-worklets \\',
   '  react-native-gesture-handler react-native-svg react-native-safe-area-context',
   '```',

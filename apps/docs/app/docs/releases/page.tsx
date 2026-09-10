@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
 import { Markdown } from '@/components/docs/markdown'
-import { getLatestRelease, getReleases } from '@/lib/releases'
+import { CHANNEL_LABELS, getLatestRelease, getReleases } from '@/lib/releases'
 
 export const metadata: Metadata = {
   title: 'Releases — XAUI Native',
@@ -20,7 +20,7 @@ export default function ReleasesPage() {
         <h1 className="text-3xl font-bold tracking-tight md:text-4xl">Releases</h1>
         <p className="max-w-3xl text-base leading-7 text-muted-foreground md:text-lg">
           The notes for <code>@xaui/native</code>, as the changesets wrote them at
-          publish time. These land on the <code>alpha</code> dist-tag;{' '}
+          publish time. These land on the <code>beta</code> dist-tag;{' '}
           <code>latest</code> still points at the previous line.
         </p>
       </header>
@@ -29,7 +29,7 @@ export default function ReleasesPage() {
         <div className="flex flex-wrap items-center gap-2">
           <h2 className="text-2xl font-bold tracking-tight">{latest.version}</h2>
           <span className="rounded-full bg-violet-100 px-2.5 py-1 text-xs font-medium text-violet-700 dark:bg-violet-950 dark:text-violet-300">
-            {latest.channel === 'alpha' ? 'Alpha' : 'Stable'}
+            {CHANNEL_LABELS[latest.channel]}
           </span>
           <span className="rounded-full bg-muted px-2.5 py-1 text-xs font-medium text-muted-foreground">
             Latest

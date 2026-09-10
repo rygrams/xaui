@@ -10,7 +10,7 @@ description: Write React Native UI with @xaui/native — composition-first compo
 ## Install
 
 ```bash
-pnpm add @xaui/native@alpha
+pnpm add @xaui/native@beta
 pnpm exec expo install react-native-reanimated react-native-worklets \
   react-native-gesture-handler react-native-svg react-native-safe-area-context
 ```

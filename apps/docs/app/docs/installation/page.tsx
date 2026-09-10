@@ -23,7 +23,7 @@ export default function InstallationPage() {
       <DocSection title="Expo (recommended)">
         <CodeBlock
           language="bash"
-          code={`pnpm add @xaui/native@alpha libphonenumber-js
+          code={`pnpm add @xaui/native@beta libphonenumber-js
 pnpm exec expo install react-native-reanimated react-native-worklets \\
   react-native-gesture-handler react-native-svg react-native-safe-area-context`}
         />
@@ -37,7 +37,7 @@ pnpm exec expo install react-native-reanimated react-native-worklets \\
       <DocSection title="React Native Community CLI">
         <CodeBlock
           language="bash"
-          code={`pnpm add @xaui/native@alpha libphonenumber-js \\
+          code={`pnpm add @xaui/native@beta libphonenumber-js \\
   react-native-reanimated react-native-worklets react-native-gesture-handler \\
   react-native-svg react-native-safe-area-context
 cd ios && pod install && cd ..`}

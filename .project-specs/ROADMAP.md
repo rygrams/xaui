@@ -40,7 +40,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P2.1   | The reference `Button`                                                           | done    |
 | P2.2   | Perf baseline — 200 buttons, re-renders and allocations                          | done    |
 | P2.3   | API review — blocking, nothing starts in P3 before it                            | done    |
-| P2.4   | Publish `@xaui/native` on the `alpha` tag                                        | ci      |
+| P2.4   | Publish `@xaui/native` on the pre-release tag                                    | ci      |
 | P2.5   | Fix the ripple — it renders nothing (P2-API-REVIEW §D)                           | done    |
 | P2.5b  | `PressableFeedback` composes its overlays — no `feedbackVariant`                 | done    |
 | P2.6   | Style as props (R14) — `system/style-props/`, then the `Button`                  | done    |
