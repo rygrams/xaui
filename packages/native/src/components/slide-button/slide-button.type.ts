@@ -88,11 +88,11 @@ export type SlideButtonContextValue = {
   thumbStyle: StyleProp<ViewStyle>
   glyphStyle: StyleProp<ViewStyle>
   icon: IconContextValue
-  /** The thumb's offset from the leading edge, in points, driven on the UI thread. */
+  /** The handle's offset from the leading edge, in points, driven on the UI thread. */
   offset: SharedValue<number>
-  /** How far the thumb can travel — the track's length less the thumb and its insets. */
+  /** How far the handle can travel — the track's length less the handle and its insets. */
   travel: number
-  /** The thumb's diameter, so the fill can reach the thumb's centre. */
+  /** The handle's width, the amount the travel is shortened by. */
   thumbSize: number
   /** The fraction of `travel` the thumb must reach for the slide to count, from 0 to 1. */
   threshold: number

@@ -2,7 +2,7 @@
  * The thumb's motion.
  *
  * It grows a little under the finger, the only confirmation the control can give that the
- * drag has taken — the finger is already over the disc, so the scale is what shows in the
+ * drag has taken — the finger is already over the handle, so the scale is what shows in the
  * ring of pill around it. The `Slider`'s knob does the same.
  */
 export const THUMB_PRESSED_SCALE = 1.06

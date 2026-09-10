@@ -83,9 +83,9 @@ export const SlideButtonRoot = forwardRef<View, SlideButtonProps>(
       ? slideButtonRecipe.tint({ theme, color, selection, states })
       : undefined
 
-    // Read off the resolved style rather than recomputed: the disc's diameter and its
+    // Read off the resolved style rather than recomputed: the handle's width and its
     // inset are what the travel is shortened by at each end, and they have to be the same
-    // numbers the recipe drew or the thumb overhangs the pill.
+    // numbers the recipe drew or the handle overhangs the pill.
     const thumb = StyleSheet.flatten<ViewStyle>([styles.thumb])
     const thumbSize = typeof thumb.width === 'number' ? thumb.width : 0
     const inset = typeof thumb.start === 'number' ? thumb.start : 0
@@ -116,13 +116,13 @@ export const SlideButtonRoot = forwardRef<View, SlideButtonProps>(
       const glyph = StyleSheet.flatten<ViewStyle>([styles.glyph, tint?.glyph])
 
       return {
-        fillStyle: styles.fill,
+        fillStyle: tint ? [styles.fill, tint.fill] : styles.fill,
         labelStyle: tint ? [styles.label, tint.label] : styles.label,
         thumbStyle: styles.thumb,
         glyphStyle: tint ? [styles.glyph, tint.glyph] : styles.glyph,
         icon: {
           size: typeof glyph.width === 'number' ? glyph.width : undefined,
-          // The chevron is on the surface-coloured disc, so its colour is the theme's
+          // The chevron is on the surface-coloured handle, so its colour is the theme's
           // foreground and not the variant's — `color` (R7) stays on the pill.
           color: theme.colors.foreground,
         },

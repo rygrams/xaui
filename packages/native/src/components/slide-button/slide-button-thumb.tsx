@@ -12,19 +12,19 @@ import { THUMB_PRESSED_SCALE, THUMB_SPRING } from './slide-button.animation'
 import type { SlideButtonThumbProps } from './slide-button.type'
 
 /**
- * The disc the finger drags.
+ * The handle the finger drags.
  *
  * The pan runs on `react-native-gesture-handler`, the same **optional** peer the `Slider`
  * reaches for and imported here and nowhere else — an app that never touches
  * `@xaui/native/slide-button` does not pay for it.
  *
  * Everything the finger does stays on the UI thread: the offset is a shared value the pan
- * writes and the fill and the disc both read. The one hop to JS is `runOnJS` on release,
+ * writes and the fill and the handle both read. The one hop to JS is `runOnJS` on release,
  * once, when the slide has reached the threshold — the confirm is React state and a
  * callback, and neither belongs on the worklet.
  *
  * With no children it draws the built-in chevron, mirrored under RTL so it always points
- * the way the disc travels. Pass an `Icon` — or anything — to replace it.
+ * the way the handle travels. Pass an `Icon` — or anything — to replace it.
  */
 export function SlideButtonThumb({
   children,
