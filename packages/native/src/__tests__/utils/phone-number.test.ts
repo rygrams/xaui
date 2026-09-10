@@ -43,4 +43,19 @@ describe('phone numbers', () => {
     expect(filterPhoneCountries(countries, 'FR')[0]?.code).toBe('FR')
     expect(filterPhoneCountries(countries, 'xyz')).toEqual([])
   })
+  it('falls back to ISO codes where Intl.DisplayNames is missing', () => {
+    // Hermes ships no `Intl.DisplayNames`, so this is the default React Native runtime,
+    // not an edge case: the list has to come back named by code rather than throw.
+    const intl = Intl as { DisplayNames?: typeof Intl.DisplayNames }
+    const real = intl.DisplayNames
+    intl.DisplayNames = undefined
+    try {
+      const countries = phoneCountries('fr', ['FR', 'CI', 'AD'])
+      expect(countries.map(country => country.name)).toEqual(['AD', 'CI', 'FR'])
+      expect(countries[0]?.flag).toBe('🇦🇩')
+      expect(filterPhoneCountries(countries, '+225')[0]?.code).toBe('CI')
+    } finally {
+      intl.DisplayNames = real
+    }
+  })
 })

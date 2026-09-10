@@ -202,6 +202,10 @@ export const nativeDemoRegistry: Record<string, ComponentType> = {
     () => import('../../../demo/app/skeleton'),
     { loading, ssr: false }
   ),
+  'slide-button': dynamic(
+    () => import('../../../demo/app/slide-button'),
+    { loading, ssr: false }
+  ),
   'slider': dynamic(
     () => import('../../../demo/app/slider'),
     { loading, ssr: false }

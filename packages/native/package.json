@@ -547,6 +547,16 @@
         "default": "./dist/components/skeleton/index.cjs"
       }
     },
+    "./slide-button": {
+      "import": {
+        "types": "./dist/components/slide-button/index.d.ts",
+        "default": "./dist/components/slide-button/index.js"
+      },
+      "require": {
+        "types": "./dist/components/slide-button/index.d.cts",
+        "default": "./dist/components/slide-button/index.cjs"
+      }
+    },
     "./slider": {
       "import": {
         "types": "./dist/components/slider/index.d.ts",

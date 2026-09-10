@@ -10,15 +10,36 @@ import type {
   PhoneNumberValue,
 } from '../components/phone-number-field/phone-number-field.type'
 
+/**
+ * A region-name lookup, or nothing.
+ *
+ * `Intl.DisplayNames` is not a missing-ICU edge the way `Intl.DateTimeFormat` is — Hermes
+ * does not implement it at all, so on React Native it is `undefined` and the `new` throws
+ * a `TypeError` before the field can render a single row. A country list is worth having
+ * without it, so this is a lookup that may come back empty rather than a constructor the
+ * caller is assumed to have.
+ *
+ * Without it a country is its own code — `FR` and not `France`, sorted the same way. That
+ * is a poorer list, not a broken one, and an app that wants the names installs
+ * `@formatjs/intl-displaynames`.
+ */
+function regionNames(locale: string): Intl.DisplayNames | undefined {
+  try {
+    return new Intl.DisplayNames([locale], { type: 'region' })
+  } catch {
+    return undefined
+  }
+}
+
 export function phoneCountries(
   locale: string,
   codes: readonly PhoneCountry[] = getCountries()
 ): PhoneCountryOption[] {
-  const names = new Intl.DisplayNames([locale], { type: 'region' })
+  const names = regionNames(locale)
   return [...new Set(codes)]
     .map(code => ({
       code,
-      name: names.of(code) ?? code,
+      name: names?.of(code) ?? code,
       callingCode: getCountryCallingCode(code),
       flag: String.fromCodePoint(
         ...[...code].map(letter => letter.charCodeAt(0) + 127397)

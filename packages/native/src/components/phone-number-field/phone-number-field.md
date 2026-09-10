@@ -74,6 +74,12 @@ and sorting follow `locale`. Searching accepts country name, ISO code or calling
 The sheet uses the existing BottomSheet and requires `react-native-gesture-handler` and
 a `GestureHandlerRootView`, plus XAUIProvider's portal host.
 
+**Country names need `Intl.DisplayNames`, which Hermes does not implement.** The field
+does not throw without it — every country falls back to its own ISO code, so the list
+reads `AD`, `CI`, `FR` and sorts that way, and flags, calling codes and search still work.
+Install `@formatjs/intl-displaynames` and import it before your app's entry point to get
+localized names on React Native.
+
 ## Props
 
 Generated from TypeScript by `node tooling/component-docs/generate.mjs phone-number-field`.

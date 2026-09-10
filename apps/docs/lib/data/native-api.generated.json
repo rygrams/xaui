@@ -7447,6 +7447,116 @@
       ]
     }
   ],
+  "slide-button": [
+    {
+      "name": "SlideButtonProps",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "variant",
+          "type": "SlideButtonVariant | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "size",
+          "type": "SlideButtonSize | undefined",
+          "required": false,
+          "description": "Height, horizontal padding and the label's type. Never a width."
+        },
+        {
+          "name": "radius",
+          "type": "RadiusKey | undefined",
+          "required": false,
+          "description": "Overrides the pill's corner. `full` unless you say otherwise."
+        },
+        {
+          "name": "color",
+          "type": "string | undefined",
+          "required": false,
+          "description": "A raw tint (R7). Lands on the pill, or on the label for `ghost` — never on the thumb."
+        },
+        {
+          "name": "threshold",
+          "type": "number | undefined",
+          "required": false,
+          "description": "How far along the track the thumb has to reach for the slide to count, from 0 to 1. Below it the thumb springs home on release."
+        },
+        {
+          "name": "isConfirmed",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "Controlled: `true` pins the thumb at the end, `false` springs it home."
+        },
+        {
+          "name": "defaultConfirmed",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": "The starting state when uncontrolled. Once confirmed it stays confirmed."
+        },
+        {
+          "name": "onConfirm",
+          "type": "(() => void) | undefined",
+          "required": false,
+          "description": "Fires once, when the thumb reaches `threshold` — the action the slide guards."
+        },
+        {
+          "name": "isDisabled",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        },
+        {
+          "name": "style",
+          "type": "StyleProp<ViewStyle>",
+          "required": false,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "SlideButtonFillProps",
+      "props": [
+        {
+          "name": "children",
+          "type": "undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "SlideButtonIconProps",
+      "props": []
+    },
+    {
+      "name": "SlideButtonLabelProps",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "SlideButtonThumbProps",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": "Replaces the built-in chevron — an `Icon`, or anything else."
+        }
+      ]
+    }
+  ],
   "slider": [
     {
       "name": "SliderProps",
