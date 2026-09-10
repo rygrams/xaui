@@ -1,5 +1,15 @@
 # @xaui/native
 
+## 0.9.1-beta.96
+
+### Patch Changes
+
+- 4c65aa2: Reword the third-party library attribution in doc comments and component docs
+
+  Every design note that named the upstream library it was measured against now says
+  "the reference implementation" instead. No API, token, value or behaviour changes —
+  only the prose in JSDoc, component `.md` pages and generated docs.
+
 ## 0.9.1-beta.95
 
 ### Patch Changes
