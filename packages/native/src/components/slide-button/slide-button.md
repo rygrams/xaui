@@ -29,8 +29,8 @@ import { SlideButton } from '@xaui/native/slide-button'
 | `SlideButton`       | The pill. Owns the geometry, the gesture's shared offset and the confirmed state.              |
 | `SlideButton.Fill`  | The trail behind the thumb. Optional — compose it for the affordance, omit it for a bare pill. |
 | `SlideButton.Label` | The instruction, centred across the whole pill. The thumb slides over it.                      |
-| `SlideButton.Thumb` | The handle the finger drags. Draws the built-in chevron, or renders whatever you put in it.      |
-| `SlideButton.Icon`  | A mark in the thumb, `system/`'s `Icon` reading the handle's glyph size and colour.              |
+| `SlideButton.Thumb` | The handle the finger drags. Draws the built-in chevron, or renders whatever you put in it.    |
+| `SlideButton.Icon`  | A mark in the thumb, `system/`'s `Icon` reading the handle's glyph size and colour.            |
 
 **A bare string is the whole component.** `<SlideButton>Slide</SlideButton>` composes the
 fill, the label and the thumb for you. Write the slots out only to drop the fill or to put

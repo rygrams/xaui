@@ -29,8 +29,8 @@ import { SlideButton } from '@xaui/native/slide-button'
 | `SlideButton`       | The pill. Owns the geometry, the gesture's shared offset and the confirmed state.              |
 | `SlideButton.Fill`  | The trail behind the thumb. Optional — compose it for the affordance, omit it for a bare pill. |
 | `SlideButton.Label` | The instruction, centred across the whole pill. The thumb slides over it.                      |
-| `SlideButton.Thumb` | The disc the finger drags. Draws the built-in chevron, or renders whatever you put in it.      |
-| `SlideButton.Icon`  | A mark in the thumb, `system/`'s `Icon` reading the disc's glyph size and colour.              |
+| `SlideButton.Thumb` | The handle the finger drags. Draws the built-in chevron, or renders whatever you put in it.    |
+| `SlideButton.Icon`  | A mark in the thumb, `system/`'s `Icon` reading the handle's glyph size and colour.            |
 
 **A bare string is the whole component.** `<SlideButton>Slide</SlideButton>` composes the
 fill, the label and the thumb for you. Write the slots out only to drop the fill or to put
@@ -87,7 +87,7 @@ deliberate, short enough to forgive the last few points.
 ```
 
 Anything inside `SlideButton.Thumb` replaces the built-in chevron. `SlideButton.Icon`
-inherits the disc's glyph size and — because the disc is the surface colour whatever the
+inherits the handle's glyph size and — because the handle is the surface colour whatever the
 pill does — the theme's foreground.
 
 ### Style as props
@@ -103,15 +103,18 @@ on.
 
 ## Sizes
 
-| `size` | Height              | Thumb      | Label |
-| ------ | ------------------- | ---------- | ----- |
-| `sm`   | `controlHeights.sm` | height − 6 | `sm`  |
-| `md`   | `controlHeights.md` | height − 8 | `md`  |
-| `lg`   | `controlHeights.lg` | height − 8 | `lg`  |
+| `size` | Height              | Handle                          | Label |
+| ------ | ------------------- | ------------------------------- | ----- |
+| `sm`   | `controlHeights.sm` | (height − 6) tall, 1.5× as wide | `sm`  |
+| `md`   | `controlHeights.md` | (height − 8) tall, 1.5× as wide | `md`  |
+| `lg`   | `controlHeights.lg` | (height − 8) tall, 1.5× as wide | `lg`  |
 
-`size` drives the pill's height, the disc's diameter and the label's type — **never a
-width**. Without an `alignSelf`, the pill fills its column, which is RN's own behaviour and
-the `Button`'s. The label stays centred across the whole pill at every size.
+`size` drives the pill's height, the handle and the label's type — **never a width**.
+Without an `alignSelf`, the pill fills its column, which is RN's own behaviour and the
+`Button`'s. The label stays centred across the whole pill at every size.
+
+The handle is a **horizontal stadium**, wider than it is tall: a slide-to-confirm handle
+is pushed sideways, so it reads as a thing you shove rather than a knob you turn.
 
 `radius` overrides the pill's corner, which is `full` by default.
 
@@ -133,12 +136,14 @@ slide-to-delete is a real `danger` use, so the intents stay.
 
 `color` is a raw value (R7). It lands where the variant's tokens do: the pill for the
 filled ones, the label for `ghost`, the label and border for `tertiary`. **It never
-reaches the thumb** — the disc stays the surface colour so the chevron on it is readable
-whatever the pill is doing.
+reaches the handle** — the handle stays the surface colour so the chevron on it is
+readable whatever the pill is doing.
 
-**The trail is a fixed neutral wash**, not a slice of the variant: it shows how far the
-thumb has come, not a state, and a wash of the accent behind a moving disc would compete
-with the disc for the eye. The `Slider` keeps its fill alpha local for the same reason.
+**The trail is a wash of the pill's own foreground** — the same colour the label uses, at
+low opacity. It reads against every variant without a token of its own: light on a filled
+pill, dark on `secondary` or `ghost`. A raw `color` moves it with the label. Its width is
+the handle's offset, so it is nothing at rest and grows behind the handle as the drag
+runs — how far the slide has come, not the value.
 
 ## How it is put together
 
@@ -149,7 +154,7 @@ layout, and the travel is inset by the thumb and its margin at each end, exactly
 `Slider`'s rail insets the knob.
 
 Everything the finger does stays on the UI thread: the thumb's offset is a shared value the
-pan writes and the fill and the disc both read. The single hop to JS is `runOnJS` on
+pan writes and the fill and the handle both read. The single hop to JS is `runOnJS` on
 release, once, when the slide has passed the threshold — the confirm is React state and a
 callback, and neither belongs on a worklet.
 
