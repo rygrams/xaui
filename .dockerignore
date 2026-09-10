@@ -1,0 +1,9 @@
+# The installer stage runs its own `pnpm install`, and the native package is rebuilt
+# there, so shipping either into the build context only slows the copy down.
+**/node_modules
+**/dist
+**/.next
+**/.turbo
+apps/docs/out
+apps/demo/.expo
+.git

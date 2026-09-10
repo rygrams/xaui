@@ -217,6 +217,9 @@ importers:
       '@types/react-dom':
         specifier: ^19
         version: 19.2.3(@types/react@19.2.18)
+      demo:
+        specifier: workspace:*
+        version: link:../demo
       eslint:
         specifier: ^9
         version: 9.39.2(jiti@2.6.1)
