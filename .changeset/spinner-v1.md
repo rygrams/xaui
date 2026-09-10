@@ -17,13 +17,13 @@ resolves to `accentForeground` — white. A spinner has no surface, so `primary`
 named: deleting is a `danger` wait. **No `ghost`**, because a spinner with no ink is not a
 spinner, and **no `-soft` slices**, because a soft slice is a fill softened.
 
-HeroUI fades a single arc from opaque to 55%, which needs an SVG `linearGradient` and
+The reference implementation fades a single arc from opaque to 55%, which needs an SVG `linearGradient` and
 therefore `react-native-svg` — an **optional peer**, which a component in the
 fifteen-component core cannot require. Two circles of one ink at two opacities read as the
 same figure, cost two views, and pull in nothing. The track is what does the work: a
 rotating three-quarter ring on its own reads as broken rather than as busy.
 
-`size` is the diameter and the only measurement a circle has — 16, 20, 24, 32, HeroUI's
+`size` is the diameter and the only measurement a circle has — 16, 20, 24, 32, the reference implementation's
 three steps plus the one our ladder adds between the first two. The stroke thickens once,
 at `lg`.
 

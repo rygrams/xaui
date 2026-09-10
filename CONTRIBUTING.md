@@ -8,7 +8,7 @@ Merci de contribuer a XAUI. Ce document formalise les specs, l'architecture et l
 - Mode repo: monorepo Turborepo avec workspaces `pnpm`.
 - Packages coeur:
 - `@xaui/native`: tokens, moteur de couleurs, `createTheme` et `XAUIProvider`.
-- `@xaui/native`: composants React Native (API inspiree Flutter).
+- `@xaui/native`: composants React Native (API composition-first).
 - Applications:
 - `apps/demo`: bac a sable Expo.
 - `apps/docs`: site de documentation Next.js.
@@ -42,7 +42,7 @@ Principes:
 - Eviter `any` sauf justification technique claire.
 - Eviter les `console.log`, `console.error`, `debugger`.
 - Favoriser des retours anticipes pour limiter l'imbrication.
-- Garder les APIs coherentes avec l'approche Flutter-like.
+- Garder les APIs coherentes avec l'approche composition-first.
 
 ## Workflow local
 

@@ -33,4 +33,4 @@ is a setup mistake in the app shell, and a screen that crashes on its way to rep
 a save succeeded has turned a good outcome into a bad one.
 
 It closes P5.18 as well as P5.18b: `Snackbar` and `Toast` are the same object under two
-names, and HeroUI calls it `toast`.
+names, and the reference implementation calls it `toast`.

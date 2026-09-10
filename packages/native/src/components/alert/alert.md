@@ -121,7 +121,7 @@ with another.
 </Alert>
 ```
 
-This is HeroUI's alert written out: a neutral surface with the status carried by the icon
+This is the reference implementation's alert written out: a neutral surface with the status carried by the icon
 alone. There it is what `status` does; here the variant decides both the surface and the
 foreground, so an icon that has to disagree says so with a raw `color` (R7).
 
@@ -148,7 +148,7 @@ alert is a surface: it is as tall as the message it carries.
 | `md`   | 12      | 12  | 16/24 | 14/20       | 18   | 3           |
 | `lg`   | 16      | 14  | 18/28 | 16/24       | 20   | 4           |
 
-`md` is HeroUI's alert measured: 12pt of padding, a 12pt gap, a 24pt radius, a 16/24 title
+`md` is the reference implementation's alert measured: 12pt of padding, a 12pt gap, a 24pt radius, a 16/24 title
 above a 14/20 description, an 18pt icon. The icon's offset is **half the title's leading**
 rather than their hard-coded 3.5px — it lands on the same 3 at `md`, and stays right at
 the other three sizes.
@@ -171,7 +171,7 @@ takes the `Card`'s vocabulary for its neutral level and the `Chip`'s for the res
 | `danger-soft`  | `dangerSoft`  | `dangerSoftForeground`  | —      |
 
 `default` is the `Card`'s `default`, token for token — the surface fill and the surface
-shadow, which is HeroUI's alert root exactly. The elevation belongs to that one variant: a
+shadow, which is the reference implementation's alert root exactly. The elevation belongs to that one variant: a
 tinted alert already separates itself by its fill, and a shadow under it would read as dirt.
 
 `tertiary` and `ghost` are absent: an alert without a surface is a paragraph. The outlined
@@ -240,7 +240,7 @@ Everything `View` accepts, every `ViewStyle` key it does not already claim (R14)
 The three forms of `Icon` — `as`, a raw SVG child, `source` — plus the `ViewStyle` keys of
 its box as props (R14). `size` and `color` default to what the root resolved.
 
-**No default glyph**, where HeroUI ships three. XAUI publishes no icon set — `@xaui/icons`
+**No default glyph**, where the reference implementation ships three. XAUI publishes no icon set — `@xaui/icons`
 was deleted in P0 — so the icon is always yours, and the alert's job is to size and colour
 it rather than to choose it.
 

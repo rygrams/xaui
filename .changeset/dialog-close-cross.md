@@ -2,10 +2,10 @@
 '@xaui/native': patch
 ---
 
-`Dialog.Close` draws a cross when it is empty, like HeroUI's.
+`Dialog.Close` draws a cross when it is empty, like the reference implementation's.
 
 It was a bare pressable that rendered whatever it was given and nothing when it was given
-nothing, so `<Dialog.Close />` — the first line of HeroUI's own anatomy — put an invisible
+nothing, so `<Dialog.Close />` — the first line of the reference implementation's own anatomy — put an invisible
 32 points in the corner. It now reads `system/close-button`, which draws the cross from two
 rotated bars, and the dialog's recipe resolves the box and the bar the way `Chip.Close`
 already did.

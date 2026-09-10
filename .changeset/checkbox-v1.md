@@ -6,7 +6,7 @@ feat(checkbox): the v1 `Checkbox` — a box, a mark and the label that toggles i
 
 The eighth entry of the core. **The root is the row, not the box**: it is the pressable, so
 tapping the label ticks the checkbox — which is the whole reason `Checkbox.Label` is a slot
-here rather than a `Text` you put beside the component and wire up yourself. HeroUI needs a
+here rather than a `Text` you put beside the component and wire up yourself. The reference implementation needs a
 second component (`ControlField`) for that; the plan's slots for this one are Indicator ·
 Label, and this is why.
 
@@ -26,7 +26,7 @@ Three of the `Input`'s four levels, on the same `field*` tokens — `ghost` is a
 a box with no border and no fill is nothing at all — plus the four sizes, `radius`,
 `isInvalid` (which drops the resting fill and outranks the tint) and `isDisabled`.
 
-`isIndeterminate` is ours and not HeroUI's: the legacy checkbox had it, a "select all" is
+`isIndeterminate` is ours and not the reference implementation's: the legacy checkbox had it, a "select all" is
 what it is for, and `accessibilityState.checked: 'mixed'` is something only the component
 can say. A press resolves it to selected rather than toggling into it.
 

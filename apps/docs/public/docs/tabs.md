@@ -149,7 +149,7 @@ there is no flash at the start of the row either.
 
 ## Not here yet
 
-**A scrollable list.** HeroUI's `Tabs.ScrollView` centres the chosen tab when the bar
+**A scrollable list.** The reference implementation's `Tabs.ScrollView` centres the chosen tab when the bar
 overflows, and that means the indicator has to account for a scroll offset the triggers'
 own layout does not report. Worth its own change.
 

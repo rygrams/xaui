@@ -53,7 +53,7 @@ type SkeletonOwnProps = {
   /**
    * `false` freezes the block at full opacity and mounts no worklet.
    *
-   * A boolean rather than HeroUI's `'shimmer' | 'pulse' | 'none'`: a shimmer is a
+   * A boolean rather than the reference implementation's `'shimmer' | 'pulse' | 'none'`: a shimmer is a
    * gradient sweeping across the block, a gradient needs `react-native-svg`, and that is
    * an optional peer a component in the core cannot require. One animation, so there is
    * nothing for a name to choose between.

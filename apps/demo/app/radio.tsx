@@ -98,7 +98,7 @@ export default function RadioScreen() {
 
       <Section
         title="size — the circle, the dot, the gap and the type"
-        note="The same four boxes as the Checkbox, so a radio and a checkbox in one form line up. The dot keeps HeroUI's ratio — 10 in 24 — at every size."
+        note="The same four boxes as the Checkbox, so a radio and a checkbox in one form line up. The dot keeps the reference implementation's ratio — 10 in 24 — at every size."
       >
         {SIZES.map(size => (
           <Radio key={size} size={size} defaultSelected>

@@ -185,7 +185,7 @@ and not the other is how a cleared field comes back on the next keystroke.
 | `md`   | 48 × 44 | 18/28     | 8   |
 | `lg`   | 56 × 52 | 20/28     | 10  |
 
-`md` is HeroUI's OTP measured. The width is the control height less one spacing step, which
+`md` is the reference implementation's OTP measured. The width is the control height less one spacing step, which
 reproduces their 48 × 44 and holds the proportion at the other two.
 
 ### The corner
@@ -195,7 +195,7 @@ A field is wide, so 21 on a 48-tall one reads as a rounded rectangle. A code box
 nearly square — 44 by 48 at `md`, 36 by 40 at `sm` — where the geometric maximum is 22, so
 the same 21 is a pill in all but name and is clamped to one outright at the small end.
 
-Twelve is where HeroUI lands for the same box from the other direction: their `field` radius
+Twelve is where the reference implementation lands for the same box from the other direction: their `field` radius
 is their `xl`, and their scale's base is 8 where ours is 12.
 
 **There is no `xs`**, where the rest of the library has four sizes. That box would be 28 by
@@ -214,7 +214,7 @@ Three of the `Input`'s four, token for token — a box of a code is a field one 
 | `secondary` | `default`         | `fieldBorder` | `accent`    | —       |
 | `tertiary`  | transparent       | `fieldBorder` | `accent`    | —       |
 
-**The active box takes a two-point ring** in the accent. HeroUI uses `outline-width: 2px`;
+**The active box takes a two-point ring** in the accent. The reference implementation uses `outline-width: 2px`;
 React Native has no `outline`, so it is a border — and two points rather than one, because a
 box that gains a colour without gaining weight reads as a rendering artefact next to five
 that did not. The box has a fixed width and height and centres what it holds, so the extra

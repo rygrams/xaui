@@ -29,7 +29,7 @@ export type AvatarSlot = 'root' | 'fallback' | 'initials' | 'icon'
  * often as it identifies — a red frame for the account that failed to sync, a green one for
  * the person who is online.
  *
- * It is HeroUI's `variant × color` matrix said once: their `default` is this `default`, and
+ * It is the reference implementation's `variant × color` matrix said once: their `default` is this `default`, and
  * their `soft` crossed with five colours is `secondary` plus the five `-soft` names.
  */
 export type AvatarVariant =

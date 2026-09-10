@@ -26,7 +26,7 @@ import type { CardBackgroundProps } from './card.type'
  * **The clip lives here, not on the root.** React Native's `overflow: 'hidden'` cuts the
  * node's own shadow on iOS, so putting it on the card would cost a `default` card the
  * elevation its variant just gave it. This layer carries its own `overflow` and the card's
- * radius, which rounds the image without touching the shadow — where HeroUI clips on both
+ * radius, which rounds the image without touching the shadow — where the reference implementation clips on both
  * and loses it.
  *
  * Two forms, like `Icon`: `source` renders the image, and anything else is a layer of the

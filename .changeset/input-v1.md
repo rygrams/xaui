@@ -12,7 +12,7 @@ makes the three lines slots of one component rather than three components a form
 keep in step — and why `TextInputProps` are on the field rather than on the root.
 
 The first real use of the theme's `field*` family, derived in P0 and unread since. Four
-variants, the library's emphasis levels narrowed like the `Card`'s, splitting HeroUI's
+variants, the library's emphasis levels narrowed like the `Card`'s, splitting the reference implementation's
 two-name `primary | secondary` by saying what each of their ends already is: `primary` is
 their field fill plus the theme's `field` shadow, `secondary` their neutral fill and the
 default here, `tertiary` the border alone, `ghost` neither.
@@ -24,7 +24,7 @@ accent. `isInvalid` outranks it, so a field that is both reads as wrong rather t
 against the box's own padding, so the JSX is identical either way and nothing is
 reparented; the field pays for the room and the box grows by the same amount.
 
-Visually aligned with `heroui-native`: a 48pt minimum, 12pt of horizontal padding, a 16/24
+Visually aligned with the reference implementation: a 48pt minimum, 12pt of horizontal padding, a 16/24
 label above the field and a 14/20 line below it at `md`. The height is a **minimum** rather
 than fixed — the one place this component departs from the `Button`'s rule, because a
 `multiline` field holds the user's own text and has to grow.

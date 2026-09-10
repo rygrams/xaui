@@ -31,7 +31,7 @@ type SizeStep = {
   cross: number
 }
 
-/** HeroUI's, step for step. */
+/** the reference implementation's, step for step. */
 const SIZES: Record<TagGroupSize, SizeStep> = {
   sm: {
     paddingVertical: 0.5,

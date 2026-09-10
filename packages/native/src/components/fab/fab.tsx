@@ -14,7 +14,7 @@ import { FabSpinner } from './fab-spinner'
 import { fabSheet } from './fab.style'
 import type { FabProps } from './fab.type'
 
-/** How far in from the edge it floats, in points. Material's, and HeroUI's. */
+/** How far in from the edge it floats, in points. Material's, and the reference implementation's. */
 const DEFAULT_OFFSET = 16
 
 /**

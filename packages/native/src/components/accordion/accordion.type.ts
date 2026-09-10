@@ -29,7 +29,7 @@ export type AccordionSlot =
  * the `Button`'s five nor the `Card`'s four read that cleanly — both put `default`
  * somewhere in the middle of an order it does not name a position in.
  *
- * `ghost` is the default here, and it is HeroUI's own `default`: rows separated by
+ * `ghost` is the default here, and it is the reference implementation's own `default`: rows separated by
  * hairlines, on whatever page they sit on. `primary` is their `surface`.
  */
 export type AccordionVariant = 'primary' | 'secondary' | 'tertiary' | 'ghost'

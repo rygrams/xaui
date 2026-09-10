@@ -10,7 +10,7 @@ import { popoverMeasure } from './popover.recipe'
 import { PopoverProvider, usePopover } from './popover.context'
 import type { PopoverContentProps, PopoverInsets } from './popover.type'
 
-/** HeroUI's: nine from the trigger, twelve from every screen edge. */
+/** the reference implementation's: nine from the trigger, twelve from every screen edge. */
 const DEFAULT_OFFSET = 9
 const DEFAULT_INSETS: Required<PopoverInsets> = {
   top: 12,

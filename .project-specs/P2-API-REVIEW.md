@@ -137,7 +137,7 @@ limite assumée du fait d'envelopper un composant tiers.
 ### D. Le ripple — **corrigé**
 
 `feedbackVariant="scale-ripple"` ne dessinait rien. La cause était structurelle et se lit
-directement dans la source de HeroUI : **les handlers de toucher ne sont pas sur le
+directement dans la source de l'implémentation de référence : **les handlers de toucher ne sont pas sur le
 `Pressable`, ils sont sur la `View` du ripple lui-même.**
 
 `Pressable` porte le système de responder — il décide si un toucher devient un appui — et

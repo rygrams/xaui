@@ -4,12 +4,12 @@
 
 `Accordion` — Item · Trigger · Indicator · Content
 
-P5.11, over the legacy `ExpansionPanel`. HeroUI Native calls it `accordion` and so does
+P5.11, over the legacy `ExpansionPanel`. The reference implementation calls it `accordion` and so does
 this, which is also what the roadmap row now says.
 
 **The height is never measured.** The panel is mounted or it is not, and Reanimated's
 layout transition animates the row between the two — `LinearTransition.springify()` on
-HeroUI's numbers, damping 140 against stiffness **1600**. Stiffer than the chevron's 1000
+The reference implementation's numbers, damping 140 against stiffness **1600**. Stiffer than the chevron's 1000
 deliberately: a height is a longer distance than a rotation, and at the chevron's
 stiffness the same damping makes a long panel take almost half a second to settle.
 
@@ -22,7 +22,7 @@ still animating.
 **The variant table is the `Card`'s, token for token.** An accordion in `default` _is_ a
 card with rows in it, and two containers that look alike but are declared apart drift —
 the drift showing up as an accordion sitting on a card with a fill one step off it.
-`ghost` is the default and is HeroUI's own: rows separated by hairlines, on whatever page
+`ghost` is the default and is the reference implementation's own: rows separated by hairlines, on whatever page
 they sit on.
 
 **The separators are the root's, drawn between its children.** A row that drew its own

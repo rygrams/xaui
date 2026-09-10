@@ -164,7 +164,7 @@ the third component to read them, after the `Select` and the `Popover`.
 
 ## Not here yet
 
-**`SubMenu`.** HeroUI ships it as its own component and it needs a second anchored panel
+**`SubMenu`.** The reference implementation ships it as its own component and it needs a second anchored panel
 whose trigger is a row of the first — worth its own change rather than a corner of this one.
 
 ## Accessibility

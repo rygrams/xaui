@@ -28,7 +28,7 @@ type SizeStep = { padding: number; gap: number; radius: RadiusKey }
  * `size` moves the padding, the gap and the corner — **never a height**. A surface is a
  * ground: how tall it is, is how tall what is on it is.
  *
- * `md` is HeroUI's, measured: sixteen points of padding on a twenty-four point corner.
+ * `md` is the reference implementation's, measured: sixteen points of padding on a twenty-four point corner.
  */
 const SIZES: Record<Size, SizeStep> = {
   xs: { padding: 2.5, gap: 1.5, radius: 'lg' },

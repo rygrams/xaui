@@ -12,7 +12,7 @@ import { collectItemLabels } from '../../utils/item-labels'
 import type { SelectContentProps, SelectInsets } from './select.type'
 import { useEffect } from 'react'
 
-/** HeroUI's, point for point: eight from the trigger, twelve from every screen edge. */
+/** the reference implementation's, point for point: eight from the trigger, twelve from every screen edge. */
 const DEFAULT_OFFSET = 8
 const DEFAULT_INSETS: Required<SelectInsets> = {
   top: 12,

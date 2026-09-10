@@ -5,7 +5,7 @@
 `BottomSheet` — Trigger · Overlay · Content · Handle · Title · Description · Close
 
 **Built on this library's own peers rather than on `@gorhom/bottom-sheet`**, which is what
-HeroUI wraps. A sheet that slides, springs and dismisses is a pan gesture and a shared
+The reference implementation wraps. A sheet that slides, springs and dismisses is a pan gesture and a shared
 value; taking a dependency for that would put a second animation library in every app that
 installs one component. What it costs is their snap points and their scroll integration —
 both worth having, and both worth their own change rather than a dependency.

@@ -90,12 +90,12 @@ a person or a thing, which is the category the `Chip` established. The three sta
 are here because an avatar reports as often as it identifies: a red frame for the account
 that failed to sync, a green one for the person who is online.
 
-It is HeroUI's `variant × color` matrix said once. Their `default` is this `default`, and
+It is the reference implementation's `variant × color` matrix said once. Their `default` is this `default`, and
 their `soft` crossed with five colours is `secondary` plus the five `-soft` names.
 
 ### `size` sets both sides
 
-Thirty-two, forty, forty-eight and sixty-four — HeroUI's three steps plus the `xs` our
+Thirty-two, forty, forty-eight and sixty-four — the reference implementation's three steps plus the `xs` our
 ladder adds below them, which is the size an avatar is inside a `Chip` or a list row. An
 avatar is a square before it is a circle, so there is one measurement rather than a width
 and a height that can drift apart.
@@ -106,7 +106,7 @@ to sit inside with air around it.
 
 ### `radius` — a circle at every size
 
-Where HeroUI fixes one large radius for all three sizes, which makes their small avatars
+Where the reference implementation fixes one large radius for all three sizes, which makes their small avatars
 round and their large ones squircles. `full` says the shape the name means once, and
 `radius` is still there for the logo that wants a square.
 
@@ -117,7 +117,7 @@ round and their large ones squircles. `full` says the shape the name means once,
 `Avatar.Image` is absolutely positioned over `Avatar.Fallback`, and an `Image` with nothing
 decoded yet draws nothing. So the initials show while the photo loads and **stay if the URL
 is wrong** — with no load-state machine, no `onError` to remember, and nothing to get out of
-sync. HeroUI runs a status enum for this; a stacking order says the same thing and cannot
+sync. The reference implementation runs a status enum for this; a stacking order says the same thing and cannot
 disagree with itself.
 
 JSX order between the two is therefore free. Write the image first, as the anatomy reads.
@@ -130,7 +130,7 @@ colour to `IconContext`, so an `Icon` written inside it needs no props at all.
 
 ### The fade
 
-`Avatar.Image` fades in over 200ms on `onLoad` — HeroUI's timing. It runs off a shared value
+`Avatar.Image` fades in over 200ms on `onLoad` — the reference implementation's timing. It runs off a shared value
 rather than off a mount animation, because the node has to be mounted from the first render
 or it never fetches: the moment worth animating is the decode, not the mount.
 `animation={false}` skips it and mounts no worklet.

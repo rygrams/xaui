@@ -34,7 +34,7 @@ function isBackground(node: ReactNode): boolean {
  *
  * Without this, source order would decide the stacking: a `Card.Background` written after
  * the header would sit over it and hide the card's own content, which is exactly the
- * invisible ordering rule composition should not carry. HeroUI avoids the same trap by
+ * invisible ordering rule composition should not carry. The reference implementation avoids the same trap by
  * making the background a **prop** rather than a child; hoisting keeps it a child, which
  * is what R1 asks for.
  *

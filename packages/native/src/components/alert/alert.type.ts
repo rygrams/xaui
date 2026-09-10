@@ -28,7 +28,7 @@ export type AlertSlot =
  * status vocabulary of the `Chip` for the rest.
  *
  * - **`default`** — the `surface` fill and the surface shadow, exactly the `Card`'s
- *   `default`. This is HeroUI's alert: a neutral card, with the status carried by the icon
+ *   `default`. This is the reference implementation's alert: a neutral card, with the status carried by the icon
  *   rather than by the background.
  * - **`primary` / `secondary`** — the full accent and its soft slice, for the
  *   informational alert that is not an outcome.

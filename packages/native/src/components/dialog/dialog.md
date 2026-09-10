@@ -108,7 +108,7 @@ which the dialog supplies. Two shapes, and the empty one is the default:
 **Empty, it draws a cross** — the shared button's, from two rotated bars rather than an
 icon, so the corner affordance works in a project that has installed no icon set.
 
-Every measurement is HeroUI's, read off their CSS. `close-button.css` sets
+Every measurement is the reference implementation's, read off their CSS. `close-button.css` sets
 `height: calc(var(--spacing) * 8)` on a spacing base of 4, so the box is **32 points**, and
 `isIconOnly` gives it `aspect-ratio: 1` and a radius past half its height — a circle. It is
 **filled**, not a bare glyph: their `CloseButton` is a `tertiary` button, and their
@@ -119,7 +119,7 @@ reads as decoration; the disc is what makes it a target.
 **It places itself nowhere.** `alignSelf="flex-end"` above the title, or `position`,
 `top` and `end` over content that has room for it — a title with space beside it and one
 without want different answers, and that is layout, which is the caller's (R4). This is
-what HeroUI does too: their own examples use `absolute top-3 inset-e-2.5`, `items-end` and
+what the reference implementation does too: their own examples use `absolute top-3 inset-e-2.5`, `items-end` and
 `self-end me-4` in three different dialogs. The placement is in the example, not in the
 component.
 

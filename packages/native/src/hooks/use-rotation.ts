@@ -10,7 +10,7 @@ import {
 } from 'react-native-reanimated'
 
 /**
- * One turn. Slow enough to read as waiting, fast enough not to read as stuck — HeroUI
+ * One turn. Slow enough to read as waiting, fast enough not to read as stuck — the reference implementation
  * arrives at the same figure from the other side, a 1000ms turn played at 1.1×.
  *
  * It is a constant rather than a parameter because the library turns at one speed: two

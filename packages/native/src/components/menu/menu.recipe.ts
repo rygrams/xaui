@@ -43,7 +43,7 @@ export function menuMeasure(fontSize: number): number {
   return fontSize * 15
 }
 
-/** HeroUI's, in spacing steps: the panel is inset less than its rows are padded. */
+/** the reference implementation's, in spacing steps: the panel is inset less than its rows are padded. */
 const PANEL_PADDING_HORIZONTAL = 1.5
 const PANEL_PADDING_VERTICAL = 3
 const ITEM_PADDING_HORIZONTAL = 2.5
@@ -117,7 +117,7 @@ export const menuRecipe = createRecipe({
       // `flex: 1` is `flexBasis: 0`, and the panel is measured before it has a width: with
       // a basis of zero and no definite width to grow into, the row's content size is
       // nothing and the title collapses. The whole menu measured as a 70-point capsule
-      // with no text in it. HeroUI writes `flex: 1` here and gets away with it because
+      // with no text in it. The reference implementation writes `flex: 1` here and gets away with it because
       // their measuring pass hands the panel a definite width; ours asks the panel how
       // wide it wants to be, which is a question a zero basis cannot answer.
       flexGrow: 1,

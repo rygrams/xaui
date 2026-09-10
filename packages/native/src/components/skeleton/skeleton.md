@@ -125,10 +125,10 @@ One pulse: the block breathes between full opacity and a half, a second each way
 and out. `animation={false}` freezes it at full and mounts no worklet — the branch renders
 a plain `View`, so a long list frozen for a screenshot costs nothing.
 
-**No shimmer**, where HeroUI's default is one. A shimmer is a gradient sweeping across the
+**No shimmer**, where the reference implementation's default is one. A shimmer is a gradient sweeping across the
 block; a gradient needs `react-native-svg`, and that is an optional peer a component in the
 fifteen-component core cannot require. One animation, so there is nothing for a name to
-choose between — `animation` is a boolean rather than HeroUI's
+choose between — `animation` is a boolean rather than the reference implementation's
 `'shimmer' | 'pulse' | 'none'`.
 
 ## Accessibility

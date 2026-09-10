@@ -74,7 +74,7 @@ handler both happen, in that order.
 
 The border, the mark's fill and the label turn `danger`, and the **resting fill is
 dropped**: a box that is wrong reads as an outline rather than as a filled control that
-happens to be red at the edge. HeroUI reaches the same shape with a compound.
+happens to be red at the edge. The reference implementation reaches the same shape with a compound.
 
 It does not mount a message. Put one under the row yourself — a slot that silently renders
 nothing is a slot you cannot debug, which is the `TextField.Error` bargain again.
@@ -155,7 +155,7 @@ checkbox hugs its label; a row that has to fill its parent is a style prop away.
 The check is **derived from the box** — half its width, a quarter its height — rather than
 tabulated, so it is one glyph at four sizes instead of four drawings of one.
 
-`md` is HeroUI's checkbox measured: a 24pt box with the field's 1pt border. The corner is
+`md` is the reference implementation's checkbox measured: a 24pt box with the field's 1pt border. The corner is
 `md` (9) where theirs is `lg` (8) — the same key is 12 on our radius base, and 12 on a 24pt
 box is a circle, which is the `Radio`.
 
@@ -214,7 +214,7 @@ two components rather than a branch inside one.
 The press treatment is `PressableFeedback`'s, so `animation` on the root is the library's
 usual knob: `false`, `'disabled'`, `'disable-all'`, or the object.
 
-## Alignment with `heroui-native`
+## Alignment with the reference implementation
 
 Measured against their `checkbox.tsx` and `checkbox.css` rather than eyeballed.
 
