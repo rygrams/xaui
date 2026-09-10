@@ -79,7 +79,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
       <header className="space-y-5 border-b pb-8">
         <div className="flex flex-wrap items-center gap-2 text-xs font-medium">
           <span className="rounded-full bg-violet-100 px-2.5 py-1 text-violet-700 dark:bg-violet-950 dark:text-violet-300">
-            Alpha
+            Beta
           </span>
           <span className="rounded-full bg-muted px-2.5 py-1 text-muted-foreground">
             {component.category}

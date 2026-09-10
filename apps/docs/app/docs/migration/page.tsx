@@ -40,7 +40,7 @@ export default function MigrationPage() {
         </h2>
         <CodeBlock
           language="bash"
-          code="pnpm add @xaui/native@alpha --save-exact @xaui/native-legacy@0.2.11"
+          code="pnpm add @xaui/native@beta --save-exact @xaui/native-legacy@0.2.11"
         />
         <p className="text-muted-foreground">
           Pin <code>@xaui/native-legacy</code> to an exact version. It is frozen and

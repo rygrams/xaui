@@ -69,12 +69,13 @@ export default function FaqPage() {
           </p>
         </Question>
 
-        <Question id="alpha-tag" question="Why install from the alpha tag?">
+        <Question id="beta-tag" question="Why install from the beta tag?">
           <p>
-            The current package publishes on the <code>alpha</code> dist-tag, so{' '}
-            <code>pnpm add @xaui/native@alpha</code> is what gets you the{' '}
+            The current package publishes on the <code>beta</code> dist-tag, so{' '}
+            <code>pnpm add @xaui/native@beta</code> is what gets you the{' '}
             {components.length} components documented here. Plain <code>latest</code>{' '}
-            still points at the previous line.
+            still points at the previous line, and the <code>alpha</code> tag is
+            frozen on the last pre-beta publish.
           </p>
         </Question>
 

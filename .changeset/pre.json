@@ -1,6 +1,6 @@
 {
   "mode": "pre",
-  "tag": "alpha",
+  "tag": "beta",
   "initialVersions": {
     "demo": "1.0.71",
     "docs": "0.1.47",
