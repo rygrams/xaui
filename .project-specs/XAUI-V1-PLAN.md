@@ -1025,12 +1025,14 @@ Une couleur ponctuelle sur un composant n'est **pas** une surcharge de thème : 
 
 ```
 tooling/tokens/source.ts     →  packages/native/src/theme/tokens.gen.ts   (nombres, hex)
-                             →  packages/hybrid/src/theme/tokens.gen.ts   (em, via toEm)
+                             →  packages/hybrid/src/theme/tokens.gen.ts   (mêmes couleurs)
 ```
 
 `generate.ts` écrit **les deux couches déjà résolues** pour les thèmes par défaut clair et sombre — aucun calcul de couleur au démarrage de l'app. `deriveColors` n'est exécuté à l'exécution que si l'utilisateur surcharge la couche source.
 
-`generate.ts` applique aussi la convention `em` de hybrid (documentée dans CLAUDE.md) et éclate les shorthands RN (`paddingVertical` → `paddingTop`/`paddingBottom`) côté web.
+Les tokens générés sont des couleurs et restent identiques dans les deux packages. Les nombres
+du thème restent eux aussi des nombres RN ; leur conversion en unité CSS appartient au
+renderer Hybrid, pas au générateur de tokens.
 
 **Trois garde-fous CI :**
 
@@ -1513,11 +1515,53 @@ Même boucle par composant. Commencer par les dix qui ont déjà un contexte de 
 
 ---
 
-### P6 — Hybrid (après la 1.0)
+### P6 — Hybrid beta (après la 1.0 Native)
 
 `@xaui/hybrid` est **gelé de P0 à P4** : aucun nouveau composant, aucun changement d'API. Sinon chaque décision se paie deux fois avant d'être stabilisée.
 
-Il reprend ensuite avec la même arborescence, les mêmes noms de fichiers et les mêmes tests. Seuls `.style.ts` et le renderer diffèrent — `createRecipe` est repris tel quel, c'est de la résolution pure et le renderer n'intervient qu'au bout.
+Il reprend ensuite comme **renderer web de la même API**, pas comme une deuxième librairie :
+
+- mêmes sous-chemins, composants, slots, hooks de contexte, props XAUI, unions, valeurs par
+  défaut et comportements contrôlés/non contrôlés ;
+- mêmes règles `variant`, `color`, style props, `style`, `asChild`, accessibilité et ordre de
+  priorité ;
+- seules les cibles de `ref`, les objets d'événement hôte et l'implémentation du renderer
+  s'adaptent au DOM — aucune prop Hybrid n'est ajoutée pour les compenser ;
+- `@emotion/styled` rend tous les styles et filtre les style props avant le DOM ;
+- Framer Motion rend toutes les animations et respecte les mêmes props publiques,
+  `animation={false}` et la préférence de réduction des mouvements ;
+- les nombres restent des valeurs RN dans l'API publique. À l'échelle 1, un point Native vaut
+  un pixel logique CSS : `4` devient `0.25rem`, soit `4px` calculés avec une racine à `16px`.
+  La conversion est relative à la racine, jamais au texte parent, et aucun multiplicateur DPR
+  ou viewport n'est appliqué par les composants. Zoom, réglages d'accessibilité et DPR gardent
+  ainsi le scaling naturel du device ;
+- les directions deviennent des propriétés CSS logiques ;
+- aucune page ni preview n'est dupliquée dans `apps/docs` : la documentation Native décrit
+  l'API partagée.
+
+`createRecipe` et les fonctions pures sont repris avec la même sémantique. Les composants ne
+reçoivent pas de tests unitaires ; seules les fonctions pures sont testées. Chaque lot passe
+lint, type-check, tests, build, contrôle du tarball, vérification navigateur et contrôles de
+parité des exports/types.
+
+P6 publie uniquement `@xaui/hybrid@0.9.x-beta.x` sur le dist-tag `beta`. Même au jalon de
+parité, Hybrid ne passe ni en stable ni en `1.0.0` ; cette graduation demande une décision et
+une tâche séparées.
+
+L'ordre P6 est celui des dépendances :
+
+| Ref  | Lot                        | Entrées                                                                                                                                                                                                                                                      |
+| ---- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| P6.0 | Contrat et renderer        | thème, provider, hooks, recipe/cache, slots, `asChild`, style props, Portal, `PressableFeedback`, Icon, ancrage et sélection ; configuration Emotion et Framer Motion ; conversion `4` → `0.25rem` → `4px` à l'échelle 1 ; contrôles de parité               |
+| P6.1 | Tranche de référence       | `Typography`/`TextSpan`, `Icon`, `view`, `Spinner`, `Button`                                                                                                                                                                                                 |
+| P6.2 | Primitives statiques       | `Surface`, `Divider`, `Skeleton`, `ProgressBar`, `ProgressCircle`, `Card`, `Avatar`, `Badge`                                                                                                                                                                 |
+| P6.3 | Actions et statuts         | `CloseButton`, `Chip`, `Alert`, `Fab`, `MorphButton`, `EmptyState`, `Widget`, `FlipCard`                                                                                                                                                                     |
+| P6.4 | Champs et sélection        | `TextField`, `TextArea`, `FieldGroup`, `DummyField`, `SearchField`, `MaskField`, `InputOTP`, `NumberPad`, `NumberField`, `NumberStepper`, `Checkbox`, `Radio`, `Switch`, `Segment`, `ToggleButton`, `Stepper`, `Slider`, `SlideButton`, `Rating`, `TagGroup` |
+| P6.5 | Overlays et choix composés | `Accordion`, `Dialog`, `Popover`, `BottomSheet`, `Menu`, `ListBox`, `Select`, `Autocomplete`, `Combobox`, `WheelPicker`, `PhoneNumberField`, `TimePicker`, `ColorPicker`, `Toast`, `Snackbar`                                                                |
+| P6.6 | Date et calendrier         | `Calendar`, `RangeCalendar`, `AgendaCalendar`, `DatePicker`, `DateRangePicker`, `DateTimePicker`                                                                                                                                                             |
+| P6.7 | Données et navigation      | `List`, `Table`, `Timeline`, `Tabs`, `Carousel`, `Pager`, `Scaffold`                                                                                                                                                                                         |
+| P6.8 | Graphiques                 | `Chart`, `LineChart`, `AreaChart`, `BarChart`, `PieChart`, `RadarChart`, `RadialChart`                                                                                                                                                                       |
+| P6.9 | Jalon de parité            | les 75 sous-chemins existent des deux côtés, les exports/types correspondent, le tarball est complet et Hybrid est publié en `0.9.x-beta.x` sans graduation stable                                                                                           |
 
 ---
 

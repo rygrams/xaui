@@ -165,7 +165,17 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.45 | `Widget` — net new, no legacy equivalent | done |
 | P5.47 | `Scaffold` — the app's chrome over `useAppearance`: the ground, the status bar and the navigator's options, with no navigator dependency | done |
 | P5.46 | Parity milestone — `npm deprecate @xaui/native-legacy` | todo |
-| P6 | `@xaui/hybrid` on the v1 API — frozen until P4 ships | todo |
+| P6 | `@xaui/hybrid` on the identical v1 API — Emotion Styled + Framer Motion, no docs fork | todo |
+| P6.0 | Hybrid contract and renderer — Emotion, Framer Motion, `1 Native point = 1 CSS logical pixel` at scale 1, export/type parity | todo |
+| P6.1 | Hybrid reference slice — `Typography`, `Icon`, `view`, `Spinner`, `Button` | todo |
+| P6.2 | Hybrid static primitives — `Surface` through `Badge` | todo |
+| P6.3 | Hybrid actions and status — `CloseButton` through `FlipCard` | todo |
+| P6.4 | Hybrid fields and selection — `TextField` through `TagGroup` | todo |
+| P6.5 | Hybrid overlays and composed choices — `Accordion` through `Snackbar` | todo |
+| P6.6 | Hybrid date and calendar — `Calendar` through `DateTimePicker` | todo |
+| P6.7 | Hybrid data and navigation — `List` through `Scaffold` | todo |
+| P6.8 | Hybrid charts — `Chart`, line, area, bar, pie, radar and radial | todo |
+| P6.9 | Hybrid parity milestone — 75 matching subpaths/exports/types, publish `0.9.x-beta.x` only | todo |
 | P7 | Delete `native-legacy` — not before the P5 parity milestone | todo |
 
 ## Repository debt

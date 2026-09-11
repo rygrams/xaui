@@ -114,13 +114,13 @@ Acceptance: a parent that re-renders 100 times recomputes the theme zero times.
 
 ```
 tooling/tokens/source.ts → packages/native/src/theme/tokens.gen.ts   (numbers, hex)
-                         → packages/hybrid/src/theme/tokens.gen.ts   (em, via toEm)
+                         → packages/hybrid/src/theme/tokens.gen.ts   (same colours)
 ```
 
-`generate.ts` writes **both layers already resolved** for the default light and dark
+`generate.ts` writes **both colour layers already resolved** for the default light and dark
 themes — no colour maths at app startup. `deriveColors` only runs at runtime when the user
-overrides the source layer. It also applies hybrid's `em` convention and splits RN
-shorthands (`paddingVertical` → `paddingTop`/`paddingBottom`) on the web side.
+overrides the source layer. Dimensional theme values remain RN numbers in both packages;
+Hybrid converts them to root-relative CSS units only at its Emotion renderer boundary.
 
 Three guards, all blocking:
 
@@ -139,4 +139,4 @@ Files ending in `.gen.ts` are **never edited by hand** — change `source.ts` an
 - [ ] `pnpm tokens:check` produces no diff.
 - [ ] Contrast job still green for every `X`/`XForeground` pair.
 - [ ] Frozen-value tests updated intentionally, never "to make the suite pass".
-- [ ] Hybrid's `tokens.gen.ts` regenerated in the same commit (`em` units).
+- [ ] Hybrid's `tokens.gen.ts` regenerated in the same commit with the same colour values.
