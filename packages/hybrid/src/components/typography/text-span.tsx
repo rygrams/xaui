@@ -1,6 +1,8 @@
 import { forwardRef } from 'react'
-import { TextRoot, toWebStyle, useStyleProps, useTextHostProps } from '../../system'
-import type { TextHostProps, TextStyle } from '../../system'
+import { toWebStyle, useStyleProps } from '../../system'
+import { TextRoot, useTextHostProps } from '../../system/text-host'
+import type { TextStyle } from '../../system'
+import type { TextHostProps } from '../../system/text-host'
 import type { TextSpanProps } from './typography.type'
 
 export const TextSpan = forwardRef<HTMLElement, TextSpanProps>(function TextSpan(

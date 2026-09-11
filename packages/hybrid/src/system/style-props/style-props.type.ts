@@ -36,7 +36,7 @@ export type NativeFontWeight =
 
 type CSSStyleKey = Extract<StylePropKey, keyof CSSProperties>
 
-type NativeTextStyleOverrides = {
+type NativeBoxStyleOverrides = {
   borderBottomEndRadius?: NativeLength
   borderBottomStartRadius?: NativeLength
   borderTopEndRadius?: NativeLength
@@ -69,6 +69,9 @@ type NativeTextStyleOverrides = {
   transformMatrix?: ReadonlyArray<number>
   translateX?: NativeLength
   translateY?: NativeLength
+}
+
+type NativeTextOnlyOverrides = {
   fontVariant?: CSSProperties['fontVariant'] | ReadonlyArray<string>
   fontWeight?: NativeFontWeight
   includeFontPadding?: boolean
@@ -79,14 +82,44 @@ type NativeTextStyleOverrides = {
   writingDirection?: 'auto' | 'ltr' | 'rtl'
 }
 
-type ImageOnlyStyleKey = 'objectFit' | 'overlayColor' | 'resizeMode' | 'tintColor'
+type NativeImageOnlyOverrides = {
+  objectFit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down'
+  overlayColor?: NativeColor
+  resizeMode?: 'cover' | 'contain' | 'stretch' | 'repeat' | 'center'
+  tintColor?: NativeColor
+}
+
+type ImageOnlyStyleKey = keyof NativeImageOnlyOverrides
+
+/** Keys a text node has and an image node does not — `fontWeight` on an image is a lie. */
+type TextOnlyStyleKey =
+  | keyof NativeTextOnlyOverrides
+  | 'color'
+  | 'fontFamily'
+  | 'fontSize'
+  | 'fontStyle'
+  | 'letterSpacing'
+  | 'lineHeight'
+  | 'textAlign'
+  | 'textDecorationColor'
+  | 'textDecorationLine'
+  | 'textDecorationStyle'
+  | 'textTransform'
+  | 'userSelect'
+  | 'verticalAlign'
+
+type BoxStyle = Omit<
+  Pick<CSSProperties, CSSStyleKey>,
+  keyof NativeBoxStyleOverrides | ImageOnlyStyleKey
+> &
+  NativeBoxStyleOverrides
 
 /** React Native-shaped text styles, without taking a dependency on React Native. */
-export type TextStyle = Omit<
-  Pick<CSSProperties, CSSStyleKey>,
-  keyof NativeTextStyleOverrides | ImageOnlyStyleKey
-> &
-  NativeTextStyleOverrides
+export type TextStyle = Omit<BoxStyle, keyof NativeTextOnlyOverrides> &
+  NativeTextOnlyOverrides
+
+/** React Native-shaped image styles — `resizeMode`, `tintColor`, and no typography. */
+export type ImageStyle = Omit<BoxStyle, TextOnlyStyleKey> & NativeImageOnlyOverrides
 
 export type StyleProp<Style> =
   | Style
@@ -95,5 +128,13 @@ export type StyleProp<Style> =
   | undefined
   | ReadonlyArray<StyleProp<Style>>
 
-/** R13 and R14: every Native text style key except physical directions. */
-export type TextStyleProps = Omit<TextStyle, DirectionalStyleKey | 'pointerEvents'>
+/**
+ * R13 and R14: every style key of a node, exposed as props, minus the physical directions
+ * R13 bans and `pointerEvents`, which stays the component's own prop.
+ */
+export type StyleProps<Style> = Omit<Style, DirectionalStyleKey | 'pointerEvents'>
+
+/** A text node — `color`, `fontSize`, `letterSpacing`… */
+export type TextStyleProps = StyleProps<TextStyle>
+/** An image node — `resizeMode`, `tintColor`… */
+export type ImageStyleProps = StyleProps<ImageStyle>

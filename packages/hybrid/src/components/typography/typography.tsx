@@ -1,8 +1,10 @@
 import { forwardRef } from 'react'
-import { TextRoot, toWebStyle, useStyleProps, useTextHostProps } from '../../system'
+import { toWebStyle, useStyleProps } from '../../system'
+import { TextRoot, useTextHostProps } from '../../system/text-host'
 import { useXAUITheme } from '../../theme/theme-hooks'
 import { typographyRecipe } from './typography.recipe'
-import type { TextHostProps, TextStyle } from '../../system'
+import type { TextStyle } from '../../system'
+import type { TextHostProps } from '../../system/text-host'
 import type { TypographyProps } from './typography.type'
 
 export const Typography = forwardRef<HTMLElement, TypographyProps>(
