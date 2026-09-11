@@ -2,15 +2,22 @@ import { defineConfig } from 'tsup'
 
 const entries = {
   index: 'src/index.ts',
+  'components/typography/index': 'src/components/typography/index.ts',
   'theme/index': 'src/theme/index.ts',
 }
 
 export default defineConfig({
   entry: entries,
   format: ['cjs', 'esm'],
-  clean: false,
+  clean: true,
   dts: true,
   splitting: true,
   target: 'es2020',
-  external: ['react', 'react-dom'],
+  external: [
+    '@emotion/react',
+    '@emotion/styled',
+    'framer-motion',
+    'react',
+    'react-dom',
+  ],
 })

@@ -9,6 +9,36 @@ a heading cannot be set in a body weight and a caption cannot be set in a displa
 import { TextSpan, Typography } from '@xaui/native/typography'
 ```
 
+## Availability
+
+The same component ships in both renderers, and this page documents both — there is one
+API, so there is one page.
+
+```tsx
+import { TextSpan, Typography } from '@xaui/native/typography' // React Native
+import { TextSpan, Typography } from '@xaui/hybrid/typography' // web
+```
+
+Every variant, prop, default and precedence rule below is identical in the two packages,
+and the numbers keep their meaning: `fontSize={17}` is 17 points on Native and 17 CSS
+pixels on the web, because Hybrid converts each length against the document root rather
+than against the inherited text size.
+
+Only what the platform makes impossible to share differs:
+
+- `ref` targets a React Native `Text` on Native and an `HTMLElement` on the web.
+- Press and layout handlers receive their platform's event — a React DOM event under
+  Hybrid, where `onPress` is also reachable from the keyboard on `Enter` and `Space`.
+- `Typography` renders a `<span>` under Hybrid. `accessibilityRole` maps to the matching
+  ARIA role, so `accessibilityRole="header"` announces as a heading in both.
+- Props naming an iOS or Android mechanism the web has no equivalent for —
+  `dynamicTypeRamp`, `adjustsFontSizeToFit`, `lineBreakStrategyIOS` — stay accepted so the
+  same source compiles against either package, and are dropped before the DOM rather than
+  forwarded as unknown attributes. The ones the web _can_ honour are translated:
+  `numberOfLines` becomes a line clamp, `selectable` a `user-select`.
+
+Hybrid is on the `beta` dist-tag while the port proceeds.
+
 ## Anatomy
 
 Two components, and neither is a slot of the other.
