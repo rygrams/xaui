@@ -112,9 +112,33 @@ gh pr create --assignee @me --label documentation
 
 **Always assign the PR to the authenticated `gh` user, and always add at least one label**
 picked from the repository's existing set (`bug`, `documentation`, `enhancement`, …). Body
-has **What / Why / How** sections. All CI checks green before requesting review. After
-merge, the Changesets action opens or updates the "Version Packages" PR; merging that one
-publishes. Nothing else to do by hand.
+has **What / Why / How** sections. All CI checks green before requesting review.
+
+## 8 bis. Merging, and publishing
+
+Merging is yours to do, under a standing authorization with a condition you have to go and
+read. Three things must hold, all three:
+
+1. Every CI check is green.
+2. The repository owner has left their comment on the PR. That comment is the test verdict,
+   and it is the signal the gate is open — **green CI on its own is not it**. No comment
+   yet means wait.
+3. No valid comment is left standing. Address each substantive one, resolve its thread
+   (§9), and re-run the gates. One you disagreed with stays open, with your reply, and an
+   open disagreement blocks the merge rather than being merged past.
+
+```bash
+gh pr checks <n>          # all green?
+gh pr view <n> --comments # and what did they say?
+```
+
+Then merge. The Changesets action opens or updates the "Version Packages" PR; merging that
+one publishes to the `beta` dist-tag, and it falls under the same authorization — the same
+three conditions, read again on that PR. Nothing else to do by hand.
+
+Never run `changeset version`, `changeset publish` or `changeset pre exit` locally: CI owns
+the release, and `pre exit` would graduate `native` and `hybrid` onto `latest` before v1 is
+done.
 
 ## 9. Close the loop on review comments
 
