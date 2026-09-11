@@ -77,10 +77,12 @@ export function useTextHostProps(props: TextHostProps): {
   )
 
   const role = props.role ?? resolveRole(props.accessibilityRole)
+  // Each fallback stays optional: a plain `aria-hidden="false"` on every text node is a
+  // leak, not a default — Native renders no such attribute.
   const hidden =
     props['aria-hidden'] ??
     props.accessibilityElementsHidden ??
-    props.importantForAccessibility === 'no-hide-descendants'
+    (props.importantForAccessibility === 'no-hide-descendants' ? true : undefined)
   const labelledBy =
     props['aria-labelledby'] ??
     (Array.isArray(props.accessibilityLabelledBy)

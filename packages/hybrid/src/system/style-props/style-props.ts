@@ -1,4 +1,5 @@
 import type { CSSObject } from '@emotion/react'
+import { alpha, isHex } from '../../utils/colors'
 import type { StyleProp, TextStyle } from './style-props.type'
 
 const STYLE_PROP_KEYS = [
@@ -421,7 +422,8 @@ function textShadowValue(style: Record<string, unknown>): string | undefined {
   return `${toWebUnit(offset?.width ?? 0)} ${toWebUnit(offset?.height ?? 0)} ${toWebUnit(radius)} ${String(style.textShadowColor ?? 'currentColor')}`
 }
 
+/** `shadowOpacity` is a separate Native key; CSS carries it inside the colour. */
 function withOpacity(color: string, opacity: number): string {
-  if (opacity >= 1 || color !== '#000000') return color
-  return `rgba(0, 0, 0, ${opacity})`
+  if (opacity >= 1) return color
+  return isHex(color) ? alpha(color, opacity) : color
 }

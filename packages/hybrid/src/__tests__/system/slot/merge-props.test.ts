@@ -15,15 +15,24 @@ describe('mergeProps', () => {
     expect(merged.title).toBe('child')
   })
 
-  it('keeps Emotion and child classes while stacking styles', () => {
+  it('keeps Emotion and child classes while flattening styles into one object', () => {
     expect(
       mergeProps(
-        { className: 'xaui', style: { color: 'red' } },
+        { className: 'xaui', style: { color: 'red', margin: 0 } },
         { className: 'child', style: { color: 'blue' } }
       )
     ).toMatchObject({
       className: 'xaui child',
-      style: [{ color: 'red' }, { color: 'blue' }],
+      style: { color: 'blue', margin: 0 },
     })
+  })
+
+  it('keeps whichever side carries a style when the other has none', () => {
+    expect(mergeProps({}, { style: { color: 'blue' } }).style).toEqual({
+      color: 'blue',
+    })
+    expect(
+      mergeProps({ style: { color: 'red' } }, { style: undefined }).style
+    ).toEqual({ color: 'red' })
   })
 })

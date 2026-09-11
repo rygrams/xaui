@@ -17,7 +17,7 @@ export function mergeProps(
     if (EVENT_HANDLER.test(key)) {
       merged[key] = composeHandlers(ourValue, theirValue)
     } else if (key === 'style') {
-      merged[key] = [ourValue, theirValue]
+      merged[key] = mergeStyles(ourValue, theirValue)
     } else if (key === 'className') {
       merged[key] = [ourValue, theirValue].filter(Boolean).join(' ')
     } else if (key === 'ref') {
@@ -31,6 +31,21 @@ export function mergeProps(
   }
 
   return merged
+}
+
+/**
+ * A DOM `style` is one object, never Native's array: React writes an array out as
+ * `style="1:[object Object]"` and loses whichever side it did not stringify. Theirs is
+ * applied last, so the caller's element keeps the last word on a key both sides set.
+ */
+function mergeStyles(ours: unknown, theirs: unknown): unknown {
+  if (!isStyleObject(ours)) return theirs
+  if (!isStyleObject(theirs)) return ours
+  return { ...ours, ...theirs }
+}
+
+function isStyleObject(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null
 }
 
 function composeHandlers(ours: unknown, theirs: unknown): unknown {

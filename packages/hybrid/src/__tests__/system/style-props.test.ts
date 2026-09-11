@@ -57,6 +57,17 @@ describe('Hybrid style boundary', () => {
     })
   })
 
+  it('folds shadowOpacity into the composed box shadow colour', () => {
+    expect(
+      toWebStyle({
+        shadowColor: '#3b82f6',
+        shadowOffset: { width: 0, height: 2 },
+        shadowRadius: 8,
+        shadowOpacity: 0.2,
+      })
+    ).toEqual({ boxShadow: '0rem 0.125rem 0.5rem rgba(59, 130, 246, 0.2)' })
+  })
+
   it('removes style props from the props forwarded to the DOM', () => {
     expect(splitStyleProps({ fontSize: 16, testID: 'title' })).toEqual([
       { fontSize: 16 },
