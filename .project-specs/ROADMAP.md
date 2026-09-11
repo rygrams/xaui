@@ -168,6 +168,11 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P6 | `@xaui/hybrid` on the identical v1 API — Emotion Styled + Framer Motion, no docs fork | todo |
 | P6.0 | Hybrid contract and renderer — Emotion, Framer Motion, `1 Native point = 1 CSS logical pixel` at scale 1, export/type parity | todo |
 | P6.1 | Hybrid reference slice — `Typography`, `Icon`, `view`, `Spinner`, `Button` | todo |
+| P6.1a | Hybrid `Typography` + `TextSpan` — identical API, DOM-safe text host, pixel-equivalent roles | done |
+| P6.1b | Hybrid `Icon` | todo |
+| P6.1c | Hybrid `view` | todo |
+| P6.1d | Hybrid `Spinner` | todo |
+| P6.1e | Hybrid `Button` | todo |
 | P6.2 | Hybrid static primitives — `Surface` through `Badge` | todo |
 | P6.3 | Hybrid actions and status — `CloseButton` through `FlipCard` | todo |
 | P6.4 | Hybrid fields and selection — `TextField` through `TagGroup` | todo |

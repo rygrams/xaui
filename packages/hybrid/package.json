@@ -35,6 +35,16 @@
         "types": "./dist/theme/index.d.cts",
         "default": "./dist/theme/index.cjs"
       }
+    },
+    "./typography": {
+      "import": {
+        "types": "./dist/components/typography/index.d.ts",
+        "default": "./dist/components/typography/index.js"
+      },
+      "require": {
+        "types": "./dist/components/typography/index.d.cts",
+        "default": "./dist/components/typography/index.cjs"
+      }
     }
   },
   "files": [
@@ -51,19 +61,25 @@
     "access": "public"
   },
   "scripts": {
-    "build": "rm -rf dist && tsup --config tsup.config.ts",
+    "build": "tsup --config tsup.config.ts",
     "dev": "tsup --config tsup.config.ts --watch",
     "test": "vitest",
     "lint": "eslint src/",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit && tsc --project ../../tooling/hybrid-parity/tsconfig.json"
   },
   "peerDependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
+    "framer-motion": "^12.28.1",
     "react": "^18.0.0 || ^19.0.0",
     "react-dom": "^18.0.0 || ^19.0.0"
   },
   "devDependencies": {
+    "@emotion/react": "^11.14.0",
+    "@emotion/styled": "^11.14.1",
     "@types/react": "^19.2.0",
     "@types/react-dom": "^19.1.0",
+    "framer-motion": "^12.28.1",
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "tsup": "^8.5.1",
