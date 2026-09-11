@@ -26,6 +26,16 @@
         "default": "./dist/index.cjs"
       }
     },
+    "./system": {
+      "import": {
+        "types": "./dist/system/index.d.ts",
+        "default": "./dist/system/index.js"
+      },
+      "require": {
+        "types": "./dist/system/index.d.cts",
+        "default": "./dist/system/index.cjs"
+      }
+    },
     "./theme": {
       "import": {
         "types": "./dist/theme/index.d.ts",

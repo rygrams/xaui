@@ -1,10 +1,6 @@
 import type { ReactNode } from 'react'
-import type {
-  StyleProp,
-  TextHostProps,
-  TextStyle,
-  TextStyleProps,
-} from '../../system'
+import type { StyleProp, TextStyle, TextStyleProps } from '../../system'
+import type { TextHostProps } from '../../system/text-host'
 
 export type TypographyVariant =
   | 'h1'

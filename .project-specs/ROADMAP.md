@@ -169,7 +169,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P6.0 | Hybrid contract and renderer — Emotion, Framer Motion, `1 Native point = 1 CSS logical pixel` at scale 1, export/type parity | todo |
 | P6.1 | Hybrid reference slice — `Typography`, `Icon`, `view`, `Spinner`, `Button` | todo |
 | P6.1a | Hybrid `Typography` + `TextSpan` — identical API, DOM-safe text host, pixel-equivalent roles | done |
-| P6.1b | Hybrid `Icon` | todo |
+| P6.1b | Hybrid `Icon` — three forms, masked image tint, `system` subpath | done |
 | P6.1c | Hybrid `view` | todo |
 | P6.1d | Hybrid `Spinner` | todo |
 | P6.1e | Hybrid `Button` | todo |

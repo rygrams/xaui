@@ -289,6 +289,16 @@ export function toWebStyle(style: StyleProp<TextStyle>): CSSObject {
   return web as CSSObject
 }
 
+/**
+ * The Native-shaped keys, merged but not yet converted. A renderer that has to read a key
+ * back — `tintColor`, `resizeMode` — needs it before `toWebStyle` renames it.
+ */
+export function flatStyle(style: StyleProp<TextStyle>): Record<string, unknown> {
+  const flat: Record<string, unknown> = {}
+  flattenStyle(style, flat)
+  return flat
+}
+
 function flattenStyle(
   style: StyleProp<TextStyle>,
   target: Record<string, unknown>
