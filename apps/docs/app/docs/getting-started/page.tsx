@@ -102,6 +102,95 @@ export function SaveButton() {
         </ul>
       </Step>
 
+      <Step number="5" title="Load a custom font (optional)">
+        <p className="text-muted-foreground">
+          XAUI never loads a font file — it only names one. Expo loads it, and{' '}
+          <code>fontFamilies</code> in step 2 points at the loaded name. Embedding
+          the file at build time is the option to prefer: the font is in the binary,
+          so it is there on the first frame with nothing to await.
+        </p>
+        <CodeBlock
+          language="json"
+          code={`// app.json
+{
+  "expo": {
+    "plugins": [
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "./assets/fonts/Inter-Regular.ttf",
+            "./assets/fonts/Inter-Bold.ttf"
+          ]
+        }
+      ]
+    ]
+  }
+}`}
+        />
+        <p className="text-sm text-muted-foreground">
+          Run <code>npx expo install expo-font</code> then{' '}
+          <code>npx expo prebuild --clean</code>. This needs a development build —
+          the config plugin does not apply in Expo Go.
+        </p>
+        <p className="text-muted-foreground">
+          To stay in Expo Go, load at runtime instead and hold the splash screen
+          until the font is ready:
+        </p>
+        <CodeBlock
+          code={`import { useEffect } from 'react'
+import { useFonts } from 'expo-font'
+import * as SplashScreen from 'expo-splash-screen'
+import { appTheme } from './theme'
+
+SplashScreen.preventAutoHideAsync()
+
+export default function App() {
+  const [loaded] = useFonts({
+    'Inter-Regular': require('./assets/fonts/Inter-Regular.ttf'),
+    'Inter-Bold': require('./assets/fonts/Inter-Bold.ttf'),
+  })
+
+  useEffect(() => {
+    if (loaded) SplashScreen.hideAsync()
+  }, [loaded])
+
+  if (!loaded) return null
+
+  return (
+    <XAUIProvider theme={appTheme}>
+      <YourApp />
+    </XAUIProvider>
+  )
+}`}
+        />
+        <p className="text-sm text-muted-foreground">
+          The <code>if (!loaded) return null</code> is not cosmetic: without it the
+          first frame renders in the system font and every text jumps when the real
+          one arrives.
+        </p>
+        <ul className="list-disc space-y-2 pl-5 text-muted-foreground">
+          <li>
+            <strong>Weights are not synthesised.</strong> On Android one family is
+            one file is one weight, so <code>fontWeight</code> will not reach{' '}
+            <code>Inter-Bold</code> on its own. Ship a variable font — one file whose
+            weight axis answers the numeric weights — or give each weight its own
+            family name and map the roles:{' '}
+            <code>{"{ body: 'Inter-Regular', heading: 'Inter-Bold' }"}</code>.
+          </li>
+          <li>
+            <strong>The family name is not the file name.</strong> Android resolves
+            the file name, iOS the font&apos;s PostScript name. When they differ,
+            rename the file to match the PostScript name — Font Book shows it under
+            the font&apos;s information — or branch on <code>Platform.select</code>.
+          </li>
+          <li>
+            A name that resolves to nothing throws no error. It falls back to the
+            system face, silently.
+          </li>
+        </ul>
+      </Step>
+
       <div className="flex flex-wrap gap-3 border-t pt-8">
         <Button asChild>
           <Link href="/docs/components">
