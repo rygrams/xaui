@@ -6,6 +6,12 @@
       "runtimeExecutable": "pnpm",
       "runtimeArgs": ["--filter", "demo", "web", "--port", "8081", "--clear"],
       "port": 8081
+    },
+    {
+      "name": "docs",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["--filter", "docs", "dev", "--port", "3100"],
+      "port": 3100
     }
   ]
 }
