@@ -11,6 +11,7 @@
   "changesets": [
     "accordion-v1",
     "agenda-calendar-v1",
+    "agenda-today-variants",
     "alert-v1",
     "api-review-fixes",
     "autocomplete-v1",
