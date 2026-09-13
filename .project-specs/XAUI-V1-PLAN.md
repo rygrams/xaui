@@ -281,7 +281,7 @@ xaui/
 ├── packages/
 │   ├── native/                    # @xaui/native — l'API v1
 │   ├── native-legacy/             # @xaui/native-legacy — figé, déprécié à la parité (§7)
-│   └── hybrid/                    # @xaui/hybrid — même API, renderer web
+│   └── hybrid/                    # @xaui/hybrid — native ré-exporté via react-native-web
 └── apps/
     ├── docs/                      # Next.js + react-native-web
     └── demo/                      # Expo
@@ -1025,14 +1025,14 @@ Une couleur ponctuelle sur un composant n'est **pas** une surcharge de thème : 
 
 ```
 tooling/tokens/source.ts     →  packages/native/src/theme/tokens.gen.ts   (nombres, hex)
-                             →  packages/hybrid/src/theme/tokens.gen.ts   (mêmes couleurs)
 ```
 
 `generate.ts` écrit **les deux couches déjà résolues** pour les thèmes par défaut clair et sombre — aucun calcul de couleur au démarrage de l'app. `deriveColors` n'est exécuté à l'exécution que si l'utilisateur surcharge la couche source.
 
-Les tokens générés sont des couleurs et restent identiques dans les deux packages. Les nombres
-du thème restent eux aussi des nombres RN ; leur conversion en unité CSS appartient au
-renderer Hybrid, pas au générateur de tokens.
+Il n'y a **qu'un seul fichier généré** : `@xaui/hybrid` ré-exporte le thème de
+`@xaui/native`, il n'a pas de tokens à lui et rien à tenir en parité. Les nombres du thème
+restent des nombres RN ; leur conversion en pixels CSS est faite par `react-native-web`, pas
+par le générateur de tokens.
 
 **Trois garde-fous CI :**
 
@@ -1090,11 +1090,11 @@ La même source alimente `llms.txt` (route déjà présente). Un fichier de doc 
 
 L'ancien tree ne devient **pas** un sous-chemin de `@xaui/native`. Il est republié tel quel sous un **nouveau nom npm** :
 
-| Package               | Contenu                          | Version                                                                                                                                                                                 |
-| --------------------- | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `@xaui/native-legacy` | les 47 composants actuels, figés | `0.2.11` — le dernier numéro que le package a réellement porté avant sa publication (le `0.2.8` visé à l'origine a été dépassé par les trois patchs de P0 : core-shim, icônes inlinées) |
-| `@xaui/native`        | l'API v1, repart de zéro         | `1.0.0`                                                                                                                                                                                 |
-| `@xaui/hybrid`        | gelé pendant P0–P4               | `0.9.x-beta.x` — thème seulement, publié sur le tag `beta` ; `latest` reste sur `0.0.14`                                                                                                |
+| Package               | Contenu                                                        | Version                                                                                                                                                                                 |
+| --------------------- | -------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `@xaui/native-legacy` | les 47 composants actuels, figés                               | `0.2.11` — le dernier numéro que le package a réellement porté avant sa publication (le `0.2.8` visé à l'origine a été dépassé par les trois patchs de P0 : core-shim, icônes inlinées) |
+| `@xaui/native`        | l'API v1, repart de zéro                                       | `1.0.0`                                                                                                                                                                                 |
+| `@xaui/hybrid`        | gelé pendant P0–P4, puis `@xaui/native` ré-exporté pour le web | `0.9.x-beta.x` — publié sur le tag `beta` ; `latest` reste sur `0.0.14`                                                                                                                 |
 
 C'est plus propre que le sous-chemin sur trois points concrets :
 
@@ -1517,32 +1517,54 @@ Même boucle par composant. Commencer par les dix qui ont déjà un contexte de 
 
 ### P6 — Hybrid beta (après la 1.0 Native)
 
-`@xaui/hybrid` est **gelé de P0 à P4** : aucun nouveau composant, aucun changement d'API. Sinon chaque décision se paie deux fois avant d'être stabilisée.
+`@xaui/hybrid` est **gelé de P0 à P4** : aucun nouveau composant, aucun changement d'API.
+Sinon chaque décision se paie deux fois avant d'être stabilisée.
 
-Il reprend ensuite comme **renderer web de la même API**, pas comme une deuxième librairie :
+Il reprend ensuite non pas comme un deuxième renderer à écrire, mais comme **l'exposition web
+de `@xaui/native`** : le package dépend de `@xaui/native`, le ré-exporte, et
+`react-native-web` transforme ces composants React Native en DOM. Un `Button` Hybrid **est**
+le `Button` Native — pas son portage.
 
-- mêmes sous-chemins, composants, slots, hooks de contexte, props XAUI, unions, valeurs par
-  défaut et comportements contrôlés/non contrôlés ;
-- mêmes règles `variant`, `color`, style props, `style`, `asChild`, accessibilité et ordre de
-  priorité ;
-- seules les cibles de `ref`, les objets d'événement hôte et l'implémentation du renderer
-  s'adaptent au DOM — aucune prop Hybrid n'est ajoutée pour les compenser ;
-- `@emotion/styled` rend tous les styles et filtre les style props avant le DOM ;
-- Framer Motion rend toutes les animations et respecte les mêmes props publiques,
-  `animation={false}` et la préférence de réduction des mouvements ;
-- les nombres restent des valeurs RN dans l'API publique. À l'échelle 1, un point Native vaut
-  un pixel logique CSS : `4` devient `0.25rem`, soit `4px` calculés avec une racine à `16px`.
-  La conversion est relative à la racine, jamais au texte parent, et aucun multiplicateur DPR
-  ou viewport n'est appliqué par les composants. Zoom, réglages d'accessibilité et DPR gardent
-  ainsi le scaling naturel du device ;
-- les directions deviennent des propriétés CSS logiques ;
-- aucune page ni preview n'est dupliquée dans `apps/docs` : la documentation Native décrit
-  l'API partagée.
+C'est le changement de cap de P6. Le portage composant par composant sous Emotion est
+abandonné : il demandait 75 réimplémentations et une batterie de contrôles de parité pour
+tenir une identité que l'import donne gratuitement. `apps/docs` rend déjà `@xaui/native` dans
+le navigateur via `react-native-web` — la faisabilité est acquise, pas supposée.
 
-`createRecipe` et les fonctions pures sont repris avec la même sémantique. Les composants ne
-reçoivent pas de tests unitaires ; seules les fonctions pures sont testées. Chaque lot passe
-lint, type-check, tests, build, contrôle du tarball, vérification navigateur et contrôles de
-parité des exports/types.
+Ce que cela fixe :
+
+- **La parité est structurelle.** Mêmes sous-chemins, composants, slots, hooks de contexte,
+  props XAUI, unions, valeurs par défaut, comportements contrôlés/non contrôlés : ce sont les
+  mêmes modules. On ne peut pas diverger d'une API qu'on importe. Plus de contrôles de parité
+  d'exports/types à maintenir, plus de `tokens.gen.ts` en double.
+- **Un seul fichier par sous-chemin**, d'une ligne : `export * from '@xaui/native/button'`,
+  déclaré dans `package.json` **et** `tsup.config.ts`. Jamais de wrapper, de `Omit<>`, de
+  re-typage ni de prop Hybrid-only sur un composant partagé.
+- **Les cibles de `ref` et les objets d'événement** deviennent leurs équivalents DOM par
+  `react-native-web`, pas par du code écrit ici.
+- **Un bug web se corrige dans `@xaui/native`** — branche `Platform.OS === 'web'` ou fichier
+  `.web.tsx` — pour que les deux packages en profitent. Un correctif posé dans
+  `packages/hybrid` est un fork.
+- **Le thème, les tokens et le provider viennent de Native.** Hybrid ne génère rien.
+- **Les animations restent Reanimated**, que `react-native-web` exécute dans le navigateur.
+- **La géométrie ne bouge pas** : à l'échelle 1, un point Native vaut un pixel logique CSS,
+  et c'est `react-native-web` qui fait la conversion. Aucun multiplicateur DPR ou viewport.
+- **Le bundler de l'utilisateur** résout `react-native` vers `react-native-web` et préfère les
+  extensions `.web.*`. C'est la configuration que `apps/docs` fait déjà tourner ;
+  `HYBRID-SETUP.md` la documente.
+- **Aucune page ni preview n'est dupliquée dans `apps/docs`** : la documentation Native décrit
+  l'API partagée, puisque ce sont les mêmes composants.
+
+**Emotion Styled et Framer Motion restent dans le package**, pour un seul usage : les
+**composants web-only**, ceux que `react-native-web` ne sait pas rendre et ceux que Native n'a
+aucune raison de porter. Ils sont additifs — jamais une deuxième implémentation d'un composant
+déjà ré-exporté. Ils suivent les mêmes règles d'API v1 que les composants Native, lisent les
+tokens du thème Native, et convertissent leurs longueurs fixes à la frontière Emotion avec une
+unité relative à la racine (`4` → `0.25rem` → `4px`). Si Native pourrait vouloir le composant,
+il va dans Native.
+
+Les composants ne reçoivent pas de tests unitaires ; seules les fonctions pures sont testées —
+et un ré-export n'a rien à tester. Chaque lot passe lint, type-check, tests, build, contrôle du
+tarball et vérification navigateur.
 
 P6 publie uniquement `@xaui/hybrid@0.9.x-beta.x` sur le dist-tag `beta`. Même au jalon de
 parité, Hybrid ne passe ni en stable ni en `1.0.0` ; cette graduation demande une décision et
@@ -1550,18 +1572,15 @@ une tâche séparées.
 
 L'ordre P6 est celui des dépendances :
 
-| Ref  | Lot                        | Entrées                                                                                                                                                                                                                                                      |
-| ---- | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| P6.0 | Contrat et renderer        | thème, provider, hooks, recipe/cache, slots, `asChild`, style props, Portal, `PressableFeedback`, Icon, ancrage et sélection ; configuration Emotion et Framer Motion ; conversion `4` → `0.25rem` → `4px` à l'échelle 1 ; contrôles de parité               |
-| P6.1 | Tranche de référence       | `Typography`/`TextSpan`, `Icon`, `view`, `Spinner`, `Button`                                                                                                                                                                                                 |
-| P6.2 | Primitives statiques       | `Surface`, `Divider`, `Skeleton`, `ProgressBar`, `ProgressCircle`, `Card`, `Avatar`, `Badge`                                                                                                                                                                 |
-| P6.3 | Actions et statuts         | `CloseButton`, `Chip`, `Alert`, `Fab`, `MorphButton`, `EmptyState`, `Widget`, `FlipCard`                                                                                                                                                                     |
-| P6.4 | Champs et sélection        | `TextField`, `TextArea`, `FieldGroup`, `DummyField`, `SearchField`, `MaskField`, `InputOTP`, `NumberPad`, `NumberField`, `NumberStepper`, `Checkbox`, `Radio`, `Switch`, `Segment`, `ToggleButton`, `Stepper`, `Slider`, `SlideButton`, `Rating`, `TagGroup` |
-| P6.5 | Overlays et choix composés | `Accordion`, `Dialog`, `Popover`, `BottomSheet`, `Menu`, `ListBox`, `Select`, `Autocomplete`, `Combobox`, `WheelPicker`, `PhoneNumberField`, `TimePicker`, `ColorPicker`, `Toast`, `Snackbar`                                                                |
-| P6.6 | Date et calendrier         | `Calendar`, `RangeCalendar`, `AgendaCalendar`, `DatePicker`, `DateRangePicker`, `DateTimePicker`                                                                                                                                                             |
-| P6.7 | Données et navigation      | `List`, `Table`, `Timeline`, `Tabs`, `Carousel`, `Pager`, `Scaffold`                                                                                                                                                                                         |
-| P6.8 | Graphiques                 | `Chart`, `LineChart`, `AreaChart`, `BarChart`, `PieChart`, `RadarChart`, `RadialChart`                                                                                                                                                                       |
-| P6.9 | Jalon de parité            | les 75 sous-chemins existent des deux côtés, les exports/types correspondent, le tarball est complet et Hybrid est publié en `0.9.x-beta.x` sans graduation stable                                                                                           |
+| Ref  | Lot                            | Entrées                                                                                                                                                                                   |
+| ---- | ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| P6.0 | Dépendance et peers            | `@xaui/native` en dépendance ; `react-native-web`, `react`, `react-dom` et les peers optionnels de Native déclarés ; Emotion et Framer Motion conservés en peers pour la surface web-only |
+| P6.1 | Couche de ré-export            | chaque sous-chemin Native ré-exporté d'une ligne, dans `package.json` et `tsup.config.ts`, barrel racine compris                                                                          |
+| P6.2 | Retrait des portages obsolètes | les `Typography`, `TextSpan` et `Icon` Emotion, le `tokens.gen.ts` Hybrid, `tooling/hybrid-parity` et la frontière de renderer qui n'existait que pour refléter Native                    |
+| P6.3 | Configuration bundler          | alias `react-native` → `react-native-web`, résolution `.web.*`, liste de transpilation ; documentée dans `HYBRID-SETUP.md` et vérifiée dans le navigateur                                 |
+| P6.4 | Audit web                      | parcourir les 75 sous-chemins sous `react-native-web` ; chaque composant qui ne rend pas ou ne se comporte pas correctement devient une tâche à lui                                       |
+| P6.5 | Compléments web-only           | Emotion + Framer Motion, uniquement là où l'audit a trouvé un vrai manque                                                                                                                 |
+| P6.6 | Jalon de parité                | chaque sous-chemin Native se résout depuis `@xaui/hybrid`, le tarball est complet, et Hybrid est publié en `0.9.x-beta.x` sans graduation stable                                          |
 
 ---
 
@@ -1573,14 +1592,14 @@ Suppression du dossier `packages/native-legacy` et de son entrée dans le worksp
 
 ## 10. Risques
 
-| Risque                                                                  | Parade                                                                   |
-| ----------------------------------------------------------------------- | ------------------------------------------------------------------------ |
-| Le pattern est mauvais et se réplique 47 fois                           | Revue d'API bloquante en fin de P2, avant tout autre composant           |
-| `react-native-web` ne rend pas certains composants                      | Fallback vidéo par composant ; ne pas bloquer la doc entière dessus      |
-| Legacy et v1 divergent sur le thème                                     | Un seul provider, hors des deux trees. Non négociable                    |
-| Les tokens divergent entre native et hybrid                             | Job CI `tokens:check` dès P0                                             |
-| Deux copies d'`@xaui/native` dans l'arbre npm → deux contextes de thème | Peer dependency stricte côté legacy, contrôle au `pnpm pack` dès P1 (§7) |
-| Le périmètre glisse et la 1.0 n'arrive jamais                           | Le noyau est **quinze** composants. Tout le reste attend `1.x`           |
+| Risque                                                                  | Parade                                                                                                                                      |
+| ----------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| Le pattern est mauvais et se réplique 47 fois                           | Revue d'API bloquante en fin de P2, avant tout autre composant                                                                              |
+| `react-native-web` ne rend pas certains composants                      | Audit web composant par composant en P6 ; correctif `.web.tsx` dans `@xaui/native`, ou composant web-only Emotion/Framer en dernier recours |
+| Legacy et v1 divergent sur le thème                                     | Un seul provider, hors des deux trees. Non négociable                                                                                       |
+| Les tokens divergent entre native et hybrid                             | Impossible depuis P6 : hybrid ré-exporte le thème de native                                                                                 |
+| Deux copies d'`@xaui/native` dans l'arbre npm → deux contextes de thème | Peer dependency stricte côté legacy, contrôle au `pnpm pack` dès P1 (§7)                                                                    |
+| Le périmètre glisse et la 1.0 n'arrive jamais                           | Le noyau est **quinze** composants. Tout le reste attend `1.x`                                                                              |
 
 ---
 

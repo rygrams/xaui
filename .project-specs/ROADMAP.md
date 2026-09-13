@@ -165,31 +165,26 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.45 | `Widget` — net new, no legacy equivalent | done |
 | P5.47 | `Scaffold` — the app's chrome over `useAppearance`: the ground, the status bar and the navigator's options, with no navigator dependency | done |
 | P5.46 | Parity milestone — `npm deprecate @xaui/native-legacy` | todo |
-| P6 | `@xaui/hybrid` on the identical v1 API — Emotion Styled + Framer Motion, no docs fork | todo |
-| P6.0 | Hybrid contract and renderer — Emotion, Framer Motion, `1 Native point = 1 CSS logical pixel` at scale 1, export/type parity | todo |
-| P6.1 | Hybrid reference slice — `Typography`, `Icon`, `view`, `Spinner`, `Button` | todo |
-| P6.1a | Hybrid `Typography` + `TextSpan` — identical API, DOM-safe text host, pixel-equivalent roles | done |
-| P6.1b | Hybrid `Icon` — three forms, masked image tint, `system` subpath | done |
-| P6.1c | Hybrid `view` | todo |
-| P6.1d | Hybrid `Spinner` | todo |
-| P6.1e | Hybrid `Button` | todo |
-| P6.2 | Hybrid static primitives — `Surface` through `Badge` | todo |
-| P6.3 | Hybrid actions and status — `CloseButton` through `FlipCard` | todo |
-| P6.4 | Hybrid fields and selection — `TextField` through `TagGroup` | todo |
-| P6.5 | Hybrid overlays and composed choices — `Accordion` through `Snackbar` | todo |
-| P6.6 | Hybrid date and calendar — `Calendar` through `DateTimePicker` | todo |
-| P6.7 | Hybrid data and navigation — `List` through `Scaffold` | todo |
-| P6.8 | Hybrid charts — `Chart`, line, area, bar, pie, radar and radial | todo |
-| P6.9 | Hybrid parity milestone — 75 matching subpaths/exports/types, publish `0.9.x-beta.x` only | todo |
+| P6 | `@xaui/hybrid` — `@xaui/native` re-exported over `react-native-web`, Emotion + Framer only for web-only additions | todo |
+| P6.0 | Hybrid depends on `@xaui/native` — dependency, `react-native-web`/`react`/`react-dom` peers, Native's optional peers carried over | todo |
+| P6.1 | Hybrid re-export layer — every Native subpath re-exported one line, in `package.json` and `tsup.config.ts` | todo |
+| P6.2 | Retire the superseded Emotion ports — `Typography`, `TextSpan`, `Icon`, Hybrid `tokens.gen.ts`, the mirrored renderer boundary and `tooling/hybrid-parity` | todo |
+| P6.2a | Hybrid `Typography` + `TextSpan` — Emotion port, superseded by the re-export | dropped |
+| P6.2b | Hybrid `Icon` — Emotion port, superseded by the re-export | dropped |
+| P6.3 | Hybrid bundler setup — `react-native` → `react-native-web` alias, `.web.*` resolution, transpile list, documented in `HYBRID-SETUP.md` | todo |
+| P6.4 | Hybrid web audit — the 75 subpaths under `react-native-web`, one task per component that does not render or behave | todo |
+| P6.5 | Hybrid web-only components — Emotion Styled + Framer Motion, only where the audit found a gap | todo |
+| P6.6 | Hybrid parity milestone — every Native subpath resolves from `@xaui/hybrid`, publish `0.9.x-beta.x` only | todo |
 | P7 | Delete `native-legacy` — not before the P5 parity milestone | todo |
 
 ## Repository debt
 
-| Ref | Task                                                                      | Status |
-| --- | ------------------------------------------------------------------------- | ------ |
-| D1  | `apps/docs` has no `type-check` script — the CI filter skips it silently  | todo   |
-| D2  | `apps/demo` has neither a `type-check` script nor a CI filter             | todo   |
-| D3  | `turbo.json` `test` outputs are wrong — every run warns                   | todo   |
-| D4  | `apps/docs/public/docs/` still documents the dropped legacy `view/` names | todo   |
-| D5  | `@xaui/native` types came from one dts worker that OOM'd — now `tsc`      | done   |
-| D6  | Constrain web preview screens so their React Native `ScrollView` scrolls  | done   |
+| Ref | Task                                                                             | Status |
+| --- | -------------------------------------------------------------------------------- | ------ |
+| D1  | `apps/docs` has no `type-check` script — the CI filter skips it silently         | todo   |
+| D2  | `apps/demo` has neither a `type-check` script nor a CI filter                    | todo   |
+| D3  | `turbo.json` `test` outputs are wrong — every run warns                          | todo   |
+| D4  | `apps/docs/public/docs/` still documents the dropped legacy `view/` names        | todo   |
+| D5  | `@xaui/native` types came from one dts worker that OOM'd — now `tsc`             | done   |
+| D6  | Constrain web preview screens so their React Native `ScrollView` scrolls         | done   |
+| D7  | `.github/copilot-instructions.md` still describes `@xaui/core` and `@xaui/icons` | todo   |

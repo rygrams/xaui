@@ -2,10 +2,12 @@
 
 Instructions for every agent working in this monorepo. `CLAUDE.md` only points here.
 
-XAUI is a two-renderer UI library: composition-first components for React Native and hybrid
-webviews, with one public API and one semantic token system. Native animations run on the UI
-thread with Reanimated; hybrid animations use Framer Motion. TypeScript, Turborepo + pnpm,
-Vitest, tsup, Changesets, Next.js docs, Expo demo.
+XAUI is a composition-first UI library for React Native, with one public API and one
+semantic token system. `@xaui/native` is the library; `@xaui/hybrid` is that same library
+re-exported for the web over `react-native-web`, so the web gets the components themselves
+rather than a second implementation of them. Animations run on the UI thread with
+Reanimated. TypeScript, Turborepo + pnpm, Vitest, tsup, Changesets, Next.js docs, Expo
+demo.
 
 ## Before writing code
 
@@ -25,7 +27,7 @@ Source of truth in `.agents/skills/<name>/SKILL.md`, copied — never symlinked 
 | `xaui-component`        | Writing a component — the fourteen rules, folder shape, per-component loop |
 | `xaui-system`           | Recipe engine, style cache, slots, `PressableFeedback`, `Portal`, `Icon`   |
 | `xaui-theme`            | Tokens, OKLab derivation, `createTheme`, provider, generation              |
-| `xaui-hybrid`           | The web renderer and pixel-equivalent responsive scaling                   |
+| `xaui-hybrid`           | The `react-native-web` re-export and the web-only additions                |
 | `xaui-docs`             | Docs pages, demo screens, generated tables                                 |
 | `xaui-legacy-migration` | The frozen tree, `core-shim`, codemods                                     |
 | `xaui-review`           | Run on the diff before every PR — v1 rules and clean code                  |
@@ -44,11 +46,12 @@ Source of truth in `.agents/skills/<name>/SKILL.md`, copied — never symlinked 
   root, slots receive stable `StyleSheet` references.
 - **A two-layer theme** — a hand-written source layer, ~32 tokens derived from it in OKLab.
   `.gen.ts` files are never hand-edited.
-- **Renderer-native motion** — 100% Reanimated in `@xaui/native`, 100% Framer Motion in
-  `@xaui/hybrid`, with the same public animation props and behaviour.
+- **One motion implementation** — 100% Reanimated, which `react-native-web` runs on the web
+  too. Framer Motion is reserved for the web-only components Hybrid adds on top.
 - **Pixel-equivalent geometry** — at scale 1, one Native point equals one CSS logical pixel
-  in Hybrid. Browser zoom, root accessibility scaling and device DPR provide natural device
-  scaling; Hybrid never applies an extra density multiplier.
+  on the web, because `react-native-web` does that conversion itself. Browser zoom, root
+  accessibility scaling and device DPR provide natural device scaling; XAUI never applies an
+  extra density multiplier.
 - **RTL-safe styles** — `paddingStart` / `paddingEnd`, `start` / `end`. Never `left` / `right`.
 - **A fifteen-component core** for 1.0. Everything else waits for `1.x`.
 
@@ -57,10 +60,11 @@ The rules behind each line live in `xaui-component`, `xaui-system` and `xaui-the
 ## Layout
 
 - Turborepo + pnpm workspaces: `apps/*`, `packages/*`.
-- `@xaui/native` (React Native) and `@xaui/hybrid` (mobile webview) are the published
-  libraries. Hybrid mirrors every XAUI-owned prop, slot, hook, default and subpath from
-  native; only host refs/events and the renderer implementation differ. `*-legacy` are the
-  frozen trees. Apps: `docs` (Next.js), `demo` (Expo).
+- `@xaui/native` (React Native) and `@xaui/hybrid` (web and mobile webview) are the
+  published libraries. **Hybrid depends on native and re-exports it**, rendered by
+  `react-native-web`: the same modules, the same props, slots, hooks, defaults and subpaths
+  — not a mirror of them. `*-legacy` are the frozen trees. Apps: `docs` (Next.js), `demo`
+  (Expo).
 - `packages/<pkg>/src` has six top-level folders — `theme/`, `provider/`, `system/`,
   `hooks/`, `utils/`, `types/` — plus `components/` and a mirrored `__tests__/`.
   **`system/` is public and follows semver; `utils/` is private.** A file used by one
@@ -68,10 +72,13 @@ The rules behind each line live in `xaui-component`, `xaui-system` and `xaui-the
 - **Each top-level `src/` folder carries a `README.md`** saying what belongs in it, what does
   not, and how it is used. Add it with the folder, update it when the boundary moves.
 - Each component is an independent subpath export (`@xaui/native/button` and
-  `@xaui/hybrid/button`), declared in `package.json` **and** `tsup.config.ts`.
-- Hybrid styling is written with `@emotion/styled`; hybrid animation is written with
-  Framer Motion. P6 does not add or update component documentation: the native pages describe
-  the shared API.
+  `@xaui/hybrid/button`), declared in `package.json` **and** `tsup.config.ts`. A Hybrid
+  subpath exists because the Native one does, and re-exports it verbatim.
+- **Emotion Styled and Framer Motion stay in `packages/hybrid`, for web-only components
+  only** — the ones `react-native-web` cannot supply, that Native does not have. They are
+  additive; they never re-implement a component that already comes through the re-export.
+- P6 does not add or update component documentation: the native pages describe the shared
+  API.
 
 ## Environment and commands
 
@@ -127,7 +134,9 @@ Prettier: no semicolons, single quotes, print width 85, 2 spaces, ES5 trailing c
 - A comment restating the code. Comment the non-obvious decision instead.
 - `any`; a function with more than 3 parameters; deep nesting.
 - An unrelated refactor inside a focused change.
-- A CSS file. Apps use Tailwind; `@xaui/hybrid` uses Emotion Styled and Framer Motion.
+- A CSS file. Apps use Tailwind; `@xaui/hybrid` uses Emotion Styled and Framer Motion for
+  its web-only components.
+- A Hybrid re-implementation of a component `@xaui/native` already exports.
 - A hand-edited `.gen.ts`.
 - An empty file created to satisfy a convention.
 
@@ -136,8 +145,13 @@ Prettier: no semicolons, single quotes, print width 85, 2 spaces, ES5 trailing c
 - `workspace:*` for internal dependencies; package names singular; tsup builds dual CJS/ESM.
 - `react-native-reanimated` and `react-native-worklets` are required peers — all animation
   goes through them, never RN's built-in `Animated`.
-- `@xaui/hybrid` uses `@emotion/react` + `@emotion/styled` for styling and Framer Motion for
-  every animation; it never introduces a Hybrid-only appearance or animation prop.
+- `@xaui/hybrid` depends on `@xaui/native` (`workspace:*` here, a caret range once
+  published) and re-exports it. `react-native-web`, `react`, `react-dom` are its peers, plus
+  the same optional peers Native declares — the consumer aliases `react-native` to
+  `react-native-web` in their bundler (see `HYBRID-SETUP.md`).
+- `@emotion/react` + `@emotion/styled` and Framer Motion remain Hybrid peers, used only by
+  the web-only components of §Layout. A re-exported component never gets a Hybrid-only
+  appearance or animation prop, and never a second implementation.
 - P6 publishes `@xaui/hybrid` only as `0.9.x-beta.x` on the `beta` dist-tag. API parity does
   not authorize a stable or `1.0.0` Hybrid release; that requires a separate explicit task.
 - `gesture-handler`, `svg` and `safe-area-context` are optional peers, imported only by the

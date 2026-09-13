@@ -114,13 +114,15 @@ Acceptance: a parent that re-renders 100 times recomputes the theme zero times.
 
 ```
 tooling/tokens/source.ts → packages/native/src/theme/tokens.gen.ts   (numbers, hex)
-                         → packages/hybrid/src/theme/tokens.gen.ts   (same colours)
+                         → packages/hybrid/ has no tokens of its own — it re-exports
+                           the Native theme through react-native-web
 ```
 
 `generate.ts` writes **both colour layers already resolved** for the default light and dark
 themes — no colour maths at app startup. `deriveColors` only runs at runtime when the user
 overrides the source layer. Dimensional theme values remain RN numbers in both packages;
-Hybrid converts them to root-relative CSS units only at its Emotion renderer boundary.
+`react-native-web` converts them to CSS pixels for every re-exported component; Hybrid's
+own web-only components convert at their Emotion boundary.
 
 Three guards, all blocking:
 
@@ -139,4 +141,4 @@ Files ending in `.gen.ts` are **never edited by hand** — change `source.ts` an
 - [ ] `pnpm tokens:check` produces no diff.
 - [ ] Contrast job still green for every `X`/`XForeground` pair.
 - [ ] Frozen-value tests updated intentionally, never "to make the suite pass".
-- [ ] Hybrid's `tokens.gen.ts` regenerated in the same commit with the same colour values.
+- [ ] No second token file to regenerate — Hybrid reads the Native theme.

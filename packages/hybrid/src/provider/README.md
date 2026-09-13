@@ -1,4 +1,5 @@
 # Provider
 
-The Hybrid `XAUIProvider` selects one resolved web theme and exposes it to components.
-Browser-specific color-scheme observation belongs here; component styling does not.
+`XAUIProvider` is re-exported from `@xaui/native`; there is no separate web provider. Color
+scheme, theme selection and resolution are the Native implementation, running in the browser
+through `react-native-web`.
