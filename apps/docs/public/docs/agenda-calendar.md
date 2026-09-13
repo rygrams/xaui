@@ -177,10 +177,25 @@ The cell is the `Calendar`'s at the same `size`, so a strip and a month at `md` 
 
 ## Variants and colour
 
-The `Calendar`'s four, on the same tokens, because the chosen day is the same day. `color`
-is a raw value (R7) and reaches the disc, the mark on it, **and the Today pill's word** —
-the pill is bordered rather than filled for that reason: between two bare chevrons, a filled
-button would read as the primary action of the whole card.
+The `Calendar`'s four, on the same tokens, because the chosen day is the same day. **The
+Today pill answers the same `variant`**: the variant is the card's one level of emphasis, and
+a strip whose chosen day is a soft wash under a pill that kept a hard accent border is two
+variants on one component.
+
+| `variant`   | Chosen day       | Today pill                       |
+| ----------- | ---------------- | -------------------------------- |
+| `primary`   | Accent disc      | Bordered, the word in the accent |
+| `secondary` | Soft accent disc | Soft accent fill                 |
+| `tertiary`  | Neutral disc     | Neutral fill                     |
+| `ghost`     | Inverted disc    | The word alone                   |
+
+The emphasis runs the other way round from a `Button`'s, and on purpose: `primary` outlines
+rather than fills, because the pill sits between two bare chevrons and a filled accent there
+would read as the primary action of the whole card. The accent goes on the word instead.
+
+`color` is a raw value (R7) and reaches the disc, the mark on it, **and whatever the variant
+gave the pill** — the border and the word on `primary`, the fill on `secondary` and
+`tertiary`, the word on `ghost`.
 
 ## Cells of your own
 
@@ -205,7 +220,7 @@ Everything `View` accepts, every `ViewStyle` key it does not already claim (R14)
 
 | Prop             | Type                              | Default      | Notes                        |
 | ---------------- | --------------------------------- | ------------ | ---------------------------- |
-| `variant`        | `CalendarVariant`                 | `'primary'`  | The chosen day               |
+| `variant`        | `CalendarVariant`                 | `'primary'`  | The chosen day and the pill  |
 | `size`           | `'sm' \| 'md' \| 'lg'`            | `'md'`       | The cell and the controls    |
 | `radius`         | `RadiusKey`                       | `'2xl'`      | The card's corner            |
 | `color`          | `string`                          | —            | The disc, its mark, the pill |

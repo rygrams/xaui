@@ -1,7 +1,11 @@
 import { createRecipe, radiusAxis } from '../../system/recipe'
 import type { SlotStyles, VariantTokens } from '../../system/recipe'
 import type { FontSizeKey, XAUITheme } from '../../theme/theme.type'
-import type { AgendaCalendarSize, AgendaCalendarSlot } from './agenda-calendar.type'
+import type {
+  AgendaCalendarSize,
+  AgendaCalendarSlot,
+  AgendaCalendarVariant,
+} from './agenda-calendar.type'
 
 const SLOTS = [
   'root',
@@ -26,13 +30,21 @@ const SLOTS = [
  * What is here is the part a month grid has never had: the card it sits on, the row of
  * controls above it, and the pill that says "Today".
  */
-const VARIANT_TOKENS: Record<'default', VariantTokens> = {
-  // One entry, and it is still a table: `resolveTint` only maps roles a variant declared,
-  // and without one the `color` a caller writes would never reach the pill's word. `fg` is
-  // `accent` — the word reads as the accent by default and takes the tint when there is
-  // one; `foreground` here left it plain, and left it `undefined` (RN's black) in dark
-  // wherever the token failed to resolve.
-  default: { bg: 'default', fg: 'accent' },
+const VARIANT_TOKENS: Record<AgendaCalendarVariant, VariantTokens> = {
+  // The four the `Calendar` declares, answered on the pill rather than on a disc. The
+  // variant is a level of emphasis, and the two controls it reaches are the chosen day and
+  // this button — a strip whose chosen day is a soft wash under a pill that kept a hard
+  // accent border is two variants on one card.
+  //
+  // The emphasis runs the other way round from a `Button`'s, and on purpose: `primary`
+  // outlines rather than fills. The pill sits between two bare chevrons, so the filled
+  // accent that makes a `Button` primary would read here as the primary action of the whole
+  // card — the accent goes on the word instead, which is where the strip's own accent is.
+  primary: { border: 'border', fg: 'accent' },
+  secondary: { bg: 'accentSoft', fg: 'accentSoftForeground' },
+  tertiary: { bg: 'default', fg: 'defaultForeground' },
+  // No fill and no border: the word alone, as `ghost` means everywhere else.
+  ghost: { fg: 'foreground' },
 }
 
 type SizeStep = {
@@ -94,18 +106,11 @@ export const agendaCalendarRecipe = createRecipe({
     /** The cluster on the trailing end: back, today, forward. */
     nav: { flexDirection: 'row', alignItems: 'center', gap: theme.spacing(1) },
     navButton: { alignItems: 'center', justifyContent: 'center' },
-    // A bordered pill rather than a filled one: it sits between two bare chevrons, and a
-    // filled button there would read as the primary action of the whole card.
-    today: {
-      alignItems: 'center',
-      justifyContent: 'center',
-      borderWidth: theme.borderWidth.default,
-      borderColor: theme.colors.border,
-    },
+    // The box only. Whether it is outlined, washed or bare is the variant's, below.
+    today: { alignItems: 'center', justifyContent: 'center' },
     todayLabel: {
       fontFamily: theme.fontFamilies.body,
       fontWeight: theme.fontWeights.medium,
-      color: theme.colors.accent,
     },
     week: { flexDirection: 'row' },
     // A row that scrolls sideways where the week was. `flexGrow: 0` so the `ScrollView`
@@ -122,10 +127,18 @@ export const agendaCalendarRecipe = createRecipe({
 
   variantTokens: VARIANT_TOKENS,
 
-  // The word is the one thing here a variant colours: the accent by default, the tint when
-  // a `color` is set. Guarded because a resolve pass with no variant token leaves `fg`
-  // unset, and spreading `{ color: undefined }` over the base would drop it to RN's black.
-  paint: (_theme, colors) => (colors.fg ? { todayLabel: { color: colors.fg } } : {}),
+  // The `Button`'s own paint, one slot down: the border's *width* follows the presence of
+  // the border role rather than a per-variant flag, because which variant outlines is
+  // already stated in the table above. `undefined` where a variant names no `bg` is the
+  // transparent the outlined and the bare pill both want.
+  paint: (theme, colors) => ({
+    today: {
+      backgroundColor: colors.bg,
+      borderColor: colors.border,
+      borderWidth: colors.border ? theme.borderWidth.default : 0,
+    },
+    todayLabel: { color: colors.fg },
+  }),
 
   variants: {
     size: {
@@ -142,8 +155,9 @@ export const agendaCalendarRecipe = createRecipe({
     disabled: theme => ({ root: { opacity: theme.opacity.disabled } }),
   },
 
-  // `variant: 'default'` so both passes resolve the one token — without it `resolve` runs
-  // `paint` with no colours and `tint` bails before the word, so a `color` prop never
-  // reached the pill and dark mode fell through to black.
-  defaultVariants: { variant: 'default', size: 'md' },
+  // The `Calendar`'s default, because the two resolve from the same `variant` prop and a
+  // card whose strip defaulted to one and whose pill to another is not one component.
+  // Naming it is also what makes `paint` and `tint` run at all — without a variant both are
+  // handed no colours, and the pill loses its word to RN's black.
+  defaultVariants: { variant: 'primary', size: 'md' },
 })

@@ -59,7 +59,7 @@ export default function AgendaCalendarScreen() {
 
       <Section
         title="The four levels, and a tint"
-        note="The cells resolve through calendarRecipe rather than a second table: a strip and a month showing two different discs for the same chosen day is what that sharing exists to prevent."
+        note="The cells resolve through calendarRecipe rather than a second table: a strip and a month showing two different discs for the same chosen day is what that sharing exists to prevent. The Today pill answers the same variant — outlined on primary, washed on secondary and tertiary, the bare word on ghost."
       >
         {VARIANTS.map(variant => (
           <View key={variant} style={{ gap: 6 }}>

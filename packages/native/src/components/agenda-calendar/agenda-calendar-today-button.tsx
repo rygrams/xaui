@@ -21,6 +21,10 @@ import type { AgendaCalendarNavButtonProps } from './agenda-calendar.type'
  *
  * The word is the caller's: "Today", "Aujourd'hui", "Hoy". R3 wraps a text child into the
  * label, so `<AgendaCalendar.TodayButton>Today</…>` is the whole call.
+ *
+ * **It wears the card's `variant`**, the one that aims the chosen day: outlined with the
+ * word in the accent on `primary`, a soft fill on `secondary`, a neutral one on `tertiary`,
+ * the bare word on `ghost`. Nothing to pass — the pill reads the root's resolution.
  */
 export const AgendaCalendarTodayButton = forwardRef<
   View,
