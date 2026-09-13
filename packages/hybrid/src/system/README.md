@@ -1,12 +1,10 @@
 # System
 
-Renderer primitives shared by Hybrid components live here: recipes and their cache,
-`asChild` slots, Native-shaped style props, DOM-safe host adapters and the point-to-`rem`
-conversion boundary. A primitive joins the public `system` subpath only when its Native
-contract is fully ported.
+The public `system` subpath re-exports `@xaui/native/system`: the recipe engine and its
+cache, `asChild` slots, style props, `Portal`, `PressableFeedback` and `Icon` are the Native
+primitives, rendered on the web by `react-native-web`.
 
-`text-host` is the exception that proves the rule: it exists only because the DOM needs an
-adapter Native does not, so it stays off the public `system` barrel — exporting it would
+What may legitimately live here is the renderer support the web-only components of
+`components/` need and Native has no equivalent for — the Emotion boundary and its
+point-to-`rem` conversion. Those stay off the public `system` barrel: exporting one would
 put a Hybrid-only name on a subpath whose contents must match Native's.
-
-Component-specific recipes and styles stay with their component.

@@ -45,8 +45,10 @@ pnpm --filter @xaui/native exec eslint src/components/button/button.tsx
 - `@xaui/native` is the main component surface. Public APIs are exported as deep
   entrypoints such as `@xaui/native/button` and `@xaui/native/dialog`; the root
   `packages/native/src/index.ts` is intentionally empty.
-- `@xaui/hybrid` mirrors the same theme model for browser and mobile-webview
-  components, with its own provider that reads `prefers-color-scheme`.
+- `@xaui/hybrid` is `@xaui/native` rendered for the web: it depends on
+  `@xaui/native`, re-exports it, and relies on `react-native-web` for the DOM.
+  Emotion Styled and Framer Motion are used only by the web-only components
+  Hybrid adds on top of the shared API — never to re-implement a Native one.
 - `apps/docs` is data-driven rather than page-per-component. The component
   catalog lives in `apps/docs/lib/data/components.ts`, prop tables and examples
   live in `apps/docs/lib/data/component-props.ts`, and the route page derives
@@ -75,8 +77,9 @@ pnpm --filter @xaui/native exec eslint src/components/button/button.tsx
 - Match the existing package split for implementation details:
   `@xaui/native` styles are built with `StyleSheet.create`, and animations may
   use either React Native `Animated` or `react-native-reanimated` depending on
-  the surrounding component. `@xaui/hybrid` uses web-oriented styling and
-  browser color-scheme detection.
+  the surrounding component. In `@xaui/hybrid`, a shared component is a one-line
+  re-export of its `@xaui/native` subpath; a web bug is fixed in `@xaui/native`
+  (`.web.tsx` or `Platform.OS`), never by forking the component here.
 - Prefer `import type` for type-only imports, and prefix intentionally unused
   variables with `_` to satisfy the repo ESLint config.
 - Package changes require a changeset via `pnpm changeset`. Do not run

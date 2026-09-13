@@ -1,6 +1,6 @@
 # XAUI Library
 
-XAUI is a composition-first component system targeting React Native and hybrid web/native experiences within a Turborepo monorepo. `@xaui/native` holds the tokens, the theme and the single provider; `@xaui/native-legacy` is the frozen v0 tree, kept only until the v1 API reaches parity.
+XAUI is a composition-first component system for React Native, published for the web through `react-native-web`, within a Turborepo monorepo. `@xaui/native` holds the components, the tokens, the theme and the single provider; `@xaui/hybrid` re-exports it for the browser; `@xaui/native-legacy` is the frozen v0 tree, kept only until the v1 API reaches parity.
 
 **[Documentation → ui.xtartapp.com](https://ui.xtartapp.com)**
 
@@ -15,6 +15,7 @@ XAUI is a composition-first component system targeting React Native and hybrid w
 ### Packages
 
 - `@xaui/native` — the v1 API: design tokens, the OKLab colour engine, `createTheme` and `XAUIProvider`, with the component tree being rebuilt on top of them.
+- `@xaui/hybrid` — the same library on the web. It depends on `@xaui/native` and re-exports it, rendered by `react-native-web`; Emotion Styled and Framer Motion cover only the few web-only components Native does not have. Setup: [HYBRID-SETUP.md](./HYBRID-SETUP.md).
 - `@xaui/native-legacy` — the 47 frozen v0 components. It carries no theme of its own and reads `@xaui/native`'s provider.
 
 ### Applications
@@ -54,6 +55,7 @@ Release automation relies on `@changesets/cli`:
 
 - **Component docs** — [ui.xtartapp.com](https://ui.xtartapp.com)
 - `@xaui/native` — [packages/native/README.md](./packages/native/README.md) — React Native components, hooks, and providers.
+- `@xaui/hybrid` — [HYBRID-SETUP.md](./HYBRID-SETUP.md) — the bundler setup that renders the same components on the web.
 
 ## License
 

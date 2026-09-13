@@ -1,117 +1,128 @@
 ---
 name: xaui-hybrid
-description: Port the @xaui/native v1 API to @xaui/hybrid with Emotion Styled, Framer Motion, strict public-API parity, DOM-safe props, and pixel-equivalent responsive sizing. Use for any work in packages/hybrid or any Native-to-Hybrid port.
+description: Expose the @xaui/native v1 API on the web through @xaui/hybrid — a dependency on native re-exported over react-native-web, with Emotion Styled and Framer Motion kept only for web-only components native does not have. Use for any work in packages/hybrid.
 ---
 
-# XAUI — Porting to `@xaui/hybrid`
+# XAUI — `@xaui/hybrid`
 
-`@xaui/hybrid` is the web renderer of `@xaui/native`, not a related API. It remains frozen
-until P4 ships, then follows the P6 order in `.project-specs/XAUI-V1-PLAN.md`. P6 remains on
-`0.9.x-beta.x` and the `beta` dist-tag even after parity; do not publish a stable or `1.0.0`
-Hybrid version without a separate explicit task.
+`@xaui/hybrid` is **`@xaui/native` rendered for the web**. It depends on `@xaui/native` and
+re-exports it; `react-native-web` turns those React Native components into DOM nodes. There
+is no port and no second implementation: a Hybrid `Button` **is** the Native `Button`.
 
-## The parity contract
+That is the whole contract. Parity is structural — you cannot drift from an API you import.
 
-For every Native entry, Hybrid has the same subpath, component names, dot-notation slots,
-exported context hooks, XAUI-owned props, unions, defaults and controlled/uncontrolled
-behaviour. Keep `variant`, `color`, style props, `style`, `asChild`, accessibility and the
-style precedence identical.
+`@xaui/hybrid` stays frozen until P4 ships, then follows the P6 order in
+`.project-specs/XAUI-V1-PLAN.md`. P6 remains on `0.9.x-beta.x` and the `beta` dist-tag even
+at the parity milestone; a stable or `1.0.0` Hybrid release needs a separate explicit task.
 
-Only host-bound types differ where the platform makes identity impossible: a ref targets a
-DOM element and an event is a DOM event. Adapt those at the renderer boundary without adding
-Hybrid-only props. Add or update the export/type parity checks with every port; a difference
-is a defect unless Native changed first.
+## What Hybrid is made of
 
-Do not add Hybrid component pages or previews to `apps/docs`. Native documentation is the
-single documentation source for the shared API.
+| Layer                   | Comes from                                                                  |
+| ----------------------- | --------------------------------------------------------------------------- |
+| Components, slots, hooks | `@xaui/native`, re-exported verbatim                                       |
+| DOM rendering            | `react-native-web`, via the consumer's `react-native` alias                |
+| Theme, tokens, provider  | `@xaui/native` — Hybrid generates no tokens of its own                     |
+| Motion                   | Reanimated, which `react-native-web` runs in the browser                   |
+| Web-only components      | Written here, with Emotion Styled + Framer Motion                          |
 
-## Renderer choices
+## The re-export
 
-- Use `@emotion/styled` for every styled node. No Tailwind, inline stylesheet system or CSS
-  file in `packages/hybrid`.
-- Use Framer Motion for every animation. Preserve the public animation props and semantics,
-  make `animation={false}` static, and respect reduced-motion preferences.
-- Filter XAUI props and style props before they reach the DOM. Unknown-property warnings are
-  renderer bugs, not harmless noise.
-- Preserve `asChild`, ref merging, event composition, focus and keyboard activation.
-- Map accessibility props to the equivalent semantic element, role and ARIA attributes while
-  keeping the Native-facing prop names.
-
-## Geometry and device scaling
-
-Public numeric style values keep their React Native meaning. At scale 1, **one Native point
-equals one CSS logical pixel**: a Native size of `4` must have a computed Hybrid size of
-`4px`, not `4em` or a density-multiplied value.
-
-Use a root-relative conversion at the Emotion renderer boundary:
+Every Native subpath has a Hybrid subpath, declared in `package.json` **and**
+`tsup.config.ts`, whose source is one line:
 
 ```ts
-const toWebUnit = (value: number) => `${value / 16}rem`
+// packages/hybrid/src/components/button/index.ts
+export * from '@xaui/native/button'
 ```
 
-With the browser's default `16px` root, `toWebUnit(4)` is `0.25rem` and computes to `4px`.
-Using `rem` instead of a local `em` prevents a parent's text size from silently enlarging a
-nested component. Do not force the document root back to `16px`: browser zoom, a user's root
-font-size preference and device DPR are the natural scaling layer. Never multiply dimensions
-by DPR, viewport width or another device factor inside a component.
+- A subpath exists in Hybrid **because** it exists in Native. Adding one to Hybrid alone is
+  a defect; so is leaving one out.
+- Never wrap, re-type, rename or narrow a re-export. No `Omit<>`, no adapter component, no
+  "DOM-safe" variant of a prop. `react-native-web` is the adapter.
+- Ref targets and event objects become their DOM equivalents through `react-native-web`,
+  not through anything written here.
+- If a component misbehaves on the web, fix it in `@xaui/native` behind a
+  `Platform.OS === 'web'` branch or a `.web.tsx` file, so both packages get the fix. A patch
+  applied in `packages/hybrid` is a fork.
 
-Convert every fixed length at this boundary: spacing, dimensions, gaps, borders, radii,
-typography and every hardcoded length brought over from Native. Do not convert unitless values
-such as opacity, flex ratios, font weight or z-index. Preserve strings the public API already
-accepts.
+## Web-only components
 
-Translate direction-aware Native names to CSS logical properties, for example
-`paddingStart` → `paddingInlineStart` and `start` → `insetInlineStart`. Do not replace them
-with physical left/right properties. Expand RN-only internal shorthands before styling.
+`react-native-web` does not cover everything a web app needs, and some things Native has no
+reason to own. Those, and only those, are written in `packages/hybrid/src/components/`:
 
-Use `toWebUnit()` on a resolved number such as `toWebUnit(theme.spacing(2))`; `spacing` is a
-function, so passing the function itself produces an invalid value.
+- Use `@emotion/styled` for styling and Framer Motion for animation. No Tailwind, no CSS
+  file, no inline stylesheet system.
+- Follow the same v1 API rules as a Native component — compound root plus dot-notation
+  slots, `asChild`, `variant` / `color` / style props, exported context hook, namespaced
+  `displayName`. The API vocabulary does not change because the renderer does.
+- Read tokens from the `@xaui/native` theme. Convert fixed lengths at the Emotion boundary
+  with a root-relative unit so one Native point stays one CSS logical pixel at scale 1:
 
-## Tokens
+  ```ts
+  const toWebUnit = (value: number) => `${value / 16}rem`
+  ```
 
-`packages/hybrid/src/theme/tokens.gen.ts` is generated from
-`tooling/tokens/source.ts`; never edit it by hand. Regenerate it with the Native tokens in
-the same commit. `pnpm tokens:check` must keep keys and generated values in parity.
+  Do not force the document root back to `16px`, and never multiply by DPR or viewport
+  width — browser zoom and the user's root font-size are the scaling layer.
+- Use logical CSS properties: `paddingStart` → `paddingInlineStart`, `start` →
+  `insetInlineStart`. Never physical `left` / `right`.
+- Filter XAUI and style props before they reach the DOM. An unknown-property warning is a
+  bug, not noise.
+- If Native could plausibly want the component too, it belongs in Native, not here.
 
-## Porting shape
+## Setup on the consumer side
 
-Mirror Native's source boundaries and component folder names: recipe, context, types, hooks,
-root, one file per slot, styles and index. Animation files keep the same responsibility but
-use Framer Motion. Pure recipe resolution keeps the Native semantics; Emotion enters only at
-the styled-node boundary.
+The bundler resolves `react-native` to `react-native-web` and prefers `.web.*` files. The
+proven configuration is the one `apps/docs` already runs, and `HYBRID-SETUP.md` documents
+it for Next.js, Vite and webpack. Keep that document in step with any change here.
 
-Every component subpath must exist in both `package.json` and `tsup.config.ts`. Root exports
-must match Native as well.
+## Geometry
 
-Tests follow the repository rule: only pure functions receive unit tests. Components, slots,
-hooks and animation constants are verified in a browser, not with component test files.
+At scale 1, one Native point equals one CSS logical pixel — `react-native-web` performs that
+conversion for every re-exported component. Hybrid adds no density multiplier of its own,
+and the rule applies unchanged to the web-only components above.
+
+## Tests
+
+The repository rule holds: pure functions only. A re-export has nothing to test; the browser
+verifies rendering and motion. Web-only components are verified in a browser, like Native
+components are verified on their demo screen.
+
+## Docs
+
+Do not add Hybrid component pages or previews to `apps/docs`. The Native documentation is
+the single source for the shared API — it describes the same components. A web-only
+component is documented once, on its own page, and marked as web-only.
 
 ## P6 order
 
-1. Contract and renderer: theme, provider, hooks, system primitives, Emotion, Framer Motion,
-   DOM filtering and parity checks.
-2. Reference slice: `Typography`/`TextSpan`, `Icon`, `view`, `Spinner`, `Button`.
-3. Static primitives: `Surface`, `Divider`, `Skeleton`, both progress components, `Card`,
-   `Avatar`, `Badge`.
-4. Actions/status: `CloseButton`, `Chip`, `Alert`, `Fab`, `MorphButton`, `EmptyState`,
-   `Widget`, `FlipCard`.
-5. Fields/selection: `TextField` through `TagGroup`, in P6.4 of the plan.
-6. Overlays/choices: `Accordion` through `Snackbar`, in P6.5 of the plan.
-7. Date/calendar, then data/navigation, then charts, in P6.6–P6.8.
-8. Parity milestone: all 75 subpaths, exports and public types match before the next beta
-   release. Parity does not graduate Hybrid from beta.
+1. **Dependency and peers** — `@xaui/native` as a dependency; `react-native-web`, `react`,
+   `react-dom` and Native's optional peers declared; Emotion and Framer Motion kept as peers
+   for the web-only surface.
+2. **Re-export layer** — every Native subpath re-exported, in `package.json` and
+   `tsup.config.ts`, root barrel included.
+3. **Retire the superseded ports** — the Emotion `Typography`, `TextSpan` and `Icon`, the
+   Hybrid `tokens.gen.ts` and the renderer boundary that existed only to mirror Native.
+4. **Bundler setup** — alias, `.web.*` resolution and transpile list, documented and
+   verified in the browser.
+5. **Web audit** — walk the 75 subpaths under `react-native-web`; record every component
+   that does not render or behave correctly as its own task.
+6. **Web-only fills** — Emotion + Framer Motion, only where the audit found a real gap.
+7. **Parity milestone** — every Native subpath resolves from `@xaui/hybrid`, the tarball is
+   complete, and Hybrid publishes `0.9.x-beta.x` without graduating.
 
 ## Review checklist
 
-- [ ] Same subpath, exports, slots, hook, XAUI props, unions and defaults as Native.
-- [ ] Emotion Styled only; no CSS file or Tailwind in the package.
-- [ ] Framer Motion only; static opt-out and reduced motion both work.
-- [ ] No style or XAUI-only prop leaks to the DOM.
-- [ ] At a `16px` root, every Native numeric length computes to the same CSS pixel value
-      (`4` → `0.25rem` → `4px`); no local font-size or DPR multiplier changes it.
-- [ ] Fixed lengths use the root-relative conversion; unitless values remain unitless.
-- [ ] Logical CSS properties preserve RTL behaviour; no physical left/right style.
-- [ ] `style` remains the final override and does not change descendant slots.
-- [ ] Only pure helpers have unit tests; browser verification covers rendering and motion.
-- [ ] `apps/docs` is untouched.
-- [ ] lint, type-check, tests, build, tarball check and export/type parity all pass.
+- [ ] Hybrid depends on `@xaui/native`; no component is re-implemented here.
+- [ ] Every new Native subpath has its one-line Hybrid re-export in `package.json` and
+      `tsup.config.ts`; no Hybrid-only subpath exists without a web-only component behind it.
+- [ ] No wrapper, no re-typed export, no Hybrid-only prop on a shared component.
+- [ ] A web fix went into `@xaui/native` (`.web.tsx` / `Platform.OS`), not into a Hybrid copy.
+- [ ] Web-only components: Emotion Styled + Framer Motion, v1 API rules, tokens from the
+      Native theme, no CSS file or Tailwind.
+- [ ] Fixed lengths use the root-relative conversion (`4` → `0.25rem` → `4px`); unitless
+      values stay unitless; logical properties preserve RTL.
+- [ ] `HYBRID-SETUP.md` still matches what the package expects from a bundler.
+- [ ] Only pure helpers have unit tests; the browser covers rendering and motion.
+- [ ] `apps/docs` is untouched by shared-API work.
+- [ ] lint, type-check, tests, build and the tarball check all pass.
