@@ -40,6 +40,7 @@ export const tabs: NavTab[] = [
       '/docs/getting-started',
       '/docs/faq',
       '/docs/theme',
+      '/docs/fonts',
       '/docs/style-props',
       '/docs/llms-txt',
       '/docs/skills',
@@ -58,6 +59,7 @@ export const tabs: NavTab[] = [
         title: 'Foundations',
         items: [
           { title: 'Theme', href: '/docs/theme' },
+          { title: 'Fonts', href: '/docs/fonts' },
           { title: 'Style props', href: '/docs/style-props' },
           { title: 'LLMs.txt', href: '/docs/llms-txt' },
           { title: 'Agent skills', href: '/docs/skills' },
