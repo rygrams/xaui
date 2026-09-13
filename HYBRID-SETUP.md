@@ -1,267 +1,189 @@
-# @xaui/hybrid — Setup in docs
+# `@xaui/hybrid` — setup
 
-This document explains how `@xaui/hybrid` was installed and configured in the `apps/docs` Next.js application.
+`@xaui/hybrid` is `@xaui/native` rendered for the web. The package depends on
+`@xaui/native` and re-exports it; [`react-native-web`](https://necolas.github.io/react-native-web/)
+turns those React Native components into DOM nodes. A Hybrid `Button` **is** the Native
+`Button` — same props, same slots, same defaults, same theme.
 
----
+So there is nothing to learn twice: the component documentation at
+[ui.xtartapp.com](https://ui.xtartapp.com) describes both packages. What follows is the only
+thing that differs — telling your bundler that `react-native` means `react-native-web`.
 
-## 1. Package installation
-
-Added `@xaui/hybrid` as a workspace dependency in `apps/docs/package.json`:
-
-```json
-{
-  "dependencies": {
-    "@xaui/hybrid": "workspace:*"
-  }
-}
+```bash
+pnpm add @xaui/hybrid@beta
+pnpm add react-native-web react-dom
 ```
 
-Then ran `pnpm install` from the repo root.
+Emotion and Framer Motion are peers too, used by the handful of web-only components Hybrid
+adds on top of the shared API:
+
+```bash
+pnpm add @emotion/react @emotion/styled framer-motion
+```
+
+Add the optional peers for the components that need them — `react-native-reanimated` and
+`react-native-worklets` for animation, `react-native-svg` for charts and icons,
+`react-native-gesture-handler` for draggable components.
 
 ---
 
-## 2. Transpile in Next.js
+## 1. The alias
 
-`apps/docs/next.config.ts` — `@xaui/hybrid` added to `transpilePackages` so Next.js
-processes its ESM source:
+Every bundler needs the same two things:
+
+1. `react-native` resolves to `react-native-web`.
+2. `.web.tsx` / `.web.ts` files win over their platform-neutral siblings.
+
+### Next.js
+
+This is the configuration `apps/docs` runs in this repository, rendering `@xaui/native`
+directly in the browser.
 
 ```ts
+// next.config.ts
+import type { NextConfig } from 'next'
+
 const nextConfig: NextConfig = {
   transpilePackages: [
     '@xaui/hybrid',
     '@xaui/native',
-    // ...
+    'react-native-web',
+    'react-native-reanimated',
+    'react-native-worklets',
+    'react-native-gesture-handler',
+    'react-native-svg',
   ],
+  turbopack: {
+    resolveAlias: {
+      'react-native': 'react-native-web',
+      'react-native-svg': 'react-native-svg/src/ReactNativeSVG.web',
+    },
+    resolveExtensions: [
+      '.web.tsx',
+      '.web.ts',
+      '.web.jsx',
+      '.web.js',
+      '.tsx',
+      '.ts',
+      '.jsx',
+      '.js',
+    ],
+  },
+}
+
+export default nextConfig
+```
+
+On webpack rather than Turbopack, the same two rules go in `webpack`:
+
+```ts
+webpack(config) {
+  config.resolve.alias['react-native$'] = 'react-native-web'
+  config.resolve.extensions = [
+    '.web.tsx', '.web.ts', '.web.jsx', '.web.js',
+    ...config.resolve.extensions,
+  ]
+  return config
 }
 ```
 
----
+### Vite
 
-## 3. CSS setup — Tailwind v4
+```ts
+// vite.config.ts
+import { defineConfig } from 'vite'
 
-`@xaui/hybrid` ships a `dist/index.css` that:
-
-- Defines `--xui-*` CSS custom properties for all theme tokens (light + dark)
-- Registers Tailwind v4 utilities via `@theme inline` (`bg-primary`, `text-primary-fg`, `rounded-xui-md`, etc.)
-- Defines `data-xui-state` CSS animations (`xui-fade-in`, `xui-fade-out`)
-
-### Import order matters
-
-The docs app uses **shadcn** which also registers `--color-primary` etc. via `@theme inline`.
-To prevent XUI from overriding shadcn's color tokens, import `@xaui/hybrid/dist/index.css`
-**before** `@import 'tailwindcss'`:
-
-```css
-/* apps/docs/app/globals.css */
-
-/* XUI imported first — shadcn @theme tokens take precedence */
-@import '@xaui/hybrid/dist/index.css';
-
-@import 'tailwindcss';
-@import 'tw-animate-css';
-@import 'shadcn/tailwind.css';
+export default defineConfig({
+  resolve: {
+    alias: { 'react-native': 'react-native-web' },
+    extensions: [
+      '.web.tsx',
+      '.web.ts',
+      '.web.jsx',
+      '.web.js',
+      '.tsx',
+      '.ts',
+      '.jsx',
+      '.js',
+    ],
+  },
+  optimizeDeps: {
+    esbuildOptions: { resolveExtensions: ['.web.js', '.js', '.ts', '.tsx'] },
+  },
+})
 ```
 
-> **Why this order?** Tailwind v4 merges all `@theme` blocks; the last definition of a
-> variable wins. By importing XUI first, shadcn's `--color-primary: var(--primary)` overrides
-> XUI's `--color-primary: var(--xui-primary)`. XUI CSS variables (`--xui-*`) and animations
-> remain available globally.
+### TypeScript
 
-#### Screenshot — globals.css after setup
-
-![globals.css import order](docs/screenshots/globals-css-import.png)
+Nothing to alias. Hybrid's types come from `@xaui/native`, which types against
+`react-native`; `react-native-web` is a runtime substitution, not a type-level one.
 
 ---
 
-## 4. HybridProvider (no XUIProvider required)
+## 2. The provider
 
-`@xaui/hybrid` no longer requires `XUIProvider`. A lightweight client wrapper is used only
-to optionally set `data-color-scheme` on `<html>` when a forced scheme is needed:
-
-```tsx
-// apps/docs/components/providers/xui-provider.tsx
-'use client'
-
-import { useEffect } from 'react'
-import type { ReactNode } from 'react'
-
-export function HybridProvider({
-  children,
-  colorScheme,
-}: {
-  children: ReactNode
-  colorScheme?: 'light' | 'dark'
-}) {
-  useEffect(() => {
-    if (!colorScheme) return
-    document.documentElement.dataset.colorScheme = colorScheme
-  }, [colorScheme])
-
-  return <>{children}</>
-}
-```
-
-Then wrapped in `apps/docs/app/layout.tsx` (Server Component):
+Identical to Native — one `XAUIProvider` at the root of the app, from `@xaui/hybrid`:
 
 ```tsx
-import { HybridProvider } from '@/components/providers/xui-provider'
+import { XAUIProvider } from '@xaui/hybrid'
 
-export default function RootLayout({ children }) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
       <body>
-        <HybridProvider>{/* ... sidebar + main */}</HybridProvider>
+        <XAUIProvider>{children}</XAUIProvider>
       </body>
     </html>
   )
 }
 ```
 
-**What this wrapper does in hybrid:**
-
-- Optionally sets `document.documentElement.dataset.colorScheme = 'light' | 'dark'`
-- Leaves token resolution to CSS variables in `xui.css`
-- No React theme context provider is required for hybrid components
-
-#### Screenshot — layout.tsx with HybridProvider
-
-![layout.tsx with HybridProvider](docs/screenshots/layout-provider.png)
-
----
-
-## 5. BrowserPreview — equivalent of WebPreview for native
-
-The docs already uses `WebPreview` to render native components inside a `<device-frame>`
-custom element (phone shape). For hybrid, the equivalent is `BrowserPreview`: a minimalist
-browser chrome (traffic lights + URL bar) wrapping hybrid components.
-
-```
-components/ui/browser-preview.tsx   — browser frame wrapper
-```
+There is no CSS file to import and no `--xui-*` custom property to override. Tokens live in
+the theme object, and a custom theme is built the same way on both platforms:
 
 ```tsx
-// Usage
-import { BrowserPreview } from '@/components/ui/browser-preview'
-;<BrowserPreview url="localhost">
-  <div className="p-4">
-    <Alert title="Hello" themeColor="primary" />
-  </div>
-</BrowserPreview>
+import { createTheme, XAUIProvider } from '@xaui/hybrid'
+
+const theme = createTheme({ colors: { primary: '#0ea5e9' } })
+
+;<XAUIProvider theme={theme}>{children}</XAUIProvider>
 ```
-
-`BrowserPreview` wraps children with `HybridProvider` internally to allow forcing color scheme
-in preview contexts.
-
-#### Screenshot — BrowserPreview frame
-
-![BrowserPreview — browser chrome frame](docs/screenshots/browser-preview-frame.png)
 
 ---
 
-## 6. Playground page
+## 3. Sizing
 
-An interactive playground was added at `/playground` to showcase `@xaui/hybrid` components,
-following the same pattern as native component pages (live preview in device frame + controls).
-
-**Files created:**
-
-```
-apps/docs/app/playground/
-  page.tsx              — Next.js page (Server Component, metadata)
-  alert-playground.tsx  — Interactive demo + AllColors grid (Client Components)
-```
-
-The playground is also accessible from the sidebar under **Hybrid (Web) → Playground**.
-
-Structure on the page:
-
-- **Interactive** — controls (variant, color, closable, hideIcon) + live preview in browser frame
-- **All colors — flat** — grid of all 6 colors in flat variant inside browser frame
-- **All colors — solid** — grid in solid variant
-- **All colors — bordered** — grid in bordered variant
-
-#### Screenshot — Playground interactive section
-
-![Playground — Interactive controls + browser preview](docs/screenshots/playground-interactive.png)
-
-#### Screenshot — Playground all colors
-
-![Playground — All colors flat](docs/screenshots/playground-all-colors-flat.png)
+At scale 1, one Native point is one CSS logical pixel — `react-native-web` does that
+conversion. `padding={16}` is `16px`, on both platforms, and browser zoom, the reader's root
+font-size and device DPR keep their natural effect. XAUI never applies a density multiplier
+of its own.
 
 ---
 
-## 7. How XUI animations work (no animation library)
+## 4. Server rendering
 
-Instead of Framer Motion or Reanimated, `@xaui/hybrid` uses **CSS keyframe animations**
-toggled via a `data-xui-state` attribute:
-
-```css
-/* dist/index.css — generated from src/styles/xui.css */
-@keyframes xui-fade-in {
-  from {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-  to {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-@keyframes xui-fade-out {
-  from {
-    opacity: 1;
-    transform: scale(1);
-  }
-  to {
-    opacity: 0;
-    transform: scale(0.95);
-  }
-}
-
-[data-xui-state='open'] {
-  animation: xui-fade-in 250ms ease forwards;
-}
-[data-xui-state='closed'] {
-  animation: xui-fade-out 250ms ease forwards;
-}
-```
-
-Components set `data-xui-state` and listen to `onAnimationEnd` to unmount after the exit
-animation completes — the same pattern native uses with Reanimated's `withTiming` + `runOnJS`.
+`react-native-web` renders on the server. Components that read layout, measure a node or
+attach a gesture need the client — mark the page or the component `'use client'` in Next.js,
+as you would for any interactive component.
 
 ---
 
-## 8. Dynamic theming
+## 5. What is web-only
 
-Users can override any `--xui-*` variable in their CSS to customize the theme:
-
-```css
-:root {
-  --xui-primary: #0ea5e9; /* sky-500 */
-  --xui-primary-fg: #ffffff;
-  --xui-primary-bg: #e0f2fe;
-}
-```
-
-Dark mode is handled by CSS:
-
-- `[data-color-scheme='dark']` for explicit dark mode
-- `@media (prefers-color-scheme: dark)` fallback when the attribute is absent (SSR/no-JS safe)
-
-Users can still switch themes programmatically by setting `data-color-scheme` on `<html>`.
+A small set of components exists only in `@xaui/hybrid`, where `react-native-web` cannot
+supply the behaviour or where the component makes no sense on a device. They are written with
+Emotion Styled and Framer Motion, follow the same v1 API vocabulary as every other XAUI
+component, and are marked **web-only** on their documentation page. Everything else you
+import from `@xaui/hybrid` is the Native component itself.
 
 ---
 
 ## Summary
 
-| Step                    | File                                                         |
-| ----------------------- | ------------------------------------------------------------ |
-| Dependency              | `apps/docs/package.json`                                     |
-| Transpile               | `apps/docs/next.config.ts`                                   |
-| CSS import              | `apps/docs/app/globals.css`                                  |
-| Optional scheme wrapper | `apps/docs/components/providers/xui-provider.tsx`            |
-| Layout                  | `apps/docs/app/layout.tsx`                                   |
-| Browser frame           | `apps/docs/components/ui/browser-preview.tsx`                |
-| Playground              | `apps/docs/app/playground/page.tsx` + `alert-playground.tsx` |
-| Navigation              | `apps/docs/lib/data/navigation.ts`                           |
+| Step                | Where                                                            |
+| ------------------- | ---------------------------------------------------------------- |
+| Dependency          | `package.json` — `@xaui/hybrid`, `react-native-web`, `react-dom` |
+| Alias + extensions  | `next.config.ts` / `vite.config.ts` / webpack `resolve`          |
+| Transpile           | `transpilePackages` (Next.js)                                    |
+| Provider            | the app root — `XAUIProvider` from `@xaui/hybrid`                |
+| Component reference | [ui.xtartapp.com](https://ui.xtartapp.com) — shared with Native  |

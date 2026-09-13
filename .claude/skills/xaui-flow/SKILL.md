@@ -24,7 +24,7 @@ remaining items can be ordered freely.
 | **P3** | The fifteen-component core, in the plan's order                                                                                              | alphas                                                             |
 | **P4** | Docs, generated prop tables, migration guide, `llms.txt`                                                                                     | `@xaui/native@1.0.0`                                               |
 | **P5** | The remaining 32, then the parity milestone                                                                                                  | `1.x`                                                              |
-| **P6** | API-identical `@xaui/hybrid`, rendered with Emotion Styled + Framer Motion                                                                   | `@xaui/hybrid@0.9.x-beta.x`                                        |
+| **P6** | `@xaui/hybrid` = `@xaui/native` re-exported over `react-native-web`; Emotion + Framer Motion only for web-only additions                     | `@xaui/hybrid@0.9.x-beta.x`                                        |
 | **P7** | Delete `native-legacy`                                                                                                                       | `2.0.0`                                                            |
 
 Two consequences worth stating out loud when a request cuts across them:
@@ -45,7 +45,7 @@ components, everything else waits for `1.x` (plan §10).
 | A component: new, new slot, legacy → v1 conversion                                       | `xaui-component`        |
 | Tokens, OKLab, `deriveColors`, `createTheme`, provider, `tokens:check`                   | `xaui-theme`            |
 | `system/` — recipe, style cache, slots, `asChild`, `PressableFeedback`, `Portal`, `Icon` | `xaui-system`           |
-| `packages/hybrid`, pixel-equivalent scaling, web renderer                                | `xaui-hybrid`           |
+| `packages/hybrid`, the `react-native-web` re-export, web-only components                 | `xaui-hybrid`           |
 | `apps/docs`, `apps/demo`, prop tables, `llms.txt`                                        | `xaui-docs`             |
 | `native-legacy`, `core-shim`, codemods, `@deprecated`                                    | `xaui-legacy-migration` |
 | Checking work against the v1 rules                                                       | `xaui-review`           |
@@ -163,7 +163,8 @@ replacement · a changeset is committed.
 
 For P6, the `xaui-hybrid` definition of done replaces the demo/doc requirements: the Native
 documentation remains the single source for the shared API, no `apps/docs` file changes, and
-the port passes the Hybrid browser check plus export/type parity checks against Native.
+every Native subpath resolves from `@xaui/hybrid` and renders in a browser. A shared
+component is never re-implemented in Hybrid — a web bug is fixed in `@xaui/native`.
 
 ## When to stop and ask
 
