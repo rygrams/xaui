@@ -119,19 +119,20 @@ export const AgendaCalendarRoot = forwardRef<View, AgendaCalendarProps>(
     const resolvedLocale = locale ?? deviceLocale()
     const weekStart = firstDayOfWeek ?? firstDayOfWeekFor(resolvedLocale)
 
-    // The cells, from the calendar's own table. Two recipes, and the cache makes the
-    // second resolution of the shared one free.
-    const cellSelection = { variant, size, radius }
+    // One selection, read by both tables: `variant` aims the chosen day's disc *and* the
+    // pill that says "Today", because a card whose strip is soft under a pill that kept a
+    // hard accent border is two variants on one component. Two recipes, and the cache makes
+    // the second resolution of the shared one free.
+    const selection = { variant, size, radius }
     const cells = calendarRecipe.resolve({
       theme,
-      selection: cellSelection,
+      selection,
       states: { disabled: isDisabled },
     })
     const cellTint = color
-      ? calendarRecipe.tint({ theme, color, selection: cellSelection })
+      ? calendarRecipe.tint({ theme, color, selection })
       : undefined
 
-    const selection = { size, radius }
     const styles = agendaCalendarRecipe.resolve({
       theme,
       selection,
@@ -335,7 +336,7 @@ export const AgendaCalendarRoot = forwardRef<View, AgendaCalendarProps>(
         pickerItemLabelSelectedStyle: cellTint
           ? [cells.dayLabelSelected, cellTint.dayLabelSelected]
           : cells.dayLabelSelected,
-        todayStyle: styles.today,
+        todayStyle: tint ? [styles.today, tint.today] : styles.today,
         todayDisabledStyle: styles.todayDisabled,
         todayLabelStyle: tint
           ? [styles.todayLabel, tint.todayLabel]

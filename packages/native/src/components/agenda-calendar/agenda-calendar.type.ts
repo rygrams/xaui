@@ -27,7 +27,10 @@ export type AgendaCalendarSlot =
   | 'picker'
   | 'pickerItem'
 
-/** The `Calendar`'s four, because the chosen day is the same day. */
+/**
+ * The `Calendar`'s four, because the chosen day is the same day. It aims the pill that says
+ * "Today" as well — the variant is the card's one level of emphasis, not the disc's alone.
+ */
 export type AgendaCalendarVariant = CalendarVariant
 
 /**
