@@ -12,6 +12,7 @@ import { Autocomplete } from '@xaui/native/autocomplete'
 
 ```tsx
 <Autocomplete onValueChange={setState}>
+  <Autocomplete.Label>État</Autocomplete.Label>
   <Autocomplete.Trigger>
     <Autocomplete.Value placeholder="Choisir un état" />
     <Autocomplete.Indicator />
@@ -23,22 +24,55 @@ import { Autocomplete } from '@xaui/native/autocomplete'
     <Autocomplete.Item value="tx">Texas</Autocomplete.Item>
     <Autocomplete.Empty>Aucun résultat</Autocomplete.Empty>
   </Autocomplete.Content>
+  <Autocomplete.Description>
+    Cinquante États, une seule ligne.
+  </Autocomplete.Description>
 </Autocomplete>
 ```
 
 ## Anatomy
 
-| slot                     | what it is                                   |
-| ------------------------ | -------------------------------------------- |
-| `Autocomplete`           | State and resolved style. It renders no node |
-| `Autocomplete.Trigger`   | The control — a `combobox`                   |
-| `Autocomplete.Value`     | The chosen row's label, or the placeholder   |
-| `Autocomplete.Indicator` | The chevron, turning with the panel          |
-| `Autocomplete.Overlay`   | The backdrop. Optional                       |
-| `Autocomplete.Content`   | The panel                                    |
-| `Autocomplete.Search`    | The field you type in                        |
-| `Autocomplete.Item`      | One result                                   |
-| `Autocomplete.Empty`     | What the panel says when nothing matches     |
+| slot                       | what it is                                 |
+| -------------------------- | ------------------------------------------ |
+| `Autocomplete`             | The column, and the resolved style         |
+| `Autocomplete.Label`       | What the field is for                      |
+| `Autocomplete.Trigger`     | The control — a `combobox`                 |
+| `Autocomplete.Value`       | The chosen row's label, or the placeholder |
+| `Autocomplete.Indicator`   | The chevron, turning with the panel        |
+| `Autocomplete.Overlay`     | The backdrop. Optional                     |
+| `Autocomplete.Content`     | The panel                                  |
+| `Autocomplete.Search`      | The field you type in                      |
+| `Autocomplete.Item`        | One result                                 |
+| `Autocomplete.Empty`       | What the panel says when nothing matches   |
+| `Autocomplete.Description` | The hint under the field                   |
+| `Autocomplete.Error`       | What is wrong with the choice              |
+
+## The root is the column, not the field
+
+A `View` that stacks `Autocomplete.Label`, the trigger and `Autocomplete.Description` /
+`.Error` with one `gap`, so JSX order is screen order. It is the column and the help lines
+that make this a field on a form rather than a button that opens a list — and they are the
+`TextField`'s, token for token, so a text field and an autocomplete on the same form read as
+one control. The `DatePicker` borrows the same three slots for the same reason.
+
+`isInvalid` paints the trigger's border and turns the label and the description `danger`; it
+never mounts or unmounts `Autocomplete.Error`. A slot that silently renders nothing is one
+you cannot debug, so you write the condition yourself:
+
+```tsx
+<Autocomplete isInvalid={Boolean(error)}>
+  <Autocomplete.Label>État</Autocomplete.Label>
+  <Autocomplete.Trigger>
+    <Autocomplete.Value placeholder="Choisir un état" />
+    <Autocomplete.Indicator />
+  </Autocomplete.Trigger>
+  …{error ? <Autocomplete.Error>{error}</Autocomplete.Error> : null}
+</Autocomplete>
+```
+
+`Autocomplete.Trigger` stays the field: it keeps its own `ref` — it is the node the panel
+measures — and its own a11y props. `Autocomplete.Overlay` and `Autocomplete.Content` portal
+out, so they add nothing to the column.
 
 ## It is not a `Select`
 
@@ -123,15 +157,21 @@ box reads as a control that has broken rather than as a search that found nothin
 `lg` rows is a menu that fills the screen. Only the type in the search box follows, so what
 you type reads at the size of what you will pick.
 
-**The root renders no node**, so `ref`, `style`, `testID`, the a11y props and R14's style
-props all live on `Autocomplete.Trigger`. A wrapper view would exist only to receive them,
-and it would put a second box around a field that already is one.
+`ref`, `style` and R14's style props on the root dress the **column**. The control is
+`Autocomplete.Trigger`, which takes its own — including `testID` and the a11y props, since
+it is the node a screen reader stops on.
 
 ## Accessibility
 
 The trigger is a **`combobox`** rather than a button — the control opens a list you type
 into, and that is the role that says so. It carries `expanded` and, when `isInvalid`,
 `aria-invalid`. The search field is a `search`. Both stay overridable (R9).
+
+The trigger points at `Autocomplete.Label` and `Autocomplete.Description` through
+`aria-labelledby` and `aria-describedby`, which is what makes a screen reader announce "État,
+liste déroulante" rather than reading the chosen row and leaving the question unsaid. The
+ids come from the root, so mounting the two slots is all it takes; your own
+`aria-labelledby` on the trigger still wins.
 
 The overlay announces nothing: it is the absence of the panel, and a screen reader saying
 "button" over the whole screen is worse than saying nothing.

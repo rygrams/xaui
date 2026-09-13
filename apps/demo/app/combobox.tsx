@@ -55,6 +55,17 @@ export default function ComboboxScreen() {
       </Section>
 
       <Section
+        title="The column is a TextField's"
+        note="The root is the Autocomplete's, so the column is too: a label above, the box, a hint or an error below, with the TextField's own gap and tokens. A combobox sits on the line where a text field would, and now it is labelled the same way."
+      >
+        <Field
+          label="Animal"
+          description="Un seul, et il doit être dans la liste."
+        />
+        <Field label="Animal" isInvalid error="Choisissez un animal de la liste." />
+      </Section>
+
+      <Section
         title="The four field levels"
         note="The box is the Select's field, exactly as the Autocomplete's trigger is: the same tokens, the same four levels, resolved through the same recipe rather than a second table half a shade off it."
       >
@@ -80,9 +91,15 @@ export default function ComboboxScreen() {
 
 function Field({
   placeholder = 'Chercher un animal…',
+  label,
+  description,
+  error,
   ...props
 }: {
   placeholder?: string
+  label?: string
+  description?: string
+  error?: string
   variant?: ComboboxVariant
   size?: ComboboxSize
   color?: string
@@ -95,6 +112,7 @@ function Field({
   return (
     <View style={{ gap: 8 }}>
       <Combobox {...props} value={value} onValueChange={setValue}>
+        {label ? <Combobox.Label>{label}</Combobox.Label> : null}
         <Combobox.Trigger>
           <Combobox.Input placeholder={placeholder} />
           <Combobox.Indicator accessibilityLabel="Ouvrir la liste" />
@@ -108,6 +126,10 @@ function Field({
           ))}
           <Combobox.Empty>Aucun animal ne correspond</Combobox.Empty>
         </Combobox.Content>
+        {description ? (
+          <Combobox.Description>{description}</Combobox.Description>
+        ) : null}
+        {error ? <Combobox.Error>{error}</Combobox.Error> : null}
       </Combobox>
       <Chosen value={value} />
     </View>

@@ -3,9 +3,12 @@ import type { TextInputProps, ViewProps } from 'react-native'
 import type { ViewStyleProps, TextStyleProps } from '../../system/style-props'
 import type {
   AutocompleteContentProps,
+  AutocompleteDescriptionProps,
   AutocompleteEmptyProps,
+  AutocompleteErrorProps,
   AutocompleteItemLabelProps,
   AutocompleteItemProps,
+  AutocompleteLabelProps,
   AutocompleteOverlayProps,
   AutocompleteProps,
   AutocompleteSize,
@@ -53,3 +56,8 @@ export type ComboboxOverlayProps = AutocompleteOverlayProps
 export type ComboboxItemProps = AutocompleteItemProps
 export type ComboboxItemLabelProps = AutocompleteItemLabelProps
 export type ComboboxEmptyProps = AutocompleteEmptyProps
+
+/** The label and the help lines are the `Autocomplete`'s, because the column is. */
+export type ComboboxLabelProps = AutocompleteLabelProps
+export type ComboboxDescriptionProps = AutocompleteDescriptionProps
+export type ComboboxErrorProps = AutocompleteErrorProps

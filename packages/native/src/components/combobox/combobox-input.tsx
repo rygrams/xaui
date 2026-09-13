@@ -47,8 +47,11 @@ export const ComboboxInput = forwardRef<TextInput, ComboboxInputProps>(
       setQuery,
       isOpen,
       isDisabled,
+      isInvalid,
       open,
       labelFor,
+      labelId,
+      descriptionId,
     } = useAutocomplete()
 
     const handleChangeText = useCallback(
@@ -80,6 +83,12 @@ export const ComboboxInput = forwardRef<TextInput, ComboboxInputProps>(
         autoCorrect={false}
         autoCapitalize="none"
         placeholderTextColor={placeholderColor}
+        // The label and the hint are siblings in the column, so the field has to point at
+        // them: without this a screen reader announces what was typed and never what the
+        // field was asking for. Before `rest`, so a caller's own is the last word.
+        aria-labelledby={labelId}
+        aria-describedby={descriptionId}
+        aria-invalid={isInvalid || undefined}
         // The field takes the trigger's own text style: it stands where the chosen value
         // stands in a `Select`, and a query that read smaller than the answer it replaces
         // would make the control change size as you typed.

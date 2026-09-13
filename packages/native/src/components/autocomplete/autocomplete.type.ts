@@ -47,14 +47,18 @@ type AutocompleteOwnProps = {
   onQueryChange?: (query: string) => void
   isDisabled?: boolean
   isInvalid?: boolean
+  asChild?: boolean
 }
 
 /**
- * The root renders **no node**, like the `Select`'s. It is state and resolved style around
- * a trigger and a panel, and the trigger is the control — which is why `ref`, `style`,
- * `testID`, the a11y props and R14's style props are all on `Autocomplete.Trigger`.
+ * The root is the **column** — a `View` stacking the label, the trigger and the help line —
+ * so `ref`, `style` and R14's style props here dress that column. The control itself is
+ * `Autocomplete.Trigger`, which keeps its own `ref` and its own a11y props: it is the node
+ * the panel measures and the node a screen reader stops on.
  */
-export type AutocompleteProps = AutocompleteOwnProps
+export type AutocompleteProps = AutocompleteOwnProps &
+  Omit<ViewProps, keyof AutocompleteOwnProps> &
+  Omit<ViewStyleProps, keyof AutocompleteOwnProps | keyof ViewProps>
 
 export type AutocompleteTriggerProps = {
   children?: ReactNode
@@ -69,6 +73,19 @@ export type AutocompleteValueProps = AutocompleteTextOwnProps &
   Omit<TextStyleProps, keyof AutocompleteTextOwnProps | keyof TextProps>
 
 export type AutocompleteOverlayProps = ViewProps & ViewStyleProps
+
+type AutocompleteTextSlotOwnProps = { children?: ReactNode }
+
+/** What the field is for — the `TextField.Label`, on a field that opens a list. */
+export type AutocompleteLabelProps = AutocompleteTextSlotOwnProps &
+  Omit<TextProps, keyof AutocompleteTextSlotOwnProps> &
+  Omit<TextStyleProps, keyof AutocompleteTextSlotOwnProps | keyof TextProps>
+
+/** The hint under the field — the `TextField.Description`. */
+export type AutocompleteDescriptionProps = AutocompleteLabelProps
+
+/** What is wrong with the chosen row — the `TextField.Error`. */
+export type AutocompleteErrorProps = AutocompleteLabelProps
 
 /** A row's own word. It has no placeholder — a row is never empty. */
 export type AutocompleteItemLabelProps = { children?: ReactNode } & Omit<
@@ -125,6 +142,9 @@ export type AutocompleteContextValue = {
   itemStyle: StyleProp<ViewStyle>
   itemPressedStyle: StyleProp<ViewStyle>
   itemLabelStyle: StyleProp<TextStyle>
+  labelStyle: StyleProp<TextStyle>
+  descriptionStyle: StyleProp<TextStyle>
+  errorStyle: StyleProp<TextStyle>
   glyph: IconContextValue
   placeholderColor?: string
   value?: string
@@ -141,6 +161,9 @@ export type AutocompleteContextValue = {
   setAnchor: (anchor: AutocompleteAnchor) => void
   labelFor: (value: string) => string | undefined
   registerLabel: (value: string, label: string) => void
+  /** The ids the trigger points at, so the label and the hint are what it is announced by. */
+  labelId: string
+  descriptionId: string
 }
 
 /** What one row publishes to its own slots. */
