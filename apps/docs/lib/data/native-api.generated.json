@@ -643,6 +643,12 @@
           "type": "boolean | undefined",
           "required": false,
           "description": ""
+        },
+        {
+          "name": "asChild",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
         }
       ]
     },
@@ -651,7 +657,29 @@
       "props": []
     },
     {
+      "name": "AutocompleteDescriptionProps",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        }
+      ]
+    },
+    {
       "name": "AutocompleteEmptyProps",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "AutocompleteErrorProps",
       "props": [
         {
           "name": "children",
@@ -702,6 +730,17 @@
         {
           "name": "asChild",
           "type": "boolean | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "AutocompleteLabelProps",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
           "required": false,
           "description": ""
         }
@@ -2564,7 +2603,15 @@
       "props": []
     },
     {
+      "name": "ComboboxDescriptionProps",
+      "props": []
+    },
+    {
       "name": "ComboboxEmptyProps",
+      "props": []
+    },
+    {
+      "name": "ComboboxErrorProps",
       "props": []
     },
     {
@@ -2590,6 +2637,10 @@
     },
     {
       "name": "ComboboxItemProps",
+      "props": []
+    },
+    {
+      "name": "ComboboxLabelProps",
       "props": []
     },
     {

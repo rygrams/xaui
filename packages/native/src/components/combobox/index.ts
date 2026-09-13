@@ -1,8 +1,11 @@
 import {
   AutocompleteContent,
+  AutocompleteDescription,
   AutocompleteEmpty,
+  AutocompleteError,
   AutocompleteItem,
   AutocompleteItemLabel,
+  AutocompleteLabel,
   AutocompleteOverlay,
 } from '../autocomplete'
 import { ComboboxIndicator } from './combobox-indicator'
@@ -21,9 +24,15 @@ import { ComboboxTrigger } from './combobox-trigger'
  *   by name. A `Combobox.Item` that were a different component would be sorted into "not a
  *   row", would never be filtered, and would never register its label.
  *
+ * The label and the help lines come from the same place, and for the same reason: the root
+ * **is** the `Autocomplete`'s, so the column it renders is already the `TextField`'s, and a
+ * combobox that labelled its field differently from the text field beside it would be the
+ * drift this sharing exists to prevent.
+ *
  * What this component owns is the three slots that make the field the control.
  */
 export const Combobox = Object.assign(ComboboxRoot, {
+  Label: AutocompleteLabel,
   Trigger: ComboboxTrigger,
   Input: ComboboxInput,
   Indicator: ComboboxIndicator,
@@ -32,6 +41,8 @@ export const Combobox = Object.assign(ComboboxRoot, {
   Item: AutocompleteItem,
   ItemLabel: AutocompleteItemLabel,
   Empty: AutocompleteEmpty,
+  Description: AutocompleteDescription,
+  Error: AutocompleteError,
 })
 
 export { ComboboxRoot } from './combobox'
@@ -42,10 +53,13 @@ export { ComboboxTrigger } from './combobox-trigger'
 export { useAutocomplete as useCombobox } from '../autocomplete'
 export type {
   ComboboxContentProps,
+  ComboboxDescriptionProps,
   ComboboxEmptyProps,
+  ComboboxErrorProps,
   ComboboxInputProps,
   ComboboxItemLabelProps,
   ComboboxItemProps,
+  ComboboxLabelProps,
   ComboboxOverlayProps,
   ComboboxProps,
   ComboboxSize,

@@ -45,6 +45,8 @@ export const AutocompleteTrigger = forwardRef<View, AutocompleteTriggerProps>(
       isInvalid,
       toggle,
       setAnchor,
+      labelId,
+      descriptionId,
     } = useAutocomplete()
 
     const [styleProps, rest] = useStyleProps(props)
@@ -96,6 +98,11 @@ export const AutocompleteTrigger = forwardRef<View, AutocompleteTriggerProps>(
             ...accessibilityState,
           }}
           aria-invalid={isInvalid || undefined}
+          // The label and the hint are siblings in the column, so the trigger has to point
+          // at them: without this a screen reader announces the chosen row and never what
+          // the field was asking for. Before `rest`, so a caller's own is the last word.
+          aria-labelledby={labelId}
+          aria-describedby={descriptionId}
           {...rest}
           onLayout={handleLayout}
           style={[

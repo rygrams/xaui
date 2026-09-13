@@ -81,10 +81,13 @@
     "exports": [
       "Autocomplete",
       "AutocompleteContent",
+      "AutocompleteDescription",
       "AutocompleteEmpty",
+      "AutocompleteError",
       "AutocompleteIndicator",
       "AutocompleteItem",
       "AutocompleteItemLabel",
+      "AutocompleteLabel",
       "AutocompleteOverlay",
       "AutocompleteSearch",
       "AutocompleteTrigger",

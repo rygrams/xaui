@@ -53,6 +53,14 @@ export default function AutocompleteScreen() {
       </Section>
 
       <Section
+        title="The column is a TextField's"
+        note="The root is the column, not the field: a label above, the trigger, a hint or an error below, with the TextField's own gap and the TextField's own tokens — so a text field and an autocomplete on the same form read as one control. isInvalid paints the trigger and turns the label and the hint danger; it never mounts the error line, which is yours to write."
+      >
+        <Field label="État" description="Cinquante États, une seule ligne." />
+        <Field label="État" isInvalid error="Choisissez un État." />
+      </Section>
+
+      <Section
         title="The four field levels"
         note="The trigger is a field, so it takes the same four levels the TextField and the Select take — and it takes them from the Select's own recipe rather than from a second table, so the two never drift apart in a form."
       >
@@ -86,13 +94,21 @@ function Field({
   size,
   color,
   isDisabled,
+  isInvalid,
   defaultQuery,
+  label,
+  description,
+  error,
 }: {
   variant?: AutocompleteVariant
   size?: AutocompleteSize
   color?: string
   isDisabled?: boolean
+  isInvalid?: boolean
   defaultQuery?: string
+  label?: string
+  description?: string
+  error?: string
 }) {
   const [value, setValue] = useState<string>()
 
@@ -104,8 +120,10 @@ function Field({
       size={size}
       color={color}
       isDisabled={isDisabled}
+      isInvalid={isInvalid}
       defaultQuery={defaultQuery}
     >
+      {label ? <Autocomplete.Label>{label}</Autocomplete.Label> : null}
       <Autocomplete.Trigger>
         <Autocomplete.Value placeholder="Choisir un état" />
         <Autocomplete.Indicator />
@@ -120,6 +138,10 @@ function Field({
         ))}
         <Autocomplete.Empty>Aucun état ne correspond</Autocomplete.Empty>
       </Autocomplete.Content>
+      {description ? (
+        <Autocomplete.Description>{description}</Autocomplete.Description>
+      ) : null}
+      {error ? <Autocomplete.Error>{error}</Autocomplete.Error> : null}
     </Autocomplete>
   )
 }

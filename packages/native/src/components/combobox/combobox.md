@@ -12,6 +12,7 @@ import { Combobox } from '@xaui/native/combobox'
 
 ```tsx
 <Combobox value={animal} onValueChange={setAnimal}>
+  <Combobox.Label>Animal</Combobox.Label>
   <Combobox.Trigger>
     <Combobox.Input placeholder="Chercher un animal…" />
     <Combobox.Indicator accessibilityLabel="Ouvrir la liste" />
@@ -22,21 +23,27 @@ import { Combobox } from '@xaui/native/combobox'
     <Combobox.Item value="dog">Chien</Combobox.Item>
     <Combobox.Empty>Aucun animal ne correspond</Combobox.Empty>
   </Combobox.Content>
+  <Combobox.Description>
+    Un seul, et il doit être dans la liste.
+  </Combobox.Description>
 </Combobox>
 ```
 
 ## Anatomy
 
-| slot                 | what it is                                           |
-| -------------------- | ---------------------------------------------------- |
-| `Combobox`           | State and resolved style. It renders no node         |
-| `Combobox.Trigger`   | The field box — a `View`, not a pressable            |
-| `Combobox.Input`     | The field. The query while open, the label while not |
-| `Combobox.Indicator` | The chevron, and the way in without typing           |
-| `Combobox.Overlay`   | The backdrop. Optional                               |
-| `Combobox.Content`   | The panel                                            |
-| `Combobox.Item`      | One row                                              |
-| `Combobox.Empty`     | What the panel says when nothing matches             |
+| slot                   | what it is                                           |
+| ---------------------- | ---------------------------------------------------- |
+| `Combobox`             | The column, and the resolved style                   |
+| `Combobox.Label`       | What the field is for                                |
+| `Combobox.Trigger`     | The field box — a `View`, not a pressable            |
+| `Combobox.Input`       | The field. The query while open, the label while not |
+| `Combobox.Indicator`   | The chevron, and the way in without typing           |
+| `Combobox.Overlay`     | The backdrop. Optional                               |
+| `Combobox.Content`     | The panel                                            |
+| `Combobox.Item`        | One row                                              |
+| `Combobox.Empty`       | What the panel says when nothing matches             |
+| `Combobox.Description` | The hint under the field                             |
+| `Combobox.Error`       | What is wrong with the choice                        |
 
 ## It is the `Autocomplete` with the search moved into the trigger
 
@@ -80,6 +87,12 @@ load-bearing one:
 - `Autocomplete.Content` tells its children apart **by identity** (`type === Item`), not by
   name. A `Combobox.Item` that were a different component would be sorted into "not a row",
   would never be filtered and would never register its label.
+
+**The label and the help lines come from the same place**, and for the same reason: the root
+_is_ the `Autocomplete`'s, so the column it renders is already the `TextField`'s, and a
+combobox that labelled its field differently from the text field beside it would be exactly
+the drift this sharing exists to prevent. `Combobox.Label`, `Combobox.Description` and
+`Combobox.Error` are the autocomplete's slots under this component's name.
 
 What this component owns is the three slots that make the field the control: the trigger,
 the input and the chevron. `useCombobox()` is `useAutocomplete()`, for the same reason
@@ -129,7 +142,9 @@ Theirs is `ComboBox` with `InputGroup` · `Value` · `Trigger` · `Popover`.
 
 The root's props are the `Autocomplete`'s, to the prop: `variant`, `size`, `radius`,
 `color`, `value` / `defaultValue` / `onValueChange`, `isOpen` / `defaultOpen` /
-`onOpenChange`, `query` / `defaultQuery` / `onQueryChange`, `isDisabled`, `isInvalid`.
+`onOpenChange`, `query` / `defaultQuery` / `onQueryChange`, `isDisabled`, `isInvalid`,
+`asChild`. The root is the **column** — `ref`, `style` and R14's style props on it dress
+that column, not the field box.
 
 ### `Combobox.Input`
 
@@ -154,6 +169,10 @@ Everything `View` accepts, plus the `ViewStyle` keys as props (R14), plus `asChi
   following the panel — on the box rather than on the input, because it is the box that
   expands and a screen reader reads the field inside it as the field it is.
 - The chevron is a `button` and needs an `accessibilityLabel`: it is not text.
-- `aria-invalid` follows `isInvalid`.
+- `aria-invalid` follows `isInvalid`, on the input as well as on the box.
+- The input points at `Combobox.Label` and `Combobox.Description` through `aria-labelledby`
+  and `aria-describedby`, so what is announced is what the field was asking for rather than
+  only what has been typed into it. Mounting the two slots is all it takes; your own
+  `aria-labelledby` still wins.
 - The panel keeps taps through the keyboard (`keyboardShouldPersistTaps`), so choosing a row
   while the keyboard is up takes one tap rather than two.
