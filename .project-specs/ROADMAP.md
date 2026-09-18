@@ -85,6 +85,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.3f  | `PhoneNumberField` — country prefix, searchable sheet and national number                          | done    |
 | P5.3g  | `SearchField` — net new, a `TextField` with its mark, its clear and its search                     | done    |
 | P5.4   | `Select` — Trigger · Value · Indicator · Overlay · Content · Item                                  | done    |
+| P5.4b  | `Select` — the field column: Label · Description · Error, heading to `GroupLabel`                  | done    |
 | P5.5   | `Stepper` — slots over the existing group context                                                  | done    |
 | P5.6   | `Toolbar` — slots over the existing group context                                                  | dropped |
 | P5.7   | `ListBox` — slots over the existing group context                                                  | done    |

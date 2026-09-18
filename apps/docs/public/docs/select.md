@@ -13,43 +13,52 @@ import { Select } from '@xaui/native/select'
 
 ```tsx
 <Select>
+  <Select.Label>…</Select.Label>
   <Select.Trigger>
     <Select.Value />
     <Select.Indicator />
   </Select.Trigger>
   <Select.Overlay />
   <Select.Content>
-    <Select.Label>…</Select.Label>
+    <Select.GroupLabel>…</Select.GroupLabel>
     <Select.Item value="…">
       <Select.ItemLabel>…</Select.ItemLabel>
       <Select.ItemDescription>…</Select.ItemDescription>
       <Select.ItemIndicator />
     </Select.Item>
   </Select.Content>
+  <Select.Description>…</Select.Description>
+  <Select.Error>…</Select.Error>
 </Select>
 ```
 
-- **`Select`** — state and resolved style. **It renders no node.**
-- **`Select.Trigger`** — the control. The field the user sees, and the only node a `ref`
-  can reach.
+- **`Select`** — the column, and the state and resolved style behind it.
+- **`Select.Label`** — what the field is for, above the trigger.
+- **`Select.Trigger`** — the control. The field the user sees, and the node a `ref`
+  reaches.
 - **`Select.Value`** — what is chosen, or the placeholder until something is.
 - **`Select.Indicator`** — the chevron, turning on a spring with the list.
 - **`Select.Overlay`** — the backdrop. Optional, and what closes the list on an outside
   press.
 - **`Select.Content`** — the list, positioned against the trigger and rendered in a portal.
-- **`Select.Label`** — a heading over a run of rows.
+- **`Select.GroupLabel`** — a heading over a run of rows, **inside the panel**.
 - **`Select.Item`** — one row.
 - **`Select.ItemLabel`** / **`Select.ItemDescription`** — its two lines.
 - **`Select.ItemIndicator`** — the check on the chosen row.
+- **`Select.Description`** / **`Select.Error`** — the help line under the field.
 
-**The root renders no node**, which is where this component differs from every other one
-in the library. `ref`, `style`, `testID`, the a11y props and R14's style props are all on
-`Select.Trigger`: the trigger is the control, and a wrapper view around it would exist
-only to receive props the field already takes.
+**The root is the column**, a `View` stacking the label, the trigger and the help line
+with one `gap` — the `TextField`'s shape and the `Autocomplete`'s, token for token, so a
+text field and a select on the same form read as one control. `ref`, `style` and R14's
+style props on the root dress that column; the control itself is `Select.Trigger`, which
+keeps its own `ref` and its own a11y props.
 
 `Select.Overlay` and `Select.Content` render into the nearest `PortalHost` rather than
-where they are written. Their place in the JSX says **when** they exist, not where they
-appear.
+where they are written, so they add nothing to the column. Their place in the JSX says
+**when** they exist, not where they appear.
+
+**`Select.Label` is the field's label, not the panel's.** The heading over a run of rows
+is `Select.GroupLabel` — the two were one name until the field grew a label of its own.
 
 ## Usage
 
@@ -57,6 +66,7 @@ appear.
 
 ```tsx
 <Select onValueChange={setLocale}>
+  <Select.Label>Langue</Select.Label>
   <Select.Trigger>
     <Select.Value placeholder="Choisir une langue" />
     <Select.Indicator />
@@ -66,11 +76,36 @@ appear.
     <Select.Item value="fr">Français</Select.Item>
     <Select.Item value="en">English</Select.Item>
   </Select.Content>
+  <Select.Description>Celle de l'interface.</Select.Description>
 </Select>
 ```
 
 A stringifiable child becomes the row's label (R3), and that same string is what the
 trigger shows once the row is chosen — the label is written once.
+
+### Label, hint and error
+
+```tsx
+<Select isInvalid={!locale} onValueChange={setLocale}>
+  <Select.Label>Langue</Select.Label>
+  <Select.Trigger>
+    <Select.Value placeholder="Choisir une langue" />
+    <Select.Indicator />
+  </Select.Trigger>
+  <Select.Overlay />
+  <Select.Content>…</Select.Content>
+  {locale ? (
+    <Select.Description>Celle de l'interface.</Select.Description>
+  ) : (
+    <Select.Error>Choisissez une langue.</Select.Error>
+  )}
+</Select>
+```
+
+`isInvalid` paints the trigger's border, turns the label and the description `danger`, and
+**mounts nothing**: `Select.Error` renders exactly what it is given, so the condition stays
+where you can read it. The label and the description carry the ids the trigger points at
+with `aria-labelledby` / `aria-describedby`.
 
 ### Composed rows
 
@@ -164,8 +199,11 @@ everything above it.
 | `isOpen`        | `boolean`                   | —         | Controlled open state                   |
 | `defaultOpen`   | `boolean`                   | `false`   | Uncontrolled open state                 |
 | `onOpenChange`  | `(isOpen: boolean) => void` | —         | Fires on open and on close              |
-| `isDisabled`    | `boolean`                   | `false`   | Dims the trigger, stops the press       |
-| `isInvalid`     | `boolean`                   | `false`   | Moves the border to `danger`            |
+| `isDisabled`    | `boolean`                   | `false`   | Dims the column, stops the press        |
+| `isInvalid`     | `boolean`                   | `false`   | Border, label and hint to `danger`      |
+| `asChild`       | `boolean`                   | `false`   | The caller's element is the column      |
+
+Plus everything `View` takes and `ViewStyle` as props — they dress the **column**.
 
 ### `Select.Trigger`
 
@@ -205,10 +243,18 @@ nothing until a `backgroundColor` says so.
 `{ isSelected, isPressed, isDisabled }`, which is the escape hatch for a row that paints
 its own selected state instead of showing the check.
 
-### `Select.Label` · `Select.ItemLabel` · `Select.ItemDescription`
+### `Select.Label` · `Select.Description` · `Select.Error`
 
-Everything `Text` takes, plus `TextStyle` as props. The label truncates; the description
-wraps, because the thing it exists to carry is the sentence a label was too short for.
+Everything `Text` takes, plus `TextStyle` as props. They are the `TextField`'s three,
+token for token. `Select.Label` and `Select.Description` carry the ids the trigger points
+at; `Select.Error` carries none, because it is the description's replacement rather than a
+second thing to announce.
+
+### `Select.GroupLabel` · `Select.ItemLabel` · `Select.ItemDescription`
+
+Everything `Text` takes, plus `TextStyle` as props. The item label truncates; the item
+description wraps, because the thing it exists to carry is the sentence a label was too
+short for.
 
 ### `Select.ItemIndicator`
 
@@ -239,8 +285,11 @@ screen.
 ## Accessibility
 
 The trigger is a `button` carrying `expanded`, so a screen reader announces whether the
-list is open. Rows are `menuitem` and carry `selected`. `Select.Label` is a `header`, so
-the group it opens is announced with it. The overlay announces nothing at all — it is the
+list is open. Rows are `menuitem` and carry `selected`. `Select.GroupLabel` is a
+`header`, so the group it opens is announced with it. The trigger points at
+`Select.Label` and `Select.Description` with `aria-labelledby` / `aria-describedby`, so a
+screen reader announces what the field is for rather than reading the placeholder and
+hoping. The overlay announces nothing at all — it is the
 absence of the list, and "button" spoken over the whole screen is worse than silence.
 
 ## The portal
@@ -257,17 +306,19 @@ with no error. That silence is why the provider mounts one by default.
 
 The legacy component is `Select`, with `SelectItem`.
 
-| Legacy                       | v1                                              |
-| ---------------------------- | ----------------------------------------------- |
-| `<SelectItem value label />` | `<Select.Item value label>` with its own slots  |
-| `label="…"` on the root      | a `TextField.Label` beside it, or your own text |
-| `placeholder="…"`            | `placeholder` on `<Select.Value>`               |
-| `variant="colored"`          | `variant="primary"`                             |
-| `variant="light"`            | `variant="secondary"`                           |
-| `variant="bordered"`         | `variant="tertiary"`                            |
-| `themeColor="primary"`       | `color={theme.colors.accent}`                   |
-| `selectionMode="multiple"`   | not in v1 — one value, one control              |
-| `customAppearance={{ … }}`   | `style` on the slot that key named              |
+| Legacy                       | v1                                             |
+| ---------------------------- | ---------------------------------------------- |
+| `<SelectItem value label />` | `<Select.Item value label>` with its own slots |
+| `label="…"` on the root      | `<Select.Label>`                               |
+| `description="…"`            | `<Select.Description>`                         |
+| `errorMessage="…"`           | `<Select.Error>`                               |
+| `placeholder="…"`            | `placeholder` on `<Select.Value>`              |
+| `variant="colored"`          | `variant="primary"`                            |
+| `variant="light"`            | `variant="secondary"`                          |
+| `variant="bordered"`         | `variant="tertiary"`                           |
+| `themeColor="primary"`       | `color={theme.colors.accent}`                  |
+| `selectionMode="multiple"`   | not in v1 — one value, one control             |
+| `customAppearance={{ … }}`   | `style` on the slot that key named             |
 
 **`selectionMode` is gone.** A select that returns several values is a different control
 with a different affordance, and calling both by one name is what made the legacy props

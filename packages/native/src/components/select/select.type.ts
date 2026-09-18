@@ -26,7 +26,7 @@ export type SelectSlot =
   | 'indicator'
   | 'overlay'
   | 'content'
-  | 'label'
+  | 'groupLabel'
   | 'item'
   | 'itemLabel'
   | 'itemDescription'
@@ -83,16 +83,20 @@ type SelectOwnProps = {
   onOpenChange?: (isOpen: boolean) => void
   isDisabled?: boolean
   isInvalid?: boolean
+  asChild?: boolean
 }
 
 /**
- * The root renders **no node**. It is state and resolved style around a trigger and a
- * list, and the trigger is the control — which is why `ref`, `style`, `testID`, the a11y
- * props and R14's style props are all on `Select.Trigger` rather than here. A wrapper
- * view would exist only to receive them, and it would put a second box around a field
- * that already is one.
+ * The root is the **column** — a `View` stacking `Select.Label`, the trigger and
+ * `Select.Description` / `.Error` with one `gap` — so `ref`, `style` and R14's style props
+ * here dress that column. The control itself is `Select.Trigger`, which keeps its own
+ * `ref` and its own a11y props: it is the node the panel measures and the node a screen
+ * reader stops on. `Select.Overlay` and `Select.Content` portal out, so they add nothing
+ * to the column.
  */
-export type SelectProps = SelectOwnProps
+export type SelectProps = SelectOwnProps &
+  Omit<ViewProps, keyof SelectOwnProps> &
+  Omit<ViewStyleProps, keyof SelectOwnProps | keyof ViewProps>
 
 type SelectTriggerOwnProps = {
   children?: ReactNode
@@ -163,11 +167,24 @@ export type SelectContentProps = SelectContentOwnProps &
   Omit<ViewProps, keyof SelectContentOwnProps> &
   Omit<ViewStyleProps, keyof SelectContentOwnProps | keyof ViewProps>
 
-type SelectLabelOwnProps = { children?: ReactNode }
+type SelectTextSlotOwnProps = { children?: ReactNode }
 
-export type SelectLabelProps = SelectLabelOwnProps &
-  Omit<TextProps, keyof SelectLabelOwnProps> &
-  Omit<TextStyleProps, keyof SelectLabelOwnProps | keyof TextProps>
+/**
+ * What the field is for — the `TextField.Label`, on a field that opens a list. The
+ * heading over a run of rows *inside* the panel is `Select.GroupLabel`.
+ */
+export type SelectLabelProps = SelectTextSlotOwnProps &
+  Omit<TextProps, keyof SelectTextSlotOwnProps> &
+  Omit<TextStyleProps, keyof SelectTextSlotOwnProps | keyof TextProps>
+
+/** The hint under the field — the `TextField.Description`. */
+export type SelectDescriptionProps = SelectLabelProps
+
+/** What is wrong with the chosen value — the `TextField.Error`. */
+export type SelectErrorProps = SelectLabelProps
+
+/** A heading over a run of rows, inside the panel. */
+export type SelectGroupLabelProps = SelectLabelProps
 
 /** What an item's render function is handed, so it can paint its own selected state. */
 export type SelectItemRenderState = {
@@ -222,7 +239,16 @@ export type SelectContextValue = {
   indicatorStyle: StyleProp<ViewStyle>
   overlayStyle: StyleProp<ViewStyle>
   contentStyle: StyleProp<ViewStyle>
+  /** The panel's section heading. The field's own label is `labelStyle`. */
+  groupLabelStyle: StyleProp<TextStyle>
+  /**
+   * The column's three text slots, resolved through `textFieldRecipe` rather than this
+   * component's own: a select and a text field stacked in one form read as one control,
+   * and a second table here would be two to keep in step.
+   */
   labelStyle: StyleProp<TextStyle>
+  descriptionStyle: StyleProp<TextStyle>
+  errorStyle: StyleProp<TextStyle>
   itemStyle: StyleProp<ViewStyle>
   /** The same split as the trigger's, for the row a finger happens to be on. */
   itemPressedStyle: StyleProp<ViewStyle>
@@ -250,6 +276,9 @@ export type SelectContextValue = {
   /** Labels registered by the items, so `Select.Value` can name the chosen one. */
   labelFor: (value: string) => string | undefined
   registerLabel: (value: string, label: string) => void
+  /** The ids the trigger points at with `aria-labelledby` / `aria-describedby`. */
+  labelId: string
+  descriptionId: string
 }
 
 /** The trigger's rectangle in window coordinates. */

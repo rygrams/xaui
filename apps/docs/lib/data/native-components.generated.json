@@ -934,6 +934,9 @@
     "exports": [
       "Select",
       "SelectContent",
+      "SelectDescription",
+      "SelectError",
+      "SelectGroupLabel",
       "SelectIndicator",
       "SelectItem",
       "SelectItemDescription",

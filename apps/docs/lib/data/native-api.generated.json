@@ -7227,6 +7227,12 @@
           "type": "boolean | undefined",
           "required": false,
           "description": ""
+        },
+        {
+          "name": "asChild",
+          "type": "boolean | undefined",
+          "required": false,
+          "description": ""
         }
       ]
     },
@@ -7284,6 +7290,39 @@
         {
           "name": "insets",
           "type": "Insets | undefined",
+          "required": false,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "SelectDescriptionProps",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "SelectErrorProps",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "SelectGroupLabelProps",
+      "props": [
+        {
+          "name": "children",
+          "type": "ReactNode",
           "required": false,
           "description": ""
         }

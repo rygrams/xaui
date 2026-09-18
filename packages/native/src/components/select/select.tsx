@@ -1,8 +1,11 @@
-import { useCallback, useMemo, useState } from 'react'
-import { StyleSheet } from 'react-native'
+import { forwardRef, useCallback, useId, useMemo, useState } from 'react'
+import { StyleSheet, View } from 'react-native'
 import type { TextStyle } from 'react-native'
+import { Slot } from '../../system/slot'
+import { useStyleProps } from '../../system/style-props'
 import { useXAUITheme } from '../../theme/theme-hooks'
 import { useControllableState } from '../../hooks/use-controllable-state'
+import { textFieldRecipe } from '../text-field/text-field.recipe'
 import { useLabelRegistry } from './select.hook'
 import { SelectProvider } from './select.context'
 import { selectRecipe } from './select.recipe'
@@ -13,6 +16,7 @@ import type { SelectAnchor, SelectProps } from './select.type'
  *
  * ```tsx
  * <Select defaultValue="fr" onValueChange={setLocale}>
+ *   <Select.Label>Langue</Select.Label>
  *   <Select.Trigger>
  *     <Select.Value placeholder="Choisir une langue" />
  *     <Select.Indicator />
@@ -24,32 +28,56 @@ import type { SelectAnchor, SelectProps } from './select.type'
  *       <Select.ItemIndicator />
  *     </Select.Item>
  *   </Select.Content>
+ *   <Select.Description>Celle de l'interface.</Select.Description>
  * </Select>
  * ```
  *
- * **The root renders no node.** It resolves the styles every slot reads and holds the two
- * pieces of state — what is open and what is chosen. `Select.Overlay` and
- * `Select.Content` render into the nearest `PortalHost` rather than where they are
- * written, so their position in the JSX says when they exist, not where they appear.
+ * **The root is the column, not the field** — the `TextField`'s shape, and the
+ * `Autocomplete`'s: a `View` stacking `Select.Label`, the trigger and
+ * `Select.Description` / `.Error` with one `gap`, so JSX order is screen order. It is the
+ * column and the help lines that make this a field on a form rather than a button that
+ * opens a list, and they are the `TextField`'s token for token — a text field and a
+ * select on the same form read as one control.
+ *
+ * `Select.Trigger` is the field, and it keeps its own `ref`: it is the node the panel
+ * measures and the node a screen reader stops on. `Select.Overlay` and `Select.Content`
+ * render into the nearest `PortalHost` rather than where they are written, so their
+ * position in the JSX says when they exist, not where they appear — and they add nothing
+ * to the column.
+ *
+ * The heading over a run of rows *inside* the panel is `Select.GroupLabel`. It was
+ * `Select.Label` until the field grew a label of its own.
  */
-export function Select({
-  children,
-  variant,
-  size,
-  radius,
-  color,
-  value: controlledValue,
-  defaultValue,
-  onValueChange,
-  isOpen: controlledOpen,
-  defaultOpen = false,
-  onOpenChange,
-  isDisabled = false,
-  isInvalid = false,
-}: SelectProps) {
+export const Select = forwardRef<View, SelectProps>(function Select(
+  {
+    children,
+    variant,
+    size,
+    radius,
+    color,
+    value: controlledValue,
+    defaultValue,
+    onValueChange,
+    isOpen: controlledOpen,
+    defaultOpen = false,
+    onOpenChange,
+    isDisabled = false,
+    isInvalid = false,
+    asChild = false,
+    style,
+    ...props
+  },
+  ref
+) {
   const theme = useXAUITheme()
+  // R14 — what is left is `View`'s own props plus whatever style keys the caller wrote.
+  const [styleProps, rest] = useStyleProps(props)
   const { labelFor, registerLabel } = useLabelRegistry()
   const [anchor, setAnchor] = useState<SelectAnchor | null>(null)
+
+  const id = useId()
+  const labelId = `${id}-label`
+  const descriptionId = `${id}-description`
 
   const [value, setValue] = useControllableState<string | undefined>({
     value: controlledValue,
@@ -74,11 +102,12 @@ export function Select({
   // Two resolutions, not one. The trigger and a row each own a press state the root
   // cannot see, so the root resolves both faces and each slot picks — which keeps R5
   // intact without a slot ever touching the recipe. The second call is a cache hit.
-  const styles = selectRecipe.resolve({
-    theme,
-    selection,
-    states: { disabled: isDisabled },
-  })
+  //
+  // **`disabled` is the column's, not the trigger's.** Both recipes answer it with an
+  // opacity, and a dimmed trigger inside a dimmed column multiplies the two — a quarter
+  // of the opacity where the theme asked for half. The column carries it once, which is
+  // also what dims the label and the hint with the field they belong to.
+  const styles = selectRecipe.resolve({ theme, selection })
   const pressed = selectRecipe.resolve({
     theme,
     selection,
@@ -86,6 +115,16 @@ export function Select({
   })
 
   const tint = color ? selectRecipe.tint({ theme, color, selection }) : undefined
+
+  // The column, the label and the help lines are the `TextField`'s, token for token — a
+  // select and a text field stacked in one form read as one control, which is why the
+  // root composes them rather than owning a second table. The `Autocomplete` and the
+  // `DatePicker` borrow the same three slots for the same reason.
+  const labelled = textFieldRecipe.resolve({
+    theme,
+    selection: { size, isInvalid: isInvalid ? ('true' as const) : undefined },
+    states: { disabled: isDisabled },
+  })
 
   const open = useCallback(() => setOpen(true), [setOpen])
   const close = useCallback(() => setOpen(false), [setOpen])
@@ -125,7 +164,10 @@ export function Select({
       indicatorStyle: styles.indicator,
       overlayStyle: styles.overlay,
       contentStyle: styles.content,
-      labelStyle: styles.label,
+      groupLabelStyle: styles.groupLabel,
+      labelStyle: labelled.label,
+      descriptionStyle: labelled.description,
+      errorStyle: labelled.error,
       itemStyle: styles.item,
       itemPressedStyle: pressed.item,
       itemLabelStyle: styles.itemLabel,
@@ -152,11 +194,16 @@ export function Select({
       setAnchor,
       labelFor,
       registerLabel,
+      labelId,
+      descriptionId,
     }
   }, [
     styles,
     pressed,
     tint,
+    labelled,
+    labelId,
+    descriptionId,
     value,
     isOpen,
     isDisabled,
@@ -170,7 +217,23 @@ export function Select({
     registerLabel,
   ])
 
-  return <SelectProvider value={context}>{children}</SelectProvider>
-}
+  // Most general to most specific: the recipe's column, the style props, then `style`.
+  const columnStyle = [labelled.root, styleProps, style]
+
+  // No `accessibilityRole` on the column: the control is the trigger inside it, and a
+  // role here would give a screen reader a second element to stop on before reaching it.
+  const column = asChild ? (
+    // R12 — the caller's element is the column.
+    <Slot ref={ref} {...rest} style={columnStyle}>
+      {children}
+    </Slot>
+  ) : (
+    <View ref={ref} {...rest} style={columnStyle}>
+      {children}
+    </View>
+  )
+
+  return <SelectProvider value={context}>{column}</SelectProvider>
+})
 
 Select.displayName = 'XAUI.Select.Root'
