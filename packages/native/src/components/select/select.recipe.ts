@@ -10,7 +10,7 @@ const SLOTS = [
   'indicator',
   'overlay',
   'content',
-  'label',
+  'groupLabel',
   'item',
   'itemLabel',
   'itemDescription',
@@ -124,7 +124,7 @@ function sizeAxis(step: SizeStep) {
       value: valueType,
       placeholder: valueType,
       indicator: { fontSize: theme.fontSizes[glyph] },
-      label: {
+      groupLabel: {
         fontSize: theme.fontSizes[listLabel],
         lineHeight: theme.lineHeights[listLabel],
       },
@@ -172,7 +172,7 @@ export const selectRecipe = createRecipe({
       borderCurve: 'continuous',
       ...theme.shadows.overlay,
     },
-    label: {
+    groupLabel: {
       fontFamily: theme.fontFamilies.body,
       fontWeight: theme.fontWeights.medium,
       color: theme.colors.muted,

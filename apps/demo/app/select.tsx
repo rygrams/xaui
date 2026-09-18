@@ -58,8 +58,74 @@ export default function SelectScreen() {
       </Section>
 
       <Section
+        title="The column: label, field, hint"
+        note="The root is the column — a View stacking Select.Label, the trigger and Select.Description with one gap, the TextField's token for token. Put this next to a TextField and the two read as one control. isDisabled dims the whole column once, not the trigger inside a dimmed column, which would have multiplied the two opacities."
+      >
+        <Select defaultValue="fr">
+          <Select.Label>Langue</Select.Label>
+          <Select.Trigger>
+            <Select.Value placeholder="Choisir une langue" />
+            <Select.Indicator />
+          </Select.Trigger>
+          <Select.Overlay />
+          <Select.Content>
+            {LANGUAGES.map(({ value, label }) => (
+              <Select.Item key={value} value={value} label={label}>
+                <Select.ItemLabel>{label}</Select.ItemLabel>
+                <Select.ItemIndicator />
+              </Select.Item>
+            ))}
+          </Select.Content>
+          <Select.Description>Celle de l&apos;interface.</Select.Description>
+        </Select>
+
+        <Select isDisabled defaultValue="en">
+          <Select.Label>Désactivé</Select.Label>
+          <Select.Trigger>
+            <Select.Value placeholder="Choisir une langue" />
+            <Select.Indicator />
+          </Select.Trigger>
+          <Select.Overlay />
+          <Select.Content>
+            {LANGUAGES.map(({ value, label }) => (
+              <Select.Item key={value} value={value} label={label}>
+                <Select.ItemLabel>{label}</Select.ItemLabel>
+                <Select.ItemIndicator />
+              </Select.Item>
+            ))}
+          </Select.Content>
+          <Select.Description>
+            Le libellé et l&apos;indice se ternissent avec le champ.
+          </Select.Description>
+        </Select>
+      </Section>
+
+      <Section
+        title="isInvalid turns the column, Error says why"
+        note="isInvalid paints the trigger's border and turns the label and the description danger — it mounts nothing. Select.Error renders exactly what it is given, so the condition stays where you can read it rather than inside a slot."
+      >
+        <Select isInvalid>
+          <Select.Label>Langue</Select.Label>
+          <Select.Trigger>
+            <Select.Value placeholder="Choisir une langue" />
+            <Select.Indicator />
+          </Select.Trigger>
+          <Select.Overlay />
+          <Select.Content>
+            {LANGUAGES.map(({ value, label }) => (
+              <Select.Item key={value} value={value} label={label}>
+                <Select.ItemLabel>{label}</Select.ItemLabel>
+                <Select.ItemIndicator />
+              </Select.Item>
+            ))}
+          </Select.Content>
+          <Select.Error>Choisissez une langue.</Select.Error>
+        </Select>
+      </Section>
+
+      <Section
         title="Descriptions, and a group heading"
-        note="Select.Label is a heading, not a row: no press, and a screen reader announces it as one. Select.ItemIndicator keeps its 20-point box whether or not the row is chosen, so choosing never shifts a label."
+        note="Select.GroupLabel is a heading, not a row: no press, and a screen reader announces it as one. It is the panel's heading — the field's own label is Select.Label, outside the trigger. Select.ItemIndicator keeps its 20-point box whether or not the row is chosen, so choosing never shifts a label."
       >
         <Select defaultValue="fr">
           <Select.Trigger>
@@ -68,7 +134,7 @@ export default function SelectScreen() {
           </Select.Trigger>
           <Select.Overlay />
           <Select.Content>
-            <Select.Label>Langues</Select.Label>
+            <Select.GroupLabel>Langues</Select.GroupLabel>
             {LANGUAGES.map(({ value, label, description }) => (
               <Select.Item key={value} value={value} label={label}>
                 <View style={{ flexShrink: 1 }}>
