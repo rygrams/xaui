@@ -2,12 +2,14 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CodeBlock } from '@/components/ui/code-block'
 import { components } from '@/lib/data/components'
+import { pageMetadata } from '@/lib/site'
 
-export const metadata: Metadata = {
-  title: 'FAQ — XAUI Native',
+export const metadata: Metadata = pageMetadata({
+  title: 'FAQ',
   description:
     'The questions that come up while setting XAUI up: peer dependencies, the Worklets plugin, variant against color, styling, web support and the legacy package.',
-}
+  path: '/docs/faq',
+})
 
 export default function FaqPage() {
   return (

@@ -3,11 +3,14 @@ import Link from 'next/link'
 import { ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { CodeBlock } from '@/components/ui/code-block'
+import { pageMetadata } from '@/lib/site'
 
-export const metadata: Metadata = {
-  title: 'Get started — XAUI Native',
-  description: 'Set up the XAUI provider and compose your first screen.',
-}
+export const metadata: Metadata = pageMetadata({
+  title: 'Get started',
+  description:
+    'Set up the XAUIProvider, import components from their subpath and compose your first React Native screen with XAUI.',
+  path: '/docs/getting-started',
+})
 
 export default function GettingStartedPage() {
   return (
