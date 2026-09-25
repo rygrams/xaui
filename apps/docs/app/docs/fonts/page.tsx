@@ -1,12 +1,14 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CodeBlock } from '@/components/ui/code-block'
+import { pageMetadata } from '@/lib/site'
 
-export const metadata: Metadata = {
-  title: 'Fonts — XAUI Native',
+export const metadata: Metadata = pageMetadata({
+  title: 'Fonts',
   description:
     'Load a custom font with Expo and point the XAUI theme at the loaded family.',
-}
+  path: '/docs/fonts',
+})
 
 export default function FontsPage() {
   return (

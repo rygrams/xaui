@@ -3,12 +3,14 @@ import Link from 'next/link'
 import { ArrowUpRight } from 'lucide-react'
 import { Markdown } from '@/components/docs/markdown'
 import { CHANNEL_LABELS, getLatestRelease, getReleases } from '@/lib/releases'
+import { pageMetadata } from '@/lib/site'
 
-export const metadata: Metadata = {
-  title: 'Releases — XAUI Native',
+export const metadata: Metadata = pageMetadata({
+  title: 'Releases',
   description:
     'Release notes for @xaui/native, as the changesets behind each publish wrote them.',
-}
+  path: '/docs/releases',
+})
 
 export default function ReleasesPage() {
   const latest = getLatestRelease()

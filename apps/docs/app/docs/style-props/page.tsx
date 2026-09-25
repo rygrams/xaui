@@ -2,12 +2,14 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CodeBlock } from '@/components/ui/code-block'
 import styleProps from '@/lib/data/native-style-props.generated.json'
+import { pageMetadata } from '@/lib/site'
 
-export const metadata: Metadata = {
-  title: 'Style props — XAUI Native',
+export const metadata: Metadata = pageMetadata({
+  title: 'Style props',
   description:
     'Every React Native style key of a node, exposed as a prop: padding, margin, width, colours, text and image keys, and how they order against style.',
-}
+  path: '/docs/style-props',
+})
 
 const keyCount = styleProps.groups.reduce(
   (total, group) => total + group.keys.length,

@@ -5,9 +5,11 @@ import { ArrowLeft, ArrowRight, ExternalLink, FileText } from 'lucide-react'
 import { ApiTable } from '@/components/docs/api-table'
 import { Markdown } from '@/components/docs/markdown'
 import { NativePreview } from '@/components/preview/native-preview'
+import { JsonLd } from '@/components/seo/json-ld'
 import { CodeBlock } from '@/components/ui/code-block'
 import { getComponentDocument } from '@/lib/component-doc'
 import { components, getComponentById, type Component } from '@/lib/data/components'
+import { pageMetadata, SITE_URL } from '@/lib/site'
 
 type ComponentPageProps = {
   params: Promise<{ componentId: string }>
@@ -45,20 +47,53 @@ export async function generateMetadata({
 }: ComponentPageProps): Promise<Metadata> {
   const { componentId } = await params
   const component = getComponentById(componentId)
-  if (!component) return { title: 'Component not found — XAUI' }
+  if (!component) return { title: 'Component not found' }
+
+  return pageMetadata({
+    title: `${component.title} for React Native`,
+    description: component.description,
+    path: component.href,
+    markdownPath: `/docs/${component.id}.md`,
+    keywords: getKeywords(component),
+  })
+}
+
+/** The page as an article about one component, and where it sits in the docs. */
+function getStructuredData(component: Component) {
+  const url = `${SITE_URL}${component.href}`
 
   return {
-    title: `${component.title} — XAUI Native`,
-    description: component.description,
-    keywords: getKeywords(component),
-    alternates: { canonical: component.href },
-    openGraph: {
-      type: 'article',
-      title: `${component.title} — XAUI Native`,
-      description: component.description,
-      url: component.href,
-      siteName: 'XAUI Documentation',
-    },
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'TechArticle',
+        headline: `${component.title} — React Native component`,
+        description: component.description,
+        url,
+        inLanguage: 'en',
+        keywords: getKeywords(component).join(', '),
+        isPartOf: { '@id': `${SITE_URL}/#website` },
+        about: { '@id': `${SITE_URL}/#library` },
+        encoding: {
+          '@type': 'MediaObject',
+          encodingFormat: 'text/markdown',
+          contentUrl: `${SITE_URL}/docs/${component.id}.md`,
+        },
+      },
+      {
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          ['Docs', '/docs/introduction'],
+          ['Components', '/docs/components'],
+          [component.title, component.href],
+        ].map(([name, path], position) => ({
+          '@type': 'ListItem',
+          position: position + 1,
+          name,
+          item: `${SITE_URL}${path}`,
+        })),
+      },
+    ],
   }
 }
 
@@ -76,6 +111,7 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
 
   return (
     <article className="mx-auto max-w-4xl space-y-14 pb-20">
+      <JsonLd data={getStructuredData(component)} />
       <header className="space-y-5 border-b pb-8">
         <div className="flex flex-wrap items-center gap-2 text-xs font-medium">
           <span className="rounded-full bg-violet-100 px-2.5 py-1 text-violet-700 dark:bg-violet-950 dark:text-violet-300">
