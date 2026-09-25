@@ -86,7 +86,7 @@ export function SiteHeader({ version, versions }: SiteHeaderProps) {
                 alt="Xaui"
                 className="rounded-lg"
                 height={28}
-                src="/logo.svg"
+                src="/logo.png"
                 width={28}
               />
               <span>Xaui</span>
