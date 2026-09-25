@@ -21,6 +21,10 @@ COPY --from=pruner /app/tsconfig.base.json ./tsconfig.base.json
 # workletizes and mirrors its own `.d.ts` from there, and the docs prebuild generates every
 # component page from there, so the pruned tree cannot build without it.
 COPY --from=pruner /app/tooling/ ./tooling/
+# `NEXT_PUBLIC_*` is inlined when the static export is built, so the GA measurement ID has
+# to reach this stage as a build arg — set at run time it arrives after the HTML is written.
+ARG NEXT_PUBLIC_GA_MEASUREMENT_ID
+ENV NEXT_PUBLIC_GA_MEASUREMENT_ID=$NEXT_PUBLIC_GA_MEASUREMENT_ID
 RUN pnpm turbo build --filter=docs
 
 FROM nginx:alpine AS runner

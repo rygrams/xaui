@@ -4,6 +4,7 @@ import './globals.css'
 import { Sidebar } from '@/components/layout/sidebar'
 import { SiteHeader } from '@/components/layout/site-header'
 import { getReleases } from '@/lib/releases'
+import { SITE_URL } from '@/lib/site'
 import { GoogleAnalytics } from '@next/third-parties/google'
 
 const geistSans = Geist({
@@ -17,6 +18,7 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
     default: 'XAUI Native — Documentation',
     template: '%s',
