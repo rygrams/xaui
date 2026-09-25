@@ -4,6 +4,7 @@ import { notFound } from 'next/navigation'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 import { Markdown } from '@/components/docs/markdown'
 import { CHANNEL_LABELS, getRelease, getReleases } from '@/lib/releases'
+import { pageMetadata } from '@/lib/site'
 
 type ReleasePageProps = {
   params: Promise<{ version: string }>
@@ -18,14 +19,14 @@ export async function generateMetadata({
 }: ReleasePageProps): Promise<Metadata> {
   const { version } = await params
   const release = getRelease(decodeURIComponent(version))
-  if (!release) return { title: 'Release not found — XAUI' }
+  if (!release) return { title: 'Release not found' }
 
-  return {
-    title: `@xaui/native ${release.version} — XAUI Native`,
+  return pageMetadata({
+    title: `@xaui/native ${release.version} release notes`,
     description:
       release.summary || `Release notes for @xaui/native ${release.version}.`,
-    alternates: { canonical: release.href },
-  }
+    path: release.href,
+  })
 }
 
 export default async function ReleasePage({ params }: ReleasePageProps) {

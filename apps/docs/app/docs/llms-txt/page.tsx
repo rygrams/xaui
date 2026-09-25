@@ -2,11 +2,14 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CodeBlock } from '@/components/ui/code-block'
 import { ExternalLink, Bot, FileText } from 'lucide-react'
+import { pageMetadata } from '@/lib/site'
 
-export const metadata: Metadata = {
-  title: 'LLMs.txt - Xaui',
-  description: 'Machine-readable documentation for AI assistants',
-}
+export const metadata: Metadata = pageMetadata({
+  title: 'LLMs.txt',
+  description:
+    'Machine-readable XAUI documentation for AI assistants: llms.txt, llms-full.txt and a markdown file per component.',
+  path: '/docs/llms-txt',
+})
 
 export default function LlmsTxtPage() {
   return (
@@ -35,7 +38,28 @@ export default function LlmsTxtPage() {
               <ExternalLink className="h-3.5 w-3.5 text-muted-foreground" />
             </div>
             <p className="mt-0.5 text-sm text-muted-foreground">
-              Index of all components — one link per component.
+              The index — the guides, and one markdown link per component.
+            </p>
+          </div>
+        </a>
+
+        <a
+          href="/llms-full.txt"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group flex items-start gap-4 rounded-lg border p-5 transition-colors hover:bg-muted/40"
+        >
+          <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10">
+            <FileText className="h-5 w-5 text-primary" />
+          </div>
+          <div className="min-w-0">
+            <div className="flex items-center gap-1.5">
+              <p className="font-semibold">llms-full.txt</p>
+              <ExternalLink className="h-3.5 w-3.5 text-muted-foreground" />
+            </div>
+            <p className="mt-0.5 text-sm text-muted-foreground">
+              Every component page in one file, for loading the whole library at
+              once.
             </p>
           </div>
         </a>

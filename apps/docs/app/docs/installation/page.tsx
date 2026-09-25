@@ -1,12 +1,14 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CodeBlock } from '@/components/ui/code-block'
+import { pageMetadata } from '@/lib/site'
 
-export const metadata: Metadata = {
-  title: 'Installation — XAUI Native',
+export const metadata: Metadata = pageMetadata({
+  title: 'Installation',
   description:
-    'Install XAUI Native and its peer dependencies in an Expo or React Native app.',
-}
+    'Install XAUI Native and its peer dependencies — Reanimated, Worklets, Gesture Handler, SVG, Safe Area — in an Expo or React Native app.',
+  path: '/docs/installation',
+})
 
 export default function InstallationPage() {
   return (

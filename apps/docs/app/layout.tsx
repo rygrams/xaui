@@ -3,8 +3,15 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
 import { Sidebar } from '@/components/layout/sidebar'
 import { SiteHeader } from '@/components/layout/site-header'
+import { JsonLd } from '@/components/seo/json-ld'
 import { getReleases } from '@/lib/releases'
-import { SITE_URL } from '@/lib/site'
+import {
+  OG_IMAGE,
+  REPOSITORY_URL,
+  SITE_DESCRIPTION,
+  SITE_NAME,
+  SITE_URL,
+} from '@/lib/site'
 import { GoogleAnalytics } from '@next/third-parties/google'
 
 const geistSans = Geist({
@@ -20,11 +27,73 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'XAUI Native — Documentation',
-    template: '%s',
+    default: `${SITE_NAME} — React Native UI component library`,
+    template: `%s — ${SITE_NAME}`,
   },
-  description:
-    'Documentation for the XAUI React Native components — live web demos and a generated TypeScript API.',
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
+  keywords: [
+    'react native',
+    'react native ui library',
+    'react native components',
+    'expo',
+    'expo ui components',
+    'reanimated',
+    'design system',
+    'typescript',
+    'xaui',
+  ],
+  alternates: {
+    canonical: '/',
+    types: { 'text/plain': '/llms.txt' },
+  },
+  openGraph: {
+    type: 'website',
+    siteName: SITE_NAME,
+    locale: 'en_US',
+    url: '/',
+    images: [OG_IMAGE],
+  },
+  twitter: { card: 'summary_large_image', images: [OG_IMAGE.url] },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
+  },
+}
+
+/**
+ * What the site is, for search engines and for the agents that read structured data
+ * before prose: the site itself, and the library it documents.
+ */
+const structuredData = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'WebSite',
+      '@id': `${SITE_URL}/#website`,
+      name: SITE_NAME,
+      url: SITE_URL,
+      description: SITE_DESCRIPTION,
+      inLanguage: 'en',
+    },
+    {
+      '@type': 'SoftwareSourceCode',
+      '@id': `${SITE_URL}/#library`,
+      name: '@xaui/native',
+      description: SITE_DESCRIPTION,
+      url: SITE_URL,
+      codeRepository: REPOSITORY_URL,
+      programmingLanguage: ['TypeScript', 'React Native'],
+      runtimePlatform: ['iOS', 'Android', 'Web'],
+      license: `${REPOSITORY_URL}/blob/main/LICENSE`,
+    },
+  ],
 }
 
 export const viewport: Viewport = {
@@ -48,6 +117,7 @@ export default function RootLayout({
             __html: `globalThis.__DEV__ = ${process.env.NODE_ENV !== 'production'};`,
           }}
         />
+        <JsonLd data={structuredData} />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}

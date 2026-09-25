@@ -1,10 +1,13 @@
 import type { Metadata } from 'next'
 import { CodeBlock } from '@/components/ui/code-block'
+import { pageMetadata } from '@/lib/site'
 
-export const metadata: Metadata = {
-  title: 'Theme — XAUI Native',
-  description: 'Configure XAUI colours, scales and colour modes.',
-}
+export const metadata: Metadata = pageMetadata({
+  title: 'Theme',
+  description:
+    'Configure XAUI colours, scales and light and dark colour modes with createTheme and the XAUIProvider.',
+  path: '/docs/theme',
+})
 
 export default function ThemePage() {
   return (

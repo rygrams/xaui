@@ -4,12 +4,14 @@ import { ArrowRight, Blocks, Gauge, Palette, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { CodeBlock } from '@/components/ui/code-block'
 import { components } from '@/lib/data/components'
+import { pageMetadata } from '@/lib/site'
 
-export const metadata: Metadata = {
-  title: 'Introduction — XAUI Native',
+export const metadata: Metadata = pageMetadata({
+  title: 'Introduction',
   description:
-    'A React Native component library built on composition, Reanimated motion and semantic tokens.',
-}
+    'XAUI is a React Native UI component library for Expo and React Native, built on composition, Reanimated motion and semantic tokens.',
+  path: '/docs/introduction',
+})
 
 const principles = [
   {

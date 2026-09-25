@@ -1,12 +1,14 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { CodeBlock } from '@/components/ui/code-block'
+import { pageMetadata } from '@/lib/site'
 
-export const metadata: Metadata = {
-  title: 'Agent skills — XAUI Native',
+export const metadata: Metadata = pageMetadata({
+  title: 'Agent skills',
   description:
     'Install the XAUI agent skill with the skills CLI, so your coding agent reads the real API instead of guessing at one.',
-}
+  path: '/docs/skills',
+})
 
 export default function SkillsPage() {
   return (

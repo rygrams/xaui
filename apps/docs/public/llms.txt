@@ -1,6 +1,24 @@
 # XAUI Native
 
-> Composition-first React Native components with Reanimated motion and semantic tokens.
+> XAUI (`@xaui/native`) is a React Native UI component library for Expo and React Native: composition-first components with dot-notation slots, Reanimated motion, semantic theming and a TypeScript API.
+
+75 components, each imported from its own subpath (`@xaui/native/button`). Every component link below is its full markdown documentation — anatomy, props, slots, variants and accessibility. The same content, concatenated, is at https://ui.xtartapp.com/llms-full.txt.
+
+```bash
+pnpm add @xaui/native@beta
+```
+
+## Docs
+
+- [Introduction](https://ui.xtartapp.com/docs/introduction): What XAUI is and the principles it is built on.
+- [Installation](https://ui.xtartapp.com/docs/installation): The package and its peer dependencies in an Expo or React Native app.
+- [Get started](https://ui.xtartapp.com/docs/getting-started): The provider, subpath imports and a first screen.
+- [Theme](https://ui.xtartapp.com/docs/theme): createTheme, colour modes and the XAUIProvider.
+- [Style props](https://ui.xtartapp.com/docs/style-props): Every React Native style key of a node, as a prop.
+- [Fonts](https://ui.xtartapp.com/docs/fonts): Load a font with Expo and point the theme at it.
+- [Migration](https://ui.xtartapp.com/docs/migration): From @xaui/native-legacy to @xaui/native, with the prop mapping.
+- [FAQ](https://ui.xtartapp.com/docs/faq): Peer dependencies, the Worklets plugin, variant against color, web support.
+- [Agent skill](https://ui.xtartapp.com/skills/xaui/SKILL.md): The rules an agent needs to write XAUI code, as a SKILL.md.
 
 ## Components
 

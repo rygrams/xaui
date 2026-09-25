@@ -1,11 +1,13 @@
 import type { Metadata } from 'next'
 import { CodeBlock } from '@/components/ui/code-block'
+import { pageMetadata } from '@/lib/site'
 
-export const metadata: Metadata = {
-  title: 'Migration — XAUI Native',
+export const metadata: Metadata = pageMetadata({
+  title: 'Migration',
   description:
-    'Move from @xaui/native-legacy to @xaui/native, one screen at a time.',
-}
+    'Move a React Native app from @xaui/native-legacy to @xaui/native, one screen at a time, with the legacy-to-v1 prop mapping.',
+  path: '/docs/migration',
+})
 
 const mappings = [
   ['solid + primary', 'variant="primary"'],

@@ -16,7 +16,9 @@ const demoRegistryPath = path.join(
   docsDirectory,
   'components/preview/native-demo-registry.generated.tsx'
 )
+const siteUrl = 'https://ui.xtartapp.com'
 const llmsPath = path.join(docsDirectory, 'public/llms.txt')
+const llmsFullPath = path.join(docsDirectory, 'public/llms-full.txt')
 const stylePropsPath = path.join(
   docsDirectory,
   'lib/data/native-style-props.generated.json'
@@ -379,7 +381,8 @@ function getStyleProps() {
   const union = typeSource.match(
     /export type DirectionalStyleKey =([\s\S]*?)\n\n/
   )?.[1]
-  if (!union) throw new Error('DirectionalStyleKey not found in style-props.type.ts.')
+  if (!union)
+    throw new Error('DirectionalStyleKey not found in style-props.type.ts.')
 
   return {
     groups: groups.filter(group => group.keys.length),
@@ -390,20 +393,89 @@ function getStyleProps() {
 const styleProps = getStyleProps()
 fs.writeFileSync(stylePropsPath, `${JSON.stringify(styleProps, null, 2)}\n`)
 
+/**
+ * The guide pages, for `llms.txt`. They are TSX rather than markdown, so the index links
+ * the HTML page — an agent still gets the one page it needs instead of the whole site.
+ */
+const GUIDES = [
+  [
+    'Introduction',
+    'introduction',
+    'What XAUI is and the principles it is built on.',
+  ],
+  [
+    'Installation',
+    'installation',
+    'The package and its peer dependencies in an Expo or React Native app.',
+  ],
+  [
+    'Get started',
+    'getting-started',
+    'The provider, subpath imports and a first screen.',
+  ],
+  ['Theme', 'theme', 'createTheme, colour modes and the XAUIProvider.'],
+  [
+    'Style props',
+    'style-props',
+    'Every React Native style key of a node, as a prop.',
+  ],
+  ['Fonts', 'fonts', 'Load a font with Expo and point the theme at it.'],
+  [
+    'Migration',
+    'migration',
+    'From @xaui/native-legacy to @xaui/native, with the prop mapping.',
+  ],
+  [
+    'FAQ',
+    'faq',
+    'Peer dependencies, the Worklets plugin, variant against color, web support.',
+  ],
+]
+
+const componentLinks = components.map(
+  component =>
+    `- [${component.title}](${siteUrl}/docs/${component.id}.md): ${component.description}`
+)
+
 const llms = [
   '# XAUI Native',
   '',
-  '> Composition-first React Native components with Reanimated motion and semantic tokens.',
+  '> XAUI (`@xaui/native`) is a React Native UI component library for Expo and React Native: composition-first components with dot-notation slots, Reanimated motion, semantic theming and a TypeScript API.',
+  '',
+  `${components.length} components, each imported from its own subpath (\`@xaui/native/button\`). Every component link below is its full markdown documentation — anatomy, props, slots, variants and accessibility. The same content, concatenated, is at ${siteUrl}/llms-full.txt.`,
+  '',
+  '```bash',
+  'pnpm add @xaui/native@beta',
+  '```',
+  '',
+  '## Docs',
+  '',
+  ...GUIDES.map(
+    ([title, slug, description]) =>
+      `- [${title}](${siteUrl}/docs/${slug}): ${description}`
+  ),
+  `- [Agent skill](${siteUrl}/skills/xaui/SKILL.md): The rules an agent needs to write XAUI code, as a SKILL.md.`,
   '',
   '## Components',
   '',
-  ...components.map(
-    component =>
-      `- [${component.title}](https://ui.xtartapp.com/docs/${component.id}.md): ${component.description}`
-  ),
+  ...componentLinks,
   '',
 ].join('\n')
 fs.writeFileSync(llmsPath, llms)
+
+// Every component's markdown in one file, for the agents that load a whole library into
+// context at once instead of following links.
+const llmsFull = [
+  '# XAUI Native — full documentation',
+  '',
+  `> Every @xaui/native component page, in one file. The index is ${siteUrl}/llms.txt.`,
+  '',
+  ...components.map(component =>
+    fs.readFileSync(path.join(workspace, component.markdownPath), 'utf8').trim()
+  ),
+  '',
+].join('\n\n')
+fs.writeFileSync(llmsFullPath, llmsFull)
 
 /**
  * The agent skill, from the same catalogue as `llms.txt`. It carries the rules an agent
@@ -459,10 +531,7 @@ const skill = [
   '',
   '## Components',
   '',
-  ...components.map(
-    component =>
-      `- [${component.title}](https://ui.xtartapp.com/docs/${component.id}.md): ${component.description}`
-  ),
+  ...componentLinks,
   '',
 ]
 fs.mkdirSync(path.dirname(skillPath), { recursive: true })
