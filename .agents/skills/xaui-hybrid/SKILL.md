@@ -12,8 +12,8 @@ is no port and no second implementation: a Hybrid `Button` **is** the Native `Bu
 That is the whole contract. Parity is structural — you cannot drift from an API you import.
 
 `@xaui/hybrid` stays frozen until P4 ships, then follows the P6 order in
-`.project-specs/XAUI-V1-PLAN.md`. P6 remains on `0.9.x-beta.x` and the `beta` dist-tag even
-at the parity milestone; a stable or `1.0.0` Hybrid release needs a separate explicit task.
+`.project-specs/XAUI-V1-PLAN.md`. P6 publishes plain `0.9.x` on `latest`, like Native, even
+at the parity milestone; a `1.0.0` Hybrid release needs a separate explicit task.
 
 ## What Hybrid is made of
 
@@ -109,7 +109,7 @@ component is documented once, on its own page, and marked as web-only.
    that does not render or behave correctly as its own task.
 6. **Web-only fills** — Emotion + Framer Motion, only where the audit found a real gap.
 7. **Parity milestone** — every Native subpath resolves from `@xaui/hybrid`, the tarball is
-   complete, and Hybrid publishes `0.9.x-beta.x` without graduating.
+   complete, and Hybrid publishes `0.9.x` without going to `1.0.0`.
 
 ## Review checklist
 

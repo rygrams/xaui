@@ -24,7 +24,7 @@ remaining items can be ordered freely.
 | **P3** | The fifteen-component core, in the plan's order                                                                                              | alphas                                                             |
 | **P4** | Docs, generated prop tables, migration guide, `llms.txt`                                                                                     | `@xaui/native@1.0.0`                                               |
 | **P5** | The remaining 32, then the parity milestone                                                                                                  | `1.x`                                                              |
-| **P6** | `@xaui/hybrid` = `@xaui/native` re-exported over `react-native-web`; Emotion + Framer Motion only for web-only additions                     | `@xaui/hybrid@0.9.x-beta.x`                                        |
+| **P6** | `@xaui/hybrid` = `@xaui/native` re-exported over `react-native-web`; Emotion + Framer Motion only for web-only additions                     | `@xaui/hybrid@0.9.x`                                        |
 | **P7** | Delete `native-legacy`                                                                                                                       | `2.0.0`                                                            |
 
 Two consequences worth stating out loud when a request cuts across them:
@@ -95,7 +95,7 @@ progress is recorded, and it moves in the same commit as the work.
 
 ## 7. Changeset
 
-One per touched package, **always `patch`** while we're on the `beta` line:
+One per touched package, **always `patch`** until `1.0.0`:
 
 ```bash
 pnpm changeset
@@ -133,13 +133,11 @@ gh pr view <n> --comments # and what did they say?
 ```
 
 Then merge. The Changesets action opens or updates the "Version Packages" PR; merging that
-one publishes to the `beta` dist-tag and moves `@xaui/native`'s `latest` onto it, and it
-falls under the same authorization — the same three conditions, read again on that PR.
+one publishes to `latest`, and it falls under the same authorization — the same three conditions, read again on that PR.
 Nothing else to do by hand.
 
-Never run `changeset version`, `changeset publish` or `changeset pre exit` locally: CI owns
-the release, and `pre exit` would graduate `native` and `hybrid` to plain versions before
-v1 is done.
+Never run `changeset version`, `changeset publish` or `changeset pre enter` locally: CI
+owns the release, and the pre-release line is closed for good.
 
 ## 9. Close the loop on review comments
 
