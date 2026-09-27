@@ -1,0 +1,25 @@
+appId: com.anonymous.demo
+name: s11-compose-live
+---
+# Standalone, the flow opens its screen. make.sh opens it before recording and
+# passes SKIP_OPEN=1, so the clip starts on a settled screen. (A flow-level `env`
+# default would win over `-e`, hence the typeof test.)
+- runFlow:
+    when:
+      true: ${typeof SKIP_OPEN === 'undefined'}
+    file: _open.yaml
+    env:
+      LINK: demo://demo/button?scene=compose
+- extendedWaitUntil:
+    visible:
+      id: "__hold__"
+    timeout: 600
+    optional: true
+- tapOn:
+    id: add-button
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible:
+      id: "__hold__"
+    timeout: 3790
+    optional: true

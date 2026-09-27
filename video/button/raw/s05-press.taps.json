@@ -1,0 +1,24 @@
+{
+  "scene": "s05-press",
+  "durationSec": 9.4,
+  "screen": {
+    "width": 402,
+    "height": 874
+  },
+  "taps": [
+    {
+      "target": "pay-button",
+      "tSec": 1.687,
+      "x": 201,
+      "y": 680,
+      "rx": 0.5,
+      "ry": 0.778,
+      "bounds": {
+        "x": 20,
+        "y": 652,
+        "width": 362,
+        "height": 56
+      }
+    }
+  ]
+}
