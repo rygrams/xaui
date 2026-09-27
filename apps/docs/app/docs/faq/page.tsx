@@ -71,18 +71,17 @@ export default function FaqPage() {
           </p>
         </Question>
 
-        <Question id="beta-tag" question="Is @xaui/native still in beta?">
+        <Question id="versions" question="Which version should I install?">
           <p>
-            Yes. Versions are named <code>0.9.x-beta.x</code> until{' '}
-            <code>1.0.0</code>, and the API can still change between them — the{' '}
+            The latest one: <code>pnpm add @xaui/native</code> installs the{' '}
+            {components.length} components documented here. The package is still
+            before <code>1.0.0</code>, so the API can change between versions — the{' '}
             <Link className="underline" href="/docs/releases">
               release notes
             </Link>{' '}
-            say when it does. A plain <code>pnpm add @xaui/native</code> installs the
-            latest beta and the {components.length} components documented here; the{' '}
-            <code>beta</code> dist-tag points at the same version. <code>0.2.8</code>
-            , the last release of the previous API, is only installed when asked for
-            by number.
+            say when it does. The <code>beta</code> and <code>alpha</code> dist-tags
+            are frozen on their last pre-releases, and <code>0.2.8</code>, the last
+            release of the previous API, is only installed when asked for by number.
           </p>
         </Question>
 

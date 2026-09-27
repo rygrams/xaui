@@ -10,7 +10,7 @@ So there is nothing to learn twice: the component documentation at
 thing that differs — telling your bundler that `react-native` means `react-native-web`.
 
 ```bash
-pnpm add @xaui/hybrid@beta
+pnpm add @xaui/hybrid
 pnpm add react-native-web react-dom
 ```
 
