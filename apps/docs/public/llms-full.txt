@@ -13018,8 +13018,6 @@ Only what the platform makes impossible to share differs:
   forwarded as unknown attributes. The ones the web _can_ honour are translated:
   `numberOfLines` becomes a line clamp, `selectable` a `user-select`.
 
-Hybrid is on the `beta` dist-tag while the port proceeds.
-
 ## Anatomy
 
 Two components, and neither is a slot of the other.
