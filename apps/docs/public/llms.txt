@@ -5,7 +5,7 @@
 75 components, each imported from its own subpath (`@xaui/native/button`). Every component link below is its full markdown documentation — anatomy, props, slots, variants and accessibility. The same content, concatenated, is at https://ui.xtartapp.com/llms-full.txt.
 
 ```bash
-pnpm add @xaui/native@beta
+pnpm add @xaui/native
 ```
 
 ## Docs
