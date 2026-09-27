@@ -296,30 +296,38 @@ def align(words: list[dict], segments: list[Segment]) -> list[Match | None]:
     return max(states.values(), key=lambda s: s[0])[1]
 
 
-def silence_around(db: np.ndarray, at: float, direction: int, limit: float) -> float:
-    """Middle of the first pause found from `at` going backwards (-1) or forwards (+1)."""
-    frame = int(at / HOP)
-    stop = int(limit / HOP)
-    quiet = db < SILENCE_DB
+def pause_middle(quiet: np.ndarray, frames: range) -> float | None:
+    """Middle of the first pause at least MIN_SILENCE long met walking `frames`, in s."""
     need = int(MIN_SILENCE / HOP)
-    i = frame
-    while (direction < 0 and i > stop) or (direction > 0 and i < stop):
+    run: list[int] = []
+    for i in frames:
         if 0 <= i < len(quiet) and quiet[i]:
-            j = i
-            while 0 <= j + direction < len(quiet) and quiet[j + direction] and (
-                (direction < 0 and j + direction >= stop)
-                or (direction > 0 and j + direction <= stop)
-            ):
-                j += direction
-            if abs(j - i) + 1 >= need or j in (0, len(quiet) - 1):
-                return (i + j) / 2 * HOP
-            i = j
-        i += direction
-    return limit
+            run.append(i)
+            continue
+        if len(run) >= need:
+            break
+        run = []
+    edge = bool(run) and run[-1] in (0, len(quiet) - 1)
+    if len(run) >= need or edge:
+        return (run[0] + run[-1]) / 2 * HOP
+    return None
 
 
-def cut(samples: np.ndarray, db: np.ndarray, start: float, end: float) -> np.ndarray:
-    """Trim the pauses inside [start, end], keep 80 ms of air, fade 10 ms at each edge."""
+def pause_before(db: np.ndarray, at: float, floor: float) -> float:
+    """The cut point before a segment: the nearest pause going back from `at`."""
+    found = pause_middle(db < SILENCE_DB, range(int(at / HOP), int(floor / HOP), -1))
+    return floor if found is None else found
+
+
+def pause_after(db: np.ndarray, at: float, ceiling: float) -> float:
+    """The cut point after a segment: the nearest pause going on from `at`."""
+    found = pause_middle(db < SILENCE_DB, range(int(at / HOP), int(ceiling / HOP)))
+    return ceiling if found is None else found
+
+
+def cut(samples: np.ndarray, db: np.ndarray, bounds: tuple[float, float]) -> np.ndarray:
+    """Trim the pauses inside `bounds`, keep 80 ms of air, fade 10 ms at each edge."""
+    start, end = bounds
     first, last = int(start / HOP), int(end / HOP)
     loud = np.flatnonzero(db[first:last] >= SILENCE_DB) + first
     if not len(loud):
@@ -335,9 +343,16 @@ def cut(samples: np.ndarray, db: np.ndarray, start: float, end: float) -> np.nda
     return piece
 
 
-def extract(clean_path: Path, words: list[dict], segments: list[Segment],
-            label: str) -> dict[str, np.ndarray]:
-    samples = read_audio(clean_path)
+@dataclass
+class Take:
+    """A cleaned recording and its word-level transcript."""
+    audio: Path
+    words: list[dict]
+
+
+def extract(take: Take, segments: list[Segment], label: str) -> dict[str, np.ndarray]:
+    words = take.words
+    samples = read_audio(take.audio)
     db = frame_db(samples)
     duration = len(samples) / RATE
     matches = align(words, segments)
@@ -348,9 +363,8 @@ def extract(clean_path: Path, words: list[dict], segments: list[Segment],
         tail = words[m.last]['end']
         before = words[kept[index - 1][1].last]['end'] if index else 0.0
         after = words[kept[index + 1][1].first]['start'] if index + 1 < len(kept) else duration
-        start = silence_around(db, head, -1, before)
-        end = silence_around(db, tail, +1, after)
-        pieces[segment.scene_id] = cut(samples, db, start, end)
+        bounds = (pause_before(db, head, before), pause_after(db, tail, after))
+        pieces[segment.scene_id] = cut(samples, db, bounds)
         dropped = [w['w'] for w in words[:m.first] if before < w['start'] < head - 0.05]
         if dropped and index and len(norm(' '.join(dropped))) > 3:
             print(f'  {segment.scene_id}: earlier take dropped ({" ".join(dropped)[:60]})')
@@ -417,9 +431,17 @@ def segment_words(path: Path, cache: dict) -> list[dict]:
     return words
 
 
-def import_voice(script_path: Path, out_dir: Path, sources: list[tuple[Path, list[str]]],
-                 state: dict, label: str) -> list[dict]:
-    """Cuts every segment of `script_path` out of `sources` into `out_dir`."""
+@dataclass
+class Job:
+    """One script to cut: the long video's, or the short's."""
+    script: Path
+    out_dir: Path
+    label: str
+
+
+def import_voice(job: Job, sources: list[tuple[Path, list[str]]], state: dict) -> list[dict]:
+    """Cuts every segment of `job.script` out of `sources` into `job.out_dir`."""
+    script_path, out_dir, label = job.script, job.out_dir, job.label
     script = json.loads(script_path.read_text())
     out_dir.mkdir(parents=True, exist_ok=True)
     # Segments are re-cut on every pass (it is cheap; the transcripts are cached), so a
@@ -430,13 +452,13 @@ def import_voice(script_path: Path, out_dir: Path, sources: list[tuple[Path, lis
     cache = json.loads(cache_path.read_text()) if cache_path.exists() else {}
 
     for source, scene_ids in sources:
-        clean_path, words = processed(source, state)
+        audio, words = processed(source, state)
         wanted = [
             Segment(s['sceneId'], s.get('plannedText', s['text']), s.get('spoken', s['text']),
                     s['pauseAfterMs'] / 1000)
             for s in script if s['sceneId'] in scene_ids
         ]
-        for scene_id, piece in extract(clean_path, words, wanted, label).items():
+        for scene_id, piece in extract(Take(audio, words), wanted, label).items():
             write_wav(out_dir / f'{scene_id}.wav', piece)
 
     report = []
@@ -597,15 +619,16 @@ def main() -> int:
     report = []
     if sources:
         print('\nLong video')
-        report = import_voice(VOICE_DIR / 'script.json', SEGMENTS_DIR, sources, state, 'voice')
+        job = Job(VOICE_DIR / 'script.json', SEGMENTS_DIR, 'voice')
+        report = import_voice(job, sources, state)
         timeline(report)
 
     short_script = VOICE_DIR / 'script-short.json'
     if short and short_script.exists():
         print('\nShort')
         ids = [s['sceneId'] for s in json.loads(short_script.read_text())]
-        short_report = import_voice(short_script, SHORT_DIR / 'segments', [(short, ids)],
-                                    state, 'short')
+        job = Job(short_script, SHORT_DIR / 'segments', 'short')
+        short_report = import_voice(job, [(short, ids)], state)
         total = sum(r['durationSec'] for r in short_report if 'file' in r)
         print(f'  short voice {total:.1f} s')
         if total > SHORT_MAX_SEC:
