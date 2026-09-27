@@ -11,19 +11,21 @@ thing that differs — telling your bundler that `react-native` means `react-nat
 
 ```bash
 pnpm add @xaui/hybrid
-pnpm add react-native-web react-dom
+pnpm add react-native-web react-dom react-native-reanimated react-native-worklets
 ```
 
-Emotion and Framer Motion are peers too, used by the handful of web-only components Hybrid
+Reanimated and Worklets are required, as they are for Native: every animated component goes
+through them, and `react-native-web` runs them in the browser.
+
+Emotion and Framer Motion are optional peers, for the handful of web-only components Hybrid
 adds on top of the shared API:
 
 ```bash
 pnpm add @emotion/react @emotion/styled framer-motion
 ```
 
-Add the optional peers for the components that need them — `react-native-reanimated` and
-`react-native-worklets` for animation, `react-native-svg` for charts and icons,
-`react-native-gesture-handler` for draggable components.
+Add the optional peers for the components that need them — `react-native-svg` for charts
+and icons, `react-native-gesture-handler` for draggable components.
 
 ---
 

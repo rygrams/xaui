@@ -26,6 +26,716 @@
         "default": "./dist/index.cjs"
       }
     },
+    "./accordion": {
+      "import": {
+        "types": "./dist/components/accordion/index.d.ts",
+        "default": "./dist/components/accordion/index.js"
+      },
+      "require": {
+        "types": "./dist/components/accordion/index.d.cts",
+        "default": "./dist/components/accordion/index.cjs"
+      }
+    },
+    "./agenda-calendar": {
+      "import": {
+        "types": "./dist/components/agenda-calendar/index.d.ts",
+        "default": "./dist/components/agenda-calendar/index.js"
+      },
+      "require": {
+        "types": "./dist/components/agenda-calendar/index.d.cts",
+        "default": "./dist/components/agenda-calendar/index.cjs"
+      }
+    },
+    "./alert": {
+      "import": {
+        "types": "./dist/components/alert/index.d.ts",
+        "default": "./dist/components/alert/index.js"
+      },
+      "require": {
+        "types": "./dist/components/alert/index.d.cts",
+        "default": "./dist/components/alert/index.cjs"
+      }
+    },
+    "./area-chart": {
+      "import": {
+        "types": "./dist/components/area-chart/index.d.ts",
+        "default": "./dist/components/area-chart/index.js"
+      },
+      "require": {
+        "types": "./dist/components/area-chart/index.d.cts",
+        "default": "./dist/components/area-chart/index.cjs"
+      }
+    },
+    "./autocomplete": {
+      "import": {
+        "types": "./dist/components/autocomplete/index.d.ts",
+        "default": "./dist/components/autocomplete/index.js"
+      },
+      "require": {
+        "types": "./dist/components/autocomplete/index.d.cts",
+        "default": "./dist/components/autocomplete/index.cjs"
+      }
+    },
+    "./avatar": {
+      "import": {
+        "types": "./dist/components/avatar/index.d.ts",
+        "default": "./dist/components/avatar/index.js"
+      },
+      "require": {
+        "types": "./dist/components/avatar/index.d.cts",
+        "default": "./dist/components/avatar/index.cjs"
+      }
+    },
+    "./badge": {
+      "import": {
+        "types": "./dist/components/badge/index.d.ts",
+        "default": "./dist/components/badge/index.js"
+      },
+      "require": {
+        "types": "./dist/components/badge/index.d.cts",
+        "default": "./dist/components/badge/index.cjs"
+      }
+    },
+    "./bar-chart": {
+      "import": {
+        "types": "./dist/components/bar-chart/index.d.ts",
+        "default": "./dist/components/bar-chart/index.js"
+      },
+      "require": {
+        "types": "./dist/components/bar-chart/index.d.cts",
+        "default": "./dist/components/bar-chart/index.cjs"
+      }
+    },
+    "./bottom-sheet": {
+      "import": {
+        "types": "./dist/components/bottom-sheet/index.d.ts",
+        "default": "./dist/components/bottom-sheet/index.js"
+      },
+      "require": {
+        "types": "./dist/components/bottom-sheet/index.d.cts",
+        "default": "./dist/components/bottom-sheet/index.cjs"
+      }
+    },
+    "./button": {
+      "import": {
+        "types": "./dist/components/button/index.d.ts",
+        "default": "./dist/components/button/index.js"
+      },
+      "require": {
+        "types": "./dist/components/button/index.d.cts",
+        "default": "./dist/components/button/index.cjs"
+      }
+    },
+    "./calendar": {
+      "import": {
+        "types": "./dist/components/calendar/index.d.ts",
+        "default": "./dist/components/calendar/index.js"
+      },
+      "require": {
+        "types": "./dist/components/calendar/index.d.cts",
+        "default": "./dist/components/calendar/index.cjs"
+      }
+    },
+    "./card": {
+      "import": {
+        "types": "./dist/components/card/index.d.ts",
+        "default": "./dist/components/card/index.js"
+      },
+      "require": {
+        "types": "./dist/components/card/index.d.cts",
+        "default": "./dist/components/card/index.cjs"
+      }
+    },
+    "./carousel": {
+      "import": {
+        "types": "./dist/components/carousel/index.d.ts",
+        "default": "./dist/components/carousel/index.js"
+      },
+      "require": {
+        "types": "./dist/components/carousel/index.d.cts",
+        "default": "./dist/components/carousel/index.cjs"
+      }
+    },
+    "./chart": {
+      "import": {
+        "types": "./dist/components/chart/index.d.ts",
+        "default": "./dist/components/chart/index.js"
+      },
+      "require": {
+        "types": "./dist/components/chart/index.d.cts",
+        "default": "./dist/components/chart/index.cjs"
+      }
+    },
+    "./checkbox": {
+      "import": {
+        "types": "./dist/components/checkbox/index.d.ts",
+        "default": "./dist/components/checkbox/index.js"
+      },
+      "require": {
+        "types": "./dist/components/checkbox/index.d.cts",
+        "default": "./dist/components/checkbox/index.cjs"
+      }
+    },
+    "./chip": {
+      "import": {
+        "types": "./dist/components/chip/index.d.ts",
+        "default": "./dist/components/chip/index.js"
+      },
+      "require": {
+        "types": "./dist/components/chip/index.d.cts",
+        "default": "./dist/components/chip/index.cjs"
+      }
+    },
+    "./close-button": {
+      "import": {
+        "types": "./dist/components/close-button/index.d.ts",
+        "default": "./dist/components/close-button/index.js"
+      },
+      "require": {
+        "types": "./dist/components/close-button/index.d.cts",
+        "default": "./dist/components/close-button/index.cjs"
+      }
+    },
+    "./combobox": {
+      "import": {
+        "types": "./dist/components/combobox/index.d.ts",
+        "default": "./dist/components/combobox/index.js"
+      },
+      "require": {
+        "types": "./dist/components/combobox/index.d.cts",
+        "default": "./dist/components/combobox/index.cjs"
+      }
+    },
+    "./date-picker": {
+      "import": {
+        "types": "./dist/components/date-picker/index.d.ts",
+        "default": "./dist/components/date-picker/index.js"
+      },
+      "require": {
+        "types": "./dist/components/date-picker/index.d.cts",
+        "default": "./dist/components/date-picker/index.cjs"
+      }
+    },
+    "./date-range-picker": {
+      "import": {
+        "types": "./dist/components/date-range-picker/index.d.ts",
+        "default": "./dist/components/date-range-picker/index.js"
+      },
+      "require": {
+        "types": "./dist/components/date-range-picker/index.d.cts",
+        "default": "./dist/components/date-range-picker/index.cjs"
+      }
+    },
+    "./date-time-picker": {
+      "import": {
+        "types": "./dist/components/date-time-picker/index.d.ts",
+        "default": "./dist/components/date-time-picker/index.js"
+      },
+      "require": {
+        "types": "./dist/components/date-time-picker/index.d.cts",
+        "default": "./dist/components/date-time-picker/index.cjs"
+      }
+    },
+    "./dialog": {
+      "import": {
+        "types": "./dist/components/dialog/index.d.ts",
+        "default": "./dist/components/dialog/index.js"
+      },
+      "require": {
+        "types": "./dist/components/dialog/index.d.cts",
+        "default": "./dist/components/dialog/index.cjs"
+      }
+    },
+    "./divider": {
+      "import": {
+        "types": "./dist/components/divider/index.d.ts",
+        "default": "./dist/components/divider/index.js"
+      },
+      "require": {
+        "types": "./dist/components/divider/index.d.cts",
+        "default": "./dist/components/divider/index.cjs"
+      }
+    },
+    "./dummy-field": {
+      "import": {
+        "types": "./dist/components/dummy-field/index.d.ts",
+        "default": "./dist/components/dummy-field/index.js"
+      },
+      "require": {
+        "types": "./dist/components/dummy-field/index.d.cts",
+        "default": "./dist/components/dummy-field/index.cjs"
+      }
+    },
+    "./empty-state": {
+      "import": {
+        "types": "./dist/components/empty-state/index.d.ts",
+        "default": "./dist/components/empty-state/index.js"
+      },
+      "require": {
+        "types": "./dist/components/empty-state/index.d.cts",
+        "default": "./dist/components/empty-state/index.cjs"
+      }
+    },
+    "./fab": {
+      "import": {
+        "types": "./dist/components/fab/index.d.ts",
+        "default": "./dist/components/fab/index.js"
+      },
+      "require": {
+        "types": "./dist/components/fab/index.d.cts",
+        "default": "./dist/components/fab/index.cjs"
+      }
+    },
+    "./field-group": {
+      "import": {
+        "types": "./dist/components/field-group/index.d.ts",
+        "default": "./dist/components/field-group/index.js"
+      },
+      "require": {
+        "types": "./dist/components/field-group/index.d.cts",
+        "default": "./dist/components/field-group/index.cjs"
+      }
+    },
+    "./flip-card": {
+      "import": {
+        "types": "./dist/components/flip-card/index.d.ts",
+        "default": "./dist/components/flip-card/index.js"
+      },
+      "require": {
+        "types": "./dist/components/flip-card/index.d.cts",
+        "default": "./dist/components/flip-card/index.cjs"
+      }
+    },
+    "./input-otp": {
+      "import": {
+        "types": "./dist/components/input-otp/index.d.ts",
+        "default": "./dist/components/input-otp/index.js"
+      },
+      "require": {
+        "types": "./dist/components/input-otp/index.d.cts",
+        "default": "./dist/components/input-otp/index.cjs"
+      }
+    },
+    "./line-chart": {
+      "import": {
+        "types": "./dist/components/line-chart/index.d.ts",
+        "default": "./dist/components/line-chart/index.js"
+      },
+      "require": {
+        "types": "./dist/components/line-chart/index.d.cts",
+        "default": "./dist/components/line-chart/index.cjs"
+      }
+    },
+    "./list": {
+      "import": {
+        "types": "./dist/components/list/index.d.ts",
+        "default": "./dist/components/list/index.js"
+      },
+      "require": {
+        "types": "./dist/components/list/index.d.cts",
+        "default": "./dist/components/list/index.cjs"
+      }
+    },
+    "./list-box": {
+      "import": {
+        "types": "./dist/components/list-box/index.d.ts",
+        "default": "./dist/components/list-box/index.js"
+      },
+      "require": {
+        "types": "./dist/components/list-box/index.d.cts",
+        "default": "./dist/components/list-box/index.cjs"
+      }
+    },
+    "./mask-field": {
+      "import": {
+        "types": "./dist/components/mask-field/index.d.ts",
+        "default": "./dist/components/mask-field/index.js"
+      },
+      "require": {
+        "types": "./dist/components/mask-field/index.d.cts",
+        "default": "./dist/components/mask-field/index.cjs"
+      }
+    },
+    "./menu": {
+      "import": {
+        "types": "./dist/components/menu/index.d.ts",
+        "default": "./dist/components/menu/index.js"
+      },
+      "require": {
+        "types": "./dist/components/menu/index.d.cts",
+        "default": "./dist/components/menu/index.cjs"
+      }
+    },
+    "./morph-button": {
+      "import": {
+        "types": "./dist/components/morph-button/index.d.ts",
+        "default": "./dist/components/morph-button/index.js"
+      },
+      "require": {
+        "types": "./dist/components/morph-button/index.d.cts",
+        "default": "./dist/components/morph-button/index.cjs"
+      }
+    },
+    "./number-field": {
+      "import": {
+        "types": "./dist/components/number-field/index.d.ts",
+        "default": "./dist/components/number-field/index.js"
+      },
+      "require": {
+        "types": "./dist/components/number-field/index.d.cts",
+        "default": "./dist/components/number-field/index.cjs"
+      }
+    },
+    "./number-pad": {
+      "import": {
+        "types": "./dist/components/number-pad/index.d.ts",
+        "default": "./dist/components/number-pad/index.js"
+      },
+      "require": {
+        "types": "./dist/components/number-pad/index.d.cts",
+        "default": "./dist/components/number-pad/index.cjs"
+      }
+    },
+    "./pager": {
+      "import": {
+        "types": "./dist/components/pager/index.d.ts",
+        "default": "./dist/components/pager/index.js"
+      },
+      "require": {
+        "types": "./dist/components/pager/index.d.cts",
+        "default": "./dist/components/pager/index.cjs"
+      }
+    },
+    "./rating": {
+      "import": {
+        "types": "./dist/components/rating/index.d.ts",
+        "default": "./dist/components/rating/index.js"
+      },
+      "require": {
+        "types": "./dist/components/rating/index.d.cts",
+        "default": "./dist/components/rating/index.cjs"
+      }
+    },
+    "./number-stepper": {
+      "import": {
+        "types": "./dist/components/number-stepper/index.d.ts",
+        "default": "./dist/components/number-stepper/index.js"
+      },
+      "require": {
+        "types": "./dist/components/number-stepper/index.d.cts",
+        "default": "./dist/components/number-stepper/index.cjs"
+      }
+    },
+    "./pie-chart": {
+      "import": {
+        "types": "./dist/components/pie-chart/index.d.ts",
+        "default": "./dist/components/pie-chart/index.js"
+      },
+      "require": {
+        "types": "./dist/components/pie-chart/index.d.cts",
+        "default": "./dist/components/pie-chart/index.cjs"
+      }
+    },
+    "./popover": {
+      "import": {
+        "types": "./dist/components/popover/index.d.ts",
+        "default": "./dist/components/popover/index.js"
+      },
+      "require": {
+        "types": "./dist/components/popover/index.d.cts",
+        "default": "./dist/components/popover/index.cjs"
+      }
+    },
+    "./progress-bar": {
+      "import": {
+        "types": "./dist/components/progress-bar/index.d.ts",
+        "default": "./dist/components/progress-bar/index.js"
+      },
+      "require": {
+        "types": "./dist/components/progress-bar/index.d.cts",
+        "default": "./dist/components/progress-bar/index.cjs"
+      }
+    },
+    "./progress-circle": {
+      "import": {
+        "types": "./dist/components/progress-circle/index.d.ts",
+        "default": "./dist/components/progress-circle/index.js"
+      },
+      "require": {
+        "types": "./dist/components/progress-circle/index.d.cts",
+        "default": "./dist/components/progress-circle/index.cjs"
+      }
+    },
+    "./radar-chart": {
+      "import": {
+        "types": "./dist/components/radar-chart/index.d.ts",
+        "default": "./dist/components/radar-chart/index.js"
+      },
+      "require": {
+        "types": "./dist/components/radar-chart/index.d.cts",
+        "default": "./dist/components/radar-chart/index.cjs"
+      }
+    },
+    "./radial-chart": {
+      "import": {
+        "types": "./dist/components/radial-chart/index.d.ts",
+        "default": "./dist/components/radial-chart/index.js"
+      },
+      "require": {
+        "types": "./dist/components/radial-chart/index.d.cts",
+        "default": "./dist/components/radial-chart/index.cjs"
+      }
+    },
+    "./radio": {
+      "import": {
+        "types": "./dist/components/radio/index.d.ts",
+        "default": "./dist/components/radio/index.js"
+      },
+      "require": {
+        "types": "./dist/components/radio/index.d.cts",
+        "default": "./dist/components/radio/index.cjs"
+      }
+    },
+    "./range-calendar": {
+      "import": {
+        "types": "./dist/components/range-calendar/index.d.ts",
+        "default": "./dist/components/range-calendar/index.js"
+      },
+      "require": {
+        "types": "./dist/components/range-calendar/index.d.cts",
+        "default": "./dist/components/range-calendar/index.cjs"
+      }
+    },
+    "./segment": {
+      "import": {
+        "types": "./dist/components/segment/index.d.ts",
+        "default": "./dist/components/segment/index.js"
+      },
+      "require": {
+        "types": "./dist/components/segment/index.d.cts",
+        "default": "./dist/components/segment/index.cjs"
+      }
+    },
+    "./select": {
+      "import": {
+        "types": "./dist/components/select/index.d.ts",
+        "default": "./dist/components/select/index.js"
+      },
+      "require": {
+        "types": "./dist/components/select/index.d.cts",
+        "default": "./dist/components/select/index.cjs"
+      }
+    },
+    "./snackbar": {
+      "import": {
+        "types": "./dist/components/snackbar/index.d.ts",
+        "default": "./dist/components/snackbar/index.js"
+      },
+      "require": {
+        "types": "./dist/components/snackbar/index.d.cts",
+        "default": "./dist/components/snackbar/index.cjs"
+      }
+    },
+    "./skeleton": {
+      "import": {
+        "types": "./dist/components/skeleton/index.d.ts",
+        "default": "./dist/components/skeleton/index.js"
+      },
+      "require": {
+        "types": "./dist/components/skeleton/index.d.cts",
+        "default": "./dist/components/skeleton/index.cjs"
+      }
+    },
+    "./slide-button": {
+      "import": {
+        "types": "./dist/components/slide-button/index.d.ts",
+        "default": "./dist/components/slide-button/index.js"
+      },
+      "require": {
+        "types": "./dist/components/slide-button/index.d.cts",
+        "default": "./dist/components/slide-button/index.cjs"
+      }
+    },
+    "./slider": {
+      "import": {
+        "types": "./dist/components/slider/index.d.ts",
+        "default": "./dist/components/slider/index.js"
+      },
+      "require": {
+        "types": "./dist/components/slider/index.d.cts",
+        "default": "./dist/components/slider/index.cjs"
+      }
+    },
+    "./spinner": {
+      "import": {
+        "types": "./dist/components/spinner/index.d.ts",
+        "default": "./dist/components/spinner/index.js"
+      },
+      "require": {
+        "types": "./dist/components/spinner/index.d.cts",
+        "default": "./dist/components/spinner/index.cjs"
+      }
+    },
+    "./stepper": {
+      "import": {
+        "types": "./dist/components/stepper/index.d.ts",
+        "default": "./dist/components/stepper/index.js"
+      },
+      "require": {
+        "types": "./dist/components/stepper/index.d.cts",
+        "default": "./dist/components/stepper/index.cjs"
+      }
+    },
+    "./surface": {
+      "import": {
+        "types": "./dist/components/surface/index.d.ts",
+        "default": "./dist/components/surface/index.js"
+      },
+      "require": {
+        "types": "./dist/components/surface/index.d.cts",
+        "default": "./dist/components/surface/index.cjs"
+      }
+    },
+    "./switch": {
+      "import": {
+        "types": "./dist/components/switch/index.d.ts",
+        "default": "./dist/components/switch/index.js"
+      },
+      "require": {
+        "types": "./dist/components/switch/index.d.cts",
+        "default": "./dist/components/switch/index.cjs"
+      }
+    },
+    "./table": {
+      "import": {
+        "types": "./dist/components/table/index.d.ts",
+        "default": "./dist/components/table/index.js"
+      },
+      "require": {
+        "types": "./dist/components/table/index.d.cts",
+        "default": "./dist/components/table/index.cjs"
+      }
+    },
+    "./tabs": {
+      "import": {
+        "types": "./dist/components/tabs/index.d.ts",
+        "default": "./dist/components/tabs/index.js"
+      },
+      "require": {
+        "types": "./dist/components/tabs/index.d.cts",
+        "default": "./dist/components/tabs/index.cjs"
+      }
+    },
+    "./tag-group": {
+      "import": {
+        "types": "./dist/components/tag-group/index.d.ts",
+        "default": "./dist/components/tag-group/index.js"
+      },
+      "require": {
+        "types": "./dist/components/tag-group/index.d.cts",
+        "default": "./dist/components/tag-group/index.cjs"
+      }
+    },
+    "./text-area": {
+      "import": {
+        "types": "./dist/components/text-area/index.d.ts",
+        "default": "./dist/components/text-area/index.js"
+      },
+      "require": {
+        "types": "./dist/components/text-area/index.d.cts",
+        "default": "./dist/components/text-area/index.cjs"
+      }
+    },
+    "./text-field": {
+      "import": {
+        "types": "./dist/components/text-field/index.d.ts",
+        "default": "./dist/components/text-field/index.js"
+      },
+      "require": {
+        "types": "./dist/components/text-field/index.d.cts",
+        "default": "./dist/components/text-field/index.cjs"
+      }
+    },
+    "./time-picker": {
+      "import": {
+        "types": "./dist/components/time-picker/index.d.ts",
+        "default": "./dist/components/time-picker/index.js"
+      },
+      "require": {
+        "types": "./dist/components/time-picker/index.d.cts",
+        "default": "./dist/components/time-picker/index.cjs"
+      }
+    },
+    "./timeline": {
+      "import": {
+        "types": "./dist/components/timeline/index.d.ts",
+        "default": "./dist/components/timeline/index.js"
+      },
+      "require": {
+        "types": "./dist/components/timeline/index.d.cts",
+        "default": "./dist/components/timeline/index.cjs"
+      }
+    },
+    "./toggle-button": {
+      "import": {
+        "types": "./dist/components/toggle-button/index.d.ts",
+        "default": "./dist/components/toggle-button/index.js"
+      },
+      "require": {
+        "types": "./dist/components/toggle-button/index.d.cts",
+        "default": "./dist/components/toggle-button/index.cjs"
+      }
+    },
+    "./toast": {
+      "import": {
+        "types": "./dist/components/toast/index.d.ts",
+        "default": "./dist/components/toast/index.js"
+      },
+      "require": {
+        "types": "./dist/components/toast/index.d.cts",
+        "default": "./dist/components/toast/index.cjs"
+      }
+    },
+    "./typography": {
+      "import": {
+        "types": "./dist/components/typography/index.d.ts",
+        "default": "./dist/components/typography/index.js"
+      },
+      "require": {
+        "types": "./dist/components/typography/index.d.cts",
+        "default": "./dist/components/typography/index.cjs"
+      }
+    },
+    "./view": {
+      "import": {
+        "types": "./dist/components/view/index.d.ts",
+        "default": "./dist/components/view/index.js"
+      },
+      "require": {
+        "types": "./dist/components/view/index.d.cts",
+        "default": "./dist/components/view/index.cjs"
+      }
+    },
+    "./wheel-picker": {
+      "import": {
+        "types": "./dist/components/wheel-picker/index.d.ts",
+        "default": "./dist/components/wheel-picker/index.js"
+      },
+      "require": {
+        "types": "./dist/components/wheel-picker/index.d.cts",
+        "default": "./dist/components/wheel-picker/index.cjs"
+      }
+    },
+    "./widget": {
+      "import": {
+        "types": "./dist/components/widget/index.d.ts",
+        "default": "./dist/components/widget/index.js"
+      },
+      "require": {
+        "types": "./dist/components/widget/index.d.cts",
+        "default": "./dist/components/widget/index.cjs"
+      }
+    },
     "./system": {
       "import": {
         "types": "./dist/system/index.d.ts",
@@ -46,14 +756,44 @@
         "default": "./dist/theme/index.cjs"
       }
     },
-    "./typography": {
+    "./phone-number-field": {
       "import": {
-        "types": "./dist/components/typography/index.d.ts",
-        "default": "./dist/components/typography/index.js"
+        "types": "./dist/components/phone-number-field/index.d.ts",
+        "default": "./dist/components/phone-number-field/index.js"
       },
       "require": {
-        "types": "./dist/components/typography/index.d.cts",
-        "default": "./dist/components/typography/index.cjs"
+        "types": "./dist/components/phone-number-field/index.d.cts",
+        "default": "./dist/components/phone-number-field/index.cjs"
+      }
+    },
+    "./scaffold": {
+      "import": {
+        "types": "./dist/components/scaffold/index.d.ts",
+        "default": "./dist/components/scaffold/index.js"
+      },
+      "require": {
+        "types": "./dist/components/scaffold/index.d.cts",
+        "default": "./dist/components/scaffold/index.cjs"
+      }
+    },
+    "./search-field": {
+      "import": {
+        "types": "./dist/components/search-field/index.d.ts",
+        "default": "./dist/components/search-field/index.js"
+      },
+      "require": {
+        "types": "./dist/components/search-field/index.d.cts",
+        "default": "./dist/components/search-field/index.cjs"
+      }
+    },
+    "./color-picker": {
+      "import": {
+        "types": "./dist/components/color-picker/index.d.ts",
+        "default": "./dist/components/color-picker/index.js"
+      },
+      "require": {
+        "types": "./dist/components/color-picker/index.d.cts",
+        "default": "./dist/components/color-picker/index.cjs"
       }
     }
   },
@@ -71,18 +811,51 @@
     "access": "public"
   },
   "scripts": {
-    "build": "tsup --config tsup.config.ts",
+    "build": "rm -rf dist && tsup --config tsup.config.ts && tsc --emitDeclarationOnly --declarationMap false && node ../../tooling/dual-dts/dual-dts.mjs dist",
     "dev": "tsup --config tsup.config.ts --watch",
     "test": "vitest",
     "lint": "eslint src/",
-    "type-check": "tsc --noEmit && tsc --project ../../tooling/hybrid-parity/tsconfig.json"
+    "type-check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@xaui/native": "workspace:^"
   },
   "peerDependencies": {
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.1",
     "framer-motion": "^12.28.1",
+    "libphonenumber-js": ">=1.11.0",
     "react": "^18.0.0 || ^19.0.0",
-    "react-dom": "^18.0.0 || ^19.0.0"
+    "react-dom": "^18.0.0 || ^19.0.0",
+    "react-native-gesture-handler": ">=2.0.0",
+    "react-native-reanimated": ">=4.0.0",
+    "react-native-safe-area-context": ">=4.0.0",
+    "react-native-svg": ">=15.0.0",
+    "react-native-web": ">=0.21.0",
+    "react-native-worklets": ">=0.5.0"
+  },
+  "peerDependenciesMeta": {
+    "@emotion/react": {
+      "optional": true
+    },
+    "@emotion/styled": {
+      "optional": true
+    },
+    "framer-motion": {
+      "optional": true
+    },
+    "libphonenumber-js": {
+      "optional": true
+    },
+    "react-native-gesture-handler": {
+      "optional": true
+    },
+    "react-native-safe-area-context": {
+      "optional": true
+    },
+    "react-native-svg": {
+      "optional": true
+    }
   },
   "devDependencies": {
     "@emotion/react": "^11.14.0",

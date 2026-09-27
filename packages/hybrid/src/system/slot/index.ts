@@ -1,5 +1,0 @@
-export { mergeProps } from './merge-props'
-export { mergeRefs } from './merge-refs'
-export { Slot } from './slot'
-export type { SlotProps } from './slot'
-export type { AsChildProps, MergeableProps, PossibleRef } from './slot.type'

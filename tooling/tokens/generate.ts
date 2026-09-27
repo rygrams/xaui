@@ -8,10 +8,7 @@ import { CONTRAST_FLOOR, contrastPairs, primitives, source } from './source'
 import type { ColorMode } from '../../packages/native/src/theme/theme.type'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '../..')
-const targets = [
-  join(root, 'packages/native/src/theme/tokens.gen.ts'),
-  join(root, 'packages/hybrid/src/theme/tokens.gen.ts'),
-]
+const targets = [join(root, 'packages/native/src/theme/tokens.gen.ts')]
 
 const modes: ColorMode[] = ['light', 'dark']
 

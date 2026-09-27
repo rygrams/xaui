@@ -168,9 +168,9 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P5.47 | `Scaffold` — the app's chrome over `useAppearance`: the ground, the status bar and the navigator's options, with no navigator dependency | done |
 | P5.46 | Parity milestone — `npm deprecate @xaui/native-legacy` | todo |
 | P6 | `@xaui/hybrid` — `@xaui/native` re-exported over `react-native-web`, Emotion + Framer only for web-only additions | todo |
-| P6.0 | Hybrid depends on `@xaui/native` — dependency, `react-native-web`/`react`/`react-dom` peers, Native's optional peers carried over | todo |
-| P6.1 | Hybrid re-export layer — every Native subpath re-exported one line, in `package.json` and `tsup.config.ts` | todo |
-| P6.2 | Retire the superseded Emotion ports — `Typography`, `TextSpan`, `Icon`, Hybrid `tokens.gen.ts`, the mirrored renderer boundary and `tooling/hybrid-parity` | todo |
+| P6.0 | Hybrid depends on `@xaui/native` — dependency, `react-native-web`/`react`/`react-dom` peers, Native's optional peers carried over | done |
+| P6.1 | Hybrid re-export layer — every Native subpath re-exported one line, in `package.json` and `tsup.config.ts` | done |
+| P6.2 | Retire the superseded Emotion ports — `Typography`, `TextSpan`, `Icon`, Hybrid `tokens.gen.ts`, the mirrored renderer boundary and `tooling/hybrid-parity` | done |
 | P6.2a | Hybrid `Typography` + `TextSpan` — Emotion port, superseded by the re-export | dropped |
 | P6.2b | Hybrid `Icon` — Emotion port, superseded by the re-export | dropped |
 | P6.3 | Hybrid bundler setup — `react-native` → `react-native-web` alias, `.web.*` resolution, transpile list, documented in `HYBRID-SETUP.md` | todo |
