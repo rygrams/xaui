@@ -4,6 +4,7 @@ import { ArrowRight, Blocks, Gauge, Palette, Sparkles } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { CodeBlock } from '@/components/ui/code-block'
 import { components } from '@/lib/data/components'
+import { getLatestRelease } from '@/lib/releases'
 import { pageMetadata } from '@/lib/site'
 
 export const metadata: Metadata = pageMetadata({
@@ -36,7 +37,8 @@ export default function IntroductionPage() {
     <div className="space-y-14 pb-16">
       <header className="space-y-6">
         <div className="inline-flex items-center gap-2 rounded-full border bg-muted/40 px-3 py-1.5 text-xs font-medium">
-          <Sparkles className="size-3.5" /> @xaui/native · beta
+          <Sparkles className="size-3.5" /> @xaui/native · v
+          {getLatestRelease().version}
         </div>
         <div className="max-w-3xl space-y-4">
           <h1 className="text-4xl font-bold tracking-tight md:text-6xl">
