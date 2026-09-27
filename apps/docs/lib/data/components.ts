@@ -22,14 +22,12 @@ export type Component = {
   markdownPath: string
   demoId: string
   exports: string[]
-  status: 'beta'
 }
 
 export const components: Component[] = catalog.map(component => ({
   ...component,
   name: component.title,
   category: component.category as ComponentCategory,
-  status: 'beta',
 }))
 
 export const categories = Array.from(
