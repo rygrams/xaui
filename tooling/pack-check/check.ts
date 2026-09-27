@@ -19,6 +19,14 @@ const PACKAGES = ['native', 'hybrid', 'native-legacy'] as const
 const CORE = '@xaui/native'
 
 /**
+ * The one package allowed to depend on {@link CORE} rather than peer on it. `@xaui/hybrid`
+ * is Native re-exported for the web (P6), so installing it has to install Native. A
+ * caret range still resolves to the consumer's own copy whenever they also install Native
+ * directly, as long as it admits the version we ship — checked below like a peer range.
+ */
+const CORE_DEPENDENT = '@xaui/hybrid'
+
+/**
  * Whose `exports` map is held to actually shipping what it points at.
  *
  * `@xaui/native-legacy` is out on purpose: its 48 entries carry the same `require` defect
@@ -52,6 +60,7 @@ function main() {
     const failures = [
       ...manifests.flatMap(manifest => check(manifest, manifests)),
       ...packages.flatMap(checkExports),
+      ...checkSubpathParity(manifests),
     ]
 
     for (const { where, problem } of failures) {
@@ -67,13 +76,14 @@ function main() {
     }
 
     console.log(
-      `✓ ${CORE} resolves once: declared as a peer only, no runtime dependencies, ` +
+      `✓ ${CORE} resolves once: a peer everywhere but ${CORE_DEPENDENT}, no other runtime dependencies, ` +
         'no workspace protocol left, and every peer range admits what we ship.'
     )
     console.log(
       `✓ every subpath of ${EXPORTS_CHECKED.join(' and ')} points at a file the ` +
         'tarball actually contains.'
     )
+    console.log(`✓ ${CORE_DEPENDENT} exposes exactly the subpaths ${CORE} does.`)
   } finally {
     rmSync(out, { recursive: true, force: true })
   }
@@ -138,6 +148,37 @@ function checkExports({ manifest, files }: Packed): Failure[] {
     }))
 }
 
+/**
+ * `@xaui/hybrid` exposes exactly `@xaui/native`'s subpaths. A Native component added
+ * without its one-line Hybrid re-export is missing on the web; a Hybrid-only subpath is a
+ * shared component forked. Web-only components will need their own allowance here when
+ * the first one lands.
+ */
+function checkSubpathParity(all: Manifest[]): Failure[] {
+  const core = all.find(manifest => manifest.name === CORE)
+  const dependent = all.find(manifest => manifest.name === CORE_DEPENDENT)
+  if (!core || !dependent) return []
+
+  const coreSubpaths = new Set(Object.keys(core.exports ?? {}))
+  const dependentSubpaths = new Set(Object.keys(dependent.exports ?? {}))
+  const where = `${dependent.name}@${dependent.version}`
+
+  const missing = [...coreSubpaths]
+    .filter(subpath => !dependentSubpaths.has(subpath))
+    .map(subpath => ({
+      where,
+      problem: `does not export "${subpath}", which ${CORE} does. Add its one-line re-export to src, package.json and tsup.config.ts.`,
+    }))
+  const extra = [...dependentSubpaths]
+    .filter(subpath => !coreSubpaths.has(subpath))
+    .map(subpath => ({
+      where,
+      problem: `exports "${subpath}", which ${CORE} does not. A Hybrid subpath exists because the Native one does.`,
+    }))
+
+  return [...missing, ...extra]
+}
+
 /** Every leaf of the conditions tree, which is where the paths are. */
 function targetsOf(node: unknown): string[] {
   if (typeof node === 'string') return node.startsWith('./') ? [node] : []
@@ -151,19 +192,32 @@ function check(manifest: Manifest, all: Manifest[]): Failure[] {
   const dependencies = manifest.dependencies ?? {}
   const peers = manifest.peerDependencies ?? {}
 
+  const dependsOnCore = manifest.name === CORE_DEPENDENT
+
   // The one that actually causes a duplicate. A peer is resolved from the consumer's
   // own tree; a dependency brings its own copy along.
-  if (CORE in dependencies) {
+  if (CORE in dependencies && !dependsOnCore) {
     failures.push({
       where,
       problem: `declares ${CORE} as a dependency. It must be a peer, or a consumer ends up with two copies and two theme contexts.`,
     })
   }
 
-  if (Object.keys(dependencies).length > 0) {
+  if (dependsOnCore && !(CORE in dependencies)) {
     failures.push({
       where,
-      problem: `has runtime dependencies (${Object.keys(dependencies).join(', ')}). Both packages ship with none, so nothing can drag a second copy of anything in.`,
+      problem: `does not declare ${CORE} as a dependency. It re-exports every Native subpath, so installing it without Native installs nothing that works.`,
+    })
+  }
+
+  const others = Object.keys(dependencies).filter(
+    name => !(dependsOnCore && name === CORE)
+  )
+
+  if (others.length > 0) {
+    failures.push({
+      where,
+      problem: `has runtime dependencies (${others.join(', ')}). The packages ship with none beyond ${CORE_DEPENDENT} → ${CORE}, so nothing can drag a second copy of anything in.`,
     })
   }
 
@@ -180,12 +234,12 @@ function check(manifest: Manifest, all: Manifest[]): Failure[] {
   // warn or refuse rather than quietly installing a second copy — but it is a broken
   // install for anyone following the migration guide.
   const shipped = all.find(other => other.name === CORE)
-  const range = peers[CORE]
+  const range = peers[CORE] ?? dependencies[CORE]
 
   if (shipped && range && !semver.satisfies(shipped.version, range)) {
     failures.push({
       where,
-      problem: `peers on ${CORE}@${range}, which ${shipped.version} does not satisfy. While ${CORE} publishes prereleases this range has to name the exact tuple — semver excludes prereleases from any range that does not mention their major.minor.patch, so even "*" would not match.`,
+      problem: `requires ${CORE}@${range}, which ${shipped.version} does not satisfy. While ${CORE} publishes prereleases this range has to name the exact tuple — semver excludes prereleases from any range that does not mention their major.minor.patch, so even "*" would not match.`,
     })
   }
 

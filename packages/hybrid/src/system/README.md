@@ -1,10 +1,6 @@
 # System
 
-The public `system` subpath re-exports `@xaui/native/system`: the recipe engine and its
-cache, `asChild` slots, style props, `Portal`, `PressableFeedback` and `Icon` are the Native
-primitives, rendered on the web by `react-native-web`.
-
-What may legitimately live here is the renderer support the web-only components of
-`components/` need and Native has no equivalent for — the Emotion boundary and its
-point-to-`rem` conversion. Those stay off the public `system` barrel: exporting one would
-put a Hybrid-only name on a subpath whose contents must match Native's.
+`@xaui/hybrid/system` is `@xaui/native/system`, re-exported in one line — the recipe engine,
+slots, `asChild`, `PressableFeedback`, `Portal` and `Icon` are the Native modules, rendered
+by `react-native-web`. Nothing is written here. A primitive that misbehaves on the web is
+fixed in `@xaui/native`, behind a `.web.tsx` file or a `Platform.OS === 'web'` branch.
