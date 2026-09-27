@@ -133,12 +133,13 @@ gh pr view <n> --comments # and what did they say?
 ```
 
 Then merge. The Changesets action opens or updates the "Version Packages" PR; merging that
-one publishes to the `beta` dist-tag, and it falls under the same authorization — the same
-three conditions, read again on that PR. Nothing else to do by hand.
+one publishes to the `beta` dist-tag and moves `@xaui/native`'s `latest` onto it, and it
+falls under the same authorization — the same three conditions, read again on that PR.
+Nothing else to do by hand.
 
 Never run `changeset version`, `changeset publish` or `changeset pre exit` locally: CI owns
-the release, and `pre exit` would graduate `native` and `hybrid` onto `latest` before v1 is
-done.
+the release, and `pre exit` would graduate `native` and `hybrid` to plain versions before
+v1 is done.
 
 ## 9. Close the loop on review comments
 

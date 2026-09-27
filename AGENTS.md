@@ -189,9 +189,15 @@ and merging that one publishes.
 
 The repo is in changesets **pre mode** with the tag `beta` (`.changeset/pre.json`), so
 `@xaui/native` and `@xaui/hybrid` are versioned `0.9.x-beta.x` and published on the
-`beta` dist-tag. `latest` keeps pointing at `@xaui/native@0.2.8` and `@xaui/hybrid@0.0.14`
-— the last releases of the previous line — because v1 is not `1.0.0` yet.
-`pnpm add @xaui/native@beta` is how you get it.
+`beta` dist-tag.
+
+**`@xaui/native`'s `latest` follows the beta line.** Left to pre mode, `latest` would stay
+on `0.2.8`, the last release of the old API, and every `npm i @xaui/native` would install
+it. So after each publish the release workflow moves `latest` onto the `@xaui/native`
+version it just published (`npm dist-tag add`). The package is still a beta — the version
+says `-beta` and the API can still move until `1.0.0` — but a plain `pnpm add @xaui/native`
+installs it. `@xaui/hybrid`'s `latest` stays on `0.0.14`: moving it is a separate decision
+(§Packages), so `pnpm add @xaui/hybrid@beta` is still how you get Hybrid.
 
 The line was `alpha` until the v1 core was documented end to end; the switch was a single
 edit of `tag` in `.changeset/pre.json`, which keeps `initialVersions` and the consumed
@@ -202,9 +208,10 @@ republishes it, so `@xaui/native@alpha` is now a historical pin.
 
 Three consequences, all of them load-bearing:
 
-- **Never `changeset pre exit`** unless the task says to. It graduates both packages onto
-  `latest`, which today means handing every `npm i @xaui/native` an unfinished v1. It is
-  required exactly once, right before `1.0.0`.
+- **Never `changeset pre exit`** unless the task says to. It graduates both packages to
+  plain versions on `latest`: the `-beta` that says the API can still move disappears, and
+  `@xaui/hybrid` lands on `latest` with it. It is required exactly once, right before
+  `1.0.0`.
 - **Pre mode is repo-wide and reaches dependents.** No changeset on a package is needed for
   it to catch a pre-release number: `@xaui/native-legacy` peer-depends on `@xaui/native`,
   so `0.9.1-alpha.0` bumped it to `0.2.12-alpha.0` on its own. That is why
@@ -219,7 +226,8 @@ Three consequences, all of them load-bearing:
   `changeset pre exit` does not help (publish reads `preState` whatever its mode; only the
   next `changeset version` deletes `pre.json`, and it graduates `native` and `hybrid` onto
   `latest` while doing so). Fix it downstream instead —
-  `npm dist-tag add <pkg>@<version> latest`.
+  `npm dist-tag add <pkg>@<version> latest`, which is what the release workflow does for
+  `@xaui/native` on every publish.
 
 CI on PRs to `main`/`dev`: tokens check → lint → type check → test → build, plus CodeQL.
 The release workflow runs on push to `main`.
