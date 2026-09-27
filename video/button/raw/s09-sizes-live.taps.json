@@ -1,0 +1,38 @@
+{
+  "scene": "s09-sizes-live",
+  "durationSec": 6.516667,
+  "screen": {
+    "width": 402,
+    "height": 874
+  },
+  "taps": [
+    {
+      "target": "size-xs",
+      "tSec": 1.487,
+      "x": 42.5,
+      "y": 399,
+      "rx": 0.1057,
+      "ry": 0.4565,
+      "bounds": {
+        "x": 20,
+        "y": 379,
+        "width": 45,
+        "height": 40
+      }
+    },
+    {
+      "target": "size-lg",
+      "tSec": 2.777,
+      "x": 209,
+      "y": 399,
+      "rx": 0.5199,
+      "ry": 0.4565,
+      "bounds": {
+        "x": 188,
+        "y": 379,
+        "width": 42,
+        "height": 40
+      }
+    }
+  ]
+}
