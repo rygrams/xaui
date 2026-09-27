@@ -1,0 +1,24 @@
+Button · XAUI component of the week
+
+One composable control for every action in a React Native app: seven variants, four
+sizes, icons in JSX order, a built-in loading state, any brand tint, and dark mode
+with no extra code.
+
+Docs: https://ui.xtartapp.com
+
+Chapters
+0:00 Intro
+0:04 Every order needs an action
+0:10 One import, one tag
+0:16 Ready out of the box
+0:20 Press. Load. Done.
+0:27 Seven variants, one prop
+0:33 Pick the emphasis
+0:39 Height scales, never width
+0:44 Four sizes, one scale
+0:49 Icons and spinners, composed
+0:55 Loading is built in
+1:01 Any brand, one tint
+1:05 Swap the tint live
+1:12 Dark mode, zero extra code
+1:18 Ship it today

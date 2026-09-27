@@ -1,0 +1,9 @@
+# Python tooling for the voice import (mlx-whisper and its packages)
+.venv/
+__pycache__/
+# Audio tracks stay local until their licence is written in music/CREDITS.md: the repo is
+# public and MIT, a track of unknown licence cannot ship with it.
+assets/*.mp3
+assets/*.wav
+music/*
+!music/CREDITS.md

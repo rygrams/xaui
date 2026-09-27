@@ -1,0 +1,13 @@
+raw/*.mp4
+shots/
+.tmp/
+.capture.log
+voice/clean/
+voice/segments/
+voice/preview.wav
+voice/input/*
+!voice/input/.gitkeep
+short/voice/segments/
+final/**/*.mp4
+final/v1/
+qa/

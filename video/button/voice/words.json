@@ -1,0 +1,907 @@
+[
+  {
+    "sceneId": "s01-intro",
+    "words": [
+      {
+        "w": "This",
+        "start": 0.0,
+        "end": 0.36
+      },
+      {
+        "w": "week,",
+        "start": 0.36,
+        "end": 0.72
+      },
+      {
+        "w": "the",
+        "start": 1.08,
+        "end": 1.18
+      },
+      {
+        "w": "thing",
+        "start": 1.18,
+        "end": 1.42
+      },
+      {
+        "w": "everyone",
+        "start": 1.42,
+        "end": 2.14
+      },
+      {
+        "w": "presses.",
+        "start": 2.14,
+        "end": 2.5
+      }
+    ]
+  },
+  {
+    "sceneId": "s02-problem",
+    "words": [
+      {
+        "w": "Great",
+        "start": 0.0,
+        "end": 0.4
+      },
+      {
+        "w": "order.",
+        "start": 0.4,
+        "end": 0.78
+      },
+      {
+        "w": "Lovely",
+        "start": 1.36,
+        "end": 1.66
+      },
+      {
+        "w": "total.",
+        "start": 1.66,
+        "end": 1.98
+      },
+      {
+        "w": "Now,",
+        "start": 2.6,
+        "end": 2.92
+      },
+      {
+        "w": "how",
+        "start": 3.1,
+        "end": 3.42
+      },
+      {
+        "w": "does",
+        "start": 3.42,
+        "end": 3.66
+      },
+      {
+        "w": "anyone",
+        "start": 3.66,
+        "end": 3.96
+      },
+      {
+        "w": "pay?",
+        "start": 3.96,
+        "end": 4.28
+      }
+    ]
+  },
+  {
+    "sceneId": "s03-solution",
+    "words": [
+      {
+        "w": "Import",
+        "start": 0.0,
+        "end": 0.52
+      },
+      {
+        "w": "it,",
+        "start": 0.52,
+        "end": 0.92
+      },
+      {
+        "w": "wrap",
+        "start": 1.2,
+        "end": 1.36
+      },
+      {
+        "w": "your",
+        "start": 1.36,
+        "end": 1.58
+      },
+      {
+        "w": "label,",
+        "start": 1.58,
+        "end": 1.82
+      },
+      {
+        "w": "pass",
+        "start": 2.22,
+        "end": 2.44
+      },
+      {
+        "w": "an",
+        "start": 2.44,
+        "end": 2.6
+      },
+      {
+        "w": "on",
+        "start": 2.6,
+        "end": 2.78
+      },
+      {
+        "w": "press.",
+        "start": 2.78,
+        "end": 2.98
+      },
+      {
+        "w": "That's",
+        "start": 3.5,
+        "end": 3.82
+      },
+      {
+        "w": "the",
+        "start": 3.82,
+        "end": 3.94
+      },
+      {
+        "w": "whole",
+        "start": 3.94,
+        "end": 4.12
+      },
+      {
+        "w": "setup.",
+        "start": 4.12,
+        "end": 4.36
+      }
+    ]
+  },
+  {
+    "sceneId": "s04-basic",
+    "words": [
+      {
+        "w": "Color,",
+        "start": 0.0,
+        "end": 0.54
+      },
+      {
+        "w": "height,",
+        "start": 0.82,
+        "end": 1.0
+      },
+      {
+        "w": "and",
+        "start": 1.16,
+        "end": 1.28
+      },
+      {
+        "w": "press",
+        "start": 1.28,
+        "end": 1.44
+      },
+      {
+        "w": "feedback",
+        "start": 1.44,
+        "end": 1.82
+      },
+      {
+        "w": "already",
+        "start": 1.82,
+        "end": 2.56
+      },
+      {
+        "w": "decided",
+        "start": 2.56,
+        "end": 2.9
+      },
+      {
+        "w": "for",
+        "start": 2.9,
+        "end": 3.12
+      },
+      {
+        "w": "you.",
+        "start": 3.12,
+        "end": 3.28
+      }
+    ]
+  },
+  {
+    "sceneId": "s05-press",
+    "words": [
+      {
+        "w": "tap",
+        "start": 0.0,
+        "end": 0.34
+      },
+      {
+        "w": "it,",
+        "start": 0.34,
+        "end": 0.6
+      },
+      {
+        "w": "is",
+        "start": 1.02,
+        "end": 1.3
+      },
+      {
+        "w": "loading,",
+        "start": 1.3,
+        "end": 1.7
+      },
+      {
+        "w": "drops",
+        "start": 2.0,
+        "end": 2.2
+      },
+      {
+        "w": "in",
+        "start": 2.2,
+        "end": 2.4
+      },
+      {
+        "w": "a",
+        "start": 2.4,
+        "end": 2.64
+      },
+      {
+        "w": "spinner,",
+        "start": 2.64,
+        "end": 2.8
+      },
+      {
+        "w": "and",
+        "start": 3.06,
+        "end": 3.24
+      },
+      {
+        "w": "ignores",
+        "start": 3.24,
+        "end": 3.56
+      },
+      {
+        "w": "the",
+        "start": 3.56,
+        "end": 3.76
+      },
+      {
+        "w": "nervous",
+        "start": 3.76,
+        "end": 3.98
+      },
+      {
+        "w": "double",
+        "start": 3.98,
+        "end": 4.22
+      },
+      {
+        "w": "tap.",
+        "start": 4.22,
+        "end": 4.4
+      }
+    ]
+  },
+  {
+    "sceneId": "s06-variants-code",
+    "words": [
+      {
+        "w": "Primary",
+        "start": 0.0,
+        "end": 0.52
+      },
+      {
+        "w": "shouts,",
+        "start": 0.52,
+        "end": 1.2
+      },
+      {
+        "w": "ghost",
+        "start": 1.46,
+        "end": 1.72
+      },
+      {
+        "w": "whispers,",
+        "start": 1.72,
+        "end": 2.16
+      },
+      {
+        "w": "danger",
+        "start": 2.66,
+        "end": 3.02
+      },
+      {
+        "w": "means",
+        "start": 3.02,
+        "end": 3.36
+      },
+      {
+        "w": "it.",
+        "start": 3.36,
+        "end": 3.6
+      },
+      {
+        "w": "Same",
+        "start": 3.96,
+        "end": 4.1
+      },
+      {
+        "w": "prop,",
+        "start": 4.1,
+        "end": 4.38
+      },
+      {
+        "w": "different",
+        "start": 4.78,
+        "end": 4.86
+      },
+      {
+        "w": "volume.",
+        "start": 4.86,
+        "end": 5.1
+      }
+    ]
+  },
+  {
+    "sceneId": "s07-variants-live",
+    "words": [
+      {
+        "w": "swap",
+        "start": 0.0,
+        "end": 0.46
+      },
+      {
+        "w": "the",
+        "start": 0.46,
+        "end": 0.72
+      },
+      {
+        "w": "variant",
+        "start": 0.72,
+        "end": 1.04
+      },
+      {
+        "w": "and",
+        "start": 1.04,
+        "end": 1.38
+      },
+      {
+        "w": "only",
+        "start": 1.38,
+        "end": 1.62
+      },
+      {
+        "w": "the",
+        "start": 1.62,
+        "end": 1.82
+      },
+      {
+        "w": "tokens",
+        "start": 1.82,
+        "end": 2.04
+      },
+      {
+        "w": "change.",
+        "start": 2.04,
+        "end": 2.4
+      },
+      {
+        "w": "No",
+        "start": 2.84,
+        "end": 3.08
+      },
+      {
+        "w": "new",
+        "start": 3.08,
+        "end": 3.24
+      },
+      {
+        "w": "component,",
+        "start": 3.24,
+        "end": 3.72
+      },
+      {
+        "w": "no",
+        "start": 4.08,
+        "end": 4.22
+      },
+      {
+        "w": "restyling.",
+        "start": 4.22,
+        "end": 4.64
+      }
+    ]
+  },
+  {
+    "sceneId": "s08-sizes-code",
+    "words": [
+      {
+        "w": "Four",
+        "start": 0.0,
+        "end": 0.44
+      },
+      {
+        "w": "sizes",
+        "start": 0.44,
+        "end": 0.8
+      },
+      {
+        "w": "move",
+        "start": 0.8,
+        "end": 1.06
+      },
+      {
+        "w": "height,",
+        "start": 1.06,
+        "end": 1.48
+      },
+      {
+        "w": "padding,",
+        "start": 1.76,
+        "end": 1.96
+      },
+      {
+        "w": "radius,",
+        "start": 2.22,
+        "end": 2.52
+      },
+      {
+        "w": "and",
+        "start": 2.64,
+        "end": 2.76
+      },
+      {
+        "w": "type.",
+        "start": 2.76,
+        "end": 2.86
+      }
+    ]
+  },
+  {
+    "sceneId": "s09-sizes-live",
+    "words": [
+      {
+        "w": "With",
+        "start": 0.0,
+        "end": 0.64
+      },
+      {
+        "w": "stays",
+        "start": 0.64,
+        "end": 1.08
+      },
+      {
+        "w": "yours.",
+        "start": 1.08,
+        "end": 1.6
+      },
+      {
+        "w": "It",
+        "start": 1.94,
+        "end": 2.24
+      },
+      {
+        "w": "fills",
+        "start": 2.24,
+        "end": 2.52
+      },
+      {
+        "w": "a",
+        "start": 2.52,
+        "end": 2.86
+      },
+      {
+        "w": "column",
+        "start": 2.86,
+        "end": 3.06
+      },
+      {
+        "w": "and",
+        "start": 3.06,
+        "end": 3.46
+      },
+      {
+        "w": "hugs",
+        "start": 3.46,
+        "end": 3.74
+      },
+      {
+        "w": "a",
+        "start": 3.74,
+        "end": 3.96
+      },
+      {
+        "w": "row.",
+        "start": 3.96,
+        "end": 4.08
+      }
+    ]
+  },
+  {
+    "sceneId": "s10-compose-code",
+    "words": [
+      {
+        "w": "Slots",
+        "start": 0.0,
+        "end": 0.66
+      },
+      {
+        "w": "render",
+        "start": 0.66,
+        "end": 1.04
+      },
+      {
+        "w": "in",
+        "start": 1.04,
+        "end": 1.46
+      },
+      {
+        "w": "JSX",
+        "start": 1.46,
+        "end": 2.26
+      },
+      {
+        "w": "order.",
+        "start": 2.26,
+        "end": 2.5
+      },
+      {
+        "w": "The",
+        "start": 2.86,
+        "end": 3.08
+      },
+      {
+        "w": "icon",
+        "start": 3.08,
+        "end": 3.42
+      },
+      {
+        "w": "sits",
+        "start": 3.42,
+        "end": 3.78
+      },
+      {
+        "w": "where",
+        "start": 3.78,
+        "end": 3.98
+      },
+      {
+        "w": "you",
+        "start": 3.98,
+        "end": 4.18
+      },
+      {
+        "w": "put",
+        "start": 4.18,
+        "end": 4.38
+      },
+      {
+        "w": "it.",
+        "start": 4.38,
+        "end": 4.56
+      }
+    ]
+  },
+  {
+    "sceneId": "s11-compose-live",
+    "words": [
+      {
+        "w": "Add",
+        "start": 0.0,
+        "end": 0.36
+      },
+      {
+        "w": "to",
+        "start": 0.36,
+        "end": 0.58
+      },
+      {
+        "w": "cart.",
+        "start": 0.58,
+        "end": 0.86
+      },
+      {
+        "w": "The",
+        "start": 1.14,
+        "end": 1.42
+      },
+      {
+        "w": "spinner",
+        "start": 1.42,
+        "end": 1.7
+      },
+      {
+        "w": "slides",
+        "start": 1.7,
+        "end": 2.16
+      },
+      {
+        "w": "in",
+        "start": 2.16,
+        "end": 2.48
+      },
+      {
+        "w": "and",
+        "start": 2.48,
+        "end": 2.78
+      },
+      {
+        "w": "the",
+        "start": 2.78,
+        "end": 3.04
+      },
+      {
+        "w": "button",
+        "start": 3.04,
+        "end": 3.3
+      },
+      {
+        "w": "doesn't",
+        "start": 3.3,
+        "end": 3.76
+      },
+      {
+        "w": "jump.",
+        "start": 3.76,
+        "end": 3.92
+      }
+    ]
+  },
+  {
+    "sceneId": "s12-color-code",
+    "words": [
+      {
+        "w": "past",
+        "start": 0.0,
+        "end": 0.36
+      },
+      {
+        "w": "one",
+        "start": 0.36,
+        "end": 0.82
+      },
+      {
+        "w": "hex.",
+        "start": 0.82,
+        "end": 1.18
+      },
+      {
+        "w": "The",
+        "start": 1.5,
+        "end": 1.78
+      },
+      {
+        "w": "variant",
+        "start": 1.78,
+        "end": 2.16
+      },
+      {
+        "w": "decides",
+        "start": 2.16,
+        "end": 2.62
+      },
+      {
+        "w": "where",
+        "start": 2.62,
+        "end": 2.86
+      },
+      {
+        "w": "it",
+        "start": 2.86,
+        "end": 3.06
+      },
+      {
+        "w": "lands.",
+        "start": 3.06,
+        "end": 3.32
+      }
+    ]
+  },
+  {
+    "sceneId": "s13-color-live",
+    "words": [
+      {
+        "w": "Soft",
+        "start": 0.0,
+        "end": 0.72
+      },
+      {
+        "w": "and",
+        "start": 0.72,
+        "end": 1.12
+      },
+      {
+        "w": "pressed",
+        "start": 1.12,
+        "end": 1.36
+      },
+      {
+        "w": "shades",
+        "start": 1.36,
+        "end": 1.8
+      },
+      {
+        "w": "are",
+        "start": 1.8,
+        "end": 2.12
+      },
+      {
+        "w": "derived",
+        "start": 2.12,
+        "end": 2.54
+      },
+      {
+        "w": "in",
+        "start": 2.54,
+        "end": 2.9
+      },
+      {
+        "w": "OKLAB.",
+        "start": 2.9,
+        "end": 4.06
+      },
+      {
+        "w": "No",
+        "start": 4.4,
+        "end": 4.66
+      },
+      {
+        "w": "palette",
+        "start": 4.66,
+        "end": 4.98
+      },
+      {
+        "w": "meetings.",
+        "start": 4.98,
+        "end": 5.34
+      }
+    ]
+  },
+  {
+    "sceneId": "s14-dark",
+    "words": [
+      {
+        "w": "Flip",
+        "start": 0.0,
+        "end": 0.36
+      },
+      {
+        "w": "the",
+        "start": 0.36,
+        "end": 0.6
+      },
+      {
+        "w": "system",
+        "start": 0.6,
+        "end": 0.88
+      },
+      {
+        "w": "to",
+        "start": 0.88,
+        "end": 1.14
+      },
+      {
+        "w": "dark,",
+        "start": 1.14,
+        "end": 1.42
+      },
+      {
+        "w": "same",
+        "start": 1.9,
+        "end": 2.12
+      },
+      {
+        "w": "code,",
+        "start": 2.12,
+        "end": 2.62
+      },
+      {
+        "w": "and",
+        "start": 2.88,
+        "end": 3.08
+      },
+      {
+        "w": "the",
+        "start": 3.08,
+        "end": 3.32
+      },
+      {
+        "w": "tokens",
+        "start": 3.32,
+        "end": 3.6
+      },
+      {
+        "w": "follow.",
+        "start": 3.6,
+        "end": 4.02
+      }
+    ]
+  },
+  {
+    "sceneId": "s15-ship-it",
+    "words": [
+      {
+        "w": "Screen",
+        "start": 0.0,
+        "end": 0.52
+      },
+      {
+        "w": "readers",
+        "start": 0.52,
+        "end": 0.88
+      },
+      {
+        "w": "hear",
+        "start": 0.88,
+        "end": 1.18
+      },
+      {
+        "w": "a",
+        "start": 1.18,
+        "end": 1.4
+      },
+      {
+        "w": "button",
+        "start": 1.4,
+        "end": 1.68
+      },
+      {
+        "w": "and",
+        "start": 1.68,
+        "end": 2.42
+      },
+      {
+        "w": "hear",
+        "start": 2.42,
+        "end": 2.6
+      },
+      {
+        "w": "when",
+        "start": 2.6,
+        "end": 2.74
+      },
+      {
+        "w": "it's",
+        "start": 2.74,
+        "end": 3.0
+      },
+      {
+        "w": "busy.",
+        "start": 3.0,
+        "end": 3.16
+      }
+    ]
+  },
+  {
+    "sceneId": "s16-outro",
+    "words": [
+      {
+        "w": "docs",
+        "start": 0.0,
+        "end": 0.5
+      },
+      {
+        "w": "at",
+        "start": 0.5,
+        "end": 0.86
+      },
+      {
+        "w": "UI",
+        "start": 0.86,
+        "end": 1.4
+      },
+      {
+        "w": ".xstart",
+        "start": 1.4,
+        "end": 2.38
+      },
+      {
+        "w": "-app",
+        "start": 2.38,
+        "end": 2.96
+      },
+      {
+        "w": ".com",
+        "start": 2.96,
+        "end": 3.58
+      }
+    ]
+  }
+]

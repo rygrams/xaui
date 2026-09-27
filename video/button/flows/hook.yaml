@@ -1,0 +1,25 @@
+appId: com.anonymous.demo
+name: hook
+---
+# Standalone, the flow opens its screen. make.sh opens it before recording and
+# passes SKIP_OPEN=1, so the clip starts on a settled screen. (A flow-level `env`
+# default would win over `-e`, hence the typeof test.)
+- runFlow:
+    when:
+      true: ${typeof SKIP_OPEN === 'undefined'}
+    file: _open.yaml
+    env:
+      LINK: demo://demo/button?scene=hook
+- extendedWaitUntil:
+    visible:
+      id: "__hold__"
+    timeout: 600
+    optional: true
+- tapOn:
+    id: hook-button
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible:
+      id: "__hold__"
+    timeout: 3500
+    optional: true
