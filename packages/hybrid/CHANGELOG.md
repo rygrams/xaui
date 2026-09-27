@@ -1,5 +1,113 @@
 # @xaui/hybrid
 
+## 0.9.1
+
+### Patch Changes
+
+- c4c4657: Fix what the blocking P2 API review found, before fifteen components copy it.
+
+  **`require()` failed on every subpath.** `exports.require` pointed at the ESM build while
+  the CJS build was produced and never referenced, so in a `"type": "module"` package every
+  `require('@xaui/native')` threw a `SyntaxError`. Both packages now declare the full dual
+  form, with types **per condition** — `.d.ts` under `import`, `.d.cts` under `require` — so
+  a CommonJS consumer no longer type-checks against the ESM declarations.
+
+  **Overlays painted outside rounded corners.** `Highlight` and `Ripple` are absolute fills
+  with square corners, and every control in the library is rounded. The clip existed only for
+  `scale-ripple`, and only on the animated branch; it now applies on both branches whenever a
+  default overlay is mounted — and only then, so a root without one can still let a child
+  overflow.
+
+  **`accessibilityState` was replaced instead of merged** on `Button`. A caller adding
+  `expanded` or `selected` silently erased `disabled` and `busy`, and a screen reader stopped
+  announcing a disabled button.
+
+  **`defaultVariants` narrowed a recipe's whole `Variant` type** to the single value named in
+  it, making every other variant a type error at the call site. `NoInfer` in the engine
+  removes the cast each of the forty-seven components would otherwise have carried.
+
+- 15b01ea: Move the pre-release line from `alpha` to `beta`.
+
+  `.changeset/pre.json` now carries the tag `beta`, so both packages are versioned
+  `0.9.x-beta.x` and every publish lands on the `beta` dist-tag: `pnpm add @xaui/native@beta`
+  is the opt-in from here on. The `alpha` dist-tag is frozen on the last `0.9.1-alpha.x`
+  publish and no longer moves, and `latest` is untouched — it still points at
+  `@xaui/native@0.2.8` and `@xaui/hybrid@0.0.14` until `1.0.0`.
+
+  Only the `tag` field changed. `initialVersions` and the list of consumed changesets are
+  kept as they were, which is what a `pre exit` + `pre enter beta` would have thrown away —
+  the next `changeset version` would then have replayed every entry into the changelogs.
+
+- cf276df: Add the beta Hybrid `Icon` on Native's three-form API — an icon component through `as`, a
+  raw `<svg>` as children, or an image URL through `source` — with the same context cascade,
+  theme defaults and named failure.
+
+  Open the `@xaui/hybrid/system` subpath, add `ImageStyle`, `ImageStyleProps` and the
+  `StyleProps` generic, and ship `ChevronDownIcon`.
+
+- 47b3e45: Document the new direction for `@xaui/hybrid`: it becomes `@xaui/native` re-exported for the
+  web over `react-native-web` rather than a component-by-component Emotion port. Emotion Styled
+  and Framer Motion stay in the package for the web-only components React Native Web cannot
+  supply. Documentation and agent instructions only — no code change yet; the P6 tasks in the
+  roadmap carry the migration.
+- b2b386b: Add the beta Hybrid `Typography` and `TextSpan` renderer with the Native v1 prop and
+  variant surface, Emotion Styled DOM nodes, `asChild`, semantic accessibility mapping and
+  pixel-equivalent root-relative sizing.
+
+  Introduce the theme, recipe, style-prop and slot foundations required by the first Hybrid
+  component, plus compile-time Native/Hybrid API parity checks.
+
+- d28f819: Leave the `beta` pre-release line: versions are plain again and publish on `latest`.
+
+  `@xaui/native` and `@xaui/hybrid` were versioned `0.9.x-beta.x` and published on the `beta`
+  dist-tag only, so `latest` stayed on the old API (`@xaui/native@0.2.8`,
+  `@xaui/hybrid@0.0.14`) and a plain `npm i` installed components this documentation does not
+  describe. From this release the versions drop the `-beta` suffix, follow normal patch
+  numbers, and publish on `latest`, so `pnpm add @xaui/native` installs what is documented.
+
+  The line is still pre-1.0: the API can change before `1.0.0`, and the release notes say
+  when it does. The `beta` and `alpha` dist-tags stay on their last publishes and no longer
+  move; drop them from your install commands. Projects that pin `@xaui/native@^0.2.8` are
+  not affected.
+
+- da4bc8a: The `default` variant reads as grey rather than as near-white
+
+  Light `default` was zinc-100 on a white background — a fill faint enough to be mistaken
+  for no fill at all, where dark's zinc-800 sits clearly off its own background. One step to
+  zinc-200 balances the two modes instead of shifting one.
+
+  The derived layer follows from the single source: `defaultPressed`, `defaultSoft` and
+  `defaultSoftPressed` move with it, so `tertiary` and `ghost` keep a pressed state that
+  matches the new grey. Both packages regenerate their `tokens.gen.ts` from that source.
+
+- 18b3fd8: A pressed fill now moves one way: towards the ink of the mode.
+
+  `accentPressed`, `successPressed`, `warningPressed` and `dangerPressed` mix towards
+  `foreground` instead of the variant's own text colour. That text is picked for contrast, so
+  its lightness followed the fill's and took the direction with it: `#9333ea` carries
+  near-white text and lightened under the finger in light mode, while `#c084fc` carries dark
+  text and darkened in dark mode. Same control, opposite gesture, and nobody had decided it.
+
+  Now `#9333ea → #8533d3` in light and `#c084fc → #c691fd` in dark — darker in light, lighter
+  in dark — and the label's contrast rises in both modes instead of falling in one. The
+  neutral fills already worked this way, since `defaultForeground` and `surfaceForeground`
+  _are_ the mode's ink; only the four saturated intents ever flipped. `deriveTint` follows the
+  same rule, so a raw `color` behaves like a token under the finger as much as it does at rest.
+
+  Visible on every filled control, which today means the `Button`.
+
+- 88c692a: Publish to npm again, under the `alpha` dist-tag.
+
+  Both packages were `private` while the v1 rewrite started from an empty `src/`. They are
+  publishable again, but the repo is now in changesets **pre mode** with the tag `alpha`, so
+  `changeset publish` ships them as `alpha` and leaves `latest` where it is —
+  `@xaui/native@0.2.8` and `@xaui/hybrid@0.0.14`, the last releases that actually carry
+  components. Installing either package without a tag keeps returning those.
+
+  `pnpm add @xaui/native@alpha` is the opt-in. At this point it exports the theme layer only
+  (`createTheme`, `XAUIProvider`, the token and colour utilities) — the components land from
+  P2 on, one at a time, which is exactly what the tag announces.
+
 ## 0.9.1-beta.7
 
 ### Patch Changes
