@@ -152,8 +152,8 @@ Prettier: no semicolons, single quotes, print width 85, 2 spaces, ES5 trailing c
 - `@emotion/react` + `@emotion/styled` and Framer Motion remain Hybrid peers, used only by
   the web-only components of §Layout. A re-exported component never gets a Hybrid-only
   appearance or animation prop, and never a second implementation.
-- P6 publishes `@xaui/hybrid` only as `0.9.x-beta.x` on the `beta` dist-tag. API parity does
-  not authorize a stable or `1.0.0` Hybrid release; that requires a separate explicit task.
+- `@xaui/hybrid` publishes plain `0.9.x` versions on `latest`, alongside Native. API parity
+  does not authorize a `1.0.0` Hybrid release; that requires a separate explicit task.
 - `gesture-handler`, `svg` and `safe-area-context` are optional peers, imported only by the
   components that use them.
 
@@ -165,8 +165,8 @@ coherent unit of work: `feat/`, `fix/`, `refactor/`, `chore/`.
 Commits follow commitizen. **No Claude co-author line.** Commit progressively — one commit
 per coherent unit as the work lands, not one at the end.
 
-Before the PR: create a changeset per touched package (`pnpm changeset`, always **patch**,
-we are on the `beta` line — see §Release), commit the `.changeset/*.md`, run `pnpm lint &&
+Before the PR: create a changeset per touched package (`pnpm changeset`, always **patch**
+until `1.0.0` — see §Release), commit the `.changeset/*.md`, run `pnpm lint &&
 pnpm type-check && pnpm test`, and run the `xaui-review` skill on the diff.
 
 ```bash
@@ -185,41 +185,26 @@ Changesets, fully automated. **Never run `pnpm changeset version`, `pnpm version
 or `pnpm release` locally** — merging to `main` opens or updates a "Version Packages" PR,
 and merging that one publishes.
 
-### The `beta` line
+### Versions
 
-The repo is in changesets **pre mode** with the tag `beta` (`.changeset/pre.json`), so
-`@xaui/native` and `@xaui/hybrid` are versioned `0.9.x-beta.x` and published on the
-`beta` dist-tag. `latest` keeps pointing at `@xaui/native@0.2.8` and `@xaui/hybrid@0.0.14`
-— the last releases of the previous line — because v1 is not `1.0.0` yet.
-`pnpm add @xaui/native@beta` is how you get it.
+The `beta` pre-release line is closed. `.changeset/pre.json` is in `exit` mode, so the next
+"Version Packages" PR graduates `@xaui/native` and `@xaui/hybrid` from `0.9.1-beta.x` to
+`0.9.1` and deletes `pre.json`. From there versions are plain (`0.9.2`, `0.9.3`…) and every
+publish lands on `latest`: `pnpm add @xaui/native` installs what the docs describe, not
+`0.2.8`, the last release of the old API.
 
-The line was `alpha` until the v1 core was documented end to end; the switch was a single
-edit of `tag` in `.changeset/pre.json`, which keeps `initialVersions` and the consumed
-`changesets` list intact. Never do it with `pre exit` + `pre enter`: that resets both, and
-the next `changeset version` would replay every changeset into the changelogs. The `alpha`
-dist-tag is frozen on the last `0.9.1-alpha.x` publish and no longer moves — nothing
-republishes it, so `@xaui/native@alpha` is now a historical pin.
+The line is still before `1.0.0`: the API can change between versions, and the changeset
+says so when it does. Changesets stay **patch** until `1.0.0` — a minor would turn `0.9.x`
+into `0.10.0`.
 
-Three consequences, all of them load-bearing:
-
-- **Never `changeset pre exit`** unless the task says to. It graduates both packages onto
-  `latest`, which today means handing every `npm i @xaui/native` an unfinished v1. It is
-  required exactly once, right before `1.0.0`.
-- **Pre mode is repo-wide and reaches dependents.** No changeset on a package is needed for
-  it to catch a pre-release number: `@xaui/native-legacy` peer-depends on `@xaui/native`,
-  so `0.9.1-alpha.0` bumped it to `0.2.12-alpha.0` on its own. That is why
-  `@xaui/native-legacy` sits in `ignore` (`.changeset/config.json`) — it is frozen at
-  `0.2.11` and must stay there. `demo` and `docs` are in that list too, because changesets
-  requires every dependent of an ignored package to be ignored as well. A genuine `0.2.x`
-  fix on legacy means taking it out of `ignore` for that release.
-- **The tag on a first publish cannot be chosen in pre mode.** `getReleaseTag` gives the
-  pre tag to any package whose `publishedState` is not `"only-pre"`, and `"never"` is not
-  `"only-pre"` — so a never-published package goes out tagged `beta` with no `latest` tag
-  at all. There is no clean way out: `changeset publish --tag` is refused in pre mode, and
-  `changeset pre exit` does not help (publish reads `preState` whatever its mode; only the
-  next `changeset version` deletes `pre.json`, and it graduates `native` and `hybrid` onto
-  `latest` while doing so). Fix it downstream instead —
-  `npm dist-tag add <pkg>@<version> latest`.
+- **The `alpha` and `beta` dist-tags are frozen** on their last publishes
+  (`0.9.1-alpha.94`, `0.9.1-beta.100`) and never move again. Never re-enter pre mode
+  (`changeset pre enter`) unless the task says to.
+- **`@xaui/native-legacy` stays in `ignore`** (`.changeset/config.json`), frozen at
+  `0.2.11`: it peer-depends on `@xaui/native`, so changesets would otherwise bump it with
+  every release. `demo` and `docs` are in that list too, because changesets requires every
+  dependent of an ignored package to be ignored as well. A genuine `0.2.x` fix on legacy
+  means taking it out of `ignore` for that release.
 
 CI on PRs to `main`/`dev`: tokens check → lint → type check → test → build, plus CodeQL.
 The release workflow runs on push to `main`.

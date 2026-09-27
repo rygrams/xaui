@@ -22,8 +22,8 @@ export default function ReleasesPage() {
         <h1 className="text-3xl font-bold tracking-tight md:text-4xl">Releases</h1>
         <p className="max-w-3xl text-base leading-7 text-muted-foreground md:text-lg">
           The notes for <code>@xaui/native</code>, as the changesets wrote them at
-          publish time. These land on the <code>beta</code> dist-tag;{' '}
-          <code>latest</code> still points at the previous line.
+          publish time. Each one is published on <code>latest</code>, so a plain
+          install gets it.
         </p>
       </header>
 

@@ -71,13 +71,17 @@ export default function FaqPage() {
           </p>
         </Question>
 
-        <Question id="beta-tag" question="Why install from the beta tag?">
+        <Question id="versions" question="Which version should I install?">
           <p>
-            The current package publishes on the <code>beta</code> dist-tag, so{' '}
-            <code>pnpm add @xaui/native@beta</code> is what gets you the{' '}
-            {components.length} components documented here. Plain <code>latest</code>{' '}
-            still points at the previous line, and the <code>alpha</code> tag is
-            frozen on the last pre-beta publish.
+            The latest one: <code>pnpm add @xaui/native</code> installs the{' '}
+            {components.length} components documented here. The package is still
+            before <code>1.0.0</code>, so the API can change between versions — the{' '}
+            <Link className="underline" href="/docs/releases">
+              release notes
+            </Link>{' '}
+            say when it does. The <code>beta</code> and <code>alpha</code> dist-tags
+            are frozen on their last pre-releases, and <code>0.2.8</code>, the last
+            release of the previous API, is only installed when asked for by number.
           </p>
         </Question>
 

@@ -176,7 +176,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P6.3 | Hybrid bundler setup — `react-native` → `react-native-web` alias, `.web.*` resolution, transpile list, documented in `HYBRID-SETUP.md` | todo |
 | P6.4 | Hybrid web audit — the 75 subpaths under `react-native-web`, one task per component that does not render or behave | todo |
 | P6.5 | Hybrid web-only components — Emotion Styled + Framer Motion, only where the audit found a gap | todo |
-| P6.6 | Hybrid parity milestone — every Native subpath resolves from `@xaui/hybrid`, publish `0.9.x-beta.x` only | todo |
+| P6.6 | Hybrid parity milestone — every Native subpath resolves from `@xaui/hybrid`, publish `0.9.x`, no `1.0.0` | todo |
 | P7 | Delete `native-legacy` — not before the P5 parity milestone | todo |
 
 ## Repository debt
