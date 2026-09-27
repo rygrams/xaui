@@ -38,7 +38,6 @@ jobs:
         run: pnpm run build --filter=@xaui/*
 
       - name: Create Release Pull Request or Publish
-        id: changesets
         uses: changesets/action@v1
         with:
           publish: pnpm run release
@@ -46,18 +45,3 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-
-      # Pre mode publishes @xaui/native on the `beta` dist-tag only, which would leave
-      # `npm i @xaui/native` on 0.2.8, the old API. `latest` follows the beta line instead;
-      # the version keeps its `-beta`. @xaui/hybrid is left alone: its `latest` is a
-      # separate decision (AGENTS.md §Packages).
-      - name: Point latest at the published @xaui/native
-        if: steps.changesets.outputs.published == 'true'
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
-          PUBLISHED: ${{ steps.changesets.outputs.publishedPackages }}
-        run: |
-          version=$(jq -r '.[] | select(.name == "@xaui/native") | .version' <<< "$PUBLISHED")
-          if [ -n "$version" ]; then
-            npm dist-tag add "@xaui/native@$version" latest
-          fi
