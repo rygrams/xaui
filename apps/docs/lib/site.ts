@@ -10,6 +10,8 @@ export const SITE_DESCRIPTION =
 
 export const REPOSITORY_URL = 'https://github.com/rygrams/xaui'
 
+export const NPM_PACKAGE_URL = 'https://www.npmjs.com/package/@xaui/native'
+
 /** Served by `app/og.png/route.tsx`. */
 export const OG_IMAGE = {
   url: '/og.png',

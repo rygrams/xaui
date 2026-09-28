@@ -7,6 +7,7 @@ import { Markdown } from '@/components/docs/markdown'
 import { NativePreview } from '@/components/preview/native-preview'
 import { JsonLd } from '@/components/seo/json-ld'
 import { CodeBlock } from '@/components/ui/code-block'
+import { OutboundLink } from '@/components/ui/outbound-link'
 import { getComponentDocument } from '@/lib/component-doc'
 import { components, getComponentById, type Component } from '@/lib/data/components'
 import { pageMetadata, SITE_URL } from '@/lib/site'
@@ -127,14 +128,14 @@ export default async function ComponentPage({ params }: ComponentPageProps) {
           </p>
         </div>
         <div className="flex flex-wrap gap-4 text-sm">
-          <a
+          <OutboundLink
             className="inline-flex items-center gap-1.5 font-medium hover:underline"
+            event="github_click"
             href={component.sourceUrl}
-            rel="noreferrer"
-            target="_blank"
+            location="component_source"
           >
             Source <ExternalLink className="size-3.5" />
-          </a>
+          </OutboundLink>
           <a
             className="inline-flex items-center gap-1.5 font-medium hover:underline"
             href={`/docs/${component.id}.md`}

@@ -15,7 +15,9 @@ import {
   Tag,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { NPM_PACKAGE_URL, REPOSITORY_URL } from '@/lib/site'
 import { getActiveTab, tabs, type NavTabId } from '@/lib/data/navigation'
+import { OutboundLink } from '@/components/ui/outbound-link'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { SearchDialog } from './search-dialog'
 import { SidebarNav } from './sidebar'
@@ -121,11 +123,12 @@ export function SiteHeader({ version, versions }: SiteHeaderProps) {
             >
               <Search className="size-4" />
             </button>
-            <a
+            <OutboundLink
+              aria-label="GitHub"
               className="flex items-center gap-1.5 rounded-full border px-2 py-1 text-xs text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
-              href="https://github.com/rygrams/xaui"
-              rel="noopener noreferrer"
-              target="_blank"
+              event="github_click"
+              href={REPOSITORY_URL}
+              location="header"
             >
               <Github className="size-4" />
               {stars !== null && (
@@ -134,7 +137,27 @@ export function SiteHeader({ version, versions }: SiteHeaderProps) {
                   <span>{formatStars(stars)}</span>
                 </>
               )}
-            </a>
+            </OutboundLink>
+            <OutboundLink
+              aria-label="npm"
+              className="rounded-full border p-1.5 transition-colors hover:bg-accent"
+              event="npm_click"
+              href={NPM_PACKAGE_URL}
+              location="header"
+            >
+              <svg
+                aria-hidden="true"
+                height="16"
+                viewBox="0 0 24 24"
+                width="16"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M1.763 0C.786 0 0 .786 0 1.763v20.474C0 23.214.786 24 1.763 24h20.474c.977 0 1.763-.786 1.763-1.763V1.763C24 .786 23.214 0 22.237 0zM5.13 5.323l13.837.019-.009 13.836h-3.464l.01-10.382h-3.456L12.04 19.17H5.113z"
+                  fill="#CB3837"
+                />
+              </svg>
+            </OutboundLink>
             <a
               aria-label="LinkedIn"
               className="rounded-full border p-1.5 transition-colors hover:bg-accent"
