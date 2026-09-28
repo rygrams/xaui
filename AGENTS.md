@@ -157,6 +157,58 @@ Prettier: no semicolons, single quotes, print width 85, 2 spaces, ES5 trailing c
 - `gesture-handler`, `svg` and `safe-area-context` are optional peers, imported only by the
   components that use them.
 
+## Docs analytics
+
+`apps/docs` sends GA4 events through `trackEvent` (`lib/analytics.ts`), typed per event and
+a no-op without `NEXT_PUBLIC_GA_MEASUREMENT_ID`. An outbound link goes through
+`OutboundLink` (`components/ui/outbound-link.tsx`), never a bare `<a target="_blank">`.
+
+| Event                  | Sent on                                                    | Parameters                        |
+| ---------------------- | ---------------------------------------------------------- | --------------------------------- |
+| `copy_install_command` | copying a code block that installs an `@xaui/*` package    | `package_manager`, `xaui_package` |
+| `github_click`         | the header GitHub link, a component page's **Source** link | `link_location`, `link_url`       |
+| `npm_click`            | the header npm link                                        | `link_location`, `link_url`       |
+| `linkedin_click`       | the header LinkedIn link                                   | `link_location`, `link_url`       |
+
+A new event is added to the `AnalyticsEvents` map and to this table, in snake_case.
+
+### UTM convention
+
+Every link posted outside the site to `ui.xtartapp.com` carries UTM parameters; no
+internal link ever does — it would split the session. Values are lowercase, no spaces,
+words joined with `-`: GA4 is case-sensitive, and `LinkedIn` would be a second source.
+`utm_medium` keeps to values GA4's default channel grouping knows (`social`, `video`,
+`email`, `referral`), or the visit lands in _Unassigned_. `utm_term` is unused.
+
+| Platform   | `utm_source` | `utm_medium` | GA4 channel    | `utm_content`                                         |
+| ---------- | ------------ | ------------ | -------------- | ----------------------------------------------------- |
+| YouTube    | `youtube`    | `video`      | Organic Video  | `description`, `pinned-comment`, `short`, `channel`   |
+| TikTok     | `tiktok`     | `social`     | Organic Social | `bio` — TikTok allows no link in a caption            |
+| LinkedIn   | `linkedin`   | `social`     | Organic Social | `post`, `comment`, `profile`, `article`               |
+| Reddit     | `reddit`     | `social`     | Organic Social | `post`, `comment`, or the subreddit (`r-reactnative`) |
+| dev.to     | `devto`      | `referral`   | Referral       | `article`, `profile`                                  |
+| GitHub     | `github`     | `referral`   | Referral       | `readme`, `release-notes`, `discussion`, `profile`    |
+| Newsletter | `newsletter` | `email`      | Email          | `header`, `cta`, `footer`                             |
+
+`utm_campaign` names what is promoted, `utm_content` where the link sits:
+
+| Promoting              | `utm_campaign`         | Example                  |
+| ---------------------- | ---------------------- | ------------------------ |
+| A release              | `release-<version>`    | `release-0-9-1`          |
+| A component            | `component-<name>`     | `component-slide-button` |
+| A piece of content     | `<type>-<topic>`       | `tutorial-theming`       |
+| A launch               | `launch-<what>`        | `launch-hybrid`          |
+| A bio, profile, README | `evergreen`            | `evergreen`              |
+| A newsletter issue     | `newsletter-<yyyy-mm>` | `newsletter-2026-10`     |
+
+```
+https://ui.xtartapp.com/?utm_source=youtube&utm_medium=video&utm_campaign=release-0-9-1&utm_content=description
+https://ui.xtartapp.com/?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=readme
+```
+
+The package README is also npm's page, so a `utm_source=github` link in it counts npm
+visitors as GitHub ones until the package gets a README of its own tagged `npm`.
+
 ## Branch, commit, PR
 
 **Always branch before the first line of code.** Never commit to `main`. One branch per
