@@ -9,6 +9,7 @@ type AnalyticsEvents = {
   copy_install_command: { package_manager: PackageManager; xaui_package: string }
   github_click: { link_location: LinkLocation; link_url: string }
   npm_click: { link_location: LinkLocation; link_url: string }
+  linkedin_click: { link_location: LinkLocation; link_url: string }
 }
 
 export type AnalyticsEventName = keyof AnalyticsEvents

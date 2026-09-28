@@ -158,12 +158,12 @@ export function SiteHeader({ version, versions }: SiteHeaderProps) {
                 />
               </svg>
             </OutboundLink>
-            <a
+            <OutboundLink
               aria-label="LinkedIn"
               className="rounded-full border p-1.5 transition-colors hover:bg-accent"
+              event="linkedin_click"
               href="https://www.linkedin.com/in/ladji-bamory-gramboute/"
-              rel="noopener noreferrer"
-              target="_blank"
+              location="header"
             >
               <svg
                 aria-hidden="true"
@@ -177,7 +177,7 @@ export function SiteHeader({ version, versions }: SiteHeaderProps) {
                   fill="#0A66C2"
                 />
               </svg>
-            </a>
+            </OutboundLink>
           </div>
         </div>
 

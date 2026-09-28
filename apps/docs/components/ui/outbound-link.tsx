@@ -5,7 +5,7 @@ import { trackEvent, type LinkLocation } from '@/lib/analytics'
 
 type OutboundLinkProps = Omit<ComponentProps<'a'>, 'href' | 'rel' | 'target'> & {
   href: string
-  event: 'github_click' | 'npm_click'
+  event: 'github_click' | 'npm_click' | 'linkedin_click'
   location: LinkLocation
 }
 
