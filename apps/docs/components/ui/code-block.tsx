@@ -3,6 +3,8 @@
 import { useState } from 'react'
 import { Highlight, themes } from 'prism-react-renderer'
 import { Copy, Check } from 'lucide-react'
+import { trackEvent } from '@/lib/analytics'
+import { parseInstallCommand } from '@/lib/install-command'
 
 interface CodeBlockProps {
   code: string
@@ -20,6 +22,15 @@ export function CodeBlock({
   const handleCopy = async () => {
     await navigator.clipboard.writeText(code.trim())
     setCopied(true)
+
+    const installCommand = parseInstallCommand(code)
+    if (installCommand) {
+      trackEvent('copy_install_command', {
+        package_manager: installCommand.packageManager,
+        xaui_package: installCommand.xauiPackage,
+      })
+    }
+
     setTimeout(() => setCopied(false), 2000)
   }
 
