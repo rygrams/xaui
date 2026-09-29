@@ -6,7 +6,7 @@ Composition-first UI components for React Native and the web. Expo, Reanimated, 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](./LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/rygrams/xaui)](https://github.com/rygrams/xaui)
 
-![XAUI Button variants in light and dark mode](./assets/readme/button-variants.png)
+![XAUI — ui.xtartapp.com: a Button, a Switch and a Slider](./assets/readme/cover.png)
 
 ```bash
 npm i @xaui/native
