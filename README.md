@@ -1,6 +1,6 @@
 # XAUI
 
-Composition-first UI components for React Native and the web. Expo, Reanimated, one theme.
+Composition-first UI components for React Native. Expo, Reanimated, one theme.
 
 [![npm](https://img.shields.io/npm/v/@xaui/native)](https://www.npmjs.com/package/@xaui/native)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](./LICENSE)
@@ -10,7 +10,6 @@ Composition-first UI components for React Native and the web. Expo, Reanimated, 
 
 ```bash
 npm i @xaui/native
-npm i @xaui/hybrid # hybrid mobile app, through react-native-web
 ```
 
 [Docs](https://ui.xtartapp.com/?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=readme) · [Getting started](https://ui.xtartapp.com/docs/getting-started?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=readme) · [Components](https://ui.xtartapp.com/docs/components?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=readme)
@@ -89,10 +88,6 @@ export const appTheme = createTheme({
 ```
 
 Pass it to `<XAUIProvider theme={appTheme}>`. The [theme guide][theme] lists every token.
-
-## On the web
-
-`@xaui/hybrid` renders the same components in the browser through `react-native-web`: same props, same slots, same theme. Your bundler aliases `react-native` to `react-native-web`; [HYBRID-SETUP.md](./HYBRID-SETUP.md) has the config for Next.js and Vite.
 
 ## Coding with an AI agent
 
