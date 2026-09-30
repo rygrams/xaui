@@ -1,14 +1,22 @@
 {
   "name": "@xaui/hybrid",
   "version": "0.9.2",
-  "description": "The @xaui/native API rendered for the web and mobile webviews",
+  "description": "XAUI React Native components for the web: the @xaui/native API rendered in the browser and in mobile webviews through react-native-web",
   "keywords": [
     "react",
+    "react-native-web",
+    "react-components",
     "web",
     "webview",
     "hybrid",
-    "ui",
-    "components",
+    "nextjs",
+    "vite",
+    "ui-library",
+    "component-library",
+    "design-system",
+    "compound-components",
+    "dark-mode",
+    "typescript",
     "xaui"
   ],
   "license": "MIT",
@@ -807,6 +815,9 @@
     "directory": "packages/hybrid"
   },
   "homepage": "https://ui.xtartapp.com/docs/introduction",
+  "bugs": {
+    "url": "https://github.com/rygrams/xaui/issues"
+  },
   "publishConfig": {
     "access": "public"
   },
