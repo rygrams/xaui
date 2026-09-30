@@ -1,62 +1,134 @@
-# XAUI Library
+# XAUI
 
-XAUI is a composition-first component system for React Native, published for the web through `react-native-web`, within a Turborepo monorepo. `@xaui/native` holds the components, the tokens, the theme and the single provider; `@xaui/hybrid` re-exports it for the browser; `@xaui/native-legacy` is the frozen v0 tree, kept only until the v1 API reaches parity.
+Composition-first UI components for React Native. Expo, Reanimated, one theme.
 
-**[Documentation → ui.xtartapp.com](https://ui.xtartapp.com)**
+[![npm](https://img.shields.io/npm/v/@xaui/native)](https://www.npmjs.com/package/@xaui/native)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue)](./LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/rygrams/xaui)](https://github.com/rygrams/xaui)
 
-## Monorepo architecture
+![XAUI — ui.xtartapp.com: a Button, a Switch and a Slider](./assets/readme/cover.png)
 
-- **Package manager & task runner**: `pnpm` (v10+) for installations and `turbo` for orchestrating builds, linting, and tests.
-- **Build graph**: `turbo run build` compiles every workspace and emits outputs under `dist/**` or `.next/**` depending on the target.
-- **Quality pipeline**: `vitest` for tests, `eslint`/`@typescript-eslint` for linting, `prettier` for formatting, and `changesets` for release automation.
+```bash
+npm i @xaui/native
+```
 
-## Key workspaces
+[Docs](https://ui.xtartapp.com/?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=readme) · [Getting started](https://ui.xtartapp.com/docs/getting-started?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=readme) · [Components](https://ui.xtartapp.com/docs/components?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=readme)
 
-### Packages
+## Quick start
 
-- `@xaui/native` — the v1 API: design tokens, the OKLab colour engine, `createTheme` and `XAUIProvider`, with the component tree being rebuilt on top of them.
-- `@xaui/hybrid` — the same library on the web. It depends on `@xaui/native` and re-exports it, rendered by `react-native-web`; Emotion Styled and Framer Motion cover only the few web-only components Native does not have. Setup: [HYBRID-SETUP.md](./HYBRID-SETUP.md).
-- `@xaui/native-legacy` — the 47 frozen v0 components. It carries no theme of its own and reads `@xaui/native`'s provider.
+Install the native peers. On Expo, let Expo pick their versions:
 
-### Applications
+```bash
+npx expo install react-native-reanimated react-native-worklets react-native-gesture-handler react-native-svg react-native-safe-area-context
+```
 
-- `apps/demo` — Expo-based sandbox showcasing mobile usage patterns.
-- `apps/docs` — Next.js-powered documentation site.
+Mount the provider once, at the root of the app:
 
-## Getting started
+```tsx
+import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import { XAUIProvider } from '@xaui/native/theme'
 
-1. Install dependencies from the root: `pnpm install`.
-2. Run `pnpm dev` to start `turbo run dev` (each workspace watches files).
-3. Target a specific workspace with `pnpm --filter=<workspace> dev` (e.g., `pnpm --filter=apps/demo dev`).
+export default function App() {
+  return (
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <XAUIProvider colorMode="system">
+        <YourApp />
+      </XAUIProvider>
+    </GestureHandlerRootView>
+  )
+}
+```
 
-### Useful scripts
+Import each component from its own path and compose it from slots:
 
-- `pnpm build` → `turbo run build` (compile everything).
-- `pnpm test` → `turbo run test` (depends on `build`; runs all Vitest suites).
-- `pnpm lint` → `turbo run lint`.
-- `pnpm format` → `prettier --write "**/*.{ts,tsx,md}"`.
-- `pnpm type-check` → `turbo run type-check`.
+```tsx
+import { Button } from '@xaui/native/button'
 
-## Testing & validation
+export function SaveButton() {
+  return (
+    <Button variant="primary" onPress={save}>
+      <Button.Icon as={SaveIcon} />
+      <Button.Label>Save</Button.Label>
+    </Button>
+  )
+}
+```
 
-- Unit tests run with `vitest` (config in `vitest.config.ts` at the root).
-- Each package keeps its own `__tests__` folder under `packages/*/__tests__`.
-- `turbo` ensures `test`, `lint`, and `type-check` run after a fresh `build` pass.
+React Native CLI setup, the Babel plugin and the optional peers are covered in the [installation guide][installation].
 
-## Release workflow
+## Components
 
-Release automation relies on `@changesets/cli`:
+70+ components, each documented with a live preview and its props:
 
-- `pnpm changeset` creates change files describing API/dep updates.
-- `pnpm version-packages` (alias `pnpm version`) adjusts versions and regenerates CHANGELOGs.
-- `pnpm release` builds all `@xaui/*` packages (`turbo run build --filter=@xaui/*`) and runs `changeset publish`.
+- **Actions** — Button, Fab, MorphButton, SlideButton, ToggleButton
+- **Forms** — TextField, Select, Combobox, DatePicker, TimePicker, PhoneNumberField, InputOTP, Slider, Switch, and 17 more
+- **Data display** — Avatar, Badge, Chip, List, Table, Timeline, Carousel, Widget
+- **Feedback** — Alert, Toast, Snackbar, Skeleton, ProgressBar, Spinner
+- **Overlays** — Dialog, BottomSheet, Menu, Popover
+- **Navigation** — Tabs, Accordion, Stepper, Pager, Calendar
+- **Charts** — Area, Bar, Line, Pie, Radar and Radial charts
+- **Layout** — Card, Surface, Scaffold, Divider, Row, Column, Stack, Grid
 
-## Documentation
+[Browse all components →][components]
 
-- **Component docs** — [ui.xtartapp.com](https://ui.xtartapp.com)
-- `@xaui/native` — [packages/native/README.md](./packages/native/README.md) — React Native components, hooks, and providers.
-- `@xaui/hybrid` — [HYBRID-SETUP.md](./HYBRID-SETUP.md) — the bundler setup that renders the same components on the web.
+## Theming
+
+One theme drives every component. Give it your brand colours; the soft, pressed and contrast shades are derived for light and dark mode.
+
+```ts
+import { createTheme } from '@xaui/native/theme'
+
+export const appTheme = createTheme({
+  colors: {
+    light: { accent: '#2563EB', accentForeground: '#FFFFFF' },
+    dark: { accent: '#60A5FA', accentForeground: '#0F172A' },
+  },
+  radius: 16,
+})
+```
+
+Pass it to `<XAUIProvider theme={appTheme}>`. The [theme guide][theme] lists every token.
+
+## Coding with an AI agent
+
+Install the XAUI skill so your agent reads the real API instead of guessing it:
+
+```bash
+npx skills add https://ui.xtartapp.com/skills/xaui/SKILL.md
+```
+
+The docs also publish an [llms.txt][llms] and a Markdown version of every component page.
+
+## Upgrading from 0.2.x
+
+Version 0.9 is a new API. The previous components are still available, frozen, as `@xaui/native-legacy@0.2.11`, and both packages can run side by side while you move screen by screen. The [migration guide][migration] maps the old props to the new ones.
+
+## Contributing
+
+XAUI is a pnpm + Turborepo monorepo:
+
+| Path                     | What it is                                   |
+| ------------------------ | -------------------------------------------- |
+| `packages/native`        | `@xaui/native` — components, theme, provider |
+| `packages/hybrid`        | `@xaui/hybrid` — the web build               |
+| `packages/native-legacy` | `@xaui/native-legacy` — the frozen 0.2.x API |
+| `apps/demo`              | Expo app with a screen per component         |
+| `apps/docs`              | The documentation site                       |
+
+```bash
+pnpm install
+pnpm dev
+pnpm test
+```
+
+Read [CONTRIBUTING.md](./CONTRIBUTING.md) before opening a pull request. Issues labelled [good first issue](https://github.com/rygrams/xaui/labels/good%20first%20issue) are a good place to start.
 
 ## License
 
-MIT
+[MIT](./LICENSE)
+
+[installation]: https://ui.xtartapp.com/docs/installation?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=readme
+[components]: https://ui.xtartapp.com/docs/components?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=readme
+[theme]: https://ui.xtartapp.com/docs/theme?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=readme
+[llms]: https://ui.xtartapp.com/docs/llms-txt?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=readme
+[migration]: https://ui.xtartapp.com/docs/migration?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=readme
