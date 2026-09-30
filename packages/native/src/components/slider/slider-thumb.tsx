@@ -1,11 +1,11 @@
 import { useCallback } from 'react'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 import Animated, {
-  runOnJS,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated'
+import { scheduleOnRN } from 'react-native-worklets'
 import { useStyleProps } from '../../system/style-props'
 import { useSlider } from './slider.context'
 import { THUMB_PRESSED_SCALE, THUMB_SPRING } from './slider.animation'
@@ -20,8 +20,8 @@ import type { SliderThumbProps } from './slider.type'
  * so only an app that reaches for `@xaui/native/slider` pays for it.
  *
  * The gesture computes the new position on the UI thread and hands the value back over
- * `runOnJS`, which is the one hop that has to happen: the value is React state, and only
- * the scale can stay on the other thread.
+ * `scheduleOnRN`, which is the one hop that has to happen: the value is React state, and
+ * only the scale can stay on the other thread.
  *
  * It is a **disc of the page's own colour inside a ring of the fill's**, which is the
  * legacy component's shape rather than the reference implementation's capsule-with-a-core. A solid accent knob
@@ -65,18 +65,22 @@ export function SliderThumb({
   const pan = Gesture.Pan()
     .enabled(!isDisabled)
     .onBegin(() => {
+      'worklet'
       start.set(fraction * travel)
       pressed.set(withSpring(1, THUMB_SPRING))
     })
     .onUpdate(event => {
+      'worklet'
       // Vertical counts from the bottom, so a downward drag is a smaller value.
-      runOnJS(move)(
+      scheduleOnRN(
+        move,
         start.get() + (vertical ? -event.translationY : event.translationX)
       )
     })
     .onFinalize(() => {
+      'worklet'
       pressed.set(withSpring(0, THUMB_SPRING))
-      runOnJS(commit)()
+      scheduleOnRN(commit)
     })
 
   const scale = useAnimatedStyle(() => {

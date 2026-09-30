@@ -1,10 +1,10 @@
 import { Children, forwardRef, useEffect } from 'react'
 import type { LayoutChangeEvent, ScrollView } from 'react-native'
 import Animated, {
-  runOnJS,
   useAnimatedScrollHandler,
   useSharedValue,
 } from 'react-native-reanimated'
+import { scheduleOnRN } from 'react-native-worklets'
 import { useMergedRef } from '../../hooks/use-merged-ref'
 import { useStyleProps } from '../../system/style-props'
 import { indexFromOffset } from '../../utils/carousel'
@@ -79,7 +79,7 @@ export const CarouselContent = forwardRef<ScrollView, CarouselViewSlotProps>(
         const next = indexFromOffset(event.contentOffset.x, step, count)
         if (next !== settled.get()) {
           settled.set(next)
-          runOnJS(onSettle)(next)
+          scheduleOnRN(onSettle, next)
         }
       },
       [offset, settled, step, count, onSettle]

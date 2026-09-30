@@ -1,11 +1,11 @@
 import { I18nManager, View } from 'react-native'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 import Animated, {
-  runOnJS,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated'
+import { scheduleOnRN } from 'react-native-worklets'
 import { useStyleProps } from '../../system/style-props'
 import { useSlideButton } from './slide-button.context'
 import { THUMB_PRESSED_SCALE, THUMB_SPRING } from './slide-button.animation'
@@ -19,8 +19,8 @@ import type { SlideButtonThumbProps } from './slide-button.type'
  * `@xaui/native/slide-button` does not pay for it.
  *
  * Everything the finger does stays on the UI thread: the offset is a shared value the pan
- * writes and the fill and the handle both read. The one hop to JS is `runOnJS` on release,
- * once, when the slide has reached the threshold — the confirm is React state and a
+ * writes and the fill and the handle both read. The one hop to JS is `scheduleOnRN` on
+ * release, once, when the slide has reached the threshold — the confirm is React state and a
  * callback, and neither belongs on the worklet.
  *
  * With no children it draws the built-in chevron, mirrored under RTL so it always points
@@ -50,18 +50,21 @@ export function SlideButtonThumb({
   const pan = Gesture.Pan()
     .enabled(!isDisabled && !isConfirmed)
     .onBegin(() => {
+      'worklet'
       start.set(offset.get())
       pressed.set(withSpring(1, THUMB_SPRING))
     })
     .onUpdate(event => {
+      'worklet'
       const next = start.get() + direction * event.translationX
       offset.set(Math.min(Math.max(next, 0), travel))
     })
     .onFinalize(() => {
+      'worklet'
       pressed.set(withSpring(0, THUMB_SPRING))
       const reached = travel > 0 && offset.get() / travel >= threshold
       offset.set(withSpring(reached ? travel : 0, THUMB_SPRING))
-      if (reached) runOnJS(confirm)()
+      if (reached) scheduleOnRN(confirm)
     })
 
   const animated = useAnimatedStyle(() => {
