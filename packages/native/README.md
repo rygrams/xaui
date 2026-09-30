@@ -31,8 +31,8 @@ theme, derived in OKLab, gives every component its light and dark palette.
 npm i @xaui/native
 ```
 
-XAUI needs React 18 or 19, React Native 0.70+ and Reanimated 4. On Expo, let Expo pick the
-native versions:
+XAUI needs React 18 or 19, React Native 0.70+ and Reanimated 4, which runs only on the New
+Architecture — enable it before installing. On Expo, let Expo pick the native versions:
 
 ```bash
 npx expo install react-native-reanimated react-native-worklets \

@@ -28,12 +28,7 @@ npm i @xaui/hybrid react-native-web react-dom react-native-reanimated react-nati
 ```
 
 Add `react-native-svg` for charts and icons and `react-native-gesture-handler` for
-draggable components. Emotion and Framer Motion are needed only by the few web-only
-components:
-
-```bash
-npm i @emotion/react @emotion/styled framer-motion
-```
+draggable components.
 
 ## Bundler setup
 
