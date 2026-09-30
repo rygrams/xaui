@@ -189,6 +189,7 @@ words joined with `-`: GA4 is case-sensitive, and `LinkedIn` would be a second s
 | Reddit     | `reddit`     | `social`     | Organic Social | `post`, `comment`, or the subreddit (`r-reactnative`) |
 | dev.to     | `devto`      | `referral`   | Referral       | `article`, `profile`                                  |
 | GitHub     | `github`     | `referral`   | Referral       | `readme`, `release-notes`, `discussion`, `profile`    |
+| npm        | `npm`        | `referral`   | Referral       | `readme-native`, `readme-hybrid`                      |
 | Newsletter | `newsletter` | `email`      | Email          | `header`, `cta`, `footer`                             |
 
 `utm_campaign` names what is promoted, `utm_content` where the link sits:
@@ -207,8 +208,9 @@ https://ui.xtartapp.com/?utm_source=youtube&utm_medium=video&utm_campaign=releas
 https://ui.xtartapp.com/?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=readme
 ```
 
-The package README is also npm's page, so a `utm_source=github` link in it counts npm
-visitors as GitHub ones until the package gets a README of its own tagged `npm`.
+The root README is GitHub's page and tags its links `github`. `@xaui/native` and
+`@xaui/hybrid` ship their own README, which is their npm page, and tag theirs `npm` — so a
+link copied from one README to the other changes its `utm_source` and `utm_content`.
 
 ## Branch, commit, PR
 

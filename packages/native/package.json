@@ -1,15 +1,23 @@
 {
   "name": "@xaui/native",
-  "version": "0.9.1",
-  "description": "Composition-first React Native UI components with native animations powered by Reanimated",
+  "version": "0.9.2",
+  "description": "Composable React Native UI components for Expo and React Native: compound slots, Reanimated animations, and light/dark theming derived in OKLab",
   "keywords": [
     "react-native",
-    "mobile",
-    "native",
-    "ui",
-    "components",
+    "react-native-ui",
+    "react-native-components",
+    "expo",
+    "ui-library",
+    "component-library",
+    "design-system",
+    "compound-components",
     "reanimated",
     "animations",
+    "theme",
+    "dark-mode",
+    "ios",
+    "android",
+    "typescript",
     "xaui"
   ],
   "license": "MIT",
@@ -808,6 +816,9 @@
     "directory": "packages/native"
   },
   "homepage": "https://ui.xtartapp.com/docs/introduction",
+  "bugs": {
+    "url": "https://github.com/rygrams/xaui/issues"
+  },
   "publishConfig": {
     "access": "public"
   },
