@@ -1,5 +1,12 @@
 # @xaui/native
 
+## 0.9.4
+
+### Patch Changes
+
+- ded7cc4: The npm page mounts `Scaffold` next to the provider in its setup example, so the app's
+  status bar and navigator header follow the theme from the first screen.
+
 ## 0.9.3
 
 ### Patch Changes
