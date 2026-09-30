@@ -1,7 +1,7 @@
 import { forwardRef, useCallback, useMemo, useRef } from 'react'
 import { Pressable, Text, View } from 'react-native'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler'
-import { runOnJS } from 'react-native-reanimated'
+import { scheduleOnRN } from 'react-native-worklets'
 import { useStyleProps } from '../../system/style-props'
 import {
   angleAtPoint,
@@ -222,10 +222,19 @@ export const TimePickerClock = forwardRef<View, TimePickerViewProps>(
           // and a clock face is chosen by where the finger lands as much as by where it
           // travels.
           .minDistance(0)
-          .onStart(event => runOnJS(valueAt)(event.x, event.y, false))
-          .onUpdate(event => runOnJS(valueAt)(event.x, event.y, false))
+          .onStart(event => {
+            'worklet'
+            scheduleOnRN(valueAt, event.x, event.y, false)
+          })
+          .onUpdate(event => {
+            'worklet'
+            scheduleOnRN(valueAt, event.x, event.y, false)
+          })
           // Only here does the choice settle. A tap is this pair with nothing in between.
-          .onEnd(event => runOnJS(valueAt)(event.x, event.y, true)),
+          .onEnd(event => {
+            'worklet'
+            scheduleOnRN(valueAt, event.x, event.y, true)
+          }),
       [isDisabled, valueAt]
     )
 

@@ -194,8 +194,9 @@ const AnimatedFeedback = forwardRef<View, BranchProps>(function AnimatedFeedback
    * The directive is the load-bearing one: our CJS output calls the hook as
    * `_reactNativeReanimated.useAnimatedStyle(...)`, and the Babel plugin recognises the
    * bare identifier, not the namespace member — so without it the function reaches the UI
-   * runtime unserialized and Reanimated aborts the process. The build runs the plugin over
-   * `dist` (`tooling/workletize/`), and the directive is what it keys off there.
+   * runtime unserialized and Reanimated aborts the process. `dist` ships the directive
+   * uncompiled, for the app's own plugin to compile against its own runtime version, and
+   * `pnpm worklets:check` fails CI on any worklet that relies on the plugin guessing.
    */
   const animatedStyle = useAnimatedStyle(() => {
     'worklet'

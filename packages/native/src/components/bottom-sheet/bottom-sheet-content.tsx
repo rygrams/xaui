@@ -3,11 +3,11 @@ import { StyleSheet } from 'react-native'
 import type { LayoutChangeEvent } from 'react-native'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 import Animated, {
-  runOnJS,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated'
+import { scheduleOnRN } from 'react-native-worklets'
 import { Portal } from '../../system/portal'
 import { useStyleProps } from '../../system/style-props'
 import {
@@ -151,12 +151,14 @@ export function BottomSheetContent({
   const pan = Gesture.Pan()
     .enabled(isSwipeable)
     .onUpdate(event => {
+      'worklet'
       // Never above the full height: a sheet at the top has nowhere to go, whether it got
       // there by opening or by being pulled open.
       offset.set(Math.max(restingOffset + event.translationY, 0))
     })
     .onEnd(event => {
-      runOnJS(release)(event.translationY, event.velocityY)
+      'worklet'
+      scheduleOnRN(release, event.translationY, event.velocityY)
     })
 
   const slide = useAnimatedStyle(() => {

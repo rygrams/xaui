@@ -18,6 +18,7 @@
     "tokens:generate": "tsx tooling/tokens/generate.ts",
     "tokens:check": "tsx tooling/tokens/generate.ts --check",
     "pack:check": "tsx tooling/pack-check/check.ts",
+    "worklets:check": "node tooling/worklets/check.mjs",
     "perf:button": "vitest run --config tooling/perf/vitest.config.ts",
     "xaui-codemod": "tsx tooling/codemods/cli.ts",
     "changeset": "changeset",

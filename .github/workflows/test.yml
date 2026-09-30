@@ -63,6 +63,11 @@ jobs:
       - name: '@xaui/native resolves once, and every subpath ships'
         run: pnpm pack:check
 
+      # Issue #434: worklets ship as `'worklet'` directives for the app's own plugin to
+      # compile. A worklet compiled here is pinned to our react-native-worklets version.
+      - name: 'Every worklet is declared, and dist ships them uncompiled'
+        run: pnpm worklets:check
+
   format:
     name: Prettier Check
     runs-on: ubuntu-latest

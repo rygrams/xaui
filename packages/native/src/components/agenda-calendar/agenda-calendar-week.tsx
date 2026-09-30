@@ -2,11 +2,11 @@ import { forwardRef, useCallback } from 'react'
 import { View } from 'react-native'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 import Animated, {
-  runOnJS,
   useAnimatedStyle,
   useSharedValue,
   withSpring,
 } from 'react-native-reanimated'
+import { scheduleOnRN } from 'react-native-worklets'
 import { useStyleProps } from '../../system/style-props'
 import { AgendaCalendarDay } from './agenda-calendar-day'
 import { useAgendaCalendar } from './agenda-calendar.context'
@@ -58,20 +58,23 @@ export const AgendaCalendarWeek = forwardRef<View, AgendaCalendarWeekProps>(
       .activeOffsetX([-12, 12])
       .failOffsetY([-16, 16])
       .onUpdate(event => {
+        'worklet'
         drag.set(event.translationX * DRAG_FOLLOW)
       })
       .onEnd(event => {
+        'worklet'
         const forward =
           event.translationX <= -SWIPE_DISTANCE || event.velocityX <= -SWIPE_VELOCITY
         const backward =
           event.translationX >= SWIPE_DISTANCE || event.velocityX >= SWIPE_VELOCITY
 
-        if (forward) runOnJS(page)(1)
-        else if (backward) runOnJS(page)(-1)
+        if (forward) scheduleOnRN(page, 1)
+        else if (backward) scheduleOnRN(page, -1)
 
         drag.set(withSpring(0, SPRING))
       })
       .onFinalize(() => {
+        'worklet'
         drag.set(withSpring(0, SPRING))
       })
 

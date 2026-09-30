@@ -18,6 +18,11 @@ import babel from '@babel/core'
  * Without it every animation in the package is a hard crash — `Abort trap: 6` inside
  * `WorkletRuntime::runSync`, with no JavaScript error to read.
  *
+ * **Only the frozen `@xaui/native-legacy` still runs this.** The pass stamps every worklet
+ * with the plugin version in our lockfile, and the runtime rejects any other — issue #434.
+ * `@xaui/native` ships its `'worklet'` directives uncompiled instead, and
+ * `tooling/worklets/check.mjs` holds it to that. Do not add this pass back to its build.
+ *
  *     node tooling/workletize/workletize.mjs packages/native/dist
  */
 

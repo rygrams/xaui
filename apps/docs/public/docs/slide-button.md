@@ -184,7 +184,7 @@ layout, and the travel is inset by the thumb and its margin at each end, exactly
 `Slider`'s rail insets the knob.
 
 Everything the finger does stays on the UI thread: the thumb's offset is a shared value the
-pan writes and the fill and the handle both read. The single hop to JS is `runOnJS` on
+pan writes and the fill and the handle both read. The single hop to JS is `scheduleOnRN` on
 release, once, when the slide has passed the threshold — the confirm is React state and a
 callback, and neither belongs on a worklet.
 

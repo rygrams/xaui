@@ -181,12 +181,13 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 
 ## Repository debt
 
-| Ref | Task                                                                             | Status |
-| --- | -------------------------------------------------------------------------------- | ------ |
-| D1  | `apps/docs` has no `type-check` script — the CI filter skips it silently         | todo   |
-| D2  | `apps/demo` has neither a `type-check` script nor a CI filter                    | todo   |
-| D3  | `turbo.json` `test` outputs are wrong — every run warns                          | todo   |
-| D4  | `apps/docs/public/docs/` still documents the dropped legacy `view/` names        | todo   |
-| D5  | `@xaui/native` types came from one dts worker that OOM'd — now `tsc`             | done   |
-| D6  | Constrain web preview screens so their React Native `ScrollView` scrolls         | done   |
-| D7  | `.github/copilot-instructions.md` still describes `@xaui/core` and `@xaui/icons` | todo   |
+| Ref | Task                                                                                                          | Status |
+| --- | ------------------------------------------------------------------------------------------------------------- | ------ |
+| D1  | `apps/docs` has no `type-check` script — the CI filter skips it silently                                      | todo   |
+| D2  | `apps/demo` has neither a `type-check` script nor a CI filter                                                 | todo   |
+| D3  | `turbo.json` `test` outputs are wrong — every run warns                                                       | todo   |
+| D4  | `apps/docs/public/docs/` still documents the dropped legacy `view/` names                                     | todo   |
+| D5  | `@xaui/native` types came from one dts worker that OOM'd — now `tsc`                                          | done   |
+| D6  | Constrain web preview screens so their React Native `ScrollView` scrolls                                      | done   |
+| D7  | `.github/copilot-instructions.md` still describes `@xaui/core` and `@xaui/icons`                              | todo   |
+| D8  | #434 — `dist` shipped worklets precompiled for Worklets 0.7.4 only; now raw directives, `pnpm worklets:check` | done   |

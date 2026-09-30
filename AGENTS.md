@@ -88,6 +88,7 @@ The rules behind each line live in `xaui-component`, `xaui-system` and `xaui-the
 pnpm dev | build | test | lint | type-check | format
 pnpm tokens:generate    # rewrite tokens.gen.ts from tooling/tokens/source.ts
 pnpm tokens:check       # regenerate, diff, key parity, contrast — CI runs this
+pnpm worklets:check     # every worklet declares 'worklet', dist ships them uncompiled (after a build)
 
 pnpm --filter @xaui/native <script>
 pnpm --filter @xaui/native exec vitest run src/__tests__/utils/colors.test.ts

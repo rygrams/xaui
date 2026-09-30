@@ -121,7 +121,7 @@ slider can give that the drag has started. Stiff and well damped: a confirmation
 arrive, not wobble.
 
 **The value crosses to the JS thread and the scale does not.** The pan computes the new
-position on the UI thread and hands the value back over `runOnJS`, which is the one hop
+position on the UI thread and hands the value back over `scheduleOnRN`, which is the one hop
 that has to happen — the value is React state. The scale stays where it is.
 
 ## Not here yet

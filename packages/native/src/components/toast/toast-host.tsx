@@ -9,7 +9,6 @@ import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 import Animated, {
   Extrapolation,
   interpolate,
-  runOnJS,
   useAnimatedStyle,
   useDerivedValue,
   useSharedValue,
@@ -17,6 +16,7 @@ import Animated, {
   withSpring,
   withTiming,
 } from 'react-native-reanimated'
+import { scheduleOnRN } from 'react-native-worklets'
 import { Dimensions } from 'react-native'
 import { Portal } from '../../system/portal'
 import { useXAUITheme } from '../../theme/theme-hooks'
@@ -209,12 +209,18 @@ function ToastStackEntry({
     maxVisible
   )
 
-  const stackY = useDerivedValue(
-    () => withTiming(translateY, STACK_TIMING),
-    [translateY]
-  )
-  const stackScale = useDerivedValue(() => withTiming(scale, STACK_TIMING), [scale])
-  const fade = useDerivedValue(() => withTiming(opacity, STACK_TIMING), [opacity])
+  const stackY = useDerivedValue(() => {
+    'worklet'
+    return withTiming(translateY, STACK_TIMING)
+  }, [translateY])
+  const stackScale = useDerivedValue(() => {
+    'worklet'
+    return withTiming(scale, STACK_TIMING)
+  }, [scale])
+  const fade = useDerivedValue(() => {
+    'worklet'
+    return withTiming(opacity, STACK_TIMING)
+  }, [opacity])
 
   const drag = useSharedValue(0)
   const press = useSharedValue(1)
@@ -228,8 +234,8 @@ function ToastStackEntry({
 
   // **Declared before the gesture**, not after. A worklet captures what it names when its
   // closure is built, and a `const` declared further down is still in its dead zone then —
-  // `runOnJS(undefined)` is what reaches the UI thread, and it fails there with
-  // `__remoteFunction of undefined` rather than at the line that got the order wrong.
+  // `scheduleOnRN(undefined)` is what reaches the UI thread, and it fails there rather than
+  // at the line that got the order wrong.
   //
   // A hard flick is gone sooner than a soft one, and neither before the throw has shown.
   const hideAfterThrow = useCallback(
@@ -245,9 +251,11 @@ function ToastStackEntry({
     // as a glitch rather than as a dismissal.
     .enabled(isSwipeable && depth === 0)
     .onBegin(() => {
+      'worklet'
       press.set(PRESS_SCALE)
     })
     .onChange(event => {
+      'worklet'
       const towardExit = event.translationY * away
 
       if (towardExit > 0) {
@@ -266,6 +274,7 @@ function ToastStackEntry({
       drag.set(-give * away)
     })
     .onFinalize(event => {
+      'worklet'
       press.set(1)
 
       const towardExit = event.translationY * away > 0
@@ -290,7 +299,7 @@ function ToastStackEntry({
       )
       // After the decay has read as motion, not before: removing the record now would cut
       // the throw off at the frame the finger lifted.
-      runOnJS(hideAfterThrow)(event.velocityY)
+      scheduleOnRN(hideAfterThrow, event.velocityY)
     })
 
   const stacking = useAnimatedStyle(() => {
