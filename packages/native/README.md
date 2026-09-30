@@ -45,22 +45,34 @@ On the React Native Community CLI, install the same packages with `npm i`, run
 
 ## Usage
 
-Mount the provider once, at the app root:
+Mount the provider and the scaffold once, at the app root:
 
 ```tsx
+import { Stack } from 'expo-router'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import { Scaffold } from '@xaui/native/scaffold'
 import { XAUIProvider } from '@xaui/native/theme'
 
-export default function App() {
+export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <XAUIProvider colorMode="system">
-        <YourApp />
+        <Scaffold>
+          <Scaffold.StatusBar />
+          <Scaffold.Navigator>
+            <Stack />
+          </Scaffold.Navigator>
+        </Scaffold>
       </XAUIProvider>
     </GestureHandlerRootView>
   )
 }
 ```
+
+`Scaffold` is the app's chrome: it paints the screen's ground, the status bar and your
+navigator's header from the theme, and follows light and dark mode with it. It dresses the
+navigator you already use — Expo Router, React Navigation, a stack, tabs or a drawer —
+without importing any of them, and routing stays yours. See [Scaffold][scaffold].
 
 Then compose components from their subpaths:
 
@@ -132,6 +144,7 @@ maps the old props to the new ones.
 [getting-started]: https://ui.xtartapp.com/docs/getting-started?utm_source=npm&utm_medium=referral&utm_campaign=evergreen&utm_content=readme-native
 [installation]: https://ui.xtartapp.com/docs/installation?utm_source=npm&utm_medium=referral&utm_campaign=evergreen&utm_content=readme-native
 [components]: https://ui.xtartapp.com/docs/components?utm_source=npm&utm_medium=referral&utm_campaign=evergreen&utm_content=readme-native
+[scaffold]: https://ui.xtartapp.com/docs/components/scaffold?utm_source=npm&utm_medium=referral&utm_campaign=evergreen&utm_content=readme-native
 [theme]: https://ui.xtartapp.com/docs/theme?utm_source=npm&utm_medium=referral&utm_campaign=evergreen&utm_content=readme-native
 [llms]: https://ui.xtartapp.com/docs/llms-txt?utm_source=npm&utm_medium=referral&utm_campaign=evergreen&utm_content=readme-native
 [migration]: https://ui.xtartapp.com/docs/migration?utm_source=npm&utm_medium=referral&utm_campaign=evergreen&utm_content=readme-native
