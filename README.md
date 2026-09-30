@@ -22,22 +22,31 @@ Install the native peers. On Expo, let Expo pick their versions:
 npx expo install react-native-reanimated react-native-worklets react-native-gesture-handler react-native-svg react-native-safe-area-context
 ```
 
-Mount the provider once, at the root of the app:
+Mount the provider and the scaffold once, at the root of the app:
 
 ```tsx
+import { Stack } from 'expo-router'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import { Scaffold } from '@xaui/native/scaffold'
 import { XAUIProvider } from '@xaui/native/theme'
 
-export default function App() {
+export default function RootLayout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <XAUIProvider colorMode="system">
-        <YourApp />
+        <Scaffold>
+          <Scaffold.StatusBar />
+          <Scaffold.Navigator>
+            <Stack />
+          </Scaffold.Navigator>
+        </Scaffold>
       </XAUIProvider>
     </GestureHandlerRootView>
   )
 }
 ```
+
+`Scaffold` is the app's chrome: it paints the screen's ground, the status bar and your navigator's header from the theme, and follows light and dark mode with it. It dresses the navigator you already use — Expo Router, React Navigation, a stack, tabs or a drawer — without importing any of them, and routing stays yours. See [Scaffold][scaffold].
 
 Import each component from its own path and compose it from slots:
 
@@ -129,6 +138,7 @@ Read [CONTRIBUTING.md](./CONTRIBUTING.md) before opening a pull request. Issues 
 
 [installation]: https://ui.xtartapp.com/docs/installation?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=readme
 [components]: https://ui.xtartapp.com/docs/components?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=readme
+[scaffold]: https://ui.xtartapp.com/docs/components/scaffold?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=readme
 [theme]: https://ui.xtartapp.com/docs/theme?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=readme
 [llms]: https://ui.xtartapp.com/docs/llms-txt?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=readme
 [migration]: https://ui.xtartapp.com/docs/migration?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=readme
