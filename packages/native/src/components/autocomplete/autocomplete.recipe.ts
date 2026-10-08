@@ -44,12 +44,14 @@ const BOX = {
   marginBottom: 2,
 } as const
 
+/**
+ * The size only, never a line height: the search box is a single-line `TextInput`, and on
+ * iOS one lays the extra leading out above the glyphs, so the text sinks to the bottom of
+ * the box. The box's own height centres it, as it does the `TextField`'s field.
+ */
 function sizeAxis(step: SizeStep) {
   return (theme: XAUITheme): SlotStyles<AutocompleteSlot> => ({
-    search: {
-      fontSize: theme.fontSizes[step.value],
-      lineHeight: theme.lineHeights[step.value],
-    },
+    search: { fontSize: theme.fontSizes[step.value] },
   })
 }
 
