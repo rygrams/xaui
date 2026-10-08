@@ -1,6 +1,6 @@
-import { forwardRef, useCallback } from 'react'
+import { forwardRef, useCallback, useMemo } from 'react'
 import { StyleSheet, TextInput } from 'react-native'
-import type { TextInputProps } from 'react-native'
+import type { TextInputProps, TextStyle } from 'react-native'
 import { useStyleProps } from '../../system/style-props'
 import { useAutocomplete } from '../autocomplete'
 import type { ComboboxInputProps } from './combobox.type'
@@ -54,6 +54,16 @@ export const ComboboxInput = forwardRef<TextInput, ComboboxInputProps>(
       descriptionId,
     } = useAutocomplete()
 
+    // The trigger's text style, less its line height. On iOS a single-line field lays the
+    // extra leading out *above* the glyphs, so a 24-point line under 16-point type sits the
+    // text at the bottom of its box, below the chevron. The `TextField`'s single-line
+    // field carries no line height either.
+    const fieldStyle = useMemo(() => {
+      const { lineHeight: _lineHeight, ...type } =
+        StyleSheet.flatten<TextStyle>(valueStyle)
+      return type
+    }, [valueStyle])
+
     const handleChangeText = useCallback(
       (next: string) => {
         setQuery(next)
@@ -89,11 +99,11 @@ export const ComboboxInput = forwardRef<TextInput, ComboboxInputProps>(
         aria-labelledby={labelId}
         aria-describedby={descriptionId}
         aria-invalid={isInvalid || undefined}
-        // The field takes the trigger's own text style: it stands where the chosen value
-        // stands in a `Select`, and a query that read smaller than the answer it replaces
-        // would make the control change size as you typed.
+        // The field takes the trigger's own type: it stands where the chosen value stands
+        // in a `Select`, and a query that read smaller than the answer it replaces would
+        // make the control change size as you typed.
         {...rest}
-        style={[valueStyle, sheet.input, styleProps, style]}
+        style={[fieldStyle, sheet.input, styleProps, style]}
       />
     )
   }
