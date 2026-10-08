@@ -1,6 +1,6 @@
 {
   "name": "@xaui/native",
-  "version": "0.9.4",
+  "version": "0.9.5",
   "description": "Composable React Native UI components for Expo and React Native: compound slots, Reanimated animations, and light/dark theming derived in OKLab",
   "keywords": [
     "react-native",
