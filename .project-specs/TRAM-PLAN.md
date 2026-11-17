@@ -76,7 +76,8 @@ Ce que `XAUITheme` ne sait pas porter vit dans `theme/tram-tokens.ts`, **écrit 
 en données pures** :
 
 - `accents` — les 20 couleurs Windows Phone 8, par nom.
-- `onAccent(hex)` — blanc ou noir selon la luminance ; fonction pure, testée.
+- `onAccent(hex)` — blanc ou noir selon la luminance ; fonction pure, testée. Le seuil est
+  0,4 et non le 0,45 de `TRAM-DESIGN.md` : l'ambre est à 0,447 et passerait en blanc.
 - `type` — l'échelle Tram (`caption` 13 → `hero` 120) avec sa graisse par rôle.
 - `tileColumns` — 4 / 6 / 8.
 - `touchTarget` — 48.
