@@ -193,6 +193,8 @@ export default function RootLayout() {
                 name="toggle-button"
                 options={{ title: 'ToggleButton (v1)' }}
               />
+              {/* `@xaui/tram` has its own provider, ground and header — see `tram/_layout`. */}
+              <Stack.Screen name="tram" options={{ headerShown: false }} />
               <Stack.Screen
                 name="typography"
                 options={{ title: 'Typography (v1)' }}

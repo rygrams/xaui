@@ -5,7 +5,9 @@ Instructions for every agent working in this monorepo. `CLAUDE.md` only points h
 XAUI is a composition-first UI library for React Native, with one public API and one
 semantic token system. `@xaui/native` is the library; `@xaui/hybrid` is that same library
 re-exported for the web over `react-native-web`, so the web gets the components themselves
-rather than a second implementation of them. Animations run on the UI thread with
+rather than a second implementation of them. `@xaui/tram` is a third library, still being
+built: roughly the same components, redrawn in the modernised Metro language on the same
+engine. Animations run on the UI thread with
 Reanimated. TypeScript, Turborepo + pnpm, Vitest, tsup, Changesets, Next.js docs, Expo
 demo.
 
@@ -13,6 +15,9 @@ demo.
 
 - The library follows the **v1 API** of `.project-specs/XAUI-V1-PLAN.md`. The skills encode
   it by task type — **load the one that owns the task first.**
+- `@xaui/tram` follows `.project-specs/TRAM-PLAN.md` for the rules and phasing, and
+  `.project-specs/TRAM-DESIGN.md` for the drawing. Load `xaui-tram` before touching
+  `packages/tram`.
 - Task status: `.project-specs/ROADMAP.md`. One line per task: ref, title, status. Update it
   when a task lands, in the same commit. It is the only place progress is recorded.
 
@@ -28,6 +33,7 @@ Source of truth in `.agents/skills/<name>/SKILL.md`, copied — never symlinked 
 | `xaui-system`           | Recipe engine, style cache, slots, `PressableFeedback`, `Portal`, `Icon`   |
 | `xaui-theme`            | Tokens, OKLab derivation, `createTheme`, provider, generation              |
 | `xaui-hybrid`           | The `react-native-web` re-export and the web-only additions                |
+| `xaui-tram`             | `packages/tram` — the Metro-styled components, Tram theme and motion       |
 | `xaui-docs`             | Docs pages, demo screens, generated tables                                 |
 | `xaui-legacy-migration` | The frozen tree, `core-shim`, codemods                                     |
 | `xaui-review`           | Run on the diff before every PR — v1 rules and clean code                  |
@@ -65,6 +71,12 @@ The rules behind each line live in `xaui-component`, `xaui-system` and `xaui-the
   `react-native-web`: the same modules, the same props, slots, hooks, defaults and subpaths
   — not a mirror of them. `*-legacy` are the frozen trees. Apps: `docs` (Next.js), `demo`
   (Expo).
+- `@xaui/tram` (`packages/tram`) depends on `@xaui/native` too, but for the **engine
+  only** — `system`, `theme`, the root hooks. Its components are written in
+  `packages/tram`, with the same names, slots and props as their Native counterparts and a
+  Metro drawing; none wraps or re-exports a Native component. It is `"private": true`,
+  unpublished, and has no docs page, no README and no Hybrid re-export until a task asks
+  for them. Demo screens live in `apps/demo/app/tram/`.
 - `packages/<pkg>/src` has six top-level folders — `theme/`, `provider/`, `system/`,
   `hooks/`, `utils/`, `types/` — plus `components/` and a mirrored `__tests__/`.
   **`system/` is public and follows semver; `utils/` is private.** A file used by one
@@ -140,6 +152,8 @@ Prettier: no semicolons, single quotes, print width 85, 2 spaces, ES5 trailing c
 - A Hybrid re-implementation of a component `@xaui/native` already exports.
 - A hand-edited `.gen.ts`.
 - An empty file created to satisfy a convention.
+- A Tram component that wraps, re-exports or copies a Native one; a shadow, a blur or a
+  radius above 2 in `packages/tram`.
 
 ## Packages
 
@@ -157,6 +171,15 @@ Prettier: no semicolons, single quotes, print width 85, 2 spaces, ES5 trailing c
   does not authorize a `1.0.0` Hybrid release; that requires a separate explicit task.
 - `gesture-handler`, `svg` and `safe-area-context` are optional peers, imported only by the
   components that use them.
+
+### `@xaui/tram`
+
+- Depends on `@xaui/native` (`workspace:^`), imported through its entrypoints only —
+  `@xaui/native/system`, `@xaui/native/theme`, `@xaui/native`. Same peers as Native.
+- `"private": true` and listed in `ignore` (`.changeset/config.json`) until its release
+  task: nothing publishes it, a Native release does not bump it, and a Tram-only change
+  carries no changeset. Never lift either as part of another change.
+- No haptics library, no bundled font: the app wires `expo-haptics` and loads Selawik.
 
 ## Docs analytics
 

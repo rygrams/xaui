@@ -8,7 +8,8 @@ remaining action belongs to a workflow rather than to a commit. A task can also 
 `dropped` — decided against rather than deferred, and kept on the list so the decision is
 recorded rather than rediscovered.
 
-`P*` refs follow the phases of the plan. `D*` refs are repository debt — they belong to no
+`P*` refs follow the phases of the plan. `T*` refs are `@xaui/tram`, whose plan is
+`TRAM-PLAN.md`. `D*` refs are repository debt — they belong to no
 phase and block nothing, but each one is a place where the repo lies about itself.
 
 ## Phases
@@ -179,6 +180,25 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | P6.5 | Hybrid web-only components — Emotion Styled + Framer Motion, only where the audit found a gap | todo |
 | P6.6 | Hybrid parity milestone — every Native subpath resolves from `@xaui/hybrid`, publish `0.9.x`, no `1.0.0` | todo |
 | P7 | Delete `native-legacy` — not before the P5 parity milestone | todo |
+
+## Tram
+
+| Ref  | Task                                                                                                               | Status |
+| ---- | ------------------------------------------------------------------------------------------------------------------ | ------ |
+| T0   | Socle — `@xaui/tram`, private, on the `@xaui/native` engine                                                        | done   |
+| T0.0 | Agent instructions — `TRAM-PLAN.md`, `TRAM-DESIGN.md`, the `xaui-tram` skill                                       | done   |
+| T0.1 | Scaffold `packages/tram` — `package.json` (private), tsup, tsconfig, ESLint with R13, Vitest `passWithNoTests`     | done   |
+| T0.2 | `theme/` — `tram-tokens.ts` (20 accents, type scale, tile columns), `onAccent`, `tramTheme`, `createTramTheme`     | done   |
+| T0.3 | `TramProvider`                                                                                                     | done   |
+| T0.4 | `motion/` — eases, durations, springs, `useTramMotion` with reduced motion                                         | done   |
+| T0.5 | Tram section in `apps/demo` — `app/tram/`, its provider, dark and light                                            | done   |
+| T1   | The reference `Button` and the API review                                                                          | todo   |
+| T1.1 | The reference `Button` — filled, outline, text-only, inverted press, scale 0.96                                    | todo   |
+| T1.2 | API review — blocking: `variant` mapping, sizes, pressed state, text case, light-mode contrast (`TRAM-PLAN.md` §8) | todo   |
+| T2   | The Metro controls (`TRAM-PLAN.md` §5, family A) — one `T2.n` line per component as it starts                      | todo   |
+| T3   | The signature — `Tile`, `Pivot`, `Panorama`, `AppBar`, `JumpList`, tilt, turnstile, continuum, swivel              | todo   |
+| T4   | Parity — the remaining Native components drawn from the Tram tokens, one `T4.n` line each                          | todo   |
+| T5   | Docs, README, `llms.txt`, lift `private`, first publish — only on an explicit task                                 | todo   |
 
 ## Repository debt
 
