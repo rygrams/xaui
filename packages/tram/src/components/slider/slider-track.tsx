@@ -38,7 +38,7 @@ const NONE = -1
  * imported here and nowhere else. The thumb is placed on the UI thread, and React hears
  * of it once per step crossed. A touch that moves across the track stays the scroll's.
  *
- * `style` and the style props reach the box; the line is drawn in it, in a soft grey.
+ * `style` and the style props reach the box; the line is drawn in it, in the page's ink.
  */
 export const SliderTrack = forwardRef<View, SliderTrackProps>(function SliderTrack(
   { children, style, onLayout, ...props },

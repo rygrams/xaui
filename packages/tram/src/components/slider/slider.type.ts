@@ -42,8 +42,8 @@ type SliderOwnProps = {
    */
   accent?: TramAccentName
   /**
-   * A raw `#RRGGBB` tint, never a token: the colour of the filled part. The line stays
-   * the soft grey and the thumb the page's ink.
+   * A raw `#RRGGBB` tint, never a token: the colour of the filled part. The line and the
+   * thumb stay the page's ink.
    */
   color?: string
   /**
