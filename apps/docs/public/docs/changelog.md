@@ -1,5 +1,13 @@
 # @xaui/native
 
+## 0.9.6
+
+### Patch Changes
+
+- e136098: `@xaui/native/system` now exports `containsElementOfType`, `warnDev` and
+  `useAnimationDisabled` — what a component root needs to auto-insert a slot, to warn in
+  development, and to honour an ancestor's `animation="disable-all"`.
+
 ## 0.9.5
 
 ### Patch Changes

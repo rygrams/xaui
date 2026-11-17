@@ -45,6 +45,8 @@ export default function TramLayout() {
             <Stack.Screen name="radio" options={{ title: 'RADIO' }} />
             <Stack.Screen name="slider" options={{ title: 'SLIDER' }} />
             <Stack.Screen name="progress-bar" options={{ title: 'PROGRESS BAR' }} />
+            <Stack.Screen name="text-field" options={{ title: 'TEXT FIELD' }} />
+            <Stack.Screen name="text-area" options={{ title: 'TEXT AREA' }} />
             <Stack.Screen name="typography" options={{ title: 'TYPOGRAPHY' }} />
           </Stack>
         </Scaffold.Navigator>
