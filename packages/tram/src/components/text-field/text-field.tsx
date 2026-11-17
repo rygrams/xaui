@@ -10,6 +10,11 @@ import { DEFAULT_SIZE, textFieldRecipe } from './text-field.recipe'
 import type { TextFieldProps } from './text-field.type'
 
 /** `ColorValue` also covers the platform's opaque colours, which cannot be mixed. */
+/** `DimensionValue` also covers a percentage and `auto`: the recipe only writes points. */
+function pointsOf(value: unknown): number {
+  return typeof value === 'number' ? value : 0
+}
+
 function colorOf(
   style: TextStyle,
   key: 'color' | 'borderColor'
@@ -88,11 +93,21 @@ export const TextFieldRoot = forwardRef<View, TextFieldProps>(function TextField
     const field = StyleSheet.flatten<TextStyle>(styles.field)
     const focus = StyleSheet.flatten<TextStyle>(styles.focus)
     const placeholder = StyleSheet.flatten<TextStyle>(styles.placeholder)
+    const textArea = StyleSheet.flatten<TextStyle>(styles.textArea)
     const atRest = colorOf(field, 'borderColor') ?? theme.colors.fieldBorder
 
     return {
       labelStyle: styles.label,
       fieldStyle: styles.field,
+      textAreaStyle: styles.textArea,
+      textArea: {
+        lineHeight: textArea.lineHeight ?? 0,
+        // What the box adds around the lines: its padding and its line, top and bottom.
+        chrome:
+          pointsOf(textArea.paddingTop) +
+          pointsOf(textArea.paddingBottom) +
+          pointsOf(field.borderWidth) * 2,
+      },
       descriptionStyle: styles.description,
       errorStyle: styles.error,
       placeholderTextColor: colorOf(placeholder, 'color'),
