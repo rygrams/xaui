@@ -23,8 +23,8 @@ import type { SliderProps, SliderValue } from './slider.type'
 const NONE = -1
 
 /**
- * A value chosen along a line — the Native `Slider`'s API, drawn in Metro: a thin line of
- * the page's ink, filled with the accent up to a block thumb, the `Switch`'s.
+ * A value chosen along a line — the Native `Slider`'s API, drawn in Metro: a line of
+ * soft grey, filled with the accent up to a block thumb of ink, the `Switch`'s.
  *
  * ```tsx
  * <Slider defaultValue={40} onValueCommit={save}>

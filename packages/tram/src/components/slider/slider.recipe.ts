@@ -15,7 +15,8 @@ const DRAWING = 'line'
 
 /**
  * Only the filled part is the variant's colour, so only it follows `accent` and `color`.
- * The line and the thumb are the page's ink in every accent, and are named in `base`.
+ * The line is the soft grey and the thumb the page's ink in every accent: both are named
+ * in `base`.
  */
 const VARIANT_TOKENS: Record<typeof DRAWING, VariantTokens> = {
   [DRAWING]: { bgSelected: 'accent' },
@@ -38,22 +39,22 @@ type SizeStep = {
 
 /**
  * The Metro slider, on the `Switch`'s scale: the thumb is the switch's, size for size,
- * and the line is as thick as the switch's. Points, not spacing steps.
+ * over a line as thick as the `ProgressBar`'s bar (8 / 12 / 16). Points, not spacing steps.
  *
  * `sm` and `md` stand under the 48 touch target, which the track's gesture makes up with
  * its `hitSlop`; `lg` is 48 across on its own.
  */
 export const SLIDER_GEOMETRY: Record<TramSize, SizeStep> = {
-  sm: { rail: 2, cut: 2, thumbLength: 12, thumbBreadth: 26, type: 'body', gap: 3 },
+  sm: { rail: 8, cut: 2, thumbLength: 12, thumbBreadth: 26, type: 'body', gap: 3 },
   md: {
-    rail: 2,
+    rail: 12,
     cut: 2,
     thumbLength: 16,
     thumbBreadth: 34,
     type: 'subtitle',
     gap: 4,
   },
-  lg: { rail: 3, cut: 3, thumbLength: 22, thumbBreadth: 48, type: 'title', gap: 5 },
+  lg: { rail: 16, cut: 3, thumbLength: 22, thumbBreadth: 48, type: 'title', gap: 5 },
 }
 
 /** How far a vertical track runs when the caller gives it no height of its own. */
@@ -148,9 +149,11 @@ export const sliderRecipe = createRecipe({
 
     return {
       output: { color: theme.colors.foreground },
+      // The room left to go, in the soft grey of the `ProgressBar`'s bar: a line this
+      // thick drawn in ink would swallow the thumb, which is ink.
       rail: {
         position: 'absolute',
-        backgroundColor: theme.colors.foreground,
+        backgroundColor: theme.colors.default,
         borderRadius,
       },
       fill: { position: 'absolute', borderRadius },
@@ -196,7 +199,6 @@ export const sliderRecipe = createRecipe({
     disabled: theme => ({
       root: { opacity: theme.opacity.disabled },
       output: { color: theme.colors.muted },
-      rail: { backgroundColor: theme.colors.muted },
       fill: { backgroundColor: theme.colors.muted },
       block: { backgroundColor: theme.colors.muted },
     }),
