@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import * as Haptics from 'expo-haptics'
 import { Stack } from 'expo-router'
 import { Scaffold } from '@xaui/native/scaffold'
 import { useColorMode } from '@xaui/native/theme'
@@ -50,10 +49,14 @@ export default function TramLayout() {
 /**
  * The app's side of Tram's haptics: the lightest impact iOS has. At module level, so the
  * provider is handed the same function on every render.
+ *
+ * Loaded on demand and allowed to fail: a binary built before `expo-haptics` was added
+ * has no native module to load, and the web and the simulator have nothing to vibrate.
  */
 function lightTap() {
-  // Web and the simulator have nothing to vibrate; a rejection there is not an error.
-  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {})
+  import('expo-haptics')
+    .then(Haptics => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light))
+    .catch(() => {})
 }
 
 type ModeToggleProps = {
