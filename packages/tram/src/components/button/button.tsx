@@ -18,7 +18,8 @@ import { ButtonLabel } from './button-label'
 import { PressTilt } from './button-press-tilt'
 import { ButtonSpinner } from './button-spinner'
 import { ButtonProvider } from './button.context'
-import { DEFAULT_SIZE, buttonRecipe } from './button.recipe'
+import { accentPaintFor } from './button.paint'
+import { DEFAULT_SIZE, DEFAULT_VARIANT, buttonRecipe } from './button.recipe'
 import type { ButtonProps } from './button.type'
 
 /**
@@ -39,7 +40,7 @@ import type { ButtonProps } from './button.type'
 export const ButtonRoot = forwardRef<View, ButtonProps>(function Button(
   {
     children,
-    variant,
+    variant = DEFAULT_VARIANT,
     size = DEFAULT_SIZE,
     radius,
     accent,
@@ -83,19 +84,32 @@ export const ButtonRoot = forwardRef<View, ButtonProps>(function Button(
   const states = { disabled: isDisabled }
 
   const styles = buttonRecipe.resolve({ theme, selection, states })
-  // A named accent is a tint like any other: the palette is data, not theme tokens.
-  const paint = color ?? (accent ? tramAccents[accent] : undefined)
+  // A named accent is a tint like any other — the palette is data, not theme tokens —
+  // except where it is read rather than filled: there it is the mode's ink. A raw
+  // `color` is the caller's word and is never corrected.
+  const named =
+    accent && !color
+      ? accentPaintFor(tramAccents[accent], variant, theme.colors.background)
+      : undefined
+  const paint = color ?? named?.tint
   // Uncached: a raw tint takes arbitrary values and must stay out of the cache key.
   const tint = paint
     ? buttonRecipe.tint({ theme, color: paint, selection, states })
     : undefined
+  // A disabled label is grey whatever the accent was.
+  const labelInk = isDisabled ? undefined : named?.label
 
   const context = useMemo(() => {
-    const icon = StyleSheet.flatten<TextStyle>([styles.icon, tint?.icon])
+    const ink = labelInk ? { color: labelInk } : undefined
+    const icon = StyleSheet.flatten<TextStyle>([styles.icon, tint?.icon, ink])
 
     return {
-      labelStyle: tint ? [styles.label, tint.label] : styles.label,
-      spinnerStyle: tint ? [styles.spinner, tint.spinner] : styles.spinner,
+      labelStyle: [styles.label, tint?.label, ink],
+      spinnerStyle: [
+        styles.spinner,
+        tint?.spinner,
+        labelInk ? { borderColor: labelInk } : undefined,
+      ],
       icon: {
         size: icon.fontSize,
         color: typeof icon.color === 'string' ? icon.color : undefined,
@@ -103,7 +117,7 @@ export const ButtonRoot = forwardRef<View, ButtonProps>(function Button(
       isDisabled,
       isLoading,
     }
-  }, [styles, tint, isDisabled, isLoading])
+  }, [styles, tint, labelInk, isDisabled, isLoading])
 
   // Most general to most specific: the cached recipe, the tint, the style props, `style`.
   const rootStyle = [

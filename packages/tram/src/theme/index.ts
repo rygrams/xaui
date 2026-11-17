@@ -1,3 +1,4 @@
+export { accentInk, accentSoftInk } from './accent-ink'
 export { createTramTheme, tramTheme } from './create-tram-theme'
 export { onAccent } from './on-accent'
 export { useTramHaptic } from './tram-haptics'
@@ -17,4 +18,5 @@ export type {
   TramFontWeight,
   TramSize,
   TramTypeRole,
+  TramTypeStep,
 } from './tram-tokens'

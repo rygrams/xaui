@@ -1,7 +1,5 @@
 import { useState } from 'react'
-import type { ReactNode } from 'react'
-import { Pressable, ScrollView, Text, View } from 'react-native'
-import type { TextStyle } from 'react-native'
+import { Pressable, ScrollView, View } from 'react-native'
 import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated'
 import { XAUIProvider, useColorMode, useXAUITheme } from '@xaui/native/theme'
 import type { XAUIColors } from '@xaui/native/theme'
@@ -13,7 +11,9 @@ import {
   tramAccents,
   tramType,
 } from '@xaui/tram/theme'
-import type { TramAccentName, TramFontWeight, TramTypeRole } from '@xaui/tram/theme'
+import type { TramAccentName, TramTypeRole } from '@xaui/tram/theme'
+import { Typography } from '@xaui/tram/typography'
+import { TramSection } from '../../components/tram-section'
 
 const ACCENT_NAMES = Object.keys(tramAccents) as TramAccentName[]
 
@@ -37,16 +37,6 @@ const GROUND: (keyof XAUIColors)[] = [
 const TYPE_ROLES = Object.keys(tramType) as TramTypeRole[]
 
 /**
- * Until `Typography` resolves a weight name to a Selawik face, the demo approximates:
- * SemiLight sits at 350, which `fontWeight` cannot say.
- */
-const WEIGHTS: Record<TramFontWeight, TextStyle['fontWeight']> = {
-  light: '300',
-  semilight: '300',
-  regular: '400',
-}
-
-/**
  * The verification screen for the Tram socle — the theme, its tokens and the motion hook.
  * There is no component here yet; what is checked is what every component will read.
  *
@@ -63,7 +53,7 @@ export default function TramThemeScreen() {
       style={{ backgroundColor: theme.colors.background }}
       contentContainerStyle={{ padding: 24, gap: 32, paddingBottom: 96 }}
     >
-      <Section
+      <TramSection
         title="le sol"
         note="Vrai noir et vrai blanc. Aucune ombre, nulle part."
       >
@@ -72,11 +62,11 @@ export default function TramThemeScreen() {
             <Swatch key={token} color={theme.colors[token]} label={token} />
           ))}
         </View>
-      </Section>
+      </TramSection>
 
-      <Section
+      <TramSection
         title="les vingt accents"
-        note="Le texte posé dessus est calculé : noir sur lime, ambre et jaune."
+        note="Le texte posé dessus est calculé : noir sur lime, ambre et jaune. En trait ou en texte, l'accent devient une encre."
       >
         <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
           {ACCENT_NAMES.map(name => (
@@ -97,9 +87,9 @@ export default function TramThemeScreen() {
                   name === accent ? theme.colors.foreground : tramAccents[name],
               }}
             >
-              <Text style={{ color: onAccent(tramAccents[name]), fontSize: 13 }}>
+              <Typography variant="caption" color={onAccent(tramAccents[name])}>
                 {name}
-              </Text>
+              </Typography>
             </Pressable>
           ))}
         </View>
@@ -111,38 +101,30 @@ export default function TramThemeScreen() {
         >
           <AccentSample />
         </XAUIProvider>
-      </Section>
+      </TramSection>
 
-      <Section
+      <TramSection
         title="l'échelle de texte"
-        note="Selawik n'est pas embarquée : sans elle, la police système."
+        note="Le Typography de Tram. Selawik n'est pas embarquée : sans elle, la police système."
       >
         {TYPE_ROLES.map(role => (
           <View key={role}>
-            <Text
-              numberOfLines={1}
-              style={{
-                color: theme.colors.foreground,
-                fontFamily: theme.fontFamilies.heading,
-                fontSize: tramType[role].fontSize,
-                fontWeight: WEIGHTS[tramType[role].weight],
-              }}
-            >
+            <Typography variant={role} numberOfLines={1}>
               {role}
-            </Text>
-            <Caption>
+            </Typography>
+            <Typography variant="caption" color={theme.colors.muted}>
               {tramType[role].fontSize} · {tramType[role].weight}
-            </Caption>
+            </Typography>
           </View>
         ))}
-      </Section>
+      </TramSection>
 
-      <Section
+      <TramSection
         title="le mouvement"
         note="Un ressort, interruptible — ou un fondu de 150 ms si les animations sont réduites."
       >
         <MotionSample />
-      </Section>
+      </TramSection>
     </ScrollView>
   )
 }
@@ -159,15 +141,21 @@ function AccentSample() {
     borderRadius: theme.radius.lg,
     borderColor: colors.accent,
   }
+  // Read, not filled: the line and the label of the outlined box are the accent as ink.
+  const outlined = { backgroundColor: colors.background, borderColor: colors.link }
 
   return (
     <View style={{ gap: 12 }}>
       <View style={{ flexDirection: 'row', gap: 12 }}>
         <View style={[box, { backgroundColor: colors.accent }]}>
-          <Text style={{ color: colors.accentForeground, fontSize: 19 }}>plein</Text>
+          <Typography variant="subtitle" color={colors.accentForeground}>
+            plein
+          </Typography>
         </View>
-        <View style={[box, { backgroundColor: colors.background }]}>
-          <Text style={{ color: colors.accent, fontSize: 19 }}>contour</Text>
+        <View style={[box, outlined]}>
+          <Typography variant="subtitle" color={colors.link}>
+            contour
+          </Typography>
         </View>
       </View>
       <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 8 }}>
@@ -219,52 +207,9 @@ function MotionSample() {
           tile,
         ]}
       >
-        <Text style={{ color: theme.colors.accentForeground, fontSize: 16 }}>
-          appuyer
-        </Text>
+        <Typography color={theme.colors.accentForeground}>appuyer</Typography>
       </Animated.View>
     </Pressable>
-  )
-}
-
-type SectionProps = { title: string; note: string; children: ReactNode }
-
-function Section({ title, note, children }: SectionProps) {
-  const theme = useXAUITheme()
-
-  return (
-    <View style={{ gap: 12 }}>
-      <View style={{ gap: 2 }}>
-        <Text
-          style={{
-            color: theme.colors.foreground,
-            fontFamily: theme.fontFamilies.heading,
-            fontSize: tramType.section.fontSize,
-            fontWeight: '300',
-          }}
-        >
-          {title}
-        </Text>
-        <Caption>{note}</Caption>
-      </View>
-      {children}
-    </View>
-  )
-}
-
-function Caption({ children }: { children: ReactNode }) {
-  const theme = useXAUITheme()
-
-  return (
-    <Text
-      style={{
-        color: theme.colors.muted,
-        fontFamily: theme.fontFamilies.body,
-        fontSize: tramType.caption.fontSize,
-      }}
-    >
-      {children}
-    </Text>
   )
 }
 
@@ -281,8 +226,12 @@ function Swatch({ color, label }: { color: string; label: string }) {
           borderColor: theme.colors.muted,
         }}
       />
-      <Caption>{label}</Caption>
-      <Caption>{color}</Caption>
+      <Typography variant="caption" color={theme.colors.muted}>
+        {label}
+      </Typography>
+      <Typography variant="caption" color={theme.colors.muted}>
+        {color}
+      </Typography>
     </View>
   )
 }
