@@ -1,4 +1,4 @@
-import { channels, onAccent, relativeLuminance } from './on-accent'
+import { channels, relativeLuminance } from './on-accent'
 
 /** WCAG AA for text at any size — the bar `muted` already holds. */
 const INK_CONTRAST = 4.5
@@ -35,6 +35,17 @@ function contrast(first: string, second: string): number {
   return (high + 0.05) / (low + 0.05)
 }
 
+/**
+ * The end of the scale an ink moves toward: whichever of black and white stands out more
+ * on `ground`. Measured, not read off `onAccent` — that threshold is tuned for the text
+ * on a fill, and on a mid grey it picks white, which tops out under 3:1.
+ */
+function farthestFrom(ground: string): string {
+  return contrast('#000000', ground) >= contrast('#FFFFFF', ground)
+    ? '#000000'
+    : '#FFFFFF'
+}
+
 // Only palette accents and theme grounds reach it — a raw `color` is never corrected —
 // so the table stays the size of the palette.
 const cache = new Map<string, string>()
@@ -55,7 +66,7 @@ export function accentInk(accent: string, ground: string): string {
   if (hit) return hit
 
   const from = channels(accent)
-  const toward = channels(onAccent(ground))
+  const toward = channels(farthestFrom(ground))
   let ink = accent
 
   for (let step = 0; step <= STEPS; step += 1) {

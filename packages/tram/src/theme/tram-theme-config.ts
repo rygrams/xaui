@@ -85,14 +85,26 @@ function resolveAccent(accent: string): string {
 }
 
 /**
+ * Everything one mode says about the accent. The fill is the mode's own when the caller
+ * set `colors.<mode>.accent`, so nothing here is derived from a colour that mode does not
+ * draw.
+ *
  * Where the accent is read rather than filled — a link, a focus ring, the label of a soft
  * box — it is the mode's ink, computed against the ground the caller ends up with.
  */
-function inkOn(mode: ColorMode, fill: string, config: XAUIThemeConfig): ModeColors {
-  const background = config.colors?.[mode]?.background ?? BACKGROUND[mode]
+function accentOn(
+  mode: ColorMode,
+  accent: string,
+  config: XAUIThemeConfig
+): ModeColors {
+  const own = config.colors?.[mode]
+  const fill = own?.accent ?? accent
+  const background = own?.background ?? BACKGROUND[mode]
   const ink = accentInk(fill, background)
 
   return {
+    accent: fill,
+    accentForeground: onAccent(fill),
     focus: ink,
     link: ink,
     accentSoftForeground: accentSoftInk(fill, background),
@@ -108,21 +120,18 @@ export function buildTramThemeConfig(
 ): XAUIThemeConfig {
   const { accent = 'cyan', ...config } = options
   const fill = resolveAccent(accent)
-  const tint = { accent: fill, accentForeground: onAccent(fill) }
 
   return {
     ...config,
     colors: {
       dark: {
         ...ground.dark,
-        ...tint,
-        ...inkOn('dark', fill, config),
+        ...accentOn('dark', fill, config),
         ...config.colors?.dark,
       },
       light: {
         ...ground.light,
-        ...tint,
-        ...inkOn('light', fill, config),
+        ...accentOn('light', fill, config),
         ...config.colors?.light,
       },
     },

@@ -39,6 +39,12 @@ describe('accentInk', () => {
     expect(accentInk(tramAccents.cobalt, '#FFFFFF')).toBe(tramAccents.cobalt)
   })
 
+  it('moves toward the end that can reach the bar on a mid-tone ground', () => {
+    const ink = accentInk(tramAccents.yellow, '#999999')
+
+    expect(contrast(ink, '#999999')).toBeGreaterThanOrEqual(4.5)
+  })
+
   it('names the value it could not read', () => {
     expect(() => accentInk('yellow', '#FFFFFF')).toThrow('received "yellow"')
   })
