@@ -69,6 +69,16 @@
         "default": "./dist/components/radio/index.cjs"
       }
     },
+    "./slider": {
+      "import": {
+        "types": "./dist/components/slider/index.d.ts",
+        "default": "./dist/components/slider/index.js"
+      },
+      "require": {
+        "types": "./dist/components/slider/index.d.cts",
+        "default": "./dist/components/slider/index.cjs"
+      }
+    },
     "./switch": {
       "import": {
         "types": "./dist/components/switch/index.d.ts",
