@@ -1,5 +1,5 @@
-import { forwardRef, useCallback } from 'react'
-import { Platform, TextInput } from 'react-native'
+import { forwardRef, useCallback, useRef } from 'react'
+import { Platform, StyleSheet, TextInput } from 'react-native'
 import Animated, {
   interpolateColor,
   useAnimatedStyle,
@@ -28,7 +28,8 @@ const AnimatedTextInput = Animated.createAnimatedComponent(TextInput)
  *
  * The focus is the border and nothing else: the line goes from the page's ink to the
  * accent's and back, through `useTramMotion` — a spring, or a short fade when the user
- * reduced motion. It is kept here, as a shared value, so a focus re-renders nothing.
+ * reduced motion. It is kept here, as a shared value, so a focus re-renders nothing. A
+ * `borderColor` written on the field replaces that line, focused or not.
  */
 export const TextFieldField = forwardRef<TextInput, TextFieldFieldProps>(
   function TextFieldField(
@@ -90,6 +91,17 @@ export const TextFieldField = forwardRef<TextInput, TextFieldFieldProps>(
       [moveFocus, onBlur]
     )
 
+    // What was typed, kept for the day the field is held: nobody else has it when the
+    // caller passes no `value`.
+    const typed = useRef(rest.defaultValue ?? '')
+    const handleChangeText = useCallback(
+      (text: string) => {
+        typed.current = text
+        onChangeText?.(text)
+      },
+      [onChangeText]
+    )
+
     const { rest: atRest, focus: focused } = border
     const line = useAnimatedStyle(() => {
       'worklet'
@@ -103,8 +115,13 @@ export const TextFieldField = forwardRef<TextInput, TextFieldFieldProps>(
     // is selected and copied, and nothing typed stays. The web's `readonly` already is that.
     const isHeld = readOnly && Platform.OS !== 'web'
     const held = isHeld
-      ? { value: rest.value ?? rest.defaultValue ?? '', showSoftInputOnFocus: false }
+      ? { value: rest.value ?? typed.current, showSoftInputOnFocus: false }
       : undefined
+
+    // A `borderColor` the caller wrote is theirs in every state: an animated style
+    // outranks a static one wherever it sits in the array, so the line steps aside.
+    const isLineOverridden =
+      StyleSheet.flatten([styleProps, style])?.borderColor !== undefined
 
     // One node, two holders: the caller's ref, and the root's — which is how a touch on
     // the label reaches the input.
@@ -139,10 +156,10 @@ export const TextFieldField = forwardRef<TextInput, TextFieldFieldProps>(
         {...rest}
         {...held}
         // The moving line comes last: it is the one colour the focus owns.
-        style={[fieldStyle, styleProps, style, line]}
+        style={[fieldStyle, styleProps, style, isLineOverridden ? undefined : line]}
         // A held field reports no change: there is none.
         onChange={isHeld ? undefined : onChange}
-        onChangeText={isHeld ? undefined : onChangeText}
+        onChangeText={isHeld ? undefined : handleChangeText}
         onFocus={handleFocus}
         onBlur={handleBlur}
       />
