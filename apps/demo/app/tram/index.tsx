@@ -11,6 +11,7 @@ const SCREENS = [
   { href: '/tram/theme', label: 'thème et mouvement' },
   { href: '/tram/button', label: 'button' },
   { href: '/tram/switch', label: 'switch' },
+  { href: '/tram/checkbox', label: 'checkbox' },
   { href: '/tram/typography', label: 'typography' },
 ] as const
 

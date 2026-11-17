@@ -2,9 +2,8 @@ import { RADIUS_KEYS, createRecipe } from '@xaui/native/system'
 import type { SlotStyles, StyleFn, VariantTokens } from '@xaui/native/system'
 import type { RadiusKey, XAUITheme } from '@xaui/native/theme'
 import { boxCornerFor } from '../../theme/tram-corner'
-import { tramType } from '../../theme/tram-tokens'
 import type { TramSize, TramTypeRole } from '../../theme/tram-tokens'
-import { faceFor } from '../typography/typography.face'
+import { roleType } from '../typography/typography.role'
 import type { SwitchSlot } from './switch.type'
 import type { TravelGeometry } from './switch.travel'
 
@@ -85,8 +84,6 @@ export const SWITCH_GEOMETRY: Record<TramSize, SizeStep> = {
 function sizeAxis(step: SizeStep) {
   const { width, height, line, inset, thumbWidth, thumbHeight } = step
   const overshoot = (thumbHeight - height) / 2
-  const { fontSize, weight } = tramType[step.type]
-  const family = weight === 'regular' ? 'body' : 'heading'
 
   return (theme: XAUITheme): SlotStyles<SwitchSlot> => ({
     root: { gap: theme.spacing(step.gap), minHeight: thumbHeight },
@@ -100,7 +97,7 @@ function sizeAxis(step: SizeStep) {
       start: -line,
       top: -overshoot - line,
     },
-    label: { fontSize, ...faceFor(theme.fontFamilies[family], weight) },
+    label: roleType(step.type, theme),
   })
 }
 

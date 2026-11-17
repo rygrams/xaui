@@ -3,7 +3,7 @@ import type { SlotStyles, VariantTokens } from '@xaui/native/system'
 import type { XAUITheme } from '@xaui/native/theme'
 import { tramType } from '../../theme/tram-tokens'
 import type { TramTypeRole } from '../../theme/tram-tokens'
-import { faceFor } from './typography.face'
+import { roleType } from './typography.role'
 import type { TypographySlot } from './typography.type'
 
 const SLOTS = ['root'] as const
@@ -17,19 +17,10 @@ const VARIANT_TOKENS = Object.fromEntries(
   ROLES.map(role => [role, { fg: 'foreground' }])
 ) as Record<TramTypeRole, VariantTokens>
 
-/**
- * A title is set in the heading family and running text in the body one. Both are Selawik
- * in `tramTheme`; the split is for the app that pairs two fonts.
- *
- * No `lineHeight`: the Tram scale fixes none, and the face's own leading is what a
- * 120-point Light was drawn with.
- */
+/** No `lineHeight`: the face's own leading is what a 120-point Light was drawn with. */
 function metricsOf(role: TramTypeRole) {
-  const { fontSize, weight } = tramType[role]
-  const family = weight === 'regular' ? 'body' : 'heading'
-
   return (theme: XAUITheme): SlotStyles<TypographySlot> => ({
-    root: { fontSize, ...faceFor(theme.fontFamilies[family], weight) },
+    root: roleType(role, theme),
   })
 }
 
