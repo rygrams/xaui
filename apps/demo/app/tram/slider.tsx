@@ -33,7 +33,7 @@ export default function TramSliderScreen() {
     >
       <TramSection
         title="les tailles"
-        note="sm, md, lg — le curseur a la largeur de celui du Switch, un peu moins haut. La cible tactile atteint 48 partout."
+        note="sm, md, lg — le curseur a la largeur de celui du Switch, moins haut. La cible tactile atteint 48 partout."
       >
         {SIZES.map(size => (
           <Slider key={size} size={size} defaultValue={STARTS[size]}>

@@ -39,23 +39,23 @@ type SizeStep = {
 
 /**
  * The Metro slider, on the `Switch`'s scale: the thumb is as wide as the switch's, size
- * for size, and a little shorter (22 / 30 / 42 for 26 / 34 / 48), over a line as thick as
+ * for size, and shorter (18 / 26 / 36 for 26 / 34 / 48), over a line as thick as
  * the `ProgressBar`'s bar (8 / 12 / 16). Points, not spacing steps.
  *
  * Every size stands under the 48 touch target, which the track's gesture makes up with
  * its `hitSlop`.
  */
 export const SLIDER_GEOMETRY: Record<TramSize, SizeStep> = {
-  sm: { rail: 8, cut: 2, thumbLength: 12, thumbBreadth: 22, type: 'body', gap: 3 },
+  sm: { rail: 8, cut: 2, thumbLength: 12, thumbBreadth: 18, type: 'body', gap: 3 },
   md: {
     rail: 12,
     cut: 2,
     thumbLength: 16,
-    thumbBreadth: 30,
+    thumbBreadth: 26,
     type: 'subtitle',
     gap: 4,
   },
-  lg: { rail: 16, cut: 3, thumbLength: 22, thumbBreadth: 42, type: 'title', gap: 5 },
+  lg: { rail: 16, cut: 3, thumbLength: 22, thumbBreadth: 36, type: 'title', gap: 5 },
 }
 
 /** How far a vertical track runs when the caller gives it no height of its own. */
