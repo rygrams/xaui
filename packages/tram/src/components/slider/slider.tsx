@@ -23,8 +23,8 @@ import type { SliderProps, SliderValue } from './slider.type'
 const NONE = -1
 
 /**
- * A value chosen along a line — the Native `Slider`'s API, drawn in Metro: a thin line of
- * the page's ink, filled with the accent up to a block thumb, the `Switch`'s.
+ * A value chosen along a line — the Native `Slider`'s API, drawn in Metro: a line of
+ * soft grey, filled with the accent up to a block thumb of ink, the `Switch`'s.
  *
  * ```tsx
  * <Slider defaultValue={40} onValueCommit={save}>
@@ -182,7 +182,7 @@ export const SliderRoot = forwardRef<View, SliderProps>(function Slider(
         { place: upper, squash: upperSquash },
       ] as const,
       held,
-      // `sm` and `md` are drawn under the 48 touch target; the gesture's slop makes it up.
+      // Every size is drawn under the 48 touch target; the gesture's slop makes it up.
       reach: touchReach(geometry.thumbBreadth),
       moveThumb,
       commit,

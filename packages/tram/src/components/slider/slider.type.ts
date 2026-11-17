@@ -31,7 +31,7 @@ export type SliderSize = TramSize
 
 type SliderOwnProps = {
   children?: ReactNode
-  /** The line, the thumb and the output's type. The thumb is the `Switch`'s, size for size. */
+  /** The line, the thumb and the output's type. The thumb is as wide as the `Switch`'s. */
   size?: SliderSize
   orientation?: SliderOrientation
   /** Overrides the corner of the line, the fill and the thumb. Every key stays within 2. */
@@ -42,8 +42,8 @@ type SliderOwnProps = {
    */
   accent?: TramAccentName
   /**
-   * A raw `#RRGGBB` tint, never a token: the colour of the filled part. The line and the
-   * thumb stay the page's ink.
+   * A raw `#RRGGBB` tint, never a token: the colour of the filled part. The line stays
+   * the soft grey and the thumb the page's ink.
    */
   color?: string
   /**

@@ -33,7 +33,7 @@ export default function TramSliderScreen() {
     >
       <TramSection
         title="les tailles"
-        note="sm, md, lg — le curseur est celui du Switch, taille pour taille. La cible tactile atteint 48 partout."
+        note="sm, md, lg — le curseur a la largeur de celui du Switch, moins haut. La cible tactile atteint 48 partout."
       >
         {SIZES.map(size => (
           <Slider key={size} size={size} defaultValue={STARTS[size]}>
@@ -143,7 +143,7 @@ export default function TramSliderScreen() {
 
       <TramSection
         title="désactivé"
-        note="Piste, remplissage et curseur gris, sans accent — et rien ne bouge."
+        note="Remplissage et curseur gris, sans accent — et rien ne bouge."
       >
         <Slider isDisabled defaultValue={45}>
           <Slider.Output />
