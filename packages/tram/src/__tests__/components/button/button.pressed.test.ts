@@ -24,6 +24,12 @@ describe('pressedColors', () => {
     expect(pressedColors(dark, lime)).toEqual({ fill: '#A4C400', ink: '#000000' })
   })
 
+  it('fills a soft fill that names no line with the true colour', () => {
+    const flat = { bg: '#1BA1E226', fg: '#1BA1E2', bgPressed: '#1BA1E2' }
+
+    expect(pressedColors(dark, flat)).toEqual({ fill: '#1BA1E2', ink: '#FFFFFF' })
+  })
+
   it('greys the label of a button that has no box to fill', () => {
     expect(pressedColors(dark, { fg: '#1BA1E2' })).toEqual({ ink: '#A3A3A3' })
   })

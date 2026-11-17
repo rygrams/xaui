@@ -14,46 +14,44 @@ import type {
   ViewStyleProps,
 } from '@xaui/native/system'
 import type { RadiusKey, Size } from '@xaui/native/theme'
+import type { TramAccentName } from '../../theme/tram-tokens'
 
 export type ButtonSlot = 'root' | 'label' | 'icon' | 'spinner'
 
 /**
- * Native's seven names, drawn in Metro. The ladder alternates the two things Tram can do
- * with a rectangle — fill it, or outline it:
+ * Four ways to draw one rectangle, all in the accent — or in a raw `color`:
  *
- * | Variant       | At rest                                  | Pressed                        |
- * | ------------- | ---------------------------------------- | ------------------------------ |
- * | `primary`     | filled with the accent                   | inverts to the ground's ink    |
- * | `secondary`   | accent outline, accent label             | fills with the accent          |
- * | `default`     | filled with the neutral                  | inverts to the ground's ink    |
- * | `tertiary`    | ink outline — the Windows Phone button   | fills with the ink             |
- * | `ghost`       | the label alone, in the accent           | the label greys                |
- * | `danger`      | filled with the danger colour            | inverts to the ground's ink    |
- * | `danger-soft` | danger outline, danger label             | fills with the danger colour   |
+ * | Variant     | At rest                          | Pressed                     |
+ * | ----------- | -------------------------------- | --------------------------- |
+ * | `contained` | filled with the true colour      | inverts to the ground's ink |
+ * | `flat`      | filled with its soft slice       | fills with the true colour  |
+ * | `outline`   | a line and a label in the colour | fills with the true colour  |
+ * | `text`      | the label alone                  | the label greys             |
  *
- * Tram has no soft slice — a tint at 15% is a gradient of one — so what Native paints
- * soft, Tram outlines.
+ * **Not Native's names, deliberately** (T1.2). Native's ladder mixes emphasis and
+ * intention — `primary`, `default`, `danger` — and Tram has one colour to spend, so a
+ * variant only says how the box is drawn. The colour is `accent`, a name from the palette,
+ * or a raw `color`: a destructive button is `color={theme.colors.danger}`.
  */
-export type ButtonVariant =
-  | 'primary'
-  | 'secondary'
-  | 'default'
-  | 'tertiary'
-  | 'ghost'
-  | 'danger'
-  | 'danger-soft'
+export type ButtonVariant = 'contained' | 'flat' | 'outline' | 'text'
 
 export type ButtonSize = Size
 
 type ButtonOwnProps = {
   variant?: ButtonVariant
-  /** Height, padding, gap, border and type. Never width. */
+  /** Height, padding, gap and type. Never width. */
   size?: ButtonSize
   /** Overrides the Tram corner. The scale is the theme's, so it stays within 2. */
   radius?: RadiusKey
   /**
+   * One of the twenty named accents — `accent="magenta"` — for a button that is not in
+   * the theme's accent. It paints exactly as `color` does; `color` wins when both are set.
+   */
+  accent?: TramAccentName
+  /**
    * A raw `#RRGGBB` tint, never a token. It lands where the variant put its colour: the
-   * fill of a `primary`, the outline and label of a `secondary`, the label of a `ghost`.
+   * fill of a `contained`, the soft fill of a `flat`, the line and label of an `outline`,
+   * the label of a `text`.
    */
   color?: string
   isDisabled?: boolean
@@ -75,8 +73,7 @@ type ButtonBehaviourProps = Omit<
 
 /**
  * The button's own props, the press behaviour it forwards, and every `ViewStyle` key its
- * vocabulary does not claim — the same three terms as the Native `Button`, which is the
- * contract.
+ * vocabulary does not claim — the same three terms as the Native `Button`.
  */
 export type ButtonProps = ButtonOwnProps &
   ButtonBehaviourProps &

@@ -3,7 +3,7 @@ import type { SlotStyles, VariantTokens } from '@xaui/native/system'
 import type { FontSizeKey, Size, XAUITheme } from '@xaui/native/theme'
 import { tramType } from '../../theme/tram-tokens'
 import type { TramTypeRole } from '../../theme/tram-tokens'
-import { pressedColors } from './button.pressed'
+import { isBoxed, pressedColors } from './button.pressed'
 import type { ButtonSlot, ButtonVariant } from './button.type'
 
 const SLOTS = ['root', 'label', 'icon', 'spinner'] as const
@@ -11,19 +11,24 @@ const SLOTS = ['root', 'label', 'icon', 'spinner'] as const
 export const DEFAULT_SIZE: Size = 'md'
 
 /**
- * A variant names tokens and computes nothing. Every boxed variant names a `border`, the
- * fills in their own colour, so the box is the same size whether it is filled or
- * outlined. An outline also names `bgPressed`, the colour it fills with under the finger;
- * a fill names none and inverts — `pressedColors` reads exactly that difference.
+ * The button's line. One point under the theme's 3: at 3 an outlined label reads as a
+ * frame around a word rather than as a control, and the two small sizes had no room.
+ */
+const LINE_WIDTH = 2
+
+/**
+ * A variant names tokens and computes nothing. The line is always there, transparent
+ * when the variant names no `border`, so the box is the same size in all four. `flat` and `outline` also name `bgPressed`, the true colour they fill with
+ * under the finger; `contained` already is that colour, names none, and inverts —
+ * `pressedColors` reads exactly that difference.
  */
 const VARIANT_TOKENS: Record<ButtonVariant, VariantTokens> = {
-  primary: { bg: 'accent', border: 'accent', fg: 'accentForeground' },
-  secondary: { border: 'accent', fg: 'accent', bgPressed: 'accent' },
-  default: { bg: 'default', border: 'default', fg: 'defaultForeground' },
-  tertiary: { border: 'border', fg: 'foreground', bgPressed: 'foreground' },
-  ghost: { fg: 'accent' },
-  danger: { bg: 'danger', border: 'danger', fg: 'dangerForeground' },
-  'danger-soft': { border: 'danger', fg: 'danger', bgPressed: 'danger' },
+  contained: { bg: 'accent', border: 'accent', fg: 'accentForeground' },
+  // No `border`: the soft slice is translucent, and a line of it over a fill of it would
+  // show as a darker edge.
+  flat: { bg: 'accentSoft', fg: 'accentSoftForeground', bgPressed: 'accent' },
+  outline: { border: 'accent', fg: 'accent', bgPressed: 'accent' },
+  text: { fg: 'accent' },
 }
 
 type SizeStep = {
@@ -34,8 +39,6 @@ type SizeStep = {
   padding: number
   gap: number
   glyph: FontSizeKey
-  /** The two small sizes draw a thinner line; unset, the theme's 3. */
-  border?: number
 }
 
 /** The ring `Button.Spinner` turns: one of the two circles Tram allows itself. */
@@ -44,13 +47,13 @@ function ring(size: number): SlotStyles<ButtonSlot>['spinner'] {
     width: size,
     height: size,
     borderRadius: size / 2,
-    borderWidth: 2,
+    borderWidth: LINE_WIDTH,
     borderTopColor: 'transparent',
   }
 }
 
 /**
- * `size` drives height, padding, gap, border and type — never width. The heights are the
+ * `size` drives height, padding, gap and type — never width. The heights are the
  * theme's control heights, so `lg` is the 56 of Windows Phone; `xs` and `sm` sit under
  * the 48 touch target, which the root makes up with `hitSlop`.
  *
@@ -62,7 +65,6 @@ function sizeAxis(step: SizeStep) {
       height: theme.controlHeights[step.size],
       paddingHorizontal: theme.spacing(step.padding),
       gap: theme.spacing(step.gap),
-      borderWidth: step.border ?? theme.borderWidth.default,
     },
     label: { fontSize: tramType[step.type].fontSize },
     icon: { fontSize: theme.fontSizes[step.glyph] },
@@ -78,6 +80,7 @@ export const buttonRecipe = createRecipe({
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
+      borderWidth: LINE_WIDTH,
       borderRadius: theme.radius.lg,
     },
     label: {
@@ -90,7 +93,7 @@ export const buttonRecipe = createRecipe({
 
   /**
    * Flat, for every variant at once. A variant with no `border` role keeps a transparent
-   * one rather than none: the width is the size's, so a `ghost` lines up with the boxed
+   * one rather than none, so a `text` button lines up with the boxed
    * button beside it.
    */
   paint: (_theme, colors) => ({
@@ -111,7 +114,6 @@ export const buttonRecipe = createRecipe({
         padding: 2,
         gap: 1.5,
         glyph: 'md',
-        border: 2,
       }),
       sm: sizeAxis({
         size: 'sm',
@@ -119,7 +121,6 @@ export const buttonRecipe = createRecipe({
         padding: 2.5,
         gap: 2,
         glyph: 'lg',
-        border: 2,
       }),
       md: sizeAxis({
         size: 'md',
@@ -145,7 +146,7 @@ export const buttonRecipe = createRecipe({
   },
 
   states: {
-    /** The inversion. The 0.96 scale is motion, and belongs to the root. */
+    /** The inversion. The tilt is motion, and belongs to the root. */
     pressed: (theme, colors) => {
       const { fill, ink } = pressedColors(theme, colors)
 
@@ -164,7 +165,7 @@ export const buttonRecipe = createRecipe({
     disabled: (theme, colors) => ({
       root: {
         backgroundColor: 'transparent',
-        borderColor: colors.border ? theme.colors.muted : 'transparent',
+        borderColor: isBoxed(colors) ? theme.colors.muted : 'transparent',
         opacity: theme.opacity.disabled,
       },
       label: { color: theme.colors.muted },
@@ -173,5 +174,5 @@ export const buttonRecipe = createRecipe({
     }),
   },
 
-  defaultVariants: { variant: 'primary', size: DEFAULT_SIZE },
+  defaultVariants: { variant: 'contained', size: DEFAULT_SIZE },
 })

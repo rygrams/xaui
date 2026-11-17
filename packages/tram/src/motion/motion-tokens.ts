@@ -21,6 +21,18 @@ export const spring = {
 } as const
 
 /** How far a control shrinks under the finger. */
-export const scale = { press: 0.96 } as const
+export const scale = { press: 0.98 } as const
+
+/**
+ * The Metro tilt: a pressed control leans toward the finger, as if pushed in at that
+ * point. `degrees` is the lean at an edge; a control wider than `wideFrom` leans by
+ * `wideDegrees`, because the same angle on a full-width bar swings its far end too far.
+ */
+export const tilt = {
+  perspective: 600,
+  degrees: 6,
+  wideDegrees: 3,
+  wideFrom: 200,
+} as const
 
 export type TramSpringName = keyof typeof spring

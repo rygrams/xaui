@@ -51,11 +51,11 @@ type ModeToggleProps = {
   onToggle: () => void
 }
 
-/** Text alone, the Metro hyperlink: the Tram `Button`, in its `ghost` variant. */
+/** Text alone, the Metro hyperlink: the Tram `Button`, in its `text` variant. */
 function ModeToggle({ colorMode, onToggle }: ModeToggleProps) {
   return (
     <Button
-      variant="ghost"
+      variant="text"
       size="sm"
       accessibilityLabel="Changer le thème"
       onPress={onToggle}

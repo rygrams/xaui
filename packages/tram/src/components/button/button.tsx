@@ -11,9 +11,9 @@ import {
   warnDev,
 } from '@xaui/native/system'
 import { useXAUITheme } from '@xaui/native/theme'
-import { TRAM_TOUCH_TARGET } from '../../theme/tram-tokens'
+import { TRAM_TOUCH_TARGET, tramAccents } from '../../theme/tram-tokens'
 import { ButtonLabel } from './button-label'
-import { PressScale } from './button-press-scale'
+import { PressTilt } from './button-press-tilt'
 import { ButtonSpinner } from './button-spinner'
 import { ButtonProvider } from './button.context'
 import { DEFAULT_SIZE, buttonRecipe } from './button.recipe'
@@ -21,12 +21,13 @@ import type { ButtonProps } from './button.type'
 
 /**
  * The reference Tram component — the Native `Button`'s API, drawn in Metro: a flat
- * rectangle, a 3-point line, and a press that inverts the colours and shrinks to 96%.
+ * rectangle, a thin line, and a press that inverts the colours and leans toward the
+ * finger.
  *
  * ```tsx
  * <Button onPress={send}>envoyer</Button>
  *
- * <Button variant="tertiary" size="lg">
+ * <Button variant="outline" size="lg">
  *   <Button.Icon as={TrashIcon} />
  *   <Button.Label>supprimer</Button.Label>
  * </Button>
@@ -40,6 +41,7 @@ export const ButtonRoot = forwardRef<View, ButtonProps>(function Button(
     variant,
     size = DEFAULT_SIZE,
     radius,
+    accent,
     color,
     isDisabled = false,
     isLoading = false,
@@ -71,9 +73,11 @@ export const ButtonRoot = forwardRef<View, ButtonProps>(function Button(
   const states = { pressed: isPressed, disabled: isDisabled }
 
   const styles = buttonRecipe.resolve({ theme, selection, states })
+  // A named accent is a tint like any other: the palette is data, not theme tokens.
+  const paint = color ?? (accent ? tramAccents[accent] : undefined)
   // Uncached: a raw tint takes arbitrary values and must stay out of the cache key.
-  const tint = color
-    ? buttonRecipe.tint({ theme, color, selection, states })
+  const tint = paint
+    ? buttonRecipe.tint({ theme, color: paint, selection, states })
     : undefined
 
   const context = useMemo(() => {
@@ -110,9 +114,9 @@ export const ButtonRoot = forwardRef<View, ButtonProps>(function Button(
   }
 
   // Native's scale, highlight and ripple stay off: the press is the recipe's inversion
-  // and the Tram scale. `disable-all` is still handed down, so descendants hear it.
+  // and the Tram tilt. `disable-all` is still handed down, so descendants hear it.
   const motion = resolveAnimation(animation)
-  const Root = motion.scale ? PressScale : PressableFeedback
+  const Root = motion.scale ? PressTilt : PressableFeedback
   // The two small sizes are drawn under the 48 touch target; the slop makes it up.
   const reach = Math.max(0, (TRAM_TOUCH_TARGET - theme.controlHeights[size]) / 2)
 

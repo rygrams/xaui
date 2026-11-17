@@ -175,12 +175,17 @@ avant tout autre composant. Dans une phase, l'ordre est libre.
 La revue du `Button` de référence fige ces points pour tout le package ; avant elle, ils
 sont des propositions.
 
-- **`variant`.** Proposition : garder l'union de dix valeurs pour la parité. `primary` =
-  plein en accent ; `secondary` = plein en `default` ; `tertiary` = contour 3 px ;
-  `ghost` = texte seul (HyperlinkButton) ; intentions = plein dans la couleur ; `*-soft` =
-  contour dans la couleur.
-- **État appuyé.** Metro inverse (plein → fond `foreground`, texte `background` ; contour →
-  rempli). À exprimer par les rôles `bgPressed` de la recette, sans contourner le moteur.
+- **`variant`.** Tranché : quatre valeurs, `contained` (plein dans la vraie couleur),
+  `flat` (plein dans sa tranche douce), `outline` (trait et texte dans la couleur) et
+  `text` (texte seul). Ce ne sont pas les noms de Native, exprès : Tram n'a qu'une couleur
+  à dépenser, donc une variante dit comment la boîte est dessinée, pas une intention.
+- **`accent`.** Tranché : un nom parmi les vingt accents (`accent="magenta"`) repeint un
+  bouton sans changer de thème. `color` reste la teinte brute hors palette, et gagne.
+- **Bordure du bouton.** Tranché : 2, un point sous le 3 du thème.
+- **État appuyé.** Tranché : `contained` inverse (fond `foreground`) ; `flat` et `outline`
+  se remplissent de la vraie couleur ; `text` grise. Le mouvement est le tilt des tuiles —
+  la boîte s'incline vers le doigt, 6° au bord, et réduit à 98 % — pas une réduction
+  centrée.
 - **Casse.** Metro écrit les libellés en minuscules ; Tram ne transforme pas le texte de
   l'appli — proposition : aucune `textTransform` imposée.
 - **`size`.** `sm` / `md` / `lg` comme le switch et le radio de `TRAM-DESIGN.md` ; `xs`
