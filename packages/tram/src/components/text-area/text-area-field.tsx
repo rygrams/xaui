@@ -1,6 +1,7 @@
-import { forwardRef, useMemo } from 'react'
-import type { TextInput } from 'react-native'
+import { forwardRef, useCallback, useMemo } from 'react'
+import { StyleSheet, type TextInput } from 'react-native'
 import { useStyleProps } from '@xaui/native/system'
+import { useGrowWithContent } from '../../system/use-grow-with-content'
 import { linesHeight } from '../../system/lines-height'
 import { TextFieldField, useTextField } from '../text-field'
 import { useTextArea } from './text-area.context'
@@ -15,7 +16,8 @@ import type { TextAreaFieldProps } from './text-area.type'
  * <TextArea.Field value={message} onChangeText={setMessage} />
  * ```
  *
- * It grows with what is typed, from `rows` up to `maxRows`, and scrolls past that.
+ * It grows with what is typed, from `rows` up to `maxRows`, and scrolls past that — unless
+ * its `style` names a `height`, which is then the height it keeps.
  */
 export const TextAreaField = forwardRef<TextInput, TextAreaFieldProps>(
   function TextAreaField({ style, scrollEnabled, ...props }, ref) {
@@ -32,9 +34,26 @@ export const TextAreaField = forwardRef<TextInput, TextAreaFieldProps>(
       [rows, maxRows, textArea]
     )
 
+    // A height the caller chose is not one to grow out of.
+    const isSized = StyleSheet.flatten([styleProps, style])?.height !== undefined
+    const grow = useGrowWithContent(!isSized, [
+      rest.value,
+      height.minHeight,
+      height.maxHeight,
+    ])
+
+    const setRef = useCallback(
+      (node: TextInput | null) => {
+        grow(node)
+        if (typeof ref === 'function') ref(node)
+        else if (ref) ref.current = node
+      },
+      [grow, ref]
+    )
+
     return (
       <TextFieldField
-        ref={ref}
+        ref={setRef}
         multiline
         // Only a field with a ceiling has anything to scroll.
         scrollEnabled={scrollEnabled ?? maxRows !== undefined}
