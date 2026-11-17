@@ -15,6 +15,7 @@ const SCREENS = [
   { href: '/tram/radio', label: 'radio' },
   { href: '/tram/slider', label: 'slider' },
   { href: '/tram/progress-bar', label: 'progress bar' },
+  { href: '/tram/text-field', label: 'text field' },
   { href: '/tram/typography', label: 'typography' },
 ] as const
 
