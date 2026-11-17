@@ -10,9 +10,9 @@ import {
 } from '@xaui/native/system'
 import { useXAUITheme } from '@xaui/native/theme'
 import { useTramHaptic } from '../../theme/tram-haptics'
+import { flatPaint } from '../../system/flat-paint'
 import { PressRow } from '../../system/press-row'
 import { touchReach } from '../../system/touch-reach'
-import { tramAccents } from '../../theme/tram-tokens'
 import { CheckboxIndicator } from './checkbox-indicator'
 import { CheckboxLabel } from './checkbox-label'
 import { CheckboxProvider } from './checkbox.context'
@@ -97,7 +97,7 @@ export const CheckboxRoot = forwardRef<View, CheckboxProps>(function Checkbox(
   // The mark is flat, so a named accent is the true colour. Uncached: a raw tint must
   // stay out of the cache key. Dropped while invalid — the tint pass repaints the mark,
   // and a box that is wrong has to read as wrong rather than as branded.
-  const paint = isInvalid ? undefined : (color ?? (accent && tramAccents[accent]))
+  const paint = isInvalid ? undefined : flatPaint({ accent, color })
   const tint = paint
     ? checkboxRecipe.tint({ theme, color: paint, selection, states })
     : undefined

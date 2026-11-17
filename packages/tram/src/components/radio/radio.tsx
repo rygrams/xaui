@@ -9,6 +9,7 @@ import {
   useStyleProps,
 } from '@xaui/native/system'
 import { useXAUITheme } from '@xaui/native/theme'
+import { flatPaint } from '../../system/flat-paint'
 import { PressRow } from '../../system/press-row'
 import { touchReach } from '../../system/touch-reach'
 import { useTramHaptic } from '../../theme/tram-haptics'
@@ -16,7 +17,6 @@ import { useOptionalRadioGroup } from './radio-group.context'
 import { RadioIndicator } from './radio-indicator'
 import { RadioLabel } from './radio-label'
 import { RadioProvider } from './radio.context'
-import { dotTint } from './radio.paint'
 import { DEFAULT_SIZE, RADIO_GEOMETRY, radioRecipe } from './radio.recipe'
 import type { RadioProps } from './radio.type'
 
@@ -110,9 +110,12 @@ export const RadioRoot = forwardRef<View, RadioProps>(function Radio(
   const states = { disabled }
 
   const styles = radioRecipe.resolve({ theme, selection, states })
-  // The dot is flat, so a named accent is the true colour. Uncached: a raw tint must stay
-  // out of the cache key.
-  const paint = dotTint({ accent, color }, group, invalid)
+  // The dot is flat, so a named accent is the true colour, and the option's own paint
+  // wins over its set's. Uncached: a raw tint must stay out of the cache key. Dropped
+  // while invalid — an option that is wrong has to read as wrong rather than as branded.
+  const paint = invalid
+    ? undefined
+    : (flatPaint({ accent, color }) ?? (group ? flatPaint(group) : undefined))
   const tint = paint
     ? radioRecipe.tint({ theme, color: paint, selection, states })
     : undefined

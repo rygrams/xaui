@@ -13,8 +13,8 @@ import { useXAUITheme } from '@xaui/native/theme'
 import { scale } from '../../motion/motion-tokens'
 import { useTramMotion } from '../../motion/use-tram-motion'
 import { useTramHaptic } from '../../theme/tram-haptics'
+import { flatPaint } from '../../system/flat-paint'
 import { touchReach } from '../../system/touch-reach'
-import { tramAccents } from '../../theme/tram-tokens'
 import { SwitchLabel } from './switch-label'
 import { SwitchThumb } from './switch-thumb'
 import { SwitchTrack } from './switch-track'
@@ -155,7 +155,7 @@ export const SwitchRoot = forwardRef<View, SwitchProps>(function Switch(
   const styles = switchRecipe.resolve({ theme, selection, states })
   // The fill is flat, so a named accent is the true colour — there is no line or text in
   // the accent here to draw as ink. Uncached: a raw tint must stay out of the cache key.
-  const paint = color ?? (accent ? tramAccents[accent] : undefined)
+  const paint = flatPaint({ accent, color })
   const tint = paint
     ? switchRecipe.tint({ theme, color: paint, selection, states })
     : undefined
