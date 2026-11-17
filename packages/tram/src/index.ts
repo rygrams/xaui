@@ -1,5 +1,6 @@
 export * from './components/button'
 export * from './components/checkbox'
+export * from './components/radio'
 export * from './components/switch'
 export * from './components/typography'
 export * from './motion'

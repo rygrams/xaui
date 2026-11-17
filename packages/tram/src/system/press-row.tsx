@@ -8,18 +8,18 @@ import Animated, {
 } from 'react-native-reanimated'
 import { PressableFeedback } from '@xaui/native/system'
 import type { PressableFeedbackProps } from '@xaui/native/system'
-import { scale } from '../../motion/motion-tokens'
-import { useTramMotion } from '../../motion/use-tram-motion'
+import { scale } from '../motion/motion-tokens'
+import { useTramMotion } from '../motion/use-tram-motion'
 
 const AnimatedFeedback = Animated.createAnimatedComponent(PressableFeedback)
 
 /**
- * The press of a row: the box and its label shrink together, a little, and spring back.
- * No tilt — that is a box leaning under the finger, and a row has no box. With motion
- * reduced it stays as it is.
+ * The press of a row: the mark's frame and its label shrink together, a little, and
+ * spring back. No tilt — that is a box leaning under the finger, and a row has no box.
+ * With motion reduced it stays as it is.
  *
  * It is Native's `PressableFeedback` with its own animations off; only the movement is
- * Tram's. Kept in this folder until a second control — the radio — presses the same way.
+ * Tram's. The checkbox and the radio press this way.
  */
 export const PressRow = forwardRef<View, PressableFeedbackProps>(function PressRow(
   { isPressed = false, style, ...props },
@@ -57,4 +57,4 @@ export const PressRow = forwardRef<View, PressableFeedbackProps>(function PressR
 
 const NO_TRANSFORM: never[] = []
 
-PressRow.displayName = 'XAUI.Tram.Checkbox.PressRow'
+PressRow.displayName = 'XAUI.Tram.PressRow'

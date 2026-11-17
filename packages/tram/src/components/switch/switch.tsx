@@ -13,7 +13,8 @@ import { useXAUITheme } from '@xaui/native/theme'
 import { scale } from '../../motion/motion-tokens'
 import { useTramMotion } from '../../motion/use-tram-motion'
 import { useTramHaptic } from '../../theme/tram-haptics'
-import { TRAM_TOUCH_TARGET, tramAccents } from '../../theme/tram-tokens'
+import { touchReach } from '../../system/touch-reach'
+import { tramAccents } from '../../theme/tram-tokens'
 import { SwitchLabel } from './switch-label'
 import { SwitchThumb } from './switch-thumb'
 import { SwitchTrack } from './switch-track'
@@ -161,7 +162,7 @@ export const SwitchRoot = forwardRef<View, SwitchProps>(function Switch(
 
   const geometry = SWITCH_GEOMETRY[size]
   // `sm` and `md` are drawn under the 48 touch target; the slop makes it up.
-  const reach = Math.max(0, (TRAM_TOUCH_TARGET - geometry.thumbHeight) / 2)
+  const reach = touchReach(geometry.thumbHeight)
 
   const context = useMemo(
     () => ({

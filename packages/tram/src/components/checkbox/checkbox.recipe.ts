@@ -4,7 +4,7 @@ import type { RadiusKey, XAUITheme } from '@xaui/native/theme'
 import { boxCornerFor } from '../../theme/tram-corner'
 import type { TramSize, TramTypeRole } from '../../theme/tram-tokens'
 import { roleType } from '../typography/typography.role'
-import type { MarkGeometry } from './checkbox.mark'
+import type { MarkGeometry } from '../../system/selection-mark'
 import type { CheckboxSlot } from './checkbox.type'
 
 const SLOTS = ['root', 'indicator', 'mark', 'label'] as const
