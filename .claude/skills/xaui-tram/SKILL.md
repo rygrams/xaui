@@ -47,6 +47,13 @@ is the Native `Button` for the shape and `TRAM-DESIGN.md` §Boutons for the draw
 - **Same name, same slots, same props as the Native component of that name.** Swapping
   `@xaui/native/switch` for `@xaui/tram/switch` should be the whole migration. Open the
   Native component first: it is the contract.
+- **Three deliberate differences, decided on the reference `Button` (T1) and holding for
+  every Tram control** (`TRAM-PLAN.md` §8):
+  - `variant` says how the box is drawn, not an intention: `contained` (the true colour),
+    `flat` (its soft slice), `outline`, `text`. No `primary` / `danger` ladder.
+  - `accent` takes one of the twenty palette names and repaints one control; `color`
+    stays the raw tint and wins over it.
+  - `size` is `TramSize` — `sm` / `md` / `lg`. There is no `xs`.
 - A prop or slot Native does not have needs a reason in the Metro drawing. One Native has
   and Tram drops is recorded in the roadmap line.
 - `displayName` is `'XAUI.Tram.<Component>.<Slot>'`.
@@ -59,12 +66,12 @@ is the Native `Button` for the shape and `TRAM-DESIGN.md` §Boutons for the draw
 | --------------- | -------------------------------------------------------------------------------------- |
 | Depth           | None. No shadow, no blur, no gradient, no elevation.                                   |
 | Radius          | 2 at most. Circles (radio, App Bar button) are the only exception.                     |
-| Border          | 3, from `theme.borderWidth`. Small sizes may drop to 2 where the design table says so. |
+| Border          | `theme.borderWidth` (3) by default; the `Button` draws its line at 2, in its recipe.   |
 | Fill            | Flat: `background`, `foreground`, the accent, the discreet `surface`.                  |
 | Text on accent  | `onAccent(hex)` — black on lime, yellow, amber. Never assume white.                    |
 | Type            | The Tram scale, in roles (`caption` … `hero`). Light / SemiLight for titles.           |
 | Touch target    | 48 minimum — `hitSlop` when the drawn control is smaller.                              |
-| Pressed         | Metro **inverts** (filled → `foreground` fill; outline → filled), plus scale 0.96.     |
+| Pressed         | Colours do **not** change. The box tilts toward the finger and shrinks to 98.5%.       |
 | Text case       | Never transformed by the component.                                                    |
 | Card            | The discreet surface only — no border, no shadow. Content sits on the ground.          |
 
@@ -104,8 +111,9 @@ fade.
   second use; before that they stay in the component folder.
 - `transformOrigin`, `backfaceVisibility` and `perspective` are checked on Android, not
   only on the web demo.
-- **No haptic dependency.** Expose the moment (`onPressIn`, `onValueChange`,
-  `onTabChange`); the app wires `expo-haptics`.
+- **No haptic dependency.** Call `useTramHaptic()` at the moment — `haptic('press')` —
+  and expose the event (`onPressIn`, `onValueChange`, `onTabChange`). Nothing vibrates
+  until the app hands `TramProvider` an `onHaptic`, where it wires `expo-haptics`.
 
 ## Not now
 
@@ -147,11 +155,12 @@ pnpm worklets:check            # after a build
 
 - [ ] No Native component is wrapped, re-exported or copy-pasted; only `system`, `theme`
       and root hooks are imported, through entrypoints.
-- [ ] Names, slots and props match the Native component of the same name; every
-      difference is deliberate and recorded.
+- [ ] Names, slots and props match the Native component of the same name, apart from the
+      Tram `variant` / `accent` / `size` vocabulary; any other difference is recorded.
 - [ ] No shadow, blur, gradient; no radius above 2 outside circles.
 - [ ] No literal colour, duration or spring in a component; text on accent uses `onAccent`.
-- [ ] Pressed state inverts and scales through the recipe's states, not an ad-hoc style.
+- [ ] A press moves the control (the tilt, through `useTramMotion`) and leaves its colours
+      alone; no `pressed` state in the recipe.
 - [ ] Touch target reaches 48.
 - [ ] Reduced motion is honoured; worklets are declared; nothing uses RN's `Animated`.
 - [ ] No `left` / `right`.

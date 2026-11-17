@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native'
 import { usePressState } from '../../hooks/use-press-state'
 import { PressableFeedback } from '../../system/pressable-feedback'
 import { useStyleProps } from '../../system/style-props'
-import { warnDev } from '../../utils/warn-dev'
+import { warnDev } from '../../system/warn-dev'
 import { useNumberStepper } from './number-stepper.context'
 import type { NumberStepperButtonProps } from './number-stepper.type'
 

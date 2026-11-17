@@ -14,6 +14,7 @@
     "@xaui/tram": "workspace:*",
     "expo": "~55.0.31",
     "expo-constants": "~55.0.17",
+    "expo-haptics": "~55.0.18",
     "expo-linking": "~55.0.17",
     "expo-router": "~55.0.18",
     "expo-splash-screen": "~55.0.25",

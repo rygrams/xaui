@@ -106,9 +106,10 @@ Les animations de signature — tilt, turnstile, continuum, swivel, cascade — 
 primitives de `system/` dès qu'un deuxième composant s'en sert ; avant, elles restent dans
 le dossier du composant.
 
-**Haptique : aucune dépendance.** Un composant Tram expose l'instant (`onPressIn`,
-`onValueChange`, `onTabChange`) et l'appli branche `expo-haptics` si elle veut. Embarquer
-une bibliothèque haptique est une décision de plan, pas de composant.
+**Haptique : aucune dépendance.** Un composant Tram appelle `useTramHaptic()` à son instant
+(`haptic('press')` à l'appui du `Button`) ; rien ne vibre tant que l'appli n'a pas donné un
+`onHaptic` au `TramProvider`, où elle branche `expo-haptics` ou autre. Embarquer une
+bibliothèque haptique est une décision de plan, pas de composant.
 
 ## 5. Parité avec Native
 
@@ -175,15 +176,19 @@ avant tout autre composant. Dans une phase, l'ordre est libre.
 La revue du `Button` de référence fige ces points pour tout le package ; avant elle, ils
 sont des propositions.
 
-- **`variant`.** Proposition : garder l'union de dix valeurs pour la parité. `primary` =
-  plein en accent ; `secondary` = plein en `default` ; `tertiary` = contour 3 px ;
-  `ghost` = texte seul (HyperlinkButton) ; intentions = plein dans la couleur ; `*-soft` =
-  contour dans la couleur.
-- **État appuyé.** Metro inverse (plein → fond `foreground`, texte `background` ; contour →
-  rempli). À exprimer par les rôles `bgPressed` de la recette, sans contourner le moteur.
+- **`variant`.** Tranché : quatre valeurs, `contained` (plein dans la vraie couleur),
+  `flat` (plein dans sa tranche douce), `outline` (trait et texte dans la couleur) et
+  `text` (texte seul). Ce ne sont pas les noms de Native, exprès : Tram n'a qu'une couleur
+  à dépenser, donc une variante dit comment la boîte est dessinée, pas une intention.
+- **`accent`.** Tranché : un nom parmi les vingt accents (`accent="magenta"`) repeint un
+  bouton sans changer de thème. `color` reste la teinte brute hors palette, et gagne.
+- **Bordure du bouton.** Tranché : 2, un point sous le 3 du thème.
+- **État appuyé.** Tranché : les couleurs ne changent pas. L'appui est le tilt des tuiles —
+  la boîte s'incline vers le doigt, 6° au bord, et réduit à 98,5 % — pas une réduction
+  centrée, et pas l'inversion de Metro.
 - **Casse.** Metro écrit les libellés en minuscules ; Tram ne transforme pas le texte de
   l'appli — proposition : aucune `textTransform` imposée.
-- **`size`.** `sm` / `md` / `lg` comme le switch et le radio de `TRAM-DESIGN.md` ; `xs`
-  existe-t-il dans Tram ?
+- **`size`.** Tranché : `sm` / `md` / `lg` pour tout Tram (`TramSize`), comme le switch et
+  le radio de `TRAM-DESIGN.md`. Pas de `xs`.
 - **Mode clair.** Vérifier que les 20 accents tiennent le contraste sur blanc ; sinon
   `onAccent` et les bordures s'ajustent par mode.

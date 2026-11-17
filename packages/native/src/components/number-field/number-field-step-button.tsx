@@ -2,7 +2,7 @@ import { forwardRef } from 'react'
 import type { ReactNode } from 'react'
 import { Pressable, StyleSheet, View } from 'react-native'
 import { useTextField } from '../text-field'
-import { warnDev } from '../../utils/warn-dev'
+import { warnDev } from '../../system/warn-dev'
 import { useNumberField } from './number-field.context'
 
 /** A bar twelve points long is the right size to look at and the wrong size to hit. */

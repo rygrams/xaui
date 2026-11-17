@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { Pressable, Text } from 'react-native'
 import { Stack } from 'expo-router'
 import { Scaffold } from '@xaui/native/scaffold'
-import { useColorMode, useXAUITheme } from '@xaui/native/theme'
+import { useColorMode } from '@xaui/native/theme'
+import { Button } from '@xaui/tram/button'
 import { TramProvider } from '@xaui/tram/theme'
 
 /**
@@ -22,7 +22,7 @@ export default function TramLayout() {
   const colorMode = mode ?? inherited
 
   return (
-    <TramProvider colorMode={colorMode} hasPortalHost={false}>
+    <TramProvider colorMode={colorMode} hasPortalHost={false} onHaptic={lightTap}>
       <Scaffold>
         <Scaffold.StatusBar />
         <Scaffold.Navigator>
@@ -38,6 +38,7 @@ export default function TramLayout() {
           >
             <Stack.Screen name="index" options={{ title: 'TRAM' }} />
             <Stack.Screen name="theme" options={{ title: 'THÈME' }} />
+            <Stack.Screen name="button" options={{ title: 'BUTTON' }} />
           </Stack>
         </Scaffold.Navigator>
       </Scaffold>
@@ -45,25 +46,34 @@ export default function TramLayout() {
   )
 }
 
+/**
+ * The app's side of Tram's haptics: the lightest impact iOS has. At module level, so the
+ * provider is handed the same function on every render.
+ *
+ * Loaded on demand and allowed to fail: a binary built before `expo-haptics` was added
+ * has no native module to load, and the web and the simulator have nothing to vibrate.
+ */
+function lightTap() {
+  import('expo-haptics')
+    .then(Haptics => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light))
+    .catch(() => {})
+}
+
 type ModeToggleProps = {
   colorMode: 'light' | 'dark'
   onToggle: () => void
 }
 
-/** Text alone, the Metro hyperlink — until the Tram `Button` exists to replace it. */
+/** Text alone, the Metro hyperlink: the Tram `Button`, in its `text` variant. */
 function ModeToggle({ colorMode, onToggle }: ModeToggleProps) {
-  const theme = useXAUITheme()
-
   return (
-    <Pressable
-      accessibilityRole="button"
+    <Button
+      variant="text"
+      size="sm"
       accessibilityLabel="Changer le thème"
-      hitSlop={12}
       onPress={onToggle}
     >
-      <Text style={{ color: theme.colors.accent, fontSize: 16 }}>
-        {colorMode === 'light' ? 'sombre' : 'clair'}
-      </Text>
-    </Pressable>
+      {colorMode === 'light' ? 'sombre' : 'clair'}
+    </Button>
   )
 }

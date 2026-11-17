@@ -1,7 +1,7 @@
 import { forwardRef } from 'react'
 import { View } from 'react-native'
 import { usePressState } from '../../hooks/use-press-state'
-import { warnDev } from '../../utils/warn-dev'
+import { warnDev } from '../warn-dev'
 import { PressableFeedback } from '../pressable-feedback'
 import { useStyleProps } from '../style-props'
 import { closeButtonSheet } from './close-button.style'

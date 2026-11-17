@@ -61,6 +61,12 @@ export const tramType: Record<
 
 export const tramTileColumns = { phone: 4, tablet: 6, foldable: 8 } as const
 
+/**
+ * The three sizes a Tram control comes in — the scale of the Metro switch and radio. No
+ * `xs`: under 40 a control stops being something a finger finds.
+ */
+export type TramSize = 'sm' | 'md' | 'lg'
+
 /** The smallest side of anything pressable — reached with `hitSlop` when drawn smaller. */
 export const TRAM_TOUCH_TARGET = 48
 
