@@ -8,6 +8,8 @@ Two pointers that save a lookup:
 
 - Task status: `.project-specs/ROADMAP.md`
 - The plan the work follows: `.project-specs/XAUI-V1-PLAN.md`
+- `@xaui/tram` (Metro-styled, `packages/tram`): `.project-specs/TRAM-PLAN.md` for the rules,
+  `.project-specs/TRAM-DESIGN.md` for the drawing, the `xaui-tram` skill for the work
 
 **`@xaui/native` and `@xaui/hybrid` have left the `beta` line.** `.changeset/pre.json` is
 in `exit` mode: the next release publishes both as `0.9.1` on `latest`, and versions stay

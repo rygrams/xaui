@@ -27,6 +27,11 @@ remaining items can be ordered freely.
 | **P6** | `@xaui/hybrid` = `@xaui/native` re-exported over `react-native-web`; Emotion + Framer Motion only for web-only additions                     | `@xaui/hybrid@0.9.x`                                        |
 | **P7** | Delete `native-legacy`                                                                                                                       | `2.0.0`                                                            |
 
+`@xaui/tram` runs on its own track, **T0–T5** in `.project-specs/TRAM-PLAN.md` §7 — the
+socle, the reference `Button` and its blocking review, the Metro controls, the signature
+components, parity with Native, then docs and publishing. It does not wait for a `P*` phase
+and no `P*` phase waits for it.
+
 Two consequences worth stating out loud when a request cuts across them:
 
 - **Order is not advisory.** The `git mv` comes first, or everything else is written in a
@@ -46,6 +51,7 @@ components, everything else waits for `1.x` (plan §10).
 | Tokens, OKLab, `deriveColors`, `createTheme`, provider, `tokens:check`                   | `xaui-theme`            |
 | `system/` — recipe, style cache, slots, `asChild`, `PressableFeedback`, `Portal`, `Icon` | `xaui-system`           |
 | `packages/hybrid`, the `react-native-web` re-export, web-only components                 | `xaui-hybrid`           |
+| `packages/tram`, the Tram theme and motion, a Metro-styled or Metro-only component       | `xaui-tram`             |
 | `apps/docs`, `apps/demo`, prop tables, `llms.txt`                                        | `xaui-docs`             |
 | `native-legacy`, `core-shim`, codemods, `@deprecated`                                    | `xaui-legacy-migration` |
 | Checking work against the v1 rules                                                       | `xaui-review`           |
@@ -165,6 +171,10 @@ documentation remains the single source for the shared API, no `apps/docs` file 
 every Native subpath resolves from `@xaui/hybrid` and renders in a browser. A shared
 component is never re-implemented in Hybrid — a web bug is fixed in `@xaui/native`.
 
+For `@xaui/tram`, the `xaui-tram` definition of done replaces it: the Tram demo screen in
+dark and light with reduced motion checked, no doc page, no README, no `@deprecated`, and no
+changeset while the package is private.
+
 ## When to stop and ask
 
 - The task contradicts a rule in §1 of the plan (R1–R13) — those don't get negotiated
@@ -172,6 +182,8 @@ component is never re-implemented in Hybrid — a web bug is fixed in `@xaui/nat
 - The task adds a sixteenth component to the 1.0 core.
 - The task asks for hybrid work before P4 is done.
 - The task asks for a new prop where `style` would do (R7).
+- The task asks for a Tram docs page, README, Hybrid re-export or publish before T5, or for
+  a Tram component before the T1 review of the reference `Button`.
 
 State the conflict in a sentence or two, propose the in-plan alternative, and continue with
 everything the question doesn't block.
