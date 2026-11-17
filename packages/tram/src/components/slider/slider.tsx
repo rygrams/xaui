@@ -182,7 +182,7 @@ export const SliderRoot = forwardRef<View, SliderProps>(function Slider(
         { place: upper, squash: upperSquash },
       ] as const,
       held,
-      // `sm` and `md` are drawn under the 48 touch target; the gesture's slop makes it up.
+      // Every size is drawn under the 48 touch target; the gesture's slop makes it up.
       reach: touchReach(geometry.thumbBreadth),
       moveThumb,
       commit,

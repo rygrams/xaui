@@ -31,7 +31,7 @@ export type SliderSize = TramSize
 
 type SliderOwnProps = {
   children?: ReactNode
-  /** The line, the thumb and the output's type. The thumb is the `Switch`'s, size for size. */
+  /** The line, the thumb and the output's type. The thumb is as wide as the `Switch`'s. */
   size?: SliderSize
   orientation?: SliderOrientation
   /** Overrides the corner of the line, the fill and the thumb. Every key stays within 2. */
