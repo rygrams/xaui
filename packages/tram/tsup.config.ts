@@ -10,6 +10,12 @@ const entries = {
 export default defineConfig({
   entry: entries,
   format: ['cjs', 'esm'],
+  // As in Native: the sources never `import React`, and esbuild reads `"jsx":
+  // "react-native"` as the classic runtime, which emits `React.createElement` against
+  // an undefined binding.
+  esbuildOptions(options) {
+    options.jsx = 'automatic'
+  },
   clean: true,
   // Types come from `tsc --emitDeclarationOnly` in the `build` script, as in Native.
   splitting: true,

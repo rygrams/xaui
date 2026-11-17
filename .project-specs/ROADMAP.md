@@ -185,13 +185,13 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 
 | Ref  | Task                                                                                                               | Status |
 | ---- | ------------------------------------------------------------------------------------------------------------------ | ------ |
-| T0   | Socle — `@xaui/tram`, private, on the `@xaui/native` engine                                                        | todo   |
+| T0   | Socle — `@xaui/tram`, private, on the `@xaui/native` engine                                                        | done   |
 | T0.0 | Agent instructions — `TRAM-PLAN.md`, `TRAM-DESIGN.md`, the `xaui-tram` skill                                       | done   |
 | T0.1 | Scaffold `packages/tram` — `package.json` (private), tsup, tsconfig, ESLint with R13, Vitest `passWithNoTests`     | done   |
 | T0.2 | `theme/` — `tram-tokens.ts` (20 accents, type scale, tile columns), `onAccent`, `tramTheme`, `createTramTheme`     | done   |
 | T0.3 | `TramProvider`                                                                                                     | done   |
 | T0.4 | `motion/` — eases, durations, springs, `useTramMotion` with reduced motion                                         | done   |
-| T0.5 | Tram section in `apps/demo` — `app/tram/`, its provider, dark and light                                            | todo   |
+| T0.5 | Tram section in `apps/demo` — `app/tram/`, its provider, dark and light                                            | done   |
 | T1   | The reference `Button` and the API review                                                                          | todo   |
 | T1.1 | The reference `Button` — filled, outline, text-only, inverted press, scale 0.96                                    | todo   |
 | T1.2 | API review — blocking: `variant` mapping, sizes, pressed state, text case, light-mode contrast (`TRAM-PLAN.md` §8) | todo   |

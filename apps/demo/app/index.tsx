@@ -83,6 +83,7 @@ const SCREENS = [
   { href: '/time-picker', label: 'TimePicker' },
   { href: '/toggle-button', label: 'ToggleButton' },
   { href: '/toast', label: 'Toast' },
+  { href: '/tram', label: 'Tram (Metro)' },
   { href: '/typography', label: 'Typography' },
   { href: '/wheel-picker', label: 'WheelPicker' },
   { href: '/widget', label: 'Widget' },
