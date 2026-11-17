@@ -1,13 +1,13 @@
 import { useState } from 'react'
 import type { ReactNode } from 'react'
-import { ScrollView, Text, View } from 'react-native'
+import { ScrollView, View } from 'react-native'
 import Svg, { Path } from 'react-native-svg'
 import type { IconComponentProps } from '@xaui/native/system'
 import { useXAUITheme } from '@xaui/native/theme'
 import { Button } from '@xaui/tram/button'
 import type { ButtonSize, ButtonVariant } from '@xaui/tram/button'
-import { tramType } from '@xaui/tram/theme'
 import type { TramAccentName } from '@xaui/tram/theme'
+import { TramSection } from '../../components/tram-section'
 
 const VARIANTS: ButtonVariant[] = ['contained', 'flat', 'outline', 'text']
 
@@ -45,7 +45,7 @@ export default function TramButtonScreen() {
       style={{ backgroundColor: theme.colors.background }}
       contentContainerStyle={{ padding: 24, gap: 32, paddingBottom: 96 }}
     >
-      <Section
+      <TramSection
         title="les variantes"
         note={`Appuyer incline vers le doigt, sans changer les couleurs. Appuis : ${count}`}
       >
@@ -60,9 +60,9 @@ export default function TramButtonScreen() {
             </Button>
           ))}
         </Row>
-      </Section>
+      </TramSection>
 
-      <Section title="les tailles" note="40, 48 et 56 — lg est Windows Phone.">
+      <TramSection title="les tailles" note="40, 48 et 56 — lg est Windows Phone.">
         <Row>
           {SIZES.map(size => (
             <Button key={size} size={size}>
@@ -91,9 +91,9 @@ export default function TramButtonScreen() {
             </Button>
           ))}
         </Row>
-      </Section>
+      </TramSection>
 
-      <Section
+      <TramSection
         title="désactivé"
         note="Le fond s'en va, le trait et le texte grisent."
       >
@@ -104,9 +104,12 @@ export default function TramButtonScreen() {
             </Button>
           ))}
         </Row>
-      </Section>
+      </TramSection>
 
-      <Section title="occupé" note="Garde ses couleurs, ne répond plus à l'appui.">
+      <TramSection
+        title="occupé"
+        note="Garde ses couleurs, ne répond plus à l'appui."
+      >
         <Row>
           <Button isLoading={isBusy}>envoi</Button>
           <Button variant="outline" isLoading={isBusy}>
@@ -117,11 +120,11 @@ export default function TramButtonScreen() {
             {isBusy ? 'arrêter' : 'relancer'}
           </Button>
         </Row>
-      </Section>
+      </TramSection>
 
-      <Section
+      <TramSection
         title="accent"
-        note="Un nom de la palette. Le texte posé dessus est calculé : noir sur lime, ambre et jaune."
+        note="Un nom de la palette. Plein, il porte du noir sur lime, ambre et jaune ; en trait ou en texte, il devient une encre lisible."
       >
         {ACCENTS.map(accent => (
           <Row key={accent}>
@@ -132,9 +135,9 @@ export default function TramButtonScreen() {
             ))}
           </Row>
         ))}
-      </Section>
+      </TramSection>
 
-      <Section
+      <TramSection
         title="color"
         note="Une teinte brute, hors palette — ici le danger du thème."
       >
@@ -145,14 +148,14 @@ export default function TramButtonScreen() {
             </Button>
           ))}
         </Row>
-      </Section>
+      </TramSection>
 
-      <Section title="largeur" note="Sans largeur, il remplit une colonne.">
+      <TramSection title="largeur" note="Sans largeur, il remplit une colonne.">
         <Button size="lg">continuer</Button>
         <Button size="lg" variant="outline" animation={false}>
           sans mouvement
         </Button>
-      </Section>
+      </TramSection>
     </ScrollView>
   )
 }
@@ -167,39 +170,6 @@ function Row({ children }: { children: ReactNode }) {
         gap: 12,
       }}
     >
-      {children}
-    </View>
-  )
-}
-
-type SectionProps = { title: string; note: string; children: ReactNode }
-
-function Section({ title, note, children }: SectionProps) {
-  const theme = useXAUITheme()
-
-  return (
-    <View style={{ gap: 12 }}>
-      <View style={{ gap: 2 }}>
-        <Text
-          style={{
-            color: theme.colors.foreground,
-            fontFamily: theme.fontFamilies.heading,
-            fontSize: tramType.section.fontSize,
-            fontWeight: '300',
-          }}
-        >
-          {title}
-        </Text>
-        <Text
-          style={{
-            color: theme.colors.muted,
-            fontFamily: theme.fontFamilies.body,
-            fontSize: tramType.caption.fontSize,
-          }}
-        >
-          {note}
-        </Text>
-      </View>
       {children}
     </View>
   )

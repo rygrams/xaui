@@ -1,7 +1,7 @@
-import { Pressable, ScrollView, Text, View } from 'react-native'
+import { Pressable, ScrollView, View } from 'react-native'
 import { useRouter } from 'expo-router'
 import { useXAUITheme } from '@xaui/native/theme'
-import { tramType } from '@xaui/tram/theme'
+import { Typography } from '@xaui/tram/typography'
 
 /**
  * The way into the Tram screens. A component adds its route to `tram/_layout` and one
@@ -10,6 +10,7 @@ import { tramType } from '@xaui/tram/theme'
 const SCREENS = [
   { href: '/tram/theme', label: 'thème et mouvement' },
   { href: '/tram/button', label: 'button' },
+  { href: '/tram/typography', label: 'typography' },
 ] as const
 
 export default function TramHomeScreen() {
@@ -21,16 +22,9 @@ export default function TramHomeScreen() {
       style={{ backgroundColor: theme.colors.background }}
       contentContainerStyle={{ padding: 24, gap: 24, paddingBottom: 48 }}
     >
-      <Text
-        style={{
-          color: theme.colors.foreground,
-          fontFamily: theme.fontFamilies.heading,
-          fontSize: tramType.page.fontSize,
-          fontWeight: '300',
-        }}
-      >
+      <Typography variant="page" accessibilityRole="header">
         tram
-      </Text>
+      </Typography>
 
       <View style={{ gap: 12 }}>
         {SCREENS.map(screen => (
@@ -40,16 +34,7 @@ export default function TramHomeScreen() {
             onPress={() => router.push(screen.href)}
             style={{ minHeight: 48, justifyContent: 'center' }}
           >
-            <Text
-              style={{
-                color: theme.colors.foreground,
-                fontFamily: theme.fontFamilies.body,
-                fontSize: tramType.title.fontSize,
-                fontWeight: '300',
-              }}
-            >
-              {screen.label}
-            </Text>
+            <Typography variant="title">{screen.label}</Typography>
           </Pressable>
         ))}
       </View>

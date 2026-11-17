@@ -196,6 +196,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | T1.1 | The reference `Button` — `contained`, `flat`, `outline`, `text`, `accent`; a press that tilts toward the finger | done   |
 | T1.2 | API review, closed: case left to the app; an accent read, not filled, is ink at 4.5:1 (`accentInk`)             | done   |
 | T2   | The Metro controls (`TRAM-PLAN.md` §5, family A) — one `T2.n` line per component as it starts                   | todo   |
+| T2.1 | `Typography`, `TextSpan`: roles `caption` to `hero` for `h1`-`h6`, faces by weight name; no `code`, no `size`   | done   |
 | T3   | The signature — `Tile`, `Pivot`, `Panorama`, `AppBar`, `JumpList`, tilt, turnstile, continuum, swivel           | todo   |
 | T4   | Parity — the remaining Native components drawn from the Tram tokens, one `T4.n` line each                       | todo   |
 | T5   | Docs, README, `llms.txt`, lift `private`, first publish — only on an explicit task                              | todo   |
