@@ -42,6 +42,7 @@ export default function TramLayout() {
             <Stack.Screen name="button" options={{ title: 'BUTTON' }} />
             <Stack.Screen name="switch" options={{ title: 'SWITCH' }} />
             <Stack.Screen name="checkbox" options={{ title: 'CHECKBOX' }} />
+            <Stack.Screen name="radio" options={{ title: 'RADIO' }} />
             <Stack.Screen name="typography" options={{ title: 'TYPOGRAPHY' }} />
           </Stack>
         </Scaffold.Navigator>

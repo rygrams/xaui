@@ -13,7 +13,8 @@ import {
 } from '@xaui/native/system'
 import { useXAUITheme } from '@xaui/native/theme'
 import { useTramHaptic } from '../../theme/tram-haptics'
-import { TRAM_TOUCH_TARGET, tramAccents } from '../../theme/tram-tokens'
+import { touchReach } from '../../system/touch-reach'
+import { tramAccents } from '../../theme/tram-tokens'
 import { ButtonLabel } from './button-label'
 import { PressTilt } from './button-press-tilt'
 import { ButtonSpinner } from './button-spinner'
@@ -143,7 +144,7 @@ export const ButtonRoot = forwardRef<View, ButtonProps>(function Button(
   const motion = resolveAnimation(animation, useAnimationDisabled())
   const Root = motion.scale ? PressTilt : PressableFeedback
   // `sm` is drawn under the 48 touch target; the slop makes it up.
-  const reach = Math.max(0, (TRAM_TOUCH_TARGET - theme.controlHeights[size]) / 2)
+  const reach = touchReach(theme.controlHeights[size])
 
   return (
     <ButtonProvider value={context}>

@@ -10,10 +10,11 @@ import {
 } from '@xaui/native/system'
 import { useXAUITheme } from '@xaui/native/theme'
 import { useTramHaptic } from '../../theme/tram-haptics'
-import { TRAM_TOUCH_TARGET, tramAccents } from '../../theme/tram-tokens'
+import { flatPaint } from '../../system/flat-paint'
+import { PressRow } from '../../system/press-row'
+import { touchReach } from '../../system/touch-reach'
 import { CheckboxIndicator } from './checkbox-indicator'
 import { CheckboxLabel } from './checkbox-label'
-import { PressRow } from './checkbox-press-row'
 import { CheckboxProvider } from './checkbox.context'
 import { nextSelected } from './checkbox.mark'
 import { CHECKBOX_GEOMETRY, DEFAULT_SIZE, checkboxRecipe } from './checkbox.recipe'
@@ -96,7 +97,7 @@ export const CheckboxRoot = forwardRef<View, CheckboxProps>(function Checkbox(
   // The mark is flat, so a named accent is the true colour. Uncached: a raw tint must
   // stay out of the cache key. Dropped while invalid — the tint pass repaints the mark,
   // and a box that is wrong has to read as wrong rather than as branded.
-  const paint = isInvalid ? undefined : (color ?? (accent && tramAccents[accent]))
+  const paint = isInvalid ? undefined : flatPaint({ accent, color })
   const tint = paint
     ? checkboxRecipe.tint({ theme, color: paint, selection, states })
     : undefined
@@ -158,7 +159,7 @@ export const CheckboxRoot = forwardRef<View, CheckboxProps>(function Checkbox(
         aria-checked={checked}
         aria-invalid={isInvalid}
         // Every size is drawn under the 48 touch target; the slop makes it up.
-        hitSlop={hitSlop ?? Math.max(0, (TRAM_TOUCH_TARGET - geometry.box) / 2)}
+        hitSlop={hitSlop ?? touchReach(geometry.box)}
         {...rest}
         style={rootStyle}
         // After `rest`, and composed: the caller's handlers run inside these.

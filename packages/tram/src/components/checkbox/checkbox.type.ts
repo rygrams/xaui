@@ -15,7 +15,7 @@ import type {
 } from '@xaui/native/system'
 import type { RadiusKey } from '@xaui/native/theme'
 import type { TramAccentName, TramSize } from '../../theme/tram-tokens'
-import type { MarkGeometry } from './checkbox.mark'
+import type { MarkGeometry } from '../../system/selection-mark'
 
 export type CheckboxSlot = 'root' | 'indicator' | 'mark' | 'label'
 
