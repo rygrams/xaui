@@ -19,6 +19,12 @@ const SLOTS = [
 
 export const DEFAULT_SIZE: TramSize = 'md'
 
+/**
+ * The `Button`'s line, a point under the theme's 3: a field is a box to write in, and a
+ * form stacks several — at 3 the lines outweigh what is typed between them.
+ */
+const LINE_WIDTH = 2
+
 type SizeStep = {
   /** Spacing steps on each side of the text. */
   padding: number
@@ -91,7 +97,7 @@ export const textFieldRecipe = createRecipe({
       backgroundColor: theme.colors.fieldBackground,
       color: theme.colors.fieldForeground,
       borderColor: theme.colors.fieldBorder,
-      borderWidth: theme.borderWidth.field,
+      borderWidth: LINE_WIDTH,
       borderRadius: boxCornerFor('lg', theme.radius),
       paddingVertical: 0,
       // iOS centres a single line in its box and Android pins it to the top.
