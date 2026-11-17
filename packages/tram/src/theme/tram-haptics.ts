@@ -4,7 +4,7 @@ import { createContext, useContext } from 'react'
  * The moments a Tram control can be felt. A name, not an intensity: the app decides what
  * a `press` feels like, and on which devices.
  */
-export type TramHaptic = 'press'
+export type TramHaptic = 'press' | 'selection'
 
 export type TramHapticHandler = (moment: TramHaptic) => void
 

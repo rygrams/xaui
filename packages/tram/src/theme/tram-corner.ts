@@ -1,5 +1,5 @@
 import type { RadiusKey, XAUITheme } from '@xaui/native/theme'
-import { TRAM_RADIUS } from '../../theme/tram-tokens'
+import { TRAM_RADIUS } from './tram-tokens'
 
 /**
  * The corner a radius key draws in Tram: the theme's value, never past the Tram corner.

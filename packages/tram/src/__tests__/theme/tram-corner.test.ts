@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { cornerFor } from '../../../components/button/button.corner'
+import { cornerFor } from '../../theme/tram-corner'
 
 /** The scale a base of 2 derives — what the default Tram theme carries. */
 const radius = {

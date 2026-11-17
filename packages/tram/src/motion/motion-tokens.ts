@@ -20,8 +20,11 @@ export const spring = {
   tile: { damping: 18, stiffness: 120 },
 } as const
 
-/** How far a control shrinks under the finger. */
-export const scale = { press: 0.985 } as const
+/**
+ * How far something shrinks under the finger: a whole control, or the one part of it that
+ * is held — the switch's thumb.
+ */
+export const scale = { press: 0.985, thumb: 0.92 } as const
 
 /**
  * The Metro tilt: a pressed control leans toward the finger, as if pushed in at that

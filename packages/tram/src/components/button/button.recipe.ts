@@ -1,7 +1,7 @@
 import { RADIUS_KEYS, createRecipe } from '@xaui/native/system'
 import type { SlotStyles, StyleFn, VariantTokens } from '@xaui/native/system'
 import type { FontSizeKey, RadiusKey, XAUITheme } from '@xaui/native/theme'
-import { cornerFor } from './button.corner'
+import { cornerFor } from '../../theme/tram-corner'
 import { tramType } from '../../theme/tram-tokens'
 import type { TramSize, TramTypeRole } from '../../theme/tram-tokens'
 import type { ButtonSlot, ButtonVariant } from './button.type'
