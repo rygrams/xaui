@@ -45,10 +45,17 @@ export type TramTypeRole =
   | 'page'
   | 'hero'
 
-export const tramType: Record<
-  TramTypeRole,
-  { fontSize: number; weight: TramFontWeight }
-> = {
+export type TramTypeStep = {
+  fontSize: number
+  weight: TramFontWeight
+  /**
+   * The ceiling on the system's text-size multiplier. Sizes follow the user's setting;
+   * a role that is already giant only has so much screen to grow into.
+   */
+  maxFontScale?: number
+}
+
+export const tramType: Record<TramTypeRole, TramTypeStep> = {
   caption: { fontSize: 13, weight: 'regular' },
   body: { fontSize: 16, weight: 'regular' },
   subtitle: { fontSize: 19, weight: 'regular' },
@@ -56,7 +63,7 @@ export const tramType: Record<
   section: { fontSize: 32, weight: 'light' },
   pivot: { fontSize: 42, weight: 'light' },
   page: { fontSize: 64, weight: 'light' },
-  hero: { fontSize: 120, weight: 'light' },
+  hero: { fontSize: 120, weight: 'light', maxFontScale: 1.25 },
 }
 
 export const tramTileColumns = { phone: 4, tablet: 6, foldable: 8 } as const

@@ -10,6 +10,8 @@ const SLOTS = ['root', 'label', 'icon', 'spinner'] as const
 
 export const DEFAULT_SIZE: TramSize = 'md'
 
+export const DEFAULT_VARIANT: ButtonVariant = 'contained'
+
 /**
  * The button's line. One point under the theme's 3: at 3 an outlined label reads as a
  * frame around a word rather than as a control, and the two small sizes had no room.
@@ -28,8 +30,10 @@ const VARIANT_TOKENS: Record<ButtonVariant, VariantTokens> = {
   // No `border`: the soft slice is translucent, and a line of it over a fill of it would
   // show as a darker edge.
   flat: { bg: 'accentSoft', fg: 'accentSoftForeground' },
-  outline: { border: 'accent', fg: 'accent' },
-  text: { fg: 'accent' },
+  // `link`, not `accent`: here the colour is a line and a label on the ground, so it is
+  // the accent as ink — the same hue, moved until it reads at 4.5:1 in this mode.
+  outline: { border: 'link', fg: 'link' },
+  text: { fg: 'link' },
 }
 
 type SizeStep = {
@@ -171,5 +175,5 @@ export const buttonRecipe = createRecipe({
     }),
   },
 
-  defaultVariants: { variant: 'contained', size: DEFAULT_SIZE },
+  defaultVariants: { variant: DEFAULT_VARIANT, size: DEFAULT_SIZE },
 })

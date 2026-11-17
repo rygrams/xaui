@@ -78,6 +78,8 @@ en données pures** :
 - `accents` — les 20 couleurs Windows Phone 8, par nom.
 - `onAccent(hex)` — blanc ou noir selon la luminance ; fonction pure, testée. Le seuil est
   0,4 et non le 0,45 de `TRAM-DESIGN.md` : l'ambre est à 0,447 et passerait en blanc.
+- `accentInk(hex, sol)` — l'accent en encre, à 4,5:1 sur le sol (§8) ; `accentSoftInk`
+  pour un libellé posé sur la tranche douce.
 - `type` — l'échelle Tram (`caption` 13 → `hero` 120) avec sa graisse par rôle.
 - `tileColumns` — 4 / 6 / 8.
 - `touchTarget` — 48.
@@ -173,8 +175,8 @@ avant tout autre composant. Dans une phase, l'ordre est libre.
 
 ## 8. Questions que T1 doit trancher
 
-La revue du `Button` de référence fige ces points pour tout le package ; avant elle, ils
-sont des propositions.
+La revue du `Button` de référence fige ces points pour tout le package. Tous sont tranchés
+(T1.2).
 
 - **`variant`.** Tranché : quatre valeurs, `contained` (plein dans la vraie couleur),
   `flat` (plein dans sa tranche douce), `outline` (trait et texte dans la couleur) et
@@ -186,9 +188,15 @@ sont des propositions.
 - **État appuyé.** Tranché : les couleurs ne changent pas. L'appui est le tilt des tuiles —
   la boîte s'incline vers le doigt, 6° au bord, et réduit à 98,5 % — pas une réduction
   centrée, et pas l'inversion de Metro.
-- **Casse.** Metro écrit les libellés en minuscules ; Tram ne transforme pas le texte de
-  l'appli — proposition : aucune `textTransform` imposée.
+- **Casse.** Tranché : aucune `textTransform` imposée, nulle part. Metro écrit ses
+  libellés en minuscules ; Tram rend le texte que l'appli a écrit.
 - **`size`.** Tranché : `sm` / `md` / `lg` pour tout Tram (`TramSize`), comme le switch et
   le radio de `TRAM-DESIGN.md`. Pas de `xs`.
-- **Mode clair.** Vérifier que les 20 accents tiennent le contraste sur blanc ; sinon
-  `onAccent` et les bordures s'ajustent par mode.
+- **Contraste de l'accent.** Tranché : un accent est un **aplat** ou une **encre**. En
+  aplat (`contained`, une tuile) il garde sa vraie couleur et porte `onAccent`. En encre —
+  un trait ou un texte posé sur le sol : `outline`, `text`, le libellé d'un `flat`,
+  `Typography accent`, les tokens `link` et `focus` — il est rapproché de l'encre du mode
+  (noir en clair, blanc en sombre) du plus petit pas qui atteint 4,5:1 :
+  `accentInk(hex, sol)`, fonction pure, testée. Sur blanc, huit accents étaient sous 3:1
+  (jaune 1,68, lime 2,00, ambre 2,11) ; sur noir, crimson était à 2,56. Un `color` brut
+  n'est jamais corrigé.

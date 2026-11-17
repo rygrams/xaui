@@ -23,6 +23,26 @@ describe('buildTramThemeConfig', () => {
     })
   })
 
+  it('writes the accent as ink where it is read: darker on white, as is on black', () => {
+    const { colors } = buildTramThemeConfig({ accent: 'yellow' })
+
+    expect(colors?.light).toMatchObject({
+      accent: '#E3C800',
+      link: '#867600',
+      focus: '#867600',
+    })
+    expect(colors?.dark?.link).toBe('#E3C800')
+  })
+
+  it('measures the ink against a ground the caller changed', () => {
+    const { colors } = buildTramThemeConfig({
+      accent: 'yellow',
+      colors: { light: { background: '#000000' } },
+    })
+
+    expect(colors?.light?.link).toBe('#E3C800')
+  })
+
   it('takes a raw accent as given', () => {
     expect(buildTramThemeConfig({ accent: '#123456' }).colors?.light?.accent).toBe(
       '#123456'

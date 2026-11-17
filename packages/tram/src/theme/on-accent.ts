@@ -7,11 +7,10 @@ const HEX = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i
  */
 const LIGHT_FILL_LUMINANCE = 0.4
 
-function channels(hex: string): [number, number, number] {
+/** The three channels of a `#RGB` or `#RRGGBB` colour, each 0 to 1. */
+export function channels(hex: string): [number, number, number] {
   if (!HEX.test(hex)) {
-    throw new Error(
-      `onAccent: expected a #RGB or #RRGGBB colour, received "${hex}".`
-    )
+    throw new Error(`Tram: expected a #RGB or #RRGGBB colour, received "${hex}".`)
   }
   const digits = hex.slice(1)
   const full =

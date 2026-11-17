@@ -41,8 +41,7 @@ commit.
 ## The API does not change
 
 Everything in `xaui-component` applies — R1 to R14, the folder shape, the file suffixes.
-The reference is `packages/tram/src/components/button/` once T1 has landed; until then it
-is the Native `Button` for the shape and `TRAM-DESIGN.md` §Boutons for the drawing.
+The reference is `packages/tram/src/components/button/`.
 
 - **Same name, same slots, same props as the Native component of that name.** Swapping
   `@xaui/native/switch` for `@xaui/tram/switch` should be the whole migration. Open the
@@ -54,6 +53,9 @@ is the Native `Button` for the shape and `TRAM-DESIGN.md` §Boutons for the draw
   - `accent` takes one of the twenty palette names and repaints one control; `color`
     stays the raw tint and wins over it.
   - `size` is `TramSize` — `sm` / `md` / `lg`. There is no `xs`.
+- Text inside a component is set on the Tram scale by role. Standalone text is
+  `Typography` (`@xaui/tram/typography`); a weight is a name resolved to a face with
+  `faceFor`, never a `fontWeight` picked by hand.
 - A prop or slot Native does not have needs a reason in the Metro drawing. One Native has
   and Tram drops is recorded in the roadmap line.
 - `displayName` is `'XAUI.Tram.<Component>.<Slot>'`.
@@ -69,6 +71,7 @@ is the Native `Button` for the shape and `TRAM-DESIGN.md` §Boutons for the draw
 | Border          | `theme.borderWidth` (3) by default; the `Button` draws its line at 2, in its recipe.   |
 | Fill            | Flat: `background`, `foreground`, the accent, the discreet `surface`.                  |
 | Text on accent  | `onAccent(hex)` — black on lime, yellow, amber. Never assume white.                    |
+| Accent as ink   | A line or text in the accent, on the ground: `accentInk(hex, ground)`, or `link`.      |
 | Type            | The Tram scale, in roles (`caption` … `hero`). Light / SemiLight for titles.           |
 | Touch target    | 48 minimum — `hitSlop` when the drawn control is smaller.                              |
 | Pressed         | Colours do **not** change. The box tilts toward the finger and shrinks to 98.5%.       |
@@ -158,7 +161,8 @@ pnpm worklets:check            # after a build
 - [ ] Names, slots and props match the Native component of the same name, apart from the
       Tram `variant` / `accent` / `size` vocabulary; any other difference is recorded.
 - [ ] No shadow, blur, gradient; no radius above 2 outside circles.
-- [ ] No literal colour, duration or spring in a component; text on accent uses `onAccent`.
+- [ ] No literal colour, duration or spring in a component; text on accent uses `onAccent`,
+      and an accent drawn as a line or as text is the ink (`accentInk`, the `link` token).
 - [ ] A press moves the control (the tilt, through `useTramMotion`) and leaves its colours
       alone; no `pressed` state in the recipe.
 - [ ] Touch target reaches 48.
