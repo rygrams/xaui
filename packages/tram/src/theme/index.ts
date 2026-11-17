@@ -1,8 +1,7 @@
 export { createTramTheme, tramTheme } from './create-tram-theme'
-export { onAccent, relativeLuminance } from './on-accent'
+export { onAccent } from './on-accent'
 export { TramProvider } from './tram-provider'
 export type { TramProviderProps } from './tram-provider'
-export { buildTramThemeConfig } from './tram-theme-config'
 export type { TramThemeOptions } from './tram-theme-config'
 export {
   TRAM_RADIUS,

@@ -1,5 +1,45 @@
 # @xaui/native
 
+## 0.9.5
+
+### Patch Changes
+
+- cb4b8e9: Fix the text typed into `Combobox.Input` and `Autocomplete.Search` sitting at the bottom of the field on iOS. Both were single-line `TextInput`s carrying a `lineHeight`, which iOS lays out above the glyphs; they now take the size of the type and no line height, as the `TextField` does.
+
+## 0.9.4
+
+### Patch Changes
+
+- ded7cc4: The npm page mounts `Scaffold` next to the provider in its setup example, so the app's
+  status bar and navigator header follow the theme from the first screen.
+
+## 0.9.3
+
+### Patch Changes
+
+- 89983d8: Animations run on any `react-native-worklets` the peer range allows, not only 0.7.4 (#434).
+
+  The build no longer compiles worklets itself. It stamped every one with the Worklets Babel
+  plugin version in our lockfile, and the runtime refuses any other — so on Expo SDK 57
+  (Worklets 0.10.1, also Expo Go) every animation threw `Mismatch between JavaScript code
+version and Worklets Babel plugin version`. `dist` now ships its `'worklet'` directives
+  uncompiled, and your app's own plugin compiles them against its own runtime, the way
+  Reanimated and Gesture Handler ship theirs.
+
+  Every gesture callback and animated-hook callback now declares `'worklet'` explicitly —
+  twenty of them relied on the plugin recognising the callee, which a bundled `dist` does not
+  guarantee — and `pnpm worklets:check` fails CI on any that does not. The deprecated
+  `runOnJS` is replaced by `scheduleOnRN` from `react-native-worklets`, available since 0.5.0,
+  the bottom of the peer range.
+
+## 0.9.2
+
+### Patch Changes
+
+- 32430fa: Give both packages a proper npm page: a README with what the library does, how to install
+  it and where the documentation lives, a rewritten description and keywords, and a `bugs`
+  link to the issue tracker.
+
 ## 0.9.1
 
 ### Patch Changes

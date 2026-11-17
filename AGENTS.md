@@ -176,8 +176,9 @@ Prettier: no semicolons, single quotes, print width 85, 2 spaces, ES5 trailing c
 
 - Depends on `@xaui/native` (`workspace:^`), imported through its entrypoints only —
   `@xaui/native/system`, `@xaui/native/theme`, `@xaui/native`. Same peers as Native.
-- `"private": true` until its release task: changesets skips it, so a Tram-only change
-  carries no changeset. Never remove `private` as part of another change.
+- `"private": true` and listed in `ignore` (`.changeset/config.json`) until its release
+  task: nothing publishes it, a Native release does not bump it, and a Tram-only change
+  carries no changeset. Never lift either as part of another change.
 - No haptics library, no bundled font: the app wires `expo-haptics` and loads Selawik.
 
 ## Docs analytics

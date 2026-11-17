@@ -71,8 +71,13 @@ const ground: Record<ColorMode, ModeColors> = {
   },
 }
 
+// `in` would also answer yes to `toString` and return a function for a colour.
+function isAccentName(accent: string): accent is TramAccentName {
+  return Object.prototype.hasOwnProperty.call(tramAccents, accent)
+}
+
 function resolveAccent(accent: string): string {
-  return accent in tramAccents ? tramAccents[accent as TramAccentName] : accent
+  return isAccentName(accent) ? tramAccents[accent] : accent
 }
 
 /**

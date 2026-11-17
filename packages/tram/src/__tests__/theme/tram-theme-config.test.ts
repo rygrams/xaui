@@ -48,3 +48,11 @@ describe('buildTramThemeConfig', () => {
     expect(shadows?.overlay).toMatchObject({ shadowOpacity: 0, elevation: 0 })
   })
 })
+
+describe('buildTramThemeConfig — accent names', () => {
+  it('does not mistake an inherited property for an accent', () => {
+    expect(() => buildTramThemeConfig({ accent: 'toString' })).toThrow(
+      'received "toString"'
+    )
+  })
+})
