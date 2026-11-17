@@ -13,8 +13,8 @@ import type {
   TextStyleProps,
   ViewStyleProps,
 } from '@xaui/native/system'
-import type { RadiusKey, Size } from '@xaui/native/theme'
-import type { TramAccentName } from '../../theme/tram-tokens'
+import type { RadiusKey } from '@xaui/native/theme'
+import type { TramAccentName, TramSize } from '../../theme/tram-tokens'
 
 export type ButtonSlot = 'root' | 'label' | 'icon' | 'spinner'
 
@@ -37,7 +37,7 @@ export type ButtonSlot = 'root' | 'label' | 'icon' | 'spinner'
  */
 export type ButtonVariant = 'contained' | 'flat' | 'outline' | 'text'
 
-export type ButtonSize = Size
+export type ButtonSize = TramSize
 
 type ButtonOwnProps = {
   variant?: ButtonVariant

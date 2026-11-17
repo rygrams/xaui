@@ -188,7 +188,7 @@ sont des propositions.
   centrée, et pas l'inversion de Metro.
 - **Casse.** Metro écrit les libellés en minuscules ; Tram ne transforme pas le texte de
   l'appli — proposition : aucune `textTransform` imposée.
-- **`size`.** `sm` / `md` / `lg` comme le switch et le radio de `TRAM-DESIGN.md` ; `xs`
-  existe-t-il dans Tram ?
+- **`size`.** Tranché : `sm` / `md` / `lg` pour tout Tram (`TramSize`), comme le switch et
+  le radio de `TRAM-DESIGN.md`. Pas de `xs`.
 - **Mode clair.** Vérifier que les 20 accents tiennent le contraste sur blanc ; sinon
   `onAccent` et les bordures s'ajustent par mode.

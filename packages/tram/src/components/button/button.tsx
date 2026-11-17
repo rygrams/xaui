@@ -125,7 +125,7 @@ export const ButtonRoot = forwardRef<View, ButtonProps>(function Button(
   // Native's scale, highlight and ripple stay off: the press is the Tram tilt alone. `disable-all` is still handed down, so descendants hear it.
   const motion = resolveAnimation(animation)
   const Root = motion.scale ? PressTilt : PressableFeedback
-  // The two small sizes are drawn under the 48 touch target; the slop makes it up.
+  // `sm` is drawn under the 48 touch target; the slop makes it up.
   const reach = Math.max(0, (TRAM_TOUCH_TARGET - theme.controlHeights[size]) / 2)
 
   return (

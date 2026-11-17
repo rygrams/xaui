@@ -1,13 +1,13 @@
 import { createRecipe, radiusAxis } from '@xaui/native/system'
 import type { SlotStyles, VariantTokens } from '@xaui/native/system'
-import type { FontSizeKey, Size, XAUITheme } from '@xaui/native/theme'
+import type { FontSizeKey, XAUITheme } from '@xaui/native/theme'
 import { tramType } from '../../theme/tram-tokens'
-import type { TramTypeRole } from '../../theme/tram-tokens'
+import type { TramSize, TramTypeRole } from '../../theme/tram-tokens'
 import type { ButtonSlot, ButtonVariant } from './button.type'
 
 const SLOTS = ['root', 'label', 'icon', 'spinner'] as const
 
-export const DEFAULT_SIZE: Size = 'md'
+export const DEFAULT_SIZE: TramSize = 'md'
 
 /**
  * The button's line. One point under the theme's 3: at 3 an outlined label reads as a
@@ -32,7 +32,7 @@ const VARIANT_TOKENS: Record<ButtonVariant, VariantTokens> = {
 }
 
 type SizeStep = {
-  size: Size
+  size: TramSize
   /** The Tram type role of the label. */
   type: TramTypeRole
   /** Spacing steps, not points. */
@@ -54,8 +54,8 @@ function ring(size: number): SlotStyles<ButtonSlot>['spinner'] {
 
 /**
  * `size` drives height, padding, gap and type — never width. The heights are the
- * theme's control heights, so `lg` is the 56 of Windows Phone; `xs` and `sm` sit under
- * the 48 touch target, which the root makes up with `hitSlop`.
+ * theme's control heights — 40, 48, 56, so `lg` is Windows Phone's. `sm` sits under the 48
+ * touch target, which the root makes up with `hitSlop`.
  *
  * No `lineHeight`: the label is one line, centred by the row.
  */
@@ -108,13 +108,6 @@ export const buttonRecipe = createRecipe({
 
   variants: {
     size: {
-      xs: sizeAxis({
-        size: 'xs',
-        type: 'caption',
-        padding: 2,
-        gap: 1.5,
-        glyph: 'md',
-      }),
       sm: sizeAxis({
         size: 'sm',
         type: 'body',

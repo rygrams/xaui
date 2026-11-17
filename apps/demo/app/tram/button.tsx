@@ -11,7 +11,7 @@ import type { TramAccentName } from '@xaui/tram/theme'
 
 const VARIANTS: ButtonVariant[] = ['contained', 'flat', 'outline', 'text']
 
-const SIZES: ButtonSize[] = ['xs', 'sm', 'md', 'lg']
+const SIZES: ButtonSize[] = ['sm', 'md', 'lg']
 
 /** The three accents that take black text, and three that take white. */
 const ACCENTS: TramAccentName[] = [
@@ -32,7 +32,7 @@ function PlusIcon({ size, color }: IconComponentProps) {
 }
 
 /**
- * Where the Tram `Button` is verified, in dark and in light: the four variants, the four
+ * Where the Tram `Button` is verified, in dark and in light: the four variants, the three
  * sizes, the tilted press, the disabled and busy states, a named `accent` and a raw `color`.
  */
 export default function TramButtonScreen() {
@@ -62,7 +62,7 @@ export default function TramButtonScreen() {
         </Row>
       </Section>
 
-      <Section title="les tailles" note="32, 40, 48 et 56 — lg est Windows Phone.">
+      <Section title="les tailles" note="40, 48 et 56 — lg est Windows Phone.">
         <Row>
           {SIZES.map(size => (
             <Button key={size} size={size}>

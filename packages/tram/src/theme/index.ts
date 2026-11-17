@@ -12,4 +12,9 @@ export {
   tramTileColumns,
   tramType,
 } from './tram-tokens'
-export type { TramAccentName, TramFontWeight, TramTypeRole } from './tram-tokens'
+export type {
+  TramAccentName,
+  TramFontWeight,
+  TramSize,
+  TramTypeRole,
+} from './tram-tokens'
