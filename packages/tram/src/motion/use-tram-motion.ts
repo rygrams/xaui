@@ -1,5 +1,10 @@
 import { useCallback } from 'react'
-import { useReducedMotion, withSpring, withTiming } from 'react-native-reanimated'
+import {
+  ReduceMotion,
+  useReducedMotion,
+  withSpring,
+  withTiming,
+} from 'react-native-reanimated'
 import { duration, spring } from './motion-tokens'
 import type { TramSpringName } from './motion-tokens'
 
@@ -14,6 +19,9 @@ import type { TramSpringName } from './motion-tokens'
  *
  * A spring, so a second gesture can interrupt the first — or a short fade when the user
  * asked the system to reduce motion, which is why no component calls `withSpring` itself.
+ *
+ * The fade opts out of Reanimated's own handling of that setting: left to it, a timing
+ * under reduced motion does not shorten, it jumps to its end.
  */
 export function useTramMotion() {
   const isReduced = useReducedMotion()
@@ -22,7 +30,10 @@ export function useTramMotion() {
     (to: number, kind: TramSpringName = 'press') => {
       'worklet'
       return isReduced
-        ? withTiming(to, { duration: duration.reduced })
+        ? withTiming(to, {
+            duration: duration.reduced,
+            reduceMotion: ReduceMotion.Never,
+          })
         : withSpring(to, spring[kind])
     },
     [isReduced]

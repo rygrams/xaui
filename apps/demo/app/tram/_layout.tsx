@@ -4,6 +4,7 @@ import { Scaffold } from '@xaui/native/scaffold'
 import { useColorMode } from '@xaui/native/theme'
 import { Button } from '@xaui/tram/button'
 import { TramProvider } from '@xaui/tram/theme'
+import type { TramHaptic } from '@xaui/tram/theme'
 
 /**
  * The `@xaui/tram` half of the demo: one screen per Tram component, each the place that
@@ -22,7 +23,7 @@ export default function TramLayout() {
   const colorMode = mode ?? inherited
 
   return (
-    <TramProvider colorMode={colorMode} hasPortalHost={false} onHaptic={lightTap}>
+    <TramProvider colorMode={colorMode} hasPortalHost={false} onHaptic={feel}>
       <Scaffold>
         <Scaffold.StatusBar />
         <Scaffold.Navigator>
@@ -39,6 +40,7 @@ export default function TramLayout() {
             <Stack.Screen name="index" options={{ title: 'TRAM' }} />
             <Stack.Screen name="theme" options={{ title: 'THÈME' }} />
             <Stack.Screen name="button" options={{ title: 'BUTTON' }} />
+            <Stack.Screen name="switch" options={{ title: 'SWITCH' }} />
             <Stack.Screen name="typography" options={{ title: 'TYPOGRAPHY' }} />
           </Stack>
         </Scaffold.Navigator>
@@ -48,15 +50,20 @@ export default function TramLayout() {
 }
 
 /**
- * The app's side of Tram's haptics: the lightest impact iOS has. At module level, so the
- * provider is handed the same function on every render.
+ * The app's side of Tram's haptics: the lightest impact iOS has for a press, its
+ * selection tick for a switch that flips. At module level, so the provider is handed the
+ * same function on every render.
  *
  * Loaded on demand and allowed to fail: a binary built before `expo-haptics` was added
  * has no native module to load, and the web and the simulator have nothing to vibrate.
  */
-function lightTap() {
+function feel(moment: TramHaptic) {
   import('expo-haptics')
-    .then(Haptics => Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light))
+    .then(Haptics =>
+      moment === 'selection'
+        ? Haptics.selectionAsync()
+        : Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)
+    )
     .catch(() => {})
 }
 
