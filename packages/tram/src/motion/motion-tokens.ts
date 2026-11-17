@@ -51,4 +51,25 @@ export const tilt = {
   wideFrom: 200,
 } as const
 
+/**
+ * The five bubbles of an indeterminate progress bar: they come in fast, close up in the
+ * middle until `gap` points are left between two of them, and leave fast.
+ *
+ * `pace` is a speed per stretch of the bar, as a multiple of the slowest — the one at
+ * which a bubble covers its own diameter plus `gap` in one `stagger`, which is what keeps
+ * two bubbles from ever overlapping. `stops` are where one stretch ends and the next
+ * begins, as fractions of the bar: one fewer than there are paces.
+ */
+export const bubbles = {
+  count: 5,
+  /** Milliseconds between two bubbles setting off. */
+  stagger: 120,
+  /** Points left between two bubbles at their closest. */
+  gap: 2,
+  /** Milliseconds the bar stays empty before the five set off again. */
+  rest: 900,
+  stops: [0.2, 0.32, 0.42, 0.58, 0.68, 0.82],
+  pace: [9, 5, 2.5, 1, 2.5, 4.5, 6.5],
+} as const
+
 export type TramSpringName = keyof typeof spring

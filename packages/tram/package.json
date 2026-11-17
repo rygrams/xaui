@@ -59,6 +59,16 @@
         "default": "./dist/components/checkbox/index.cjs"
       }
     },
+    "./progress-bar": {
+      "import": {
+        "types": "./dist/components/progress-bar/index.d.ts",
+        "default": "./dist/components/progress-bar/index.js"
+      },
+      "require": {
+        "types": "./dist/components/progress-bar/index.d.cts",
+        "default": "./dist/components/progress-bar/index.cjs"
+      }
+    },
     "./radio": {
       "import": {
         "types": "./dist/components/radio/index.d.ts",
