@@ -61,6 +61,18 @@ describe('snapToStep', () => {
     expect(snapToStep(9.999, tenths)).toBe(10)
   })
 
+  it('keeps the precision of a step written with an exponent', () => {
+    const tiny = { min: 0, max: 0.000001, step: 0.0000001 }
+
+    expect(snapToStep(0.0000005, tiny)).toBe(0.0000005)
+    expect(snapToStep(0.00000034, tiny)).toBe(0.0000003)
+    expect(snapToStep(1.26e-7, { min: 0, max: 1, step: 2.5e-8 })).toBe(1.25e-7)
+  })
+
+  it('keeps a large step whole', () => {
+    expect(snapToStep(1.4e21, { min: 0, max: 5e21, step: 1e21 })).toBe(1e21)
+  })
+
   it('never leaves the scale', () => {
     expect(snapToStep(-5, tens)).toBe(0)
     expect(snapToStep(250, tens)).toBe(100)

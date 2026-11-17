@@ -17,12 +17,17 @@ function clamp(value: number, min: number, max: number): number {
   return Math.min(Math.max(value, min), max)
 }
 
+/**
+ * The decimals a number is written with — its exponent counted, since a small one prints
+ * as `1e-7`, which has no dot to count from.
+ */
 function decimalsOf(value: number): number {
   'worklet'
-  const text = String(value)
-  const dot = text.indexOf('.')
+  const [mantissa = '', exponent = '0'] = String(value).split('e')
+  const dot = mantissa.indexOf('.')
+  const written = dot === -1 ? 0 : mantissa.length - dot - 1
 
-  return dot === -1 ? 0 : text.length - dot - 1
+  return Math.max(written - Number(exponent), 0)
 }
 
 /** Where a value sits on its track, from 0 at `min` to 1 at `max`. */

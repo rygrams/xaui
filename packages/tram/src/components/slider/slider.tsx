@@ -2,7 +2,7 @@ import { forwardRef, useCallback, useEffect, useMemo, useRef, useState } from 'r
 import { View } from 'react-native'
 import { useSharedValue } from 'react-native-reanimated'
 import { useControllableState } from '@xaui/native'
-import { useAnimationDisabled, useStyleProps } from '@xaui/native/system'
+import { Slot, useAnimationDisabled, useStyleProps } from '@xaui/native/system'
 import { useXAUITheme } from '@xaui/native/theme'
 import { useTramMotion } from '../../motion/use-tram-motion'
 import { flatPaint } from '../../system/flat-paint'
@@ -67,6 +67,7 @@ export const SliderRoot = forwardRef<View, SliderProps>(function Slider(
     max = 100,
     step = 1,
     isDisabled = false,
+    asChild = false,
     style,
     ...props
   },
@@ -208,12 +209,15 @@ export const SliderRoot = forwardRef<View, SliderProps>(function Slider(
     ]
   )
 
+  // Under `asChild` the caller's element is the root: `Slot` merges these into it.
+  const Root = asChild ? Slot : View
+
   return (
     <SliderProvider value={context}>
       {/* Most general to most specific: the cached recipe, the style props, `style`. */}
-      <View ref={ref} {...rest} style={[styles.root, styleProps, style]}>
+      <Root ref={ref} {...rest} style={[styles.root, styleProps, style]}>
         {children}
-      </View>
+      </Root>
     </SliderProvider>
   )
 })

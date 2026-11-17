@@ -65,6 +65,11 @@ type SliderOwnProps = {
   step?: number
   /** Greys the line, the fill, the thumb and the output, and stops the touch. */
   isDisabled?: boolean
+  /**
+   * Renders the caller's one child element as the root, with the slider's props, style
+   * and ref merged into it. The slots go inside that element.
+   */
+  asChild?: boolean
 }
 
 /**

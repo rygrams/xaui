@@ -211,10 +211,16 @@ export default function TramSliderScreen() {
 
       <TramSection
         title="props de style"
-        note="Toute clé de ViewStyle est une prop, sur la racine comme sur les slots."
+        note="Toute clé de ViewStyle est une prop, sur la racine comme sur les slots. asChild : la racine est l'élément de l'appelant."
       >
         <Slider defaultValue={35} width="60%" opacity={0.7} radius="xs">
           <Plain label="étroit, à 70 %" />
+        </Slider>
+        <Slider asChild defaultValue={60} accent="orange">
+          <View testID="slider-as-child" style={{ paddingVertical: 8 }}>
+            <Slider.Output>{value => `asChild · ${value}`}</Slider.Output>
+            <Plain label="asChild" />
+          </View>
         </Slider>
       </TramSection>
     </ScrollView>
