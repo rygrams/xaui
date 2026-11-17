@@ -10,6 +10,8 @@ export const ease = {
 export const duration = {
   fast: 80,
   base: 250,
+  /** A page turning in on its top edge: longer than `base`, because it crosses the screen. */
+  swivel: 350,
   slow: 400,
   reduced: 150,
 } as const
@@ -52,6 +54,19 @@ export const tilt = {
 } as const
 
 /**
+ * The swivel: a page that turns in on its top edge, from edge-on to flat, and out the
+ * same way. `degrees` is where it starts — edge-on, above the screen's plane.
+ */
+export const swivel = { perspective: 600, degrees: -90 } as const
+
+/**
+ * The content cascade: the rows of a list arrive one after the other, each sliding up
+ * `rise` points as it fades in, `stagger` milliseconds behind the one before. Past
+ * `most` rows they arrive together — nobody waits for the bottom of a long list.
+ */
+export const cascade = { stagger: 40, rise: 12, most: 8 } as const
+
+/**
  * The five bubbles of an indeterminate progress bar: they come in fast, close up in the
  * middle until `gap` points are left between two of them, and leave fast.
  *
@@ -73,3 +88,4 @@ export const bubbles = {
 } as const
 
 export type TramSpringName = keyof typeof spring
+export type TramEaseName = keyof typeof ease

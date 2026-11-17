@@ -1,4 +1,4 @@
-import { tilt } from '../../motion/motion-tokens'
+import { tilt } from '../motion/motion-tokens'
 
 export type Point = { x: number; y: number }
 export type Box = { width: number; height: number }

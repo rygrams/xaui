@@ -4,25 +4,11 @@ import type { TextInput, TextStyle } from 'react-native'
 import { Slot, useAnimationDisabled, useStyleProps } from '@xaui/native/system'
 import { useXAUITheme } from '@xaui/native/theme'
 import { lineInk } from '../../system/line-ink'
+import { colorOf, pointsOf } from '../../system/style-values'
 import { touchReach } from '../../system/touch-reach'
 import { TextFieldProvider } from './text-field.context'
 import { DEFAULT_SIZE, textFieldRecipe } from './text-field.recipe'
 import type { TextFieldProps } from './text-field.type'
-
-/** `ColorValue` also covers the platform's opaque colours, which cannot be mixed. */
-/** `DimensionValue` also covers a percentage and `auto`: the recipe only writes points. */
-function pointsOf(value: unknown): number {
-  return typeof value === 'number' ? value : 0
-}
-
-function colorOf(
-  style: TextStyle,
-  key: 'color' | 'borderColor'
-): string | undefined {
-  const value = style[key]
-
-  return typeof value === 'string' ? value : undefined
-}
 
 /**
  * A text field with its label, its hint and its error — the Native `TextField`'s API,

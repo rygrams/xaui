@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { leanFor } from '../../../components/button/button.tilt'
+import { leanFor } from '../../system/tilt'
 
 const box = { width: 120, height: 48 }
 
