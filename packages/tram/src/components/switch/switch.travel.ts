@@ -4,7 +4,8 @@
  * in the pan, on the UI thread.
  *
  * `progress` is the thumb's place along its travel, 0 at the start and 1 at the end. A
- * spring carries it a little past either one; the drawing never follows it there.
+ * spring carries it a little past either one, and the drawing follows: that is the bounce.
+ * Only the finger is held between the two.
  */
 
 /** The four numbers of the drawing the travel depends on. */
@@ -30,10 +31,10 @@ export function travelOf(geometry: TravelGeometry): number {
   return Math.max(geometry.width - geometry.thumbWidth, 0)
 }
 
-/** The thumb's distance from the start. It stops at the ends, whatever the spring does. */
+/** The thumb's distance from the start — past an end while the spring bounces off it. */
 export function thumbOffset(progress: number, geometry: TravelGeometry): number {
   'worklet'
-  return clamp(progress, 0, 1) * travelOf(geometry)
+  return progress * travelOf(geometry)
 }
 
 /**

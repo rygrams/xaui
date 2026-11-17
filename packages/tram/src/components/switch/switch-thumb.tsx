@@ -12,7 +12,8 @@ import type { SwitchThumbProps } from './switch.type'
 
 /**
  * The block that slides, standing above and below the track and cut out of it by a margin
- * of the ground's colour. Held, it shrinks a little; let go, it springs to its end.
+ * of the ground's colour. Held, it is squashed a little in height; let go, it springs to
+ * its end and bounces once.
  *
  * ```tsx
  * <Switch.Thumb />
@@ -80,7 +81,7 @@ const SlidingThumb = forwardRef<View, SlidingThumbProps>(function SlidingThumb(
     return {
       transform: [
         { translateX: thumbOffset(progress.value, geometry) * towardEnd },
-        { scale: squash.value },
+        { scaleY: squash.value },
       ],
     }
   }, [progress, squash, geometry, towardEnd])

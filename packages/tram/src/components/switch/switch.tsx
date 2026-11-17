@@ -1,6 +1,6 @@
 import { forwardRef, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { GestureResponderEvent, View } from 'react-native'
-import { useSharedValue } from 'react-native-reanimated'
+import { useReducedMotion, useSharedValue } from 'react-native-reanimated'
 import { useControllableState, usePressState } from '@xaui/native'
 import {
   PressableFeedback,
@@ -138,10 +138,12 @@ export const SwitchRoot = forwardRef<View, SwitchProps>(function Switch(
   // A spring to a target, so a second flip turns the first one around mid-way.
   useEffect(() => {
     const target = selected ? 1 : 0
-    progress.value = isStill ? target : animate(target)
+    progress.value = isStill ? target : animate(target, 'thumb')
   }, [selected, releases, isStill, animate, progress])
 
-  const isHeld = (isPressed || isDragging) && motion.scale
+  // The squash is motion for its own sake, so reduced motion drops it rather than fading it.
+  const isReduced = useReducedMotion()
+  const isHeld = (isPressed || isDragging) && motion.scale && !isReduced
   useEffect(() => {
     squash.value = animate(isHeld ? scale.thumb : 1)
   }, [isHeld, animate, squash])

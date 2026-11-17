@@ -117,7 +117,7 @@ export type SwitchContextValue = {
   geometry: TravelGeometry
   /** The thumb's place along its travel, 0 to 1 — animated, and written by the drag. */
   progress: SharedValue<number>
-  /** The thumb's scale: 1, or less while it is held. */
+  /** The thumb's vertical scale: 1, or less while it is held. */
   squash: SharedValue<number>
   /** How far past the track a drag may start, to reach the touch target. */
   dragReach: number

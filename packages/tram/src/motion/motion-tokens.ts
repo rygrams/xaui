@@ -18,11 +18,19 @@ export const spring = {
   press: { damping: 20, stiffness: 400 },
   navigation: { damping: 22, stiffness: 180 },
   tile: { damping: 18, stiffness: 120 },
+  /**
+   * What slides to an end and settles there — the switch's thumb. One small bounce, about
+   * a twentieth of the way past, and at rest within half a second.
+   *
+   * The mass is written because the bounce depends on it: Reanimated's default is 4,
+   * and at 4 these two numbers throw the thumb a third of the way out of its track.
+   */
+  thumb: { mass: 1, damping: 26, stiffness: 370 },
 } as const
 
 /**
  * How far something shrinks under the finger: a whole control, or the one part of it that
- * is held — the switch's thumb.
+ * is held — the switch's thumb, which is squashed in height only.
  */
 export const scale = { press: 0.985, thumb: 0.92 } as const
 

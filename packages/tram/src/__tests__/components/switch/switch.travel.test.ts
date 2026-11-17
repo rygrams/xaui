@@ -27,9 +27,9 @@ describe('thumbOffset', () => {
     expect(thumbOffset(1, md)).toBe(40)
   })
 
-  it('stops at the ends when the spring overshoots', () => {
-    expect(thumbOffset(1.16, md)).toBe(40)
-    expect(thumbOffset(-0.16, md)).toBe(0)
+  it('follows the spring past either end', () => {
+    expect(thumbOffset(1.05, md)).toBe(42)
+    expect(thumbOffset(-0.05, md)).toBe(-2)
   })
 })
 
@@ -45,6 +45,10 @@ describe('fillWidth', () => {
 
     expect(width).toBe(4)
     expect(md.inset + width).toBeLessThanOrEqual(md.thumbWidth)
+  })
+
+  it('follows the thumb past the end', () => {
+    expect(fillWidth(1.05, md)).toBe(46)
   })
 
   it('is never negative', () => {
