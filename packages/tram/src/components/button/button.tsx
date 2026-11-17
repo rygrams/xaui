@@ -21,8 +21,7 @@ import type { ButtonProps } from './button.type'
 
 /**
  * The reference Tram component — the Native `Button`'s API, drawn in Metro: a flat
- * rectangle, a thin line, and a press that inverts the colours and leans toward the
- * finger.
+ * rectangle, a thin line, and a press that leans toward the finger.
  *
  * ```tsx
  * <Button onPress={send}>envoyer</Button>
@@ -69,8 +68,9 @@ export const ButtonRoot = forwardRef<View, ButtonProps>(function Button(
     isIconOnly: isIconOnly ? ('true' as const) : undefined,
   }
   // A loading button keeps its colours: it is busy, not unavailable. Only `isDisabled`
-  // draws the disabled state; both stop the press.
-  const states = { pressed: isPressed, disabled: isDisabled }
+  // draws the disabled state; both stop the press. `pressed` is not a recipe state here —
+  // the colours do not move under the finger, so it would only multiply the cache keys.
+  const states = { disabled: isDisabled }
 
   const styles = buttonRecipe.resolve({ theme, selection, states })
   // A named accent is a tint like any other: the palette is data, not theme tokens.
@@ -113,8 +113,7 @@ export const ButtonRoot = forwardRef<View, ButtonProps>(function Button(
     )
   }
 
-  // Native's scale, highlight and ripple stay off: the press is the recipe's inversion
-  // and the Tram tilt. `disable-all` is still handed down, so descendants hear it.
+  // Native's scale, highlight and ripple stay off: the press is the Tram tilt alone. `disable-all` is still handed down, so descendants hear it.
   const motion = resolveAnimation(animation)
   const Root = motion.scale ? PressTilt : PressableFeedback
   // The two small sizes are drawn under the 48 touch target; the slop makes it up.

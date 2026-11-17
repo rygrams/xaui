@@ -21,12 +21,14 @@ export type ButtonSlot = 'root' | 'label' | 'icon' | 'spinner'
 /**
  * Four ways to draw one rectangle, all in the accent — or in a raw `color`:
  *
- * | Variant     | At rest                          | Pressed                     |
- * | ----------- | -------------------------------- | --------------------------- |
- * | `contained` | filled with the true colour      | inverts to the ground's ink |
- * | `flat`      | filled with its soft slice       | fills with the true colour  |
- * | `outline`   | a line and a label in the colour | fills with the true colour  |
- * | `text`      | the label alone                  | the label greys             |
+ * | Variant     | Drawn as                         |
+ * | ----------- | -------------------------------- |
+ * | `contained` | filled with the true colour      |
+ * | `flat`      | filled with its soft slice       |
+ * | `outline`   | a line and a label in the colour |
+ * | `text`      | the label alone                  |
+ *
+ * None changes colour under the finger: the press is the tilt.
  *
  * **Not Native's names, deliberately** (T1.2). Native's ladder mixes emphasis and
  * intention — `primary`, `default`, `danger` — and Tram has one colour to spend, so a

@@ -193,7 +193,7 @@ phase and block nothing, but each one is a place where the repo lies about itsel
 | T0.4 | `motion/` — eases, durations, springs, `useTramMotion` with reduced motion                                         | done   |
 | T0.5 | Tram section in `apps/demo` — `app/tram/`, its provider, dark and light                                            | done   |
 | T1   | The reference `Button` and the API review                                                                          | todo   |
-| T1.1 | The reference `Button` — `contained`, `flat`, `outline`, `text`, `accent`; inverted press, tilt toward the finger  | done   |
+| T1.1 | The reference `Button` — `contained`, `flat`, `outline`, `text`, `accent`; a press that tilts toward the finger    | done   |
 | T1.2 | API review — blocking: `variant` mapping, sizes, pressed state, text case, light-mode contrast (`TRAM-PLAN.md` §8) | todo   |
 | T2   | The Metro controls (`TRAM-PLAN.md` §5, family A) — one `T2.n` line per component as it starts                      | todo   |
 | T3   | The signature — `Tile`, `Pivot`, `Panorama`, `AppBar`, `JumpList`, tilt, turnstile, continuum, swivel              | todo   |

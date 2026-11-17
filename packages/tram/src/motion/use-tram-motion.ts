@@ -8,7 +8,7 @@ import type { TramSpringName } from './motion-tokens'
  *
  * ```ts
  * const animate = useTramMotion()
- * scale.value = animate(0.99)
+ * scale.value = animate(0.985)
  * offset.value = animate(width, 'navigation')
  * ```
  *

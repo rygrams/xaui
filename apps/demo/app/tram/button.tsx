@@ -33,7 +33,7 @@ function PlusIcon({ size, color }: IconComponentProps) {
 
 /**
  * Where the Tram `Button` is verified, in dark and in light: the four variants, the four
- * sizes, the inverted press, the disabled and busy states, a named `accent` and a raw `color`.
+ * sizes, the tilted press, the disabled and busy states, a named `accent` and a raw `color`.
  */
 export default function TramButtonScreen() {
   const theme = useXAUITheme()
@@ -47,7 +47,7 @@ export default function TramButtonScreen() {
     >
       <Section
         title="les variantes"
-        note={`Appuyer inverse les couleurs et incline vers le doigt. Appuis : ${count}`}
+        note={`Appuyer incline vers le doigt, sans changer les couleurs. Appuis : ${count}`}
       >
         <Row>
           {VARIANTS.map(variant => (

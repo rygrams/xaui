@@ -182,10 +182,9 @@ sont des propositions.
 - **`accent`.** Tranché : un nom parmi les vingt accents (`accent="magenta"`) repeint un
   bouton sans changer de thème. `color` reste la teinte brute hors palette, et gagne.
 - **Bordure du bouton.** Tranché : 2, un point sous le 3 du thème.
-- **État appuyé.** Tranché : `contained` inverse (fond `foreground`) ; `flat` et `outline`
-  se remplissent de la vraie couleur ; `text` grise. Le mouvement est le tilt des tuiles —
-  la boîte s'incline vers le doigt, 6° au bord, et réduit à 99 % — pas une réduction
-  centrée.
+- **État appuyé.** Tranché : les couleurs ne changent pas. L'appui est le tilt des tuiles —
+  la boîte s'incline vers le doigt, 6° au bord, et réduit à 98,5 % — pas une réduction
+  centrée, et pas l'inversion de Metro.
 - **Casse.** Metro écrit les libellés en minuscules ; Tram ne transforme pas le texte de
   l'appli — proposition : aucune `textTransform` imposée.
 - **`size`.** `sm` / `md` / `lg` comme le switch et le radio de `TRAM-DESIGN.md` ; `xs`

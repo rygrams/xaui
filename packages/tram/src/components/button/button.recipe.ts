@@ -3,7 +3,6 @@ import type { SlotStyles, VariantTokens } from '@xaui/native/system'
 import type { FontSizeKey, Size, XAUITheme } from '@xaui/native/theme'
 import { tramType } from '../../theme/tram-tokens'
 import type { TramTypeRole } from '../../theme/tram-tokens'
-import { isBoxed, pressedColors } from './button.pressed'
 import type { ButtonSlot, ButtonVariant } from './button.type'
 
 const SLOTS = ['root', 'label', 'icon', 'spinner'] as const
@@ -18,16 +17,17 @@ const LINE_WIDTH = 2
 
 /**
  * A variant names tokens and computes nothing. The line is always there, transparent
- * when the variant names no `border`, so the box is the same size in all four. `flat` and `outline` also name `bgPressed`, the true colour they fill with
- * under the finger; `contained` already is that colour, names none, and inverts —
- * `pressedColors` reads exactly that difference.
+ * when the variant names no `border`, so the box is the same size in all four.
+ *
+ * No `…Pressed` role anywhere: a pressed Tram button keeps its colours. The press is the
+ * tilt, and that is motion — the root's, not the recipe's.
  */
 const VARIANT_TOKENS: Record<ButtonVariant, VariantTokens> = {
   contained: { bg: 'accent', border: 'accent', fg: 'accentForeground' },
   // No `border`: the soft slice is translucent, and a line of it over a fill of it would
   // show as a darker edge.
-  flat: { bg: 'accentSoft', fg: 'accentSoftForeground', bgPressed: 'accent' },
-  outline: { border: 'accent', fg: 'accent', bgPressed: 'accent' },
+  flat: { bg: 'accentSoft', fg: 'accentSoftForeground' },
+  outline: { border: 'accent', fg: 'accent' },
   text: { fg: 'accent' },
 }
 
@@ -146,26 +146,14 @@ export const buttonRecipe = createRecipe({
   },
 
   states: {
-    /** The inversion. The tilt is motion, and belongs to the root. */
-    pressed: (theme, colors) => {
-      const { fill, ink } = pressedColors(theme, colors)
-
-      return {
-        root: fill ? { backgroundColor: fill, borderColor: fill } : {},
-        label: { color: ink },
-        icon: { color: ink },
-        spinner: { borderColor: ink },
-      }
-    },
-
     /**
-     * The fill goes and the line and the label grey — dimmed as well, which on true black
+     * The fill goes and the line and the label grey — a bare label has no line to grey — dimmed as well, which on true black
      * lands on the design's `#4d4d4d` without a colour of its own.
      */
     disabled: (theme, colors) => ({
       root: {
         backgroundColor: 'transparent',
-        borderColor: isBoxed(colors) ? theme.colors.muted : 'transparent',
+        borderColor: colors.bg || colors.border ? theme.colors.muted : 'transparent',
         opacity: theme.opacity.disabled,
       },
       label: { color: theme.colors.muted },

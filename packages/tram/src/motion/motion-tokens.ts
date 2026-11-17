@@ -21,7 +21,7 @@ export const spring = {
 } as const
 
 /** How far a control shrinks under the finger. */
-export const scale = { press: 0.99 } as const
+export const scale = { press: 0.985 } as const
 
 /**
  * The Metro tilt: a pressed control leans toward the finger, as if pushed in at that
