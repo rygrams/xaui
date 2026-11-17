@@ -1,4 +1,4 @@
-import { createContext } from 'react'
+import { createContext, useContext } from 'react'
 import { createSlotContext } from '../slot/create-slot-context'
 import type { FeedbackContext } from './pressable-feedback.type'
 
@@ -15,3 +15,14 @@ export const [FeedbackProvider, useFeedback] =
  * nothing about that list read it — where the slot context stops at one root.
  */
 export const DisableAllContext = createContext(false)
+
+/**
+ * Whether an ancestor asked for `animation="disable-all"`.
+ *
+ * `PressableFeedback` reads the context itself. This is for a root that animates on its
+ * own beside it — a press movement the primitive does not own — and has to stand down
+ * with everything else: `resolveAnimation(animation, useAnimationDisabled())`.
+ */
+export function useAnimationDisabled(): boolean {
+  return useContext(DisableAllContext)
+}

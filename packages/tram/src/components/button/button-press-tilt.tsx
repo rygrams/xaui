@@ -1,4 +1,5 @@
 import { forwardRef, useEffect, useRef } from 'react'
+import { StyleSheet } from 'react-native'
 import type { GestureResponderEvent, LayoutChangeEvent, View } from 'react-native'
 import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated'
 import { PressableFeedback } from '@xaui/native/system'
@@ -53,17 +54,23 @@ export const PressTilt = forwardRef<View, PressableFeedbackProps>(function Press
     size.value = animate(1)
   }, [isPressed, animate, rotateX, rotateY, size])
 
+  // The tilt is appended to the caller's own transform rather than replacing it: `style`
+  // is the last word, and a button moved with `translateY` must stay where it was put.
+  const placed = StyleSheet.flatten(style)?.transform
+  const own = Array.isArray(placed) ? placed : NO_TRANSFORM
+
   const tilted = useAnimatedStyle(() => {
     'worklet'
     return {
       transform: [
+        ...own,
         { perspective: tilt.perspective },
         { rotateX: `${rotateX.value}deg` },
         { rotateY: `${rotateY.value}deg` },
         { scale: size.value },
       ],
     }
-  }, [rotateX, rotateY, size])
+  }, [own, rotateX, rotateY, size])
 
   return (
     <AnimatedFeedback
@@ -81,5 +88,7 @@ export const PressTilt = forwardRef<View, PressableFeedbackProps>(function Press
 })
 
 const BOX_ONLY = { pointerEvents: 'box-only' } as const
+
+const NO_TRANSFORM: never[] = []
 
 PressTilt.displayName = 'XAUI.Tram.Button.PressTilt'

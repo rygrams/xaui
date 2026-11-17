@@ -13,7 +13,7 @@ export const PressableFeedback = Object.assign(Root, {
   Ripple: PressableFeedbackRipple,
 })
 
-export { useFeedback } from './pressable-feedback-context'
+export { useAnimationDisabled, useFeedback } from './pressable-feedback-context'
 export { FEEDBACK_OVERLAY, markOverlay } from './pressable-feedback.overlay'
 export {
   HIGHLIGHT_DURATION,

@@ -7,6 +7,7 @@ import {
   childrenToString,
   containsElementOfType,
   resolveAnimation,
+  useAnimationDisabled,
   useStyleProps,
   warnDev,
 } from '@xaui/native/system'
@@ -122,8 +123,10 @@ export const ButtonRoot = forwardRef<View, ButtonProps>(function Button(
     )
   }
 
-  // Native's scale, highlight and ripple stay off: the press is the Tram tilt alone. `disable-all` is still handed down, so descendants hear it.
-  const motion = resolveAnimation(animation)
+  // Native's scale, highlight and ripple stay off: the press is the Tram tilt alone. An
+  // ancestor's `disable-all` stops the tilt too, and the button's own is still handed
+  // down, so its descendants hear it.
+  const motion = resolveAnimation(animation, useAnimationDisabled())
   const Root = motion.scale ? PressTilt : PressableFeedback
   // `sm` is drawn under the 48 touch target; the slop makes it up.
   const reach = Math.max(0, (TRAM_TOUCH_TARGET - theme.controlHeights[size]) / 2)

@@ -1,6 +1,7 @@
-import { createRecipe, radiusAxis } from '@xaui/native/system'
-import type { SlotStyles, VariantTokens } from '@xaui/native/system'
-import type { FontSizeKey, XAUITheme } from '@xaui/native/theme'
+import { RADIUS_KEYS, createRecipe } from '@xaui/native/system'
+import type { SlotStyles, StyleFn, VariantTokens } from '@xaui/native/system'
+import type { FontSizeKey, RadiusKey, XAUITheme } from '@xaui/native/theme'
+import { cornerFor } from './button.corner'
 import { tramType } from '../../theme/tram-tokens'
 import type { TramSize, TramTypeRole } from '../../theme/tram-tokens'
 import type { ButtonSlot, ButtonVariant } from './button.type'
@@ -72,6 +73,21 @@ function sizeAxis(step: SizeStep) {
   })
 }
 
+/**
+ * The `radius` axis, with the Tram ceiling on it. Native's `radiusAxis` hands the theme's
+ * scale through unchanged, and that scale climbs past its base — `radius="4xl"` would be
+ * an 8-point corner on a 2-point system.
+ */
+function cornerAxis(): Record<RadiusKey, StyleFn<ButtonSlot>> {
+  const axis = {} as Record<RadiusKey, StyleFn<ButtonSlot>>
+
+  for (const key of RADIUS_KEYS) {
+    axis[key] = theme => ({ root: { borderRadius: cornerFor(key, theme.radius) } })
+  }
+
+  return axis
+}
+
 export const buttonRecipe = createRecipe({
   slots: SLOTS,
 
@@ -81,7 +97,7 @@ export const buttonRecipe = createRecipe({
       alignItems: 'center',
       justifyContent: 'center',
       borderWidth: LINE_WIDTH,
-      borderRadius: theme.radius.lg,
+      borderRadius: cornerFor('lg', theme.radius),
     },
     label: {
       fontFamily: theme.fontFamilies.body,
@@ -131,7 +147,7 @@ export const buttonRecipe = createRecipe({
       }),
     },
 
-    radius: radiusAxis('root'),
+    radius: cornerAxis(),
 
     isIconOnly: {
       true: () => ({ root: { paddingHorizontal: 0, aspectRatio: 1 } }),
