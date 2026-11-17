@@ -4,13 +4,41 @@
     {
       "name": "demo-web",
       "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["--filter", "demo", "web", "--port", "8081", "--clear"],
+      "runtimeArgs": [
+        "--filter",
+        "demo",
+        "web",
+        "--port",
+        "8081",
+        "--clear"
+      ],
       "port": 8081
+    },
+    {
+      "name": "demo-native",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": [
+        "--filter",
+        "demo",
+        "exec",
+        "expo",
+        "start",
+        "--port",
+        "8082",
+        "--clear"
+      ],
+      "port": 8082
     },
     {
       "name": "docs",
       "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["--filter", "docs", "dev", "--port", "3100"],
+      "runtimeArgs": [
+        "--filter",
+        "docs",
+        "dev",
+        "--port",
+        "3100"
+      ],
       "port": 3100
     }
   ]
