@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { bubbles } from '../../motion/motion-tokens'
-import { bubbleAt, bubbleAtRest, bubbleRun } from '../../system/bubble-run'
+import { bubbleAt, bubbleRun, bubblesAtRest } from '../../system/bubble-run'
 
 const WIDTH = 320
 const DIAMETER = 6
@@ -105,20 +105,21 @@ describe('bubbleAt', () => {
   })
 })
 
-describe('bubbleAtRest', () => {
-  it('stands the five in a row, the gap between them', () => {
-    const places = [0, 1, 2, 3, 4].map(index =>
-      bubbleAtRest(WIDTH, DIAMETER, index, bubbles)
-    )
+describe('bubblesAtRest', () => {
+  const places = bubblesAtRest(WIDTH, DIAMETER, bubbles)
 
+  it('gives one place per bubble', () => {
+    expect(places).toHaveLength(bubbles.count)
+  })
+
+  it('stands them in a row, the gap between them', () => {
     expect(places[1]! - places[0]!).toBe(DIAMETER + bubbles.gap)
     expect(places[4]! - places[3]!).toBe(DIAMETER + bubbles.gap)
   })
 
   it('centres the row on the bar', () => {
-    const first = bubbleAtRest(WIDTH, DIAMETER, 0, bubbles)
-    const last = bubbleAtRest(WIDTH, DIAMETER, 4, bubbles) + DIAMETER
+    const afterLast = WIDTH - (places[places.length - 1]! + DIAMETER)
 
-    expect(first).toBeCloseTo(WIDTH - last)
+    expect(places[0]).toBeCloseTo(afterLast)
   })
 })

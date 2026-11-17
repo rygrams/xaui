@@ -15,7 +15,7 @@ import type { SharedValue } from 'react-native-reanimated'
 import { useStyleProps } from '@xaui/native/system'
 import { bubbles } from '../../motion/motion-tokens'
 import { useTramMotion } from '../../motion/use-tram-motion'
-import { bubbleAt, bubbleAtRest, bubbleRun } from '../../system/bubble-run'
+import { bubbleAt, bubbleRun, bubblesAtRest } from '../../system/bubble-run'
 import type { BubbleRun } from '../../system/bubble-run'
 import { useProgressBar } from './progress-bar.context'
 import type { ProgressBarFillProps } from './progress-bar.type'
@@ -38,7 +38,7 @@ const BUBBLES = Array.from({ length: bubbles.count }, (_, index) => index)
  * fast. Under reduced motion they stand in a row in the middle of the bar.
  *
  * `style` and the style props reach the fill; on an indeterminate bar they reach each
- * bubble.
+ * bubble, and `ref` the one that leads.
  */
 export const ProgressBarFill = forwardRef<View, ProgressBarFillProps>(
   function ProgressBarFill({ animation = true, style, ...props }, ref) {
@@ -62,6 +62,7 @@ export const ProgressBarFill = forwardRef<View, ProgressBarFillProps>(
       // Reanimated hooks are never reached.
       return moves && !isReduced ? (
         <RunningBubbles
+          ref={ref}
           {...rest}
           width={trackWidth}
           size={bubbleSize}
@@ -69,6 +70,7 @@ export const ProgressBarFill = forwardRef<View, ProgressBarFillProps>(
         />
       ) : (
         <StandingBubbles
+          ref={ref}
           {...rest}
           width={trackWidth}
           size={bubbleSize}
@@ -131,22 +133,34 @@ function towardEnd(): number {
   return I18nManager.isRTL ? -1 : 1
 }
 
-/** The five, standing: the row reduced motion shows in place of the run. */
-function StandingBubbles({ width, size, style, ...rest }: BubblesProps) {
-  return BUBBLES.map(index => {
-    const translateX = bubbleAtRest(width, size, index, bubbles) * towardEnd()
+/** The bubble the slot's `ref` lands on: the one that leads the run. */
+const LEADING = 0
 
-    return (
-      <View key={index} {...rest} style={[style, { transform: [{ translateX }] }]} />
-    )
-  })
-}
+/** The five, standing: the row reduced motion shows in place of the run. */
+const StandingBubbles = forwardRef<View, BubblesProps>(function StandingBubbles(
+  { width, size, style, ...rest },
+  ref
+) {
+  const direction = towardEnd()
+
+  return bubblesAtRest(width, size, bubbles).map((place, index) => (
+    <View
+      key={index}
+      ref={index === LEADING ? ref : undefined}
+      {...rest}
+      style={[style, { transform: [{ translateX: place * direction }] }]}
+    />
+  ))
+})
 
 /**
  * The five, running. One clock for all of them, counted in milliseconds and looped on
  * the UI thread; it stops with the component.
  */
-function RunningBubbles({ width, size, style, ...rest }: BubblesProps) {
+const RunningBubbles = forwardRef<View, BubblesProps>(function RunningBubbles(
+  { width, size, style, ...rest },
+  ref
+) {
   const run = useMemo(() => bubbleRun(width, size, bubbles), [width, size])
   const elapsed = useSharedValue(0)
 
@@ -176,6 +190,7 @@ function RunningBubbles({ width, size, style, ...rest }: BubblesProps) {
   return BUBBLES.map(index => (
     <Bubble
       key={index}
+      ref={index === LEADING ? ref : undefined}
       {...rest}
       index={index}
       run={run}
@@ -184,7 +199,7 @@ function RunningBubbles({ width, size, style, ...rest }: BubblesProps) {
       style={style}
     />
   ))
-}
+})
 
 type BubbleProps = SlotRest & {
   index: number
@@ -194,7 +209,10 @@ type BubbleProps = SlotRest & {
   style: StyleProp<ViewStyle>
 }
 
-function Bubble({ index, run, elapsed, direction, style, ...rest }: BubbleProps) {
+const Bubble = forwardRef<View, BubbleProps>(function Bubble(
+  { index, run, elapsed, direction, style, ...rest },
+  ref
+) {
   const moved = useAnimatedStyle(() => {
     'worklet'
     return {
@@ -202,5 +220,5 @@ function Bubble({ index, run, elapsed, direction, style, ...rest }: BubbleProps)
     }
   }, [run, elapsed, index, direction])
 
-  return <Animated.View {...rest} style={[style, moved]} />
-}
+  return <Animated.View ref={ref} {...rest} style={[style, moved]} />
+})

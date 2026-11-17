@@ -90,17 +90,18 @@ export function bubbleAt(run: BubbleRun, elapsed: number, index: number): number
 }
 
 /**
- * Where the bubble `index` stands when nothing moves: the five in a row in the middle of
- * the bar, the gap between them — what reduced motion shows in place of the run.
+ * Where the bubbles stand when nothing moves: in a row in the middle of the bar, the gap
+ * between them — what reduced motion shows in place of the run. One place per bubble,
+ * the first nearest the start.
  */
-export function bubbleAtRest(
+export function bubblesAtRest(
   width: number,
   diameter: number,
-  index: number,
   pace: BubblePace
-): number {
+): number[] {
   const pitch = diameter + pace.gap
   const row = pace.count * pitch - pace.gap
+  const first = (width - row) / 2
 
-  return (width - row) / 2 + index * pitch
+  return Array.from({ length: pace.count }, (_, index) => first + index * pitch)
 }
