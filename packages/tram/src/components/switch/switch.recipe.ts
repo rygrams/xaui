@@ -1,7 +1,7 @@
 import { RADIUS_KEYS, createRecipe } from '@xaui/native/system'
 import type { SlotStyles, StyleFn, VariantTokens } from '@xaui/native/system'
 import type { RadiusKey, XAUITheme } from '@xaui/native/theme'
-import { cornerFor } from '../../theme/tram-corner'
+import { boxCornerFor } from '../../theme/tram-corner'
 import { tramType } from '../../theme/tram-tokens'
 import type { TramSize, TramTypeRole } from '../../theme/tram-tokens'
 import { faceFor } from '../typography/typography.face'
@@ -104,13 +104,16 @@ function sizeAxis(step: SizeStep) {
   })
 }
 
-/** The `radius` axis under the Tram ceiling, on the two boxes at once. */
+/**
+ * The `radius` axis under the Tram ceiling, on the two boxes at once — `full` included:
+ * the track and the thumb are rectangles, and neither becomes a pill.
+ */
 function cornerAxis(): Record<RadiusKey, StyleFn<SwitchSlot>> {
   const axis = {} as Record<RadiusKey, StyleFn<SwitchSlot>>
 
   for (const key of RADIUS_KEYS) {
     axis[key] = theme => {
-      const borderRadius = cornerFor(key, theme.radius)
+      const borderRadius = boxCornerFor(key, theme.radius)
 
       return { track: { borderRadius }, thumb: { borderRadius } }
     }
@@ -123,7 +126,7 @@ export const switchRecipe = createRecipe({
   slots: SLOTS,
 
   base: theme => {
-    const borderRadius = cornerFor('lg', theme.radius)
+    const borderRadius = boxCornerFor('lg', theme.radius)
 
     return {
       root: { flexDirection: 'row', alignItems: 'center', alignSelf: 'flex-start' },

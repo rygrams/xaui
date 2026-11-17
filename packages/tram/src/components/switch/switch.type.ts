@@ -25,7 +25,7 @@ export type SwitchSize = TramSize
 type SwitchOwnProps = {
   /** The track, the thumb, the gap and the label's type. `lg` is Windows Phone's. */
   size?: SwitchSize
-  /** Overrides the corner of the track and the thumb. The scale stays within 2. */
+  /** Overrides the corner of the track and the thumb. Every key stays within 2. */
   radius?: RadiusKey
   /**
    * One of the twenty named accents — `accent="lime"` — for a switch that is not in the
