@@ -14,21 +14,28 @@ import type { SelectListSlot, SelectMotion } from './select.type'
 
 /**
  * What the field shows once a value is chosen, without the caller repeating it: items
- * register their label, and `Select.Value` reads it. A ref rather than state — a
- * registration that re-rendered the list would do so once per row.
+ * register their label, and `Select.Value` reads it. The labels are kept in a ref — a
+ * registration must not re-render the list once per row — and counted in state.
+ *
+ * `labelFor` is a new function each time a label arrives or changes. That identity is how
+ * the news reaches `Select.Value`: the root's context is memoized, and a reader that is
+ * handed the same function again is not told to read again.
  */
 export function useLabelRegistry() {
   const labels = useRef(new Map<string, string>())
-  const [, repaint] = useState(0)
+  const [revision, setRevision] = useState(0)
 
   const registerLabel = useCallback((value: string, label: string) => {
     if (labels.current.get(value) === label) return
     labels.current.set(value, label)
-    // The field repaints once the label it was missing has arrived.
-    repaint(count => count + 1)
+    setRevision(count => count + 1)
   }, [])
 
-  const labelFor = useCallback((value: string) => labels.current.get(value), [])
+  const labelFor = useCallback(
+    (value: string) => labels.current.get(value),
+    // Not read in the body: it is what renews the function.
+    [revision]
+  )
 
   return useMemo(() => ({ labelFor, registerLabel }), [labelFor, registerLabel])
 }

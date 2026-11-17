@@ -37,7 +37,19 @@ export function useSwivel(isOpen: boolean, isStill: boolean) {
       return
     }
 
-    turn.value = isOpen ? glide(1, 'metro', duration.swivel) : glide(0, 'exit')
+    if (isOpen) {
+      turn.value = glide(1, 'metro', duration.swivel)
+      return
+    }
+
+    // Closed before the way in drew its first frame: the page is still edge-on, there is
+    // no way out to play, and nothing below would ever see it reach the end of one.
+    if (turn.value === 0) {
+      setMounted(false)
+      return
+    }
+
+    turn.value = glide(0, 'exit')
   }, [isOpen, isStill, glide, turn])
 
   // Gone once the way out has ended — not when it starts, and not before the way in.
