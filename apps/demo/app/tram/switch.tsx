@@ -3,7 +3,7 @@ import type { ReactNode } from 'react'
 import { ScrollView, View } from 'react-native'
 import { useXAUITheme } from '@xaui/native/theme'
 import { Button } from '@xaui/tram/button'
-import { Switch, useSwitch } from '@xaui/tram/switch'
+import { Switch } from '@xaui/tram/switch'
 import type { SwitchSize } from '@xaui/tram/switch'
 import type { TramAccentName } from '@xaui/tram/theme'
 import { Typography } from '@xaui/tram/typography'
@@ -17,7 +17,7 @@ const ACCENTS: TramAccentName[] = ['lime', 'amber', 'yellow', 'magenta', 'cobalt
 /**
  * Where the Tram `Switch` is verified, in dark and in light: the three sizes, a tap and a
  * drag, controlled and not, disabled on and off, named accents, a raw `color`, and the
- * Metro row composed from the three slots.
+ * Metro row, its state written out by `Switch.State`.
  */
 export default function TramSwitchScreen() {
   const theme = useXAUITheme()
@@ -111,7 +111,7 @@ export default function TramSwitchScreen() {
 
       <TramSection
         title="la ligne metro"
-        note="Un libellé gris au-dessus, l'état écrit en grand au début, le switch à la fin — composé ici avec useSwitch."
+        note="Un libellé gris au-dessus, l'état écrit en grand au début, le switch à la fin — Switch.State écrit l'état."
       >
         <View>
           <Typography variant="caption" color={theme.colors.muted}>
@@ -124,7 +124,7 @@ export default function TramSwitchScreen() {
             justifyContent="space-between"
             accessibilityLabel="wi-fi"
           >
-            <StateText />
+            <Switch.State on="activé" off="désactivé" />
             <Switch.Track>
               <Switch.Thumb />
             </Switch.Track>
@@ -148,13 +148,6 @@ export default function TramSwitchScreen() {
       </TramSection>
     </ScrollView>
   )
-}
-
-/** The state, read from the switch it is composed in — a slot written by the app. */
-function StateText() {
-  const { isSelected } = useSwitch()
-
-  return <Switch.Label>{isSelected ? 'activé' : 'désactivé'}</Switch.Label>
 }
 
 function Row({ children }: { children: ReactNode }) {

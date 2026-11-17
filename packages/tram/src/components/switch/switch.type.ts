@@ -102,6 +102,22 @@ export type SwitchLabelProps = TextProps &
     children?: ReactNode
   }
 
+type SwitchStateOwnProps = {
+  /** What the row reads while the switch is on. */
+  on: ReactNode
+  /** What it reads while the switch is off. */
+  off: ReactNode
+}
+
+/**
+ * A slot Native does not have: the Metro switch writes its state out, in large, at the
+ * start of the row. It takes the two texts rather than children, since which one shows
+ * is the switch's to say.
+ */
+export type SwitchStateProps = Omit<TextProps, 'children'> &
+  Omit<TextStyleProps, keyof TextProps> &
+  SwitchStateOwnProps
+
 /**
  * Resolved styles, and what the slots animate from. The thumb and the fill are two views
  * moved by one number, so that number is the root's and both read it.
