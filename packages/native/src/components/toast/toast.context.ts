@@ -1,6 +1,6 @@
 import { createContext, useContext } from 'react'
 import { createSlotContext } from '../../system/slot'
-import { warnDev } from '../../utils/warn-dev'
+import { warnDev } from '../../system/warn-dev'
 import type { ToastContextValue, ToastQueue } from './toast.type'
 
 /**

@@ -1,7 +1,7 @@
 import { createElement } from 'react'
 import type { ReactNode } from 'react'
 import { describe, expect, it } from 'vitest'
-import { containsElementOfType } from '../../utils/children'
+import { containsElementOfType } from '../../../system/slot/contains-element-of-type'
 
 function Marker() {
   return null

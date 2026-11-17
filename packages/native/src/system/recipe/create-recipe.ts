@@ -9,7 +9,7 @@ import type {
   StyleFn,
   VariantColors,
 } from './recipe.type'
-import { warnDev } from '../../utils/warn-dev'
+import { warnDev } from '../warn-dev'
 import { resolveTint } from './resolve-tint'
 import { cacheKey, createStyleCache } from './style-cache'
 import {

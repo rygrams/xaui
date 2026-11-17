@@ -6,13 +6,13 @@ import { PressableFeedback } from '../../system/pressable-feedback'
 import { childrenToString } from '../../system/slot'
 import { useStyleProps } from '../../system/style-props'
 import { useXAUITheme } from '../../theme/theme-hooks'
-import { warnDev } from '../../utils/warn-dev'
+import { warnDev } from '../../system/warn-dev'
 import { ButtonLabel } from './button-label'
 import { ButtonSpinner } from './button-spinner'
 import { ButtonProvider } from './button.context'
 import { buttonRecipe } from './button.recipe'
 import type { ButtonProps } from './button.type'
-import { containsElementOfType } from '../../utils/children'
+import { containsElementOfType } from '../../system/slot/contains-element-of-type'
 
 /**
  * The reference component. Every other one in the library is this shape.

@@ -4,7 +4,7 @@ import type { GestureResponderEvent } from 'react-native'
 import { usePressState } from '../../hooks/use-press-state'
 import { PressableFeedback } from '../../system/pressable-feedback'
 import { useStyleProps } from '../../system/style-props'
-import { warnDev } from '../../utils/warn-dev'
+import { warnDev } from '../../system/warn-dev'
 import { useBottomSheet } from './bottom-sheet.context'
 import type { BottomSheetHandleProps } from './bottom-sheet.type'
 
