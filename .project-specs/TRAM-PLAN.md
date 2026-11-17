@@ -184,7 +184,7 @@ sont des propositions.
 - **Bordure du bouton.** Tranché : 2, un point sous le 3 du thème.
 - **État appuyé.** Tranché : `contained` inverse (fond `foreground`) ; `flat` et `outline`
   se remplissent de la vraie couleur ; `text` grise. Le mouvement est le tilt des tuiles —
-  la boîte s'incline vers le doigt, 6° au bord, et réduit à 98 % — pas une réduction
+  la boîte s'incline vers le doigt, 6° au bord, et réduit à 99 % — pas une réduction
   centrée.
 - **Casse.** Metro écrit les libellés en minuscules ; Tram ne transforme pas le texte de
   l'appli — proposition : aucune `textTransform` imposée.
