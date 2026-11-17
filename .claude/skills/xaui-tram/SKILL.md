@@ -104,8 +104,9 @@ fade.
   second use; before that they stay in the component folder.
 - `transformOrigin`, `backfaceVisibility` and `perspective` are checked on Android, not
   only on the web demo.
-- **No haptic dependency.** Expose the moment (`onPressIn`, `onValueChange`,
-  `onTabChange`); the app wires `expo-haptics`.
+- **No haptic dependency.** Call `useTramHaptic()` at the moment — `haptic('press')` —
+  and expose the event (`onPressIn`, `onValueChange`, `onTabChange`). Nothing vibrates
+  until the app hands `TramProvider` an `onHaptic`, where it wires `expo-haptics`.
 
 ## Not now
 

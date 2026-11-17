@@ -106,9 +106,10 @@ Les animations de signature — tilt, turnstile, continuum, swivel, cascade — 
 primitives de `system/` dès qu'un deuxième composant s'en sert ; avant, elles restent dans
 le dossier du composant.
 
-**Haptique : aucune dépendance.** Un composant Tram expose l'instant (`onPressIn`,
-`onValueChange`, `onTabChange`) et l'appli branche `expo-haptics` si elle veut. Embarquer
-une bibliothèque haptique est une décision de plan, pas de composant.
+**Haptique : aucune dépendance.** Un composant Tram appelle `useTramHaptic()` à son instant
+(`haptic('press')` à l'appui du `Button`) ; rien ne vibre tant que l'appli n'a pas donné un
+`onHaptic` au `TramProvider`, où elle branche `expo-haptics` ou autre. Embarquer une
+bibliothèque haptique est une décision de plan, pas de composant.
 
 ## 5. Parité avec Native
 

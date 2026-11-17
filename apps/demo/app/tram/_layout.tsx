@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import * as Haptics from 'expo-haptics'
 import { Stack } from 'expo-router'
 import { Scaffold } from '@xaui/native/scaffold'
 import { useColorMode } from '@xaui/native/theme'
@@ -22,7 +23,7 @@ export default function TramLayout() {
   const colorMode = mode ?? inherited
 
   return (
-    <TramProvider colorMode={colorMode} hasPortalHost={false}>
+    <TramProvider colorMode={colorMode} hasPortalHost={false} onHaptic={lightTap}>
       <Scaffold>
         <Scaffold.StatusBar />
         <Scaffold.Navigator>
@@ -44,6 +45,15 @@ export default function TramLayout() {
       </Scaffold>
     </TramProvider>
   )
+}
+
+/**
+ * The app's side of Tram's haptics: the lightest impact iOS has. At module level, so the
+ * provider is handed the same function on every render.
+ */
+function lightTap() {
+  // Web and the simulator have nothing to vibrate; a rejection there is not an error.
+  Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light).catch(() => {})
 }
 
 type ModeToggleProps = {

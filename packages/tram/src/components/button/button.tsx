@@ -11,6 +11,7 @@ import {
   warnDev,
 } from '@xaui/native/system'
 import { useXAUITheme } from '@xaui/native/theme'
+import { useTramHaptic } from '../../theme/tram-haptics'
 import { TRAM_TOUCH_TARGET, tramAccents } from '../../theme/tram-tokens'
 import { ButtonLabel } from './button-label'
 import { PressTilt } from './button-press-tilt'
@@ -32,7 +33,7 @@ import type { ButtonProps } from './button.type'
  * </Button>
  * ```
  *
- * No haptic: `onPressIn` is the moment, and the app wires its own.
+ * A press is felt through `TramProvider`'s `onHaptic`, when the app gave it one.
  */
 export const ButtonRoot = forwardRef<View, ButtonProps>(function Button(
   {
@@ -59,7 +60,15 @@ export const ButtonRoot = forwardRef<View, ButtonProps>(function Button(
 ) {
   const theme = useXAUITheme()
   const [styleProps, rest] = useStyleProps(props)
-  const [isPressed, press] = usePressState({ onPressIn, onPressOut })
+  const haptic = useTramHaptic()
+  const [isPressed, press] = usePressState({
+    // Felt as the finger lands, with the tilt — not on release, when it is already over.
+    onPressIn: event => {
+      haptic('press')
+      onPressIn?.(event)
+    },
+    onPressOut,
+  })
 
   const selection = {
     variant,
