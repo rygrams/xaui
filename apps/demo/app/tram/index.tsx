@@ -7,7 +7,10 @@ import { tramType } from '@xaui/tram/theme'
  * The way into the Tram screens. A component adds its route to `tram/_layout` and one
  * line here.
  */
-const SCREENS = [{ href: '/tram/theme', label: 'thème et mouvement' }] as const
+const SCREENS = [
+  { href: '/tram/theme', label: 'thème et mouvement' },
+  { href: '/tram/button', label: 'button' },
+] as const
 
 export default function TramHomeScreen() {
   const theme = useXAUITheme()

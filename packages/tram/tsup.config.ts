@@ -5,6 +5,7 @@ const entries = {
   index: 'src/index.ts',
   'theme/index': 'src/theme/index.ts',
   'motion/index': 'src/motion/index.ts',
+  'components/button/index': 'src/components/button/index.ts',
 }
 
 export default defineConfig({

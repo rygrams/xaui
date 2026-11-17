@@ -38,6 +38,16 @@
         "types": "./dist/motion/index.d.cts",
         "default": "./dist/motion/index.cjs"
       }
+    },
+    "./button": {
+      "import": {
+        "types": "./dist/components/button/index.d.ts",
+        "default": "./dist/components/button/index.js"
+      },
+      "require": {
+        "types": "./dist/components/button/index.d.cts",
+        "default": "./dist/components/button/index.cjs"
+      }
     }
   },
   "files": [

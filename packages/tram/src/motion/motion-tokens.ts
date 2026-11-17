@@ -20,4 +20,7 @@ export const spring = {
   tile: { damping: 18, stiffness: 120 },
 } as const
 
+/** How far a control shrinks under the finger. */
+export const scale = { press: 0.96 } as const
+
 export type TramSpringName = keyof typeof spring
