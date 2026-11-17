@@ -11,6 +11,7 @@ const SLOTS = [
   'root',
   'label',
   'field',
+  'textArea',
   'placeholder',
   'focus',
   'description',
@@ -34,17 +35,48 @@ type SizeStep = {
   field: TramTypeRole
   label: TramTypeRole
   help: TramTypeRole
+  /** The height of a line of a multiline field, in points: the scale fixes none. */
+  leading: number
+  /** Spacing steps above and below the lines of a multiline field. */
+  inset: number
 }
 
 /**
  * The box is as tall as the theme's control of that size — 40, 48, 56 — and what is typed
  * in it steps up the Tram scale with it. Only `sm` stands under the 48 touch target,
  * which the field makes up with its `hitSlop`.
+ *
+ * `leading` is the one place a line height is written: a single line has none (iOS sinks
+ * the typed text under it), several lines cannot do without.
  */
 const SIZES: Record<TramSize, SizeStep> = {
-  sm: { padding: 2.5, gap: 1, field: 'body', label: 'caption', help: 'caption' },
-  md: { padding: 3, gap: 1.5, field: 'subtitle', label: 'body', help: 'caption' },
-  lg: { padding: 4, gap: 2, field: 'title', label: 'subtitle', help: 'body' },
+  sm: {
+    padding: 2.5,
+    gap: 1,
+    field: 'body',
+    label: 'caption',
+    help: 'caption',
+    leading: 22,
+    inset: 2,
+  },
+  md: {
+    padding: 3,
+    gap: 1.5,
+    field: 'subtitle',
+    label: 'body',
+    help: 'caption',
+    leading: 26,
+    inset: 2.5,
+  },
+  lg: {
+    padding: 4,
+    gap: 2,
+    field: 'title',
+    label: 'subtitle',
+    help: 'body',
+    leading: 32,
+    inset: 3,
+  },
 }
 
 function sizeAxis(size: TramSize) {
@@ -61,6 +93,13 @@ function sizeAxis(size: TramSize) {
         ...roleType(step.field, theme),
         minHeight: theme.controlHeights[size],
         paddingHorizontal: theme.spacing(step.padding),
+      },
+      // Only what several lines add — `TextArea.Field` layers it over the field's own
+      // style. The height is not here: `rows` is a raw value.
+      textArea: {
+        lineHeight: step.leading,
+        paddingTop: theme.spacing(step.inset),
+        paddingBottom: theme.spacing(step.inset),
       },
       description: help,
       error: help,
@@ -103,6 +142,8 @@ export const textFieldRecipe = createRecipe({
       // iOS centres a single line in its box and Android pins it to the top.
       textAlignVertical: 'center',
     },
+    // Several lines start at the top; only a single line is centred in its box.
+    textArea: { textAlignVertical: 'top' },
     // Not nodes — the root flattens these two into values: the placeholder's colour is a
     // `TextInput` prop, and the focused border is one end of an animation.
     placeholder: { color: theme.colors.fieldPlaceholder },

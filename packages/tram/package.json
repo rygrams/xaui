@@ -99,6 +99,16 @@
         "default": "./dist/components/switch/index.cjs"
       }
     },
+    "./text-area": {
+      "import": {
+        "types": "./dist/components/text-area/index.d.ts",
+        "default": "./dist/components/text-area/index.js"
+      },
+      "require": {
+        "types": "./dist/components/text-area/index.d.cts",
+        "default": "./dist/components/text-area/index.cjs"
+      }
+    },
     "./text-field": {
       "import": {
         "types": "./dist/components/text-field/index.d.ts",

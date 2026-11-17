@@ -16,6 +16,7 @@ export type TextFieldSlot =
   | 'root'
   | 'label'
   | 'field'
+  | 'textArea'
   | 'placeholder'
   | 'focus'
   | 'description'
@@ -96,6 +97,13 @@ export type FieldBlurEvent = Parameters<NonNullable<TextInputProps['onBlur']>>[0
 export type TextFieldContextValue = {
   labelStyle: StyleProp<TextStyle>
   fieldStyle: StyleProp<TextStyle>
+  /** Layered over `fieldStyle` by `TextArea.Field`: only what several lines add. */
+  textAreaStyle: StyleProp<TextStyle>
+  /**
+   * Values, not a style: `rows` is a raw number, so the height it implies is arithmetic
+   * the text area does — a line's height, and what the box adds around the lines.
+   */
+  textArea: { lineHeight: number; chrome: number }
   descriptionStyle: StyleProp<TextStyle>
   errorStyle: StyleProp<TextStyle>
   /** A value and not a style: `placeholderTextColor` is a `TextInput` prop. */
