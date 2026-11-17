@@ -14,16 +14,20 @@ export const duration = {
   reduced: 150,
 } as const
 
+/**
+ * The design's springs, for a mass of 1 — which is written on each, because the bounce
+ * depends on it and Reanimated's own default is 4. At 4 these numbers damp half as much:
+ * `press` rings for a second and a half, and `thumb` leaves its track.
+ */
 export const spring = {
-  press: { damping: 20, stiffness: 400 },
-  navigation: { damping: 22, stiffness: 180 },
-  tile: { damping: 18, stiffness: 120 },
+  /** A firm bounce, about a sixth past, settled in 0.4 s: what answers a finger. */
+  press: { mass: 1, damping: 20, stiffness: 400 },
+  /** Arrives and stops, with next to no bounce. */
+  navigation: { mass: 1, damping: 22, stiffness: 180 },
+  tile: { mass: 1, damping: 18, stiffness: 120 },
   /**
    * What slides to an end and settles there — the switch's thumb. One small bounce, about
    * a twentieth of the way past, and at rest within half a second.
-   *
-   * The mass is written because the bounce depends on it: Reanimated's default is 4,
-   * and at 4 these two numbers throw the thumb a third of the way out of its track.
    */
   thumb: { mass: 1, damping: 26, stiffness: 370 },
 } as const
