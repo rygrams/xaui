@@ -15,7 +15,8 @@ const DRAWING = 'line'
 
 /**
  * Only the filled part is the variant's colour, so only it follows `accent` and `color`.
- * The line and the thumb are the page's ink in every accent, and are named in `base`.
+ * The line is the soft grey and the thumb the page's ink in every accent: both are named
+ * in `base`.
  */
 const VARIANT_TOKENS: Record<typeof DRAWING, VariantTokens> = {
   [DRAWING]: { bgSelected: 'accent' },
@@ -148,9 +149,11 @@ export const sliderRecipe = createRecipe({
 
     return {
       output: { color: theme.colors.foreground },
+      // The room left to go, in the soft grey of the `ProgressBar`'s bar: a line this
+      // thick drawn in ink would swallow the thumb, which is ink.
       rail: {
         position: 'absolute',
-        backgroundColor: theme.colors.foreground,
+        backgroundColor: theme.colors.default,
         borderRadius,
       },
       fill: { position: 'absolute', borderRadius },
@@ -196,7 +199,6 @@ export const sliderRecipe = createRecipe({
     disabled: theme => ({
       root: { opacity: theme.opacity.disabled },
       output: { color: theme.colors.muted },
-      rail: { backgroundColor: theme.colors.muted },
       fill: { backgroundColor: theme.colors.muted },
       block: { backgroundColor: theme.colors.muted },
     }),

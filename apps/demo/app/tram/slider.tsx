@@ -143,7 +143,7 @@ export default function TramSliderScreen() {
 
       <TramSection
         title="désactivé"
-        note="Piste, remplissage et curseur gris, sans accent — et rien ne bouge."
+        note="Remplissage et curseur gris, sans accent — et rien ne bouge."
       >
         <Slider isDisabled defaultValue={45}>
           <Slider.Output />
