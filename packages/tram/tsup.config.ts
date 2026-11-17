@@ -6,6 +6,7 @@ const entries = {
   'theme/index': 'src/theme/index.ts',
   'motion/index': 'src/motion/index.ts',
   'components/button/index': 'src/components/button/index.ts',
+  'components/checkbox/index': 'src/components/checkbox/index.ts',
   'components/switch/index': 'src/components/switch/index.ts',
   'components/typography/index': 'src/components/typography/index.ts',
 }

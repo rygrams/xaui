@@ -33,10 +33,11 @@ export const spring = {
 } as const
 
 /**
- * How far something shrinks under the finger: a whole control, or the one part of it that
- * is held — the switch's thumb, which is squashed in height only.
+ * How far something shrinks under the finger: a boxed control, a row that is pressed as a
+ * whole — the checkbox with its label — or the one part that is held, the switch's thumb,
+ * which is squashed in height only.
  */
-export const scale = { press: 0.985, thumb: 0.92 } as const
+export const scale = { press: 0.985, row: 0.97, thumb: 0.92 } as const
 
 /**
  * The Metro tilt: a pressed control leans toward the finger, as if pushed in at that
