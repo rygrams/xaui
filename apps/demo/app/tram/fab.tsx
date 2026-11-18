@@ -7,13 +7,15 @@ import type { IconComponentProps } from '@xaui/native/system'
 import { useXAUITheme } from '@xaui/native/theme'
 import { Button } from '@xaui/tram/button'
 import { Fab } from '@xaui/tram/fab'
-import type { FabPlacement, FabSize } from '@xaui/tram/fab'
+import type { FabPlacement, FabSize, FabVariant } from '@xaui/tram/fab'
 import { tramAccents } from '@xaui/tram/theme'
 import type { TramAccentName } from '@xaui/tram/theme'
 import { Typography } from '@xaui/tram/typography'
 import { TramSection } from '../../components/tram-section'
 
 const SIZES: FabSize[] = ['sm', 'md', 'lg']
+
+const VARIANTS: FabVariant[] = ['contained', 'outline']
 
 const PLACEMENTS: FabPlacement[] = ['bottom-start', 'bottom-center', 'bottom-end']
 
@@ -52,9 +54,10 @@ function PlusIcon({ size, color }: IconComponentProps) {
 
 /**
  * Where the Tram `Fab` is verified, in dark and in light. One `Fab` floats over the whole
- * screen, driven by the buttons of the first section — extended, busy, visible, placement,
- * and an extend-then-fold with no wait — over a long list; the sections under them hold
- * every still state.
+ * screen, driven by the buttons of the first section — variant, extended, busy, visible,
+ * placement, and an extend-then-fold with no wait — over a long list; the sections under
+ * them hold every still state. A `Fab` is always pinned to the bottom of its positioned
+ * ancestor, so each one below sits in a `Cell` of its own: a screen in miniature.
  */
 export default function TramFabScreen() {
   const theme = useXAUITheme()
@@ -63,7 +66,8 @@ export default function TramFabScreen() {
   const [isLoading, setIsLoading] = useState(false)
   const [isVisible, setIsVisible] = useState(true)
   const [isDisabled, setIsDisabled] = useState(false)
-  const [place, setPlace] = useState(2)
+  const [place, setPlace] = useState(1)
+  const [drawing, setDrawing] = useState(0)
   const [paint, setPaint] = useState(0)
   const [count, setCount] = useState(0)
 
@@ -74,12 +78,17 @@ export default function TramFabScreen() {
 
   return (
     <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
-      <ScrollView contentContainerStyle={{ padding: 24, gap: 32, paddingBottom: 160 }}>
+      <ScrollView
+        contentContainerStyle={{ padding: 24, gap: 32, paddingBottom: 160 }}
+      >
         <TramSection
           title="le Fab de l'écran"
-          note={`Il flotte sur la liste, à 16 du bord et de la zone sûre que l'écran lui donne. Appuis : ${count}`}
+          note={`Sa barre discrète est collée au bas de l'écran, sur la liste ; la zone sûre que l'écran lui donne s'y ajoute. Appuis : ${count}`}
         >
           <Row>
+            <Toggle onPress={() => setDrawing(value => (value + 1) % 2)}>
+              {VARIANTS[drawing]}
+            </Toggle>
             <Toggle onPress={() => setIsExtended(value => !value)}>
               {isExtended ? 'replier' : 'étendre'}
             </Toggle>
@@ -103,39 +112,76 @@ export default function TramFabScreen() {
         </TramSection>
 
         <TramSection
-          title="les tailles"
-          note="48, 56 et 64 de diamètre, un glyphe de 20, 24 et 28. Toutes atteignent 48."
+          title="les variantes"
+          note="contained : un aplat du vrai accent. outline : le cercle de l'App Bar, un trait de 2 et le glyphe dans l'encre de l'accent, sans fond. Même taille."
         >
-          <Row>
-            {SIZES.map(size => (
-              <Fab key={size} size={size} accessibilityLabel={`ajouter, ${size}`}>
-                <Fab.Icon as={PlusIcon} />
-              </Fab>
-            ))}
-          </Row>
+          {VARIANTS.map(variant => (
+            <Row key={variant}>
+              <Cell>
+                <Fab variant={variant} accessibilityLabel={`${variant}, thème`}>
+                  <Fab.Icon as={PlusIcon} />
+                </Fab>
+              </Cell>
+              {ACCENTS.map(accent => (
+                <Cell key={accent} isTall>
+                  <Fab variant={variant} accent={accent} isExtended>
+                    <Fab.Icon as={PlusIcon} />
+                    <Fab.Label>{accent}</Fab.Label>
+                  </Fab>
+                </Cell>
+              ))}
+            </Row>
+          ))}
+        </TramSection>
+
+        <TramSection
+          title="les tailles"
+          note="32, 40 et 48 de diamètre, un glyphe de 16, 20 et 24. Toutes se pressent comme 48 : le hitSlop fait le reste."
+        >
+          {VARIANTS.map(variant => (
+            <Row key={variant}>
+              {SIZES.map(size => (
+                <Cell key={size}>
+                  <Fab
+                    variant={variant}
+                    size={size}
+                    accessibilityLabel={`ajouter, ${size}`}
+                  >
+                    <Fab.Icon as={PlusIcon} />
+                  </Fab>
+                </Cell>
+              ))}
+            </Row>
+          ))}
         </TramSection>
 
         <TramSection
           title="les placements"
-          note="bottom-start, bottom-center, bottom-end : épinglé en bas de l'ancêtre, à 16."
+          note="La barre est toujours en bas, d'un bord à l'autre ; le cercle s'y pose au début, au milieu (par défaut) ou à la fin."
         >
-          <Stage>
-            {PLACEMENTS.map(placement => (
-              <Fab key={placement} placement={placement} accessibilityLabel={placement}>
+          {PLACEMENTS.map((placement, index) => (
+            <Stage key={placement}>
+              <Fab
+                placement={placement}
+                variant={VARIANTS[index % 2]}
+                accessibilityLabel={placement}
+              >
                 <Fab.Icon as={PlusIcon} />
               </Fab>
-            ))}
-          </Stage>
+            </Stage>
+          ))}
         </TramSection>
 
         <TramSection
           title="offset"
-          note="La distance aux bords, donnée par le caller : 0 au début, 32 à la fin."
+          note="Le rembourrage de la barre sous le cercle : 0, puis 32."
         >
           <Stage>
             <Fab placement="bottom-start" offset={0} accessibilityLabel="offset 0">
               <Fab.Icon as={PlusIcon} />
             </Fab>
+          </Stage>
+          <Stage>
             <Fab placement="bottom-end" offset={32} accessibilityLabel="offset 32">
               <Fab.Icon as={PlusIcon} />
             </Fab>
@@ -144,31 +190,36 @@ export default function TramFabScreen() {
 
         <TramSection
           title="étendu"
-          note="Le cercle ne s'allonge pas : le libellé se pose dessous, dans l'encre de la page. Une chaîne nue est un libellé."
+          note="Le cercle ne s'allonge pas : le libellé se pose dessous, dans l'encre de la barre, et la barre monte d'autant. Une chaîne nue est un libellé."
         >
           <Row>
-            <Fab accessibilityLabel="nouveau">
-              <Fab.Icon as={PlusIcon} />
-              <Fab.Label>nouveau</Fab.Label>
-            </Fab>
-            <Fab isExtended>
-              <Fab.Icon as={PlusIcon} />
-              <Fab.Label>nouveau</Fab.Label>
-            </Fab>
-            <Fab isExtended size="lg">
-              <Fab.Icon as={PlusIcon} />
-              <Fab.Label>un libellé bien trop long pour sa place</Fab.Label>
-            </Fab>
+            <Cell isTall>
+              <Fab accessibilityLabel="nouveau">
+                <Fab.Icon as={PlusIcon} />
+                <Fab.Label>nouveau</Fab.Label>
+              </Fab>
+            </Cell>
+            <Cell isTall>
+              <Fab isExtended>
+                <Fab.Icon as={PlusIcon} />
+                <Fab.Label>nouveau</Fab.Label>
+              </Fab>
+            </Cell>
+            <Cell isTall>
+              <Fab isExtended variant="outline">
+                <Fab.Icon as={PlusIcon} />
+                nouveau
+              </Fab>
+            </Cell>
+            <Cell isTall>
+              <Fab isExtended size="lg">
+                <Fab.Icon as={PlusIcon} />
+                <Fab.Label>un libellé bien trop long pour sa place</Fab.Label>
+              </Fab>
+            </Cell>
           </Row>
           <Stage>
-            <Fab isExtended placement="bottom-start">
-              <Fab.Icon as={PlusIcon} />
-              <Fab.Label>nouveau</Fab.Label>
-            </Fab>
-            <Fab placement="bottom-center" accessibilityLabel="repère, non étendu">
-              <Fab.Icon as={PlusIcon} />
-            </Fab>
-            <Fab isExtended placement="bottom-end">
+            <Fab isExtended placement="bottom-end" variant="outline">
               <Fab.Icon as={PlusIcon} />
               <Fab.Label>nouveau message</Fab.Label>
             </Fab>
@@ -177,59 +228,69 @@ export default function TramFabScreen() {
 
         <TramSection
           title="en charge"
-          note="Fab.Spinner prend la place du glyphe ; le Fab ne répond plus et ne grise pas."
+          note="Fab.Spinner prend la place du glyphe, dans son encre ; le Fab ne répond plus et ne grise pas."
         >
-          <Row>
-            {SIZES.map(size => (
-              <Fab key={size} size={size} isLoading accessibilityLabel="envoi">
-                <Fab.Icon as={PlusIcon} />
-              </Fab>
-            ))}
-            <Fab isLoading isExtended accent="lime">
-              <Fab.Icon as={PlusIcon} />
-              <Fab.Label>envoi…</Fab.Label>
-            </Fab>
-          </Row>
+          {VARIANTS.map(variant => (
+            <Row key={variant}>
+              {SIZES.map(size => (
+                <Cell key={size}>
+                  <Fab
+                    variant={variant}
+                    size={size}
+                    isLoading
+                    accessibilityLabel="envoi"
+                  >
+                    <Fab.Icon as={PlusIcon} />
+                  </Fab>
+                </Cell>
+              ))}
+              <Cell isTall>
+                <Fab variant={variant} isLoading isExtended accent="lime">
+                  <Fab.Icon as={PlusIcon} />
+                  <Fab.Label>envoi…</Fab.Label>
+                </Fab>
+              </Cell>
+            </Row>
+          ))}
         </TramSection>
 
         <TramSection
           title="désactivé"
-          note="Un aplat gris, le glyphe dans la couleur du sol, le libellé gris. Aucune opacité."
+          note="contained : un aplat gris, le glyphe dans la couleur du sol. outline : un trait et un glyphe gris. Le libellé gris. Aucune opacité."
         >
-          <Row>
-            <Fab isDisabled accessibilityLabel="ajouter">
-              <Fab.Icon as={PlusIcon} />
-            </Fab>
-            <Fab isDisabled accent="lime" accessibilityLabel="ajouter">
-              <Fab.Icon as={PlusIcon} />
-            </Fab>
-            <Fab isDisabled isExtended>
-              <Fab.Icon as={PlusIcon} />
-              <Fab.Label>nouveau</Fab.Label>
-            </Fab>
-          </Row>
-        </TramSection>
-
-        <TramSection
-          title="accent"
-          note="Le vrai accent, le glyphe dans l'encre qui s'y lit : noir sur lime, ambre et jaune."
-        >
-          <Row>
-            {ACCENTS.map(accent => (
-              <Fab key={accent} accent={accent} isExtended>
-                <Fab.Icon as={PlusIcon} />
-                <Fab.Label>{accent}</Fab.Label>
-              </Fab>
-            ))}
-          </Row>
+          {VARIANTS.map(variant => (
+            <Row key={variant}>
+              <Cell isTall>
+                <Fab variant={variant} isDisabled accessibilityLabel="ajouter">
+                  <Fab.Icon as={PlusIcon} />
+                </Fab>
+              </Cell>
+              <Cell isTall>
+                <Fab
+                  variant={variant}
+                  isDisabled
+                  accent="lime"
+                  accessibilityLabel="ajouter"
+                >
+                  <Fab.Icon as={PlusIcon} />
+                </Fab>
+              </Cell>
+              <Cell isTall>
+                <Fab variant={variant} isDisabled isExtended>
+                  <Fab.Icon as={PlusIcon} />
+                  <Fab.Label>nouveau</Fab.Label>
+                </Fab>
+              </Cell>
+            </Row>
+          ))}
         </TramSection>
 
         <TramSection
           title="sur sa propre couleur"
-          note="Aucune ombre, aucun trait : sur un contenu du même accent, il reste le glyphe."
+          note="Aucune ombre : c'est la barre discrète qui le sépare d'un contenu, même de son propre accent."
         >
           <Stage color={theme.colors.accent}>
-            <Fab placement="bottom-start" accessibilityLabel="sur l'accent du thème">
+            <Fab accessibilityLabel="sur l'accent du thème">
               <Fab.Icon as={PlusIcon} />
             </Fab>
           </Stage>
@@ -243,53 +304,65 @@ export default function TramFabScreen() {
 
         <TramSection
           title="color"
-          note="Une teinte brute : elle l'emporte sur accent et n'est jamais corrigée."
+          note="Une teinte brute : elle l'emporte sur accent et n'est jamais corrigée — le fond du plein, le trait et le glyphe du contour."
         >
-          <Row>
-            <Fab color={RAW} accessibilityLabel="violet brut">
-              <Fab.Icon as={PlusIcon} />
-            </Fab>
-            <Fab color={RAW} accent="lime" isExtended>
-              <Fab.Icon as={PlusIcon} />
-              <Fab.Label>color</Fab.Label>
-            </Fab>
-            <Fab color="rgb(250, 240, 200)" accessibilityLabel="rgb clair, non mesuré">
-              <Fab.Icon as={PlusIcon} />
-            </Fab>
-          </Row>
-        </TramSection>
-
-        <TramSection
-          title="dans le flux"
-          note="Sans placement, il se pose comme n'importe quel contrôle."
-        >
-          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
-            <Typography>avant</Typography>
-            <Fab size="sm" accessibilityLabel="dans le flux">
-              <Fab.Icon as={PlusIcon} />
-            </Fab>
-            <Typography>après</Typography>
-          </View>
+          {VARIANTS.map(variant => (
+            <Row key={variant}>
+              <Cell isTall>
+                <Fab variant={variant} color={RAW} accessibilityLabel="violet brut">
+                  <Fab.Icon as={PlusIcon} />
+                </Fab>
+              </Cell>
+              <Cell isTall>
+                <Fab variant={variant} color={RAW} accent="lime" isExtended>
+                  <Fab.Icon as={PlusIcon} />
+                  <Fab.Label>color</Fab.Label>
+                </Fab>
+              </Cell>
+              <Cell isTall>
+                <Fab
+                  variant={variant}
+                  color="rgb(250, 240, 200)"
+                  accessibilityLabel="rgb clair, non mesuré"
+                >
+                  <Fab.Icon as={PlusIcon} />
+                </Fab>
+              </Cell>
+            </Row>
+          ))}
         </TramSection>
 
         <TramSection
           title="asChild"
           note={`L'enfant est le cercle : ici un Pressable du caller. Appuis : ${count}`}
         >
-          <Fab asChild accessibilityLabel="compter">
-            <Pressable onPress={() => setCount(value => value + 1)}>
-              <Fab.Icon as={PlusIcon} />
-            </Pressable>
-          </Fab>
+          <Row>
+            {VARIANTS.map(variant => (
+              <Cell key={variant}>
+                <Fab asChild variant={variant} accessibilityLabel="compter">
+                  <Pressable onPress={() => setCount(value => value + 1)}>
+                    <Fab.Icon as={PlusIcon} />
+                  </Pressable>
+                </Fab>
+              </Cell>
+            ))}
+          </Row>
         </TramSection>
 
         <TramSection
           title="props de style"
           note="marginStart en prop, une opacité par style : le style du caller a le dernier mot."
         >
-          <Fab marginStart={32} style={{ opacity: 0.6 }} accessibilityLabel="stylé">
-            <Fab.Icon as={PlusIcon} />
-          </Fab>
+          <Stage>
+            <Fab
+              placement="bottom-start"
+              marginStart={32}
+              style={{ opacity: 0.6 }}
+              accessibilityLabel="stylé"
+            >
+              <Fab.Icon as={PlusIcon} />
+            </Fab>
+          </Stage>
         </TramSection>
 
         <TramSection
@@ -301,7 +374,14 @@ export default function TramFabScreen() {
               <Fab.Icon as={PlusIcon} />
               <Fab.Label>start</Fab.Label>
             </Fab>
-            <Fab isExtended placement="bottom-end" accent="magenta">
+          </Stage>
+          <Stage isRtl>
+            <Fab
+              isExtended
+              placement="bottom-end"
+              accent="magenta"
+              variant="outline"
+            >
               <Fab.Icon as={PlusIcon} />
               <Fab.Label>end</Fab.Label>
             </Fab>
@@ -313,17 +393,26 @@ export default function TramFabScreen() {
           note="disable-all : tout est posé, l'anneau de charge est un état fixe."
         >
           <Row>
-            <Fab
-              animation="disable-all"
-              isExtended={isExtended}
-              accessibilityLabel="posé"
-            >
-              <Fab.Icon as={PlusIcon} />
-              <Fab.Label>posé</Fab.Label>
-            </Fab>
-            <Fab animation="disable-all" isLoading accessibilityLabel="envoi, fixe">
-              <Fab.Icon as={PlusIcon} />
-            </Fab>
+            <Cell isTall>
+              <Fab
+                animation="disable-all"
+                isExtended={isExtended}
+                accessibilityLabel="posé"
+              >
+                <Fab.Icon as={PlusIcon} />
+                <Fab.Label>posé</Fab.Label>
+              </Fab>
+            </Cell>
+            <Cell isTall>
+              <Fab
+                animation="disable-all"
+                variant="outline"
+                isLoading
+                accessibilityLabel="envoi, fixe"
+              >
+                <Fab.Icon as={PlusIcon} />
+              </Fab>
+            </Cell>
           </Row>
         </TramSection>
 
@@ -352,7 +441,8 @@ export default function TramFabScreen() {
 
       <Fab
         placement={PLACEMENTS[place]}
-        offset={16 + insets.bottom}
+        offset={8 + insets.bottom}
+        variant={VARIANTS[drawing]}
         accent={SCREEN_ACCENTS[paint]}
         isExtended={isExtended}
         isLoading={isLoading}
@@ -375,8 +465,7 @@ function Row({ children }: { children: ReactNode }) {
         flexDirection: 'row',
         flexWrap: 'wrap',
         alignItems: 'flex-start',
-        columnGap: 32,
-        rowGap: 16,
+        gap: 8,
       }}
     >
       {children}
@@ -392,9 +481,35 @@ function Toggle({ children, onPress }: { children: string; onPress: () => void }
   )
 }
 
+type CellProps = { children: ReactNode; isTall?: boolean }
+
+/**
+ * A positioned box one `Fab` docks its bar in, along the bottom edge: room above the bar,
+ * and for a label under the circle when `isTall`. One `Fab` per box — two bars would lie
+ * one over the other.
+ */
+function Cell({ children, isTall = false }: CellProps) {
+  const theme = useXAUITheme()
+
+  return (
+    <View
+      style={{
+        width: 104,
+        height: isTall ? 120 : 96,
+        // The page's ground, framed by a hairline: the bar is the discreet surface.
+        backgroundColor: theme.colors.background,
+        borderWidth: 1,
+        borderColor: theme.colors.muted,
+      }}
+    >
+      {children}
+    </View>
+  )
+}
+
 type StageProps = { children: ReactNode; color?: string; isRtl?: boolean }
 
-/** A positioned box a placed `Fab` pins itself to: a screen in small. */
+/** A positioned box one `Fab` docks its bar in: a screen in small. */
 function Stage({ children, color, isRtl = false }: StageProps) {
   const theme = useXAUITheme()
 
@@ -402,7 +517,9 @@ function Stage({ children, color, isRtl = false }: StageProps) {
     <View
       style={{
         height: 140,
-        backgroundColor: color ?? theme.colors.surface,
+        backgroundColor: color ?? theme.colors.background,
+        borderWidth: 1,
+        borderColor: theme.colors.muted,
         direction: isRtl ? 'rtl' : 'ltr',
       }}
     >

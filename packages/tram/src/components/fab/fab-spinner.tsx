@@ -34,7 +34,10 @@ FabSpinner.displayName = 'XAUI.Tram.Fab.Spinner'
 
 type RingProps = { style: StyleProp<ViewStyle> }
 
-const SpinningRing = forwardRef<View, RingProps>(function SpinningRing({ style }, ref) {
+const SpinningRing = forwardRef<View, RingProps>(function SpinningRing(
+  { style },
+  ref
+) {
   const rotation = useTurn()
 
   // The animated wrapper types its ref as itself; at runtime it is the host view.

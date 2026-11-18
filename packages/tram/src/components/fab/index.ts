@@ -20,4 +20,5 @@ export type {
   FabSize,
   FabSlot,
   FabSpinnerProps,
+  FabVariant,
 } from './fab.type'

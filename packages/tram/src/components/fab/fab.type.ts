@@ -19,55 +19,82 @@ import type { TramAccentName, TramSize } from '../../theme/tram-tokens'
 
 export type FabSlot = 'root' | 'label' | 'icon' | 'spinner'
 
-/** The circle's diameter: 48, 56 and 64 points, around a glyph of 20, 24 and 28. */
+/** The circle's diameter: 32, 40 and 48 points, around a glyph of 16, 20 and 24. */
 export type FabSize = TramSize
 
 /**
- * Where it floats, or nowhere. Unset, it sits in the flow like any other control. The
- * three others pin it to the bottom of its nearest positioned ancestor — `start` and
- * `end`, so a right-to-left layout moves it with no second branch.
+ * Where the circle sits across its bar: at the start, in the middle, at the end. The bar
+ * itself is always docked along the bottom edge — the Metro App Bar's place — and never
+ * sits in the flow. `start` and `end`, so a right-to-left layout moves it with no second
+ * branch.
  */
 export type FabPlacement = FloatPlacement
 
+/**
+ * How the circle is drawn.
+ *
+ * | Variant     | Drawn as                                                       |
+ * | ----------- | -------------------------------------------------------------- |
+ * | `contained` | a flat fill of the true colour, the glyph in the ink on it     |
+ * | `outline`   | the App Bar's button: a line and a glyph in the colour as ink  |
+ */
+export type FabVariant = 'contained' | 'outline'
+
 type FabOwnProps = {
-  /** The circle's diameter. Every size reaches the 48-point touch target. */
+  /**
+   * A filled circle, or a line on the ground. Both are the same size: the filled one draws
+   * its line in its fill.
+   *
+   * @default 'contained'
+   */
+  variant?: FabVariant
+  /** The circle's diameter. Every size is pressed as 48: `hitSlop` makes up the rest. */
   size?: FabSize
   /**
-   * One of the twenty named accents, for a `Fab` that is not in the theme's accent. The
-   * circle is filled with its true colour; `color` wins when both are set.
+   * One of the twenty named accents, for a `Fab` that is not in the theme's accent. A
+   * `contained` circle is filled with its true colour; an `outline` is drawn in its ink,
+   * moved until it reads on the ground. `color` wins when both are set.
    */
   accent?: TramAccentName
-  /** A raw tint for the circle, never a token and never corrected. */
+  /** A raw tint for the fill, or the line and glyph of an outline — never corrected. */
   color?: string
   /**
    * Shows `Fab.Label`. The circle does not stretch: the label is laid under it, in the
-   * page's ink, centred — the App Bar's label — and the circle moves up by the label's
-   * height, so the bottom of the pair stays where the bottom of the circle was.
+   * bar's ink, centred — the App Bar's label — and the bar rises by the label's height,
+   * as the Metro App Bar rose to show its labels.
    *
-   * The label is one line as wide as the circle and `offset` more on each side, so it
-   * never passes the edge the `Fab` is pinned from; a longer one is cut.
+   * The label is one line as wide as the circle and the bar's side padding more on each
+   * side, so it never passes the bar's edge; a longer one is cut.
    */
   isExtended?: boolean
-  /** Pinned to the bottom of the nearest positioned ancestor. Unset, it sits in the flow. */
+  /**
+   * Where the circle sits across the bar docked at the bottom of the nearest positioned
+   * ancestor. There is no way to lay it in the flow.
+   *
+   * @default 'bottom-center'
+   */
   placement?: FabPlacement
   /**
-   * How far in from the bottom edge and from the side it is on, in points.
+   * The bar's padding under the circle, in points.
    *
-   * **The `Fab` reads no safe area.** This is the whole distance to the edges: the caller
-   * adds the bottom inset — a home indicator, a navigation bar — to it.
+   * **The `Fab` reads no safe area.** The caller adds the bottom inset — a home
+   * indicator, a navigation bar — to it, and the grey runs down under it.
    *
-   * @default 16
+   * @default 8
    */
   offset?: number
   /**
-   * `false` sends it back under the bottom edge, where it stays laid out but can be
+   * `false` sends the bar back under the bottom edge, where it stays laid out but can be
    * neither seen, pressed nor read; `true` brings it back up. Tram's own: the Metro App
    * Bar leaves and returns with the page.
    *
    * @default true
    */
   isVisible?: boolean
-  /** A flat grey circle that does not answer. The grey is the state: nothing is dimmed. */
+  /**
+   * A flat grey circle — or a grey line — that does not answer. The grey is the state:
+   * nothing is dimmed.
+   */
   isDisabled?: boolean
   /**
    * `Fab.Spinner` takes the glyph's place and the press stops. The colours stay: a busy
@@ -91,8 +118,8 @@ type FabBehaviourProps = Omit<
 >
 
 /**
- * The Native `Fab`'s props, less `variant` and `radius`: there is one Tram `Fab`, a filled
- * circle. `accent` and `isVisible` are Tram's.
+ * The Native `Fab`'s props, less `radius`: a Tram `Fab` is a circle. `variant` is Tram's
+ * two drawings, `accent` and `isVisible` are Tram's, and `placement` is never unset.
  */
 export type FabProps = FabOwnProps &
   FabBehaviourProps &

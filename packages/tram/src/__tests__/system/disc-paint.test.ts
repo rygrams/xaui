@@ -5,12 +5,19 @@ import { tramAccents } from '../../theme/tram-tokens'
 const DARK = {
   accent: '#1BA1E2',
   accentForeground: '#FFFFFF',
+  link: '#4CC2FF',
   background: '#000000',
   foreground: '#FFFFFF',
   muted: '#A3A3A3',
 }
 
-const LIGHT = { ...DARK, background: '#FFFFFF', foreground: '#000000', muted: '#666666' }
+const LIGHT = {
+  ...DARK,
+  link: '#0063B1',
+  background: '#FFFFFF',
+  foreground: '#000000',
+  muted: '#666666',
+}
 
 const RAW = '#7c3aed'
 
@@ -18,6 +25,7 @@ describe('discPaint', () => {
   it("is the theme's accent and its own ink when no paint is named", () => {
     expect(discPaint({}, DARK)).toEqual({
       fill: DARK.accent,
+      line: DARK.accent,
       glyph: DARK.accentForeground,
       label: DARK.foreground,
     })
@@ -56,6 +64,7 @@ describe('discPaint', () => {
   it('is grey when disabled, the glyph in the colour of the ground', () => {
     expect(discPaint({ isDisabled: true }, DARK)).toEqual({
       fill: DARK.muted,
+      line: DARK.muted,
       glyph: DARK.background,
       label: DARK.muted,
     })
@@ -63,8 +72,49 @@ describe('discPaint', () => {
   })
 
   it('is the same grey whatever paint was named', () => {
-    expect(discPaint({ accent: 'lime', color: RAW, isDisabled: true }, DARK)).toEqual(
-      discPaint({ isDisabled: true }, DARK)
+    expect(
+      discPaint({ accent: 'lime', color: RAW, isDisabled: true }, DARK)
+    ).toEqual(discPaint({ isDisabled: true }, DARK))
+  })
+})
+
+describe('discPaint, outlined', () => {
+  it("draws the line and the glyph in the theme's link, with no fill", () => {
+    expect(discPaint({ variant: 'outline' }, DARK)).toEqual({
+      fill: 'transparent',
+      line: DARK.link,
+      glyph: DARK.link,
+      label: DARK.foreground,
+    })
+  })
+
+  it('moves a named accent until it reads on the ground', () => {
+    const onBlack = discPaint({ variant: 'outline', accent: 'yellow' }, DARK)
+    const onWhite = discPaint({ variant: 'outline', accent: 'yellow' }, LIGHT)
+
+    expect(onBlack.line).toBe(onBlack.glyph)
+    expect(onWhite.line).not.toBe(onBlack.line)
+    expect(onWhite.line).not.toBe(tramAccents.yellow)
+  })
+
+  it('takes a raw colour as it was given, over a named accent', () => {
+    const paint = discPaint(
+      { variant: 'outline', accent: 'lime', color: RAW },
+      LIGHT
     )
+
+    expect(paint.line).toBe(RAW)
+    expect(paint.glyph).toBe(RAW)
+  })
+
+  it('is a grey line and glyph when disabled, still with no fill', () => {
+    expect(
+      discPaint({ variant: 'outline', isDisabled: true, accent: 'lime' }, DARK)
+    ).toEqual({
+      fill: 'transparent',
+      line: DARK.muted,
+      glyph: DARK.muted,
+      label: DARK.muted,
+    })
   })
 })

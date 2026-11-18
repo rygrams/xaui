@@ -9,19 +9,24 @@ const NO_RING = (Platform.OS === 'web' ? { outlineStyle: 'none' } : {}) as ViewS
 
 /** What does not depend on the theme: the layout of the circle's layers and of the pair. */
 export const fabSheet = StyleSheet.create({
-  /** The circle and the label under it, in a column the label never widens. */
-  anchor: { alignItems: 'center', pointerEvents: 'auto' },
   /**
-   * The same column once it has left: nothing in it takes a touch. `auto` is written out
+   * The App Bar: a band across the bottom of the positioned ancestor, edge to edge, that
+   * takes the touches that land on it rather than letting them through to the page.
+   */
+  bar: { position: 'absolute', bottom: 0, start: 0, end: 0, pointerEvents: 'auto' },
+  /**
+   * The same band once it has left: nothing in it takes a touch. `auto` is written out
    * above, so that coming back undoes this one where styles are applied inline.
    */
-  gone: { alignItems: 'center', pointerEvents: 'none' },
+  gone: { position: 'absolute', bottom: 0, start: 0, end: 0, pointerEvents: 'none' },
+  /** The circle and the label under it, in a column the label never widens. */
+  column: { alignItems: 'center' },
   /**
    * An exact circle: no outline and no ring from the platform, on touch or on focus — a
    * ring is a second shape around the one Tram draws.
    */
   bare: { outlineWidth: 0, overflow: 'hidden', ...NO_RING },
-  /** The fade of the fill, over the root's own. */
+  /** The circle's fill and line, faded from one paint to the next. */
   fill: { position: 'absolute', top: 0, bottom: 0, start: 0, end: 0 },
   /** One thing, in the middle: the glyph, or the ring that takes its place. */
   layer: {

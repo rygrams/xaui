@@ -18,7 +18,6 @@ import { ROTATION_DURATION } from '@xaui/native'
 import { cascade, duration } from '../../motion/motion-tokens'
 import { useTramEase } from '../../motion/use-tram-ease'
 import { useTramMotion } from '../../motion/use-tram-motion'
-import { floatTravel } from '../../system/float-place'
 import type { FabPlacement } from './fab.type'
 
 /**
@@ -49,8 +48,7 @@ function useLinger(isAsked: boolean, level: SharedValue<number>): boolean {
 
 type TravelAsk = {
   isVisible: boolean
-  placement: FabPlacement | undefined
-  offset: number
+  placement: FabPlacement
   isStill: boolean
 }
 
@@ -64,7 +62,7 @@ type TravelAsk = {
  *
  * With motion reduced it does not travel, it fades; under `disable-all` it is set down.
  */
-export function useFabTravel({ isVisible, placement, offset, isStill }: TravelAsk) {
+export function useFabTravel({ isVisible, placement, isStill }: TravelAsk) {
   const animate = useTramMotion()
   const glide = useTramEase()
   const isReduced = useReducedMotion()
@@ -98,10 +96,12 @@ export function useFabTravel({ isVisible, placement, offset, isStill }: TravelAs
 
   const travel = useAnimatedStyle(() => {
     'worklet'
-    const way = floatTravel(shown, offset, height.value)
-
-    return { opacity: fade.value, transform: [{ translateY: drop.value * way }] }
-  }, [fade, drop, height, shown, offset])
+    // The bar sits on the bottom edge: its own height takes it just past it.
+    return {
+      opacity: fade.value,
+      transform: [{ translateY: drop.value * height.value }],
+    }
+  }, [fade, drop, height])
 
   const measure = (event: LayoutChangeEvent) => {
     height.value = event.nativeEvent.layout.height
@@ -156,41 +156,66 @@ export function useFabShelf(isExtended: boolean, isStill: boolean) {
   return { hasLabel, shelf, arriving, measure }
 }
 
+/** The two colours of the circle: its fill and its line. */
+type Paint = { fill: string; line: string }
+
 /**
- * A flat colour that fades to the next one on the Metro curve, from wherever it was: a
- * second change sets off from the colour on screen, not from the one it was heading to.
+ * The fill and the line, fading to the next ones together on the Metro curve, from
+ * wherever they were: a second change sets off from the colours on screen, not from the
+ * ones they were heading to. From `contained` to `outline` the fill fades to transparent
+ * as the line takes the ink.
  */
-export function useFillFade(fill: string, isStill: boolean) {
+export function usePaintFade({ fill, line }: Paint, isStill: boolean) {
   const glide = useTramEase()
-  const from = useSharedValue(fill)
-  const to = useSharedValue(fill)
+  const from = useSharedValue<Paint>({ fill, line })
+  const to = useSharedValue<Paint>({ fill, line })
   const mix = useSharedValue(1)
 
   useEffect(() => {
-    if (to.value === fill) return
+    if (to.value.fill === fill && to.value.line === line) return
+
+    const at = mix.value
+    const was = from.value
+    const next = to.value
 
     from.value = isStill
-      ? fill
-      : interpolateColor(mix.value, [0, 1], [from.value, to.value])
-    to.value = fill
+      ? { fill, line }
+      : {
+          fill: interpolateColor(at, [0, 1], [was.fill, next.fill]),
+          line: interpolateColor(at, [0, 1], [was.line, next.line]),
+        }
+    to.value = { fill, line }
     if (isStill) {
       mix.value = 1
     } else {
       mix.value = 0
       mix.value = glide(1)
     }
-  }, [fill, isStill, glide, from, to, mix])
+  }, [fill, line, isStill, glide, from, to, mix])
 
   return useAnimatedStyle(() => {
     'worklet'
     return {
-      backgroundColor: interpolateColor(mix.value, [0, 1], [from.value, to.value]),
+      backgroundColor: interpolateColor(
+        mix.value,
+        [0, 1],
+        [from.value.fill, to.value.fill]
+      ),
+      borderColor: interpolateColor(
+        mix.value,
+        [0, 1],
+        [from.value.line, to.value.line]
+      ),
     }
   }, [mix, from, to])
 }
 
 /** 0 or 1, reached on the Metro curve: the grey of a disabled label, a busy circle. */
-export function useLevel(isOn: boolean, isStill: boolean, ms: number = duration.base) {
+export function useLevel(
+  isOn: boolean,
+  isStill: boolean,
+  ms: number = duration.base
+) {
   const glide = useTramEase()
   const level = useSharedValue(isOn ? 1 : 0)
 

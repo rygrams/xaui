@@ -3,33 +3,51 @@ import type { SlotStyles } from '@xaui/native/system'
 import type { XAUITheme } from '@xaui/native/theme'
 import type { TramSize } from '../../theme/tram-tokens'
 import { roleType } from '../typography/typography.role'
-import type { FabSlot } from './fab.type'
+import type { FabPlacement, FabSlot, FabVariant } from './fab.type'
 
 const SLOTS = ['root', 'label', 'icon', 'spinner'] as const
 
 export const DEFAULT_SIZE: TramSize = 'md'
 
-/** How far in from the edges it floats, in points — the Native `Fab`'s. */
-export const DEFAULT_OFFSET = 16
+export const DEFAULT_VARIANT: FabVariant = 'contained'
 
-/** The busy ring's line: the `Button`'s. */
-const LINE_WIDTH = 2
+/** The middle of the bottom edge: where the Metro App Bar laid its buttons. */
+export const DEFAULT_PLACEMENT: FabPlacement = 'bottom-center'
+
+/**
+ * The bar's padding under the circle, in points, before the caller adds the bottom safe
+ * area to it.
+ */
+export const DEFAULT_OFFSET = 8
+
+/** The bar's padding over the circle, in points: with the default `offset`, a 56-point band. */
+export const BAR_TOP = 8
+
+/** The bar's padding at its sides, in points: where a circle at the start or end sits. */
+export const BAR_SIDE = 16
+
+/**
+ * The circle's line and the busy ring's: the `Button`'s, thin as the App Bar's circle. A
+ * filled `Fab` draws it too, in its fill, so the two variants are the same size.
+ */
+export const LINE_WIDTH = 2
 
 type SizeStep = {
-  /** The circle's diameter. All three reach the 48-point touch target. */
+  /** The circle's diameter. The root reaches the 48-point touch target with `hitSlop`. */
   diameter: number
   /** The glyph, and the busy ring that takes its place. */
   glyph: number
 }
 
 /**
- * The circle per size. Not Native's 40 / 56 / 72: the smallest is the Metro App Bar
- * button and the touch target at once, and the steps are the `Button`'s, eight apart.
+ * The circle per size. Not Native's 40 / 56 / 72: small, as the Metro App Bar's circles
+ * were in their band, eight apart — the largest is the touch target, the two others reach
+ * it with `hitSlop`.
  */
 export const FAB_GEOMETRY: Record<TramSize, SizeStep> = {
-  sm: { diameter: 48, glyph: 20 },
-  md: { diameter: 56, glyph: 24 },
-  lg: { diameter: 64, glyph: 28 },
+  sm: { diameter: 32, glyph: 16 },
+  md: { diameter: 40, glyph: 20 },
+  lg: { diameter: 48, glyph: 24 },
 }
 
 function sizeAxis({ diameter, glyph }: SizeStep) {
