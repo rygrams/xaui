@@ -11,6 +11,7 @@ const entries = {
   'components/fab/index': 'src/components/fab/index.ts',
   'components/list-box/index': 'src/components/list-box/index.ts',
   'components/page/index': 'src/components/page/index.ts',
+  'components/panorama/index': 'src/components/panorama/index.ts',
   'components/progress-bar/index': 'src/components/progress-bar/index.ts',
   'components/radio/index': 'src/components/radio/index.ts',
   'components/select/index': 'src/components/select/index.ts',
