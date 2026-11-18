@@ -59,6 +59,16 @@
         "default": "./dist/components/checkbox/index.cjs"
       }
     },
+    "./date-picker": {
+      "import": {
+        "types": "./dist/components/date-picker/index.d.ts",
+        "default": "./dist/components/date-picker/index.js"
+      },
+      "require": {
+        "types": "./dist/components/date-picker/index.d.cts",
+        "default": "./dist/components/date-picker/index.cjs"
+      }
+    },
     "./dialog": {
       "import": {
         "types": "./dist/components/dialog/index.d.ts",
@@ -187,6 +197,16 @@
       "require": {
         "types": "./dist/components/tile/index.d.cts",
         "default": "./dist/components/tile/index.cjs"
+      }
+    },
+    "./time-picker": {
+      "import": {
+        "types": "./dist/components/time-picker/index.d.ts",
+        "default": "./dist/components/time-picker/index.js"
+      },
+      "require": {
+        "types": "./dist/components/time-picker/index.d.cts",
+        "default": "./dist/components/time-picker/index.cjs"
       }
     },
     "./toast": {

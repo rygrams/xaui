@@ -79,6 +79,8 @@ export default function TramLayout() {
                 name="wheel-picker"
                 options={{ title: 'WHEEL PICKER' }}
               />
+              <Stack.Screen name="date-picker" options={{ title: 'DATE PICKER' }} />
+              <Stack.Screen name="time-picker" options={{ title: 'TIME PICKER' }} />
               <Stack.Screen name="dialog" options={{ title: 'DIALOG' }} />
               <Stack.Screen name="fab" options={{ title: 'FAB' }} />
               <Stack.Screen name="toast" options={{ title: 'TOAST' }} />
