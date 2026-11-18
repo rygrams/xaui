@@ -9,7 +9,7 @@ import {
   useStyleProps,
 } from '@xaui/native/system'
 import { PressRow } from '../../system/press-row'
-import { nextTab } from '../../system/tab-row'
+import { nextStop } from '../../system/roving-stop'
 import { TabsLabel } from './tabs-label'
 import { TabsTriggerProvider, useTabs } from './tabs.context'
 import { useChosen } from './tabs.hook'
@@ -110,7 +110,7 @@ export const TabsTrigger = forwardRef<View, TabsTriggerProps>(function TabsTrigg
       if (step === undefined) return
 
       const along = row.isReversed() ? (-step as 1 | -1) : step
-      const next = nextTab(row.stops(), value, along)
+      const next = nextStop(row.stops(), value, along)
       if (next === undefined || next === value) return
 
       event.preventDefault()

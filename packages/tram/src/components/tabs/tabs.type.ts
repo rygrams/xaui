@@ -11,7 +11,8 @@ import type {
 import type { SharedValue } from 'react-native-reanimated'
 import type { TextStyleProps, ViewStyleProps } from '@xaui/native/system'
 import type { RadiusKey } from '@xaui/native/theme'
-import type { TabSpan, TabStop, TabTravel } from '../../system/tab-row'
+import type { RovingStop } from '../../system/roving-stop'
+import type { TabSpan, TabTravel } from '../../system/tab-row'
 import type { TramAccentName, TramSize } from '../../theme/tram-tokens'
 
 export type TabsSlot =
@@ -106,7 +107,7 @@ export type TabRow = {
   /** Adds a tab at the end of the row; the function it returns takes it out. */
   register: (value: string, entry: TabEntry) => () => void
   order: () => string[]
-  stops: () => TabStop[]
+  stops: () => RovingStop[]
   focus: (value: string) => void
   setSpan: (value: string, span: TabSpan) => void
   /** The label's span inside its trigger — only reported while an indicator is written. */

@@ -4,9 +4,6 @@ export type TabSpan = { x: number; width: number }
 /** Which way a change of tab goes along the row: toward its end, toward its start, nowhere. */
 export type TabTravel = -1 | 0 | 1
 
-/** A tab as the keyboard meets it. */
-export type TabStop = { value: string; isDisabled: boolean }
-
 /** The row as it is scrolled: its offset, what it shows, and all there is to show. */
 export type RowView = {
   offset: number
@@ -53,29 +50,6 @@ export function scrollToTab(span: TabSpan, view: RowView): number | undefined {
   const wanted = isReversed ? end + margin - width : span.x - margin
 
   return Math.min(Math.max(wanted, 0), most)
-}
-
-/**
- * The tab an arrow key goes to: the next one that is not disabled, `step` at a time, going
- * round at either end. `current` itself when it is the only one left, and `undefined`
- * when no tab can be chosen at all.
- */
-export function nextTab(
-  stops: readonly TabStop[],
-  current: string | undefined,
-  step: 1 | -1
-): string | undefined {
-  const count = stops.length
-  const from = stops.findIndex(stop => stop.value === current)
-  // From outside the row, the first step lands on its first tab — or its last, going back.
-  const origin = from < 0 && step === 1 ? -1 : from < 0 ? count : from
-
-  for (let turn = 1; turn <= count; turn++) {
-    const stop = stops[(((origin + turn * step) % count) + count) % count]
-    if (stop && !stop.isDisabled) return stop.value
-  }
-
-  return undefined
 }
 
 /**

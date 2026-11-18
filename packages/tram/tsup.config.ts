@@ -21,6 +21,7 @@ const entries = {
   'components/text-field/index': 'src/components/text-field/index.ts',
   'components/tile/index': 'src/components/tile/index.ts',
   'components/toast/index': 'src/components/toast/index.ts',
+  'components/toggle-button/index': 'src/components/toggle-button/index.ts',
   'components/typography/index': 'src/components/typography/index.ts',
   'components/wheel-picker/index': 'src/components/wheel-picker/index.ts',
 }
