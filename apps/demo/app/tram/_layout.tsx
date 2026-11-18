@@ -1,9 +1,10 @@
 import { useState } from 'react'
-import { Stack } from 'expo-router'
+import { Stack, useIsFocused } from 'expo-router'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Scaffold } from '@xaui/native/scaffold'
 import { useColorMode } from '@xaui/native/theme'
 import { Button } from '@xaui/tram/button'
+import { pageScreenOptions } from '@xaui/tram/page'
 import { TramProvider } from '@xaui/tram/theme'
 import type { TramHaptic } from '@xaui/tram/theme'
 import { ToastHost } from '@xaui/tram/toast'
@@ -27,7 +28,12 @@ export default function TramLayout() {
   const insets = useSafeAreaInsets()
 
   return (
-    <TramProvider colorMode={colorMode} hasPortalHost={false} onHaptic={feel}>
+    <TramProvider
+      colorMode={colorMode}
+      hasPortalHost={false}
+      onHaptic={feel}
+      pages={PAGES}
+    >
       <ToastHost offset={Math.max(insets.top, 10)} dismissLabel="fermer">
         <Scaffold>
           <Scaffold.StatusBar />
@@ -46,6 +52,14 @@ export default function TramLayout() {
             >
               <Stack.Screen name="index" options={{ title: 'TRAM' }} />
               <Stack.Screen name="theme" options={{ title: 'THÈME' }} />
+              <Stack.Screen
+                name="page"
+                options={{ title: 'PAGE', ...pageScreenOptions }}
+              />
+              <Stack.Screen
+                name="page-detail"
+                options={{ title: 'PAGE', ...pageScreenOptions }}
+              />
               <Stack.Screen name="button" options={{ title: 'BUTTON' }} />
               <Stack.Screen name="switch" options={{ title: 'SWITCH' }} />
               <Stack.Screen name="checkbox" options={{ title: 'CHECKBOX' }} />
@@ -74,6 +88,13 @@ export default function TramLayout() {
     </TramProvider>
   )
 }
+
+/**
+ * The app's side of Tram's page transitions: Expo Router's own focus hook, which is how a
+ * `Page` learns it was covered or uncovered. At module level, so the provider is handed
+ * the same object on every render.
+ */
+const PAGES = { useIsFocused }
 
 /**
  * The app's side of Tram's haptics: the lightest impact iOS has for a press, its

@@ -9,6 +9,7 @@ import { Typography } from '@xaui/tram/typography'
  */
 const SCREENS = [
   { href: '/tram/theme', label: 'thème et mouvement' },
+  { href: '/tram/page', label: 'page' },
   { href: '/tram/button', label: 'button' },
   { href: '/tram/switch', label: 'switch' },
   { href: '/tram/checkbox', label: 'checkbox' },
