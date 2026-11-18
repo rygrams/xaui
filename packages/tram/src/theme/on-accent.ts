@@ -7,6 +7,11 @@ const HEX = /^#([0-9a-f]{3}|[0-9a-f]{6})$/i
  */
 const LIGHT_FILL_LUMINANCE = 0.4
 
+/** Whether `color` is written the one way this file can read: `#RGB` or `#RRGGBB`. */
+export function isHex(color: string): boolean {
+  return HEX.test(color)
+}
+
 /** The three channels of a `#RGB` or `#RRGGBB` colour, each 0 to 1. */
 export function channels(hex: string): [number, number, number] {
   if (!HEX.test(hex)) {

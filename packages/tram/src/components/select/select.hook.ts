@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import type { ReactNode } from 'react'
 import {
   Extrapolation,
   interpolate,
@@ -10,7 +9,7 @@ import {
 import { useTramEase } from '../../motion/use-tram-ease'
 import { useTramMotion } from '../../motion/use-tram-motion'
 import { NO_ROW } from '../../system/list-picker'
-import type { SelectListSlot, SelectMotion } from './select.type'
+import type { SelectMotion } from './select.type'
 
 /**
  * What the field shows once a value is chosen, without the caller repeating it: items
@@ -38,29 +37,6 @@ export function useLabelRegistry() {
   )
 
   return useMemo(() => ({ labelFor, registerLabel }), [labelFor, registerLabel])
-}
-
-/**
- * Where `Select.Content` hands its list to the box. The two are siblings in the caller's
- * JSX, and an unfolded list is drawn inside the box's line: the content publishes its
- * element here and the box renders it. A store of its own rather than the root's state,
- * so that publishing re-renders the box and not the content that published.
- */
-export function createListSlot(): SelectListSlot {
-  let list: ReactNode = null
-  const listeners = new Set<() => void>()
-
-  return {
-    get: () => list,
-    set(next) {
-      list = next
-      listeners.forEach(listener => listener())
-    },
-    subscribe(listener) {
-      listeners.add(listener)
-      return () => listeners.delete(listener)
-    },
-  }
 }
 
 /** The part of the unfolding over which the field's row gives way to the list. */

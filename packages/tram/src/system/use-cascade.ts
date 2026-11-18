@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import {
+  cancelAnimation,
   useAnimatedStyle,
   useReducedMotion,
   useSharedValue,
@@ -18,6 +19,8 @@ export type CascadeArrival = {
   /** Milliseconds to wait for what opens the list. */
   after?: number
   isStill?: boolean
+  /** Closing leaves the row as it is: it goes with what holds it — a banner's content. */
+  isStaying?: boolean
   /**
    * The side the rows come from, as a sign along the x axis: 1 from the right, -1 from
    * the left. Left out, or 0, they rise — the cascade of a list that opens.
@@ -34,7 +37,8 @@ export type CascadeArrival = {
  * With motion reduced, or under an ancestor's `disable-all`, a row is there at once: the
  * list it belongs to does the fading.
  *
- * In `system/` since its second use: the `Select`'s choices, and the content of a tab.
+ * In `system/` since its second use: the `Select`'s choices, the content of the `Dialog`'s
+ * banner, and the content of a tab.
  */
 export function useCascade({
   isOpen,
@@ -42,6 +46,7 @@ export function useCascade({
   isKept = false,
   after = 0,
   isStill = false,
+  isStaying = false,
   side = 0,
 }: CascadeArrival) {
   const glide = useTramEase()
@@ -55,9 +60,15 @@ export function useCascade({
       return
     }
 
+    // It stays as it is — a row still waiting for its turn no longer arrives.
+    if (isStaying) {
+      cancelAnimation(arrived)
+      return
+    }
+
     if (isKept) arrived.value = 1
     else arrived.value = isSet ? 0 : glide(0, 'exit', duration.fast)
-  }, [isOpen, rank, isKept, after, isSet, glide, arrived])
+  }, [isOpen, rank, isKept, after, isSet, isStaying, glide, arrived])
 
   return useAnimatedStyle(() => {
     'worklet'

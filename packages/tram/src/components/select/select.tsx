@@ -15,12 +15,13 @@ import { useXAUITheme } from '@xaui/native/theme'
 import { NO_ROW, cascadeRank } from '../../system/list-picker'
 import type { RowSpan } from '../../system/list-picker'
 import { lineInk } from '../../system/line-ink'
+import { createNodeSlot } from '../../system/node-slot'
 import { colorOf, pointsOf } from '../../system/style-values'
 import { touchReach } from '../../system/touch-reach'
 import { useTramHaptic } from '../../theme/tram-haptics'
 import { textFieldRecipe } from '../text-field/text-field.recipe'
 import { SelectProvider } from './select.context'
-import { createListSlot, useLabelRegistry, useUnfolding } from './select.hook'
+import { useLabelRegistry, useUnfolding } from './select.hook'
 import { ORDER_SEPARATOR } from './select.items'
 import { DEFAULT_SIZE, selectRecipe } from './select.recipe'
 import type { SelectListing, SelectProps } from './select.type'
@@ -84,7 +85,7 @@ export const SelectRoot = forwardRef<View, SelectProps>(function Select(
   const [rowHeight, setRowHeight] = useState(0)
   const [listHeight, setListHeight] = useState(0)
   const [boxTop, setBoxTop] = useState<number | null>(null)
-  const [inlineList] = useState(createListSlot)
+  const [inlineList] = useState(createNodeSlot)
   const dismissable = useRef(true)
   const spans = useRef(new Map<string, RowSpan>())
 

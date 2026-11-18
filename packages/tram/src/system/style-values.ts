@@ -14,7 +14,7 @@ export function pointsOf(value: unknown): number {
  */
 export function colorOf(
   style: TextStyle,
-  key: 'color' | 'borderColor'
+  key: 'color' | 'borderColor' | 'backgroundColor'
 ): string | undefined {
   const value = style[key]
 
