@@ -4,6 +4,7 @@ export {
   duration,
   ease,
   flip,
+  pageSlide,
   panel,
   scale,
   spring,
@@ -11,6 +12,7 @@ export {
   swivel,
   tilt,
   toastSwipe,
+  turnstile,
   wheel,
 } from './motion-tokens'
 export type { TramEaseName, TramSpringName } from './motion-tokens'

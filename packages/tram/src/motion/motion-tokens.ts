@@ -11,6 +11,7 @@ export const duration = {
   fast: 80,
   base: 250,
   /** A page turning in on its top edge: longer than `base`, because it crosses the screen. */
+  turnstile: 280,
   swivel: 350,
   slow: 400,
   reduced: 150,
@@ -74,6 +75,15 @@ export const swivel = { perspective: 600, degrees: -90, flat: 150 } as const
  * degrees and no further.
  */
 export const swipe = { distance: 0.4, velocity: 800, resist: 8 } as const
+
+/**
+ * A page leaving or arriving: it turns around the screen's start edge, as a door on its
+ * hinge. The perspective is a screen's, not a button's — at 600 a whole page would loom.
+ */
+export const turnstile = { perspective: 1000, degrees: 80 } as const
+
+/** A page that slides instead: how far from its place it starts and ends. */
+export const pageSlide = { distance: 70 } as const
 
 /**
  * The content cascade: the rows of a list arrive one after the other, each sliding up
