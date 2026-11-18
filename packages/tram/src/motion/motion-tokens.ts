@@ -80,6 +80,24 @@ export const swipe = { distance: 0.4, velocity: 800, resist: 8 } as const
 export const cascade = { stagger: 40, rise: 12, most: 8 } as const
 
 /**
+ * A wheel of squares, let go and left alone. Thrown, it keeps its momentum and slows at
+ * `deceleration` — `withDecay`'s own rate, per millisecond — until it moves at less than
+ * `catchBelow` points a second. The `navigation` spring catches it there, at the speed
+ * it has, and stops it on a whole square: the one nearest to where `carry` more
+ * milliseconds would have taken it. At that speed that is a square still ahead, so a
+ * thrown wheel is never pulled back.
+ *
+ * `rest` is how long, in milliseconds, a wheel nobody touches keeps its neighbours on
+ * screen before they fade and only the current square is left.
+ */
+export const wheel = {
+  deceleration: 0.998,
+  catchBelow: 500,
+  carry: 150,
+  rest: 1400,
+} as const
+
+/**
  * The five bubbles of an indeterminate progress bar: they come in fast, close up in the
  * middle until `gap` points are left between two of them, and leave fast.
  *

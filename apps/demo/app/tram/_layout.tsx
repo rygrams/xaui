@@ -58,6 +58,10 @@ export default function TramLayout() {
               <Stack.Screen name="text-field" options={{ title: 'TEXT FIELD' }} />
               <Stack.Screen name="text-area" options={{ title: 'TEXT AREA' }} />
               <Stack.Screen name="select" options={{ title: 'SELECT' }} />
+              <Stack.Screen
+                name="wheel-picker"
+                options={{ title: 'WHEEL PICKER' }}
+              />
               <Stack.Screen name="dialog" options={{ title: 'DIALOG' }} />
               <Stack.Screen name="toast" options={{ title: 'TOAST' }} />
               <Stack.Screen name="typography" options={{ title: 'TYPOGRAPHY' }} />

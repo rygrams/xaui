@@ -158,6 +158,16 @@
         "types": "./dist/components/typography/index.d.cts",
         "default": "./dist/components/typography/index.cjs"
       }
+    },
+    "./wheel-picker": {
+      "import": {
+        "types": "./dist/components/wheel-picker/index.d.ts",
+        "default": "./dist/components/wheel-picker/index.js"
+      },
+      "require": {
+        "types": "./dist/components/wheel-picker/index.d.cts",
+        "default": "./dist/components/wheel-picker/index.cjs"
+      }
     }
   },
   "files": [
