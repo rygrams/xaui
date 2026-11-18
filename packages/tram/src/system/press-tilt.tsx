@@ -4,11 +4,16 @@ import type { GestureResponderEvent, LayoutChangeEvent, View } from 'react-nativ
 import Animated, { useAnimatedStyle, useSharedValue } from 'react-native-reanimated'
 import { PressableFeedback } from '@xaui/native/system'
 import type { PressableFeedbackProps } from '@xaui/native/system'
-import { scale, tilt } from '../../motion/motion-tokens'
-import { useTramMotion } from '../../motion/use-tram-motion'
-import { leanFor } from './button.tilt'
+import { scale, tilt } from '../motion/motion-tokens'
+import { useTramMotion } from '../motion/use-tram-motion'
+import { leanFor } from './tilt'
 
 const AnimatedFeedback = Animated.createAnimatedComponent(PressableFeedback)
+
+export type PressTiltProps = PressableFeedbackProps & {
+  /** How far the box shrinks under the finger — a `scale` token. The `Button`'s by default. */
+  depth?: number
+}
 
 /**
  * The Tram press: the pressable leans toward the finger and shrinks a little, as if pushed
@@ -17,10 +22,10 @@ const AnimatedFeedback = Animated.createAnimatedComponent(PressableFeedback)
  *
  * It is Native's `PressableFeedback` with its own animations off, because that primitive
  * owns `asChild`, the disabled state and the style props; only the movement is Tram's.
- * Kept in this folder until a second control — the tile — presses the same way.
+ * The `Button` presses this way, and a choice of the `Select`.
  */
-export const PressTilt = forwardRef<View, PressableFeedbackProps>(function PressTilt(
-  { isPressed = false, style, onPressIn, onLayout, ...props },
+export const PressTilt = forwardRef<View, PressTiltProps>(function PressTilt(
+  { isPressed = false, depth = scale.press, style, onPressIn, onLayout, ...props },
   ref
 ) {
   const animate = useTramMotion()
@@ -41,7 +46,7 @@ export const PressTilt = forwardRef<View, PressableFeedbackProps>(function Press
     const lean = leanFor({ x: locationX, y: locationY }, box.current)
     rotateX.value = animate(lean.rotateX)
     rotateY.value = animate(lean.rotateY)
-    size.value = animate(scale.press)
+    size.value = animate(depth)
     onPressIn?.(event)
   }
 
@@ -91,4 +96,4 @@ const BOX_ONLY = { pointerEvents: 'box-only' } as const
 
 const NO_TRANSFORM: never[] = []
 
-PressTilt.displayName = 'XAUI.Tram.Button.PressTilt'
+PressTilt.displayName = 'XAUI.Tram.PressTilt'
