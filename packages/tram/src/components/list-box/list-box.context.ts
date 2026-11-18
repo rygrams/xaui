@@ -1,3 +1,4 @@
+import { createContext, useContext } from 'react'
 import { createSlotContext } from '@xaui/native/system'
 import type { ListBoxContextValue, ListBoxRowStyles } from './list-box.type'
 
@@ -14,3 +15,10 @@ export const [ListBoxProvider, useListBox] =
  */
 export const [ListBoxRowProvider, useListBoxRow] =
   createSlotContext<ListBoxRowStyles>('Tram.ListBox.Item')
+
+const ListBoxOrderContext = createContext(0)
+ListBoxOrderContext.displayName = 'XAUI.Tram.ListBox.Order'
+
+/** A row's place among the rows that stay, from the root: the boxes slide in in turn. */
+export const ListBoxOrderProvider = ListBoxOrderContext.Provider
+export const useListBoxOrder = () => useContext(ListBoxOrderContext)

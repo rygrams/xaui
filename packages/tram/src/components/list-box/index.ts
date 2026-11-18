@@ -55,6 +55,8 @@ export type {
   ListBoxItemTitleProps,
   ListBoxProps,
   ListBoxRowStyles,
+  ListBoxSelection,
+  ListBoxSelectionMode,
   ListBoxSize,
   ListBoxSlot,
 } from './list-box.type'

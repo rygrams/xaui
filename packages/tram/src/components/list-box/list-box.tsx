@@ -1,15 +1,27 @@
-import { Children, cloneElement, forwardRef, isValidElement, useMemo } from 'react'
+import {
+  Children,
+  cloneElement,
+  forwardRef,
+  isValidElement,
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+} from 'react'
 import type { ReactElement, ReactNode } from 'react'
 import { StyleSheet } from 'react-native'
 import type { TextStyle, View } from 'react-native'
 import Animated from 'react-native-reanimated'
+import { useControllableState } from '@xaui/native'
 import { Slot, useStyleProps } from '@xaui/native/system'
 import type { ResolvedStyles, SlotStyles } from '@xaui/native/system'
 import { useXAUITheme } from '@xaui/native/theme'
 import type { XAUITheme } from '@xaui/native/theme'
 import { flatPaint, inkOn } from '../../system/flat-paint'
+import { lineInk } from '../../system/line-ink'
+import { useTramHaptic } from '../../theme/tram-haptics'
 import { useOptionalListBoxGroup } from './list-box-group.context'
-import { ListBoxProvider } from './list-box.context'
+import { ListBoxOrderProvider, ListBoxProvider } from './list-box.context'
 import {
   ListBoxEntranceProvider,
   useEntranceFade,
@@ -22,6 +34,7 @@ import { useRowRoster } from './list-box.roster'
 import type {
   ListBoxProps,
   ListBoxRowStyles,
+  ListBoxSelection,
   ListBoxSize,
   ListBoxSlot,
 } from './list-box.type'
@@ -45,12 +58,19 @@ import type {
  * </ListBox>
  * ```
  *
- * The rows arrive in a cascade when the list mounts — `hasEntrance={false}` places them.
- * A row added later opens in place and one removed closes, pushing the rows under it.
- * The separators are the root's, drawn above every row but the first, and move with it.
+ * No line between the rows: a Metro list reads by the space between them. The rows
+ * arrive in a cascade when the list mounts — `hasEntrance={false}` places them. A row
+ * added later opens in place and one removed closes, pushing the rows under it.
  *
- * In a `ListBoxGroup` it takes the group's size, accent, separators and cascade; its own
- * props still win, and a disabled group has no live list.
+ * **Selection.** `selectionMode="single"` makes a press on an `ItemButton` with an `id`
+ * choose it: its title turns to the accent, read as ink, and its `onPress` still runs.
+ * `selectionMode="multiple"` is the Metro mail list: a press on the start edge of a row
+ * puts a box out at the start of every row — they slide in one after the other — and
+ * ticks that row; while the list is selecting, a press anywhere on a row ticks it instead
+ * of pressing it. Leaving (`isSelecting={false}`) empties the selection.
+ *
+ * In a `ListBoxGroup` it takes the group's size, accent and cascade; its own props still
+ * win, and a disabled group has no live list.
  */
 export const ListBoxRoot = forwardRef<View, ListBoxProps>(function ListBox(
   {
@@ -58,7 +78,13 @@ export const ListBoxRoot = forwardRef<View, ListBoxProps>(function ListBox(
     size,
     accent,
     color,
-    hasSeparator,
+    selectionMode = 'none',
+    selectedKeys,
+    defaultSelectedKeys = NO_KEYS,
+    onSelectionChange,
+    isSelecting: isSelectingProp,
+    defaultSelecting = false,
+    onSelectingChange,
     isDisabled = false,
     hasEntrance = true,
     asChild = false,
@@ -78,7 +104,6 @@ export const ListBoxRoot = forwardRef<View, ListBoxProps>(function ListBox(
 
   const resolvedSize = size ?? group?.size ?? DEFAULT_SIZE
   const disabled = isDisabled || (group?.isDisabled ?? false)
-  const separated = hasSeparator ?? group?.hasSeparator ?? false
   // The list's own colour wins whole over the group's: an accent named here is not
   // overruled by a raw colour the group was given.
   const paint =
@@ -86,28 +111,51 @@ export const ListBoxRoot = forwardRef<View, ListBoxProps>(function ListBox(
       ? flatPaint({ accent, color })
       : flatPaint({ accent: group?.accent, color: group?.color })
 
-  const selection = { size: resolvedSize }
-  const live = listBoxRecipe.resolve({ theme, selection })
+  const variants = { size: resolvedSize }
+  const live = listBoxRecipe.resolve({ theme, selection: variants })
   const grey = listBoxRecipe.resolve({
     theme,
-    selection,
+    selection: variants,
     states: { disabled: true },
   })
   // Uncached: a raw tint must stay out of the cache key.
   const tint = paint
-    ? listBoxRecipe.tint({ theme, color: paint, selection })
+    ? listBoxRecipe.tint({ theme, color: paint, selection: variants })
     : undefined
+
+  // A chosen title is the accent read on the ground. Left out, the recipe's `link`.
+  const chosenInk =
+    accent || color
+      ? lineInk({ accent, color }, theme.colors.background)
+      : lineInk(
+          { accent: group?.accent, color: group?.color },
+          theme.colors.background
+        )
+
+  const selection = useListBoxSelection({
+    mode: selectionMode,
+    selectedKeys,
+    defaultSelectedKeys,
+    onSelectionChange,
+    isSelecting: isSelectingProp,
+    defaultSelecting,
+    onSelectingChange,
+    checkSpan:
+      LIST_BOX_GEOMETRY[resolvedSize].check.box +
+      theme.spacing(LIST_BOX_GEOMETRY[resolvedSize].gap),
+  })
 
   const context = useMemo(() => {
     const ink = paint ? inkOn(paint, theme.colors.accentForeground) : undefined
     const paints = { theme, size: resolvedSize }
 
     return {
-      live: rowStylesFrom(live, { tint, ink }, paints),
+      live: rowStylesFrom(live, { tint, ink, chosenInk }, paints),
       grey: rowStylesFrom(grey, { ink: theme.colors.background }, paints),
       isDisabled: disabled,
+      selection,
     }
-  }, [live, grey, tint, paint, theme, resolvedSize, disabled])
+  }, [live, grey, tint, paint, chosenInk, theme, resolvedSize, disabled, selection])
 
   // Under `asChild` the rows are the caller's element's children, drawn inside it.
   const only = asChild && isValidElement(children) ? (children as Parent) : null
@@ -119,18 +167,20 @@ export const ListBoxRoot = forwardRef<View, ListBoxProps>(function ListBox(
     node: child,
   }))
   const [roster, letGo] = useRowRoster(entries, entrance.isSizing)
-  const first = roster.findIndex(row => !row.isLeaving)
 
-  const rows = roster.map((row, index) => (
+  // Each row's place among those that stay: the boxes slide in in this order.
+  let order = 0
+  const rows = roster.map(row => (
     <ListBoxRow
       key={row.key}
       rowKey={row.key}
       entrance={entrance}
       isLeaving={row.isLeaving}
-      separatorStyle={separated && index > first ? live.separator : null}
       onGone={letGo}
     >
-      {row.node}
+      <ListBoxOrderProvider value={row.isLeaving ? 0 : order++}>
+        {row.node}
+      </ListBoxOrderProvider>
     </ListBoxRow>
   ))
 
@@ -166,10 +216,12 @@ ListBoxRoot.displayName = 'XAUI.Tram.ListBox.Root'
 type Parent = ReactElement<{ children?: ReactNode }>
 
 type SquarePaint = {
-  /** The tint pass, when the squares are not the theme's accent. */
+  /** The tint pass, when the squares and the marks are not the theme's accent. */
   tint?: SlotStyles<ListBoxSlot>
   /** The ink on the squares, when it is not the theme's `accentForeground`. */
   ink?: string
+  /** A chosen title's colour, when it is not the theme's `link`. */
+  chosenInk?: string
 }
 
 type GlyphPaints = { theme: XAUITheme; size: ListBoxSize }
@@ -190,6 +242,9 @@ function rowStylesFrom(
     squareStyle: square.tint ? [styles.square, square.tint.square] : styles.square,
     contentStyle: styles.content,
     titleStyle: styles.title,
+    selectedTitleStyle: square.chosenInk
+      ? [styles.selectedTitle, { color: square.chosenInk }]
+      : styles.selectedTitle,
     descriptionStyle: styles.description,
     suffixStyle: styles.suffix,
     suffixTextStyle: styles.suffixText,
@@ -200,5 +255,89 @@ function rowStylesFrom(
       color: square.ink ?? theme.colors.accentForeground,
     },
     suffixGlyph: { size: geometry.glyph, color: theme.colors.muted },
+    checkStyle: styles.check,
+    checkBoxStyle: styles.checkBox,
+    checkMarkStyle: square.tint
+      ? [styles.checkMark, square.tint.checkMark]
+      : styles.checkMark,
   }
+}
+
+const NO_KEYS: readonly string[] = []
+
+type SelectionOptions = Pick<
+  ListBoxProps,
+  | 'selectedKeys'
+  | 'defaultSelectedKeys'
+  | 'onSelectionChange'
+  | 'isSelecting'
+  | 'defaultSelecting'
+  | 'onSelectingChange'
+> & { mode: NonNullable<ListBoxProps['selectionMode']>; checkSpan: number }
+
+/**
+ * The list's selection: the chosen keys and, in `multiple`, whether the boxes are out —
+ * both controllable. A press reaches it through `press`, which says whether it took the
+ * press, so the row knows whether its own `onPress` still runs.
+ */
+function useListBoxSelection({
+  mode,
+  selectedKeys,
+  defaultSelectedKeys = NO_KEYS,
+  onSelectionChange,
+  isSelecting: isSelectingProp,
+  defaultSelecting = false,
+  onSelectingChange,
+  checkSpan,
+}: SelectionOptions): ListBoxSelection {
+  const haptic = useTramHaptic()
+  const [keys, setKeys] = useControllableState({
+    value: selectedKeys,
+    defaultValue: defaultSelectedKeys,
+    onChange: onSelectionChange,
+  })
+  const [selecting, setSelecting] = useControllableState({
+    value: isSelectingProp,
+    defaultValue: defaultSelecting,
+    onChange: onSelectingChange,
+  })
+  const isSelecting = mode === 'multiple' && selecting
+
+  // Leaving empties the selection — whoever closed the boxes, the list or its caller.
+  const wasSelecting = useRef(isSelecting)
+  useEffect(() => {
+    if (wasSelecting.current && !isSelecting && keys.length > 0) setKeys(NO_KEYS)
+    wasSelecting.current = isSelecting
+  }, [isSelecting, keys.length, setKeys])
+
+  const isSelected = useCallback((id: string) => keys.includes(id), [keys])
+
+  const press = useCallback(
+    (id: string, atStart: boolean) => {
+      if (mode === 'single') {
+        if (!keys.includes(id) || keys.length > 1) {
+          haptic('selection')
+          setKeys([id])
+        }
+        return false
+      }
+      if (mode !== 'multiple') return false
+      if (isSelecting) {
+        haptic('selection')
+        setKeys(keys.includes(id) ? keys.filter(key => key !== id) : [...keys, id])
+        return true
+      }
+      if (!atStart) return false
+      haptic('selection')
+      setSelecting(true)
+      setKeys([id])
+      return true
+    },
+    [mode, keys, isSelecting, haptic, setKeys, setSelecting]
+  )
+
+  return useMemo(
+    () => ({ mode, isSelecting, isSelected, press, checkSpan }),
+    [mode, isSelecting, isSelected, press, checkSpan]
+  )
 }

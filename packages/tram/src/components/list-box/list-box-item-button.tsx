@@ -1,5 +1,6 @@
-import { forwardRef } from 'react'
-import type { View } from 'react-native'
+import { forwardRef, useMemo, useRef } from 'react'
+import { I18nManager } from 'react-native'
+import type { GestureResponderEvent, LayoutChangeEvent, View } from 'react-native'
 import { useReducedMotion } from 'react-native-reanimated'
 import { usePressState } from '@xaui/native'
 import {
@@ -9,8 +10,10 @@ import {
 } from '@xaui/native/system'
 import { scale } from '../../motion/motion-tokens'
 import { PressTilt } from '../../system/press-tilt'
+import { TRAM_TOUCH_TARGET } from '../../theme/tram-tokens'
 import { useTramHaptic } from '../../theme/tram-haptics'
-import { ListBoxRowProvider, useListBox } from './list-box.context'
+import { ListBoxCheck } from './list-box-check'
+import { ListBoxRowProvider, useListBox, useListBoxOrder } from './list-box.context'
 import type { ListBoxItemButtonProps } from './list-box.type'
 
 /**
@@ -23,43 +26,79 @@ import type { ListBoxItemButtonProps } from './list-box.type'
  * moved by the row's `onPress`, and springs once, for its new value. A control that must
  * keep its own press and its own role goes in a `ListBox.Item`.
  *
- * Disabled — by its own prop or by the list's — it is grey, its square too, and it does
- * not move. With motion reduced, or under `disable-all`, it does not lean.
+ * With an `id`, it takes part in the list's selection. In `single`, a press chooses it —
+ * its title in the accent — and `onPress` still runs. In `multiple`, a box slides in at
+ * its start while the list is selecting; a press on the row's first 48 points puts the
+ * boxes out and ticks it, and while selecting every press ticks or unticks it and
+ * `onPress` does not run. Under `asChild` the row is the caller's element and draws no
+ * box.
+ *
+ * Disabled — by its own prop or by the list's — it is grey, its square too, it does not
+ * move and it is never chosen. With motion reduced, or under `disable-all`, it does not
+ * lean.
  */
 export const ListBoxItemButton = forwardRef<View, ListBoxItemButtonProps>(
   function ListBoxItemButton(
     {
       children,
+      id,
       isDisabled = false,
       asChild = false,
-      accessibilityRole = 'button',
+      accessibilityRole,
       accessibilityState,
       style,
+      onPress,
       onPressIn,
       onPressOut,
+      onLayout,
       ...props
     },
     ref
   ) {
-    const { live, grey, isDisabled: isListDisabled } = useListBox()
+    const { live, grey, isDisabled: isListDisabled, selection } = useListBox()
+    const order = useListBoxOrder()
     const [styleProps, rest] = useStyleProps(props)
     const haptic = useTramHaptic()
     const isStill = useAnimationDisabled()
     const isReduced = useReducedMotion()
+    const width = useRef(0)
+    const isAtStart = useRef(false)
     const [isPressed, press] = usePressState({
       onPressIn: event => {
         haptic('press')
+        isAtStart.current = isStartEdge(event, width.current)
         onPressIn?.(event)
       },
       onPressOut,
     })
 
     const disabled = isListDisabled || isDisabled
-    const row = disabled ? grey : live
+    const isSelectable = id !== undefined && selection.mode !== 'none' && !disabled
+    const isTicked = id !== undefined && selection.isSelected(id)
+    const isMultiple = selection.mode === 'multiple'
+    const isChosen = selection.mode === 'single' && isTicked
+
+    const base = disabled ? grey : live
+    // A chosen row's title is written in the accent; nothing else on it changes.
+    const row = useMemo(
+      () => (isChosen ? { ...base, titleStyle: base.selectedTitleStyle } : base),
+      [base, isChosen]
+    )
+
+    const handlePress = (event: GestureResponderEvent) => {
+      if (isSelectable && selection.press(id, isAtStart.current)) return
+      onPress?.(event)
+    }
+
+    const handleLayout = (event: LayoutChangeEvent) => {
+      width.current = event.nativeEvent.layout.width
+      onLayout?.(event)
+    }
 
     const isFlat = isStill || isReduced
     const Row = isFlat ? PressableFeedback : PressTilt
     const lean = isFlat ? undefined : { depth: scale.row }
+    const isChecking = isMultiple && selection.isSelecting
 
     return (
       <ListBoxRowProvider value={row}>
@@ -70,21 +109,47 @@ export const ListBoxItemButton = forwardRef<View, ListBoxItemButtonProps>(
           asChild={asChild}
           // Native's scale, highlight and ripple stay off: the press is the tilt alone.
           animation={isStill ? 'disable-all' : false}
-          accessibilityRole={accessibilityRole}
+          accessibilityRole={
+            accessibilityRole ?? (isChecking ? 'checkbox' : 'button')
+          }
           // Merged, not spread over: a caller naming another state keeps this one.
-          accessibilityState={{ disabled, ...accessibilityState }}
+          accessibilityState={{
+            disabled,
+            ...(selection.mode === 'single' && id !== undefined
+              ? { selected: isChosen }
+              : null),
+            ...(isChecking && id !== undefined ? { checked: isTicked } : null),
+            ...accessibilityState,
+          }}
           {...lean}
           {...rest}
           style={[
             row.itemStyle,
+            // The touch is the row's, so where it landed is measured from the row.
+            BOX_ONLY,
             styleProps,
             typeof style === 'function' ? style({ pressed: isPressed }) : style,
           ]}
           // After `rest`, and composed: the caller's handlers run inside these.
           onPressIn={press.onPressIn}
           onPressOut={press.onPressOut}
+          onPress={handlePress}
+          onLayout={handleLayout}
         >
-          {children}
+          {/* Under `asChild` the one child is the caller's element, merged into: no box. */}
+          {isMultiple && !asChild ? (
+            <>
+              <ListBoxCheck
+                isSelecting={selection.isSelecting}
+                isTicked={isTicked}
+                span={selection.checkSpan}
+                order={order}
+              />
+              {children}
+            </>
+          ) : (
+            children
+          )}
         </Row>
       </ListBoxRowProvider>
     )
@@ -92,3 +157,14 @@ export const ListBoxItemButton = forwardRef<View, ListBoxItemButtonProps>(
 )
 
 ListBoxItemButton.displayName = 'XAUI.Tram.ListBox.ItemButton'
+
+const BOX_ONLY = { pointerEvents: 'box-only' } as const
+
+/** Whether a touch landed on the row's start edge: its first 48 points, mirrored in RTL. */
+function isStartEdge(event: GestureResponderEvent, width: number): boolean {
+  const { locationX } = event.nativeEvent
+
+  return I18nManager.isRTL
+    ? locationX > width - TRAM_TOUCH_TARGET
+    : locationX < TRAM_TOUCH_TARGET
+}

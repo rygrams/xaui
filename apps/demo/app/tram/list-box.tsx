@@ -19,6 +19,40 @@ const ACCENTS: TramAccentName[] = ['lime', 'amber', 'yellow', 'magenta', 'cobalt
 
 const LONG = Array.from({ length: 24 }, (_, index) => `élément ${index + 1}`)
 
+const RINGTONES = [
+  { id: 'carillon', description: 'par défaut' },
+  { id: 'cloche', description: 'classique' },
+  { id: 'écho', description: 'doux' },
+  { id: 'horizon', description: 'montant' },
+]
+
+const MAIL = [
+  {
+    id: 'awa',
+    from: 'Awa Koné',
+    subject: 'Réunion de demain',
+    body: 'On décale à 10 h ?',
+  },
+  {
+    id: 'marc',
+    from: 'Marc',
+    subject: 'Photos du week-end',
+    body: "Je t'envoie tout ce soir",
+  },
+  {
+    id: 'banque',
+    from: 'Banque',
+    subject: 'Relevé de novembre',
+    body: 'Votre relevé est disponible',
+  },
+  {
+    id: 'ines',
+    from: 'Inès',
+    subject: 'Re : anniversaire',
+    body: 'Super idée pour le gâteau',
+  },
+]
+
 function WifiIcon({ size, color }: IconComponentProps) {
   return (
     <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
@@ -56,16 +90,7 @@ function LockIcon({ size, color }: IconComponentProps) {
   )
 }
 
-/** A chevron toward the end: flipped by the layout under RTL, as the row is. */
-function NextIcon({ size, color }: IconComponentProps) {
-  return (
-    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
-      <Path d="m9 5 7 7-7 7" stroke={color} strokeWidth={2} />
-    </Svg>
-  )
-}
-
-/** A row that opens something: a square, a title, a description, a chevron. */
+/** A row that opens something: a square, a title, a description — nothing at the end. */
 function SettingRow({
   icon,
   title,
@@ -86,18 +111,16 @@ function SettingRow({
           <ListBox.ItemDescription>{description}</ListBox.ItemDescription>
         ) : null}
       </ListBox.ItemContent>
-      <ListBox.ItemSuffix>
-        <Icon as={NextIcon} />
-      </ListBox.ItemSuffix>
     </ListBox.ItemButton>
   )
 }
 
 /**
  * Where the Tram `ListBox` is verified, in dark and in light: the Metro settings page —
- * the three sizes, plain and pressable rows, the prefixes and suffixes, separators, grey
- * rows and lists, a group in two sections, the accents, a raw colour, `asChild`, style
- * props, and a long list. The entrance can be replayed, and a row added and removed.
+ * the three sizes, plain and pressable rows, the prefixes and the suffix, the single and
+ * multiple selections, grey rows and lists, a group in two sections, the accents, a raw
+ * colour, `asChild`, style props, and a long list. The entrance can be replayed, and a row
+ * added and removed.
  */
 export default function TramListBoxScreen() {
   const theme = useXAUITheme()
@@ -108,6 +131,10 @@ export default function TramListBoxScreen() {
   const [isLocationOn, setIsLocationOn] = useState(true)
   const [isSyncing, setIsSyncing] = useState(true)
   const [presses, setPresses] = useState(0)
+  const [ringtone, setRingtone] = useState<readonly string[]>(['carillon'])
+  const [mail, setMail] = useState(MAIL)
+  const [picked, setPicked] = useState<readonly string[]>([])
+  const [isPicking, setIsPicking] = useState(false)
 
   return (
     <ScrollView
@@ -135,7 +162,7 @@ export default function TramListBoxScreen() {
           <ListBoxGroup.Section>
             <ListBoxGroup.Header>réseau</ListBoxGroup.Header>
             <ListBox>
-              <ListBox.Item>
+              <ListBox.ItemButton onPress={() => setIsWifiOn(on => !on)}>
                 <ListBox.ItemPrefix variant="square">
                   <Icon as={WifiIcon} />
                 </ListBox.ItemPrefix>
@@ -145,14 +172,7 @@ export default function TramListBoxScreen() {
                     {isWifiOn ? 'Maison' : 'désactivé'}
                   </ListBox.ItemDescription>
                 </ListBox.ItemContent>
-                <ListBox.ItemSuffix>
-                  <Switch
-                    isSelected={isWifiOn}
-                    onSelectedChange={setIsWifiOn}
-                    accessibilityLabel="Wi-Fi"
-                  />
-                </ListBox.ItemSuffix>
-              </ListBox.Item>
+              </ListBox.ItemButton>
               {hasBluetooth ? (
                 <ListBox.ItemButton key="bluetooth" onPress={() => {}}>
                   <ListBox.ItemContent>
@@ -167,18 +187,15 @@ export default function TramListBoxScreen() {
                 <ListBox.ItemContent>
                   <ListBox.ItemTitle>mode avion</ListBox.ItemTitle>
                   <ListBox.ItemDescription>
-                    toute la ligne bascule le Switch
+                    {isFlightOn ? 'activé' : 'désactivé'}
                   </ListBox.ItemDescription>
                 </ListBox.ItemContent>
-                <ListBox.ItemSuffix>
-                  <Switch isSelected={isFlightOn} accessibilityElementsHidden />
-                </ListBox.ItemSuffix>
               </ListBox.ItemButton>
               <ListBox.ItemButton onPress={() => {}}>
                 <ListBox.ItemContent>
                   <ListBox.ItemTitle>données cellulaires</ListBox.ItemTitle>
+                  <ListBox.ItemDescription>4G</ListBox.ItemDescription>
                 </ListBox.ItemContent>
-                <ListBox.ItemSuffix>4G</ListBox.ItemSuffix>
               </ListBox.ItemButton>
             </ListBox>
             <ListBoxGroup.Footer>
@@ -216,6 +233,81 @@ export default function TramListBoxScreen() {
       </TramSection>
 
       <TramSection
+        title="sélection simple"
+        note={`selectionMode="single" : le titre choisi passe à l'accent. Sonnerie : ${ringtone[0] ?? 'aucune'}`}
+      >
+        <ListBox
+          selectionMode="single"
+          selectedKeys={ringtone}
+          onSelectionChange={setRingtone}
+        >
+          {RINGTONES.map(tone => (
+            <ListBox.ItemButton key={tone.id} id={tone.id}>
+              <ListBox.ItemContent>
+                <ListBox.ItemTitle>{tone.id}</ListBox.ItemTitle>
+                <ListBox.ItemDescription>{tone.description}</ListBox.ItemDescription>
+              </ListBox.ItemContent>
+            </ListBox.ItemButton>
+          ))}
+        </ListBox>
+      </TramSection>
+
+      <TramSection
+        title="sélection multiple"
+        note={`Presse le bord de début d'une ligne, ou « sélectionner » : les cases glissent en cascade. ${
+          isPicking
+            ? `${picked.length} sélectionné${picked.length > 1 ? 's' : ''}`
+            : `Ouvertures : ${presses}`
+        }`}
+      >
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', gap: 12 }}>
+          <Button
+            size="sm"
+            variant="outline"
+            onPress={() => setIsPicking(on => !on)}
+          >
+            {isPicking ? 'annuler' : 'sélectionner'}
+          </Button>
+          <Button
+            size="sm"
+            isDisabled={picked.length === 0}
+            onPress={() => {
+              setMail(list => list.filter(item => !picked.includes(item.id)))
+              setIsPicking(false)
+            }}
+          >
+            supprimer
+          </Button>
+          <Button size="sm" variant="text" onPress={() => setMail(MAIL)}>
+            remettre
+          </Button>
+        </View>
+        <ListBox
+          selectionMode="multiple"
+          selectedKeys={picked}
+          onSelectionChange={setPicked}
+          isSelecting={isPicking}
+          onSelectingChange={setIsPicking}
+        >
+          {mail.map(item => (
+            <ListBox.ItemButton
+              key={item.id}
+              id={item.id}
+              onPress={() => setPresses(count => count + 1)}
+            >
+              <ListBox.ItemContent>
+                <ListBox.ItemTitle>{item.from}</ListBox.ItemTitle>
+                <ListBox.ItemDescription color={theme.colors.foreground}>
+                  {item.subject}
+                </ListBox.ItemDescription>
+                <ListBox.ItemDescription>{item.body}</ListBox.ItemDescription>
+              </ListBox.ItemContent>
+            </ListBox.ItemButton>
+          ))}
+        </ListBox>
+      </TramSection>
+
+      <TramSection
         title="les tailles"
         note="Lignes de 52, 64 et 80 au moins ; titre en body, subtitle, title ; description en caption, caption, body ; vignettes de 32, 40, 48."
       >
@@ -234,7 +326,7 @@ export default function TramListBoxScreen() {
         title="item et itembutton"
         note={`Item est inerte : aucun mouvement. ItemButton penche vers le doigt. Pressions : ${presses}`}
       >
-        <ListBox hasSeparator>
+        <ListBox>
           <ListBox.Item>
             <ListBox.ItemContent>
               <ListBox.ItemTitle>version</ListBox.ItemTitle>
@@ -273,8 +365,8 @@ export default function TramListBoxScreen() {
       </TramSection>
 
       <TramSection
-        title="préfixes et suffixes"
-        note="Vignette, Checkbox, rien ; texte, Switch, glyphe. Un contrôle dans un Item garde son propre rôle et son animation."
+        title="préfixes et suffixe"
+        note="Vignette, Checkbox, glyphe nu, rien. Le suffixe reste possible — une valeur, un Switch — mais une ligne Metro n'en a généralement pas. Un contrôle dans un Item garde son propre rôle et son animation."
       >
         <ListBox>
           <ListBox.Item>
@@ -306,28 +398,14 @@ export default function TramListBoxScreen() {
               <Icon as={LockIcon} />
             </ListBox.ItemPrefix>
             <ListBox.ItemContent>
-              <ListBox.ItemTitle>glyphe nu, suffixe glyphe</ListBox.ItemTitle>
+              <ListBox.ItemTitle>glyphe nu</ListBox.ItemTitle>
             </ListBox.ItemContent>
-            <ListBox.ItemSuffix>
-              <Icon as={NextIcon} />
-            </ListBox.ItemSuffix>
           </ListBox.ItemButton>
           <ListBox.ItemButton onPress={() => {}}>
             <ListBox.ItemContent>
               <ListBox.ItemTitle>sans préfixe</ListBox.ItemTitle>
             </ListBox.ItemContent>
           </ListBox.ItemButton>
-        </ListBox>
-      </TramSection>
-
-      <TramSection
-        title="hasSeparator"
-        note="Un trait de 2 dans le gris doux entre deux lignes. Faux par défaut : une liste Metro se lit à ses blancs."
-      >
-        <ListBox hasSeparator>
-          <SettingRow icon={WifiIcon} title="Wi-Fi" description="Maison" />
-          <SettingRow icon={BellIcon} title="notifications" />
-          <SettingRow icon={LockIcon} title="verrouillage" />
         </ListBox>
       </TramSection>
 
@@ -393,7 +471,7 @@ export default function TramListBoxScreen() {
         title="asChild"
         note="La racine prête son rôle et son style à un View du caller ; une ligne devient un Pressable."
       >
-        <ListBox asChild hasSeparator>
+        <ListBox asChild>
           <View
             style={{
               paddingStart: 16,
@@ -442,15 +520,12 @@ export default function TramListBoxScreen() {
         note="Dans un ScrollView de 320 : la cascade s'arrête à cascade.most rangs, et un défilement pendant une pression rend la ligne à plat."
       >
         <ScrollView style={{ height: 320 }} nestedScrollEnabled>
-          <ListBox size="sm" hasSeparator>
+          <ListBox size="sm">
             {LONG.map(label => (
               <ListBox.ItemButton key={label} onPress={() => {}}>
                 <ListBox.ItemContent>
                   <ListBox.ItemTitle>{label}</ListBox.ItemTitle>
                 </ListBox.ItemContent>
-                <ListBox.ItemSuffix>
-                  <Icon as={NextIcon} />
-                </ListBox.ItemSuffix>
               </ListBox.ItemButton>
             ))}
           </ListBox>

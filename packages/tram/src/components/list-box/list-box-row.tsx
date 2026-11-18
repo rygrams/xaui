@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useRef } from 'react'
 import type { ReactNode } from 'react'
-import { View } from 'react-native'
-import type { LayoutChangeEvent, StyleProp, ViewStyle } from 'react-native'
+import type { LayoutChangeEvent } from 'react-native'
 import Animated, {
   useAnimatedReaction,
   useAnimatedStyle,
@@ -16,8 +15,6 @@ type ListBoxRowProps = {
   rowKey: string
   entrance: ListBoxEntrance
   isLeaving: boolean
-  /** The line above the row, drawn with it: it arrives, opens and closes with the row. */
-  separatorStyle: StyleProp<ViewStyle> | null
   onGone: (key: string) => void
   children: ReactNode
 }
@@ -37,7 +34,6 @@ export function ListBoxRow({
   rowKey,
   entrance,
   isLeaving,
-  separatorStyle,
   onGone,
   children,
 }: ListBoxRowProps) {
@@ -91,7 +87,6 @@ export function ListBoxRow({
   return (
     <Animated.View style={presence}>
       <Animated.View style={arriving} onLayout={handleLayout}>
-        {separatorStyle ? <View style={separatorStyle} /> : null}
         {children}
       </Animated.View>
     </Animated.View>

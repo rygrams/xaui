@@ -8,11 +8,14 @@ import type { ListBoxSlot } from './list-box.type'
 const SLOTS = [
   'root',
   'item',
-  'separator',
+  'check',
+  'checkBox',
+  'checkMark',
   'prefix',
   'square',
   'content',
   'title',
+  'selectedTitle',
   'description',
   'suffix',
   'suffixText',
@@ -24,15 +27,13 @@ export const DEFAULT_SIZE: TramSize = 'md'
 const DRAWING = 'rows'
 
 /**
- * Only the prefix's square is the accent, so only the square follows `accent` and
- * `color`. The rows are on the ground, and their text is the page's.
+ * Only the prefix's square and the mark of a ticked box are the accent filled, so only
+ * they follow `accent` and `color` here; a chosen title is the accent read as ink, set
+ * by the root. The rows are on the ground, and their text is the page's.
  */
 const VARIANT_TOKENS: Record<typeof DRAWING, VariantTokens> = {
   [DRAWING]: { bgSelected: 'accent' },
 }
-
-/** The line between two rows, in points. */
-const SEPARATOR = 2
 
 type SizeStep = {
   /** The least a row is tall: a Metro settings row, and always past the 48 target. */
@@ -49,6 +50,8 @@ type SizeStep = {
   suffix: TramTypeRole
   /** Spacing steps between the prefix, the content and the suffix. */
   gap: number
+  /** The box that slides in, in `multiple`: its side, its line, its mark's inset. */
+  check: { box: number; line: number; inset: number }
 }
 
 /** Points, not spacing steps: 52, 64 and 80 are the rows of the Metro settings page. */
@@ -62,6 +65,7 @@ export const LIST_BOX_GEOMETRY: Record<TramSize, SizeStep> = {
     description: 'caption',
     suffix: 'body',
     gap: 3,
+    check: { box: 24, line: 2, inset: 4 },
   },
   md: {
     row: 64,
@@ -72,6 +76,7 @@ export const LIST_BOX_GEOMETRY: Record<TramSize, SizeStep> = {
     description: 'caption',
     suffix: 'body',
     gap: 4,
+    check: { box: 28, line: 3, inset: 5 },
   },
   lg: {
     row: 80,
@@ -82,14 +87,25 @@ export const LIST_BOX_GEOMETRY: Record<TramSize, SizeStep> = {
     description: 'body',
     suffix: 'subtitle',
     gap: 4,
+    check: { box: 32, line: 3, inset: 6 },
   },
 }
 
 function sizeAxis(step: SizeStep) {
   return (theme: XAUITheme): SlotStyles<ListBoxSlot> => ({
     item: { minHeight: step.row, gap: theme.spacing(step.gap) },
+    // Pulled back by the row's gap: closed, the column takes no room at all.
+    check: { marginEnd: -theme.spacing(step.gap) },
+    checkBox: {
+      width: step.check.box,
+      height: step.check.box,
+      borderWidth: step.check.line,
+      padding: step.check.inset,
+      marginEnd: theme.spacing(step.gap),
+    },
     square: { width: step.square, height: step.square },
     title: roleType(step.title, theme),
+    selectedTitle: roleType(step.title, theme),
     description: roleType(step.description, theme),
     suffixText: roleType(step.suffix, theme),
   })
@@ -107,7 +123,18 @@ export const listBoxRecipe = createRecipe({
       alignItems: 'center',
       paddingVertical: theme.spacing(2),
     },
-    separator: { height: SEPARATOR, backgroundColor: theme.colors.default },
+    // The box is held at the column's end, so it slides in from the start as the column
+    // opens rather than being uncovered in place.
+    check: {
+      flexDirection: 'row',
+      justifyContent: 'flex-end',
+      alignSelf: 'stretch',
+      alignItems: 'center',
+      overflow: 'hidden',
+    },
+    // The Tram `Checkbox`'s drawing: a line of the page's ink, a square of the accent in it.
+    checkBox: { borderColor: theme.colors.foreground },
+    checkMark: { flex: 1, backgroundColor: theme.colors.accent },
     prefix: { alignItems: 'center', justifyContent: 'center' },
     square: {
       alignItems: 'center',
@@ -118,6 +145,8 @@ export const listBoxRecipe = createRecipe({
     // the suffix off the row.
     content: { flex: 1, minWidth: 0, gap: theme.spacing(0.5) },
     title: { color: theme.colors.foreground },
+    // The accent read on the ground, not filled: `link`, 4.5:1 at least.
+    selectedTitle: { color: theme.colors.link },
     description: { color: theme.colors.muted },
     suffix: { flexDirection: 'row', alignItems: 'center', gap: theme.spacing(2) },
     suffixText: { color: theme.colors.muted },
@@ -128,6 +157,7 @@ export const listBoxRecipe = createRecipe({
   /** A flat square, so the true colour — nothing here is the accent read as a line. */
   paint: (_theme, colors) => ({
     square: { backgroundColor: colors.bgSelected },
+    checkMark: { backgroundColor: colors.bgSelected },
   }),
 
   variants: {
@@ -147,7 +177,10 @@ export const listBoxRecipe = createRecipe({
     disabled: theme => ({
       item: { opacity: theme.opacity.disabled },
       title: { color: theme.colors.muted },
+      selectedTitle: { color: theme.colors.muted },
       square: { backgroundColor: theme.colors.muted },
+      checkBox: { borderColor: theme.colors.muted },
+      checkMark: { backgroundColor: theme.colors.muted },
     }),
   },
 

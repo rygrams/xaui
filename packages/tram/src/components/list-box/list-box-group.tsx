@@ -28,7 +28,7 @@ import type { ListBoxGroupProps } from './list-box-group.type'
  * No fill for the group nor for its sections: a header in the grey over its rows, a gap
  * between two sections, and that is all the grouping there is.
  *
- * `size`, `accent`, `color` and `hasSeparator` are defaults handed down to every
+ * `size`, `accent` and `color` are defaults handed down to every
  * `ListBox` inside, whose own props still win; `isDisabled` greys them all. The headers,
  * rows and footers arrive in **one** cascade, read from top to bottom through every
  * section — `hasEntrance={false}` places them.
@@ -40,7 +40,6 @@ export const ListBoxGroupRoot = forwardRef<View, ListBoxGroupProps>(
       size,
       accent,
       color,
-      hasSeparator,
       isDisabled = false,
       hasEntrance = true,
       asChild = false,
@@ -68,10 +67,9 @@ export const ListBoxGroupRoot = forwardRef<View, ListBoxGroupProps>(
         size,
         accent,
         color,
-        hasSeparator,
         isDisabled,
       }),
-      [styles, size, accent, color, hasSeparator, isDisabled]
+      [styles, size, accent, color, isDisabled]
     )
 
     const rootStyle = [styles.root, styleProps, style]

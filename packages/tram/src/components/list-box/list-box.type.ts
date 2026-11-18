@@ -17,16 +17,25 @@ import type { TramAccentName, TramSize } from '../../theme/tram-tokens'
 export type ListBoxSlot =
   | 'root'
   | 'item'
-  | 'separator'
+  | 'check'
+  | 'checkBox'
+  | 'checkMark'
   | 'prefix'
   | 'square'
   | 'content'
   | 'title'
+  | 'selectedTitle'
   | 'description'
   | 'suffix'
   | 'suffixText'
 
 export type ListBoxSize = TramSize
+
+/**
+ * What a press on an `ItemButton` with an `id` does: nothing more than its `onPress`
+ * (`none`), choose that row alone (`single`), or tick it among others (`multiple`).
+ */
+export type ListBoxSelectionMode = 'none' | 'single' | 'multiple'
 
 type ListBoxOwnProps = {
   children?: ReactNode
@@ -40,10 +49,22 @@ type ListBoxOwnProps = {
   /** A raw tint, never a token: the squares of the prefixes. Never corrected. */
   color?: string
   /**
-   * A line of the soft grey between two rows. Off by default: a Metro list reads by the
-   * space between its rows. Falls back to the `ListBoxGroup`'s.
+   * `single`: a press on a row with an `id` chooses it, and its title turns to the
+   * accent. `multiple`: the rows can be ticked — a box slides in at the start of every
+   * row while the list is selecting. @default 'none'
    */
-  hasSeparator?: boolean
+  selectionMode?: ListBoxSelectionMode
+  /** The chosen rows, by their `ItemButton` id. Present means controlled. */
+  selectedKeys?: readonly string[]
+  defaultSelectedKeys?: readonly string[]
+  onSelectionChange?: (keys: readonly string[]) => void
+  /**
+   * `multiple` only — whether the boxes are out. A press on the start edge of a row puts
+   * them out and ticks that row; leaving empties the selection. Present means controlled.
+   */
+  isSelecting?: boolean
+  defaultSelecting?: boolean
+  onSelectingChange?: (isSelecting: boolean) => void
   /** Greys every row and stops every press. */
   isDisabled?: boolean
   /**
@@ -70,6 +91,8 @@ export type ListBoxItemProps = ListBoxItemOwnProps &
 
 type ListBoxItemButtonOwnProps = {
   children?: ReactNode
+  /** What the row is chosen by, in `selectedKeys`. A row without one is never chosen. */
+  id?: string
   /** Greys the row and its square, and stops the press. */
   isDisabled?: boolean
   asChild?: boolean
@@ -115,6 +138,8 @@ export type ListBoxRowStyles = {
   squareStyle: StyleProp<ViewStyle>
   contentStyle: StyleProp<ViewStyle>
   titleStyle: StyleProp<TextStyle>
+  /** The title of a chosen row, in `single`: the accent, read as ink on the ground. */
+  selectedTitleStyle: StyleProp<TextStyle>
   descriptionStyle: StyleProp<TextStyle>
   suffixStyle: StyleProp<ViewStyle>
   suffixTextStyle: StyleProp<TextStyle>
@@ -124,6 +149,22 @@ export type ListBoxRowStyles = {
   squareGlyph: IconContextValue
   /** What an `Icon` in the suffix takes: the muted grey. */
   suffixGlyph: IconContextValue
+  /** The column the box slides into, the box and its mark, in `multiple`. */
+  checkStyle: StyleProp<ViewStyle>
+  checkBoxStyle: StyleProp<ViewStyle>
+  checkMarkStyle: StyleProp<ViewStyle>
+}
+
+/** The list's selection, as a row reads it. */
+export type ListBoxSelection = {
+  mode: ListBoxSelectionMode
+  /** `multiple` only: the boxes are out, and a press ticks rather than opens. */
+  isSelecting: boolean
+  isSelected: (id: string) => boolean
+  /** What a press on the row `id` does to the selection; `atStart` is the start edge. */
+  press: (id: string, atStart: boolean) => boolean
+  /** The side of the box and the space after it: how far the column opens. */
+  checkSpan: number
 }
 
 /** R5 — the two sets a row picks from, resolved once by the root. */
@@ -131,4 +172,5 @@ export type ListBoxContextValue = {
   live: ListBoxRowStyles
   grey: ListBoxRowStyles
   isDisabled: boolean
+  selection: ListBoxSelection
 }

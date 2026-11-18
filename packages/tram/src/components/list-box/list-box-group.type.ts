@@ -23,8 +23,6 @@ type ListBoxGroupOwnProps = {
   accent?: TramAccentName
   /** A raw tint, never a token, for every list's squares. */
   color?: string
-  /** Whether the lists draw a line between their rows. */
-  hasSeparator?: boolean
   /** Greys every list in the group. A list cannot opt back in. */
   isDisabled?: boolean
   /**
@@ -61,6 +59,5 @@ export type ListBoxGroupContextValue = {
   size: ListBoxSize | undefined
   accent: TramAccentName | undefined
   color: string | undefined
-  hasSeparator: boolean | undefined
   isDisabled: boolean
 }
