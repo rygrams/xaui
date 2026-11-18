@@ -57,8 +57,8 @@ function Opener({ children }: { children: ReactNode }) {
 }
 
 /**
- * Where the Tram `Dialog` is verified, in dark and in light: a title alone, a title and a
- * description, one, two and three actions, controlled and not, one that must be answered,
+ * Where the Tram `Dialog` is verified, in dark and in light: a title alone, one at the
+ * bottom, a title and a description, one, two and three actions, controlled and not, one that must be answered,
  * a disabled trigger, `Close` as a `Button` and as text, a long content, a `TextField`
  * in the banner, the style props, a dialog opened from a `Select` that took the screen,
  * and an opening interrupted halfway.

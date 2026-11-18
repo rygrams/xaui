@@ -11,7 +11,7 @@ const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 /**
  * The page's ground, dimmed — flat black at the theme's `backdrop` strength, no blur —
  * and what closes the dialog on a touch outside the banner. It dims as the banner turns
- * in, and lightens at the pace of a finger sending it back up.
+ * in, and lightens at the pace of a finger sending it back.
  *
  * `isDismissable={false}` for a banner that must be answered: then neither this touch,
  * nor a swipe, nor the system's back closes it.

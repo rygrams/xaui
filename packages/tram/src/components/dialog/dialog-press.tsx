@@ -33,7 +33,6 @@ export const DialogPress = forwardRef<View, DialogPressProps>(function DialogPre
     asChild = false,
     isDisabled = false,
     boxStyle,
-    accessibilityRole = 'button',
     style,
     onPressIn,
     onPressOut,
@@ -72,7 +71,8 @@ export const DialogPress = forwardRef<View, DialogPressProps>(function DialogPre
       isDisabled={isDisabled}
       // Native's scale, highlight and ripple stay off: the press is the tilt alone.
       animation={isStill ? 'disable-all' : false}
-      accessibilityRole={accessibilityRole}
+      // A default: the caller's own role, in `rest`, wins — as it does under `asChild`.
+      accessibilityRole="button"
       {...rest}
       style={[boxStyle, styleProps, drawn]}
       // After `rest`, and composed: the caller's handlers run inside these.

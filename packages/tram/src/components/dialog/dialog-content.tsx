@@ -95,7 +95,6 @@ export const DialogContent = forwardRef<View, DialogContentProps>(
               sinks behind it for the length of the swivel and is dimmed with the page. */}
           <View
             style={placement === 'bottom' ? layer.foot : layer.plane}
-            pointerEvents="box-none"
             // Kept as a node: flattened away, it is no plane at all.
             collapsable={false}
           >
@@ -156,6 +155,11 @@ function DialogArrival({ rank, children }: DialogArrivalProps) {
 
 const layer = StyleSheet.create({
   fill: { flex: 1 },
-  plane: StyleSheet.absoluteFillObject,
-  foot: { ...StyleSheet.absoluteFillObject, justifyContent: 'flex-end' },
+  // Touches go through it to the ground: only the banner is there to be touched.
+  plane: { ...StyleSheet.absoluteFillObject, pointerEvents: 'box-none' },
+  foot: {
+    ...StyleSheet.absoluteFillObject,
+    pointerEvents: 'box-none',
+    justifyContent: 'flex-end',
+  },
 })
