@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import type { ReactNode } from 'react'
 import { Pressable, ScrollView, View } from 'react-native'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Svg, { Path } from 'react-native-svg'
 import type { IconComponentProps } from '@xaui/native/system'
 import { useXAUITheme } from '@xaui/native/theme'
@@ -61,7 +60,6 @@ function PlusIcon({ size, color }: IconComponentProps) {
  */
 export default function TramFabScreen() {
   const theme = useXAUITheme()
-  const insets = useSafeAreaInsets()
   const [isExtended, setIsExtended] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
   const [isVisible, setIsVisible] = useState(true)
@@ -83,7 +81,7 @@ export default function TramFabScreen() {
       >
         <TramSection
           title="le Fab de l'écran"
-          note={`Sa barre discrète est collée au bas de l'écran, sur la liste ; la zone sûre que l'écran lui donne s'y ajoute. Appuis : ${count}`}
+          note={`Sa barre discrète est collée au bas de l'écran, sur la liste, et descend d'elle-même sous l'indicateur d'accueil. Appuis : ${count}`}
         >
           <Row>
             <Toggle onPress={() => setDrawing(value => (value + 1) % 2)}>
@@ -118,13 +116,22 @@ export default function TramFabScreen() {
           {VARIANTS.map(variant => (
             <Row key={variant}>
               <Cell>
-                <Fab variant={variant} accessibilityLabel={`${variant}, thème`}>
+                <Fab
+                  hasSafeArea={false}
+                  variant={variant}
+                  accessibilityLabel={`${variant}, thème`}
+                >
                   <Fab.Icon as={PlusIcon} />
                 </Fab>
               </Cell>
               {ACCENTS.map(accent => (
                 <Cell key={accent} isTall>
-                  <Fab variant={variant} accent={accent} isExtended>
+                  <Fab
+                    hasSafeArea={false}
+                    variant={variant}
+                    accent={accent}
+                    isExtended
+                  >
                     <Fab.Icon as={PlusIcon} />
                     <Fab.Label>{accent}</Fab.Label>
                   </Fab>
@@ -143,6 +150,7 @@ export default function TramFabScreen() {
               {SIZES.map(size => (
                 <Cell key={size}>
                   <Fab
+                    hasSafeArea={false}
                     variant={variant}
                     size={size}
                     accessibilityLabel={`ajouter, ${size}`}
@@ -162,6 +170,7 @@ export default function TramFabScreen() {
           {PLACEMENTS.map((placement, index) => (
             <Stage key={placement}>
               <Fab
+                hasSafeArea={false}
                 placement={placement}
                 variant={VARIANTS[index % 2]}
                 accessibilityLabel={placement}
@@ -177,12 +186,22 @@ export default function TramFabScreen() {
           note="Le rembourrage de la barre sous le cercle : 0, puis 32."
         >
           <Stage>
-            <Fab placement="bottom-start" offset={0} accessibilityLabel="offset 0">
+            <Fab
+              hasSafeArea={false}
+              placement="bottom-start"
+              offset={0}
+              accessibilityLabel="offset 0"
+            >
               <Fab.Icon as={PlusIcon} />
             </Fab>
           </Stage>
           <Stage>
-            <Fab placement="bottom-end" offset={32} accessibilityLabel="offset 32">
+            <Fab
+              hasSafeArea={false}
+              placement="bottom-end"
+              offset={32}
+              accessibilityLabel="offset 32"
+            >
               <Fab.Icon as={PlusIcon} />
             </Fab>
           </Stage>
@@ -194,32 +213,37 @@ export default function TramFabScreen() {
         >
           <Row>
             <Cell isTall>
-              <Fab accessibilityLabel="nouveau">
+              <Fab hasSafeArea={false} accessibilityLabel="nouveau">
                 <Fab.Icon as={PlusIcon} />
                 <Fab.Label>nouveau</Fab.Label>
               </Fab>
             </Cell>
             <Cell isTall>
-              <Fab isExtended>
+              <Fab hasSafeArea={false} isExtended>
                 <Fab.Icon as={PlusIcon} />
                 <Fab.Label>nouveau</Fab.Label>
               </Fab>
             </Cell>
             <Cell isTall>
-              <Fab isExtended variant="outline">
+              <Fab hasSafeArea={false} isExtended variant="outline">
                 <Fab.Icon as={PlusIcon} />
                 nouveau
               </Fab>
             </Cell>
             <Cell isTall>
-              <Fab isExtended size="lg">
+              <Fab hasSafeArea={false} isExtended size="lg">
                 <Fab.Icon as={PlusIcon} />
                 <Fab.Label>un libellé bien trop long pour sa place</Fab.Label>
               </Fab>
             </Cell>
           </Row>
           <Stage>
-            <Fab isExtended placement="bottom-end" variant="outline">
+            <Fab
+              hasSafeArea={false}
+              isExtended
+              placement="bottom-end"
+              variant="outline"
+            >
               <Fab.Icon as={PlusIcon} />
               <Fab.Label>nouveau message</Fab.Label>
             </Fab>
@@ -235,6 +259,7 @@ export default function TramFabScreen() {
               {SIZES.map(size => (
                 <Cell key={size}>
                   <Fab
+                    hasSafeArea={false}
                     variant={variant}
                     size={size}
                     isLoading
@@ -245,7 +270,13 @@ export default function TramFabScreen() {
                 </Cell>
               ))}
               <Cell isTall>
-                <Fab variant={variant} isLoading isExtended accent="lime">
+                <Fab
+                  hasSafeArea={false}
+                  variant={variant}
+                  isLoading
+                  isExtended
+                  accent="lime"
+                >
                   <Fab.Icon as={PlusIcon} />
                   <Fab.Label>envoi…</Fab.Label>
                 </Fab>
@@ -261,12 +292,18 @@ export default function TramFabScreen() {
           {VARIANTS.map(variant => (
             <Row key={variant}>
               <Cell isTall>
-                <Fab variant={variant} isDisabled accessibilityLabel="ajouter">
+                <Fab
+                  hasSafeArea={false}
+                  variant={variant}
+                  isDisabled
+                  accessibilityLabel="ajouter"
+                >
                   <Fab.Icon as={PlusIcon} />
                 </Fab>
               </Cell>
               <Cell isTall>
                 <Fab
+                  hasSafeArea={false}
                   variant={variant}
                   isDisabled
                   accent="lime"
@@ -276,7 +313,7 @@ export default function TramFabScreen() {
                 </Fab>
               </Cell>
               <Cell isTall>
-                <Fab variant={variant} isDisabled isExtended>
+                <Fab hasSafeArea={false} variant={variant} isDisabled isExtended>
                   <Fab.Icon as={PlusIcon} />
                   <Fab.Label>nouveau</Fab.Label>
                 </Fab>
@@ -290,12 +327,12 @@ export default function TramFabScreen() {
           note="Aucune ombre : c'est la barre discrète qui le sépare d'un contenu, même de son propre accent."
         >
           <Stage color={theme.colors.accent}>
-            <Fab accessibilityLabel="sur l'accent du thème">
+            <Fab hasSafeArea={false} accessibilityLabel="sur l'accent du thème">
               <Fab.Icon as={PlusIcon} />
             </Fab>
           </Stage>
           <Stage color={tramAccents.lime}>
-            <Fab accent="lime" isExtended placement="bottom-end">
+            <Fab hasSafeArea={false} accent="lime" isExtended placement="bottom-end">
               <Fab.Icon as={PlusIcon} />
               <Fab.Label>lime</Fab.Label>
             </Fab>
@@ -309,18 +346,30 @@ export default function TramFabScreen() {
           {VARIANTS.map(variant => (
             <Row key={variant}>
               <Cell isTall>
-                <Fab variant={variant} color={RAW} accessibilityLabel="violet brut">
+                <Fab
+                  hasSafeArea={false}
+                  variant={variant}
+                  color={RAW}
+                  accessibilityLabel="violet brut"
+                >
                   <Fab.Icon as={PlusIcon} />
                 </Fab>
               </Cell>
               <Cell isTall>
-                <Fab variant={variant} color={RAW} accent="lime" isExtended>
+                <Fab
+                  hasSafeArea={false}
+                  variant={variant}
+                  color={RAW}
+                  accent="lime"
+                  isExtended
+                >
                   <Fab.Icon as={PlusIcon} />
                   <Fab.Label>color</Fab.Label>
                 </Fab>
               </Cell>
               <Cell isTall>
                 <Fab
+                  hasSafeArea={false}
                   variant={variant}
                   color="rgb(250, 240, 200)"
                   accessibilityLabel="rgb clair, non mesuré"
@@ -339,7 +388,12 @@ export default function TramFabScreen() {
           <Row>
             {VARIANTS.map(variant => (
               <Cell key={variant}>
-                <Fab asChild variant={variant} accessibilityLabel="compter">
+                <Fab
+                  hasSafeArea={false}
+                  asChild
+                  variant={variant}
+                  accessibilityLabel="compter"
+                >
                   <Pressable onPress={() => setCount(value => value + 1)}>
                     <Fab.Icon as={PlusIcon} />
                   </Pressable>
@@ -355,6 +409,7 @@ export default function TramFabScreen() {
         >
           <Stage>
             <Fab
+              hasSafeArea={false}
               placement="bottom-start"
               marginStart={32}
               style={{ opacity: 0.6 }}
@@ -370,13 +425,14 @@ export default function TramFabScreen() {
           note="bottom-start est à droite, bottom-end à gauche."
         >
           <Stage isRtl>
-            <Fab isExtended placement="bottom-start">
+            <Fab hasSafeArea={false} isExtended placement="bottom-start">
               <Fab.Icon as={PlusIcon} />
               <Fab.Label>start</Fab.Label>
             </Fab>
           </Stage>
           <Stage isRtl>
             <Fab
+              hasSafeArea={false}
               isExtended
               placement="bottom-end"
               accent="magenta"
@@ -395,6 +451,7 @@ export default function TramFabScreen() {
           <Row>
             <Cell isTall>
               <Fab
+                hasSafeArea={false}
                 animation="disable-all"
                 isExtended={isExtended}
                 accessibilityLabel="posé"
@@ -405,6 +462,7 @@ export default function TramFabScreen() {
             </Cell>
             <Cell isTall>
               <Fab
+                hasSafeArea={false}
                 animation="disable-all"
                 variant="outline"
                 isLoading
@@ -441,7 +499,6 @@ export default function TramFabScreen() {
 
       <Fab
         placement={PLACEMENTS[place]}
-        offset={8 + insets.bottom}
         variant={VARIANTS[drawing]}
         accent={SCREEN_ACCENTS[paint]}
         isExtended={isExtended}

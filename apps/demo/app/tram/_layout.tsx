@@ -24,7 +24,8 @@ export default function TramLayout() {
   const inherited = useColorMode()
   const [mode, setMode] = useState<'light' | 'dark' | null>(null)
   const colorMode = mode ?? inherited
-  // Tram reads no safe area: the pile is put under the notch by the app.
+  // The toast pile is put under the notch by the app; the `Fab`'s bar reads the bottom
+  // inset itself, through the hook handed to the provider.
   const insets = useSafeAreaInsets()
 
   return (
@@ -33,6 +34,7 @@ export default function TramLayout() {
       hasPortalHost={false}
       onHaptic={feel}
       pages={PAGES}
+      safeArea={SAFE_AREA}
     >
       <ToastHost offset={Math.max(insets.top, 10)} dismissLabel="fermer">
         <Scaffold>
@@ -96,6 +98,9 @@ export default function TramLayout() {
  * the same object on every render.
  */
 const PAGES = { useIsFocused }
+
+/** The app's safe-area hook, for the `Fab`'s bar: at module level, so it is always the same. */
+const SAFE_AREA = { useSafeAreaInsets }
 
 /**
  * The app's side of Tram's haptics: the lightest impact iOS has for a press, its

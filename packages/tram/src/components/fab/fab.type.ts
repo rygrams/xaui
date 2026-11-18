@@ -75,14 +75,21 @@ type FabOwnProps = {
    */
   placement?: FabPlacement
   /**
-   * The bar's padding under the circle, in points.
-   *
-   * **The `Fab` reads no safe area.** The caller adds the bottom inset — a home
-   * indicator, a navigation bar — to it, and the grey runs down under it.
+   * The bar's padding under the circle, in points, over the bottom safe area.
    *
    * @default 8
    */
   offset?: number
+  /**
+   * Adds the bottom safe area — a home indicator, a navigation bar — under `offset`, so
+   * the bar runs down under it. The insets come from the hook the app handed
+   * `TramProvider` (`safeArea={{ useSafeAreaInsets }}`); without one they are 0. `false`
+   * for a bar docked in a box that does not reach the screen's bottom edge — a card, a
+   * sheet.
+   *
+   * @default true
+   */
+  hasSafeArea?: boolean
   /**
    * `false` sends the bar back under the bottom edge, where it stays laid out but can be
    * neither seen, pressed nor read; `true` brings it back up. Tram's own: the Metro App

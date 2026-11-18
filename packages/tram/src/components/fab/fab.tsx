@@ -14,6 +14,7 @@ import { useXAUITheme } from '@xaui/native/theme'
 import { discPaint } from '../../system/disc-paint'
 import { dockAlign } from '../../system/float-place'
 import { touchReach } from '../../system/touch-reach'
+import { useTramSafeArea } from '../../theme/tram-safe-area'
 import { PressTilt } from '../../system/press-tilt'
 import { useTramHaptic } from '../../theme/tram-haptics'
 import { partsOf } from './fab.children'
@@ -56,7 +57,7 @@ import type { FabProps } from './fab.type'
  *   <Fab.Icon as={PencilIcon} />
  * </Fab>
  *
- * <Fab isExtended placement="bottom-end" offset={8 + insets.bottom}>
+ * <Fab isExtended placement="bottom-end">
  *   <Fab.Icon as={PlusIcon} />
  *   <Fab.Label>nouveau</Fab.Label>
  * </Fab>
@@ -73,8 +74,10 @@ import type { FabProps } from './fab.type'
  * **Extended, it does not stretch.** The label is laid under the circle, as under an App
  * Bar button, and the bar rises to make room for it.
  *
- * **It reads no safe area.** `offset` is the bar's padding under the circle; the caller
- * adds the bottom inset to it.
+ * **It reaches under the home indicator.** The bottom safe area, from the hook the app
+ * handed `TramProvider` (`safeArea={{ useSafeAreaInsets }}`), is added under the circle,
+ * after `offset`; `hasSafeArea={false}` leaves it out, for a bar docked in a box that does
+ * not reach the screen's bottom edge.
  *
  * **Small, pressed as 48.** The circle is 32, 40 or 48 across; `hitSlop` makes up the
  * touch target.
@@ -92,6 +95,7 @@ export const FabRoot = forwardRef<View, FabProps>(function Fab(
     isExtended = false,
     placement = DEFAULT_PLACEMENT,
     offset = DEFAULT_OFFSET,
+    hasSafeArea = true,
     isVisible = true,
     isDisabled = false,
     isLoading = false,
@@ -108,6 +112,7 @@ export const FabRoot = forwardRef<View, FabProps>(function Fab(
   ref
 ) {
   const theme = useXAUITheme()
+  const insets = useTramSafeArea()
   const [styleProps, rest] = useStyleProps(props)
   const haptic = useTramHaptic()
   const isReduced = useReducedMotion()
@@ -227,7 +232,8 @@ export const FabRoot = forwardRef<View, FabProps>(function Fab(
           {
             backgroundColor: bar,
             paddingTop: BAR_TOP,
-            paddingBottom: Math.max(0, offset),
+            // The home indicator's room is the bar's: the grey runs down under it.
+            paddingBottom: Math.max(0, offset) + (hasSafeArea ? insets.bottom : 0),
             paddingHorizontal: BAR_SIDE,
             alignItems: dockAlign(shown),
           },

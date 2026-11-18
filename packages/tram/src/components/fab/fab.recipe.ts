@@ -14,13 +14,13 @@ export const DEFAULT_VARIANT: FabVariant = 'contained'
 /** The middle of the bottom edge: where the Metro App Bar laid its buttons. */
 export const DEFAULT_PLACEMENT: FabPlacement = 'bottom-center'
 
-/**
- * The bar's padding under the circle, in points, before the caller adds the bottom safe
- * area to it.
- */
+/** The bar's padding under the circle, in points, over the bottom safe area. */
 export const DEFAULT_OFFSET = 8
 
-/** The bar's padding over the circle, in points: with the default `offset`, a 56-point band. */
+/**
+ * The bar's padding over the circle, in points: with the default `offset`, a 40-point
+ * circle makes a 56-point band, over the safe area.
+ */
 export const BAR_TOP = 8
 
 /** The bar's padding at its sides, in points: where a circle at the start or end sits. */

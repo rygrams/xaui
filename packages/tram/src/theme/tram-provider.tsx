@@ -7,6 +7,8 @@ import { TramHapticsProvider } from './tram-haptics'
 import type { TramHapticHandler } from './tram-haptics'
 import { TramPagesProvider, resolveTramPages } from './tram-pages'
 import type { TramPageLeave, TramPagesConfig } from './tram-pages'
+import { TramSafeAreaProvider } from './tram-safe-area'
+import type { TramSafeAreaConfig } from './tram-safe-area'
 
 export type TramProviderProps = XAUIProviderProps & {
   /**
@@ -38,6 +40,18 @@ export type TramProviderProps = XAUIProviderProps & {
    * Each screen then draws itself in a `Page` (`@xaui/tram/page`).
    */
   pages?: TramPagesConfig
+  /**
+   * The app's safe-area hook. Tram ships no safe-area library; the app hands over its
+   * own, once, so a control docked on an edge — the `Fab`'s bar — reaches under the home
+   * indicator by itself:
+   *
+   * ```tsx
+   * import { useSafeAreaInsets } from 'react-native-safe-area-context'
+   *
+   * <TramProvider safeArea={{ useSafeAreaInsets }}>
+   * ```
+   */
+  safeArea?: TramSafeAreaConfig
 }
 
 /**
@@ -48,6 +62,7 @@ export function TramProvider({
   theme = tramTheme,
   onHaptic,
   pages,
+  safeArea,
   ...props
 }: TramProviderProps) {
   const focused = useRef<TramPageLeave | null>(null)
@@ -61,7 +76,14 @@ export function TramProvider({
   let provider: ReactElement = <XAUIProvider theme={theme} {...props} />
 
   // No provider for what was not given: a nested `TramProvider` that only re-themes keeps
-  // the handler, and the pages, of the one above it.
+  // the handler, the pages and the safe area of the one above it.
+  if (safeArea?.useSafeAreaInsets) {
+    provider = (
+      <TramSafeAreaProvider value={safeArea.useSafeAreaInsets}>
+        {provider}
+      </TramSafeAreaProvider>
+    )
+  }
   if (pages)
     provider = <TramPagesProvider value={wired}>{provider}</TramPagesProvider>
   if (onHaptic) {
