@@ -147,5 +147,14 @@ export const bubbles = {
  */
 export const toastSwipe = { slop: 10, distance: 50, velocity: 500 } as const
 
+/**
+ * The Pivot's swipe. A drag across the whole screen is one section. Released past
+ * `distance` of the screen's width, or flung faster than `velocity` points a second, it
+ * moves on a section — either way, round the loop; short of both it comes back. `slop` is
+ * how far a finger travels across before the swipe is the Pivot's and not a section's
+ * own vertical scroll.
+ */
+export const pivot = { distance: 0.25, velocity: 500, slop: 10 } as const
+
 export type TramSpringName = keyof typeof spring
 export type TramEaseName = keyof typeof ease

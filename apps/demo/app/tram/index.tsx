@@ -15,6 +15,7 @@ const SCREENS = [
   { href: '/tram/checkbox', label: 'checkbox' },
   { href: '/tram/radio', label: 'radio' },
   { href: '/tram/slider', label: 'slider' },
+  { href: '/tram/pivot', label: 'pivot' },
   { href: '/tram/progress-bar', label: 'progress bar' },
   { href: '/tram/text-field', label: 'text field' },
   { href: '/tram/text-area', label: 'text area' },
