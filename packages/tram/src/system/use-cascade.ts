@@ -1,13 +1,14 @@
 import { useEffect } from 'react'
 import {
+  cancelAnimation,
   useAnimatedStyle,
   useReducedMotion,
   useSharedValue,
   withDelay,
 } from 'react-native-reanimated'
-import { cascade, duration } from '../../motion/motion-tokens'
-import { useTramEase } from '../../motion/use-tram-ease'
-import { cascadeDelay } from '../../system/list-picker'
+import { cascade, duration } from '../motion/motion-tokens'
+import { useTramEase } from '../motion/use-tram-ease'
+import { cascadeDelay } from './list-picker'
 
 type Arrival = {
   isOpen: boolean
@@ -18,6 +19,8 @@ type Arrival = {
   /** Milliseconds to wait for what opens the list. */
   after: number
   isStill: boolean
+  /** Closing leaves the row as it is: it goes with what holds it — a banner's content. */
+  isStaying?: boolean
 }
 
 /**
@@ -28,9 +31,16 @@ type Arrival = {
  * With motion reduced, or under an ancestor's `disable-all`, a row is there at once: the
  * list it belongs to does the fading.
  *
- * Kept in this folder until a second component lists its content this way.
+ * The `Select`'s choices arrive this way, and the content of the `Dialog`'s banner.
  */
-export function useCascade({ isOpen, rank, isKept, after, isStill }: Arrival) {
+export function useCascade({
+  isOpen,
+  rank,
+  isKept,
+  after,
+  isStill,
+  isStaying = false,
+}: Arrival) {
   const glide = useTramEase()
   const isReduced = useReducedMotion()
   const isSet = isStill || isReduced
@@ -42,9 +52,15 @@ export function useCascade({ isOpen, rank, isKept, after, isStill }: Arrival) {
       return
     }
 
+    // It stays as it is — a row still waiting for its turn no longer arrives.
+    if (isStaying) {
+      cancelAnimation(arrived)
+      return
+    }
+
     if (isKept) arrived.value = 1
     else arrived.value = isSet ? 0 : glide(0, 'exit', duration.fast)
-  }, [isOpen, rank, isKept, after, isSet, glide, arrived])
+  }, [isOpen, rank, isKept, after, isSet, isStaying, glide, arrived])
 
   return useAnimatedStyle(() => {
     'worklet'

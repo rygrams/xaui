@@ -16,6 +16,7 @@ import type {
 } from '@xaui/native/system'
 import type { RadiusKey } from '@xaui/native/theme'
 import type { ListPickerMode, RowSpan } from '../../system/list-picker'
+import type { NodeSlot } from '../../system/node-slot'
 import type { TramAccentName, TramSize } from '../../theme/tram-tokens'
 
 export type SelectSlot =
@@ -206,11 +207,7 @@ export type SelectItemIndicatorProps = {
 }
 
 /** Where the inline list is handed from `Select.Content` to the box that draws it. */
-export type SelectListSlot = {
-  get: () => ReactNode
-  set: (list: ReactNode) => void
-  subscribe: (listener: () => void) => () => void
-}
+export type SelectListSlot = NodeSlot
 
 /** What `Select.Content` read off its children: how it opens, and its values in order. */
 export type SelectListing = { mode: SelectMode; order: string }
