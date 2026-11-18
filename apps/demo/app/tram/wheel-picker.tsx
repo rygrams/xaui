@@ -50,7 +50,7 @@ function squares(values: string[]) {
 /**
  * Where the Tram `WheelPicker` is verified, in dark and in light: the three sizes,
  * controlled and not, one to three columns, a date and a time, looping and not, three and
- * five squares, the neighbours kept, disabled, one column disabled, named accents, a raw
+ * five squares, the `light` variant, the neighbours kept, disabled, one column disabled, named accents, a raw
  * `color`, `asChild`, the style props and a square of two lines.
  */
 export default function TramWheelPickerScreen() {
@@ -120,6 +120,58 @@ export default function TramWheelPickerScreen() {
           >
             {"aujourd'hui"}
           </Button>
+        </Row>
+      </TramSection>
+
+      <TramSection
+        title="light"
+        note="Aucun carré : ni aplat ni ligne, sur le courant comme sur les voisins. Seule la couleur du texte dit lequel est choisi. Puis un accent nommé, lu comme encre, et désactivé."
+      >
+        <WheelPicker variant="light" isAwake>
+          <WheelPicker.Column accessibilityLabel="jour" defaultValue="18" isLooping>
+            {squares(DAYS)}
+          </WheelPicker.Column>
+          <WheelPicker.Column accessibilityLabel="mois" defaultValue="11" isLooping>
+            {squares(MONTHS)}
+          </WheelPicker.Column>
+          <WheelPicker.Column
+            accessibilityLabel="année"
+            defaultValue="2026"
+            isLooping
+          >
+            {squares(YEARS)}
+          </WheelPicker.Column>
+        </WheelPicker>
+        <Row>
+          <WheelPicker
+            variant="light"
+            accent="yellow"
+            size="sm"
+            visibleCount={3}
+            isAwake
+          >
+            <WheelPicker.Column
+              accessibilityLabel="jaune"
+              defaultValue="15"
+              isLooping
+            >
+              {squares(MINUTES)}
+            </WheelPicker.Column>
+          </WheelPicker>
+          <WheelPicker variant="light" size="sm" visibleCount={3} isAwake isDisabled>
+            <WheelPicker.Column accessibilityLabel="désactivé" defaultValue="15">
+              {squares(MINUTES)}
+            </WheelPicker.Column>
+          </WheelPicker>
+          <WheelPicker variant="light" size="sm" visibleCount={3}>
+            <WheelPicker.Column
+              accessibilityLabel="au repos"
+              defaultValue="15"
+              isLooping
+            >
+              {squares(MINUTES)}
+            </WheelPicker.Column>
+          </WheelPicker>
         </Row>
       </TramSection>
 

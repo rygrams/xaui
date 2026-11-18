@@ -4,12 +4,13 @@ import type { TextStyle } from 'react-native'
 import { Slot, useAnimationDisabled, useStyleProps } from '@xaui/native/system'
 import { useXAUITheme } from '@xaui/native/theme'
 import type { XAUITheme } from '@xaui/native/theme'
-import { flatPaint } from '../../system/flat-paint'
 import { colorOf } from '../../system/style-values'
 import { WheelPickerProvider } from './wheel-picker.context'
 import { useWheelRest } from './wheel-picker.hook'
+import { wheelTintFor } from './wheel-picker.paint'
 import {
   DEFAULT_SIZE,
+  DEFAULT_VARIANT,
   wheelGeometry,
   wheelPickerRecipe,
 } from './wheel-picker.recipe'
@@ -39,6 +40,9 @@ type Styles = ReturnType<typeof wheelPickerRecipe.resolve>
  * colour that reads on it; the others are the ground inside a grey line. A square takes
  * the fill as it nears the middle, with no threshold.
  *
+ * **`variant="light"` draws no square at all.** No fill and no line, on the current one
+ * or on its neighbours: a wheel of text, the current one in the accent read as ink.
+ *
  * **At rest only the current squares are left.** The neighbours come back at the first
  * touch, on any column, and fade again once the wheel has been left alone. `isAwake`
  * keeps them.
@@ -47,6 +51,7 @@ export const WheelPickerRoot = forwardRef<View, WheelPickerProps>(
   function WheelPicker(
     {
       children,
+      variant = DEFAULT_VARIANT,
       size = DEFAULT_SIZE,
       accent,
       color,
@@ -64,7 +69,7 @@ export const WheelPickerRoot = forwardRef<View, WheelPickerProps>(
     const isStill = useAnimationDisabled()
     const { stirredBy, setBusy } = useWheelRest()
 
-    const selection = { size }
+    const selection = { variant, size }
     const styles = wheelPickerRecipe.resolve({
       theme,
       selection,
@@ -76,9 +81,11 @@ export const WheelPickerRoot = forwardRef<View, WheelPickerProps>(
       selection,
       states: { disabled: true },
     })
-    // The fill is flat, so a named accent is the true colour. Uncached: a raw tint must
-    // stay out of the cache key. Dropped when disabled — the tint would repaint the grey.
-    const tinted = isDisabled ? undefined : flatPaint({ accent, color })
+    // Uncached: a raw tint must stay out of the cache key. Dropped when disabled — the
+    // tint would repaint the grey.
+    const tinted = isDisabled
+      ? undefined
+      : wheelTintFor({ accent, color }, variant, theme.colors.background)
     const tint = tinted
       ? wheelPickerRecipe.tint({ theme, color: tinted, selection })
       : undefined
@@ -146,7 +153,7 @@ function paintOf(styles: Styles, theme: XAUITheme): WheelPaint {
   return {
     fill: colorOf(current, 'borderColor') ?? theme.colors.accent,
     ink: colorOf(currentLabel, 'color') ?? theme.colors.accentForeground,
-    ground: theme.colors.background,
+    ground: colorOf(neighbour, 'backgroundColor') ?? theme.colors.background,
     line: colorOf(neighbour, 'borderColor') ?? theme.colors.muted,
     text: colorOf(label, 'color') ?? theme.colors.muted,
   }

@@ -21,6 +21,13 @@ export type WheelPickerSlot =
   | 'current'
   | 'currentLabel'
 
+/**
+ * How the current square is drawn. `contained` is the flat fill of the accent, among
+ * neighbours inside a grey line; `light` draws no square at all — no fill, no line — and
+ * the current one is told by the colour of its text alone.
+ */
+export type WheelPickerVariant = 'contained' | 'light'
+
 /** Three. `size` is the square's side and the type in it. */
 export type WheelPickerSize = TramSize
 
@@ -37,16 +44,19 @@ export type WheelGeometry = {
 }
 
 type WheelPickerOwnProps = {
+  /** `contained` fills the current square; `light` only colours its text. @default 'contained' */
+  variant?: WheelPickerVariant
   /** The square's side — 64 / 84 / 104 — and the type in it. */
   size?: WheelPickerSize
   /**
    * One of the twenty named accents — `accent="lime"` — for a wheel that is not in the
-   * theme's accent. It fills the current square; `color` wins when both are set.
+   * theme's accent. It fills the current square — under `light` it is that square's
+   * text, read as ink on the ground. `color` wins when both are set.
    */
   accent?: TramAccentName
   /**
-   * A raw `#RRGGBB` tint, never a token: the fill of the current square. It is the
-   * caller's word and is never corrected.
+   * A raw `#RRGGBB` tint, never a token: the fill of the current square, or its text
+   * under `light`. It is the caller's word and is never corrected.
    */
   color?: string
   /**
@@ -71,9 +81,9 @@ type WheelPickerOwnProps = {
 }
 
 /**
- * The Native `WheelPicker`'s props, with the Tram vocabulary: no `variant` and no
- * `radius` — there is no band, the current square is the mark — `accent` beside `color`,
- * and `isAwake`.
+ * The Native `WheelPicker`'s props, with the Tram vocabulary: no `radius` and no band —
+ * `variant` says how the current square is drawn, not the shape behind it — `accent`
+ * beside `color`, and `isAwake`.
  */
 export type WheelPickerProps = WheelPickerOwnProps &
   Omit<ViewProps, keyof WheelPickerOwnProps> &
@@ -123,13 +133,13 @@ export type WheelPickerItemProps = WheelPickerItemOwnProps &
  * mixed on the UI thread.
  */
 export type WheelPaint = {
-  /** The current square's fill, and its line. */
+  /** The current square's fill, and its line. Transparent under `light`. */
   fill: string
   /** The text on that fill. */
   ink: string
-  /** A neighbour's fill: the ground. */
+  /** A neighbour's fill: the ground. Transparent under `light`. */
   ground: string
-  /** A neighbour's line. */
+  /** A neighbour's line. Transparent under `light`. */
   line: string
   /** A neighbour's text. */
   text: string

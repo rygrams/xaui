@@ -5,7 +5,11 @@ import { visibleSquares, wheelHeight } from '../../system/wheel'
 import { boxCornerFor } from '../../theme/tram-corner'
 import type { TramSize, TramTypeRole } from '../../theme/tram-tokens'
 import { roleType } from '../typography/typography.role'
-import type { WheelGeometry, WheelPickerSlot } from './wheel-picker.type'
+import type {
+  WheelGeometry,
+  WheelPickerSlot,
+  WheelPickerVariant,
+} from './wheel-picker.type'
 
 const SLOTS = [
   'root',
@@ -20,16 +24,21 @@ const SLOTS = [
 
 export const DEFAULT_SIZE: TramSize = 'md'
 
-/** One drawing, so one row: it exists to name where the accent lands. */
-const DRAWING = 'squares'
+export const DEFAULT_VARIANT: WheelPickerVariant = 'contained'
 
 /**
- * Only the current square is the variant's colour: a flat fill of the accent, and the
- * text that reads on it. The neighbours are named in `base`.
+ * Only the current square is the variant's colour. `contained`: a flat fill of the
+ * accent, and the text that reads on it. `light`: no `bg`, so no square — the text alone,
+ * and `link` rather than `accent` because a colour set as text on the ground is the ink.
+ * The neighbours are named in `base`.
  */
-const VARIANT_TOKENS: Record<typeof DRAWING, VariantTokens> = {
-  [DRAWING]: { bg: 'accent', fg: 'accentForeground' },
+const VARIANT_TOKENS: Record<WheelPickerVariant, VariantTokens> = {
+  contained: { bg: 'accent', fg: 'accentForeground' },
+  light: { fg: 'link' },
 }
+
+/** What stands where a square is not drawn: the line keeps its width, so nothing moves. */
+const NOTHING = 'transparent'
 
 type SizeStep = {
   /** A square's side. */
@@ -124,21 +133,33 @@ export const wheelPickerRecipe = createRecipe({
    * mixed toward as it reaches the middle. A flat fill, so the true colour.
    */
   paint: (_theme, colors) => ({
-    current: { borderColor: colors.bg },
+    current: { borderColor: colors.bg ?? NOTHING },
     currentLabel: { color: colors.fg },
   }),
 
   variants: {
+    variant: {
+      contained: () => ({}),
+      // The neighbours lose their square with the current one: a wheel of text.
+      light: () => ({
+        fill: { borderColor: NOTHING, backgroundColor: NOTHING },
+      }),
+    },
     size: { sm: sizeAxis('sm'), md: sizeAxis('md'), lg: sizeAxis('lg') },
   },
 
   states: {
-    /** Grey, and no accent left. Not dimmed: the grey is the state. */
-    disabled: theme => ({
-      current: { borderColor: theme.colors.muted },
-      currentLabel: { color: theme.colors.background },
+    /**
+     * Grey, and no accent left. Not dimmed: the grey is the state. Where the variant
+     * fills nothing, nothing is filled in grey either, and the current text is the ink.
+     */
+    disabled: (theme, colors) => ({
+      current: { borderColor: colors.bg ? theme.colors.muted : NOTHING },
+      currentLabel: {
+        color: colors.bg ? theme.colors.background : theme.colors.foreground,
+      },
     }),
   },
 
-  defaultVariants: { variant: DRAWING, size: DEFAULT_SIZE },
+  defaultVariants: { variant: DEFAULT_VARIANT, size: DEFAULT_SIZE },
 })

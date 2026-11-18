@@ -20,5 +20,6 @@ export type {
   WheelPickerItemProps,
   WheelPickerProps,
   WheelPickerSize,
+  WheelPickerVariant,
   WheelPickerSlot,
 } from './wheel-picker.type'
