@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import {
   useAnimatedReaction,
   useAnimatedStyle,
@@ -6,26 +6,49 @@ import {
   useSharedValue,
 } from 'react-native-reanimated'
 import { scheduleOnRN } from 'react-native-worklets'
-import { duration, swivel } from '../../motion/motion-tokens'
-import { useTramEase } from '../../motion/use-tram-ease'
+import { duration, swivel } from '../motion/motion-tokens'
+import { useTramEase } from '../motion/use-tram-ease'
 
-/** The page turns on its top edge. */
-const PIVOT = { transformOrigin: 'top' } as const
+/** The edge a page turns on: the one it is laid against. */
+export type SwivelEdge = 'top' | 'bottom'
+
+const PIVOT = {
+  top: { transformOrigin: 'top' },
+  bottom: { transformOrigin: 'bottom' },
+} as const
+
+/** Seen from the other edge the same turn is the other way round. */
+const WAY = { top: 1, bottom: -1 } as const
 
 /**
- * The swivel: a page turns in on its top edge, from edge-on to flat, on the Metro curve,
+ * The swivel: a page turns in on its `edge` — the top one unless told otherwise — from
+ * edge-on to flat, on the Metro curve,
  * and out the same way on the exit curve. `isMounted` outlives `isOpen` by the way out,
  * so the page is still there to turn. With motion reduced it fades instead; under an
  * ancestor's `disable-all` it is there or it is not.
  *
- * Kept in this folder until a second component — the `MessageBox` — enters this way.
+ * `turn` is handed back for what turns the page by hand — a banner following a finger.
+ * Turned edge-on that way the page stays mounted: only closing takes it away.
+ *
+ * The `Select`'s page enters this way, and the `Dialog`'s banner.
  */
-export function useSwivel(isOpen: boolean, isStill: boolean) {
+export function useSwivel(
+  isOpen: boolean,
+  isStill: boolean,
+  edge: SwivelEdge = 'top'
+) {
   const glide = useTramEase()
   const isReduced = useReducedMotion()
   const [isMounted, setMounted] = useState(isOpen)
   // 0 edge-on, 1 flat.
   const turn = useSharedValue(0)
+  const wantsOpen = useRef(isOpen)
+  wantsOpen.current = isOpen
+
+  // Edge-on is only the end of the way out once the page was asked to close.
+  const leave = useCallback(() => {
+    if (!wantsOpen.current) setMounted(false)
+  }, [])
 
   // Mounted in the render that opens it, so the way in starts on its first frame.
   if (isOpen && !isMounted) setMounted(true)
@@ -60,10 +83,12 @@ export function useSwivel(isOpen: boolean, isStill: boolean) {
     },
     (isGone, wasGone) => {
       'worklet'
-      if (isGone && wasGone === false) scheduleOnRN(setMounted, false)
+      if (isGone && wasGone === false) scheduleOnRN(leave)
     },
-    [turn]
+    [turn, leave]
   )
+
+  const way = WAY[edge]
 
   const turned = useAnimatedStyle(() => {
     'worklet'
@@ -72,10 +97,12 @@ export function useSwivel(isOpen: boolean, isStill: boolean) {
     return {
       transform: [
         { perspective: swivel.perspective },
-        { rotateX: `${(1 - turn.value) * swivel.degrees}deg` },
+        { rotateX: `${(1 - turn.value) * swivel.degrees * way}deg` },
       ],
     }
-  }, [isReduced, turn])
+  }, [isReduced, turn, way])
 
-  return { isMounted, style: [PIVOT, turned] }
+  const style = useMemo(() => [PIVOT[edge], turned], [edge, turned])
+
+  return { isMounted, turn, style }
 }

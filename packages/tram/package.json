@@ -59,6 +59,16 @@
         "default": "./dist/components/checkbox/index.cjs"
       }
     },
+    "./dialog": {
+      "import": {
+        "types": "./dist/components/dialog/index.d.ts",
+        "default": "./dist/components/dialog/index.js"
+      },
+      "require": {
+        "types": "./dist/components/dialog/index.d.cts",
+        "default": "./dist/components/dialog/index.cjs"
+      }
+    },
     "./progress-bar": {
       "import": {
         "types": "./dist/components/progress-bar/index.d.ts",
@@ -109,6 +119,16 @@
         "default": "./dist/components/switch/index.cjs"
       }
     },
+    "./tabs": {
+      "import": {
+        "types": "./dist/components/tabs/index.d.ts",
+        "default": "./dist/components/tabs/index.js"
+      },
+      "require": {
+        "types": "./dist/components/tabs/index.d.cts",
+        "default": "./dist/components/tabs/index.cjs"
+      }
+    },
     "./text-area": {
       "import": {
         "types": "./dist/components/text-area/index.d.ts",
@@ -139,6 +159,16 @@
         "default": "./dist/components/tile/index.cjs"
       }
     },
+    "./toast": {
+      "import": {
+        "types": "./dist/components/toast/index.d.ts",
+        "default": "./dist/components/toast/index.js"
+      },
+      "require": {
+        "types": "./dist/components/toast/index.d.cts",
+        "default": "./dist/components/toast/index.cjs"
+      }
+    },
     "./typography": {
       "import": {
         "types": "./dist/components/typography/index.d.ts",
@@ -147,6 +177,16 @@
       "require": {
         "types": "./dist/components/typography/index.d.cts",
         "default": "./dist/components/typography/index.cjs"
+      }
+    },
+    "./wheel-picker": {
+      "import": {
+        "types": "./dist/components/wheel-picker/index.d.ts",
+        "default": "./dist/components/wheel-picker/index.js"
+      },
+      "require": {
+        "types": "./dist/components/wheel-picker/index.d.cts",
+        "default": "./dist/components/wheel-picker/index.cjs"
       }
     }
   },

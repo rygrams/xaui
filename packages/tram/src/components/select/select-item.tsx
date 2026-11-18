@@ -9,8 +9,8 @@ import {
 } from '@xaui/native/system'
 import { scale } from '../../motion/motion-tokens'
 import { PressTilt } from '../../system/press-tilt'
+import { useCascade } from '../../system/use-cascade'
 import { SelectItemLabel } from './select-item-label'
-import { useCascade } from './select.cascade'
 import { SelectItemProvider, useSelect } from './select.context'
 import type { SelectItemProps } from './select.type'
 

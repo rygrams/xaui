@@ -1,4 +1,4 @@
-import { forwardRef, useMemo } from 'react'
+import { forwardRef, useContext, useMemo } from 'react'
 import { StyleSheet } from 'react-native'
 import type { TextStyle, View } from 'react-native'
 import { usePressState } from '@xaui/native'
@@ -19,7 +19,7 @@ import { touchReach } from '../../system/touch-reach'
 import { tramAccents } from '../../theme/tram-tokens'
 import { ButtonLabel } from './button-label'
 import { ButtonSpinner } from './button-spinner'
-import { ButtonProvider } from './button.context'
+import { ButtonProvider, ButtonSurfaceContext } from './button.context'
 import { DEFAULT_SIZE, DEFAULT_VARIANT, buttonRecipe } from './button.recipe'
 import type { ButtonProps } from './button.type'
 
@@ -41,11 +41,11 @@ import type { ButtonProps } from './button.type'
 export const ButtonRoot = forwardRef<View, ButtonProps>(function Button(
   {
     children,
-    variant = DEFAULT_VARIANT,
+    variant: ownVariant,
     size = DEFAULT_SIZE,
     radius,
     accent,
-    color,
+    color: ownColor,
     isDisabled = false,
     isLoading = false,
     isIconOnly = false,
@@ -64,6 +64,11 @@ export const ButtonRoot = forwardRef<View, ButtonProps>(function Button(
   const theme = useXAUITheme()
   const [styleProps, rest] = useStyleProps(props)
   const haptic = useTramHaptic()
+  // A surface the button sits on — a toast — may say how it is drawn there. The button's
+  // own word comes first, and a named `accent` is a colour of its own.
+  const surface = useContext(ButtonSurfaceContext)
+  const variant = ownVariant ?? surface?.variant ?? DEFAULT_VARIANT
+  const color = ownColor ?? (accent ? undefined : surface?.color)
   const [isPressed, press] = usePressState({
     // Felt as the finger lands, with the tilt — not on release, when it is already over.
     onPressIn: event => {
