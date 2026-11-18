@@ -14,6 +14,7 @@ import {
 import { scale } from '../../motion/motion-tokens'
 import { PressTilt } from '../../system/press-tilt'
 import { squareDistance, squareOpacity } from '../../system/wheel'
+import { InsideTextProvider } from '../typography/typography.context'
 import { useWheelPicker, useWheelPickerColumn } from './wheel-picker.context'
 import type { WheelPickerItemProps } from './wheel-picker.type'
 
@@ -41,7 +42,7 @@ const UNREAD = {
  * <WheelPicker.Item value="12">12</WheelPicker.Item>
  * <WheelPicker.Item value="12">
  *   12{'\n'}
- *   <TextSpan variant="caption">déc.</TextSpan>
+ *   <Typography variant="caption">déc.</Typography>
  * </WheelPicker.Item>
  * ```
  *
@@ -128,7 +129,8 @@ export const WheelPickerItem = forwardRef<View, WheelPickerItemProps>(
         >
           <Animated.View style={[fillStyle, painted]} />
           <Animated.Text {...fitted} style={[labelStyle, inked]}>
-            {children}
+            {/* A `Typography` written here is a fragment: it keeps the square's colour mix. */}
+            <InsideTextProvider value>{children}</InsideTextProvider>
           </Animated.Text>
         </Square>
       </Animated.View>
