@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { onAccent, relativeLuminance } from '../../theme/on-accent'
+import { isHex, onAccent, relativeLuminance } from '../../theme/on-accent'
 import { tramAccents } from '../../theme/tram-tokens'
 import type { TramAccentName } from '../../theme/tram-tokens'
 
@@ -25,5 +25,18 @@ describe('onAccent', () => {
     )
 
     expect(black.sort()).toEqual(['amber', 'lime', 'yellow'])
+  })
+})
+
+describe('isHex', () => {
+  it('reads the short and the long form, in either case', () => {
+    expect(isHex('#abc')).toBe(true)
+    expect(isHex('#A4C400')).toBe(true)
+  })
+
+  it('reads nothing else', () => {
+    expect(isHex('rgb(0, 0, 0)')).toBe(false)
+    expect(isHex('tomato')).toBe(false)
+    expect(isHex('#abcd')).toBe(false)
   })
 })

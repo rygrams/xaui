@@ -54,17 +54,28 @@ export const tilt = {
   wideFrom: 200,
 } as const
 
-/**
- * The swivel: a page that turns in on its top edge, from edge-on to flat, and out the
- * same way. `degrees` is where it starts — edge-on, above the screen's plane.
- */
-export const swivel = { perspective: 600, degrees: -90 } as const
+/** A tile turning over to its back: a half turn around its horizontal axis. */
+export const flip = { perspective: 800, degrees: 180 } as const
 
 /**
- * The content cascade: the rows of a list arrive one after the other, each sliding up
- * `rise` points as it fades in, `stagger` milliseconds behind the one before. Past
- * `most` rows they arrive together — nobody waits for the bottom of a long list.
+ * The swivel: a page that turns in on one of its edges — the top one, or the bottom one
+ * for a banner laid there — from edge-on to flat, and out the same way. `degrees` is
+ * where it starts: edge-on, above the screen's plane.
+ *
+ * `flat` is the milliseconds after which a page on its way in reads as flat: the Metro
+ * curve has turned it all but a few degrees and spends the rest braking. What a banner
+ * holds starts arriving then — waiting for the curve's end leaves it empty for a beat.
  */
+export const swivel = { perspective: 600, degrees: -90, flat: 150 } as const
+
+/**
+ * The swipe that sends a banner back where it came from. Past `distance` of its way to
+ * edge-on, or flung that way faster than `velocity` points a second, a released banner leaves; short of both
+ * it comes back flat. One that may not be dismissed follows the finger over `resist`
+ * degrees and no further.
+ */
+export const swipe = { distance: 0.4, velocity: 800, resist: 8 } as const
+
 /**
  * A page leaving or arriving: it turns around the screen's start edge, as a door on its
  * hinge. The perspective is a screen's, not a button's — at 600 a whole page would loom.
@@ -74,7 +85,37 @@ export const turnstile = { perspective: 1000, degrees: 80 } as const
 /** A page that slides instead: how far from its place it starts and ends. */
 export const pageSlide = { distance: 70 } as const
 
-export const cascade = { stagger: 40, rise: 12, most: 8 } as const
+/**
+ * The content cascade: the rows of a list arrive one after the other, each sliding up
+ * `rise` points as it fades in, `stagger` milliseconds behind the one before. Past
+ * `most` rows they arrive together — nobody waits for the bottom of a long list. After a
+ * change of tab the rows come from the side of the new tab instead, from `slide` points.
+ */
+export const cascade = { stagger: 40, rise: 12, slide: 24, most: 8 } as const
+
+/**
+ * The content of a tab: the panel of the tab just chosen comes in from that tab's side,
+ * `slide` points away, as it fades in.
+ */
+export const panel = { slide: 32 } as const
+
+/**
+ * A wheel of squares, let go and left alone. Thrown, it keeps its momentum and slows at
+ * `deceleration` — `withDecay`'s own rate, per millisecond — until it moves at less than
+ * `catchBelow` points a second. The `navigation` spring catches it there, at the speed
+ * it has, and stops it on a whole square: the one nearest to where `carry` more
+ * milliseconds would have taken it. At that speed that is a square still ahead, so a
+ * thrown wheel is never pulled back.
+ *
+ * `rest` is how long, in milliseconds, a wheel nobody touches keeps its neighbours on
+ * screen before they fade and only the current square is left.
+ */
+export const wheel = {
+  deceleration: 0.998,
+  catchBelow: 500,
+  carry: 150,
+  rest: 1400,
+} as const
 
 /**
  * The five bubbles of an indeterminate progress bar: they come in fast, close up in the
@@ -96,6 +137,15 @@ export const bubbles = {
   stops: [0.2, 0.32, 0.42, 0.58, 0.68, 0.82],
   pace: [9, 5, 2.5, 1, 2.5, 4.5, 6.5],
 } as const
+
+/**
+ * The swipe that sends a toast away, in points — not the banner's `swipe`, which counts in
+ * turns of a swivel. `slop` is how far a finger travels before
+ * its gesture has taken an axis; past `distance` points **or** `velocity` points a second,
+ * a release finishes the way out. Either is enough: a flick is short, a slow push is not
+ * fast, and both meant it.
+ */
+export const toastSwipe = { slop: 10, distance: 50, velocity: 500 } as const
 
 export type TramSpringName = keyof typeof spring
 export type TramEaseName = keyof typeof ease

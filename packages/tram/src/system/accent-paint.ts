@@ -1,5 +1,7 @@
-import { accentInk, accentSoftInk } from '../../theme/accent-ink'
-import type { ButtonVariant } from './button.type'
+import { accentInk, accentSoftInk } from '../theme/accent-ink'
+
+/** The four ways a Tram box takes its colour. The `Button` has all four; a `Tile` two. */
+export type AccentDrawing = 'contained' | 'flat' | 'outline' | 'text'
 
 export type AccentPaint = {
   /** What the recipe's tint pass is given. */
@@ -20,7 +22,7 @@ export type AccentPaint = {
  */
 export function accentPaintFor(
   accent: string,
-  variant: ButtonVariant,
+  variant: AccentDrawing,
   ground: string
 ): AccentPaint {
   if (variant === 'contained') return { tint: accent }

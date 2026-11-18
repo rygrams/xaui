@@ -66,6 +66,12 @@ export const tramType: Record<TramTypeRole, TramTypeStep> = {
   hero: { fontSize: 120, weight: 'light', maxFontScale: 1.25 },
 }
 
+/**
+ * What is written on a photo: white, and a name on a band of black so it reads on any
+ * picture. The same in dark and light — a photo is not the theme's.
+ */
+export const tramPicture = { ink: '#FFFFFF', band: 'rgba(0, 0, 0, 0.6)' } as const
+
 export const tramTileColumns = { phone: 4, tablet: 6, foldable: 8 } as const
 
 /**
