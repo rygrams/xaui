@@ -16,6 +16,11 @@ import { TramSection } from '../../components/tram-section'
 
 const VARIANTS: TileVariant[] = ['contained', 'flat', 'surface']
 
+/** Fixed seeds: the same photos on every run, so a screenshot can be compared. */
+const photo = (seed: string, width: number, height: number) => ({
+  uri: `https://picsum.photos/seed/${seed}/${width}/${height}`,
+})
+
 /** Three too light to carry white text, and two that are not. */
 const ACCENTS: TramAccentName[] = ['lime', 'amber', 'yellow', 'magenta', 'cobalt']
 
@@ -187,6 +192,13 @@ export default function TramTileScreen() {
       </TramSection>
 
       <TramSection
+        title="les images"
+        note="Tile.Image remplace l'aplat : ce qui est écrit dessus passe en blanc, sur une bande noire. Une image par face — le recto peut rester un aplat. hasBand={false} retire la bande (le 3)."
+      >
+        <Pictures isLive={isLive} />
+      </TramSection>
+
+      <TramSection
         title="les variantes"
         note="contained : l'accent plein. flat : sa tranche douce. surface : la surface discrète."
       >
@@ -263,6 +275,68 @@ export default function TramTileScreen() {
         </Tile.Grid>
       </TramSection>
     </ScrollView>
+  )
+}
+
+/**
+ * A picture as the fill: a cover in full, two photos turned over, a count on a photo, and
+ * a plain front whose back is a photo.
+ */
+function Pictures({ isLive }: { isLive: boolean }) {
+  const photos = useTileFace(4600, !isLive)
+  const people = useTileFace(3700, !isLive)
+
+  return (
+    <Tile.Grid>
+      <Tile size="wide" accessibilityLabel="Musique, Lagune">
+        <Tile.Image source={photo('tram-lagune', 800, 400)} />
+        <TileText variant="subtitle">Lagune</TileText>
+        <Tile.Label>Musique</Tile.Label>
+      </Tile>
+
+      <Tile
+        size="medium"
+        face={photos}
+        transition="slide"
+        accessibilityLabel="Photos"
+      >
+        <Tile.Front>
+          <Tile.Image source={photo('tram-plage', 400, 400)} />
+          <Tile.Label>Photos</Tile.Label>
+        </Tile.Front>
+        <Tile.Back>
+          <Tile.Image source={photo('tram-marche', 400, 400)} />
+          <Tile.Label>Photos</Tile.Label>
+        </Tile.Back>
+      </Tile>
+
+      <Tile size="small" accessibilityLabel="Messages, 3 non lus">
+        <Tile.Image source={photo('tram-nuit', 200, 200)} hasBand={false} />
+        <Tile.Count>3</Tile.Count>
+      </Tile>
+
+      <Tile size="small" variant="surface" accessibilityLabel="Contacts">
+        <Tile.Image source={photo('tram-visage', 200, 200)} />
+        <Tile.Label>Contacts</Tile.Label>
+      </Tile>
+
+      <Tile size="medium" variant="flat" face={people} accessibilityLabel="Contacts">
+        <Tile.Front>
+          <Tile.Count>12</Tile.Count>
+          <Tile.Label>Contacts</Tile.Label>
+        </Tile.Front>
+        <Tile.Back>
+          <Tile.Image source={photo('tram-portrait', 400, 400)} />
+          <TileText variant="subtitle">Awa</TileText>
+          <Tile.Label>a changé sa photo</Tile.Label>
+        </Tile.Back>
+      </Tile>
+
+      <Tile size="small" isDisabled accessibilityLabel="Galerie">
+        <Tile.Image source={photo('tram-galerie', 200, 200)} />
+        <Tile.Label>off</Tile.Label>
+      </Tile>
+    </Tile.Grid>
   )
 }
 

@@ -1,6 +1,6 @@
 import { forwardRef, useEffect, useMemo } from 'react'
 import { StyleSheet } from 'react-native'
-import type { LayoutChangeEvent, TextStyle, View } from 'react-native'
+import type { ImageStyle, LayoutChangeEvent, TextStyle, View } from 'react-native'
 import { useSharedValue } from 'react-native-reanimated'
 import { usePressState } from '@xaui/native'
 import {
@@ -16,8 +16,9 @@ import { useTramMotion } from '../../motion/use-tram-motion'
 import { accentPaintFor } from '../../system/accent-paint'
 import { PressTilt } from '../../system/press-tilt'
 import { useTramHaptic } from '../../theme/tram-haptics'
-import { tramAccents } from '../../theme/tram-tokens'
+import { tramAccents, tramPicture } from '../../theme/tram-tokens'
 import { TileBack, TileFront } from './tile-face'
+import { TilePictured } from './tile-image'
 import { TileLabel } from './tile-label'
 import { TileProvider, useIsInTileGrid } from './tile.context'
 import { DEFAULT_SIZE, DEFAULT_VARIANT, tileRecipe } from './tile.recipe'
@@ -48,6 +49,9 @@ import type { TileProps } from './tile.type'
  * ```
  *
  * A text child is the tile's name: `<Tile>Courrier</Tile>` writes it as a `Tile.Label`.
+ *
+ * `Tile.Image` puts a picture in place of the fill, on the tile or on one face; what is
+ * written over it is set in white on a band of black across the foot of the square.
  *
  * A press leans the tile toward the finger and is felt through `TramProvider`'s
  * `onHaptic`. Outside a `Tile.Grid` a tile is a square — a wide one twice as long — as
@@ -119,12 +123,25 @@ export const TileRoot = forwardRef<View, TileProps>(function Tile(
     const icon = StyleSheet.flatten<TextStyle>([styles.icon, tint?.icon, inked])
     const foreground = typeof icon.color === 'string' ? icon.color : undefined
 
+    // On a picture neither the variant nor the accent reads: everything is white.
+    const white = { color: tramPicture.ink }
+
     return {
       faceStyle: [styles.face, tint?.face],
+      // A recipe slot is typed for a view and a text; this one is an image's, and holds
+      // nothing (`overflow: 'scroll'`) an image would refuse.
+      imageStyle: styles.image as ImageStyle,
       labelStyle: [styles.label, tint?.label, inked],
       countStyle: [styles.count, tint?.count, inked],
       icon: { size: icon.fontSize, color: foreground },
       foreground,
+      bandStyle: styles.band,
+      onPicture: {
+        labelStyle: [styles.label, white],
+        countStyle: [styles.count, white],
+        icon: { size: icon.fontSize, color: tramPicture.ink },
+        foreground: tramPicture.ink,
+      },
       face,
       transition,
       turn,
@@ -176,7 +193,13 @@ export const TileRoot = forwardRef<View, TileProps>(function Tile(
         onPressOut={press.onPressOut}
       >
         {/* Under `asChild` the caller's element is the tile: one child, theirs. */}
-        {text !== null && !asChild ? <TileLabel>{text}</TileLabel> : children}
+        {asChild ? (
+          children
+        ) : text !== null ? (
+          <TileLabel>{text}</TileLabel>
+        ) : (
+          <TilePictured>{children}</TilePictured>
+        )}
       </Root>
     </TileProvider>
   )

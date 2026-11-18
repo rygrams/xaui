@@ -2,6 +2,7 @@ import { TileCount } from './tile-count'
 import { TileBack, TileFront } from './tile-face'
 import { TileGrid } from './tile-grid'
 import { TileIcon } from './tile-icon'
+import { TileImage } from './tile-image'
 import { TileLabel } from './tile-label'
 import { TileRoot } from './tile'
 
@@ -12,6 +13,7 @@ export const Tile = Object.assign(TileRoot, {
   Label: TileLabel,
   Count: TileCount,
   Icon: TileIcon,
+  Image: TileImage,
 })
 
 export { useTile } from './tile.context'
@@ -26,6 +28,7 @@ export type {
   TileFaceProps,
   TileGridProps,
   TileIconProps,
+  TileImageProps,
   TileLabelProps,
   TileProps,
   TileSize,
