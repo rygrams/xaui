@@ -4,9 +4,9 @@ import type { View, ViewProps } from 'react-native'
 import Animated from 'react-native-reanimated'
 import { duration } from '../../motion/motion-tokens'
 import type { RowSpan } from '../../system/list-picker'
+import { useSwivel } from '../../system/use-swivel'
 import { SelectProvider, useSelect } from './select.context'
 import { LIST_ROLE } from './select.role'
-import { useSwivel } from './select.swivel'
 
 /**
  * The list as a page of its own: `Select.Content`'s node when the choices are many. The

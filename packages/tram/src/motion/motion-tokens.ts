@@ -60,6 +60,14 @@ export const tilt = {
 export const swivel = { perspective: 600, degrees: -90 } as const
 
 /**
+ * The swipe that sends a banner back up. Past `distance` of its way to edge-on, or flung
+ * upward faster than `velocity` points a second, a released banner leaves; short of both
+ * it comes back flat. One that may not be dismissed follows the finger over `resist`
+ * degrees and no further.
+ */
+export const swipe = { distance: 0.4, velocity: 800, resist: 8 } as const
+
+/**
  * The content cascade: the rows of a list arrive one after the other, each sliding up
  * `rise` points as it fades in, `stagger` milliseconds behind the one before. Past
  * `most` rows they arrive together — nobody waits for the bottom of a long list.

@@ -5,6 +5,7 @@ export {
   ease,
   scale,
   spring,
+  swipe,
   swivel,
   tilt,
 } from './motion-tokens'

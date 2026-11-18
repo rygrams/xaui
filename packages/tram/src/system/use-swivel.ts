@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import {
   useAnimatedReaction,
   useAnimatedStyle,
@@ -6,8 +6,8 @@ import {
   useSharedValue,
 } from 'react-native-reanimated'
 import { scheduleOnRN } from 'react-native-worklets'
-import { duration, swivel } from '../../motion/motion-tokens'
-import { useTramEase } from '../../motion/use-tram-ease'
+import { duration, swivel } from '../motion/motion-tokens'
+import { useTramEase } from '../motion/use-tram-ease'
 
 /** The page turns on its top edge. */
 const PIVOT = { transformOrigin: 'top' } as const
@@ -18,7 +18,10 @@ const PIVOT = { transformOrigin: 'top' } as const
  * so the page is still there to turn. With motion reduced it fades instead; under an
  * ancestor's `disable-all` it is there or it is not.
  *
- * Kept in this folder until a second component — the `MessageBox` — enters this way.
+ * `turn` is handed back for what turns the page by hand — a banner following a finger.
+ * Turned edge-on that way the page stays mounted: only closing takes it away.
+ *
+ * The `Select`'s page enters this way, and the `Dialog`'s banner.
  */
 export function useSwivel(isOpen: boolean, isStill: boolean) {
   const glide = useTramEase()
@@ -26,6 +29,13 @@ export function useSwivel(isOpen: boolean, isStill: boolean) {
   const [isMounted, setMounted] = useState(isOpen)
   // 0 edge-on, 1 flat.
   const turn = useSharedValue(0)
+  const wantsOpen = useRef(isOpen)
+  wantsOpen.current = isOpen
+
+  // Edge-on is only the end of the way out once the page was asked to close.
+  const leave = useCallback(() => {
+    if (!wantsOpen.current) setMounted(false)
+  }, [])
 
   // Mounted in the render that opens it, so the way in starts on its first frame.
   if (isOpen && !isMounted) setMounted(true)
@@ -60,9 +70,9 @@ export function useSwivel(isOpen: boolean, isStill: boolean) {
     },
     (isGone, wasGone) => {
       'worklet'
-      if (isGone && wasGone === false) scheduleOnRN(setMounted, false)
+      if (isGone && wasGone === false) scheduleOnRN(leave)
     },
-    [turn]
+    [turn, leave]
   )
 
   const turned = useAnimatedStyle(() => {
@@ -77,5 +87,7 @@ export function useSwivel(isOpen: boolean, isStill: boolean) {
     }
   }, [isReduced, turn])
 
-  return { isMounted, style: [PIVOT, turned] }
+  const style = useMemo(() => [PIVOT, turned], [turned])
+
+  return { isMounted, turn, style }
 }
