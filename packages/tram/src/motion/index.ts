@@ -3,6 +3,7 @@ export {
   cascade,
   duration,
   ease,
+  flip,
   panel,
   scale,
   spring,

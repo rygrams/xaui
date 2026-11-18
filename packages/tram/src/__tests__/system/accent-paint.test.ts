@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
-import { accentPaintFor } from '../../../components/button/button.paint'
-import { accentInk, accentSoftInk } from '../../../theme/accent-ink'
-import { tramAccents } from '../../../theme/tram-tokens'
+import { accentPaintFor } from '../../system/accent-paint'
+import { accentInk, accentSoftInk } from '../../theme/accent-ink'
+import { tramAccents } from '../../theme/tram-tokens'
 
 const WHITE = '#FFFFFF'
 const { yellow } = tramAccents

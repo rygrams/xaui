@@ -149,6 +149,16 @@
         "default": "./dist/components/text-field/index.cjs"
       }
     },
+    "./tile": {
+      "import": {
+        "types": "./dist/components/tile/index.d.ts",
+        "default": "./dist/components/tile/index.js"
+      },
+      "require": {
+        "types": "./dist/components/tile/index.d.cts",
+        "default": "./dist/components/tile/index.cjs"
+      }
+    },
     "./toast": {
       "import": {
         "types": "./dist/components/toast/index.d.ts",

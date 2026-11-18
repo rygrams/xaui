@@ -53,6 +53,9 @@ export const tilt = {
   wideFrom: 200,
 } as const
 
+/** A tile turning over to its back: a half turn around its horizontal axis. */
+export const flip = { perspective: 800, degrees: 180 } as const
+
 /**
  * The swivel: a page that turns in on one of its edges — the top one, or the bottom one
  * for a banner laid there — from edge-on to flat, and out the same way. `degrees` is
