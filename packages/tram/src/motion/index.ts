@@ -8,6 +8,7 @@ export {
   swipe,
   swivel,
   tilt,
+  toastSwipe,
 } from './motion-tokens'
 export type { TramEaseName, TramSpringName } from './motion-tokens'
 export { useTramEase } from './use-tram-ease'

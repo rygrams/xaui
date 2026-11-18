@@ -100,5 +100,14 @@ export const bubbles = {
   pace: [9, 5, 2.5, 1, 2.5, 4.5, 6.5],
 } as const
 
+/**
+ * The swipe that sends a toast away, in points — not the banner's `swipe`, which counts in
+ * turns of a swivel. `slop` is how far a finger travels before
+ * its gesture has taken an axis; past `distance` points **or** `velocity` points a second,
+ * a release finishes the way out. Either is enough: a flick is short, a slow push is not
+ * fast, and both meant it.
+ */
+export const toastSwipe = { slop: 10, distance: 50, velocity: 500 } as const
+
 export type TramSpringName = keyof typeof spring
 export type TramEaseName = keyof typeof ease
