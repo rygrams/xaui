@@ -54,10 +54,23 @@ export const tilt = {
 } as const
 
 /**
- * The swivel: a page that turns in on its top edge, from edge-on to flat, and out the
- * same way. `degrees` is where it starts — edge-on, above the screen's plane.
+ * The swivel: a page that turns in on one of its edges — the top one, or the bottom one
+ * for a banner laid there — from edge-on to flat, and out the same way. `degrees` is
+ * where it starts: edge-on, above the screen's plane.
+ *
+ * `flat` is the milliseconds after which a page on its way in reads as flat: the Metro
+ * curve has turned it all but a few degrees and spends the rest braking. What a banner
+ * holds starts arriving then — waiting for the curve's end leaves it empty for a beat.
  */
-export const swivel = { perspective: 600, degrees: -90 } as const
+export const swivel = { perspective: 600, degrees: -90, flat: 150 } as const
+
+/**
+ * The swipe that sends a banner back where it came from. Past `distance` of its way to
+ * edge-on, or flung that way faster than `velocity` points a second, a released banner leaves; short of both
+ * it comes back flat. One that may not be dismissed follows the finger over `resist`
+ * degrees and no further.
+ */
+export const swipe = { distance: 0.4, velocity: 800, resist: 8 } as const
 
 /**
  * The content cascade: the rows of a list arrive one after the other, each sliding up
@@ -104,6 +117,15 @@ export const bubbles = {
   stops: [0.2, 0.32, 0.42, 0.58, 0.68, 0.82],
   pace: [9, 5, 2.5, 1, 2.5, 4.5, 6.5],
 } as const
+
+/**
+ * The swipe that sends a toast away, in points — not the banner's `swipe`, which counts in
+ * turns of a swivel. `slop` is how far a finger travels before
+ * its gesture has taken an axis; past `distance` points **or** `velocity` points a second,
+ * a release finishes the way out. Either is enough: a flick is short, a slow push is not
+ * fast, and both meant it.
+ */
+export const toastSwipe = { slop: 10, distance: 50, velocity: 500 } as const
 
 export type TramSpringName = keyof typeof spring
 export type TramEaseName = keyof typeof ease

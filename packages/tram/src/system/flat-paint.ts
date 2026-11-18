@@ -1,3 +1,4 @@
+import { isHex, onAccent } from '../theme/on-accent'
 import { tramAccents } from '../theme/tram-tokens'
 import type { TramAccentName } from '../theme/tram-tokens'
 
@@ -14,4 +15,13 @@ export type FlatPaint = {
  */
 export function flatPaint({ accent, color }: FlatPaint): string | undefined {
   return color ?? (accent && tramAccents[accent])
+}
+
+/**
+ * The ink that reads on a flat fill of `fill`: black on lime, amber and yellow, white on
+ * the rest. A raw colour that is not a hex — `rgb()`, a name — cannot be measured, and
+ * takes `fallback`: the caller's word is never corrected, only read where it can be.
+ */
+export function inkOn(fill: string, fallback: string): string {
+  return isHex(fill) ? onAccent(fill) : fallback
 }

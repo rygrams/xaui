@@ -5,8 +5,10 @@ export {
   ease,
   scale,
   spring,
+  swipe,
   swivel,
   tilt,
+  toastSwipe,
   wheel,
 } from './motion-tokens'
 export type { TramEaseName, TramSpringName } from './motion-tokens'
