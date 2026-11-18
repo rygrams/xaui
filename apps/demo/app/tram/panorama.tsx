@@ -42,16 +42,19 @@ const RELEASES = Array.from({ length: 14 }, (_, index) => ({
 
 /**
  * Where the Tram `Panorama` is verified, in dark and in light: a music hub in four
- * sections under a giant title, over a backdrop of flat blocks of the soft grey. The
- * first section moves the track from outside; the third scrolls on its own, to check that
- * a vertical drag stays the section's.
+ * sections under a giant title, over a backdrop of faint flat blocks. The first section
+ * moves the track from outside; the third scrolls on its own, to check that a vertical
+ * drag stays the section's.
  */
 export default function TramPanoramaScreen() {
   const theme = useXAUITheme()
   const [section, setSection] = useState('collection')
+  // A backdrop stays behind the text: the discreet surface on white — the soft grey reads
+  // too dark there — and the soft grey on black, where the surface would barely show.
   const block = {
     position: 'absolute',
-    backgroundColor: theme.colors.default,
+    backgroundColor:
+      theme.mode === 'light' ? theme.colors.surface : theme.colors.default,
   } as const
 
   return (

@@ -65,6 +65,7 @@ export function usePanoramaTrack({ values, currentIndex, select }: TrackOptions)
 
   const offset = useSharedValue(0)
   const from = useSharedValue(0)
+  const isDragging = useSharedValue(false)
   const travel = useSharedValue(0)
   const stops = useSharedValue<number[]>([])
   const index = useSharedValue(currentIndex)
@@ -113,10 +114,24 @@ export function usePanoramaTrack({ values, currentIndex, select }: TrackOptions)
     if (!isPlaced.current) {
       isPlaced.current = true
       index.value = currentIndex
-      offset.value = resting[currentIndex] ?? 0
     }
+    // Placed on its section — the first time, and again whenever the layout moves under
+    // it: the sections are first laid at their content's width, then at the screen's less
+    // the peek, and a rotation changes both. A finger on the track keeps it.
+    if (!isDragging.value) offset.value = resting[index.value] ?? 0
     // `key` stands for `values`; `currentIndex` is placed by the effect below once placed.
-  }, [key, viewport, laidOut, travel, stops, titleWay, backdropWay, index, offset])
+  }, [
+    key,
+    viewport,
+    laidOut,
+    travel,
+    stops,
+    titleWay,
+    backdropWay,
+    index,
+    offset,
+    isDragging,
+  ])
 
   // A value set from outside — or a screen reader's adjust — is reached on the spring. A
   // release has already set off toward its section, and is left to arrive.
@@ -149,6 +164,7 @@ export function usePanoramaTrack({ values, currentIndex, select }: TrackOptions)
       .failOffsetY([-SLOP, SLOP])
       .onStart(() => {
         'worklet'
+        isDragging.value = true
         from.value = offset.value
       })
       .onUpdate(event => {
@@ -177,6 +193,7 @@ export function usePanoramaTrack({ values, currentIndex, select }: TrackOptions)
       })
       .onFinalize((_event, didEnd) => {
         'worklet'
+        isDragging.value = false
         if (!didEnd) goTo(index.value)
       })
   }, [
