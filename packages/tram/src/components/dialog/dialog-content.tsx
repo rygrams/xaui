@@ -20,6 +20,7 @@ import { useStyleProps } from '@xaui/native/system'
 import { swivel } from '../../motion/motion-tokens'
 import { cascadeRank } from '../../system/list-picker'
 import { useCascade } from '../../system/use-cascade'
+import { ToastOutlet } from '../toast/toast.outlet'
 import { useDialog } from './dialog.context'
 import { moveFocusTo } from './dialog.focus'
 import { useSwipeAway } from './dialog.hook'
@@ -125,6 +126,9 @@ export const DialogContent = forwardRef<View, DialogContentProps>(
             </GestureDetector>
           </View>
         </GestureHandlerRootView>
+        {/* A `Modal` covers the app's pile of toasts: while the banner is up, it is drawn
+            here — over the dimmed ground, and over the banner. */}
+        <ToastOutlet />
       </Modal>
     )
   }

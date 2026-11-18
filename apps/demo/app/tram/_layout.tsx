@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import { Stack } from 'expo-router'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { Scaffold } from '@xaui/native/scaffold'
 import { useColorMode } from '@xaui/native/theme'
 import { Button } from '@xaui/tram/button'
 import { TramProvider } from '@xaui/tram/theme'
 import type { TramHaptic } from '@xaui/tram/theme'
+import { ToastHost } from '@xaui/tram/toast'
 
 /**
  * The `@xaui/tram` half of the demo: one screen per Tram component, each the place that
@@ -21,38 +23,48 @@ export default function TramLayout() {
   const inherited = useColorMode()
   const [mode, setMode] = useState<'light' | 'dark' | null>(null)
   const colorMode = mode ?? inherited
+  // Tram reads no safe area: the pile is put under the notch by the app.
+  const insets = useSafeAreaInsets()
 
   return (
     <TramProvider colorMode={colorMode} hasPortalHost={false} onHaptic={feel}>
-      <Scaffold>
-        <Scaffold.StatusBar />
-        <Scaffold.Navigator>
-          <Stack
-            screenOptions={{
-              headerRight: () => (
-                <ModeToggle
-                  colorMode={colorMode}
-                  onToggle={() => setMode(colorMode === 'light' ? 'dark' : 'light')}
-                />
-              ),
-            }}
-          >
-            <Stack.Screen name="index" options={{ title: 'TRAM' }} />
-            <Stack.Screen name="theme" options={{ title: 'THÈME' }} />
-            <Stack.Screen name="button" options={{ title: 'BUTTON' }} />
-            <Stack.Screen name="switch" options={{ title: 'SWITCH' }} />
-            <Stack.Screen name="checkbox" options={{ title: 'CHECKBOX' }} />
-            <Stack.Screen name="radio" options={{ title: 'RADIO' }} />
-            <Stack.Screen name="slider" options={{ title: 'SLIDER' }} />
-            <Stack.Screen name="progress-bar" options={{ title: 'PROGRESS BAR' }} />
-            <Stack.Screen name="text-field" options={{ title: 'TEXT FIELD' }} />
-            <Stack.Screen name="text-area" options={{ title: 'TEXT AREA' }} />
-            <Stack.Screen name="select" options={{ title: 'SELECT' }} />
-            <Stack.Screen name="dialog" options={{ title: 'DIALOG' }} />
-            <Stack.Screen name="typography" options={{ title: 'TYPOGRAPHY' }} />
-          </Stack>
-        </Scaffold.Navigator>
-      </Scaffold>
+      <ToastHost offset={Math.max(insets.top, 10)} dismissLabel="fermer">
+        <Scaffold>
+          <Scaffold.StatusBar />
+          <Scaffold.Navigator>
+            <Stack
+              screenOptions={{
+                headerRight: () => (
+                  <ModeToggle
+                    colorMode={colorMode}
+                    onToggle={() =>
+                      setMode(colorMode === 'light' ? 'dark' : 'light')
+                    }
+                  />
+                ),
+              }}
+            >
+              <Stack.Screen name="index" options={{ title: 'TRAM' }} />
+              <Stack.Screen name="theme" options={{ title: 'THÈME' }} />
+              <Stack.Screen name="button" options={{ title: 'BUTTON' }} />
+              <Stack.Screen name="switch" options={{ title: 'SWITCH' }} />
+              <Stack.Screen name="checkbox" options={{ title: 'CHECKBOX' }} />
+              <Stack.Screen name="radio" options={{ title: 'RADIO' }} />
+              <Stack.Screen name="slider" options={{ title: 'SLIDER' }} />
+              <Stack.Screen
+                name="progress-bar"
+                options={{ title: 'PROGRESS BAR' }}
+              />
+              <Stack.Screen name="text-field" options={{ title: 'TEXT FIELD' }} />
+              <Stack.Screen name="text-area" options={{ title: 'TEXT AREA' }} />
+              <Stack.Screen name="select" options={{ title: 'SELECT' }} />
+              <Stack.Screen name="dialog" options={{ title: 'DIALOG' }} />
+              <Stack.Screen name="toast" options={{ title: 'TOAST' }} />
+              <Stack.Screen name="typography" options={{ title: 'TYPOGRAPHY' }} />
+            </Stack>
+          </Scaffold.Navigator>
+        </Scaffold>
+      </ToastHost>
     </TramProvider>
   )
 }

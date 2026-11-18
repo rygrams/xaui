@@ -5,6 +5,7 @@ import Animated from 'react-native-reanimated'
 import { duration } from '../../motion/motion-tokens'
 import type { RowSpan } from '../../system/list-picker'
 import { useSwivel } from '../../system/use-swivel'
+import { ToastOutlet } from '../toast/toast.outlet'
 import { SelectProvider, useSelect } from './select.context'
 import { LIST_ROLE } from './select.role'
 
@@ -99,6 +100,8 @@ export const SelectPage = forwardRef<View, ViewProps>(function SelectPage(
           </ScrollView>
         </Animated.View>
       </SelectProvider>
+      {/* A `Modal` covers the app's pile of toasts: while the page is up, it is drawn here. */}
+      <ToastOutlet />
     </Modal>
   )
 })
