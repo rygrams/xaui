@@ -6,7 +6,11 @@ import Animated, {
   useDerivedValue,
 } from 'react-native-reanimated'
 import { usePressState } from '@xaui/native'
-import { PressableFeedback, useStyleProps } from '@xaui/native/system'
+import {
+  PressableFeedback,
+  childrenToString,
+  useStyleProps,
+} from '@xaui/native/system'
 import { scale } from '../../motion/motion-tokens'
 import { PressTilt } from '../../system/press-tilt'
 import { squareDistance, squareOpacity } from '../../system/wheel'
@@ -18,6 +22,12 @@ const MIX = [0, 1]
 
 /** Not a control: the column is, and it is where a keyboard and a reader land. */
 const UNREACHABLE = { focusable: false, tabIndex: -1 } as const
+/**
+ * A square of plain text is one line, shrunk until it fits: a year in a square made for
+ * two digits would otherwise break onto a second line and climb out of its corner.
+ */
+const ONE_LINE = { numberOfLines: 1, adjustsFontSizeToFit: true } as const
+
 const UNREAD = {
   accessibilityElementsHidden: true,
   importantForAccessibility: 'no-hide-descendants',
@@ -95,6 +105,9 @@ export const WheelPickerItem = forwardRef<View, WheelPickerItemProps>(
     const lean = isStill ? undefined : { depth: scale.row }
     // A reader is told the current square by the column; the others are not announced.
     const unread = index === selectedIndex ? undefined : UNREAD
+    // A composed square — a second line, a nested `Text` — keeps the caller's lines.
+    const plain = childrenToString(children)
+    const fitted = plain === null || plain.includes('\n') ? undefined : ONE_LINE
 
     return (
       <Animated.View style={[cellStyle, placed]}>
@@ -114,7 +127,9 @@ export const WheelPickerItem = forwardRef<View, WheelPickerItemProps>(
           onPressOut={press.onPressOut}
         >
           <Animated.View style={[fillStyle, painted]} />
-          <Animated.Text style={[labelStyle, inked]}>{children}</Animated.Text>
+          <Animated.Text {...fitted} style={[labelStyle, inked]}>
+            {children}
+          </Animated.Text>
         </Square>
       </Animated.View>
     )
