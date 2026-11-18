@@ -9,6 +9,7 @@ const entries = {
   'components/checkbox/index': 'src/components/checkbox/index.ts',
   'components/dialog/index': 'src/components/dialog/index.ts',
   'components/fab/index': 'src/components/fab/index.ts',
+  'components/list-box/index': 'src/components/list-box/index.ts',
   'components/page/index': 'src/components/page/index.ts',
   'components/progress-bar/index': 'src/components/progress-bar/index.ts',
   'components/radio/index': 'src/components/radio/index.ts',
@@ -20,6 +21,7 @@ const entries = {
   'components/text-field/index': 'src/components/text-field/index.ts',
   'components/tile/index': 'src/components/tile/index.ts',
   'components/toast/index': 'src/components/toast/index.ts',
+  'components/toggle-button/index': 'src/components/toggle-button/index.ts',
   'components/typography/index': 'src/components/typography/index.ts',
   'components/wheel-picker/index': 'src/components/wheel-picker/index.ts',
 }

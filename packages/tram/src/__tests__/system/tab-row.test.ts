@@ -2,11 +2,10 @@ import { describe, expect, it } from 'vitest'
 import {
   fromStart,
   isRowReversed,
-  nextTab,
   scrollToTab,
   tabTravel,
 } from '../../system/tab-row'
-import type { RowView, TabStop } from '../../system/tab-row'
+import type { RowView } from '../../system/tab-row'
 
 const ORDER = ['all', 'unread', 'flagged', 'sent']
 
@@ -69,45 +68,6 @@ describe('scrollToTab', () => {
     expect(scrollToTab({ x: 560, width: 80 }, reversed)).toBe(360)
     expect(scrollToTab({ x: 0, width: 80 }, reversed)).toBe(0)
     expect(scrollToTab({ x: 700, width: 80 }, reversed)).toBeUndefined()
-  })
-})
-
-describe('nextTab', () => {
-  const stops: TabStop[] = [
-    { value: 'all', isDisabled: false },
-    { value: 'unread', isDisabled: true },
-    { value: 'flagged', isDisabled: false },
-    { value: 'sent', isDisabled: false },
-  ]
-
-  it('steps to the neighbour', () => {
-    expect(nextTab(stops, 'flagged', 1)).toBe('sent')
-    expect(nextTab(stops, 'sent', -1)).toBe('flagged')
-  })
-
-  it('skips a disabled tab, both ways', () => {
-    expect(nextTab(stops, 'all', 1)).toBe('flagged')
-    expect(nextTab(stops, 'flagged', -1)).toBe('all')
-  })
-
-  it('goes round at either end', () => {
-    expect(nextTab(stops, 'sent', 1)).toBe('all')
-    expect(nextTab(stops, 'all', -1)).toBe('sent')
-  })
-
-  it('starts from the near end when nothing is chosen', () => {
-    expect(nextTab(stops, undefined, 1)).toBe('all')
-    expect(nextTab(stops, undefined, -1)).toBe('sent')
-    expect(nextTab(stops, 'drafts', 1)).toBe('all')
-  })
-
-  it('stays on the only tab left, and finds none when all are disabled', () => {
-    const one = stops.map(stop => ({ ...stop, isDisabled: stop.value !== 'sent' }))
-    const none = stops.map(stop => ({ ...stop, isDisabled: true }))
-
-    expect(nextTab(one, 'sent', 1)).toBe('sent')
-    expect(nextTab(none, 'sent', 1)).toBeUndefined()
-    expect(nextTab([], undefined, 1)).toBeUndefined()
   })
 })
 

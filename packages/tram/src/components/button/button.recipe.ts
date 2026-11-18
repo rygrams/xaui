@@ -15,8 +15,9 @@ export const DEFAULT_VARIANT: ButtonVariant = 'contained'
 /**
  * The button's line. One point under the theme's 3: at 3 an outlined label reads as a
  * frame around a word rather than as a control, and the two small sizes had no room.
+ * The `ToggleButton` draws its box with the same line.
  */
-const LINE_WIDTH = 2
+export const LINE_WIDTH = 2
 
 /**
  * A variant names tokens and computes nothing. The line is always there, transparent
@@ -36,14 +37,20 @@ const VARIANT_TOKENS: Record<ButtonVariant, VariantTokens> = {
   text: { fg: 'link' },
 }
 
-type SizeStep = {
-  size: TramSize
+/** What one size sets inside the box: shared with the `ToggleButton`, which is a button. */
+export type ButtonStep = {
   /** The Tram type role of the label. */
   type: TramTypeRole
   /** Spacing steps, not points. */
   padding: number
   gap: number
   glyph: FontSizeKey
+}
+
+export const BUTTON_STEPS: Record<TramSize, ButtonStep> = {
+  sm: { type: 'body', padding: 2.5, gap: 2, glyph: 'lg' },
+  md: { type: 'subtitle', padding: 3, gap: 2, glyph: 'xl' },
+  lg: { type: 'subtitle', padding: 3.5, gap: 2.5, glyph: '2xl' },
 }
 
 /** The ring `Button.Spinner` turns: one of the two circles Tram allows itself. */
@@ -64,10 +71,12 @@ function ring(size: number): SlotStyles<ButtonSlot>['spinner'] {
  *
  * No `lineHeight`: the label is one line, centred by the row.
  */
-function sizeAxis(step: SizeStep) {
+function sizeAxis(size: TramSize) {
+  const step = BUTTON_STEPS[size]
+
   return (theme: XAUITheme): SlotStyles<ButtonSlot> => ({
     root: {
-      height: theme.controlHeights[step.size],
+      height: theme.controlHeights[size],
       paddingHorizontal: theme.spacing(step.padding),
       gap: theme.spacing(step.gap),
     },
@@ -128,27 +137,9 @@ export const buttonRecipe = createRecipe({
 
   variants: {
     size: {
-      sm: sizeAxis({
-        size: 'sm',
-        type: 'body',
-        padding: 2.5,
-        gap: 2,
-        glyph: 'lg',
-      }),
-      md: sizeAxis({
-        size: 'md',
-        type: 'subtitle',
-        padding: 3,
-        gap: 2,
-        glyph: 'xl',
-      }),
-      lg: sizeAxis({
-        size: 'lg',
-        type: 'subtitle',
-        padding: 3.5,
-        gap: 2.5,
-        glyph: '2xl',
-      }),
+      sm: sizeAxis('sm'),
+      md: sizeAxis('md'),
+      lg: sizeAxis('lg'),
     },
 
     radius: cornerAxis(),

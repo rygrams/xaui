@@ -79,6 +79,16 @@
         "default": "./dist/components/fab/index.cjs"
       }
     },
+    "./list-box": {
+      "import": {
+        "types": "./dist/components/list-box/index.d.ts",
+        "default": "./dist/components/list-box/index.js"
+      },
+      "require": {
+        "types": "./dist/components/list-box/index.d.cts",
+        "default": "./dist/components/list-box/index.cjs"
+      }
+    },
     "./page": {
       "import": {
         "types": "./dist/components/page/index.d.ts",
@@ -187,6 +197,16 @@
       "require": {
         "types": "./dist/components/toast/index.d.cts",
         "default": "./dist/components/toast/index.cjs"
+      }
+    },
+    "./toggle-button": {
+      "import": {
+        "types": "./dist/components/toggle-button/index.d.ts",
+        "default": "./dist/components/toggle-button/index.js"
+      },
+      "require": {
+        "types": "./dist/components/toggle-button/index.d.cts",
+        "default": "./dist/components/toggle-button/index.cjs"
       }
     },
     "./typography": {
