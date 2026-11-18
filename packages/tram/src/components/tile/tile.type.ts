@@ -1,5 +1,7 @@
 import type { ReactNode } from 'react'
 import type {
+  ImageProps,
+  ImageStyle,
   PressableStateCallbackType,
   StyleProp,
   TextProps,
@@ -11,13 +13,22 @@ import type { SharedValue } from 'react-native-reanimated'
 import type {
   IconContextValue,
   IconProps,
+  ImageStyleProps,
   PressableFeedbackProps,
   TextStyleProps,
   ViewStyleProps,
 } from '@xaui/native/system'
 import type { TramAccentName } from '../../theme/tram-tokens'
 
-export type TileSlot = 'root' | 'bare' | 'face' | 'label' | 'count' | 'icon'
+export type TileSlot =
+  | 'root'
+  | 'bare'
+  | 'face'
+  | 'image'
+  | 'band'
+  | 'label'
+  | 'count'
+  | 'icon'
 
 /**
  * How many cells of the start screen a tile takes: one, four (2 × 2) or eight (4 × 2).
@@ -98,6 +109,25 @@ export type TileLabelProps = TileTextOwnProps &
 
 export type TileCountProps = TileLabelProps
 
+/**
+ * `Image`'s props, and the `ImageStyle` keys as props (R14). The picture fills its face — or the tile, outside one — and is
+ * cropped to it: `resizeMode` is `cover` unless told otherwise.
+ */
+type TileImageOwnProps = {
+  /**
+   * `false` writes over the picture with no band behind it — for a photo the app knows to
+   * be dark or empty where the text goes. Still in white.
+   *
+   * @default true
+   */
+  hasBand?: boolean
+  style?: StyleProp<ImageStyle>
+}
+
+export type TileImageProps = Omit<ImageProps, 'style'> &
+  TileImageOwnProps &
+  Omit<ImageStyleProps, keyof TileImageOwnProps | keyof ImageProps>
+
 /** `size` and `color` default to what the root resolved; passing either wins. */
 export type TileIconProps = IconProps
 
@@ -120,15 +150,26 @@ export type TileGridProps = TileGridOwnProps &
   Omit<ViewProps, keyof TileGridOwnProps> &
   Omit<ViewStyleProps, keyof TileGridOwnProps | keyof ViewProps>
 
-/** Resolved styles and the turn the faces follow — nothing a slot resolves again. */
-export type TileContextValue = {
-  faceStyle: StyleProp<ViewStyle>
+/** What a slot reads to draw itself: on the fill, or on a picture. */
+type TileInk = {
   labelStyle: StyleProp<TextStyle>
   countStyle: StyleProp<TextStyle>
   /** Values, not a style: `Icon` hands them to a third-party component. */
   icon: IconContextValue
   /** What is drawn on the tile reads in this colour — for the app's own text. */
   foreground: string | undefined
+}
+
+/** Resolved styles and the turn the faces follow — nothing a slot resolves again. */
+export type TileContextValue = TileInk & {
+  faceStyle: StyleProp<ViewStyle>
+  imageStyle: StyleProp<ImageStyle>
+  bandStyle: StyleProp<ViewStyle>
+  /**
+   * The same slots on a picture, in white. A face holding a `Tile.Image` hands these to
+   * what it holds, and sets it on a band.
+   */
+  onPicture: TileInk
   face: TileFaceName
   transition: TileTransition
   /** 0 on the front, 1 on the back, and on a spring in between. */

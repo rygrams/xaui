@@ -6,6 +6,7 @@ import Animated, {
 } from 'react-native-reanimated'
 import { useStyleProps } from '@xaui/native/system'
 import { flip } from '../../motion/motion-tokens'
+import { TilePictured } from './tile-image'
 import { useTile } from './tile.context'
 import type { TileFaceName, TileFaceProps } from './tile.type'
 
@@ -64,7 +65,7 @@ function face(which: TileFaceName, name: string) {
         {...rest}
         style={[faceStyle, placed, styleProps, style]}
       >
-        {children}
+        <TilePictured>{children}</TilePictured>
       </Animated.View>
     )
   })

@@ -3,11 +3,20 @@ import { createRecipe } from '@xaui/native/system'
 import type { SlotStyles, VariantTokens } from '@xaui/native/system'
 import type { XAUITheme } from '@xaui/native/theme'
 import { boxCornerFor } from '../../theme/tram-corner'
-import { tramType } from '../../theme/tram-tokens'
+import { tramPicture, tramType } from '../../theme/tram-tokens'
 import { roleType } from '../typography/typography.role'
 import type { TileSize, TileSlot, TileVariant } from './tile.type'
 
-const SLOTS = ['root', 'bare', 'face', 'label', 'count', 'icon'] as const
+const SLOTS = [
+  'root',
+  'bare',
+  'face',
+  'image',
+  'band',
+  'label',
+  'count',
+  'icon',
+] as const
 
 export const DEFAULT_SIZE: TileSize = 'medium'
 
@@ -29,12 +38,24 @@ const VARIANT_TOKENS: Record<TileVariant, VariantTokens> = {
 /**
  * A small tile is some 70 points across: it has room for a glyph and a count, and its
  * padding is a step tighter. Spacing steps, not points.
+ *
+ * The band runs from edge to edge of the square: it reaches back over the padding it sits
+ * in, and puts the same padding inside itself so what it holds stays where it was.
  */
 function sizeAxis(padding: number) {
-  return (theme: XAUITheme): SlotStyles<TileSlot> => ({
-    root: { padding: theme.spacing(padding) },
-    face: { padding: theme.spacing(padding) },
-  })
+  return (theme: XAUITheme): SlotStyles<TileSlot> => {
+    const inset = theme.spacing(padding)
+
+    return {
+      root: { padding: inset },
+      face: { padding: inset },
+      band: {
+        marginHorizontal: -inset,
+        marginBottom: -inset,
+        paddingHorizontal: inset,
+      },
+    }
+  }
 }
 
 export const tileRecipe = createRecipe({
@@ -60,6 +81,24 @@ export const tileRecipe = createRecipe({
       borderRadius: boxCornerFor('lg', theme.radius),
       // A face turned away is not drawn: the other one is what is behind it.
       backfaceVisibility: 'hidden',
+    },
+    // The picture is the fill: the whole square, under what is written on it. The tile's
+    // own fill stays behind it and shows until it has loaded.
+    image: {
+      ...StyleSheet.absoluteFillObject,
+      borderRadius: boxCornerFor('lg', theme.radius),
+    },
+    // What is written on a picture: a strip of black across the foot of the square, so it
+    // reads whatever the photo is. Flat — a band, not a gradient.
+    band: {
+      alignSelf: 'stretch',
+      justifyContent: 'flex-end',
+      alignItems: 'flex-start',
+      gap: theme.spacing(0.5),
+      paddingVertical: theme.spacing(0.75),
+      backgroundColor: tramPicture.band,
+      borderBottomStartRadius: boxCornerFor('lg', theme.radius),
+      borderBottomEndRadius: boxCornerFor('lg', theme.radius),
     },
     label: roleType('caption', theme),
     count: { ...roleType('title', theme), fontVariant: ['tabular-nums'] },
