@@ -1,5 +1,6 @@
 export * from './components/button'
 export * from './components/checkbox'
+export * from './components/list-box'
 export * from './components/dialog'
 export * from './components/page'
 export * from './components/progress-bar'

@@ -69,6 +69,16 @@
         "default": "./dist/components/dialog/index.cjs"
       }
     },
+    "./list-box": {
+      "import": {
+        "types": "./dist/components/list-box/index.d.ts",
+        "default": "./dist/components/list-box/index.js"
+      },
+      "require": {
+        "types": "./dist/components/list-box/index.d.cts",
+        "default": "./dist/components/list-box/index.cjs"
+      }
+    },
     "./page": {
       "import": {
         "types": "./dist/components/page/index.d.ts",
