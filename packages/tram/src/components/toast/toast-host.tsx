@@ -46,7 +46,8 @@ export type ToastHostProps = {
   duration?: number
   /**
    * How many toasts are seen at once. Past it a toast is transparent rather than gone —
-   * it is still queued, and comes into view when a place frees up.
+   * it is still queued, and comes into view when a place frees up. Its time starts when it
+   * is first seen, so one sent in a burst is not gone before anyone could read it.
    *
    * @default 3
    */
@@ -67,7 +68,7 @@ export type ToastHostProps = {
   /**
    * What a screen reader calls the action that closes a toast.
    *
-   * @default 'fermer'
+   * @default 'close'
    */
   dismissLabel?: string
 }
@@ -93,7 +94,7 @@ export function ToastHost({
   maxVisible = 3,
   isSwipeable = true,
   offset = 0,
-  dismissLabel = 'fermer',
+  dismissLabel = 'close',
 }: ToastHostProps) {
   const theme = useXAUITheme()
   const themeContext = useContext(ThemeContext)
@@ -108,6 +109,8 @@ export function ToastHost({
 
   // Not state: a countdown is not something the pile renders.
   const timers = useRef<ToastTimers | null>(null)
+  // The toasts whose time has started: each is given it once, the first time it is seen.
+  const timed = useRef(new Set<string>())
 
   const dismiss = useCallback((id: string) => {
     timers.current?.stop(id)
@@ -127,14 +130,13 @@ export function ToastHost({
       count.current += 1
       const id = `${seed}-${count.current}`
 
-      // Nothing is dropped: a toast past `maxVisible` is queued and transparent, and it
-      // keeps the time it was given.
+      // Nothing is dropped: a toast past `maxVisible` is queued and transparent, and its
+      // time does not start until it is seen.
       setQueue(current => enqueue(current, { ...options, id, isLeaving: false }))
-      timers.current?.start(id, options.duration ?? duration)
 
       return id
     },
-    [duration, seed]
+    [seed]
   )
 
   useEffect(() => {
@@ -167,6 +169,7 @@ export function ToastHost({
       onRelease: id => timers.current?.release(id),
       onDismiss: dismiss,
       onGone(id) {
+        timed.current.delete(id)
         setQueue(current => remove(current, id))
         setHeights(({ [id]: _gone, ...others }) => others)
       },
@@ -217,6 +220,16 @@ export function ToastHost({
       ),
     [queue, heights, line, gap]
   )
+
+  useEffect(() => {
+    queue.forEach((record, index) => {
+      if (record.isLeaving || timed.current.has(record.id)) return
+      if (isPastVisible(places[index].rank, maxVisible)) return
+
+      timed.current.add(record.id)
+      timers.current?.start(record.id, record.duration ?? duration)
+    })
+  }, [queue, places, maxVisible, duration])
 
   const pileNode =
     queue.length > 0 ? (

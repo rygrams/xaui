@@ -52,6 +52,9 @@ type ToastOwnProps = {
   /**
    * What a touch on the toast does — opening what it is about. With it the toast shrinks
    * a little under the finger; without it a touch does nothing.
+   *
+   * A screen reader's "activate" calls it too, with an event that carries no touch: its
+   * `nativeEvent` is empty.
    */
   onPress?: (event: GestureResponderEvent) => void
 }
@@ -130,4 +133,9 @@ export type ToastEntryContextValue = {
   dismissLabel: string
   /** `true` under an ancestor's `disable-all`: nothing in the toast animates. */
   isStill: boolean
+  /**
+   * `true` for a toast that was already on screen and is only being drawn somewhere else —
+   * the pile moved into a `ToastOutlet`, or back. It has been said aloud once already.
+   */
+  isMoved: boolean
 }

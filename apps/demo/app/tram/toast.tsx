@@ -2,7 +2,7 @@ import { useRef, useState } from 'react'
 import type { ReactNode } from 'react'
 import { ScrollView, View } from 'react-native'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
-import { Dialog } from '@xaui/native/dialog'
+import { Dialog } from '@xaui/tram/dialog'
 import { useXAUITheme } from '@xaui/native/theme'
 import { Button } from '@xaui/tram/button'
 import { Select } from '@xaui/tram/select'
@@ -250,7 +250,11 @@ export default function TramToastScreen() {
         title="placement"
         note="Un second hôte, placement bottom : la pile monte du bas, et un toast y sort vers le bas."
       >
-        <ToastHost placement="bottom" offset={Math.max(insets.bottom, 10)}>
+        <ToastHost
+          placement="bottom"
+          offset={Math.max(insets.bottom, 10)}
+          dismissLabel="fermer"
+        >
           <BottomSample />
         </ToastHost>
       </TramSection>
@@ -316,7 +320,7 @@ export default function TramToastScreen() {
             <Button variant="outline">ouvrir un dialog</Button>
           </Dialog.Trigger>
           <Dialog.Overlay />
-          <Dialog.Content>
+          <Dialog.Content paddingTop={insets.top + 24}>
             <Dialog.Title>un dialog</Dialog.Title>
             <Dialog.Description>le toast doit passer par-dessus.</Dialog.Description>
             <Button

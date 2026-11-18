@@ -28,7 +28,7 @@ export default function TramLayout() {
 
   return (
     <TramProvider colorMode={colorMode} hasPortalHost={false} onHaptic={feel}>
-      <ToastHost offset={Math.max(insets.top, 10)}>
+      <ToastHost offset={Math.max(insets.top, 10)} dismissLabel="fermer">
         <Scaffold>
           <Scaffold.StatusBar />
           <Scaffold.Navigator>

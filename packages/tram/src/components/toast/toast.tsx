@@ -2,6 +2,7 @@ import { forwardRef, useCallback, useContext, useMemo, useRef } from 'react'
 import { StyleSheet, View } from 'react-native'
 import type { GestureResponderEvent, TextStyle } from 'react-native'
 import {
+  childrenToString,
   containsElementOfType,
   useAnimationDisabled,
   useStyleProps,
@@ -12,6 +13,7 @@ import { colorOf } from '../../system/style-values'
 import { ButtonSurfaceContext } from '../button/button.context'
 import { ToastDescription } from './toast-description'
 import { ToastPressable } from './toast-pressable'
+import { ToastTitle } from './toast-title'
 import { ToastEntryContext, ToastProvider } from './toast.context'
 import { useAnnouncement } from './toast.hook'
 import { DEFAULT_VARIANT, toastRecipe } from './toast.recipe'
@@ -62,6 +64,12 @@ export const ToastRoot = forwardRef<View, ToastProps>(function Toast(
   const dismiss = entry?.dismiss ?? NOOP
   const dismissLabel = entry?.dismissLabel
 
+  // A bare string is the title: a toast is a row of slots, and text needs one to be in.
+  const text = childrenToString(children)
+  const content = text === null ? children : <ToastTitle>{text}</ToastTitle>
+  // Said once: a toast the pile only moved to another window is not a new one.
+  const isArriving = entry !== null && !entry.isMoved
+
   const isTitleOnly = !containsElementOfType(children, ToastDescription)
   const styles = toastRecipe.resolve({
     theme,
@@ -85,7 +93,7 @@ export const ToastRoot = forwardRef<View, ToastProps>(function Toast(
   }, [])
 
   const label = rest.accessibilityLabel ?? rest['aria-label']
-  useAnnouncement(entry !== null, () => {
+  useAnnouncement(isArriving, () => {
     const { title, description } = spoken.current
 
     return label ?? [title, description].filter(Boolean).join(', ')
@@ -121,7 +129,7 @@ export const ToastRoot = forwardRef<View, ToastProps>(function Toast(
     role: isUrgent ? ('alert' as const) : ('status' as const),
     // Announced when it arrives rather than when the reader reaches it — a toast that
     // waits its turn in the reading order has usually gone by the time it is read.
-    accessibilityLiveRegion: isUrgent ? ('assertive' as const) : ('polite' as const),
+    accessibilityLiveRegion: liveRegionFor(isUrgent, entry?.isMoved ?? false),
     onAccessibilityEscape: entry ? dismiss : undefined,
     ...rest,
     // Most general to most specific: the cached recipe, the paint, the style props, `style`.
@@ -140,11 +148,11 @@ export const ToastRoot = forwardRef<View, ToastProps>(function Toast(
             pressable at all, and never reaches the press's shared value. */}
         {onPress ? (
           <ToastPressable ref={ref} {...box} isStill={isStill} onPress={onPress}>
-            {children}
+            {content}
           </ToastPressable>
         ) : (
           <View ref={ref} {...box}>
-            {children}
+            {content}
           </View>
         )}
       </ToastProvider>
@@ -155,6 +163,27 @@ export const ToastRoot = forwardRef<View, ToastProps>(function Toast(
 /** Stable, so a `Toast` outside a host does not rebuild its context every render. */
 const NOOP = () => {}
 
-const NO_TOUCH = { nativeEvent: {} } as GestureResponderEvent
+/**
+ * Android reads a live region when it appears. One that was moved appears again, and has
+ * been read.
+ */
+function liveRegionFor(isUrgent: boolean, isMoved: boolean) {
+  if (isMoved) return 'none' as const
+
+  return isUrgent ? ('assertive' as const) : ('polite' as const)
+}
+
+/**
+ * What a screen reader's press hands the caller: no touch, and the methods a handler may
+ * call on one without looking — each doing nothing.
+ */
+const NO_TOUCH = {
+  nativeEvent: {},
+  preventDefault: () => {},
+  stopPropagation: () => {},
+  persist: () => {},
+  isDefaultPrevented: () => false,
+  isPropagationStopped: () => false,
+} as unknown as GestureResponderEvent
 
 ToastRoot.displayName = 'XAUI.Tram.Toast.Root'

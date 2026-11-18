@@ -121,6 +121,8 @@ export function ToastEntry({
   const pickedUpY = useSharedValue(0)
 
   const hasArrived = useRef(isSettled)
+  // As it was when this entry mounted: measured later, it is still the same arrival.
+  const isMoved = useRef(isSettled).current
   const isGoing = useRef(false)
 
   const handleLayout = (event: LayoutChangeEvent) => {
@@ -278,8 +280,8 @@ export function ToastEntry({
   }, [appear, shown, leave, dragX, dragY, exitX, exitY, rankY, enterY])
 
   const context = useMemo(
-    () => ({ dismiss, dismissLabel, isStill }),
-    [dismiss, dismissLabel, isStill]
+    () => ({ dismiss, dismissLabel, isStill, isMoved }),
+    [dismiss, dismissLabel, isStill, isMoved]
   )
 
   const isOut = isHidden || isLeaving
