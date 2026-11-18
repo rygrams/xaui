@@ -9,6 +9,7 @@ const entries = {
   'components/checkbox/index': 'src/components/checkbox/index.ts',
   'components/dialog/index': 'src/components/dialog/index.ts',
   'components/fab/index': 'src/components/fab/index.ts',
+  'components/list-box/index': 'src/components/list-box/index.ts',
   'components/page/index': 'src/components/page/index.ts',
   'components/progress-bar/index': 'src/components/progress-bar/index.ts',
   'components/radio/index': 'src/components/radio/index.ts',
