@@ -9,6 +9,8 @@ export type {
   TramPageTransition,
   TramPagesConfig,
 } from './tram-pages'
+export { useTramSafeArea } from './tram-safe-area'
+export type { TramInsets, TramSafeAreaConfig } from './tram-safe-area'
 export { TramProvider } from './tram-provider'
 export type { TramProviderProps } from './tram-provider'
 export type { TramThemeOptions } from './tram-theme-config'

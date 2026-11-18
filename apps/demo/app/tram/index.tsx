@@ -23,6 +23,7 @@ const SCREENS = [
   { href: '/tram/tile', label: 'tile' },
   { href: '/tram/wheel-picker', label: 'wheel picker' },
   { href: '/tram/dialog', label: 'dialog' },
+  { href: '/tram/fab', label: 'fab' },
   { href: '/tram/toast', label: 'toast' },
   { href: '/tram/tabs', label: 'tabs' },
   { href: '/tram/typography', label: 'typography' },
