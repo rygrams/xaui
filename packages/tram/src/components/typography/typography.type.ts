@@ -19,7 +19,10 @@ export type TypographyVariant = TramTypeRole
 export type TypographySlot = 'root'
 
 type TypographyOwnProps = {
-  /** The role. It fixes size, weight and face at once. */
+  /**
+   * The role. It fixes size, weight and face at once. Left out, `body` — or, inside
+   * another `Typography`, the parent's role: the node is a fragment of its text.
+   */
   variant?: TypographyVariant
   /**
    * One of the twenty named accents — `accent="magenta"`. Text is ink, not a fill, so the
@@ -46,14 +49,3 @@ type TypographyOwnProps = {
 export type TypographyProps = Omit<TextProps, 'style'> &
   TypographyOwnProps &
   Omit<TextStyleProps, keyof TypographyOwnProps | keyof TextProps>
-
-type TextSpanOwnProps = {
-  /** The child element becomes the span. */
-  asChild?: boolean
-  style?: StyleProp<TextStyle>
-  children?: ReactNode
-}
-
-export type TextSpanProps = Omit<TextProps, 'style'> &
-  TextSpanOwnProps &
-  Omit<TextStyleProps, keyof TextSpanOwnProps | keyof TextProps>
