@@ -75,9 +75,16 @@ export const swipe = { distance: 0.4, velocity: 800, resist: 8 } as const
 /**
  * The content cascade: the rows of a list arrive one after the other, each sliding up
  * `rise` points as it fades in, `stagger` milliseconds behind the one before. Past
- * `most` rows they arrive together — nobody waits for the bottom of a long list.
+ * `most` rows they arrive together — nobody waits for the bottom of a long list. After a
+ * change of tab the rows come from the side of the new tab instead, from `slide` points.
  */
-export const cascade = { stagger: 40, rise: 12, most: 8 } as const
+export const cascade = { stagger: 40, rise: 12, slide: 24, most: 8 } as const
+
+/**
+ * The content of a tab: the panel of the tab just chosen comes in from that tab's side,
+ * `slide` points away, as it fades in.
+ */
+export const panel = { slide: 32 } as const
 
 /**
  * A wheel of squares, let go and left alone. Thrown, it keeps its momentum and slows at

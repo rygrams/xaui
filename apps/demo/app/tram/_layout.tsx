@@ -64,6 +64,7 @@ export default function TramLayout() {
               />
               <Stack.Screen name="dialog" options={{ title: 'DIALOG' }} />
               <Stack.Screen name="toast" options={{ title: 'TOAST' }} />
+              <Stack.Screen name="tabs" options={{ title: 'TABS' }} />
               <Stack.Screen name="typography" options={{ title: 'TYPOGRAPHY' }} />
             </Stack>
           </Scaffold.Navigator>
