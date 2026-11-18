@@ -82,6 +82,12 @@ export const swipe = { distance: 0.4, velocity: 800, resist: 8 } as const
  */
 export const turnstile = { perspective: 1000, degrees: 80 } as const
 
+/**
+ * A page stepping back while something held on it is asked about — the page behind a
+ * context menu. It shrinks to `scale` around its centre, on the Metro curve.
+ */
+export const recede = { scale: 0.95 } as const
+
 /** A page that slides instead: how far from its place it starts and ends. */
 export const pageSlide = { distance: 70 } as const
 

@@ -5,7 +5,9 @@ export { useTramHaptic } from './tram-haptics'
 export type { TramHaptic, TramHapticHandler } from './tram-haptics'
 export type {
   TramPageDirection,
+  TramPageFrame,
   TramPageLeave,
+  TramPageStage,
   TramPageTransition,
   TramPagesConfig,
 } from './tram-pages'

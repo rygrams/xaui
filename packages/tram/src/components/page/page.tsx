@@ -1,16 +1,18 @@
-import { forwardRef } from 'react'
+import { forwardRef, useRef } from 'react'
 import { I18nManager } from 'react-native'
-import type { View } from 'react-native'
+import type { LayoutChangeEvent, View } from 'react-native'
 import Animated, {
   useAnimatedStyle,
   useReducedMotion,
+  useSharedValue,
 } from 'react-native-reanimated'
+import { useMergedRef } from '@xaui/native'
 import { useAnimationDisabled, useStyleProps } from '@xaui/native/system'
 import { useXAUITheme } from '@xaui/native/theme'
 import { turnstile } from '../../motion/motion-tokens'
 import { useTramPages } from '../../theme/tram-pages'
-import { usePageTurn } from './page.hook'
-import { hingeFor, pagePose } from './page.pose'
+import { usePageStage, usePageTurn } from './page.hook'
+import { hingeFor, pagePose, recedePose } from './page.pose'
 import { pageRecipe } from './page.recipe'
 import type { PageProps } from './page.type'
 
@@ -34,9 +36,12 @@ import type { PageProps } from './page.type'
  * Arriving needs nothing else. Leaving is `usePageLeave`, which turns the page away
  * before it navigates. With motion reduced a page fades; under an ancestor's
  * `disable-all` it is there or it is not.
+ *
+ * While it is focused it is also the page a context menu makes recede: it shrinks around
+ * its centre as the `Menu` opens, and what the menu was opened from stays in place over it.
  */
 export const PageRoot = forwardRef<View, PageProps>(function Page(
-  { children, transition, style, ...props },
+  { children, transition, style, onLayout, ...props },
   ref
 ) {
   const theme = useXAUITheme()
@@ -49,28 +54,41 @@ export const PageRoot = forwardRef<View, PageProps>(function Page(
   const drawn = isReduced && chosen !== 'none' ? 'fade' : chosen
   const isRtl = I18nManager.isRTL
   const turn = usePageTurn(drawn === 'none')
+  const node = useRef<View>(null)
+  const refs = useMergedRef(node, ref)
+  const width = useSharedValue(0)
+  const depth = usePageStage(node)
+
+  const handleLayout = (event: LayoutChangeEvent) => {
+    width.value = event.nativeEvent.layout.width
+    onLayout?.(event)
+  }
 
   const styles = pageRecipe.resolve({ theme })
 
   const posed = useAnimatedStyle(() => {
     'worklet'
     const pose = pagePose(turn.value, { transition: drawn, isRtl })
+    const back = recedePose(depth.value, width.value, isRtl)
 
     return {
       opacity: pose.opacity,
-      // The perspective first: a rotation applied before it is a flat squash.
+      // The perspective first: a rotation applied before it is a flat squash. The recess
+      // last, so it is the first applied: the page shrinks, then turns.
       transform: [
         { perspective: turnstile.perspective },
         { rotateY: `${pose.rotateY}deg` },
-        { translateX: pose.translateX },
+        { translateX: pose.translateX + back.translateX },
+        { scale: back.scale },
       ],
     }
-  }, [turn, drawn, isRtl])
+  }, [turn, depth, width, drawn, isRtl])
 
   return (
     <Animated.View
-      ref={ref}
+      ref={refs}
       {...rest}
+      onLayout={handleLayout}
       // Most general to most specific: the recipe, the hinge, the pose, the style props,
       // `style`.
       style={[

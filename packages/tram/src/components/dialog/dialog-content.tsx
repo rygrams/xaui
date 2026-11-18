@@ -22,7 +22,7 @@ import { cascadeRank } from '../../system/list-picker'
 import { useCascade } from '../../system/use-cascade'
 import { ToastOutlet } from '../toast/toast.outlet'
 import { useDialog } from './dialog.context'
-import { moveFocusTo } from './dialog.focus'
+import { moveFocusTo } from '../../system/move-focus'
 import { useSwipeAway } from './dialog.hook'
 import type { DialogContentProps } from './dialog.type'
 

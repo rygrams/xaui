@@ -1,4 +1,5 @@
 import { createContext, useContext } from 'react'
+import type { SharedValue } from 'react-native-reanimated'
 
 /**
  * How a `Page` leaves and arrives.
@@ -14,6 +15,20 @@ export type TramPageTransition = 'turnstile' | 'slide' | 'fade' | 'none'
 
 /** `forward` goes deeper into the app; `backward` returns from where it came. */
 export type TramPageDirection = 'forward' | 'backward'
+
+/** A page's place in the window, in points. */
+export type TramPageFrame = { x: number; y: number; width: number; height: number }
+
+/**
+ * The focused page, as what moves it from outside sees it: a context menu makes it
+ * recede while it is open, and keeps what it was opened from in place over it.
+ */
+export type TramPageStage = {
+  /** 0 in place, 1 stepped back to the `recede` scale. */
+  depth: SharedValue<number>
+  /** Where the page is in the window — the centre it recedes around. */
+  measure: (done: (frame: TramPageFrame) => void) => void
+}
 
 /** Plays the focused page's way out, then calls `go` — the navigation itself. */
 export type TramPageLeave = (go: () => void, direction?: TramPageDirection) => void
@@ -44,6 +59,8 @@ export type TramPages = {
   hasFocus: boolean
   /** The focused page's way out, written by that page and read by `usePageLeave`. */
   focused: { current: TramPageLeave | null }
+  /** The focused page's stage, written by that page and read by a context menu. */
+  stage: { current: TramPageStage | null }
 }
 
 function alwaysFocused(): boolean {
@@ -58,18 +75,21 @@ const UNWIRED: TramPages = {
   useIsFocused: alwaysFocused,
   hasFocus: false,
   focused: { current: null },
+  stage: { current: null },
 }
 
 /** The provider's `pages` prop, completed — one object per provider, made once. */
 export function resolveTramPages(
   config: TramPagesConfig,
-  focused: TramPages['focused']
+  focused: TramPages['focused'],
+  stage: TramPages['stage']
 ): TramPages {
   return {
     transition: config.transition ?? DEFAULT_PAGE_TRANSITION,
     useIsFocused: config.useIsFocused ?? alwaysFocused,
     hasFocus: config.useIsFocused !== undefined,
     focused,
+    stage,
   }
 }
 

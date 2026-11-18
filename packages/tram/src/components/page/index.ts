@@ -9,7 +9,7 @@ export const Page = PageRoot
 export const pageScreenOptions = { animation: 'none' } as const
 
 export { usePageLeave } from './page.hook'
-export { pagePose } from './page.pose'
-export type { PagePose, PoseOptions } from './page.pose'
+export { pagePose, recedePose } from './page.pose'
+export type { PagePose, PoseOptions, RecedePose } from './page.pose'
 export { pageRecipe } from './page.recipe'
 export type { PageProps, PageSlot } from './page.type'
