@@ -6,19 +6,23 @@ import { useTramEase } from '../../motion/use-tram-ease'
 import { useTramMotion } from '../../motion/use-tram-motion'
 import { swipeDim, swipeLeaves, swipeTurn } from '../../system/swipe-away'
 import { useSwivel } from '../../system/use-swivel'
-import type { DialogMotion } from './dialog.type'
+import type { DialogMotion, DialogPlacement } from './dialog.type'
 
 /**
  * The banner's shared values, and what moves them when the dialog opens and closes. The
- * banner swivels on its top edge; the ground behind dims on the Metro curve and lightens
+ * banner swivels on the edge it is laid against; the ground behind dims on the Metro curve and lightens
  * on the exit one, setting off in the same effect as the banner — not after it. A close
  * that interrupts the way in sets off from where both are.
  *
  * With motion reduced both fade; under an ancestor's `disable-all` both are set at once.
  */
-export function useBanner(isOpen: boolean, isStill: boolean): DialogMotion {
+export function useBanner(
+  isOpen: boolean,
+  isStill: boolean,
+  placement: DialogPlacement
+): DialogMotion {
   const glide = useTramEase()
-  const { isMounted, turn, style: turned } = useSwivel(isOpen, isStill)
+  const { isMounted, turn, style: turned } = useSwivel(isOpen, isStill, placement)
   const shade = useSharedValue(0)
 
   useEffect(() => {
@@ -36,6 +40,7 @@ export function useBanner(isOpen: boolean, isStill: boolean): DialogMotion {
 const SLOP = 8
 
 type SwipeAway = {
+  placement: DialogPlacement
   motion: DialogMotion
   isDismissable: boolean
   isStill: boolean
@@ -43,9 +48,10 @@ type SwipeAway = {
 }
 
 /**
- * The swipe that sends the banner back up. It follows the finger upward, its angle in
- * proportion to the way travelled and the ground lightening at the same pace; downward
- * it does not move. Released past the threshold it closes, and the way out sets off from
+ * The swipe that sends the banner back where it came from — up for one at the top, down
+ * for one at the bottom. It follows the finger that way, its angle in proportion to the
+ * way travelled and the ground lightening at the same pace; the other way it does not
+ * move. Released past the threshold it closes, and the way out sets off from
  * the angle it was left at; short of it, it comes back flat on the `navigation` spring.
  *
  * A banner that may not be dismissed follows over a few degrees and comes back on the
@@ -54,12 +60,20 @@ type SwipeAway = {
  *
  * `measure` is the banner's `onLayout` height: what the finger's way is counted against.
  */
-export function useSwipeAway({ motion, isDismissable, isStill, close }: SwipeAway) {
+export function useSwipeAway({
+  placement,
+  motion,
+  isDismissable,
+  isStill,
+  close,
+}: SwipeAway) {
   const animate = useTramMotion()
   const isReduced = useReducedMotion()
   const isSet = isStill || isReduced
   const height = useSharedValue(0)
   const { turn, shade } = motion
+  // `swipeTurn` counts a way up: a banner at the bottom leaves the other way.
+  const way = placement === 'bottom' ? -1 : 1
 
   const gesture = useMemo(() => {
     const settle = () => {
@@ -76,17 +90,21 @@ export function useSwipeAway({ motion, isDismissable, isStill, close }: SwipeAwa
       .onUpdate(event => {
         'worklet'
         if (isSet) return
-        const next = swipeTurn(event.translationY, height.value, !isDismissable)
+        const next = swipeTurn(
+          event.translationY * way,
+          height.value,
+          !isDismissable
+        )
         turn.value = next
         shade.value = swipeDim(next)
       })
       .onEnd(event => {
         'worklet'
-        const reached = swipeTurn(event.translationY, height.value)
+        const reached = swipeTurn(event.translationY * way, height.value)
         // Closing is asked of React, which glides out from this angle a frame later. The
         // banner sets off back meanwhile, so that a controlled dialog whose owner keeps
         // it open is not left leaning.
-        if (isDismissable && swipeLeaves(reached, event.velocityY)) {
+        if (isDismissable && swipeLeaves(reached, event.velocityY * way)) {
           scheduleOnRN(close)
         }
         settle()
@@ -95,7 +113,7 @@ export function useSwipeAway({ motion, isDismissable, isStill, close }: SwipeAwa
         'worklet'
         if (!didEnd) settle()
       })
-  }, [animate, isSet, isDismissable, close, turn, shade, height])
+  }, [animate, isSet, isDismissable, close, turn, shade, height, way])
 
   const measure = (measured: number) => {
     height.value = measured

@@ -56,8 +56,12 @@ export const tilt = {
 /**
  * The swivel: a page that turns in on its top edge, from edge-on to flat, and out the
  * same way. `degrees` is where it starts — edge-on, above the screen's plane.
+ *
+ * `flat` is the milliseconds after which a page on its way in reads as flat: the Metro
+ * curve has turned it all but a few degrees and spends the rest braking. What a banner
+ * holds starts arriving then — waiting for the curve's end leaves it empty for a beat.
  */
-export const swivel = { perspective: 600, degrees: -90 } as const
+export const swivel = { perspective: 600, degrees: -90, flat: 150 } as const
 
 /**
  * The swipe that sends a banner back up. Past `distance` of its way to edge-on, or flung

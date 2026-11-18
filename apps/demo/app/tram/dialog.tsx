@@ -99,8 +99,23 @@ export default function TramDialogScreen() {
       </TramSection>
 
       <TramSection
+        title="en bas"
+        note='placement="bottom" : le même bandeau au pied de l&apos;écran, sous le pouce. Il pivote sur son bord bas ; un balayage vers le bas le renvoie.'
+      >
+        <Dialog placement="bottom">
+          <Opener>en bas</Opener>
+          <Dialog.Overlay />
+          <Dialog.Content paddingBottom={insets.bottom + 24}>
+            <Dialog.Title>supprimer ce document ?</Dialog.Title>
+            <Dialog.Description>définitif, sans corbeille.</Dialog.Description>
+            <Actions labels={['supprimer', 'annuler']} />
+          </Dialog.Content>
+        </Dialog>
+      </TramSection>
+
+      <TramSection
         title="titre et description"
-        note="Le titre en title dans l'encre de la page, la description en body, en muted. Ils arrivent en cascade après le swivel, puis les actions."
+        note="Le titre en title dans l'encre de la page, la description en body, en muted. Ils arrivent en cascade dès que le bandeau est à plat, puis les actions."
       >
         <Dialog>
           <Opener>titre et description</Opener>

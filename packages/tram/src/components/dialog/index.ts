@@ -31,6 +31,7 @@ export type {
   DialogDescriptionProps,
   DialogMotion,
   DialogOverlayProps,
+  DialogPlacement,
   DialogProps,
   DialogSlot,
   DialogTitleProps,

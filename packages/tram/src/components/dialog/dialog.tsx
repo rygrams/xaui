@@ -14,6 +14,8 @@ import type { DialogProps } from './dialog.type'
  * A question the page has to be answered before it goes on — the Native `Dialog`'s API,
  * drawn as the Metro `MessageBox`: a banner across the top of the screen, over the page
  * dimmed, which swivels in on its top edge and is sent back up with a swipe.
+ * `placement="bottom"` lays it against the foot of the screen instead: it turns on its
+ * bottom edge and is swiped back down.
  *
  * ```tsx
  * <Dialog>
@@ -42,6 +44,7 @@ import type { DialogProps } from './dialog.type'
  */
 export function DialogRoot({
   children,
+  placement = 'top',
   isOpen: controlledOpen,
   defaultOpen = false,
   onOpenChange,
@@ -63,7 +66,7 @@ export function DialogRoot({
   const titleId = `${id}-title`
   const descriptionId = `${id}-description`
 
-  const motion = useBanner(isOpen, isStill)
+  const motion = useBanner(isOpen, isStill, placement)
   const styles = dialogRecipe.resolve({ theme, states: { disabled: isDisabled } })
 
   const open = useCallback(() => setOpen(true), [setOpen])
@@ -88,6 +91,7 @@ export function DialogRoot({
       labelStyle: styles.label,
       isOpen,
       isDisabled,
+      placement,
       isStill,
       open,
       close,
@@ -104,6 +108,7 @@ export function DialogRoot({
       styles,
       isOpen,
       isDisabled,
+      placement,
       isStill,
       open,
       close,

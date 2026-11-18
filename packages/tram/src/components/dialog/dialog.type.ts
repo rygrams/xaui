@@ -22,8 +22,17 @@ export type DialogSlot =
   | 'close'
   | 'label'
 
+/** The edge of the screen the banner is laid against. */
+export type DialogPlacement = 'top' | 'bottom'
+
 type DialogOwnProps = {
   children?: ReactNode
+  /**
+   * `top` by default — the `MessageBox`. `bottom` lays the banner against the foot of the
+   * screen, within reach of the thumb: it swivels in on its bottom edge and is swiped
+   * back down.
+   */
+  placement?: DialogPlacement
   /**
    * Native's prop, kept so the two roots take the same props. It draws nothing here: the
    * banner runs from one edge of the screen to the other and has no corner to round.
@@ -72,9 +81,10 @@ export type DialogOverlayProps = DialogOverlayOwnProps &
 type DialogContentOwnProps = { children?: ReactNode }
 
 /**
- * The banner. It starts at the very top of the screen, under the notch. Tram reads no
- * safe area: pad it with the app's own inset —
- * `<Dialog.Content paddingTop={insets.top + 24}>`.
+ * The banner. It starts at the very top of the screen, under the notch — or ends at the
+ * very bottom, under the home indicator. Tram reads no safe area: pad it with the app's
+ * own inset — `<Dialog.Content paddingTop={insets.top + 24}>`, or
+ * `paddingBottom={insets.bottom + 24}` for one at the bottom.
  *
  * Each child is one step of the cascade, in the order written: the title, the
  * description, then a row of actions.
@@ -121,6 +131,7 @@ export type DialogContextValue = {
   labelStyle: StyleProp<TextStyle>
   isOpen: boolean
   isDisabled: boolean
+  placement: DialogPlacement
   /** An ancestor said `disable-all`: everything is set without animation. */
   isStill: boolean
   open: () => void

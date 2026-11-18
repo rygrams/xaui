@@ -9,11 +9,20 @@ import { scheduleOnRN } from 'react-native-worklets'
 import { duration, swivel } from '../motion/motion-tokens'
 import { useTramEase } from '../motion/use-tram-ease'
 
-/** The page turns on its top edge. */
-const PIVOT = { transformOrigin: 'top' } as const
+/** The edge a page turns on: the one it is laid against. */
+export type SwivelEdge = 'top' | 'bottom'
+
+const PIVOT = {
+  top: { transformOrigin: 'top' },
+  bottom: { transformOrigin: 'bottom' },
+} as const
+
+/** Seen from the other edge the same turn is the other way round. */
+const WAY = { top: 1, bottom: -1 } as const
 
 /**
- * The swivel: a page turns in on its top edge, from edge-on to flat, on the Metro curve,
+ * The swivel: a page turns in on its `edge` — the top one unless told otherwise — from
+ * edge-on to flat, on the Metro curve,
  * and out the same way on the exit curve. `isMounted` outlives `isOpen` by the way out,
  * so the page is still there to turn. With motion reduced it fades instead; under an
  * ancestor's `disable-all` it is there or it is not.
@@ -23,7 +32,11 @@ const PIVOT = { transformOrigin: 'top' } as const
  *
  * The `Select`'s page enters this way, and the `Dialog`'s banner.
  */
-export function useSwivel(isOpen: boolean, isStill: boolean) {
+export function useSwivel(
+  isOpen: boolean,
+  isStill: boolean,
+  edge: SwivelEdge = 'top'
+) {
   const glide = useTramEase()
   const isReduced = useReducedMotion()
   const [isMounted, setMounted] = useState(isOpen)
@@ -75,6 +88,8 @@ export function useSwivel(isOpen: boolean, isStill: boolean) {
     [turn, leave]
   )
 
+  const way = WAY[edge]
+
   const turned = useAnimatedStyle(() => {
     'worklet'
     if (isReduced) return { opacity: turn.value }
@@ -82,12 +97,12 @@ export function useSwivel(isOpen: boolean, isStill: boolean) {
     return {
       transform: [
         { perspective: swivel.perspective },
-        { rotateX: `${(1 - turn.value) * swivel.degrees}deg` },
+        { rotateX: `${(1 - turn.value) * swivel.degrees * way}deg` },
       ],
     }
-  }, [isReduced, turn])
+  }, [isReduced, turn, way])
 
-  const style = useMemo(() => [PIVOT, turned], [turned])
+  const style = useMemo(() => [PIVOT[edge], turned], [edge, turned])
 
   return { isMounted, turn, style }
 }
