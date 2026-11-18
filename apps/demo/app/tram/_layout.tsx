@@ -48,6 +48,7 @@ export default function TramLayout() {
             <Stack.Screen name="text-field" options={{ title: 'TEXT FIELD' }} />
             <Stack.Screen name="text-area" options={{ title: 'TEXT AREA' }} />
             <Stack.Screen name="select" options={{ title: 'SELECT' }} />
+            <Stack.Screen name="tabs" options={{ title: 'TABS' }} />
             <Stack.Screen name="typography" options={{ title: 'TYPOGRAPHY' }} />
           </Stack>
         </Scaffold.Navigator>
