@@ -15,6 +15,7 @@ const entries = {
   'components/text-area/index': 'src/components/text-area/index.ts',
   'components/text-field/index': 'src/components/text-field/index.ts',
   'components/typography/index': 'src/components/typography/index.ts',
+  'components/wheel-picker/index': 'src/components/wheel-picker/index.ts',
 }
 
 export default defineConfig({

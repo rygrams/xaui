@@ -18,6 +18,7 @@ const SCREENS = [
   { href: '/tram/text-field', label: 'text field' },
   { href: '/tram/text-area', label: 'text area' },
   { href: '/tram/select', label: 'select' },
+  { href: '/tram/wheel-picker', label: 'wheel picker' },
   { href: '/tram/typography', label: 'typography' },
 ] as const
 
