@@ -1,0 +1,412 @@
+import { useState } from 'react'
+import type { ReactNode } from 'react'
+import { Pressable, ScrollView, View } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import Svg, { Path } from 'react-native-svg'
+import type { IconComponentProps } from '@xaui/native/system'
+import { useXAUITheme } from '@xaui/native/theme'
+import { Button } from '@xaui/tram/button'
+import { Fab } from '@xaui/tram/fab'
+import type { FabPlacement, FabSize } from '@xaui/tram/fab'
+import { tramAccents } from '@xaui/tram/theme'
+import type { TramAccentName } from '@xaui/tram/theme'
+import { Typography } from '@xaui/tram/typography'
+import { TramSection } from '../../components/tram-section'
+
+const SIZES: FabSize[] = ['sm', 'md', 'lg']
+
+const PLACEMENTS: FabPlacement[] = ['bottom-start', 'bottom-center', 'bottom-end']
+
+/** The three accents that take a black glyph, and three that take a white one. */
+const ACCENTS: TramAccentName[] = [
+  'lime',
+  'amber',
+  'yellow',
+  'magenta',
+  'violet',
+  'emerald',
+]
+
+/** The accents the screen's own `Fab` goes through: the theme's, then light and dark ones. */
+const SCREEN_ACCENTS: (TramAccentName | undefined)[] = [
+  undefined,
+  'lime',
+  'magenta',
+  'yellow',
+]
+
+const RAW = '#7c3aed'
+
+const ROWS = Array.from({ length: 40 }, (_, index) => `message ${index + 1}`)
+
+/** How long the screen's `Fab` stays extended before it is folded mid-way, in ms. */
+const INTERRUPT_AFTER = 140
+
+function PlusIcon({ size, color }: IconComponentProps) {
+  return (
+    <Svg width={size} height={size} viewBox="0 0 24 24" fill="none">
+      <Path d="M12 4v16M4 12h16" stroke={color} strokeWidth={2.5} />
+    </Svg>
+  )
+}
+
+/**
+ * Where the Tram `Fab` is verified, in dark and in light. One `Fab` floats over the whole
+ * screen, driven by the buttons of the first section — extended, busy, visible, placement,
+ * and an extend-then-fold with no wait — over a long list; the sections under them hold
+ * every still state.
+ */
+export default function TramFabScreen() {
+  const theme = useXAUITheme()
+  const insets = useSafeAreaInsets()
+  const [isExtended, setIsExtended] = useState(false)
+  const [isLoading, setIsLoading] = useState(false)
+  const [isVisible, setIsVisible] = useState(true)
+  const [isDisabled, setIsDisabled] = useState(false)
+  const [place, setPlace] = useState(2)
+  const [paint, setPaint] = useState(0)
+  const [count, setCount] = useState(0)
+
+  const interrupt = () => {
+    setIsExtended(true)
+    setTimeout(() => setIsExtended(false), INTERRUPT_AFTER)
+  }
+
+  return (
+    <View style={{ flex: 1, backgroundColor: theme.colors.background }}>
+      <ScrollView contentContainerStyle={{ padding: 24, gap: 32, paddingBottom: 160 }}>
+        <TramSection
+          title="le Fab de l'écran"
+          note={`Il flotte sur la liste, à 16 du bord et de la zone sûre que l'écran lui donne. Appuis : ${count}`}
+        >
+          <Row>
+            <Toggle onPress={() => setIsExtended(value => !value)}>
+              {isExtended ? 'replier' : 'étendre'}
+            </Toggle>
+            <Toggle onPress={() => setIsLoading(value => !value)}>
+              {isLoading ? 'fini' : 'charger'}
+            </Toggle>
+            <Toggle onPress={() => setIsVisible(value => !value)}>
+              {isVisible ? 'cacher' : 'montrer'}
+            </Toggle>
+            <Toggle onPress={() => setPlace(value => (value + 1) % 3)}>
+              {PLACEMENTS[place]}
+            </Toggle>
+            <Toggle onPress={interrupt}>étendre puis replier</Toggle>
+            <Toggle onPress={() => setIsDisabled(value => !value)}>
+              {isDisabled ? 'activer' : 'désactiver'}
+            </Toggle>
+            <Toggle onPress={() => setPaint(value => (value + 1) % 4)}>
+              {`accent : ${SCREEN_ACCENTS[paint] ?? 'thème'}`}
+            </Toggle>
+          </Row>
+        </TramSection>
+
+        <TramSection
+          title="les tailles"
+          note="48, 56 et 64 de diamètre, un glyphe de 20, 24 et 28. Toutes atteignent 48."
+        >
+          <Row>
+            {SIZES.map(size => (
+              <Fab key={size} size={size} accessibilityLabel={`ajouter, ${size}`}>
+                <Fab.Icon as={PlusIcon} />
+              </Fab>
+            ))}
+          </Row>
+        </TramSection>
+
+        <TramSection
+          title="les placements"
+          note="bottom-start, bottom-center, bottom-end : épinglé en bas de l'ancêtre, à 16."
+        >
+          <Stage>
+            {PLACEMENTS.map(placement => (
+              <Fab key={placement} placement={placement} accessibilityLabel={placement}>
+                <Fab.Icon as={PlusIcon} />
+              </Fab>
+            ))}
+          </Stage>
+        </TramSection>
+
+        <TramSection
+          title="offset"
+          note="La distance aux bords, donnée par le caller : 0 au début, 32 à la fin."
+        >
+          <Stage>
+            <Fab placement="bottom-start" offset={0} accessibilityLabel="offset 0">
+              <Fab.Icon as={PlusIcon} />
+            </Fab>
+            <Fab placement="bottom-end" offset={32} accessibilityLabel="offset 32">
+              <Fab.Icon as={PlusIcon} />
+            </Fab>
+          </Stage>
+        </TramSection>
+
+        <TramSection
+          title="étendu"
+          note="Le cercle ne s'allonge pas : le libellé se pose dessous, dans l'encre de la page. Une chaîne nue est un libellé."
+        >
+          <Row>
+            <Fab accessibilityLabel="nouveau">
+              <Fab.Icon as={PlusIcon} />
+              <Fab.Label>nouveau</Fab.Label>
+            </Fab>
+            <Fab isExtended>
+              <Fab.Icon as={PlusIcon} />
+              <Fab.Label>nouveau</Fab.Label>
+            </Fab>
+            <Fab isExtended size="lg">
+              <Fab.Icon as={PlusIcon} />
+              <Fab.Label>un libellé bien trop long pour sa place</Fab.Label>
+            </Fab>
+          </Row>
+          <Stage>
+            <Fab isExtended placement="bottom-start">
+              <Fab.Icon as={PlusIcon} />
+              <Fab.Label>nouveau</Fab.Label>
+            </Fab>
+            <Fab placement="bottom-center" accessibilityLabel="repère, non étendu">
+              <Fab.Icon as={PlusIcon} />
+            </Fab>
+            <Fab isExtended placement="bottom-end">
+              <Fab.Icon as={PlusIcon} />
+              <Fab.Label>nouveau message</Fab.Label>
+            </Fab>
+          </Stage>
+        </TramSection>
+
+        <TramSection
+          title="en charge"
+          note="Fab.Spinner prend la place du glyphe ; le Fab ne répond plus et ne grise pas."
+        >
+          <Row>
+            {SIZES.map(size => (
+              <Fab key={size} size={size} isLoading accessibilityLabel="envoi">
+                <Fab.Icon as={PlusIcon} />
+              </Fab>
+            ))}
+            <Fab isLoading isExtended accent="lime">
+              <Fab.Icon as={PlusIcon} />
+              <Fab.Label>envoi…</Fab.Label>
+            </Fab>
+          </Row>
+        </TramSection>
+
+        <TramSection
+          title="désactivé"
+          note="Un aplat gris, le glyphe dans la couleur du sol, le libellé gris. Aucune opacité."
+        >
+          <Row>
+            <Fab isDisabled accessibilityLabel="ajouter">
+              <Fab.Icon as={PlusIcon} />
+            </Fab>
+            <Fab isDisabled accent="lime" accessibilityLabel="ajouter">
+              <Fab.Icon as={PlusIcon} />
+            </Fab>
+            <Fab isDisabled isExtended>
+              <Fab.Icon as={PlusIcon} />
+              <Fab.Label>nouveau</Fab.Label>
+            </Fab>
+          </Row>
+        </TramSection>
+
+        <TramSection
+          title="accent"
+          note="Le vrai accent, le glyphe dans l'encre qui s'y lit : noir sur lime, ambre et jaune."
+        >
+          <Row>
+            {ACCENTS.map(accent => (
+              <Fab key={accent} accent={accent} isExtended>
+                <Fab.Icon as={PlusIcon} />
+                <Fab.Label>{accent}</Fab.Label>
+              </Fab>
+            ))}
+          </Row>
+        </TramSection>
+
+        <TramSection
+          title="sur sa propre couleur"
+          note="Aucune ombre, aucun trait : sur un contenu du même accent, il reste le glyphe."
+        >
+          <Stage color={theme.colors.accent}>
+            <Fab placement="bottom-start" accessibilityLabel="sur l'accent du thème">
+              <Fab.Icon as={PlusIcon} />
+            </Fab>
+          </Stage>
+          <Stage color={tramAccents.lime}>
+            <Fab accent="lime" isExtended placement="bottom-end">
+              <Fab.Icon as={PlusIcon} />
+              <Fab.Label>lime</Fab.Label>
+            </Fab>
+          </Stage>
+        </TramSection>
+
+        <TramSection
+          title="color"
+          note="Une teinte brute : elle l'emporte sur accent et n'est jamais corrigée."
+        >
+          <Row>
+            <Fab color={RAW} accessibilityLabel="violet brut">
+              <Fab.Icon as={PlusIcon} />
+            </Fab>
+            <Fab color={RAW} accent="lime" isExtended>
+              <Fab.Icon as={PlusIcon} />
+              <Fab.Label>color</Fab.Label>
+            </Fab>
+            <Fab color="rgb(250, 240, 200)" accessibilityLabel="rgb clair, non mesuré">
+              <Fab.Icon as={PlusIcon} />
+            </Fab>
+          </Row>
+        </TramSection>
+
+        <TramSection
+          title="dans le flux"
+          note="Sans placement, il se pose comme n'importe quel contrôle."
+        >
+          <View style={{ flexDirection: 'row', alignItems: 'center', gap: 16 }}>
+            <Typography>avant</Typography>
+            <Fab size="sm" accessibilityLabel="dans le flux">
+              <Fab.Icon as={PlusIcon} />
+            </Fab>
+            <Typography>après</Typography>
+          </View>
+        </TramSection>
+
+        <TramSection
+          title="asChild"
+          note={`L'enfant est le cercle : ici un Pressable du caller. Appuis : ${count}`}
+        >
+          <Fab asChild accessibilityLabel="compter">
+            <Pressable onPress={() => setCount(value => value + 1)}>
+              <Fab.Icon as={PlusIcon} />
+            </Pressable>
+          </Fab>
+        </TramSection>
+
+        <TramSection
+          title="props de style"
+          note="marginStart en prop, une opacité par style : le style du caller a le dernier mot."
+        >
+          <Fab marginStart={32} style={{ opacity: 0.6 }} accessibilityLabel="stylé">
+            <Fab.Icon as={PlusIcon} />
+          </Fab>
+        </TramSection>
+
+        <TramSection
+          title="RTL"
+          note="bottom-start est à droite, bottom-end à gauche."
+        >
+          <Stage isRtl>
+            <Fab isExtended placement="bottom-start">
+              <Fab.Icon as={PlusIcon} />
+              <Fab.Label>start</Fab.Label>
+            </Fab>
+            <Fab isExtended placement="bottom-end" accent="magenta">
+              <Fab.Icon as={PlusIcon} />
+              <Fab.Label>end</Fab.Label>
+            </Fab>
+          </Stage>
+        </TramSection>
+
+        <TramSection
+          title="sans animation"
+          note="disable-all : tout est posé, l'anneau de charge est un état fixe."
+        >
+          <Row>
+            <Fab
+              animation="disable-all"
+              isExtended={isExtended}
+              accessibilityLabel="posé"
+            >
+              <Fab.Icon as={PlusIcon} />
+              <Fab.Label>posé</Fab.Label>
+            </Fab>
+            <Fab animation="disable-all" isLoading accessibilityLabel="envoi, fixe">
+              <Fab.Icon as={PlusIcon} />
+            </Fab>
+          </Row>
+        </TramSection>
+
+        <TramSection
+          title="une longue liste"
+          note="Pour voir le Fab passer au-dessus du contenu qui défile."
+        >
+          {ROWS.map((row, index) => (
+            <View
+              key={row}
+              style={{
+                padding: 16,
+                backgroundColor:
+                  index % 5 === 2 ? theme.colors.accent : theme.colors.surface,
+              }}
+            >
+              <Typography
+                color={index % 5 === 2 ? theme.colors.accentForeground : undefined}
+              >
+                {row}
+              </Typography>
+            </View>
+          ))}
+        </TramSection>
+      </ScrollView>
+
+      <Fab
+        placement={PLACEMENTS[place]}
+        offset={16 + insets.bottom}
+        accent={SCREEN_ACCENTS[paint]}
+        isExtended={isExtended}
+        isLoading={isLoading}
+        isVisible={isVisible}
+        isDisabled={isDisabled}
+        accessibilityLabel="nouveau message"
+        onPress={() => setCount(value => value + 1)}
+      >
+        <Fab.Icon as={PlusIcon} />
+        <Fab.Label>nouveau</Fab.Label>
+      </Fab>
+    </View>
+  )
+}
+
+function Row({ children }: { children: ReactNode }) {
+  return (
+    <View
+      style={{
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        alignItems: 'flex-start',
+        columnGap: 32,
+        rowGap: 16,
+      }}
+    >
+      {children}
+    </View>
+  )
+}
+
+function Toggle({ children, onPress }: { children: string; onPress: () => void }) {
+  return (
+    <Button variant="outline" size="sm" onPress={onPress}>
+      {children}
+    </Button>
+  )
+}
+
+type StageProps = { children: ReactNode; color?: string; isRtl?: boolean }
+
+/** A positioned box a placed `Fab` pins itself to: a screen in small. */
+function Stage({ children, color, isRtl = false }: StageProps) {
+  const theme = useXAUITheme()
+
+  return (
+    <View
+      style={{
+        height: 140,
+        backgroundColor: color ?? theme.colors.surface,
+        direction: isRtl ? 'rtl' : 'ltr',
+      }}
+    >
+      {children}
+    </View>
+  )
+}

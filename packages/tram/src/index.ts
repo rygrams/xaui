@@ -1,6 +1,7 @@
 export * from './components/button'
 export * from './components/checkbox'
 export * from './components/dialog'
+export * from './components/fab'
 export * from './components/progress-bar'
 export * from './components/radio'
 export * from './components/select'

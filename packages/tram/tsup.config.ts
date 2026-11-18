@@ -8,6 +8,7 @@ const entries = {
   'components/button/index': 'src/components/button/index.ts',
   'components/checkbox/index': 'src/components/checkbox/index.ts',
   'components/dialog/index': 'src/components/dialog/index.ts',
+  'components/fab/index': 'src/components/fab/index.ts',
   'components/progress-bar/index': 'src/components/progress-bar/index.ts',
   'components/radio/index': 'src/components/radio/index.ts',
   'components/select/index': 'src/components/select/index.ts',
