@@ -22,6 +22,11 @@ export type CascadeArrival = {
   /** Closing leaves the row as it is: it goes with what holds it — a banner's content. */
   isStaying?: boolean
   /**
+   * Milliseconds a row takes to leave, on the exit curve: `fast` unless what holds it
+   * closes for longer — the App Bar's menu, whose entries fade as the bar shuts.
+   */
+  leaving?: number
+  /**
    * The side the rows come from, as a sign along the x axis: 1 from the right, -1 from
    * the left. Left out, or 0, they rise — the cascade of a list that opens.
    */
@@ -47,6 +52,7 @@ export function useCascade({
   after = 0,
   isStill = false,
   isStaying = false,
+  leaving = duration.fast,
   side = 0,
 }: CascadeArrival) {
   const glide = useTramEase()
@@ -67,8 +73,8 @@ export function useCascade({
     }
 
     if (isKept) arrived.value = 1
-    else arrived.value = isSet ? 0 : glide(0, 'exit', duration.fast)
-  }, [isOpen, rank, isKept, after, isSet, isStaying, glide, arrived])
+    else arrived.value = isSet ? 0 : glide(0, 'exit', leaving)
+  }, [isOpen, rank, isKept, after, isSet, isStaying, leaving, glide, arrived])
 
   return useAnimatedStyle(() => {
     'worklet'

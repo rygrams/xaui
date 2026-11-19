@@ -12,13 +12,14 @@ import { PressTilt } from '../../system/press-tilt'
 import { useCascade } from '../../system/use-cascade'
 import { useTramHaptic } from '../../theme/tram-haptics'
 import { useAppBar } from './app-bar.context'
+import { CLOSING } from './app-bar.hook'
 import { appBarSheet } from './app-bar.style'
 import type { AppBarMenuItemProps } from './app-bar.type'
 
 /**
  * One entry of the menu: a word in the bar's ink, a Metro list row 48 tall. The entries
  * come in one after the other as the bar opens — the content cascade — and leave
- * together.
+ * together, fading as the bar shuts.
  *
  * ```tsx
  * <AppBar.Menu>
@@ -55,7 +56,13 @@ export const AppBarMenuItem = forwardRef<View, AppBarMenuItemProps>(
       onPressOut,
     })
     const rank = bar.turns.turnOf(useId())
-    const arriving = useCascade({ isOpen: bar.isOpen, rank, isStill: bar.isStill })
+    // In one after the other; out together, as long as the bar takes to shut.
+    const arriving = useCascade({
+      isOpen: bar.isOpen,
+      rank,
+      isStill: bar.isStill,
+      leaving: CLOSING,
+    })
     const ink = isDisabled ? bar.ground.muted : bar.ground.foreground
     // Text — one string, or several pieces of it — is the entry's word, set by the bar.
     const text = childrenToString(children)

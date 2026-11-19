@@ -12,12 +12,19 @@ import { useTramEase } from '../../motion/use-tram-ease'
 import { useTramMotion } from '../../motion/use-tram-motion'
 
 /**
+ * Milliseconds the bar takes to close: the room, and everything in it that fades as it
+ * shuts — the labels, the folded circles, the dimming and the menu's entries.
+ */
+export const CLOSING = duration.base
+
+/**
  * The bar opening and closing, as two levels from 0 to 1. `open` sizes the room for the
  * labels and the menu: on the `navigation` spring as it opens, on the exit curve as it
  * closes — the spring's long tail kept the circles on screen after the press — and from
  * where the bar is, so a second press interrupts the first. `arrival` fades the labels,
- * the folded circles and the page's dimming, on the Metro curve in, and out on the exit
- * curve at `fast`, as the menu's entries leave: what goes is gone before the room shuts.
+ * the folded circles and the page's dimming, on the Metro curve in, and out on the same
+ * exit curve as the room, for as long — with the menu's entries: what is in the bar fades
+ * as it shuts, together, rather than leaving first.
  *
  * With motion reduced the room is set at once and what is in it fades; under
  * `disable-all` both are set.
@@ -34,9 +41,9 @@ export function useOpening(isOpen: boolean, isStill: boolean) {
     const to = isOpen ? 1 : 0
 
     if (isFixed) open.value = to
-    else open.value = isOpen ? animate(1, 'navigation') : glide(0, 'exit')
+    else open.value = isOpen ? animate(1, 'navigation') : glide(0, 'exit', CLOSING)
     if (isStill) arrival.value = to
-    else arrival.value = isOpen ? glide(1) : glide(0, 'exit', duration.fast)
+    else arrival.value = isOpen ? glide(1) : glide(0, 'exit', CLOSING)
   }, [isOpen, isStill, isFixed, animate, glide, open, arrival])
 
   return { open, arrival }
