@@ -1,0 +1,183 @@
+import {
+  cloneElement,
+  forwardRef,
+  isValidElement,
+  useCallback,
+  useMemo,
+} from 'react'
+import type { ReactElement, ReactNode } from 'react'
+import { View } from 'react-native'
+import type { AccessibilityActionEvent, LayoutChangeEvent } from 'react-native'
+import { GestureDetector } from 'react-native-gesture-handler'
+import Animated from 'react-native-reanimated'
+import { useControllableState } from '@xaui/native'
+import { Slot, useStyleProps } from '@xaui/native/system'
+import { useXAUITheme } from '@xaui/native/theme'
+import { partsOf } from './panorama.children'
+import { PanoramaProvider } from './panorama.context'
+import { usePanoramaTrack } from './panorama.hook'
+import { panoramaRecipe, panoramaTitleInset } from './panorama.recipe'
+import type { PanoramaProps } from './panorama.type'
+
+/**
+ * The Metro hub: one wide page that the finger slides across, section by section, under a
+ * giant title. The title and the backdrop slide slower than the sections — the parallax —
+ * so the page reads as one surface seen through the screen. A Pivot filters; a Panorama
+ * shows.
+ *
+ * ```tsx
+ * <Panorama>
+ *   <Panorama.Background>
+ *     <Image source={cover} style={{ flex: 1 }} />
+ *   </Panorama.Background>
+ *   <Panorama.Title>musique + vidéos</Panorama.Title>
+ *   <Panorama.Section value="collection">
+ *     <Panorama.Header>collection</Panorama.Header>
+ *     …
+ *   </Panorama.Section>
+ *   <Panorama.Section value="nouveautés">…</Panorama.Section>
+ * </Panorama>
+ * ```
+ *
+ * A section is the screen's width less 48 points, so the start of the next one always
+ * shows at the end: there is more to the side. The last one rests against the screen's
+ * end. The track does not loop.
+ *
+ * It fills what holds it and draws the theme's ground. A vertical drag inside a section is
+ * the section's — a `ScrollView` there scrolls; only a drag that is mostly across moves the
+ * track. A screen reader reads the current section alone; the title — or, without one, the
+ * current section's header — is an `adjustable` whose swipes move to the next or the
+ * previous section.
+ *
+ * Under `asChild` the caller's one element is the frame, and the slots are written inside
+ * it.
+ */
+export const PanoramaRoot = forwardRef<View, PanoramaProps>(function Panorama(
+  {
+    children,
+    value,
+    defaultValue,
+    onValueChange,
+    asChild = false,
+    style,
+    onLayout,
+    ...props
+  },
+  ref
+) {
+  const theme = useXAUITheme()
+  const [styleProps, rest] = useStyleProps(props)
+  const styles = panoramaRecipe.resolve({ theme })
+
+  // Under `asChild` the slots are the caller's element's children, drawn inside it.
+  const only = asChild && isValidElement(children) ? (children as Frame) : null
+  const { background, title, sections, values, labels } = partsOf(
+    only ? only.props.children : children
+  )
+
+  const [current, setCurrent] = useControllableState({
+    value,
+    defaultValue: defaultValue ?? values[0],
+    onChange: onValueChange,
+  })
+  const currentIndex = Math.max(0, values.indexOf(current ?? ''))
+
+  const track = usePanoramaTrack({
+    values,
+    currentIndex,
+    select: setCurrent,
+    titleInset: panoramaTitleInset(theme),
+  })
+
+  const handleLayout = (event: LayoutChangeEvent) => {
+    track.measureViewport(event.nativeEvent.layout.width)
+    onLayout?.(event)
+  }
+
+  // A screen reader cannot swipe the track: its adjust gestures step through the sections.
+  const handleAction = useCallback(
+    (event: AccessibilityActionEvent) => {
+      const step = STEPS[event.nativeEvent.actionName]
+      const next = step === undefined ? undefined : values[currentIndex + step]
+      if (next !== undefined) setCurrent(next)
+    },
+    [values, currentIndex, setCurrent]
+  )
+
+  const { placeSection, measureTitle, sectionWidth } = track
+  const valueText = labels[currentIndex]
+  const hasTitle = title !== null
+  const context = useMemo(
+    () => ({
+      sectionStyle: styles.section,
+      headerStyle: styles.header,
+      titleStyle: styles.title,
+      backdropStyle: styles.backdrop,
+      sectionWidth,
+      current: values[currentIndex],
+      placeSection,
+      measureTitle,
+      adjust: { valueText, onAction: handleAction },
+      hasTitle,
+    }),
+    [
+      styles,
+      sectionWidth,
+      values,
+      currentIndex,
+      placeSection,
+      measureTitle,
+      valueText,
+      handleAction,
+      hasTitle,
+    ]
+  )
+
+  const layers = (
+    <>
+      {background ? (
+        <Animated.View
+          style={[
+            styles.backdrop,
+            { width: track.backdropWidth || '100%' },
+            track.backdropStyle,
+          ]}
+        >
+          {background}
+        </Animated.View>
+      ) : null}
+      {title ? (
+        <Animated.View style={[styles.titleRow, track.titleStyle]}>
+          {title}
+        </Animated.View>
+      ) : null}
+      <Animated.View style={[styles.track, track.trackStyle]}>
+        {sections}
+      </Animated.View>
+    </>
+  )
+
+  const rootStyle = [styles.root, styleProps, style]
+
+  return (
+    <PanoramaProvider value={context}>
+      <GestureDetector gesture={track.gesture} touchAction="pan-y">
+        {only ? (
+          <Slot {...rest} ref={ref} style={rootStyle} onLayout={handleLayout}>
+            {cloneElement(only, undefined, layers)}
+          </Slot>
+        ) : (
+          <View ref={ref} {...rest} style={rootStyle} onLayout={handleLayout}>
+            {layers}
+          </View>
+        )}
+      </GestureDetector>
+    </PanoramaProvider>
+  )
+})
+
+PanoramaRoot.displayName = 'XAUI.Tram.Panorama.Root'
+
+type Frame = ReactElement<{ children?: ReactNode }>
+
+const STEPS: Record<string, number | undefined> = { increment: 1, decrement: -1 }

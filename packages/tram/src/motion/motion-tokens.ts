@@ -100,6 +100,21 @@ export const cascade = { stagger: 40, rise: 12, slide: 24, most: 8 } as const
 export const panel = { slide: 32 } as const
 
 /**
+ * The Panorama: its title travels `title` of the track's way at the least, and its
+ * backdrop `backdrop` of it — both slower than the sections, which is the parallax.
+ * Released past `distance` of a section's width, or flung faster than `velocity` points a
+ * second, the track moves on a section; short of both it comes back. Pulled past either
+ * end it follows the finger `rubber` times slower.
+ */
+export const panorama = {
+  title: 0.4,
+  backdrop: 0.25,
+  distance: 0.25,
+  velocity: 500,
+  rubber: 3,
+} as const
+
+/**
  * A wheel of squares, let go and left alone. Thrown, it keeps its momentum and slows at
  * `deceleration` — `withDecay`'s own rate, per millisecond — until it moves at less than
  * `catchBelow` points a second. The `navigation` spring catches it there, at the speed
@@ -146,6 +161,15 @@ export const bubbles = {
  * fast, and both meant it.
  */
 export const toastSwipe = { slop: 10, distance: 50, velocity: 500 } as const
+
+/**
+ * The Pivot's swipe. A drag across the whole screen is one section. Released past
+ * `distance` of the screen's width, or flung faster than `velocity` points a second, it
+ * moves on a section — either way, round the loop; short of both it comes back. `slop` is
+ * how far a finger travels across before the swipe is the Pivot's and not a section's
+ * own vertical scroll.
+ */
+export const pivot = { distance: 0.25, velocity: 500, slop: 10 } as const
 
 export type TramSpringName = keyof typeof spring
 export type TramEaseName = keyof typeof ease

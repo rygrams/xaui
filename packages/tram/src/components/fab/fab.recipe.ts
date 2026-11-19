@@ -1,6 +1,8 @@
 import { createRecipe } from '@xaui/native/system'
 import type { SlotStyles } from '@xaui/native/system'
 import type { XAUITheme } from '@xaui/native/theme'
+import { DISC_LINE, DISC_SIZE } from '../../system/disc-size'
+import type { DiscSize } from '../../system/disc-size'
 import type { TramSize } from '../../theme/tram-tokens'
 import { roleType } from '../typography/typography.role'
 import type { FabPlacement, FabSlot, FabVariant } from './fab.type'
@@ -26,31 +28,7 @@ export const BAR_TOP = 8
 /** The bar's padding at its sides, in points: where a circle at the start or end sits. */
 export const BAR_SIDE = 16
 
-/**
- * The circle's line and the busy ring's: the `Button`'s, thin as the App Bar's circle. A
- * filled `Fab` draws it too, in its fill, so the two variants are the same size.
- */
-export const LINE_WIDTH = 2
-
-type SizeStep = {
-  /** The circle's diameter. The root reaches the 48-point touch target with `hitSlop`. */
-  diameter: number
-  /** The glyph, and the busy ring that takes its place. */
-  glyph: number
-}
-
-/**
- * The circle per size. Not Native's 40 / 56 / 72: small, as the Metro App Bar's circles
- * were in their band, eight apart — the largest is the touch target, the two others reach
- * it with `hitSlop`.
- */
-export const FAB_GEOMETRY: Record<TramSize, SizeStep> = {
-  sm: { diameter: 32, glyph: 16 },
-  md: { diameter: 40, glyph: 20 },
-  lg: { diameter: 48, glyph: 24 },
-}
-
-function sizeAxis({ diameter, glyph }: SizeStep) {
+function sizeAxis({ diameter, glyph }: DiscSize) {
   return (): SlotStyles<FabSlot> => ({
     root: { width: diameter, height: diameter, borderRadius: diameter / 2 },
     icon: { fontSize: glyph },
@@ -59,7 +37,7 @@ function sizeAxis({ diameter, glyph }: SizeStep) {
       width: glyph,
       height: glyph,
       borderRadius: glyph / 2,
-      borderWidth: LINE_WIDTH,
+      borderWidth: DISC_LINE,
       borderTopColor: 'transparent',
     },
   })
@@ -84,9 +62,9 @@ export const fabRecipe = createRecipe({
 
   variants: {
     size: {
-      sm: sizeAxis(FAB_GEOMETRY.sm),
-      md: sizeAxis(FAB_GEOMETRY.md),
-      lg: sizeAxis(FAB_GEOMETRY.lg),
+      sm: sizeAxis(DISC_SIZE.sm),
+      md: sizeAxis(DISC_SIZE.md),
+      lg: sizeAxis(DISC_SIZE.lg),
     },
   },
 
