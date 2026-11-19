@@ -209,6 +209,16 @@
         "default": "./dist/components/divider/index.cjs"
       }
     },
+    "./dummy-field": {
+      "import": {
+        "types": "./dist/components/dummy-field/index.d.ts",
+        "default": "./dist/components/dummy-field/index.js"
+      },
+      "require": {
+        "types": "./dist/components/dummy-field/index.d.cts",
+        "default": "./dist/components/dummy-field/index.cjs"
+      }
+    },
     "./empty-state": {
       "import": {
         "types": "./dist/components/empty-state/index.d.ts",
@@ -309,6 +319,26 @@
         "default": "./dist/components/number-field/index.cjs"
       }
     },
+    "./number-pad": {
+      "import": {
+        "types": "./dist/components/number-pad/index.d.ts",
+        "default": "./dist/components/number-pad/index.js"
+      },
+      "require": {
+        "types": "./dist/components/number-pad/index.d.cts",
+        "default": "./dist/components/number-pad/index.cjs"
+      }
+    },
+    "./number-stepper": {
+      "import": {
+        "types": "./dist/components/number-stepper/index.d.ts",
+        "default": "./dist/components/number-stepper/index.js"
+      },
+      "require": {
+        "types": "./dist/components/number-stepper/index.d.cts",
+        "default": "./dist/components/number-stepper/index.cjs"
+      }
+    },
     "./page": {
       "import": {
         "types": "./dist/components/page/index.d.ts",
@@ -367,6 +397,16 @@
       "require": {
         "types": "./dist/components/radio/index.d.cts",
         "default": "./dist/components/radio/index.cjs"
+      }
+    },
+    "./rating": {
+      "import": {
+        "types": "./dist/components/rating/index.d.ts",
+        "default": "./dist/components/rating/index.js"
+      },
+      "require": {
+        "types": "./dist/components/rating/index.d.cts",
+        "default": "./dist/components/rating/index.cjs"
       }
     },
     "./search-field": {
