@@ -1,4 +1,5 @@
-import { pageSlide, turnstile } from '../../motion/motion-tokens'
+import { pageSlide } from '../../motion/motion-tokens'
+import { turnstileAngle } from '../../system/turnstile'
 import type { TramPageTransition } from '../../theme/tram-pages'
 
 /** What a page looks like at one moment of its way in or out. Degrees and points. */
@@ -25,7 +26,7 @@ export function pagePose(
   const towardEnd = isRtl ? -1 : 1
 
   if (transition === 'turnstile') {
-    return { opacity, rotateY: side * turnstile.degrees * towardEnd, translateX: 0 }
+    return { opacity, rotateY: turnstileAngle(side, isRtl), translateX: 0 }
   }
 
   if (transition === 'slide') {
@@ -37,9 +38,4 @@ export function pagePose(
   }
 
   return { opacity, rotateY: 0, translateX: 0 }
-}
-
-/** Where a page is hinged: the start edge of the screen, half-way down. */
-export function hingeFor(isRtl: boolean): [string | number, string, number] {
-  return [isRtl ? '100%' : 0, '50%', 0]
 }

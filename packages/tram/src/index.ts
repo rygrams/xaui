@@ -1,6 +1,7 @@
 export * from './components/app-bar'
 export * from './components/button'
 export * from './components/checkbox'
+export * from './components/jump-list'
 export * from './components/list-box'
 export * from './components/dialog'
 export * from './components/fab'

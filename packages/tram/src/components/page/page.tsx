@@ -8,9 +8,10 @@ import Animated, {
 import { useAnimationDisabled, useStyleProps } from '@xaui/native/system'
 import { useXAUITheme } from '@xaui/native/theme'
 import { turnstile } from '../../motion/motion-tokens'
+import { hingeFor } from '../../system/turnstile'
 import { useTramPages } from '../../theme/tram-pages'
 import { usePageTurn } from './page.hook'
-import { hingeFor, pagePose } from './page.pose'
+import { pagePose } from './page.pose'
 import { pageRecipe } from './page.recipe'
 import type { PageProps } from './page.type'
 
