@@ -39,6 +39,16 @@
         "default": "./dist/motion/index.cjs"
       }
     },
+    "./app-bar": {
+      "import": {
+        "types": "./dist/components/app-bar/index.d.ts",
+        "default": "./dist/components/app-bar/index.js"
+      },
+      "require": {
+        "types": "./dist/components/app-bar/index.d.cts",
+        "default": "./dist/components/app-bar/index.cjs"
+      }
+    },
     "./button": {
       "import": {
         "types": "./dist/components/button/index.d.ts",
@@ -79,6 +89,16 @@
         "default": "./dist/components/fab/index.cjs"
       }
     },
+    "./jump-list": {
+      "import": {
+        "types": "./dist/components/jump-list/index.d.ts",
+        "default": "./dist/components/jump-list/index.js"
+      },
+      "require": {
+        "types": "./dist/components/jump-list/index.d.cts",
+        "default": "./dist/components/jump-list/index.cjs"
+      }
+    },
     "./list-box": {
       "import": {
         "types": "./dist/components/list-box/index.d.ts",
@@ -107,6 +127,26 @@
       "require": {
         "types": "./dist/components/page/index.d.cts",
         "default": "./dist/components/page/index.cjs"
+      }
+    },
+    "./panorama": {
+      "import": {
+        "types": "./dist/components/panorama/index.d.ts",
+        "default": "./dist/components/panorama/index.js"
+      },
+      "require": {
+        "types": "./dist/components/panorama/index.d.cts",
+        "default": "./dist/components/panorama/index.cjs"
+      }
+    },
+    "./pivot": {
+      "import": {
+        "types": "./dist/components/pivot/index.d.ts",
+        "default": "./dist/components/pivot/index.js"
+      },
+      "require": {
+        "types": "./dist/components/pivot/index.d.cts",
+        "default": "./dist/components/pivot/index.cjs"
       }
     },
     "./progress-bar": {

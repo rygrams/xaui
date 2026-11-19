@@ -6,6 +6,8 @@ export {
   flip,
   pageSlide,
   panel,
+  panorama,
+  pivot,
   recede,
   scale,
   spring,

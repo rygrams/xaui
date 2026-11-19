@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { hingeFor, pagePose, recedePose } from '../../../components/page/page.pose'
+import { pagePose, recedePose } from '../../../components/page/page.pose'
 import { pageSlide, recede, turnstile } from '../../../motion/motion-tokens'
 
 const ltr = { isRtl: false }
@@ -71,13 +71,6 @@ describe('pagePose', () => {
     expect(pagePose(1.2, { transition: 'turnstile', ...ltr })).toEqual(
       pagePose(1, { transition: 'turnstile', ...ltr })
     )
-  })
-})
-
-describe('hingeFor', () => {
-  it('hinges on the start edge, half-way down', () => {
-    expect(hingeFor(false)).toEqual([0, '50%', 0])
-    expect(hingeFor(true)).toEqual(['100%', '50%', 0])
   })
 })
 

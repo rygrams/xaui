@@ -62,6 +62,7 @@ export default function TramLayout() {
                 name="page-detail"
                 options={{ title: 'PAGE', ...pageScreenOptions }}
               />
+              <Stack.Screen name="app-bar" options={{ title: 'APP BAR' }} />
               <Stack.Screen name="button" options={{ title: 'BUTTON' }} />
               <Stack.Screen name="switch" options={{ title: 'SWITCH' }} />
               <Stack.Screen name="checkbox" options={{ title: 'CHECKBOX' }} />
@@ -75,6 +76,7 @@ export default function TramLayout() {
               <Stack.Screen name="text-area" options={{ title: 'TEXT AREA' }} />
               <Stack.Screen name="select" options={{ title: 'SELECT' }} />
               <Stack.Screen name="list-box" options={{ title: 'LIST BOX' }} />
+              <Stack.Screen name="jump-list" options={{ title: 'JUMP LIST' }} />
               <Stack.Screen
                 name="menu"
                 options={{ title: 'MENU', ...pageScreenOptions }}
@@ -86,8 +88,10 @@ export default function TramLayout() {
               <Stack.Screen name="dialog" options={{ title: 'DIALOG' }} />
               <Stack.Screen name="fab" options={{ title: 'FAB' }} />
               <Stack.Screen name="toast" options={{ title: 'TOAST' }} />
+              <Stack.Screen name="pivot" options={{ title: 'PIVOT' }} />
               <Stack.Screen name="tabs" options={{ title: 'TABS' }} />
               <Stack.Screen name="tile" options={{ title: 'TILE' }} />
+              <Stack.Screen name="panorama" options={{ title: 'PANORAMA' }} />
               <Stack.Screen
                 name="toggle-button"
                 options={{ title: 'TOGGLE BUTTON' }}
@@ -108,7 +112,10 @@ export default function TramLayout() {
  */
 const PAGES = { useIsFocused }
 
-/** The app's safe-area hook, for the `Fab`'s bar: at module level, so it is always the same. */
+/**
+ * The app's safe-area hook, for the `Fab`'s and the `AppBar`'s bands: at module level, so
+ * it is always the same.
+ */
 const SAFE_AREA = { useSafeAreaInsets }
 
 /**
