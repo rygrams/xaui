@@ -13,10 +13,10 @@ import type { SurfaceProps } from './surface.type'
  * ```tsx
  * <Surface>
  *   <Typography>sur la surface discrète</Typography>
- *   <Surface variant="secondary">et un cran dedans</Surface>
+ *   <Surface variant="secondary">et un cran dedans, tracé par son trait</Surface>
  * </Surface>
  *
- * <Surface variant="tertiary" accent="magenta">…</Surface>
+ * <Surface variant="secondary" accent="magenta">…</Surface>
  * ```
  *
  * One node and no slots: a fill, a corner and some padding. What goes on it is yours —
@@ -44,7 +44,7 @@ export const Surface = forwardRef<View, SurfaceProps>(function Surface(
   const paint = groundPaint({
     accent,
     color,
-    isLine: variant === 'tertiary',
+    isLine: variant === 'secondary',
     page: theme.colors.background,
   })
   // Uncached: a raw tint takes arbitrary values and must stay out of the cache key.

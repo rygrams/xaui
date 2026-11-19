@@ -7,18 +7,18 @@ import type { TramAccentName, TramSize } from '../../theme/tram-tokens'
 export type SurfaceSlot = 'root'
 
 /**
- * The Native ladder, kept by name: a surface reports nothing, so its variant already says
- * how the ground is drawn — which is what a Tram variant says.
+ * Two grounds, under Native's first two names: a surface reports nothing, so its variant
+ * only says how the ground is drawn — which is what a Tram variant says.
  *
- * | Variant     | Drawn as                                   |
- * | ----------- | ------------------------------------------ |
- * | `primary`   | the discreet surface, a grey off the page  |
- * | `secondary` | the next grey, for a surface inside one    |
- * | `tertiary`  | the page itself, inside the theme's line   |
+ * | Variant     | Drawn as                                  |
+ * | ----------- | ----------------------------------------- |
+ * | `primary`   | the discreet surface, a grey off the page |
+ * | `secondary` | the page itself, inside the theme's line  |
  *
- * No shadow on any of them: Tram has no depth.
+ * Native's grey `secondary` is not here: one grey is all the Tram design has, and a
+ * surface inside one is drawn by its line. No shadow on either: Tram has no depth.
  */
-export type SurfaceVariant = 'primary' | 'secondary' | 'tertiary'
+export type SurfaceVariant = 'primary' | 'secondary'
 
 export type SurfaceSize = TramSize
 
@@ -30,8 +30,8 @@ type SurfaceOwnProps = {
   /** Overrides the Tram corner. The scale is the theme's, so it stays within 2. */
   radius?: RadiusKey
   /**
-   * One of the twenty named accents. It fills a `primary` or a `secondary` with its true
-   * colour, and draws the line of a `tertiary` as the mode's ink.
+   * One of the twenty named accents. It fills a `primary` with its true colour, and draws
+   * the line of a `secondary` as the mode's ink.
    */
   accent?: TramAccentName
   /** A raw tint, never a token. It lands where `accent` does, and wins over it. */

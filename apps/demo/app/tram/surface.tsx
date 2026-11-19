@@ -5,13 +5,13 @@ import type { SurfaceSize, SurfaceVariant } from '@xaui/tram/surface'
 import { Typography } from '@xaui/tram/typography'
 import { TramSection } from '../../components/tram-section'
 
-const VARIANTS: SurfaceVariant[] = ['primary', 'secondary', 'tertiary']
+const VARIANTS: SurfaceVariant[] = ['primary', 'secondary']
 
 const SIZES: SurfaceSize[] = ['sm', 'md', 'lg']
 
 /**
- * Where the Tram `Surface` is verified, in dark and in light: the three grounds, one inside
- * another, every size, and painted by a named accent and a raw colour.
+ * Where the Tram `Surface` is verified, in dark and in light: the two grounds, one inside
+ * the other, every size, and painted by a named accent and a raw colour.
  */
 export default function TramSurfaceScreen() {
   const theme = useXAUITheme()
@@ -22,8 +22,8 @@ export default function TramSurfaceScreen() {
       contentContainerStyle={{ padding: 24, gap: 32 }}
     >
       <TramSection
-        title="les trois sols"
-        note="primary : la surface discrète. secondary : le gris suivant. tertiary : la page dans le trait du thème, 3. Aucune ombre."
+        title="les deux sols"
+        note="primary : la surface discrète. secondary : la page dans le trait du thème, 3. Aucune ombre."
       >
         {VARIANTS.map(variant => (
           <Surface key={variant} variant={variant}>
@@ -37,15 +37,12 @@ export default function TramSurfaceScreen() {
 
       <TramSection
         title="l'un dans l'autre"
-        note="Un secondary dans un primary, un tertiary dans le secondary : trois niveaux, pas plus."
+        note="Un secondary dans un primary : la surface dedans est tracée par son trait."
       >
         <Surface>
           <Typography variant="body">primary</Typography>
-          <Surface variant="secondary">
-            <Typography variant="body">secondary</Typography>
-            <Surface variant="tertiary" size="sm">
-              <Typography variant="caption">tertiary</Typography>
-            </Surface>
+          <Surface variant="secondary" size="sm">
+            <Typography variant="caption">secondary</Typography>
           </Surface>
         </Surface>
       </TramSection>
@@ -63,25 +60,25 @@ export default function TramSurfaceScreen() {
 
       <TramSection
         title="en couleur"
-        note="Un accent nommé remplit primary et secondary de sa vraie couleur ; sur tertiary il est le trait, en encre. Puis une couleur brute."
+        note="Un accent nommé remplit primary de sa vraie couleur ; sur secondary il est le trait, en encre. Puis une couleur brute."
       >
         <Surface accent="cobalt">
           <Typography variant="body" color="#FFFFFF">
             primary, cobalt
           </Typography>
         </Surface>
-        <Surface variant="secondary" accent="lime">
+        <Surface accent="lime">
           <Typography variant="body" color="#000000">
-            secondary, lime
+            primary, lime
           </Typography>
         </Surface>
-        <Surface variant="tertiary" accent="yellow">
+        <Surface variant="secondary" accent="yellow">
           <Typography variant="body">
-            tertiary, yellow : le trait lisible en clair
+            secondary, yellow : le trait lisible en clair
           </Typography>
         </Surface>
-        <Surface variant="tertiary" color="#7c3aed">
-          <Typography variant="body">tertiary, brut</Typography>
+        <Surface variant="secondary" color="#7c3aed">
+          <Typography variant="body">secondary, brut</Typography>
         </Surface>
       </TramSection>
     </ScrollView>

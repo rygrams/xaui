@@ -10,13 +10,12 @@ const SLOTS = ['root'] as const
 export const DEFAULT_VARIANT: SurfaceVariant = 'primary'
 
 /**
- * Two greys and a line. `tertiary` names no fill: the page shows through, and the line is
+ * A grey and a line. `secondary` names no fill: the page shows through, and the line is
  * what draws it — so a tint lands on the line, and the ground stays the page's.
  */
 const VARIANT_TOKENS: Record<SurfaceVariant, VariantTokens> = {
   primary: { bg: 'surface' },
-  secondary: { bg: 'surfaceSecondary' },
-  tertiary: { border: 'border' },
+  secondary: { border: 'border' },
 }
 
 type SizeStep = { padding: number; gap: number }
