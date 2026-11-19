@@ -6,6 +6,7 @@ import {
   cascadeRank,
   foldedOffset,
   listPickerMode,
+  unfoldedInner,
 } from '../../system/list-picker'
 
 describe('listPickerMode', () => {
@@ -68,5 +69,17 @@ describe('foldedOffset', () => {
 
   it('centres a row taller than the field on the value', () => {
     expect(foldedOffset({ y: 48, height: 48 }, 36)).toBe(54)
+  })
+})
+
+describe('unfoldedInner', () => {
+  it('is the taller of the row and the list when the list takes the row', () => {
+    expect(unfoldedInner(44, 220, false)).toBe(220)
+    expect(unfoldedInner(44, 0, false)).toBe(44)
+  })
+
+  it('holds both when the list hangs under its row', () => {
+    expect(unfoldedInner(44, 220, true)).toBe(264)
+    expect(unfoldedInner(44, 0, true)).toBe(44)
   })
 })

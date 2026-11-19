@@ -1,6 +1,7 @@
 import { forwardRef, useContext, useEffect } from 'react'
 import { Pressable, StyleSheet, View } from 'react-native'
 import { Portal, PortalContext, useStyleProps } from '@xaui/native/system'
+import { unfoldedInner } from '../../system/list-picker'
 import { useSelect } from './select.context'
 import type { SelectOverlayProps } from './select.type'
 
@@ -26,6 +27,7 @@ export const SelectOverlay = forwardRef<View, SelectOverlayProps>(
       rowHeight,
       listHeight,
       lineWidth,
+      keepsRow,
     } = useSelect()
     const [styleProps, rest] = useStyleProps(props)
     const host = useContext(PortalContext)
@@ -42,7 +44,8 @@ export const SelectOverlay = forwardRef<View, SelectOverlayProps>(
 
     // The box reports window coordinates and the bands are laid out in the host.
     const top = Math.max(0, boxTop - (host?.origin.y ?? 0))
-    const bottom = top + Math.max(rowHeight, listHeight) + lineWidth * 2
+    const bottom =
+      top + unfoldedInner(rowHeight, listHeight, keepsRow) + lineWidth * 2
     const dismiss = isDismissable ? close : undefined
 
     return (

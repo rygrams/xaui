@@ -1,6 +1,7 @@
 import { forwardRef } from 'react'
 import { Text } from 'react-native'
 import { useStyleProps } from '@xaui/native/system'
+import { matchRuns } from '../../system/match-runs'
 import { useSelect, useSelectItem } from './select.context'
 import type { SelectItemLabelProps } from './select.type'
 
@@ -10,7 +11,7 @@ import type { SelectItemLabelProps } from './select.type'
  */
 export const SelectItemLabel = forwardRef<Text, SelectItemLabelProps>(
   function SelectItemLabel({ children, style, ...props }, ref) {
-    const { itemLabelStyle, currentStyle, itemDisabledStyle } = useSelect()
+    const { itemLabelStyle, currentStyle, itemDisabledStyle, query } = useSelect()
     const { isSelected, isDisabled } = useSelectItem()
     const [styleProps, rest] = useStyleProps(props)
 
@@ -26,7 +27,18 @@ export const SelectItemLabel = forwardRef<Text, SelectItemLabelProps>(
           style,
         ]}
       >
-        {children}
+        {typeof children === 'string' && query !== ''
+          ? // What was searched for, written in the current choice's ink.
+            matchRuns(children, query).map((run, index) =>
+              run.isHit ? (
+                <Text key={index} style={currentStyle}>
+                  {run.text}
+                </Text>
+              ) : (
+                run.text
+              )
+            )
+          : children}
       </Text>
     )
   }

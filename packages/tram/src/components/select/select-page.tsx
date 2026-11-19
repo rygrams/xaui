@@ -1,5 +1,6 @@
 import { forwardRef, useCallback, useEffect, useMemo, useRef } from 'react'
 import { Modal, ScrollView, Text } from 'react-native'
+import type { ReactNode } from 'react'
 import type { View, ViewProps } from 'react-native'
 import Animated from 'react-native-reanimated'
 import { duration } from '../../motion/motion-tokens'
@@ -18,8 +19,17 @@ import { LIST_ROLE } from './select.role'
  * covers the navigation, keeps the theme it was written under, and hears the system's
  * back — which closes it unless `Select.Overlay` said `isDismissable={false}`.
  */
-export const SelectPage = forwardRef<View, ViewProps>(function SelectPage(
-  { children, style, ...props },
+type SelectPageProps = ViewProps & {
+  /**
+   * Drawn under the title and above the list, and not scrolled with it: the
+   * `Autocomplete`'s search, which has to be there when the page opens on a current
+   * choice far down the list.
+   */
+  header?: ReactNode
+}
+
+export const SelectPage = forwardRef<View, SelectPageProps>(function SelectPage(
+  { children, header, style, ...props },
   ref
 ) {
   const context = useSelect()
@@ -34,6 +44,7 @@ export const SelectPage = forwardRef<View, ViewProps>(function SelectPage(
     dismissable,
     labelId,
     listId,
+    query,
   } = context
   const swivel = useSwivel(isOpen, isStill)
   const scroller = useRef<ScrollView>(null)
@@ -42,6 +53,15 @@ export const SelectPage = forwardRef<View, ViewProps>(function SelectPage(
   useEffect(() => {
     if (!swivel.isMounted) isPlaced.current = false
   }, [swivel.isMounted])
+
+  // A new search starts the list again from its first row. Not on the opening: the page
+  // opens on the current choice.
+  const searched = useRef(query)
+  useEffect(() => {
+    if (query === searched.current) return
+    searched.current = query
+    scroller.current?.scrollTo({ y: 0, animated: false })
+  }, [query])
 
   // The current choice says where it lies; the list is set there once, unanimated, so the
   // page turns in already scrolled.
@@ -88,6 +108,7 @@ export const SelectPage = forwardRef<View, ViewProps>(function SelectPage(
               {title}
             </Text>
           ) : null}
+          {header}
           <ScrollView
             ref={scroller}
             role={LIST_ROLE}

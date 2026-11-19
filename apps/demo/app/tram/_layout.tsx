@@ -132,6 +132,17 @@ export default function TramLayout() {
                 name="bottom-sheet"
                 options={{ title: 'BOTTOM SHEET' }}
               />
+              <Stack.Screen name="mask-field" options={{ title: 'MASK FIELD' }} />
+              <Stack.Screen
+                name="autocomplete"
+                options={{ title: 'AUTOCOMPLETE' }}
+              />
+              <Stack.Screen name="combobox" options={{ title: 'COMBOBOX' }} />
+              <Stack.Screen name="field-group" options={{ title: 'FIELD GROUP' }} />
+              <Stack.Screen
+                name="phone-number-field"
+                options={{ title: 'PHONE NUMBER FIELD' }}
+              />
             </Stack>
           </Scaffold.Navigator>
         </Scaffold>

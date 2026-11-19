@@ -1,6 +1,7 @@
 import {
   forwardRef,
   useCallback,
+  useContext,
   useEffect,
   useId,
   useMemo,
@@ -8,11 +9,11 @@ import {
   useState,
 } from 'react'
 import { StyleSheet, View } from 'react-native'
-import type { TextStyle } from 'react-native'
+import type { TextStyle, ViewStyle } from 'react-native'
 import { useControllableState } from '@xaui/native'
 import { Slot, useAnimationDisabled, useStyleProps } from '@xaui/native/system'
 import { useXAUITheme } from '@xaui/native/theme'
-import { NO_ROW, cascadeRank } from '../../system/list-picker'
+import { INLINE_MOST, NO_ROW, cascadeRank } from '../../system/list-picker'
 import type { RowSpan } from '../../system/list-picker'
 import { lineInk } from '../../system/line-ink'
 import { createNodeSlot } from '../../system/node-slot'
@@ -21,6 +22,7 @@ import { touchReach } from '../../system/touch-reach'
 import { useTramHaptic } from '../../theme/tram-haptics'
 import { textFieldRecipe } from '../text-field/text-field.recipe'
 import { SelectProvider } from './select.context'
+import { NO_EXTENSION, SelectExtensionContext } from './select.extension'
 import { useLabelRegistry, useUnfolding } from './select.hook'
 import { ORDER_SEPARATOR } from './select.items'
 import { DEFAULT_SIZE, selectRecipe } from './select.recipe'
@@ -79,6 +81,7 @@ export const SelectRoot = forwardRef<View, SelectProps>(function Select(
   const isStill = useAnimationDisabled()
   const haptic = useTramHaptic()
   const { labelFor, registerLabel } = useLabelRegistry()
+  const { query, keepsRow } = useContext(SelectExtensionContext)
 
   const [listing, setListing] = useState(NO_LISTING)
   const [title, setTitle] = useState<string>()
@@ -151,6 +154,10 @@ export const SelectRoot = forwardRef<View, SelectProps>(function Select(
     ? undefined
     : lineInk({ accent, color }, theme.colors.background)
   const reach = touchReach(theme.controlHeights[size])
+  // A list kept under its row shows as many rows as a `Select` unfolds, then scrolls,
+  // each row as tall as the recipe draws it.
+  const listMost =
+    INLINE_MOST * pointsOf(StyleSheet.flatten<ViewStyle>(styles.item).minHeight)
 
   const open = useCallback(() => setOpen(true), [setOpen])
   const close = useCallback(() => setOpen(false), [setOpen])
@@ -243,6 +250,9 @@ export const SelectRoot = forwardRef<View, SelectProps>(function Select(
       isInvalid,
       isStill,
       mode,
+      query,
+      keepsRow,
+      listMost,
       open,
       close,
       toggle,
@@ -281,6 +291,9 @@ export const SelectRoot = forwardRef<View, SelectProps>(function Select(
     isInvalid,
     isStill,
     mode,
+    query,
+    keepsRow,
+    listMost,
     open,
     close,
     toggle,
@@ -307,10 +320,14 @@ export const SelectRoot = forwardRef<View, SelectProps>(function Select(
 
   return (
     <SelectProvider value={context}>
-      {/* Most general to most specific: the cached recipe, the style props, `style`. */}
-      <Root ref={ref} {...rest} style={[field.root, styleProps, style]}>
-        {children}
-      </Root>
+      {/* Read once, above: a `Select` nested inside a searching field is a plain one. Around
+          the root, not inside it — under `asChild` the child is the caller's element. */}
+      <SelectExtensionContext.Provider value={NO_EXTENSION}>
+        {/* Most general to most specific: the cached recipe, the style props, `style`. */}
+        <Root ref={ref} {...rest} style={[field.root, styleProps, style]}>
+          {children}
+        </Root>
+      </SelectExtensionContext.Provider>
     </SelectProvider>
   )
 })
