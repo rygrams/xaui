@@ -4,7 +4,7 @@ import { ScrollView, View } from 'react-native'
 import { useXAUITheme } from '@xaui/native/theme'
 import { Button } from '@xaui/tram/button'
 import type { TramAccentName } from '@xaui/tram/theme'
-import { TextSpan, Typography } from '@xaui/tram/typography'
+import { Typography } from '@xaui/tram/typography'
 import { WheelPicker } from '@xaui/tram/wheel-picker'
 import type { WheelPickerSize } from '@xaui/tram/wheel-picker'
 import { TramSection } from '../../components/tram-section'
@@ -374,7 +374,7 @@ export default function TramWheelPickerScreen() {
               <WheelPicker.Item key={value} value={value}>
                 {value}
                 {'\n'}
-                <TextSpan style={{ fontSize: 16 }}>{MONTH_NAMES[index]}</TextSpan>
+                <Typography fontSize={16}>{MONTH_NAMES[index]}</Typography>
               </WheelPicker.Item>
             ))}
           </WheelPicker.Column>

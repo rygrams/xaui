@@ -2,7 +2,7 @@ import { ScrollView, Text, View } from 'react-native'
 import { useXAUITheme } from '@xaui/native/theme'
 import { tramType } from '@xaui/tram/theme'
 import type { TramAccentName, TramTypeRole } from '@xaui/tram/theme'
-import { TextSpan, Typography } from '@xaui/tram/typography'
+import { Typography } from '@xaui/tram/typography'
 import { TramSection } from '../../components/tram-section'
 
 const ROLES = Object.keys(tramType) as TramTypeRole[]
@@ -19,7 +19,7 @@ const ACCENTS: TramAccentName[] = [
 
 /**
  * Where the Tram `Typography` is verified, in dark and in light: the eight roles and
- * their faces, a named `accent` drawn as ink, a raw `color`, a `TextSpan`, the style
+ * their faces, a named `accent` drawn as ink, a raw `color`, a nested `Typography` as a fragment, the style
  * props, and the case left as written.
  */
 export default function TramTypographyScreen() {
@@ -91,16 +91,20 @@ export default function TramTypographyScreen() {
       </TramSection>
 
       <TramSection
-        title="textspan"
-        note="Un fragment hérite du rôle et ne change que ce qu'il nomme."
+        title="fragments"
+        note="Pas de TextSpan : une Typography sans variant dans une autre hérite de son rôle et ne change que ce qu'elle nomme. Avec un variant, elle pose le sien."
       >
         <Typography>
           supprimer{' '}
-          <TextSpan fontWeight="700" color={theme.colors.danger}>
+          <Typography fontWeight="700" color={theme.colors.danger}>
             trois projets
-          </TextSpan>{' '}
+          </Typography>{' '}
           définitivement, ou les{' '}
-          <TextSpan textDecorationLine="underline">archiver</TextSpan>.
+          <Typography textDecorationLine="underline">archiver</Typography>.
+        </Typography>
+        <Typography variant="title">
+          titre et <Typography accent="magenta">un mot en accent</Typography>, puis{' '}
+          <Typography variant="caption">une légende</Typography>
         </Typography>
       </TramSection>
 
