@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Image, View } from 'react-native'
+import { Image, Pressable, View } from 'react-native'
 import Svg, { Circle, Path, Rect } from 'react-native-svg'
 import { Icon } from '@xaui/native/system'
 import type { IconComponentProps } from '@xaui/native/system'
@@ -126,6 +126,11 @@ const CONTROLS = [
     title: 'mode avion',
     detail: 'sans sous-titre : deux niveaux, comme Native',
   },
+  {
+    id: 'as-child',
+    title: 'asChild',
+    detail: 'List.Item asChild avec onPress : la ligne est le Pressable de l’app',
+  },
 ]
 
 /** The accents worth seeing on the subtitle: a grey one, a pale one, a strong one. */
@@ -248,28 +253,42 @@ export default function TramListScreen() {
         ListHeaderComponent={header}
         ListFooterComponent={footer}
         style={listStyle}
-        renderItem={({ item, index }) => (
-          <List.Item isDisabled={isSecondOff && index === 1}>
-            <List.Leading>
-              <Icon as={ChipIcon} />
-            </List.Leading>
-            <List.Content>
-              <List.Title>{item.title}</List.Title>
-              <List.Description>{item.detail}</List.Description>
-            </List.Content>
-            <List.Action>
-              <Switch
-                aria-label={item.title}
-                isSelected={toggles[item.id] ?? false}
-                onSelectedChange={on => {
-                  setToggles(current => ({ ...current, [item.id]: on }))
-                  setEvent(`${item.title} · ${on ? 'activé' : 'désactivé'}`)
-                }}
-                isDisabled={isSecondOff && index === 1}
-              />
-            </List.Action>
-          </List.Item>
-        )}
+        renderItem={({ item, index }) =>
+          item.id === 'as-child' ? (
+            <List.Item asChild onPress={() => setEvent('onPress · asChild')}>
+              <Pressable testID="list-as-child">
+                <List.Leading>
+                  <Icon as={ChipIcon} />
+                </List.Leading>
+                <List.Content>
+                  <List.Title>{item.title}</List.Title>
+                  <List.Description>{item.detail}</List.Description>
+                </List.Content>
+              </Pressable>
+            </List.Item>
+          ) : (
+            <List.Item isDisabled={isSecondOff && index === 1}>
+              <List.Leading>
+                <Icon as={ChipIcon} />
+              </List.Leading>
+              <List.Content>
+                <List.Title>{item.title}</List.Title>
+                <List.Description>{item.detail}</List.Description>
+              </List.Content>
+              <List.Action>
+                <Switch
+                  aria-label={item.title}
+                  isSelected={toggles[item.id] ?? false}
+                  onSelectedChange={on => {
+                    setToggles(current => ({ ...current, [item.id]: on }))
+                    setEvent(`${item.title} · ${on ? 'activé' : 'désactivé'}`)
+                  }}
+                  isDisabled={isSecondOff && index === 1}
+                />
+              </List.Action>
+            </List.Item>
+          )
+        }
       />
     )
   }

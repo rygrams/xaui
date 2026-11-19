@@ -32,13 +32,17 @@ export function useRowSwipe(isEnabled: boolean) {
   const offset = useSharedValue(0)
   const start = useSharedValue(0)
   const span = useSharedValue(0)
+  // Whether the row is open, as its gesture last left it or the list last closed it —
+  // not read off `offset`, which is still on its way back when a finger catches it.
+  const isOpenNow = useSharedValue(false)
   const [isOpen, setIsOpen] = useState(false)
 
   // What the list calls to close this row when another opens or the list scrolls.
   const shut = useCallback(() => {
+    isOpenNow.value = false
     offset.value = isStill ? 0 : animate(0, 'navigation')
     setIsOpen(false)
-  }, [animate, isStill, offset])
+  }, [animate, isStill, isOpenNow, offset])
 
   const close = useCallback(() => {
     openRow.release(shut)
@@ -86,11 +90,13 @@ export function useRowSwipe(isEnabled: boolean) {
     .onEnd(event => {
       'worklet'
       const rest = swipeRest(offset.value, event.velocityX, span.value, side)
-      const wasOpen = start.value !== 0
+      const wasOpen = isOpenNow.value
+      const isNowOpen = rest !== 0
 
+      isOpenNow.value = isNowOpen
       offset.value = isStill ? rest : animate(rest, 'navigation')
-      if (rest !== 0 && !wasOpen) scheduleOnRN(opened)
-      if (rest === 0 && wasOpen) scheduleOnRN(closed)
+      if (isNowOpen && !wasOpen) scheduleOnRN(opened)
+      if (!isNowOpen && wasOpen) scheduleOnRN(closed)
     })
 
   const rowStyle = useAnimatedStyle(() => {

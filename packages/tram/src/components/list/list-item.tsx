@@ -193,15 +193,20 @@ type SwipeElement = ReactElement<{ children?: ReactNode }>
 
 const NO_ACTIONS: SwipeEntry[] = []
 
-/** The row's own children, the `List.Swipe` among them taken apart. */
+/**
+ * The row's own children, the `List.Swipe` among them taken apart. What is left stays a
+ * single element when it is one: under `asChild` it is the caller's element, and `Slot`
+ * merges into one element, never an array.
+ */
 function splitRow(children: ReactNode) {
   const nodes = Children.toArray(children)
   const isSwipe = (node: ReactNode): node is SwipeElement =>
     isValidElement(node) && node.type === ListSwipe
+  const content = nodes.filter(node => !isSwipe(node))
 
   return {
     swipe: nodes.find(isSwipe) ?? null,
-    content: nodes.filter(node => !isSwipe(node)),
+    content: content.length === 1 ? content[0] : content,
   }
 }
 
