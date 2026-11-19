@@ -39,6 +39,16 @@
         "default": "./dist/motion/index.cjs"
       }
     },
+    "./accordion": {
+      "import": {
+        "types": "./dist/components/accordion/index.d.ts",
+        "default": "./dist/components/accordion/index.js"
+      },
+      "require": {
+        "types": "./dist/components/accordion/index.d.cts",
+        "default": "./dist/components/accordion/index.cjs"
+      }
+    },
     "./alert": {
       "import": {
         "types": "./dist/components/alert/index.d.ts",
@@ -169,6 +179,16 @@
         "default": "./dist/components/divider/index.cjs"
       }
     },
+    "./empty-state": {
+      "import": {
+        "types": "./dist/components/empty-state/index.d.ts",
+        "default": "./dist/components/empty-state/index.js"
+      },
+      "require": {
+        "types": "./dist/components/empty-state/index.d.cts",
+        "default": "./dist/components/empty-state/index.cjs"
+      }
+    },
     "./fab": {
       "import": {
         "types": "./dist/components/fab/index.d.ts",
@@ -277,6 +297,16 @@
       "require": {
         "types": "./dist/components/select/index.d.cts",
         "default": "./dist/components/select/index.cjs"
+      }
+    },
+    "./skeleton": {
+      "import": {
+        "types": "./dist/components/skeleton/index.d.ts",
+        "default": "./dist/components/skeleton/index.js"
+      },
+      "require": {
+        "types": "./dist/components/skeleton/index.d.cts",
+        "default": "./dist/components/skeleton/index.cjs"
       }
     },
     "./slider": {

@@ -1,6 +1,6 @@
 import { forwardRef, useCallback, useContext, useMemo, useRef } from 'react'
 import { StyleSheet, View } from 'react-native'
-import type { GestureResponderEvent, TextStyle } from 'react-native'
+import type { GestureResponderEvent, TextStyle, ViewStyle } from 'react-native'
 import {
   childrenToString,
   containsElementOfType,
@@ -125,6 +125,27 @@ export const ToastRoot = forwardRef<View, ToastProps>(function Toast(
   // What cannot wait is an alert, and interrupts; the rest is a status, and takes its turn.
   const isUrgent = variant === 'danger' || variant === 'warning'
 
+  // The fill, as drawn — the recipe's, the paint, or what the caller's style set — so the
+  // band past the toast's edge is the same colour as the toast.
+  const rootStyle = [
+    styles.root,
+    fill ? { backgroundColor: fill } : undefined,
+    styleProps,
+    style,
+  ]
+  const ground = colorOf(StyleSheet.flatten<ViewStyle>(rootStyle), 'backgroundColor')
+  const bleed = entry?.bleed ?? 0
+  const band =
+    bleed > 0 && ground ? (
+      <View
+        style={[
+          sheet.band,
+          { height: bleed, backgroundColor: ground },
+          entry?.bleedSide === 'bottom' ? { bottom: -bleed } : { top: -bleed },
+        ]}
+      />
+    ) : null
+
   const box = {
     role: isUrgent ? ('alert' as const) : ('status' as const),
     // Announced when it arrives rather than when the reader reaches it — a toast that
@@ -133,12 +154,7 @@ export const ToastRoot = forwardRef<View, ToastProps>(function Toast(
     onAccessibilityEscape: entry ? dismiss : undefined,
     ...rest,
     // Most general to most specific: the cached recipe, the paint, the style props, `style`.
-    style: [
-      styles.root,
-      fill ? { backgroundColor: fill } : undefined,
-      styleProps,
-      style,
-    ],
+    style: rootStyle,
   }
 
   return (
@@ -148,16 +164,23 @@ export const ToastRoot = forwardRef<View, ToastProps>(function Toast(
             pressable at all, and never reaches the press's shared value. */}
         {onPress ? (
           <ToastPressable ref={ref} {...box} isStill={isStill} onPress={onPress}>
+            {band}
             {content}
           </ToastPressable>
         ) : (
           <View ref={ref} {...box}>
+            {band}
             {content}
           </View>
         )}
       </ToastProvider>
     </ButtonSurfaceContext.Provider>
   )
+})
+
+const sheet = StyleSheet.create({
+  // Out of the row's flow, so it takes no gap and changes no height the pile measures.
+  band: { position: 'absolute', start: 0, end: 0, pointerEvents: 'none' },
 })
 
 /** Stable, so a `Toast` outside a host does not rebuild its context every render. */

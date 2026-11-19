@@ -26,7 +26,7 @@ import { ToastEntry } from './toast-entry'
 import type { ToastEntryEvents, ToastPile } from './toast-entry'
 import { ToastQueueContext } from './toast.context'
 import { ToastOutletContext } from './toast.outlet'
-import { TOAST_GAP, TOAST_INSET, toastLine } from './toast.recipe'
+import { TOAST_GAP, toastLine } from './toast.recipe'
 import type { ToastOptions, ToastPlacement, ToastRecord } from './toast.type'
 
 export type ToastHostProps = {
@@ -197,12 +197,11 @@ export function ToastHost({
     () => ({
       placement,
       edge: offset,
-      inset: theme.spacing(TOAST_INSET),
       isSwipeable,
       isStill,
       dismissLabel,
     }),
-    [placement, offset, theme, isSwipeable, isStill, dismissLabel]
+    [placement, offset, isSwipeable, isStill, dismissLabel]
   )
 
   // A toast not measured yet counts for one line, so the pile starts making room for it

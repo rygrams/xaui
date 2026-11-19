@@ -185,6 +185,18 @@ export const orbit = {
 } as const
 
 /**
+ * The `Skeleton`'s breath: down to `low` opacity and back, `duration` milliseconds each
+ * way, on `curve` — a sine in and out, so it slows at both ends rather than bouncing off
+ * them. Every block breathes on one clock (`pulseStart`), so a row mounted late joins the
+ * others in step. Under half and the pulse reads as a flicker.
+ */
+export const pulse = {
+  duration: 1100,
+  low: 0.5,
+  curve: [0.37, 0, 0.63, 1],
+} as const
+
+/**
  * The swipe that sends a toast away, in points — not the banner's `swipe`, which counts in
  * turns of a swivel. `slop` is how far a finger travels before
  * its gesture has taken an axis; past `distance` points **or** `velocity` points a second,

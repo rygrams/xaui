@@ -9,6 +9,7 @@ export {
   panel,
   panorama,
   pivot,
+  pulse,
   recede,
   rowSwipe,
   scale,

@@ -25,8 +25,6 @@ export type ToastPile = {
   placement: ToastPlacement
   /** From the screen's edge to the first toast: the caller's offset. */
   edge: number
-  /** What is left on each side of a toast. */
-  inset: number
   isSwipeable: boolean
   /** `true` under an ancestor's `disable-all`: everything is set, nothing animates. */
   isStill: boolean
@@ -86,7 +84,7 @@ export function ToastEntry({
   events,
 }: ToastEntryProps) {
   const { id, isLeaving } = record
-  const { placement, edge, inset, isSwipeable, isStill, dismissLabel } = pile
+  const { placement, edge, isSwipeable, isStill, dismissLabel } = pile
   const animate = useTramMotion()
   const glide = useTramEase()
   const isReduced = useReducedMotion()
@@ -279,9 +277,12 @@ export function ToastEntry({
     }
   }, [appear, shown, leave, dragX, dragY, exitX, exitY, rankY, enterY])
 
+  // The newest takes the band between the pile and the screen's edge in its colour.
+  const bleed = place.rank === 0 ? edge : 0
+
   const context = useMemo(
-    () => ({ dismiss, dismissLabel, isStill, isMoved }),
-    [dismiss, dismissLabel, isStill, isMoved]
+    () => ({ dismiss, dismissLabel, isStill, isMoved, bleed, bleedSide: placement }),
+    [dismiss, dismissLabel, isStill, isMoved, bleed, placement]
   )
 
   const isOut = isHidden || isLeaving
@@ -297,7 +298,7 @@ export function ToastEntry({
         style={[
           sheet.entry,
           isOut ? sheet.out : undefined,
-          { start: inset, end: inset },
+          FULL_WIDTH,
           placement === 'top' ? { top: edge } : { bottom: edge },
           placed,
         ]}
@@ -309,6 +310,9 @@ export function ToastEntry({
     </GestureDetector>
   )
 }
+
+/** Edge to edge: a toast is a band across the screen. */
+const FULL_WIDTH = { start: 0, end: 0 } as const
 
 const sheet = StyleSheet.create({
   entry: { position: 'absolute' },

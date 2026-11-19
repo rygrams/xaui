@@ -46,6 +46,9 @@ const SCREENS = [
   { href: '/tram/badge', label: 'badge' },
   { href: '/tram/chip', label: 'chip' },
   { href: '/tram/alert', label: 'alert' },
+  { href: '/tram/skeleton', label: 'skeleton' },
+  { href: '/tram/empty-state', label: 'empty state' },
+  { href: '/tram/accordion', label: 'accordion' },
 ] as const
 
 export default function TramHomeScreen() {

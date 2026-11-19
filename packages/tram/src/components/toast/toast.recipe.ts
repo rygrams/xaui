@@ -10,11 +10,10 @@ const SLOTS = ['root', 'title', 'description', 'actions'] as const
 export const DEFAULT_VARIANT: ToastVariant = 'default'
 
 /**
- * The pile's geometry, in spacing steps: what the host leaves on each side of a toast —
- * 10 points, the design's margin — and between two of them. They are the host's to apply:
- * a toast has no margin of its own.
+ * The pile's geometry, in spacing steps: what the host leaves between two toasts. A toast
+ * is a band the width of the screen, edge to edge, as Metro's was — nothing on its sides —
+ * and the gap is the host's to apply: a toast has no margin of its own.
  */
-export const TOAST_INSET = 2.5
 export const TOAST_GAP = 2
 
 /** The height of a toast of one line: the tallest control, Windows Phone's 56. */
@@ -62,7 +61,9 @@ export const toastRecipe = createRecipe({
       minHeight: toastLine(theme),
       paddingHorizontal: theme.spacing(3.5),
       paddingVertical: theme.spacing(2),
-      borderRadius: boxCornerFor('lg', theme.radius),
+      // Square: a band that meets both edges of the screen has no corner to round.
+      // `radius` still rounds it, up to the Tram 2, for a pile placed inside a frame.
+      borderRadius: 0,
     },
     // The body role, heavier: Selawik has no semibold face to name, so the weight is the
     // theme's, as on the `Button`'s label.
