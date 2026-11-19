@@ -19,7 +19,8 @@ export type DiscSize = {
  * small, as the App Bar's circles were in their band — the largest is the touch target,
  * the two others reach it with `hitSlop`.
  *
- * In `system/` since its second use: the `Fab`, and the buttons of the `AppBar`.
+ * In `system/` since its second use: the `Fab`, the buttons of the `AppBar`, and the bar of
+ * the `DatePicker` and `TimePicker` page.
  */
 export const DISC_SIZE: Record<TramSize, DiscSize> = {
   sm: { diameter: 32, glyph: 16 },

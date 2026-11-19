@@ -1,8 +1,8 @@
 import { createRecipe } from '@xaui/native/system'
 import type { SlotStyles } from '@xaui/native/system'
 import type { XAUITheme } from '@xaui/native/theme'
+import { DISC_LINE, DISC_SIZE } from '../../system/disc-size'
 import type { TramSize } from '../../theme/tram-tokens'
-import { FAB_GEOMETRY, LINE_WIDTH } from '../fab/fab.recipe'
 import { roleType } from '../typography/typography.role'
 import type { WheelFieldSlot } from './wheel-field.type'
 
@@ -26,7 +26,7 @@ export const DEFAULT_SIZE: TramSize = 'md'
  * The bar's circles: the `Fab`'s, outlined — the Metro App Bar's own button. One size
  * whatever the field's: the bar is the page's, not the field's.
  */
-export const BAR_BUTTON = FAB_GEOMETRY.md
+export const BAR_BUTTON = DISC_SIZE.md
 
 /** Spacing steps: the page's margin, and what the bar leaves around its circles. */
 const PAGE_MARGIN = 6
@@ -114,7 +114,7 @@ export const wheelFieldRecipe = createRecipe({
       width: BAR_BUTTON.diameter,
       height: BAR_BUTTON.diameter,
       borderRadius: BAR_BUTTON.diameter / 2,
-      borderWidth: LINE_WIDTH,
+      borderWidth: DISC_LINE,
       borderColor: theme.colors.surfaceForeground,
       alignItems: 'center',
       justifyContent: 'center',
