@@ -4,6 +4,7 @@ export {
   duration,
   ease,
   flip,
+  orbit,
   pageSlide,
   panel,
   panorama,

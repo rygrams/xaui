@@ -108,6 +108,10 @@ export default function TramLayout() {
                 options={{ title: 'TOGGLE BUTTON' }}
               />
               <Stack.Screen name="typography" options={{ title: 'TYPOGRAPHY' }} />
+              <Stack.Screen name="surface" options={{ title: 'SURFACE' }} />
+              <Stack.Screen name="card" options={{ title: 'CARD' }} />
+              <Stack.Screen name="spinner" options={{ title: 'SPINNER' }} />
+              <Stack.Screen name="avatar" options={{ title: 'AVATAR' }} />
             </Stack>
           </Scaffold.Navigator>
         </Scaffold>

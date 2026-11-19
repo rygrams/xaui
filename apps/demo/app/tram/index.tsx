@@ -38,6 +38,10 @@ const SCREENS = [
   { href: '/tram/tabs', label: 'tabs' },
   { href: '/tram/toggle-button', label: 'toggle button' },
   { href: '/tram/typography', label: 'typography' },
+  { href: '/tram/surface', label: 'surface' },
+  { href: '/tram/card', label: 'card' },
+  { href: '/tram/spinner', label: 'spinner' },
+  { href: '/tram/avatar', label: 'avatar' },
 ] as const
 
 export default function TramHomeScreen() {
