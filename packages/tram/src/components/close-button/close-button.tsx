@@ -131,7 +131,6 @@ export const CloseButton = forwardRef<View, CloseButtonProps>(function CloseButt
       // `text` keeps the line, clear, so its cross sits where the others' do.
       borderColor: variant === 'text' ? CLEAR : paint.line,
     },
-    closeButtonSheet.bare,
     styleProps,
     typeof style === 'function' ? style({ pressed: isPressed }) : style,
   ]

@@ -1,10 +1,13 @@
 import { StyleSheet } from 'react-native'
-import { NO_RING } from '../../system/no-ring'
 
-/** What does not depend on the theme: the circle's edge and the cross's two bars. */
+/**
+ * What does not depend on the theme: the cross's two bars.
+ *
+ * Unlike the `Fab`'s and the `AppBar`'s circles, the browser's focus ring is kept: it is
+ * drawn on keyboard focus only (`:focus-visible`), follows the circle, and is the one sign
+ * a keyboard user has that the way out is selected.
+ */
 export const closeButtonSheet = StyleSheet.create({
-  /** An exact circle: no outline and no ring from the platform, on touch or on focus. */
-  bare: { outlineWidth: 0, ...NO_RING },
   bar: { transform: [{ rotate: '45deg' }] },
   barMirrored: { transform: [{ rotate: '-45deg' }] },
 })
