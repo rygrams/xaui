@@ -1,4 +1,4 @@
-import { forwardRef, useCallback, useMemo, useRef, useState } from 'react'
+import { forwardRef, useCallback, useMemo, useState } from 'react'
 import type { View } from 'react-native'
 import { useSharedValue } from 'react-native-reanimated'
 import { useXAUITheme } from '@xaui/native/theme'
@@ -61,18 +61,15 @@ export const SearchFieldRoot = forwardRef<View, SearchFieldProps>(
     const isControlled = value !== undefined
     const query = isControlled ? value : own
 
-    // Not state: only read to decide whether the callback says anything new.
-    const reported = useRef(query)
-
+    // Said only when it differs from the query as it stands — the parent's `value` when
+    // controlled, so a field the parent filled itself can still be cleared.
     const report = useCallback(
       (next: string) => {
         if (!isControlled) setOwn(next)
-
-        if (next === reported.current) return
-        reported.current = next
+        if (next === query) return
         onValueChange?.(next)
       },
-      [isControlled, onValueChange]
+      [isControlled, onValueChange, query]
     )
 
     // The cross reports through the keystroke's path: emptying the box is a change of

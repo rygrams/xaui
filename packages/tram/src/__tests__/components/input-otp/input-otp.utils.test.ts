@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import {
+  OTP_ALPHANUMERIC,
   OTP_DIGITS,
+  OTP_LETTERS,
   buildSlots,
   extractPastedCode,
   faintLine,
@@ -85,10 +87,23 @@ describe('nextCode', () => {
     expect(nextCode('', '4', 6, digits)).toBe('')
   })
 
-  it('searches a paste for the code and cuts to the length', () => {
+  it('searches a pasted message for the code, and cuts a keystroke to the length', () => {
     expect(nextCode('code: 482913', '', 6, digits)).toBe('482913')
     expect(nextCode('483', '48', 2, null)).toBe('48')
-    expect(nextCode('4829', '4', 3, null)).toBe('')
+  })
+
+  it('takes a paste that already is an accepted value as it is', () => {
+    const letters = new RegExp(OTP_LETTERS)
+    const alphanumeric = new RegExp(OTP_ALPHANUMERIC)
+
+    expect(nextCode('AB12', '', 4, alphanumeric)).toBe('AB12')
+    expect(nextCode('ABCD', '', 4, letters)).toBe('ABCD')
+    expect(nextCode('482913', '48', 6, digits)).toBe('482913')
+  })
+
+  it('refuses a paste with no code in it, keeping what was typed', () => {
+    expect(nextCode('4829', '4', 3, null)).toBeNull()
+    expect(nextCode('48hello', '48', 6, digits)).toBeNull()
   })
 })
 

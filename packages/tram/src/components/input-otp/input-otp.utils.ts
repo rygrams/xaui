@@ -78,13 +78,21 @@ export function isPaste(text: string, previous: string): boolean {
   return text.length > previous.length + 1
 }
 
+/** The pattern judges the **whole** value: a code's shape is not read one character at a time. */
+function fits(code: string, pattern: RegExp | null): boolean {
+  return !pattern || pattern.test(code)
+}
+
 /**
  * What the hidden input's new text becomes, or `null` to refuse it and keep `previous`.
  *
- * A paste is searched for the code; a keystroke is taken as typed. Either is cut to
- * `maxLength`, then the pattern judges the **whole** value — a rule about the shape of a
- * code cannot be judged one character at a time. An empty value always passes: deleting
- * the last character is never refused.
+ * A keystroke is taken as typed, cut to `maxLength`; an empty value always passes, so
+ * deleting the last character is never refused.
+ *
+ * A paste that already is a value the field accepts — `AB12` under the letters pattern,
+ * or the rest of a code after what was typed — is taken as it is. Anything longer is a
+ * message, searched for a run of digits; a message with no code in it is refused, so
+ * what was typed so far stays.
  */
 export function nextCode(
   text: string,
@@ -92,13 +100,15 @@ export function nextCode(
   maxLength: number,
   pattern: RegExp | null
 ): string | null {
-  const candidate = isPaste(text, previous)
-    ? extractPastedCode(text, maxLength)
-    : text
-  const next = candidate.slice(0, maxLength)
+  if (!isPaste(text, previous)) {
+    const typed = text.slice(0, maxLength)
+    return typed.length === 0 || fits(typed, pattern) ? typed : null
+  }
 
-  if (next.length > 0 && pattern && !pattern.test(next)) return null
-  return next
+  if (text.length <= maxLength && fits(text, pattern)) return text
+
+  const code = extractPastedCode(text, maxLength)
+  return code.length > 0 && fits(code, pattern) ? code : null
 }
 
 /** The three patterns a one-time code is normally restricted to. */

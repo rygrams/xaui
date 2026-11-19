@@ -1,4 +1,4 @@
-import { forwardRef, useCallback, useMemo, useRef, useState } from 'react'
+import { forwardRef, useCallback, useMemo, useState } from 'react'
 import type { View } from 'react-native'
 import {
   canStep,
@@ -91,18 +91,15 @@ export const NumberFieldRoot = forwardRef<View, NumberFieldProps>(
     const current = isControlled ? (value ?? null) : own
     const text = typed ?? (current === null ? '' : write(current))
 
-    // Not state: only read to decide whether the callback says anything new.
-    const reported = useRef(current)
-
+    // Said only when it differs from the value as it stands — the parent's when
+    // controlled, so a value the parent set itself is still moved away from.
     const report = useCallback(
       (next: number | null) => {
         if (!isControlled) setOwn(next)
-        if (next === reported.current) return
-
-        reported.current = next
+        if (next === current) return
         onValueChange?.(next)
       },
-      [isControlled, onValueChange]
+      [current, isControlled, onValueChange]
     )
 
     const onType = useCallback(
