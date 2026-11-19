@@ -39,6 +39,16 @@
         "default": "./dist/motion/index.cjs"
       }
     },
+    "./alert": {
+      "import": {
+        "types": "./dist/components/alert/index.d.ts",
+        "default": "./dist/components/alert/index.js"
+      },
+      "require": {
+        "types": "./dist/components/alert/index.d.cts",
+        "default": "./dist/components/alert/index.cjs"
+      }
+    },
     "./app-bar": {
       "import": {
         "types": "./dist/components/app-bar/index.d.ts",
@@ -57,6 +67,16 @@
       "require": {
         "types": "./dist/components/avatar/index.d.cts",
         "default": "./dist/components/avatar/index.cjs"
+      }
+    },
+    "./badge": {
+      "import": {
+        "types": "./dist/components/badge/index.d.ts",
+        "default": "./dist/components/badge/index.js"
+      },
+      "require": {
+        "types": "./dist/components/badge/index.d.cts",
+        "default": "./dist/components/badge/index.cjs"
       }
     },
     "./button": {
@@ -87,6 +107,16 @@
       "require": {
         "types": "./dist/components/checkbox/index.d.cts",
         "default": "./dist/components/checkbox/index.cjs"
+      }
+    },
+    "./chip": {
+      "import": {
+        "types": "./dist/components/chip/index.d.ts",
+        "default": "./dist/components/chip/index.js"
+      },
+      "require": {
+        "types": "./dist/components/chip/index.d.cts",
+        "default": "./dist/components/chip/index.cjs"
       }
     },
     "./close-button": {
@@ -127,6 +157,16 @@
       "require": {
         "types": "./dist/components/dialog/index.d.cts",
         "default": "./dist/components/dialog/index.cjs"
+      }
+    },
+    "./divider": {
+      "import": {
+        "types": "./dist/components/divider/index.d.ts",
+        "default": "./dist/components/divider/index.js"
+      },
+      "require": {
+        "types": "./dist/components/divider/index.d.cts",
+        "default": "./dist/components/divider/index.cjs"
       }
     },
     "./fab": {
