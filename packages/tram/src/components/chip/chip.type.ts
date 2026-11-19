@@ -17,7 +17,6 @@ import type {
   ViewStyleProps,
 } from '@xaui/native/system'
 import type { RadiusKey } from '@xaui/native/theme'
-import type { ReportVariant } from '../../system/report-tokens'
 import type { TramAccentName, TramSize } from '../../theme/tram-tokens'
 
 export type ChipSlot =
@@ -29,8 +28,21 @@ export type ChipSlot =
   | 'close'
   | 'closeGlyph'
 
-/** Native's eleven names, each a flat fill — `ReportVariant` has the table. */
-export type ChipVariant = ReportVariant
+/**
+ * The `Button`'s four drawings, in the accent — or in `color`:
+ *
+ * | Variant     | Drawn as                          |
+ * | ----------- | --------------------------------- |
+ * | `contained` | filled with the true colour       |
+ * | `flat`      | filled with its soft slice        |
+ * | `outline`   | the `Button`'s line and the label |
+ * | `text`      | the label alone                   |
+ *
+ * **Not Native's eleven names**, as on the `Button`: Metro has one colour to spend, so a
+ * variant says how the box is drawn and a status is a colour — `accent="green"` for what
+ * Native calls `success`, `amber` for `warning`, `red` for `danger`.
+ */
+export type ChipVariant = 'contained' | 'flat' | 'outline' | 'text'
 
 /** 24, 32, 40 tall. */
 export type ChipSize = TramSize
@@ -40,10 +52,7 @@ type ChipOwnProps = {
   size?: ChipSize
   /** Overrides the Tram corner of 2; the scale is the theme's, so it stays within 2. */
   radius?: RadiusKey
-  /**
-   * One of the twenty named accents, painted as `color` is: the true colour as a fill, the
-   * mode's ink where the chip has none (`tertiary`, `ghost`).
-   */
+  /** One of the twenty named accents, painted as the `Button` paints it. */
   accent?: TramAccentName
   /** A raw tint, never a token. It wins over `accent`. */
   color?: string

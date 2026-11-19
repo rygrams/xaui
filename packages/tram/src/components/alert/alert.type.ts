@@ -27,28 +27,20 @@ export type AlertSlot =
   | 'closeGlyph'
 
 /**
- * Native's nine names, as on the Tram `Toast`: an alert reports, so the statuses are
- * names. Each is one flat fill, and the icon square says the rest.
+ * Three of the `Button`'s drawings, in the accent — or in `color` — with the icon square
+ * saying the rest:
  *
- * | Variant                        | Ground                 | Icon square                 |
- * | ------------------------------ | ---------------------- | --------------------------- |
- * | `default`                      | the discreet `surface` | the accent, filled          |
- * | `secondary`                    | the accent's soft slice| the accent, filled          |
- * | `*-soft`                       | the status's soft slice| the status colour, filled   |
- * | `primary`, `success`, …        | the full colour        | the ink's line, no fill     |
+ * | Variant     | Ground                          | Icon square                 |
+ * | ----------- | ------------------------------- | --------------------------- |
+ * | `contained` | the true colour                 | the ink's line, no fill     |
+ * | `flat`      | its soft slice (default)        | the true colour, filled     |
+ * | `outline`   | the page, in the `Button`'s line| the true colour, filled     |
  *
- * No shadow on `default`, where Native has one.
+ * **Not Native's nine names**, as on the `Button`: a variant says how the box is drawn,
+ * and a status is a colour — `accent="green"` for what Native calls `success`, `amber`
+ * for `warning`, `red` for `danger`. No `text`: an alert with no box is a paragraph.
  */
-export type AlertVariant =
-  | 'default'
-  | 'primary'
-  | 'secondary'
-  | 'success'
-  | 'success-soft'
-  | 'warning'
-  | 'warning-soft'
-  | 'danger'
-  | 'danger-soft'
+export type AlertVariant = 'contained' | 'flat' | 'outline'
 
 export type AlertSize = TramSize
 
@@ -57,7 +49,7 @@ type AlertOwnProps = {
   size?: AlertSize
   /** Overrides the Tram corner of 2; the scale is the theme's, so it stays within 2. */
   radius?: RadiusKey
-  /** One of the twenty named accents, painted as `color` is. */
+  /** One of the twenty named accents, painted as the `Button` paints it. */
   accent?: TramAccentName
   /** A raw tint, never a token. It wins over `accent`. */
   color?: string

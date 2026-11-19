@@ -1,12 +1,11 @@
 import { RADIUS_KEYS, createRecipe } from '@xaui/native/system'
 import type { SlotStyles, StyleFn } from '@xaui/native/system'
 import type { RadiusKey, XAUITheme } from '@xaui/native/theme'
-import { REPORT_TOKENS } from '../../system/report-tokens'
 import { boxCornerFor } from '../../theme/tram-corner'
 import { tramType } from '../../theme/tram-tokens'
 import type { TramSize, TramTypeRole } from '../../theme/tram-tokens'
 import { roleType } from '../typography/typography.role'
-import { LINE_WIDTH } from '../button/button.recipe'
+import { DRAWING_TOKENS, LINE_WIDTH } from '../button/button.recipe'
 import type { ChipSlot, ChipVariant } from './chip.type'
 
 const SLOTS = [
@@ -19,7 +18,7 @@ const SLOTS = [
   'closeGlyph',
 ] as const
 
-export const DEFAULT_VARIANT: ChipVariant = 'primary'
+export const DEFAULT_VARIANT: ChipVariant = 'contained'
 
 export const DEFAULT_SIZE: TramSize = 'md'
 
@@ -44,17 +43,25 @@ type SizeStep = {
 export const SIZES: Record<TramSize, SizeStep> = {
   sm: {
     height: 6,
-    padding: 2,
+    padding: 1.5,
     gap: 1.5,
     label: 'caption',
     dot: 1.5,
     avatar: 4,
     cross: 2.5,
   },
-  md: { height: 8, padding: 3, gap: 2, label: 'body', dot: 2, avatar: 5, cross: 3 },
+  md: {
+    height: 8,
+    padding: 2.5,
+    gap: 2,
+    label: 'body',
+    dot: 2,
+    avatar: 5,
+    cross: 3,
+  },
   lg: {
     height: 10,
-    padding: 4,
+    padding: 3.5,
     gap: 2.5,
     label: 'body',
     dot: 2,
@@ -116,6 +123,9 @@ export const chipRecipe = createRecipe({
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
+      // The `Button`'s line, always there and clear where the drawing names none, so the
+      // four drawings are the same size.
+      borderWidth: LINE_WIDTH,
       borderRadius: boxCornerFor('lg', theme.radius),
     },
     label: { includeFontPadding: false },
@@ -125,18 +135,17 @@ export const chipRecipe = createRecipe({
     closeGlyph: { position: 'absolute', height: LINE_WIDTH },
   }),
 
-  variantTokens: REPORT_TOKENS,
+  // The `Button`'s own: a chip is the `Button`'s rectangle, drawn the same four ways.
+  variantTokens: DRAWING_TOKENS,
 
-  /** Flat. The `Button`'s line of 2, only where the name draws one. */
   paint: (_theme, colors) => ({
     root: {
       backgroundColor: colors.bg ?? 'transparent',
-      borderColor: colors.border,
-      borderWidth: colors.border ? LINE_WIDTH : 0,
+      borderColor: colors.border ?? 'transparent',
     },
     label: { color: colors.fg },
     icon: { color: colors.fg },
-    // The ink; on a soft slice the root paints it in the full colour (`softMarkOf`).
+    // The ink; on `flat` the root paints it in the true colour the soft fill stands for.
     dot: { backgroundColor: colors.fg },
     closeGlyph: { backgroundColor: colors.fg },
   }),

@@ -8,18 +8,13 @@ import type { TramAccentName } from '@xaui/tram/theme'
 import { Typography } from '@xaui/tram/typography'
 import { TramSection } from '../../components/tram-section'
 
-const VARIANTS: ChipVariant[] = [
-  'primary',
-  'secondary',
-  'default',
-  'tertiary',
-  'ghost',
-  'success',
-  'success-soft',
-  'warning',
-  'warning-soft',
-  'danger',
-  'danger-soft',
+const VARIANTS: ChipVariant[] = ['contained', 'flat', 'outline', 'text']
+
+/** What Native calls success, warning and danger: three of the twenty accents. */
+const STATUSES: { accent: TramAccentName; label: string }[] = [
+  { accent: 'green', label: 'livré' },
+  { accent: 'amber', label: 'en attente' },
+  { accent: 'red', label: 'échec' },
 ]
 
 const SIZES: ChipSize[] = ['sm', 'md', 'lg']
@@ -34,7 +29,7 @@ const PHOTO = { uri: 'https://picsum.photos/seed/tram-chip/120/120' }
 
 /**
  * Where the Tram `Chip` is verified, in dark and in light: filters that toggle and lean,
- * the eleven names, the dot on a soft slice, the sizes, an avatar and a cross, colour.
+ * the `Button`'s four drawings, a status as a colour, the sizes, an avatar and a cross.
  */
 export default function TramChipScreen() {
   const theme = useXAUITheme()
@@ -64,7 +59,7 @@ export default function TramChipScreen() {
               <Chip
                 key={filter}
                 isPressable
-                variant={isOn ? 'primary' : 'default'}
+                variant={isOn ? 'contained' : 'outline'}
                 accessibilityState={{ selected: isOn }}
                 onPress={() => toggle(filter)}
               >
@@ -76,8 +71,8 @@ export default function TramChipScreen() {
       </TramSection>
 
       <TramSection
-        title="les onze noms"
-        note="Ceux de Native, chacun un aplat. Sur une tranche douce, le point carré prend la couleur pleine."
+        title="les quatre dessins"
+        note="Ceux du Button : contained (par défaut), flat, outline, text. Sur flat, le point carré prend la couleur pleine."
       >
         <Wrap>
           {VARIANTS.map(variant => (
@@ -89,10 +84,26 @@ export default function TramChipScreen() {
         </Wrap>
       </TramSection>
 
+      <TramSection
+        title="un statut est une couleur"
+        note="green, amber et red pour ce que Native appelle success, warning et danger."
+      >
+        {VARIANTS.map(variant => (
+          <Wrap key={variant}>
+            {STATUSES.map(status => (
+              <Chip key={status.accent} variant={variant} accent={status.accent}>
+                <Chip.Dot />
+                <Chip.Label>{status.label}</Chip.Label>
+              </Chip>
+            ))}
+          </Wrap>
+        ))}
+      </TramSection>
+
       <TramSection title="les tailles" note="24, 32, 40 de haut, coin de 2.">
         <Wrap>
           {SIZES.map(size => (
-            <Chip key={size} size={size} variant="tertiary">
+            <Chip key={size} size={size} variant="outline">
               {size}
             </Chip>
           ))}
@@ -105,7 +116,7 @@ export default function TramChipScreen() {
       >
         <Wrap>
           {people.map(person => (
-            <Chip key={person} variant="default">
+            <Chip key={person} variant="flat">
               <Chip.Avatar source={PHOTO} />
               <Chip.Label>{person}</Chip.Label>
               <Chip.Close
@@ -117,7 +128,7 @@ export default function TramChipScreen() {
             </Chip>
           ))}
           {people.length === 0 ? (
-            <Chip isPressable variant="ghost" onPress={() => setPeople(PEOPLE)}>
+            <Chip isPressable variant="text" onPress={() => setPeople(PEOPLE)}>
               tout remettre
             </Chip>
           ) : null}
@@ -126,9 +137,9 @@ export default function TramChipScreen() {
 
       <TramSection
         title="la couleur"
-        note="lime, magenta, cobalt et une couleur brute : pleins, en tranche douce, au trait."
+        note="lime, magenta, cobalt et une couleur brute, dans les quatre dessins."
       >
-        {(['primary', 'secondary', 'tertiary'] as const).map(variant => (
+        {VARIANTS.map(variant => (
           <Wrap key={variant}>
             {ACCENTS.map(accent => (
               <Chip key={accent} variant={variant} accent={accent}>
@@ -146,10 +157,10 @@ export default function TramChipScreen() {
 
       <TramSection title="désactivée" note="L'opacité du thème, rien d'autre.">
         <Wrap>
-          <Chip isPressable isDisabled variant="primary">
+          <Chip isPressable isDisabled>
             non lus
           </Chip>
-          <Chip isDisabled variant="default">
+          <Chip isDisabled variant="flat">
             <Chip.Label>inès</Chip.Label>
             <Chip.Close accessibilityLabel="retirer inès" />
           </Chip>

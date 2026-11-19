@@ -26,7 +26,7 @@ export const LINE_WIDTH = 2
  * No `…Pressed` role anywhere: a pressed Tram button keeps its colours. The press is the
  * tilt, and that is motion — the root's, not the recipe's.
  */
-const VARIANT_TOKENS: Record<ButtonVariant, VariantTokens> = {
+export const DRAWING_TOKENS: Record<ButtonVariant, VariantTokens> = {
   contained: { bg: 'accent', border: 'accent', fg: 'accentForeground' },
   // No `border`: the soft slice is translucent, and a line of it over a fill of it would
   // show as a darker edge.
@@ -118,7 +118,7 @@ export const buttonRecipe = createRecipe({
     },
   }),
 
-  variantTokens: VARIANT_TOKENS,
+  variantTokens: DRAWING_TOKENS,
 
   /**
    * Flat, for every variant at once. A variant with no `border` role keeps a transparent

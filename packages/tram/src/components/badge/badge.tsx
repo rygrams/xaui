@@ -1,16 +1,17 @@
 import { forwardRef } from 'react'
-import { Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
+import type { TextStyle } from 'react-native'
 import { Slot, childrenToString, useStyleProps } from '@xaui/native/system'
 import { useXAUITheme } from '@xaui/native/theme'
-import { groundPaint } from '../../system/ground-paint'
-import { isLineReport, namedSoftInk } from '../../system/report-tokens'
+import { accentPaintFor } from '../../system/accent-paint'
+import { tramAccents } from '../../theme/tram-tokens'
 import { DEFAULT_SIZE, DEFAULT_VARIANT, badgeRecipe } from './badge.recipe'
 import type { BadgeProps } from './badge.type'
 import { placementInsets } from './badge.utils'
 
 /**
  * A count, or a sign that something is new: a sharp rectangle of the accent with the
- * number cut into it, the count of a Metro tile.
+ * number cut into it — drawn as the `Button` is, from a fill to the number alone.
  *
  * ```tsx
  * <View>
@@ -18,8 +19,9 @@ import { placementInsets } from './badge.utils'
  *   <Badge placement="top-end">3</Badge>
  * </View>
  *
- * <Badge variant="danger" size="sm">99+</Badge>
- * <Badge isDot accent="lime" />
+ * <Badge accent="red" size="sm">99+</Badge>
+ * <Badge variant="outline">12</Badge>
+ * <Badge isDot />
  * ```
  *
  * `placement` pins it inside a corner of the nearest positioned parent, flush with its
@@ -53,23 +55,32 @@ export const Badge = forwardRef<View, BadgeProps>(function Badge(
     dot: isDot ? (size ?? DEFAULT_SIZE) : undefined,
   }
   const styles = badgeRecipe.resolve({ theme, selection })
-  const paint = groundPaint({
-    accent,
-    color,
-    isLine: isLineReport(variant),
-    page: theme.colors.background,
-  })
+  // A named accent is painted as the `Button` paints it: the true colour as a fill, the
+  // mode's ink as a line or a number. A raw `color` is the caller's word, never corrected.
+  const named =
+    accent && !color
+      ? accentPaintFor(tramAccents[accent], variant, theme.colors.background)
+      : undefined
+  const paint = color ?? named?.tint
   // Uncached: a raw tint takes arbitrary values and must stay out of the cache key.
   const tint = paint
     ? badgeRecipe.tint({ theme, color: paint, selection })
     : undefined
-  const ink = namedSoftInk(variant, accent, color, theme.colors.background)
+  const ink = named?.label ? { color: named.label } : undefined
+  const labelStyle = [styles.label, tint?.label, ink]
+
+  // A dot has no number to carry the colour: with no box drawn, the square is the ink.
+  const inkDot =
+    isDot && variant === 'text'
+      ? { backgroundColor: StyleSheet.flatten<TextStyle>(labelStyle).color }
+      : undefined
 
   // Most general to most specific: the cached recipe, the tint, the corner, the style
   // props, `style`.
   const rootStyle = [
     styles.root,
     tint?.root,
+    inkDot,
     placementInsets(placement),
     styleProps,
     style,
@@ -79,10 +90,7 @@ export const Badge = forwardRef<View, BadgeProps>(function Badge(
   const text = childrenToString(children)
   const label =
     text !== null ? (
-      <Text
-        style={[styles.label, tint?.label, ink ? { color: ink } : undefined]}
-        numberOfLines={1}
-      >
+      <Text style={labelStyle} numberOfLines={1}>
         {text}
       </Text>
     ) : (

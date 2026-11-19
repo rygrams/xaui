@@ -12,11 +12,11 @@ import {
   warnDev,
 } from '@xaui/native/system'
 import { useXAUITheme } from '@xaui/native/theme'
-import { groundPaint } from '../../system/ground-paint'
+import { accentPaintFor } from '../../system/accent-paint'
 import { PressTilt } from '../../system/press-tilt'
-import { isLineReport, namedSoftInk, softMarkOf } from '../../system/report-tokens'
 import { touchReach } from '../../system/touch-reach'
 import { useTramHaptic } from '../../theme/tram-haptics'
+import { tramAccents } from '../../theme/tram-tokens'
 import { ChipLabel } from './chip-label'
 import { ChipProvider } from './chip.context'
 import {
@@ -30,19 +30,19 @@ import type { ChipProps } from './chip.type'
 
 /**
  * A tag, a status, a filter: the `Button`'s sharp rectangle made small — 24, 32, 40 tall
- * — with a flat fill that says what it reports.
+ * — drawn the `Button`'s four ways, in the accent or in the colour of what it reports.
  *
  * ```tsx
- * <Chip variant="success-soft">
+ * <Chip variant="flat" accent="green">
  *   <Chip.Dot />
- *   livré
+ *   <Chip.Label>livré</Chip.Label>
  * </Chip>
  *
- * <Chip isPressable variant={isOn ? 'primary' : 'default'} onPress={toggle}>
+ * <Chip isPressable variant={isOn ? 'contained' : 'outline'} onPress={toggle}>
  *   non lus
  * </Chip>
  *
- * <Chip variant="tertiary">
+ * <Chip variant="outline">
  *   <Chip.Avatar source={{ uri: photo }} />
  *   <Chip.Label>inès</Chip.Label>
  *   <Chip.Close accessibilityLabel="retirer inès" onPress={remove} />
@@ -90,22 +90,22 @@ export const ChipRoot = forwardRef<View, ChipProps>(function Chip(
   const states = { disabled: isDisabled }
 
   const styles = chipRecipe.resolve({ theme, selection, states })
-  const paint = groundPaint({
-    accent,
-    color,
-    isLine: isLineReport(variant),
-    page: theme.colors.background,
-  })
+  // A named accent is painted as the `Button` paints it: the true colour as a fill, the
+  // mode's ink as a line or a label. A raw `color` is the caller's word, never corrected.
+  const named =
+    accent && !color
+      ? accentPaintFor(tramAccents[accent], variant, theme.colors.background)
+      : undefined
+  const paint = color ?? named?.tint
   // Uncached: a raw tint takes arbitrary values and must stay out of the cache key.
   const tint = paint
     ? chipRecipe.tint({ theme, color: paint, selection, states })
     : undefined
 
   const closeReach = touchReach(crossSide(theme, size))
-  const ink = namedSoftInk(variant, accent, color, theme.colors.background)
-  // On a soft slice the dot is the full colour — the tint's own, or the theme's.
-  const markColor = softMarkOf(variant)
-  const mark = markColor ? (paint ?? theme.colors[markColor]) : undefined
+  const ink = named?.label
+  // On `flat` the dot is the true colour the soft fill stands for.
+  const mark = variant === 'flat' ? (paint ?? theme.colors.accent) : undefined
 
   const context = useMemo(() => {
     const inked = ink ? { color: ink } : undefined

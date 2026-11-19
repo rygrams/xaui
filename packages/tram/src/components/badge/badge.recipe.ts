@@ -1,16 +1,15 @@
 import { RADIUS_KEYS, createRecipe } from '@xaui/native/system'
 import type { SlotStyles, StyleFn } from '@xaui/native/system'
 import type { RadiusKey, XAUITheme } from '@xaui/native/theme'
-import { REPORT_TOKENS } from '../../system/report-tokens'
 import { cornerFor } from '../../theme/tram-corner'
 import type { TramSize, TramTypeRole } from '../../theme/tram-tokens'
 import { roleType } from '../typography/typography.role'
-import { LINE_WIDTH } from '../button/button.recipe'
+import { DRAWING_TOKENS, LINE_WIDTH } from '../button/button.recipe'
 import type { BadgeSlot, BadgeVariant } from './badge.type'
 
 const SLOTS = ['root', 'label'] as const
 
-export const DEFAULT_VARIANT: BadgeVariant = 'primary'
+export const DEFAULT_VARIANT: BadgeVariant = 'contained'
 
 export const DEFAULT_SIZE: TramSize = 'md'
 
@@ -25,9 +24,9 @@ type SizeStep = {
 
 /** 16, 20, 24: a count is the smallest text on the scale, until `lg` reads as body. */
 const SIZES: Record<TramSize, SizeStep> = {
-  sm: { height: 4, padding: 1, label: 'caption', dot: 1.5 },
-  md: { height: 5, padding: 1.25, label: 'caption', dot: 2 },
-  lg: { height: 6, padding: 1.5, label: 'body', dot: 2.5 },
+  sm: { height: 4, padding: 0.5, label: 'caption', dot: 1.5 },
+  md: { height: 5, padding: 0.75, label: 'caption', dot: 2 },
+  lg: { height: 6, padding: 1, label: 'body', dot: 2.5 },
 }
 
 function sizeAxis({ height, padding, label }: SizeStep) {
@@ -70,6 +69,9 @@ export const badgeRecipe = createRecipe({
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
+      // The `Button`'s line, always there and clear where the drawing names none, so the
+      // four drawings are the same size.
+      borderWidth: LINE_WIDTH,
       borderRadius: 0,
     },
     label: {
@@ -80,17 +82,13 @@ export const badgeRecipe = createRecipe({
     },
   }),
 
-  variantTokens: REPORT_TOKENS,
+  // The `Button`'s own: a count is a small box in the accent, drawn the way a button is.
+  variantTokens: DRAWING_TOKENS,
 
-  /**
-   * The `Button`'s line of 2, only where the name draws one. Not kept transparent on the
-   * rest: a badge sits on a number's baseline, and two points of nothing would push it.
-   */
   paint: (_theme, colors) => ({
     root: {
       backgroundColor: colors.bg ?? 'transparent',
-      borderColor: colors.border,
-      borderWidth: colors.border ? LINE_WIDTH : 0,
+      borderColor: colors.border ?? 'transparent',
     },
     label: { color: colors.fg },
   }),
@@ -102,7 +100,7 @@ export const badgeRecipe = createRecipe({
       lg: sizeAxis(SIZES.lg),
     },
 
-    /** After `size`, so the square undoes the pill's padding. */
+    /** After `size`, so the square undoes the count's padding. */
     dot: {
       sm: dotAxis(SIZES.sm.dot),
       md: dotAxis(SIZES.md.dot),

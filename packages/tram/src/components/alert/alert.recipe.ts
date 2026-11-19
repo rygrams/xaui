@@ -5,7 +5,7 @@ import { boxCornerFor } from '../../theme/tram-corner'
 import { tramType } from '../../theme/tram-tokens'
 import type { TramSize, TramTypeRole } from '../../theme/tram-tokens'
 import { roleType } from '../typography/typography.role'
-import { LINE_WIDTH } from '../button/button.recipe'
+import { DRAWING_TOKENS, LINE_WIDTH } from '../button/button.recipe'
 import { DESCRIPTION_OPACITY } from '../card/card.recipe'
 import type { AlertSlot, AlertVariant } from './alert.type'
 
@@ -20,23 +20,18 @@ const SLOTS = [
   'closeGlyph',
 ] as const
 
-export const DEFAULT_VARIANT: AlertVariant = 'default'
+export const DEFAULT_VARIANT: AlertVariant = 'flat'
 
 export const DEFAULT_SIZE: TramSize = 'md'
 
 /** The cross is drawn this much wider than its box: the bars run corner to corner. */
 const DIAGONAL = Math.SQRT2
 
+/** The `Button`'s own, for the three drawings an alert has. */
 const VARIANT_TOKENS: Record<AlertVariant, VariantTokens> = {
-  default: { bg: 'surface', fg: 'surfaceForeground' },
-  primary: { bg: 'accent', fg: 'accentForeground' },
-  secondary: { bg: 'accentSoft', fg: 'accentSoftForeground' },
-  success: { bg: 'success', fg: 'successForeground' },
-  'success-soft': { bg: 'successSoft', fg: 'successSoftForeground' },
-  warning: { bg: 'warning', fg: 'warningForeground' },
-  'warning-soft': { bg: 'warningSoft', fg: 'warningSoftForeground' },
-  danger: { bg: 'danger', fg: 'dangerForeground' },
-  'danger-soft': { bg: 'dangerSoft', fg: 'dangerSoftForeground' },
+  contained: DRAWING_TOKENS.contained,
+  flat: DRAWING_TOKENS.flat,
+  outline: DRAWING_TOKENS.outline,
 }
 
 type SizeStep = {
@@ -130,6 +125,9 @@ export const alertRecipe = createRecipe({
     root: {
       flexDirection: 'row',
       alignItems: 'flex-start',
+      // The `Button`'s line, always there and clear where the drawing names none, so the
+      // three drawings are the same size.
+      borderWidth: LINE_WIDTH,
       borderRadius: boxCornerFor('lg', theme.radius),
     },
     // Its colour is the root's to give — a fill, or the ink's line (`markDrawing`). The
@@ -149,9 +147,12 @@ export const alertRecipe = createRecipe({
 
   variantTokens: VARIANT_TOKENS,
 
-  /** Flat: no line around the alert, no shadow. */
+  /** Flat, no shadow; a line only where the drawing names one. */
   paint: (_theme, colors) => ({
-    root: { backgroundColor: colors.bg },
+    root: {
+      backgroundColor: colors.bg ?? 'transparent',
+      borderColor: colors.border ?? 'transparent',
+    },
     title: { color: colors.fg },
     description: { color: colors.fg },
     closeGlyph: { backgroundColor: colors.fg },

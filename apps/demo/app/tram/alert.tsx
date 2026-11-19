@@ -9,67 +9,39 @@ import { Button } from '@xaui/tram/button'
 import type { TramAccentName } from '@xaui/tram/theme'
 import { TramSection } from '../../components/tram-section'
 
+const VARIANTS: AlertVariant[] = ['flat', 'outline', 'contained']
+
 type Sample = {
-  variant: AlertVariant
+  accent?: TramAccentName
   icon: (props: IconComponentProps) => React.JSX.Element
   title: string
   description: string
 }
 
+/** The theme's accent, then what Native calls success, warning and danger. */
 const SAMPLES: Sample[] = [
   {
-    variant: 'default',
     icon: InfoIcon,
     title: 'synchronisation en pause',
     description: 'Le compte se resynchronise dès que le Wi-Fi revient.',
   },
   {
-    variant: 'secondary',
-    icon: InfoIcon,
-    title: 'nouveau : les pivots',
-    description: "Balayez pour passer d'un dossier à l'autre.",
-  },
-  {
-    variant: 'success-soft',
+    accent: 'green',
     icon: CheckIcon,
     title: 'brouillon envoyé',
     description: 'Inès le recevra à sa prochaine connexion.',
   },
   {
-    variant: 'warning-soft',
+    accent: 'amber',
     icon: BangIcon,
     title: 'espace presque plein',
     description: 'Il reste 180 Mo sur ce compte.',
   },
   {
-    variant: 'danger-soft',
+    accent: 'red',
     icon: CrossIcon,
     title: 'envoi impossible',
     description: 'Le serveur a refusé la pièce jointe (25 Mo au plus).',
-  },
-  {
-    variant: 'primary',
-    icon: InfoIcon,
-    title: 'mode avion',
-    description: 'Les messages partiront à la reconnexion.',
-  },
-  {
-    variant: 'success',
-    icon: CheckIcon,
-    title: 'sauvegarde terminée',
-    description: '1 204 messages archivés.',
-  },
-  {
-    variant: 'warning',
-    icon: BangIcon,
-    title: 'batterie faible',
-    description: 'La synchronisation ralentit sous 15 %.',
-  },
-  {
-    variant: 'danger',
-    icon: CrossIcon,
-    title: 'compte déconnecté',
-    description: 'Reconnectez-vous pour recevoir vos messages.',
   },
 ]
 
@@ -78,12 +50,12 @@ const SIZES: AlertSize[] = ['sm', 'md', 'lg']
 const ACCENTS: TramAccentName[] = ['lime', 'magenta']
 
 /**
- * Where the Tram `Alert` is verified, in dark and in light: the nine names — the square
- * filled on a soft ground, drawn as a line on a full one — the sizes, closing, colour.
+ * Where the Tram `Alert` is verified, in dark and in light: the three drawings, a status
+ * as a colour, the sizes, closing, colour.
  */
 export default function TramAlertScreen() {
   const theme = useXAUITheme()
-  const [closed, setClosed] = useState<AlertVariant[]>([])
+  const [closed, setClosed] = useState<string[]>([])
 
   return (
     <ScrollView
@@ -91,22 +63,27 @@ export default function TramAlertScreen() {
       contentContainerStyle={{ padding: 24, gap: 32 }}
     >
       <TramSection
-        title="les neuf noms"
-        note="Sur la surface ou une tranche douce, le carré est plein ; sur une couleur pleine, c'est le trait de l'encre. Sans ombre."
+        title="les trois dessins"
+        note="Ceux du Button : flat (par défaut), outline, contained. Le carré est plein, sauf sur contained, où il passe au trait de l'encre. Sans ombre."
       >
-        {SAMPLES.filter(sample => !closed.includes(sample.variant)).map(sample => (
-          <Alert key={sample.variant} variant={sample.variant}>
-            <Alert.Icon as={sample.icon} />
-            <Alert.Content>
-              <Alert.Title>{sample.title}</Alert.Title>
-              <Alert.Description>{sample.description}</Alert.Description>
-            </Alert.Content>
-            <Alert.Close
-              accessibilityLabel={`fermer : ${sample.title}`}
-              onPress={() => setClosed(current => [...current, sample.variant])}
-            />
-          </Alert>
-        ))}
+        {VARIANTS.map(variant => {
+          const key = `drawing-${variant}`
+          return closed.includes(key) ? null : (
+            <Alert key={key} variant={variant}>
+              <Alert.Icon as={InfoIcon} />
+              <Alert.Content>
+                <Alert.Title>{variant}</Alert.Title>
+                <Alert.Description>
+                  Le compte se resynchronise dès que le Wi-Fi revient.
+                </Alert.Description>
+              </Alert.Content>
+              <Alert.Close
+                accessibilityLabel={`fermer : ${variant}`}
+                onPress={() => setClosed(current => [...current, key])}
+              />
+            </Alert>
+          )
+        })}
         {closed.length > 0 ? (
           <Button variant="outline" size="sm" onPress={() => setClosed([])}>
             tout remettre
@@ -115,11 +92,32 @@ export default function TramAlertScreen() {
       </TramSection>
 
       <TramSection
+        title="un statut est une couleur"
+        note="green, amber et red pour ce que Native appelle success, warning et danger — en flat, puis en contained."
+      >
+        {(['flat', 'contained'] as const).flatMap(variant =>
+          SAMPLES.map(sample => (
+            <Alert
+              key={`${variant}-${sample.title}`}
+              variant={variant}
+              accent={sample.accent}
+            >
+              <Alert.Icon as={sample.icon} />
+              <Alert.Content>
+                <Alert.Title>{sample.title}</Alert.Title>
+                <Alert.Description>{sample.description}</Alert.Description>
+              </Alert.Content>
+            </Alert>
+          ))
+        )}
+      </TramSection>
+
+      <TramSection
         title="les tailles"
         note="Les rôles de la Card : body, subtitle, title ; un carré de 32, 40, 48."
       >
         {SIZES.map(size => (
-          <Alert key={size} size={size} variant="warning-soft">
+          <Alert key={size} size={size} accent="amber">
             <Alert.Icon as={BangIcon} />
             <Alert.Content>
               <Alert.Title>taille {size}</Alert.Title>
@@ -138,24 +136,24 @@ export default function TramAlertScreen() {
 
       <TramSection
         title="la couleur"
-        note="Une tranche douce de lime et de magenta, le carré plein ; une couleur brute sur default remplit l'alerte, et le carré passe au trait."
+        note="lime et magenta au trait, puis une couleur brute pleine."
       >
         {ACCENTS.map(accent => (
-          <Alert key={accent} variant="secondary" accent={accent}>
+          <Alert key={accent} variant="outline" accent={accent}>
             <Alert.Icon as={InfoIcon} />
             <Alert.Content>
               <Alert.Title>{accent}</Alert.Title>
               <Alert.Description>
-                {"La tranche douce de l'accent."}
+                {"Le trait du Button, dans l'accent."}
               </Alert.Description>
             </Alert.Content>
           </Alert>
         ))}
-        <Alert color="#7c3aed">
+        <Alert variant="contained" color="#7c3aed">
           <Alert.Icon as={InfoIcon} />
           <Alert.Content>
             <Alert.Title>couleur brute</Alert.Title>
-            <Alert.Description>#7c3aed, sur default.</Alert.Description>
+            <Alert.Description>#7c3aed, en contained.</Alert.Description>
           </Alert.Content>
         </Alert>
       </TramSection>
