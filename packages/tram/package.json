@@ -109,6 +109,16 @@
         "default": "./dist/components/panorama/index.cjs"
       }
     },
+    "./pivot": {
+      "import": {
+        "types": "./dist/components/pivot/index.d.ts",
+        "default": "./dist/components/pivot/index.js"
+      },
+      "require": {
+        "types": "./dist/components/pivot/index.d.cts",
+        "default": "./dist/components/pivot/index.cjs"
+      }
+    },
     "./progress-bar": {
       "import": {
         "types": "./dist/components/progress-bar/index.d.ts",
