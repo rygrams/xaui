@@ -1,11 +1,5 @@
-import { Platform, StyleSheet } from 'react-native'
-import type { ViewStyle } from 'react-native'
-
-/**
- * A browser draws its focus ring whatever the outline's width: only `none` removes it, and
- * `none` is the browser's word, not React Native's — so it is written for the web alone.
- */
-const NO_RING = (Platform.OS === 'web' ? { outlineStyle: 'none' } : {}) as ViewStyle
+import { StyleSheet } from 'react-native'
+import { NO_RING } from '../../system/no-ring'
 
 /** What does not depend on the theme: the layout of the circle's layers and of the pair. */
 export const fabSheet = StyleSheet.create({

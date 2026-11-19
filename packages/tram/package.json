@@ -69,6 +69,16 @@
         "default": "./dist/components/checkbox/index.cjs"
       }
     },
+    "./close-button": {
+      "import": {
+        "types": "./dist/components/close-button/index.d.ts",
+        "default": "./dist/components/close-button/index.js"
+      },
+      "require": {
+        "types": "./dist/components/close-button/index.d.cts",
+        "default": "./dist/components/close-button/index.cjs"
+      }
+    },
     "./date-picker": {
       "import": {
         "types": "./dist/components/date-picker/index.d.ts",
