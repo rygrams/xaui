@@ -138,4 +138,12 @@ export type ToastEntryContextValue = {
    * the pile moved into a `ToastOutlet`, or back. It has been said aloud once already.
    */
   isMoved: boolean
+  /**
+   * How far the toast's fill runs past its near side, to the screen's edge: the newest of
+   * the pile takes the status bar (or, at the bottom, the home indicator's band) in its
+   * colour, as Metro's toast did. `0` for every other toast, and outside a host.
+   */
+  bleed: number
+  /** Which side the fill runs past: the edge the pile sits against. */
+  bleedSide: ToastPlacement
 }

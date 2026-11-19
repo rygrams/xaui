@@ -116,6 +116,9 @@ export default function TramLayout() {
               <Stack.Screen name="badge" options={{ title: 'BADGE' }} />
               <Stack.Screen name="chip" options={{ title: 'CHIP' }} />
               <Stack.Screen name="alert" options={{ title: 'ALERT' }} />
+              <Stack.Screen name="skeleton" options={{ title: 'SKELETON' }} />
+              <Stack.Screen name="empty-state" options={{ title: 'EMPTY STATE' }} />
+              <Stack.Screen name="accordion" options={{ title: 'ACCORDION' }} />
               <Stack.Screen
                 name="search-field"
                 options={{ title: 'SEARCH FIELD' }}

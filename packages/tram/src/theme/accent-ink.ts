@@ -27,6 +27,14 @@ function blend(from: Channels, to: Channels, share: number): Channels {
   ) as Channels
 }
 
+/**
+ * `from`, moved `share` of the way to `to`, in sRGB, as hex. Both must be hex: the caller
+ * checks with `isHex`, as a theme can hand any colour string.
+ */
+export function blendHex(from: string, to: string, share: number): string {
+  return toHex(blend(channels(from) as Channels, channels(to) as Channels, share))
+}
+
 function contrast(first: string, second: string): number {
   const [low, high] = [relativeLuminance(first), relativeLuminance(second)].sort(
     (a, b) => a - b
