@@ -160,6 +160,29 @@ export const bubbles = {
 } as const
 
 /**
+ * The five dots of the Metro progress ring — the `Spinner`. They never go out: piled on
+ * one another at six o'clock, they set off `stagger` milliseconds apart, run a whole turn
+ * clockwise, and pile up at six again — each one caught up by the next, until the five are
+ * one dot for `rest` milliseconds and the first sets off again.
+ *
+ * `marks` are degrees from the top, where the pace changes; `stretches` the milliseconds
+ * each stretch between two marks takes, one fewer. The run is Metro's: slow out of six, the
+ * dots still close; fast up and over the top, drawn apart; slow into six, where the ones
+ * behind close in on the ones ahead.
+ *
+ * With motion reduced the five stand evenly around the ring, and the ring turns once in
+ * `reducedLap` milliseconds.
+ */
+export const orbit = {
+  count: 5,
+  stagger: 160,
+  rest: 200,
+  marks: [180, 210, 270, 450, 510, 540],
+  stretches: [310, 290, 545, 290, 310],
+  reducedLap: 3000,
+} as const
+
+/**
  * The swipe that sends a toast away, in points — not the banner's `swipe`, which counts in
  * turns of a swivel. `slop` is how far a finger travels before
  * its gesture has taken an axis; past `distance` points **or** `velocity` points a second,

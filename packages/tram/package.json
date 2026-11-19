@@ -49,6 +49,16 @@
         "default": "./dist/components/app-bar/index.cjs"
       }
     },
+    "./avatar": {
+      "import": {
+        "types": "./dist/components/avatar/index.d.ts",
+        "default": "./dist/components/avatar/index.js"
+      },
+      "require": {
+        "types": "./dist/components/avatar/index.d.cts",
+        "default": "./dist/components/avatar/index.cjs"
+      }
+    },
     "./button": {
       "import": {
         "types": "./dist/components/button/index.d.ts",
@@ -57,6 +67,16 @@
       "require": {
         "types": "./dist/components/button/index.d.cts",
         "default": "./dist/components/button/index.cjs"
+      }
+    },
+    "./card": {
+      "import": {
+        "types": "./dist/components/card/index.d.ts",
+        "default": "./dist/components/card/index.js"
+      },
+      "require": {
+        "types": "./dist/components/card/index.d.cts",
+        "default": "./dist/components/card/index.cjs"
       }
     },
     "./checkbox": {
@@ -217,6 +237,26 @@
       "require": {
         "types": "./dist/components/slider/index.d.cts",
         "default": "./dist/components/slider/index.cjs"
+      }
+    },
+    "./spinner": {
+      "import": {
+        "types": "./dist/components/spinner/index.d.ts",
+        "default": "./dist/components/spinner/index.js"
+      },
+      "require": {
+        "types": "./dist/components/spinner/index.d.cts",
+        "default": "./dist/components/spinner/index.cjs"
+      }
+    },
+    "./surface": {
+      "import": {
+        "types": "./dist/components/surface/index.d.ts",
+        "default": "./dist/components/surface/index.js"
+      },
+      "require": {
+        "types": "./dist/components/surface/index.d.cts",
+        "default": "./dist/components/surface/index.cjs"
       }
     },
     "./switch": {
