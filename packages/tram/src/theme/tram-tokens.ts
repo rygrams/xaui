@@ -72,6 +72,13 @@ export const tramType: Record<TramTypeRole, TramTypeStep> = {
  */
 export const tramPicture = { ink: '#FFFFFF', band: 'rgba(0, 0, 0, 0.6)' } as const
 
+/**
+ * Metro's subtle grey — `PhoneSubtleColor`, the same `#999999` on black and on white: the
+ * detail under a list's title, the time of a mail. Greyer than `muted`. Read on a ground
+ * it goes through `accentInk`, so on white it darkens to the first grey at 4.5:1.
+ */
+export const tramSubtle = '#999999'
+
 export const tramTileColumns = { phone: 4, tablet: 6, foldable: 8 } as const
 
 /**

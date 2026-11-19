@@ -31,7 +31,8 @@ export function channels(hex: string): [number, number, number] {
   ) as [number, number, number]
 }
 
-function linear(channel: number): number {
+/** An sRGB channel, 0 to 1, as linear light. */
+export function linear(channel: number): number {
   return channel <= 0.03928 ? channel / 12.92 : ((channel + 0.055) / 1.055) ** 2.4
 }
 
