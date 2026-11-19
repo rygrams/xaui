@@ -8,6 +8,7 @@ const entries = {
   'components/app-bar/index': 'src/components/app-bar/index.ts',
   'components/button/index': 'src/components/button/index.ts',
   'components/checkbox/index': 'src/components/checkbox/index.ts',
+  'components/close-button/index': 'src/components/close-button/index.ts',
   'components/date-picker/index': 'src/components/date-picker/index.ts',
   'components/date-time-picker/index': 'src/components/date-time-picker/index.ts',
   'components/dialog/index': 'src/components/dialog/index.ts',
