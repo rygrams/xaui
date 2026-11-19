@@ -133,7 +133,9 @@ function JumpList<ItemT>(
   const [picked, setPicked] = useState(-1)
   const [landing, setLanding] = useState<JumpListLanding | null>(null)
   const target = useRef<string | null>(null)
-  // The group the list last scrolled to, which a missed scroll tries again.
+  // The group being scrolled to, set only for the length of the call: the list reports a
+  // miss from inside it. Left set, a scroll the app makes later through the ref and
+  // misses would be retried toward this group.
   const aim = useRef<string | null>(null)
   const retries = useRef(0)
 
@@ -142,6 +144,7 @@ function JumpList<ItemT>(
       const sectionIndex = sections.findIndex(section => section.key === key)
       if (sectionIndex < 0) return
 
+      aim.current = key
       // Item 0 of a section is its header.
       list.current?.scrollToLocation({
         sectionIndex,
@@ -149,6 +152,7 @@ function JumpList<ItemT>(
         viewOffset: 0,
         animated: false,
       })
+      aim.current = null
     },
     [sections]
   )
@@ -160,7 +164,6 @@ function JumpList<ItemT>(
     setPicked(-1)
     if (key === null) return
 
-    aim.current = key
     retries.current = 0
     scrollTo(key)
     setLanding(previous => ({
