@@ -27,6 +27,7 @@ const SCREENS = [
   { href: '/tram/panorama', label: 'panorama' },
   { href: '/tram/wheel-picker', label: 'wheel picker' },
   { href: '/tram/date-picker', label: 'date picker' },
+  { href: '/tram/date-time-picker', label: 'date time picker' },
   { href: '/tram/time-picker', label: 'time picker' },
   { href: '/tram/dialog', label: 'dialog' },
   { href: '/tram/fab', label: 'fab' },

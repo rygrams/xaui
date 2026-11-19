@@ -56,6 +56,22 @@ export function composeDate({ year, month, day }: DateSquares): Date {
   return date
 }
 
+/**
+ * `day`'s date at `moment`'s time of day. A date wheel turned under a moment moves its day
+ * and keeps its hour — the `DateTimePicker`'s; a `DatePicker` settles it to midnight after.
+ */
+export function withTimeOf(day: Date, moment: Date): Date {
+  const next = new Date(day)
+  next.setHours(
+    moment.getHours(),
+    moment.getMinutes(),
+    moment.getSeconds(),
+    moment.getMilliseconds()
+  )
+
+  return next
+}
+
 /** `date`, held between two bounds compared by the day. Either bound may be missing. */
 export function clampDate(date: Date, minValue?: Date, maxValue?: Date): Date {
   const day = startOfDay(date)

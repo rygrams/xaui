@@ -12,6 +12,7 @@ import {
   dateColumnOrder,
   daysInMonth,
   squaresOf,
+  withTimeOf,
   yearSpan,
 } from './date-picker.dates'
 import type { DatePart } from './date-picker.dates'
@@ -105,7 +106,12 @@ export const DatePickerWheel = forwardRef<View, DatePickerWheelProps>(
 
     const turn = useCallback(
       (part: DatePart, next: string) =>
-        setDraft(composeDate({ ...squaresOf(draft), [part]: Number(next) })),
+        setDraft(
+          withTimeOf(
+            composeDate({ ...squaresOf(draft), [part]: Number(next) }),
+            draft
+          )
+        ),
       [draft, setDraft]
     )
 
