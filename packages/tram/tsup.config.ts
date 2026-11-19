@@ -16,6 +16,7 @@ const entries = {
   'components/dialog/index': 'src/components/dialog/index.ts',
   'components/fab/index': 'src/components/fab/index.ts',
   'components/jump-list/index': 'src/components/jump-list/index.ts',
+  'components/list/index': 'src/components/list/index.ts',
   'components/list-box/index': 'src/components/list-box/index.ts',
   'components/menu/index': 'src/components/menu/index.ts',
   'components/page/index': 'src/components/page/index.ts',
