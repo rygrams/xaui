@@ -1,4 +1,4 @@
-import { forwardRef, useCallback, useMemo, useRef, useState } from 'react'
+import { forwardRef, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import type { View } from 'react-native'
 import { TextFieldRoot } from '../text-field'
 import { maskInput, resolveMask } from '../../utils/mask'
@@ -79,6 +79,13 @@ export const MaskFieldRoot = forwardRef<View, MaskFieldProps>(function MaskField
   // Not state: it is only read to decide whether the callback says anything new, and a
   // render of its own would be a render per keystroke that changes nothing on screen.
   const reported = useRef(text)
+
+  // Kept in step with what is shown, not only with what was typed: a controlled value the
+  // app replaces is what the next keystroke is compared with, or clearing a pre-filled
+  // field would read as no change and snap back.
+  useEffect(() => {
+    reported.current = text
+  }, [text])
 
   const onType = useCallback(
     (input: string) => {
