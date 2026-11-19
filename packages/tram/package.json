@@ -79,6 +79,16 @@
         "default": "./dist/components/badge/index.cjs"
       }
     },
+    "./bottom-sheet": {
+      "import": {
+        "types": "./dist/components/bottom-sheet/index.d.ts",
+        "default": "./dist/components/bottom-sheet/index.js"
+      },
+      "require": {
+        "types": "./dist/components/bottom-sheet/index.d.cts",
+        "default": "./dist/components/bottom-sheet/index.cjs"
+      }
+    },
     "./button": {
       "import": {
         "types": "./dist/components/button/index.d.ts",
@@ -179,6 +189,16 @@
         "default": "./dist/components/fab/index.cjs"
       }
     },
+    "./input-otp": {
+      "import": {
+        "types": "./dist/components/input-otp/index.d.ts",
+        "default": "./dist/components/input-otp/index.js"
+      },
+      "require": {
+        "types": "./dist/components/input-otp/index.d.cts",
+        "default": "./dist/components/input-otp/index.cjs"
+      }
+    },
     "./jump-list": {
       "import": {
         "types": "./dist/components/jump-list/index.d.ts",
@@ -217,6 +237,16 @@
       "require": {
         "types": "./dist/components/menu/index.d.cts",
         "default": "./dist/components/menu/index.cjs"
+      }
+    },
+    "./number-field": {
+      "import": {
+        "types": "./dist/components/number-field/index.d.ts",
+        "default": "./dist/components/number-field/index.js"
+      },
+      "require": {
+        "types": "./dist/components/number-field/index.d.cts",
+        "default": "./dist/components/number-field/index.cjs"
       }
     },
     "./page": {
@@ -267,6 +297,16 @@
       "require": {
         "types": "./dist/components/radio/index.d.cts",
         "default": "./dist/components/radio/index.cjs"
+      }
+    },
+    "./search-field": {
+      "import": {
+        "types": "./dist/components/search-field/index.d.ts",
+        "default": "./dist/components/search-field/index.js"
+      },
+      "require": {
+        "types": "./dist/components/search-field/index.d.cts",
+        "default": "./dist/components/search-field/index.cjs"
       }
     },
     "./select": {
