@@ -22,6 +22,7 @@ import { ListSwipe } from './list-swipe'
 import { ListSwipeAction } from './list-swipe-action'
 import { useRowSwipe } from './list-item.swipe'
 import { ListRowProvider, ListSwipeProvider, useList } from './list.context'
+import { textOf } from './list.runs'
 import { useRowArrival } from './list.entrance'
 import type { ListItemProps, ListSwipeActionProps } from './list.type'
 
@@ -131,7 +132,9 @@ export const ListItem = forwardRef<View, ListItemProps>(function ListItem(
       <Node
         ref={ref}
         accessibilityRole={accessibilityRole}
-        accessibilityState={accessibilityState}
+        accessibilityState={
+          isDisabled ? { disabled: true, ...accessibilityState } : accessibilityState
+        }
         {...rest}
         {...a11y}
         style={rowStyle}
@@ -186,24 +189,19 @@ type SwipeEntry = {
   onPress?: ListSwipeActionProps['onPress']
 }
 
+type SwipeElement = ReactElement<{ children?: ReactNode }>
+
 const NO_ACTIONS: SwipeEntry[] = []
 
 /** The row's own children, the `List.Swipe` among them taken apart. */
 function splitRow(children: ReactNode) {
-  let swipe: ReactElement<{ children?: ReactNode }> | null = null
-  const content: ReactNode[] = []
-
-  Children.forEach(children, child => {
-    if (isValidElement(child) && child.type === ListSwipe) {
-      swipe = child as ReactElement<{ children?: ReactNode }>
-      return
-    }
-    content.push(child)
-  })
+  const nodes = Children.toArray(children)
+  const isSwipe = (node: ReactNode): node is SwipeElement =>
+    isValidElement(node) && node.type === ListSwipe
 
   return {
-    swipe: swipe as ReactElement<{ children?: ReactNode }> | null,
-    content,
+    swipe: nodes.find(isSwipe) ?? null,
+    content: nodes.filter(node => !isSwipe(node)),
   }
 }
 
@@ -222,18 +220,6 @@ function swipeActionsOf(
   })
 
   return entries
-}
-
-/** The words among an action's children — its icon left out. */
-function textOf(children: ReactNode): string {
-  const words: string[] = []
-
-  Children.forEach(children, child => {
-    if (typeof child === 'string' || typeof child === 'number')
-      words.push(String(child))
-  })
-
-  return words.join(' ').trim()
 }
 
 function toActionInfo({ name, label }: SwipeEntry): AccessibilityActionInfo {

@@ -15,7 +15,6 @@ import type {
   TextStyleProps,
   ViewStyleProps,
 } from '@xaui/native/system'
-import type { XAUITheme } from '@xaui/native/theme'
 import type { TramAccentName } from '../../theme/tram-tokens'
 
 export type ListSlot =
@@ -149,14 +148,23 @@ export type ListRowStyles = {
   actionGlyph: IconContextValue
 }
 
+/** How one swipe action is drawn: its fill, its label, its glyph. */
+export type ListSwipeActionPaint = {
+  style: StyleProp<ViewStyle>
+  labelStyle: StyleProp<TextStyle>
+  glyph: IconContextValue
+}
+
 /** Resolved values shared by every virtualized row. */
 export type ListContextValue = {
-  theme: XAUITheme
   live: ListRowStyles
   grey: ListRowStyles
   swipeStyle: StyleProp<ViewStyle>
-  /** The list's own fill for a swipe action, when it is not the theme's accent. */
-  actionFill?: string
+  /**
+   * A swipe action's paint: on its own fill when it has one, on the list's otherwise.
+   * The list's is resolved once; an action's own colour, uncached, by that action.
+   */
+  paintAction: (ownFill?: string) => ListSwipeActionPaint
   /** Whether the first rows arrive in a cascade, or — motion reduced — fade in. */
   hasEntrance: boolean
   /** Whether the list has shown rows: a row rendered after that is placed, not cascaded. */

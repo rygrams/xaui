@@ -11,6 +11,7 @@ import type { ResolvedStyles } from '@xaui/native/system'
 import { useXAUITheme } from '@xaui/native/theme'
 import type { XAUITheme } from '@xaui/native/theme'
 import { flatPaint, inkOn } from '../../system/flat-paint'
+import type { FlatPaint } from '../../system/flat-paint'
 import { lineInk } from '../../system/line-ink'
 import { accentInk, distinctInk } from '../../theme/accent-ink'
 import { isHex } from '../../theme/on-accent'
@@ -23,6 +24,7 @@ import type {
   ListRootComponent,
   ListRowStyles,
   ListSlot,
+  ListSwipeActionPaint,
 } from './list.type'
 
 /**
@@ -88,7 +90,7 @@ function ListRootInner<ItemT>(
   // Uncached: a raw tint must stay out of the cache key.
   const tint = fill ? listRecipe.tint({ theme, color: fill }) : undefined
   const detailInk = useDetailInk(theme)
-  const subtitleInk = useSubtitleInk(theme, accent, color, detailInk)
+  const subtitleInk = useSubtitleInk(theme, { accent, color }, detailInk)
 
   // The first rows the list shows take their turn; after that a row is placed.
   const entered = useRef(false)
@@ -102,8 +104,11 @@ function ListRootInner<ItemT>(
     const ink = fill ? inkOn(fill, theme.colors.accentForeground) : undefined
     const leading = tint ? [live.leading, tint.leading] : live.leading
 
+    const listAction = actionPaintFrom(live, theme, fill)
+    const paintAction = (ownFill?: string) =>
+      ownFill ? actionPaintFrom(live, theme, ownFill) : listAction
+
     return {
-      theme,
       live: rowStylesFrom(live, {
         leading,
         subtitleInk,
@@ -112,7 +117,7 @@ function ListRootInner<ItemT>(
       }),
       grey: rowStylesFrom(grey, { detailInk, glyphInk: theme.colors.background }),
       swipeStyle: live.swipe,
-      actionFill: fill,
+      paintAction,
       hasEntrance,
       hasEntered: () => entered.current,
       openRow,
@@ -190,8 +195,7 @@ function useDetailInk(theme: XAUITheme): string {
  */
 function useSubtitleInk(
   theme: XAUITheme,
-  accent: ListProps<unknown>['accent'],
-  color: string | undefined,
+  { accent, color }: FlatPaint,
   detailInk: string
 ): string {
   const { background, foreground, link } = theme.colors
@@ -262,5 +266,29 @@ function rowStylesFrom(
     actionTextStyle: [styles.actionText, detail],
     leadingGlyph: { size: LIST_GEOMETRY.leadingGlyph, color: paint.glyphInk },
     actionGlyph: { size: LIST_GEOMETRY.actionGlyph, color: paint.detailInk },
+  }
+}
+
+/**
+ * A swipe action on `fill` — tinted and its label in the ink that reads there — or on the
+ * theme's accent when there is none. Uncached: a raw tint must stay out of the cache key.
+ */
+function actionPaintFrom(
+  styles: ResolvedStyles<ListSlot>,
+  theme: XAUITheme,
+  fill: string | undefined
+): ListSwipeActionPaint {
+  const ink = fill ? inkOn(fill, theme.colors.accentForeground) : undefined
+  const tint = fill ? listRecipe.tint({ theme, color: fill }) : undefined
+
+  return {
+    style: tint ? [styles.swipeAction, tint.swipeAction] : styles.swipeAction,
+    labelStyle: ink
+      ? [styles.swipeActionLabel, { color: ink }]
+      : styles.swipeActionLabel,
+    glyph: {
+      size: LIST_GEOMETRY.swipeGlyph,
+      color: ink ?? theme.colors.accentForeground,
+    },
   }
 }

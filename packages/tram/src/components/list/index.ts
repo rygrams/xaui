@@ -31,7 +31,7 @@ export { ListSubtitle } from './list-subtitle'
 export { ListSwipe } from './list-swipe'
 export { ListSwipeAction } from './list-swipe-action'
 export { ListTitle } from './list-title'
-export { useList, useListItem, useListRow } from './list.context'
+export { useList, useListItem, useListRow, useListSwipe } from './list.context'
 export { LIST_GEOMETRY, listRecipe } from './list.recipe'
 export type {
   ListActionProps,
@@ -47,7 +47,9 @@ export type {
   ListRowStyles,
   ListSlot,
   ListSubtitleProps,
+  ListSwipeActionPaint,
   ListSwipeActionProps,
+  ListSwipeContextValue,
   ListSwipeProps,
   ListTitleProps,
 } from './list.type'

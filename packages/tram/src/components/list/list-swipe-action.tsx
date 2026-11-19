@@ -1,13 +1,12 @@
-import { Children, forwardRef } from 'react'
-import { Text } from 'react-native'
+import { forwardRef } from 'react'
 import type { GestureResponderEvent, View } from 'react-native'
 import { usePressState } from '@xaui/native'
 import { IconContext, useStyleProps } from '@xaui/native/system'
-import { flatPaint, inkOn } from '../../system/flat-paint'
+import { flatPaint } from '../../system/flat-paint'
 import { PressTilt } from '../../system/press-tilt'
 import { useTramHaptic } from '../../theme/tram-haptics'
 import { useList, useListSwipe } from './list.context'
-import { LIST_GEOMETRY, listRecipe } from './list.recipe'
+import { wrapText } from './list.text'
 import type { ListSwipeActionProps } from './list.type'
 
 /**
@@ -21,24 +20,12 @@ export const ListSwipeAction = forwardRef<View, ListSwipeActionProps>(
     { children, onPress, accent, color, style, ...props },
     ref
   ) {
-    const { theme, actionFill } = useList()
+    const { paintAction } = useList()
     const swipe = useListSwipe()
     const haptic = useTramHaptic()
     const [styleProps, rest] = useStyleProps(props)
     const [isPressed, press] = usePressState({ onPressIn: () => haptic('press') })
-
-    const styles = listRecipe.resolve({ theme })
-    const fill = flatPaint({ accent, color }) ?? actionFill
-    // Uncached: a raw tint must stay out of the cache key.
-    const tint = fill ? listRecipe.tint({ theme, color: fill }) : undefined
-    const ink = fill ? inkOn(fill, theme.colors.accentForeground) : undefined
-    const label = ink
-      ? [styles.swipeActionLabel, { color: ink }]
-      : styles.swipeActionLabel
-    const glyph = {
-      size: LIST_GEOMETRY.swipeGlyph,
-      color: ink ?? theme.colors.accentForeground,
-    }
+    const paint = paintAction(flatPaint({ accent, color }))
 
     const handlePress = (event: GestureResponderEvent) => {
       onPress?.(event)
@@ -46,7 +33,7 @@ export const ListSwipeAction = forwardRef<View, ListSwipeActionProps>(
     }
 
     return (
-      <IconContext.Provider value={glyph}>
+      <IconContext.Provider value={paint.glyph}>
         <PressTilt
           ref={ref}
           isPressed={isPressed}
@@ -54,18 +41,12 @@ export const ListSwipeAction = forwardRef<View, ListSwipeActionProps>(
           animation={false}
           accessibilityRole="button"
           {...rest}
-          style={[styles.swipeAction, tint?.swipeAction, styleProps, style]}
+          style={[paint.style, styleProps, style]}
           onPressIn={press.onPressIn}
           onPressOut={press.onPressOut}
           onPress={handlePress}
         >
-          {Children.map(children, child =>
-            typeof child === 'string' || typeof child === 'number' ? (
-              <Text style={label}>{child}</Text>
-            ) : (
-              child
-            )
-          )}
+          {wrapText(children, paint.labelStyle)}
         </PressTilt>
       </IconContext.Provider>
     )

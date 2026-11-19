@@ -1,7 +1,8 @@
-import { Children, forwardRef } from 'react'
-import { Text, View } from 'react-native'
+import { forwardRef } from 'react'
+import { View } from 'react-native'
 import { IconContext, useStyleProps } from '@xaui/native/system'
 import { useListRow } from './list.context'
+import { wrapText } from './list.text'
 import type { ListActionProps } from './list.type'
 
 /**
@@ -19,13 +20,7 @@ export const ListAction = forwardRef<View, ListActionProps>(function ListAction(
   return (
     <IconContext.Provider value={styles.actionGlyph}>
       <View ref={ref} {...rest} style={[styles.actionStyle, styleProps, style]}>
-        {Children.map(children, child =>
-          typeof child === 'string' || typeof child === 'number' ? (
-            <Text style={styles.actionTextStyle}>{child}</Text>
-          ) : (
-            child
-          )
-        )}
+        {wrapText(children, styles.actionTextStyle)}
       </View>
     </IconContext.Provider>
   )
