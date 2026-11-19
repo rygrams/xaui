@@ -112,6 +112,10 @@ export default function TramLayout() {
               <Stack.Screen name="card" options={{ title: 'CARD' }} />
               <Stack.Screen name="spinner" options={{ title: 'SPINNER' }} />
               <Stack.Screen name="avatar" options={{ title: 'AVATAR' }} />
+              <Stack.Screen name="divider" options={{ title: 'DIVIDER' }} />
+              <Stack.Screen name="badge" options={{ title: 'BADGE' }} />
+              <Stack.Screen name="chip" options={{ title: 'CHIP' }} />
+              <Stack.Screen name="alert" options={{ title: 'ALERT' }} />
             </Stack>
           </Scaffold.Navigator>
         </Scaffold>

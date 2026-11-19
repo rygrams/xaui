@@ -37,7 +37,7 @@ const VARIANT_TOKENS: Record<CardVariant, VariantTokens> = {
  * grounds it lands on `muted` — white at this much is `#A3A3A3` on black — and, unlike
  * `muted`, it still reads on a card filled with an accent.
  */
-const DESCRIPTION_OPACITY = 0.64
+export const DESCRIPTION_OPACITY = 0.64
 
 type SizeStep = {
   /** Spacing steps, not points. */
