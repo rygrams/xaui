@@ -12,7 +12,8 @@ import { useTextField } from '../text-field'
 import type { FieldBlurEvent, FieldFocusEvent } from '../text-field'
 import { SearchFieldIcon } from './search-field-icon'
 import { useSearchField } from './search-field.context'
-import { restLine, splitByType, splitFieldStyle } from './search-field.utils'
+import { splitFieldStyle } from '../../system/split-field-style'
+import { restLine, splitByType } from './search-field.utils'
 import type { SearchFieldFieldProps } from './search-field.type'
 
 /**
