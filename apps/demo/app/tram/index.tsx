@@ -21,6 +21,7 @@ const SCREENS = [
   { href: '/tram/select', label: 'select' },
   { href: '/tram/list-box', label: 'list box' },
   { href: '/tram/tile', label: 'tile' },
+  { href: '/tram/panorama', label: 'panorama' },
   { href: '/tram/wheel-picker', label: 'wheel picker' },
   { href: '/tram/dialog', label: 'dialog' },
   { href: '/tram/fab', label: 'fab' },
