@@ -36,3 +36,9 @@ export {
 }
 export { usePhoneNumberField } from './phone-number-field.context'
 export type * from './phone-number-field.type'
+export {
+  editPhoneNumber,
+  filterPhoneCountries,
+  phoneCountries,
+  readPhoneNumber,
+} from '../../utils/phone-number'

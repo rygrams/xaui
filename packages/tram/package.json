@@ -69,6 +69,16 @@
         "default": "./dist/components/app-bar/index.cjs"
       }
     },
+    "./autocomplete": {
+      "import": {
+        "types": "./dist/components/autocomplete/index.d.ts",
+        "default": "./dist/components/autocomplete/index.js"
+      },
+      "require": {
+        "types": "./dist/components/autocomplete/index.d.cts",
+        "default": "./dist/components/autocomplete/index.cjs"
+      }
+    },
     "./avatar": {
       "import": {
         "types": "./dist/components/avatar/index.d.ts",
@@ -149,6 +159,16 @@
         "default": "./dist/components/close-button/index.cjs"
       }
     },
+    "./combobox": {
+      "import": {
+        "types": "./dist/components/combobox/index.d.ts",
+        "default": "./dist/components/combobox/index.js"
+      },
+      "require": {
+        "types": "./dist/components/combobox/index.d.cts",
+        "default": "./dist/components/combobox/index.cjs"
+      }
+    },
     "./date-picker": {
       "import": {
         "types": "./dist/components/date-picker/index.d.ts",
@@ -209,6 +229,16 @@
         "default": "./dist/components/fab/index.cjs"
       }
     },
+    "./field-group": {
+      "import": {
+        "types": "./dist/components/field-group/index.d.ts",
+        "default": "./dist/components/field-group/index.js"
+      },
+      "require": {
+        "types": "./dist/components/field-group/index.d.cts",
+        "default": "./dist/components/field-group/index.cjs"
+      }
+    },
     "./input-otp": {
       "import": {
         "types": "./dist/components/input-otp/index.d.ts",
@@ -249,6 +279,16 @@
         "default": "./dist/components/list-box/index.cjs"
       }
     },
+    "./mask-field": {
+      "import": {
+        "types": "./dist/components/mask-field/index.d.ts",
+        "default": "./dist/components/mask-field/index.js"
+      },
+      "require": {
+        "types": "./dist/components/mask-field/index.d.cts",
+        "default": "./dist/components/mask-field/index.cjs"
+      }
+    },
     "./menu": {
       "import": {
         "types": "./dist/components/menu/index.d.ts",
@@ -287,6 +327,16 @@
       "require": {
         "types": "./dist/components/panorama/index.d.cts",
         "default": "./dist/components/panorama/index.cjs"
+      }
+    },
+    "./phone-number-field": {
+      "import": {
+        "types": "./dist/components/phone-number-field/index.d.ts",
+        "default": "./dist/components/phone-number-field/index.js"
+      },
+      "require": {
+        "types": "./dist/components/phone-number-field/index.d.cts",
+        "default": "./dist/components/phone-number-field/index.cjs"
       }
     },
     "./pivot": {
@@ -500,6 +550,7 @@
     "@xaui/native": "workspace:^"
   },
   "peerDependencies": {
+    "libphonenumber-js": ">=1.11.0",
     "react": "^18.0.0 || ^19.0.0",
     "react-native": ">=0.70.0",
     "react-native-gesture-handler": ">=2.0.0",
@@ -507,12 +558,16 @@
     "react-native-worklets": ">=0.5.0"
   },
   "peerDependenciesMeta": {
+    "libphonenumber-js": {
+      "optional": true
+    },
     "react-native-gesture-handler": {
       "optional": true
     }
   },
   "devDependencies": {
     "@types/react": "^19.2.0",
+    "libphonenumber-js": "^1.13.12",
     "react": "19.2.0",
     "react-native": "0.83.10",
     "react-native-gesture-handler": "^2.28.0",

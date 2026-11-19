@@ -262,6 +262,12 @@ export type SelectContextValue = {
   /** An ancestor asked for no animation at all. */
   isStill: boolean
   mode: SelectMode
+  /** What a searching field has typed — `''` for a `Select` (`SelectExtension`). */
+  query: string
+  /** The row stays and the list unfolds under it (`SelectExtension`). */
+  keepsRow: boolean
+  /** How tall a list kept under its row grows before it scrolls, in points. */
+  listMost: number
   open: () => void
   close: () => void
   toggle: () => void

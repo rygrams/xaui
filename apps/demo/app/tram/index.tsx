@@ -53,6 +53,11 @@ const SCREENS = [
   { href: '/tram/number-field', label: 'number field' },
   { href: '/tram/input-otp', label: 'input otp' },
   { href: '/tram/bottom-sheet', label: 'bottom sheet' },
+  { href: '/tram/mask-field', label: 'mask field' },
+  { href: '/tram/autocomplete', label: 'autocomplete' },
+  { href: '/tram/combobox', label: 'combobox' },
+  { href: '/tram/field-group', label: 'field group' },
+  { href: '/tram/phone-number-field', label: 'phone number field' },
 ] as const
 
 export default function TramHomeScreen() {

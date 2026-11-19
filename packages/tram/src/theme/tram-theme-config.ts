@@ -52,7 +52,8 @@ const ground: Record<ColorMode, ModeColors> = {
     border: '#FFFFFF',
     fieldBackground: '#000000',
     fieldForeground: '#FFFFFF',
-    fieldPlaceholder: '#A3A3A3',
+    // A step under `muted`: a placeholder stands back from the typed text.
+    fieldPlaceholder: '#8F8F8F',
     fieldBorder: '#FFFFFF',
     ...intents,
   },
@@ -69,7 +70,7 @@ const ground: Record<ColorMode, ModeColors> = {
     border: '#000000',
     fieldBackground: '#FFFFFF',
     fieldForeground: '#000000',
-    fieldPlaceholder: '#666666',
+    fieldPlaceholder: '#7A7A7A',
     fieldBorder: '#000000',
     ...intents,
   },

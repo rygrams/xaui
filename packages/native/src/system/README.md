@@ -33,6 +33,7 @@ re-exported from `utils/`.
 | `close-button/`       | The dismiss affordance: own press state, grown target, built-in cross   |
 | `style-props/`        | R14: the style keys of a node, exposed as props and split back out      |
 | `expansion/`          | What is open after a press: an accordion's single/multiple rule, pure   |
+| `items/`              | A list's rows read off its elements: their labels, and a typed filter   |
 
 ## `recipe/` in one page
 

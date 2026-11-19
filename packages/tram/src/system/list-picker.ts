@@ -43,6 +43,21 @@ export function cascadeDelay(rank: number, after = 0): number {
 }
 
 /**
+ * What an unfolded box holds inside its line, in points. A `Select`'s list is laid over
+ * its row and takes its place, so the box is as tall as the taller of the two. A list
+ * that keeps its row — the `Combobox`, whose row is the field being typed into — hangs
+ * under it, and the box holds both.
+ */
+export function unfoldedInner(
+  rowHeight: number,
+  listHeight: number,
+  keepsRow: boolean
+): number {
+  'worklet'
+  return keepsRow ? rowHeight + listHeight : Math.max(rowHeight, listHeight)
+}
+
+/**
  * How far up a folded list is drawn, so that its current choice lies exactly over the
  * field's value: up to the row's start, and half of what the row is taller than the
  * field by. Nothing when no row is chosen — `span.height` is 0.
