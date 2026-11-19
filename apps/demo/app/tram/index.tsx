@@ -46,6 +46,10 @@ const SCREENS = [
   { href: '/tram/badge', label: 'badge' },
   { href: '/tram/chip', label: 'chip' },
   { href: '/tram/alert', label: 'alert' },
+  { href: '/tram/search-field', label: 'search field' },
+  { href: '/tram/number-field', label: 'number field' },
+  { href: '/tram/input-otp', label: 'input otp' },
+  { href: '/tram/bottom-sheet', label: 'bottom sheet' },
 ] as const
 
 export default function TramHomeScreen() {

@@ -116,6 +116,19 @@ export default function TramLayout() {
               <Stack.Screen name="badge" options={{ title: 'BADGE' }} />
               <Stack.Screen name="chip" options={{ title: 'CHIP' }} />
               <Stack.Screen name="alert" options={{ title: 'ALERT' }} />
+              <Stack.Screen
+                name="search-field"
+                options={{ title: 'SEARCH FIELD' }}
+              />
+              <Stack.Screen
+                name="number-field"
+                options={{ title: 'NUMBER FIELD' }}
+              />
+              <Stack.Screen name="input-otp" options={{ title: 'INPUT OTP' }} />
+              <Stack.Screen
+                name="bottom-sheet"
+                options={{ title: 'BOTTOM SHEET' }}
+              />
             </Stack>
           </Scaffold.Navigator>
         </Scaffold>
