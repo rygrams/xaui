@@ -5,7 +5,7 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue,
 } from 'react-native-reanimated'
-import { INDICATOR_ROTATION, Icon } from '@xaui/native/system'
+import { INDICATOR_ROTATION, Icon, useAnimationDisabled } from '@xaui/native/system'
 import { duration } from '../../motion/motion-tokens'
 import { useTramEase } from '../../motion/use-tram-ease'
 import { useAccordion, useAccordionItem } from './accordion.context'
@@ -25,11 +25,14 @@ export function AccordionIndicator({ as, size, color }: AccordionIndicatorProps)
   const { indicatorStyle, indicatorBarStyle } = useAccordion()
   const { isExpanded } = useAccordionItem()
   const glide = useTramEase()
+  // Under an ancestor's `disable-all` the bar is set, as the panel and the row are.
+  const isStill = useAnimationDisabled()
   const progress = useSharedValue(isExpanded ? 1 : 0)
 
   useEffect(() => {
-    progress.value = glide(isExpanded ? 1 : 0, 'metro', duration.base)
-  }, [isExpanded, glide, progress])
+    const target = isExpanded ? 1 : 0
+    progress.value = isStill ? target : glide(target, 'metro', duration.base)
+  }, [isExpanded, isStill, glide, progress])
 
   const upright = useAnimatedStyle(() => {
     'worklet'

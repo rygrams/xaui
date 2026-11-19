@@ -11,7 +11,7 @@ import Animated, {
   withSequence,
   withTiming,
 } from 'react-native-reanimated'
-import { useStyleProps } from '@xaui/native/system'
+import { useAnimationDisabled, useStyleProps } from '@xaui/native/system'
 import { useXAUITheme } from '@xaui/native/theme'
 import { pulse } from '../../motion/motion-tokens'
 import { skeletonRecipe } from './skeleton.recipe'
@@ -41,6 +41,8 @@ export const Skeleton = forwardRef<View, SkeletonProps>(function Skeleton(
 ) {
   const theme = useXAUITheme()
   const isReduced = useReducedMotion()
+  // An ancestor's `animation="disable-all"` stands every block under it still too.
+  const isInheritedStill = useAnimationDisabled()
   // After the component's own props are taken out: `color` stays the tint, not the style
   // prop of the same name.
   const [styleProps, rest] = useStyleProps(props)
@@ -69,8 +71,9 @@ export const Skeleton = forwardRef<View, SkeletonProps>(function Skeleton(
   ]
 
   // Two components rather than a branch inside one: hooks cannot be conditional, and a
-  // still block — asked for, or with motion reduced — never reaches Reanimated's.
-  if (!animation || isReduced) {
+  // still block — asked for, under `disable-all`, or with motion reduced — never reaches
+  // Reanimated's.
+  if (!animation || isInheritedStill || isReduced) {
     return <View ref={ref} {...blockProps} style={blockStyle} />
   }
 
