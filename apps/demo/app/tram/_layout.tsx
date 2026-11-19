@@ -83,8 +83,10 @@ export default function TramLayout() {
               <Stack.Screen name="dialog" options={{ title: 'DIALOG' }} />
               <Stack.Screen name="fab" options={{ title: 'FAB' }} />
               <Stack.Screen name="toast" options={{ title: 'TOAST' }} />
+              <Stack.Screen name="pivot" options={{ title: 'PIVOT' }} />
               <Stack.Screen name="tabs" options={{ title: 'TABS' }} />
               <Stack.Screen name="tile" options={{ title: 'TILE' }} />
+              <Stack.Screen name="panorama" options={{ title: 'PANORAMA' }} />
               <Stack.Screen
                 name="toggle-button"
                 options={{ title: 'TOGGLE BUTTON' }}
