@@ -1,11 +1,5 @@
 import { forwardRef, useEffect, useLayoutEffect, useRef } from 'react'
-import {
-  I18nManager,
-  Pressable,
-  StyleSheet,
-  View,
-  useWindowDimensions,
-} from 'react-native'
+import { Pressable, StyleSheet, View } from 'react-native'
 import Animated, {
   useAnimatedStyle,
   useReducedMotion,
@@ -15,13 +9,13 @@ import type { SharedValue } from 'react-native-reanimated'
 import { useStyleProps } from '@xaui/native/system'
 import { useTramEase } from '../../motion/use-tram-ease'
 import { useMenu } from './menu.context'
-import { sideBands } from './menu.place'
 import type { MenuRect } from './menu.place'
 import type { MenuAnchor, MenuOverlayProps } from './menu.type'
 
 /**
  * The page behind the menu: dimmed — flat black at the theme's `backdrop` strength, no
- * blur — everywhere but over the trigger, and stepped back when it is a `Page`. It dims
+ * blur — everywhere but in the trigger's row, left lit from one edge of the screen to the
+ * other as the panel runs, and stepped back when it is a `Page`. It dims
  * as the panel turns in and lightens on the exit curve; the page recedes and comes back
  * on the Metro curve. A touch anywhere outside the panel closes the menu.
  *
@@ -101,7 +95,6 @@ const MenuBackdrop = forwardRef<View, MenuBackdropProps>(function MenuBackdrop(
 ) {
   const { overlayStyle, anchor, isDismissable, close } = useMenu()
   const [styleProps, rest] = useStyleProps(props)
-  const { width } = useWindowDimensions()
 
   const dimmed = useAnimatedStyle(() => {
     'worklet'
@@ -109,7 +102,6 @@ const MenuBackdrop = forwardRef<View, MenuBackdropProps>(function MenuBackdrop(
   }, [shade])
 
   const rect: MenuRect = anchor?.rect ?? NOWHERE
-  const sides = sideBands(rect, width, I18nManager.isRTL)
   const band = [overlayStyle, styleProps, style]
   const below = rect.y + rect.height
 
@@ -125,22 +117,12 @@ const MenuBackdrop = forwardRef<View, MenuBackdropProps>(function MenuBackdrop(
         onPress={isDismissable ? close : undefined}
         style={layer.fill}
       />
-      {/* The dimming comes last: it is the one opacity the menu owns. */}
+      {/* The dimming comes last: it is the one opacity the menu owns. Above the trigger's
+          row and below it, never beside it: a hole the trigger's own size would show the
+          page's ground as a box of its own. */}
       <Animated.View style={[layer.fill, layer.through, dimmed]}>
         <View style={[band, { top: 0, height: rect.y, start: 0, end: 0 }]} />
         <View style={[band, { top: below, bottom: 0, start: 0, end: 0 }]} />
-        <View
-          style={[
-            band,
-            { top: rect.y, height: rect.height, start: 0, width: sides.start },
-          ]}
-        />
-        <View
-          style={[
-            band,
-            { top: rect.y, height: rect.height, end: 0, width: sides.end },
-          ]}
-        />
       </Animated.View>
       {children}
     </View>

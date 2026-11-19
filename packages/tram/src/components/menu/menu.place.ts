@@ -67,26 +67,6 @@ export function hingeOf(side: MenuSide): MenuSide {
   return side === 'bottom' ? 'top' : 'bottom'
 }
 
-/** The two bands beside the anchor, in its row, as widths from each edge of the window. */
-export type MenuBands = { start: number; end: number }
-
-/**
- * The ground is dimmed everywhere but over the anchor: above it, below it, and on either
- * side of it in its own row. `start` and `end` are the side bands' widths, counted from
- * the layout's own edges — the anchor's `x` is from the left, which is the end in a
- * right-to-left layout.
- */
-export function sideBands(
-  anchor: MenuRect,
-  windowWidth: number,
-  isRtl: boolean
-): MenuBands {
-  const left = Math.max(0, anchor.x)
-  const right = Math.max(0, windowWidth - (anchor.x + anchor.width))
-
-  return isRtl ? { start: right, end: left } : { start: left, end: right }
-}
-
 /** The offset of the anchor's centre from the page's, in points. */
 export type MenuOffset = { x: number; y: number }
 

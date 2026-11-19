@@ -26,7 +26,7 @@ import { hingeOf, menuPlace } from './menu.place'
 import type { MenuContentProps } from './menu.type'
 
 /**
- * The panel: the theme's `overlay`, from one edge of the screen to the other, against
+ * The panel: the theme's contrast — white on dark, black on light — from one edge of the screen to the other, against
  * its trigger — under it, or over it when there is no room below. It swivels in on the
  * edge it shares with the trigger, and its children arrive in cascade as soon as it
  * reads as flat, each in the order written. Taller than the room on either side, it

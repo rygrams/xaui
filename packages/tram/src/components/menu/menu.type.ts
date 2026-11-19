@@ -64,7 +64,8 @@ type MenuOwnProps = {
 /**
  * The root renders **no node** — `ref` and `style` live on the parts that draw.
  *
- * No `accent` and no `color`: the panel is the theme's `overlay` and carries no accent.
+ * No `accent` and no `color`: the panel is the theme's contrast — its `foreground` as a
+ * ground — and carries no accent.
  */
 export type MenuProps = MenuOwnProps
 

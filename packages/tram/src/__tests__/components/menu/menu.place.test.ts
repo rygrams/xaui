@@ -4,7 +4,6 @@ import {
   hingeOf,
   liftFor,
   menuPlace,
-  sideBands,
   within,
 } from '../../../components/menu/menu.place'
 import type { MenuPlaceInput } from '../../../components/menu/menu.place'
@@ -63,22 +62,6 @@ describe('hingeOf', () => {
   it('turns a panel on the edge it shares with its anchor', () => {
     expect(hingeOf('bottom')).toBe('top')
     expect(hingeOf('top')).toBe('bottom')
-  })
-})
-
-describe('sideBands', () => {
-  const anchor = { x: 30, y: 0, width: 100, height: 48 }
-
-  it('measures the bands from the start and the end of the layout', () => {
-    expect(sideBands(anchor, 400, false)).toEqual({ start: 30, end: 270 })
-    expect(sideBands(anchor, 400, true)).toEqual({ start: 270, end: 30 })
-  })
-
-  it('leaves no band beside an anchor the width of the window', () => {
-    expect(sideBands({ ...anchor, x: 0, width: 400 }, 400, false)).toEqual({
-      start: 0,
-      end: 0,
-    })
   })
 })
 
