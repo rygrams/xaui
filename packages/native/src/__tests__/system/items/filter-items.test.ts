@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { matchesQuery } from '../../utils/filter-items'
+import { matchesQuery } from '../../../system/items'
 
 describe('matchesQuery', () => {
   it('keeps everything on an empty query', () => {

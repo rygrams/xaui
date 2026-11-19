@@ -1,6 +1,6 @@
 import { Children, isValidElement } from 'react'
 import type { ReactNode } from 'react'
-import { childrenToString } from '../system/slot'
+import { childrenToString } from '../slot'
 
 /**
  * The `value` and label of every row in a tree, read from the **elements** rather than from
