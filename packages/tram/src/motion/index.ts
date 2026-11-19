@@ -8,6 +8,7 @@ export {
   panel,
   panorama,
   pivot,
+  recede,
   scale,
   spring,
   swipe,

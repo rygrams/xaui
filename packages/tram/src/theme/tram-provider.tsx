@@ -6,7 +6,7 @@ import { tramTheme } from './create-tram-theme'
 import { TramHapticsProvider } from './tram-haptics'
 import type { TramHapticHandler } from './tram-haptics'
 import { TramPagesProvider, resolveTramPages } from './tram-pages'
-import type { TramPageLeave, TramPagesConfig } from './tram-pages'
+import type { TramPageLeave, TramPageStage, TramPagesConfig } from './tram-pages'
 import { TramSafeAreaProvider } from './tram-safe-area'
 import type { TramSafeAreaConfig } from './tram-safe-area'
 
@@ -66,10 +66,11 @@ export function TramProvider({
   ...props
 }: TramProviderProps) {
   const focused = useRef<TramPageLeave | null>(null)
+  const stage = useRef<TramPageStage | null>(null)
   const transition = pages?.transition
   const useIsFocused = pages?.useIsFocused
   const wired = useMemo(
-    () => resolveTramPages({ transition, useIsFocused }, focused),
+    () => resolveTramPages({ transition, useIsFocused }, focused, stage),
     [transition, useIsFocused]
   )
 

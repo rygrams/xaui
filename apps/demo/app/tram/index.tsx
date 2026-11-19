@@ -21,6 +21,7 @@ const SCREENS = [
   { href: '/tram/text-area', label: 'text area' },
   { href: '/tram/select', label: 'select' },
   { href: '/tram/list-box', label: 'list box' },
+  { href: '/tram/menu', label: 'menu' },
   { href: '/tram/tile', label: 'tile' },
   { href: '/tram/jump-list', label: 'jump list' },
   { href: '/tram/panorama', label: 'panorama' },

@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { pagePose } from '../../../components/page/page.pose'
-import { pageSlide, turnstile } from '../../../motion/motion-tokens'
+import { pagePose, recedePose } from '../../../components/page/page.pose'
+import { pageSlide, recede, turnstile } from '../../../motion/motion-tokens'
 
 const ltr = { isRtl: false }
 const rtl = { isRtl: true }
@@ -72,4 +72,27 @@ describe('pagePose', () => {
       pagePose(1, { transition: 'turnstile', ...ltr })
     )
   })
+})
+
+describe('recedePose', () => {
+  it('leaves a page in place at rest', () => {
+    expect(recedePose(0, 400, false)).toEqual({ scale: 1, translateX: 0 })
+  })
+
+  it('shrinks a page to the recede scale at full depth', () => {
+    expect(recedePose(1, 400, false).scale).toBeCloseTo(recede.scale)
+  })
+
+  it.each([false, true])(
+    'keeps the centre of a page hinged on its start edge where it was (rtl: %s)',
+    isRtl => {
+      const width = 400
+      const { scale, translateX } = recedePose(1, width, isRtl)
+      // Scaled around the hinge, then shifted: where the centre ends up, from the hinge.
+      const hinge = isRtl ? width : 0
+      const centre = hinge + (width / 2 - hinge) * scale + translateX
+
+      expect(centre).toBeCloseTo(width / 2)
+    }
+  )
 })

@@ -1,4 +1,4 @@
-import { pageSlide } from '../../motion/motion-tokens'
+import { pageSlide, recede } from '../../motion/motion-tokens'
 import { turnstileAngle } from '../../system/turnstile'
 import type { TramPageTransition } from '../../theme/tram-pages'
 
@@ -38,4 +38,24 @@ export function pagePose(
   }
 
   return { opacity, rotateY: 0, translateX: 0 }
+}
+
+/** What a receded page adds to its pose: a scale, and the shift that centres it. */
+export type RecedePose = { scale: number; translateX: number }
+
+/**
+ * A page stepped back by `depth`, from 0 in place to 1 at the `recede` scale. It is
+ * hinged on its start edge (`hingeFor`) and would shrink toward it; moved back by what
+ * that costs — half its `width`, times what it lost — it shrinks around its centre.
+ */
+export function recedePose(
+  depth: number,
+  width: number,
+  isRtl: boolean
+): RecedePose {
+  'worklet'
+  const scale = 1 - (1 - recede.scale) * depth
+  const towardEnd = isRtl ? -1 : 1
+
+  return { scale, translateX: (width / 2) * (1 - scale) * towardEnd }
 }

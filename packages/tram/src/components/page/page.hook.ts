@@ -1,4 +1,6 @@
 import { useCallback, useEffect, useRef } from 'react'
+import type { RefObject } from 'react'
+import type { View } from 'react-native'
 import { useAnimatedReaction, useSharedValue } from 'react-native-reanimated'
 import type { SharedValue } from 'react-native-reanimated'
 import { scheduleOnRN } from 'react-native-worklets'
@@ -6,7 +8,11 @@ import { duration } from '../../motion/motion-tokens'
 import { useTramEase } from '../../motion/use-tram-ease'
 import { useTramMotion } from '../../motion/use-tram-motion'
 import { useTramPages } from '../../theme/tram-pages'
-import type { TramPageDirection, TramPageLeave } from '../../theme/tram-pages'
+import type {
+  TramPageDirection,
+  TramPageLeave,
+  TramPageStage,
+} from '../../theme/tram-pages'
 
 /** Where a page waits before it arrives, and where it has gone once it left forward. */
 const ARRIVING = -1
@@ -159,4 +165,35 @@ export function usePageLeave(): TramPageLeave {
     },
     [focused]
   )
+}
+
+/**
+ * How far the page has stepped back, 0 to 1 — written by a context menu, never here — and
+ * the stage it is written through. While the page is focused its stage is the provider's,
+ * so a `Menu` opened anywhere on it finds the page to make recede and where its centre is.
+ */
+export function usePageStage(node: RefObject<View | null>): SharedValue<number> {
+  const { stage, useIsFocused } = useTramPages()
+  // The app's own hook, as in `usePageTurn`: called on every render like any other.
+  const isFocused = useIsFocused()
+  const depth = useSharedValue(0)
+
+  useEffect(() => {
+    if (!isFocused) return
+
+    const own: TramPageStage = {
+      depth,
+      measure: done =>
+        node.current?.measureInWindow((x, y, width, height) =>
+          done({ x, y, width, height })
+        ),
+    }
+    stage.current = own
+
+    return () => {
+      if (stage.current === own) stage.current = null
+    }
+  }, [isFocused, depth, node, stage])
+
+  return depth
 }
