@@ -161,14 +161,16 @@ export const bubbles = {
 
 /**
  * The five dots of the Metro progress ring — the `Spinner`. They never go out: piled on
- * one another at six o'clock, they set off `stagger` milliseconds apart, run a whole turn
- * clockwise, and pile up at six again — each one caught up by the next, until the five are
- * one dot for `rest` milliseconds and the first sets off again.
+ * one another, they set off `stagger` milliseconds apart, run a turn clockwise and one hour
+ * more, and pile up again — each one caught up by the next, until the five are one dot
+ * for `rest` milliseconds and the first sets off again. So they meet at six o'clock, then
+ * at seven, at eight, and round the clock in twelve laps.
  *
  * `marks` are degrees from the top, where the pace changes; `stretches` the milliseconds
- * each stretch between two marks takes, one fewer. The run is Metro's: slow out of six, the
- * dots still close; fast up and over the top, drawn apart; slow into six, where the ones
- * behind close in on the ones ahead.
+ * each stretch between two marks takes, one fewer. The first and the last mark are a turn
+ * and an hour apart — the step the meeting point takes each lap. The run is Metro's: slow
+ * out of the meeting point, the dots still close; fast up and over, drawn apart; slow into
+ * the next one, where the ones behind close in on the ones ahead.
  *
  * With motion reduced the five stand evenly around the ring, and the ring turns once in
  * `reducedLap` milliseconds.
@@ -177,8 +179,8 @@ export const orbit = {
   count: 5,
   stagger: 160,
   rest: 200,
-  marks: [180, 210, 270, 450, 510, 540],
-  stretches: [310, 290, 545, 290, 310],
+  marks: [180, 210, 270, 480, 540, 570],
+  stretches: [310, 290, 635, 290, 310],
   reducedLap: 3000,
 } as const
 

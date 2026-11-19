@@ -15,11 +15,10 @@ import type { SharedValue } from 'react-native-reanimated'
 import { useAnimationDisabled, useStyleProps } from '@xaui/native/system'
 import { useXAUITheme } from '@xaui/native/theme'
 import { orbit } from '../../motion/motion-tokens'
-import { bubbleAt } from '../../system/bubble-run'
-import type { BubbleRun } from '../../system/bubble-run'
 import { flatPaint } from '../../system/flat-paint'
 import { DEFAULT_SIZE, SPINNER_GEOMETRY, spinnerRecipe } from './spinner.recipe'
-import { orbitAtRest, orbitRun } from './spinner.orbit'
+import { orbitAngle, orbitAtRest, orbitRun } from './spinner.orbit'
+import type { OrbitRun } from './spinner.orbit'
 import type { SpinnerProps } from './spinner.type'
 
 const DOTS = Array.from({ length: orbit.count }, (_, index) => index)
@@ -30,9 +29,9 @@ const RUN = orbitRun(orbit)
 const AT_REST = orbitAtRest(orbit.count)
 
 /**
- * The wait, drawn as Metro drew it: five round dots piled into one at six o'clock set off
- * one after the other, slow, then fast over the top, and slow again into six — where each
- * is caught up by the next until the five are one dot again, and the first sets off.
+ * The wait, drawn as Metro drew it: five round dots piled into one set off one after the
+ * other, slow, then fast over the top, and slow again into the next meeting point — an hour
+ * on from the last — where each is caught up by the next until the five are one dot again.
  *
  * ```tsx
  * <Spinner />
@@ -142,7 +141,13 @@ function TurningDots({ dotStyle, reach }: DotsProps) {
   )
 }
 
-/** The Metro run: one clock for the five, looped on the UI thread. */
+/**
+ * The Metro run: one clock for the five, looped on the UI thread. It runs through every
+ * lap the meeting point takes to come back round — twelve of an hour each — so the loop
+ * restarts where it began and shows no seam.
+ */
+const LOOP = RUN.cycle * RUN.laps
+
 function RunningDots({ dotStyle, reach }: DotsProps) {
   const elapsed = useSharedValue(0)
 
@@ -150,8 +155,8 @@ function RunningDots({ dotStyle, reach }: DotsProps) {
     elapsed.value = 0
     // The component already answers reduced motion by not mounting this at all.
     elapsed.value = withRepeat(
-      withTiming(RUN.cycle, {
-        duration: RUN.cycle,
+      withTiming(LOOP, {
+        duration: LOOP,
         easing: Easing.linear,
         reduceMotion: ReduceMotion.Never,
       }),
@@ -178,14 +183,14 @@ function RunningDots({ dotStyle, reach }: DotsProps) {
 
 type RunningDotProps = DotsProps & {
   index: number
-  run: BubbleRun
+  run: OrbitRun
   elapsed: SharedValue<number>
 }
 
 function RunningDot({ index, run, elapsed, reach, dotStyle }: RunningDotProps) {
   const place = useAnimatedStyle(() => {
     'worklet'
-    const angle = bubbleAt(run, elapsed.value, index)
+    const angle = orbitAngle(run, elapsed.value, index)
 
     return {
       transform: [{ rotate: `${angle}deg` }, { translateY: -reach }],

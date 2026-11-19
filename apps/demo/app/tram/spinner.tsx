@@ -26,7 +26,7 @@ export default function TramSpinnerScreen() {
     >
       <TramSection
         title="la course"
-        note="Cinq points ronds empilés à six heures partent l'un après l'autre, lents, puis vite par le haut, et ralentissent en revenant à six heures, où chacun est rattrapé par le suivant : les cinq ne font plus qu'un, puis le premier repart. Avec les animations réduites, les cinq tournent lentement, répartis."
+        note="Cinq points ronds empilés partent l'un après l'autre, lents, puis vite par le haut, et ralentissent en arrivant une heure plus loin, où chacun est rattrapé par le suivant : les cinq ne font plus qu'un, puis le premier repart. Ils se rejoignent à six heures, puis à sept, à huit, et font le tour du cadran en douze tours. Avec les animations réduites, les cinq tournent lentement, répartis."
       >
         <Row>
           {SIZES.map(size => (
