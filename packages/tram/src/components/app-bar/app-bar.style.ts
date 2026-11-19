@@ -1,12 +1,6 @@
-import { Platform, StyleSheet } from 'react-native'
-import type { ViewStyle } from 'react-native'
+import { StyleSheet } from 'react-native'
+import { NO_RING } from '../../system/no-ring'
 import { MORE_BOX } from './app-bar.recipe'
-
-/**
- * A browser draws its focus ring whatever the outline's width: only `none` removes it, and
- * `none` is the browser's word, not React Native's — so it is written for the web alone.
- */
-const NO_RING = (Platform.OS === 'web' ? { outlineStyle: 'none' } : {}) as ViewStyle
 
 /** What does not depend on the theme: where the band is docked, and how it folds. */
 export const appBarSheet = StyleSheet.create({
