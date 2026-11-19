@@ -177,5 +177,19 @@ export const toastSwipe = { slop: 10, distance: 50, velocity: 500 } as const
  */
 export const pivot = { distance: 0.25, velocity: 500, slop: 10 } as const
 
+/**
+ * The swipe that slides a list row aside to show its actions. Released past `distance` of
+ * the actions' width, or flung that way faster than `velocity` points a second, the row
+ * stays open; flung back as fast, or short of half, it closes. Pulled past its actions it
+ * follows the finger `rubber` times slower. `slop` is how far a finger travels across
+ * before the swipe is the row's and not the list's scroll.
+ */
+export const rowSwipe = {
+  distance: 0.5,
+  velocity: 500,
+  rubber: 3,
+  slop: 10,
+} as const
+
 export type TramSpringName = keyof typeof spring
 export type TramEaseName = keyof typeof ease
