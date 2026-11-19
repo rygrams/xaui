@@ -23,7 +23,7 @@ export default function TramSurfaceScreen() {
     >
       <TramSection
         title="les deux sols"
-        note="primary : la surface discrète. secondary : la page dans le trait du thème, 3. Aucune ombre."
+        note="primary : la surface discrète. secondary : la page dans un trait gris de 2, atténué. Aucune ombre."
       >
         {VARIANTS.map(variant => (
           <Surface key={variant} variant={variant}>

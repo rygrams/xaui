@@ -13,7 +13,7 @@ export type SurfaceSlot = 'root'
  * | Variant     | Drawn as                                  |
  * | ----------- | ----------------------------------------- |
  * | `primary`   | the discreet surface, a grey off the page |
- * | `secondary` | the page itself, inside the theme's line  |
+ * | `secondary` | the page itself, inside a thin grey line  |
  *
  * Native's grey `secondary` is not here: one grey is all the Tram design has, and a
  * surface inside one is drawn by its line. No shadow on either: Tram has no depth.

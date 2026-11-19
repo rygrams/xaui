@@ -3,6 +3,7 @@ import type { StyleFn, VariantTokens } from '@xaui/native/system'
 import type { RadiusKey, XAUITheme } from '@xaui/native/theme'
 import { boxCornerFor } from '../../theme/tram-corner'
 import type { TramSize } from '../../theme/tram-tokens'
+import { LINE_WIDTH } from '../button/button.recipe'
 import type { SurfaceSlot, SurfaceVariant } from './surface.type'
 
 const SLOTS = ['root'] as const
@@ -12,10 +13,13 @@ export const DEFAULT_VARIANT: SurfaceVariant = 'primary'
 /**
  * A grey and a line. `secondary` names no fill: the page shows through, and the line is
  * what draws it — so a tint lands on the line, and the ground stays the page's.
+ *
+ * The line is `muted`, not the page's ink: a ground frames content, and a line of full
+ * black or white around it reads as a control asking to be pressed.
  */
 const VARIANT_TOKENS: Record<SurfaceVariant, VariantTokens> = {
   primary: { bg: 'surface' },
-  secondary: { border: 'border' },
+  secondary: { border: 'muted' },
 }
 
 type SizeStep = { padding: number; gap: number }
@@ -58,12 +62,15 @@ export const surfaceRecipe = createRecipe({
 
   variantTokens: VARIANT_TOKENS,
 
-  /** The theme's line, 3, and only where the variant names one. */
-  paint: (theme, colors) => ({
+  /**
+   * The `Button`'s line, 2 — a point under the theme's 3, the weight of an outline rather
+   * than of a frame — and only where the variant names one.
+   */
+  paint: (_theme, colors) => ({
     root: {
       backgroundColor: colors.bg ?? 'transparent',
       borderColor: colors.border,
-      borderWidth: colors.border ? theme.borderWidth.default : 0,
+      borderWidth: colors.border ? LINE_WIDTH : 0,
     },
   }),
 
