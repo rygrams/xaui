@@ -40,7 +40,9 @@ export function useOpening(isOpen: boolean, isStill: boolean) {
 
 /**
  * Room that opens with `level`: as tall as what it holds — measured — times the level.
- * What it holds keeps its own height and is clipped while the room is short of it.
+ * What it holds keeps its own height and is clipped while the room is short of it: it is
+ * laid out of the flow (`appBarSheet.held`), or the closed room — 0 tall — would squeeze
+ * it to nothing and the measure would never find its height.
  */
 export function useFold(level: SharedValue<number>) {
   const height = useSharedValue(0)

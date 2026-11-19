@@ -29,6 +29,11 @@ export const appBarSheet = StyleSheet.create({
   more: { alignSelf: 'flex-start' },
   /** Room opened and closed by the root: what is in it is clipped while it opens. */
   fold: { overflow: 'hidden' },
+  /**
+   * What a fold holds: out of the flow, from the fold's top edge, so it keeps its own
+   * height while the fold is short of it — the measure the fold opens to.
+   */
+  held: { position: 'absolute', top: 0, start: 0, end: 0 },
   /** A button: the circle, and the room for the label under it, never narrower than 48. */
   cell: { alignItems: 'center', flexShrink: 1, minWidth: 48 },
   /** An exact circle: no outline and no ring from the platform, on touch or on focus. */

@@ -201,7 +201,10 @@ export const AppBarRoot = forwardRef<View, AppBarProps>(function AppBar(
   const isTop = shown === 'top'
   const inset = hasSafeArea ? (isTop ? insets.top : insets.bottom) : 0
   const circles = (
-    <View style={styles.row} onLayout={isMinimal ? row.measure : undefined}>
+    <View
+      style={[styles.row, isMinimal && appBarSheet.held]}
+      onLayout={isMinimal ? row.measure : undefined}
+    >
       {parts.buttons}
     </View>
   )
@@ -281,7 +284,9 @@ export const AppBarRoot = forwardRef<View, AppBarProps>(function AppBar(
             accessibilityElementsHidden={!isOpen}
             style={[appBarSheet.fold, reach(isOpen), menuRoom.fold]}
           >
-            <View onLayout={menuRoom.measure}>{parts.menu}</View>
+            <View style={appBarSheet.held} onLayout={menuRoom.measure}>
+              {parts.menu}
+            </View>
           </Animated.View>
         ) : null}
       </Animated.View>
