@@ -1,10 +1,11 @@
-import { forwardRef } from 'react'
+import { forwardRef, useEffect, useRef } from 'react'
+import { Platform } from 'react-native'
 import type { View } from 'react-native'
 import Animated, {
   useAnimatedStyle,
   useReducedMotion,
 } from 'react-native-reanimated'
-import { useStyleProps } from '@xaui/native/system'
+import { mergeRefs, useStyleProps } from '@xaui/native/system'
 import { usePivot } from './pivot.context'
 import { closeness, loopDelta } from './pivot.loop'
 import type { PivotSectionProps } from './pivot.type'
@@ -16,7 +17,8 @@ import type { PivotSectionProps } from './pivot.type'
  * is the caller's: a list, a `ScrollView` for what runs long.
  *
  * Every section stays mounted, so one keeps its scroll and its state while away. Only the
- * current one is read by a screen reader — a `tabpanel`, named by its title.
+ * current one is read by a screen reader — a `tabpanel`, named by its title — and on the
+ * web only the current one is reached by Tab: the others are `inert`.
  *
  * With motion reduced it does not slide: it fades in where it stands.
  */
@@ -39,6 +41,15 @@ export const PivotSection = forwardRef<View, PivotSectionProps>(
     const count = values.length
     const isAway = current !== value
 
+    // Hidden, faded and out of the finger's reach is not out of the keyboard's on the web:
+    // a section away is `inert`, so Tab cannot reach the controls it holds.
+    const node = useRef<View>(null)
+    useEffect(() => {
+      if (Platform.OS !== 'web') return
+      const element = node.current as unknown as { inert: boolean } | null
+      if (element) element.inert = isAway
+    }, [isAway])
+
     const moved = useAnimatedStyle(() => {
       'worklet'
       const delta = index < 0 ? 1 : loopDelta(index, position.value, count)
@@ -54,7 +65,7 @@ export const PivotSection = forwardRef<View, PivotSectionProps>(
     return (
       <Animated.View
         // The animated wrapper types its ref as itself; at runtime it is the host view.
-        ref={ref as never}
+        ref={mergeRefs(node, ref) as never}
         id={panelId(value)}
         role="tabpanel"
         aria-labelledby={tabId(value)}

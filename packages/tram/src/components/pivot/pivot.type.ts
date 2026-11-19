@@ -19,6 +19,11 @@ type PivotOwnProps = {
   defaultValue?: string
   /** Called when a swipe, a title pressed or an arrow key settles on another section. */
   onValueChange?: (value: string) => void
+  /**
+   * The caller's one element is the Pivot's frame: the slots are written inside it, and
+   * its props and ref merge with the root's.
+   */
+  asChild?: boolean
 }
 
 export type PivotProps = PivotOwnProps &

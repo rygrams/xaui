@@ -5,7 +5,7 @@ import { scheduleOnRN } from 'react-native-worklets'
 import { pivot } from '../../motion/motion-tokens'
 import { useTramMotion } from '../../motion/use-tram-motion'
 import { useTramHaptic } from '../../theme/tram-haptics'
-import { forwardSteps, loopIndex, releaseStep } from './pivot.loop'
+import { forwardSteps, loopDelta, loopIndex, releaseStep } from './pivot.loop'
 
 type LoopOptions = {
   /** The sections' values, in the loop's order. */
@@ -31,7 +31,8 @@ type Size = { width: number; height: number }
  * moves on a section — forward or back, round the loop — when it was flung, or dragged a
  * quarter of the screen, and the position settles on the `navigation` spring, felt as a
  * `selection`. A title pressed is reached going forward, the way the row slides; an arrow
- * key steps either way. A `value` set from outside is reached forward too.
+ * key steps either way. A `value` set from outside is reached forward too; a section a
+ * controlled `value` refuses is gone back from.
  *
  * `anchor` is the whole position the loop is on or on its way to. It never wraps, so a
  * spring from the last section to the first goes on forward instead of running back
@@ -57,6 +58,10 @@ export function usePivotLoop({
 
   const [rowHeight, setRowHeight] = useState(0)
   const [measured, setMeasured] = useState(0)
+  // Counts the sections a swipe or a key asked for, so a refused one is noticed (see below).
+  const [asked, setAsked] = useState(0)
+  // The whole position the last swipe or key set off toward, until the value answers it.
+  const released = useRef<number | null>(null)
   const sizes = useRef(new Map<string, Size>())
 
   const measureHeader = useCallback(
@@ -91,20 +96,28 @@ export function usePivotLoop({
   )
 
   // A value set from outside — or a title pressed — is reached going forward. A swipe or
-  // an arrow key has already set off toward its section, and is left to arrive.
+  // an arrow key has already set off toward its section, and is left to arrive. When its
+  // section was refused — a controlled `value` that stayed put — the loop goes back to the
+  // value's the short way, the way it came: `asked` runs this again after every one.
   useEffect(() => {
+    const wasReleased = released.current === anchor.value
+    released.current = null
     if (count === 0 || loopIndex(anchor.value, count) === currentIndex) return
+    const from = loopIndex(anchor.value, count)
     goTo(
-      anchor.value +
-        forwardSteps(loopIndex(anchor.value, count), currentIndex, count)
+      wasReleased
+        ? anchor.value + loopDelta(currentIndex, from, count)
+        : anchor.value + forwardSteps(from, currentIndex, count)
     )
-  }, [currentIndex, count, anchor, goTo])
+  }, [currentIndex, asked, count, anchor, goTo])
 
   const settle = useCallback(
     (target: number) => {
       haptic('selection')
+      released.current = target
       const value = values[loopIndex(target, count)]
       if (value !== undefined) choose(value)
+      setAsked(times => times + 1)
     },
     [haptic, choose, values, count]
   )

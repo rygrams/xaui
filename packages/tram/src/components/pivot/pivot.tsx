@@ -1,9 +1,18 @@
-import { forwardRef, useCallback, useId, useMemo, useRef } from 'react'
+import {
+  cloneElement,
+  forwardRef,
+  isValidElement,
+  useCallback,
+  useId,
+  useMemo,
+  useRef,
+} from 'react'
+import type { ReactElement, ReactNode } from 'react'
 import { I18nManager, View } from 'react-native'
 import type { LayoutChangeEvent } from 'react-native'
 import { GestureDetector } from 'react-native-gesture-handler'
 import { useControllableState } from '@xaui/native'
-import { useAnimationDisabled, useStyleProps } from '@xaui/native/system'
+import { Slot, useAnimationDisabled, useStyleProps } from '@xaui/native/system'
 import { useXAUITheme } from '@xaui/native/theme'
 import { useTramHaptic } from '../../theme/tram-haptics'
 import { partsOf } from './pivot.children'
@@ -37,9 +46,21 @@ import type { PivotProps } from './pivot.type'
  * the section's — a `ScrollView` there scrolls; only a drag that is mostly across moves the
  * loop. Every section stays mounted; a screen reader reads the titles as tabs and the
  * current section alone.
+ *
+ * Under `asChild` the caller's one element is the frame, and the slots are written inside
+ * it.
  */
 export const PivotRoot = forwardRef<View, PivotProps>(function Pivot(
-  { children, value, defaultValue, onValueChange, style, onLayout, ...props },
+  {
+    children,
+    value,
+    defaultValue,
+    onValueChange,
+    asChild = false,
+    style,
+    onLayout,
+    ...props
+  },
   ref
 ) {
   const theme = useXAUITheme()
@@ -48,7 +69,12 @@ export const PivotRoot = forwardRef<View, PivotProps>(function Pivot(
   const haptic = useTramHaptic()
   const id = useId()
   const styles = pivotRecipe.resolve({ theme })
-  const { title, headers, sections, values } = partsOf(children)
+
+  // Under `asChild` the slots are the caller's element's children, drawn inside it.
+  const only = asChild && isValidElement(children) ? (children as Frame) : null
+  const { title, headers, sections, values } = partsOf(
+    only ? only.props.children : children
+  )
   // A row laid right to left starts at the screen's right edge, and moves the other way.
   const way: 1 | -1 = I18nManager.isRTL ? -1 : 1
 
@@ -137,24 +163,35 @@ export const PivotRoot = forwardRef<View, PivotProps>(function Pivot(
     ]
   )
 
+  const layers = (
+    <>
+      {title}
+      <View role="tablist" style={[styles.headers, { height: loop.rowHeight }]}>
+        {headers}
+      </View>
+      <View style={styles.body}>{sections}</View>
+    </>
+  )
+
+  const rootStyle = [styles.root, styleProps, style]
+
   return (
     <PivotProvider value={context}>
       <GestureDetector gesture={loop.gesture} touchAction="pan-y">
-        <View
-          ref={ref}
-          {...rest}
-          style={[styles.root, styleProps, style]}
-          onLayout={handleLayout}
-        >
-          {title}
-          <View role="tablist" style={[styles.headers, { height: loop.rowHeight }]}>
-            {headers}
+        {only ? (
+          <Slot {...rest} ref={ref} style={rootStyle} onLayout={handleLayout}>
+            {cloneElement(only, undefined, layers)}
+          </Slot>
+        ) : (
+          <View ref={ref} {...rest} style={rootStyle} onLayout={handleLayout}>
+            {layers}
           </View>
-          <View style={styles.body}>{sections}</View>
-        </View>
+        )}
       </GestureDetector>
     </PivotProvider>
   )
 })
 
 PivotRoot.displayName = 'XAUI.Tram.Pivot.Root'
+
+type Frame = ReactElement<{ children?: ReactNode }>
