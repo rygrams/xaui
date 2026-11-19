@@ -142,27 +142,32 @@ export const CardRoot = forwardRef<View, CardProps>(function Card(
   const motion = resolveAnimation(animation, useAnimationDisabled())
 
   if (isPressable) {
-    const Root = motion.scale ? PressTilt : PressableFeedback
+    const pressable = {
+      ref,
+      isPressed,
+      isDisabled,
+      asChild,
+      animation: motion.disableAll ? ('disable-all' as const) : false,
+      accessibilityRole: accessibilityRole ?? ('button' as const),
+      // Merged, not spread over: a caller adding `selected` must not drop this one.
+      accessibilityState: { disabled: isDisabled, ...accessibilityState },
+      ...rest,
+      style: rootStyle,
+      onPressIn: press.onPressIn,
+      onPressOut: press.onPressOut,
+      // Under `asChild` the caller's element is the card: one child, theirs.
+      children: asChild ? children : layered,
+    }
 
     return (
       <CardProvider value={context}>
-        <Root
-          ref={ref}
-          isPressed={isPressed}
-          isDisabled={isDisabled}
-          asChild={asChild}
-          animation={motion.disableAll ? 'disable-all' : false}
-          accessibilityRole={accessibilityRole ?? 'button'}
-          // Merged, not spread over: a caller adding `selected` must not drop this one.
-          accessibilityState={{ disabled: isDisabled, ...accessibilityState }}
-          {...rest}
-          style={rootStyle}
-          onPressIn={press.onPressIn}
-          onPressOut={press.onPressOut}
-        >
-          {/* Under `asChild` the caller's element is the card: one child, theirs. */}
-          {asChild ? children : layered}
-        </Root>
+        {motion.scale ? (
+          // A card holds buttons of its own — its footer's actions — so the tilt leaves
+          // the touch to them rather than taking every one for the card.
+          <PressTilt {...pressable} hasInteractiveContent />
+        ) : (
+          <PressableFeedback {...pressable} />
+        )}
       </CardProvider>
     )
   }

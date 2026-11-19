@@ -25,6 +25,12 @@ export type PressTiltProps = PressableFeedbackProps & {
    * out of `style`, which is read for its transform, and an animated style cannot be.
    */
   animatedStyle?: StyleProp<ViewStyle>
+  /**
+   * Whether what the box holds can be pressed on its own — a button in a card's footer.
+   * The box then lets the touch through to it, and the lean is measured from the page
+   * rather than from the node under the finger. Off, the box takes every touch itself.
+   */
+  hasInteractiveContent?: boolean
 }
 
 /**
@@ -90,6 +96,7 @@ export const PressTilt = forwardRef<View, PressTiltProps>(function PressTilt(
     isPressed = false,
     depth = scale.press,
     animatedStyle,
+    hasInteractiveContent = false,
     style,
     onPressIn,
     onLayout,
@@ -98,6 +105,7 @@ export const PressTilt = forwardRef<View, PressTiltProps>(function PressTilt(
   ref
 ) {
   const box = useRef({ width: 0, height: 0 })
+  const node = useRef<View | null>(null)
   // The tilt is appended to the caller's own transform rather than replacing it: `style`
   // is the last word, and a button moved with `translateY` must stay where it was put.
   const motion = usePressLean(depth, style as StyleProp<ViewStyle>)
@@ -109,10 +117,30 @@ export const PressTilt = forwardRef<View, PressTiltProps>(function PressTilt(
     onLayout?.(event)
   }
 
+  // Ours to measure the box from, and the caller's: one node, two refs.
+  const setNode = useCallback(
+    (instance: View | null) => {
+      node.current = instance
+      if (typeof ref === 'function') ref(instance)
+      else if (ref) ref.current = instance
+    },
+    [ref]
+  )
+
   // The lean starts here rather than in the effect below: only the touch says where.
   const handlePressIn = (event: GestureResponderEvent) => {
-    const { locationX, locationY } = event.nativeEvent
-    lean({ x: locationX, y: locationY }, box.current)
+    const { locationX, locationY, pageX, pageY } = event.nativeEvent
+
+    if (hasInteractiveContent) {
+      // The touch may have landed on a child, whose corner `locationX` is counted from:
+      // the box's own place on the page is what puts the finger on the box.
+      node.current?.measure((_x, _y, width, height, left, top) => {
+        lean({ x: pageX - left, y: pageY - top }, { width, height })
+      })
+    } else {
+      lean({ x: locationX, y: locationY }, box.current)
+    }
+
     onPressIn?.(event)
   }
 
@@ -125,11 +153,16 @@ export const PressTilt = forwardRef<View, PressTiltProps>(function PressTilt(
   return (
     <AnimatedFeedback
       // The animated wrapper types its ref as itself; at runtime it is the host view.
-      ref={ref as never}
+      ref={setNode as never}
       isPressed={isPressed}
       // `box-only`: the touch lands on the box, never on the label inside it, so its
-      // location is measured from the box's own corner.
-      style={[style, BOX_ONLY, animatedStyle, motion.style]}
+      // location is measured from the box's own corner — unless what it holds is pressable.
+      style={[
+        style,
+        hasInteractiveContent ? undefined : BOX_ONLY,
+        animatedStyle,
+        motion.style,
+      ]}
       onLayout={handleLayout}
       onPressIn={handlePressIn}
       {...props}

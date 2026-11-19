@@ -20,6 +20,7 @@ export default function TramCardScreen() {
   const theme = useXAUITheme()
   const [count, setCount] = useState(0)
   const press = () => setCount(value => value + 1)
+  const [actions, setActions] = useState(0)
 
   return (
     <ScrollView
@@ -93,11 +94,22 @@ export default function TramCardScreen() {
 
       <TramSection
         title="une carte qu'on presse"
-        note={`isPressable : la carte penche vers le doigt, ses couleurs ne bougent pas. Appuis : ${count}`}
+        note={`isPressable : la carte penche vers le doigt, ses couleurs ne bougent pas ; le bouton du pied reçoit son propre appui. Carte : ${count}, bouton : ${actions}`}
       >
         <Card isPressable onPress={press}>
-          <Card.Title>ouvrir le détail</Card.Title>
-          <Card.Description>appuyez près d'un bord</Card.Description>
+          <Card.Header>
+            <Card.Title>ouvrir le détail</Card.Title>
+            <Card.Description>appuyez près d'un bord</Card.Description>
+          </Card.Header>
+          <Card.Footer>
+            <Button
+              variant="outline"
+              size="sm"
+              onPress={() => setActions(value => value + 1)}
+            >
+              partager
+            </Button>
+          </Card.Footer>
         </Card>
         <Card isPressable isDisabled onPress={press}>
           <Card.Title>désactivée</Card.Title>
