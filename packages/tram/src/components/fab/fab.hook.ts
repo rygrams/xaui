@@ -18,7 +18,6 @@ import { ROTATION_DURATION } from '@xaui/native'
 import { cascade, duration } from '../../motion/motion-tokens'
 import { useTramEase } from '../../motion/use-tram-ease'
 import { useTramMotion } from '../../motion/use-tram-motion'
-import type { FabPlacement } from './fab.type'
 
 /**
  * Whether something that fades out is still to be drawn: while it is asked for, and after
@@ -44,70 +43,6 @@ function useLinger(isAsked: boolean, level: SharedValue<number>): boolean {
   )
 
   return isAsked || isKept
-}
-
-type TravelAsk = {
-  isVisible: boolean
-  placement: FabPlacement
-  isStill: boolean
-}
-
-/**
- * The way in and the way out. The `Fab` comes up from the bottom edge to its place on the
- * `navigation` spring, fading in fast; it leaves by the same way on the exit curve. Both
- * are targets, so one interrupts the other from where the `Fab` is.
- *
- * A change of `placement` is not a slide from one corner to the other: the `Fab` leaves,
- * `shown` — the placement it is laid at — changes once it is gone, and it comes in there.
- *
- * With motion reduced it does not travel, it fades; under `disable-all` it is set down.
- */
-export function useFabTravel({ isVisible, placement, isStill }: TravelAsk) {
-  const animate = useTramMotion()
-  const glide = useTramEase()
-  const isReduced = useReducedMotion()
-  const isFixed = isStill || isReduced
-  const [shown, setShown] = useState(placement)
-  const isHere = isVisible && shown === placement
-  const fade = useSharedValue(isStill && isHere ? 1 : 0)
-  const drop = useSharedValue(isFixed ? 0 : 1)
-  const height = useSharedValue(0)
-
-  useEffect(() => {
-    if (isStill) fade.value = isHere ? 1 : 0
-    else fade.value = isHere ? glide(1, 'metro', duration.fast) : glide(0, 'exit')
-
-    if (isFixed) drop.value = 0
-    else drop.value = isHere ? animate(0, 'navigation') : glide(1, 'exit')
-  }, [isHere, isStill, isFixed, animate, glide, fade, drop])
-
-  // Gone: it may be laid where it was asked to be. Also what moves a hidden one.
-  useAnimatedReaction(
-    () => {
-      'worklet'
-      return fade.value <= 0
-    },
-    (isGone, wasGone) => {
-      'worklet'
-      if (isGone && !wasGone) scheduleOnRN(setShown, placement)
-    },
-    [fade, placement]
-  )
-
-  const travel = useAnimatedStyle(() => {
-    'worklet'
-    // The bar sits on the bottom edge: its own height takes it just past it.
-    return {
-      opacity: fade.value,
-      transform: [{ translateY: drop.value * height.value }],
-    }
-  }, [fade, drop, height])
-
-  const measure = (event: LayoutChangeEvent) => {
-    height.value = event.nativeEvent.layout.height
-  }
-
-  return { shown, isHere, travel, measure }
 }
 
 /**

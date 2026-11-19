@@ -26,6 +26,7 @@ Les valeurs ci-dessous reprennent les ressources de thème du SDK Windows Phone 
 | Texte secondaire (subtle) | blanc à 60 % | noir à 40 % |
 | Désactivé                 | blanc à 40 % | noir à 40 % |
 | Chrome (App Bar, menus)   | #1F1F1F      | #DDDDDD     |
+| Menu contextuel           | #FFFFFF      | #000000     |
 | Épaisseur de bordure      | 3 px         | 3 px        |
 
 ### Couleurs d'accent

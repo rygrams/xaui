@@ -12,6 +12,8 @@ import {
 } from '@xaui/native/system'
 import { useXAUITheme } from '@xaui/native/theme'
 import { discPaint } from '../../system/disc-paint'
+import { DISC_LINE, DISC_SIZE } from '../../system/disc-size'
+import { useDockTravel } from '../../system/dock-travel'
 import { dockAlign } from '../../system/float-place'
 import { touchReach } from '../../system/touch-reach'
 import { useTramSafeArea } from '../../theme/tram-safe-area'
@@ -20,14 +22,7 @@ import { useTramHaptic } from '../../theme/tram-haptics'
 import { partsOf } from './fab.children'
 import { FabProvider } from './fab.context'
 import { FabFace } from './fab-face'
-import {
-  useBusy,
-  useFabShelf,
-  useFabTravel,
-  useInkSwap,
-  useLevel,
-  usePaintFade,
-} from './fab.hook'
+import { useBusy, useFabShelf, useInkSwap, useLevel, usePaintFade } from './fab.hook'
 import { FabLabel } from './fab-label'
 import {
   DEFAULT_OFFSET,
@@ -36,8 +31,6 @@ import {
   DEFAULT_VARIANT,
   BAR_SIDE,
   BAR_TOP,
-  FAB_GEOMETRY,
-  LINE_WIDTH,
   fabRecipe,
 } from './fab.recipe'
 import { fabSheet } from './fab.style'
@@ -136,9 +129,9 @@ export const FabRoot = forwardRef<View, FabProps>(function Fab(
     foreground: theme.colors.surfaceForeground,
   }
   const paint = discPaint({ variant, accent, color, isDisabled }, ground)
-  const { diameter, glyph: glyphSize } = FAB_GEOMETRY[size]
+  const { diameter, glyph: glyphSize } = DISC_SIZE[size]
 
-  const { shown, isHere, travel, measure } = useFabTravel({
+  const { shown, isHere, travel, measure } = useDockTravel({
     isVisible,
     placement,
     isStill,
@@ -206,7 +199,7 @@ export const FabRoot = forwardRef<View, FabProps>(function Fab(
       ? {
           backgroundColor: paint.fill,
           borderColor: paint.line,
-          borderWidth: LINE_WIDTH,
+          borderWidth: DISC_LINE,
         }
       : null,
     fabSheet.bare,
@@ -271,7 +264,7 @@ export const FabRoot = forwardRef<View, FabProps>(function Fab(
                 <Animated.View
                   style={[
                     fabSheet.fill,
-                    { borderRadius: diameter / 2, borderWidth: LINE_WIDTH },
+                    { borderRadius: diameter / 2, borderWidth: DISC_LINE },
                     fill,
                   ]}
                 />

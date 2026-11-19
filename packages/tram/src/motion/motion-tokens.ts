@@ -82,6 +82,12 @@ export const swipe = { distance: 0.4, velocity: 800, resist: 8 } as const
  */
 export const turnstile = { perspective: 1000, degrees: 80 } as const
 
+/**
+ * A page stepping back while something held on it is asked about — the page behind a
+ * context menu. It shrinks to `scale` around its centre, on the Metro curve.
+ */
+export const recede = { scale: 0.95 } as const
+
 /** A page that slides instead: how far from its place it starts and ends. */
 export const pageSlide = { distance: 70 } as const
 
@@ -98,6 +104,21 @@ export const cascade = { stagger: 40, rise: 12, slide: 24, most: 8 } as const
  * `slide` points away, as it fades in.
  */
 export const panel = { slide: 32 } as const
+
+/**
+ * The Panorama: its title travels `title` of the track's way at the least, and its
+ * backdrop `backdrop` of it — both slower than the sections, which is the parallax.
+ * Released past `distance` of a section's width, or flung faster than `velocity` points a
+ * second, the track moves on a section; short of both it comes back. Pulled past either
+ * end it follows the finger `rubber` times slower.
+ */
+export const panorama = {
+  title: 0.4,
+  backdrop: 0.25,
+  distance: 0.25,
+  velocity: 500,
+  rubber: 3,
+} as const
 
 /**
  * A wheel of squares, let go and left alone. Thrown, it keeps its momentum and slows at
@@ -146,6 +167,15 @@ export const bubbles = {
  * fast, and both meant it.
  */
 export const toastSwipe = { slop: 10, distance: 50, velocity: 500 } as const
+
+/**
+ * The Pivot's swipe. A drag across the whole screen is one section. Released past
+ * `distance` of the screen's width, or flung faster than `velocity` points a second, it
+ * moves on a section — either way, round the loop; short of both it comes back. `slop` is
+ * how far a finger travels across before the swipe is the Pivot's and not a section's
+ * own vertical scroll.
+ */
+export const pivot = { distance: 0.25, velocity: 500, slop: 10 } as const
 
 export type TramSpringName = keyof typeof spring
 export type TramEaseName = keyof typeof ease
