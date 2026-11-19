@@ -69,7 +69,7 @@ DateTimePickerTimeWheel.displayName = 'XAUI.Tram.DateTimePicker.TimeWheel'
  */
 export const DateTimePickerSteps = forwardRef<View, DateTimePickerStepsProps>(
   function DateTimePickerSteps(
-    { labels = DEFAULT_LABELS, size = 'sm', children, style, ...props },
+    { labels = DEFAULT_LABELS, size = 'md', children, style, ...props },
     ref
   ) {
     const { draft, wheel } = useWheelField()

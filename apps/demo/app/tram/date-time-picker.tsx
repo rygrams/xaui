@@ -77,7 +77,7 @@ export default function TramDateTimePickerScreen() {
 
       <TramSection
         title="tailles"
-        note="sm, md, lg : le champ du TextField et les carrés de la page ; les titres restent sm."
+        note="sm, md, lg : le champ du TextField et les carrés de la page ; les titres restent md."
       >
         {SIZES.map(size => (
           <DateTimePicker key={size} size={size} locale="fr-FR">

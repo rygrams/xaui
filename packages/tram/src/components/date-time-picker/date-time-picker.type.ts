@@ -70,8 +70,8 @@ type DateTimePickerStepsOwnProps = {
 /**
  * The two halves as the Tram `Tabs`: a row of two titles — the day and the time being
  * chosen — over the half's wheels. Its props are the tabs' root's, less what the picker
- * drives; `size` defaults to `sm`. With children, they are the panels: a `Tabs.Content`
- * per step, its `value` the step's name.
+ * drives; `size` defaults to `md` (the `title` role). With children, they are the
+ * panels: a `Tabs.Content` per step, its `value` the step's name.
  */
 export type DateTimePickerStepsProps = DateTimePickerStepsOwnProps &
   Omit<
