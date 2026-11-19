@@ -10,6 +10,7 @@ export {
   panorama,
   pivot,
   recede,
+  rowSwipe,
   scale,
   spring,
   swipe,
