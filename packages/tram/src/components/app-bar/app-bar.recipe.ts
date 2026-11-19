@@ -36,11 +36,17 @@ export const MAX_BUTTONS = 4
 const BAND_PADDING = 8
 
 /**
- * The room on each side of a circle, in points: where its label spreads, and half the
- * gap to the next one. Four `md` buttons between the two ends of the strip fit a
- * 360-point screen; past that a button gives up room, never less than the touch target.
+ * The room on each side of a circle, in points: where its label spreads. Four `md`
+ * buttons between the two ends of the strip fit a 360-point screen; past that a button
+ * gives up room, never less than the touch target.
  */
 const CELL_SIDE = 12
+
+/**
+ * The air between two buttons, in points, so that two labels side by side never touch.
+ * Where the screen is short of it, the buttons give up room instead — the cell shrinks.
+ */
+const CELL_GAP = 8
 
 /**
  * The "…": the thin strip a `minimal` bar folds to, and the box it is pressed in, at the
@@ -88,6 +94,7 @@ export const appBarRecipe = createRecipe({
     row: {
       flexDirection: 'row',
       justifyContent: 'center',
+      gap: CELL_GAP,
       paddingVertical: BAND_PADDING,
     },
     button: {

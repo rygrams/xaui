@@ -193,7 +193,8 @@ export const AppBarRoot = forwardRef<View, AppBarProps>(function AppBar(
     ]
   )
 
-  const dimmed = useAnimatedStyle(() => {
+  // The page's dimming, and the circles of a folded bar: both come and go with the labels.
+  const arriving = useAnimatedStyle(() => {
     'worklet'
     return { opacity: arrival.value }
   }, [arrival])
@@ -219,7 +220,12 @@ export const AppBarRoot = forwardRef<View, AppBarProps>(function AppBar(
           importantForAccessibility="no"
           tabIndex={-1}
           onPress={close}
-          style={[appBarSheet.scrim, styles.scrim, reach(isOpen && isHere), dimmed]}
+          style={[
+            appBarSheet.scrim,
+            styles.scrim,
+            reach(isOpen && isHere),
+            arriving,
+          ]}
         />
       ) : null}
 
@@ -256,7 +262,13 @@ export const AppBarRoot = forwardRef<View, AppBarProps>(function AppBar(
               // Folded, the circles are neither pressed nor read.
               importantForAccessibility={isOpen ? 'auto' : 'no-hide-descendants'}
               accessibilityElementsHidden={!isOpen}
-              style={[appBarSheet.middle, appBarSheet.fold, reach(isOpen), row.fold]}
+              style={[
+                appBarSheet.middle,
+                appBarSheet.fold,
+                reach(isOpen),
+                row.fold,
+                arriving,
+              ]}
             >
               {circles}
             </Animated.View>
