@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import type {
+  AccessibilityActionEvent,
   StyleProp,
   TextProps,
   TextStyle,
@@ -25,6 +26,11 @@ type PanoramaOwnProps = {
   defaultValue?: string
   /** Called when a swipe — or a screen reader's adjust — settles on another section. */
   onValueChange?: (value: string) => void
+  /**
+   * The caller's one element is the Panorama's frame: the slots are written inside it,
+   * and its props and ref merge with the root's.
+   */
+  asChild?: boolean
 }
 
 export type PanoramaProps = PanoramaOwnProps &
@@ -53,6 +59,17 @@ export type PanoramaSectionProps = PanoramaSectionOwnProps &
 
 export type PanoramaHeaderProps = PanoramaTitleProps
 
+/**
+ * How a screen reader moves through the sections: the slot that carries it is an
+ * `adjustable` whose value is the section on screen.
+ */
+export type PanoramaAdjust = {
+  /** The section on screen, as its header reads — or its `value` without one. */
+  valueText: string | undefined
+  /** `increment` moves to the next section, `decrement` to the previous one. */
+  onAction: (event: AccessibilityActionEvent) => void
+}
+
 /** R5 — resolved styles, and what a section reads of the track. */
 export type PanoramaContextValue = {
   sectionStyle: StyleProp<ViewStyle>
@@ -67,4 +84,8 @@ export type PanoramaContextValue = {
   placeSection: (value: string, x: number, width: number) => void
   /** The title's natural width, as its layout says. */
   measureTitle: (width: number) => void
+  /** What the slot carrying the screen reader's adjust reads and does. */
+  adjust: PanoramaAdjust
+  /** A `Panorama.Title` carries the adjust; without one, the current section's header. */
+  hasTitle: boolean
 }

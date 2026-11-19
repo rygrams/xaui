@@ -1,10 +1,17 @@
-import { forwardRef, useMemo } from 'react'
+import {
+  cloneElement,
+  forwardRef,
+  isValidElement,
+  useCallback,
+  useMemo,
+} from 'react'
+import type { ReactElement, ReactNode } from 'react'
 import { View } from 'react-native'
 import type { AccessibilityActionEvent, LayoutChangeEvent } from 'react-native'
 import { GestureDetector } from 'react-native-gesture-handler'
 import Animated from 'react-native-reanimated'
 import { useControllableState } from '@xaui/native'
-import { useStyleProps } from '@xaui/native/system'
+import { Slot, useStyleProps } from '@xaui/native/system'
 import { useXAUITheme } from '@xaui/native/theme'
 import { partsOf } from './panorama.children'
 import { PanoramaProvider } from './panorama.context'
@@ -38,8 +45,12 @@ import type { PanoramaProps } from './panorama.type'
  *
  * It fills what holds it and draws the theme's ground. A vertical drag inside a section is
  * the section's — a `ScrollView` there scrolls; only a drag that is mostly across moves the
- * track. A screen reader reads the current section alone, and its adjust gestures move to
- * the next or the previous one.
+ * track. A screen reader reads the current section alone; the title — or, without one, the
+ * current section's header — is an `adjustable` whose swipes move to the next or the
+ * previous section.
+ *
+ * Under `asChild` the caller's one element is the frame, and the slots are written inside
+ * it.
  */
 export const PanoramaRoot = forwardRef<View, PanoramaProps>(function Panorama(
   {
@@ -47,10 +58,9 @@ export const PanoramaRoot = forwardRef<View, PanoramaProps>(function Panorama(
     value,
     defaultValue,
     onValueChange,
+    asChild = false,
     style,
     onLayout,
-    accessibilityActions,
-    onAccessibilityAction,
     ...props
   },
   ref
@@ -58,7 +68,12 @@ export const PanoramaRoot = forwardRef<View, PanoramaProps>(function Panorama(
   const theme = useXAUITheme()
   const [styleProps, rest] = useStyleProps(props)
   const styles = panoramaRecipe.resolve({ theme })
-  const { background, title, sections, values } = partsOf(children)
+
+  // Under `asChild` the slots are the caller's element's children, drawn inside it.
+  const only = asChild && isValidElement(children) ? (children as Frame) : null
+  const { background, title, sections, values, labels } = partsOf(
+    only ? only.props.children : children
+  )
 
   const [current, setCurrent] = useControllableState({
     value,
@@ -80,14 +95,18 @@ export const PanoramaRoot = forwardRef<View, PanoramaProps>(function Panorama(
   }
 
   // A screen reader cannot swipe the track: its adjust gestures step through the sections.
-  const handleAction = (event: AccessibilityActionEvent) => {
-    const step = STEPS[event.nativeEvent.actionName]
-    const next = step === undefined ? undefined : values[currentIndex + step]
-    if (next !== undefined) setCurrent(next)
-    onAccessibilityAction?.(event)
-  }
+  const handleAction = useCallback(
+    (event: AccessibilityActionEvent) => {
+      const step = STEPS[event.nativeEvent.actionName]
+      const next = step === undefined ? undefined : values[currentIndex + step]
+      if (next !== undefined) setCurrent(next)
+    },
+    [values, currentIndex, setCurrent]
+  )
 
   const { placeSection, measureTitle, sectionWidth } = track
+  const valueText = labels[currentIndex]
+  const hasTitle = title !== null
   const context = useMemo(
     () => ({
       sectionStyle: styles.section,
@@ -98,41 +117,60 @@ export const PanoramaRoot = forwardRef<View, PanoramaProps>(function Panorama(
       current: values[currentIndex],
       placeSection,
       measureTitle,
+      adjust: { valueText, onAction: handleAction },
+      hasTitle,
     }),
-    [styles, sectionWidth, values, currentIndex, placeSection, measureTitle]
+    [
+      styles,
+      sectionWidth,
+      values,
+      currentIndex,
+      placeSection,
+      measureTitle,
+      valueText,
+      handleAction,
+      hasTitle,
+    ]
   )
+
+  const layers = (
+    <>
+      {background ? (
+        <Animated.View
+          style={[
+            styles.backdrop,
+            { width: track.backdropWidth || '100%' },
+            track.backdropStyle,
+          ]}
+        >
+          {background}
+        </Animated.View>
+      ) : null}
+      {title ? (
+        <Animated.View style={[styles.titleRow, track.titleStyle]}>
+          {title}
+        </Animated.View>
+      ) : null}
+      <Animated.View style={[styles.track, track.trackStyle]}>
+        {sections}
+      </Animated.View>
+    </>
+  )
+
+  const rootStyle = [styles.root, styleProps, style]
 
   return (
     <PanoramaProvider value={context}>
       <GestureDetector gesture={track.gesture} touchAction="pan-y">
-        <View
-          ref={ref}
-          accessibilityActions={[...ADJUST, ...(accessibilityActions ?? [])]}
-          {...rest}
-          style={[styles.root, styleProps, style]}
-          onLayout={handleLayout}
-          onAccessibilityAction={handleAction}
-        >
-          {background ? (
-            <Animated.View
-              style={[
-                styles.backdrop,
-                { width: track.backdropWidth || '100%' },
-                track.backdropStyle,
-              ]}
-            >
-              {background}
-            </Animated.View>
-          ) : null}
-          {title ? (
-            <Animated.View style={[styles.titleRow, track.titleStyle]}>
-              {title}
-            </Animated.View>
-          ) : null}
-          <Animated.View style={[styles.track, track.trackStyle]}>
-            {sections}
-          </Animated.View>
-        </View>
+        {only ? (
+          <Slot {...rest} ref={ref} style={rootStyle} onLayout={handleLayout}>
+            {cloneElement(only, undefined, layers)}
+          </Slot>
+        ) : (
+          <View ref={ref} {...rest} style={rootStyle} onLayout={handleLayout}>
+            {layers}
+          </View>
+        )}
       </GestureDetector>
     </PanoramaProvider>
   )
@@ -140,6 +178,6 @@ export const PanoramaRoot = forwardRef<View, PanoramaProps>(function Panorama(
 
 PanoramaRoot.displayName = 'XAUI.Tram.Panorama.Root'
 
-const ADJUST = [{ name: 'increment' }, { name: 'decrement' }] as const
+type Frame = ReactElement<{ children?: ReactNode }>
 
 const STEPS: Record<string, number | undefined> = { increment: 1, decrement: -1 }

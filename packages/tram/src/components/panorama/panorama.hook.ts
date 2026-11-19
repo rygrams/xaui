@@ -66,6 +66,8 @@ export function usePanoramaTrack({
   const [viewport, setViewport] = useState(0)
   const [backdropWidth, setBackdropWidth] = useState(0)
   const [laidOut, setLaidOut] = useState(0)
+  // Counts the sections a release asked for, so a refused one is noticed (see below).
+  const [asked, setAsked] = useState(0)
   const laid = useRef(new Map<string, Laid>())
   const titleWidth = useRef(0)
   const isPlaced = useRef(false)
@@ -148,20 +150,23 @@ export function usePanoramaTrack({
   ])
 
   // A value set from outside — or a screen reader's adjust — is reached on the spring. A
-  // release has already set off toward its section, and is left to arrive.
+  // release has already set off toward its section, and is left to arrive. When the
+  // release's section was refused — a controlled `value` that stayed put — the track goes
+  // back to the value's: `asked` runs this again after every release.
   useEffect(() => {
     if (!isPlaced.current || index.value === currentIndex) return
     index.value = currentIndex
     const target = stops.value[currentIndex]
     if (target === undefined) return
     offset.value = isStill ? target : animate(target, 'navigation')
-  }, [currentIndex, isStill, animate, index, stops, offset])
+  }, [currentIndex, asked, isStill, animate, index, stops, offset])
 
   const settle = useCallback(
     (target: number) => {
       haptic('selection')
       const value = values[target]
       if (value !== undefined) select(value)
+      setAsked(count => count + 1)
     },
     [haptic, select, values]
   )

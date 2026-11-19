@@ -2,7 +2,7 @@ import { forwardRef } from 'react'
 import { View } from 'react-native'
 import type { LayoutChangeEvent } from 'react-native'
 import { useStyleProps } from '@xaui/native/system'
-import { usePanorama } from './panorama.context'
+import { PanoramaSectionCurrentProvider, usePanorama } from './panorama.context'
 import type { PanoramaSectionProps } from './panorama.type'
 
 /**
@@ -40,7 +40,9 @@ export const PanoramaSection = forwardRef<View, PanoramaSectionProps>(
         ]}
         onLayout={handleLayout}
       >
-        {children}
+        <PanoramaSectionCurrentProvider value={!isAway}>
+          {children}
+        </PanoramaSectionCurrentProvider>
       </View>
     )
   }

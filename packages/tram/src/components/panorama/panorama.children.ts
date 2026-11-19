@@ -1,9 +1,11 @@
 import { Children, isValidElement } from 'react'
 import type { ReactElement, ReactNode } from 'react'
+import { childrenToString } from '@xaui/native/system'
 import { PanoramaBackground } from './panorama-background'
+import { PanoramaHeader } from './panorama-header'
 import { PanoramaSection } from './panorama-section'
 import { PanoramaTitle } from './panorama-title'
-import type { PanoramaSectionProps } from './panorama.type'
+import type { PanoramaHeaderProps, PanoramaSectionProps } from './panorama.type'
 
 export type PanoramaParts = {
   /** Drawn behind everything, on the slowest layer. */
@@ -14,6 +16,8 @@ export type PanoramaParts = {
   sections: ReactNode[]
   /** The sections' values, in the order they are written. */
   values: string[]
+  /** What a screen reader calls each section: its header's text, or its `value`. */
+  labels: string[]
 }
 
 /**
@@ -27,6 +31,7 @@ export function partsOf(children: ReactNode): PanoramaParts {
     title: null,
     sections: [],
     values: [],
+    labels: [],
   }
 
   for (const child of Children.toArray(children)) {
@@ -37,12 +42,24 @@ export function partsOf(children: ReactNode): PanoramaParts {
     } else {
       if (isSlot<PanoramaSectionProps>(child, PanoramaSection)) {
         parts.values.push(child.props.value)
+        parts.labels.push(headerText(child.props.children) ?? child.props.value)
       }
       parts.sections.push(child)
     }
   }
 
   return parts
+}
+
+/** The text of a section's `Panorama.Header`, when it is written among its children. */
+function headerText(children: ReactNode): string | null {
+  for (const child of Children.toArray(children)) {
+    if (isSlot<PanoramaHeaderProps>(child, PanoramaHeader)) {
+      return childrenToString(child.props.children)
+    }
+  }
+
+  return null
 }
 
 function isSlot<Props>(
