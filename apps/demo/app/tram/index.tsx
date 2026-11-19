@@ -49,6 +49,10 @@ const SCREENS = [
   { href: '/tram/skeleton', label: 'skeleton' },
   { href: '/tram/empty-state', label: 'empty state' },
   { href: '/tram/accordion', label: 'accordion' },
+  { href: '/tram/search-field', label: 'search field' },
+  { href: '/tram/number-field', label: 'number field' },
+  { href: '/tram/input-otp', label: 'input otp' },
+  { href: '/tram/bottom-sheet', label: 'bottom sheet' },
 ] as const
 
 export default function TramHomeScreen() {
