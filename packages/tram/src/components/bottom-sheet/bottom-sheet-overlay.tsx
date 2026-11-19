@@ -49,15 +49,14 @@ const BottomSheetBackdrop = forwardRef<View, BottomSheetBackdropProps>(
   function BottomSheetBackdrop({ children, style, ...props }, ref) {
     const { overlayStyle, motion, isDismissable, close } = useBottomSheet()
     const [styleProps, rest] = useStyleProps(props)
-    const { offset, height, lowest, presence } = motion
+    const { offset, height, presence } = motion
 
     const dimmed = useAnimatedStyle(() => {
       'worklet'
       return {
-        opacity:
-          presence.value * sheetShade(offset.value, height.value, lowest.value),
+        opacity: presence.value * sheetShade(offset.value, height.value),
       }
-    }, [offset, height, lowest, presence])
+    }, [offset, height, presence])
 
     return (
       <AnimatedPressable

@@ -25,13 +25,7 @@ import { moveFocusTo } from '../../system/move-focus'
 import { useTramSafeArea } from '../../theme/tram-safe-area'
 import { ToastOutlet } from '../toast/toast.outlet'
 import { useBottomSheet } from './bottom-sheet.context'
-import {
-  THROW_PROJECTION,
-  draggedOffset,
-  nextSheetState,
-  paddingUnderSeam,
-  sheetOffset,
-} from './bottom-sheet.utils'
+import { draggedOffset, isDismissed, paddingBelow } from './bottom-sheet.utils'
 import type { BottomSheetContentProps } from './bottom-sheet.type'
 
 /** A drag has to be this much more vertical than not before it is the band's. */
@@ -39,10 +33,9 @@ const SLOP = 8
 
 /**
  * The band: the theme's contrast from one edge of the screen to the other, against its
- * foot — no line, no shadow, no corner. It rises from below on the Metro curve, and a
- * drag sends it back down: past `dismissThreshold` of its height, or flung, it goes;
- * short of both it springs back. On a band that can be reduced the same drag stops at the
- * reduced height first, and a drag up restores it.
+ * foot — no line, no shadow, no corner. It rises from below on the Metro curve to the
+ * height of what is in it, and a drag down sends it away: past `dismissThreshold` of its
+ * height, or flung, it goes; short of both it springs back. There is no second height.
  *
  * **It measures its own height, then slides that far**: a band is as tall as what is in
  * it, and nothing else on the screen knows that number. Its bottom padding takes the safe
@@ -76,19 +69,13 @@ export const BottomSheetContent = forwardRef<View, BottomSheetContentProps>(
     const {
       contentStyle,
       motion,
-      resting,
-      isExpanded,
       isDismissable,
       dismissThreshold,
-      collapsedHeight,
       backdrop,
       titleId,
       descriptionId,
       close,
-      expand,
-      collapse,
       setHeight,
-      setPaddingBottom,
     } = useBottomSheet()
     const [styleProps, rest] = useStyleProps(props)
     const animate = useTramMotion()
@@ -102,17 +89,13 @@ export const BottomSheetContent = forwardRef<View, BottomSheetContentProps>(
     const { isMounted, offset, height } = motion
 
     // The padding the band ends with, the caller's own if they set one, plus the home
-    // indicator. It is also what a reduced band keeps under a `Summary`'s seam.
+    // indicator.
     const paddingBottom = useMemo(
       () =>
-        paddingUnderSeam(StyleSheet.flatten([contentStyle, styleProps, style])) +
+        paddingBelow(StyleSheet.flatten([contentStyle, styleProps, style])) +
         insets.bottom,
       [contentStyle, styleProps, style, insets.bottom]
     )
-
-    useEffect(() => {
-      setPaddingBottom(paddingBottom)
-    }, [paddingBottom, setPaddingBottom])
 
     useEffect(() => {
       if (isMounted) moveFocusTo(band.current)
@@ -128,45 +111,24 @@ export const BottomSheetContent = forwardRef<View, BottomSheetContentProps>(
     }
 
     /**
-     * Where the band goes when the finger lifts — decided on the JS thread, because
-     * `nextSheetState` is a plain function. The band sets off back to its resting place
-     * first, so that a controlled sheet whose owner refuses the change is not left where
-     * the finger let go; a change of state then takes the move over.
+     * What letting go does — decided on the JS thread, because `isDismissed` is a plain
+     * function. A drag that was not decisive springs the band back up; one that was
+     * closes the sheet, and the way out takes the band from where the finger left it.
      */
     const release = useCallback(
       (translationY: number, velocityY: number) => {
-        const measured = { height: height.value, collapsedHeight }
-        const next = nextSheetState(
-          {
-            from: isExpanded ? 'expanded' : 'collapsed',
-            translationY,
-            velocityY,
-            projection: THROW_PROJECTION,
-            dismissThreshold,
-            dismissVelocity: swipe.velocity,
-          },
-          measured
-        )
+        const sent = isDismissed({
+          translationY,
+          velocityY,
+          height: height.value,
+          dismissThreshold,
+          dismissVelocity: swipe.velocity,
+        })
 
-        offset.value = animate(sheetOffset(resting, measured), 'navigation')
-
-        if (next === resting) return
-        if (next === 'closed') return close()
-        if (next === 'collapsed') return collapse()
-        expand()
+        if (sent) return close()
+        offset.value = animate(0, 'navigation')
       },
-      [
-        animate,
-        close,
-        collapse,
-        collapsedHeight,
-        dismissThreshold,
-        expand,
-        height,
-        isExpanded,
-        offset,
-        resting,
-      ]
+      [animate, close, dismissThreshold, height, offset]
     )
 
     const pan = useMemo(

@@ -6,25 +6,15 @@ import { roleType } from '../typography/typography.role'
 const SLOTS = [
   'overlay',
   'content',
-  'handle',
-  'handleBar',
   'title',
   'description',
   'trigger',
   'triggerLabel',
   'close',
   'closeLabel',
+  'closeCorner',
   'closeBar',
 ] as const
-
-/** The grab bar, in points: straight, where Native's is a pill. */
-export const HANDLE_BAR = { width: 40, height: 4 } as const
-
-/**
- * The box the bar sits in, in points: tall enough to set the bar off the band's top edge,
- * and reached to 48 by `hitSlop` when it is pressed.
- */
-export const HANDLE_BOX = 24
 
 /** The cross of an empty `Close`: two bars of 2, the `CloseButton`'s, 20 points across. */
 export const CLOSE_BAR = { length: 20, line: 2 } as const
@@ -37,6 +27,10 @@ export const CLOSE_BAR = { length: 20, line: 2 } as const
  *
  * What is quieter than the title — the description — is `muted` as an ink on the band:
  * `muted` alone stays under 4.5:1 on either band.
+ *
+ * No grab bar: the band has one height, its content's. The way out is the cross of an
+ * empty `Close`, in the band's top-end corner beside the title; the title keeps clear of
+ * that corner whether a cross is there or not.
  */
 export const bottomSheetRecipe = createRecipe({
   slots: SLOTS,
@@ -65,30 +59,31 @@ export const bottomSheetRecipe = createRecipe({
         alignSelf: 'stretch',
         backgroundColor: band,
         paddingHorizontal: theme.spacing(6),
-        paddingTop: theme.spacing(2),
+        paddingTop: theme.spacing(4),
         paddingBottom: theme.spacing(6),
         gap: theme.spacing(4),
       },
-      handle: {
-        alignSelf: 'center',
-        width: TRAM_TOUCH_TARGET,
-        height: HANDLE_BOX,
-        alignItems: 'center',
-        justifyContent: 'center',
+      title: {
+        ...roleType('title', theme),
+        color: ink,
+        paddingEnd: TRAM_TOUCH_TARGET,
       },
-      // Half the band's ink: there, without reading as a line of text.
-      handleBar: {
-        width: HANDLE_BAR.width,
-        height: HANDLE_BAR.height,
-        backgroundColor: ink,
-        opacity: 0.5,
-      },
-      title: { ...roleType('title', theme), color: ink },
       description: { ...roleType('body', theme), color: quiet },
       trigger: pressed,
       triggerLabel: { ...roleType('body', theme), color: theme.colors.foreground },
       close: { ...pressed, minWidth: TRAM_TOUCH_TARGET, alignItems: 'center' },
       closeLabel: { ...roleType('body', theme), color: ink },
+      // The empty `Close`: a box of 48 pinned to the band's top end, beside the title's
+      // first line, the cross's own edge on the band's padding.
+      closeCorner: {
+        position: 'absolute',
+        top: theme.spacing(2),
+        end: theme.spacing(6) - (TRAM_TOUCH_TARGET - CLOSE_BAR.length) / 2,
+        width: TRAM_TOUCH_TARGET,
+        height: TRAM_TOUCH_TARGET,
+        alignItems: 'center',
+        justifyContent: 'center',
+      },
       closeBar: {
         position: 'absolute',
         width: CLOSE_BAR.length,

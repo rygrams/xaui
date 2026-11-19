@@ -11,20 +11,24 @@ import type { BottomSheetCloseProps } from './bottom-sheet.type'
  * it.
  *
  * ```tsx
+ * <BottomSheet.Title>nuits de lagos</BottomSheet.Title>
  * <BottomSheet.Close accessibilityLabel="fermer" />
  * <BottomSheet.Close asChild>
  *   <Button>ajouter au panier</Button>
  * </BottomSheet.Close>
  * ```
  *
- * **Left empty it draws a cross**, where Native's draws nothing: the `CloseButton`'s two
- * bars without their circle, in the band's ink, in a box of 48. A cross is not text, so
- * it needs an `accessibilityLabel`. `asChild` makes it one of the caller's buttons; a
- * string is set in `body`. The caller's `onPress` runs first, then the band goes.
+ * **Left empty it is the cross in the band's top-end corner**, where Native's draws
+ * nothing: the `CloseButton`'s two bars without their circle, in the band's ink, in a box
+ * of 48 pinned beside the title — wherever it is written, no row to build. A cross is not
+ * text, so it needs an `accessibilityLabel`. `asChild` makes it one of the caller's
+ * buttons; a string is set in `body`, in the flow. The caller's `onPress` runs first,
+ * then the band goes.
  */
 export const BottomSheetClose = forwardRef<View, BottomSheetCloseProps>(
   function BottomSheetClose({ children, asChild = false, onPress, ...props }, ref) {
-    const { closeStyle, closeLabelStyle, closeBarStyle, close } = useBottomSheet()
+    const { closeStyle, closeLabelStyle, closeCornerStyle, closeBarStyle, close } =
+      useBottomSheet()
     const isCross = !asChild && (children === undefined || children === null)
 
     const handlePress = useCallback(
@@ -46,7 +50,7 @@ export const BottomSheetClose = forwardRef<View, BottomSheetCloseProps>(
       <BottomSheetPress
         ref={ref}
         asChild={asChild}
-        boxStyle={closeStyle}
+        boxStyle={isCross ? closeCornerStyle : closeStyle}
         labelStyle={closeLabelStyle}
         {...props}
         onPress={handlePress}

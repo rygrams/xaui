@@ -8,9 +8,7 @@ import {
 import { scheduleOnRN } from 'react-native-worklets'
 import { useTramEase } from '../../motion/use-tram-ease'
 import { useTramMotion } from '../../motion/use-tram-motion'
-import { sheetOffset } from './bottom-sheet.utils'
-import type { SheetGeometry } from './bottom-sheet.utils'
-import type { BottomSheetMotion, SheetState } from './bottom-sheet.type'
+import type { BottomSheetMotion } from './bottom-sheet.type'
 
 /** Further than any band is tall, for the frames before its first layout. */
 const OFFSCREEN = 2000
@@ -18,19 +16,18 @@ const OFFSCREEN = 2000
 type SheetMotionInput = {
   isOpen: boolean
   isStill: boolean
-  resting: SheetState
-  geometry: SheetGeometry
+  /** The band's measured height, in points; 0 before its first layout. */
+  measured: number
 }
 
 /**
- * The band's shared values, and what moves them as the sheet opens, closes, expands and
- * reduces.
+ * The band's shared values, and what moves them as the sheet opens and closes.
  *
- * The way in rises from gone to its resting place on the Metro curve; the way out sinks
- * on the exit curve from wherever it is — a finger's release, or a way in interrupted
- * halfway. Between two open states — a press on the handle, a drag let go — it springs on
- * `navigation`, so a second gesture can take it over. `isMounted` outlives `isOpen` by
- * the way out, so the band is still there to sink.
+ * The way in rises from gone to the top of its own height on the Metro curve; the way
+ * out sinks on the exit curve from wherever it is — a finger's release, or a way in
+ * interrupted halfway. A drag let go short of closing springs back on `navigation`, from
+ * the content. `isMounted` outlives `isOpen` by the way out, so the band is still there
+ * to sink.
  *
  * With motion reduced the band is set at its place and fades in and out instead; under
  * an ancestor's `disable-all` it is there or it is not.
@@ -38,8 +35,7 @@ type SheetMotionInput = {
 export function useSheetMotion({
   isOpen,
   isStill,
-  resting,
-  geometry,
+  measured,
 }: SheetMotionInput): BottomSheetMotion {
   const glide = useTramEase()
   const animate = useTramMotion()
@@ -47,7 +43,6 @@ export function useSheetMotion({
   const [isMounted, setMounted] = useState(isOpen)
   const offset = useSharedValue(OFFSCREEN)
   const height = useSharedValue(0)
-  const lowest = useSharedValue(0)
   const presence = useSharedValue(0)
   // Whether the band has reached an open place since it was mounted: what tells the way
   // in from a move between two open states.
@@ -68,12 +63,9 @@ export function useSheetMotion({
     if (!wantsOpen.current) unmount()
   }, [unmount])
 
-  const { height: measured, collapsedHeight } = geometry
-
   useEffect(() => {
     height.value = measured
-    lowest.value = sheetOffset('collapsed', { height: measured, collapsedHeight })
-  }, [measured, collapsedHeight, height, lowest])
+  }, [measured, height])
 
   useEffect(() => {
     if (!isMounted) return
@@ -84,10 +76,8 @@ export function useSheetMotion({
       return
     }
 
-    const target = sheetOffset(resting, { height: measured, collapsedHeight })
-
     if (isStill) {
-      offset.value = target
+      offset.value = isOpen ? 0 : measured
       presence.value = isOpen ? 1 : 0
       if (!isOpen) unmount()
       return
@@ -95,7 +85,7 @@ export function useSheetMotion({
 
     if (isReduced) {
       if (isOpen) {
-        offset.value = target
+        offset.value = 0
         hasArrived.current = true
       }
       if (!isOpen && presence.value === 0) return unmount()
@@ -115,20 +105,19 @@ export function useSheetMotion({
     if (!hasArrived.current) {
       // From gone, not from the pessimistic distance it waited at before its layout.
       offset.value = Math.min(offset.value, measured)
-      offset.value = glide(target)
+      offset.value = glide(0)
       hasArrived.current = true
       return
     }
 
-    offset.value = animate(target, 'navigation')
+    // Measured again while up — its content changed: it settles at its new height.
+    offset.value = animate(0, 'navigation')
   }, [
     isMounted,
     isOpen,
     isStill,
     isReduced,
-    resting,
     measured,
-    collapsedHeight,
     glide,
     animate,
     unmount,
@@ -160,7 +149,7 @@ export function useSheetMotion({
   }, [offset, presence])
 
   return useMemo(
-    () => ({ isMounted, offset, height, lowest, presence, slid }),
-    [isMounted, offset, height, lowest, presence, slid]
+    () => ({ isMounted, offset, height, presence, slid }),
+    [isMounted, offset, height, presence, slid]
   )
 }

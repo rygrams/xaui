@@ -5,17 +5,7 @@ import { useXAUITheme } from '@xaui/native/theme'
 import { BottomSheet } from '@xaui/tram/bottom-sheet'
 import { Button } from '@xaui/tram/button'
 import { NumberField } from '@xaui/tram/number-field'
-import { Typography } from '@xaui/tram/typography'
 import { TramSection } from '../../components/tram-section'
-
-const TRACKS = [
-  ['zombie', '12:26'],
-  ['lady', '13:48'],
-  ['water no get enemy', '9:44'],
-  ['shakara', '13:30'],
-  ['gentleman', '14:14'],
-  ['coffin for head of state', '22:52'],
-]
 
 const LONG =
   "Pressage d'origine, pochette ouvrante, livret de huit pages. Le disque a été " +
@@ -34,13 +24,13 @@ function Opener({ children }: { children: ReactNode }) {
   )
 }
 
-/** The title with the cross at its end: the band's head. */
+/** The band's head: its title, and the cross that pins itself in the top-end corner. */
 function Head({ title }: { title: string }) {
   return (
-    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12 }}>
-      <BottomSheet.Title flex={1}>{title}</BottomSheet.Title>
+    <>
+      <BottomSheet.Title>{title}</BottomSheet.Title>
       <BottomSheet.Close accessibilityLabel="fermer" />
-    </View>
+    </>
   )
 }
 
@@ -54,10 +44,10 @@ function Answer({ children }: { children: string }) {
 }
 
 /**
- * Where the Tram `BottomSheet` is verified, in dark and in light: the band alone, a
- * reduced band cut at its `Summary`, one cut by `collapsedHeight`, controlled and not,
- * one that must be answered and cannot be dragged, a disabled trigger, `Trigger` and
- * `Close` as text, a long content, the style props, and an opening interrupted halfway.
+ * Where the Tram `BottomSheet` is verified, in dark and in light: the band alone with
+ * its title and cross, controls on the band, controlled and not, one that must be
+ * answered and cannot be dragged, a disabled trigger, `Trigger` and `Close` as text, a
+ * long content, the style props, and an opening interrupted halfway.
  */
 export default function TramBottomSheetScreen() {
   const theme = useXAUITheme()
@@ -77,13 +67,12 @@ export default function TramBottomSheetScreen() {
     >
       <TramSection
         title="la bande"
-        note="Une bande de toute la largeur, dans le contraste du thème — blanche en sombre, noire en clair — sur la page assombrie. Elle monte sur la courbe Metro ; un glissement vers le bas la renvoie."
+        note="Une bande de toute la largeur, dans le contraste du thème — blanche en sombre, noire en clair — sur la page assombrie. Elle monte à la hauteur de son contenu sur la courbe Metro, sans poignée ni second niveau ; la croix en haut à droite ou un glissement vers le bas la renvoie."
       >
         <BottomSheet>
           <Opener>ouvrir</Opener>
           <BottomSheet.Overlay />
           <BottomSheet.Content>
-            <BottomSheet.Handle />
             <Head title="nuits de lagos" />
             <BottomSheet.Description>
               fela & co. · 1979 · 34 €
@@ -101,7 +90,6 @@ export default function TramBottomSheetScreen() {
           <Opener>commander</Opener>
           <BottomSheet.Overlay />
           <BottomSheet.Content>
-            <BottomSheet.Handle />
             <Head title="nuits de lagos" />
             <NumberField defaultValue={1} min={1} max={5}>
               <NumberField.Label>exemplaires</NumberField.Label>
@@ -129,51 +117,6 @@ export default function TramBottomSheetScreen() {
       </TramSection>
 
       <TramSection
-        title="réduite, coupée au summary"
-        note="Summary marque la coupe : la bande s'ouvre réduite à ce qu'il contient, la poignée la déplie et la replie — au toucher comme au glissement. Glissée vers le bas depuis la hauteur réduite, elle s'en va."
-      >
-        <BottomSheet defaultExpanded={false}>
-          <Opener>un album</Opener>
-          <BottomSheet.Overlay />
-          <BottomSheet.Content>
-            <BottomSheet.Handle accessibilityLabel="déplier la fiche" />
-            <BottomSheet.Summary style={{ gap: 4 }}>
-              <Head title="talking timbuktu" />
-              <BottomSheet.Description>
-                ali farka touré · 1994
-              </BottomSheet.Description>
-            </BottomSheet.Summary>
-            {TRACKS.map(([name, length]) => (
-              <View
-                key={name}
-                style={{ flexDirection: 'row', justifyContent: 'space-between' }}
-              >
-                <Typography>{name}</Typography>
-                <Typography>{length}</Typography>
-              </View>
-            ))}
-            <Answer>écouter</Answer>
-          </BottomSheet.Content>
-        </BottomSheet>
-      </TramSection>
-
-      <TramSection
-        title="collapsedHeight"
-        note="Sans Summary : 160 points visibles en réduit, coupés où la ligne tombe."
-      >
-        <BottomSheet collapsedHeight={160} defaultExpanded={false}>
-          <Opener>coupée à 160</Opener>
-          <BottomSheet.Overlay />
-          <BottomSheet.Content>
-            <BottomSheet.Handle accessibilityLabel="déplier" />
-            <Head title="dimanche à bamako" />
-            <BottomSheet.Description>{LONG}</BottomSheet.Description>
-            <Answer>ajouter au panier</Answer>
-          </BottomSheet.Content>
-        </BottomSheet>
-      </TramSection>
-
-      <TramSection
         title="contrôlée"
         note={`isOpen et onOpenChange : l'état vit ici — ${isOpen ? 'ouverte' : 'fermée'}. Le bouton l'ouvre sans Trigger.`}
       >
@@ -187,7 +130,6 @@ export default function TramBottomSheetScreen() {
         <BottomSheet isOpen={isOpen} onOpenChange={setOpen}>
           <BottomSheet.Overlay />
           <BottomSheet.Content>
-            <BottomSheet.Handle />
             <Head title="moussolou" />
             <BottomSheet.Description>oumou sangaré · 1989</BottomSheet.Description>
             <Answer>ajouter au panier</Answer>
@@ -256,13 +198,12 @@ export default function TramBottomSheetScreen() {
 
       <TramSection
         title="trigger et close en texte"
-        note="Un texte seul est posé en body : dans l'encre de la page pour le Trigger, dans celle de la bande pour Close. Vide, Close dessine la croix."
+        note="Un texte seul est posé en body : dans l'encre de la page pour le Trigger, dans celle de la bande pour Close, à sa place dans le contenu. Vide, Close est la croix du coin."
       >
         <BottomSheet>
           <BottomSheet.Trigger>ouvrir, en texte seul</BottomSheet.Trigger>
           <BottomSheet.Overlay />
           <BottomSheet.Content>
-            <BottomSheet.Handle />
             <BottomSheet.Title>la commande est partie</BottomSheet.Title>
             <BottomSheet.Close>fermer, en texte seul</BottomSheet.Close>
           </BottomSheet.Content>
@@ -277,7 +218,6 @@ export default function TramBottomSheetScreen() {
           <Opener>contenu long</Opener>
           <BottomSheet.Overlay />
           <BottomSheet.Content>
-            <BottomSheet.Handle />
             <Head title="rail band — buffet hôtel de la gare, bamako, 1973" />
             <BottomSheet.Description>{LONG}</BottomSheet.Description>
             <Answer>ajouter au panier</Answer>
@@ -293,7 +233,6 @@ export default function TramBottomSheetScreen() {
           <Opener>habillée</Opener>
           <BottomSheet.Overlay backgroundColor="rgba(0, 0, 0, 0.8)" />
           <BottomSheet.Content paddingHorizontal={32} gap={8}>
-            <BottomSheet.Handle />
             <BottomSheet.Title fontSize={32}>batterie faible</BottomSheet.Title>
             <BottomSheet.Description>
               il reste 5 % de charge.
