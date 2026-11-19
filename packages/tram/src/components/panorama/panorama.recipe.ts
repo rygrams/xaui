@@ -1,4 +1,5 @@
 import { createRecipe } from '@xaui/native/system'
+import type { XAUITheme } from '@xaui/native/theme'
 import { roleType } from '../typography/typography.role'
 
 const SLOTS = [
@@ -16,6 +17,14 @@ const SLOTS = [
  * more to the side, and the touch target's width.
  */
 export const PANORAMA_PEEK = 48
+
+/**
+ * How far the title stands in from the screen's start, in points — and from its end once
+ * the last section is reached.
+ */
+export function panoramaTitleInset(theme: XAUITheme): number {
+  return theme.spacing(4)
+}
 
 /** The room the title is laid out in, in points: one line of `hero`, however long. */
 const TITLE_ROOM = 4096
@@ -41,7 +50,7 @@ export const panoramaRecipe = createRecipe({
     titleRow: {
       flexDirection: 'row',
       width: TITLE_ROOM,
-      paddingStart: theme.spacing(4),
+      paddingStart: panoramaTitleInset(theme),
     },
     title: {
       ...roleType('hero', theme),

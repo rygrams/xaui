@@ -9,7 +9,7 @@ import { useXAUITheme } from '@xaui/native/theme'
 import { partsOf } from './panorama.children'
 import { PanoramaProvider } from './panorama.context'
 import { usePanoramaTrack } from './panorama.hook'
-import { panoramaRecipe } from './panorama.recipe'
+import { panoramaRecipe, panoramaTitleInset } from './panorama.recipe'
 import type { PanoramaProps } from './panorama.type'
 
 /**
@@ -67,7 +67,12 @@ export const PanoramaRoot = forwardRef<View, PanoramaProps>(function Panorama(
   })
   const currentIndex = Math.max(0, values.indexOf(current ?? ''))
 
-  const track = usePanoramaTrack({ values, currentIndex, select: setCurrent })
+  const track = usePanoramaTrack({
+    values,
+    currentIndex,
+    select: setCurrent,
+    titleInset: panoramaTitleInset(theme),
+  })
 
   const handleLayout = (event: LayoutChangeEvent) => {
     track.measureViewport(event.nativeEvent.layout.width)

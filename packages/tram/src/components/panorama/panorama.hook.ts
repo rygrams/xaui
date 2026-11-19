@@ -31,6 +31,8 @@ type TrackOptions = {
   currentIndex: number
   /** A release, or a screen reader's adjust, settled on another section. */
   select: (value: string) => void
+  /** How far the title stands in from the screen's start, in points. */
+  titleInset: number
 }
 
 type Laid = { x: number; width: number }
@@ -48,7 +50,12 @@ type Laid = { x: number; width: number }
  * With motion reduced the title and the backdrop stay where they are and the track fades
  * to its section rather than springing there; under `disable-all` it is placed.
  */
-export function usePanoramaTrack({ values, currentIndex, select }: TrackOptions) {
+export function usePanoramaTrack({
+  values,
+  currentIndex,
+  select,
+  titleInset,
+}: TrackOptions) {
   const animate = useTramMotion()
   const isReduced = useReducedMotion()
   const isStill = useAnimationDisabled()
@@ -107,7 +114,13 @@ export function usePanoramaTrack({ values, currentIndex, select }: TrackOptions)
 
     travel.value = reach
     stops.value = resting
-    titleWay.value = titleTravel(titleWidth.current, viewport, reach, panorama.title)
+    titleWay.value = titleTravel(
+      titleWidth.current,
+      titleInset,
+      viewport,
+      reach,
+      panorama.title
+    )
     backdropWay.value = reach * panorama.backdrop
     setBackdropWidth(viewport + reach * panorama.backdrop)
 
@@ -124,6 +137,7 @@ export function usePanoramaTrack({ values, currentIndex, select }: TrackOptions)
     key,
     viewport,
     laidOut,
+    titleInset,
     travel,
     stops,
     titleWay,

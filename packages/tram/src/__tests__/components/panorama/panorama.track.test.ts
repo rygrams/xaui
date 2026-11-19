@@ -84,10 +84,15 @@ describe('layerShift', () => {
 
 describe('titleTravel', () => {
   it('brings the end of a long title in', () => {
-    expect(titleTravel(1100, 400, 800, 0.4)).toBe(700)
+    expect(titleTravel(1100, 0, 400, 800, 0.4)).toBe(700)
+  })
+
+  it('brings the end in as far from the screen end as the start stands in', () => {
+    // Laid from 16 to 1116: the end comes to rest at 384, 16 short of the screen's end.
+    expect(titleTravel(1100, 16, 400, 800, 0.4)).toBe(732)
   })
 
   it('keeps a short title drifting', () => {
-    expect(titleTravel(300, 400, 800, 0.4)).toBe(320)
+    expect(titleTravel(300, 16, 400, 800, 0.4)).toBe(320)
   })
 })

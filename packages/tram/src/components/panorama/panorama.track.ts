@@ -90,14 +90,16 @@ export function layerShift(
 }
 
 /**
- * How far the title travels: far enough for its end to come in by the last section, and
- * at least `least` of the track's way, so a short title still drifts behind the sections.
+ * How far the title travels: far enough for its end to come in by the last section, as
+ * far from the screen's end as its start stands from the screen's start, and at least
+ * `least` of the track's way, so a short title still drifts behind the sections.
  */
 export function titleTravel(
   titleWidth: number,
+  inset: number,
   viewport: number,
   travel: number,
   least: number
 ): number {
-  return Math.max(titleWidth - viewport, travel * least, 0)
+  return Math.max(titleWidth + inset * 2 - viewport, travel * least, 0)
 }
