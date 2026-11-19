@@ -39,6 +39,16 @@
         "default": "./dist/motion/index.cjs"
       }
     },
+    "./app-bar": {
+      "import": {
+        "types": "./dist/components/app-bar/index.d.ts",
+        "default": "./dist/components/app-bar/index.js"
+      },
+      "require": {
+        "types": "./dist/components/app-bar/index.d.cts",
+        "default": "./dist/components/app-bar/index.cjs"
+      }
+    },
     "./button": {
       "import": {
         "types": "./dist/components/button/index.d.ts",

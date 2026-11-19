@@ -62,6 +62,7 @@ export default function TramLayout() {
                 name="page-detail"
                 options={{ title: 'PAGE', ...pageScreenOptions }}
               />
+              <Stack.Screen name="app-bar" options={{ title: 'APP BAR' }} />
               <Stack.Screen name="button" options={{ title: 'BUTTON' }} />
               <Stack.Screen name="switch" options={{ title: 'SWITCH' }} />
               <Stack.Screen name="checkbox" options={{ title: 'CHECKBOX' }} />
@@ -106,7 +107,10 @@ export default function TramLayout() {
  */
 const PAGES = { useIsFocused }
 
-/** The app's safe-area hook, for the `Fab`'s bar: at module level, so it is always the same. */
+/**
+ * The app's safe-area hook, for the `Fab`'s and the `AppBar`'s bands: at module level, so
+ * it is always the same.
+ */
 const SAFE_AREA = { useSafeAreaInsets }
 
 /**
