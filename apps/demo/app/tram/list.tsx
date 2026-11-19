@@ -143,7 +143,7 @@ const GLYPHS = {
  * Where the Tram `List` is verified, in dark and in light: the news list — squares, three
  * levels of text, a press that tilts, two actions under each row — then the mail list
  * with no square and the time at the end, and rows that hold controls. The accents
- * include steel, whose ink is moved off the grey of the descriptions on white. The
+ * include steel, whose ink is moved off the subtle grey of the descriptions on white. The
  * entrance can be replayed; the rows drawn later, by scrolling, are placed.
  */
 export default function TramListScreen() {
@@ -162,7 +162,7 @@ export default function TramListScreen() {
     <View style={{ padding: 24, gap: 16 }}>
       <TramSection
         title="la liste"
-        note="Une vignette de 52, un titre dans l'encre, une ligne en accent, un détail gris. Aucun trait : 12 points entre deux lignes."
+        note="Une vignette de 52, un titre de 25 dans l'encre, une ligne en accent, un détail dans le gris subtle de Metro. Aucun trait : 12 points entre deux lignes."
       >
         <ToggleButton.Group
           value={kind}

@@ -24,7 +24,6 @@ export type ListSlot =
   | 'leading'
   | 'content'
   | 'title'
-  | 'bareTitle'
   | 'subtitle'
   | 'description'
   | 'action'
@@ -140,7 +139,6 @@ export type ListRowStyles = {
   leadingStyle: StyleProp<ViewStyle>
   contentStyle: StyleProp<ViewStyle>
   titleStyle: StyleProp<TextStyle>
-  bareTitleStyle: StyleProp<TextStyle>
   subtitleStyle: StyleProp<TextStyle>
   descriptionStyle: StyleProp<TextStyle>
   actionStyle: StyleProp<ViewStyle>
@@ -176,14 +174,10 @@ export type ListOpenRow = {
   closeAll: () => void
 }
 
-/** A row's place in the list, and whether it is drawn without a `Leading`. */
+/** A row's place in the list. */
 export type ListItemContextValue = { index: number }
 
-export type ListRowContextValue = {
-  styles: ListRowStyles
-  /** No `List.Leading`: the title is the mail list's, larger. */
-  isBare: boolean
-}
+export type ListRowContextValue = { styles: ListRowStyles }
 
 /** What a swipe action reaches: the row it is under, to close it once pressed. */
 export type ListSwipeContextValue = {

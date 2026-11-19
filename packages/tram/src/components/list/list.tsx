@@ -1,11 +1,10 @@
 import { forwardRef, useCallback, useEffect, useMemo, useRef } from 'react'
 import type { ForwardedRef } from 'react'
-import { FlatList, StyleSheet, View } from 'react-native'
+import { FlatList, View } from 'react-native'
 import type {
   ListRenderItemInfo,
   NativeScrollEvent,
   NativeSyntheticEvent,
-  TextStyle,
 } from 'react-native'
 import { Slot, useStyleProps } from '@xaui/native/system'
 import type { ResolvedStyles } from '@xaui/native/system'
@@ -13,7 +12,9 @@ import { useXAUITheme } from '@xaui/native/theme'
 import type { XAUITheme } from '@xaui/native/theme'
 import { flatPaint, inkOn } from '../../system/flat-paint'
 import { lineInk } from '../../system/line-ink'
-import { distinctInk } from '../../theme/accent-ink'
+import { accentInk, distinctInk } from '../../theme/accent-ink'
+import { isHex } from '../../theme/on-accent'
+import { tramSubtle } from '../../theme/tram-tokens'
 import { ListItemProvider, ListProvider } from './list.context'
 import { LIST_GEOMETRY, listRecipe } from './list.recipe'
 import type {
@@ -52,9 +53,10 @@ import type {
  * />
  * ```
  *
- * The three levels of text are told apart at a glance: three sizes, and three inks kept
- * apart — the subtitle's accent is moved off the grey of the description when, read on
- * the ground, it would come too close to it (the grey accents, on white).
+ * The three levels of text are told apart at a glance: three sizes — 25, 16, 13 — and
+ * three inks kept apart. The detail is in Metro's subtle grey, greyer than `muted`; the
+ * subtitle's accent is moved off it when, read on the ground, it would come too close
+ * (the grey accents, on white).
  *
  * The first rows arrive in a cascade as the list first shows some — when it mounts with
  * data, or when its data first arrives; `hasEntrance={false}` places them. One row at a
@@ -85,7 +87,8 @@ function ListRootInner<ItemT>(
   const fill = flatPaint({ accent, color })
   // Uncached: a raw tint must stay out of the cache key.
   const tint = fill ? listRecipe.tint({ theme, color: fill }) : undefined
-  const subtitleInk = useSubtitleInk(theme, accent, color)
+  const detailInk = useDetailInk(theme)
+  const subtitleInk = useSubtitleInk(theme, accent, color, detailInk)
 
   // The first rows the list shows take their turn; after that a row is placed.
   const entered = useRef(false)
@@ -101,19 +104,20 @@ function ListRootInner<ItemT>(
 
     return {
       theme,
-      live: rowStylesFrom(live, theme, {
+      live: rowStylesFrom(live, {
         leading,
         subtitleInk,
+        detailInk,
         glyphInk: ink ?? theme.colors.accentForeground,
       }),
-      grey: rowStylesFrom(grey, theme, { glyphInk: theme.colors.background }),
+      grey: rowStylesFrom(grey, { detailInk, glyphInk: theme.colors.background }),
       swipeStyle: live.swipe,
       actionFill: fill,
       hasEntrance,
       hasEntered: () => entered.current,
       openRow,
     }
-  }, [live, grey, tint, fill, subtitleInk, theme, hasEntrance, openRow])
+  }, [live, grey, tint, fill, subtitleInk, detailInk, theme, hasEntrance, openRow])
 
   const renderRow = useCallback(
     (info: ListRenderItemInfo<ItemT>) => (
@@ -166,24 +170,39 @@ function RowSpace() {
 }
 
 /**
+ * The ink of the detail and of what ends a row: Metro's subtle grey, read on the ground —
+ * the same grey on black, darkened on white to the first that reads at 4.5:1. A ground
+ * that is not a hex cannot be measured, and takes `muted`.
+ */
+function useDetailInk(theme: XAUITheme): string {
+  const { background, muted } = theme.colors
+
+  return useMemo(
+    () => (isHex(background) ? accentInk(tramSubtle, background) : muted),
+    [background, muted]
+  )
+}
+
+/**
  * The ink of a subtitle: the accent read on the ground — the list's, or the theme's
- * `link` — kept apart from the title's ink and the description's grey. A raw `color` is
- * the caller's word and is never moved.
+ * `link` — kept apart from the title's ink and the detail's grey. A raw `color` is the
+ * caller's word and is never moved.
  */
 function useSubtitleInk(
   theme: XAUITheme,
   accent: ListProps<unknown>['accent'],
-  color: string | undefined
+  color: string | undefined,
+  detailInk: string
 ): string {
-  const { background, foreground, muted, link } = theme.colors
+  const { background, foreground, link } = theme.colors
 
   return useMemo(() => {
     if (color) return color
 
     const ink = lineInk({ accent }, background) ?? link
 
-    return distinctInk(ink, background, [foreground, muted])
-  }, [accent, color, background, foreground, muted, link])
+    return distinctInk(ink, background, [foreground, detailInk])
+  }, [accent, color, background, foreground, detailInk, link])
 }
 
 /**
@@ -217,6 +236,8 @@ type RowPaint = {
   leading?: ListRowStyles['leadingStyle']
   /** The subtitle's ink, kept apart from the other two levels. */
   subtitleInk?: string
+  /** The grey of the detail and of what ends the row. */
+  detailInk: string
   /** A glyph on the square. */
   glyphInk: string
 }
@@ -224,27 +245,22 @@ type RowPaint = {
 /** One set of row styles — live or grey — with what an `Icon` takes in each place. */
 function rowStylesFrom(
   styles: ResolvedStyles<ListSlot>,
-  theme: XAUITheme,
   paint: RowPaint
 ): ListRowStyles {
-  const action = StyleSheet.flatten<TextStyle>(styles.actionText)
+  const detail = { color: paint.detailInk }
 
   return {
     itemStyle: styles.item,
     leadingStyle: paint.leading ?? styles.leading,
     contentStyle: styles.content,
     titleStyle: styles.title,
-    bareTitleStyle: styles.bareTitle,
     subtitleStyle: paint.subtitleInk
       ? [styles.subtitle, { color: paint.subtitleInk }]
       : styles.subtitle,
-    descriptionStyle: styles.description,
+    descriptionStyle: [styles.description, detail],
     actionStyle: styles.action,
-    actionTextStyle: styles.actionText,
+    actionTextStyle: [styles.actionText, detail],
     leadingGlyph: { size: LIST_GEOMETRY.leadingGlyph, color: paint.glyphInk },
-    actionGlyph: {
-      size: LIST_GEOMETRY.actionGlyph,
-      color: typeof action.color === 'string' ? action.color : theme.colors.muted,
-    },
+    actionGlyph: { size: LIST_GEOMETRY.actionGlyph, color: paint.detailInk },
   }
 }

@@ -8,7 +8,6 @@ const SLOTS = [
   'leading',
   'content',
   'title',
-  'bareTitle',
   'subtitle',
   'description',
   'action',
@@ -68,9 +67,10 @@ export const listRecipe = createRecipe({
     },
     // It takes what the square and the action leave, and wraps there.
     content: { flex: 1, minWidth: 0, gap: theme.spacing(0.5) },
-    // Three levels, three sizes and three inks: the page's, the accent's, the grey.
-    title: { ...roleType('subtitle', theme), color: theme.colors.foreground },
-    bareTitle: { ...roleType('title', theme), color: theme.colors.foreground },
+    // Three levels, three sizes and three inks: the page's, the accent's, the subtle
+    // grey — the root sets the last two. The title is Metro's `PhoneTextExtraLargeStyle`,
+    // on every list row: 25, Semilight.
+    title: { ...roleType('title', theme), color: theme.colors.foreground },
     subtitle: { ...roleType('body', theme), color: theme.colors.link },
     description: { ...roleType('caption', theme), color: theme.colors.muted },
     // Level with the title, as the time of a Metro mail.
@@ -120,7 +120,6 @@ export const listRecipe = createRecipe({
       item: { opacity: theme.opacity.disabled },
       leading: { backgroundColor: theme.colors.muted },
       title: { color: theme.colors.muted },
-      bareTitle: { color: theme.colors.muted },
       subtitle: { color: theme.colors.muted },
     }),
   },

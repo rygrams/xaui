@@ -18,7 +18,6 @@ import {
 import { scale } from '../../motion/motion-tokens'
 import { PressTilt } from '../../system/press-tilt'
 import { useTramHaptic } from '../../theme/tram-haptics'
-import { ListLeading } from './list-leading'
 import { ListSwipe } from './list-swipe'
 import { ListSwipeAction } from './list-swipe-action'
 import { useRowSwipe } from './list-item.swipe'
@@ -28,8 +27,7 @@ import type { ListItemProps, ListSwipeActionProps } from './list.type'
 
 /**
  * One row: `Leading`, `Content` and `Action` side by side, the square and the action
- * level with the title. With no `Leading` the title grows — the Metro mail list, where
- * the sender is written large.
+ * level with the title.
  *
  * With `onPress` the row is a button and the press is the Metro one: it leans toward the
  * finger and shrinks a little, its colours unchanged, felt as a `press`. A row is wide,
@@ -39,8 +37,8 @@ import type { ListItemProps, ListSwipeActionProps } from './list.type'
  * toward its start to show them, and a screen reader reaches them as the row's actions.
  * While they are out, a touch on the row closes it rather than pressing it.
  *
- * `Leading` and `Swipe` are found among the row's own children — put them there, not
- * inside a component of yours.
+ * `Swipe` is found among the row's own children — put it there, not inside a component
+ * of yours.
  */
 export const ListItem = forwardRef<View, ListItemProps>(function ListItem(
   {
@@ -74,12 +72,12 @@ export const ListItem = forwardRef<View, ListItemProps>(function ListItem(
     onPressOut,
   })
 
-  const { swipe, isBare, content } = splitRow(children)
+  const { swipe, content } = splitRow(children)
   const actions = swipe ? swipeActionsOf(swipe) : NO_ACTIONS
   const swiping = useRowSwipe(swipe !== null && !isDisabled)
 
   const styles = isDisabled ? list.grey : list.live
-  const row = useMemo(() => ({ styles, isBare }), [styles, isBare])
+  const row = useMemo(() => ({ styles }), [styles])
 
   const handleAccessibilityAction = (event: AccessibilityActionEvent) => {
     const action = actions.find(entry => entry.name === event.nativeEvent.actionName)
@@ -193,7 +191,6 @@ const NO_ACTIONS: SwipeEntry[] = []
 /** The row's own children, the `List.Swipe` among them taken apart. */
 function splitRow(children: ReactNode) {
   let swipe: ReactElement<{ children?: ReactNode }> | null = null
-  let isBare = true
   const content: ReactNode[] = []
 
   Children.forEach(children, child => {
@@ -201,13 +198,11 @@ function splitRow(children: ReactNode) {
       swipe = child as ReactElement<{ children?: ReactNode }>
       return
     }
-    if (isValidElement(child) && child.type === ListLeading) isBare = false
     content.push(child)
   })
 
   return {
     swipe: swipe as ReactElement<{ children?: ReactNode }> | null,
-    isBare,
     content,
   }
 }

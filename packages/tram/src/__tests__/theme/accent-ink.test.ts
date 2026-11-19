@@ -7,7 +7,7 @@ import {
   inkDistance,
 } from '../../theme/accent-ink'
 import { relativeLuminance } from '../../theme/on-accent'
-import { tramAccents } from '../../theme/tram-tokens'
+import { tramAccents, tramSubtle } from '../../theme/tram-tokens'
 import type { TramAccentName } from '../../theme/tram-tokens'
 
 const NAMES = Object.keys(tramAccents) as TramAccentName[]
@@ -70,8 +70,9 @@ describe('accentSoftInk', () => {
 
 describe('distinctInk', () => {
   const MODES = [
-    { ground: '#000000', title: '#FFFFFF', muted: '#A3A3A3' },
-    { ground: '#FFFFFF', title: '#000000', muted: '#666666' },
+    // The list's detail: Metro's subtle grey, read on each ground.
+    { ground: '#000000', title: '#FFFFFF', muted: '#999999' },
+    { ground: '#FFFFFF', title: '#000000', muted: '#767676' },
   ]
 
   it.each(MODES)(
@@ -91,12 +92,17 @@ describe('distinctInk', () => {
   )
 
   it('moves the grey accents on white, darker, and leaves the others alone', () => {
-    const apart = ['#000000', '#666666']
+    const apart = ['#000000', '#767676']
     const steel = accentInk(tramAccents.steel, '#FFFFFF')
     const cobalt = accentInk(tramAccents.cobalt, '#FFFFFF')
 
-    expect(distinctInk(steel, '#FFFFFF', apart)).toBe('#404C56')
+    expect(distinctInk(steel, '#FFFFFF', apart)).toBe('#4E5C69')
     expect(distinctInk(cobalt, '#FFFFFF', apart)).toBe(cobalt)
+  })
+
+  it('reads the subtle grey at 4.5:1 on white, and as it is on black', () => {
+    expect(accentInk(tramSubtle, '#FFFFFF')).toBe('#767676')
+    expect(accentInk(tramSubtle, '#000000')).toBe('#999999')
   })
 
   it('leaves a colour it cannot measure as it is', () => {
