@@ -42,3 +42,15 @@ export const typographyRecipe = createRecipe({
   variants: { variant: ROLE_AXIS },
   defaultVariants: { variant: DEFAULT_ROLE },
 })
+
+/**
+ * The same eight roles with no paint: what a nested `Typography` that names a `variant`
+ * lays over its parent. A role is a size, not an emphasis, so the text keeps the colour
+ * it inherits — a `WheelPicker.Item`'s mix, a title's ink — and only `color` or `accent`
+ * tints it. Cached like the painted roles.
+ */
+export const typographyMetricsRecipe = createRecipe({
+  slots: SLOTS,
+  variants: { variant: ROLE_AXIS },
+  defaultVariants: { variant: DEFAULT_ROLE },
+})

@@ -5,7 +5,11 @@ import { useXAUITheme } from '@xaui/native/theme'
 import { accentInk } from '../../theme/accent-ink'
 import { tramAccents, tramType } from '../../theme/tram-tokens'
 import { InsideTextProvider, useIsInsideText } from './typography.context'
-import { DEFAULT_ROLE, typographyRecipe } from './typography.recipe'
+import {
+  DEFAULT_ROLE,
+  typographyMetricsRecipe,
+  typographyRecipe,
+} from './typography.recipe'
 import type { TypographyProps } from './typography.type'
 
 /**
@@ -29,8 +33,19 @@ import type { TypographyProps } from './typography.type'
  * </Typography>
  * ```
  *
- * A nested one that names a `variant` sets that role over its parent's. The case is the
- * app's — Metro wrote its titles in lower case, Tram draws what it is given.
+ * A nested one that names a `variant` sets that role's size and face over its parent's,
+ * and still inherits its colour — a role is a size, not an emphasis. `color` or `accent`
+ * tints it. So a second line in a `WheelPicker.Item` keeps the square's colour mix:
+ *
+ * ```tsx
+ * <WheelPicker.Item value="12">
+ *   12{'\n'}
+ *   <Typography variant="caption">déc.</Typography>
+ * </WheelPicker.Item>
+ * ```
+ *
+ * The case is the app's — Metro wrote its titles in lower case, Tram draws what it is
+ * given.
  */
 export const Typography = forwardRef<Text, TypographyProps>(function Typography(
   {
@@ -55,7 +70,11 @@ export const Typography = forwardRef<Text, TypographyProps>(function Typography(
   const [styleProps, rest] = useStyleProps(props)
 
   const selection = { variant: role }
-  const styles = typographyRecipe.resolve({ theme, selection })
+  // Nested, a role is metrics alone: the colour stays the parent's.
+  const styles = (isInside ? typographyMetricsRecipe : typographyRecipe).resolve({
+    theme,
+    selection,
+  })
   // Text is read, never filled: a named accent comes as the mode's ink. A raw `color` is
   // the caller's word, as given.
   const paint =

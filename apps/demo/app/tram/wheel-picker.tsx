@@ -366,7 +366,7 @@ export default function TramWheelPickerScreen() {
 
       <TramSection
         title="deux lignes"
-        note="Un Item à deux lignes est une composition : un texte imbriqué prend la couleur du carré."
+        note="Un Item à deux lignes est une composition : une Typography imbriquée, même avec un variant, prend la couleur du carré."
       >
         <WheelPicker size="lg" visibleCount={3} isAwake>
           <WheelPicker.Column accessibilityLabel="mois" defaultValue="11" isLooping>
@@ -374,7 +374,7 @@ export default function TramWheelPickerScreen() {
               <WheelPicker.Item key={value} value={value}>
                 {value}
                 {'\n'}
-                <Typography fontSize={16}>{MONTH_NAMES[index]}</Typography>
+                <Typography variant="caption">{MONTH_NAMES[index]}</Typography>
               </WheelPicker.Item>
             ))}
           </WheelPicker.Column>

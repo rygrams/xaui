@@ -92,7 +92,7 @@ export default function TramTypographyScreen() {
 
       <TramSection
         title="fragments"
-        note="Pas de TextSpan : une Typography sans variant dans une autre hérite de son rôle et ne change que ce qu'elle nomme. Avec un variant, elle pose le sien."
+        note="Pas de TextSpan : une Typography sans variant dans une autre hérite de son rôle et ne change que ce qu'elle nomme. Avec un variant, elle pose sa taille et garde la couleur de son parent."
       >
         <Typography>
           supprimer{' '}
@@ -105,6 +105,10 @@ export default function TramTypographyScreen() {
         <Typography variant="title">
           titre et <Typography accent="magenta">un mot en accent</Typography>, puis{' '}
           <Typography variant="caption">une légende</Typography>
+        </Typography>
+        <Typography variant="subtitle" color={theme.colors.danger}>
+          trois conflits{' '}
+          <Typography variant="caption">· la légende reste rouge</Typography>
         </Typography>
       </TramSection>
 
