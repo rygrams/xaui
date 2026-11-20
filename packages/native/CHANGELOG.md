@@ -1,5 +1,11 @@
 # @xaui/native
 
+## 0.9.10
+
+### Patch Changes
+
+- 872f038: The date arithmetic under the calendars moves from the private `utils/` into `system/dates`, public from `@xaui/native/system`: `monthGrid`, `weekGrid`, `isSameDay`, `isSameMonth`, `isWithinBounds`, `startOfDay`, `startOfWeek`, `addDays`, `addMonths`, `daysInMonth`, `firstDayOfWeekFor`, `weekdayNames`, `monthLabel`, `monthNames`, and the ranges' `nextRange`, `rangePosition`, `isInRange`, `isSameRange` and `EMPTY_RANGE`. `Stepper` exports `stepStatus` and now reaches the root entrypoint — so a calendar or a stepper drawn elsewhere reads the same weeks, ranges and statuses.
+
 ## 0.9.9
 
 ### Patch Changes
