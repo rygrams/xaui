@@ -57,8 +57,8 @@ start of the run, and every page would be at the same place.
 
 ## Where this is not a `Carousel`
 
-The two share the paging arithmetic — `indexFromOffset` and `progressFromOffset` in
-`utils/carousel.ts` are the same functions — and nothing else, because the jobs differ at
+The two share the paging arithmetic — `trackIndexFromOffset` and `trackProgressFromOffset` in
+`system/carousel` are the same functions — and nothing else, because the jobs differ at
 three points that each change the implementation:
 
 |               | `Pager`                                          | `Carousel`                                                   |
@@ -154,6 +154,12 @@ The index changes as the track **crosses** the halfway point rather than when it
 `onMomentumScrollEnd` never fires for a wheel or a trackpad, so on the web the index would
 never move at all, and it lands after the fact, so a "Next" button would sit on the previous
 page for the length of the deceleration.
+
+**The index leads and the track follows.** `goTo` and the dots move the index; the pages
+scroll to wherever it now says. So `defaultIndex` is the page the track starts on once it is
+measured, a controlled `index` changed by its parent moves the pages, and a parent that
+refuses a change leaves them where they were. A move across several pages reports **one**
+change — the pages it crosses on the way are not where the reader is going.
 
 `usePager()` publishes `goTo`, the settled `index`, the `count` the track counted itself, and
 the live `offset` as a **shared value** — an indicator of your own that follows the drag frame

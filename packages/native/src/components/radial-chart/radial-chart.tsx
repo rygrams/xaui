@@ -1,13 +1,14 @@
-import { useMemo } from 'react'
+import { forwardRef, useMemo } from 'react'
+import type { ForwardedRef, ReactElement, Ref } from 'react'
 import { View } from 'react-native'
 import { Circle, Svg } from 'react-native-svg'
 import { useStyleProps } from '../../system/style-props'
 import { useXAUITheme } from '../../theme/theme-hooks'
+import { radialRings } from '../../system/chart/chart-radial'
 import { progressFraction } from '../../utils/progress'
 import { useChartInk, useOptionalChart } from '../chart'
 import type { ChartDatum } from '../chart'
 import { SIZES, radialChartRecipe } from './radial-chart.recipe'
-import { radialRings } from './radial-chart.utils'
 import type { RadialChartProps } from './radial-chart.type'
 
 /** In proportion at every size, which a gap written in points would not be. */
@@ -59,28 +60,31 @@ const DEFAULT_GAP_RATIO = 0.5
  * same order. Inside a `<Chart>` it takes the frame's — and the frame's `seriesCount` is
  * what walks a `Chart.Legend`'s dots to the same length.
  */
-export function RadialChart<
+const RadialChartBase = forwardRef(function RadialChart<
   Data extends ChartDatum,
   LK extends keyof Data & string,
   VK extends keyof Data & string,
   MK extends keyof Data & string,
->({
-  data,
-  labelKey,
-  valueKey,
-  maxKey,
-  maxValue,
-  variant,
-  size = 'md',
-  color,
-  thickness,
-  gap,
-  hasTrack = true,
-  children,
-  isDisabled = false,
-  style,
-  ...props
-}: RadialChartProps<Data, LK, VK, MK>) {
+>(
+  {
+    data,
+    labelKey,
+    valueKey,
+    maxKey,
+    maxValue,
+    variant,
+    size = 'md',
+    color,
+    thickness,
+    gap,
+    hasTrack = true,
+    children,
+    isDisabled = false,
+    style,
+    ...props
+  }: RadialChartProps<Data, LK, VK, MK>,
+  ref: ForwardedRef<View>
+) {
   const theme = useXAUITheme()
   const [styleProps, rest] = useStyleProps(props)
   const frame = useOptionalChart()
@@ -88,7 +92,8 @@ export function RadialChart<
     variant: variant ?? frame?.variant,
     size,
     color: color ?? frame?.color,
-    isDisabled: isDisabled || (frame?.isDisabled ?? false),
+    // Its own flag only: a disabled frame dims itself, and the figure with it.
+    isDisabled,
     count: data.length,
   })
 
@@ -151,7 +156,7 @@ export function RadialChart<
   const centre = diameter / 2
 
   return (
-    <View {...rest} style={[styles.root, styleProps, style]}>
+    <View ref={ref} {...rest} style={[styles.root, styleProps, style]}>
       <View style={styles.canvas}>
         <Svg width={diameter} height={diameter}>
           {/* Every track first, so a ring's rounded cap is never cut by the ground of the
@@ -190,6 +195,16 @@ export function RadialChart<
       {children === undefined ? null : <View style={styles.center}>{children}</View>}
     </View>
   )
-}
+})
 
-RadialChart.displayName = 'XAUI.RadialChart'
+RadialChartBase.displayName = 'XAUI.RadialChart'
+
+/** Typed by the caller's rows: `forwardRef` alone would erase the generics. */
+export const RadialChart = RadialChartBase as <
+  Data extends ChartDatum,
+  LK extends keyof Data & string,
+  VK extends keyof Data & string,
+  MK extends keyof Data & string,
+>(
+  props: RadialChartProps<Data, LK, VK, MK> & { ref?: Ref<View> }
+) => ReactElement

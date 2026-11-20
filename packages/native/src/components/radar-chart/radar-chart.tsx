@@ -1,28 +1,18 @@
-import { useMemo } from 'react'
+import { forwardRef, useMemo } from 'react'
+import type { ForwardedRef, ReactElement, Ref } from 'react'
 import { Text, View } from 'react-native'
 import { Circle, Line, Path, Svg } from 'react-native-svg'
 import { useStyleProps } from '../../system/style-props'
 import { useXAUITheme } from '../../theme/theme-hooks'
-import { polarPoint, polygonPath } from '../../utils/chart-path'
+import { radarWeb } from '../../system/chart/chart-radar'
 import { useChartInk, useOptionalChart } from '../chart'
 import type { ChartDatum } from '../chart'
 import { DIAMETERS, radarChartRecipe } from './radar-chart.recipe'
 import type { RadarChartProps } from './radar-chart.type'
 
-const FULL_TURN = Math.PI * 2
 const DEFAULT_LEVELS = 4
 const DEFAULT_FILL = 0.18
 const POINT_RADIUS = 3
-
-/**
- * How much of the box the labels take, as a fraction of the radius.
- *
- * The web has to shrink to leave room for the names around it, and the room a name needs is
- * its own text width — which is not knowable before it is laid out. A fraction is the honest
- * approximation, and `hasLabels={false}` hands the whole box back for a radar that is a
- * glyph rather than a figure.
- */
-const LABEL_ROOM = 0.24
 
 /**
  * Several quantities at once, each on its own axis.
@@ -55,27 +45,30 @@ const LABEL_ROOM = 0.24
  * The palette and the variants are the cartesian family's, so a radar beside a line chart is
  * the same colour in the same order.
  */
-export function RadarChart<
+const RadarChartBase = forwardRef(function RadarChart<
   Data extends ChartDatum,
   AK extends keyof Data & string,
   YK extends keyof Data & string,
->({
-  data,
-  axisKey,
-  yKeys,
-  variant,
-  size = 'md',
-  color,
-  levels = DEFAULT_LEVELS,
-  maxValue,
-  hasLabels = true,
-  fillOpacity = DEFAULT_FILL,
-  strokeWidth = 2,
-  hasPoints = false,
-  isDisabled = false,
-  style,
-  ...props
-}: RadarChartProps<Data, AK, YK>) {
+>(
+  {
+    data,
+    axisKey,
+    yKeys,
+    variant,
+    size = 'md',
+    color,
+    levels = DEFAULT_LEVELS,
+    maxValue,
+    hasLabels = true,
+    fillOpacity = DEFAULT_FILL,
+    strokeWidth = 2,
+    hasPoints = false,
+    isDisabled = false,
+    style,
+    ...props
+  }: RadarChartProps<Data, AK, YK>,
+  ref: ForwardedRef<View>
+) {
   const theme = useXAUITheme()
   const [styleProps, rest] = useStyleProps(props)
   const frame = useOptionalChart()
@@ -83,7 +76,8 @@ export function RadarChart<
     variant: variant ?? frame?.variant,
     size,
     color: color ?? frame?.color,
-    isDisabled: isDisabled || (frame?.isDisabled ?? false),
+    // Its own flag only: a disabled frame dims itself, and the figure with it.
+    isDisabled,
     count: yKeys.length,
   })
 
@@ -96,69 +90,28 @@ export function RadarChart<
   const box = DIAMETERS[size].box
 
   const web = useMemo(() => {
-    const axes = data.length
-    if (axes < 3) return null
-
-    const center = { x: box / 2, y: box / 2 }
-    const radius = (box / 2) * (hasLabels ? 1 - LABEL_ROOM : 1)
-    const rings = Math.max(Math.floor(levels), 1)
-
-    // Every reading across every series, because the axes share one scale — a radar whose
-    // axes were scaled apart would be several charts drawn on top of each other.
-    const readings = yKeys.flatMap(key =>
-      data.map(row => Number(row[key])).filter(Number.isFinite)
-    )
-    const top = maxValue ?? Math.max(...readings, 0)
-    // A web with no size has no shape to draw on it; one ring's worth keeps the frame.
-    const scale = top > 0 ? radius / top : 0
-
-    const angleOf = (index: number) => (index / axes) * FULL_TURN
+    const geometry = radarWeb({
+      axes: data.map(row => String(row[axisKey] ?? '')),
+      series: yKeys.map(key => data.map(row => Number(row[key]))),
+      box,
+      hasLabels,
+      levels,
+      maxValue,
+    })
+    if (geometry === null) return null
 
     return {
-      center,
-      radius,
-      axes,
-      angleOf,
-      spokes: data.map((row, index) => ({
-        label: String(row[axisKey] ?? ''),
-        end: polarPoint(center, radius, angleOf(index)),
-        // Just past the web, so a name sits outside the outermost ring rather than on it.
-        labelAt: polarPoint(center, radius * 1.16, angleOf(index)),
-      })),
-      rings: Array.from({ length: rings }, (_, level) =>
-        polygonPath(
-          data.map((_, index) =>
-            polarPoint(center, (radius * (level + 1)) / rings, angleOf(index))
-          )
-        )
-      ),
-      series: yKeys.map((key, index) => ({
-        key,
+      ...geometry,
+      series: geometry.series.map((one, index) => ({
+        ...one,
+        key: yKeys[index],
         color: colors[index] ?? colors[0],
-        d: polygonPath(
-          data.map((row, axis) => {
-            const value = Number(row[key])
-            return polarPoint(
-              center,
-              (Number.isFinite(value) ? value : 0) * scale,
-              angleOf(axis)
-            )
-          })
-        ),
-        points: data.map((row, axis) => {
-          const value = Number(row[key])
-          return polarPoint(
-            center,
-            (Number.isFinite(value) ? value : 0) * scale,
-            angleOf(axis)
-          )
-        }),
       })),
     }
   }, [axisKey, box, colors, data, hasLabels, levels, maxValue, yKeys])
 
   return (
-    <View {...rest} style={[styles.root, styleProps, style]}>
+    <View ref={ref} {...rest} style={[styles.root, styleProps, style]}>
       {web === null ? null : (
         <>
           <Svg width={box} height={box}>
@@ -243,9 +196,18 @@ export function RadarChart<
       )}
     </View>
   )
-}
+})
 
-RadarChart.displayName = 'XAUI.RadarChart'
+RadarChartBase.displayName = 'XAUI.RadarChart'
+
+/** Typed by the caller's rows: `forwardRef` alone would erase the generics. */
+export const RadarChart = RadarChartBase as <
+  Data extends ChartDatum,
+  AK extends keyof Data & string,
+  YK extends keyof Data & string,
+>(
+  props: RadarChartProps<Data, AK, YK> & { ref?: Ref<View> }
+) => ReactElement
 
 /** Wide enough for a word, narrow enough that two neighbours do not meet. */
 const LABEL_WIDTH = 64

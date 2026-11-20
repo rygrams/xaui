@@ -23,19 +23,21 @@ re-exported from `utils/`.
 
 ## Current contents
 
-| Folder                | Role                                                                    |
-| --------------------- | ----------------------------------------------------------------------- |
-| `recipe/`             | The style engine: variants name tokens, styles resolve once, cached     |
-| `slot/`               | Compound plumbing: strict context, text auto-wrap, `asChild` merging    |
-| `pressable-feedback/` | Touch feedback: the scale, and `Highlight` / `Ripple` as composed parts |
-| `portal/`             | Render elsewhere in the tree: `Dialog`, `Sheet`, `Drawer`, `Snackbar`   |
-| `icon/`               | A third-party icon that inherits its slot's size and colour             |
-| `close-button/`       | The dismiss affordance: own press state, grown target, built-in cross   |
-| `style-props/`        | R14: the style keys of a node, exposed as props and split back out      |
-| `expansion/`          | What is open after a press: an accordion's single/multiple rule, pure   |
-| `items/`              | A list's rows read off its elements: their labels, and a typed filter   |
-| `dates/`              | Calendar days by day, not by instant: grids, bounds, names, ranges      |
-| `selection/`          | Which rows are chosen and how a table sorts, and `useTableState` on top |
+| Folder                | Role                                                                           |
+| --------------------- | ------------------------------------------------------------------------------ |
+| `recipe/`             | The style engine: variants name tokens, styles resolve once, cached            |
+| `slot/`               | Compound plumbing: strict context, text auto-wrap, `asChild` merging           |
+| `pressable-feedback/` | Touch feedback: the scale, and `Highlight` / `Ripple` as composed parts        |
+| `portal/`             | Render elsewhere in the tree: `Dialog`, `Sheet`, `Drawer`, `Snackbar`          |
+| `icon/`               | A third-party icon that inherits its slot's size and colour                    |
+| `close-button/`       | The dismiss affordance: own press state, grown target, built-in cross          |
+| `style-props/`        | R14: the style keys of a node, exposed as props and split back out             |
+| `expansion/`          | What is open after a press: an accordion's single/multiple rule, pure          |
+| `items/`              | A list's rows read off its elements: their labels, and a typed filter          |
+| `dates/`              | Calendar days by day, not by instant: grids, bounds, names, ranges             |
+| `selection/`          | Which rows are chosen and how a table sorts, and `useTableState` on top        |
+| `chart/`              | A chart's maths: axes, scales, stacks, paths, the palette, ring and web shapes |
+| `carousel/`           | A paging track's arithmetic: slide width, snap step, index and progress        |
 
 ## `recipe/` in one page
 

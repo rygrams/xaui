@@ -1,10 +1,11 @@
 import { describe, expect, it } from 'vitest'
 import {
   carouselMetrics,
-  indexFromOffset,
-  progressFromOffset,
+  carouselStops,
+  trackIndexFromOffset,
+  trackProgressFromOffset,
   stepIndex,
-} from '../../utils/carousel'
+} from '../../../system/carousel/carousel'
 
 describe('carouselMetrics', () => {
   it('gives the whole width to a single slide with no gap and no peek', () => {
@@ -76,34 +77,34 @@ describe('carouselMetrics', () => {
   })
 })
 
-describe('indexFromOffset', () => {
+describe('trackIndexFromOffset', () => {
   it('rounds to the nearest slide rather than flooring', () => {
     // An indicator that waits for the halfway point to pass lags a drag the reader can see.
-    expect(indexFromOffset(0, 100, 5)).toBe(0)
-    expect(indexFromOffset(49, 100, 5)).toBe(0)
-    expect(indexFromOffset(51, 100, 5)).toBe(1)
-    expect(indexFromOffset(150, 100, 5)).toBe(2)
+    expect(trackIndexFromOffset(0, 100, 5)).toBe(0)
+    expect(trackIndexFromOffset(49, 100, 5)).toBe(0)
+    expect(trackIndexFromOffset(51, 100, 5)).toBe(1)
+    expect(trackIndexFromOffset(150, 100, 5)).toBe(2)
   })
 
   it('stays inside the series when the scroll bounces past either end', () => {
-    expect(indexFromOffset(-80, 100, 5)).toBe(0)
-    expect(indexFromOffset(9000, 100, 5)).toBe(4)
+    expect(trackIndexFromOffset(-80, 100, 5)).toBe(0)
+    expect(trackIndexFromOffset(9000, 100, 5)).toBe(4)
   })
 
   it('is the first slide before the track has been measured', () => {
-    expect(indexFromOffset(120, 0, 5)).toBe(0)
-    expect(indexFromOffset(120, 100, 0)).toBe(0)
+    expect(trackIndexFromOffset(120, 0, 5)).toBe(0)
+    expect(trackIndexFromOffset(120, 100, 0)).toBe(0)
   })
 })
 
-describe('progressFromOffset', () => {
+describe('trackProgressFromOffset', () => {
   it('reports where the track is between two slides', () => {
-    expect(progressFromOffset(140, 100, 5)).toBeCloseTo(1.4)
+    expect(trackProgressFromOffset(140, 100, 5)).toBeCloseTo(1.4)
   })
 
   it('clamps the rubber band at either end', () => {
-    expect(progressFromOffset(-60, 100, 5)).toBe(0)
-    expect(progressFromOffset(700, 100, 5)).toBe(4)
+    expect(trackProgressFromOffset(-60, 100, 5)).toBe(0)
+    expect(trackProgressFromOffset(700, 100, 5)).toBe(4)
   })
 })
 
@@ -128,5 +129,29 @@ describe('stepIndex', () => {
   it('survives an empty carousel', () => {
     expect(stepIndex(0, 1, 0, true)).toBe(0)
     expect(stepIndex(0, 1, 0, false)).toBe(0)
+  })
+})
+
+describe('carouselStops', () => {
+  it('rests on every slide when one is in view', () => {
+    expect(carouselStops(5, 1)).toBe(5)
+  })
+
+  it('stops short of the end by a view less one slide', () => {
+    expect(carouselStops(5, 2)).toBe(4)
+    expect(carouselStops(5, 3)).toBe(3)
+  })
+
+  it('keeps one position when the view holds every slide or more', () => {
+    expect(carouselStops(3, 3)).toBe(1)
+    expect(carouselStops(2, 4)).toBe(1)
+  })
+
+  it('reads a fractional view as the whole slides in it', () => {
+    expect(carouselStops(5, 2.5)).toBe(4)
+  })
+
+  it('has no position without slides', () => {
+    expect(carouselStops(0, 1)).toBe(0)
   })
 })

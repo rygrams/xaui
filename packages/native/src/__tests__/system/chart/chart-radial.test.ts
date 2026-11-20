@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { radialRings } from '../../../components/radial-chart/radial-chart.utils'
+import { radialRings } from '../../../system/chart/chart-radial'
 
 /** A hundred-point box with three rings of ten, separated by five. */
 const BOX = { diameter: 100, count: 3, thickness: 10, gap: 5 }

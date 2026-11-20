@@ -1,6 +1,7 @@
 import { createRecipe } from '../../system/recipe'
 import type { SlotStyles } from '../../system/recipe'
 import type { FontSizeKey } from '../../theme/theme.type'
+import { SVG_FRAME } from '../chart/chart.style'
 import type { RadarChartSize, RadarChartSlot } from './radar-chart.type'
 
 const SLOTS = ['root'] as const
@@ -29,7 +30,8 @@ function sizeAxis(size: RadarChartSize) {
 export const radarChartRecipe = createRecipe({
   slots: SLOTS,
 
-  base: () => ({ root: { alignSelf: 'center' } }),
+  // The names around the web are placed over the SVG's coordinates, which do not mirror.
+  base: () => ({ root: { alignSelf: 'center', ...SVG_FRAME } }),
 
   variants: {
     size: { sm: sizeAxis('sm'), md: sizeAxis('md'), lg: sizeAxis('lg') },

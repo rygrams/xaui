@@ -2116,7 +2116,7 @@ absolutely so the number does not shift down the day the dot appears.
 
 ## The dates behind it
 
-The arithmetic is `utils/dates.ts`, and it is tested: `startOfDay`, `isSameDay`,
+The arithmetic is `system/dates`, public from `@xaui/native/system`, and it is tested: `startOfDay`, `isSameDay`,
 `isSameMonth`, `addDays`, `addMonths`, `startOfWeek`, `isWithinBounds`, `monthGrid`,
 `weekGrid`, `weekdayNames`, `monthLabel`, `monthNames`, `firstDayOfWeekFor`.
 
@@ -2634,7 +2634,7 @@ shows at each edge. `carouselMetrics` divides the measured track between them:
 ```
 
 A carousel whose slide width is given in points is a carousel that is wrong on the next
-screen size — so it is not a prop, and the arithmetic lives in `utils/carousel.ts` where it
+screen size — so it is not a prop, and the arithmetic lives in `system/carousel` where it
 is read and tested rather than in the component where it is neither.
 
 **The peek brings a gap of its own.** The run it costs at each edge is `peek + gap`, not
@@ -2687,7 +2687,7 @@ live scroll offset on the UI thread, so the pill grows out of one dot and into t
 the finger is still down. That is what makes a reader believe the indicator is attached to
 the thing they are moving.
 
-A screen reader hears "3 of 5" through `accessibilityValue` rather than a label, for the
+A screen reader hears "3/5" through `accessibilityValue` rather than a label, for the
 same reason the arrows have no default one.
 
 ### The thumbnails show what they point at
@@ -2708,6 +2708,15 @@ fact, so the arrows and the thumbnails would sit on the previous slide for the l
 deceleration.
 
 A fast flick across three slides therefore reports three changes. That is what happened.
+
+**The index leads and the track follows.** An arrow, a dot, a thumbnail and autoplay move the
+index; the track glides to wherever the index now says. So `defaultIndex` is where the track
+starts once its slides are laid out, a controlled `index` changed by its parent moves the
+track, and a parent that refuses a change leaves the track where it was.
+
+A glide reports **one** change, the one that started it: the slides it crosses on the way are
+not where the reader is going. An autoplay wrap from the last slide to the first is one
+change, not one per slide in between.
 
 ## How a move is animated
 
@@ -2765,7 +2774,8 @@ type — **never a slide**. A slide's width is the track's; its height is whatev
 ## Accessibility
 
 The arrows are buttons and carry `accessibilityState.disabled` at the ends. The dots and the
-thumbnails carry `accessibilityValue` — position and total — and `accessibilityState.selected`.
+thumbnails carry `accessibilityValue` — position and total, with a `text` of `3/5` so iOS
+does not read the range as a percentage — and `accessibilityState.selected`.
 
 What is _in_ a slide or a thumbnail is yours, so an image with its own `accessibilityLabel` is
 how a slide says what it shows.
@@ -3038,8 +3048,9 @@ does, on the same axes as the ones that do.
 </ChartPlot>
 ```
 
-`chart-scale` and `chart-path` are `utils/` — private, and deliberately: they are the
-family's own maths, not an API. A chart of your own reaches for `ChartPlot`.
+`chart-scale`, `chart-path` and `chart-palette` are `@xaui/native/system` — the family's
+maths, public so that a chart drawn in another language (`@xaui/tram`'s) scales, curves and
+shades exactly as these do. A chart of your own on these axes still reaches for `ChartPlot`.
 
 # Checkbox
 
@@ -7556,8 +7567,8 @@ start of the run, and every page would be at the same place.
 
 ## Where this is not a `Carousel`
 
-The two share the paging arithmetic — `indexFromOffset` and `progressFromOffset` in
-`utils/carousel.ts` are the same functions — and nothing else, because the jobs differ at
+The two share the paging arithmetic — `trackIndexFromOffset` and `trackProgressFromOffset` in
+`system/carousel` are the same functions — and nothing else, because the jobs differ at
 three points that each change the implementation:
 
 |               | `Pager`                                          | `Carousel`                                                   |
@@ -7653,6 +7664,12 @@ The index changes as the track **crosses** the halfway point rather than when it
 `onMomentumScrollEnd` never fires for a wheel or a trackpad, so on the web the index would
 never move at all, and it lands after the fact, so a "Next" button would sit on the previous
 page for the length of the deceleration.
+
+**The index leads and the track follows.** `goTo` and the dots move the index; the pages
+scroll to wherever it now says. So `defaultIndex` is the page the track starts on once it is
+measured, a controlled `index` changed by its parent moves the pages, and a parent that
+refuses a change leaves them where they were. A move across several pages reports **one**
+change — the pages it crosses on the way are not where the reader is going.
 
 `usePager()` publishes `goTo`, the settled `index`, the `count` the track counted itself, and
 the live `offset` as a **shared value** — an indicator of your own that follows the drag frame

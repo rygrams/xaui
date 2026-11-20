@@ -1,5 +1,6 @@
 import { forwardRef, useEffect } from 'react'
 import { Pressable, Text, View } from 'react-native'
+import { childrenToString } from '../../system/slot'
 import { useStyleProps } from '../../system/style-props'
 import { useTable, useTableColumnIndex } from './table.context'
 import type { TableColumnProps } from './table.type'
@@ -55,10 +56,13 @@ export const TableColumn = forwardRef<View, TableColumnProps>(function TableColu
   // seam however many columns there are.
   const separator = index > 0 ? <View style={columnSeparatorStyle} /> : null
 
+  // Mixed text (`{count} lignes`) arrives as an array: read as one string, or it reaches
+  // the View bare, which React Native refuses outside a Text.
+  const text = childrenToString(children)
   const label =
-    typeof children === 'string' || typeof children === 'number' ? (
+    text !== null ? (
       <Text style={columnLabelStyle} numberOfLines={1}>
-        {children}
+        {text}
       </Text>
     ) : (
       children

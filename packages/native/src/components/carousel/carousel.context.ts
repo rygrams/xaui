@@ -10,3 +10,6 @@ import type { CarouselContextValue } from './carousel.type'
  */
 export const [CarouselProvider, useCarousel] =
   createSlotContext<CarouselContextValue>('Carousel')
+
+/** `glideTarget` when no glide is in flight. */
+export const NO_TARGET = -1

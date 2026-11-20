@@ -70,6 +70,10 @@ const SCREENS = [
   { href: '/tram/slide-button', label: 'slide button' },
   { href: '/tram/table', label: 'table' },
   { href: '/tram/morph-button', label: 'morph button' },
+  { href: '/tram/carousel', label: 'carousel' },
+  { href: '/tram/scaffold', label: 'scaffold' },
+  { href: '/tram/charts', label: 'charts' },
+  { href: '/tram/view', label: 'view' },
 ] as const
 
 export default function TramHomeScreen() {

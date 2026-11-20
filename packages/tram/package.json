@@ -69,6 +69,16 @@
         "default": "./dist/components/app-bar/index.cjs"
       }
     },
+    "./area-chart": {
+      "import": {
+        "types": "./dist/components/area-chart/index.d.ts",
+        "default": "./dist/components/area-chart/index.js"
+      },
+      "require": {
+        "types": "./dist/components/area-chart/index.d.cts",
+        "default": "./dist/components/area-chart/index.cjs"
+      }
+    },
     "./autocomplete": {
       "import": {
         "types": "./dist/components/autocomplete/index.d.ts",
@@ -97,6 +107,16 @@
       "require": {
         "types": "./dist/components/badge/index.d.cts",
         "default": "./dist/components/badge/index.cjs"
+      }
+    },
+    "./bar-chart": {
+      "import": {
+        "types": "./dist/components/bar-chart/index.d.ts",
+        "default": "./dist/components/bar-chart/index.js"
+      },
+      "require": {
+        "types": "./dist/components/bar-chart/index.d.cts",
+        "default": "./dist/components/bar-chart/index.cjs"
       }
     },
     "./bottom-sheet": {
@@ -137,6 +157,26 @@
       "require": {
         "types": "./dist/components/card/index.d.cts",
         "default": "./dist/components/card/index.cjs"
+      }
+    },
+    "./carousel": {
+      "import": {
+        "types": "./dist/components/carousel/index.d.ts",
+        "default": "./dist/components/carousel/index.js"
+      },
+      "require": {
+        "types": "./dist/components/carousel/index.d.cts",
+        "default": "./dist/components/carousel/index.cjs"
+      }
+    },
+    "./chart": {
+      "import": {
+        "types": "./dist/components/chart/index.d.ts",
+        "default": "./dist/components/chart/index.js"
+      },
+      "require": {
+        "types": "./dist/components/chart/index.d.cts",
+        "default": "./dist/components/chart/index.cjs"
       }
     },
     "./checkbox": {
@@ -289,6 +329,16 @@
         "default": "./dist/components/jump-list/index.cjs"
       }
     },
+    "./line-chart": {
+      "import": {
+        "types": "./dist/components/line-chart/index.d.ts",
+        "default": "./dist/components/line-chart/index.js"
+      },
+      "require": {
+        "types": "./dist/components/line-chart/index.d.cts",
+        "default": "./dist/components/line-chart/index.cjs"
+      }
+    },
     "./list": {
       "import": {
         "types": "./dist/components/list/index.d.ts",
@@ -399,6 +449,16 @@
         "default": "./dist/components/phone-number-field/index.cjs"
       }
     },
+    "./pie-chart": {
+      "import": {
+        "types": "./dist/components/pie-chart/index.d.ts",
+        "default": "./dist/components/pie-chart/index.js"
+      },
+      "require": {
+        "types": "./dist/components/pie-chart/index.d.cts",
+        "default": "./dist/components/pie-chart/index.cjs"
+      }
+    },
     "./pivot": {
       "import": {
         "types": "./dist/components/pivot/index.d.ts",
@@ -417,6 +477,26 @@
       "require": {
         "types": "./dist/components/progress-bar/index.d.cts",
         "default": "./dist/components/progress-bar/index.cjs"
+      }
+    },
+    "./radar-chart": {
+      "import": {
+        "types": "./dist/components/radar-chart/index.d.ts",
+        "default": "./dist/components/radar-chart/index.js"
+      },
+      "require": {
+        "types": "./dist/components/radar-chart/index.d.cts",
+        "default": "./dist/components/radar-chart/index.cjs"
+      }
+    },
+    "./radial-chart": {
+      "import": {
+        "types": "./dist/components/radial-chart/index.d.ts",
+        "default": "./dist/components/radial-chart/index.js"
+      },
+      "require": {
+        "types": "./dist/components/radial-chart/index.d.cts",
+        "default": "./dist/components/radial-chart/index.cjs"
       }
     },
     "./radio": {
@@ -447,6 +527,16 @@
       "require": {
         "types": "./dist/components/rating/index.d.cts",
         "default": "./dist/components/rating/index.cjs"
+      }
+    },
+    "./scaffold": {
+      "import": {
+        "types": "./dist/components/scaffold/index.d.ts",
+        "default": "./dist/components/scaffold/index.js"
+      },
+      "require": {
+        "types": "./dist/components/scaffold/index.d.cts",
+        "default": "./dist/components/scaffold/index.cjs"
       }
     },
     "./search-field": {
@@ -639,6 +729,16 @@
         "default": "./dist/components/typography/index.cjs"
       }
     },
+    "./view": {
+      "import": {
+        "types": "./dist/components/view/index.d.ts",
+        "default": "./dist/components/view/index.js"
+      },
+      "require": {
+        "types": "./dist/components/view/index.d.cts",
+        "default": "./dist/components/view/index.cjs"
+      }
+    },
     "./wheel-picker": {
       "import": {
         "types": "./dist/components/wheel-picker/index.d.ts",
@@ -675,6 +775,7 @@
     "react-native": ">=0.70.0",
     "react-native-gesture-handler": ">=2.0.0",
     "react-native-reanimated": ">=4.0.0",
+    "react-native-svg": ">=15.0.0",
     "react-native-worklets": ">=0.5.0"
   },
   "peerDependenciesMeta": {
@@ -682,6 +783,9 @@
       "optional": true
     },
     "react-native-gesture-handler": {
+      "optional": true
+    },
+    "react-native-svg": {
       "optional": true
     }
   },
@@ -692,6 +796,7 @@
     "react-native": "0.83.10",
     "react-native-gesture-handler": "^2.28.0",
     "react-native-reanimated": "4.2.1",
+    "react-native-svg": "15.15.3",
     "react-native-worklets": "0.7.4",
     "tsup": "^8.5.1",
     "typescript": "^5.9.3"

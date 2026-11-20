@@ -1,4 +1,12 @@
-import { forwardRef, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import { StyleSheet, View } from 'react-native'
 import type { LayoutChangeEvent, ViewStyle } from 'react-native'
 import type { AnimatedRef } from 'react-native-reanimated'
@@ -7,8 +15,12 @@ import { useControllableState } from '../../hooks/use-controllable-state'
 import { Slot } from '../../system/slot'
 import { useStyleProps } from '../../system/style-props'
 import { useXAUITheme } from '../../theme/theme-hooks'
-import { carouselMetrics, stepIndex } from '../../utils/carousel'
-import { CarouselProvider } from './carousel.context'
+import {
+  carouselMetrics,
+  carouselStops,
+  stepIndex,
+} from '../../system/carousel/carousel'
+import { CarouselProvider, NO_TARGET } from './carousel.context'
 import { carouselControlBox, carouselGap, carouselRecipe } from './carousel.recipe'
 import type { CarouselProps } from './carousel.type'
 
@@ -125,6 +137,13 @@ export const CarouselRoot = forwardRef<View, CarouselProps>(function Carousel(
   // The handle of the glide in flight, so a second arrow press mid-travel takes over rather
   // than racing the first.
   const glideTimer = useRef<ReturnType<typeof setInterval> | null>(null)
+  // The slide a glide is carrying the track to, or `NO_TARGET`. While it is set the track
+  // settles on nothing it crosses: an autoplay wrap from the last slide to the first would
+  // otherwise report every slide in between.
+  const glideTarget = useSharedValue(NO_TARGET)
+  // The slide the track is on or headed for; `null` until it has been placed. What the
+  // index is compared with to know whether the track has to move.
+  const trackIndex = useRef<number | null>(null)
 
   const selection = { variant, size, radius }
   const styles = carouselRecipe.resolve({
@@ -169,11 +188,12 @@ export const CarouselRoot = forwardRef<View, CarouselProps>(function Carousel(
       clearInterval(glideTimer.current)
       glideTimer.current = null
     }
-  }, [])
+    glideTarget.set(NO_TARGET)
+  }, [glideTarget])
 
   /**
-   * Carry the track from where it is now to `x` over `GLIDE_MS`, a frame at a time against
-   * `easeOutCubic`.
+   * Carry the track from where it is now to slide `target` over `GLIDE_MS`, a frame at a
+   * time against `easeOutCubic`.
    *
    * `offset` is where it *is* — the scroll handler keeps it live — so a press mid-fling
    * eases on from the real position rather than from the slide it was last resting on. A
@@ -181,15 +201,20 @@ export const CarouselRoot = forwardRef<View, CarouselProps>(function Carousel(
    * the platform's, it is close to linear, and it cannot be replaced.
    */
   const glideTo = useCallback(
-    (x: number) => {
+    (target: number) => {
       stopGlide()
+      const x = target * metrics.step
       const from = offset.get()
       const distance = x - from
+      trackIndex.current = target
+
+      // A jump this short crosses nothing: the one offset it reports is the target's.
       if (Math.abs(distance) < 1) {
         setTrackOffset(trackRef, x)
         return
       }
 
+      glideTarget.set(target)
       const start = Date.now()
       glideTimer.current = setInterval(() => {
         const t = Math.min(1, (Date.now() - start) / GLIDE_MS)
@@ -197,36 +222,83 @@ export const CarouselRoot = forwardRef<View, CarouselProps>(function Carousel(
         if (t >= 1) stopGlide()
       }, GLIDE_FRAME_MS)
     },
-    [offset, stopGlide, trackRef]
+    [glideTarget, metrics.step, offset, stopGlide, trackRef]
   )
 
+  // What `placeTrack` reads. It is called from the track's own layout event, which can
+  // arrive before or after the render that counted the slides; a ref synced at commit is
+  // never a render behind.
+  // Where the track can rest: with several slides in view it stops a view short of the
+  // end, and every move is held to those positions rather than to the slide count.
+  const stops = carouselStops(count, itemsPerView)
+
+  const latest = useRef({ index, stops, step: metrics.step })
+  useLayoutEffect(() => {
+    latest.current = { index, stops, step: metrics.step }
+  })
+
+  /**
+   * Put the track on the index at once — once its slides are laid out, and again whenever
+   * they are re-measured. This is how `defaultIndex` and a first controlled `index` reach
+   * the track: a scroll view starts at zero whatever the index says.
+   */
+  const placeTrack = useCallback(() => {
+    const { index: at, stops: places, step } = latest.current
+    if (step <= 0 || places === 0) return
+
+    stopGlide()
+    const target = stepIndex(at, 0, places, false)
+    trackIndex.current = target
+    setTrackOffset(trackRef, target * step)
+  }, [stopGlide, trackRef])
+
+  // The slides may be counted after the track has reported its size: placed then too.
+  useEffect(() => {
+    if (trackIndex.current === null) placeTrack()
+  }, [stops, metrics.step, placeTrack])
+
+  // The index leads and the track follows. Whatever moved the index — an arrow, a dot, a
+  // thumbnail, autoplay or a controlled parent — the track glides there, and a controlled
+  // parent that refuses a change leaves the track where it was. A slide the track settled
+  // on by itself is already where the index says, so nothing moves.
+  useEffect(() => {
+    if (trackIndex.current === null || stops === 0) return
+
+    const target = stepIndex(index, 0, stops, false)
+    if (target !== trackIndex.current) glideTo(target)
+  }, [stops, glideTo, index])
+
+  // A square or a thumbnail past the last position asks for the last position.
   const goTo = useCallback(
-    (next: number) => {
-      // The track is the source of truth for where the carousel is: telling it to move and
-      // letting its own settle report back is what keeps a controlled index, a dragged
-      // index and an autoplayed one on one path instead of three.
-      glideTo(next * metrics.step)
-      setIndex(next)
-    },
-    [glideTo, metrics.step, setIndex]
+    (next: number) => setIndex(stepIndex(next, 0, stops, false)),
+    [setIndex, stops]
   )
 
   const moveBy = useCallback(
-    (delta: number) => goTo(stepIndex(index, delta, count, hasLoop)),
-    [count, goTo, hasLoop, index]
+    (delta: number) => goTo(stepIndex(index, delta, stops, hasLoop)),
+    [stops, goTo, hasLoop, index]
+  )
+
+  /** The track settled on a slide by itself — a drag. Recorded first, so it is not chased. */
+  const onSettle = useCallback(
+    (next: number) => {
+      trackIndex.current = next
+      setIndex(next)
+    },
+    [setIndex]
   )
 
   const onInteract = useCallback(() => {
     hasInteracted.current = true
     // A finger on the track wins over a glide that has not landed — otherwise the two set
-    // the offset on alternate frames and the slide judders.
+    // the offset on alternate frames and the slide judders — and it settles as it goes.
     stopGlide()
   }, [stopGlide])
 
   useEffect(() => stopGlide, [stopGlide])
 
   useEffect(() => {
-    if (!autoPlayInterval || isDisabled || count < 2) return
+    if (!autoPlayInterval || isDisabled || stops < 2) return
 
     const timer = setInterval(() => {
       if (hasInteracted.current) {
@@ -235,15 +307,12 @@ export const CarouselRoot = forwardRef<View, CarouselProps>(function Carousel(
       }
       // Always wrapping, whatever `hasLoop` says: that prop is about what an *arrow* does
       // at the last slide, and an autoplay that stops there is one that quietly dies.
-      setIndex(current => {
-        const next = stepIndex(current, 1, count, true)
-        glideTo(next * metrics.step)
-        return next
-      })
+      // Through the index like every other move, so a controlled parent can refuse it.
+      goTo(stepIndex(index, 1, stops, true))
     }, autoPlayInterval)
 
     return () => clearInterval(timer)
-  }, [autoPlayInterval, count, isDisabled, glideTo, metrics.step, setIndex])
+  }, [autoPlayInterval, stops, goTo, index, isDisabled])
 
   const context = useMemo(
     () => ({
@@ -261,6 +330,7 @@ export const CarouselRoot = forwardRef<View, CarouselProps>(function Carousel(
       thumbnailActiveStyle: [styles.thumbnailActive, tint?.thumbnailActive],
       index,
       count,
+      stops,
       setCount,
       metrics,
       width,
@@ -270,11 +340,13 @@ export const CarouselRoot = forwardRef<View, CarouselProps>(function Carousel(
       hasLoop,
       isDisabled,
       offset,
+      glideTarget,
       trackRef,
+      placeTrack,
       goTo,
       moveBy,
       onInteract,
-      onSettle: setIndex,
+      onSettle,
     }),
     [
       styles,
@@ -282,6 +354,7 @@ export const CarouselRoot = forwardRef<View, CarouselProps>(function Carousel(
       dotInk,
       index,
       count,
+      stops,
       metrics,
       width,
       trackHeight,
@@ -290,10 +363,13 @@ export const CarouselRoot = forwardRef<View, CarouselProps>(function Carousel(
       hasLoop,
       isDisabled,
       offset,
+      glideTarget,
+      trackRef,
+      placeTrack,
       goTo,
       moveBy,
       onInteract,
-      setIndex,
+      onSettle,
     ]
   )
 

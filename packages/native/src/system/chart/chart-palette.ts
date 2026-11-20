@@ -1,5 +1,11 @@
-import { hexToRgb, isHex, oklabToRgb, rgbToHex, rgbToOklab } from './colors'
-import type { Oklab } from './colors'
+import {
+  hexToRgb,
+  isHex,
+  oklabToRgb,
+  rgbToHex,
+  rgbToOklab,
+} from '../../utils/colors'
+import type { Oklab } from '../../utils/colors'
 
 /**
  * How far the ramp travels in OKLab lightness, from the darkest series to the lightest.

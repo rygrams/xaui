@@ -8,3 +8,6 @@ import type { PagerContextValue } from './pager.type'
  */
 export const [PagerProvider, usePager] =
   createSlotContext<PagerContextValue>('Pager')
+
+/** `glideTarget` when no programmatic scroll is in flight. */
+export const NO_TARGET = -1

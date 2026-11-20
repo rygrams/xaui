@@ -424,6 +424,30 @@ export default function ChartsScreen() {
         <Card title="Aucune donnée">
           <BarChart data={[]} xKey="month" yKeys={['units']} size="sm" />
         </Card>
+        {/* No `seriesCount`: the legend walks its own two entries, and an entry made of
+            several pieces of text is still one label. */}
+        <Chart>
+          <Chart.Header>
+            <Chart.Heading>
+              <Chart.Title>Sans seriesCount</Chart.Title>
+            </Chart.Heading>
+            <Chart.Legend>
+              <Chart.LegendItem index={0}>
+                Organique ({TRAFFIC[11].organic / 1000}k)
+              </Chart.LegendItem>
+              <Chart.LegendItem index={1}>
+                Payant ({TRAFFIC[11].paid / 1000}k)
+              </Chart.LegendItem>
+            </Chart.Legend>
+          </Chart.Header>
+          <BarChart
+            data={TRAFFIC}
+            xKey="month"
+            yKeys={['organic', 'paid']}
+            size="sm"
+            formatY={value => `${Math.round(value / 1000)}k`}
+          />
+        </Chart>
       </Section>
     </ScrollView>
   )

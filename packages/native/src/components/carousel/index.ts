@@ -32,6 +32,7 @@ export type {
   CarouselControlProps,
   CarouselDotProps,
   CarouselProps,
+  CarouselScrollSlotProps,
   CarouselSize,
   CarouselSlot,
   CarouselTextSlotProps,

@@ -3,6 +3,7 @@ import { Text, View } from 'react-native'
 import { usePressState } from '@xaui/native'
 import {
   ChevronDownIcon,
+  childrenToString,
   Icon,
   IconContext,
   PressableFeedback,
@@ -63,13 +64,16 @@ export const TableColumn = forwardRef<View, TableColumnProps>(function TableColu
     style,
   ]
 
+  // Mixed text (`{count} lignes`) arrives as an array: read as one string, or it reaches
+  // the View bare, which React Native refuses outside a Text.
+  const text = childrenToString(children)
   const label =
-    typeof children === 'string' || typeof children === 'number' ? (
+    text !== null ? (
       <Text
         style={isSorted ? columnLabelSortedStyle : columnLabelStyle}
         numberOfLines={1}
       >
-        {children}
+        {text}
       </Text>
     ) : (
       children

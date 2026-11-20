@@ -1,4 +1,4 @@
-import { forwardRef } from 'react'
+import { forwardRef, useEffect } from 'react'
 import { View } from 'react-native'
 import { usePressState } from '../../hooks/use-press-state'
 import { PressableFeedback } from '../../system/pressable-feedback'
@@ -34,7 +34,7 @@ type Direction = {
  */
 function control({ delta, displayName, edge, turn }: Direction) {
   const Component = forwardRef<View, CarouselControlProps>(function CarouselControl(
-    { children, asChild = false, style, onPressIn, onPressOut, ...props },
+    { children, asChild = false, style, onPress, onPressIn, onPressOut, ...props },
     ref
   ) {
     const {
@@ -44,7 +44,7 @@ function control({ delta, displayName, edge, turn }: Direction) {
       controlBox,
       trackHeight,
       index,
-      count,
+      stops,
       hasLoop,
       isDisabled,
       moveBy,
@@ -57,15 +57,18 @@ function control({ delta, displayName, edge, turn }: Direction) {
     // cannot, and unlike a labelled button there is no text beside it to fall back on. No
     // default string either: which language it would be in is not the library's to decide.
     //
-    // Not under `asChild`, where the caller's own element carries its own label.
-    if (!asChild && !rest.accessibilityLabel && !rest['aria-label']) {
+    // Not under `asChild`, where the caller's own element carries its own label. Once per
+    // arrow rather than once per render: autoplay re-renders it at every tick.
+    const hasLabel = Boolean(rest.accessibilityLabel || rest['aria-label'])
+    useEffect(() => {
+      if (asChild || hasLabel) return
       warnDev(
         `${displayName}: a carousel arrow needs an \`accessibilityLabel\` — a chevron is ` +
           'not text, and there is nothing beside it that names the action.'
       )
-    }
+    }, [asChild, hasLabel])
 
-    const atEnd = delta > 0 ? index >= count - 1 : index <= 0
+    const atEnd = delta > 0 ? index >= stops - 1 : index <= 0
     const isInactive = isDisabled || (!hasLoop && atEnd)
 
     const place = {
@@ -93,7 +96,9 @@ function control({ delta, displayName, edge, turn }: Direction) {
           styleProps,
           typeof style === 'function' ? style({ pressed: isPressed }) : style,
         ]}
-        onPress={() => {
+        // Composed: the caller's runs, and the arrow still steps.
+        onPress={event => {
+          onPress?.(event)
           onInteract()
           moveBy(delta)
         }}

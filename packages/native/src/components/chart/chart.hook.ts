@@ -2,7 +2,7 @@ import { useMemo } from 'react'
 import { StyleSheet } from 'react-native'
 import type { TextStyle } from 'react-native'
 import { useXAUITheme } from '../../theme/theme-hooks'
-import { chartPalette } from '../../utils/chart-palette'
+import { chartPalette } from '../../system/chart/chart-palette'
 import { chartRecipe } from './chart.recipe'
 import type { ChartInk, ChartSize, ChartVariant } from './chart.type'
 
