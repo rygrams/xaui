@@ -59,12 +59,12 @@ CarouselIndicator.displayName = 'XAUI.Carousel.Indicator'
  * indicator is attached to the thing they are moving. Reading the settled index instead
  * would make it jump once per gesture, after the fact.
  *
- * **A screen reader hears "3 of 5" rather than a label**, through `accessibilityValue`. A
+ * **A screen reader hears "3/5" rather than a label**, through `accessibilityValue`. A
  * dot has no text of its own, and inventing one would be picking a language on behalf of
  * every app that installs this.
  */
 export const CarouselDot = forwardRef<View, CarouselDotProps>(function CarouselDot(
-  { index, children, style, ...props },
+  { index, children, style, onPress, ...props },
   ref
 ) {
   const {
@@ -105,12 +105,20 @@ export const CarouselDot = forwardRef<View, CarouselDotProps>(function CarouselD
       ref={ref}
       accessibilityRole="button"
       accessibilityState={{ selected: index === current, disabled: isDisabled }}
-      accessibilityValue={{ now: index + 1, min: 1, max: count }}
+      // `text` too: iOS reads a bare range as a percentage. Figures need no language.
+      accessibilityValue={{
+        now: index + 1,
+        min: 1,
+        max: count,
+        text: `${index + 1}/${count}`,
+      }}
       disabled={isDisabled}
       hitSlop={HIT_SLOP}
       {...rest}
       style={[dotStyle, grow, styleProps, style]}
-      onPress={() => {
+      // Composed: the caller's runs, and the dot still goes to its slide.
+      onPress={event => {
+        onPress?.(event)
         onInteract()
         goTo(index)
       }}

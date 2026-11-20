@@ -1,6 +1,7 @@
 import { createRecipe } from '../../system/recipe'
 import type { SlotStyles, VariantTokens } from '../../system/recipe'
 import type { FontSizeKey, XAUITheme } from '../../theme/theme.type'
+import { SVG_FRAME } from './chart.style'
 import type { ChartSize, ChartSlot, ChartVariant } from './chart.type'
 
 const SLOTS = [
@@ -102,7 +103,8 @@ export const chartRecipe = createRecipe({
       padding: theme.spacing(4),
       gap: theme.spacing(3),
     },
-    plot: { width: '100%' },
+    // The labels are placed over the SVG's coordinates, which do not mirror.
+    plot: { width: '100%', ...SVG_FRAME },
     header: {
       flexDirection: 'row',
       alignItems: 'flex-start',
@@ -174,7 +176,12 @@ export const chartRecipe = createRecipe({
   },
 
   states: {
-    disabled: theme => ({ root: { opacity: theme.opacity.disabled } }),
+    // `root` is the frame's and `plot` a figure's: each dims for its own `isDisabled`, so a
+    // figure on its own dims, and one inside a disabled frame is not dimmed twice.
+    disabled: theme => {
+      const dimmed = { opacity: theme.opacity.disabled }
+      return { root: dimmed, plot: dimmed }
+    },
   },
 
   defaultVariants: { variant: 'primary', size: 'md' },

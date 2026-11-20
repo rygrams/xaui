@@ -97,7 +97,8 @@ export const ChartPlotRoot = forwardRef(function ChartPlot<
     variant: variant ?? frame?.variant,
     size: size ?? frame?.size ?? 'md',
     color: color ?? frame?.color,
-    isDisabled: isDisabled || (frame?.isDisabled ?? false),
+    // Its own flag only: a disabled frame dims itself, and the figure with it.
+    isDisabled,
     count: yKeys.length,
   })
 
@@ -208,26 +209,25 @@ export const ChartPlotRoot = forwardRef(function ChartPlot<
 
           {hasYAxis
             ? plot.ticks.map(tick => (
-                <Text
+                // Set against the end of its box by the box, not by `textAlign`, whose
+                // `right` would name a physical side. The plot's frame is left to right
+                // (`SVG_FRAME`), as the SVG's coordinates are, so the end is the plot's side.
+                <View
                   key={tick}
-                  numberOfLines={1}
-                  style={[
-                    styles.label,
-                    {
-                      position: 'absolute',
-                      // R13 — `start`, so a right-to-left layout puts the axis on the
-                      // other side without a second branch here.
-                      start: 0,
-                      width: Y_AXIS_WIDTH - 6,
-                      textAlign: 'right',
-                      // Half the line's height above the rule, so the number is centred
-                      // on the rule rather than hanging from it.
-                      top: plot.scaleY(tick) - ink.labelSize * 0.7,
-                    },
-                  ]}
+                  style={{
+                    position: 'absolute',
+                    start: 0,
+                    width: Y_AXIS_WIDTH - 6,
+                    alignItems: 'flex-end',
+                    // Half the line's height above the rule, so the number is centred on
+                    // the rule rather than hanging from it.
+                    top: plot.scaleY(tick) - ink.labelSize * 0.7,
+                  }}
                 >
-                  {formatY ? formatY(tick) : String(tick)}
-                </Text>
+                  <Text numberOfLines={1} style={styles.label}>
+                    {formatY ? formatY(tick) : String(tick)}
+                  </Text>
+                </View>
               ))
             : null}
 

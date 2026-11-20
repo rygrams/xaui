@@ -118,10 +118,19 @@ export type PagerContextValue = {
   step: number
   /** Where the track is, live, on the UI thread. */
   offset: SharedValue<number>
-  /** Moves the track and lets its own settle report back. */
+  /**
+   * The page a programmatic scroll is carrying the track to, or `-1`. While it is set the
+   * track settles on nothing it crosses; arriving there, or a finger on the track, clears it.
+   */
+  glideTarget: SharedValue<number>
+  /** Put the track on the index at once: what the track calls once its pages are laid out. */
+  placeTrack: () => void
+  /** Moves the index; the track follows it. A controlled parent may refuse the change. */
   goTo: (index: number) => void
-  /** What the track calls when it crosses onto another page. */
+  /** What the track calls when a swipe crosses onto another page. */
   onSettle: (index: number) => void
+  /** A finger took the track: what clears a programmatic scroll's target. */
+  onInteract: () => void
   trackRef: AnimatedRef<Animated.ScrollView>
   isDisabled: boolean
 }

@@ -1,4 +1,5 @@
-import { useMemo } from 'react'
+import { forwardRef, useMemo } from 'react'
+import type { ForwardedRef, ReactElement, Ref } from 'react'
 import { Text, View } from 'react-native'
 import { Circle, Line, Path, Svg } from 'react-native-svg'
 import { useStyleProps } from '../../system/style-props'
@@ -44,27 +45,30 @@ const POINT_RADIUS = 3
  * The palette and the variants are the cartesian family's, so a radar beside a line chart is
  * the same colour in the same order.
  */
-export function RadarChart<
+const RadarChartBase = forwardRef(function RadarChart<
   Data extends ChartDatum,
   AK extends keyof Data & string,
   YK extends keyof Data & string,
->({
-  data,
-  axisKey,
-  yKeys,
-  variant,
-  size = 'md',
-  color,
-  levels = DEFAULT_LEVELS,
-  maxValue,
-  hasLabels = true,
-  fillOpacity = DEFAULT_FILL,
-  strokeWidth = 2,
-  hasPoints = false,
-  isDisabled = false,
-  style,
-  ...props
-}: RadarChartProps<Data, AK, YK>) {
+>(
+  {
+    data,
+    axisKey,
+    yKeys,
+    variant,
+    size = 'md',
+    color,
+    levels = DEFAULT_LEVELS,
+    maxValue,
+    hasLabels = true,
+    fillOpacity = DEFAULT_FILL,
+    strokeWidth = 2,
+    hasPoints = false,
+    isDisabled = false,
+    style,
+    ...props
+  }: RadarChartProps<Data, AK, YK>,
+  ref: ForwardedRef<View>
+) {
   const theme = useXAUITheme()
   const [styleProps, rest] = useStyleProps(props)
   const frame = useOptionalChart()
@@ -72,7 +76,8 @@ export function RadarChart<
     variant: variant ?? frame?.variant,
     size,
     color: color ?? frame?.color,
-    isDisabled: isDisabled || (frame?.isDisabled ?? false),
+    // Its own flag only: a disabled frame dims itself, and the figure with it.
+    isDisabled,
     count: yKeys.length,
   })
 
@@ -106,7 +111,7 @@ export function RadarChart<
   }, [axisKey, box, colors, data, hasLabels, levels, maxValue, yKeys])
 
   return (
-    <View {...rest} style={[styles.root, styleProps, style]}>
+    <View ref={ref} {...rest} style={[styles.root, styleProps, style]}>
       {web === null ? null : (
         <>
           <Svg width={box} height={box}>
@@ -191,9 +196,18 @@ export function RadarChart<
       )}
     </View>
   )
-}
+})
 
-RadarChart.displayName = 'XAUI.RadarChart'
+RadarChartBase.displayName = 'XAUI.RadarChart'
+
+/** Typed by the caller's rows: `forwardRef` alone would erase the generics. */
+export const RadarChart = RadarChartBase as <
+  Data extends ChartDatum,
+  AK extends keyof Data & string,
+  YK extends keyof Data & string,
+>(
+  props: RadarChartProps<Data, AK, YK> & { ref?: Ref<View> }
+) => ReactElement
 
 /** Wide enough for a word, narrow enough that two neighbours do not meet. */
 const LABEL_WIDTH = 64

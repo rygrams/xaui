@@ -155,6 +155,12 @@ The index changes as the track **crosses** the halfway point rather than when it
 never move at all, and it lands after the fact, so a "Next" button would sit on the previous
 page for the length of the deceleration.
 
+**The index leads and the track follows.** `goTo` and the dots move the index; the pages
+scroll to wherever it now says. So `defaultIndex` is the page the track starts on once it is
+measured, a controlled `index` changed by its parent moves the pages, and a parent that
+refuses a change leaves them where they were. A move across several pages reports **one**
+change — the pages it crosses on the way are not where the reader is going.
+
 `usePager()` publishes `goTo`, the settled `index`, the `count` the track counted itself, and
 the live `offset` as a **shared value** — an indicator of your own that follows the drag frame
 by frame is `useAnimatedStyle` over it, and it costs no re-render:

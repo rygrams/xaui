@@ -2,7 +2,10 @@ import { forwardRef } from 'react'
 import { Pressable, ScrollView, View } from 'react-native'
 import { useStyleProps } from '../../system/style-props'
 import { useCarousel } from './carousel.context'
-import type { CarouselThumbnailProps, CarouselViewSlotProps } from './carousel.type'
+import type {
+  CarouselScrollSlotProps,
+  CarouselThumbnailProps,
+} from './carousel.type'
 
 /**
  * A strip of small versions of the slides, under the carousel.
@@ -14,8 +17,11 @@ import type { CarouselThumbnailProps, CarouselViewSlotProps } from './carousel.t
  * It scrolls on its own, because a strip long enough to be worth having is longer than the
  * screen. Unlike the track it does not snap: it is being read, not paged.
  */
-export const CarouselThumbnails = forwardRef<ScrollView, CarouselViewSlotProps>(
-  function CarouselThumbnails({ children, style, ...props }, ref) {
+export const CarouselThumbnails = forwardRef<ScrollView, CarouselScrollSlotProps>(
+  function CarouselThumbnails(
+    { children, style, contentContainerStyle, ...props },
+    ref
+  ) {
     const { thumbnailsStyle } = useCarousel()
     const [styleProps, rest] = useStyleProps(props)
 
@@ -26,7 +32,7 @@ export const CarouselThumbnails = forwardRef<ScrollView, CarouselViewSlotProps>(
         showsHorizontalScrollIndicator={false}
         {...rest}
         style={[thumbnailsStyle, styleProps, style]}
-        contentContainerStyle={CONTENT}
+        contentContainerStyle={[CONTENT, contentContainerStyle]}
       >
         {children}
       </ScrollView>
@@ -49,12 +55,12 @@ const CONTENT = { flexDirection: 'row' as const, gap: 8 }
  * a thumbnail does not resize it — a border that appears on selection nudges every
  * thumbnail after it along the strip.
  *
- * Like `Carousel.Dot`, it says "3 of 12" through `accessibilityValue` rather than through a
+ * Like `Carousel.Dot`, it says "3/12" through `accessibilityValue` rather than through a
  * label this library would have to invent a language for. What is *in* it is yours, so an
  * image with its own `accessibilityLabel` is how a thumbnail says what it shows.
  */
 export const CarouselThumbnail = forwardRef<View, CarouselThumbnailProps>(
-  function CarouselThumbnail({ index, children, style, ...props }, ref) {
+  function CarouselThumbnail({ index, children, style, onPress, ...props }, ref) {
     const {
       thumbnailStyle,
       thumbnailActiveStyle,
@@ -73,11 +79,19 @@ export const CarouselThumbnail = forwardRef<View, CarouselThumbnailProps>(
         ref={ref}
         accessibilityRole="button"
         accessibilityState={{ selected: isActive, disabled: isDisabled }}
-        accessibilityValue={{ now: index + 1, min: 1, max: count }}
+        // `text` too: iOS reads a bare range as a percentage. Figures need no language.
+        accessibilityValue={{
+          now: index + 1,
+          min: 1,
+          max: count,
+          text: `${index + 1}/${count}`,
+        }}
         disabled={isDisabled}
         {...rest}
         style={[isActive ? thumbnailActiveStyle : thumbnailStyle, styleProps, style]}
-        onPress={() => {
+        // Composed: the caller's runs, and the thumbnail still goes to its slide.
+        onPress={event => {
+          onPress?.(event)
           onInteract()
           goTo(index)
         }}

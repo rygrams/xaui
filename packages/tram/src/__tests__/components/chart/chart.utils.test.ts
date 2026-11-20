@@ -2,8 +2,6 @@ import { describe, expect, it, vi } from 'vitest'
 import {
   axisValue,
   plotLayout,
-  stackKeys,
-  stackRows,
   xLabelBox,
   xLabelEvery,
 } from '../../../components/chart/chart.utils'
@@ -149,32 +147,5 @@ describe('xLabelBox', () => {
     expect(xLabelBox({ ...args, count: 1, index: 0, spacing: 'point' }).align).toBe(
       'center'
     )
-  })
-})
-
-describe('stackRows', () => {
-  it('adds a running total per series', () => {
-    const [first] = stackRows(ROWS, ['wifi', 'mobile'])
-    const [wifi, mobile] = stackKeys(['wifi', 'mobile'])
-
-    expect(first[wifi]).toBe(10)
-    expect(first[mobile]).toBe(14)
-  })
-
-  it('adds nothing for a reading that is not a number', () => {
-    const [, second] = stackRows(ROWS, ['wifi', 'mobile'])
-    expect(second[stackKeys(['mobile'])[0]]).toBe(40)
-  })
-
-  it('never writes to the caller’s rows', () => {
-    const rows = [{ wifi: 1, mobile: 2 }]
-    const stacked = stackRows(rows, ['wifi', 'mobile'])
-
-    expect(rows[0]).toEqual({ wifi: 1, mobile: 2 })
-    expect(stacked[0]).not.toBe(rows[0])
-  })
-
-  it('keeps a total out of the way of the caller’s own keys', () => {
-    expect(stackKeys(['wifi'])).not.toContain('wifi')
   })
 })

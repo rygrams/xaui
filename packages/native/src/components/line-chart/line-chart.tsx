@@ -1,3 +1,6 @@
+import { forwardRef } from 'react'
+import type { ForwardedRef, ReactElement, Ref } from 'react'
+import type { View } from 'react-native'
 import { Circle, Path } from 'react-native-svg'
 import { linePath } from '../../system/chart/chart-path'
 import { ChartPlot } from '../chart'
@@ -34,18 +37,21 @@ const POINT_RADIUS = 3
  * its neighbours set. A smooth line that dips between two rising points is drawing a number
  * nobody measured, and on the `AreaChart` it is ink under the axis.
  */
-export function LineChart<
+const LineChartBase = forwardRef(function LineChart<
   Data extends ChartDatum,
   XK extends keyof Data & string,
   YK extends keyof Data & string,
->({
-  curve = 'monotone',
-  strokeWidth = 2,
-  hasPoints = false,
-  ...props
-}: LineChartProps<Data, XK, YK>) {
+>(
+  {
+    curve = 'monotone',
+    strokeWidth = 2,
+    hasPoints = false,
+    ...props
+  }: LineChartProps<Data, XK, YK>,
+  ref: ForwardedRef<View>
+) {
   return (
-    <ChartPlot {...props}>
+    <ChartPlot ref={ref} {...props}>
       {({ series }) => (
         <>
           {series.map(line => (
@@ -78,6 +84,15 @@ export function LineChart<
       )}
     </ChartPlot>
   )
-}
+})
 
-LineChart.displayName = 'XAUI.LineChart'
+LineChartBase.displayName = 'XAUI.LineChart'
+
+/** Typed by the caller's rows: `forwardRef` alone would erase the generics. */
+export const LineChart = LineChartBase as <
+  Data extends ChartDatum,
+  XK extends keyof Data & string,
+  YK extends keyof Data & string,
+>(
+  props: LineChartProps<Data, XK, YK> & { ref?: Ref<View> }
+) => ReactElement

@@ -1,7 +1,10 @@
-import type { ReactNode } from 'react'
+import { forwardRef, useMemo } from 'react'
+import type { ForwardedRef, ReactElement, ReactNode, Ref } from 'react'
+import type { View } from 'react-native'
 import { Path } from 'react-native-svg'
 import { barPath } from '../../system/chart/chart-path'
 import { ChartPlot } from '../chart'
+import { stackKeys, stackRows } from '../../system/chart/chart-stack'
 import type { ChartDatum } from '../chart'
 import type { BarChartProps } from './bar-chart.type'
 
@@ -36,40 +39,66 @@ const CORNER_RATIO = 0.3
  * forty. `barPath` clamps it to the bar's own height too, which is what keeps the first bar
  * of a chart that starts near zero a stadium rather than a knot.
  *
+ * **A stack is summed before it is scaled**, as the `AreaChart`'s is, so the axis reaches
+ * the top of the tallest stack rather than of its tallest segment.
+ *
  * The plot, the axes, the grid and the palette are `ChartPlot`'s, shared with the
  * `LineChart` and the `AreaChart`.
  */
-export function BarChart<
+const BarChartBase = forwardRef(function BarChart<
   Data extends ChartDatum,
   XK extends keyof Data & string,
   YK extends keyof Data & string,
->({
-  isGrouped = false,
-  radius,
-  gap = DEFAULT_GAP,
-  ...props
-}: BarChartProps<Data, XK, YK>) {
+>(
+  {
+    isGrouped = false,
+    radius,
+    gap = DEFAULT_GAP,
+    data,
+    yKeys,
+    ...props
+  }: BarChartProps<Data, XK, YK>,
+  ref: ForwardedRef<View>
+) {
+  const isStacked = !isGrouped && yKeys.length > 1
+  // The rows a stack is drawn from carry a running total per series, so the plot's domain
+  // reaches the top of the stack. Summed once per change of rows: the plot memoises on them.
+  const rows = useMemo(
+    () => (isStacked ? stackRows(data, yKeys) : data),
+    [data, yKeys, isStacked]
+  )
+  const keys = useMemo(
+    () => (isStacked ? stackKeys(yKeys) : yKeys),
+    [yKeys, isStacked]
+  )
+
   return (
-    <ChartPlot {...props} spacing="band" bandPadding={gap}>
-      {({ series, band, frame, scaleY, domainY }) => {
+    <ChartPlot
+      ref={ref}
+      {...props}
+      data={rows}
+      yKeys={keys}
+      spacing="band"
+      bandPadding={gap}
+    >
+      {({ series, band, scaleY, domainY }) => {
         const baseline = scaleY(Math.max(domainY[0], 0))
         // Side by side inside the slot the row already has, rather than a second scale:
         // the group is the slot, and each series takes an equal share of it.
         const width = isGrouped ? band.width / series.length : band.width
         const corner = radius ?? width * CORNER_RATIO
 
-        if (!isGrouped && series.length > 1) {
+        if (isStacked) {
           return series.map((one, index) => (
             <Stack
               key={one.key}
-              below={series.slice(0, index)}
+              below={index > 0 ? series[index - 1] : undefined}
               series={one}
               band={band}
               width={width}
               corner={index === series.length - 1 ? corner : 0}
               scaleY={scaleY}
               baseline={baseline}
-              frame={frame}
             />
           ))
         }
@@ -96,9 +125,18 @@ export function BarChart<
       }}
     </ChartPlot>
   )
-}
+})
 
-BarChart.displayName = 'XAUI.BarChart'
+BarChartBase.displayName = 'XAUI.BarChart'
+
+/** Typed by the caller's rows: `forwardRef` alone would erase the generics. */
+export const BarChart = BarChartBase as <
+  Data extends ChartDatum,
+  XK extends keyof Data & string,
+  YK extends keyof Data & string,
+>(
+  props: BarChartProps<Data, XK, YK> & { ref?: Ref<View> }
+) => ReactElement
 
 /** `Fragment` under another name, so the map above reads as a group of bars. */
 function Group({ children }: { children: ReactNode }) {
@@ -106,23 +144,23 @@ function Group({ children }: { children: ReactNode }) {
 }
 
 type StackProps = {
-  below: { values: number[] }[]
+  /** The series under this one, whose running totals are where this one starts. */
+  below: { values: number[] } | undefined
+  /** This series, its values already running totals (`stackRows`). */
   series: { color: string; values: number[] }
   band: { center: (index: number) => number; width: number }
   width: number
   corner: number
   scaleY: (value: number) => number
   baseline: number
-  frame: { x: number; y: number; width: number; height: number }
 }
 
 /**
- * One series of a stack, drawn on top of the ones below it.
+ * One series of a stack, drawn on top of the one below it.
  *
- * The running total is summed here rather than folded into the data, unlike the
- * `AreaChart`'s: a bar's **height** is its own value and its **position** is the total under
- * it, so the two are needed separately. Only the topmost segment is rounded — a corner
- * between two segments is a gap in a bar that is meant to read as one.
+ * The values are **running totals**, summed into the rows before the plot scaled them, so a
+ * segment runs from the total under it to its own. Only the topmost segment is rounded — a
+ * corner between two segments is a gap in a bar that is meant to read as one.
  */
 function Stack({
   below,
@@ -136,14 +174,9 @@ function Stack({
   return (
     <>
       {series.values.map((value, index) => {
-        const under = below.reduce((total, one) => {
-          const part = one.values[index]
-          return total + (Number.isFinite(part) ? part : 0)
-        }, 0)
-        const own = Number.isFinite(value) ? value : 0
-
-        const top = scaleY(under + own)
-        const bottom = under === 0 ? baseline : scaleY(under)
+        const under = below?.values[index] ?? 0
+        const top = scaleY(value)
+        const bottom = below === undefined ? baseline : scaleY(under)
 
         return (
           <Path

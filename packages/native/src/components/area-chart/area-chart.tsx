@@ -1,7 +1,10 @@
-import { useId } from 'react'
+import { forwardRef, useId, useMemo } from 'react'
+import type { ForwardedRef, ReactElement, Ref } from 'react'
+import type { View } from 'react-native'
 import { Defs, LinearGradient, Path, Stop } from 'react-native-svg'
 import { areaPath, linePath } from '../../system/chart/chart-path'
 import { ChartPlot } from '../chart'
+import { stackKeys, stackRows } from '../../system/chart/chart-stack'
 import type { ChartDatum } from '../chart'
 import type { AreaChartProps } from './area-chart.type'
 
@@ -41,26 +44,35 @@ const FILL_BOTTOM = 0.01
  * domain is widened to reach it, because a stack whose top leaves the axis is a stack drawn
  * outside its own chart.
  */
-export function AreaChart<
+const AreaChartBase = forwardRef(function AreaChart<
   Data extends ChartDatum,
   XK extends keyof Data & string,
   YK extends keyof Data & string,
->({
-  curve = 'monotone',
-  isStacked = false,
-  strokeWidth = 2,
-  ...props
-}: AreaChartProps<Data, XK, YK>) {
+>(
+  {
+    curve = 'monotone',
+    isStacked = false,
+    strokeWidth = 2,
+    data,
+    yKeys,
+    ...props
+  }: AreaChartProps<Data, XK, YK>,
+  ref: ForwardedRef<View>
+) {
   const id = safeId(useId())
+  // The domain has to reach the top of the stack, and only the caller's rows know what that
+  // is. Summed once per change of rows rather than per render: the plot memoises on them.
+  const rows = useMemo(
+    () => (isStacked ? stackRows(data, yKeys) : data),
+    [data, yKeys, isStacked]
+  )
+  const keys = useMemo(
+    () => (isStacked ? stackKeys(yKeys) : yKeys),
+    [yKeys, isStacked]
+  )
 
   return (
-    <ChartPlot
-      {...props}
-      // The domain has to reach the top of the stack, and only the caller's rows know what
-      // that is. Summing them into one column is what makes the axis honest.
-      data={isStacked ? stackRows(props.data, props.yKeys) : props.data}
-      yKeys={isStacked ? stackKeys(props.yKeys) : props.yKeys}
-    >
+    <ChartPlot ref={ref} {...props} data={rows} yKeys={keys}>
       {({ series, frame }) => {
         // Painted back to front, so the shortest series is not hidden by the tallest.
         const drawn = isStacked ? [...series].reverse() : series
@@ -114,9 +126,18 @@ export function AreaChart<
       }}
     </ChartPlot>
   )
-}
+})
 
-AreaChart.displayName = 'XAUI.AreaChart'
+AreaChartBase.displayName = 'XAUI.AreaChart'
+
+/** Typed by the caller's rows: `forwardRef` alone would erase the generics. */
+export const AreaChart = AreaChartBase as <
+  Data extends ChartDatum,
+  XK extends keyof Data & string,
+  YK extends keyof Data & string,
+>(
+  props: AreaChartProps<Data, XK, YK> & { ref?: Ref<View> }
+) => ReactElement
 
 /**
  * A string with everything an SVG fragment id cannot hold taken out.
@@ -127,35 +148,4 @@ AreaChart.displayName = 'XAUI.AreaChart'
  */
 function safeId(value: string): string {
   return value.replace(/[^a-zA-Z0-9]/g, '')
-}
-
-/** The key a stacked series is drawn under — the original, plus the ones below it. */
-const STACK_PREFIX = 'xauiStack:'
-
-function stackKeys<YK extends string>(keys: ReadonlyArray<YK>): string[] {
-  return keys.map(key => `${STACK_PREFIX}${key}`)
-}
-
-/**
- * Each row with a running total per series added to it.
- *
- * A copy, always: the rows are the caller's and are never written to. The prefix is what
- * keeps a totalled column from colliding with one of their own.
- */
-function stackRows<Data extends ChartDatum, YK extends keyof Data & string>(
-  data: ReadonlyArray<Data>,
-  keys: ReadonlyArray<YK>
-): Record<string, unknown>[] {
-  return data.map(row => {
-    const next: Record<string, unknown> = { ...row }
-    let total = 0
-
-    for (const key of keys) {
-      const value = Number(row[key])
-      total += Number.isFinite(value) ? value : 0
-      next[`${STACK_PREFIX}${key}`] = total
-    }
-
-    return next
-  })
 }

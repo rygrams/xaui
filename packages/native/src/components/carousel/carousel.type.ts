@@ -1,6 +1,8 @@
 import type { ReactNode } from 'react'
 import type {
+  GestureResponderEvent,
   PressableStateCallbackType,
+  ScrollViewProps,
   StyleProp,
   TextProps,
   TextStyle,
@@ -94,6 +96,13 @@ export type CarouselProps = CarouselOwnProps &
 export type CarouselViewSlotProps = ViewProps &
   Omit<ViewStyleProps, keyof ViewProps> & { children?: ReactNode }
 
+/**
+ * The track and the thumbnail strip are `ScrollView`s, so they take that node's props —
+ * `onScroll`, `contentContainerStyle`… — composed with their own rather than replaced.
+ */
+export type CarouselScrollSlotProps = ScrollViewProps &
+  Omit<ViewStyleProps, keyof ScrollViewProps> & { children?: ReactNode }
+
 /** `Text`'s own props win over the `TextStyle` keys of the same name (R14). */
 export type CarouselTextSlotProps = TextProps &
   Omit<TextStyleProps, keyof TextProps> & { children?: ReactNode }
@@ -115,6 +124,8 @@ export type CarouselControlProps = CarouselControlOwnProps &
 type CarouselDotOwnProps = {
   /** Which slide it stands for. */
   index: number
+  /** Runs before the dot goes to its slide. */
+  onPress?: (event: GestureResponderEvent) => void
   children?: ReactNode
 }
 
@@ -125,6 +136,8 @@ export type CarouselDotProps = CarouselDotOwnProps &
 type CarouselThumbnailOwnProps = {
   /** Which slide pressing it goes to. */
   index: number
+  /** Runs before the thumbnail goes to its slide. */
+  onPress?: (event: GestureResponderEvent) => void
   children?: ReactNode
 }
 
@@ -184,10 +197,20 @@ export type CarouselContextValue = {
    * the web renderer.
    */
   trackRef: AnimatedRef<Animated.ScrollView>
+  /**
+   * The slide a glide — an arrow, a dot, autoplay, a controlled index — is carrying the
+   * track to, or `-1`. While it is set the track settles on nothing it crosses; the
+   * glide's end, a new glide and a drag clear it.
+   */
+  glideTarget: SharedValue<number>
+  /** Put the track on the index at once: what the track calls once its slides are laid out. */
+  placeTrack: () => void
+  /** Moves the index; the track follows it. */
   goTo: (index: number) => void
   /** `+1` for the next slide, `−1` for the one before. Wraps when `hasLoop`. */
   moveBy: (delta: number) => void
   /** What the reader did. It is what stops autoplay, and it never restarts it. */
   onInteract: () => void
+  /** The track settled on a slide by itself, during a drag. */
   onSettle: (index: number) => void
 }

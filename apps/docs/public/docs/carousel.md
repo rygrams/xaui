@@ -98,7 +98,7 @@ live scroll offset on the UI thread, so the pill grows out of one dot and into t
 the finger is still down. That is what makes a reader believe the indicator is attached to
 the thing they are moving.
 
-A screen reader hears "3 of 5" through `accessibilityValue` rather than a label, for the
+A screen reader hears "3/5" through `accessibilityValue` rather than a label, for the
 same reason the arrows have no default one.
 
 ### The thumbnails show what they point at
@@ -119,6 +119,15 @@ fact, so the arrows and the thumbnails would sit on the previous slide for the l
 deceleration.
 
 A fast flick across three slides therefore reports three changes. That is what happened.
+
+**The index leads and the track follows.** An arrow, a dot, a thumbnail and autoplay move the
+index; the track glides to wherever the index now says. So `defaultIndex` is where the track
+starts once its slides are laid out, a controlled `index` changed by its parent moves the
+track, and a parent that refuses a change leaves the track where it was.
+
+A glide reports **one** change, the one that started it: the slides it crosses on the way are
+not where the reader is going. An autoplay wrap from the last slide to the first is one
+change, not one per slide in between.
 
 ## How a move is animated
 
@@ -176,7 +185,8 @@ type — **never a slide**. A slide's width is the track's; its height is whatev
 ## Accessibility
 
 The arrows are buttons and carry `accessibilityState.disabled` at the ends. The dots and the
-thumbnails carry `accessibilityValue` — position and total — and `accessibilityState.selected`.
+thumbnails carry `accessibilityValue` — position and total, with a `text` of `3/5` so iOS
+does not read the range as a percentage — and `accessibilityState.selected`.
 
 What is _in_ a slide or a thumbnail is yours, so an image with its own `accessibilityLabel` is
 how a slide says what it shows.

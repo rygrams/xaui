@@ -1743,6 +1743,23 @@
           "description": "Which slide it stands for."
         },
         {
+          "name": "onPress",
+          "type": "((event: GestureResponderEvent) => void) | undefined",
+          "required": false,
+          "description": "Runs before the dot goes to its slide."
+        },
+        {
+          "name": "children",
+          "type": "ReactNode",
+          "required": false,
+          "description": ""
+        }
+      ]
+    },
+    {
+      "name": "CarouselScrollSlotProps",
+      "props": [
+        {
           "name": "children",
           "type": "ReactNode",
           "required": false,
@@ -1769,6 +1786,12 @@
           "type": "number",
           "required": true,
           "description": "Which slide pressing it goes to."
+        },
+        {
+          "name": "onPress",
+          "type": "((event: GestureResponderEvent) => void) | undefined",
+          "required": false,
+          "description": "Runs before the thumbnail goes to its slide."
         },
         {
           "name": "children",

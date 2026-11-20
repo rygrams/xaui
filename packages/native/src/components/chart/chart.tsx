@@ -75,12 +75,13 @@ export const ChartRoot = forwardRef<View, ChartFrameProps>(function Chart(
       legendDotStyle: styles.legendDot,
       legendLabelStyle: styles.legendLabel,
       colors,
+      seriesCount,
       variant,
       size,
       color,
       isDisabled,
     }),
-    [styles, colors, variant, size, color, isDisabled]
+    [styles, colors, seriesCount, variant, size, color, isDisabled]
   )
 
   const rootStyle = [styles.root, styleProps, style]

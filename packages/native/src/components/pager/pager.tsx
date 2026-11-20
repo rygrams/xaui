@@ -1,11 +1,20 @@
-import { forwardRef, useCallback, useMemo, useState } from 'react'
+import {
+  forwardRef,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import { View } from 'react-native'
 import type Animated from 'react-native-reanimated'
 import { useAnimatedRef, useSharedValue } from 'react-native-reanimated'
 import { useControllableState } from '../../hooks/use-controllable-state'
 import { useStyleProps } from '../../system/style-props'
 import { useXAUITheme } from '../../theme/theme-hooks'
-import { PagerProvider } from './pager.context'
+import { stepIndex } from '../../system/carousel/carousel'
+import { NO_TARGET, PagerProvider } from './pager.context'
 import { pagerRecipe } from './pager.recipe'
 import type { PagerProps } from './pager.type'
 
@@ -73,6 +82,13 @@ export const PagerRoot = forwardRef<View, PagerProps>(function Pager(
   const [count, setCount] = useState(0)
   const trackRef = useAnimatedRef<Animated.ScrollView>()
   const offset = useSharedValue(0)
+  // The page a programmatic scroll is carrying the track to, or `NO_TARGET`. While it is
+  // set the track settles on nothing it crosses: a dot press from the first page to the
+  // fourth would otherwise report the second and the third on the way.
+  const glideTarget = useSharedValue(NO_TARGET)
+  // The page the track is on or headed for; `null` until it has been placed. What the
+  // index is compared with to know whether the track has to move.
+  const trackIndex = useRef<number | null>(null)
 
   const selection = { variant, size, orientation }
   const states = { disabled: isDisabled }
@@ -87,6 +103,24 @@ export const PagerRoot = forwardRef<View, PagerProps>(function Pager(
   const step = orientation === 'horizontal' ? track.width : track.height
 
   /**
+   * Put the track at page `target`. Both `x` and `y` are given, because React Native Web
+   * passes the object straight to the DOM's `scrollTo`, where a missing key means "stay
+   * where you are". The ref is `useAnimatedRef`'s, which is what reaches the scroller's own
+   * methods; the one `Animated.ScrollView` hands a plain `useRef` is Reanimated's wrapper.
+   */
+  const scrollToPage = useCallback(
+    (target: number, at: number, animated: boolean) => {
+      const distance = target * at
+      trackRef.current?.scrollTo({
+        x: orientation === 'horizontal' ? distance : 0,
+        y: orientation === 'horizontal' ? 0 : distance,
+        animated,
+      })
+    },
+    [orientation, trackRef]
+  )
+
+  /**
    * `scrollTo({ animated: true })` rather than a hand-run tween.
    *
    * The `Carousel` eases its own travel because a slide's move is short enough for the
@@ -94,25 +128,72 @@ export const PagerRoot = forwardRef<View, PagerProps>(function Pager(
    * which is the distance the platform's own pagers travel on that same curve — so here it
    * is the right answer rather than the one to work around.
    *
-   * The ref is `useAnimatedRef`'s, which is what reaches the scroller's own methods; the
-   * one `Animated.ScrollView` hands a plain `useRef` is Reanimated's wrapper around it.
-   * Both `x` and `y` are given, because React Native Web passes the object straight to the
-   * DOM's `scrollTo`, where a missing key means "stay where you are".
+   * The target is held until the track arrives — the scroll handler clears it there — or
+   * until a finger takes the track. A move that has nowhere to go sets none: it would
+   * report no offset, and nothing would ever clear it.
    */
-  const goTo = useCallback(
+  const travelTo = useCallback(
+    (target: number) => {
+      trackIndex.current = target
+      if (Math.abs(target * step - offset.get()) >= 1) glideTarget.set(target)
+      scrollToPage(target, step, true)
+    },
+    [glideTarget, offset, scrollToPage, step]
+  )
+
+  // What `placeTrack` reads. It is called from the track's own layout event, which can
+  // arrive before or after the render that counted the pages; a ref synced at commit is
+  // never a render behind.
+  const latest = useRef({ index, count, step })
+  useLayoutEffect(() => {
+    latest.current = { index, count, step }
+  })
+
+  /**
+   * Put the track on the index at once — once its pages are laid out, and again whenever
+   * they are re-measured. This is how `defaultIndex` and a first controlled `index` reach
+   * the track: a scroll view starts at zero whatever the index says.
+   */
+  const placeTrack = useCallback(() => {
+    const { index: at, count: pages, step: size } = latest.current
+    if (size <= 0 || pages === 0) return
+
+    glideTarget.set(NO_TARGET)
+    const target = stepIndex(at, 0, pages, false)
+    trackIndex.current = target
+    scrollToPage(target, size, false)
+  }, [glideTarget, scrollToPage])
+
+  // The pages may be counted after the track has reported its size: placed then too.
+  useEffect(() => {
+    if (trackIndex.current === null) placeTrack()
+  }, [count, step, placeTrack])
+
+  // The index leads and the track follows. Whatever moved the index — a dot, a "Next"
+  // button through `goTo`, or a controlled parent — the track travels there, and a
+  // controlled parent that refuses a change leaves the pages where they were. A page the
+  // track settled on by itself is already where the index says, so nothing moves.
+  useEffect(() => {
+    if (trackIndex.current === null || count === 0) return
+
+    const target = stepIndex(index, 0, count, false)
+    if (target !== trackIndex.current) travelTo(target)
+  }, [count, index, travelTo])
+
+  /** Moves the index; the track follows it. */
+  const goTo = useCallback((next: number) => setIndex(next), [setIndex])
+
+  /** The track settled on a page by itself — a swipe. Recorded first, so it is not chased. */
+  const onSettle = useCallback(
     (next: number) => {
-      const distance = next * step
-      trackRef.current?.scrollTo({
-        x: orientation === 'horizontal' ? distance : 0,
-        y: orientation === 'horizontal' ? 0 : distance,
-        animated: true,
-      })
-      // The track is told to move and its own settle reports back, which is what keeps a
-      // controlled index, a dragged one and a dot press on one path instead of three.
+      trackIndex.current = next
       setIndex(next)
     },
-    [orientation, setIndex, step, trackRef]
+    [setIndex]
   )
+
+  /** A finger took the track: whatever a programmatic scroll was heading for, it is not. */
+  const onInteract = useCallback(() => glideTarget.set(NO_TARGET), [glideTarget])
 
   const context = useMemo(
     () => ({
@@ -130,8 +211,11 @@ export const PagerRoot = forwardRef<View, PagerProps>(function Pager(
       setTrack,
       step,
       offset,
+      glideTarget,
+      placeTrack,
       goTo,
-      onSettle: setIndex,
+      onSettle,
+      onInteract,
       trackRef,
       isDisabled,
     }),
@@ -145,8 +229,11 @@ export const PagerRoot = forwardRef<View, PagerProps>(function Pager(
       setTrack,
       step,
       offset,
+      glideTarget,
+      placeTrack,
       goTo,
-      setIndex,
+      onSettle,
+      onInteract,
       trackRef,
       isDisabled,
     ]

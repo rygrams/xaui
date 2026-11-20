@@ -160,34 +160,3 @@ export function xLabelBox({
 
   return { start: center - room / 2, width: room, align: 'center' }
 }
-
-/** The prefix a stacked series' running total is written under in the copied rows. */
-const STACK_PREFIX = 'xauiStack:'
-
-/** The key a stacked series is drawn under. */
-export function stackKeys(keys: ReadonlyArray<string>): string[] {
-  return keys.map(key => `${STACK_PREFIX}${key}`)
-}
-
-/**
- * Each row with a running total per series added to it, so the plot's domain reaches the
- * top of the stack. A copy, always: the rows are the caller's. A reading that is not a
- * number adds nothing.
- */
-export function stackRows(
-  data: ReadonlyArray<ChartDatum>,
-  keys: ReadonlyArray<string>
-): ChartDatum[] {
-  return data.map(row => {
-    const next: ChartDatum = { ...row }
-    let total = 0
-
-    for (const key of keys) {
-      const value = Number(row[key])
-      total += Number.isFinite(value) ? value : 0
-      next[`${STACK_PREFIX}${key}`] = total
-    }
-
-    return next
-  })
-}

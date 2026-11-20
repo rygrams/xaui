@@ -22,8 +22,13 @@ export type ChartFrameContextValue = {
   legendItemStyle: StyleProp<ViewStyle>
   legendDotStyle: StyleProp<ViewStyle>
   legendLabelStyle: StyleProp<TextStyle>
-  /** The palette the figure inside is drawing with, so a legend can print it. */
+  /**
+   * The palette the figure inside is drawing with, so a legend can print it — walked to
+   * `seriesCount`, and read by a legend only when that was given.
+   */
   colors: string[]
+  /** What the frame was told; `0` when unset, and a legend then walks its own length. */
+  seriesCount: number
   variant: ChartVariant | undefined
   size: ChartSize | undefined
   color: string | undefined

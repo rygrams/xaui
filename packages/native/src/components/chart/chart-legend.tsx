@@ -1,6 +1,7 @@
 import { Children, createContext, forwardRef, useContext, useMemo } from 'react'
 import { Text, View } from 'react-native'
 import type { StyleProp, TextStyle, ViewStyle } from 'react-native'
+import { childrenToString } from '../../system/slot'
 import { useStyleProps } from '../../system/style-props'
 import { useChartInk } from './chart.hook'
 import { useOptionalChart } from './chart.context'
@@ -57,11 +58,13 @@ export function useChartLegend(): ChartLegendContextValue {
  * `labels` is the short form. Children are the long one — a legend that carries a value and
  * a share beside each name, which is what a donut usually wants under it.
  *
- * **Inside a `<Chart>` it takes the frame's palette, and outside one it walks its own.** The
- * second case is a `Widget`: the title and the legend sit in the widget's header and the
- * figure sits in its well, so the legend is nowhere near the frame — and then `variant`,
- * `size`, `color` and `count` are how it is told which ramp to walk. They have to match what
- * the figure was given, or the legend names the wrong colours.
+ * **Inside a `<Chart>` given a `seriesCount`, it takes the frame's palette; otherwise it walks
+ * its own**, as long as `count`, its labels or its children — a frame walked for one series
+ * would colour every entry after the first with a shade no series wears. The usual case for
+ * its own is a `Widget`: the title and the legend sit in the widget's header and the figure
+ * sits in its well, so the legend is nowhere near the frame — and then `variant`, `size`,
+ * `color` and `count` are how it is told which ramp to walk. They have to match what the
+ * figure was given, or the legend names the wrong colours.
  */
 export const ChartLegend = forwardRef<View, ChartLegendProps>(function ChartLegend(
   { labels, children, variant, size, color, count, style, ...props },
@@ -78,9 +81,13 @@ export const ChartLegend = forwardRef<View, ChartLegendProps>(function ChartLege
     variant: variant ?? frame?.variant,
     size: size ?? frame?.size ?? 'md',
     color: color ?? frame?.color,
-    isDisabled: frame?.isDisabled ?? false,
+    // Never dimmed here: inside a frame, the frame dims itself and everything in it.
+    isDisabled: false,
     count: series,
   })
+  // The frame's palette only when it was told how many series there are: walked for one,
+  // it would colour the second entry with a shade no series wears.
+  const colors = frame !== null && frame.seriesCount > 0 ? frame.colors : own.colors
 
   const context = useMemo<ChartLegendContextValue>(
     () =>
@@ -89,17 +96,15 @@ export const ChartLegend = forwardRef<View, ChartLegendProps>(function ChartLege
             itemStyle: own.styles.legendItem,
             dotStyle: own.styles.legendDot,
             labelStyle: own.styles.legendLabel,
-            colors: own.colors,
+            colors,
           }
         : {
             itemStyle: frame.legendItemStyle,
             dotStyle: frame.legendDotStyle,
             labelStyle: frame.legendLabelStyle,
-            // The frame's, not this legend's: the palette has to be the one the figure
-            // beside it actually drew with, and only the frame knows how many series that was.
-            colors: frame.colors,
+            colors,
           },
-    [frame, own]
+    [frame, own, colors]
   )
 
   return (
@@ -135,15 +140,14 @@ export const ChartLegendItem = forwardRef<View, ChartLegendItemProps>(
     const [styleProps, rest] = useStyleProps(props)
 
     const dot = color ?? colors[index] ?? colors[0]
+    // R3 — `{name} ({count})` is an array of strings, and a bare string under a `View`
+    // crashes on a device: anything that reads as text is set as one label.
+    const text = childrenToString(children)
 
     return (
       <View ref={ref} {...rest} style={[itemStyle, styleProps, style]}>
         <View style={[dotStyle, { backgroundColor: dot }]} />
-        {typeof children === 'string' || typeof children === 'number' ? (
-          <Text style={labelStyle}>{children}</Text>
-        ) : (
-          children
-        )}
+        {text === null ? children : <Text style={labelStyle}>{text}</Text>}
       </View>
     )
   }
