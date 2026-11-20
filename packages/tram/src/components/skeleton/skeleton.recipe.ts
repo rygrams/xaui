@@ -2,7 +2,7 @@ import { RADIUS_KEYS, createRecipe } from '@xaui/native/system'
 import type { StyleFn } from '@xaui/native/system'
 import type { RadiusKey } from '@xaui/native/theme'
 import { cornerFor } from '../../theme/tram-corner'
-import { skeletonFill } from './skeleton.fill'
+import { faintFill } from '../../system/faint-fill'
 import type { SkeletonSlot } from './skeleton.type'
 
 const SLOTS = ['root'] as const
@@ -20,7 +20,7 @@ function cornerAxis(): Record<RadiusKey, StyleFn<SkeletonSlot>> {
 
 /**
  * One flat block in the page's grey, no `paint`: the grey is not a theme token but a
- * fifth of the page's ink over its ground (`skeletonFill`), and a raw `color` is drawn as
+ * fifth of the page's ink over its ground (`faintFill`), and a raw `color` is drawn as
  * given rather than derived into a tint — there is one thing on a block to colour.
  */
 export const skeletonRecipe = createRecipe({
@@ -29,7 +29,7 @@ export const skeletonRecipe = createRecipe({
   base: theme => ({
     root: {
       backgroundColor:
-        skeletonFill(theme.colors.foreground, theme.colors.background) ??
+        faintFill(theme.colors.foreground, theme.colors.background) ??
         theme.colors.muted,
     },
   }),

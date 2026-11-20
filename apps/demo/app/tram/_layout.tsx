@@ -143,6 +143,13 @@ export default function TramLayout() {
                 name="phone-number-field"
                 options={{ title: 'PHONE NUMBER FIELD' }}
               />
+              <Stack.Screen name="dummy-field" options={{ title: 'DUMMY FIELD' }} />
+              <Stack.Screen
+                name="number-stepper"
+                options={{ title: 'NUMBER STEPPER' }}
+              />
+              <Stack.Screen name="rating" options={{ title: 'RATING' }} />
+              <Stack.Screen name="number-pad" options={{ title: 'NUMBER PAD' }} />
             </Stack>
           </Scaffold.Navigator>
         </Scaffold>

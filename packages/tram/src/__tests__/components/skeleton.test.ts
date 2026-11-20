@@ -1,26 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { skeletonFill } from '../../components/skeleton/skeleton.fill'
 import { pulseStart } from '../../components/skeleton/skeleton.pulse'
-
-describe('skeletonFill', () => {
-  it('lays a fifth of the ink over the ground, in sRGB', () => {
-    expect(skeletonFill('#FFFFFF', '#000000')).toBe('#333333')
-    expect(skeletonFill('#000000', '#FFFFFF')).toBe('#CCCCCC')
-  })
-
-  it('reads the short hex form', () => {
-    expect(skeletonFill('#fff', '#000')).toBe('#333333')
-  })
-
-  it('takes another share', () => {
-    expect(skeletonFill('#FFFFFF', '#000000', 0.5)).toBe('#808080')
-  })
-
-  it('gives up on a colour it cannot mix', () => {
-    expect(skeletonFill('rgb(255, 255, 255)', '#000000')).toBeUndefined()
-    expect(skeletonFill('#FFFFFF', 'black')).toBeUndefined()
-  })
-})
 
 describe('pulseStart', () => {
   it('starts at full, on the way down, at the top of the cycle', () => {

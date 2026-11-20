@@ -58,6 +58,10 @@ const SCREENS = [
   { href: '/tram/combobox', label: 'combobox' },
   { href: '/tram/field-group', label: 'field group' },
   { href: '/tram/phone-number-field', label: 'phone number field' },
+  { href: '/tram/dummy-field', label: 'dummy field' },
+  { href: '/tram/number-stepper', label: 'number stepper' },
+  { href: '/tram/rating', label: 'rating' },
+  { href: '/tram/number-pad', label: 'number pad' },
 ] as const
 
 export default function TramHomeScreen() {

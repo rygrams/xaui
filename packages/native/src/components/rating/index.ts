@@ -23,3 +23,11 @@ export type {
   RatingTone,
   RatingVariant,
 } from './rating.type'
+
+/**
+ * The two pure halves of a mark, named for the root entrypoint they reach: how full a mark
+ * is for a value, and the value a press at a fraction of the row means. `@xaui/tram` reads
+ * them instead of restating them.
+ */
+export { fillFor as ratingFill, snapValue as snapRating } from './rating.utils'
+export type { SnapOptions as SnapRatingOptions } from './rating.utils'

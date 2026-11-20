@@ -35,3 +35,15 @@ export type {
   NumberPadSlot,
   NumberPadVariant,
 } from './number-pad.type'
+
+/**
+ * What a key, the backspace and the last key do to the value — named for the root
+ * entrypoint they reach, where `removeLast` alone would say nothing of a pad. `@xaui/tram`
+ * reads them instead of restating them.
+ */
+export {
+  appendKey as appendPadKey,
+  isComplete as isPadComplete,
+  removeLast as removePadKey,
+} from './number-pad.utils'
+export type { AppendOptions as AppendPadKeyOptions } from './number-pad.utils'

@@ -8,7 +8,7 @@ import { touchReach } from '../../system/touch-reach'
 import { BottomSheetTrigger } from '../bottom-sheet'
 import { useOptionalFieldGroup } from '../field-group'
 import { useTextField } from '../text-field'
-import { splitFieldStyle } from '../search-field/search-field.utils'
+import { splitFieldStyle } from '../../system/split-field-style'
 import { usePhoneNumberField } from './phone-number-field.context'
 import type { PhoneNumberFieldCountryProps } from './phone-number-field.type'
 
