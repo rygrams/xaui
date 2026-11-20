@@ -11,6 +11,8 @@ import {
   SITE_DESCRIPTION,
   SITE_NAME,
   SITE_URL,
+  TRAM_DESCRIPTION,
+  TRAM_KEYWORDS,
 } from '@/lib/site'
 import { GoogleAnalytics } from '@next/third-parties/google'
 
@@ -92,6 +94,20 @@ const structuredData = {
       programmingLanguage: ['TypeScript', 'React Native'],
       runtimePlatform: ['iOS', 'Android', 'Web'],
       license: `${REPOSITORY_URL}/blob/main/LICENSE`,
+    },
+    {
+      '@type': 'SoftwareSourceCode',
+      '@id': `${SITE_URL}/#tram`,
+      name: '@xaui/tram',
+      alternateName: ['XAUI Tram', 'Metro UI for React Native'],
+      description: TRAM_DESCRIPTION,
+      keywords: TRAM_KEYWORDS.join(', '),
+      url: `${SITE_URL}/docs/tram/getting-started`,
+      codeRepository: `${REPOSITORY_URL}/tree/main/packages/tram`,
+      programmingLanguage: ['TypeScript', 'React Native'],
+      runtimePlatform: ['iOS', 'Android', 'Web'],
+      license: `${REPOSITORY_URL}/blob/main/LICENSE`,
+      isBasedOn: { '@id': `${SITE_URL}/#library` },
     },
   ],
 }

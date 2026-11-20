@@ -1,7 +1,7 @@
 # @xaui/tram
 
-React Native components in the Tram language — Metro, modernised: flat fills, square
-corners, giant light type and one accent colour. Every component has the same name, slots
+Metro UI components for React Native and Expo — the Metro design language of Windows
+Phone, modernised: flat fills, square corners, giant light type and one accent colour. Every component has the same name, slots
 and props as its [`@xaui/native`](https://www.npmjs.com/package/@xaui/native) counterpart,
 redrawn, on the same engine and theme. Tram adds the Metro signature pieces: Tile, Pivot,
 Panorama, AppBar, JumpList and the turnstile page transition.

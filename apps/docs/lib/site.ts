@@ -11,6 +11,30 @@ export const TRAM_SITE_NAME = 'XAUI Tram'
 export const SITE_DESCRIPTION =
   'XAUI is a React Native UI component library for Expo and React Native: composable components with dot-notation slots, Reanimated motion, semantic theming and a TypeScript API.'
 
+/**
+ * Tram's line, for search engines: what it is in the words people search with — Metro UI,
+ * the Metro design language, Windows Phone — before what it is built on.
+ */
+export const TRAM_DESCRIPTION =
+  'XAUI Tram (@xaui/tram) is a Metro UI component library for React Native and Expo: the Metro design language of Windows Phone, modernised — flat fills, square corners, giant light type, one accent colour, live tiles, pivots and the turnstile — on the @xaui/native engine.'
+
+/** The searches a Tram page answers, besides its own component's name. */
+export const TRAM_KEYWORDS = [
+  'metro ui',
+  'metro design',
+  'metro design language',
+  'metro ui react native',
+  'react native metro ui',
+  'windows phone ui',
+  'modern ui',
+  'flat design',
+  'live tiles',
+  'react native',
+  'expo',
+  'xaui tram',
+  '@xaui/tram',
+]
+
 export const REPOSITORY_URL = 'https://github.com/rygrams/xaui'
 
 export const NPM_PACKAGE_URL = 'https://www.npmjs.com/package/@xaui/native'

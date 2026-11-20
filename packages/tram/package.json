@@ -1,7 +1,7 @@
 {
   "name": "@xaui/tram",
   "version": "0.1.0",
-  "description": "XAUI components for React Native in the Tram language: Metro, modernised — flat fills, giant type, one accent colour",
+  "description": "Metro UI components for React Native and Expo — the Metro design language of Windows Phone, modernised: flat fills, square corners, giant light type, one accent colour, live tiles, pivots and the turnstile. Built on @xaui/native.",
   "keywords": [
     "react-native",
     "react-native-ui",
@@ -12,6 +12,8 @@
     "design-system",
     "metro",
     "metro-ui",
+    "metro-design-language",
+    "metro-design",
     "windows-phone",
     "flat-design",
     "reanimated",
@@ -20,6 +22,9 @@
     "ios",
     "android",
     "typescript",
+    "modern-ui",
+    "live-tiles",
+    "tram",
     "xaui"
   ],
   "license": "MIT",

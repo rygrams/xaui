@@ -14,7 +14,7 @@ import Link from 'next/link'
 const LEAD: Record<PackageName, string> = {
   native:
     'live React Native Web preview, anatomy, examples, generated TypeScript API, accessibility and migration.',
-  tram: 'the components redrawn in the Metro language, with a live React Native Web preview, anatomy, examples, the generated TypeScript API and what each does unlike Native.',
+  tram: 'the components redrawn in the Metro design language of Windows Phone, modernised, with a live React Native Web preview, anatomy, examples, the generated TypeScript API and what each does unlike Native.',
 }
 
 /** One package's catalogue: the Native one at `/docs/components`, Tram's at `/docs/tram/components`. */
@@ -48,7 +48,7 @@ export function ComponentsCatalog({
       <div className="space-y-4">
         <div className="flex items-center gap-3">
           <h1 className="text-3xl font-bold tracking-tight md:text-4xl">
-            {packageName === 'tram' ? 'Tram components' : 'Components'}
+            {packageName === 'tram' ? 'Metro UI components' : 'Components'}
           </h1>
           <span className="rounded-full bg-muted px-2.5 py-1 text-xs font-medium text-muted-foreground">
             {components.length}

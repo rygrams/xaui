@@ -15,7 +15,7 @@ Composition-first UI components for React Native. Expo, Reanimated, one theme.
 npm i @xaui/native
 ```
 
-### @xaui/tram — the same components, Metro-styled
+### @xaui/tram — the same components in Metro UI
 
 ```bash
 npm i @xaui/tram
@@ -119,8 +119,8 @@ The docs also publish an [llms.txt][llms] and a Markdown version of every compon
 
 ## Tram, the Metro look
 
-[`@xaui/tram`](https://www.npmjs.com/package/@xaui/tram) draws the same components in the
-Metro language, modernised — flat fills, square corners, giant light type, one accent
+[`@xaui/tram`](https://www.npmjs.com/package/@xaui/tram) is Metro UI for React Native: the
+same components drawn in the Metro design language of Windows Phone, modernised — flat fills, square corners, giant light type, one accent
 colour — on the `@xaui/native` engine, with the same names, slots and props. It adds Tile,
 Pivot, Panorama, AppBar, JumpList and the turnstile page transition. See [Get started with
 Tram][tram].

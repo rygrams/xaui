@@ -15,7 +15,7 @@ import {
   type Component,
   type PackageName,
 } from '@/lib/data/components'
-import { pageMetadata, SITE_URL, TRAM_SITE_NAME } from '@/lib/site'
+import { pageMetadata, SITE_URL, TRAM_KEYWORDS, TRAM_SITE_NAME } from '@/lib/site'
 
 const SECTION_LINKS = {
   native: [
@@ -41,10 +41,27 @@ const SECTION_LINKS = {
   ],
 } as const
 
-/** What each package's page title calls the component, so search results tell them apart. */
-const TITLE_SUFFIX: Record<PackageName, string> = {
-  native: 'for React Native',
-  tram: 'for React Native, Metro-styled',
+/**
+ * What a page's title calls the component. A Tram page leads with Metro — the word people
+ * search for, and what tells it from the Native page of the same name.
+ */
+function getPageTitle(component: Component) {
+  return component.package === 'tram'
+    ? `Metro ${component.title} for React Native`
+    : `${component.title} for React Native`
+}
+
+/**
+ * The meta description. A Tram page whose own first line does not say Metro is introduced
+ * as the Metro UI component it is, so every Tram result reads as Metro in a search.
+ */
+function getPageDescription(component: Component) {
+  if (component.package !== 'tram' || /metro/i.test(component.description)) {
+    return component.description
+  }
+
+  const lead = component.description.charAt(0).toLowerCase()
+  return `Metro UI ${component.title} for React Native and Expo — ${lead}${component.description.slice(1)}`
 }
 
 function getKeywords(component: Component) {
@@ -52,7 +69,9 @@ function getKeywords(component: Component) {
     'xaui',
     'react native',
     'react native web',
-    ...(component.package === 'tram' ? ['metro', 'metro ui', 'windows phone'] : []),
+    ...(component.package === 'tram'
+      ? [`metro ${component.title.toLowerCase()}`, ...TRAM_KEYWORDS]
+      : []),
     component.title,
     component.category,
     component.importPath,
@@ -72,8 +91,8 @@ export function getComponentMetadata(
   if (!component) return { title: 'Component not found' }
 
   return pageMetadata({
-    title: `${component.title} ${TITLE_SUFFIX[packageName]}`,
-    description: component.description,
+    title: getPageTitle(component),
+    description: getPageDescription(component),
     path: component.href,
     markdownPath: component.markdownHref,
     keywords: getKeywords(component),
@@ -91,13 +110,18 @@ function getStructuredData(component: Component) {
     '@graph': [
       {
         '@type': 'TechArticle',
-        headline: `${component.title} — React Native component${component.package === 'tram' ? ' (@xaui/tram)' : ''}`,
-        description: component.description,
+        headline:
+          component.package === 'tram'
+            ? `Metro ${component.title} — React Native component (@xaui/tram)`
+            : `${component.title} — React Native component`,
+        description: getPageDescription(component),
         url,
         inLanguage: 'en',
         keywords: getKeywords(component).join(', '),
         isPartOf: { '@id': `${SITE_URL}/#website` },
-        about: { '@id': `${SITE_URL}/#library` },
+        about: {
+          '@id': `${SITE_URL}/#${component.package === 'tram' ? 'tram' : 'library'}`,
+        },
         encoding: {
           '@type': 'MediaObject',
           encodingFormat: 'text/markdown',

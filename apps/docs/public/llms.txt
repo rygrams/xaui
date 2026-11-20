@@ -98,9 +98,9 @@ pnpm add @xaui/native
 - [WheelPicker](https://ui.xtartapp.com/docs/wheel-picker.md): A column of options you turn, and the one at the middle is the answer.
 - [Widget](https://ui.xtartapp.com/docs/widget.md): A thing on a dashboard: a title, a card, and a line about it underneath.
 
-## Tram components
+## Tram components — Metro UI
 
-`@xaui/tram` draws the same components in the Tram language — Metro, modernised — on the @xaui/native engine, with the same names, slots and props apart from the Tram `variant`, `accent` and `size` vocabulary. 71 components, each from its own subpath (`@xaui/tram/button`), under one `TramProvider` (`@xaui/tram/theme`). Each page below ends with its differences from Native.
+`@xaui/tram` is Metro UI for React Native: the same components drawn in the Metro design language of Windows Phone, modernised, on the @xaui/native engine, with the same names, slots and props apart from the Tram `variant`, `accent` and `size` vocabulary. 71 components, each from its own subpath (`@xaui/tram/button`), under one `TramProvider` (`@xaui/tram/theme`). Each page below ends with its differences from Native.
 
 ```bash
 pnpm add @xaui/tram

@@ -4,13 +4,14 @@ import { ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { CodeBlock } from '@/components/ui/code-block'
 import { tramComponents } from '@/lib/data/components'
-import { pageMetadata, TRAM_SITE_NAME } from '@/lib/site'
+import { pageMetadata, TRAM_KEYWORDS, TRAM_SITE_NAME } from '@/lib/site'
 
 export const metadata: Metadata = pageMetadata({
-  title: 'Get started',
+  title: 'Get started with Metro UI for React Native',
   description:
-    'Install @xaui/tram, mount the TramProvider and compose a first Metro-styled React Native screen — flat fills, square corners, giant type and one accent colour.',
+    'Install @xaui/tram, the Metro UI component library for React Native and Expo, mount the TramProvider and compose a first screen in the Metro design language — flat fills, square corners, giant light type and one accent colour.',
   path: '/docs/tram/getting-started',
+  keywords: TRAM_KEYWORDS,
   siteName: TRAM_SITE_NAME,
 })
 
@@ -21,10 +22,11 @@ export default function TramGettingStartedPage() {
         <p className="text-sm font-medium text-muted-foreground">@xaui/tram</p>
         <h1 className="text-4xl font-bold tracking-tight">Get started with Tram</h1>
         <p className="text-lg leading-8 text-muted-foreground">
-          Tram is the XAUI components drawn in the Metro language, modernised: flat
-          fills, square corners, giant light type and one accent colour. It runs on
-          the <code>@xaui/native</code> engine, with the same names, slots and props
-          — moving a screen from one to the other is mostly an import path.
+          Tram is Metro UI for React Native: the XAUI components drawn in the Metro
+          design language of Windows Phone, modernised — flat fills, square corners,
+          giant light type and one accent colour. It runs on the{' '}
+          <code>@xaui/native</code> engine, with the same names, slots and props —
+          moving a screen from one to the other is mostly an import path.
         </p>
       </header>
 
