@@ -11,12 +11,19 @@ import {
   Github,
   Menu,
   Search,
+  Smartphone,
   Star,
   Tag,
+  TramFront,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { NPM_PACKAGE_URL, REPOSITORY_URL, TRAM_NPM_PACKAGE_URL } from '@/lib/site'
-import { getPackageOfPath, PACKAGES, TRAM_VERSION } from '@/lib/data/components'
+import {
+  getPackageOfPath,
+  PACKAGES,
+  TRAM_VERSION,
+  type PackageName,
+} from '@/lib/data/components'
 import {
   getActiveTab,
   getPackageSwitchHref,
@@ -27,6 +34,11 @@ import { OutboundLink } from '@/components/ui/outbound-link'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { SearchDialog } from './search-dialog'
 import { SidebarNav } from './sidebar'
+
+const PACKAGE_ICONS: Record<PackageName, typeof BookOpen> = {
+  native: Smartphone,
+  tram: TramFront,
+}
 
 const TAB_ICONS: Record<NavTabId, typeof BookOpen> = {
   'getting-started': BookOpen,
@@ -225,17 +237,18 @@ export function SiteHeader({ version, versions }: SiteHeaderProps) {
 
           <div
             aria-label="Package"
-            className="flex shrink-0 items-stretch gap-1 border-s ps-2"
+            className="flex shrink-0 items-stretch gap-1"
             role="group"
           >
             {Object.values(PACKAGES).map(item => {
               const isActive = item.id === activePackage
+              const PackageIcon = PACKAGE_ICONS[item.id]
 
               return (
                 <Link
                   aria-current={isActive ? 'page' : undefined}
                   className={cn(
-                    'flex items-center border-b-2 px-3 text-sm transition-colors',
+                    'flex items-center gap-2 border-b-2 px-3 text-sm transition-colors',
                     // Drawn like the section tabs beside it, but the package being read is
                     // the one blue in the header: it is what must not be missed.
                     isActive
@@ -246,6 +259,7 @@ export function SiteHeader({ version, versions }: SiteHeaderProps) {
                   key={item.id}
                   title={item.name}
                 >
+                  <PackageIcon className="size-4" />
                   {item.title}
                 </Link>
               )
