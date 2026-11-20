@@ -8,13 +8,17 @@ const entries = {
   'components/accordion/index': 'src/components/accordion/index.ts',
   'components/alert/index': 'src/components/alert/index.ts',
   'components/app-bar/index': 'src/components/app-bar/index.ts',
+  'components/area-chart/index': 'src/components/area-chart/index.ts',
   'components/autocomplete/index': 'src/components/autocomplete/index.ts',
   'components/avatar/index': 'src/components/avatar/index.ts',
   'components/badge/index': 'src/components/badge/index.ts',
+  'components/bar-chart/index': 'src/components/bar-chart/index.ts',
   'components/bottom-sheet/index': 'src/components/bottom-sheet/index.ts',
   'components/button/index': 'src/components/button/index.ts',
   'components/calendar/index': 'src/components/calendar/index.ts',
   'components/card/index': 'src/components/card/index.ts',
+  'components/carousel/index': 'src/components/carousel/index.ts',
+  'components/chart/index': 'src/components/chart/index.ts',
   'components/checkbox/index': 'src/components/checkbox/index.ts',
   'components/chip/index': 'src/components/chip/index.ts',
   'components/close-button/index': 'src/components/close-button/index.ts',
@@ -30,6 +34,7 @@ const entries = {
   'components/field-group/index': 'src/components/field-group/index.ts',
   'components/input-otp/index': 'src/components/input-otp/index.ts',
   'components/jump-list/index': 'src/components/jump-list/index.ts',
+  'components/line-chart/index': 'src/components/line-chart/index.ts',
   'components/list/index': 'src/components/list/index.ts',
   'components/list-box/index': 'src/components/list-box/index.ts',
   'components/mask-field/index': 'src/components/mask-field/index.ts',
@@ -42,11 +47,15 @@ const entries = {
   'components/panorama/index': 'src/components/panorama/index.ts',
   'components/phone-number-field/index':
     'src/components/phone-number-field/index.ts',
+  'components/pie-chart/index': 'src/components/pie-chart/index.ts',
   'components/pivot/index': 'src/components/pivot/index.ts',
   'components/progress-bar/index': 'src/components/progress-bar/index.ts',
+  'components/radar-chart/index': 'src/components/radar-chart/index.ts',
+  'components/radial-chart/index': 'src/components/radial-chart/index.ts',
   'components/radio/index': 'src/components/radio/index.ts',
   'components/range-calendar/index': 'src/components/range-calendar/index.ts',
   'components/rating/index': 'src/components/rating/index.ts',
+  'components/scaffold/index': 'src/components/scaffold/index.ts',
   'components/search-field/index': 'src/components/search-field/index.ts',
   'components/select/index': 'src/components/select/index.ts',
   'components/skeleton/index': 'src/components/skeleton/index.ts',
@@ -66,6 +75,7 @@ const entries = {
   'components/toast/index': 'src/components/toast/index.ts',
   'components/toggle-button/index': 'src/components/toggle-button/index.ts',
   'components/typography/index': 'src/components/typography/index.ts',
+  'components/view/index': 'src/components/view/index.ts',
   'components/wheel-picker/index': 'src/components/wheel-picker/index.ts',
 }
 
@@ -88,12 +98,13 @@ export default defineConfig({
    */
   external: [
     /^@xaui\/native(\/.*)?$/,
-    // An optional peer: the phone field's subpath alone needs it.
+    // Optional peers: the phone field's subpath alone needs the first, the charts' the last.
     'libphonenumber-js',
     'react',
     'react-native',
     'react-native-gesture-handler',
     'react-native-reanimated',
+    'react-native-svg',
     'react-native-worklets',
   ],
 })
