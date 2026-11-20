@@ -147,7 +147,7 @@ export function SiteHeader({ version, versions }: SiteHeaderProps) {
             </button>
             <OutboundLink
               aria-label="GitHub"
-              className="flex items-center gap-1.5 rounded-full border px-2 py-1 text-xs text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+              className="flex items-center gap-1.5 rounded-md px-2 py-1 text-xs text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
               event="github_click"
               href={REPOSITORY_URL}
               location="header"
@@ -162,7 +162,7 @@ export function SiteHeader({ version, versions }: SiteHeaderProps) {
             </OutboundLink>
             <OutboundLink
               aria-label="npm"
-              className="rounded-full border p-1.5 transition-colors hover:bg-accent"
+              className="rounded-md p-1.5 transition-colors hover:bg-accent"
               event="npm_click"
               href={isTram ? TRAM_NPM_PACKAGE_URL : NPM_PACKAGE_URL}
               location="header"
@@ -182,7 +182,7 @@ export function SiteHeader({ version, versions }: SiteHeaderProps) {
             </OutboundLink>
             <OutboundLink
               aria-label="LinkedIn"
-              className="rounded-full border p-1.5 transition-colors hover:bg-accent"
+              className="rounded-md p-1.5 transition-colors hover:bg-accent"
               event="linkedin_click"
               href="https://www.linkedin.com/in/ladji-bamory-gramboute/"
               location="header"
