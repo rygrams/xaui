@@ -1,5 +1,5 @@
 import { forwardRef, useMemo } from 'react'
-import { StyleSheet, View } from 'react-native'
+import { I18nManager, StyleSheet, View } from 'react-native'
 import type { GestureResponderEvent } from 'react-native'
 import { ratingFill, usePressState } from '@xaui/native'
 import {
@@ -58,7 +58,12 @@ export const RatingItem = forwardRef<View, RatingItemProps>(function RatingItem(
 
   const handlePress = (event: GestureResponderEvent) => {
     onPress?.(event)
-    select(index, pressedShare(event.nativeEvent.locationX, markSize))
+    const share = pressedShare({
+      x: event.nativeEvent.locationX,
+      markSize,
+      isRTL: I18nManager.isRTL,
+    })
+    select(index, share)
   }
 
   const glyph = children ?? <RatingStar />

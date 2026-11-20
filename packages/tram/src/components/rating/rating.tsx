@@ -10,6 +10,7 @@ import { touchReach } from '../../system/touch-reach'
 import { useTramHaptic } from '../../theme/tram-haptics'
 import { RatingItem } from './rating-item'
 import { RatingProvider } from './rating.context'
+import { keepOnMark } from './rating.utils'
 import { DEFAULT_SIZE, RATING_GEOMETRY, ratingRecipe } from './rating.recipe'
 import type { RatingProps } from './rating.type'
 
@@ -75,7 +76,8 @@ export const RatingRoot = forwardRef<View, RatingProps>(function Rating(
     (index: number, ratio: number) => {
       if (isReadOnly || isDisabled) return
 
-      const next = snapRating({ raw: index + ratio, precision, max })
+      const snapped = snapRating({ raw: index + ratio, precision, max })
+      const next = keepOnMark({ value: snapped, index, precision, max })
       if (next === value) return
       haptic('selection')
       setValue(next)
