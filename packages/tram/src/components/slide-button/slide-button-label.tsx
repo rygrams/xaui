@@ -1,5 +1,6 @@
 import { forwardRef } from 'react'
-import type { Text } from 'react-native'
+import { StyleSheet } from 'react-native'
+import type { Text, TextStyle } from 'react-native'
 import Animated, {
   interpolateColor,
   useAnimatedStyle,
@@ -30,13 +31,17 @@ export const SlideButtonLabel = forwardRef<Text, SlideButtonLabelProps>(
       'worklet'
       return { color: interpolateColor(done.value, [0, 1], [label, labelDone]) }
     }, [done, label, labelDone])
+    // A `color` the caller wrote is theirs at rest and once confirmed: an animated style
+    // outranks a static one wherever it sits in the array, so the fade is left out.
+    const ownsColor =
+      StyleSheet.flatten<TextStyle>([styleProps, style])?.color !== undefined
 
     return (
       <Animated.Text
         ref={ref}
         numberOfLines={numberOfLines}
         {...rest}
-        style={[labelStyle, ink, styleProps, style]}
+        style={[labelStyle, ownsColor ? undefined : ink, styleProps, style]}
       >
         {children}
       </Animated.Text>
