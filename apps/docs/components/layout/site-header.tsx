@@ -112,34 +112,6 @@ export function SiteHeader({ version, versions }: SiteHeaderProps) {
             </Link>
           </div>
 
-          <nav
-            aria-label="Package"
-            className="flex shrink-0 items-center rounded-md border p-0.5 text-xs"
-          >
-            {Object.values(PACKAGES).map(item => {
-              const isActive = item.id === activePackage
-
-              return (
-                <Link
-                  aria-current={isActive ? 'page' : undefined}
-                  className={cn(
-                    'rounded-[5px] px-2 py-0.5 font-medium transition-colors',
-                    // The package being read is the one thing on the page that must not be
-                    // missed: the ink itself, inverted — black in light, white in dark.
-                    isActive
-                      ? 'bg-foreground text-background'
-                      : 'text-muted-foreground hover:text-foreground'
-                  )}
-                  href={getPackageSwitchHref(pathname, item.id)}
-                  key={item.id}
-                  title={item.name}
-                >
-                  {item.title}
-                </Link>
-              )
-            })}
-          </nav>
-
           <div className="mx-auto hidden w-full max-w-md md:block">
             <button
               className="flex w-full items-center gap-2 rounded-lg border bg-muted/50 px-3 py-1.5 text-sm text-muted-foreground transition-colors hover:bg-muted"
@@ -219,32 +191,65 @@ export function SiteHeader({ version, versions }: SiteHeaderProps) {
           </div>
         </div>
 
-        <nav
-          aria-label="Documentation sections"
-          className="flex h-12 items-center gap-1 overflow-x-auto border-b px-2 md:px-4"
-        >
-          {getPackageTabs(activePackage).map(tab => {
-            const Icon = TAB_ICONS[tab.id]
-            const isActive = tab.id === activeTab.id
+        {/* The tabs scroll on a phone; the package switch beside them does not, so the
+            package being read is always on screen. */}
+        <div className="flex h-12 items-center gap-2 border-b px-2 md:px-4">
+          <nav
+            aria-label="Documentation sections"
+            className="flex h-full min-w-0 flex-1 items-center gap-1 overflow-x-auto"
+          >
+            {getPackageTabs(activePackage).map(tab => {
+              const Icon = TAB_ICONS[tab.id]
+              const isActive = tab.id === activeTab.id
 
-            return (
-              <Link
-                aria-current={isActive ? 'page' : undefined}
-                className={cn(
-                  '-mb-px flex h-full shrink-0 items-center gap-2 whitespace-nowrap border-b-2 px-3 text-sm transition-colors',
-                  isActive
-                    ? 'border-foreground font-medium text-foreground'
-                    : 'border-transparent text-muted-foreground hover:text-foreground'
-                )}
-                href={tab.href}
-                key={tab.id}
-              >
-                <Icon className="size-4" />
-                {tab.title}
-              </Link>
-            )
-          })}
-        </nav>
+              return (
+                <Link
+                  aria-current={isActive ? 'page' : undefined}
+                  className={cn(
+                    '-mb-px flex h-full shrink-0 items-center gap-2 whitespace-nowrap border-b-2 px-3 text-sm transition-colors',
+                    isActive
+                      ? 'border-foreground font-medium text-foreground'
+                      : 'border-transparent text-muted-foreground hover:text-foreground'
+                  )}
+                  href={tab.href}
+                  key={tab.id}
+                >
+                  <Icon className="size-4" />
+                  {tab.title}
+                </Link>
+              )
+            })}
+          </nav>
+
+          <div
+            aria-label="Package"
+            className="flex shrink-0 items-center rounded-lg border p-1 text-sm"
+            role="group"
+          >
+            {Object.values(PACKAGES).map(item => {
+              const isActive = item.id === activePackage
+
+              return (
+                <Link
+                  aria-current={isActive ? 'page' : undefined}
+                  className={cn(
+                    'rounded-md px-3 py-1 font-medium transition-colors',
+                    // The package being read is the one thing on the page that must not be
+                    // missed, so it is the only blue in the header.
+                    isActive
+                      ? 'bg-blue-600 text-white'
+                      : 'text-muted-foreground hover:text-foreground'
+                  )}
+                  href={getPackageSwitchHref(pathname, item.id)}
+                  key={item.id}
+                  title={item.name}
+                >
+                  {item.title}
+                </Link>
+              )
+            })}
+          </div>
+        </div>
       </header>
 
       <SearchDialog
