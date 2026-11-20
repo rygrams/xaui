@@ -5,6 +5,7 @@ const nextConfig: NextConfig = {
   images: { unoptimized: true },
   transpilePackages: [
     '@xaui/native',
+    '@xaui/tram',
     'react-native-gesture-handler',
     'react-native-reanimated',
     'react-native-web',
@@ -15,6 +16,8 @@ const nextConfig: NextConfig = {
     resolveAlias: {
       'react-native': 'react-native-web',
       'react-native-svg': 'react-native-svg/src/ReactNativeSVG.web',
+      // The demo screens' safe-area hook; see the shim.
+      'react-native-safe-area-context': './lib/safe-area-shim.tsx',
     },
     resolveExtensions: [
       '.web.tsx',

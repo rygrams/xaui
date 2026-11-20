@@ -3,13 +3,22 @@
 Composition-first UI components for React Native. Expo, Reanimated, one theme.
 
 [![npm](https://img.shields.io/npm/v/@xaui/native)](https://www.npmjs.com/package/@xaui/native)
+[![npm](https://img.shields.io/npm/v/@xaui/tram?label=tram)](https://www.npmjs.com/package/@xaui/tram)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue)](./LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/rygrams/xaui)](https://github.com/rygrams/xaui)
 
 ![XAUI — ui.xtartapp.com: a Button, a Switch and a Slider](./assets/readme/cover.png)
 
+### @xaui/native — the components
+
 ```bash
 npm i @xaui/native
+```
+
+### @xaui/tram — the same components, Metro-styled
+
+```bash
+npm i @xaui/tram
 ```
 
 [Docs](https://ui.xtartapp.com/?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=readme) · [Getting started](https://ui.xtartapp.com/docs/getting-started?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=readme) · [Components](https://ui.xtartapp.com/docs/components?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=readme)
@@ -108,6 +117,14 @@ npx skills add https://ui.xtartapp.com/skills/xaui/SKILL.md
 
 The docs also publish an [llms.txt][llms] and a Markdown version of every component page.
 
+## Tram, the Metro look
+
+[`@xaui/tram`](https://www.npmjs.com/package/@xaui/tram) draws the same components in the
+Metro language, modernised — flat fills, square corners, giant light type, one accent
+colour — on the `@xaui/native` engine, with the same names, slots and props. It adds Tile,
+Pivot, Panorama, AppBar, JumpList and the turnstile page transition. See [Get started with
+Tram][tram].
+
 ## Upgrading from 0.2.x
 
 Version 0.9 is a new API. The previous components are still available, frozen, as `@xaui/native-legacy@0.2.11`, and both packages can run side by side while you move screen by screen. The [migration guide][migration] maps the old props to the new ones.
@@ -120,6 +137,7 @@ XAUI is a pnpm + Turborepo monorepo:
 | ------------------------ | -------------------------------------------- |
 | `packages/native`        | `@xaui/native` — components, theme, provider |
 | `packages/hybrid`        | `@xaui/hybrid` — the web build               |
+| `packages/tram`          | `@xaui/tram` — the Metro-styled components   |
 | `packages/native-legacy` | `@xaui/native-legacy` — the frozen 0.2.x API |
 | `apps/demo`              | Expo app with a screen per component         |
 | `apps/docs`              | The documentation site                       |
@@ -142,3 +160,4 @@ Read [CONTRIBUTING.md](./CONTRIBUTING.md) before opening a pull request. Issues 
 [theme]: https://ui.xtartapp.com/docs/theme?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=readme
 [llms]: https://ui.xtartapp.com/docs/llms-txt?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=readme
 [migration]: https://ui.xtartapp.com/docs/migration?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=readme
+[tram]: https://ui.xtartapp.com/docs/tram/getting-started?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=readme

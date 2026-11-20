@@ -3,7 +3,10 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { createTheme, XAUIProvider } from '@xaui/native/theme'
+import { createTramTheme, TramProvider } from '@xaui/tram/theme'
+import type { PackageName } from '@/lib/data/components'
 import { nativeDemoRegistry } from './native-demo-registry.generated'
+import { tramDemoRegistry } from './tram-demo-registry.generated'
 
 /**
  * The screen is rendered at a phone's own point size and scaled to whatever width the
@@ -24,20 +27,37 @@ const docsTheme = createTheme({
   },
 })
 
+/**
+ * Selawik is the Tram face and the docs do not ship it: a reader who has it installed sees
+ * it, Windows falls back to Segoe UI, which Selawik was drawn to stand in for, and the
+ * rest to the system face.
+ */
+const TRAM_FACE =
+  'Selawik, "Segoe UI", var(--font-geist-sans, system-ui, sans-serif)'
+
+const tramDocsTheme = createTramTheme({
+  fontFamilies: { body: TRAM_FACE, heading: TRAM_FACE },
+})
+
+const REGISTRIES = { native: nativeDemoRegistry, tram: tramDemoRegistry }
+
 type NativePreviewClientProps = {
   componentId: string
   demoId: string
+  /** Which package's demo screen, under which provider. */
+  edition: PackageName
 }
 
 export function NativePreviewClient({
   componentId,
   demoId,
+  edition,
 }: NativePreviewClientProps) {
   const [mounted, setMounted] = useState(false)
   const [mode, setMode] = useState<'light' | 'dark'>('light')
   const [scale, setScale] = useState(1)
   const screen = useRef<HTMLDivElement>(null)
-  const Demo = nativeDemoRegistry[demoId]
+  const Demo = REGISTRIES[edition][demoId]
 
   useEffect(() => {
     import('@/lib/device-frame').then(() => setMounted(true))
@@ -114,9 +134,15 @@ export function NativePreviewClient({
                 }}
               >
                 <GestureHandlerRootView style={{ flex: 1 }}>
-                  <XAUIProvider colorMode={mode} theme={docsTheme}>
-                    <Demo />
-                  </XAUIProvider>
+                  {edition === 'tram' ? (
+                    <TramProvider colorMode={mode} theme={tramDocsTheme}>
+                      <Demo />
+                    </TramProvider>
+                  ) : (
+                    <XAUIProvider colorMode={mode} theme={docsTheme}>
+                      <Demo />
+                    </XAUIProvider>
+                  )}
                 </GestureHandlerRootView>
               </div>
             </div>

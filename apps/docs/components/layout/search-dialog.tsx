@@ -10,16 +10,23 @@ import {
 } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Search } from 'lucide-react'
-import { components } from '@/lib/data/components'
+import { getComponents, PACKAGES, type PackageName } from '@/lib/data/components'
 import { cn } from '@/lib/utils'
 import Link from 'next/link'
 
 interface SearchDialogProps {
   open: boolean
   onOpenChange: (open: boolean) => void
+  /** The package being read: the search lists its components only. */
+  packageName: PackageName
 }
 
-export function SearchDialog({ open, onOpenChange }: SearchDialogProps) {
+export function SearchDialog({
+  open,
+  onOpenChange,
+  packageName,
+}: SearchDialogProps) {
+  const components = getComponents(packageName)
   const [query, setQuery] = useState('')
   const [selectedIndex, setSelectedIndex] = useState(0)
   const router = useRouter()
@@ -72,7 +79,7 @@ export function SearchDialog({ open, onOpenChange }: SearchDialogProps) {
         <DialogHeader className="px-4 pt-4 pb-2">
           <DialogTitle className="flex items-center gap-2">
             <Search className="h-4 w-4" />
-            Search Components
+            Search {PACKAGES[packageName].name}
           </DialogTitle>
         </DialogHeader>
         <div className="px-4 pb-2">

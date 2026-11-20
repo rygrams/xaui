@@ -23,9 +23,12 @@ import type { PageProps } from './page.type'
  * `navigation` spring. Tram's own: Native has no component of this name.
  *
  * ```tsx
- * // app/_layout.tsx — the navigator's own animation is off, the pages have theirs
+ * // app/_layout.tsx — the navigator's own animation is off on the screens that are
+ * // pages, which have theirs; any other screen keeps the navigator's
  * <TramProvider pages={{ useIsFocused }}>
- *   <Stack screenOptions={pageScreenOptions} />
+ *   <Stack>
+ *     <Stack.Screen name="mail" options={pageScreenOptions} />
+ *   </Stack>
  * </TramProvider>
  *
  * // app/mail.tsx

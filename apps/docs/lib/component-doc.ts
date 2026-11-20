@@ -1,7 +1,8 @@
 import fs from 'node:fs'
 import path from 'node:path'
-import api from './data/native-api.generated.json'
-import type { Component } from './data/components'
+import nativeApi from './data/native-api.generated.json'
+import tramApi from './data/tram-api.generated.json'
+import type { Component, PackageName } from './data/components'
 
 export type PropDefinition = {
   name: string
@@ -22,6 +23,8 @@ export type ComponentDocument = {
   variants: string
   accessibility: string
   migration: string
+  /** A Tram page's last section: what it draws or does unlike Native. */
+  differences: string
   notes: { title: string; markdown: string }[]
   example: string
   propTables: PropTable[]
@@ -45,7 +48,13 @@ const STANDARD_SECTIONS = [
   /appearance/i,
   /accessibility/i,
   /migration/i,
+  /differences from native/i,
 ]
+
+const API: Record<PackageName, Record<string, PropTable[]>> = {
+  native: nativeApi,
+  tram: tramApi,
+}
 
 function parseSections(markdown: string) {
   const content = markdown.replace(/^# .+\n+/, '')
@@ -104,7 +113,11 @@ function getFallbackAnatomy(component: Component, propTables: PropTable[]) {
 }
 
 function readMarkdown(component: Component) {
-  const publicPath = path.resolve(process.cwd(), 'public/docs', `${component.id}.md`)
+  const publicPath = path.resolve(
+    process.cwd(),
+    'public',
+    `.${component.markdownHref}`
+  )
   if (fs.existsSync(publicPath)) return fs.readFileSync(publicPath, 'utf8')
 
   const workspacePath = path.resolve(process.cwd(), '../..', component.markdownPath)
@@ -114,7 +127,7 @@ function readMarkdown(component: Component) {
 export function getComponentDocument(component: Component): ComponentDocument {
   const markdown = readMarkdown(component)
   const { intro, sections } = parseSections(markdown)
-  const propTables = (api as Record<string, PropTable[]>)[component.id] ?? []
+  const propTables = API[component.package][component.id] ?? []
   const overview = findSection(sections, /^overview$/i) || intro
   const anatomy =
     findSection(sections, /^anatomy$/i) || getFallbackAnatomy(component, propTables)
@@ -129,6 +142,7 @@ export function getComponentDocument(component: Component): ComponentDocument {
   ])
   const accessibility = findSection(sections, /accessibility/i)
   const migration = findSection(sections, /migration/i)
+  const differences = findSection(sections, /differences from native/i)
   const notes = sections.filter(
     section =>
       section.markdown &&
@@ -143,6 +157,7 @@ export function getComponentDocument(component: Component): ComponentDocument {
     variants,
     accessibility,
     migration,
+    differences,
     notes,
     example: getFirstExample(usage || markdown, component),
     propTables,

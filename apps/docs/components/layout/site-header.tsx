@@ -15,8 +15,14 @@ import {
   Tag,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { NPM_PACKAGE_URL, REPOSITORY_URL } from '@/lib/site'
-import { getActiveTab, tabs, type NavTabId } from '@/lib/data/navigation'
+import { NPM_PACKAGE_URL, REPOSITORY_URL, TRAM_NPM_PACKAGE_URL } from '@/lib/site'
+import { getPackageOfPath, PACKAGES, TRAM_VERSION } from '@/lib/data/components'
+import {
+  getActiveTab,
+  getPackageSwitchHref,
+  getPackageTabs,
+  type NavTabId,
+} from '@/lib/data/navigation'
 import { OutboundLink } from '@/components/ui/outbound-link'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { SearchDialog } from './search-dialog'
@@ -27,6 +33,8 @@ const TAB_ICONS: Record<NavTabId, typeof BookOpen> = {
   components: Blocks,
   releases: Tag,
   migration: ArrowLeftRight,
+  'tram-getting-started': BookOpen,
+  'tram-components': Blocks,
 }
 
 type SiteHeaderProps = {
@@ -50,6 +58,8 @@ function formatStars(count: number) {
 export function SiteHeader({ version, versions }: SiteHeaderProps) {
   const pathname = usePathname()
   const activeTab = getActiveTab(pathname)
+  const activePackage = getPackageOfPath(pathname)
+  const isTram = activePackage === 'tram'
   const [searchOpen, setSearchOpen] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [stars, setStars] = useState<number | null>(null)
@@ -82,7 +92,7 @@ export function SiteHeader({ version, versions }: SiteHeaderProps) {
             </SheetContent>
           </Sheet>
 
-          <div className="flex min-w-0 items-center gap-2">
+          <div className="flex shrink-0 items-center gap-2">
             <Link className="flex items-center gap-2 font-semibold" href="/">
               <Image
                 alt="Xaui"
@@ -95,12 +105,40 @@ export function SiteHeader({ version, versions }: SiteHeaderProps) {
             </Link>
             <Link
               className="rounded-full border px-2 py-0.5 text-xs text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
-              href="/docs/releases"
-              title="Release notes"
+              href={isTram ? PACKAGES.tram.catalog : '/docs/releases'}
+              title={isTram ? '@xaui/tram' : 'Release notes'}
             >
-              v{version}
+              v{isTram ? TRAM_VERSION : version}
             </Link>
           </div>
+
+          <nav
+            aria-label="Package"
+            className="flex shrink-0 items-center rounded-md border p-0.5 text-xs"
+          >
+            {Object.values(PACKAGES).map(item => {
+              const isActive = item.id === activePackage
+
+              return (
+                <Link
+                  aria-current={isActive ? 'page' : undefined}
+                  className={cn(
+                    'rounded-[5px] px-2 py-0.5 font-medium transition-colors',
+                    // The package being read is the one thing on the page that must not be
+                    // missed: the ink itself, inverted — black in light, white in dark.
+                    isActive
+                      ? 'bg-foreground text-background'
+                      : 'text-muted-foreground hover:text-foreground'
+                  )}
+                  href={getPackageSwitchHref(pathname, item.id)}
+                  key={item.id}
+                  title={item.name}
+                >
+                  {item.title}
+                </Link>
+              )
+            })}
+          </nav>
 
           <div className="mx-auto hidden w-full max-w-md md:block">
             <button
@@ -142,7 +180,7 @@ export function SiteHeader({ version, versions }: SiteHeaderProps) {
               aria-label="npm"
               className="rounded-full border p-1.5 transition-colors hover:bg-accent"
               event="npm_click"
-              href={NPM_PACKAGE_URL}
+              href={isTram ? TRAM_NPM_PACKAGE_URL : NPM_PACKAGE_URL}
               location="header"
             >
               <svg
@@ -185,7 +223,7 @@ export function SiteHeader({ version, versions }: SiteHeaderProps) {
           aria-label="Documentation sections"
           className="flex h-12 items-center gap-1 overflow-x-auto border-b px-2 md:px-4"
         >
-          {tabs.map(tab => {
+          {getPackageTabs(activePackage).map(tab => {
             const Icon = TAB_ICONS[tab.id]
             const isActive = tab.id === activeTab.id
 
@@ -209,7 +247,11 @@ export function SiteHeader({ version, versions }: SiteHeaderProps) {
         </nav>
       </header>
 
-      <SearchDialog onOpenChange={setSearchOpen} open={searchOpen} />
+      <SearchDialog
+        onOpenChange={setSearchOpen}
+        open={searchOpen}
+        packageName={activePackage}
+      />
     </>
   )
 }

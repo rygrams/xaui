@@ -32,6 +32,12 @@ never block the whole docs on one component (plan §10).
 7. **Accessibility** — roles, labels, focus order
 8. **Migration from legacy** — before/after table
 
+**`@xaui/tram` has its own section**, `/docs/tram/…`, under the header's Native | Tram
+switch — never a tab inside a Native page, where a reader could not tell which package a
+prop belongs to. Its pages come from `packages/tram/src/components/<id>/<id>.md` through
+the same generator, and section 8 is **Differences from Native** instead of the legacy
+migration.
+
 **Generated tables are what stops the docs from lying.** Anything that can be derived must
 be generated: adding a prop updates the table with no manual edit. If you find yourself
 hand-writing a prop table, fix the generator instead.

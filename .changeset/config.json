@@ -7,5 +7,5 @@
   "access": "public",
   "baseBranch": "main",
   "updateInternalDependencies": "patch",
-  "ignore": ["@xaui/native-legacy", "@xaui/tram", "demo", "docs"]
+  "ignore": ["@xaui/native-legacy", "demo", "docs"]
 }

@@ -1,10 +1,12 @@
 'use client'
 
 import dynamic from 'next/dynamic'
+import type { PackageName } from '@/lib/data/components'
 
 type NativePreviewProps = {
   componentId: string
   demoId: string
+  edition: PackageName
 }
 
 const NativePreviewClient = dynamic(

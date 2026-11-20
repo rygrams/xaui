@@ -5,12 +5,17 @@ export const SITE_URL = 'https://ui.xtartapp.com'
 
 export const SITE_NAME = 'XAUI Native'
 
+/** What a Tram page's title ends on, where a Native page's ends on `SITE_NAME`. */
+export const TRAM_SITE_NAME = 'XAUI Tram'
+
 export const SITE_DESCRIPTION =
   'XAUI is a React Native UI component library for Expo and React Native: composable components with dot-notation slots, Reanimated motion, semantic theming and a TypeScript API.'
 
 export const REPOSITORY_URL = 'https://github.com/rygrams/xaui'
 
 export const NPM_PACKAGE_URL = 'https://www.npmjs.com/package/@xaui/native'
+
+export const TRAM_NPM_PACKAGE_URL = 'https://www.npmjs.com/package/@xaui/tram'
 
 /** Served by `app/og.png/route.tsx`. */
 export const OG_IMAGE = {
@@ -27,6 +32,11 @@ type PageMetadata = {
   /** A markdown copy of the page, announced to agents with `rel="alternate"`. */
   markdownPath?: string
   keywords?: string[]
+  /**
+   * The name the title ends on. Tram's pages are `XAUI Tram`, so a tab or a search result
+   * never reads as the Native docs; unset, the site's own name and the layout's template.
+   */
+  siteName?: string
 }
 
 /**
@@ -40,11 +50,12 @@ export function pageMetadata({
   path,
   markdownPath,
   keywords,
+  siteName,
 }: PageMetadata): Metadata {
-  const fullTitle = `${title} — ${SITE_NAME}`
+  const fullTitle = `${title} — ${siteName ?? SITE_NAME}`
 
   return {
-    title,
+    title: siteName ? { absolute: fullTitle } : title,
     description,
     keywords,
     alternates: {
@@ -53,7 +64,7 @@ export function pageMetadata({
     },
     openGraph: {
       type: 'article',
-      siteName: SITE_NAME,
+      siteName: siteName ?? SITE_NAME,
       locale: 'en_US',
       title: fullTitle,
       description,

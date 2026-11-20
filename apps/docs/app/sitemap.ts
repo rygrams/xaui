@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import type { MetadataRoute } from 'next'
-import { components } from '@/lib/data/components'
+import { components, tramComponents } from '@/lib/data/components'
 import { getReleases } from '@/lib/releases'
 import { SITE_URL } from '@/lib/site'
 
@@ -31,7 +31,8 @@ function getStaticDocRoutes(
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [
     ...getStaticDocRoutes().map(route => `/${route.split(path.sep).join('/')}`),
-    ...components.map(component => `/docs/components/${component.id}`),
+    ...components.map(component => component.href),
+    ...tramComponents.map(component => component.href),
     ...getReleases().map(release => release.href),
   ]
 

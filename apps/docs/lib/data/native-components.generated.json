@@ -8,6 +8,7 @@
     "href": "/docs/components/accordion",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/accordion",
     "markdownPath": "packages/native/src/components/accordion/accordion.md",
+    "markdownHref": "/docs/accordion.md",
     "demoId": "accordion",
     "exports": [
       "Accordion",
@@ -26,6 +27,7 @@
     "href": "/docs/components/agenda-calendar",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/agenda-calendar",
     "markdownPath": "packages/native/src/components/agenda-calendar/agenda-calendar.md",
+    "markdownHref": "/docs/agenda-calendar.md",
     "demoId": "agenda-calendar",
     "exports": [
       "AgendaCalendar",
@@ -49,6 +51,7 @@
     "href": "/docs/components/alert",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/alert",
     "markdownPath": "packages/native/src/components/alert/alert.md",
+    "markdownHref": "/docs/alert.md",
     "demoId": "alert",
     "exports": [
       "Alert"
@@ -63,6 +66,7 @@
     "href": "/docs/components/area-chart",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/area-chart",
     "markdownPath": "packages/native/src/components/area-chart/area-chart.md",
+    "markdownHref": "/docs/area-chart.md",
     "demoId": "charts",
     "exports": [
       "AreaChart"
@@ -77,6 +81,7 @@
     "href": "/docs/components/autocomplete",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/autocomplete",
     "markdownPath": "packages/native/src/components/autocomplete/autocomplete.md",
+    "markdownHref": "/docs/autocomplete.md",
     "demoId": "autocomplete",
     "exports": [
       "Autocomplete",
@@ -103,6 +108,7 @@
     "href": "/docs/components/avatar",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/avatar",
     "markdownPath": "packages/native/src/components/avatar/avatar.md",
+    "markdownHref": "/docs/avatar.md",
     "demoId": "avatar",
     "exports": [
       "Avatar"
@@ -117,6 +123,7 @@
     "href": "/docs/components/badge",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/badge",
     "markdownPath": "packages/native/src/components/badge/badge.md",
+    "markdownHref": "/docs/badge.md",
     "demoId": "badge",
     "exports": [
       "Badge"
@@ -131,6 +138,7 @@
     "href": "/docs/components/bar-chart",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/bar-chart",
     "markdownPath": "packages/native/src/components/bar-chart/bar-chart.md",
+    "markdownHref": "/docs/bar-chart.md",
     "demoId": "charts",
     "exports": [
       "BarChart"
@@ -145,6 +153,7 @@
     "href": "/docs/components/bottom-sheet",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/bottom-sheet",
     "markdownPath": "packages/native/src/components/bottom-sheet/bottom-sheet.md",
+    "markdownHref": "/docs/bottom-sheet.md",
     "demoId": "bottom-sheet",
     "exports": [
       "BottomSheet",
@@ -167,6 +176,7 @@
     "href": "/docs/components/button",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/button",
     "markdownPath": "packages/native/src/components/button/button.md",
+    "markdownHref": "/docs/button.md",
     "demoId": "button",
     "exports": [
       "Button"
@@ -181,6 +191,7 @@
     "href": "/docs/components/calendar",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/calendar",
     "markdownPath": "packages/native/src/components/calendar/calendar.md",
+    "markdownHref": "/docs/calendar.md",
     "demoId": "calendar",
     "exports": [
       "Calendar",
@@ -202,6 +213,7 @@
     "href": "/docs/components/card",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/card",
     "markdownPath": "packages/native/src/components/card/card.md",
+    "markdownHref": "/docs/card.md",
     "demoId": "card",
     "exports": [
       "Card"
@@ -216,6 +228,7 @@
     "href": "/docs/components/carousel",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/carousel",
     "markdownPath": "packages/native/src/components/carousel/carousel.md",
+    "markdownHref": "/docs/carousel.md",
     "demoId": "carousel",
     "exports": [
       "Carousel",
@@ -233,6 +246,7 @@
     "href": "/docs/components/chart",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/chart",
     "markdownPath": "packages/native/src/components/chart/chart.md",
+    "markdownHref": "/docs/chart.md",
     "demoId": "charts",
     "exports": [
       "Chart",
@@ -250,6 +264,7 @@
     "href": "/docs/components/checkbox",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/checkbox",
     "markdownPath": "packages/native/src/components/checkbox/checkbox.md",
+    "markdownHref": "/docs/checkbox.md",
     "demoId": "checkbox",
     "exports": [
       "Checkbox",
@@ -266,6 +281,7 @@
     "href": "/docs/components/chip",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/chip",
     "markdownPath": "packages/native/src/components/chip/chip.md",
+    "markdownHref": "/docs/chip.md",
     "demoId": "chip",
     "exports": [
       "Chip"
@@ -280,6 +296,7 @@
     "href": "/docs/components/close-button",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/close-button",
     "markdownPath": "packages/native/src/components/close-button/close-button.md",
+    "markdownHref": "/docs/close-button.md",
     "demoId": "close-button",
     "exports": [
       "CloseButton"
@@ -294,6 +311,7 @@
     "href": "/docs/components/color-picker",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/color-picker",
     "markdownPath": "packages/native/src/components/color-picker/color-picker.md",
+    "markdownHref": "/docs/color-picker.md",
     "demoId": "color-picker",
     "exports": [
       "ColorPicker",
@@ -314,6 +332,7 @@
     "href": "/docs/components/combobox",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/combobox",
     "markdownPath": "packages/native/src/components/combobox/combobox.md",
+    "markdownHref": "/docs/combobox.md",
     "demoId": "combobox",
     "exports": [
       "Combobox",
@@ -331,6 +350,7 @@
     "href": "/docs/components/date-picker",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/date-picker",
     "markdownPath": "packages/native/src/components/date-picker/date-picker.md",
+    "markdownHref": "/docs/date-picker.md",
     "demoId": "date-picker",
     "exports": [
       "DatePicker",
@@ -356,6 +376,7 @@
     "href": "/docs/components/date-range-picker",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/date-range-picker",
     "markdownPath": "packages/native/src/components/date-range-picker/date-range-picker.md",
+    "markdownHref": "/docs/date-range-picker.md",
     "demoId": "date-range-picker",
     "exports": [
       "DateRangePicker",
@@ -373,6 +394,7 @@
     "href": "/docs/components/date-time-picker",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/date-time-picker",
     "markdownPath": "packages/native/src/components/date-time-picker/date-time-picker.md",
+    "markdownHref": "/docs/date-time-picker.md",
     "demoId": "date-time-picker",
     "exports": [
       "DateTimePicker",
@@ -391,6 +413,7 @@
     "href": "/docs/components/dialog",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/dialog",
     "markdownPath": "packages/native/src/components/dialog/dialog.md",
+    "markdownHref": "/docs/dialog.md",
     "demoId": "dialog",
     "exports": [
       "Dialog",
@@ -411,6 +434,7 @@
     "href": "/docs/components/divider",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/divider",
     "markdownPath": "packages/native/src/components/divider/divider.md",
+    "markdownHref": "/docs/divider.md",
     "demoId": "divider",
     "exports": [
       "Divider"
@@ -425,6 +449,7 @@
     "href": "/docs/components/dummy-field",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/dummy-field",
     "markdownPath": "packages/native/src/components/dummy-field/dummy-field.md",
+    "markdownHref": "/docs/dummy-field.md",
     "demoId": "dummy-field",
     "exports": [
       "DummyField",
@@ -445,6 +470,7 @@
     "href": "/docs/components/empty-state",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/empty-state",
     "markdownPath": "packages/native/src/components/empty-state/empty-state.md",
+    "markdownHref": "/docs/empty-state.md",
     "demoId": "empty-state",
     "exports": [
       "EmptyState",
@@ -462,6 +488,7 @@
     "href": "/docs/components/fab",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/fab",
     "markdownPath": "packages/native/src/components/fab/fab.md",
+    "markdownHref": "/docs/fab.md",
     "demoId": "fab",
     "exports": [
       "FabMenu",
@@ -493,6 +520,7 @@
     "href": "/docs/components/field-group",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/field-group",
     "markdownPath": "packages/native/src/components/field-group/field-group.md",
+    "markdownHref": "/docs/field-group.md",
     "demoId": "field-group",
     "exports": [
       "FieldGroup",
@@ -511,6 +539,7 @@
     "href": "/docs/components/flip-card",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/flip-card",
     "markdownPath": "packages/native/src/components/flip-card/flip-card.md",
+    "markdownHref": "/docs/flip-card.md",
     "demoId": "flip-card",
     "exports": [
       "FlipCard"
@@ -525,6 +554,7 @@
     "href": "/docs/components/input-otp",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/input-otp",
     "markdownPath": "packages/native/src/components/input-otp/input-otp.md",
+    "markdownHref": "/docs/input-otp.md",
     "demoId": "input-otp",
     "exports": [
       "InputOTP"
@@ -539,6 +569,7 @@
     "href": "/docs/components/line-chart",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/line-chart",
     "markdownPath": "packages/native/src/components/line-chart/line-chart.md",
+    "markdownHref": "/docs/line-chart.md",
     "demoId": "charts",
     "exports": [
       "LineChart"
@@ -553,6 +584,7 @@
     "href": "/docs/components/list",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/list",
     "markdownPath": "packages/native/src/components/list/list.md",
+    "markdownHref": "/docs/list.md",
     "demoId": "list",
     "exports": [
       "List",
@@ -573,6 +605,7 @@
     "href": "/docs/components/list-box",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/list-box",
     "markdownPath": "packages/native/src/components/list-box/list-box.md",
+    "markdownHref": "/docs/list-box.md",
     "demoId": "list-box",
     "exports": [
       "ListBoxGroup",
@@ -598,6 +631,7 @@
     "href": "/docs/components/mask-field",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/mask-field",
     "markdownPath": "packages/native/src/components/mask-field/mask-field.md",
+    "markdownHref": "/docs/mask-field.md",
     "demoId": "mask-field",
     "exports": [
       "MaskField",
@@ -613,6 +647,7 @@
     "href": "/docs/components/menu",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/menu",
     "markdownPath": "packages/native/src/components/menu/menu.md",
+    "markdownHref": "/docs/menu.md",
     "demoId": "menu",
     "exports": [
       "Menu",
@@ -637,6 +672,7 @@
     "href": "/docs/components/morph-button",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/morph-button",
     "markdownPath": "packages/native/src/components/morph-button/morph-button.md",
+    "markdownHref": "/docs/morph-button.md",
     "demoId": "morph-button",
     "exports": [
       "MorphButton",
@@ -652,6 +688,7 @@
     "href": "/docs/components/number-field",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/number-field",
     "markdownPath": "packages/native/src/components/number-field/number-field.md",
+    "markdownHref": "/docs/number-field.md",
     "demoId": "number-field",
     "exports": [
       "NumberField",
@@ -669,6 +706,7 @@
     "href": "/docs/components/number-pad",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/number-pad",
     "markdownPath": "packages/native/src/components/number-pad/number-pad.md",
+    "markdownHref": "/docs/number-pad.md",
     "demoId": "number-pad",
     "exports": [
       "NumberPad",
@@ -688,6 +726,7 @@
     "href": "/docs/components/number-stepper",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/number-stepper",
     "markdownPath": "packages/native/src/components/number-stepper/number-stepper.md",
+    "markdownHref": "/docs/number-stepper.md",
     "demoId": "number-stepper",
     "exports": [
       "NumberStepper",
@@ -706,6 +745,7 @@
     "href": "/docs/components/pager",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/pager",
     "markdownPath": "packages/native/src/components/pager/pager.md",
+    "markdownHref": "/docs/pager.md",
     "demoId": "pager",
     "exports": [
       "Pager",
@@ -722,6 +762,7 @@
     "href": "/docs/components/phone-number-field",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/phone-number-field",
     "markdownPath": "packages/native/src/components/phone-number-field/phone-number-field.md",
+    "markdownHref": "/docs/phone-number-field.md",
     "demoId": "phone-number-field",
     "exports": [
       "PhoneNumberField"
@@ -736,6 +777,7 @@
     "href": "/docs/components/pie-chart",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/pie-chart",
     "markdownPath": "packages/native/src/components/pie-chart/pie-chart.md",
+    "markdownHref": "/docs/pie-chart.md",
     "demoId": "charts",
     "exports": [
       "PieChart"
@@ -750,6 +792,7 @@
     "href": "/docs/components/popover",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/popover",
     "markdownPath": "packages/native/src/components/popover/popover.md",
+    "markdownHref": "/docs/popover.md",
     "demoId": "popover",
     "exports": [
       "Popover",
@@ -770,6 +813,7 @@
     "href": "/docs/components/progress-bar",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/progress-bar",
     "markdownPath": "packages/native/src/components/progress-bar/progress-bar.md",
+    "markdownHref": "/docs/progress-bar.md",
     "demoId": "progress-bar",
     "exports": [
       "ProgressBar",
@@ -789,6 +833,7 @@
     "href": "/docs/components/progress-circle",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/progress-circle",
     "markdownPath": "packages/native/src/components/progress-circle/progress-circle.md",
+    "markdownHref": "/docs/progress-circle.md",
     "demoId": "progress-circle",
     "exports": [
       "ProgressCircle",
@@ -805,6 +850,7 @@
     "href": "/docs/components/radar-chart",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/radar-chart",
     "markdownPath": "packages/native/src/components/radar-chart/radar-chart.md",
+    "markdownHref": "/docs/radar-chart.md",
     "demoId": "charts",
     "exports": [
       "RadarChart"
@@ -819,6 +865,7 @@
     "href": "/docs/components/radial-chart",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/radial-chart",
     "markdownPath": "packages/native/src/components/radial-chart/radial-chart.md",
+    "markdownHref": "/docs/radial-chart.md",
     "demoId": "charts",
     "exports": [
       "RadialChart"
@@ -833,6 +880,7 @@
     "href": "/docs/components/radio",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/radio",
     "markdownPath": "packages/native/src/components/radio/radio.md",
+    "markdownHref": "/docs/radio.md",
     "demoId": "radio",
     "exports": [
       "Radio",
@@ -850,6 +898,7 @@
     "href": "/docs/components/range-calendar",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/range-calendar",
     "markdownPath": "packages/native/src/components/range-calendar/range-calendar.md",
+    "markdownHref": "/docs/range-calendar.md",
     "demoId": "date-range-picker",
     "exports": [
       "RangeCalendar",
@@ -866,6 +915,7 @@
     "href": "/docs/components/rating",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/rating",
     "markdownPath": "packages/native/src/components/rating/rating.md",
+    "markdownHref": "/docs/rating.md",
     "demoId": "rating",
     "exports": [
       "Rating",
@@ -882,6 +932,7 @@
     "href": "/docs/components/scaffold",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/scaffold",
     "markdownPath": "packages/native/src/components/scaffold/scaffold.md",
+    "markdownHref": "/docs/scaffold.md",
     "demoId": "scaffold",
     "exports": [
       "Scaffold"
@@ -896,6 +947,7 @@
     "href": "/docs/components/search-field",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/search-field",
     "markdownPath": "packages/native/src/components/search-field/search-field.md",
+    "markdownHref": "/docs/search-field.md",
     "demoId": "search-field",
     "exports": [
       "SearchField",
@@ -914,6 +966,7 @@
     "href": "/docs/components/segment",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/segment",
     "markdownPath": "packages/native/src/components/segment/segment.md",
+    "markdownHref": "/docs/segment.md",
     "demoId": "segment",
     "exports": [
       "Segment",
@@ -930,6 +983,7 @@
     "href": "/docs/components/select",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/select",
     "markdownPath": "packages/native/src/components/select/select.md",
+    "markdownHref": "/docs/select.md",
     "demoId": "select",
     "exports": [
       "Select",
@@ -958,6 +1012,7 @@
     "href": "/docs/components/skeleton",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/skeleton",
     "markdownPath": "packages/native/src/components/skeleton/skeleton.md",
+    "markdownHref": "/docs/skeleton.md",
     "demoId": "skeleton",
     "exports": [
       "Skeleton"
@@ -972,6 +1027,7 @@
     "href": "/docs/components/slide-button",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/slide-button",
     "markdownPath": "packages/native/src/components/slide-button/slide-button.md",
+    "markdownHref": "/docs/slide-button.md",
     "demoId": "slide-button",
     "exports": [
       "SlideButton",
@@ -990,6 +1046,7 @@
     "href": "/docs/components/slider",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/slider",
     "markdownPath": "packages/native/src/components/slider/slider.md",
+    "markdownHref": "/docs/slider.md",
     "demoId": "slider",
     "exports": [
       "Slider",
@@ -1008,6 +1065,7 @@
     "href": "/docs/components/snackbar",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/snackbar",
     "markdownPath": "packages/native/src/components/snackbar/snackbar.md",
+    "markdownHref": "/docs/snackbar.md",
     "demoId": "snackbar",
     "exports": [
       "Snackbar",
@@ -1028,6 +1086,7 @@
     "href": "/docs/components/spinner",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/spinner",
     "markdownPath": "packages/native/src/components/spinner/spinner.md",
+    "markdownHref": "/docs/spinner.md",
     "demoId": "spinner",
     "exports": [
       "Spinner"
@@ -1042,6 +1101,7 @@
     "href": "/docs/components/stepper",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/stepper",
     "markdownPath": "packages/native/src/components/stepper/stepper.md",
+    "markdownHref": "/docs/stepper.md",
     "demoId": "stepper",
     "exports": [
       "Stepper",
@@ -1061,6 +1121,7 @@
     "href": "/docs/components/surface",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/surface",
     "markdownPath": "packages/native/src/components/surface/surface.md",
+    "markdownHref": "/docs/surface.md",
     "demoId": "surface",
     "exports": [
       "Surface"
@@ -1075,6 +1136,7 @@
     "href": "/docs/components/switch",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/switch",
     "markdownPath": "packages/native/src/components/switch/switch.md",
+    "markdownHref": "/docs/switch.md",
     "demoId": "switch",
     "exports": [
       "Switch",
@@ -1092,6 +1154,7 @@
     "href": "/docs/components/table",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/table",
     "markdownPath": "packages/native/src/components/table/table.md",
+    "markdownHref": "/docs/table.md",
     "demoId": "table",
     "exports": [
       "Table",
@@ -1114,6 +1177,7 @@
     "href": "/docs/components/tabs",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/tabs",
     "markdownPath": "packages/native/src/components/tabs/tabs.md",
+    "markdownHref": "/docs/tabs.md",
     "demoId": "tabs",
     "exports": [
       "Tabs",
@@ -1133,6 +1197,7 @@
     "href": "/docs/components/tag-group",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/tag-group",
     "markdownPath": "packages/native/src/components/tag-group/tag-group.md",
+    "markdownHref": "/docs/tag-group.md",
     "demoId": "tag-group",
     "exports": [
       "TagGroup",
@@ -1151,6 +1216,7 @@
     "href": "/docs/components/text-area",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/text-area",
     "markdownPath": "packages/native/src/components/text-area/text-area.md",
+    "markdownHref": "/docs/text-area.md",
     "demoId": "text-area",
     "exports": [
       "TextArea"
@@ -1165,6 +1231,7 @@
     "href": "/docs/components/text-field",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/text-field",
     "markdownPath": "packages/native/src/components/text-field/text-field.md",
+    "markdownHref": "/docs/text-field.md",
     "demoId": "text-field",
     "exports": [
       "TextField",
@@ -1183,6 +1250,7 @@
     "href": "/docs/components/time-picker",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/time-picker",
     "markdownPath": "packages/native/src/components/time-picker/time-picker.md",
+    "markdownHref": "/docs/time-picker.md",
     "demoId": "time-picker",
     "exports": [
       "TimePicker",
@@ -1203,6 +1271,7 @@
     "href": "/docs/components/timeline",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/timeline",
     "markdownPath": "packages/native/src/components/timeline/timeline.md",
+    "markdownHref": "/docs/timeline.md",
     "demoId": "timeline",
     "exports": [
       "Timeline",
@@ -1223,6 +1292,7 @@
     "href": "/docs/components/toast",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/toast",
     "markdownPath": "packages/native/src/components/toast/toast.md",
+    "markdownHref": "/docs/toast.md",
     "demoId": "toast",
     "exports": [
       "Toast",
@@ -1242,6 +1312,7 @@
     "href": "/docs/components/toggle-button",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/toggle-button",
     "markdownPath": "packages/native/src/components/toggle-button/toggle-button.md",
+    "markdownHref": "/docs/toggle-button.md",
     "demoId": "toggle-button",
     "exports": [
       "ToggleButton"
@@ -1256,6 +1327,7 @@
     "href": "/docs/components/typography",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/typography",
     "markdownPath": "packages/native/src/components/typography/typography.md",
+    "markdownHref": "/docs/typography.md",
     "demoId": "typography",
     "exports": [
       "Typography",
@@ -1271,6 +1343,7 @@
     "href": "/docs/components/view",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/view",
     "markdownPath": "packages/native/src/components/view/view.md",
+    "markdownHref": "/docs/view.md",
     "demoId": "view",
     "exports": [
       "Stack",
@@ -1288,6 +1361,7 @@
     "href": "/docs/components/wheel-picker",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/wheel-picker",
     "markdownPath": "packages/native/src/components/wheel-picker/wheel-picker.md",
+    "markdownHref": "/docs/wheel-picker.md",
     "demoId": "wheel-picker",
     "exports": [
       "WheelPicker",
@@ -1304,6 +1378,7 @@
     "href": "/docs/components/widget",
     "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/native/src/components/widget",
     "markdownPath": "packages/native/src/components/widget/widget.md",
+    "markdownHref": "/docs/widget.md",
     "demoId": "widget",
     "exports": [
       "Widget",

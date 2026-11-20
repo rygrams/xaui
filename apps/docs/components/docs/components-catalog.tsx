@@ -2,12 +2,30 @@
 
 import { useState } from 'react'
 import { Input } from '@/components/ui/input'
-import { components, categories } from '@/lib/data/components'
+import {
+  getCategories,
+  getComponents,
+  PACKAGES,
+  type PackageName,
+} from '@/lib/data/components'
 import { ArrowUpRight, Search } from 'lucide-react'
 import Link from 'next/link'
 
-export function ComponentsCatalog() {
+const LEAD: Record<PackageName, string> = {
+  native:
+    'live React Native Web preview, anatomy, examples, generated TypeScript API, accessibility and migration.',
+  tram: 'the components redrawn in the Metro language, with a live React Native Web preview, anatomy, examples, the generated TypeScript API and what each does unlike Native.',
+}
+
+/** One package's catalogue: the Native one at `/docs/components`, Tram's at `/docs/tram/components`. */
+export function ComponentsCatalog({
+  packageName = 'native',
+}: {
+  packageName?: PackageName
+}) {
   const [searchQuery, setSearchQuery] = useState('')
+  const components = getComponents(packageName)
+  const categories = getCategories(packageName)
 
   const filteredComponents = searchQuery
     ? components.filter(
@@ -30,15 +48,14 @@ export function ComponentsCatalog() {
       <div className="space-y-4">
         <div className="flex items-center gap-3">
           <h1 className="text-3xl font-bold tracking-tight md:text-4xl">
-            Components
+            {packageName === 'tram' ? 'Tram components' : 'Components'}
           </h1>
           <span className="rounded-full bg-muted px-2.5 py-1 text-xs font-medium text-muted-foreground">
             {components.length}
           </span>
         </div>
         <p className="max-w-3xl text-base leading-7 text-muted-foreground md:text-xl md:leading-8">
-          The whole @xaui/native catalogue: live React Native Web preview, anatomy,
-          examples, generated TypeScript API, accessibility and migration.
+          The whole {PACKAGES[packageName].name} catalogue: {LEAD[packageName]}
         </p>
       </div>
 

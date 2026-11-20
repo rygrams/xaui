@@ -153,6 +153,9 @@ importers:
       '@xaui/native':
         specifier: workspace:*
         version: link:../../packages/native
+      '@xaui/tram':
+        specifier: workspace:*
+        version: link:../../packages/tram
       class-variance-authority:
         specifier: ^0.7.1
         version: 0.7.1
