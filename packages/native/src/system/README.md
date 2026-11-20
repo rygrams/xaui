@@ -36,7 +36,7 @@ re-exported from `utils/`.
 | `items/`              | A list's rows read off its elements: their labels, and a typed filter   |
 | `dates/`              | Calendar days by day, not by instant: grids, bounds, names, ranges      |
 | `selection/`          | Which rows are chosen and how a table sorts, and `useTableState` on top |
-| `chart/`              | A chart's maths: nice axes, band and point scales, paths, the palette   |
+| `chart/`              | A chart's maths: axes, scales, paths, the palette, ring and web shapes  |
 | `carousel/`           | A paging track's arithmetic: slide width, snap step, index and progress |
 
 ## `recipe/` in one page

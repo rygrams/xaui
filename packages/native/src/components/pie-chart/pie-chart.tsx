@@ -3,7 +3,7 @@ import { View } from 'react-native'
 import { Path, Svg } from 'react-native-svg'
 import { useStyleProps } from '../../system/style-props'
 import { useXAUITheme } from '../../theme/theme-hooks'
-import { arcPath } from '../../system/chart/chart-path'
+import { pieSlices } from '../../system/chart/chart-pie'
 import { useChartInk, useOptionalChart } from '../chart'
 import type { ChartDatum } from '../chart'
 import { DIAMETERS, pieChartRecipe } from './pie-chart.recipe'
@@ -11,7 +11,6 @@ import type { PieChartProps } from './pie-chart.type'
 
 const DEFAULT_INNER_RADIUS = 0.62
 const DEFAULT_GAP = 1.5
-const FULL_TURN = Math.PI * 2
 
 /**
  * The whole, and its parts.
@@ -79,47 +78,20 @@ export function PieChart<
 
   const diameter = DIAMETERS[size]
 
-  const slices = useMemo(() => {
-    const values = data.map(row => {
-      const value = Number(row[valueKey])
-      // A negative share has no meaning in a pie — it is a slice of less than nothing —
-      // and clamping is what keeps one from eating the ring in the other direction.
-      return Number.isFinite(value) && value > 0 ? value : 0
-    })
-    const total = values.reduce((sum, value) => sum + value, 0)
-    if (total === 0) return []
-
-    const radius = diameter / 2
-    const inner = radius * Math.min(Math.max(innerRadius, 0), 0.95)
-    // Half the gap at either end of every slice, so the ring loses `gap` between each pair
-    // and the same amount at the seam where the last one meets the first.
-    const half = (Math.min(Math.max(gap, 0), 20) * Math.PI) / 180 / 2
-
-    let angle = 0
-
-    return values.map((value, index) => {
-      const sweep = (value / total) * FULL_TURN
-      const start = angle
-      angle += sweep
-
-      // A slice thinner than the gap would be drawn inside out. It keeps a hairline
-      // instead, because a row with a real value should not disappear.
-      const inset = Math.min(half, sweep / 2 - 1e-4)
-
-      return {
+  const slices = useMemo(
+    () =>
+      pieSlices({
+        values: data.map(row => Number(row[valueKey])),
+        diameter,
+        innerRadius,
+        gap,
+      }).map((d, index) => ({
         key: String(data[index][labelKey] ?? index),
         color: colors[index] ?? colors[0],
-        d: arcPath({
-          cx: radius,
-          cy: radius,
-          outerRadius: radius,
-          innerRadius: inner,
-          startAngle: start + inset,
-          endAngle: start + sweep - inset,
-        }),
-      }
-    })
-  }, [colors, data, diameter, gap, innerRadius, labelKey, valueKey])
+        d,
+      })),
+    [colors, data, diameter, gap, innerRadius, labelKey, valueKey]
+  )
 
   return (
     <View {...rest} style={[styles.root, styleProps, style]}>

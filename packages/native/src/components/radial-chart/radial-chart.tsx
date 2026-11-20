@@ -3,11 +3,11 @@ import { View } from 'react-native'
 import { Circle, Svg } from 'react-native-svg'
 import { useStyleProps } from '../../system/style-props'
 import { useXAUITheme } from '../../theme/theme-hooks'
+import { radialRings } from '../../system/chart/chart-radial'
 import { progressFraction } from '../../utils/progress'
 import { useChartInk, useOptionalChart } from '../chart'
 import type { ChartDatum } from '../chart'
 import { SIZES, radialChartRecipe } from './radial-chart.recipe'
-import { radialRings } from './radial-chart.utils'
 import type { RadialChartProps } from './radial-chart.type'
 
 /** In proportion at every size, which a gap written in points would not be. */
