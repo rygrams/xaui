@@ -25,7 +25,7 @@ const EVENTS = [2, 4, 6, 7, 9, 10, 11, 12, 15, 16, 22].map(
 /**
  * The verification screen for the `AgendaCalendar`. A component is verified here and in the
  * docs preview, in light and in dark — there is no test file for it, though the date
- * arithmetic under it is `utils/dates.ts` and that one is tested.
+ * arithmetic under it is `system/dates` and that one is tested.
  *
  * Three things only this screen can show: that the marks sit under the numbers without
  * moving them, that Today goes dead once this week is on screen, and that the chosen day

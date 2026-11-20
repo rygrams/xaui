@@ -1,7 +1,7 @@
 import { forwardRef, useMemo } from 'react'
 import { View } from 'react-native'
 import { useStyleProps } from '../../system/style-props'
-import { monthGrid } from '../../utils/dates'
+import { monthGrid } from '../../system/dates'
 import { CalendarDay } from './calendar-day'
 import { useCalendar } from './calendar.context'
 import type { CalendarGridProps } from './calendar.type'

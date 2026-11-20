@@ -9,7 +9,7 @@ import Animated, { FadeIn } from 'react-native-reanimated'
 import { PressableFeedback } from '../../system/pressable-feedback'
 import { useStyleProps } from '../../system/style-props'
 import { useXAUITheme } from '../../theme/theme-hooks'
-import { monthNames } from '../../utils/dates'
+import { monthNames } from '../../system/dates'
 import { useAgendaCalendar } from './agenda-calendar.context'
 import type { AgendaCalendarMonthPickerProps } from './agenda-calendar.type'
 

@@ -35,4 +35,4 @@ export type {
   RangeCalendarDayProps,
   RangeCalendarProps,
 } from './range-calendar.type'
-export type { DateRange, RangePosition } from '../../utils/date-range'
+export type { DateRange, RangePosition } from '../../system/dates'

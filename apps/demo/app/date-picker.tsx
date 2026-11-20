@@ -13,7 +13,7 @@ const SIZES: DatePickerSize[] = ['sm', 'md', 'lg']
 /**
  * The verification screen for the `DatePicker`. A component is verified here and in the
  * docs preview, in light and in dark — there is no test file for it, though the date
- * arithmetic under it is `utils/dates.ts` and that one is tested.
+ * arithmetic under it is `system/dates` and that one is tested.
  *
  * Three things only this screen can show: that the panel is as wide as the grid rather than
  * as wide as the field, that pressing a day both answers and closes, and that the field and

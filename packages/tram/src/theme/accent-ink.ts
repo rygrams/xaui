@@ -87,14 +87,24 @@ export function accentInk(accent: string, ground: string): string {
 }
 
 /**
+ * The accent's soft slice flattened on `ground`: the colour a `flat` box actually shows.
+ * `share` lays more of the accent for a slice that has to read across a whole row.
+ */
+export function softSlice(
+  accent: string,
+  ground: string,
+  share: number = SOFT_ALPHA
+): string {
+  return toHex(blend(channels(ground), channels(accent), share))
+}
+
+/**
  * The ink of a label lying on the accent's soft slice — the `flat` box. The slice is
  * translucent, so it is flattened on `ground` first: that is the colour actually behind
  * the label.
  */
 export function accentSoftInk(accent: string, ground: string): string {
-  const slice = toHex(blend(channels(ground), channels(accent), SOFT_ALPHA))
-
-  return accentInk(accent, slice)
+  return accentInk(accent, softSlice(accent, ground))
 }
 
 /**

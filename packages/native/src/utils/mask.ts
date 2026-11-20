@@ -1,4 +1,4 @@
-import { daysInMonth } from './dates'
+import { daysInMonth } from '../system/dates'
 
 /**
  * The four shapes `MaskField` ships ready-made. Anything else is a **pattern string** —

@@ -2,6 +2,7 @@ import { describe, expect, it } from 'vitest'
 import {
   accentInk,
   accentSoftInk,
+  softSlice,
   distinctInk,
   INK_APART,
   inkDistance,
@@ -116,5 +117,16 @@ describe('inkDistance', () => {
   it('is 0 for one colour and 1 from black to white', () => {
     expect(inkDistance('#336699', '#336699')).toBe(0)
     expect(inkDistance('#000000', '#FFFFFF')).toBeCloseTo(1, 3)
+  })
+})
+
+describe('softSlice', () => {
+  it('lays fifteen percent of the accent on the ground by default', () => {
+    expect(softSlice('#FFFFFF', '#000000')).toBe('#262626')
+  })
+
+  it('lays the share it is given', () => {
+    expect(softSlice('#FFFFFF', '#000000', 0.3)).toBe('#4D4D4D')
+    expect(softSlice('#1BA1E2', '#FFFFFF', 0)).toBe('#FFFFFF')
   })
 })

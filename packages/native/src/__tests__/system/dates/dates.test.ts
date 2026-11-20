@@ -14,7 +14,7 @@ import {
   startOfWeek,
   weekGrid,
   weekdayNames,
-} from '../../utils/dates'
+} from '../../../system/dates/dates'
 
 describe('daysInMonth', () => {
   it('knows the short months', () => {

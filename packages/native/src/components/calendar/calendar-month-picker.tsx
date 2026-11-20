@@ -4,7 +4,7 @@ import type { TextStyle, ViewStyle } from 'react-native'
 import Animated, { FadeInDown } from 'react-native-reanimated'
 import { PressableFeedback } from '../../system/pressable-feedback'
 import { useStyleProps } from '../../system/style-props'
-import { monthNames } from '../../utils/dates'
+import { monthNames } from '../../system/dates'
 import { useCalendar } from './calendar.context'
 import type { CalendarMonthPickerProps } from './calendar.type'
 

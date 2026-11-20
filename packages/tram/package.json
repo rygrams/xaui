@@ -119,6 +119,16 @@
         "default": "./dist/components/button/index.cjs"
       }
     },
+    "./calendar": {
+      "import": {
+        "types": "./dist/components/calendar/index.d.ts",
+        "default": "./dist/components/calendar/index.js"
+      },
+      "require": {
+        "types": "./dist/components/calendar/index.d.cts",
+        "default": "./dist/components/calendar/index.cjs"
+      }
+    },
     "./card": {
       "import": {
         "types": "./dist/components/card/index.d.ts",
@@ -399,6 +409,16 @@
         "default": "./dist/components/radio/index.cjs"
       }
     },
+    "./range-calendar": {
+      "import": {
+        "types": "./dist/components/range-calendar/index.d.ts",
+        "default": "./dist/components/range-calendar/index.js"
+      },
+      "require": {
+        "types": "./dist/components/range-calendar/index.d.cts",
+        "default": "./dist/components/range-calendar/index.cjs"
+      }
+    },
     "./rating": {
       "import": {
         "types": "./dist/components/rating/index.d.ts",
@@ -457,6 +477,16 @@
       "require": {
         "types": "./dist/components/spinner/index.d.cts",
         "default": "./dist/components/spinner/index.cjs"
+      }
+    },
+    "./stepper": {
+      "import": {
+        "types": "./dist/components/stepper/index.d.ts",
+        "default": "./dist/components/stepper/index.js"
+      },
+      "require": {
+        "types": "./dist/components/stepper/index.d.cts",
+        "default": "./dist/components/stepper/index.cjs"
       }
     },
     "./surface": {
@@ -527,6 +557,16 @@
       "require": {
         "types": "./dist/components/time-picker/index.d.cts",
         "default": "./dist/components/time-picker/index.cjs"
+      }
+    },
+    "./timeline": {
+      "import": {
+        "types": "./dist/components/timeline/index.d.ts",
+        "default": "./dist/components/timeline/index.js"
+      },
+      "require": {
+        "types": "./dist/components/timeline/index.d.cts",
+        "default": "./dist/components/timeline/index.cjs"
       }
     },
     "./toast": {
