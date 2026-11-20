@@ -11,22 +11,42 @@ import {
   Github,
   Menu,
   Search,
+  Smartphone,
   Star,
   Tag,
+  TramFront,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { NPM_PACKAGE_URL, REPOSITORY_URL } from '@/lib/site'
-import { getActiveTab, tabs, type NavTabId } from '@/lib/data/navigation'
+import { NPM_PACKAGE_URL, REPOSITORY_URL, TRAM_NPM_PACKAGE_URL } from '@/lib/site'
+import {
+  getPackageOfPath,
+  PACKAGES,
+  TRAM_VERSION,
+  type PackageName,
+} from '@/lib/data/components'
+import {
+  getActiveTab,
+  getPackageSwitchHref,
+  getPackageTabs,
+  type NavTabId,
+} from '@/lib/data/navigation'
 import { OutboundLink } from '@/components/ui/outbound-link'
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet'
 import { SearchDialog } from './search-dialog'
 import { SidebarNav } from './sidebar'
+
+const PACKAGE_ICONS: Record<PackageName, typeof BookOpen> = {
+  native: Smartphone,
+  tram: TramFront,
+}
 
 const TAB_ICONS: Record<NavTabId, typeof BookOpen> = {
   'getting-started': BookOpen,
   components: Blocks,
   releases: Tag,
   migration: ArrowLeftRight,
+  'tram-getting-started': BookOpen,
+  'tram-components': Blocks,
 }
 
 type SiteHeaderProps = {
@@ -50,6 +70,8 @@ function formatStars(count: number) {
 export function SiteHeader({ version, versions }: SiteHeaderProps) {
   const pathname = usePathname()
   const activeTab = getActiveTab(pathname)
+  const activePackage = getPackageOfPath(pathname)
+  const isTram = activePackage === 'tram'
   const [searchOpen, setSearchOpen] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
   const [stars, setStars] = useState<number | null>(null)
@@ -82,7 +104,7 @@ export function SiteHeader({ version, versions }: SiteHeaderProps) {
             </SheetContent>
           </Sheet>
 
-          <div className="flex min-w-0 items-center gap-2">
+          <div className="flex shrink-0 items-center gap-2">
             <Link className="flex items-center gap-2 font-semibold" href="/">
               <Image
                 alt="Xaui"
@@ -95,10 +117,10 @@ export function SiteHeader({ version, versions }: SiteHeaderProps) {
             </Link>
             <Link
               className="rounded-full border px-2 py-0.5 text-xs text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
-              href="/docs/releases"
-              title="Release notes"
+              href={isTram ? PACKAGES.tram.catalog : '/docs/releases'}
+              title={isTram ? '@xaui/tram' : 'Release notes'}
             >
-              v{version}
+              v{isTram ? TRAM_VERSION : version}
             </Link>
           </div>
 
@@ -125,7 +147,7 @@ export function SiteHeader({ version, versions }: SiteHeaderProps) {
             </button>
             <OutboundLink
               aria-label="GitHub"
-              className="flex items-center gap-1.5 rounded-full border px-2 py-1 text-xs text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
+              className="flex items-center gap-1.5 rounded-md px-2 py-1 text-xs text-muted-foreground transition-colors hover:bg-accent hover:text-accent-foreground"
               event="github_click"
               href={REPOSITORY_URL}
               location="header"
@@ -140,9 +162,9 @@ export function SiteHeader({ version, versions }: SiteHeaderProps) {
             </OutboundLink>
             <OutboundLink
               aria-label="npm"
-              className="rounded-full border p-1.5 transition-colors hover:bg-accent"
+              className="rounded-md p-1.5 transition-colors hover:bg-accent"
               event="npm_click"
-              href={NPM_PACKAGE_URL}
+              href={isTram ? TRAM_NPM_PACKAGE_URL : NPM_PACKAGE_URL}
               location="header"
             >
               <svg
@@ -160,7 +182,7 @@ export function SiteHeader({ version, versions }: SiteHeaderProps) {
             </OutboundLink>
             <OutboundLink
               aria-label="LinkedIn"
-              className="rounded-full border p-1.5 transition-colors hover:bg-accent"
+              className="rounded-md p-1.5 transition-colors hover:bg-accent"
               event="linkedin_click"
               href="https://www.linkedin.com/in/ladji-bamory-gramboute/"
               location="header"
@@ -181,35 +203,76 @@ export function SiteHeader({ version, versions }: SiteHeaderProps) {
           </div>
         </div>
 
-        <nav
-          aria-label="Documentation sections"
-          className="flex h-12 items-center gap-1 overflow-x-auto border-b px-2 md:px-4"
-        >
-          {tabs.map(tab => {
-            const Icon = TAB_ICONS[tab.id]
-            const isActive = tab.id === activeTab.id
+        {/* The tabs scroll on a phone; the package switch beside them does not, so the
+            package being read is always on screen. */}
+        <div className="flex h-12 items-stretch gap-2 border-b px-2 md:px-4">
+          {/* Scrolls sideways on a phone with no bar drawn, and never vertically: a tab's
+              underline sits inside the row rather than hanging a pixel below it. */}
+          <nav
+            aria-label="Documentation sections"
+            className="flex h-full min-w-0 flex-1 items-stretch gap-1 overflow-x-auto overflow-y-hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+          >
+            {getPackageTabs(activePackage).map(tab => {
+              const Icon = TAB_ICONS[tab.id]
+              const isActive = tab.id === activeTab.id
 
-            return (
-              <Link
-                aria-current={isActive ? 'page' : undefined}
-                className={cn(
-                  '-mb-px flex h-full shrink-0 items-center gap-2 whitespace-nowrap border-b-2 px-3 text-sm transition-colors',
-                  isActive
-                    ? 'border-foreground font-medium text-foreground'
-                    : 'border-transparent text-muted-foreground hover:text-foreground'
-                )}
-                href={tab.href}
-                key={tab.id}
-              >
-                <Icon className="size-4" />
-                {tab.title}
-              </Link>
-            )
-          })}
-        </nav>
+              return (
+                <Link
+                  aria-current={isActive ? 'page' : undefined}
+                  className={cn(
+                    'flex shrink-0 items-center gap-2 whitespace-nowrap border-b-2 px-3 text-sm transition-colors',
+                    isActive
+                      ? 'border-foreground font-medium text-foreground'
+                      : 'border-transparent text-muted-foreground hover:text-foreground'
+                  )}
+                  href={tab.href}
+                  key={tab.id}
+                >
+                  <Icon className="size-4" />
+                  {tab.title}
+                </Link>
+              )
+            })}
+          </nav>
+
+          <div
+            aria-label="Package"
+            className="flex shrink-0 items-stretch gap-1"
+            role="group"
+          >
+            {Object.values(PACKAGES).map(item => {
+              const isActive = item.id === activePackage
+              const PackageIcon = PACKAGE_ICONS[item.id]
+
+              return (
+                <Link
+                  aria-current={isActive ? 'page' : undefined}
+                  className={cn(
+                    'flex items-center gap-2 border-b-2 px-3 text-sm transition-colors',
+                    // Drawn like the section tabs beside it, but the package being read is
+                    // the one blue in the header: it is what must not be missed.
+                    isActive
+                      ? 'border-blue-600 font-medium text-blue-600'
+                      : 'border-transparent text-muted-foreground hover:text-foreground'
+                  )}
+                  href={getPackageSwitchHref(pathname, item.id)}
+                  key={item.id}
+                  title={item.name}
+                >
+                  <PackageIcon className="size-4" />
+                  {item.title}
+                </Link>
+              )
+            })}
+          </div>
+        </div>
       </header>
 
-      <SearchDialog onOpenChange={setSearchOpen} open={searchOpen} />
+      <SearchDialog
+        onOpenChange={setSearchOpen}
+        open={searchOpen}
+        packageName={activePackage}
+      />
     </>
   )
 }

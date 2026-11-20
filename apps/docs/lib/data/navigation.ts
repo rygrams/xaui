@@ -1,4 +1,11 @@
-import { categories, components } from './components'
+import {
+  getCategories,
+  getComponentById,
+  getComponents,
+  getPackageOfPath,
+  PACKAGES,
+  type PackageName,
+} from './components'
 
 export interface NavItem {
   title: string
@@ -11,10 +18,18 @@ export interface NavSection {
   note?: string
 }
 
-export type NavTabId = 'getting-started' | 'components' | 'releases' | 'migration'
+export type NavTabId =
+  | 'getting-started'
+  | 'components'
+  | 'releases'
+  | 'migration'
+  | 'tram-getting-started'
+  | 'tram-components'
 
 export interface NavTab {
   id: NavTabId
+  /** The package whose docs the tab belongs to — the header shows one package's tabs. */
+  package: PackageName
   title: string
   /** Where the tab lands when it is clicked. */
   href: string
@@ -23,15 +38,38 @@ export interface NavTab {
   sections: NavSection[]
 }
 
+function componentSections(packageName: PackageName): NavSection[] {
+  const components = getComponents(packageName)
+
+  return [
+    {
+      title: 'Catalogue',
+      items: [
+        {
+          title: `All components (${components.length})`,
+          href: PACKAGES[packageName].catalog,
+        },
+      ],
+    },
+    ...getCategories(packageName).map(category => ({
+      title: category,
+      items: components
+        .filter(component => component.category === category)
+        .map(component => ({ title: component.title, href: component.href })),
+    })),
+  ]
+}
+
 /**
- * The docs are Native only, so there is no renderer switch beside the tabs: every page
- * documents `@xaui/native`, and a toggle with one position is a control that lies about
- * having a choice. The four tabs are the four things a reader comes for — start, catalogue,
- * what changed, and how to leave the legacy API.
+ * Native and Tram are two sets of docs under one header: the switch above the tabs picks
+ * the package, and the tabs are that package's. Native's four are the four things a reader
+ * comes for — start, catalogue, what changed, and how to leave the legacy API. Tram has
+ * the first two; it has no legacy, and its release notes are its changelog.
  */
 export const tabs: NavTab[] = [
   {
     id: 'getting-started',
+    package: 'native',
     title: 'Getting Started',
     href: '/docs/introduction',
     paths: [
@@ -69,29 +107,15 @@ export const tabs: NavTab[] = [
   },
   {
     id: 'components',
+    package: 'native',
     title: 'Components',
     href: '/docs/components',
     paths: ['/docs/components'],
-    sections: [
-      {
-        title: 'Catalogue',
-        items: [
-          {
-            title: `All components (${components.length})`,
-            href: '/docs/components',
-          },
-        ],
-      },
-      ...categories.map(category => ({
-        title: category,
-        items: components
-          .filter(component => component.category === category)
-          .map(component => ({ title: component.title, href: component.href })),
-      })),
-    ],
+    sections: componentSections('native'),
   },
   {
     id: 'releases',
+    package: 'native',
     title: 'Releases',
     href: '/docs/releases',
     paths: ['/docs/releases'],
@@ -104,6 +128,7 @@ export const tabs: NavTab[] = [
   },
   {
     id: 'migration',
+    package: 'native',
     title: 'Migration',
     href: '/docs/migration',
     paths: ['/docs/migration'],
@@ -114,12 +139,58 @@ export const tabs: NavTab[] = [
       },
     ],
   },
+  {
+    id: 'tram-getting-started',
+    package: 'tram',
+    title: 'Getting Started',
+    href: '/docs/tram/getting-started',
+    paths: ['/docs/tram/getting-started'],
+    sections: [
+      {
+        title: 'Tram',
+        items: [
+          { title: 'Get started', href: '/docs/tram/getting-started' },
+          { title: 'All components', href: '/docs/tram/components' },
+        ],
+      },
+    ],
+  },
+  {
+    id: 'tram-components',
+    package: 'tram',
+    title: 'Components',
+    href: '/docs/tram/components',
+    paths: ['/docs/tram/components'],
+    sections: componentSections('tram'),
+  },
 ]
 
+/**
+ * Where the package switch sends a reader who is on `pathname`: the same component in the
+ * other package when it has one, else that package's catalogue from a component page,
+ * else its first page.
+ */
+export function getPackageSwitchHref(pathname: string, target: PackageName) {
+  const componentId = pathname.match(/\/components\/([^/]+)$/)?.[1]
+  if (componentId) {
+    return getComponentById(componentId, target)?.href ?? PACKAGES[target].catalog
+  }
+  if (pathname.endsWith('/components')) return PACKAGES[target].catalog
+  return PACKAGES[target].home
+}
+
+/** The tabs of one package, in header order. */
+export function getPackageTabs(packageName: PackageName): NavTab[] {
+  return tabs.filter(tab => tab.package === packageName)
+}
+
 export function getActiveTab(pathname: string): NavTab {
+  const packageTabs = getPackageTabs(getPackageOfPath(pathname))
+
   return (
-    tabs.find(tab => tab.paths.some(candidate => pathname.startsWith(candidate))) ??
-    tabs[0]
+    packageTabs.find(tab =>
+      tab.paths.some(candidate => pathname.startsWith(candidate))
+    ) ?? packageTabs[0]
   )
 }
 

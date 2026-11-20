@@ -4,6 +4,38 @@
 
 @custom-variant dark (&:is(.dark *));
 
+/*
+ * Selawik, Microsoft's open Segoe stand-in (OFL 1.1, public/fonts/selawik/LICENSE.txt),
+ * for the Tram previews. Each weight is registered under the face name the Tram theme
+ * asks for — `Selawik-Light`, `Selawik-Semilight`, `Selawik` — as an app registers them
+ * with expo-font. A browser fetches a face only when text uses it: Native pages never do.
+ */
+@font-face {
+  font-family: 'Selawik';
+  src: url('/fonts/selawik/selawik-regular.woff2') format('woff2');
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Selawik';
+  src: url('/fonts/selawik/selawik-semibold.woff2') format('woff2');
+  font-weight: 600;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Selawik-Light';
+  src: url('/fonts/selawik/selawik-light.woff2') format('woff2');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Selawik-Semilight';
+  src: url('/fonts/selawik/selawik-semilight.woff2') format('woff2');
+  font-display: swap;
+}
+
 @theme inline {
   --font-sans: var(--font-geist-sans);
   --font-sans-tight: var(--font-geist-mono);

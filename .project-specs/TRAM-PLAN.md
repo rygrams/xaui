@@ -21,13 +21,13 @@ ce que le package est, ce qu'il partage avec Native, et l'ordre du travail.
 | TR6 | **Aplats, jamais de profondeur.** Pas d'ombre, pas de flou, pas de dégradé, pas d'arrondi au-delà de 2 (hors cercles : radio, App Bar). Une surface se distingue par l'espace, la typographie et, au plus, la surface discrète.                                               |
 | TR7 | **Le thème est un `XAUITheme`.** Tram le construit avec `createTheme` ; le moteur de recettes et son cache ne sont pas forkés. Ce qui manque à `XAUIThemeConfig` s'ajoute dans Native (skill `xaui-theme`), ou vit dans les tokens propres à Tram (§3) — jamais un 2ᵉ moteur. |
 | TR8 | **Le mouvement guide.** 100 % Reanimated, worklets déclarés, `useReducedMotion` respecté partout (fondu de 150 ms). Les courbes et ressorts viennent des tokens de mouvement, jamais d'un littéral dans un composant.                                                         |
-| TR9 | **Pas de doc web, pas de README pour l'instant.** Ni page `apps/docs`, ni `README.md` de package ou de dossier, ni `llms.txt`, ni ré-export Hybrid. Chacun attend une tâche explicite (T5).                                                                                   |
+| TR9 | **La doc suit le code.** Chaque composant a son `<id>.md` à côté de son code ; il nourrit la section Tram du site (`/docs/tram/…`), `llms.txt` et le README du package. Pas de README de dossier ni de ré-export Hybrid sans tâche.                                           |
 
 ## 2. Architecture
 
 ```
 packages/tram/
-  package.json        @xaui/tram — "private": true jusqu'à T5
+  package.json        @xaui/tram — publié sur npm depuis T5 (0.1.0)
   tsup.config.ts      mêmes conventions que native : un sous-chemin par composant
   src/
     theme/            tokens Tram, tramTheme, createTramTheme, TramProvider
@@ -49,8 +49,8 @@ packages/tram/
 - **Sous-chemins.** `@xaui/tram/<composant>`, `@xaui/tram/theme`, `@xaui/tram/motion`,
   déclarés dans `package.json` **et** `tsup.config.ts`.
 - **`displayName`** : `'XAUI.Tram.Button.Root'`.
-- **Publication.** `"private": true` tant que T5 n'est pas lancé : changesets ignore le
-  package, rien ne part sur npm par accident. Pas de changeset pour Tram d'ici là.
+- **Publication.** Publié depuis T5 (`0.1.0`, posé à la main) : changesets ne l'ignore
+  plus, et un changement de Tram porte sa changeset **patch**, comme Native.
 - **Démo.** Chaque composant a son écran `apps/demo/app/tram/<composant>.tsx`, sous un
   `TramProvider`, vérifié en sombre **et** en clair. C'est la seule vérification d'un
   composant (règle de test du dépôt inchangée).
@@ -161,14 +161,14 @@ dans le titre de la tâche.
 
 ## 7. Phasage
 
-| Phase  | Quoi                                                                                                    | Sort                          |
-| ------ | ------------------------------------------------------------------------------------------------------- | ----------------------------- |
-| **T0** | Socle : package privé, build, lint, tests, `theme/`, `motion/`, `TramProvider`, section Tram de la démo | rien                          |
-| **T1** | Le `Button` de référence + **revue d'API bloquante** (vocabulaire `variant`, hauteurs, états d'appui)   | rien                          |
-| **T2** | Les contrôles de la famille A                                                                           | rien                          |
-| **T3** | La signature : `Tile`, `Pivot`, `Panorama`, `AppBar`, `JumpList`, turnstile, continuum                  | rien                          |
-| **T4** | La famille B, jusqu'à la parité avec Native                                                             | rien                          |
-| **T5** | README, pages `apps/docs`, `llms.txt`, levée de `private`, première publication — sur tâche explicite   | `@xaui/tram@0.1.0`, à décider |
+| Phase  | Quoi                                                                                                    | Sort               |
+| ------ | ------------------------------------------------------------------------------------------------------- | ------------------ |
+| **T0** | Socle : package privé, build, lint, tests, `theme/`, `motion/`, `TramProvider`, section Tram de la démo | rien               |
+| **T1** | Le `Button` de référence + **revue d'API bloquante** (vocabulaire `variant`, hauteurs, états d'appui)   | rien               |
+| **T2** | Les contrôles de la famille A                                                                           | rien               |
+| **T3** | La signature : `Tile`, `Pivot`, `Panorama`, `AppBar`, `JumpList`, turnstile, continuum                  | rien               |
+| **T4** | La famille B, jusqu'à la parité avec Native                                                             | rien               |
+| **T5** | README, section `/docs/tram` du site, `llms.txt`, levée de `private`, première publication — faite      | `@xaui/tram@0.1.0` |
 
 L'ordre des phases n'est pas indicatif : le thème avant le `Button`, la revue du `Button`
 avant tout autre composant. Dans une phase, l'ordre est libre.

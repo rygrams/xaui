@@ -33,11 +33,15 @@ export type TramProviderProps = XAUIProviderProps & {
    * import { Stack, useIsFocused } from 'expo-router'
    *
    * <TramProvider pages={{ useIsFocused }}>
-   *   <Stack screenOptions={pageScreenOptions} />
+   *   <Stack>
+   *     <Stack.Screen name="mail" options={pageScreenOptions} />
+   *   </Stack>
    * </TramProvider>
    * ```
    *
-   * Each screen then draws itself in a `Page` (`@xaui/tram/page`).
+   * Each such screen then draws itself in a `Page` (`@xaui/tram/page`). The navigator's
+   * own animation is turned off on those screens only: a screen that is not a `Page` keeps
+   * it, or it would arrive with no motion at all.
    */
   pages?: TramPagesConfig
   /**

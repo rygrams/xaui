@@ -74,9 +74,10 @@ The rules behind each line live in `xaui-component`, `xaui-system` and `xaui-the
 - `@xaui/tram` (`packages/tram`) depends on `@xaui/native` too, but for the **engine
   only** — `system`, `theme`, the root hooks. Its components are written in
   `packages/tram`, with the same names, slots and props as their Native counterparts and a
-  Metro drawing; none wraps or re-exports a Native component. It is `"private": true`,
-  unpublished, and has no docs page, no README and no Hybrid re-export until a task asks
-  for them. Demo screens live in `apps/demo/app/tram/`.
+  Metro drawing; none wraps or re-exports a Native component. It is published on npm
+  (from `0.1.0`), documented in its own section of the docs (`/docs/tram/…`, fed by a
+  `<id>.md` beside each component), and has no Hybrid re-export until a task asks for
+  one. Demo screens live in `apps/demo/app/tram/`.
 - `packages/<pkg>/src` has six top-level folders — `theme/`, `provider/`, `system/`,
   `hooks/`, `utils/`, `types/` — plus `components/` and a mirrored `__tests__/`.
   **`system/` is public and follows semver; `utils/` is private.** A file used by one
@@ -176,9 +177,12 @@ Prettier: no semicolons, single quotes, print width 85, 2 spaces, ES5 trailing c
 
 - Depends on `@xaui/native` (`workspace:^`), imported through its entrypoints only —
   `@xaui/native/system`, `@xaui/native/theme`, `@xaui/native`. Same peers as Native.
-- `"private": true` and listed in `ignore` (`.changeset/config.json`) until its release
-  task: nothing publishes it, a Native release does not bump it, and a Tram-only change
-  carries no changeset. Never lift either as part of another change.
+- Published on `latest` from `0.1.0`, which was set by hand for the first release. Out of
+  changesets' `ignore`: a Tram change carries its own **patch** changeset, like Native's.
+  `workspace:^` keeps a Native release from bumping it.
+- Each component has `<id>.md` beside its code — the Native page's sections, with
+  **Differences from Native** in place of the legacy migration. The docs generator reads
+  it for the Tram pages, `llms.txt` and `llms-full.txt`.
 - No haptics library, no bundled font: the app wires `expo-haptics` and loads Selawik.
 
 ## Docs analytics
@@ -212,7 +216,7 @@ words joined with `-`: GA4 is case-sensitive, and `LinkedIn` would be a second s
 | Reddit     | `reddit`     | `social`     | Organic Social | `post`, `comment`, or the subreddit (`r-reactnative`) |
 | dev.to     | `devto`      | `referral`   | Referral       | `article`, `profile`                                  |
 | GitHub     | `github`     | `referral`   | Referral       | `readme`, `release-notes`, `discussion`, `profile`    |
-| npm        | `npm`        | `referral`   | Referral       | `readme-native`, `readme-hybrid`                      |
+| npm        | `npm`        | `referral`   | Referral       | `readme-native`, `readme-hybrid`, `readme-tram`       |
 | Newsletter | `newsletter` | `email`      | Email          | `header`, `cta`, `footer`                             |
 
 `utm_campaign` names what is promoted, `utm_content` where the link sits:
@@ -231,8 +235,8 @@ https://ui.xtartapp.com/?utm_source=youtube&utm_medium=video&utm_campaign=releas
 https://ui.xtartapp.com/?utm_source=github&utm_medium=referral&utm_campaign=evergreen&utm_content=readme
 ```
 
-The root README is GitHub's page and tags its links `github`. `@xaui/native` and
-`@xaui/hybrid` ship their own README, which is their npm page, and tag theirs `npm` — so a
+The root README is GitHub's page and tags its links `github`. `@xaui/native`,
+`@xaui/hybrid` and `@xaui/tram` ship their own README, which is their npm page, and tag theirs `npm` — so a
 link copied from one README to the other changes its `utm_source` and `utm_content`.
 
 ## Branch, commit, PR

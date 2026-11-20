@@ -1,8 +1,32 @@
 {
   "name": "@xaui/tram",
-  "version": "0.0.0",
-  "private": true,
-  "description": "XAUI components for React Native in the Tram language: Metro, modernised — flat fills, giant type, one accent colour",
+  "version": "0.1.0",
+  "description": "Metro UI components for React Native and Expo — the Metro design language of Windows Phone, modernised: flat fills, square corners, giant light type, one accent colour, live tiles, pivots and the turnstile. Built on @xaui/native.",
+  "keywords": [
+    "react-native",
+    "react-native-ui",
+    "react-native-components",
+    "expo",
+    "ui-library",
+    "component-library",
+    "design-system",
+    "metro",
+    "metro-ui",
+    "metro-design-language",
+    "metro-design",
+    "windows-phone",
+    "flat-design",
+    "reanimated",
+    "animations",
+    "dark-mode",
+    "ios",
+    "android",
+    "typescript",
+    "modern-ui",
+    "live-tiles",
+    "tram",
+    "xaui"
+  ],
   "license": "MIT",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -758,6 +782,13 @@
     "type": "git",
     "url": "git+https://github.com/rygrams/xaui.git",
     "directory": "packages/tram"
+  },
+  "homepage": "https://ui.xtartapp.com/docs/introduction",
+  "bugs": {
+    "url": "https://github.com/rygrams/xaui/issues"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "build": "rm -rf dist && tsup --config tsup.config.ts && tsc --emitDeclarationOnly --declarationMap false && node ../../tooling/dual-dts/dual-dts.mjs dist",

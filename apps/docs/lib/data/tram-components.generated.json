@@ -1,0 +1,1219 @@
+[
+  {
+    "id": "accordion",
+    "title": "Accordion",
+    "description": "A list of rows that open, drawn the Metro way: a title on the Tram scale and a plus at the end that lies down into a minus as the panel unrolls, with no line anywhere — the rows are told apart by their space, as in a Metro list.",
+    "category": "Navigation",
+    "importPath": "@xaui/tram/accordion",
+    "href": "/docs/components/accordion",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/accordion",
+    "markdownPath": "packages/tram/src/components/accordion/accordion.md",
+    "markdownHref": "/docs/tram/accordion.md",
+    "demoId": "accordion",
+    "exports": [
+      "Accordion"
+    ]
+  },
+  {
+    "id": "alert",
+    "title": "Alert",
+    "description": "A message the interface has to make sure is read, drawn as the Tram Button is — the soft slice of the accent by default — with a square at the start in the colour of what it is about, then the title on the Tram scale and the detail faded under it.",
+    "category": "Feedback",
+    "importPath": "@xaui/tram/alert",
+    "href": "/docs/components/alert",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/alert",
+    "markdownPath": "packages/tram/src/components/alert/alert.md",
+    "markdownHref": "/docs/tram/alert.md",
+    "demoId": "alert",
+    "exports": [
+      "Alert"
+    ]
+  },
+  {
+    "id": "app-bar",
+    "title": "AppBar",
+    "description": "The Metro App Bar: a band of round buttons docked on an edge of the screen, and a \"…\" that opens it to show their labels and a menu of words. It is Tram's own, with no Native equivalent.",
+    "category": "Navigation",
+    "importPath": "@xaui/tram/app-bar",
+    "href": "/docs/components/app-bar",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/app-bar",
+    "markdownPath": "packages/tram/src/components/app-bar/app-bar.md",
+    "markdownHref": "/docs/tram/app-bar.md",
+    "demoId": "app-bar",
+    "exports": [
+      "AppBar"
+    ]
+  },
+  {
+    "id": "area-chart",
+    "title": "AreaChart",
+    "description": "The LineChart with the ground under it filled, drawn the Metro way: the line's stroke of 2 over a flat fill at a fifth of the colour, with no gradient.",
+    "category": "Charts",
+    "importPath": "@xaui/tram/area-chart",
+    "href": "/docs/components/area-chart",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/area-chart",
+    "markdownPath": "packages/tram/src/components/area-chart/area-chart.md",
+    "markdownHref": "/docs/tram/area-chart.md",
+    "demoId": "charts",
+    "exports": [
+      "AreaChart"
+    ]
+  },
+  {
+    "id": "autocomplete",
+    "title": "Autocomplete",
+    "description": "A field that opens a list you search, drawn as the Tram Select it is built on: the TextField's box with the value and a chevron, which opens the Select's page swivelled in on its top edge, with the search under its title and the rows narrowing as you type.",
+    "category": "Forms",
+    "importPath": "@xaui/tram/autocomplete",
+    "href": "/docs/components/autocomplete",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/autocomplete",
+    "markdownPath": "packages/tram/src/components/autocomplete/autocomplete.md",
+    "markdownHref": "/docs/tram/autocomplete.md",
+    "demoId": "autocomplete",
+    "exports": [
+      "Autocomplete",
+      "AutocompleteContent",
+      "AutocompleteEmpty",
+      "AutocompleteSearch"
+    ]
+  },
+  {
+    "id": "avatar",
+    "title": "Avatar",
+    "description": "A person or a thing, drawn as the Metro thumbnail: a sharp square in the accent, with the initials cut into it or the photo laid over them.",
+    "category": "Data display",
+    "importPath": "@xaui/tram/avatar",
+    "href": "/docs/components/avatar",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/avatar",
+    "markdownPath": "packages/tram/src/components/avatar/avatar.md",
+    "markdownHref": "/docs/tram/avatar.md",
+    "demoId": "avatar",
+    "exports": [
+      "Avatar"
+    ]
+  },
+  {
+    "id": "badge",
+    "title": "Badge",
+    "description": "A count, or a sign that something is new, drawn as a sharp rectangle of the accent with the number cut into it — the Button's drawings, from a fill to the number alone.",
+    "category": "Data display",
+    "importPath": "@xaui/tram/badge",
+    "href": "/docs/components/badge",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/badge",
+    "markdownPath": "packages/tram/src/components/badge/badge.md",
+    "markdownHref": "/docs/tram/badge.md",
+    "demoId": "badge",
+    "exports": [
+      "Badge"
+    ]
+  },
+  {
+    "id": "bar-chart",
+    "title": "BarChart",
+    "description": "A bar per row, and a bar per series inside it once there is more than one, drawn the Metro way: square rectangles of flat colour, stacked by default with no gap between segments, and a corner of 2 at most.",
+    "category": "Charts",
+    "importPath": "@xaui/tram/bar-chart",
+    "href": "/docs/components/bar-chart",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/bar-chart",
+    "markdownPath": "packages/tram/src/components/bar-chart/bar-chart.md",
+    "markdownHref": "/docs/tram/bar-chart.md",
+    "demoId": "charts",
+    "exports": [
+      "BarChart"
+    ]
+  },
+  {
+    "id": "bottom-sheet",
+    "title": "BottomSheet",
+    "description": "A surface that comes up from the bottom edge and can be thrown back down, drawn as the Metro sheet: a band the full width of the screen in the theme's contrast — white on the dark theme, black on the light one — over the page dimmed, with no line, no shadow and no corner.",
+    "category": "Overlays",
+    "importPath": "@xaui/tram/bottom-sheet",
+    "href": "/docs/components/bottom-sheet",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/bottom-sheet",
+    "markdownPath": "packages/tram/src/components/bottom-sheet/bottom-sheet.md",
+    "markdownHref": "/docs/tram/bottom-sheet.md",
+    "demoId": "bottom-sheet",
+    "exports": [
+      "BottomSheet",
+      "BottomSheetClose",
+      "BottomSheetContent",
+      "BottomSheetDescription",
+      "BottomSheetOverlay",
+      "BottomSheetTitle",
+      "BottomSheetTrigger"
+    ]
+  },
+  {
+    "id": "button",
+    "title": "Button",
+    "description": "A control that runs an action when it is pressed, drawn the Metro way: a flat rectangle in one accent colour, square corners, and a press that tilts the button toward the finger instead of changing its colour.",
+    "category": "Actions",
+    "importPath": "@xaui/tram/button",
+    "href": "/docs/components/button",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/button",
+    "markdownPath": "packages/tram/src/components/button/button.md",
+    "markdownHref": "/docs/tram/button.md",
+    "demoId": "button",
+    "exports": [
+      "Button"
+    ]
+  },
+  {
+    "id": "calendar",
+    "title": "Calendar",
+    "description": "A month, and the day chosen in it, drawn as the Windows calendar: a light title at the start, two bare chevrons at the end pointing up and down, and a grid of flat squares — the chosen one in the accent, today lined in the ink.",
+    "category": "Navigation",
+    "importPath": "@xaui/tram/calendar",
+    "href": "/docs/components/calendar",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/calendar",
+    "markdownPath": "packages/tram/src/components/calendar/calendar.md",
+    "markdownHref": "/docs/tram/calendar.md",
+    "demoId": "calendar",
+    "exports": [
+      "Calendar",
+      "CalendarDay",
+      "CalendarGrid",
+      "CalendarHeader",
+      "CalendarMonthPicker",
+      "CalendarTitle",
+      "CalendarWeekdays",
+      "CalendarYearPicker"
+    ]
+  },
+  {
+    "id": "card",
+    "title": "Card",
+    "description": "A surface that groups related content, drawn as Tram asks: the discreet surface with no line and no shadow, the content separated by space and type — a title on the Tram scale over a detail faded under it, the actions in a row.",
+    "category": "Layout",
+    "importPath": "@xaui/tram/card",
+    "href": "/docs/components/card",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/card",
+    "markdownPath": "packages/tram/src/components/card/card.md",
+    "markdownHref": "/docs/tram/card.md",
+    "demoId": "card",
+    "exports": [
+      "Card"
+    ]
+  },
+  {
+    "id": "carousel",
+    "title": "Carousel",
+    "description": "A series of slides, one or a few at a time, drawn in Metro: the slides are the caller's and nothing paints them; the arrows are squares of the page's ground; the indicator is a row of squares whose current one stretches into a bar of the accent.",
+    "category": "Data display",
+    "importPath": "@xaui/tram/carousel",
+    "href": "/docs/components/carousel",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/carousel",
+    "markdownPath": "packages/tram/src/components/carousel/carousel.md",
+    "markdownHref": "/docs/tram/carousel.md",
+    "demoId": "carousel",
+    "exports": [
+      "Carousel",
+      "CarouselContent",
+      "CarouselCounter",
+      "CarouselItem"
+    ]
+  },
+  {
+    "id": "chart",
+    "title": "Charts",
+    "description": "The words around a figure — a title, a description, a value and a legend — and the plot the cartesian charts share. Tram draws the frame with no shell: no ground, no padding, no line and no corner, so the figure sits on the page as Metro's figures did.",
+    "category": "Charts",
+    "importPath": "@xaui/tram/chart",
+    "href": "/docs/components/chart",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/chart",
+    "markdownPath": "packages/tram/src/components/chart/chart.md",
+    "markdownHref": "/docs/tram/chart.md",
+    "demoId": "charts",
+    "exports": [
+      "Chart",
+      "ChartFooter",
+      "ChartHeader",
+      "ChartHeading"
+    ]
+  },
+  {
+    "id": "checkbox",
+    "title": "Checkbox",
+    "description": "A box that is ticked or not, drawn in Metro: a square with a line around it, and a square of the accent inside once it is ticked, arriving on a spring.",
+    "category": "Forms",
+    "importPath": "@xaui/tram/checkbox",
+    "href": "/docs/components/checkbox",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/checkbox",
+    "markdownPath": "packages/tram/src/components/checkbox/checkbox.md",
+    "markdownHref": "/docs/tram/checkbox.md",
+    "demoId": "checkbox",
+    "exports": [
+      "Checkbox"
+    ]
+  },
+  {
+    "id": "chip",
+    "title": "Chip",
+    "description": "A compact token — a status, a tag, a filter, a person — drawn as the Button's sharp rectangle made small: 24, 32 or 40 tall, square corners, in the Button's four drawings.",
+    "category": "Data display",
+    "importPath": "@xaui/tram/chip",
+    "href": "/docs/components/chip",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/chip",
+    "markdownPath": "packages/tram/src/components/chip/chip.md",
+    "markdownHref": "/docs/tram/chip.md",
+    "demoId": "chip",
+    "exports": [
+      "Chip"
+    ]
+  },
+  {
+    "id": "close-button",
+    "title": "CloseButton",
+    "description": "The way out of a page or a panel of the app, drawn as the round button of the Metro App Bar with a cross in it — a thin circle in the page's ink, the cross built from two bars so no icon set is needed.",
+    "category": "Actions",
+    "importPath": "@xaui/tram/close-button",
+    "href": "/docs/components/close-button",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/close-button",
+    "markdownPath": "packages/tram/src/components/close-button/close-button.md",
+    "markdownHref": "/docs/tram/close-button.md",
+    "demoId": "close-button",
+    "exports": [
+      "CloseButton"
+    ]
+  },
+  {
+    "id": "color-picker",
+    "title": "ColorPicker",
+    "description": "A colour chosen off a palette, drawn as the Windows Phone accents page: a field that shows the chosen colour as a square and its name, and a full-screen page of swatches that swivels in on its top edge.",
+    "category": "Forms",
+    "importPath": "@xaui/tram/color-picker",
+    "href": "/docs/components/color-picker",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/color-picker",
+    "markdownPath": "packages/tram/src/components/color-picker/color-picker.md",
+    "markdownHref": "/docs/tram/color-picker.md",
+    "demoId": "color-picker",
+    "exports": [
+      "ColorPicker",
+      "ColorPickerClose",
+      "ColorPickerContent",
+      "ColorPickerField",
+      "ColorPickerGrid",
+      "ColorPickerGroup",
+      "ColorPickerOverlay",
+      "ColorPickerPreview",
+      "ColorPickerSwatch",
+      "ColorPickerTitle"
+    ]
+  },
+  {
+    "id": "combobox",
+    "title": "Combobox",
+    "description": "A field you type in, over a list you must choose from — drawn as the Tram Select's box with the value replaced by the field being typed into, and the list unfolding under the row, inside the same line.",
+    "category": "Forms",
+    "importPath": "@xaui/tram/combobox",
+    "href": "/docs/components/combobox",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/combobox",
+    "markdownPath": "packages/tram/src/components/combobox/combobox.md",
+    "markdownHref": "/docs/tram/combobox.md",
+    "demoId": "combobox",
+    "exports": [
+      "Combobox",
+      "ComboboxIndicator",
+      "ComboboxInput",
+      "ComboboxTrigger"
+    ]
+  },
+  {
+    "id": "date-picker",
+    "title": "DatePicker",
+    "description": "A field that opens a page of wheels to choose a day, drawn as the Metro date picker: the TextField's box with the day in it, and a page that swivels in with three columns of squares — the day, the month and the year — and the App Bar's ✓ and ✕ along the bottom.",
+    "category": "Forms",
+    "importPath": "@xaui/tram/date-picker",
+    "href": "/docs/components/date-picker",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/date-picker",
+    "markdownPath": "packages/tram/src/components/date-picker/date-picker.md",
+    "markdownHref": "/docs/tram/date-picker.md",
+    "demoId": "date-picker",
+    "exports": [
+      "DatePicker",
+      "DatePickerWheel"
+    ]
+  },
+  {
+    "id": "date-time-picker",
+    "title": "DateTimePicker",
+    "description": "A field that opens a page of wheels to choose a moment — a day and a time — drawn as the Tram DatePicker's field and page, its two halves taking turns under a pair of tabs.",
+    "category": "Forms",
+    "importPath": "@xaui/tram/date-time-picker",
+    "href": "/docs/components/date-time-picker",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/date-time-picker",
+    "markdownPath": "packages/tram/src/components/date-time-picker/date-time-picker.md",
+    "markdownHref": "/docs/tram/date-time-picker.md",
+    "demoId": "date-time-picker",
+    "exports": [
+      "DateTimePicker"
+    ]
+  },
+  {
+    "id": "dialog",
+    "title": "Dialog",
+    "description": "A message that interrupts the screen and asks for an answer, drawn as the Metro MessageBox: a banner of the discreet surface across the top of the screen, edge to edge, over the page dimmed at the theme's backdrop, swivelling in on its top edge.",
+    "category": "Overlays",
+    "importPath": "@xaui/tram/dialog",
+    "href": "/docs/components/dialog",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/dialog",
+    "markdownPath": "packages/tram/src/components/dialog/dialog.md",
+    "markdownHref": "/docs/tram/dialog.md",
+    "demoId": "dialog",
+    "exports": [
+      "Dialog",
+      "DialogClose",
+      "DialogContent",
+      "DialogDescription",
+      "DialogOverlay",
+      "DialogTitle",
+      "DialogTrigger"
+    ]
+  },
+  {
+    "id": "divider",
+    "title": "Divider",
+    "description": "The line between two things, drawn in the Tram grey: one point of muted, faded so the space around it still does most of the separating — Metro's way.",
+    "category": "Layout",
+    "importPath": "@xaui/tram/divider",
+    "href": "/docs/components/divider",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/divider",
+    "markdownPath": "packages/tram/src/components/divider/divider.md",
+    "markdownHref": "/docs/tram/divider.md",
+    "demoId": "divider",
+    "exports": [
+      "Divider"
+    ]
+  },
+  {
+    "id": "dummy-field",
+    "title": "DummyField",
+    "description": "A field that is pressed rather than typed into, drawn as the Tram TextField's box: a line of 2 round a value it only shows. A press opens what sets the value — a sheet, a picker, a page.",
+    "category": "Forms",
+    "importPath": "@xaui/tram/dummy-field",
+    "href": "/docs/components/dummy-field",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/dummy-field",
+    "markdownPath": "packages/tram/src/components/dummy-field/dummy-field.md",
+    "markdownHref": "/docs/tram/dummy-field.md",
+    "demoId": "dummy-field",
+    "exports": [
+      "DummyField",
+      "DummyFieldField",
+      "DummyFieldIndicator",
+      "DummyFieldLabel",
+      "DummyFieldValue"
+    ]
+  },
+  {
+    "id": "empty-state",
+    "title": "EmptyState",
+    "description": "What is on the screen when there is nothing on it, said as a Metro page says it: aligned to the start, a title on the Tram scale, the detail faded under it, then what to do about it.",
+    "category": "Feedback",
+    "importPath": "@xaui/tram/empty-state",
+    "href": "/docs/components/empty-state",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/empty-state",
+    "markdownPath": "packages/tram/src/components/empty-state/empty-state.md",
+    "markdownHref": "/docs/tram/empty-state.md",
+    "demoId": "empty-state",
+    "exports": [
+      "EmptyState"
+    ]
+  },
+  {
+    "id": "fab",
+    "title": "Fab",
+    "description": "The one thing to do on a screen, drawn as the round button of the Metro App Bar: a circle in a band of the discreet surface, docked edge to edge on the bottom of the nearest positioned ancestor — a flat circle of the accent, or the App Bar's thin circle.",
+    "category": "Actions",
+    "importPath": "@xaui/tram/fab",
+    "href": "/docs/components/fab",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/fab",
+    "markdownPath": "packages/tram/src/components/fab/fab.md",
+    "markdownHref": "/docs/tram/fab.md",
+    "demoId": "fab",
+    "exports": [
+      "Fab"
+    ]
+  },
+  {
+    "id": "field-group",
+    "title": "FieldGroup",
+    "description": "A field with something beside it — a glyph, a unit, a country, a reveal toggle — drawn in Metro as one box around a cell, the text and a cell, inside the TextField's line of 2, which takes the accent while the field has the focus.",
+    "category": "Forms",
+    "importPath": "@xaui/tram/field-group",
+    "href": "/docs/components/field-group",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/field-group",
+    "markdownPath": "packages/tram/src/components/field-group/field-group.md",
+    "markdownHref": "/docs/tram/field-group.md",
+    "demoId": "field-group",
+    "exports": [
+      "FieldGroup",
+      "FieldGroupField",
+      "FieldGroupIcon",
+      "FieldGroupPrefix",
+      "FieldGroupSuffix"
+    ]
+  },
+  {
+    "id": "input-otp",
+    "title": "InputOTP",
+    "description": "A one-time code, one character to a box, drawn as a row of Tram fields one character wide: a faint line while a box is empty, the ink once it holds a character, the accent on the box being typed in.",
+    "category": "Forms",
+    "importPath": "@xaui/tram/input-otp",
+    "href": "/docs/components/input-otp",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/input-otp",
+    "markdownPath": "packages/tram/src/components/input-otp/input-otp.md",
+    "markdownHref": "/docs/tram/input-otp.md",
+    "demoId": "input-otp",
+    "exports": [
+      "InputOTP"
+    ]
+  },
+  {
+    "id": "jump-list",
+    "title": "JumpList",
+    "description": "The Metro grouped list — a contact list, a song list — where every group opens on a square of the accent: press one and a grid of keys comes up over the page; press a key and the grid turns away, and the list lands on that group.",
+    "category": "Navigation",
+    "importPath": "@xaui/tram/jump-list",
+    "href": "/docs/components/jump-list",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/jump-list",
+    "markdownPath": "packages/tram/src/components/jump-list/jump-list.md",
+    "markdownHref": "/docs/tram/jump-list.md",
+    "demoId": "jump-list",
+    "exports": [
+      "JumpList"
+    ]
+  },
+  {
+    "id": "line-chart",
+    "title": "LineChart",
+    "description": "A line per series over a shared scale, drawn the Metro way: a stroke of 2 with sharp corners and square-cut ends, straight from one reading to the next, and squares for points.",
+    "category": "Charts",
+    "importPath": "@xaui/tram/line-chart",
+    "href": "/docs/components/line-chart",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/line-chart",
+    "markdownPath": "packages/tram/src/components/line-chart/line-chart.md",
+    "markdownHref": "/docs/tram/line-chart.md",
+    "demoId": "charts",
+    "exports": [
+      "LineChart"
+    ]
+  },
+  {
+    "id": "list",
+    "title": "List",
+    "description": "A virtualised list of content rows, drawn as the Metro content list: a square thumbnail at the start, a large title in the page's ink, a line in the accent, a detail in Metro's subtle grey, and no card and no line between the rows.",
+    "category": "Data display",
+    "importPath": "@xaui/tram/list",
+    "href": "/docs/components/list",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/list",
+    "markdownPath": "packages/tram/src/components/list/list.md",
+    "markdownHref": "/docs/tram/list.md",
+    "demoId": "list",
+    "exports": [
+      "List",
+      "ListAction",
+      "ListContent",
+      "ListDescription",
+      "ListItem",
+      "ListLeading",
+      "ListSubtitle",
+      "ListSwipe",
+      "ListSwipeAction",
+      "ListTitle"
+    ]
+  },
+  {
+    "id": "list-box",
+    "title": "ListBox",
+    "description": "Rows on a ground, drawn as the rows of the Metro settings page: no fill, no line, no shadow and no corner — a title in the page's ink, a description in the muted grey, and the space between the rows to tell them apart.",
+    "category": "Data display",
+    "importPath": "@xaui/tram/list-box",
+    "href": "/docs/components/list-box",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/list-box",
+    "markdownPath": "packages/tram/src/components/list-box/list-box.md",
+    "markdownHref": "/docs/tram/list-box.md",
+    "demoId": "list-box",
+    "exports": [
+      "ListBoxGroup",
+      "ListBox",
+      "ListBoxGroupFooter",
+      "ListBoxGroupHeader",
+      "ListBoxGroupSection",
+      "ListBoxItem",
+      "ListBoxItemButton",
+      "ListBoxItemContent",
+      "ListBoxItemDescription",
+      "ListBoxItemPrefix",
+      "ListBoxItemSuffix",
+      "ListBoxItemTitle"
+    ]
+  },
+  {
+    "id": "mask-field",
+    "title": "MaskField",
+    "description": "A value typed into a shape — a date, a time, a card number, or a pattern of your own — in the Tram TextField's box: the ground inside a line, with what is left of the shape waiting in grey behind the typed text.",
+    "category": "Forms",
+    "importPath": "@xaui/tram/mask-field",
+    "href": "/docs/components/mask-field",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/mask-field",
+    "markdownPath": "packages/tram/src/components/mask-field/mask-field.md",
+    "markdownHref": "/docs/tram/mask-field.md",
+    "demoId": "mask-field",
+    "exports": [
+      "MaskField",
+      "MaskFieldField"
+    ]
+  },
+  {
+    "id": "menu",
+    "title": "Menu",
+    "description": "A list of actions anchored to whatever opened it, drawn as the Metro context menu: a band in the theme's contrast colour, the width of the screen, set against its trigger, with large light rows and no line, shadow or corner.",
+    "category": "Overlays",
+    "importPath": "@xaui/tram/menu",
+    "href": "/docs/components/menu",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/menu",
+    "markdownPath": "packages/tram/src/components/menu/menu.md",
+    "markdownHref": "/docs/tram/menu.md",
+    "demoId": "menu",
+    "exports": [
+      "Menu",
+      "MenuContent",
+      "MenuGroup",
+      "MenuItem",
+      "MenuItemDescription",
+      "MenuItemIndicator",
+      "MenuItemTitle",
+      "MenuLabel",
+      "MenuOverlay",
+      "MenuSeparator",
+      "MenuTrigger"
+    ]
+  },
+  {
+    "id": "morph-button",
+    "title": "MorphButton",
+    "description": "A button that changes shape: closed, it is the Tram Button exactly — a flat rectangle in one accent colour; open, the same box grows to the width it is given and keeps its fill, with a light title and a description inside it.",
+    "category": "Actions",
+    "importPath": "@xaui/tram/morph-button",
+    "href": "/docs/components/morph-button",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/morph-button",
+    "markdownPath": "packages/tram/src/components/morph-button/morph-button.md",
+    "markdownHref": "/docs/tram/morph-button.md",
+    "demoId": "morph-button",
+    "exports": [
+      "MorphButton",
+      "MorphButtonIcon"
+    ]
+  },
+  {
+    "id": "number-field",
+    "title": "NumberField",
+    "description": "A number, typed, with the two ends of its range and a pair of keys that walk it — the Tram TextField's box drawn around the field, with a square key at each end and the value centred between them in tabular figures.",
+    "category": "Forms",
+    "importPath": "@xaui/tram/number-field",
+    "href": "/docs/components/number-field",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/number-field",
+    "markdownPath": "packages/tram/src/components/number-field/number-field.md",
+    "markdownHref": "/docs/tram/number-field.md",
+    "demoId": "number-field",
+    "exports": [
+      "NumberField",
+      "NumberFieldDecrement",
+      "NumberFieldField",
+      "NumberFieldGroup",
+      "NumberFieldIncrement"
+    ]
+  },
+  {
+    "id": "number-pad",
+    "title": "NumberPad",
+    "description": "The keypad a PIN, a code or an amount is typed on, drawn as the Metro dialer: three columns of digits alone on the ground — light, centred, in the page's ink — with no fill, no line and no corner around them.",
+    "category": "Forms",
+    "importPath": "@xaui/tram/number-pad",
+    "href": "/docs/components/number-pad",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/number-pad",
+    "markdownPath": "packages/tram/src/components/number-pad/number-pad.md",
+    "markdownHref": "/docs/tram/number-pad.md",
+    "demoId": "number-pad",
+    "exports": [
+      "NumberPad",
+      "NumberPadAction",
+      "NumberPadBackspace",
+      "NumberPadIcon",
+      "NumberPadKey",
+      "NumberPadLabel"
+    ]
+  },
+  {
+    "id": "number-stepper",
+    "title": "NumberStepper",
+    "description": "A quantity and the two presses that move it, drawn the Metro way: two square keys in the Button's drawing, and the value between them in tabular figures, on the ground.",
+    "category": "Forms",
+    "importPath": "@xaui/tram/number-stepper",
+    "href": "/docs/components/number-stepper",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/number-stepper",
+    "markdownPath": "packages/tram/src/components/number-stepper/number-stepper.md",
+    "markdownHref": "/docs/tram/number-stepper.md",
+    "demoId": "number-stepper",
+    "exports": [
+      "NumberStepper",
+      "NumberStepperDecrement",
+      "NumberStepperIncrement",
+      "NumberStepperTrack",
+      "NumberStepperValue"
+    ]
+  },
+  {
+    "id": "page",
+    "title": "Page",
+    "description": "A screen that arrives and leaves the Metro way: by default the whole page turns around the screen's start edge like a door — out on the exit curve, in on the navigation spring — and comes back the same way when it is focused again.",
+    "category": "Navigation",
+    "importPath": "@xaui/tram/page",
+    "href": "/docs/components/page",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/page",
+    "markdownPath": "packages/tram/src/components/page/page.md",
+    "markdownHref": "/docs/tram/page.md",
+    "demoId": null,
+    "exports": [
+      "Page"
+    ]
+  },
+  {
+    "id": "panorama",
+    "title": "Panorama",
+    "description": "The Metro hub: one wide page slid across section by section under a giant title, the title and the backdrop travelling slower than the sections so the page reads as one surface seen through the screen.",
+    "category": "Navigation",
+    "importPath": "@xaui/tram/panorama",
+    "href": "/docs/components/panorama",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/panorama",
+    "markdownPath": "packages/tram/src/components/panorama/panorama.md",
+    "markdownHref": "/docs/tram/panorama.md",
+    "demoId": "panorama",
+    "exports": [
+      "Panorama",
+      "PanoramaBackground",
+      "PanoramaHeader",
+      "PanoramaSection",
+      "PanoramaTitle"
+    ]
+  },
+  {
+    "id": "phone-number-field",
+    "title": "PhoneNumberField",
+    "description": "A national phone number beside its country, with a searchable list of countries — drawn in Metro as the Tram TextField's box with the country as a key at its start (its ISO code, its calling code and a small chevron, ruled off from the number), and the countries in the Tram BottomSheet, a band in the theme's contrast.",
+    "category": "Forms",
+    "importPath": "@xaui/tram/phone-number-field",
+    "href": "/docs/components/phone-number-field",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/phone-number-field",
+    "markdownPath": "packages/tram/src/components/phone-number-field/phone-number-field.md",
+    "markdownHref": "/docs/tram/phone-number-field.md",
+    "demoId": "phone-number-field",
+    "exports": [
+      "PhoneNumberField",
+      "PhoneNumberFieldCountry",
+      "PhoneNumberFieldCountryList",
+      "PhoneNumberFieldField",
+      "PhoneNumberFieldSearch"
+    ]
+  },
+  {
+    "id": "pie-chart",
+    "title": "PieChart",
+    "description": "The whole and its parts, drawn as a ring in Metro flat colour: one shade of an accent per slice, the ground showing through a drawn gap between them, and what sits in the hole written in React Native.",
+    "category": "Charts",
+    "importPath": "@xaui/tram/pie-chart",
+    "href": "/docs/components/pie-chart",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/pie-chart",
+    "markdownPath": "packages/tram/src/components/pie-chart/pie-chart.md",
+    "markdownHref": "/docs/tram/pie-chart.md",
+    "demoId": "charts",
+    "exports": [
+      "PieChart"
+    ]
+  },
+  {
+    "id": "pivot",
+    "title": "Pivot",
+    "description": "The Metro pivot: giant titles in a row that loops, over the section they name — the current title on the margin in the page's ink, the others grey after it, and the whole row sliding with the sections under the finger.",
+    "category": "Navigation",
+    "importPath": "@xaui/tram/pivot",
+    "href": "/docs/components/pivot",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/pivot",
+    "markdownPath": "packages/tram/src/components/pivot/pivot.md",
+    "markdownHref": "/docs/tram/pivot.md",
+    "demoId": "pivot",
+    "exports": [
+      "Pivot",
+      "PivotHeader",
+      "PivotSection",
+      "PivotTitle"
+    ]
+  },
+  {
+    "id": "progress-bar",
+    "title": "ProgressBar",
+    "description": "How far along something is, drawn the Metro way: a bar of soft grey with nearly square corners, filled with the accent — or, when the duration is unknown, five bubbles of the accent that run across it.",
+    "category": "Feedback",
+    "importPath": "@xaui/tram/progress-bar",
+    "href": "/docs/components/progress-bar",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/progress-bar",
+    "markdownPath": "packages/tram/src/components/progress-bar/progress-bar.md",
+    "markdownHref": "/docs/tram/progress-bar.md",
+    "demoId": "progress-bar",
+    "exports": [
+      "ProgressBar"
+    ]
+  },
+  {
+    "id": "radar-chart",
+    "title": "RadarChart",
+    "description": "Several quantities at once, each on its own axis, drawn the Metro way: rings and spokes in lines of 1 of the faint grey, each series a polygon with sharp corners, a stroke of 2 and a flat fill, and the axis names in caption around the web.",
+    "category": "Charts",
+    "importPath": "@xaui/tram/radar-chart",
+    "href": "/docs/components/radar-chart",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/radar-chart",
+    "markdownPath": "packages/tram/src/components/radar-chart/radar-chart.md",
+    "markdownHref": "/docs/tram/radar-chart.md",
+    "demoId": "charts",
+    "exports": [
+      "RadarChart"
+    ]
+  },
+  {
+    "id": "radial-chart",
+    "title": "RadialChart",
+    "description": "Several quantities, each as far round its own ring as it has got, drawn the Metro way: rings cut square at their ends, over a track of the faint grey.",
+    "category": "Charts",
+    "importPath": "@xaui/tram/radial-chart",
+    "href": "/docs/components/radial-chart",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/radial-chart",
+    "markdownPath": "packages/tram/src/components/radial-chart/radial-chart.md",
+    "markdownHref": "/docs/tram/radial-chart.md",
+    "demoId": "charts",
+    "exports": [
+      "RadialChart"
+    ]
+  },
+  {
+    "id": "radio",
+    "title": "Radio",
+    "description": "One option out of a set, drawn the Metro way: a circle with a line around it on the page's ground, and a dot of the accent inside once it is the chosen one.",
+    "category": "Forms",
+    "importPath": "@xaui/tram/radio",
+    "href": "/docs/components/radio",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/radio",
+    "markdownPath": "packages/tram/src/components/radio/radio.md",
+    "markdownHref": "/docs/tram/radio.md",
+    "demoId": "radio",
+    "exports": [
+      "Radio",
+      "RadioGroup"
+    ]
+  },
+  {
+    "id": "range-calendar",
+    "title": "RangeCalendar",
+    "description": "A month, and the period chosen in it, drawn as the Tram Calendar: the two ends are the accent's flat squares and the days between them its soft slice, filling their cells edge to edge so the period reads as one strip across the weeks.",
+    "category": "Forms",
+    "importPath": "@xaui/tram/range-calendar",
+    "href": "/docs/components/range-calendar",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/range-calendar",
+    "markdownPath": "packages/tram/src/components/range-calendar/range-calendar.md",
+    "markdownHref": "/docs/tram/range-calendar.md",
+    "demoId": "range-calendar",
+    "exports": [
+      "RangeCalendar",
+      "RangeCalendarDay",
+      "RangeCalendarGrid"
+    ]
+  },
+  {
+    "id": "rating",
+    "title": "Rating",
+    "description": "A row of marks, given or shown, drawn the Metro way: flat marks, the given ones in the accent and the rest in a faint grey, an average filling the last mark to the tenth.",
+    "category": "Forms",
+    "importPath": "@xaui/tram/rating",
+    "href": "/docs/components/rating",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/rating",
+    "markdownPath": "packages/tram/src/components/rating/rating.md",
+    "markdownHref": "/docs/tram/rating.md",
+    "demoId": "rating",
+    "exports": [
+      "Rating",
+      "RatingIcon",
+      "RatingItem"
+    ]
+  },
+  {
+    "id": "scaffold",
+    "title": "Scaffold",
+    "description": "The app's chrome in Tram: the ground under every screen, the status bar over it, and the options the app's navigator is dressed with — drawn flat, with no shadow, and the title at the start of its line.",
+    "category": "Layout",
+    "importPath": "@xaui/tram/scaffold",
+    "href": "/docs/components/scaffold",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/scaffold",
+    "markdownPath": "packages/tram/src/components/scaffold/scaffold.md",
+    "markdownHref": "/docs/tram/scaffold.md",
+    "demoId": null,
+    "exports": [
+      "Scaffold"
+    ]
+  },
+  {
+    "id": "search-field",
+    "title": "SearchField",
+    "description": "A query, with the mark that says so and the cross that takes it back, drawn the Metro way: one box holding the magnifier, the typed text and the cross, inside a line of 2 that takes the accent with the focus.",
+    "category": "Forms",
+    "importPath": "@xaui/tram/search-field",
+    "href": "/docs/components/search-field",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/search-field",
+    "markdownPath": "packages/tram/src/components/search-field/search-field.md",
+    "markdownHref": "/docs/tram/search-field.md",
+    "demoId": "search-field",
+    "exports": [
+      "SearchField",
+      "SearchFieldClear",
+      "SearchFieldField",
+      "SearchFieldIcon"
+    ]
+  },
+  {
+    "id": "select",
+    "title": "Select",
+    "description": "A field that opens a list, drawn as the Metro list picker: the Tram TextField's box, which unfolds in place for up to five choices and pushes what is under it, or opens a page of its own that swivels in for more.",
+    "category": "Forms",
+    "importPath": "@xaui/tram/select",
+    "href": "/docs/components/select",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/select",
+    "markdownPath": "packages/tram/src/components/select/select.md",
+    "markdownHref": "/docs/tram/select.md",
+    "demoId": "select",
+    "exports": [
+      "Select"
+    ]
+  },
+  {
+    "id": "skeleton",
+    "title": "Skeleton",
+    "description": "The shape of what has not arrived yet, drawn the Metro way: one flat, square block in a fifth of the page's ink over its ground — 333333 on black, CCCCCC on white — that breathes down to half and back.",
+    "category": "Feedback",
+    "importPath": "@xaui/tram/skeleton",
+    "href": "/docs/components/skeleton",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/skeleton",
+    "markdownPath": "packages/tram/src/components/skeleton/skeleton.md",
+    "markdownHref": "/docs/tram/skeleton.md",
+    "demoId": "skeleton",
+    "exports": [
+      "Skeleton"
+    ]
+  },
+  {
+    "id": "slide-button",
+    "title": "SlideButton",
+    "description": "A button you drag rather than tap, drawn as the Metro lock screen: a rectangle in the Button's line, a block of the accent at its start, and a slide toward the end that fills the whole box with the accent once it counts.",
+    "category": "Actions",
+    "importPath": "@xaui/tram/slide-button",
+    "href": "/docs/components/slide-button",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/slide-button",
+    "markdownPath": "packages/tram/src/components/slide-button/slide-button.md",
+    "markdownHref": "/docs/tram/slide-button.md",
+    "demoId": "slide-button",
+    "exports": [
+      "SlideButton",
+      "SlideButtonFill",
+      "SlideButtonLabel",
+      "SlideButtonThumb",
+      "SlideButtonIcon"
+    ]
+  },
+  {
+    "id": "slider",
+    "title": "Slider",
+    "description": "A value chosen along a line, drawn the Metro way: a line of soft grey, filled with the accent up to a block thumb of ink — the Switch's thumb, standing across the line.",
+    "category": "Forms",
+    "importPath": "@xaui/tram/slider",
+    "href": "/docs/components/slider",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/slider",
+    "markdownPath": "packages/tram/src/components/slider/slider.md",
+    "markdownHref": "/docs/tram/slider.md",
+    "demoId": "slider",
+    "exports": [
+      "Slider"
+    ]
+  },
+  {
+    "id": "spinner",
+    "title": "Spinner",
+    "description": "The wait, drawn as Metro's progress ring: five round dots of the accent, piled into one, set off one after the other — slow, fast over the top, slow again into the next meeting point — where each is caught up by the next until the five are one dot again.",
+    "category": "Feedback",
+    "importPath": "@xaui/tram/spinner",
+    "href": "/docs/components/spinner",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/spinner",
+    "markdownPath": "packages/tram/src/components/spinner/spinner.md",
+    "markdownHref": "/docs/tram/spinner.md",
+    "demoId": "spinner",
+    "exports": [
+      "Spinner"
+    ]
+  },
+  {
+    "id": "stepper",
+    "title": "Stepper",
+    "description": "Where you are in a sequence of steps, drawn from what Metro has — bars and type: no circle, no check, no connector line. Each step is a bar at its start edge, a Light numeral and its words; the bars stand 2 apart and read as one line cut into steps.",
+    "category": "Navigation",
+    "importPath": "@xaui/tram/stepper",
+    "href": "/docs/components/stepper",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/stepper",
+    "markdownPath": "packages/tram/src/components/stepper/stepper.md",
+    "markdownHref": "/docs/tram/stepper.md",
+    "demoId": "stepper",
+    "exports": [
+      "Stepper",
+      "StepperContent",
+      "StepperDescription",
+      "StepperIndicator",
+      "StepperItem",
+      "StepperTitle"
+    ]
+  },
+  {
+    "id": "surface",
+    "title": "Surface",
+    "description": "A ground for other things to sit on, drawn flat: the discreet grey of the Tram design, or the page inside a thin grey line — never a shadow.",
+    "category": "Layout",
+    "importPath": "@xaui/tram/surface",
+    "href": "/docs/components/surface",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/surface",
+    "markdownPath": "packages/tram/src/components/surface/surface.md",
+    "markdownHref": "/docs/tram/surface.md",
+    "demoId": "surface",
+    "exports": [
+      "Surface"
+    ]
+  },
+  {
+    "id": "switch",
+    "title": "Switch",
+    "description": "A setting that is on or off, drawn the Metro way: a rectangular track inside a line, filled with the accent up to the middle of a block thumb that stands above and below it.",
+    "category": "Forms",
+    "importPath": "@xaui/tram/switch",
+    "href": "/docs/components/switch",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/switch",
+    "markdownPath": "packages/tram/src/components/switch/switch.md",
+    "markdownHref": "/docs/tram/switch.md",
+    "demoId": "switch",
+    "exports": [
+      "Switch"
+    ]
+  },
+  {
+    "id": "table",
+    "title": "Table",
+    "description": "Rows and columns drawn as the Metro settings page: no shell — no fill, line, corner or shadow — just rows on the ground, with the column names in a grey caption and the sorted one in the ink with a small chevron.",
+    "category": "Data display",
+    "importPath": "@xaui/tram/table",
+    "href": "/docs/components/table",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/table",
+    "markdownPath": "packages/tram/src/components/table/table.md",
+    "markdownHref": "/docs/tram/table.md",
+    "demoId": "table",
+    "exports": [
+      "Table",
+      "TableBody",
+      "TableCell",
+      "TableColumn",
+      "TableContent",
+      "TableFooter",
+      "TableHeader",
+      "TableRow",
+      "TableScrollContainer"
+    ]
+  },
+  {
+    "id": "tabs",
+    "title": "Tabs",
+    "description": "The tabs of Metro: a row of titles with no ground, no box and no rule — the chosen one in the page's ink, the others in grey, fading from one to the other.",
+    "category": "Navigation",
+    "importPath": "@xaui/tram/tabs",
+    "href": "/docs/components/tabs",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/tabs",
+    "markdownPath": "packages/tram/src/components/tabs/tabs.md",
+    "markdownHref": "/docs/tram/tabs.md",
+    "demoId": "tabs",
+    "exports": [
+      "Tabs"
+    ]
+  },
+  {
+    "id": "text-area",
+    "title": "TextArea",
+    "description": "A field of several lines with its label, its hint and its error: the Tram TextField on several lines, the ground inside a 2-point line of ink, its text starting at the top.",
+    "category": "Forms",
+    "importPath": "@xaui/tram/text-area",
+    "href": "/docs/components/text-area",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/text-area",
+    "markdownPath": "packages/tram/src/components/text-area/text-area.md",
+    "markdownHref": "/docs/tram/text-area.md",
+    "demoId": "text-area",
+    "exports": [
+      "TextArea"
+    ]
+  },
+  {
+    "id": "text-field",
+    "title": "TextField",
+    "description": "A text field with its label, its hint and its error, drawn the Metro way: the ground inside a 2-point line of ink, and the line in the accent once the field has the focus.",
+    "category": "Forms",
+    "importPath": "@xaui/tram/text-field",
+    "href": "/docs/components/text-field",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/text-field",
+    "markdownPath": "packages/tram/src/components/text-field/text-field.md",
+    "markdownHref": "/docs/tram/text-field.md",
+    "demoId": "text-field",
+    "exports": [
+      "TextField",
+      "TextFieldDescription",
+      "TextFieldError",
+      "TextFieldField",
+      "TextFieldLabel"
+    ]
+  },
+  {
+    "id": "tile",
+    "title": "Tile",
+    "description": "The live tile of the Metro start screen — icon, shortcut and widget in one square: a flat fill of the accent that can carry a count, a name, a picture, and turn over to a second face.",
+    "category": "Data display",
+    "importPath": "@xaui/tram/tile",
+    "href": "/docs/components/tile",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/tile",
+    "markdownPath": "packages/tram/src/components/tile/tile.md",
+    "markdownHref": "/docs/tram/tile.md",
+    "demoId": "tile",
+    "exports": [
+      "Tile"
+    ]
+  },
+  {
+    "id": "time-picker",
+    "title": "TimePicker",
+    "description": "A field that opens a page of wheels, drawn as the Metro time picker: the TextField's box with the time in it, and a page that swivels in on its top edge with a column of hours, one of minutes and, on a twelve-hour clock, the half of the day.",
+    "category": "Forms",
+    "importPath": "@xaui/tram/time-picker",
+    "href": "/docs/components/time-picker",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/time-picker",
+    "markdownPath": "packages/tram/src/components/time-picker/time-picker.md",
+    "markdownHref": "/docs/tram/time-picker.md",
+    "demoId": "time-picker",
+    "exports": [
+      "TimePicker",
+      "TimePickerWheel"
+    ]
+  },
+  {
+    "id": "timeline",
+    "title": "Timeline",
+    "description": "What happened, in order, drawn as the Windows Phone timeline: each entry opens on a flat tile of its date, and a line drops from one tile to the next, with the title and the description beside it.",
+    "category": "Data display",
+    "importPath": "@xaui/tram/timeline",
+    "href": "/docs/components/timeline",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/timeline",
+    "markdownPath": "packages/tram/src/components/timeline/timeline.md",
+    "markdownHref": "/docs/tram/timeline.md",
+    "demoId": "timeline",
+    "exports": [
+      "Timeline",
+      "TimelineConnector",
+      "TimelineContent",
+      "TimelineItem",
+      "TimelineLeading",
+      "TimelineMarker",
+      "TimelineRail"
+    ]
+  },
+  {
+    "id": "toast",
+    "title": "Toast",
+    "description": "A short notice drawn as Metro's: a flat band of colour under the notch, the width of the screen, square, with its text on one line in the ink that reads on the fill.",
+    "category": "Feedback",
+    "importPath": "@xaui/tram/toast",
+    "href": "/docs/components/toast",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/toast",
+    "markdownPath": "packages/tram/src/components/toast/toast.md",
+    "markdownHref": "/docs/tram/toast.md",
+    "demoId": "toast",
+    "exports": [
+      "Toast",
+      "ToastActions",
+      "ToastClose",
+      "ToastDescription",
+      "ToastHost",
+      "ToastTitle",
+      "ToastOutlet"
+    ]
+  },
+  {
+    "id": "toggle-button",
+    "title": "ToggleButton",
+    "description": "A button that keeps whether it is chosen, drawn the Metro way: a rectangle with sharp corners, the ground in a 2-point line of ink, filled with the accent once chosen.",
+    "category": "Actions",
+    "importPath": "@xaui/tram/toggle-button",
+    "href": "/docs/components/toggle-button",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/toggle-button",
+    "markdownPath": "packages/tram/src/components/toggle-button/toggle-button.md",
+    "markdownHref": "/docs/tram/toggle-button.md",
+    "demoId": "toggle-button",
+    "exports": [
+      "ToggleButton"
+    ]
+  },
+  {
+    "id": "typography",
+    "title": "Typography",
+    "description": "Text by the role it plays on a Metro page — a caption, a page title, a pivot header — on the Tram scale, where each role fixes size, weight and face together.",
+    "category": "Data display",
+    "importPath": "@xaui/tram/typography",
+    "href": "/docs/components/typography",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/typography",
+    "markdownPath": "packages/tram/src/components/typography/typography.md",
+    "markdownHref": "/docs/tram/typography.md",
+    "demoId": "typography",
+    "exports": [
+      "Typography"
+    ]
+  },
+  {
+    "id": "view",
+    "title": "Layout — Row, Column, Stack, Grid",
+    "description": "The layout components — Row, Column, Stack and Grid — are Native's own, re-exported unchanged from @xaui/native/view, so an app can import its whole screen from @xaui/tram.",
+    "category": "Layout",
+    "importPath": "@xaui/tram/view",
+    "href": "/docs/components/view",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/view",
+    "markdownPath": "packages/tram/src/components/view/view.md",
+    "markdownHref": "/docs/tram/view.md",
+    "demoId": "view",
+    "exports": [
+      "Column",
+      "Grid",
+      "Row",
+      "Stack"
+    ]
+  },
+  {
+    "id": "wheel-picker",
+    "title": "WheelPicker",
+    "description": "A column of options you turn, the one at the middle being the answer, drawn as the Metro date picker's wheels: a pile of squares, the current one a flat fill of the accent, its neighbours the ground inside a grey line.",
+    "category": "Forms",
+    "importPath": "@xaui/tram/wheel-picker",
+    "href": "/docs/components/wheel-picker",
+    "sourceUrl": "https://github.com/rygrams/xaui/tree/main/packages/tram/src/components/wheel-picker",
+    "markdownPath": "packages/tram/src/components/wheel-picker/wheel-picker.md",
+    "markdownHref": "/docs/tram/wheel-picker.md",
+    "demoId": "wheel-picker",
+    "exports": [
+      "WheelPicker",
+      "WheelPickerColumn",
+      "WheelPickerItem"
+    ]
+  }
+]

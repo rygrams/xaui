@@ -118,17 +118,23 @@ fade.
   and expose the event (`onPressIn`, `onValueChange`, `onTabChange`). Nothing vibrates
   until the app hands `TramProvider` an `onHaptic`, where it wires `expo-haptics`.
 
-## Not now
+## Docs and release
 
-Until a task says otherwise (T5):
+`@xaui/tram` is published (T5, `0.1.0`) and has its own section of the docs site,
+`/docs/tram/…`, apart from Native's under the header's Native | Tram switch.
 
-- No `apps/docs` page, no preview, no `llms.txt` entry.
-- No `README.md` — not the package one, not per-folder ones. Native's folder READMEs
-  describe the same boundaries.
-- No `@xaui/hybrid` re-export of Tram.
-- No publish. `package.json` stays `"private": true`, and a Tram-only change carries **no
-  changeset**. A change that also touches `@xaui/native` gets Native's patch changeset as
-  usual.
+- **Each component has `<id>.md`** beside its code: the Native page's sections — overview,
+  `## Import`, `## Anatomy`, `## Usage`, `## Variants` / `## Sizes` / `## Colour`,
+  `## Accessibility` — ending on `## Differences from Native` (none for a Tram-only
+  component). No `## Props`: the tables are generated from the `.type.ts`.
+- `pnpm --filter docs docs:generate` reads them into the Tram pages, `llms.txt` and
+  `llms-full.txt`; the demo screen is the page's live preview. A screen that drives Expo
+  Router cannot run there — list it in `withoutPreview` (`tooling/component-docs`).
+- A new component is not done until its `.md` exists — the generator only lists the ones
+  that have one.
+- A Tram change carries a **patch** changeset for `@xaui/tram`.
+- No folder READMEs (Native's describe the same boundaries), and no `@xaui/hybrid`
+  re-export of Tram until a task asks.
 
 ## Verifying
 
@@ -169,5 +175,6 @@ pnpm worklets:check            # after a build
 - [ ] Reduced motion is honoured; worklets are declared; nothing uses RN's `Animated`.
 - [ ] No `left` / `right`.
 - [ ] Demo screen checked in dark and light.
-- [ ] No docs page, no README, no changeset for a Tram-only change; `private` untouched.
+- [ ] The component's `<id>.md` is written or updated, and a `@xaui/tram` patch changeset
+      is committed.
 - [ ] Subpath declared in both `package.json` and `tsup.config.ts`; roadmap line updated.

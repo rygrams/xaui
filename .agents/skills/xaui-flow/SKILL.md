@@ -172,8 +172,8 @@ every Native subpath resolves from `@xaui/hybrid` and renders in a browser. A sh
 component is never re-implemented in Hybrid — a web bug is fixed in `@xaui/native`.
 
 For `@xaui/tram`, the `xaui-tram` definition of done replaces it: the Tram demo screen in
-dark and light with reduced motion checked, no doc page, no README, no `@deprecated`, and no
-changeset while the package is private.
+dark and light with reduced motion checked, its `<id>.md` for the Tram docs section, no
+`@deprecated`, and a `@xaui/tram` patch changeset.
 
 ## When to stop and ask
 
@@ -182,8 +182,7 @@ changeset while the package is private.
 - The task adds a sixteenth component to the 1.0 core.
 - The task asks for hybrid work before P4 is done.
 - The task asks for a new prop where `style` would do (R7).
-- The task asks for a Tram docs page, README, Hybrid re-export or publish before T5, or for
-  a Tram component before the T1 review of the reference `Button`.
+- The task asks for a Hybrid re-export of Tram.
 
 State the conflict in a sentence or two, propose the in-plan alternative, and continue with
 everything the question doesn't block.

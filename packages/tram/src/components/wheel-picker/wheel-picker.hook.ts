@@ -80,7 +80,10 @@ export function useWheelWake(column: string): SharedValue<number> {
   const awake = useSharedValue(isAwake ? 1 : 0)
 
   useAnimatedReaction(
-    () => isAwake || stirredBy.value !== NOBODY,
+    () => {
+      'worklet'
+      return isAwake || stirredBy.value !== NOBODY
+    },
     (isUp, wasUp) => {
       'worklet'
       if (isUp === wasUp) return
@@ -207,6 +210,16 @@ export function useWheelTurn({
     offset.value = animate(target, 'navigation')
   }
 
+  /**
+   * Where a coast ends. Its own worklet rather than an arrow inside `release`: a worklet
+   * declared inside another is emitted twice by the plugin, and the dist check counts it so.
+   */
+  const settleAfterCoast = (isFinished?: boolean) => {
+    'worklet'
+    if (isFinished && phase.value === COASTING)
+      sendTo(restOffset(offset.value, shape))
+  }
+
   /** Lets the column go at `velocity`, in points a second. */
   const release = (velocity: number) => {
     'worklet'
@@ -225,16 +238,15 @@ export function useWheelTurn({
         // A wheel with ends stops dead on its last square rather than past it.
         clamp: shape.isLooping ? undefined : [0, withinWheel(Infinity, shape)],
       },
-      isFinished => {
-        'worklet'
-        if (isFinished && phase.value === COASTING)
-          sendTo(restOffset(offset.value, shape))
-      }
+      settleAfterCoast
     )
   }
 
   useAnimatedReaction(
-    () => offset.value,
+    () => {
+      'worklet'
+      return offset.value
+    },
     (at, was) => {
       'worklet'
       if (

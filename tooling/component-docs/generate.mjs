@@ -4,18 +4,8 @@ import ts from 'typescript'
 
 const workspace = path.resolve(import.meta.dirname, '../..')
 const nativeDirectory = path.join(workspace, 'packages/native')
-const componentsDirectory = path.join(nativeDirectory, 'src/components')
 const docsDirectory = path.join(workspace, 'apps/docs')
 const publicDocsDirectory = path.join(docsDirectory, 'public/docs')
-const manifestPath = path.join(
-  docsDirectory,
-  'lib/data/native-components.generated.json'
-)
-const apiPath = path.join(docsDirectory, 'lib/data/native-api.generated.json')
-const demoRegistryPath = path.join(
-  docsDirectory,
-  'components/preview/native-demo-registry.generated.tsx'
-)
 const siteUrl = 'https://ui.xtartapp.com'
 const llmsPath = path.join(docsDirectory, 'public/llms.txt')
 const llmsFullPath = path.join(docsDirectory, 'public/llms-full.txt')
@@ -24,9 +14,6 @@ const stylePropsPath = path.join(
   'lib/data/native-style-props.generated.json'
 )
 const skillPath = path.join(docsDirectory, 'public/skills/xaui/SKILL.md')
-const packageJson = JSON.parse(
-  fs.readFileSync(path.join(nativeDirectory, 'package.json'), 'utf8')
-)
 
 const CATEGORY_COMPONENTS = {
   Actions: [
@@ -55,6 +42,7 @@ const CATEGORY_COMPONENTS = {
     'list-box',
     'table',
     'tag-group',
+    'tile',
     'timeline',
     'typography',
     'widget',
@@ -101,8 +89,13 @@ const CATEGORY_COMPONENTS = {
   Navigation: [
     'accordion',
     'agenda-calendar',
+    'app-bar',
     'calendar',
+    'jump-list',
+    'page',
     'pager',
+    'panorama',
+    'pivot',
     'segment',
     'stepper',
     'tabs',
@@ -110,7 +103,7 @@ const CATEGORY_COMPONENTS = {
   Overlays: ['bottom-sheet', 'dialog', 'menu', 'popover'],
 }
 
-const DEMO_ALIASES = {
+const CHART_DEMOS = {
   'area-chart': 'charts',
   'bar-chart': 'charts',
   chart: 'charts',
@@ -118,7 +111,43 @@ const DEMO_ALIASES = {
   'pie-chart': 'charts',
   'radar-chart': 'charts',
   'radial-chart': 'charts',
-  'range-calendar': 'date-range-picker',
+}
+
+/**
+ * The two packages the docs describe, each read the same way: its `package.json` exports,
+ * the `<id>.md` beside each component, the props out of its `.type.ts`, and its demo
+ * screen in `apps/demo`. A component documented by both gets one page with a tab each.
+ */
+const EDITIONS = {
+  native: {
+    name: '@xaui/native',
+    directory: nativeDirectory,
+    demoDirectory: 'apps/demo/app',
+    demoAliases: { ...CHART_DEMOS, 'range-calendar': 'date-range-picker' },
+    // Every Native demo runs on the docs' React Native Web.
+    withoutPreview: [],
+    manifest: 'lib/data/native-components.generated.json',
+    api: 'lib/data/native-api.generated.json',
+    registry: 'components/preview/native-demo-registry.generated.tsx',
+    registryName: 'nativeDemoRegistry',
+    publicDirectory: publicDocsDirectory,
+    markdownHref: id => `/docs/${id}.md`,
+  },
+  tram: {
+    name: '@xaui/tram',
+    directory: path.join(workspace, 'packages/tram'),
+    demoDirectory: 'apps/demo/app/tram',
+    demoAliases: CHART_DEMOS,
+    // These two screens drive Expo Router — the router's own stack is what they show —
+    // and the docs have no router to hand them.
+    withoutPreview: ['page', 'scaffold'],
+    manifest: 'lib/data/tram-components.generated.json',
+    api: 'lib/data/tram-api.generated.json',
+    registry: 'components/preview/tram-demo-registry.generated.tsx',
+    registryName: 'tramDemoRegistry',
+    publicDirectory: path.join(publicDocsDirectory, 'tram'),
+    markdownHref: id => `/docs/tram/${id}.md`,
+  },
 }
 
 const categoryByComponent = new Map(
@@ -127,12 +156,22 @@ const categoryByComponent = new Map(
   )
 )
 
-function getComponentIds() {
+function componentsDirectoryOf(edition) {
+  return path.join(edition.directory, 'src/components')
+}
+
+function getComponentIds(edition) {
+  const packageJson = JSON.parse(
+    fs.readFileSync(path.join(edition.directory, 'package.json'), 'utf8')
+  )
+
   return Object.keys(packageJson.exports)
     .filter(exportPath => exportPath.startsWith('./'))
     .map(exportPath => exportPath.slice(2))
     .filter(componentId =>
-      fs.existsSync(path.join(componentsDirectory, componentId, `${componentId}.md`))
+      fs.existsSync(
+        path.join(componentsDirectoryOf(edition), componentId, `${componentId}.md`)
+      )
     )
     .sort()
 }
@@ -176,8 +215,8 @@ function getTitleFromId(componentId) {
     .join('')
 }
 
-function getPropTables(componentId) {
-  const componentDirectory = path.join(componentsDirectory, componentId)
+function getPropTables(edition, componentId) {
+  const componentDirectory = path.join(componentsDirectoryOf(edition), componentId)
   const indexSource = fs.readFileSync(
     path.join(componentDirectory, 'index.ts'),
     'utf8'
@@ -250,9 +289,9 @@ function getPropTables(componentId) {
   })
 }
 
-function getPublicExports(componentId, title) {
+function getPublicExports(edition, componentId, title) {
   const indexSource = fs.readFileSync(
-    path.join(componentsDirectory, componentId, 'index.ts'),
+    path.join(componentsDirectoryOf(edition), componentId, 'index.ts'),
     'utf8'
   )
   const names = new Set()
@@ -262,84 +301,132 @@ function getPublicExports(componentId, title) {
   for (const match of indexSource.matchAll(/export \{ ([A-Z][A-Za-z0-9]*) \}/g)) {
     if (!match[1].endsWith('Root')) names.add(match[1])
   }
+  // A module that only re-exports another package's (Tram's `view`) names its components
+  // in an `export { A, B } from` list.
+  if (!names.size) {
+    for (const match of indexSource.matchAll(/export \{([^}]+)\} from/g)) {
+      for (const name of match[1].split(',').map(part => part.trim())) {
+        if (/^[A-Z][A-Za-z0-9]*$/.test(name)) names.add(name)
+      }
+    }
+  }
   if (!names.size) names.add(title.replaceAll(' ', ''))
   return [...names]
 }
 
-function getComponent(componentId) {
-  const componentDirectory = path.join(componentsDirectory, componentId)
-  const markdownPath = path.join(componentDirectory, `${componentId}.md`)
-  const markdown = fs.readFileSync(markdownPath, 'utf8')
+function getComponent(editionKey, componentId) {
+  const edition = EDITIONS[editionKey]
+  const relativeDirectory = path.relative(
+    workspace,
+    path.join(componentsDirectoryOf(edition), componentId)
+  )
+  const markdownPath = path.join(relativeDirectory, `${componentId}.md`)
+  const markdown = fs.readFileSync(path.join(workspace, markdownPath), 'utf8')
   const title = getTitle(markdown, componentId)
   const category = categoryByComponent.get(componentId)
   if (!category) throw new Error(`Missing category for ${componentId}.`)
 
-  const demoId = DEMO_ALIASES[componentId] ?? componentId
+  const demoId = edition.demoAliases[componentId] ?? componentId
   const hasDemo = fs.existsSync(
-    path.join(workspace, 'apps/demo/app', `${demoId}.tsx`)
+    path.join(workspace, edition.demoDirectory, `${demoId}.tsx`)
   )
-  if (!hasDemo) throw new Error(`Missing demo for ${componentId}.`)
+  if (!hasDemo) throw new Error(`Missing ${edition.name} demo for ${componentId}.`)
 
   return {
     id: componentId,
     title,
     description: getDescription(markdown),
     category,
-    importPath: `@xaui/native/${componentId}`,
+    importPath: `${edition.name}/${componentId}`,
     href: `/docs/components/${componentId}`,
-    sourceUrl: `https://github.com/rygrams/xaui/tree/main/packages/native/src/components/${componentId}`,
-    markdownPath: `packages/native/src/components/${componentId}/${componentId}.md`,
-    demoId,
-    exports: getPublicExports(componentId, title),
-    propTables: getPropTables(componentId),
+    sourceUrl: `https://github.com/rygrams/xaui/tree/main/${relativeDirectory}`,
+    markdownPath,
+    markdownHref: edition.markdownHref(componentId),
+    demoId: edition.withoutPreview.includes(componentId) ? null : demoId,
+    exports: getPublicExports(edition, componentId, title),
+    propTables: getPropTables(edition, componentId),
   }
 }
 
-const components = getComponentIds().map(getComponent)
-const catalog = components.map(
-  ({ propTables: _propTables, ...component }) => component
-)
-const api = Object.fromEntries(
-  components.map(component => [component.id, component.propTables])
-)
-
-fs.mkdirSync(path.dirname(manifestPath), { recursive: true })
-fs.writeFileSync(manifestPath, `${JSON.stringify(catalog, null, 2)}\n`)
-fs.writeFileSync(apiPath, `${JSON.stringify(api, null, 2)}\n`)
-
-const demoIds = [...new Set(components.map(component => component.demoId))]
-const demoRegistry = [
-  "'use client'",
-  '',
-  "import dynamic from 'next/dynamic'",
-  "import type { ComponentType } from 'react'",
-  '',
-  'const loading = () => (',
-  '  <div className="flex min-h-[560px] items-center justify-center text-sm text-zinc-500">',
-  '    Loading the demo…',
-  '  </div>',
-  ')',
-  '',
-  'export const nativeDemoRegistry: Record<string, ComponentType> = {',
-  ...demoIds.map(
-    demoId =>
-      `  '${demoId}': dynamic(\n    () => import('../../../demo/app/${demoId}'),\n    { loading, ssr: false }\n  ),`
-  ),
-  '}',
-  '',
-].join('\n')
-fs.writeFileSync(demoRegistryPath, demoRegistry)
-
-fs.mkdirSync(publicDocsDirectory, { recursive: true })
-for (const entry of fs.readdirSync(publicDocsDirectory)) {
-  if (entry.endsWith('.md')) fs.rmSync(path.join(publicDocsDirectory, entry))
-}
-for (const component of components) {
-  fs.copyFileSync(
-    path.join(workspace, component.markdownPath),
-    path.join(publicDocsDirectory, `${component.id}.md`)
+/**
+ * One edition's generated files: the catalogue, the API tables, the demo registry the
+ * preview loads screens from, and a copy of every page's markdown under `public/`.
+ */
+function writeEdition(editionKey) {
+  const edition = EDITIONS[editionKey]
+  const components = getComponentIds(edition).map(componentId =>
+    getComponent(editionKey, componentId)
   )
+  const catalog = components.map(
+    ({ propTables: _propTables, ...component }) => component
+  )
+  const api = Object.fromEntries(
+    components.map(component => [component.id, component.propTables])
+  )
+  const manifestPath = path.join(docsDirectory, edition.manifest)
+
+  fs.mkdirSync(path.dirname(manifestPath), { recursive: true })
+  fs.writeFileSync(manifestPath, `${JSON.stringify(catalog, null, 2)}\n`)
+  fs.writeFileSync(
+    path.join(docsDirectory, edition.api),
+    `${JSON.stringify(api, null, 2)}\n`
+  )
+
+  const registryPath = path.join(docsDirectory, edition.registry)
+  const demoImport = path.relative(
+    path.dirname(registryPath),
+    path.join(workspace, edition.demoDirectory)
+  )
+  const demoIds = [
+    ...new Set(components.map(component => component.demoId).filter(Boolean)),
+  ]
+  const demoRegistry = [
+    "'use client'",
+    '',
+    "import dynamic from 'next/dynamic'",
+    "import type { ComponentType } from 'react'",
+    '',
+    'const loading = () => (',
+    '  <div className="flex min-h-[560px] items-center justify-center text-sm text-zinc-500">',
+    '    Loading the demo…',
+    '  </div>',
+    ')',
+    '',
+    `export const ${edition.registryName}: Record<string, ComponentType> = {`,
+    ...demoIds.map(
+      demoId =>
+        `  '${demoId}': dynamic(\n    () => import('${demoImport}/${demoId}'),\n    { loading, ssr: false }\n  ),`
+    ),
+    '}',
+    '',
+  ].join('\n')
+  fs.writeFileSync(registryPath, demoRegistry)
+
+  fs.mkdirSync(edition.publicDirectory, { recursive: true })
+  for (const entry of fs.readdirSync(edition.publicDirectory)) {
+    if (entry.endsWith('.md')) fs.rmSync(path.join(edition.publicDirectory, entry))
+  }
+  for (const component of components) {
+    fs.copyFileSync(
+      path.join(workspace, component.markdownPath),
+      path.join(edition.publicDirectory, `${component.id}.md`)
+    )
+  }
+
+  return components
 }
+
+const components = writeEdition('native')
+const tramComponents = writeEdition('tram')
+
+// Tram's version for the header badge; Native's comes from its changelog.
+const tramPackageJson = JSON.parse(
+  fs.readFileSync(path.join(EDITIONS.tram.directory, 'package.json'), 'utf8')
+)
+fs.writeFileSync(
+  path.join(docsDirectory, 'lib/data/tram-package.generated.json'),
+  `${JSON.stringify({ version: tramPackageJson.version }, null, 2)}\n`
+)
 
 // The release notes come from the same changelog npm shows, so the site cannot drift from
 // what was published — and the copy is what a build outside the workspace reads.
@@ -434,7 +521,11 @@ const GUIDES = [
 
 const componentLinks = components.map(
   component =>
-    `- [${component.title}](${siteUrl}/docs/${component.id}.md): ${component.description}`
+    `- [${component.title}](${siteUrl}${component.markdownHref}): ${component.description}`
+)
+const tramComponentLinks = tramComponents.map(
+  component =>
+    `- [${component.title}](${siteUrl}${component.markdownHref}): ${component.description}`
 )
 
 const llms = [
@@ -460,6 +551,18 @@ const llms = [
   '',
   ...componentLinks,
   '',
+  '## Tram components — Metro UI',
+  '',
+  `\`@xaui/tram\` is Metro UI for React Native: the same components drawn in the Metro design language of Windows Phone, modernised, on the @xaui/native engine, with the same names, slots and props apart from the Tram \`variant\`, \`accent\` and \`size\` vocabulary. ${tramComponents.length} components, each from its own subpath (\`@xaui/tram/button\`), under one \`TramProvider\` (\`@xaui/tram/theme\`). Each page below ends with its differences from Native.`,
+  '',
+  '```bash',
+  'pnpm add @xaui/tram',
+  '```',
+  '',
+  `- [Get started with Tram](${siteUrl}/docs/tram/getting-started): The package, TramProvider, the scaffold and a first screen.`,
+  '',
+  ...tramComponentLinks,
+  '',
 ].join('\n')
 fs.writeFileSync(llmsPath, llms)
 
@@ -472,6 +575,15 @@ const llmsFull = [
   '',
   ...components.map(component =>
     fs.readFileSync(path.join(workspace, component.markdownPath), 'utf8').trim()
+  ),
+  '# XAUI Tram — full documentation',
+  '> Every @xaui/tram component page. Each one is a Native component redrawn in the Tram language; its last section lists what differs from Native.',
+  // The titles are Native's, so each Tram page names its package where it starts.
+  ...tramComponents.map(component =>
+    fs
+      .readFileSync(path.join(workspace, component.markdownPath), 'utf8')
+      .trim()
+      .replace(/^# (.+)$/m, '# $1 — @xaui/tram')
   ),
   '',
 ].join('\n\n')
@@ -538,5 +650,5 @@ fs.mkdirSync(path.dirname(skillPath), { recursive: true })
 fs.writeFileSync(skillPath, skill.join('\n'))
 
 console.log(
-  `Generated ${components.length} component pages, API tables and llms.txt entries.`
+  `Generated ${components.length} Native and ${tramComponents.length} Tram component pages, API tables and llms.txt entries.`
 )

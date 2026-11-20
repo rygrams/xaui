@@ -3,7 +3,11 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { createTheme, XAUIProvider } from '@xaui/native/theme'
+import { TramProvider } from '@xaui/tram/theme'
+import { ToastHost } from '@xaui/tram/toast'
+import type { PackageName } from '@/lib/data/components'
 import { nativeDemoRegistry } from './native-demo-registry.generated'
+import { tramDemoRegistry } from './tram-demo-registry.generated'
 
 /**
  * The screen is rendered at a phone's own point size and scaled to whatever width the
@@ -24,20 +28,25 @@ const docsTheme = createTheme({
   },
 })
 
+const REGISTRIES = { native: nativeDemoRegistry, tram: tramDemoRegistry }
+
 type NativePreviewClientProps = {
   componentId: string
   demoId: string
+  /** Which package's demo screen, under which provider. */
+  edition: PackageName
 }
 
 export function NativePreviewClient({
   componentId,
   demoId,
+  edition,
 }: NativePreviewClientProps) {
   const [mounted, setMounted] = useState(false)
   const [mode, setMode] = useState<'light' | 'dark'>('light')
   const [scale, setScale] = useState(1)
   const screen = useRef<HTMLDivElement>(null)
-  const Demo = nativeDemoRegistry[demoId]
+  const Demo = REGISTRIES[edition][demoId]
 
   useEffect(() => {
     import('@/lib/device-frame').then(() => setMounted(true))
@@ -114,9 +123,22 @@ export function NativePreviewClient({
                 }}
               >
                 <GestureHandlerRootView style={{ flex: 1 }}>
-                  <XAUIProvider colorMode={mode} theme={docsTheme}>
-                    <Demo />
-                  </XAUIProvider>
+                  {edition === 'tram' ? (
+                    // The Tram theme as shipped: its Selawik faces are the ones globals.css
+                    // registers, under the names the theme asks for.
+                    <TramProvider colorMode={mode}>
+                      {/* The Expo app's Tram layout mounts the toast host above every
+                          screen, and the Toast screen posts to it; the preview skips that
+                          layout, so it mounts the host itself. No notch: offset 10. */}
+                      <ToastHost offset={10} dismissLabel="fermer">
+                        <Demo />
+                      </ToastHost>
+                    </TramProvider>
+                  ) : (
+                    <XAUIProvider colorMode={mode} theme={docsTheme}>
+                      <Demo />
+                    </XAUIProvider>
+                  )}
                 </GestureHandlerRootView>
               </div>
             </div>

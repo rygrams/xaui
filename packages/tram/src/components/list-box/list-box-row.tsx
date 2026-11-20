@@ -65,7 +65,10 @@ export function ListBoxRow({
 
   // Once closed — the spring dips past nothing on its way — the list lets the row go.
   useAnimatedReaction(
-    () => isLeaving && open.value <= 0,
+    () => {
+      'worklet'
+      return isLeaving && open.value <= 0
+    },
     (isClosed, wasClosed) => {
       'worklet'
       if (isClosed && !wasClosed) scheduleOnRN(onGone, rowKey)
