@@ -4,6 +4,7 @@ import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { createTheme, XAUIProvider } from '@xaui/native/theme'
 import { createTramTheme, TramProvider } from '@xaui/tram/theme'
+import { ToastHost } from '@xaui/tram/toast'
 import type { PackageName } from '@/lib/data/components'
 import { nativeDemoRegistry } from './native-demo-registry.generated'
 import { tramDemoRegistry } from './tram-demo-registry.generated'
@@ -136,7 +137,12 @@ export function NativePreviewClient({
                 <GestureHandlerRootView style={{ flex: 1 }}>
                   {edition === 'tram' ? (
                     <TramProvider colorMode={mode} theme={tramDocsTheme}>
-                      <Demo />
+                      {/* The Expo app's Tram layout mounts the toast host above every
+                          screen, and the Toast screen posts to it; the preview skips that
+                          layout, so it mounts the host itself. No notch: offset 10. */}
+                      <ToastHost offset={10} dismissLabel="fermer">
+                        <Demo />
+                      </ToastHost>
                     </TramProvider>
                   ) : (
                     <XAUIProvider colorMode={mode} theme={docsTheme}>
