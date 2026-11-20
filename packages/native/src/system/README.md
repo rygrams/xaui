@@ -35,6 +35,7 @@ re-exported from `utils/`.
 | `expansion/`          | What is open after a press: an accordion's single/multiple rule, pure   |
 | `items/`              | A list's rows read off its elements: their labels, and a typed filter   |
 | `dates/`              | Calendar days by day, not by instant: grids, bounds, names, ranges      |
+| `selection/`          | Which rows are chosen and how a table sorts, and `useTableState` on top |
 
 ## `recipe/` in one page
 

@@ -2,7 +2,7 @@ import { forwardRef } from 'react'
 import { View } from 'react-native'
 import { Checkbox } from '../checkbox'
 import { useStyleProps } from '../../system/style-props'
-import { isEveryKeySelected, isSomeKeySelected } from '../../utils/selection'
+import { isEveryKeySelected, isSomeKeySelected } from '../../system/selection'
 import { useTable, useTableRow } from './table.context'
 import type { TableViewProps } from './table.type'
 
