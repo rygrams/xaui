@@ -1,13 +1,9 @@
 import { forwardRef, useCallback, useMemo } from 'react'
 import type { ReactNode } from 'react'
 import type { View } from 'react-native'
-import {
-  EMPTY_RANGE,
-  nextRange,
-  rangePosition,
-  useControllableState,
-} from '@xaui/native'
-import type { DateRange } from '@xaui/native'
+import { useControllableState } from '@xaui/native'
+import { EMPTY_RANGE, nextRange, rangePosition } from '@xaui/native/system'
+import type { DateRange } from '@xaui/native/system'
 import { useTramHaptic } from '../../theme/tram-haptics'
 import { CalendarRoot } from '../calendar/calendar'
 import { useCalendar } from '../calendar/calendar.context'

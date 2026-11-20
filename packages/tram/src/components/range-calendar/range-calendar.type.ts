@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import type { PressableStateCallbackType, StyleProp, ViewStyle } from 'react-native'
-import type { DateRange, RangePosition } from '@xaui/native'
+import type { DateRange, RangePosition } from '@xaui/native/system'
 import type { PressableFeedbackProps } from '@xaui/native/system'
 import type { CalendarProps } from '../calendar'
 

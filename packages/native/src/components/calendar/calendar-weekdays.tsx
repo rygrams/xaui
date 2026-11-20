@@ -1,7 +1,7 @@
 import { forwardRef } from 'react'
 import { Text, View } from 'react-native'
 import { useStyleProps } from '../../system/style-props'
-import { weekdayNames } from '../../utils/dates'
+import { weekdayNames } from '../../system/dates'
 import { useCalendar } from './calendar.context'
 import type { CalendarViewSlotProps } from './calendar.type'
 

@@ -10,7 +10,7 @@ import {
   firstDayOfWeekFor,
   isWithinBounds,
   startOfDay,
-} from '../../utils/dates'
+} from '../../system/dates'
 import { CalendarProvider } from './calendar.context'
 import { calendarRecipe } from './calendar.recipe'
 import type { CalendarProps, CalendarView } from './calendar.type'

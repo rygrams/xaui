@@ -1,6 +1,6 @@
 import { forwardRef } from 'react'
 import { Text } from 'react-native'
-import { monthLabel } from '@xaui/native'
+import { monthLabel } from '@xaui/native/system'
 import { useStyleProps } from '@xaui/native/system'
 import { useCalendar } from './calendar.context'
 import type { CalendarTextSlotProps } from './calendar.type'

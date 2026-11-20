@@ -1,7 +1,7 @@
 import { forwardRef } from 'react'
 import { Text } from 'react-native'
 import { useStyleProps } from '../../system/style-props'
-import { monthLabel } from '../../utils/dates'
+import { monthLabel } from '../../system/dates'
 import { useCalendar } from './calendar.context'
 import type { CalendarTextSlotProps } from './calendar.type'
 

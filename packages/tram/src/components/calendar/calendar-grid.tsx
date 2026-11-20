@@ -5,7 +5,7 @@ import Animated, {
   useReducedMotion,
   useSharedValue,
 } from 'react-native-reanimated'
-import { monthGrid } from '@xaui/native'
+import { monthGrid } from '@xaui/native/system'
 import { useStyleProps } from '@xaui/native/system'
 import { panel } from '../../motion/motion-tokens'
 import { useTramEase } from '../../motion/use-tram-ease'

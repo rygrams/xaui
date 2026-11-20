@@ -1,12 +1,8 @@
 import { forwardRef, useCallback, useMemo, useState } from 'react'
 import { StyleSheet, View } from 'react-native'
 import type { TextStyle } from 'react-native'
-import {
-  firstDayOfWeekFor,
-  isWithinBounds,
-  startOfDay,
-  useControllableState,
-} from '@xaui/native'
+import { useControllableState } from '@xaui/native'
+import { firstDayOfWeekFor, isWithinBounds, startOfDay } from '@xaui/native/system'
 import { useStyleProps } from '@xaui/native/system'
 import { useXAUITheme } from '@xaui/native/theme'
 import { faintFill } from '../../system/faint-fill'
@@ -156,6 +152,18 @@ export const CalendarRoot = forwardRef<View, CalendarProps>(function Calendar(
     [bounds, month]
   )
 
+  /**
+   * A year is open when any of its days is: its first day not after the upper bound, its
+   * last not before the lower one. Judged on the whole year, so a bound in November still
+   * leaves that year's November and December to reach through the month picker.
+   */
+  const isYearEnabled = useCallback(
+    (year: number) =>
+      isWithinBounds(new Date(year, 0, 1), { max: bounds.max }) &&
+      isWithinBounds(new Date(year, 11, 31), { min: bounds.min }),
+    [bounds]
+  )
+
   const currentYear = month.getFullYear()
   const goToYear = useCallback(
     (year: number) => goToMonth((year - currentYear) * 12),
@@ -231,6 +239,7 @@ export const CalendarRoot = forwardRef<View, CalendarProps>(function Calendar(
       select,
       goToMonth,
       canGoToMonth,
+      isYearEnabled,
       goToYear,
       goToMonthInYear,
       yearRange,
@@ -251,6 +260,7 @@ export const CalendarRoot = forwardRef<View, CalendarProps>(function Calendar(
     select,
     goToMonth,
     canGoToMonth,
+    isYearEnabled,
     goToYear,
     goToMonthInYear,
     yearRange,

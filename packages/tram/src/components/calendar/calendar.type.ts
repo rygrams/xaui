@@ -8,7 +8,7 @@ import type {
   ViewProps,
   ViewStyle,
 } from 'react-native'
-import type { WeekDay } from '@xaui/native'
+import type { WeekDay } from '@xaui/native/system'
 import type {
   PressableFeedbackProps,
   TextStyleProps,
@@ -178,6 +178,8 @@ export type CalendarContextValue = {
   select: (date: Date) => void
   goToMonth: (step: number) => void
   canGoToMonth: (step: number) => boolean
+  /** Whether any day of that year is within the bounds — the whole year, not one month of it. */
+  isYearEnabled: (year: number) => boolean
   goToYear: (year: number) => void
   goToMonthInYear: (monthIndex: number) => void
   yearRange: { first: number; last: number }

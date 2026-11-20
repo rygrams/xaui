@@ -12,8 +12,8 @@ import type { RangeCalendarProps } from '../range-calendar'
 import type { PressableFeedbackProps } from '../../system/pressable-feedback'
 import type { TextStyleProps } from '../../system/style-props'
 import type { RadiusKey, Size } from '../../theme/theme.type'
-import type { DateRange } from '../../utils/date-range'
-import type { WeekDay } from '../../utils/dates'
+import type { DateRange } from '../../system/dates'
+import type { WeekDay } from '../../system/dates'
 
 /** The `Select`'s four field levels, because the trigger **is** a select's trigger. */
 export type DateRangePickerVariant = 'primary' | 'secondary' | 'tertiary' | 'ghost'

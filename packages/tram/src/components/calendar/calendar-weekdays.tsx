@@ -1,6 +1,6 @@
 import { forwardRef, useMemo } from 'react'
 import { Text, View } from 'react-native'
-import { weekdayNames } from '@xaui/native'
+import { weekdayNames } from '@xaui/native/system'
 import { useStyleProps } from '@xaui/native/system'
 import { useCalendar } from './calendar.context'
 import type { CalendarViewSlotProps } from './calendar.type'

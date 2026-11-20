@@ -20,7 +20,7 @@ export const CalendarYearPicker = forwardRef<ScrollView, CalendarYearPickerProps
     { firstYear, lastYear, onLayout, contentContainerStyle, ...props },
     ref
   ) {
-    const { pickerStyle, month, yearRange, goToYear, canGoToMonth, setView } =
+    const { pickerStyle, month, yearRange, goToYear, isYearEnabled, setView } =
       useCalendar()
 
     const first = firstYear ?? yearRange.first
@@ -59,7 +59,7 @@ export const CalendarYearPicker = forwardRef<ScrollView, CalendarYearPickerProps
             key={year}
             label={String(year)}
             isSelected={year === shown}
-            isDisabled={!canGoToMonth((year - shown) * 12)}
+            isDisabled={!isYearEnabled(year)}
             onPress={() => {
               goToYear(year)
               setView('month')

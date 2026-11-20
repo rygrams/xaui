@@ -31,22 +31,6 @@ export { CalendarWeekdays } from './calendar-weekdays'
 export { CalendarYearPicker } from './calendar-year-picker'
 export { useCalendar } from './calendar.context'
 export { calendarRecipe, SIZES as calendarCellSizes } from './calendar.recipe'
-/**
- * The date arithmetic under every calendar, public so a calendar drawn elsewhere — the Tram
- * one — reads the same six weeks, the same bounds and the same names rather than a copy.
- */
-export {
-  firstDayOfWeekFor,
-  isSameDay,
-  isSameMonth,
-  isWithinBounds,
-  monthGrid,
-  monthLabel,
-  monthNames,
-  startOfDay,
-  weekdayNames,
-} from '../../utils/dates'
-export type { DateBounds, WeekDay } from '../../utils/dates'
 export type {
   CalendarContextValue,
   CalendarDayProps,

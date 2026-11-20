@@ -30,16 +30,9 @@ export { RangeCalendarDay } from './range-calendar-day'
 export { RangeCalendarGrid } from './range-calendar-grid'
 export { useRangeCalendar } from './range-calendar.context'
 export { rangeCalendarRecipe } from './range-calendar.recipe'
-/** The three presses and where a day falls, public for a range calendar drawn elsewhere. */
-export {
-  EMPTY_RANGE,
-  isSameRange,
-  nextRange,
-  rangePosition,
-} from '../../utils/date-range'
 export type {
   RangeCalendarContextValue,
   RangeCalendarDayProps,
   RangeCalendarProps,
 } from './range-calendar.type'
-export type { DateRange, RangePosition } from '../../utils/date-range'
+export type { DateRange, RangePosition } from '../../system/dates'

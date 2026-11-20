@@ -34,6 +34,7 @@ re-exported from `utils/`.
 | `style-props/`        | R14: the style keys of a node, exposed as props and split back out      |
 | `expansion/`          | What is open after a press: an accordion's single/multiple rule, pure   |
 | `items/`              | A list's rows read off its elements: their labels, and a typed filter   |
+| `dates/`              | Calendar days by day, not by instant: grids, bounds, names, ranges      |
 
 ## `recipe/` in one page
 

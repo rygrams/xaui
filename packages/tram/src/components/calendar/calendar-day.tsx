@@ -1,7 +1,8 @@
 import { forwardRef, useCallback, useMemo } from 'react'
 import { Text } from 'react-native'
 import type { View } from 'react-native'
-import { isSameDay, isSameMonth, usePressState } from '@xaui/native'
+import { usePressState } from '@xaui/native'
+import { isSameDay, isSameMonth } from '@xaui/native/system'
 import {
   PressableFeedback,
   resolveAnimation,

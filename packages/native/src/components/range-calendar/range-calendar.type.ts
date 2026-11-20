@@ -2,7 +2,7 @@ import type { ReactNode } from 'react'
 import type { PressableStateCallbackType, StyleProp, ViewStyle } from 'react-native'
 import type { CalendarProps } from '../calendar'
 import type { PressableFeedbackProps } from '../../system/pressable-feedback'
-import type { DateRange, RangePosition } from '../../utils/date-range'
+import type { DateRange, RangePosition } from '../../system/dates'
 
 type RangeCalendarOwnProps = {
   /** The period chosen. Controlled — leave it out and the calendar holds its own. */

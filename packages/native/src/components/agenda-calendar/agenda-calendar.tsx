@@ -14,7 +14,7 @@ import {
   startOfDay,
   startOfWeek,
   weekGrid,
-} from '../../utils/dates'
+} from '../../system/dates'
 import { calendarRecipe } from '../calendar'
 import { AgendaCalendarProvider } from './agenda-calendar.context'
 import { agendaCalendarRecipe } from './agenda-calendar.recipe'

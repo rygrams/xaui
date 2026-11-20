@@ -10,7 +10,7 @@ import type {
 import type { IconContextValue } from '../../system/icon'
 import type { TextStyleProps, ViewStyleProps } from '../../system/style-props'
 import type { RadiusKey, Size } from '../../theme/theme.type'
-import type { WeekDay } from '../../utils/dates'
+import type { WeekDay } from '../../system/dates'
 import type { CalendarProps, CalendarVariant } from '../calendar'
 import type { SelectAnchor, SelectContentProps } from '../select/select.type'
 

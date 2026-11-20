@@ -12,7 +12,7 @@ import type { PressableFeedbackProps } from '../../system/pressable-feedback'
 import type { AsChildProps } from '../../system/slot'
 import type { TextStyleProps, ViewStyleProps } from '../../system/style-props'
 import type { RadiusKey, Size } from '../../theme/theme.type'
-import type { WeekDay } from '../../utils/dates'
+import type { WeekDay } from '../../system/dates'
 import type { CalendarVariant } from '../calendar'
 
 export type AgendaCalendarSlot =

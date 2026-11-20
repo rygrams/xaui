@@ -15,7 +15,7 @@ const SIZES: CalendarSize[] = ['sm', 'md', 'lg']
 /**
  * The verification screen for the `Calendar`. A component is verified here and in the docs
  * preview, in light and in dark — there is no test file for the component, though the date
- * arithmetic under it is `utils/dates.ts` and that one is tested.
+ * arithmetic under it is `system/dates` and that one is tested.
  *
  * Three things only this screen can show: that paging months does not change the chosen
  * day, that the grid stays six weeks tall from February to March, and that the chevrons go

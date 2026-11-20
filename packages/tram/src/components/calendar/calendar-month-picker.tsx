@@ -1,7 +1,7 @@
 import { forwardRef, useMemo } from 'react'
 import { View } from 'react-native'
 import Animated, { FadeIn } from 'react-native-reanimated'
-import { monthNames } from '@xaui/native'
+import { monthNames } from '@xaui/native/system'
 import { useStyleProps } from '@xaui/native/system'
 import { duration } from '../../motion/motion-tokens'
 import { CalendarPick } from './calendar-pick'

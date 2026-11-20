@@ -3,7 +3,7 @@ import { Text, View } from 'react-native'
 import { usePressState } from '../../hooks/use-press-state'
 import { PressableFeedback } from '../../system/pressable-feedback'
 import { useStyleProps } from '../../system/style-props'
-import { isSameDay, isSameMonth, monthLabel } from '../../utils/dates'
+import { isSameDay, isSameMonth, monthLabel } from '../../system/dates'
 import { useCalendar } from './calendar.context'
 import type { CalendarDayProps } from './calendar.type'
 

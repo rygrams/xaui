@@ -29,4 +29,4 @@ export type {
   RangeCalendarDayProps,
   RangeCalendarProps,
 } from './range-calendar.type'
-export type { DateRange, RangePosition } from '@xaui/native'
+export type { DateRange, RangePosition } from '@xaui/native/system'
