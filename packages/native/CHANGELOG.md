@@ -1,5 +1,12 @@
 # @xaui/native
 
+## 0.9.12
+
+### Patch Changes
+
+- 8d5fdab: `Carousel` and `Pager`: the index leads and the track follows. `defaultIndex` now places the track where it says, a controlled `index` moves it, and a parent that refuses a change leaves it in place; a move across several slides or pages reports one change instead of walking the index back through each one crossed. The caller's `onPress` on the arrows, the dots and the thumbnails, and `onScroll`, `onScrollBeginDrag`, `onContentSizeChange` and `contentContainerStyle` on the tracks, now run alongside the component's own instead of being replaced (`CarouselScrollSlotProps` types the two scroll slots). A dot or thumbnail reads `3/5` to a screen reader, and a missing arrow label warns once. Charts: a standalone `LineChart`, `AreaChart` or `BarChart` with `isDisabled` is dimmed, and a figure inside a disabled `Chart` is no longer dimmed twice; `Chart.LegendItem` accepts mixed text children; with `seriesCount` unset the legend walks its own length; the six figures forward their `ref`; a stacked `BarChart`'s axis reaches the top of its stacks; the plot's labels stay on their marks in a right-to-left layout on iOS and Android. `stackRows` and `stackKeys` join `system/chart`. With several slides in view a `Carousel` holds its index to the positions its track can reach (`carouselStops`, in `system/carousel`), so the last dots and the arrows no longer ask for an offset the scroll view clamps. `Table.Cell` and `Table.Column` accept mixed text children (`{size} Mo`) instead of handing a bare string to a `View`.
+- 8d5fdab: The charts' maths and the carousel's paging arithmetic move from the private `utils/` into `system/`, public from `@xaui/native/system`: `system/chart` holds `niceScale`, `linearScale`, `bandScale`, `pointScale`, `extent`, `linePath`, `areaPath`, `barPath`, `polygonPath`, `polarPoint`, `arcPath` and `chartPalette`, with the `Point`, `Span`, `Curve` and `Arc` types; `system/carousel` holds `carouselMetrics`, `trackIndexFromOffset`, `trackProgressFromOffset` and `stepIndex`. `@xaui/tram` reads them instead of restating them. The charts, the `Carousel` and the `Pager` behave as before. The square figures' geometry follows into `system/chart` — `pieSlices`, `radarWeb` and `radialRings`, with their `PieBox`, `RadarBox`, `RadarWeb`, `RadialBox`, `RadialRing` and `RadialGeometry` types — and the `PieChart`, `RadarChart` and `RadialChart` draw from it unchanged.
+
 ## 0.9.11
 
 ### Patch Changes
