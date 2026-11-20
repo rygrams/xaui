@@ -25,7 +25,7 @@ import { TramHapticsProvider, useTramHaptic } from '../../theme/tram-haptics'
 import { ToastEntry } from './toast-entry'
 import type { ToastEntryEvents, ToastPile } from './toast-entry'
 import { ToastQueueContext } from './toast.context'
-import { ToastOutletContext } from './toast.outlet'
+import { ToastOutletContext } from '../../system/toast-outlet'
 import { TOAST_GAP, toastLine } from './toast.recipe'
 import type { ToastOptions, ToastPlacement, ToastRecord } from './toast.type'
 
