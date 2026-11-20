@@ -15,7 +15,11 @@ import { useControllableState } from '../../hooks/use-controllable-state'
 import { Slot } from '../../system/slot'
 import { useStyleProps } from '../../system/style-props'
 import { useXAUITheme } from '../../theme/theme-hooks'
-import { carouselMetrics, stepIndex } from '../../system/carousel/carousel'
+import {
+  carouselMetrics,
+  carouselStops,
+  stepIndex,
+} from '../../system/carousel/carousel'
 import { CarouselProvider, NO_TARGET } from './carousel.context'
 import { carouselControlBox, carouselGap, carouselRecipe } from './carousel.recipe'
 import type { CarouselProps } from './carousel.type'
@@ -224,9 +228,13 @@ export const CarouselRoot = forwardRef<View, CarouselProps>(function Carousel(
   // What `placeTrack` reads. It is called from the track's own layout event, which can
   // arrive before or after the render that counted the slides; a ref synced at commit is
   // never a render behind.
-  const latest = useRef({ index, count, step: metrics.step })
+  // Where the track can rest: with several slides in view it stops a view short of the
+  // end, and every move is held to those positions rather than to the slide count.
+  const stops = carouselStops(count, itemsPerView)
+
+  const latest = useRef({ index, stops, step: metrics.step })
   useLayoutEffect(() => {
-    latest.current = { index, count, step: metrics.step }
+    latest.current = { index, stops, step: metrics.step }
   })
 
   /**
@@ -235,11 +243,11 @@ export const CarouselRoot = forwardRef<View, CarouselProps>(function Carousel(
    * the track: a scroll view starts at zero whatever the index says.
    */
   const placeTrack = useCallback(() => {
-    const { index: at, count: slides, step } = latest.current
-    if (step <= 0 || slides === 0) return
+    const { index: at, stops: places, step } = latest.current
+    if (step <= 0 || places === 0) return
 
     stopGlide()
-    const target = stepIndex(at, 0, slides, false)
+    const target = stepIndex(at, 0, places, false)
     trackIndex.current = target
     setTrackOffset(trackRef, target * step)
   }, [stopGlide, trackRef])
@@ -247,24 +255,28 @@ export const CarouselRoot = forwardRef<View, CarouselProps>(function Carousel(
   // The slides may be counted after the track has reported its size: placed then too.
   useEffect(() => {
     if (trackIndex.current === null) placeTrack()
-  }, [count, metrics.step, placeTrack])
+  }, [stops, metrics.step, placeTrack])
 
   // The index leads and the track follows. Whatever moved the index — an arrow, a dot, a
   // thumbnail, autoplay or a controlled parent — the track glides there, and a controlled
   // parent that refuses a change leaves the track where it was. A slide the track settled
   // on by itself is already where the index says, so nothing moves.
   useEffect(() => {
-    if (trackIndex.current === null || count === 0) return
+    if (trackIndex.current === null || stops === 0) return
 
-    const target = stepIndex(index, 0, count, false)
+    const target = stepIndex(index, 0, stops, false)
     if (target !== trackIndex.current) glideTo(target)
-  }, [count, glideTo, index])
+  }, [stops, glideTo, index])
 
-  const goTo = useCallback((next: number) => setIndex(next), [setIndex])
+  // A square or a thumbnail past the last position asks for the last position.
+  const goTo = useCallback(
+    (next: number) => setIndex(stepIndex(next, 0, stops, false)),
+    [setIndex, stops]
+  )
 
   const moveBy = useCallback(
-    (delta: number) => goTo(stepIndex(index, delta, count, hasLoop)),
-    [count, goTo, hasLoop, index]
+    (delta: number) => goTo(stepIndex(index, delta, stops, hasLoop)),
+    [stops, goTo, hasLoop, index]
   )
 
   /** The track settled on a slide by itself — a drag. Recorded first, so it is not chased. */
@@ -286,7 +298,7 @@ export const CarouselRoot = forwardRef<View, CarouselProps>(function Carousel(
   useEffect(() => stopGlide, [stopGlide])
 
   useEffect(() => {
-    if (!autoPlayInterval || isDisabled || count < 2) return
+    if (!autoPlayInterval || isDisabled || stops < 2) return
 
     const timer = setInterval(() => {
       if (hasInteracted.current) {
@@ -296,11 +308,11 @@ export const CarouselRoot = forwardRef<View, CarouselProps>(function Carousel(
       // Always wrapping, whatever `hasLoop` says: that prop is about what an *arrow* does
       // at the last slide, and an autoplay that stops there is one that quietly dies.
       // Through the index like every other move, so a controlled parent can refuse it.
-      goTo(stepIndex(index, 1, count, true))
+      goTo(stepIndex(index, 1, stops, true))
     }, autoPlayInterval)
 
     return () => clearInterval(timer)
-  }, [autoPlayInterval, count, goTo, index, isDisabled])
+  }, [autoPlayInterval, stops, goTo, index, isDisabled])
 
   const context = useMemo(
     () => ({
@@ -318,6 +330,7 @@ export const CarouselRoot = forwardRef<View, CarouselProps>(function Carousel(
       thumbnailActiveStyle: [styles.thumbnailActive, tint?.thumbnailActive],
       index,
       count,
+      stops,
       setCount,
       metrics,
       width,
@@ -341,6 +354,7 @@ export const CarouselRoot = forwardRef<View, CarouselProps>(function Carousel(
       dotInk,
       index,
       count,
+      stops,
       metrics,
       width,
       trackHeight,

@@ -1,5 +1,6 @@
 export {
   carouselMetrics,
+  carouselStops,
   trackIndexFromOffset,
   trackProgressFromOffset,
   stepIndex,

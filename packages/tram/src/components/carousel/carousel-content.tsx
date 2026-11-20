@@ -49,6 +49,7 @@ export const CarouselContent = forwardRef<ScrollView, CarouselScrollSlotProps>(
       metrics,
       width,
       count,
+      stops,
       setCount,
       offset,
       glideTarget,
@@ -117,7 +118,7 @@ export const CarouselContent = forwardRef<ScrollView, CarouselScrollSlotProps>(
           return
         }
 
-        const next = trackIndexFromOffset(event.contentOffset.x, step, count)
+        const next = trackIndexFromOffset(event.contentOffset.x, step, stops)
         if (next !== settled.get()) {
           settled.set(next)
           scheduleOnRN(onSettle, next)
@@ -128,7 +129,7 @@ export const CarouselContent = forwardRef<ScrollView, CarouselScrollSlotProps>(
         glideTarget,
         settled,
         step,
-        count,
+        stops,
         onSettle,
         hasOwnScroll,
         forwardScroll,

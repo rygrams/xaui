@@ -71,6 +71,23 @@ export function carouselMetrics({
 }
 
 /**
+ * How many positions the track can rest on: every slide up to the one that starts the last
+ * whole view.
+ *
+ * With `itemsPerView` slides in view the track's last offset shows the final
+ * `itemsPerView` of them at once, so it stops `itemsPerView - 1` slides short of the end —
+ * five slides two at a time rest on four positions. An index past that asks for an offset
+ * the scroll view clamps, and the track and the index would disagree. Zero slides, zero
+ * positions.
+ */
+export function carouselStops(count: number, itemsPerView: number): number {
+  if (count <= 0) return 0
+
+  const perView = Math.max(1, Math.floor(itemsPerView))
+  return Math.max(1, count - perView + 1)
+}
+
+/**
  * Which slide a scroll offset has landed on.
  *
  * Rounded, not floored: the slide the track is *nearest* to is the one it will snap to, and

@@ -1,6 +1,6 @@
 import { forwardRef } from 'react'
 import { Text, View } from 'react-native'
-import { useStyleProps } from '@xaui/native/system'
+import { childrenToString, useStyleProps } from '@xaui/native/system'
 import { useTable, useTableColumnIndex } from './table.context'
 import { tableSheet } from './table.style'
 import type { TableViewProps } from './table.type'
@@ -22,6 +22,10 @@ export const TableCell = forwardRef<View, TableViewProps>(function TableCell(
 
   const width = widths[index]
 
+  // Mixed text (`{size} Mo`) arrives as an array: read as one string, or it reaches the
+  // View bare, which React Native refuses outside a Text.
+  const text = childrenToString(children)
+
   return (
     <View
       ref={ref}
@@ -33,12 +37,12 @@ export const TableCell = forwardRef<View, TableViewProps>(function TableCell(
         style,
       ]}
     >
-      {typeof children === 'string' || typeof children === 'number' ? (
-        <Text style={cellTextStyle} numberOfLines={1}>
-          {children}
-        </Text>
-      ) : (
+      {text === null ? (
         children
+      ) : (
+        <Text style={cellTextStyle} numberOfLines={1}>
+          {text}
+        </Text>
       )}
     </View>
   )

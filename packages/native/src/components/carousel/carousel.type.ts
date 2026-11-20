@@ -173,6 +173,8 @@ export type CarouselContextValue = {
   index: number
   /** How many slides `Carousel.Content` was given. */
   count: number
+  /** The positions the track can rest on — fewer than `count` with several slides in view. */
+  stops: number
   /** How `Carousel.Content` tells everything else how many slides there are. */
   setCount: (count: number) => void
   metrics: CarouselMetrics

@@ -59,6 +59,7 @@ export const CarouselContent = forwardRef<ScrollView, CarouselScrollSlotProps>(
       metrics,
       width,
       count,
+      stops,
       setCount,
       offset,
       glideTarget,
@@ -137,7 +138,7 @@ export const CarouselContent = forwardRef<ScrollView, CarouselScrollSlotProps>(
         // previous slide for the length of the deceleration. `trackIndexFromOffset` rounds, so the
         // crossing is the moment the nearest slide changes, which is what "which slide am I
         // on" means while a finger is still down.
-        const next = trackIndexFromOffset(event.contentOffset.x, step, count)
+        const next = trackIndexFromOffset(event.contentOffset.x, step, stops)
         if (next !== settled.get()) {
           settled.set(next)
           scheduleOnRN(onSettle, next)
@@ -148,7 +149,7 @@ export const CarouselContent = forwardRef<ScrollView, CarouselScrollSlotProps>(
         glideTarget,
         settled,
         step,
-        count,
+        stops,
         onSettle,
         hasOwnScroll,
         forwardScroll,

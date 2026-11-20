@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest'
 import {
   carouselMetrics,
+  carouselStops,
   trackIndexFromOffset,
   trackProgressFromOffset,
   stepIndex,
@@ -128,5 +129,29 @@ describe('stepIndex', () => {
   it('survives an empty carousel', () => {
     expect(stepIndex(0, 1, 0, true)).toBe(0)
     expect(stepIndex(0, 1, 0, false)).toBe(0)
+  })
+})
+
+describe('carouselStops', () => {
+  it('rests on every slide when one is in view', () => {
+    expect(carouselStops(5, 1)).toBe(5)
+  })
+
+  it('stops short of the end by a view less one slide', () => {
+    expect(carouselStops(5, 2)).toBe(4)
+    expect(carouselStops(5, 3)).toBe(3)
+  })
+
+  it('keeps one position when the view holds every slide or more', () => {
+    expect(carouselStops(3, 3)).toBe(1)
+    expect(carouselStops(2, 4)).toBe(1)
+  })
+
+  it('reads a fractional view as the whole slides in it', () => {
+    expect(carouselStops(5, 2.5)).toBe(4)
+  })
+
+  it('has no position without slides', () => {
+    expect(carouselStops(0, 1)).toBe(0)
   })
 })

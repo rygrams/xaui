@@ -44,7 +44,7 @@ function control({ delta, displayName, edge, turn }: Direction) {
       controlBox,
       trackHeight,
       index,
-      count,
+      stops,
       hasLoop,
       isDisabled,
       moveBy,
@@ -68,7 +68,7 @@ function control({ delta, displayName, edge, turn }: Direction) {
       )
     }, [asChild, hasLabel])
 
-    const atEnd = delta > 0 ? index >= count - 1 : index <= 0
+    const atEnd = delta > 0 ? index >= stops - 1 : index <= 0
     const isInactive = isDisabled || (!hasLoop && atEnd)
 
     const place = {
