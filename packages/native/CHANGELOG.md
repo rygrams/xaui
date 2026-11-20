@@ -1,5 +1,11 @@
 # @xaui/native
 
+## 0.9.9
+
+### Patch Changes
+
+- cb01c40: `@xaui/native/rating` exports its two pure helpers as `ratingFill` and `snapRating`, and `@xaui/native/number-pad` its three as `appendPadKey`, `removePadKey` and `isPadComplete`, so `@xaui/tram` reads them instead of restating them. The `Rating` and the `NumberPad` behave as before.
+
 ## 0.9.8
 
 ### Patch Changes
