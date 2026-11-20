@@ -58,7 +58,7 @@ jobs:
       # build in it — a subpath declared in package.json and forgotten in tsup.config.ts
       # is exactly what it exists to catch.
       - name: Build the published packages
-        run: pnpm build --filter=@xaui/native --filter=@xaui/hybrid
+        run: pnpm build --filter=@xaui/native --filter=@xaui/hybrid --filter=@xaui/tram
 
       - name: '@xaui/native resolves once, and every subpath ships'
         run: pnpm pack:check

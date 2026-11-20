@@ -4,7 +4,8 @@ import { createRequire } from 'node:module'
 import babel from '@babel/core'
 
 /**
- * Holds `@xaui/native` to shipping worklets the **consumer's** Babel plugin compiles.
+ * Holds `@xaui/native` and `@xaui/tram` to shipping worklets the **consumer's** Babel
+ * plugin compiles.
  *
  * **Why the package ships raw directives.** The worklets plugin stamps every function it
  * compiles with its own version, and the runtime refuses a worklet whose stamp differs from
@@ -31,7 +32,8 @@ import babel from '@babel/core'
  *     node tooling/worklets/check.mjs
  */
 
-const PACKAGE = join(import.meta.dirname, '../../packages/native')
+const PACKAGES_DIRECTORY = join(import.meta.dirname, '../../packages')
+const PACKAGES = ['native', 'tram']
 
 const require = createRequire(import.meta.url)
 const plugin = require.resolve('react-native-worklets/plugin')
@@ -45,20 +47,30 @@ const COMPILED = /__workletHash\s*=/g
 const STAMP = '__pluginVersion'
 
 function main() {
-  const dist = join(PACKAGE, 'dist')
+  const missing = PACKAGES.filter(
+    name => !existsSync(join(PACKAGES_DIRECTORY, name, 'dist'))
+  )
 
-  if (!existsSync(dist)) {
-    console.error('✗ packages/native/dist is missing. Build @xaui/native first.')
+  if (missing.length > 0) {
+    for (const name of missing) {
+      console.error(`✗ packages/${name}/dist is missing. Build @xaui/${name} first.`)
+    }
     process.exitCode = 1
     return
   }
 
-  const failures = [
-    ...filesIn(join(PACKAGE, 'src'), ['.ts', '.tsx'])
-      .filter(file => !file.includes('__tests__') && !/\.test\.tsx?$/.test(file))
-      .flatMap(file => checkSource(file)),
-    ...filesIn(dist, ['.js', '.cjs']).flatMap(file => checkDist(file)),
-  ]
+  const failures = PACKAGES.flatMap(name => {
+    const directory = join(PACKAGES_DIRECTORY, name)
+
+    return [
+      ...filesIn(join(directory, 'src'), ['.ts', '.tsx'])
+        .filter(file => !file.includes('__tests__') && !/\.test\.tsx?$/.test(file))
+        .flatMap(file => checkSource(file)),
+      ...filesIn(join(directory, 'dist'), ['.js', '.cjs']).flatMap(file =>
+        checkDist(file)
+      ),
+    ]
+  })
 
   for (const failure of failures) console.error(`  ✗ ${failure}`)
 
@@ -69,7 +81,7 @@ function main() {
   }
 
   console.log(
-    "✓ every worklet in @xaui/native carries its own 'worklet' directive, and dist ships them uncompiled."
+    `✓ every worklet in ${PACKAGES.map(name => `@xaui/${name}`).join(' and ')} carries its own 'worklet' directive, and dist ships them uncompiled.`
   )
 }
 
@@ -79,14 +91,14 @@ function checkSource(file) {
   if (compiled === declared) return []
 
   return [
-    `${relative(PACKAGE, file)}: the plugin compiles ${compiled} worklet(s), ${declared} carry 'worklet'. ` +
+    `${relative(PACKAGES_DIRECTORY, file)}: the plugin compiles ${compiled} worklet(s), ${declared} carry 'worklet'. ` +
       "Give every gesture callback and animated-hook callback its own 'worklet' directive.",
   ]
 }
 
 function checkDist(file) {
   const source = readFileSync(file, 'utf8')
-  const where = relative(PACKAGE, file)
+  const where = relative(PACKAGES_DIRECTORY, file)
 
   if (source.includes(STAMP)) {
     return [

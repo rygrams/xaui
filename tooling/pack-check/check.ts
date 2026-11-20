@@ -15,16 +15,20 @@ import semver from 'semver'
  * is rewritten at pack time, and it is the published shape that consumers install.
  */
 
-const PACKAGES = ['native', 'hybrid', 'native-legacy'] as const
+const PACKAGES = ['native', 'hybrid', 'tram', 'native-legacy'] as const
 const CORE = '@xaui/native'
 
 /**
- * The one package allowed to depend on {@link CORE} rather than peer on it. `@xaui/hybrid`
- * is Native re-exported for the web (P6), so installing it has to install Native. A
- * caret range still resolves to the consumer's own copy whenever they also install Native
- * directly, as long as it admits the version we ship — checked below like a peer range.
+ * The packages allowed to depend on {@link CORE} rather than peer on it. `@xaui/hybrid`
+ * is Native re-exported for the web (P6), and `@xaui/tram` draws its components on
+ * Native's engine, so installing either has to install Native. A caret range still
+ * resolves to the consumer's own copy whenever they also install Native directly, as long
+ * as it admits the version we ship — checked below like a peer range.
  */
-const CORE_DEPENDENT = '@xaui/hybrid'
+const CORE_DEPENDENTS: ReadonlyArray<string> = ['@xaui/hybrid', '@xaui/tram']
+
+/** The package whose subpaths mirror {@link CORE}'s one for one. */
+const CORE_MIRROR = '@xaui/hybrid'
 
 /**
  * Whose `exports` map is held to actually shipping what it points at.
@@ -35,7 +39,11 @@ const CORE_DEPENDENT = '@xaui/hybrid'
  * that release, adding it here would only turn CI red over a tree nobody republishes.
  * See `.project-specs/P2-API-REVIEW.md`, point A.
  */
-const EXPORTS_CHECKED: ReadonlyArray<string> = ['@xaui/native', '@xaui/hybrid']
+const EXPORTS_CHECKED: ReadonlyArray<string> = [
+  '@xaui/native',
+  '@xaui/hybrid',
+  '@xaui/tram',
+]
 
 type Manifest = {
   name: string
@@ -76,14 +84,14 @@ function main() {
     }
 
     console.log(
-      `✓ ${CORE} resolves once: a peer everywhere but ${CORE_DEPENDENT}, no other runtime dependencies, ` +
+      `✓ ${CORE} resolves once: a peer everywhere but ${CORE_DEPENDENTS.join(' and ')}, no other runtime dependencies, ` +
         'no workspace protocol left, and every peer range admits what we ship.'
     )
     console.log(
       `✓ every subpath of ${EXPORTS_CHECKED.join(' and ')} points at a file the ` +
         'tarball actually contains.'
     )
-    console.log(`✓ ${CORE_DEPENDENT} exposes exactly the subpaths ${CORE} does.`)
+    console.log(`✓ ${CORE_MIRROR} exposes exactly the subpaths ${CORE} does.`)
   } finally {
     rmSync(out, { recursive: true, force: true })
   }
@@ -156,7 +164,7 @@ function checkExports({ manifest, files }: Packed): Failure[] {
  */
 function checkSubpathParity(all: Manifest[]): Failure[] {
   const core = all.find(manifest => manifest.name === CORE)
-  const dependent = all.find(manifest => manifest.name === CORE_DEPENDENT)
+  const dependent = all.find(manifest => manifest.name === CORE_MIRROR)
   if (!core || !dependent) return []
 
   const coreSubpaths = new Set(Object.keys(core.exports ?? {}))
@@ -192,7 +200,7 @@ function check(manifest: Manifest, all: Manifest[]): Failure[] {
   const dependencies = manifest.dependencies ?? {}
   const peers = manifest.peerDependencies ?? {}
 
-  const dependsOnCore = manifest.name === CORE_DEPENDENT
+  const dependsOnCore = CORE_DEPENDENTS.includes(manifest.name)
 
   // The one that actually causes a duplicate. A peer is resolved from the consumer's
   // own tree; a dependency brings its own copy along.
@@ -206,7 +214,7 @@ function check(manifest: Manifest, all: Manifest[]): Failure[] {
   if (dependsOnCore && !(CORE in dependencies)) {
     failures.push({
       where,
-      problem: `does not declare ${CORE} as a dependency. It re-exports every Native subpath, so installing it without Native installs nothing that works.`,
+      problem: `does not declare ${CORE} as a dependency. It is built on Native, so installing it without Native installs nothing that works.`,
     })
   }
 
@@ -217,7 +225,7 @@ function check(manifest: Manifest, all: Manifest[]): Failure[] {
   if (others.length > 0) {
     failures.push({
       where,
-      problem: `has runtime dependencies (${others.join(', ')}). The packages ship with none beyond ${CORE_DEPENDENT} → ${CORE}, so nothing can drag a second copy of anything in.`,
+      problem: `has runtime dependencies (${others.join(', ')}). The packages ship with none beyond ${CORE_DEPENDENTS.join(' and ')} → ${CORE}, so nothing can drag a second copy of anything in.`,
     })
   }
 
