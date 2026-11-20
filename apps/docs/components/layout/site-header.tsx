@@ -193,10 +193,12 @@ export function SiteHeader({ version, versions }: SiteHeaderProps) {
 
         {/* The tabs scroll on a phone; the package switch beside them does not, so the
             package being read is always on screen. */}
-        <div className="flex h-12 items-center gap-2 border-b px-2 md:px-4">
+        <div className="flex h-12 items-stretch gap-2 border-b px-2 md:px-4">
+          {/* Scrolls sideways on a phone with no bar drawn, and never vertically: a tab's
+              underline sits inside the row rather than hanging a pixel below it. */}
           <nav
             aria-label="Documentation sections"
-            className="flex h-full min-w-0 flex-1 items-center gap-1 overflow-x-auto"
+            className="flex h-full min-w-0 flex-1 items-stretch gap-1 overflow-x-auto overflow-y-hidden [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
           >
             {getPackageTabs(activePackage).map(tab => {
               const Icon = TAB_ICONS[tab.id]
@@ -206,7 +208,7 @@ export function SiteHeader({ version, versions }: SiteHeaderProps) {
                 <Link
                   aria-current={isActive ? 'page' : undefined}
                   className={cn(
-                    '-mb-px flex h-full shrink-0 items-center gap-2 whitespace-nowrap border-b-2 px-3 text-sm transition-colors',
+                    'flex shrink-0 items-center gap-2 whitespace-nowrap border-b-2 px-3 text-sm transition-colors',
                     isActive
                       ? 'border-foreground font-medium text-foreground'
                       : 'border-transparent text-muted-foreground hover:text-foreground'
@@ -223,7 +225,7 @@ export function SiteHeader({ version, versions }: SiteHeaderProps) {
 
           <div
             aria-label="Package"
-            className="flex shrink-0 items-center rounded-lg border p-1 text-sm"
+            className="flex shrink-0 items-stretch gap-1 border-s ps-2"
             role="group"
           >
             {Object.values(PACKAGES).map(item => {
@@ -233,12 +235,12 @@ export function SiteHeader({ version, versions }: SiteHeaderProps) {
                 <Link
                   aria-current={isActive ? 'page' : undefined}
                   className={cn(
-                    'rounded-md px-3 py-1 font-medium transition-colors',
-                    // The package being read is the one thing on the page that must not be
-                    // missed, so it is the only blue in the header.
+                    'flex items-center border-b-2 px-3 text-sm transition-colors',
+                    // Drawn like the section tabs beside it, but the package being read is
+                    // the one blue in the header: it is what must not be missed.
                     isActive
-                      ? 'bg-blue-600 text-white'
-                      : 'text-muted-foreground hover:text-foreground'
+                      ? 'border-blue-600 font-medium text-blue-600'
+                      : 'border-transparent text-muted-foreground hover:text-foreground'
                   )}
                   href={getPackageSwitchHref(pathname, item.id)}
                   key={item.id}
