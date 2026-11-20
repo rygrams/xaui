@@ -3,7 +3,7 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
 import { createTheme, XAUIProvider } from '@xaui/native/theme'
-import { createTramTheme, TramProvider } from '@xaui/tram/theme'
+import { TramProvider } from '@xaui/tram/theme'
 import { ToastHost } from '@xaui/tram/toast'
 import type { PackageName } from '@/lib/data/components'
 import { nativeDemoRegistry } from './native-demo-registry.generated'
@@ -26,18 +26,6 @@ const docsTheme = createTheme({
     heading: 'var(--font-geist-sans, system-ui, sans-serif)',
     mono: 'var(--font-geist-mono, ui-monospace, monospace)',
   },
-})
-
-/**
- * Selawik is the Tram face and the docs do not ship it: a reader who has it installed sees
- * it, Windows falls back to Segoe UI, which Selawik was drawn to stand in for, and the
- * rest to the system face.
- */
-const TRAM_FACE =
-  'Selawik, "Segoe UI", var(--font-geist-sans, system-ui, sans-serif)'
-
-const tramDocsTheme = createTramTheme({
-  fontFamilies: { body: TRAM_FACE, heading: TRAM_FACE },
 })
 
 const REGISTRIES = { native: nativeDemoRegistry, tram: tramDemoRegistry }
@@ -136,7 +124,9 @@ export function NativePreviewClient({
               >
                 <GestureHandlerRootView style={{ flex: 1 }}>
                   {edition === 'tram' ? (
-                    <TramProvider colorMode={mode} theme={tramDocsTheme}>
+                    // The Tram theme as shipped: its Selawik faces are the ones globals.css
+                    // registers, under the names the theme asks for.
+                    <TramProvider colorMode={mode}>
                       {/* The Expo app's Tram layout mounts the toast host above every
                           screen, and the Toast screen posts to it; the preview skips that
                           layout, so it mounts the host itself. No notch: offset 10. */}
