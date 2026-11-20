@@ -21,6 +21,8 @@ export { StepperItem } from './stepper-item'
 export { StepperTitle } from './stepper-title'
 export { useStep, useStepper } from './stepper.context'
 export { stepperRecipe } from './stepper.recipe'
+/** Where a step stands from its index and the value, public for a stepper drawn elsewhere. */
+export { stepStatus } from './stepper.utils'
 export type {
   StepContextValue,
   StepStatus,

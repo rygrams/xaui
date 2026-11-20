@@ -150,6 +150,13 @@ export default function TramLayout() {
               />
               <Stack.Screen name="rating" options={{ title: 'RATING' }} />
               <Stack.Screen name="number-pad" options={{ title: 'NUMBER PAD' }} />
+              <Stack.Screen name="calendar" options={{ title: 'CALENDAR' }} />
+              <Stack.Screen
+                name="range-calendar"
+                options={{ title: 'RANGE CALENDAR' }}
+              />
+              <Stack.Screen name="stepper" options={{ title: 'STEPPER' }} />
+              <Stack.Screen name="timeline" options={{ title: 'TIMELINE' }} />
             </Stack>
           </Scaffold.Navigator>
         </Scaffold>
