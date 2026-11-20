@@ -2116,7 +2116,7 @@ absolutely so the number does not shift down the day the dot appears.
 
 ## The dates behind it
 
-The arithmetic is `utils/dates.ts`, and it is tested: `startOfDay`, `isSameDay`,
+The arithmetic is `system/dates`, public from `@xaui/native/system`, and it is tested: `startOfDay`, `isSameDay`,
 `isSameMonth`, `addDays`, `addMonths`, `startOfWeek`, `isWithinBounds`, `monthGrid`,
 `weekGrid`, `weekdayNames`, `monthLabel`, `monthNames`, `firstDayOfWeekFor`.
 
@@ -2634,7 +2634,7 @@ shows at each edge. `carouselMetrics` divides the measured track between them:
 ```
 
 A carousel whose slide width is given in points is a carousel that is wrong on the next
-screen size — so it is not a prop, and the arithmetic lives in `utils/carousel.ts` where it
+screen size — so it is not a prop, and the arithmetic lives in `system/carousel` where it
 is read and tested rather than in the component where it is neither.
 
 **The peek brings a gap of its own.** The run it costs at each edge is `peek + gap`, not
@@ -3038,8 +3038,9 @@ does, on the same axes as the ones that do.
 </ChartPlot>
 ```
 
-`chart-scale` and `chart-path` are `utils/` — private, and deliberately: they are the
-family's own maths, not an API. A chart of your own reaches for `ChartPlot`.
+`chart-scale`, `chart-path` and `chart-palette` are `@xaui/native/system` — the family's
+maths, public so that a chart drawn in another language (`@xaui/tram`'s) scales, curves and
+shades exactly as these do. A chart of your own on these axes still reaches for `ChartPlot`.
 
 # Checkbox
 
@@ -7556,8 +7557,8 @@ start of the run, and every page would be at the same place.
 
 ## Where this is not a `Carousel`
 
-The two share the paging arithmetic — `indexFromOffset` and `progressFromOffset` in
-`utils/carousel.ts` are the same functions — and nothing else, because the jobs differ at
+The two share the paging arithmetic — `trackIndexFromOffset` and `trackProgressFromOffset` in
+`system/carousel` are the same functions — and nothing else, because the jobs differ at
 three points that each change the implementation:
 
 |               | `Pager`                                          | `Carousel`                                                   |

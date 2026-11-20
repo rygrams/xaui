@@ -76,7 +76,7 @@ export function carouselMetrics({
  * Rounded, not floored: the slide the track is *nearest* to is the one it will snap to, and
  * an indicator that waits for the halfway point to pass lags a drag the reader can see.
  */
-export function indexFromOffset(
+export function trackIndexFromOffset(
   offset: number,
   step: number,
   count: number
@@ -94,7 +94,7 @@ export function indexFromOffset(
  * This is what an indicator that follows the drag reads: 1.4 means forty percent of the way
  * from the second dot to the third, and the pill is stretched across both.
  */
-export function progressFromOffset(
+export function trackProgressFromOffset(
   offset: number,
   step: number,
   count: number

@@ -1,5 +1,5 @@
 import { Circle, Path } from 'react-native-svg'
-import { linePath } from '../../utils/chart-path'
+import { linePath } from '../../system/chart/chart-path'
 import { ChartPlot } from '../chart'
 import type { ChartDatum } from '../chart'
 import type { LineChartProps } from './line-chart.type'

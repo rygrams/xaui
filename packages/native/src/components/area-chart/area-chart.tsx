@@ -1,6 +1,6 @@
 import { useId } from 'react'
 import { Defs, LinearGradient, Path, Stop } from 'react-native-svg'
-import { areaPath, linePath } from '../../utils/chart-path'
+import { areaPath, linePath } from '../../system/chart/chart-path'
 import { ChartPlot } from '../chart'
 import type { ChartDatum } from '../chart'
 import type { AreaChartProps } from './area-chart.type'

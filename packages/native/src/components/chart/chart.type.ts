@@ -9,8 +9,8 @@ import type {
 import type { AsChildProps } from '../../system/slot'
 import type { TextStyleProps, ViewStyleProps } from '../../system/style-props'
 import type { Size } from '../../theme/theme.type'
-import type { Curve } from '../../utils/chart-path'
-import type { Point, Span } from '../../utils/chart-scale'
+import type { Curve } from '../../system/chart/chart-path'
+import type { Point, Span } from '../../system/chart/chart-scale'
 
 export type ChartSlot =
   | 'root'

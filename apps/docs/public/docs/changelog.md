@@ -1,5 +1,24 @@
 # @xaui/native
 
+## 0.9.9
+
+### Patch Changes
+
+- cb01c40: `@xaui/native/rating` exports its two pure helpers as `ratingFill` and `snapRating`, and `@xaui/native/number-pad` its three as `appendPadKey`, `removePadKey` and `isPadComplete`, so `@xaui/tram` reads them instead of restating them. The `Rating` and the `NumberPad` behave as before.
+
+## 0.9.8
+
+### Patch Changes
+
+- b0e25b6: `MaskField`: a controlled field the app fills can be cleared again. What the field last reported is now kept in step with the value it shows, so emptying a pre-filled date no longer reads as "no change" and snaps back.
+- b0e25b6: `system/` gains `items/` — `collectItemLabels`, `readItemLabel`, `filterItems` and `matchesQuery`, the rows of a list read off its elements and filtered by what is typed, moved out of the private `utils/` onto `@xaui/native/system` so `@xaui/tram` reads them instead of restating them. `@xaui/native/phone-number-field` now also exports its pure helpers — `phoneCountries`, `filterPhoneCountries`, `readPhoneNumber`, `editPhoneNumber` — the way `@xaui/native/mask-field` exports `maskInput`. The `Select`, `Autocomplete`, `Combobox` and `PhoneNumberField` behave as before.
+
+## 0.9.7
+
+### Patch Changes
+
+- 2beb617: `system/` gains `expansion/` — `nextExpansion` and `isExpandedIn`, the `Accordion`'s single/multiple selection rule, pure, on `@xaui/native/system` so `@xaui/tram` reads the same rule instead of restating it. The `Accordion` itself now reads it from there; its behaviour is unchanged.
+
 ## 0.9.6
 
 ### Patch Changes

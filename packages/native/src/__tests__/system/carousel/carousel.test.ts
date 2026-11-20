@@ -1,10 +1,10 @@
 import { describe, expect, it } from 'vitest'
 import {
   carouselMetrics,
-  indexFromOffset,
-  progressFromOffset,
+  trackIndexFromOffset,
+  trackProgressFromOffset,
   stepIndex,
-} from '../../utils/carousel'
+} from '../../../system/carousel/carousel'
 
 describe('carouselMetrics', () => {
   it('gives the whole width to a single slide with no gap and no peek', () => {
@@ -76,34 +76,34 @@ describe('carouselMetrics', () => {
   })
 })
 
-describe('indexFromOffset', () => {
+describe('trackIndexFromOffset', () => {
   it('rounds to the nearest slide rather than flooring', () => {
     // An indicator that waits for the halfway point to pass lags a drag the reader can see.
-    expect(indexFromOffset(0, 100, 5)).toBe(0)
-    expect(indexFromOffset(49, 100, 5)).toBe(0)
-    expect(indexFromOffset(51, 100, 5)).toBe(1)
-    expect(indexFromOffset(150, 100, 5)).toBe(2)
+    expect(trackIndexFromOffset(0, 100, 5)).toBe(0)
+    expect(trackIndexFromOffset(49, 100, 5)).toBe(0)
+    expect(trackIndexFromOffset(51, 100, 5)).toBe(1)
+    expect(trackIndexFromOffset(150, 100, 5)).toBe(2)
   })
 
   it('stays inside the series when the scroll bounces past either end', () => {
-    expect(indexFromOffset(-80, 100, 5)).toBe(0)
-    expect(indexFromOffset(9000, 100, 5)).toBe(4)
+    expect(trackIndexFromOffset(-80, 100, 5)).toBe(0)
+    expect(trackIndexFromOffset(9000, 100, 5)).toBe(4)
   })
 
   it('is the first slide before the track has been measured', () => {
-    expect(indexFromOffset(120, 0, 5)).toBe(0)
-    expect(indexFromOffset(120, 100, 0)).toBe(0)
+    expect(trackIndexFromOffset(120, 0, 5)).toBe(0)
+    expect(trackIndexFromOffset(120, 100, 0)).toBe(0)
   })
 })
 
-describe('progressFromOffset', () => {
+describe('trackProgressFromOffset', () => {
   it('reports where the track is between two slides', () => {
-    expect(progressFromOffset(140, 100, 5)).toBeCloseTo(1.4)
+    expect(trackProgressFromOffset(140, 100, 5)).toBeCloseTo(1.4)
   })
 
   it('clamps the rubber band at either end', () => {
-    expect(progressFromOffset(-60, 100, 5)).toBe(0)
-    expect(progressFromOffset(700, 100, 5)).toBe(4)
+    expect(trackProgressFromOffset(-60, 100, 5)).toBe(0)
+    expect(trackProgressFromOffset(700, 100, 5)).toBe(4)
   })
 })
 

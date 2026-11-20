@@ -155,7 +155,7 @@ absolutely so the number does not shift down the day the dot appears.
 
 ## The dates behind it
 
-The arithmetic is `utils/dates.ts`, and it is tested: `startOfDay`, `isSameDay`,
+The arithmetic is `system/dates`, public from `@xaui/native/system`, and it is tested: `startOfDay`, `isSameDay`,
 `isSameMonth`, `addDays`, `addMonths`, `startOfWeek`, `isWithinBounds`, `monthGrid`,
 `weekGrid`, `weekdayNames`, `monthLabel`, `monthNames`, `firstDayOfWeekFor`.
 

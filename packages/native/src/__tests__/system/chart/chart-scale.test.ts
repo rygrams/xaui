@@ -5,7 +5,7 @@ import {
   linearScale,
   niceScale,
   pointScale,
-} from '../../utils/chart-scale'
+} from '../../../system/chart/chart-scale'
 
 describe('linearScale', () => {
   it('maps the domain onto the range', () => {

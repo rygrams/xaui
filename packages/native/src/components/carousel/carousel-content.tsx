@@ -7,7 +7,7 @@ import Animated, {
 import { scheduleOnRN } from 'react-native-worklets'
 import { useMergedRef } from '../../hooks/use-merged-ref'
 import { useStyleProps } from '../../system/style-props'
-import { indexFromOffset } from '../../utils/carousel'
+import { trackIndexFromOffset } from '../../system/carousel/carousel'
 import { useCarousel } from './carousel.context'
 import type { CarouselViewSlotProps } from './carousel.type'
 
@@ -73,10 +73,10 @@ export const CarouselContent = forwardRef<ScrollView, CarouselViewSlotProps>(
         // `onMomentumScrollEnd` would be the obvious place and it is the wrong one twice: it
         // never fires for a wheel or a trackpad, so on the web the index would never move at
         // all; and it lands after the fact, so the arrows and the thumbnails would sit on the
-        // previous slide for the length of the deceleration. `indexFromOffset` rounds, so the
+        // previous slide for the length of the deceleration. `trackIndexFromOffset` rounds, so the
         // crossing is the moment the nearest slide changes, which is what "which slide am I
         // on" means while a finger is still down.
-        const next = indexFromOffset(event.contentOffset.x, step, count)
+        const next = trackIndexFromOffset(event.contentOffset.x, step, count)
         if (next !== settled.get()) {
           settled.set(next)
           scheduleOnRN(onSettle, next)

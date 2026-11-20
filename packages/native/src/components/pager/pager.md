@@ -57,8 +57,8 @@ start of the run, and every page would be at the same place.
 
 ## Where this is not a `Carousel`
 
-The two share the paging arithmetic — `indexFromOffset` and `progressFromOffset` in
-`utils/carousel.ts` are the same functions — and nothing else, because the jobs differ at
+The two share the paging arithmetic — `trackIndexFromOffset` and `trackProgressFromOffset` in
+`system/carousel` are the same functions — and nothing else, because the jobs differ at
 three points that each change the implementation:
 
 |               | `Pager`                                          | `Carousel`                                                   |

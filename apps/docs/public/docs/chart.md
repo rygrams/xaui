@@ -257,5 +257,6 @@ does, on the same axes as the ones that do.
 </ChartPlot>
 ```
 
-`chart-scale` and `chart-path` are `utils/` — private, and deliberately: they are the
-family's own maths, not an API. A chart of your own reaches for `ChartPlot`.
+`chart-scale`, `chart-path` and `chart-palette` are `@xaui/native/system` — the family's
+maths, public so that a chart drawn in another language (`@xaui/tram`'s) scales, curves and
+shades exactly as these do. A chart of your own on these axes still reaches for `ChartPlot`.

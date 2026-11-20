@@ -45,7 +45,7 @@ shows at each edge. `carouselMetrics` divides the measured track between them:
 ```
 
 A carousel whose slide width is given in points is a carousel that is wrong on the next
-screen size — so it is not a prop, and the arithmetic lives in `utils/carousel.ts` where it
+screen size — so it is not a prop, and the arithmetic lives in `system/carousel` where it
 is read and tested rather than in the component where it is neither.
 
 **The peek brings a gap of its own.** The run it costs at each edge is `peek + gap`, not

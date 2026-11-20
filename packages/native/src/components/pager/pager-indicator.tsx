@@ -2,7 +2,7 @@ import { forwardRef } from 'react'
 import { Pressable, View } from 'react-native'
 import Animated, { interpolate, useAnimatedStyle } from 'react-native-reanimated'
 import { useStyleProps } from '../../system/style-props'
-import { progressFromOffset } from '../../utils/carousel'
+import { trackProgressFromOffset } from '../../system/carousel/carousel'
 import { usePager } from './pager.context'
 import { DOT_REST_OPACITY } from './pager.recipe'
 import type { PagerDotProps, PagerViewSlotProps } from './pager.type'
@@ -83,7 +83,9 @@ export const PagerDot = forwardRef<View, PagerDotProps>(function PagerDot(
 
   const travel = useAnimatedStyle(() => {
     'worklet'
-    const distance = Math.abs(progressFromOffset(offset.get(), step, count) - index)
+    const distance = Math.abs(
+      trackProgressFromOffset(offset.get(), step, count) - index
+    )
     // Linear between two dots and nothing beyond them: `1 − distance` clamped at zero hands
     // the strength over at exactly the rate the neighbour takes it, so the two never both
     // read as current and never both read as behind.

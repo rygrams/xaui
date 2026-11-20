@@ -13,7 +13,7 @@ import type { PressableFeedbackProps } from '../../system/pressable-feedback'
 import type { AsChildProps } from '../../system/slot'
 import type { TextStyleProps, ViewStyleProps } from '../../system/style-props'
 import type { RadiusKey, Size } from '../../theme/theme.type'
-import type { CarouselMetrics } from '../../utils/carousel'
+import type { CarouselMetrics } from '../../system/carousel/carousel'
 
 export type CarouselSlot =
   | 'root'

@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react'
 import { Path } from 'react-native-svg'
-import { barPath } from '../../utils/chart-path'
+import { barPath } from '../../system/chart/chart-path'
 import { ChartPlot } from '../chart'
 import type { ChartDatum } from '../chart'
 import type { BarChartProps } from './bar-chart.type'

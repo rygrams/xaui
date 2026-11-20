@@ -7,7 +7,7 @@ import Animated, {
 import { scheduleOnRN } from 'react-native-worklets'
 import { useMergedRef } from '../../hooks/use-merged-ref'
 import { useStyleProps } from '../../system/style-props'
-import { indexFromOffset } from '../../utils/carousel'
+import { trackIndexFromOffset } from '../../system/carousel/carousel'
 import { usePager } from './pager.context'
 import type { PagerContentProps } from './pager.type'
 
@@ -78,7 +78,7 @@ export const PagerContent = forwardRef<ScrollView, PagerContentProps>(
         // stops. `onMomentumScrollEnd` never fires for a wheel or a trackpad, so on the web
         // the index would never move at all — and it lands after the fact, so a "Next" button
         // would sit on the previous page for the length of the deceleration.
-        const next = indexFromOffset(travelled, step, count)
+        const next = trackIndexFromOffset(travelled, step, count)
         if (next !== settled.get()) {
           settled.set(next)
           scheduleOnRN(onSettle, next)

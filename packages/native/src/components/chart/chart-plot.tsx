@@ -10,10 +10,10 @@ import {
   linearScale,
   niceScale,
   pointScale,
-} from '../../utils/chart-scale'
+} from '../../system/chart/chart-scale'
 import { useChartInk } from './chart.hook'
 import { useOptionalChart } from './chart.context'
-import type { Span } from '../../utils/chart-scale'
+import type { Span } from '../../system/chart/chart-scale'
 import type { ChartDatum, ChartPlot, ChartPlotProps } from './chart.type'
 
 /**

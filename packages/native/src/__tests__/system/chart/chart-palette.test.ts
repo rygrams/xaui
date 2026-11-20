@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest'
-import { chartPalette } from '../../utils/chart-palette'
-import { hexToRgb, rgbToOklab } from '../../utils/colors'
+import { chartPalette } from '../../../system/chart/chart-palette'
+import { hexToRgb, rgbToOklab } from '../../../utils/colors'
 
 const ACCENT = '#2f6feb'
 

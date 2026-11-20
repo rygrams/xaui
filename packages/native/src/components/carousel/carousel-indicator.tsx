@@ -5,7 +5,7 @@ import Animated, {
   useAnimatedStyle,
 } from 'react-native-reanimated'
 import { useStyleProps } from '../../system/style-props'
-import { progressFromOffset } from '../../utils/carousel'
+import { trackProgressFromOffset } from '../../system/carousel/carousel'
 import { useCarousel } from './carousel.context'
 import type { CarouselDotProps, CarouselViewSlotProps } from './carousel.type'
 
@@ -85,7 +85,9 @@ export const CarouselDot = forwardRef<View, CarouselDotProps>(function CarouselD
 
   const grow = useAnimatedStyle(() => {
     'worklet'
-    const distance = Math.abs(progressFromOffset(offset.get(), step, count) - index)
+    const distance = Math.abs(
+      trackProgressFromOffset(offset.get(), step, count) - index
+    )
     // Linear between two dots and nothing beyond them: `1 − distance` clamped at zero is a
     // triangle, and a triangle is what makes a dot take width exactly as fast as its
     // neighbour gives it up — so the row's total width never changes mid-travel and the

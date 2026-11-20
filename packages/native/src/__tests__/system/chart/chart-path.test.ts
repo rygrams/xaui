@@ -1,6 +1,11 @@
 import { describe, expect, it } from 'vitest'
-import { arcPath, areaPath, barPath, linePath } from '../../utils/chart-path'
-import type { Point } from '../../utils/chart-scale'
+import {
+  arcPath,
+  areaPath,
+  barPath,
+  linePath,
+} from '../../../system/chart/chart-path'
+import type { Point } from '../../../system/chart/chart-scale'
 
 const RISING: Point[] = [
   { x: 0, y: 100 },
