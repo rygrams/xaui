@@ -157,6 +157,19 @@ export default function TramLayout() {
               />
               <Stack.Screen name="stepper" options={{ title: 'STEPPER' }} />
               <Stack.Screen name="timeline" options={{ title: 'TIMELINE' }} />
+              <Stack.Screen
+                name="color-picker"
+                options={{ title: 'COLOR PICKER' }}
+              />
+              <Stack.Screen
+                name="slide-button"
+                options={{ title: 'SLIDE BUTTON' }}
+              />
+              <Stack.Screen name="table" options={{ title: 'TABLE' }} />
+              <Stack.Screen
+                name="morph-button"
+                options={{ title: 'MORPH BUTTON' }}
+              />
             </Stack>
           </Scaffold.Navigator>
         </Scaffold>

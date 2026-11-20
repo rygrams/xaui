@@ -1,10 +1,9 @@
-import { forwardRef, useCallback, useMemo, useRef, useState } from 'react'
+import { forwardRef, useMemo } from 'react'
 import { View } from 'react-native'
-import { useControllableState } from '../../hooks/use-controllable-state'
 import { Slot } from '../../system/slot'
 import { useStyleProps } from '../../system/style-props'
 import { useXAUITheme } from '../../theme/theme-hooks'
-import { nextSort, toggleEveryKey, toggleKey } from '../../utils/selection'
+import { useTableState } from '../../system/selection'
 import { TableProvider } from './table.context'
 import { tableRecipe, tableSelectionWidth } from './table.recipe'
 import type { TableProps } from './table.type'
@@ -76,12 +75,6 @@ export const TableRoot = forwardRef<View, TableProps>(function Table(
   const theme = useXAUITheme()
   const [styleProps, rest] = useStyleProps(props)
 
-  const [selectedKeys, setSelectedKeys] = useControllableState<readonly string[]>({
-    value: controlledKeys,
-    defaultValue: defaultSelectedKeys,
-    onChange: onSelectionChange,
-  })
-
   const selection = { variant, size, radius }
   const styles = tableRecipe.resolve({
     theme,
@@ -90,55 +83,25 @@ export const TableRoot = forwardRef<View, TableProps>(function Table(
   })
   const tint = color ? tableRecipe.tint({ theme, color, selection }) : undefined
 
-  const [widths, setWidths] = useState<ReadonlyArray<number | undefined>>([])
-
-  const setWidth = useCallback((index: number, width: number | undefined) => {
-    setWidths(current => {
-      if (current[index] === width && index < current.length) return current
-
-      const next = [...current]
-      next[index] = width
-      return next
-    })
-  }, [])
-
-  // The rows in the order they mounted, which is the order they are on screen. A ref rather
-  // than state: it changes while the body renders, and a `setState` there is a loop.
-  const rows = useRef<string[]>([])
-  const [rowKeys, setRowKeys] = useState<readonly string[]>(NO_KEYS)
-
-  const registerRow = useCallback((id: string) => {
-    rows.current = [...rows.current, id]
-    // One render after the body has mounted, which is what the header's box needs and
-    // nothing else does — so it is deferred rather than done during the row's own render.
-    setRowKeys(rows.current)
-
-    return () => {
-      rows.current = rows.current.filter(existing => existing !== id)
-      setRowKeys(rows.current)
-    }
-  }, [])
-
-  const toggleRow = useCallback(
-    (id: string) => {
-      if (isDisabled || disabledKeys.includes(id)) return
-      setSelectedKeys(current => toggleKey(current, id, selectionMode))
-    },
-    [disabledKeys, isDisabled, selectionMode, setSelectedKeys]
-  )
-
-  const toggleAll = useCallback(() => {
-    if (isDisabled) return
-    setSelectedKeys(current => toggleEveryKey(current, rowKeys, disabledKeys))
-  }, [disabledKeys, isDisabled, rowKeys, setSelectedKeys])
-
-  const sortBy = useCallback(
-    (column: string) => {
-      if (isDisabled) return
-      onSortChange?.(nextSort(sortDescriptor, column))
-    },
-    [isDisabled, onSortChange, sortDescriptor]
-  )
+  const {
+    widths,
+    setWidth,
+    selectedKeys,
+    rowKeys,
+    registerRow,
+    toggleRow,
+    toggleAll,
+    sortBy,
+  } = useTableState({
+    selectionMode,
+    selectedKeys: controlledKeys,
+    defaultSelectedKeys,
+    onSelectionChange,
+    disabledKeys,
+    sortDescriptor,
+    onSortChange,
+    isDisabled,
+  })
 
   const context = useMemo(
     () => ({

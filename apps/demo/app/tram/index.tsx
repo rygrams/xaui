@@ -66,6 +66,10 @@ const SCREENS = [
   { href: '/tram/range-calendar', label: 'range calendar' },
   { href: '/tram/stepper', label: 'stepper' },
   { href: '/tram/timeline', label: 'timeline' },
+  { href: '/tram/color-picker', label: 'color picker' },
+  { href: '/tram/slide-button', label: 'slide button' },
+  { href: '/tram/table', label: 'table' },
+  { href: '/tram/morph-button', label: 'morph button' },
 ] as const
 
 export default function TramHomeScreen() {

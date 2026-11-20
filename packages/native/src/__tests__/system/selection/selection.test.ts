@@ -5,7 +5,7 @@ import {
   nextSort,
   toggleEveryKey,
   toggleKey,
-} from '../../utils/selection'
+} from '../../../system/selection'
 
 const ROWS = ['a', 'b', 'c']
 

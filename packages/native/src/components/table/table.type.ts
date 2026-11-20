@@ -10,7 +10,7 @@ import type {
 import type { AsChildProps } from '../../system/slot'
 import type { TextStyleProps, ViewStyleProps } from '../../system/style-props'
 import type { RadiusKey, Size } from '../../theme/theme.type'
-import type { SelectionMode, SortDescriptor } from '../../utils/selection'
+import type { SelectionMode, SortDescriptor } from '../../system/selection'
 
 export type TableSlot =
   | 'root'

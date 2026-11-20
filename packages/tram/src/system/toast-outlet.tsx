@@ -18,7 +18,7 @@ export const ToastOutletContext = createContext<ToastOutletContextValue | null>(
  * A `Modal` is a window of its own, over everything the app's root draws — the host's
  * pile included. Rendered inside one, this takes the pile over for as long as it is
  * mounted, and hands it back when the modal closes. The toasts already there are moved,
- * not sent again. The Tram `Select` mounts one in its full-screen page; an app does the
+ * not sent again. `SwivelPage` mounts one in every full-screen page; an app does the
  * same in a `Modal` of its own:
  *
  * ```tsx

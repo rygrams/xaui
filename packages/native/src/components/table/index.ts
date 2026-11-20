@@ -47,4 +47,4 @@ export type {
   TableVariant,
   TableViewProps,
 } from './table.type'
-export type { SelectionMode, SortDescriptor } from '../../utils/selection'
+export type { SelectionMode, SortDescriptor } from '../../system/selection'
